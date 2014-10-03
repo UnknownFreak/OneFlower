@@ -85,6 +85,9 @@
     <ClInclude Include="Project\Gfx.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="Project\GameHandler.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h" />
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\InputComponentDefiner.cpp" />

@@ -4,14 +4,19 @@
 #include <string>
 #include "IBaseComponent.hpp"
 
-class InputComponent : IBaseComponent<InputComponent>
+class InputComponent : public IBaseComponent<InputComponent>
 {
 public:
+	InputComponent();
+
 	std::string getTypeName();
 	void moveSprite(sf::Sprite *sprite, float moveSpeedX, float moveSpeedY, float deltaTime);
 
 private:
-	//const std::string componentName = "InputComponent"; //put this in constructor
+	sf::Keyboard::Key jump;
+	sf::Keyboard::Key duck;
+	sf::Keyboard::Key moveLeft;
+	sf::Keyboard::Key moveRight;
 };
 
 #endif
