@@ -1,0 +1,34 @@
+﻿Build started 03/10/2014 14:25:56.
+     1>Project "C:\Users\conny\Dropbox\SVN\AsianViking\AsianViking\AsianViking\AsianViking.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\SPK10nguyen\Dropbox\SVN\AsianViking\cereal-1.0.0\include" /I"C:\Users\SPK10nguyen\Dropbox\SVN\AsianVikingBranch\SFML-2.1\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Component\BaseComponentDefiner.cpp Component\GameObjectDefiner.cpp Component\HitboxComponentDefiner.cpp Component\InputComponentDefiner.cpp Component\RenderComponentDefiner.cpp Component\TransformComponentDefiner.cpp GameDefiner.cpp GameHandler.cpp LoadAndSave.cpp RenderHandlerDefiner.cpp WindowDefiner.cpp WindowHandler.cpp
+         WindowHandler.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\windowhandler.cpp(1): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         WindowDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\customwindow.h(3): fatal error C1083: Cannot open include file: 'SFML\Graphics\RenderWindow.hpp': No such file or directory
+         RenderHandlerDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\customwindow.h(3): fatal error C1083: Cannot open include file: 'SFML\Graphics\RenderWindow.hpp': No such file or directory
+         LoadAndSave.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\loadandsave.cpp(1): fatal error C1083: Cannot open include file: 'cereal/types/map.hpp': No such file or directory
+         GameHandler.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\gamehandler.cpp(2): fatal error C1083: Cannot open include file: 'SFML\Window\Mouse.hpp': No such file or directory
+         GameDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\gameobject.h(6): fatal error C1083: Cannot open include file: 'cereal/access.hpp': No such file or directory
+         TransformComponentDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\basecomponent.hpp(4): fatal error C1083: Cannot open include file: 'cereal\access.hpp': No such file or directory
+         RenderComponentDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\rendercomponent.h(3): fatal error C1083: Cannot open include file: 'SFML\Graphics\Sprite.hpp': No such file or directory
+         InputComponentDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\inputcomponent.h(3): fatal error C1083: Cannot open include file: 'SFML\Graphics\Sprite.hpp': No such file or directory
+         HitboxComponentDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\basecomponent.hpp(4): fatal error C1083: Cannot open include file: 'cereal\access.hpp': No such file or directory
+         GameObjectDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\gameobject.h(6): fatal error C1083: Cannot open include file: 'cereal/access.hpp': No such file or directory
+         BaseComponentDefiner.cpp
+     1>c:\users\conny\dropbox\svn\asianviking\asianviking\asianviking\component\basecomponent.hpp(4): fatal error C1083: Cannot open include file: 'cereal\access.hpp': No such file or directory
+         Generating Code...
+     1>Done Building Project "C:\Users\conny\Dropbox\SVN\AsianViking\AsianViking\AsianViking\AsianViking.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:02.69
