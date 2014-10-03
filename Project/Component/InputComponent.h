@@ -10,7 +10,7 @@ public:
 	InputComponent();
 
 	std::string getTypeName();
-	void moveSprite(sf::Sprite *sprite, float moveSpeedX, float moveSpeedY, float deltaTime);
+	void moveSprite(int moveSpeedX, int moveSpeedY, float deltaTime);
 
 private:
 	sf::Keyboard::Key jump;

@@ -10,6 +10,7 @@
 #include <Windows.h>
 #include "Component\HitboxComponent.hpp"
 #include "Component\TransformComponent.hpp"
+#include "Component\InputComponent.h"
 #include <windows.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -93,6 +94,7 @@ int windowMessage()
 	GameObject a("Testiing Object");
 	a.AddComponent(new HitboxComponent());
 	a.AddComponent(new RenderComponent());
+	a.AddComponent(new InputComponent());
 	SetGame()->addGameObject(&a);
 
 

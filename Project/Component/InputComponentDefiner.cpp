@@ -1,7 +1,9 @@
 #include <SFML\Window\Keyboard.hpp>
 #include <SFML\Window\Mouse.hpp>
+#include "GameObject.h"
 #include "InputComponent.h"
 #include "RenderComponent.h"
+#include "TransformComponent.hpp"
 
 unsigned int IBaseComponent<InputComponent>::typeID = 1011;
 
@@ -26,17 +28,19 @@ std::string InputComponent::getTypeName() {
 	return componentName;
 }
 
-void InputComponent::moveSprite(sf::Sprite *sprite, float moveSpeedX, float moveSpeedY, float deltaTime) {
+void InputComponent::moveSprite(int moveSpeedX, int moveSpeedY, float deltaTime) {
 	float moveX = 0, moveY = 0;
 
-	if (sf::Keyboard::isKeyPressed(jump))
-		moveY -= moveSpeedY * deltaTime;
-	if (sf::Keyboard::isKeyPressed(duck))
-		moveY += moveSpeedY * deltaTime;
-	if (sf::Keyboard::isKeyPressed(moveLeft))
-		moveX -= moveSpeedX * deltaTime;
-	if (sf::Keyboard::isKeyPressed(moveRight))
-		moveX += moveSpeedX * deltaTime;
-	
-	sprite->move(moveX, moveY);
+	if (sf::Keyboard::isKeyPressed(jump)) {
+		this->attachedOn->GetComponent<TransformComponent>()->position.y -= moveSpeedY;
+	}
+	if (sf::Keyboard::isKeyPressed(duck)) {
+		this->attachedOn->GetComponent<TransformComponent>()->position.y += moveSpeedY;
+	}
+	if (sf::Keyboard::isKeyPressed(moveLeft)) {
+		this->attachedOn->GetComponent<TransformComponent>()->position.x -= moveSpeedX;
+	}
+	if (sf::Keyboard::isKeyPressed(moveRight)) {
+		this->attachedOn->GetComponent<TransformComponent>()->position.x += moveSpeedX;
+	}
 }
