@@ -100,6 +100,8 @@
     <ClInclude Include="Project\Window.h" />
     <ClInclude Include="Project\WorldManagement.hpp" />
     <ClInclude Include="Project\ZoneMap.hpp" />
+    <ClInclude Include="Time.hpp" />
+    <ClInclude Include="ZoneMap.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
@@ -117,6 +119,7 @@
     <ClCompile Include="Project\WindowDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\WorldManagement.cpp" />
+    <ClCompile Include="TimeDefiner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

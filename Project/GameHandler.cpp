@@ -8,11 +8,16 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\RenderComponent.h"
 #include "Gfx.h"
+#include <SFML\Window\Keyboard.hpp>
+#include <SFML\Window\Event.hpp>
 Game gameManager;
 void Game::Update()
 {
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+
+	#pragma region Mouse
+	if(true)
 	{
+		if(event
 		for(int i = 0; i < allGameObjectPointers.size(); i++)
 		{
 			HitboxComponent* hitbox;
@@ -27,24 +32,37 @@ void Game::Update()
 				RenderComponent* rc = allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 				GameObject* ab = allGameObjectPointers.at(i);
 
+				int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+				int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
+				int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+				int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
 
-
-				if((mouse.x <= (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x) &&
-					mouse.x >= (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x)
-					))
+				if(mouse.x <= localStartX && mouse.x >= localEndX)
 				{
-					if((mouse.y <= (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y) &&
-						mouse.y >= (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y)
-						))
-						{
+					if(mouse.y <= localStartY && mouse.y >= localEndY)
+					{
 						SetGfx()->selectedDrawList.clear();
-						SetGfx()->selectedDrawList.push_back(ab); 
-
+						SetGfx()->selectedDrawList.push_back(ab);
+						std::cout << "\nMouse Click: " << ab->name;
 					}
 				}
 			}
 		}
 	}
+	#pragma endregion 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		SetGfx()->camera.move(0,10);
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		SetGfx()->camera.move(-10,0);
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		SetGfx()->camera.move(0,-10);
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		SetGfx()->camera.move(10,0);
+
+	SetWindow()->setView(SetGfx()->camera);
 }
 
 void synchronizeComponents()

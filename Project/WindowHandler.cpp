@@ -17,15 +17,132 @@
 #include <io.h>
 #include <iostream>
 #include <fstream>
+#include "Time.hpp"
+void RedirectIOToConsole();
+ 
+sf::RenderWindow* mainWindow;
+
+EditorWindow editorWindow;
+int windowMessage();
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
+{
+	RedirectIOToConsole();
+	editorWindow.hInstance = hInstance;
+	windowMessage();
+	return 0;
+}
+sf::Event event;
+int windowMessage()
+{
+	sf::RenderWindow window(sf::VideoMode(800,600),"SFML works!");
+	//Do not remove
+	//sf::RenderWindow eWindow(,);	//(sf::VideoMode(800, 600), "Editor!");
+	mainWindow = &window;
+	window.setVerticalSyncEnabled(false);
+
+
+	sf::Texture ab;
+	GameObject a("TestiingObject");
+	a.AddComponent(new HitboxComponent());
+	a.AddComponent(new RenderComponent());
+	a.AddComponent(new InputComponent());
+	SetGame()->addGameObject(&a);
+
+
+	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
+	sprite->setOrigin(0,1);
+	a.GetComponent<TransformComponent>()->position.x = 100;
+	
+	Time time;
+	MSG msg;
+	ZeroMemory(&msg,sizeof(MSG));
+	while(window.isOpen())
+	{
+		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
+		{
+			if(msg.message == WM_QUIT)
+			{
+				window.close();
+				break;
+			}
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
+			while(window.pollEvent(event))
+				if(event.type == sf::Event::Closed)
+					window.close();
+
+			window.clear();
+			a.GetComponent<InputComponent>()->moveSprite(1,1,1);
+			SetGame()->Update();
+			SetGfx()->Draw();//Change this to const verseion aka Request
+			window.display();
+			time.FPS();
+		
+		}
+	}
+	return (int)msg.wParam;
+}
+
+EditorWindow* SetEditorWindow()
+{
+	return &editorWindow;
+}
+
+//Read Only
+const sf::RenderWindow* RequestWindow()
+{
+	return mainWindow;
+}
+
+sf::RenderWindow* SetWindow()
+{
+	return mainWindow;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // maximum mumber of lines the output console should have
 static const WORD MAX_CONSOLE_LINES = 500;
 
-
 void RedirectIOToConsole()
 {
 	using namespace std;
-	
+
 	int hConHandle;
 	long lStdHandle;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
@@ -72,81 +189,4 @@ void RedirectIOToConsole()
 	// point to console as well
 	ios::sync_with_stdio();
 }
-
-sf::RenderWindow* mainWindow;
-
-EditorWindow editorWindow;
-int windowMessage();
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
-{
-	RedirectIOToConsole();
-	editorWindow.hInstance = hInstance;
-	windowMessage();
-	return 0;
-}
-int windowMessage()
-{
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-	//Do not remove
-	//sf::RenderWindow eWindow(,);	//(sf::VideoMode(800, 600), "Editor!");
-	mainWindow = &window;
-	sf::Texture ab;
-	GameObject a("Testiing Object");
-	a.AddComponent(new HitboxComponent());
-	a.AddComponent(new RenderComponent());
-	a.AddComponent(new InputComponent());
-	SetGame()->addGameObject(&a);
-
-
-	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
-	sprite->setOrigin(0,1);
-	a.GetComponent<TransformComponent>()->position.x = 100;
-
-
-	MSG msg;
-	ZeroMemory(&msg,sizeof(MSG)); 
-	while(window.isOpen())
-	{
-		sf::Event event;
-
-		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
-		{
-			if(msg.message == WM_QUIT)
-			{
-				window.close();
-				break;
-			}
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-		else
-		{
-			while(window.pollEvent(event))
-				if(event.type == sf::Event::Closed)
-					window.close();
-
-			window.clear();
-			SetGame()->Update();
-			SetGfx()->Draw();//Change this to const verseion aka Request
-			window.display();
-		}
-
-	}
-	return (int)msg.wParam;
-}
-	
-EditorWindow* SetEditorWindow()
-{
-	return &editorWindow;
-}
-
-//Read Only
-const sf::RenderWindow* RequestWindow()
-{
-	return mainWindow;
-}
-
-sf::RenderWindow* SetWindow()
-{
-	return mainWindow;
-}	
+//*/

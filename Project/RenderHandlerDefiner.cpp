@@ -12,8 +12,12 @@
 Gfx gfx;
 Gfx::Gfx()
 {
-	camera.reset(sf::FloatRect(sf::Vector2f(0,0),sf::Vector2f(800,600)));
-
+	camera.reset(sf::FloatRect(0,0,800,600));
+/*	if(!rex.create(camera.getSize().x,camera.getSize().y))
+	{
+		std::cout << "Error creating Rex";
+	}
+	/*
 	for(int i = 0; i < 5; i++)
 	{
 		std::vector<Tile> temp;
@@ -97,15 +101,24 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 }
 void Gfx::Draw()
 {
-	for (std::map<int, std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
-		for (int j = 0; j < it->second.size(); j++)
+	{
+		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
-			RenderComponent* rc = it->second[j]->GetComponent<RenderComponent>();
-			TransformComponent* tc = it->second[j]->GetComponent<TransformComponent>();
-			rc->sprite.setPosition(tc->position.x,tc->position.y);
-			SetWindow()->draw(rc->sprite);
-			//SetEditWindow()->draw(it->second[j]->GetComponent<RenderComponent>()->sprite);	
+			for(int j = 0; j < it->second.size(); j++)
+			{
+				RenderComponent* rc = it->second[j]->GetComponent<RenderComponent>();
+				TransformComponent* tc = it->second[j]->GetComponent<TransformComponent>();
+				rc->sprite.setPosition(tc->position.x,tc->position.y);
+				//SetEditWindow()->draw(it->second[j]->GetComponent<RenderComponent>()->sprite);	
+			//	rex.draw(rc->sprite);
+				SetWindow()->draw(rc->sprite); 
+			}
 		}
+	}
+	
+	//rex.display();
+	//SetWindow()->draw(sf::Sprite(rex.getTexture()));
+	//*/
 }
 void Gfx::DrawBG()
 {

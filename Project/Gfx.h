@@ -4,8 +4,10 @@
 #include <map>
 #include <vector>
 #include <SFML\Graphics\View.hpp>
-
+#include <SFML\Graphics\RenderTexture.hpp>
 #include "Tile.h"
+#include "ZoneMap.hpp"
+	
 class GameObject;
 class Gfx
 {
@@ -30,6 +32,7 @@ public:
 	void Draw();
 	void DrawBG();
 	std::vector<GameObject*> selectedDrawList;
+	//sf::RenderTexture rex;
 
 
 private:

@@ -1,8 +1,9 @@
+#pragma once
 #ifndef GameObject_H
 #define GameObject_H
 #include <map>
 #include <string>
-//#include "Component\BaseComponent.hpp" //Remove this and use class basecomponent; 2014-04-17
+#include "BaseComponent.hpp" //Remove this and use class basecomponent; 2014-04-17
 #include <cereal/access.hpp>
 
 class BaseComponent;
@@ -74,6 +75,7 @@ public:
 
 			return NULL;
 		}
+
 
 
 protected:
