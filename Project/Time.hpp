@@ -12,6 +12,6 @@ class Time
 public:
 	float FPS();
 	
-}
+};
 
 #endif

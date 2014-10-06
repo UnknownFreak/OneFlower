@@ -91,7 +91,10 @@
     <ClInclude Include="ZoneMap.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Time.hpp">
+    <ClInclude Include="Engine.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Time.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
@@ -141,7 +144,7 @@
     <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
-    <ClCompile Include="TimeDefiner.cpp">
+    <ClCompile Include="Project\TimeDefiner.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -83,6 +83,7 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\EnvironmentColliderComponent.h" />
     <ClInclude Include="Project\Component\GameObject.h" />
@@ -96,11 +97,11 @@
     <ClInclude Include="Project\LoadAndSave.hpp" />
     <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\Tile.h" />
+    <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
     <ClInclude Include="Project\Window.h" />
     <ClInclude Include="Project\WorldManagement.hpp" />
     <ClInclude Include="Project\ZoneMap.hpp" />
-    <ClInclude Include="Time.hpp" />
     <ClInclude Include="ZoneMap.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -116,10 +117,10 @@
     <ClCompile Include="Project\LoadAndSave.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />
+    <ClCompile Include="Project\TimeDefiner.cpp" />
     <ClCompile Include="Project\WindowDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\WorldManagement.cpp" />
-    <ClCompile Include="TimeDefiner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

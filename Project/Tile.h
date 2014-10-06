@@ -1,8 +1,9 @@
 #ifndef Tile_H
 #define Tile_H
+#include <Windows.h>
 #include "Vector.h"
 #include <SFML\Graphics\Sprite.hpp>
-
+#include <string>
 class Tile
 {
 public:

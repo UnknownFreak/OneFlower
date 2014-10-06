@@ -1,6 +1,7 @@
 #include "Time.hpp"
 #include <SFML\System\Time.hpp>
 #include <iostream>
+#include <string>
 float Time::FPS()
 {
 	currentTime = clock.restart().asSeconds();
@@ -13,4 +14,5 @@ float Time::FPS()
 
 		std::cout << "\nFPS: " << fps;
 	}
+	return 0;
 }

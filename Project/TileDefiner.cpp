@@ -1,5 +1,7 @@
 #include "Tile.h"
 #include "Gfx.h"
+#include <string>
+
 
 Tile::Tile()
 {

@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <SFML\Window\Mouse.hpp>
 #include <vector>
-#include "Component\GameObject.h";
+#include "Component\GameObject.h"
 #include "Component\IBaseComponent.hpp"
 #include "CustomWindow.h"
 #include "Component\HitboxComponent.hpp"
@@ -18,33 +18,35 @@ void Game::Update()
 	#pragma region Mouse
 	if(true)
 	{
-		if(
-		for(int i = 0; i < allGameObjectPointers.size(); i++)
+		if(RequestEvent()->MouseButtonReleased == sf::Mouse::Left)
 		{
-			HitboxComponent* hitbox;
-			TransformComponent* transform;
-			hitbox = allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
-			transform = allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
-			if(hitbox)
+			for(int i = 0; i < allGameObjectPointers.size(); i++)
 			{
-				Vector2<int> mouse;
-				mouse.x = sf::Mouse::getPosition(*RequestWindow()).x;
-				mouse.y = sf::Mouse::getPosition(*RequestWindow()).y;
-				RenderComponent* rc = allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
-				GameObject* ab = allGameObjectPointers.at(i);
-
-				int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
-				int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
-				int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
-				int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
-
-				if(mouse.x <= localStartX && mouse.x >= localEndX)
+				HitboxComponent* hitbox;
+				TransformComponent* transform;
+				hitbox = allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
+				transform = allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
+				if(hitbox)
 				{
-					if(mouse.y <= localStartY && mouse.y >= localEndY)
+					Vector2<int> mouse;
+					mouse.x = sf::Mouse::getPosition(*RequestWindow()).x;
+					mouse.y = sf::Mouse::getPosition(*RequestWindow()).y;
+					RenderComponent* rc = allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
+					GameObject* ab = allGameObjectPointers.at(i);
+
+					int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+					int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
+					int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+					int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
+
+					if(mouse.x <= localStartX && mouse.x >= localEndX)
 					{
-						SetGfx()->selectedDrawList.clear();
-						SetGfx()->selectedDrawList.push_back(ab);
-						std::cout << "\nMouse Click: " << ab->name;
+						if(mouse.y <= localStartY && mouse.y >= localEndY)
+						{
+							SetGfx()->selectedDrawList.clear();
+							SetGfx()->selectedDrawList.push_back(ab);
+							std::cout << "\nMouse Click: " << ab->name;
+						}
 					}
 				}
 			}
