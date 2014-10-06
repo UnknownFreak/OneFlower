@@ -2,41 +2,46 @@
 #include "Gfx.h"
 #include <string>
 
-
 Tile::Tile()
 {
+	name = "test.png";
 	sprite.setTexture(*SetGfx()->requestTexture("test.png"));
 //	sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 }
 Tile::Tile(Vector2<int> pos)
 {
+	name = "test.png";
 	sprite.setTexture(*SetGfx()->requestTexture("test.png"));
 	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 	position = pos;
 }
 Tile::Tile(int x,int y)
 {
+	name = "test.png";
 	sprite.setTexture(*SetGfx()->requestTexture("test.png"));
-	//prite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
+	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 
 	position.x = x;
 	position.y = y;
 }
-Tile::Tile(std::string name)
+Tile::Tile(std::string n)
 {
-	sprite.setTexture(*SetGfx()->requestTexture(name));
+	name = n;
+	sprite.setTexture(*SetGfx()->requestTexture(n));
 	//	sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 }
-Tile::Tile(std::string name, Vector2<int> pos)
+Tile::Tile(std::string n, Vector2<int> pos)
 {
-	sprite.setTexture(*SetGfx()->requestTexture(name));
+	name = n;
+	sprite.setTexture(*SetGfx()->requestTexture(n));
 	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 	position = pos;
 }
-Tile::Tile(std::string name, int x, int y)
+Tile::Tile(std::string n, int x, int y)
 {
-	sprite.setTexture(*SetGfx()->requestTexture(name));
-	//prite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
+	name = n;
+	sprite.setTexture(*SetGfx()->requestTexture(n));
+	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
 
 	position.x = x;
 	position.y = y;

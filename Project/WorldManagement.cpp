@@ -1,5 +1,5 @@
 #include "WorldManagement.hpp"
-#include "ZoneMap.hpp"
+#include "Zone.hpp"
 
 void WorldManagement::loadZone(int zoneID)
 {
@@ -9,7 +9,6 @@ void WorldManagement::loadZone(int zoneID)
 	}
 	else
 	{
-		ZoneMap zone;
-
+		Zone zone;
 	}
 }

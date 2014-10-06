@@ -7,7 +7,7 @@
 #include <SFML\Graphics\RenderTexture.hpp>
 #include "Tile.h"
 #include "ZoneMap.hpp"
-	
+
 class GameObject;
 class Gfx
 {

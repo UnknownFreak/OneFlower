@@ -2,13 +2,13 @@
 #define WorldManagement_HPP
 #include <map>
 
-class ZoneMap;
+class Zone;
 class GameObject;
 class WorldManagement
 {
 public:
 	void loadZone (int zoneID);
-	std::map <int,ZoneMap> worldmap;
+	std::map <int,Zone> worldmap;
 private:
 
 	
