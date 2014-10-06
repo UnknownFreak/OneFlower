@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="Project\test.png" />
     <Image Include="test.png" />
   </ItemGroup>
   <ItemGroup>
@@ -89,31 +90,31 @@
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
-    <ClInclude Include="Project\Component\InputComponent.h" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\CustomWindow.h" />
     <ClInclude Include="Project\Game.h" />
-    <ClInclude Include="Project\LoadAndSave.hpp" />
     <ClInclude Include="Project\Gfx.h" />
+    <ClInclude Include="Project\InputHandler.hpp" />
+    <ClInclude Include="Project\Keybind.hpp" />
+    <ClInclude Include="Project\LoadAndSave.hpp" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
     <ClInclude Include="Project\Window.h" />
     <ClInclude Include="Project\WorldManagement.hpp" />
     <ClInclude Include="Project\ZoneMap.hpp" />
-    <ClInclude Include="ZoneMap.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\InputComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\GameDefiner.cpp" />
     <ClCompile Include="Project\GameHandler.cpp" />
+    <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />

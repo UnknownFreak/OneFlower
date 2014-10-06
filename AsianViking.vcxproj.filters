@@ -30,6 +30,9 @@
     <Image Include="test.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Project\test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\win7Style.xml">
@@ -37,7 +40,34 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\CustomWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\LoadAndSave.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\ZoneMap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Project\Component\BaseComponent.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\GameObject.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\HitboxComponent.hpp">
@@ -46,63 +76,33 @@
     <ClInclude Include="Project\Component\IBaseComponent.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Component\InputComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Component\RenderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\TransformComponent.hpp">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Project\LoadAndSave.hpp">
+    <ClInclude Include="Project\Game.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Tile.h">
+    <ClInclude Include="Project\Gfx.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Vector.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Window.h">
+    <ClInclude Include="Project\Time.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Project\WorldManagement.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\ZoneMap.hpp">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\CustomWindow.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\GameObject.h">
+    <ClInclude Include="Project\Keybind.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Gfx.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ZoneMap.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.hpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Time.hpp">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="Project\InputHandler.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\InputComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp">
@@ -146,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="Project\TimeDefiner.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

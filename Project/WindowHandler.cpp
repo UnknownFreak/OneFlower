@@ -10,7 +10,6 @@
 #include <Windows.h>
 #include "Component\HitboxComponent.hpp"
 #include "Component\TransformComponent.hpp"
-#include "Component\InputComponent.h"
 #include <windows.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -18,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include "Time.hpp"
+#include "InputHandler.hpp"
 void RedirectIOToConsole();
  
 sf::RenderWindow* mainWindow;
@@ -40,12 +40,10 @@ int windowMessage()
 	mainWindow = &window;
 	window.setVerticalSyncEnabled(false);
 
-
 	sf::Texture ab;
 	GameObject a("TestiingObject");
 	a.AddComponent(new HitboxComponent());
 	a.AddComponent(new RenderComponent());
-	a.AddComponent(new InputComponent());
 	SetGame()->addGameObject(&a);
 
 
@@ -75,7 +73,6 @@ int windowMessage()
 					window.close();
 
 			window.clear();
-			a.GetComponent<InputComponent>()->moveSprite(1,1,1);
 			SetGame()->Update();
 			SetGfx()->Draw();//Change this to const verseion aka Request
 			window.display();
