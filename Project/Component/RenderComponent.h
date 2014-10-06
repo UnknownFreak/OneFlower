@@ -12,7 +12,11 @@ public:
 	RenderComponent(std::string texture);
 
 	sf::Sprite sprite;
+
+	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
+	
+	//Name of texture;
 	std::string textureName = "test.png";
 private:
 	template < class Archive>//, GameObject& go>

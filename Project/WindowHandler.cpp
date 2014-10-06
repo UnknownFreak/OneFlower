@@ -10,6 +10,7 @@
 #include <Windows.h>
 #include "Component\HitboxComponent.hpp"
 #include "Component\TransformComponent.hpp"
+#include "Component\InputComponent.h"
 #include <windows.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -40,17 +41,36 @@ int windowMessage()
 	mainWindow = &window;
 	window.setVerticalSyncEnabled(false);
 
+
 	sf::Texture ab;
 	GameObject a("TestiingObject");
 	a.AddComponent(new HitboxComponent());
 	a.AddComponent(new RenderComponent());
-	SetGame()->addGameObject(&a);
-
+	a.AddComponent(new InputComponent());
+	GameObject b("NewObject");
+	b.AddComponent(new HitboxComponent());
+	b.AddComponent(new RenderComponent());
+	b.AddComponent(new InputComponent());
+	GameObject c("NewaaaaObject");
+	c.AddComponent(new HitboxComponent());
+	c.AddComponent(new RenderComponent());
+	c.AddComponent(new InputComponent());
 
 	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
-	sprite->setOrigin(0,1);
+	sprite->setOrigin(sprite->getTextureRect().width / 2,sprite->getTextureRect().height / 2);
 	a.GetComponent<TransformComponent>()->position.x = 100;
 	
+	sf::Sprite* spritea = &b.GetComponent<RenderComponent>()->sprite;
+	spritea->setOrigin(spritea->getTextureRect().width / 2,spritea->getTextureRect().height / 2);
+	b.GetComponent<TransformComponent>()->position.x = 10;
+	b.GetComponent<RenderComponent>()->renderlayer = 1;
+	a.GetComponent<RenderComponent>()->renderlayer = 2;
+
+	SetGame()->addGameObject(&a);
+	SetGame()->addGameObject(&b);
+	SetGame()->addGameObject(&c); 
+
+
 	Time time;
 	MSG msg;
 	ZeroMemory(&msg,sizeof(MSG));
@@ -69,15 +89,70 @@ int windowMessage()
 		else
 		{
 			while(window.pollEvent(event))
+			{
 				if(event.type == sf::Event::Closed)
+				{
 					window.close();
+				}
+				#pragma region Mouse
+				if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+				{
+					if(event.type == event.MouseButtonReleased)
+					{
+						if(event.mouseButton.button == sf::Mouse::Button::Left)
+						{
+							int top = 0;
 
+							for(int i = 0; i < SetGame()->allGameObjectPointers.size(); i++)
+							{
+
+								Vector2<int> mouse;
+								RenderComponent* rc = 0;
+								GameObject* ab = 0;
+								HitboxComponent* hitbox = 0;
+								TransformComponent* transform = 0;
+								hitbox = SetGame()->allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
+								transform = SetGame()->allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
+								if(hitbox)
+								{
+									mouse.x = sf::Mouse::getPosition(*RequestWindow()).x;
+									mouse.y = sf::Mouse::getPosition(*RequestWindow()).y;
+									rc = SetGame()->allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
+									ab = SetGame()->allGameObjectPointers.at(i);
+
+									int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+									int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
+									int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
+									int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
+
+									if(mouse.x <= localStartX && mouse.x >= localEndX)
+										if(mouse.y <= localStartY && mouse.y >= localEndY)
+											SetGfx()->selectedDrawList.push_back(ab);
+								}
+							}
+
+							if(SetGfx()->selectedDrawList.size() > 0)
+							{
+								for(size_t i = 0; i < SetGfx()->selectedDrawList.size(); i++)
+									if(SetGfx()->selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > SetGfx()->selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
+										top = i;
+								std::cout << "\nSelected Object: " << SetGfx()->selectedDrawList[top]->name;
+								SetGfx()->selectedDrawList.clear();
+							}
+						}
+					}
+				}
+				//*/
+				#pragma endregion 
+
+			}
 			window.clear();
+			a.GetComponent<InputComponent>()->moveSprite(1,1,1);
+			b.GetComponent<InputComponent>()->moveSprite(1,1,1);
 			SetGame()->Update();
 			SetGfx()->Draw();//Change this to const verseion aka Request
 			window.display();
 			time.FPS();
-		
 		}
 	}
 	return (int)msg.wParam;

@@ -84,7 +84,6 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\EnvironmentColliderComponent.h" />
     <ClInclude Include="Project\Component\GameObject.h" />
@@ -93,6 +92,7 @@
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\CustomWindow.h" />
+    <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Game.h" />
     <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\InputHandler.hpp" />

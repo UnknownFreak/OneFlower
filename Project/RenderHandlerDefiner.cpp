@@ -62,15 +62,11 @@ sf::Texture* Gfx::requestTexture(std::string name)
 void Gfx::insertDrawableObject(GameObject* entityToDraw)
 {
 	std::map<int, std::vector<GameObject*>>::iterator it;
+	std::map < int,std::vector<GameObject*>>::iterator endIt;
 	int renderID = entityToDraw->GetComponent<RenderComponent>()->renderlayer;
 
-
-
-	std::map < int, std::vector<GameObject*>>::iterator endIt;
-
-	endIt = gameObjectDrawList.end();
 	it = this->gameObjectDrawList.find(renderID);
-
+	endIt = gameObjectDrawList.end();
 
 	if (it == this->gameObjectDrawList.end())
 		gameObjectDrawList.insert(gameObjectDrawList.end(), std::pair<int, std::vector<GameObject*>>(renderID, {entityToDraw}));							//it->second.insert(it->second.end(),entityToDraw);
@@ -102,15 +98,16 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 void Gfx::Draw()
 {
 	{
+		RenderComponent* rc;
+		TransformComponent* tc;
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
 			{
-				RenderComponent* rc = it->second[j]->GetComponent<RenderComponent>();
-				TransformComponent* tc = it->second[j]->GetComponent<TransformComponent>();
+				rc = it->second[j]->GetComponent<RenderComponent>();
+				tc = it->second[j]->GetComponent<TransformComponent>();
+
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				//SetEditWindow()->draw(it->second[j]->GetComponent<RenderComponent>()->sprite);	
-			//	rex.draw(rc->sprite);
 				SetWindow()->draw(rc->sprite); 
 			}
 		}

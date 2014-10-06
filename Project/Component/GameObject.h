@@ -53,7 +53,7 @@ public:
 	template<class T_S>
 	const T_S* ReadComponent()const
 	{
-		std::map<int,BaseComponent*>::iterator it;
+		std::map<int,BaseComponent*>::const_iterator it;
 		int a = IBaseComponent<T_S>::typeID;// a;
 
 		it = componentMap.find(a);// .getType());

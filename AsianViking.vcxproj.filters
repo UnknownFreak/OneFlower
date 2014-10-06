@@ -100,6 +100,24 @@
     <ClInclude Include="Project\InputHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< .mine
+    <ClInclude Include="Project\Gfx.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneMap.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Time.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+=======
+>>>>>>> .r39
+    <ClInclude Include="Project\Engine.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">

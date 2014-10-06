@@ -14,45 +14,6 @@
 Game gameManager;
 void Game::Update()
 {
-
-	#pragma region Mouse
-	if(true)
-	{
-		if(RequestEvent()->MouseButtonReleased == sf::Mouse::Left)
-		{
-			for(int i = 0; i < allGameObjectPointers.size(); i++)
-			{
-				HitboxComponent* hitbox;
-				TransformComponent* transform;
-				hitbox = allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
-				transform = allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
-				if(hitbox)
-				{
-					Vector2<int> mouse;
-					mouse.x = sf::Mouse::getPosition(*RequestWindow()).x;
-					mouse.y = sf::Mouse::getPosition(*RequestWindow()).y;
-					RenderComponent* rc = allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
-					GameObject* ab = allGameObjectPointers.at(i);
-
-					int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
-					int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
-					int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
-					int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
-
-					if(mouse.x <= localStartX && mouse.x >= localEndX)
-					{
-						if(mouse.y <= localStartY && mouse.y >= localEndY)
-						{
-							SetGfx()->selectedDrawList.clear();
-							SetGfx()->selectedDrawList.push_back(ab);
-							std::cout << "\nMouse Click: " << ab->name;
-						}
-					}
-				}
-			}
-		}
-	}
-	#pragma endregion 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		SetGfx()->camera.move(0,10);
 

@@ -95,63 +95,13 @@ HWND EditorWindow::getAddon(std::string ID)
 	return NULL;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)	
 	{	
 		case WM_CREATE:
 		{
-	
-			Vector2<int> size;
-			Vector2<int> position;
-			#pragma region Save Prefab
-			size.x = 128;
-			size.y = 32;
-			position.x = 800 - size.x - 6;
-			position.y = 0 + size.y;
-			addButton(hWnd,"Save Prefab",position,size,SaveButtonID);
-			#pragma endregion
-			#pragma region Transform Label
-			position.x = 0;
-			size.y = 16;
-			size.x = 128;
-			addLabel(hWnd,"Transform:","TransformLabel",position,size,TransformLabelID);
 			
-			size.x = 16;
-			position.y += 16+8;
-			addLabel(hWnd,"x:","TransformLabelX",position,size,TransformLabelID + 1);
-
-			position.y += 16+8;
-			addLabel(hWnd,"y:","TransformLabelY",position,size,TransformLabelID + 2);
-
-			position.y += 16+8;
-			addLabel(hWnd,"z:","TransformLabelZ",position,size,TransformLabelID + 2);
-			#pragma endregion
-
-			size.x = 64;
-			size.y = 16;
-			position.x = 12;
-			position.y -= 3 * (16 + 8);
-			position.y += 16 + 8;
-			addTextboxInt(hWnd,"TransformBoxX",position,size,TransformTextBoxID + 1);
-			position.y += 16 + 8;
-			addTextboxInt(hWnd,"TransformBoxY",position,size,TransformTextBoxID + 2);
-			position.y += 16 + 8;
-			addTextboxInt(hWnd,"TransformBoxZ",position,size,TransformTextBoxID + 3);
-		
-		//*/
 		}
 		case WM_KEYDOWN:
 		{

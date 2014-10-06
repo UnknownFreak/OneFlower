@@ -29,7 +29,7 @@ public:
 	void requestRemoveal(GameObject* entity);
 	void Update();
 
-private:
+//private:
 	std::vector<GameObject*> allGameObjectPointers;
 
 
