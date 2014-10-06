@@ -10,6 +10,7 @@
 #include "Gfx.h"
 #include <SFML\Window\Keyboard.hpp>
 #include <SFML\Window\Event.hpp>
+#include "Window.h"
 Game gameManager;
 void Game::Update()
 {
@@ -17,7 +18,7 @@ void Game::Update()
 	#pragma region Mouse
 	if(true)
 	{
-		if(event
+		if(
 		for(int i = 0; i < allGameObjectPointers.size(); i++)
 		{
 			HitboxComponent* hitbox;

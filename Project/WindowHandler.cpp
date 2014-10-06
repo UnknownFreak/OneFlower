@@ -101,6 +101,10 @@ sf::RenderWindow* SetWindow()
 {
 	return mainWindow;
 }
+sf::Event* RequestEvent()
+{
+	return &event;
+};
 
 
 
