@@ -73,9 +73,6 @@
     <ClInclude Include="Project\ZoneMap.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\CustomWindow.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -103,6 +100,9 @@
     <ClInclude Include="Project\Zone.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Project\CustomWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
@@ -121,9 +121,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\TileDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WindowDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\WindowHandler.cpp">
@@ -158,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="Project\ZoneMaker.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EngineDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

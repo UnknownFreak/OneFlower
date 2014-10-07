@@ -5,9 +5,7 @@
 #include <vector>
 #include <SFML\Graphics\View.hpp>
 #include <SFML\Graphics\RenderTexture.hpp>
-#include "Tile.h"
-#include "ZoneMap.hpp"
-
+class Tile;
 class GameObject;
 class Gfx
 {
@@ -19,6 +17,7 @@ public:
 	
 	//Return a pointer towards
 	sf::Texture* requestTexture(std::string name) ;
+
 	//request removal of texture if its not in use
 	void requestRemovalOfTexture(std::string name);
 	#pragma endregion
@@ -26,7 +25,7 @@ public:
 	void insertDrawableObject(GameObject* drawableEntity);	
 
 	sf::View camera; 
-	std::vector<std::vector<Tile>> tileList;
+	std::vector<std::vector<Tile*>> tileList;
 
 	//Draw all Game object with RenderComponent attached to it
 	void Draw();

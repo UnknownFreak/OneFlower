@@ -103,6 +103,7 @@
     <ClInclude Include="Project\Vector.h" />
     <ClInclude Include="Project\Window.h" />
     <ClInclude Include="Project\WorldManagement.hpp" />
+    <ClInclude Include="Project\Zone.hpp" />
     <ClInclude Include="Project\ZoneMap.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,15 +114,17 @@
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\GameDefiner.cpp" />
+    <ClCompile Include="Project\EngineDefiner.cpp" />
     <ClCompile Include="Project\GameHandler.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />
     <ClCompile Include="Project\TimeDefiner.cpp" />
-    <ClCompile Include="Project\WindowDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\WorldManagement.cpp" />
+    <ClCompile Include="Project\Zone.cpp" />
+    <ClCompile Include="Project\ZoneMaker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

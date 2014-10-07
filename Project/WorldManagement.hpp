@@ -1,7 +1,7 @@
 #ifndef WorldManagement_HPP
 #define WorldManagement_HPP
 #include <map>
-
+#include "Zone.hpp"
 class Zone;
 class GameObject;
 class WorldManagement

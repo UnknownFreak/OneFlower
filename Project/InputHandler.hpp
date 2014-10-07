@@ -12,6 +12,10 @@ public:
 	std::vector<std::string> getInput();
 private:
 	std::vector<Keybind> keybinds;
+
+
+
+
 };
 
 #endif
