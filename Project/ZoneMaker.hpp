@@ -11,7 +11,7 @@ class ZoneMap
 public:
 	ZoneMap();
 	std::string name;
-	int id;
+	unsigned int ID;
 	std::vector<Tile> backgrounds;
 	std::vector<GameObject> objects;
 	void addBackground(Tile &t);

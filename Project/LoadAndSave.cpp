@@ -11,9 +11,10 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/archives/binary.hpp>
 #include "Component\BaseComponent.hpp"
-#include "ZoneMap.hpp"
+#include "ZoneMaker.hpp"
 #include "Zone.hpp"
-
+#include "WorldManagement.hpp"
+#include <map>
 std::string versionName = "Alpha Test: 1.3v";
 	
 
@@ -44,6 +45,7 @@ void testSave()
 		ar(test);
 	}
 	//*/
+	/*
 	GameObject go;
 	go.name = "TestObject";
 	ZoneMap zone;
@@ -51,11 +53,10 @@ void testSave()
 	zone.addBackground(Tile());
 	zone.addBackground(Tile());
 	zone.addGameObject(go);
-	std::ofstream file("test.zone", std::ios::binary);
-	{
-		cereal::BinaryOutputArchive ar(file);
-		ar(zone);
-	}
+
+	//*/
+
+	
 }
 
 void testLoad()
@@ -70,13 +71,8 @@ void testLoad()
 		ar(test);
 	}
 	//*/
-	Zone test;
-	test.name = "Test object not loaded";
-	std::ifstream file("test.zone", std::ios::binary);
-	{
-		cereal::BinaryInputArchive ar(file);
-		ar(test);
-	}
+	//Zone test;
+	//test.name = "Test object not loaded";
 }
 //*/
 #pragma region Player
@@ -154,11 +150,11 @@ void save(Archive& archive,const BaseComponent& bc)
 // Saves a Zone with name, id, and vector of tiles, and gameobjects
 template<class Archive>
 void save(Archive &ar, const ZoneMap &zm) {
-	std::cout << "Starting save" << std::endl;
-	
+
+	std::cout << "Starting normal save" << std::endl;
 	ar(zm.name);
 	std::cout << zm.name << std::endl;
-	ar(zm.id);
+	ar(zm.ID);
 	std::cout << zm.id << std::endl;
 	ar(zm.backgrounds.size());
 	std::cout << zm.backgrounds.size() << std::endl;
@@ -183,7 +179,7 @@ void load(Archive &ar, Zone &zone) {
 	// Variables
 	int bgs;
 	int objs;
-	int id;
+	unsigned int ID;
 	Tile t;
 	GameObject go;
 	std::string str;
@@ -192,8 +188,8 @@ void load(Archive &ar, Zone &zone) {
 
 	ar(str);
 	std::cout << str << std::endl;
-	ar(id);
-	std::cout << id << std::endl;
+	ar(ID);
+	std::cout << ID << std::endl;
 	ar(bgs);
 
 	std::cout << bgs << std::endl;
@@ -211,7 +207,7 @@ void load(Archive &ar, Zone &zone) {
 		gos.push_back(go);
 		std::cout << gos[i].name << std::endl;
 	}
-	zone = Zone(str,id,tiles,gos);
+	zone = Zone(str,ID,tiles,gos);
 
 	std::cout << zone.name << std::endl;
 	std::cout << "Load finished" << std::endl;
@@ -237,7 +233,6 @@ void load(Archive &ar, Tile & t) {
 }
 #pragma endregion
 
-
 #pragma region keybinds
 
 // prepared save function for keybinds
@@ -251,3 +246,61 @@ void load(Archive &ar, int q) {
 
 }
 #pragma endregion
+
+#pragma region zoneInfo
+void saveInfo(std::map<unsigned int, Zone>map){ 
+	
+	std::ofstream file("zone.info", std::ios::binary);
+	{
+		cereal::BinaryOutputArchive ar(file);
+		std::map<unsigned int, Zone>::iterator it = map.begin();
+		ar(map.size());
+		std::cout << "Saving size of zoneinfo[" << map.size() << "]" << std::endl;
+		for (it; it != map.end(); ++it) {
+			ar(it->first);
+			std::cout << "Saving ID into zoneinfo[" << it->first << "]" << std::endl;
+			ar(it->second.name+".zone");
+			std::cout << "Saving name into zoneinfo[" << it->second.name << "+.zone]" << std::endl;
+		}
+		std::cout << "Saving done" << std::endl;
+	}
+ }
+void loadZoneInfo(std::map<unsigned int, std::string> & zoneInfo) {
+	
+	std::ifstream file("zone.info", std::ios::binary);
+	if(file.is_open())
+	{
+		cereal::BinaryInputArchive ar(file);
+		unsigned int zoneID;
+		std::string zoneName;
+		int number;
+		ar(number);
+		std::cout << "Loading size of zoneinfo[" << number << "]" << std::endl;
+		for (int i = 0; i < number; i++) {
+			ar(zoneID);
+			std::cout << "Loading ID into zoneinfo[" << zoneID << "]" << std::endl;
+			ar(zoneName);
+			std::cout << "Loading name into zoneinfo[" << zoneName << "]" << std::endl;
+			zoneInfo.insert(std::pair<int, std::string>(zoneID, zoneName));
+		}
+		std::cout << "Loading done" << std::endl;
+	}
+	else
+	{
+		std::cout << "File did not get opened" << std::endl;
+	}
+}
+#pragma endregion
+
+void loadZoneFile(std::string name, Zone& zone) {
+	std::ifstream file(name, std::ios::binary);
+	
+	if (file.is_open())
+	{
+		cereal::BinaryInputArchive ar(file);
+		ar(zone);
+	}
+	else {
+		std::cout << "Could not open " << name << std::endl;
+	}
+}

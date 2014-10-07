@@ -14,14 +14,14 @@ public:
 	// name of the zone
 	std::string name;
 	// unique id for each zone
-	int id;
+	unsigned int ID;
 	// vector containing tiles (backgrounds)
 	std::vector<Tile> backgrounds;
 	// vector containing objects (gameobjects)
 	std::vector<GameObject> objects;
 
 	//constructor
-	Zone(std::string name,int id, std::vector<Tile>, std::vector<GameObject>);
+	Zone(std::string name,unsigned int ID, std::vector<Tile>, std::vector<GameObject>);
 	Zone();
 	
 };

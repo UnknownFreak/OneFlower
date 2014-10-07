@@ -105,7 +105,7 @@
     <ClInclude Include="Project\Window.h" />
     <ClInclude Include="Project\WorldManagement.hpp" />
     <ClInclude Include="Project\Zone.hpp" />
-    <ClInclude Include="Project\ZoneMap.hpp" />
+    <ClInclude Include="Project\ZoneMaker.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />

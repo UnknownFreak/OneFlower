@@ -1,4 +1,4 @@
-#include "ZoneMap.hpp"
+#include "ZoneMaker.hpp"
 void ZoneMap::addBackground(Tile &t) {
 	backgrounds.push_back(t);
 }
@@ -7,5 +7,5 @@ void ZoneMap::addGameObject(GameObject& go) {
 }
 ZoneMap::ZoneMap() {
 	name = "Test";
-	id = 0;
+	ID = 1;
 }

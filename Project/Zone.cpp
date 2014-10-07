@@ -1,12 +1,12 @@
 #include "Zone.hpp"
 
 
-Zone::Zone(std::string n,int i, std::vector<Tile> tiles, std::vector<GameObject> ob)
+Zone::Zone(std::string n,unsigned int i, std::vector<Tile> tiles, std::vector<GameObject> ob)
 {
 	//Name of the zone created
 	name = n;
 	//Unique id for the zone created
-	id = i;
+	ID = i;
 	//adds the tiles from Tiles vector
 	for (int i = 0; i < tiles.size(); i++)
 		backgrounds.push_back(tiles[i]);
