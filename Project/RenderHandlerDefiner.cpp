@@ -9,6 +9,7 @@
 #include "Component\RenderComponent.h"
 #include <SFML\Graphics\Sprite.hpp>
 #include "Component\TransformComponent.hpp"
+#include "Engine.hpp"
 Gfx gfx;
 Gfx::Gfx()
 {
@@ -108,13 +109,13 @@ void Gfx::Draw()
 				tc = it->second[j]->GetComponent<TransformComponent>();
 
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				SetWindow()->draw(rc->sprite); 
+				Engine::Window.draw(rc->sprite); 
 			}
 		}
 	}
 	
 	//rex.display();
-	//SetWindow()->draw(sf::Sprite(rex.getTexture()));
+	//Engine::Window.draw(sf::Sprite(rex.getTexture()));
 	//*/
 }
 void Gfx::DrawBG()

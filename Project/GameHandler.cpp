@@ -15,18 +15,18 @@
 void Game::Update()
 {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		SetGfx()->camera.move(0,10);
+		SetGfx()->camera.move(0,1);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		SetGfx()->camera.move(-10,0);
+		SetGfx()->camera.move(-1,0);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		SetGfx()->camera.move(0,-10);
+		SetGfx()->camera.move(0,-1);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		SetGfx()->camera.move(10,0);
+		SetGfx()->camera.move(1,0);
 
-	SetWindow()->setView(SetGfx()->camera);
+	Engine::Window.setView(SetGfx()->camera);
 }
 
 void synchronizeComponents()

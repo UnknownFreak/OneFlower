@@ -16,31 +16,25 @@
 #include "Time.hpp"
 #include "Engine.hpp"
  
-sf::RenderWindow* mainWindow;
 int main()
 {
 
-	mainWindow = &Engine::Window; 
 
 	sf::Texture ab;
 	GameObject a("TestiingObject");
 	a.AddComponent(new HitboxComponent());
 	a.AddComponent(new RenderComponent());
 
-	GameObject b("NewObject");
-	b.AddComponent(new HitboxComponent());
-	b.AddComponent(new RenderComponent());
 
-	GameObject c("NewaaaaObject");
-	c.AddComponent(new HitboxComponent());
-	c.AddComponent(new RenderComponent());
+	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
+
+	float x = sprite->getTextureRect().width;
+	float y = sprite->getTextureRect().height;
+	sprite->setOrigin(x/2,y/2);
+	a.GetComponent<TransformComponent>()->position.x = 10;
 
 	Engine::game.addGameObject(&a);
-	
-	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
-	sprite->setOrigin(0,1);
-	a.GetComponent<TransformComponent>()->position.x = 100;
-	
+
 	Time time;
 	while(Engine::Window.isOpen())
 	{
@@ -61,7 +55,6 @@ int main()
 
 						for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 						{
-							Vector2<int> mouse;
 							RenderComponent* rc = 0;
 							GameObject* ab = 0;
 							HitboxComponent* hitbox = 0;
@@ -70,8 +63,9 @@ int main()
 							transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 							if(hitbox)
 							{
-								mouse.x = sf::Mouse::getPosition(*RequestWindow()).x;
-								mouse.y = sf::Mouse::getPosition(*RequestWindow()).y;
+								sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Window);
+								sf::Vector2f worldPos = Engine::Window.mapPixelToCoords(pixelPos);
+
 								rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 								ab = Engine::game.allGameObjectPointers.at(i);
 
@@ -80,8 +74,8 @@ int main()
 								int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
 								int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);
 
-								if(mouse.x <= localStartX && mouse.x >= localEndX)
-								if(mouse.y <= localStartY && mouse.y >= localEndY)
+								if(worldPos.x <= localStartX && worldPos.x >= localEndX)
+								if(worldPos.y <= localStartY && worldPos.y >= localEndY)
 									SetGfx()->selectedDrawList.push_back(ab);
 							}
 						}
@@ -91,7 +85,7 @@ int main()
 							for(size_t i = 0; i < SetGfx()->selectedDrawList.size(); i++)
 							if(SetGfx()->selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > SetGfx()->selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
 								top = i;
-							std::cout << "\nSelected Object: " << SetGfx()->selectedDrawList[top]->name;
+							std::cout << "\nSelected Object: " << SetGfx()->selectedDrawList[top]->name << std::endl << "Game Object Position: " << SetGfx()->selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << SetGfx()->selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
 							SetGfx()->selectedDrawList.clear();
 						}
 					}
@@ -106,14 +100,4 @@ int main()
 		time.FPS();
 	}
 	return 0;
-}
-
-//Read Only
-const sf::RenderWindow* RequestWindow()
-{
-	return mainWindow;
-}
-sf::RenderWindow* SetWindow()
-{
-	return mainWindow;
 }
