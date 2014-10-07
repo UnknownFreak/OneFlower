@@ -89,6 +89,7 @@
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
+    <ClInclude Include="Project\Component\MovementComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\CustomWindow.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\GameDefiner.cpp" />

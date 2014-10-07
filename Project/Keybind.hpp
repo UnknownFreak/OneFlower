@@ -6,7 +6,7 @@
 struct Keybind
 {
 	sf::Keyboard::Key input;
-	std::string action;
+	const std::string action;
 };
 
 #endif
