@@ -32,14 +32,12 @@ int main()
 	WorldManagement world;
 	world.loadZone(1);
 
-	mainWindow = &Engine::Window; 
 	sf::Texture ab;
 	GameObject a("TestiingObject");
 	a.AddComponent(new HitboxComponent());
 	a.AddComponent(new RenderComponent());
 	a.AddComponent(new DialogComponent(2.f));
 
-	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;
 	//Engine::game.addGameObject(&a);
 
 	sf::Sprite* sprite = &a.GetComponent<RenderComponent>()->sprite;

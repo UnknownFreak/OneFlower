@@ -3,13 +3,13 @@
 #include <math.h>
 #include "CustomWindow.h"
 #include "Gfx.h"
-
 #include "Game.h"
 #include "Component\GameObject.h"
 #include "Component\RenderComponent.h"
 #include <SFML\Graphics\Sprite.hpp>
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
+#include "Engine.hpp"
 Gfx gfx;
 Gfx::Gfx()
 {
@@ -144,15 +144,15 @@ void Gfx::Draw()
 void Gfx::DrawBG()
 {
 	
-	SetWindow()->draw(backgroundSprite.sprite);
+	Engine::Window.draw(backgroundSprite.sprite);
 	for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
-		SetWindow()->draw(it->sprite);
+		Engine::Window.draw(it->sprite);
 }
 void Gfx::DrawTxt()
 {
 	for (int i = 0; i < msg.size(); i++)
 	{
-		msg[i]->drawMessage(SetWindow());
+		msg[i]->drawMessage(&Engine::Window);
 		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
 		{
 			removeFromMessageList(msg[i]);

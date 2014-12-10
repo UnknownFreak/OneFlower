@@ -34,7 +34,7 @@ void Game::Update()
 		SetGfx()->moveBackground(1, 0, 1.5);
 	}
 
-	SetWindow()->setView(SetGfx()->camera);
+	Engine::Window.setView(SetGfx()->camera);
 }
 
 void synchronizeComponents()
