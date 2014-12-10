@@ -3,6 +3,8 @@
 #include <map>
 #include "../Component/IBaseComponent.hpp"
 #include "TransformComponent.hpp"
+#include "RenderComponent.h"
+#include "HitboxComponent.hpp"
 std::map<GameObject*,unsigned int> listOfGameObjectID;
 std::vector<unsigned int> listOfOldGameObjectID;
 
@@ -15,6 +17,35 @@ GameObject::GameObject()
 	this->componentMap.insert(componentMap.end(),std::pair<int,BaseComponent*>(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
 	listOfGameObjectID.insert(listOfGameObjectID.end(),std::make_pair(this,id));
 }
+/*GameObject::GameObject(GameObject & go) 
+{
+	this->id = go.id;
+	this->name = go.name;
+	for (std::map<int, BaseComponent*>::iterator it = go.componentMap.begin(); it != go.componentMap.end(); it++) {
+		std::cout << it->second->getTypeName();
+		//this->componentMap.insert(componentMap.end(),);
+	}
+}
+//*/
+
+GameObject::GameObject(const GameObject & go)
+{
+	this->id = go.id;
+	this->name = go.name;
+	for (std::map<int, BaseComponent*>::const_iterator it = go.componentMap.begin(); it != go.componentMap.end(); it++) {
+		std::cout << it->second->getTypeName() << std::endl;
+		if (it->second->getType() == IBaseComponent<RenderComponent>::typeID) {
+			this->AddComponent(new RenderComponent(*go.ReadComponent<RenderComponent>()));
+		}
+		else if (it->second->getType() == IBaseComponent<TransformComponent>::typeID) {
+			this->AddComponent(new TransformComponent(*go.ReadComponent<TransformComponent>()));
+		}
+		else if (it->second->getType() == IBaseComponent<HitboxComponent>::typeID) {
+			this->AddComponent(new HitboxComponent(*go.ReadComponent<HitboxComponent>()));
+		}
+	}
+}
+
 GameObject::GameObject(std::string _name)
 {
 	id = RequestID();
@@ -70,7 +101,6 @@ void GameObject::AddComponent(BaseComponent* componentToAttach)
 			)
 			);
 	}
-
 }
 
 //Return a unused or a new ID

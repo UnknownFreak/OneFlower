@@ -12,9 +12,10 @@ public:
 	ZoneMap();
 	std::string name;
 	unsigned int ID;
-	std::vector<Tile> backgrounds;
+	Tile background;
 	std::vector<GameObject> objects;
-	void addBackground(Tile &t);
+	std::vector<Tile> foregrounds;
+	void setBackground(Tile &t);
 	void addGameObject(GameObject &go);
 
 private:

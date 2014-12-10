@@ -11,6 +11,15 @@ RenderComponent::RenderComponent()
 	sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);
 
 }
+RenderComponent::RenderComponent(const RenderComponent &rcp)
+{
+	componentName = rcp.componentName;
+	textureName = rcp.textureName;
+	renderlayer = rcp.renderlayer;
+	sprite.setScale(rcp.sprite.getScale());
+	sprite.setTexture(*SetGfx()->requestTexture(textureName));
+	sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
+}
 RenderComponent::RenderComponent(std::string texture)
 {
 	componentName = "RenderComponent";

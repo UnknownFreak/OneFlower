@@ -4,6 +4,10 @@ unsigned int IBaseComponent<EnvironmentColliderComponent>::typeID = 1010;
 
 EnvironmentColliderComponent::EnvironmentColliderComponent() {
 	componentName = "EnvironmentColliderComponent";
+
+}
+EnvironmentColliderComponent::EnvironmentColliderComponent(const EnvironmentColliderComponent &ecc){
+	this->componentName = ecc.componentName;
 }
 
 std::string EnvironmentColliderComponent::getTypeName() {

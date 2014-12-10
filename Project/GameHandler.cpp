@@ -14,19 +14,27 @@
 #include "Engine.hpp"
 void Game::Update()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		SetGfx()->camera.move(0,1);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		SetGfx()->camera.move(0, 1);
+		SetGfx()->moveBackground(0, 1,1.5);
+	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		SetGfx()->camera.move(-1,0);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+		SetGfx()->camera.move(-1, 0);
+		SetGfx()->moveBackground(-1, 0, 1.5);
+	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		SetGfx()->camera.move(0,-1);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		SetGfx()->camera.move(0, -1);
+		SetGfx()->moveBackground(0, -1, 1.5);
+	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		SetGfx()->camera.move(1,0);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		SetGfx()->camera.move(1, 0);
+		SetGfx()->moveBackground(1, 0, 1.5);
+	}
 
-	Engine::Window.setView(SetGfx()->camera);
+	SetWindow()->setView(SetGfx()->camera);
 }
 
 void synchronizeComponents()

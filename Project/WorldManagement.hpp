@@ -8,14 +8,19 @@ class GameObject;
 class WorldManagement
 {
 public:
+	Zone *zone;
+	unsigned int lastLoadedZone;
 	WorldManagement();
+	~WorldManagement();
 	void loadZone (unsigned int zoneID);
-	std::map <unsigned int,Zone> worldmap;
+	std::map <unsigned int,Zone*> worldmap;
 	std::map <unsigned int, std::string>zoneInfo;
 private:
 	// loads a zone from a specified file
 	friend void loadZoneFile(std::string fileName, Zone &z);
 	friend void loadZoneInfo(std::map<unsigned int, std::string> & zoneInfo);
-	friend void saveInfo();
+	friend void saveInfo(std::map<unsigned int, Zone>map);
+	void worldFromZone(unsigned int zoneID);
+	
 };
 #endif

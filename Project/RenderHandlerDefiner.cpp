@@ -9,7 +9,7 @@
 #include "Component\RenderComponent.h"
 #include <SFML\Graphics\Sprite.hpp>
 #include "Component\TransformComponent.hpp"
-#include "Engine.hpp"
+#include "Component\DialogComponent.hpp"
 Gfx gfx;
 Gfx::Gfx()
 {
@@ -96,45 +96,130 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 		
 	}
 }
+void Gfx::removeFromDrawList(GameObject* entityToRemove)
+{
+	int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
+	for (int i = 0; gameObjectDrawList[renderID].size(); i++)
+	{
+		if (gameObjectDrawList[renderID][i] == entityToRemove)
+		{
+			// removes the entity pointer from the draw list, gfx does NOT delete the object
+			gameObjectDrawList[renderID].erase(gameObjectDrawList[renderID].begin() + i);
+
+			break;
+		}
+	}
+}
 void Gfx::Draw()
 {
+	DrawBG();
 	{
 		RenderComponent* rc;
 		TransformComponent* tc;
+		DialogComponent* dc;
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
 			{
 				rc = it->second[j]->GetComponent<RenderComponent>();
 				tc = it->second[j]->GetComponent<TransformComponent>();
-
+				dc = it->second[j]->GetComponent<DialogComponent>();
+				// not all gameobjects have dialogs
+				if (dc)
+				{
+					if (dc->msg.timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
+						dc->close();
+				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
 				Engine::Window.draw(rc->sprite); 
+				
 			}
 		}
 	}
-	
+	DrawTxt();
 	//rex.display();
 	//Engine::Window.draw(sf::Sprite(rex.getTexture()));
 	//*/
 }
 void Gfx::DrawBG()
 {
-	for(int i = 0; this->tileList.size(); i++)
+	
+	SetWindow()->draw(backgroundSprite.sprite);
+	for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
+		SetWindow()->draw(it->sprite);
+}
+void Gfx::DrawTxt()
+{
+	for (int i = 0; i < msg.size(); i++)
 	{
-		for(int j = 0; tileList.at(0).size(); j++)
+		msg[i]->drawMessage(SetWindow());
+		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
 		{
-
+			removeFromMessageList(msg[i]);
 		}
 	}
 }
 
+void Gfx::insertDrawableMessage(Message* messageToDraw) 
+{
+	messageToDraw->timer.restart();
+	msg.push_back(messageToDraw);
+}
+void Gfx::removeFromMessageList(Message* messageToRemove)
+{
+	for (int i = 0; i < msg.size(); i++)
+	{
+		if (msg[i] == messageToRemove)
+		{
+			msg.erase(msg.begin()+i);
+			delete messageToRemove;
+			messageToRemove = 0;
+			break;
+		}
+	}
+}
+void Gfx::requestBackground(Tile bg)
+{
+	backgroundSprite = bg;
+	backgroundSprite.setRepeated(true);
+	backgroundSprite.sprite.setPosition(backgroundSprite.position.x, backgroundSprite.position.y);
 
+	backgroundSprite.sprite.setTextureRect(sf::IntRect(0, 0,
+	backgroundSprite.sprite.getTexture()->getSize().x+backgroundSprite.sizeX, 
+	backgroundSprite.sprite.getTexture()->getSize().y+backgroundSprite.sizeY));
+	backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
+	
+}
 
+void Gfx::insertDrawableForeground(Tile fg)
+{
+	fg.sprite.setPosition(fg.position.x, fg.position.y);
 
+	fg.sprite.setTextureRect(
+	sf::IntRect(0, 0,
+	fg.sprite.getTexture()->getSize().x,
+	fg.sprite.getTexture()->getSize().y)
+	);
 
+	fg.sprite.setOrigin(fg.sprite.getTextureRect().width / 2, fg.sprite.getTextureRect().height / 2);
+	foregroundSpriteList.push_back(fg);
+}
+void Gfx::removeFromForegroundList(Tile fgToRemove)
+{
+	for (int i = 0; i < foregroundSpriteList.size(); i++)
+	{
+		if (foregroundSpriteList[i].name == fgToRemove.name)
+		{
+			foregroundSpriteList.erase(foregroundSpriteList.begin() + i);
+			break;
+		}
+	}
+}
 
-
+void Gfx::moveBackground(int x, int y,float panSpeed)
+{
+	backgroundSprite.sprite.setPosition(backgroundSprite.sprite.getPosition().x + (x*panSpeed), backgroundSprite.sprite.getPosition().y + (y*panSpeed));
+}
 
 
 

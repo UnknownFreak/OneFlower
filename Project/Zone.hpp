@@ -3,27 +3,50 @@
 #include <string>
 #include <vector>
 #include "Tile.h"
-#include "Component\GameObject.h"
+class GameObject;
 class Zone
 {
 private:
-	//template load function
+
+	// Background image for the zone
+	Tile background;
+	
+	// Name of the zone
+	std::string name;
+
+	// Unique id for each zone
+	unsigned int ID;
+
+	//Load function
 	template<class Archive>
 	friend void load(Archive&ar, Zone &zone);
 public:
-	// name of the zone
-	std::string name;
-	// unique id for each zone
-	unsigned int ID;
-	// vector containing tiles (backgrounds)
-	std::vector<Tile> backgrounds;
-	// vector containing objects (gameobjects)
-	std::vector<GameObject> objects;
+	
+	
+
+	// Vector containing tiles (backgrounds)
+	std::vector<Tile> foregrounds;
+
+	// Vector containing objects (gameobjects)
+	std::vector<GameObject*> objects;
+	// Gets the background image
+	Tile getBackground();
+
+	// Gets the name of the zone
+	std::string getName();
+
+	// Add a foreground image
+	void addForeground(Tile sprite);
+
+	//Get the ID for the zone
+	int getID();
 
 	//constructor
-	Zone(std::string name,unsigned int ID, std::vector<Tile>, std::vector<GameObject>);
+	Zone(std::string name, unsigned int ID, Tile background, std::vector<Tile>tiles, std::vector<GameObject*>objects);
 	Zone();
-	
+	Zone(Zone &zone);
+	~Zone();
+	Zone& operator=(const Zone &z);
 };
 
 #endif ZONE_HPP

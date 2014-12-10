@@ -2,9 +2,10 @@
 #define Game_H
 #include <vector>
 #include <string>
-
+#include <map>
 class GameObject;
-
+class Tile;
+class Message;
 class Game
 {
 
@@ -29,11 +30,13 @@ public:
 	void requestRemoveal(GameObject* entity);
 	void Update();
 
+	void addBackground(Tile* t);
+	void addForeground(Tile* t);
+	void requestRemovealForeground(Tile* t);
+
 //private:
 	std::vector<GameObject*> allGameObjectPointers;
-
-
-
+	std::map<GameObject*,int> mapOfGameObjects;
 
 };
 //ReadOnly, Returns a const pointer towards game

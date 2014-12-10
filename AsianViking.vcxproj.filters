@@ -88,9 +88,6 @@
     <ClInclude Include="Project\Zone.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Component\MovementComponent.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -104,6 +101,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Project\ZoneMaker.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\MovementComponent.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FontDefiner.hpp">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\MessageDefiner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\DialogComponent.hpp">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FloatingText.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FloatingDamage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\InputBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -132,9 +150,6 @@
     <ClCompile Include="Project\GameDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project\WorldManagement.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -153,9 +168,6 @@
     <ClCompile Include="Project\Zone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EngineDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -163,6 +175,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\TimeDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FontHandlerDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\MessageHandlerDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FloatingDamageDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FloatingTextDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputBoxDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

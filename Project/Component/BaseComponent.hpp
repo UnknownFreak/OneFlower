@@ -1,4 +1,4 @@
-#ifndef BaseComponentTest_HPP
+	#ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
 #include <string>
 #include <cereal\access.hpp>
@@ -7,7 +7,6 @@ class BaseComponent
 {
 public:
 	virtual ~BaseComponent() = 0 {};
-	
 	//Return a Uniq classID
 	virtual unsigned int getType() = 0;// = 0;
 

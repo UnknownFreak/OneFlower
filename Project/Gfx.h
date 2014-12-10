@@ -5,8 +5,11 @@
 #include <vector>
 #include <SFML\Graphics\View.hpp>
 #include <SFML\Graphics\RenderTexture.hpp>
-class Tile;
+#include <SFML\Graphics\Sprite.hpp>
+#include "Tile.h"
+#include "FontDefiner.hpp"
 class GameObject;
+class Message;
 class Gfx
 {
 public:
@@ -23,7 +26,7 @@ public:
     #pragma endregion
 
     void insertDrawableObject(GameObject* drawableEntity);	
-
+	void removeFromDrawList(GameObject* objectToRemove);
     sf::View camera; 
     std::vector<std::vector<Tile*>> tileList;
 
@@ -31,14 +34,24 @@ public:
     void Draw();
     void DrawBG();
     std::vector<GameObject*> selectedDrawList;
+	std::vector<Tile> foregroundSpriteList;
     //sf::RenderTexture rex;
 
+	void requestBackground(Tile bg);
+	void insertDrawableForeground(Tile fg);
+	void removeFromForegroundList(Tile fgToRemove);
+	void moveBackground(int x, int y,float panSpeed);
 
+	Font font;
+	std::vector<Message *> msg;
+	void insertDrawableMessage(Message* msg);
+	void removeFromMessageList(Message* msg);
+	void DrawTxt();
 private:
     //Map with all texture, key value is the name of the texture
     std::map<std::string,sf::Texture> loadedTextureMap;
     std::map<int,std::vector<GameObject*>> gameObjectDrawList;
-
+	Tile backgroundSprite;
 };
 //ReadOnly
 const Gfx* RequestGfx();

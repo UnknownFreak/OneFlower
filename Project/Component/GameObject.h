@@ -11,8 +11,9 @@ class GameObject
 {
 public:
 	GameObject();
+	GameObject(const GameObject & go);
+	//GameObject(GameObject & go);
 	GameObject(std::string _name);
-
 	~GameObject();
 	std::string name = "New GameObject";
 	std::string tag = "";

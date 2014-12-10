@@ -9,8 +9,8 @@ class RenderComponent : public IBaseComponent<RenderComponent>
 public:
 
 	RenderComponent();
+	RenderComponent(const RenderComponent & rc);
 	RenderComponent(std::string texture);
-
 	sf::Sprite sprite;
 
 	//Closer the bigger the number, Farther away less the number

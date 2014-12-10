@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.1\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Component\EnvironmentColliderComponent.h" />
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
@@ -94,11 +95,16 @@
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\CustomWindow.h" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\FloatingDamage.hpp" />
+    <ClInclude Include="Project\FloatingText.hpp" />
     <ClInclude Include="Project\Game.h" />
     <ClInclude Include="Project\Gfx.h" />
+    <ClInclude Include="Project\FontDefiner.hpp" />
+    <ClInclude Include="Project\InputBox.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave.hpp" />
+    <ClInclude Include="Project\MessageDefiner.hpp" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
@@ -109,17 +115,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
+    <ClCompile Include="Project\FloatingDamageDefiner.cpp" />
+    <ClCompile Include="Project\FloatingTextDefiner.cpp" />
+    <ClCompile Include="Project\FontHandlerDefiner.cpp" />
     <ClCompile Include="Project\GameDefiner.cpp" />
     <ClCompile Include="Project\EngineDefiner.cpp" />
     <ClCompile Include="Project\GameHandler.cpp" />
+    <ClCompile Include="Project\InputBoxDefiner.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
+    <ClCompile Include="Project\MessageHandlerDefiner.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />
     <ClCompile Include="Project\TimeDefiner.cpp" />
