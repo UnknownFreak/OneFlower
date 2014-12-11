@@ -135,7 +135,7 @@ void Gfx::Draw()
 						dc->close();
 				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				Engine::Window.draw(rc->sprite); 
+				Engine::Window.View.draw(rc->sprite); 
 				if(rc->sprite.getTexture())
 				{
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
@@ -150,19 +150,18 @@ void Gfx::Draw()
 	//Engine::Window.View.draw(sf::Sprite(rex.getTexture()));
 	//*/
 }
-void Gfx::Draw(sf::RenderWindow* Editor)
+void Gfx::DrawBG()
 {
 	
-	Engine::Window.draw(backgroundSprite.sprite);
+	Engine::Window.View.draw(backgroundSprite.sprite);
 	for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
-		Engine::Window.draw(it->sprite);
+		Engine::Window.View.draw(it->sprite);
 }
 void Gfx::DrawTxt()
 {
 	for (int i = 0; i < msg.size(); i++)
-	if(Editor)
 	{
-		msg[i]->drawMessage(&Engine::Window);
+		msg[i]->drawMessage(&Engine::Window.View);
 		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
 		RenderComponent* rc;
 		TransformComponent* tc;
@@ -173,16 +172,7 @@ void Gfx::DrawTxt()
 	}
 }
 
-			for(int j = 0; j < it->second.size(); j++)
-			{
-				rc = it->second[j]->GetComponent<RenderComponent>();
-				tc = it->second[j]->GetComponent<TransformComponent>();
-				if(rc->sprite.getTexture())
-				{
-					rc->sprite.setPosition(tc->position.x,tc->position.y);
-					Editor->draw(rc->sprite);
-				}
-			}
+
 void Gfx::insertDrawableMessage(Message* messageToDraw) 
 {
 	messageToDraw->timer.restart();
@@ -246,24 +236,4 @@ void Gfx::removeFromForegroundList(Tile fgToRemove)
 void Gfx::moveBackground(int x, int y,float panSpeed)
 {
 	backgroundSprite.sprite.setPosition(backgroundSprite.sprite.getPosition().x + (x*panSpeed), backgroundSprite.sprite.getPosition().y + (y*panSpeed));
-}
-
-void Gfx::DrawBG()
-{
-	for(int i = 0; this->tileList.size(); i++)
-	{
-		for(int j = 0; tileList.at(0).size(); j++)
-		{
-
-
-
-
-
-
-//ReadOnly, Returns a const value pointer towards gfx
-const Gfx* RequestGfx()
-{
-	return &gfx;
-		}
-	}
 }

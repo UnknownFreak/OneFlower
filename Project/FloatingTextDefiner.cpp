@@ -1,6 +1,6 @@
 #include "FloatingText.hpp"
 #include "Gfx.h"
-
+#include "Engine.hpp"
 
 FloatingText::~FloatingText()
 {
@@ -19,7 +19,7 @@ FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, 
 	offsetY = oY;
 	renderLayer = 2;
 	iconName = icoName;
-	iconSprite.setTexture(*SetGfx()->requestTexture(icoName),true);
+	iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName),true);
 	text.setString("");
 }
 FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength)
@@ -32,7 +32,7 @@ FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.
 	offsetY = ft.offsetY;
 	renderLayer = ft.renderLayer;
 	iconName = ft.iconName;
-	iconSprite.setTexture(*SetGfx()->requestTexture(iconName), true);
+	iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
 	text.setString(ft.text.getString());
 	setPosition(ft.text.getPosition().x, ft.text.getPosition().y);
 }
@@ -81,5 +81,5 @@ FloatingText& FloatingText::operator=(std::string info)
 void FloatingText::setIcon(std::string name)
 {
 	iconName = name;
-	iconSprite.setTexture(*SetGfx()->requestTexture(iconName), true);
+	iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
 }

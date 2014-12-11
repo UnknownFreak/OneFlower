@@ -2,7 +2,8 @@
 #include "Component\GameObject.h"
 #include "Tile.h"
 #include "Gfx.h"
-#include "MessageDefiner.hpp"#include "Engine.hpp"//std::vector<GameObject> allGameObject;
+#include "MessageDefiner.hpp"
+#include "Engine.hpp"//std::vector<GameObject> allGameObject;
 Game::~Game()
 {
 	for(int i = 0; i < allGameObjectPointers.size(); i++)
@@ -17,13 +18,13 @@ Game::~Game()
 
 void Game::addGameObject(GameObject* entity)
 {
-	if (mapOfGameObjects.find(entity) != mapOfGameObjects.end())
+	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
 	{
 		mapOfGameObjects[entity]++;
 	}
 	else
 	{
-		mapOfGameObjects.insert(std::pair<GameObject*, int>(entity, 1));
+		mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
 	allGameObjectPointers.push_back(entity);
 	Engine::Graphic.insertDrawableObject(entity);
@@ -33,15 +34,15 @@ void Game::addGameObject(GameObject* entity)
 
 void Game::addBackground(Tile* t)
 {
-	SetGfx()->requestBackground(*t);
+	Engine::Graphic.requestBackground(*t);
 }
 void Game::addForeground(Tile* t)
 {
-	SetGfx()->insertDrawableForeground(*t);
+	Engine::Graphic.insertDrawableForeground(*t);
 }
 void Game::requestRemovealForeground(Tile* t)
 {
-	SetGfx()->removeFromForegroundList(*t);
+	Engine::Graphic.removeFromForegroundList(*t);
 }
 
 
@@ -62,35 +63,37 @@ void Game::addGameObject(std::string name)
 }
 void Game::requestRemoveal(GameObject* entity)
 {
-	if (mapOfGameObjects.find(entity) != mapOfGameObjects.end()) {
+	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
+	{
 		mapOfGameObjects[entity]--;
-		if (mapOfGameObjects[entity] < 1) {
-			SetGfx()->removeFromDrawList(entity);
+		if(mapOfGameObjects[entity] < 1)
+		{
+			Engine::Graphic.removeFromDrawList(entity);
 			mapOfGameObjects.erase(entity);
-			for (int i = 0; i < allGameObjectPointers.size(); i++)
+			for(int i = 0; i < allGameObjectPointers.size(); i++)
 			{
-				if (allGameObjectPointers[i] == entity)
+				if(allGameObjectPointers[i] == entity)
 				{
 					allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
 					delete entity;
 					entity = 0;
 					break;
 				}
-			}		
-	for (int i = 0; i < allGameObjectPointers.size(); i++)
-	{
-		if (allGameObjectPointers[i] == entity)
+			}
+		}
+		for(int i = 0; i < allGameObjectPointers.size(); i++)
 		{
-			allGameObjectPointers.erase(allGameObjectPointers.begin()+i);
-			delete entity;
-			entity = 0;		
-			break;
+			if(allGameObjectPointers[i] == entity)
+			{
+				allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
+				delete entity;
+				entity = 0;
+				break;
+			}
 		}
 	}
-	else
-		; // do nothing
-	
 }
+
 //Find the first gameobject pointer inside the gameObjectMap and return the first positive match
 GameObject* Game::requestGameObject(std::string name)
 {
@@ -99,7 +102,7 @@ GameObject* Game::requestGameObject(std::string name)
 			return allGameObjectPointers.at(i);
 	return NULL;
 }
-const std::vector<GameObject*>* Game::requestAllGameObjecVector() const 
+const std::vector<GameObject*>* Game::requestAllGameObjecVector() const
 {
 	return &allGameObjectPointers;
 }

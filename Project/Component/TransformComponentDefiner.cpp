@@ -23,3 +23,7 @@ TransformComponent::TransformComponent():position(0,0),rotation(1,1),size(1,1)
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,size,Size);
 
 }
+TransformComponent::TransformComponent(const TransformComponent &tc):position(tc.position.x,tc.position.y),rotation(tc.rotation.x,tc.rotation.y),size(tc.size.x,tc.size.y)
+{
+
+}

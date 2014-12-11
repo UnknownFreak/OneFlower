@@ -6,8 +6,8 @@
 #include "RenderComponent.h"
 #include "TransformComponent.hpp"
 
-
-unsigned int IBaseComponent<DialogComponent>::typeID = 2222;
+std::string IBaseComponent<DialogComponent>::componentName = "DialogComponent";
+const unsigned int IBaseComponent<DialogComponent>::typeID = 2222;
 
 
 DialogComponent::~DialogComponent()
@@ -23,7 +23,7 @@ DialogComponent::DialogComponent(float dur)
 	
 	rex = new sf::RenderTexture();
 	rex->create(128, 64);
-	sprt.setTexture(*SetGfx()->requestTexture("test.png"));
+	sprt.setTexture(*Engine::Graphic.requestTexture("test.png"));
 	dialogTexture = "test.png";
 	fontName = "arial.ttf";
 	duration = dur;
@@ -34,8 +34,8 @@ void DialogComponent::show()
 {
 	if (!open)
 	{
-		sprt.setTexture(*SetGfx()->requestTexture("TestDialogChat.png"));
-		msg.text.setFont(*SetGfx()->font.requestFont(fontName));
+		sprt.setTexture(*Engine::Graphic.requestTexture("TestDialogChat.png"));
+		msg.text.setFont(*Engine::Graphic.font.requestFont(fontName));
 		msg.duration = duration;
 		msg.setColor(sf::Color::Black);
 		msg.setSize(12);
