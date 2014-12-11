@@ -21,36 +21,28 @@ public:
 
 	//Attach a derivied component 
 	void AddComponent(BaseComponent* componentToAdd);
-		
-	//Returns a component pointer from the componentMap
-	#pragma region GetComponent Non Const
-	/*template<class T_S>
-	T_S* GetComponent()
+	
+	template<class T>
+	//DOESNT WORK: TBD 2o14/11/30
+	void AddComponent()
 	{
-		std::string test = typeid(T_S).name();
-		std::map<std::string, BaseComponent*>::iterator it;
-		
-		for (int i = 0; i < 6; i++)
+		/*
+		//use map inbuild function to check if there is a
+		if(!componentMap.count(IBaseComponent<T>::typeID) > 0)
 		{
-			test.erase(test.begin());
-		}
-		it = componentMap.find(test);
-
-		if (it != componentMap.end())
-		{
-			T_S* ptTComponent;
-			ptTComponent = (T_S*)it->second;
-
-			return ptTComponent;
+			T* a = new T();
+			a->attachOn(this);
+			componentMap.insert(std::make_pair(IBaseComponent<T>::typeID,a));
 		}
 		else
-			return NULL;
-	}
-	//*/
+		{
+			delete componentToAttach;
+			componentToAttach = 0;
+		}
+		//*/
+	};
 
 
-#pragma endregion
-	
 	template<class T_S>
 	const T_S* ReadComponent()const
 	{
@@ -64,21 +56,23 @@ public:
 
 		return NULL;
 	}
+	
 	template<class T_S>
+	//Return reference pointer toward the component type
 	T_S* GetComponent()
-	{
+		{
 			std::map<int,BaseComponent*>::iterator it;
-
 			it = componentMap.find(IBaseComponent<T_S>::typeID);
 
 			if(it != componentMap.end())
 				return 	(T_S*)it->second;
-
-			return NULL;
+			else
+				return NULL;
 		}
 
+	std::map<int,BaseComponent*>* GetComponents() ;
 
-
+	
 protected:
 	//std::map<std::string, BaseComponent*> componentMap;
 	//List of all component that is currently attached to the GameObject
@@ -89,8 +83,6 @@ protected:
 	friend void save(Archive& archive,const GameObject& go);
 	template < class Archive>//, GameObject& go>
 	friend void load(Archive& archive,GameObject& go);
-
-
 
 };
 #endif

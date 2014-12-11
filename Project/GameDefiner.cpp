@@ -2,8 +2,19 @@
 #include "Component\GameObject.h"
 #include "Tile.h"
 #include "Gfx.h"
-#include "MessageDefiner.hpp"
-//std::vector<GameObject> allGameObject;
+#include "MessageDefiner.hpp"#include "Engine.hpp"//std::vector<GameObject> allGameObject;
+Game::~Game()
+{
+	for(int i = 0; i < allGameObjectPointers.size(); i++)
+	{
+		if(allGameObjectPointers[i])
+		{
+			delete allGameObjectPointers[i];
+			allGameObjectPointers[i] = 0;
+		}
+	}
+}
+
 void Game::addGameObject(GameObject* entity)
 {
 	if (mapOfGameObjects.find(entity) != mapOfGameObjects.end())
@@ -15,7 +26,7 @@ void Game::addGameObject(GameObject* entity)
 		mapOfGameObjects.insert(std::pair<GameObject*, int>(entity, 1));
 	}
 	allGameObjectPointers.push_back(entity);
-	SetGfx()->insertDrawableObject(entity);
+	Engine::Graphic.insertDrawableObject(entity);
 }
 
 
@@ -34,13 +45,19 @@ void Game::requestRemovealForeground(Tile* t)
 }
 
 
+
+void Game::addGameObject(GameObject* entity,Gfx* editor)
+{
+	allGameObjectPointers.push_back(entity);
+	editor->insertDrawableObject(entity);
+}
 void Game::addGameObject(std::string name)
 {
 	//GameObject entity(name);
 	/*
 	allGameObjectVector.push_back(entity);
 	this->allGameObjectPointers.push_back(&allGameObjectVector.at(allGameObjectVector.size() - 1));
-	SetGfx()->insertDrawableObject(&allGameObjectVector.at(allGameObjectVector.size()-1));
+	Engine::Graphic.insertDrawableObject(&allGameObjectVector.at(allGameObjectVector.size()-1));
 	//*/
 }
 void Game::requestRemoveal(GameObject* entity)
@@ -60,6 +77,14 @@ void Game::requestRemoveal(GameObject* entity)
 					break;
 				}
 			}		
+	for (int i = 0; i < allGameObjectPointers.size(); i++)
+	{
+		if (allGameObjectPointers[i] == entity)
+		{
+			allGameObjectPointers.erase(allGameObjectPointers.begin()+i);
+			delete entity;
+			entity = 0;		
+			break;
 		}
 	}
 	else

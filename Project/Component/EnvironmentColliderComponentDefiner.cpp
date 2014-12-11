@@ -1,18 +1,24 @@
 #include "EnvironmentColliderComponent.h"
 
-unsigned int IBaseComponent<EnvironmentColliderComponent>::typeID = 1010;
+const const unsigned int IBaseComponent<EnvironmentColliderComponent>::typeID = 1010;
+std::string IBaseComponent<EnvironmentColliderComponent>::componentName = "EnvironmentColliderComponent";
 
+
+/*
 EnvironmentColliderComponent::EnvironmentColliderComponent() {
 	componentName = "EnvironmentColliderComponent";
 
 }
 EnvironmentColliderComponent::EnvironmentColliderComponent(const EnvironmentColliderComponent &ecc){
+//*/
 	this->componentName = ecc.componentName;
+/*
 }
 
 std::string EnvironmentColliderComponent::getTypeName() {
 	return componentName;
 }
+//*/
 
 void EnvironmentColliderComponent::environmentCollision(sf::Sprite *movingSprite, sf::Sprite obstacleSprite) {
 

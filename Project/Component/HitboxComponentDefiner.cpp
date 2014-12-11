@@ -1,5 +1,6 @@
 #include "HitboxComponent.hpp"
-unsigned int IBaseComponent<HitboxComponent>::typeID = 1003;
+const unsigned int IBaseComponent<HitboxComponent>::typeID = 1003;
+std::string IBaseComponent<HitboxComponent>::componentName = "HitBoxComponent";
 HitboxComponent::HitboxComponent():size(1,1),position(0,0)
 {
 	//size = Vector2<int>(1,1);

@@ -5,11 +5,14 @@
 #include <map>
 class GameObject;
 class Tile;
+class Gfx;
 class Message;
 class Game
 {
 
 public:
+
+	~Game();
 	//Get a pointer towards a GameObject from the first match via its name
 	GameObject* requestGameObject(std::string);
 	//Get a pointer towards a GameObject via a its IdentityCode
@@ -27,9 +30,12 @@ public:
 	//Return a const pointer of all the gameobject vector
 	const std::vector<GameObject*>* requestAllGameObjecVector() const;
 
+	//Editor
+	void Game::addGameObject(GameObject* entity,Gfx*);
+
 	void requestRemoveal(GameObject* entity);
 	void Update();
-
+		
 	void addBackground(Tile* t);
 	void addForeground(Tile* t);
 	void requestRemovealForeground(Tile* t);
@@ -39,10 +45,4 @@ public:
 	std::map<GameObject*,int> mapOfGameObjects;
 
 };
-//ReadOnly, Returns a const pointer towards game
-const Game* RequestGame();
-
-//Returns a pointer value towards game
-Game* SetGame();
-
 #endif

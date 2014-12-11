@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{3db60463-3ce4-4e5f-bea6-f8198519f817}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\ComponentDefiners">
       <UniqueIdentifier>{661a0ecc-e4f7-4e12-95e6-408d42ff4078}</UniqueIdentifier>
     </Filter>
@@ -25,12 +22,36 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{526b11b0-c2ff-4c78-ab40-e79107e35739}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObject &amp; Component">
+      <UniqueIdentifier>{3db60463-3ce4-4e5f-bea6-f8198519f817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject &amp; Component\Component">
+      <UniqueIdentifier>{32bd2de5-a83e-495e-be5f-e627c175b335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Outdated">
+      <UniqueIdentifier>{91e1b987-f0cf-40e4-a5f9-21f2d96318b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ComponentDefiners\Component">
+      <UniqueIdentifier>{dfc4e1f9-dc9e-4ff1-8ac0-7f0c95bcbf5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NameSpace">
+      <UniqueIdentifier>{275f9ebd-3ae1-495d-830d-d038cec66bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor">
+      <UniqueIdentifier>{1eff5e61-3e50-40ef-b3bf-39a69983c5e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{914045b5-4ce9-45fe-9979-9345789113e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Project\test.png">
+    <Image Include="button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="buttonDown.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -40,55 +61,7 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\Component\BaseComponent.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\HitboxComponent.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\IBaseComponent.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\RenderComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\TransformComponent.hpp">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\LoadAndSave.hpp">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Tile.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Vector.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Window.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\WorldManagement.hpp">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\CustomWindow.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Gfx.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Zone.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Project\InputHandler.hpp">
@@ -97,57 +70,75 @@
     <ClInclude Include="Project\Keybind.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Time.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Project\ZoneMaker.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Component\MovementComponent.hpp">
-      <Filter>Header Files\Components</Filter>
+    <ClInclude Include="Project\EditorUI\EditorField.hpp">
+      <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Project\FontDefiner.hpp">
+    <ClInclude Include="Project\EditorUI\BaseField.hpp">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\BaseComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\HitboxComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\IBaseComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\RenderComponent.h">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\TransformComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\GameObject.h">
+      <Filter>Header Files\GameObject &amp; Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\MovementComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\LoadAndSave.hpp">
+      <Filter>Header Files\Outdated</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorUI\UIAddon.hpp">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\MessageDefiner.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Project\Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Component\DialogComponent.hpp">
-      <Filter>Header Files\Components</Filter>
+    <ClInclude Include="Project\Gfx.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Project\FloatingText.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Project\Tile.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Project\FloatingDamage.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Project\Time.hpp">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Project\InputBox.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Project\WorldManagement.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EngineWindow.hpp">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\RenderComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\TransformComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\BaseComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
     <ClCompile Include="Project\LoadAndSave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\TileDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WindowHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\WorldManagement.cpp">
@@ -159,47 +150,59 @@
     <ClCompile Include="Project\GameHandler.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
-    </ClCompile>
     <ClCompile Include="Project\ZoneMaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Zone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Project\EngineDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\InputHandler.cpp">
+    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\TimeDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Project\WindowHandler.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\BaseComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\RenderComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\TransformComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
+    <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp">
+      <Filter>Header Files\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Project\FontHandlerDefiner.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp">
+      <Filter>Header Files\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Project\MessageHandlerDefiner.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Project\EngineDefiner.cpp">
+      <Filter>Header Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners</Filter>
+    <ClCompile Include="Project\EngineHandler.cpp">
+      <Filter>Header Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Project\FloatingDamageDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\FloatingTextDefiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\InputBoxDefiner.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Project\EngineWindowDefiner.cpp">
+      <Filter>Header Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

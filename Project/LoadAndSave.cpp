@@ -118,7 +118,7 @@ void save(Archive& archive, const GameObject& go)
 			//Make directives id instead and use switches
 			if(it->first == IBaseComponent<RenderComponent>::typeID)
 			{
-				RenderComponent*  rcp = (RenderComponent*)it->second;
+				RenderComponent* rcp = (RenderComponent*)it->second;
 				archive(*rcp);
 			}
 			else if (it->first == IBaseComponent<TransformComponent>::typeID)

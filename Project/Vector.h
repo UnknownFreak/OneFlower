@@ -2,6 +2,7 @@
 #define TemplateVector
 //typedef Vector2<int> Vector2i;
 //*/
+
 template<typename T>
 struct Vector2 
 {

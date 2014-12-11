@@ -1,24 +1,31 @@
 	#ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
+
 #include <string>
 #include <cereal\access.hpp>
+
+#include <map>
+
+class BaseField;
 class GameObject;
 class BaseComponent
 {
 public:
-	virtual ~BaseComponent() = 0 {};
+	virtual ~BaseComponent() = 0{};
 	//Return a Uniq classID
-	virtual unsigned int getType() = 0;// = 0;
+	virtual const unsigned int getType() = 0;// = 0;
 
 	//Attach the component to a GameObject 
 	void attachOn(GameObject* attachTo);
 
-	//Return the type name
-	std::string getTypeName();// = 0;
+	//Copy of Registerd editor variables
+	virtual std::map<std::string,BaseField*> getFields() = 0;
 
+
+	//Return the type name
+	virtual	std::string getTypeName() = 0;
 protected:
-	//Name of the component
-	std::string componentName;// = "BaseComponent";
+// = "BaseComponent";
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;

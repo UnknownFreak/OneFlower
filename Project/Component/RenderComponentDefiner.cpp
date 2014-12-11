@@ -1,14 +1,19 @@
 #include "RenderComponent.h"
-#include "GameObject.h"
 #include "../Gfx.h"
-
-unsigned int IBaseComponent<RenderComponent>::typeID = 1002;
+#include "../Engine.hpp"
+#include "../EditorUI/UIAddon.hpp"
+const unsigned int IBaseComponent<RenderComponent>::typeID = 1002;
+std::string IBaseComponent<RenderComponent>::componentName = "RenderComponent";
 
 RenderComponent::RenderComponent()
 {
-	componentName = "RenderComponent";
-	sprite.setTexture(*SetGfx()->requestTexture(textureName));
+	sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
 	sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);
+
+	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
+	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
+
+
 
 }
 RenderComponent::RenderComponent(const RenderComponent &rcp)
@@ -24,7 +29,6 @@ RenderComponent::RenderComponent(std::string texture)
 {
 	componentName = "RenderComponent";
 	textureName = texture;
-	sprite.setTexture(*SetGfx()->requestTexture(textureName));
+	sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
 	sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);
-
 }

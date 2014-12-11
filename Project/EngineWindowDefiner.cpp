@@ -1,0 +1,151 @@
+ #if defined _M_IX86
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#elif defined _M_IA64
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='ia64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#elif defined _M_X64
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#else
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#endif
+
+#include "EngineWindow.hpp"
+#include "Engine.hpp"
+#include "Vector.h"
+#include "EditorUI\UIAddon.hpp"
+#include <vector>
+#pragma region Prototypes
+LRESULT CALLBACK WndProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam);
+#pragma endregion
+EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
+{
+	windowDefinedName = "EditorWindow";
+	titleBarDisplay = "Editor Window";
+
+	//The First Windows structure 
+	wc.lpszClassName = windowDefinedName;
+	wc.lpfnWndProc = WndProc;						// This function is called by windows 
+	wc.style = CS_DBLCLKS;							// Catch double-clicks 
+	wc.cbSize = sizeof (WNDCLASSEX);
+	wc.hIcon = LoadIcon(NULL,IDI_APPLICATION);
+	wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
+	wc.hCursor = LoadCursor(NULL,IDC_ARROW);
+	wc.lpszMenuName = NULL;							// No menu 
+	wc.cbClsExtra = 0;								// No extra bytes after the window class 
+	wc.cbWndExtra = 0;								// structure or the window instance 
+	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);;
+	
+	
+	if(!RegisterClassEx(&wc))
+		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
+	hWnd = CreateWindowEx
+		(
+		0,							// Extended possibilites for variation 
+		windowDefinedName,			// Classname 
+		titleBarDisplay,			// Title Text
+		WS_OVERLAPPEDWINDOW,		// default window 
+		CW_USEDEFAULT,				// Windows decides the position 
+		CW_USEDEFAULT,				// where the window ends up on the screen 
+		size.x,						// The programs width EditorUI::addTextbox
+		size.y,						// and height in pixels 
+		NULL,						// The window is a child-window to desktop 
+		NULL,						// No menu
+		hInstance,					// Program Instance handler
+		NULL						// No Window Creation data 
+		//this							
+		);
+	viewport = CreateWindow(windowDefinedName,NULL,WS_CHILD | WS_VISIBLE | WS_BORDER,viewPosition.x,viewPosition.y,800,600,hWnd,NULL,hInstance,NULL);
+	View.create(viewport);
+	HWND b = EditorUI::addButton(hWnd,"Show CMD",EditorUI::GetLocalCoordinates(viewport).right,EditorUI::GetLocalCoordinates(viewport).top,128,32,9001);
+	HWND c = EditorUI::addLabel(hWnd,"FPS: ",EditorUI::GetLocalCoordinates(b).left,EditorUI::GetLocalCoordinates(b).bottom,32,32,9002);
+	HWND d = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(c).right,EditorUI::GetLocalCoordinates(c).top,128,32,9003);
+	HWND e = EditorUI::addButton(hWnd,"Compile UI",EditorUI::GetLocalCoordinates(b).right,EditorUI::GetLocalCoordinates(b).top,128,32,9010);
+	if(!hWnd)
+	{
+		MessageBox(NULL,"Error creating window","Error",MB_OK | MB_ICONERROR);
+	}
+	else
+	{
+		ShowWindow(hWnd,1);
+		UpdateWindow(hWnd);
+	}
+}
+EngineWindow::~EngineWindow()
+{
+	for(std::map<std::string,EditorGroup>::iterator it = fieldGroup.begin(); it != fieldGroup.end(); it++)
+	{
+		for(auto controlField_it = it->second.field.begin(); controlField_it != it->second.field.end(); controlField_it++)
+		{
+			delete controlField_it->second;
+			controlField_it->second = 0;
+		}
+		DestroyWindow(it->second.hwnd);
+	}
+	
+	UnregisterClass(windowDefinedName,Engine::Window.hInstance);
+}
+void EngineWindow::cleanse()
+{
+	for(auto it = fieldGroup.begin(); it != fieldGroup.end(); it++)
+	{
+		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
+		{
+			DestroyWindow(jt->second->label);
+			DestroyWindow(jt->second->hwnd);
+		//	delete jt->second;
+		//	jt->second = 0;
+		}
+		DestroyWindow(it->second.hwnd);
+	}
+	fieldGroup.clear();
+}
+LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+{
+	switch(msg)
+	{
+	
+		case WM_CREATE:
+		{  
+			break;
+		}
+		case WM_COMMAND:
+		{	
+			switch(LOWORD(wParam))
+			{
+				case 9001:
+				{
+					 EditorUI::RedirectIOToConsole();
+					 break;
+				}
+				case 9010:
+				{
+					 //EditorUI::RedirectIOToConsole();
+					 EditorUI::CompileComponents();
+					 break;
+				}	
+			}
+			
+		}
+		case WM_KEYDOWN:
+		{
+			if(wParam == VK_ESCAPE)
+			{
+				DestroyWindow(hWnd);
+			//	SetFocus(hWnd);
+			}
+			break;
+
+		}
+		case WM_CLOSE:
+		{
+			PostQuitMessage(0);
+			break;
+		}
+		case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			break;
+		}
+	}
+	return DefWindowProc(hWnd,msg,wParam,lParam);
+}
+

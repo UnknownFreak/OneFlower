@@ -9,13 +9,17 @@ std::map<GameObject*,unsigned int> listOfGameObjectID;
 std::vector<unsigned int> listOfOldGameObjectID;
 
 unsigned int RequestID();
-
+std::map<int,BaseComponent*>* GameObject::GetComponents() 
+{
+	return &componentMap;
+}
 
 GameObject::GameObject()
 {
 	id = RequestID();
-	this->componentMap.insert(componentMap.end(),std::pair<int,BaseComponent*>(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
-	listOfGameObjectID.insert(listOfGameObjectID.end(),std::make_pair(this,id));
+	componentMap.insert(std::make_pair(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
+	listOfGameObjectID.insert(std::make_pair(this,id));
+	
 }
 /*GameObject::GameObject(GameObject & go) 
 {
@@ -48,10 +52,10 @@ GameObject::GameObject(const GameObject & go)
 
 GameObject::GameObject(std::string _name)
 {
-	id = RequestID();
 	name = _name;
-	this->componentMap.insert(componentMap.end(),std::pair<int,BaseComponent*>(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
-	listOfGameObjectID.insert(listOfGameObjectID.end(),std::make_pair(this,id));
+	id = RequestID();
+	componentMap.insert(std::make_pair(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
+	listOfGameObjectID.insert(std::make_pair(this,id));
 }
 GameObject::~GameObject()
 {
@@ -90,16 +94,15 @@ void GameObject::AddComponent(BaseComponent* componentToAttach)
 void GameObject::AddComponent(BaseComponent* componentToAttach)
 {
 	//use map inbuild function to check if there is a
-	if (!componentMap.count(componentToAttach->getType()) > 0)
+	if(!componentMap.count(componentToAttach->getType()) > 0)
 	{
 		componentToAttach->attachOn(this);
-		componentMap.insert(componentMap.end(),
-			std::make_pair
-			(
-			componentToAttach->getType(),//	->GenerateID(),
-			componentToAttach
-			)
-			);
+		componentMap.insert(std::make_pair(componentToAttach->getType(),componentToAttach));
+	}
+	else
+	{
+		delete componentToAttach;
+		componentToAttach = 0;
 	}
 }
 

@@ -1,7 +1,6 @@
 #include <Windows.h>
 #include <list>
 #include <math.h>
-#include "CustomWindow.h"
 #include "Gfx.h"
 #include "Game.h"
 #include "Component\GameObject.h"
@@ -36,10 +35,6 @@ Gfx::Gfx()
 bool Gfx::loadTexture(std::string name) 
 {
 	sf::Texture tempTexture;
-	//Remove this one day
-	std::cout << "Testing";
-
-
 	if (!tempTexture.loadFromFile(name))
 	{
 		MessageBox(0, "Error loading this file", name.c_str(), MB_OK);
@@ -52,13 +47,18 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name) 
 {
-	std::map<std::string, sf::Texture>::iterator it;
-	it = loadedTextureMap.find(name);
-	if (it != loadedTextureMap.end())
-		return &it->second;
-	if(loadTexture(name))
-		return &loadedTextureMap.find(name)->second;
-	return false;
+	
+	if(!name.empty())
+	{
+		std::map<std::string,sf::Texture>::iterator it;
+		it = loadedTextureMap.find(name);
+
+		if(it != loadedTextureMap.end())
+			return &it->second;
+		if(loadTexture(name))
+			return &loadedTextureMap.find(name)->second;
+		return false;
+	}
 }
 void Gfx::insertDrawableObject(GameObject* entityToDraw)
 {
@@ -110,6 +110,9 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 		}
 	}
 }
+
+
+
 void Gfx::Draw()
 {
 	DrawBG();
@@ -118,6 +121,7 @@ void Gfx::Draw()
 		TransformComponent* tc;
 		DialogComponent* dc;
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+		for(std::map<int,std::vector<GameObject*>>::iterator it =gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
 			{
@@ -132,16 +136,21 @@ void Gfx::Draw()
 				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
 				Engine::Window.draw(rc->sprite); 
+				if(rc->sprite.getTexture())
+				{
+					rc->sprite.setPosition(tc->position.x,tc->position.y);
+					Engine::Window.View.draw(rc->sprite);
+				}
 				
 			}
 		}
 	}
 	DrawTxt();
 	//rex.display();
-	//Engine::Window.draw(sf::Sprite(rex.getTexture()));
+	//Engine::Window.View.draw(sf::Sprite(rex.getTexture()));
 	//*/
 }
-void Gfx::DrawBG()
+void Gfx::Draw(sf::RenderWindow* Editor)
 {
 	
 	Engine::Window.draw(backgroundSprite.sprite);
@@ -151,15 +160,29 @@ void Gfx::DrawBG()
 void Gfx::DrawTxt()
 {
 	for (int i = 0; i < msg.size(); i++)
+	if(Editor)
 	{
 		msg[i]->drawMessage(&Engine::Window);
 		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
+		RenderComponent* rc;
+		TransformComponent* tc;
+		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			removeFromMessageList(msg[i]);
 		}
 	}
 }
 
+			for(int j = 0; j < it->second.size(); j++)
+			{
+				rc = it->second[j]->GetComponent<RenderComponent>();
+				tc = it->second[j]->GetComponent<TransformComponent>();
+				if(rc->sprite.getTexture())
+				{
+					rc->sprite.setPosition(tc->position.x,tc->position.y);
+					Editor->draw(rc->sprite);
+				}
+			}
 void Gfx::insertDrawableMessage(Message* messageToDraw) 
 {
 	messageToDraw->timer.restart();
@@ -177,6 +200,10 @@ void Gfx::removeFromMessageList(Message* messageToRemove)
 			break;
 		}
 	}
+
+	//rex.display();
+	//Engine::Window.View.draw(sf::Sprite(rex.getTexture()));
+	//*/
 }
 void Gfx::requestBackground(Tile bg)
 {
@@ -221,6 +248,12 @@ void Gfx::moveBackground(int x, int y,float panSpeed)
 	backgroundSprite.sprite.setPosition(backgroundSprite.sprite.getPosition().x + (x*panSpeed), backgroundSprite.sprite.getPosition().y + (y*panSpeed));
 }
 
+void Gfx::DrawBG()
+{
+	for(int i = 0; this->tileList.size(); i++)
+	{
+		for(int j = 0; tileList.at(0).size(); j++)
+		{
 
 
 
@@ -231,9 +264,6 @@ void Gfx::moveBackground(int x, int y,float panSpeed)
 const Gfx* RequestGfx()
 {
 	return &gfx;
-}
-//Returns a value pointer toward gfx
-Gfx* SetGfx()
-{
-	return &gfx;
+		}
+	}
 }

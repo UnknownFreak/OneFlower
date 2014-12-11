@@ -2,6 +2,8 @@
 #include <SFML\System\Time.hpp>
 #include <iostream>
 #include <string>
+#include "Engine.hpp"
+HWND hWnd;
 float Time::FPS()
 {
 	currentTime = clock.restart().asSeconds();
@@ -11,8 +13,10 @@ float Time::FPS()
 		timer.restart();
 		fps = 1.f / (currentTime);
 		lastTime = currentTime;
-
-		std::cout << "\nFPS: " << fps;
+		if(hWnd)
+			SetWindowText(hWnd,std::to_string(fps).c_str());
+		else
+			hWnd = GetDlgItem(Engine::Window.hWnd,9003);
 	}
 	return 0;
 }

@@ -5,6 +5,8 @@
 #include <vector>
 #include <SFML\Graphics\View.hpp>
 #include <SFML\Graphics\RenderTexture.hpp>
+#include <SFML\Graphics\RenderWindow.hpp>
+class Tile;
 #include <SFML\Graphics\Sprite.hpp>
 #include "Tile.h"
 #include "FontDefiner.hpp"
@@ -23,7 +25,7 @@ public:
 
     //request removal of texture if its not in use
     void requestRemovalOfTexture(std::string name);
-    #pragma endregion
+    #pragma endregion	
 
     void insertDrawableObject(GameObject* drawableEntity);	
 	void removeFromDrawList(GameObject* objectToRemove);
@@ -31,8 +33,9 @@ public:
     std::vector<std::vector<Tile*>> tileList;
 
     //Draw all Game object with RenderComponent attached to it
-    void Draw();
-    void DrawBG();
+	void Draw();
+	void Draw(sf::RenderWindow*);
+	void DrawBG();
     std::vector<GameObject*> selectedDrawList;
 	std::vector<Tile> foregroundSpriteList;
     //sf::RenderTexture rex;
@@ -53,9 +56,4 @@ private:
     std::map<int,std::vector<GameObject*>> gameObjectDrawList;
 	Tile backgroundSprite;
 };
-//ReadOnly
-const Gfx* RequestGfx();
-//Returns a pointer value towards 
-Gfx* SetGfx();
-
 #endif	

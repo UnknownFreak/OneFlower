@@ -4,15 +4,9 @@
 #include <string>
 #include <vector>
 
-unsigned int IBaseComponent<MovementComponent>::typeID = 1011;
+const unsigned int IBaseComponent<MovementComponent>::typeID = 1011;
+std::string IBaseComponent<MovementComponent>::componentName = "MovementComponent";
 
-MovementComponent::MovementComponent() {
-	componentName = "MovementComponent";
-}
-
-std::string MovementComponent::getTypeName() {
-	return componentName;
-}
 
 void MovementComponent::moveGameobject(std::vector<std::string> actions) {	
 	int left = 0;
