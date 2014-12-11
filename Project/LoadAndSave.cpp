@@ -45,18 +45,21 @@ void testSave()
 	GameObject test;
 	test.name = "TestPlatform";
 	
-	test.GetComponent<TransformComponent>()->position.x = 200;
-	test.GetComponent<TransformComponent>()->position.y = 300;
+	test.GetComponent<TransformComponent>()->position.x = 300;
+	test.GetComponent<TransformComponent>()->position.y = 325;
 	test.AddComponent(new HitboxComponent());
 	test.AddComponent(new RenderComponent("testCutHalf.png"));
 	zone.objects.push_back(test);
 	GameObject ground;
+
 	ground.name = "da kewl ground";
+	ground.GetComponent<TransformComponent>()->position.x = 400;
+	ground.GetComponent<TransformComponent>()->position.y = 550;
 	ground.AddComponent(new HitboxComponent());
 	ground.AddComponent(new RenderComponent("ground.marker.png"));
-	ground.GetComponent<TransformComponent>()->position.x = 0;
-	ground.GetComponent<TransformComponent>()->position.y = 500;
-	ground.GetComponent<RenderComponent>()->sprite.setScale(2,1);
+	ground.GetComponent<RenderComponent>()->sprite.setScale(2, 1);
+	ground.GetComponent<HitboxComponent>()->size.x = ground.GetComponent<HitboxComponent>()->size.x * 2;
+	
 	zone.objects.push_back(ground);
 
 	zone.setBackground(Tile("testBackground.png",400,300));
@@ -162,6 +165,11 @@ void load(Archive& archive, GameObject& go)
 			{
 				archive(rcp);
 				go.AddComponent(new RenderComponent(rcp));
+				sf::Sprite* sprite = &go.GetComponent<RenderComponent>()->sprite;
+
+				float x = sprite->getTextureRect().width;
+				float y = sprite->getTextureRect().height;
+				sprite->setOrigin(x / 2, y / 2);
 			}
 			else if (ID == IBaseComponent<TransformComponent>::typeID)
 			{

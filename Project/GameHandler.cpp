@@ -12,29 +12,18 @@
 #include "Engine.hpp"
 void Game::Update()
 {
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		Engine::Graphic.camera.move(0,1);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		Engine::Graphic.camera.move(0, 1);
 		Engine::Graphic.moveBackground(0, 1,1.5);
 	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		Engine::Graphic.camera.move(-1,0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		Engine::Graphic.camera.move(-1, 0);
 		Engine::Graphic.moveBackground(-1, 0, 1.5);
 	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		Engine::Graphic.camera.move(0,-1);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		Engine::Graphic.camera.move(0, -1);
 		Engine::Graphic.moveBackground(0, -1, 1.5);
 	}
-
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		Engine::Graphic.camera.move(1,0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		Engine::Graphic.camera.move(1, 0);
 		Engine::Graphic.moveBackground(1, 0, 1.5);

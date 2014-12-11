@@ -6,25 +6,33 @@
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
 #include "Time.hpp"
+#include "WorldManagement.hpp"
+//#include "LoadAndSave.hpp"
+
+#include <SFML\Audio.hpp>
+//#include "vld.h"
 int windowMessage();
-
-
-
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
+	
 	Engine::Window.hInstance = hInstance;
 	windowMessage();
 	return 0;
 }
 int windowMessage()
 {
+	//sf::SoundBuffer buf;
+	//buf.loadFromFile("test.wav");
+	//testSave();
+	WorldManagement world;
+	world.loadZone(1);
 	sf::Texture ab;
+		
+	/*
 	GameObject* a = new GameObject("TestiingObject");
 	a->AddComponent(new HitboxComponent());
 	a->AddComponent(new RenderComponent());
-
-
 	sf::Sprite* sprite = &a->GetComponent<RenderComponent>()->sprite;
 
 	float x = sprite->getTextureRect().width;
@@ -33,6 +41,7 @@ int windowMessage()
 	a->GetComponent<TransformComponent>()->position.x = 10;
 	
 	Engine::game.addGameObject(a);
+	//*/
 	Time time;
 	MSG Message;
 	ZeroMemory(&Message,sizeof(MSG));

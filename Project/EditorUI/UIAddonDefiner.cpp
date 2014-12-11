@@ -53,6 +53,7 @@ RECT EditorUI::GetLocalCoordinates(HWND hWnd)
 	RECT Rect;
 	GetWindowRect(hWnd,&Rect);
 	MapWindowPoints(HWND_DESKTOP,GetParent(hWnd),(LPPOINT)&Rect,2);
+	//Rect.right -= Rect.left;
 	return Rect;
 
 }

@@ -119,7 +119,6 @@ void Gfx::Draw()
 		TransformComponent* tc;
 		DialogComponent* dc;
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
-		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
 			{
@@ -162,12 +161,7 @@ void Gfx::DrawTxt()
 	{
 		msg[i]->drawMessage(&Engine::Window.View);
 		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
-		RenderComponent* rc;
-		TransformComponent* tc;
-		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
-		{
 			removeFromMessageList(msg[i]);
-		}
 	}
 }
 
