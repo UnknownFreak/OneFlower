@@ -26,7 +26,6 @@ public:
 	std::map<std::string,EditorGroup> fieldGroup;
 	HWND hWnd;
 	//std::map<std::string,HWND> Fields;
-
 private:
 	Vector2<int> size;
 	Vector2<int> viewPosition;
@@ -34,6 +33,7 @@ private:
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;
 	WNDCLASSEX wc;
+	HWND focusWindow;
 
 };
 #endif

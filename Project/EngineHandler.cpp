@@ -8,9 +8,10 @@
 #include <Windows.h>
 void EngineWindow::setGameObject(GameObject* t)
 {
+	DestroyWindow(focusWindow);
 	cleanse();
 	//The focused window of the selectd game object
-	HWND focusWindow = EditorUI::addEditor(Engine::Window.hWnd,"",EditorUI::GetLocalCoordinates(hWnd).right - 256,0,256,600,EditorUI::RequestID());
+	focusWindow = EditorUI::addEditor(Engine::Window.hWnd,"",EditorUI::GetLocalCoordinates(hWnd).right - 256,0,256,600,EditorUI::RequestID());
 	std::string lastName = "";
 
 	//All components from the gameObject, gameComponent_it = BaseComponent*
