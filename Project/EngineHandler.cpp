@@ -77,6 +77,9 @@ void EngineWindow::setValue(int id,std::string value)
 			int b = std::atoi(value.c_str());
 			*a->variable = b;
 		}
-		variable->holder->UpdateFromEditor();
+		if(variable->holder)
+			variable->holder->UpdateFromEditor();
+		else
+			MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error:5870",NULL);
 	}
 }

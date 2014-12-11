@@ -180,6 +180,9 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 			varX->variable = &a->variable->x;
 			varY->variable = &a->variable->y;
 
+			varX->holder = a->holder;
+			varY->holder = a->holder;
+
 
 			group->field.insert(std::make_pair(varX->ID,varX));
 			group->field.insert(std::make_pair(varY->ID,varY));
@@ -214,6 +217,8 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 			varX->variable = &a->variable->x;
 			varY->variable = &a->variable->y;
 
+			varX->holder = a->holder;
+			varY->holder = a->holder;
 
 			group->field.insert(std::make_pair(varX->ID,varX));
 			group->field.insert(std::make_pair(varY->ID,varY));

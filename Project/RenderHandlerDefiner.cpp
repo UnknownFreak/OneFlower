@@ -99,14 +99,15 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 void Gfx::removeFromDrawList(GameObject* entityToRemove)
 {
 	int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
-	for (int i = 0; gameObjectDrawList[renderID].size(); i++)
+	for(auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 	{
-		if (gameObjectDrawList[renderID][i] == entityToRemove)
+		for(int i = 0; i < it->second.size();i++)
 		{
-			// removes the entity pointer from the draw list, gfx does NOT delete the object
-			gameObjectDrawList[renderID].erase(gameObjectDrawList[renderID].begin() + i);
-
-			break;
+			if(it->second[i] == entityToRemove)
+			{
+				it->second.erase(it->second.begin()+i);
+				break;
+			}
 		}
 	}
 }
@@ -136,6 +137,7 @@ void Gfx::Draw()
 				if(rc->sprite.getTexture())
 				{
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
+					rc->sprite.setRotation(tc->rotation.x);
 					Engine::Window.View.draw(rc->sprite);
 				}
 				

@@ -16,7 +16,7 @@ REGISTER_EDITOR_TYPE(std::vector<float>)
 REGISTER_EDITOR_TYPE(std::vector<double>)
 REGISTER_EDITOR_TYPE(std::vector<std::string>)
 //a::Transform;
-TransformComponent::TransformComponent():position(0,0),rotation(1,1),size(1,1)
+TransformComponent::TransformComponent():position(0,0),rotation(0,1),size(1,1)
 {
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,rotation,Rotation);
