@@ -21,7 +21,7 @@ public:
 		return editorFields;
 	}
 	
-	//Name of the component
+	//Name of the componentn
 	static std::string componentName;
 	static const unsigned int typeID;
 	std::map<std::string,BaseField*> editorFields;

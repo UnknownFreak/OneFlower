@@ -20,7 +20,7 @@ public:
 
 	//Copy of Registerd editor variables
 	virtual std::map<std::string,BaseField*> getFields() = 0;
-
+	virtual bool UpdateFromEditor() ;
 
 	//Return the type name
 	virtual	std::string getTypeName() = 0;

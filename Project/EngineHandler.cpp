@@ -62,11 +62,21 @@ void EngineWindow::setValue(int id,std::string value)
 		if(variable->getType() == EditorField<int>::type)
 		{
 			EditorField<int>* a = static_cast<EditorField<int>*>(variable);
-			int b = 
-				std::atoi(value.c_str());
-
+			int b = std::atoi(value.c_str());
 			*a->variable = b;
-
 		}
+		else if(variable->getType() == EditorField<double>::type)
+		{
+			EditorField<double>* a = static_cast<EditorField<double>*>(variable);
+			int b = std::atoi(value.c_str());
+			*a->variable = b;
+		}
+		else if(variable->getType() == EditorField<std::string>::type)
+		{
+			EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
+			int b = std::atoi(value.c_str());
+			*a->variable = b;
+		}
+		variable->holder->UpdateFromEditor();
 	}
 }

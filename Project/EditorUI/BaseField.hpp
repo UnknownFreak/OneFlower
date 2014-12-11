@@ -11,6 +11,7 @@ enum FieldFlag
 
 
 };
+class BaseComponent;
 class BaseField
 {
 public:
@@ -32,6 +33,8 @@ public:
 	//ID for Hwnd
 	int ID;
 
-		
+	//Owner of Variable
+	BaseComponent* holder;
+
 };
 #endif

@@ -154,38 +154,72 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 	{
 		if(variable->getType() == EditorField<Vector2<int>>::type)
 			#pragma region Vector2<int>
-	{
-		EditorField<Vector2<int>>* a = static_cast<EditorField<Vector2<int>>*>(variable);
-		EditorField<int>* varX = new EditorField<int>(&a->variable->x,a->name + ".x");
-		EditorField<int>* varY = new EditorField<int>(&a->variable->y,a->name + ".y");
-		std::string valueNigo = "";
+		{
+			EditorField<Vector2<int>>* a = static_cast<EditorField<Vector2<int>>*>(variable);
+			EditorField<int>* varX = new EditorField<int>(&a->variable->x,a->name + ".x");
+			EditorField<int>* varY = new EditorField<int>(&a->variable->y,a->name + ".y");
+			std::string valueNigo = "";
 
-		value = std::to_string(a->variable->x);
-		valueNigo = std::to_string(a->variable->y);
+			value = std::to_string(a->variable->x);
+			valueNigo = std::to_string(a->variable->y);
 
-		//variable->hwnd = addComponentGroup(group->hwnd,"",0,y,width,height +4,variable->ID);
-		//variable->label = addLabel(group->hwnd,variable->name,0,0,width,16,RequestID());
+			//variable->hwnd = addComponentGroup(group->hwnd,"",0,y,width,height +4,variable->ID);
+			//variable->label = addLabel(group->hwnd,variable->name,0,0,width,16,RequestID());
 
-		//Variable name	
-		varX->ID = RequestID();
-		varY->ID = RequestID();
+			//Variable name	
+			varX->ID = RequestID();
+			varY->ID = RequestID();
 
-		varX->hwnd = addTextboxInt(group->hwnd,value,x,y,64,height,varX->ID);
-		varY->hwnd = addTextboxInt(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
-
-
-		varX->flags = FieldFlag::Decimal | FieldFlag::Left;
-		varX->flags = FieldFlag::Decimal | FieldFlag::Right;
-
-		varX->variable = &a->variable->x;
-		varY->variable = &a->variable->y;
+			varX->hwnd = addTextboxInt(group->hwnd,value,x,y,64,height,varX->ID);
+			varY->hwnd = addTextboxInt(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
 
 
-		group->field.insert(std::make_pair(varX->ID,varX));
-		group->field.insert(std::make_pair(varY->ID,varY));
+			varX->flags = FieldFlag::Left;
+			varX->flags = FieldFlag::Right;
 
-	}
-#pragma endregion
+			varX->variable = &a->variable->x;
+			varY->variable = &a->variable->y;
+
+
+			group->field.insert(std::make_pair(varX->ID,varX));
+			group->field.insert(std::make_pair(varY->ID,varY));
+
+		}
+			#pragma endregion
+		if(variable->getType() == EditorField<Vector2<double>>::type)
+			#pragma region Vector2<double>
+		{
+			EditorField<Vector2<double>>* a = static_cast<EditorField<Vector2<double>>*>(variable);
+			EditorField<double>* varX = new EditorField<double>(&a->variable->x,a->name + ".x");
+			EditorField<double>* varY = new EditorField<double>(&a->variable->y,a->name + ".y");
+			std::string valueNigo = "";
+
+			value = std::to_string(a->variable->x);
+			valueNigo = std::to_string(a->variable->y);
+
+			//variable->hwnd = addComponentGroup(group->hwnd,"",0,y,width,height +4,variable->ID);
+			//variable->label = addLabel(group->hwnd,variable->name,0,0,width,16,RequestID());
+
+			//Variable name	
+			varX->ID = RequestID();
+			varY->ID = RequestID();
+
+			varX->hwnd = addTextboxInt(group->hwnd,value,x,y,64,height,varX->ID);
+			varY->hwnd = addTextboxInt(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
+
+
+			varX->flags = FieldFlag::Decimal | FieldFlag::Left;
+			varX->flags = FieldFlag::Decimal | FieldFlag::Right;
+
+			varX->variable = &a->variable->x;
+			varY->variable = &a->variable->y;
+
+
+			group->field.insert(std::make_pair(varX->ID,varX));
+			group->field.insert(std::make_pair(varY->ID,varY));
+
+		}
+			#pragma endregion
 	}
 		#pragma endregion
 	if(!value.empty())

@@ -110,9 +110,6 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 		}
 	}
 }
-
-
-
 void Gfx::Draw()
 {
 	DrawBG();
@@ -121,7 +118,7 @@ void Gfx::Draw()
 		TransformComponent* tc;
 		DialogComponent* dc;
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
-		for(std::map<int,std::vector<GameObject*>>::iterator it =gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
 			{

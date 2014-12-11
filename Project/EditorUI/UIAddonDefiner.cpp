@@ -318,7 +318,7 @@ HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,i
 		0,
 		"Edit",
 		text.c_str(),
-		WS_VISIBLE | WS_CHILD,
+		WS_VISIBLE | WS_CHILD | ES_NUMBER,
 		x,y,
 		width,height,
 		phWnd,

@@ -12,7 +12,7 @@ public:
 	RenderComponent(const RenderComponent & rc);
 	RenderComponent(std::string texture);
 	sf::Sprite sprite;
-
+	bool UpdateFromEditor();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
 	

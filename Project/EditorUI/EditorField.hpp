@@ -6,9 +6,11 @@
 #include <map>
 #include "BaseField.hpp"
 #define REGISTER_EDITOR_TYPE(x)	std::string EditorField<x>::type = #x; std::string EditorField<x>::getType(){return type;}
-#define REGISTER_EDITOR_VARIABLE(type,var,DisplayName)  EditorField<type>* DisplayName = new EditorField<type>(&var,#DisplayName); editorFields.insert(std::make_pair(#var,DisplayName));
-	
-
+#define REGISTER_EDITOR_VARIABLE(type,var,DisplayName)  EditorField<type>* DisplayName = new EditorField<type>(&var,#DisplayName); \
+editorFields.insert(std::make_pair(#var,DisplayName));\
+DisplayName->holder = this;
+		
+class BaseComponent;
 template<class T>
 class EditorField : public BaseField
 {
