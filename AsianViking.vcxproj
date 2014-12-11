@@ -123,7 +123,6 @@
   <ItemGroup>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\DialogComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp" />

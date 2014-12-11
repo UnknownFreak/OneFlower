@@ -133,6 +133,24 @@
     <ClInclude Include="Project\EngineWindow.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Component\DialogComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FloatingDamage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FloatingText.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\FontDefiner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\InputBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\MessageDefiner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\LoadAndSave.cpp">
@@ -171,9 +189,6 @@
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Component\EnvironmentColliderComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
@@ -203,6 +218,24 @@
     </ClCompile>
     <ClCompile Include="Project\EngineWindowDefiner.cpp">
       <Filter>Header Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FloatingDamageDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FloatingTextDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\FontHandlerDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputBoxDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\MessageHandlerDefiner.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

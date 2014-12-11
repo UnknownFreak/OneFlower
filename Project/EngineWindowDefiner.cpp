@@ -56,9 +56,25 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 	viewport = CreateWindow(windowDefinedName,NULL,WS_CHILD | WS_VISIBLE | WS_BORDER,viewPosition.x,viewPosition.y,800,600,hWnd,NULL,hInstance,NULL);
 	View.create(viewport);
 	HWND b = EditorUI::addButton(hWnd,"Show CMD",EditorUI::GetLocalCoordinates(viewport).right,EditorUI::GetLocalCoordinates(viewport).top,128,32,9001);
-	HWND c = EditorUI::addLabel(hWnd,"FPS: ",EditorUI::GetLocalCoordinates(b).left,EditorUI::GetLocalCoordinates(b).bottom,32,32,9002);
+	HWND c = EditorUI::addLabel(hWnd,"FPS:",EditorUI::GetLocalCoordinates(b).left,EditorUI::GetLocalCoordinates(b).bottom,32,32,9002);
 	HWND d = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(c).right,EditorUI::GetLocalCoordinates(c).top,128,32,9003);
 	HWND e = EditorUI::addButton(hWnd,"Compile UI",EditorUI::GetLocalCoordinates(b).right,EditorUI::GetLocalCoordinates(b).top,128,32,9010);
+	HWND resetFocus = EditorUI::addButton(hWnd,"UnFocus",EditorUI::GetLocalCoordinates(e).right,EditorUI::GetLocalCoordinates(b).top,128,32,9011);
+	
+	
+	
+	
+	
+	
+	
+	HWND a = EditorUI::addLabel(hWnd,"Right:",EditorUI::GetLocalCoordinates(b).left,200,128,32,9050);
+	HWND ab = EditorUI::addLabel(hWnd,"Left:",EditorUI::GetLocalCoordinates(b).left,232,128,32,9055);
+	HWND ac = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(ab).right,200,128,32,9056);
+	HWND ad = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(a).right,232,128,32,9057);
+
+
+
+
 	if(!hWnd)
 	{
 		MessageBox(NULL,"Error creating window","Error",MB_OK | MB_ICONERROR);
@@ -122,6 +138,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					 EditorUI::CompileComponents();
 					 break;
 				}	
+				case 9011:
+				{
+					Engine::Window.setGameObject(NULL);
+					break;
+				}
 			}
 			
 		}
