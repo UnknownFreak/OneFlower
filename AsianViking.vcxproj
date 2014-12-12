@@ -55,7 +55,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.1\Libs\Debug;$(SolutionDir)Lib\SFML-2.1\Libs\Release;$(SolutionDir)Lib\SFML-2.1\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.1\Libs\Debug;C:\Users\conny\Dropbox\SVN\AsianViking\VLC\lib;$(SolutionDir)Lib\SFML-2.1\Libs\Release;$(SolutionDir)Lib\SFML-2.1\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -91,7 +91,6 @@
   <ItemGroup>
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
-    <ClInclude Include="Project\Component\EnvironmentColliderComponent.h" />
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
@@ -129,9 +128,9 @@
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp" />
+    <ClCompile Include="Project\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp" />
-    <ClCompile Include="Project\EngineHandler.cpp" />
     <ClCompile Include="Project\FloatingTextDefiner.cpp" />
     <ClCompile Include="Project\FontHandlerDefiner.cpp" />
     <ClCompile Include="Project\EngineWindowDefiner.cpp" />
