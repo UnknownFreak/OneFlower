@@ -60,7 +60,7 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 	HWND d = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(c).right,EditorUI::GetLocalCoordinates(c).top,128,32,9003);
 	HWND e = EditorUI::addButton(hWnd,"Compile UI",EditorUI::GetLocalCoordinates(b).right,EditorUI::GetLocalCoordinates(b).top,128,32,9010);
 	HWND resetFocus = EditorUI::addButton(hWnd,"UnFocus",EditorUI::GetLocalCoordinates(e).right,EditorUI::GetLocalCoordinates(b).top,128,32,9011);
-	
+		
 	
 	
 	

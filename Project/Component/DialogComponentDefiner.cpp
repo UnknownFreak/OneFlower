@@ -53,6 +53,7 @@ void DialogComponent::show()
 			set coordinates relative to the object interracted to
 
 		//*/
+		//TODO: Fix this cause this apparently use alot of resources depedning on machine
 		Engine::game.addGameObject(go);
 		rex->clear(sf::Color::Transparent);
 		rex->draw(sprt);

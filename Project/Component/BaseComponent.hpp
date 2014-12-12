@@ -20,12 +20,13 @@ public:
 
 	//Copy of Registerd editor variables
 	virtual std::map<std::string,BaseField*> getFields() = 0;
+
+	//Update component whenever Editor change a variable value
 	virtual bool UpdateFromEditor() ;
 
 	//Return the type name
 	virtual	std::string getTypeName() = 0;
 protected:
-// = "BaseComponent";
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;

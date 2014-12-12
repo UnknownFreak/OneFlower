@@ -20,18 +20,29 @@ void EngineWindow::setGameObject(GameObject* t)
 		//All components from the gameObject, gameComponent_it = BaseComponent*
 		for(std::map<int,BaseComponent*>::iterator gameComponent_it = t->GetComponents()->begin(); gameComponent_it != t->GetComponents()->end(); gameComponent_it++)
 		{
+			//For spacing
 			int x = 0;
 			int y = 0;
+			//To avoid Out of range
 			if(lastName != "")
 			{
 				x = EditorUI::GetLocalCoordinates(fieldGroup.at(lastName).hwnd).left;
 				y = EditorUI::GetLocalCoordinates(fieldGroup.at(lastName).hwnd).bottom + 8;
 			}
 			EditorGroup a;
+			//Add a Component Group HWND that hold all the variable HWND
 			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,(gameComponent_it->second->getFields().size() * 32) + 32,EditorUI::RequestID());
+			
+			//Get the name of component
 			a.name = gameComponent_it->second->getTypeName();
+			
+			//Add a Label with said Component name
 			a.label = EditorUI::addLabel(a.hwnd,a.name,0,0,a.name.size() * 8,16,EditorUI::RequestID());
+			
+			//Insert the Name of the component
 			fieldGroup.insert(std::pair<std::string,EditorGroup>(gameComponent_it->second->getTypeName(),a));
+			
+			
 			lastName = gameComponent_it->second->getTypeName();
 
 
@@ -41,7 +52,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			//All Field inside each component
 			for(std::map<std::string,BaseField*>::iterator componentField_it = test.begin(); componentField_it != test.end(); componentField_it++)
 				EditorUI::Field::addField(componentField_it->second,&fieldGroup.at(gameComponent_it->second->getTypeName()));
-		}//*/
+		}
 	}
 }
 void EngineWindow::setValue(int id,std::string value)

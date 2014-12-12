@@ -144,9 +144,6 @@ void Gfx::Draw()
 		}
 	}
 	DrawTxt();
-	//rex.display();
-	//Engine::Window.View.draw(sf::Sprite(rex.getTexture()));
-	//*/
 }
 void Gfx::DrawBG()
 {
@@ -226,6 +223,7 @@ void Gfx::removeFromForegroundList(Tile fgToRemove)
 	}
 }
 
+//TODO Remove this and make the BG draw based on the position of the camera
 void Gfx::moveBackground(int x, int y,float panSpeed)
 {
 	backgroundSprite.sprite.setPosition(backgroundSprite.sprite.getPosition().x + (x*panSpeed), backgroundSprite.sprite.getPosition().y + (y*panSpeed));

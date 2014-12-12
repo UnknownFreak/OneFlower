@@ -122,6 +122,10 @@ int windowMessage()
 					}
 				}
 				#pragma endregion 
+				else if(Engine::event.type == sf::Event::GainedFocus)
+					Engine::Window.focus = true;
+				else if(Engine::event.type == sf::Event::LostFocus)
+					Engine::Window.focus = false;
 			}
 			Engine::Window.View.clear();
 			Engine::game.Update();

@@ -130,11 +130,13 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 	variable->ID = RequestID();
 	variable->label = addLabel(group->hwnd,variable->name,0,y,variable->name.size() * 8,height,RequestID());
 
+	//LOW: Keep adding diffrent types
 	if(variable->getType() == EditorField<std::string>::type)
 		#pragma region std::string
 	{
 		EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
-		variable->hwnd = addTextbox(group->hwnd,a->variable->c_str(),x,y,64,height,variable->ID);
+		value = a->variable->c_str();
+		variable->hwnd = addTextbox(group->hwnd,value,x,y,64,height,variable->ID);
 		group->field.insert(std::make_pair(variable->ID,a));
 
 	}
@@ -207,8 +209,8 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 			varX->ID = RequestID();
 			varY->ID = RequestID();
 
-			varX->hwnd = addTextboxInt(group->hwnd,value,x,y,64,height,varX->ID);
-			varY->hwnd = addTextboxInt(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
+			varX->hwnd = addTextbox(group->hwnd,value,x,y,64,height,varX->ID);
+			varY->hwnd = addTextbox(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
 
 
 			varX->flags = FieldFlag::Decimal | FieldFlag::Left;

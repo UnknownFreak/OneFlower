@@ -25,6 +25,8 @@ public:
 	//All component group, not to be confused with the control fields inside EditorGroup
 	std::map<std::string,EditorGroup> fieldGroup;
 	HWND hWnd;
+
+	bool focus = false;
 	//std::map<std::string,HWND> Fields;
 private:
 	Vector2<int> size;

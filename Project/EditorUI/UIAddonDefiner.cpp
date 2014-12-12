@@ -58,6 +58,7 @@ RECT EditorUI::GetLocalCoordinates(HWND hWnd)
 
 }
 #pragma endregion
+//LOW: Set a limit of char to TextBox
 LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
@@ -281,7 +282,7 @@ HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int 
 		0,
 		"Edit",
 		text.c_str(),
-		WS_VISIBLE | WS_CHILD,
+		WS_VISIBLE | WS_CHILD|ES_AUTOHSCROLL,
 		x,y,
 		width,height,
 		phWnd,
@@ -319,7 +320,7 @@ HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,i
 		0,
 		"Edit",
 		text.c_str(),
-		WS_VISIBLE | WS_CHILD | ES_NUMBER,
+		WS_VISIBLE | WS_CHILD | ES_NUMBER | ES_AUTOHSCROLL,
 		x,y,
 		width,height,
 		phWnd,
