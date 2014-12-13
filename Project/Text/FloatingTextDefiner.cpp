@@ -1,6 +1,6 @@
 #include "FloatingText.hpp"
-#include "Gfx.h"
-#include "Engine.hpp"
+#include "../Gfx.h"
+#include "../Engine.hpp"
 
 FloatingText::~FloatingText()
 {
@@ -8,7 +8,10 @@ FloatingText::~FloatingText()
 }
 FloatingText::FloatingText()
 {
-	renderLayer = 2;
+	duration = -1;
+	maxLength = -1;
+	offsetX = 0;
+	offsetY = 0;
 }
 FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, int oX, int oY) : Message(f,dur,l)
 {
@@ -17,7 +20,6 @@ FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, 
 	maxLength = l;
 	offsetX = oX;
 	offsetY = oY;
-	renderLayer = 2;
 	iconName = icoName;
 	iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName),true);
 	text.setString("");
@@ -30,7 +32,6 @@ FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.
 	maxLength = ft.maxLength;
 	offsetX = ft.offsetX;
 	offsetY = ft.offsetY;
-	renderLayer = ft.renderLayer;
 	iconName = ft.iconName;
 	iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
 	text.setString(ft.text.getString());
@@ -55,13 +56,13 @@ void FloatingText::move(float x, float y)
 
 void FloatingText::setPosition(int x, int y)
 {
-	text.setPosition(x, y);
-	iconSprite.setPosition(x + offsetX, y + offsetY);
+	text.setPosition(x+ offsetX, y+ offsetY);
+	iconSprite.setPosition(x , y );
 }
 void FloatingText::setPosition(float x, float y)
 {
-	text.setPosition(x, y);
-	iconSprite.setPosition(x + offsetX, y + offsetY);
+	text.setPosition(x+ offsetX, y+ offsetY);
+	iconSprite.setPosition(x , y );
 }
 void FloatingText::setOffset(int x, int y)
 {

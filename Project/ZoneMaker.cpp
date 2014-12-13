@@ -3,7 +3,7 @@ void ZoneMap::setBackground(Tile &t)
 {
 	background = t;
 }
-void ZoneMap::addGameObject(GameObject& go)
+void ZoneMap::addGameObject(GameObject* go)
 {
 	objects.push_back(go);
 }

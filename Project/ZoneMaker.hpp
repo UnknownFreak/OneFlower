@@ -13,10 +13,10 @@ public:
 	std::string name;
 	unsigned int ID;
 	Tile background;
-	std::vector<GameObject> objects;
+	std::vector<GameObject*> objects;
 	std::vector<Tile> foregrounds;
 	void setBackground(Tile &t);
-	void addGameObject(GameObject &go);
+	void addGameObject(GameObject *go);
 
 private:
 	template<class Archive>

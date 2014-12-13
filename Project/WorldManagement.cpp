@@ -37,22 +37,27 @@ WorldManagement::WorldManagement() {
 }
 // deconstructor
 WorldManagement::~WorldManagement() {
-	/*
-	for (int i = 0; i < zone->objects.size(); i++) {
-		delete zone->objects[i];
-		zone->objects[i] = nullptr;
-	}
-	//*/
+	
+
 	
 	//rmeove the last loaded zone
-	for (int i = 0; i < worldmap[lastLoadedZone]->objects.size(); i++) {
-		// request removal of GameObjects /to fix 
-		Engine::game.requestRemoveal(worldmap[lastLoadedZone]->objects[i]);
-		worldmap[lastLoadedZone]->objects[i] = nullptr;
-	}
+	for (int i = 0; i < worldmap.size(); i++)
+		// if a zone have been unloaded already
+		if (worldmap[i]) 
+			for (int j = 0; j < worldmap[i]->objects.size(); j++)
+			{
+			// request removal of GameObjects /to fix 
+			Engine::game.requestRemoveal(worldmap[i]->objects[j]);
+			worldmap[i]->objects[j] = nullptr;
+			}
+	
 	delete zone;
 	zone = nullptr;
 }
+
+
+
+// TODO remake the load structure
 // load a zone from the world, removes the old one
 void WorldManagement::worldFromZone(unsigned int zoneID) 
 {
@@ -62,11 +67,11 @@ void WorldManagement::worldFromZone(unsigned int zoneID)
 		Engine::game.addGameObject(worldmap[zoneID]->objects[i]);
 	}
 	//add background;
-	Engine::game.addBackground(&worldmap[zoneID]->getBackground());
+	Engine::game.addSprite(&worldmap[zoneID]->getBackground(),true);
 	//add foregrounds;
 	for (int i = 0; i < worldmap[zoneID]->foregrounds.size(); i++)
 	{
-		Engine::game.addForeground(&worldmap[zoneID]->foregrounds[i]);
+		Engine::game.addSprite(&worldmap[zoneID]->foregrounds[i]);
 	}
 	// when loading first zone
 	if (lastLoadedZone == 0)

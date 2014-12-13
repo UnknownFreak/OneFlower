@@ -2,7 +2,7 @@
 #include "Component\GameObject.h"
 #include "Tile.h"
 #include "Gfx.h"
-#include "MessageDefiner.hpp"
+#include "Text/MessageDefiner.hpp"
 #include "Engine.hpp"//std::vector<GameObject> allGameObject;
 Game::~Game()
 {
@@ -31,14 +31,9 @@ void Game::addGameObject(GameObject* entity)
 }
 
 
-
-void Game::addBackground(Tile* t)
+void Game::addSprite(Tile* t, bool isBackground)
 {
-	Engine::Graphic.requestBackground(*t);
-}
-void Game::addForeground(Tile* t)
-{
-	Engine::Graphic.insertDrawableForeground(*t);
+	Engine::Graphic.insertDrawableSprite(*t,isBackground);
 }
 void Game::requestRemovealForeground(Tile* t)
 {

@@ -2,7 +2,6 @@
 #include "FontDefiner.hpp"
 Message::Message()
 {
-	renderLayer = 1;
 }
 Message::~Message()
 {
@@ -11,7 +10,6 @@ Message::~Message()
 Message::Message(sf::Font& f, float dur, int length) 
 {
 	font = f;
-	renderLayer = 1;
 	text.setFont(f);
 	color = sf::Color::Black;
 	text.setColor(color);

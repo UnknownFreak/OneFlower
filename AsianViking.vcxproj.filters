@@ -43,6 +43,15 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{914045b5-4ce9-45fe-9979-9345789113e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{32873ea2-22de-4511-845d-bd9816a83d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Text">
+      <UniqueIdentifier>{3a65773f-887a-41da-824c-c68b38eb7990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Text">
+      <UniqueIdentifier>{2cac5be6-04c6-457b-b1c9-f2762807bf68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -103,9 +112,6 @@
     <ClInclude Include="Project\Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\LoadAndSave.hpp">
-      <Filter>Header Files\Outdated</Filter>
-    </ClInclude>
     <ClInclude Include="Project\EditorUI\UIAddon.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
@@ -131,21 +137,24 @@
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\DialogComponent.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\FloatingDamage.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\FloatingText.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\FontDefiner.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\InputBox.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\MessageDefiner.hpp">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\InputBox.hpp">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\LoadAndSave.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Project\Resource.h">
@@ -172,9 +181,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Zone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\TimeDefiner.cpp">
@@ -204,20 +210,11 @@
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
-    <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp">
-      <Filter>Header Files\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EngineDefiner.cpp">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\EngineWindowDefiner.cpp">
-      <Filter>Header Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\FloatingDamageDefiner.cpp">
       <Filter>Source Files</Filter>
@@ -234,8 +231,35 @@
     <ClCompile Include="Project\MessageHandlerDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\FloatingDamageDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\FloatingTextDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\FontHandlerDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\InputBoxDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\MessageHandlerDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
     <ClCompile Include="Project\EngineWindowHandler.cpp">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

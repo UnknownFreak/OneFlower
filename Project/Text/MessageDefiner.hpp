@@ -17,7 +17,6 @@ public:
 	sf::Color color;
 	sf::Text text;
 	int size;
-	int renderLayer;
 	int maxLength;
 	int marginWidth;
 	float duration;

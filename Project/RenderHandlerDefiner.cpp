@@ -128,8 +128,11 @@ void Gfx::Draw()
 				// not all gameobjects have dialogs
 				if (dc)
 				{
-					if (dc->msg.timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
+					if (dc->open)
+						dc->updateLocation();
+					if (dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
 						dc->close();
+
 				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
 				Engine::Window.View.draw(rc->sprite); 
@@ -147,7 +150,8 @@ void Gfx::Draw()
 }
 void Gfx::DrawBG()
 {
-	
+	backgroundSprite.sprite.setPosition(camera.getCenter().x*1.5f, camera.getCenter().y*1.5f);
+
 	Engine::Window.View.draw(backgroundSprite.sprite);
 	for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 		Engine::Window.View.draw(it->sprite);
@@ -168,48 +172,54 @@ void Gfx::insertDrawableMessage(Message* messageToDraw)
 	messageToDraw->timer.restart();
 	msg.push_back(messageToDraw);
 }
-void Gfx::removeFromMessageList(Message* messageToRemove)
+void Gfx::removeFromMessageList(Message* messageToRemove, bool dElete)
 {
 	for (int i = 0; i < msg.size(); i++)
 	{
 		if (msg[i] == messageToRemove)
 		{
-			msg.erase(msg.begin()+i);
-			delete messageToRemove;
-			messageToRemove = 0;
-			break;
+			if (dElete)
+			{
+				msg.erase(msg.begin() + i);
+				delete messageToRemove;
+				messageToRemove = 0;
+				break;
+			}
+			else
+			{
+				msg.erase(msg.begin() + i);
+				break;
+			}
 		}
 	}
-
-	//rex.display();
-	//Engine::Window.View.draw(sf::Sprite(rex.getTexture()));
-	//*/
-}
-void Gfx::requestBackground(Tile bg)
-{
-	backgroundSprite = bg;
-	backgroundSprite.setRepeated(true);
-	backgroundSprite.sprite.setPosition(backgroundSprite.position.x, backgroundSprite.position.y);
-
-	backgroundSprite.sprite.setTextureRect(sf::IntRect(0, 0,
-	backgroundSprite.sprite.getTexture()->getSize().x+backgroundSprite.sizeX, 
-	backgroundSprite.sprite.getTexture()->getSize().y+backgroundSprite.sizeY));
-	backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
-	
 }
 
-void Gfx::insertDrawableForeground(Tile fg)
+void Gfx::insertDrawableSprite(Tile fg, bool isBackground)
 {
-	fg.sprite.setPosition(fg.position.x, fg.position.y);
+	if (isBackground)
+	{
+		backgroundSprite = fg;
+		backgroundSprite.setRepeated(true);
+		backgroundSprite.sprite.setPosition(backgroundSprite.position.x, backgroundSprite.position.y);
 
-	fg.sprite.setTextureRect(
-	sf::IntRect(0, 0,
-	fg.sprite.getTexture()->getSize().x,
-	fg.sprite.getTexture()->getSize().y)
-	);
+		backgroundSprite.sprite.setTextureRect(sf::IntRect(0, 0,
+			backgroundSprite.sprite.getTexture()->getSize().x + backgroundSprite.sizeX,
+			backgroundSprite.sprite.getTexture()->getSize().y + backgroundSprite.sizeY));
+		backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
+	}
+	else
+	{
+		fg.sprite.setPosition(fg.position.x, fg.position.y);
 
-	fg.sprite.setOrigin(fg.sprite.getTextureRect().width / 2, fg.sprite.getTextureRect().height / 2);
-	foregroundSpriteList.push_back(fg);
+		fg.sprite.setTextureRect(
+			sf::IntRect(0, 0,
+			fg.sprite.getTexture()->getSize().x,
+			fg.sprite.getTexture()->getSize().y)
+			);
+
+		fg.sprite.setOrigin(fg.sprite.getTextureRect().width / 2, fg.sprite.getTextureRect().height / 2);
+		foregroundSpriteList.push_back(fg);
+	}
 }
 void Gfx::removeFromForegroundList(Tile fgToRemove)
 {
@@ -221,10 +231,4 @@ void Gfx::removeFromForegroundList(Tile fgToRemove)
 			break;
 		}
 	}
-}
-
-//TODO Remove this and make the BG draw based on the position of the camera
-void Gfx::moveBackground(int x, int y,float panSpeed)
-{
-	backgroundSprite.sprite.setPosition(backgroundSprite.sprite.getPosition().x + (x*panSpeed), backgroundSprite.sprite.getPosition().y + (y*panSpeed));
 }

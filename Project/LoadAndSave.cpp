@@ -18,11 +18,10 @@
 #include"Component\HitboxComponent.hpp"
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
-#include "MessageDefiner.hpp"
-#include "FloatingText.hpp"
+#include "Text/MessageDefiner.hpp"
+#include "Text/FloatingText.hpp"
 std::string versionName = "Alpha Test: 1.3v";
 CEREAL_REGISTER_ARCHIVE(RenderComponent);
-
 
 void prefabSave(const GameObject* go)
 {
@@ -42,25 +41,42 @@ void testSave()
 {
 	ZoneMap zone;
 	zone.ID = 1;
-	GameObject test;
-	test.name = "TestPlatform";
+	GameObject *test = new GameObject();
+	test->name = "TestPlatform";
 	
-	test.GetComponent<TransformComponent>()->position.x = 300;
-	test.GetComponent<TransformComponent>()->position.y = 325;
-	test.AddComponent(new HitboxComponent());
-	test.AddComponent(new RenderComponent("testCutHalf.png"));
-	zone.objects.push_back(test);
-	GameObject ground;
+	test->GetComponent<TransformComponent>()->position.x = 300;
+	test->GetComponent<TransformComponent>()->position.y = 325;
+	test->AddComponent(new HitboxComponent());
+	test->AddComponent(new RenderComponent("testCutHalf.png"));
+	zone.addGameObject(test);
+	GameObject *ground = new GameObject();
 
-	ground.name = "da kewl ground";
-	ground.GetComponent<TransformComponent>()->position.x = 400;
-	ground.GetComponent<TransformComponent>()->position.y = 550;
-	ground.AddComponent(new HitboxComponent());
-	ground.AddComponent(new RenderComponent("ground.marker.png"));
-	ground.GetComponent<RenderComponent>()->sprite.setScale(2, 1);
-	ground.GetComponent<HitboxComponent>()->size.x = ground.GetComponent<HitboxComponent>()->size.x * 2;
+	ground->name = "da kewl ground";
+	ground->GetComponent<TransformComponent>()->position.x = 400;
+	ground->GetComponent<TransformComponent>()->position.y = 550;
+	ground->AddComponent(new HitboxComponent());
+	ground->AddComponent(new RenderComponent("ground.marker.png"));
+	ground->GetComponent<RenderComponent>()->sprite.setScale(2, 1);
+	ground->GetComponent<HitboxComponent>()->size.x = ground->GetComponent<HitboxComponent>()->size.x * 2;
+	zone.addGameObject(ground);
+
+
+	GameObject *target = new GameObject();
+	target->name = "testTarget";
+	target->GetComponent<TransformComponent>()->position.x = 580;
+	target->GetComponent<TransformComponent>()->position.y = 480;
+	target->AddComponent(new HitboxComponent());
+	target->AddComponent(new RenderComponent("testTarget.png"));
 	
-	zone.objects.push_back(ground);
+	target->AddComponent(new DialogComponent(2));
+	target->GetComponent<DialogComponent>()->dialogTexture = "TestDialogChat.png";
+	target->GetComponent<DialogComponent>()->dialogMessage = "Shoot meh pl0x!";
+	target->GetComponent<DialogComponent>()->offsetX = 65;
+	target->GetComponent<DialogComponent>()->offsetY = 85;
+	target->GetComponent<DialogComponent>()->textOffsetX = 10;
+	target->GetComponent<DialogComponent>()->textOffsetY = 5;
+	
+	zone.addGameObject(target);
 
 	zone.setBackground(Tile("testBackground.png",400,300));
 	zone.background.sizeX = 4000;
@@ -77,6 +93,9 @@ void testSave()
 		cereal::BinaryOutputArchive ar(file);
 		ar(zone);
 	}
+	delete target;
+	delete ground;
+	delete test;
 	/*
 	GameObject go;
 	go.name = "testObject";
@@ -102,7 +121,6 @@ void testLoad()
 		ar(test);
 	}
 }
-
 
 
 #pragma region GameObject
@@ -278,6 +296,37 @@ void load(Archive &ar, HitboxComponent &hc)
 }
 #pragma endregion
 
+#pragma region DialogComponent
+
+template <class Archive>
+void save(Archive& ar, const DialogComponent& dc)
+{
+	ar(dc.duration);
+	ar(dc.dialogTexture);
+	ar(dc.fontName);
+	ar(*dc.msg);
+	ar(dc.offsetX);
+	ar(dc.offsetY);
+	ar(dc.dialogMessage);
+	ar(dc.textOffsetX);
+	ar(dc.textOffsetY);
+}
+
+template <class Archive>
+void load(Archive& ar, DialogComponent& dc)
+{
+	ar(dc.duration);
+	ar(dc.dialogTexture);
+	ar(dc.fontName);
+	ar(*dc.msg);
+	ar(dc.offsetX);
+	ar(dc.offsetY);
+	ar(dc.dialogMessage);
+	ar(dc.textOffsetX);
+	ar(dc.textOffsetY);
+}
+#pragma endregion
+
 #pragma region ZoneMap
 // Saves a Zone with name, id, and vector of tiles, and gameobjects
 template<class Archive>
@@ -295,7 +344,7 @@ void save(Archive &ar, const ZoneMap &zm)
 	ar(zm.objects.size());
 	for (int i = 0; i < zm.objects.size(); i++)
 	{
-		ar(zm.objects[i]);
+		ar(*zm.objects[i]);
 	}
 }
 // Loads a Zone with name, id, and vector of tiles and gameobjects
@@ -423,36 +472,12 @@ void loadZoneFile(std::string name, Zone& zone)
 }
 #pragma endregion
 
-#pragma region DialogComponent
-
-template <class Archive>
-void save(Archive& ar, const DialogComponent& dc)
-{
-	ar(dc.duration);
-	ar(dc.dialogTexture);
-	ar(dc.fontName);
-	ar(dc.msg);
-
-}
-
-template <class Archive>
-void load(Archive& ar, DialogComponent& dc)
-{
-	ar(dc.duration);
-	ar(dc.dialogTexture);
-	ar(dc.fontName);
-	ar(dc.msg);
-
-}
-#pragma endregion
-
 #pragma region Message
 template <class Archive>
 void save(Archive& ar, const Message& msg)
 {
 	std::string txt= msg.text.getString();
 	ar(msg.marginWidth);
-	ar(msg.renderLayer);
 	ar(msg.maxLength);
 	ar(msg.size);
 	ar(txt);
@@ -495,7 +520,6 @@ void save(Archive& ar, const FloatingText& msg)
 {
 	std::string txt = msg.text.getString();
 	ar(msg.marginWidth);
-	ar(msg.renderLayer);
 	ar(msg.maxLength);
 	ar(msg.size);
 	ar(txt);
@@ -516,10 +540,9 @@ void load(Archive& ar, FloatingText& msg)
 {
 	std::string iconName;
 	std::string text;
-	int x = 0;
-	int y = 0;
+	float x = 0;
+	float y = 0;
 	ar(msg.marginWidth);
-	ar(msg.renderLayer);
 	ar(msg.maxLength);
 	ar(msg.size);
 	ar(text);

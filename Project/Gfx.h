@@ -9,7 +9,7 @@
 class Tile;
 #include <SFML\Graphics\Sprite.hpp>
 #include "Tile.h"
-#include "FontDefiner.hpp"
+#include "Text/FontDefiner.hpp"
 class GameObject;
 class Message;
 class Gfx
@@ -40,15 +40,13 @@ public:
 	std::vector<Tile> foregroundSpriteList;
     //sf::RenderTexture rex;
 
-	void requestBackground(Tile bg);
-	void insertDrawableForeground(Tile fg);
+	void insertDrawableSprite(Tile fg,bool isBackground);
 	void removeFromForegroundList(Tile fgToRemove);
-	void moveBackground(int x, int y,float panSpeed);
 
 	Font font;
 	std::vector<Message *> msg;
 	void insertDrawableMessage(Message* msg);
-	void removeFromMessageList(Message* msg);
+	void removeFromMessageList(Message* msg, bool dElete = true);
 	void DrawTxt();
 private:
     //Map with all texture, key value is the name of the texture

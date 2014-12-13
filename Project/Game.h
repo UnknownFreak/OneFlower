@@ -36,8 +36,7 @@ public:
 	void requestRemoveal(GameObject* entity);
 	void Update();
 		
-	void addBackground(Tile* t);
-	void addForeground(Tile* t);
+	void addSprite(Tile* t, bool isBackground = false);
 	void requestRemovealForeground(Tile* t);
 
 //private:
