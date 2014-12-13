@@ -8,6 +8,7 @@
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
 
+#include "Resource.h"
 #include "EngineWindow.hpp"
 #include "Engine.hpp"
 #include "Vector.h"
@@ -29,7 +30,7 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 	wc.hIcon = LoadIcon(NULL,IDI_APPLICATION);
 	wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL,IDC_ARROW);
-	wc.lpszMenuName = NULL;							// No menu 
+	wc.lpszMenuName = MAKEINTRESOURCE(MENU_ID);;							// No menu 
 	wc.cbClsExtra = 0;								// No extra bytes after the window class 
 	wc.cbWndExtra = 0;								// structure or the window instance 
 	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);;
@@ -55,11 +56,11 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 		);
 	viewport = CreateWindow(windowDefinedName,NULL,WS_CHILD | WS_VISIBLE | WS_BORDER,viewPosition.x,viewPosition.y,800,600,hWnd,NULL,hInstance,NULL);
 	View.create(viewport);
-	HWND b = EditorUI::addButton(hWnd,"Show CMD",EditorUI::GetLocalCoordinates(viewport).right,EditorUI::GetLocalCoordinates(viewport).top,128,32,9001);
+	HWND b = CreateWindowEx(0,"Button","Show CMD",BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,EditorUI::GetLocalCoordinates(viewport).right,EditorUI::GetLocalCoordinates(viewport).top,128,32,hWnd,(HMENU)9001,Engine::Window.hInstance,NULL);
 	HWND c = EditorUI::addLabel(hWnd,"FPS:",EditorUI::GetLocalCoordinates(b).left,EditorUI::GetLocalCoordinates(b).bottom,32,32,9002);
 	HWND d = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(c).right,EditorUI::GetLocalCoordinates(c).top,128,32,9003);
-	HWND e = EditorUI::addButton(hWnd,"Compile UI",EditorUI::GetLocalCoordinates(b).right,EditorUI::GetLocalCoordinates(b).top,128,32,9010);
-	HWND resetFocus = EditorUI::addButton(hWnd,"UnFocus",EditorUI::GetLocalCoordinates(e).right,EditorUI::GetLocalCoordinates(b).top,128,32,9011);
+	HWND e = CreateWindowEx(0,"Button","Compile UI",BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,EditorUI::GetLocalCoordinates(b).right,EditorUI::GetLocalCoordinates(b).top,128,32,hWnd,(HMENU)9010,Engine::Window.hInstance,NULL);
+	HWND resetFocus = CreateWindowEx(0,"Button","UnFocus",BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,EditorUI::GetLocalCoordinates(e).right,EditorUI::GetLocalCoordinates(b).top,128,32,hWnd,(HMENU)9011,Engine::Window.hInstance,NULL);
 		
 	
 	

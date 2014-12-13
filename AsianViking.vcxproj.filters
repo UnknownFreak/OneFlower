@@ -148,6 +148,9 @@
     <ClInclude Include="Project\MessageDefiner.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\LoadAndSave.cpp">
@@ -234,5 +237,10 @@
     <ClCompile Include="Project\EngineWindowHandler.cpp">
       <Filter>Header Files\Engine</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project\MenuBar.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -43,6 +43,7 @@ WorldManagement::~WorldManagement() {
 		zone->objects[i] = nullptr;
 	}
 	//*/
+	
 	//rmeove the last loaded zone
 	for (int i = 0; i < worldmap[lastLoadedZone]->objects.size(); i++) {
 		// request removal of GameObjects /to fix 

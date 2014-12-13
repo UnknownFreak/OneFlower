@@ -13,20 +13,18 @@
 void Game::Update()
 {
 	//LOW: Make my own Custom Focus
-	if(!Engine::Window.focus)
+	if(Engine::Window.focus)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			Engine::Graphic.camera.move(0,1);
 			Engine::Graphic.moveBackground(0,1,1.5);
 		}
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			Engine::Graphic.camera.move(-1,0);
 			Engine::Graphic.moveBackground(-1,0,1.5);
 		}
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			Engine::Graphic.camera.move(0,-1);

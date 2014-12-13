@@ -10,11 +10,12 @@
 editorFields.insert(std::make_pair(#var,DisplayName));\
 DisplayName->holder = this;
 		
-class BaseComponent;
 template<class T>
 class EditorField : public BaseField
 {
 public:
+	//TODO Make a Copy constructor? (Because of holder)
+	//TODO Make it so that EditorField also take in a holder?
 	EditorField(T* vPt,std::string vName)
 	{
 		variable = vPt;
@@ -56,6 +57,9 @@ public:
 	std::map<int,BaseField*> field;
 
 	int variableCount = 0;
+
+
+	
 };
 
 #endif

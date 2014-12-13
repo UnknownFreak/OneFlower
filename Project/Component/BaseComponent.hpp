@@ -26,10 +26,12 @@ public:
 
 	//Return the type name
 	virtual	std::string getTypeName() = 0;
-protected:
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;
+protected:
+
+
 
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive,const BaseComponent& bc);

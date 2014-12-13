@@ -36,5 +36,8 @@ public:
 	//Owner of Variable
 	BaseComponent* holder;
 
+	//Auto call EditorComponentFunction if true
+	bool autoUpdate;
+
 };
 #endif

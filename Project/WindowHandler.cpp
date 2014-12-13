@@ -26,22 +26,23 @@ int windowMessage()
 	//buf.loadFromFile("test.wav");
 	//testSave();
 	WorldManagement world;
-	world.loadZone(1);
+	//HIGH: Make it do TRY AND CATCH EMIL!
+	//world.loadZone(1);
 	sf::Texture ab;
-		
-	/*
+	
 	GameObject* a = new GameObject("TestiingObject");
 	a->AddComponent(new HitboxComponent());
-	a->AddComponent(new RenderComponent());
+	a->AddComponent(new RenderComponent("Debug.png"));
 	sf::Sprite* sprite = &a->GetComponent<RenderComponent>()->sprite;
 
 	float x = sprite->getTextureRect().width;
 	float y = sprite->getTextureRect().height;
 	sprite->setOrigin(x / 2,y / 2);
-	a->GetComponent<TransformComponent>()->position.x = 10;
-	
+	a->GetComponent<TransformComponent>()->position.x = 400;
+	a->GetComponent<TransformComponent>()->position.y = 300;
 	Engine::game.addGameObject(a);
 	//*/
+
 	Time time;
 	MSG Message;
 	ZeroMemory(&Message,sizeof(MSG));

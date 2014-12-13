@@ -31,7 +31,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			}
 			EditorGroup a;
 			//Add a Component Group HWND that hold all the variable HWND
-			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,(gameComponent_it->second->getFields().size() * 32) + 32,EditorUI::RequestID());
+			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,((gameComponent_it->second->getFields().size()+1) * 32) + 32,EditorUI::RequestID());
 			
 			//Get the name of component
 			a.name = gameComponent_it->second->getTypeName();
@@ -46,12 +46,28 @@ void EngineWindow::setGameObject(GameObject* t)
 			lastName = gameComponent_it->second->getTypeName();
 
 
+			//LOW Fix this, Currently using test as a middleman but its not needed atm
+			//and It just a COPY of the original (Should not be a problem cause the important part is a pointer)
+
 			//Copy of Registered editor variables from Component
 			std::map<std::string,BaseField*> test = gameComponent_it->second->getFields();
-
-			//All Field inside each component
+			EditorGroup* itFG = &fieldGroup.at(gameComponent_it->second->getTypeName());
+			
+			//Add a Corresponding Field for each registered variable
 			for(std::map<std::string,BaseField*>::iterator componentField_it = test.begin(); componentField_it != test.end(); componentField_it++)
-				EditorUI::Field::addField(componentField_it->second,&fieldGroup.at(gameComponent_it->second->getTypeName()));
+				EditorUI::Field::addField(componentField_it->second,itFG);
+			
+			
+			//LOW Learn to subclass button without breaking the editor and make a update button
+			/*
+			//Add a Manual update button
+			int tempID = EditorUI::RequestID();
+			EditorField<int>* tempField = new EditorField<int>(NULL,"Update_Button");
+			tempField->holder = gameComponent_it->second->getFields().begin()->second->holder;
+			EditorUI::addLabel(itFG->hwnd,"Auto Update: ",0,(itFG->variableCount * 8) + 64 + 8,128,32,tempID);
+			itFG->field.insert(std::make_pair(tempID,tempField));
+			//*/
+		
 		}
 	}
 }

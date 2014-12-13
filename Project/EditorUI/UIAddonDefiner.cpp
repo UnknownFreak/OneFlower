@@ -21,6 +21,7 @@ std::vector<int> recycleID;
 WNDPROC prevWndProcGroup;
 WNDPROC prevWndEditor;
 WNDPROC prevWndText;
+WNDPROC prevWndButton;
 bool isDouble(char a);
 
 #pragma region HWND handler Related
@@ -165,7 +166,17 @@ LRESULT CALLBACK WndProcComponent(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam
 	}
 	return CallWindowProc(prevWndProcGroup,hwnd,msg,wParam,lParam);
 }
-
+LRESULT CALLBACK WndProcButton(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam,int groupID)
+{
+	/*
+	switch(msg)
+	{
+		default:
+			break;
+	}
+	//*/
+	return CallWindowProc(prevWndButton,hWnd,msg,wParam,lParam);
+}
 void EditorUI::RedirectIOToConsole()
 {
 	using namespace std;
@@ -272,6 +283,12 @@ HWND EditorUI::addButton(HWND phWnd,std::string buttonDisplayName,int x,int y,in
 		Engine::Window.hInstance,
 		NULL
 		);
+	/*
+	if(buttonID == 1337)
+		prevWndButton = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);	
+	if(buttonID == 1337)
+		SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcButton);*/
+	//*/
 	return hWnd;
 }
 HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
@@ -290,26 +307,9 @@ HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int 
 		Engine::Window.hInstance,
 		NULL
 		);
-
-	return hWnd;
-}
-HWND EditorUI::addLabel(HWND phWnd,std::string labelDisplay,int x,int y,int width,int height,int labelID)
-{
-	HWND hWnd;
-	hWnd = CreateWindowEx
-		(
-		0,
-		"static",
-		labelDisplay.c_str(),
-		WS_VISIBLE | WS_CHILD,
-		x,y,
-		width,height,
-		phWnd,
-		(HMENU)labelID,
-		Engine::Window.hInstance,
-		NULL
-		);
-
+	if(!prevWndText)
+		prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
+	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
 	return hWnd;
 }
 HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
@@ -331,6 +331,25 @@ HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,i
 	if(!prevWndText)
 		prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
 	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
+
+	return hWnd;
+}
+HWND EditorUI::addLabel(HWND phWnd,std::string labelDisplay,int x,int y,int width,int height,int labelID)
+{
+	HWND hWnd;
+	hWnd = CreateWindowEx
+		(
+		0,
+		"static",
+		labelDisplay.c_str(),
+		WS_VISIBLE | WS_CHILD,
+		x,y,
+		width,height,
+		phWnd,
+		(HMENU)labelID,
+		Engine::Window.hInstance,
+		NULL
+		);
 
 	return hWnd;
 }

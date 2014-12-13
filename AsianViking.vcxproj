@@ -112,6 +112,7 @@
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave.hpp" />
     <ClInclude Include="Project\MessageDefiner.hpp" />
+    <ClInclude Include="Project\Resource.h" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
@@ -148,6 +149,9 @@
     <ClCompile Include="Project\WorldManagement.cpp" />
     <ClCompile Include="Project\Zone.cpp" />
     <ClCompile Include="Project\ZoneMaker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project\MenuBar.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

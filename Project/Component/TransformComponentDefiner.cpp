@@ -21,11 +21,13 @@ TransformComponent::TransformComponent():position(0,0),rotation(0,1),size(1,1)
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,rotation,Rotation);
 	REGISTER_EDITOR_VARIABLE(Vector2<int>,size,Size);
-
 }
 TransformComponent::TransformComponent(const TransformComponent &tc):position(tc.position.x,tc.position.y),rotation(tc.rotation.x,tc.rotation.y),size(tc.size.x,tc.size.y)
 {
 	REGISTER_EDITOR_VARIABLE(Vector2<int>, position, Position);
 	REGISTER_EDITOR_VARIABLE(Vector2<int>, rotation, Rotation);
 	REGISTER_EDITOR_VARIABLE(Vector2<int>, size, Size);
+	//TODO Research if this is needed
+	//attachedOn = tc.attachedOn;
+
 }

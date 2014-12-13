@@ -21,7 +21,7 @@ public:
 
 	//Attach a derivied component 
 	void AddComponent(BaseComponent* componentToAdd);
-	
+	/*
 	template<class T>
 	//DOESNT WORK: TBD 2o14/11/30
 	void AddComponent()
@@ -39,9 +39,9 @@ public:
 			delete componentToAttach;
 			componentToAttach = 0;
 		}
-		//*/
+		//*//*
 	};
-
+//*/
 
 	template<class T_S>
 	const T_S* ReadComponent()const

@@ -17,6 +17,8 @@ public:
 
 	//Yet TBD
 	Vector2<int> rotation;
+
+	Vector2<int> test;
 private:
 
 	template<class Archive>

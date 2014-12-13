@@ -17,7 +17,7 @@ std::map<int,BaseComponent*>* GameObject::GetComponents()
 GameObject::GameObject()
 {
 	id = RequestID();
-	componentMap.insert(std::make_pair(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
+	AddComponent(new TransformComponent());
 	listOfGameObjectID.insert(std::make_pair(this,id));
 	
 }
@@ -36,6 +36,7 @@ GameObject::GameObject(const GameObject & go)
 {
 	this->id = go.id;
 	this->name = go.name;
+	
 	for (std::map<int, BaseComponent*>::const_iterator it = go.componentMap.begin(); it != go.componentMap.end(); it++) {
 		std::cout << it->second->getTypeName() << std::endl;
 		if (it->second->getType() == IBaseComponent<RenderComponent>::typeID) {
@@ -54,7 +55,7 @@ GameObject::GameObject(std::string _name)
 {
 	name = _name;
 	id = RequestID();
-	componentMap.insert(std::make_pair(IBaseComponent<TransformComponent>::typeID,new TransformComponent()));
+	AddComponent(new TransformComponent());
 	listOfGameObjectID.insert(std::make_pair(this,id));
 }
 GameObject::~GameObject()
