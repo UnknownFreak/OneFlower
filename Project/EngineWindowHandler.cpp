@@ -33,7 +33,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			}
 			EditorGroup a;
 			//Add a Component Group HWND that hold all the variable HWND
-			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,((gameComponent_it->second->getFields().size()) * 32) + 32,EditorUI::RequestID());
+			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,((gameComponent_it->second->getFields().size()) * 48) + 32,EditorUI::RequestID());
 			
 			//Get the name of component
 			a.name = gameComponent_it->second->getTypeName();
@@ -99,6 +99,6 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 		if(variable->holder)
 			variable->holder->UpdateFromEditor();
 		else
-			MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error:5870",NULL);
+			MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error: MissingHolder",NULL);
 	}
 }

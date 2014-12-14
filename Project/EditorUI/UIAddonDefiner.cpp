@@ -20,6 +20,7 @@ int currentID = 0;
 std::vector<int> recycleID;
 WNDPROC prevWndProcGroup;
 WNDPROC prevWndEditor;
+WNDPROC prevWndTextMulti;
 WNDPROC prevWndText;
 WNDPROC prevWndButton;
 bool isDouble(char a);
@@ -65,7 +66,15 @@ std::string isLetter(std::string line)
 	for(int i = 0; i < line.length(); i++)
 	{
 		c = line.at(i);      
-		if(((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.'))
+		if(
+			(c >= 'a' && c <= 'z')	|| 
+			(c >= 'A' && c <= 'Z')	|| 
+			(c >= '0' && c <= '9')	|| 
+			c == '.' ||
+			c == '!' ||
+			c == '\n'||
+			c == '\\'
+			)
 		{
 			newValue.push_back(c);
 		}
@@ -74,7 +83,7 @@ std::string isLetter(std::string line)
 }
 #pragma endregion
 //LOW: Set a limit of char to TextBox
-LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
+LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
 	{
@@ -86,10 +95,14 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			case(VK_RETURN):
 			{
 				TCHAR txt[1024];
-				GetWindowText(hwnd,txt,1024);
+				DWORD start = 0;
+				DWORD end = 0;
+				GetWindowText(hWnd,txt,1024);
 				std::string value(txt);
 				std::string newValue = "";
-				int id = GetWindowLong(hwnd,GWL_ID);
+				int id = GetWindowLong(hWnd,GWL_ID);
+				SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+
 				std::map<int,BaseField*>::iterator it;
 				for(auto i = Engine::Window.fieldGroup.begin(); i != Engine::Window.fieldGroup.end(); i++)
 				{
@@ -123,8 +136,8 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				else
 					newValue = '0';
- 				SetWindowText(hwnd,newValue.c_str());
-				SendMessage(hwnd,EM_SETSEL,newValue.size(),newValue.size());
+				SetWindowText(hWnd,newValue.c_str());
+				SendMessage(hWnd,EM_SETSEL,start,end);
 				Engine::Window.setValue(it->second,newValue);
 			}
 			#pragma endregion
@@ -135,7 +148,7 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			break;
 		}
 	}
-	return CallWindowProc(prevWndText,hwnd,msg,wParam,lParam);
+	return CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
 }
 LRESULT CALLBACK WndProcEditorFocus(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
@@ -207,6 +220,54 @@ LRESULT CALLBACK WndProcButton(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam,in
 	//*/
 	return CallWindowProc(prevWndButton,hWnd,msg,wParam,lParam);
 }
+LRESULT CALLBACK WndProcTextMulti(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+{
+	switch(msg)
+	{
+		case WM_CHAR:
+		{
+			switch(wParam)
+			{
+				case(VK_RETURN) :
+				{
+
+					TCHAR txt[1024];
+					DWORD start = 0;
+					DWORD end = 0;
+					int id = GetWindowLong(hWnd,GWL_ID);
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+					GetWindowText(hWnd,txt,1024);
+					std::string value(txt);
+					std::string newValue = "";
+					
+					
+					
+					std::map<int,BaseField*>::iterator it;
+					for(auto i = Engine::Window.fieldGroup.begin(); i != Engine::Window.fieldGroup.end(); i++)
+					{
+						it = i->second.field.find(id);
+						if(it != i->second.field.end())
+							break;
+					}
+					if(!value.empty())
+					{
+						newValue = isLetter(value);
+					}
+					else
+						newValue = "";
+
+					SetWindowText(hWnd,newValue.c_str());
+					SendMessage(hWnd,EM_SETSEL,start,end);
+					Engine::Window.setValue(it->second,newValue);
+				}
+			}
+		}
+		default:
+			break;
+	}
+	return CallWindowProc(prevWndTextMulti,hWnd,msg,wParam,lParam);
+}
+
 void EditorUI::RedirectIOToConsole()
 {
 	using namespace std;
@@ -321,7 +382,7 @@ HWND EditorUI::addButton(HWND phWnd,std::string buttonDisplayName,int x,int y,in
 	//*/
 	return hWnd;
 }
-HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID,bool normal = false)
+HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
 {
 	HWND hWnd;
 	hWnd = CreateWindowEx
@@ -361,7 +422,27 @@ HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,i
 	if(!prevWndText)
 		prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
 	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
-
+	return hWnd;
+}
+HWND EditorUI::addTextboxMulti(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
+{
+	HWND hWnd;
+	hWnd = CreateWindowEx
+		(
+		0,
+		"Edit",
+		text.c_str(),
+		WS_CHILD | WS_VISIBLE | WS_VSCROLL |ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL,
+		x,y,
+		width,height,
+		phWnd,
+		(HMENU)textboxID,
+		Engine::Window.hInstance,
+		NULL
+		);
+	if(!prevWndTextMulti)
+		prevWndTextMulti = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
+	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcTextMulti);
 	return hWnd;
 }
 HWND EditorUI::addLabel(HWND phWnd,std::string labelDisplay,int x,int y,int width,int height,int labelID)
