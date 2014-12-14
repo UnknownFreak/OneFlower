@@ -73,9 +73,6 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 	HWND ac = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(ab).right,200,128,32,9056);
 	HWND ad = EditorUI::addLabel(hWnd,"0",EditorUI::GetLocalCoordinates(a).right,232,128,32,9057);
 
-
-
-
 	if(!hWnd)
 	{
 		MessageBox(NULL,"Error creating window","Error",MB_OK | MB_ICONERROR);

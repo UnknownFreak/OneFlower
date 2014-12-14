@@ -77,7 +77,7 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 {
 	BaseField* variable = NULL;
 	std::map<int,BaseField*>::iterator it;
-
+	variable = id;
 	if(variable)
 	{
 		if(variable->getType() == EditorField<int>::type)
