@@ -9,8 +9,10 @@
 void EngineWindow::setGameObject(GameObject* t)
 {
 	int size = 256;
+	focusedGameObject = t;
 	DestroyWindow(focusWindow);
 	cleanse();
+
 	if(t)
 	{
 		//The focused window of the selectd game object
@@ -31,7 +33,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			}
 			EditorGroup a;
 			//Add a Component Group HWND that hold all the variable HWND
-			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,((gameComponent_it->second->getFields().size()+1) * 32) + 32,EditorUI::RequestID());
+			a.hwnd = EditorUI::addComponentGroup(focusWindow,"",x,y,EditorUI::GetLocalCoordinates(focusWindow).right / 2,((gameComponent_it->second->getFields().size()) * 32) + 32,EditorUI::RequestID());
 			
 			//Get the name of component
 			a.name = gameComponent_it->second->getTypeName();
@@ -71,19 +73,11 @@ void EngineWindow::setGameObject(GameObject* t)
 		}
 	}
 }
-void EngineWindow::setValue(int id,std::string value)
+void EngineWindow::setValue(BaseField* id,std::string value)
 {
 	BaseField* variable = NULL;
 	std::map<int,BaseField*>::iterator it;
-	for(auto i = Engine::Window.fieldGroup.begin(); i != Engine::Window.fieldGroup.end(); i++)
-	{
-		it = i->second.field.find(id);
-		if(it != i->second.field.end())
-		{
-			variable = it->second;
-			break;
-		}
-	}
+
 	if(variable)
 	{
 		if(variable->getType() == EditorField<int>::type)

@@ -47,7 +47,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 	{
 		EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
 		value = a->variable->c_str();
-		variable->hwnd = addTextbox(group->hwnd,value,x,y,64,height,variable->ID);
+		variable->hwnd = addTextbox(group->hwnd,value,x,y,64,height,variable->ID,true);
 		group->field.insert(std::make_pair(variable->ID,a));
 
 	}
@@ -122,8 +122,8 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group)
 			varX->ID = RequestID();
 			varY->ID = RequestID();
 
-			varX->hwnd = addTextbox(group->hwnd,value,x,y,64,height,varX->ID);
-			varY->hwnd = addTextbox(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
+			varX->hwnd = addTextbox(group->hwnd,value,x,y,64,height,varX->ID,false);
+			varY->hwnd = addTextbox(group->hwnd,valueNigo,x + 64 + 8,y,64,height,varY->ID,false);
 
 
 			varX->flags = FieldFlag::Decimal | FieldFlag::Left;

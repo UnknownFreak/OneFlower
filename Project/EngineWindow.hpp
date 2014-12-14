@@ -16,8 +16,9 @@ public:
 	void setGameObject(GameObject* gameobject);
 	void cleanse();
 
-	void setValue(BaseField* var,std::string value);
-	void setValue(int id,std::string value);
+//	void setValue(BaseField* var,std::string value);
+	void setValue(BaseField* id,std::string value);
+
 
 	HINSTANCE hInstance;
 	sf::RenderWindow View;
@@ -26,7 +27,10 @@ public:
 	std::map<std::string,EditorGroup> fieldGroup;
 	HWND hWnd;
 
-	bool focus = false;
+	bool focus = true;
+
+	GameObject* focusedGameObject = NULL;
+
 	//std::map<std::string,HWND> Fields;
 private:
 	Vector2<int> size;

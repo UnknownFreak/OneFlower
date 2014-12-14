@@ -75,27 +75,40 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				GetWindowText(hwnd,txt,1024);
 				std::string value(txt);
 				std::string newValue = "";
+				int id = GetWindowLong(hwnd,GWL_ID);
+				std::map<int,BaseField*>::iterator it;
+				for(auto i = Engine::Window.fieldGroup.begin(); i != Engine::Window.fieldGroup.end(); i++)
+				{
+					it = i->second.field.find(id);
+					if(it != i->second.field.end())
+						break;
+				}
 				if(!value.empty())
 				{
-					for(size_t i = 0; i < value.size(); i++)
+				
+					if(it->second->flags & FieldFlag::Decimal)
 					{
-						if(isDouble(value.at(i)))
-							newValue.push_back(value[i]);
+						#pragma region Decimal
+						for(size_t i = 0; i < value.size(); i++)
+						{
+							if(isDouble(value.at(i)))
+								newValue.push_back(value[i]);
+						}
+						if(!newValue.empty())
+						{
+							if(value[0] == '-')
+								newValue.insert(newValue.begin(),value[0]);
+						}
+						else
+							newValue = "0";
+#pragma endregion
 					}
-					if(!newValue.empty())
-					{
-						if(value[0] == '-')
-							newValue.insert(newValue.begin(),value[0]);
-					}
-					else
-						newValue = "0";
 				}
 				else
 					newValue = '0';
 				SetWindowText(hwnd,newValue.c_str());
 				SendMessage(hwnd,EM_SETSEL,newValue.size(),newValue.size());
-				int id = GetWindowLong(hwnd,GWL_ID);
-				Engine::Window.setValue(id,newValue);
+				Engine::Window.setValue(it->second,newValue);
 			}
 			#pragma endregion
 			return 0;
@@ -291,7 +304,7 @@ HWND EditorUI::addButton(HWND phWnd,std::string buttonDisplayName,int x,int y,in
 	//*/
 	return hWnd;
 }
-HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
+HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID,bool normal = false)
 {
 	HWND hWnd;
 	hWnd = CreateWindowEx
@@ -299,7 +312,7 @@ HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int 
 		0,
 		"Edit",
 		text.c_str(),
-		WS_VISIBLE | WS_CHILD|ES_AUTOHSCROLL,
+		WS_VISIBLE | WS_CHILD | ES_AUTOHSCROLL,
 		x,y,
 		width,height,
 		phWnd,
@@ -307,9 +320,12 @@ HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int 
 		Engine::Window.hInstance,
 		NULL
 		);
-	if(!prevWndText)
-		prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
-	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
+	if(!normal)
+	{
+		if(!prevWndText)
+			prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
+		SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
+	}
 	return hWnd;
 }
 HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)

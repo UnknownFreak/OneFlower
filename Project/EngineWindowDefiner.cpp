@@ -128,6 +128,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{	
 			switch(LOWORD(wParam))
 			{
+				#pragma region 9000
 				case 9001:
 				{
 					 EditorUI::RedirectIOToConsole();
@@ -144,6 +145,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					Engine::Window.setGameObject(NULL);
 					break;
 				}
+				#pragma endregion
 			}
 			
 		}
