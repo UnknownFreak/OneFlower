@@ -18,7 +18,6 @@ RenderComponent::RenderComponent(const RenderComponent &rcp)
 {
 	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
-	componentName = rcp.componentName;
 	textureName = rcp.textureName;
 	renderlayer = rcp.renderlayer;
 	sprite.setScale(rcp.sprite.getScale());
@@ -29,7 +28,6 @@ RenderComponent::RenderComponent(std::string texture)
 {
 	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
-	componentName = "RenderComponent";
 	textureName = texture;
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
 	sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);

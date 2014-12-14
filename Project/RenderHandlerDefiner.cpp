@@ -47,7 +47,7 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name) 
 {
-	
+	//HIGH: make it load missingtexture if texture could not be loaded
 	if(!name.empty())
 	{
 		std::map<std::string,sf::Texture>::iterator it;

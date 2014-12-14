@@ -42,7 +42,7 @@ WorldManagement::~WorldManagement() {
 	
 	//rmeove the last loaded zone
 	for (int i = 0; i < worldmap.size(); i++)
-		// if a zone have been unloaded already
+		// if a zone have been unloaded/deleted already
 		if (worldmap[i]) 
 			for (int j = 0; j < worldmap[i]->objects.size(); j++)
 			{

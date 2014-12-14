@@ -5,6 +5,7 @@
 #include "Component\HitboxComponent.hpp"
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
+#include "Component\DialogComponent.hpp"
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 //#include "LoadAndSave.hpp"
@@ -27,12 +28,12 @@ int windowMessage()
 	//testSave();
 	WorldManagement world;
 	//HIGH: Make it do TRY AND CATCH EMIL!
-	//world.loadZone(1);
+	world.loadZone(1);
 	sf::Texture ab;
 	
 	GameObject* a = new GameObject("TestiingObject");
 	a->AddComponent(new HitboxComponent());
-	a->AddComponent(new RenderComponent("Debug.png"));
+	a->AddComponent(new RenderComponent(/*"Debug.png"*/));
 	sf::Sprite* sprite = &a->GetComponent<RenderComponent>()->sprite;
 
 	float x = sprite->getTextureRect().width;
@@ -84,6 +85,7 @@ int windowMessage()
 								GameObject* ab = 0;
 								HitboxComponent* hitbox = 0;
 								TransformComponent* transform = 0;
+								DialogComponent* dialog = 0;
 								hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 								transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 								if(hitbox)
@@ -93,6 +95,9 @@ int windowMessage()
 
 									rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 									ab = Engine::game.allGameObjectPointers.at(i);
+									dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
+									if (dialog)
+										dialog->show();
 
 									int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * hitbox->size.x);
 									int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * hitbox->size.y);

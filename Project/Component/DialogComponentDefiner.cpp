@@ -154,4 +154,3 @@ void DialogComponent::close()
 		open = false;
 	}
 }
-

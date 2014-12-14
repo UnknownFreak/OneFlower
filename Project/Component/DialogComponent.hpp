@@ -37,7 +37,6 @@ public:
 	void updateLocation();
 	bool open;
 	bool dCreated;
-
 private:
 	void createDialog();
 	void createDialog(bool b);
