@@ -27,8 +27,8 @@ EngineWindow::EngineWindow():size(1366,768), viewPosition(0,0)
 	wc.lpfnWndProc = WndProc;						// This function is called by windows 
 	wc.style = CS_DBLCLKS;							// Catch double-clicks 
 	wc.cbSize = sizeof (WNDCLASSEX);
-	wc.hIcon = LoadIcon(NULL,IDI_APPLICATION);
-	wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
+	wc.hIcon = LoadIcon(GetModuleHandle(NULL),MAKEINTRESOURCE(MENU_ICON));
+	wc.hIconSm = (HICON)LoadImage(GetModuleHandle(NULL),MAKEINTRESOURCE(MENU_ICON),IMAGE_ICON,16,16,0);
 	wc.hCursor = LoadCursor(NULL,IDC_ARROW);
 	wc.lpszMenuName = MAKEINTRESOURCE(MENU_ID);;							// No menu 
 	wc.cbClsExtra = 0;								// No extra bytes after the window class 

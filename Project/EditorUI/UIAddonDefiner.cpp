@@ -23,7 +23,7 @@ WNDPROC prevWndEditor;
 WNDPROC prevWndText;
 WNDPROC prevWndButton;
 bool isDouble(char a);
-
+std::string isLetter(std::string line);
 #pragma region HWND handler Related
 int EditorUI::RequestID()
 {
@@ -35,6 +35,15 @@ int EditorUI::RequestID()
 void EditorUI::RecycleID(int i)
 {
 	recycleID.push_back(i);
+}
+RECT EditorUI::GetLocalCoordinates(HWND hWnd)
+{
+	RECT Rect;
+	GetWindowRect(hWnd,&Rect);
+	MapWindowPoints(HWND_DESKTOP,GetParent(hWnd),(LPPOINT)&Rect,2);
+	//Rect.right -= Rect.left;
+	return Rect;
+
 }
 bool isDouble(char a)
 {
@@ -49,14 +58,19 @@ bool isDouble(char a)
 	else
 		return false;
 }
-RECT EditorUI::GetLocalCoordinates(HWND hWnd)
+std::string isLetter(std::string line)
 {
-	RECT Rect;
-	GetWindowRect(hWnd,&Rect);
-	MapWindowPoints(HWND_DESKTOP,GetParent(hWnd),(LPPOINT)&Rect,2);
-	//Rect.right -= Rect.left;
-	return Rect;
-
+	std::string newValue;
+	char c;
+	for(int i = 0; i < line.length(); i++)
+	{
+		c = line.at(i);      
+		if(((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.'))
+		{
+			newValue.push_back(c);
+		}
+	}
+	return newValue;
 }
 #pragma endregion
 //LOW: Set a limit of char to TextBox
@@ -85,7 +99,6 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				if(!value.empty())
 				{
-				
 					if(it->second->flags & FieldFlag::Decimal)
 					{
 						#pragma region Decimal
@@ -103,10 +116,14 @@ LRESULT CALLBACK WndProcText(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 							newValue = "0";
 #pragma endregion
 					}
+					else 
+					{
+						newValue = isLetter(value);
+					}
 				}
 				else
 					newValue = '0';
-				SetWindowText(hwnd,newValue.c_str());
+ 				SetWindowText(hwnd,newValue.c_str());
 				SendMessage(hwnd,EM_SETSEL,newValue.size(),newValue.size());
 				Engine::Window.setValue(it->second,newValue);
 			}
@@ -320,12 +337,9 @@ HWND EditorUI::addTextbox(HWND phWnd,std::string text,int x,int y,int width,int 
 		Engine::Window.hInstance,
 		NULL
 		);
-	if(!normal)
-	{
-		if(!prevWndText)
-			prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
-		SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
-	}
+	if(!prevWndText)
+		prevWndText = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
+	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcText);
 	return hWnd;
 }
 HWND EditorUI::addTextboxInt(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID)
