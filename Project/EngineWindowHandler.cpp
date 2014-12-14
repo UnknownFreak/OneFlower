@@ -76,7 +76,6 @@ void EngineWindow::setGameObject(GameObject* t)
 void EngineWindow::setValue(BaseField* id,std::string value)
 {
 	BaseField* variable = NULL;
-	std::map<int,BaseField*>::iterator it;
 	variable = id;
 	if(variable)
 	{
@@ -95,8 +94,7 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 		else if(variable->getType() == EditorField<std::string>::type)
 		{
 			EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
-			int b = std::atoi(value.c_str());
-			*a->variable = b;
+			*a->variable = value;
 		}
 		if(variable->holder)
 			variable->holder->UpdateFromEditor();

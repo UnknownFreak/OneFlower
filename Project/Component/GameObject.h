@@ -19,6 +19,14 @@ public:
 	std::string tag = "";
 	unsigned int id;
 
+
+	template <class T>
+	void AddComponent<T>()
+	{
+
+	}
+
+
 	//Attach a derivied component 
 	void AddComponent(BaseComponent* componentToAdd);
 	/*
