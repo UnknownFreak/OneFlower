@@ -14,4 +14,4 @@ BEGIN
 	END
 END
 
-MENU_ICON ICON "favicon.ico"
+MENU_ICON ICON "icon.ico"
