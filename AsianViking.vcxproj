@@ -96,6 +96,7 @@
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
     <ClInclude Include="Project\Component\MovementComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
+    <ClInclude Include="Project\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\EditorUI\BaseField.hpp" />
     <ClInclude Include="Project\EditorUI\EditorField.hpp" />
@@ -107,6 +108,8 @@
     <ClInclude Include="Project\InputHandler.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave.hpp" />
+    <ClInclude Include="Project\Physics.hpp" />
+    <ClInclude Include="Project\PhysicsQuad.hpp" />
     <ClInclude Include="Project\Resource.h" />
     <ClInclude Include="Project\Text\FloatingDamage.hpp" />
     <ClInclude Include="Project\Text\FloatingText.hpp" />
@@ -126,7 +129,9 @@
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp" />
     <ClCompile Include="Project\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp" />
@@ -136,6 +141,9 @@
     <ClCompile Include="Project\GameHandler.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
+    <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />
+    <ClCompile Include="Project\PhysicsEngineHandler.cpp" />
+    <ClCompile Include="Project\PhysicsQuadDefiner.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Text\FloatingTextDefiner.cpp" />
@@ -144,6 +152,7 @@
     <ClCompile Include="Project\Text\MessageHandlerDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />
     <ClCompile Include="Project\TimeDefiner.cpp" />
+    <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\WorldManagement.cpp" />
     <ClCompile Include="Project\Zone.cpp" />

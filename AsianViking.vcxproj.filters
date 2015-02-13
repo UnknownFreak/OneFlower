@@ -52,6 +52,9 @@
     <Filter Include="Source Files\Text">
       <UniqueIdentifier>{2cac5be6-04c6-457b-b1c9-f2762807bf68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\PHysics">
+      <UniqueIdentifier>{9f96f943-3151-40c3-b804-5e6d8d67f1a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -160,6 +163,15 @@
     <ClInclude Include="Project\Text\FloatingText.hpp">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Physics.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\PhysicsQuad.hpp">
+      <Filter>Header Files\Game\PHysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\RigidComponent.hpp">
+      <Filter>Header Files\Game\PHysics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\LoadAndSave.cpp">
@@ -245,6 +257,24 @@
     </ClCompile>
     <ClCompile Include="Project\EngineWindowHandler.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsEngineDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsEngineHandler.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsQuadDefiner.cpp">
+      <Filter>Header Files\Game\PHysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\RigidComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\TransformComponentHandler.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\VectorDefiner.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
