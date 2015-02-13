@@ -11,13 +11,13 @@ public:
 	//Tile();
 
 	// name input for texture, and coordinates for the position
-	Tile(std::string n = "test.png",Vector2<int> pos = Vector2<int>(0,0));
+	Tile(std::string n = "test.png",Vector2 pos = Vector2(0,0));
 	// name input for texture, and x, y pos for position
 	Tile(std::string n,int x =0, int y=0);
 	Tile(const Tile &tile);
 
 	//position of the tile
-	Vector2<int> position;
+	Vector2 position;
 	//the sprite that the tile uses
 	sf::Sprite sprite;
 	// the name of the texture

@@ -7,6 +7,18 @@
 HWND hWnd;
 HWND wnd;
 HWND awnd;
+
+
+float Time::deltaTime()
+{
+	float deltaT = delta.getElapsedTime().asSeconds();
+	return deltaT;
+}
+
+
+
+
+
 float Time::FPS()
 {
 	currentTime = clock.restart().asSeconds();
@@ -28,6 +40,32 @@ float Time::FPS()
 			wnd = GetDlgItem(Engine::Window.hWnd,9056);
 			awnd = GetDlgItem(Engine::Window.hWnd,9057);
 		}
+		return 1;
 	}
 	return 0;
+}
+bool Time::time(std::string name,int sec)
+{
+	std::map<std::string,sf::Clock>::iterator it = timers.find(name);
+	if(it == timers.end())
+	{
+		it = timers.insert(std::make_pair(name,sf::Clock())).first;
+		return 0;
+	}
+	else
+	{
+		//LOW: Research if needed
+		//Make it modulus instead, Also make a custom Holder so that we can have diffrent start timer if needed
+		if(it->second.getElapsedTime().asSeconds() > sec)
+		{
+			//Make it so that it doesnt restart
+			it->second.restart();
+			return 1;
+		}
+	}
+	return 0;
+}
+void Time::remove(std::string name)
+{
+	timers.erase(name);
 }

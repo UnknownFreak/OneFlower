@@ -100,7 +100,7 @@ void DialogComponent::updateLocation()
 {
 	msg->setOffset(textOffsetX, textOffsetY);
 	//HIGH Fix this with floor and research more
-	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX + .51f, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY + .51f);
+	//msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX + .51f, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY + .51f);
 }
 //TODO Remove either this one or the other updateLocation
 void DialogComponent::createDialog(bool b)
@@ -109,7 +109,7 @@ void DialogComponent::createDialog(bool b)
 	rex->draw(sprt);
 	msg->setFont(Engine::Graphic.font.requestFont(fontName));
 	msg->duration = -1;
-	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY);
+	//msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY);
 	msg->setColor(sf::Color::Black);
 	msg->setSize(12);
 	*msg = dialogMessage;
@@ -123,7 +123,7 @@ void DialogComponent::createDialog()
 	msg->setIcon(dialogTexture);
 	msg->setFont(Engine::Graphic.font.requestFont(fontName));
 	msg->duration = -1;
-	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY);
+//	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY);
 	msg->setColor(sf::Color::Black);
 	msg->setSize(12);
 	*msg = dialogMessage;

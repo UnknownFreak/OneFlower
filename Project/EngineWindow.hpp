@@ -6,6 +6,7 @@
 #include <string>
 #include <SFML\Graphics\RenderWindow.hpp>
 #include "EditorUI\EditorField.hpp"	
+#include <vector>
 class GameObject;
 class EngineWindow
 {
@@ -16,10 +17,14 @@ public:
 	void setGameObject(GameObject* gameobject);
 	void cleanse();
 
+	void update();
+
+
 //	void setValue(BaseField* var,std::string value);
 	void setValue(BaseField* id,std::string value);
 
-
+	void print(std::string);
+	
 	HINSTANCE hInstance;
 	sf::RenderWindow View;
 
@@ -33,8 +38,9 @@ public:
 
 	//std::map<std::string,HWND> Fields;
 private:
-	Vector2<int> size;
-	Vector2<int> viewPosition;
+	std::vector<std::string> printList;
+	Vector2 size;
+	Vector2 viewPosition;
 	HWND viewport;
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;

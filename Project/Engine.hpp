@@ -5,6 +5,8 @@
 #include <SFML\Window\Event.hpp>
 #include "Gfx.h"
 #include "EngineWindow.hpp" 
+#include "Physics.hpp"
+#include "Time.hpp"
 //Game Engine
 namespace AsianVikingMotor
 {
@@ -22,9 +24,9 @@ namespace AsianVikingMotor
 	extern Gfx Graphic;
 
 	extern bool focus;
+	extern Time time;
 
-
-
+	extern PhysicsEngine Physics;
 };
 namespace Engine = AsianVikingMotor;
 namespace AVM = AsianVikingMotor;

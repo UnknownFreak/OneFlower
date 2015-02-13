@@ -4,10 +4,10 @@
 #include <string>
 enum FieldFlag
 {
-  Decimal		= (1<<0),
-  Numbers_Only	= (1<<1),
-  Right			= (1<<2),
-  Left			= (1<<3)
+  Decimal		= (1+0),
+  Numbers_Only	= (1+1),
+  Right			= (1+2),
+  Left			= (1+3)
 
 
 };

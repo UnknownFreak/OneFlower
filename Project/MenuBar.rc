@@ -2,15 +2,17 @@
 
 MENU_ID MENU
 BEGIN
-	POPUP "&File"
+	POPUP "File"
 	BEGIN
-		MENUITEM "E&xit",ID_FILE_EXIT
+		MENUITEM "Exit",ID_FILE_EXIT
 	END
 
-	POPUP "&Stuff"
+	POPUP "Add"
 	BEGIN
-		MENUITEM "&Go",ID_STUFF_GO
-		MENUITEM "G&o somewhere else",0,GRAYED
+		POPUP "Components"
+		BEGIN
+			MENUITEM "RenderComponent",ID_ADD_RENDER
+		END
 	END
 END
 

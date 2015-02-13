@@ -5,3 +5,5 @@ sf::Event Engine::event;
 Gfx Engine::Graphic;
 bool Engine::focus = true;
 EngineWindow Engine::Window;
+PhysicsEngine Engine::Physics;
+Time Engine::time;

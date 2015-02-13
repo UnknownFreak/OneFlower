@@ -26,7 +26,7 @@ GameObject::GameObject()
 	this->id = go.id;
 	this->name = go.name;
 	for (std::map<int, BaseComponent*>::iterator it = go.componentMap.begin(); it != go.componentMap.end(); it++) {
-		std::cout << it->second->getTypeName();
+		std::cout<< it->second->getTypeName();
 		//this->componentMap.insert(componentMap.end(),);
 	}
 }
@@ -38,7 +38,7 @@ GameObject::GameObject(const GameObject & go)
 	this->name = go.name;
 	
 	for (std::map<int, BaseComponent*>::const_iterator it = go.componentMap.begin(); it != go.componentMap.end(); it++) {
-		std::cout << it->second->getTypeName() << std::endl;
+		std::cout<< it->second->getTypeName() << std::endl;
 		if (it->second->getType() == IBaseComponent<RenderComponent>::typeID) {
 			this->AddComponent(new RenderComponent(*go.ReadComponent<RenderComponent>()));
 		}

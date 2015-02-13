@@ -20,36 +20,26 @@ public:
 	unsigned int id;
 
 	
-	template <class T>
-	void AddComponent()
+	template <class T,typename... Args>
+	void AddComponent(Args... as)
 	{
-	
-	};
-	//*/
-
-	//Attach a derivied component 
-	void AddComponent(BaseComponent* componentToAdd);
-	/*
-	template<class T>
-	//DOESNT WORK: TBD 2o14/11/30
-	void AddComponent()
-	{
-		/*
+		int a = IBaseComponent<T>::typeID;
 		//use map inbuild function to check if there is a
 		if(!componentMap.count(IBaseComponent<T>::typeID) > 0)
 		{
-			T* a = new T();
-			a->attachOn(this);
-			componentMap.insert(std::make_pair(IBaseComponent<T>::typeID,a));
+			BaseComponent* componentToAttach = new T(as...);
+			componentToAttach->attachOn(this);
+			componentMap.insert(std::make_pair(componentToAttach->getType(),componentToAttach));
+		
+		
 		}
-		else
-		{
-			delete componentToAttach;
-			componentToAttach = 0;
-		}
-		//*//*
+		
 	};
-//*/
+
+
+	//Attach a derivied component 
+	void AddComponent(BaseComponent* componentToAdd);
+
 
 	template<class T_S>
 	const T_S* ReadComponent()const

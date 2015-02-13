@@ -7,6 +7,7 @@ std::string IBaseComponent<RenderComponent>::componentName = "RenderComponent";
 
 RenderComponent::RenderComponent()
 {
+
 	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture); 
 	

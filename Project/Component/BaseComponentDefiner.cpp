@@ -7,7 +7,7 @@ bool BaseComponent::UpdateFromEditor()
 {
 	return false;
 }
-/*
+/*	
 std::string BaseComponent::getTypeName()
 {
 	return this->componentName;

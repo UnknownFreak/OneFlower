@@ -16,7 +16,7 @@ public:
 	virtual const unsigned int getType() = 0;// = 0;
 
 	//Attach the component to a GameObject 
-	void attachOn(GameObject* attachTo);
+	virtual void attachOn(GameObject* attachTo);
 
 	//Copy of Registerd editor variables
 	virtual std::map<std::string,BaseField*> getFields() = 0;
@@ -26,6 +26,14 @@ public:
 
 	//Return the type name
 	virtual	std::string getTypeName() = 0;
+	
+	//LOW: is this needed
+	//Send infomation what happend when colliding
+	virtual void sendCollision(GameObject* target){};
+
+	//LOW: Create a body?
+	//On hit collision
+	virtual void onCollision(GameObject* target){};
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;

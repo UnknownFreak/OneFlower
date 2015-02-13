@@ -15,7 +15,7 @@ Gfx::Gfx()
 	camera.reset(sf::FloatRect(0,0,800,600));
 /*	if(!rex.create(camera.getSize().x,camera.getSize().y))
 	{
-		std::cout << "Error creating Rex";
+		std::cout+ "Error creating Rex";
 	}
 	/*
 	for(int i = 0; i < 5; i++)
@@ -118,6 +118,7 @@ void Gfx::Draw()
 		RenderComponent* rc;
 		TransformComponent* tc;
 		DialogComponent* dc;
+		//HIGH Fix draw batches to reduce draw calls
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)

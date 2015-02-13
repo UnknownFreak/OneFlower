@@ -3,16 +3,28 @@
 #include "IBaseComponent.hpp"
 #include "../Vector.h"
 #include "cereal\access.hpp"
+#include <SFML\Graphics\Rect.hpp>
 class HitboxComponent:public IBaseComponent<HitboxComponent>
 {
 public:
 	HitboxComponent();
 	HitboxComponent(const HitboxComponent &hc);
-	//Multiply
-	Vector2<double> size;
-	//Pixel position relative to Transform
-	Vector2<int> position;
+	HitboxComponent(int width,int height);
+	//LOW: Make a Render and Transform constructor
 
+
+	//Absolute Pixel not half pixel	
+	Vector2 size;
+	
+	//Pixel position relative to Transform
+	Vector2 position;
+
+	//Rect
+	sf::Rect<int> box;
+	void attachOn(GameObject* go);
+
+
+	void onCollision();
 	void OnClick();
 private:
 	template <class Archive>

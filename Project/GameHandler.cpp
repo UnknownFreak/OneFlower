@@ -16,15 +16,15 @@ void Game::Update()
 	if(Engine::Window.focus)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			Engine::Graphic.camera.move(0,.1);
+			Engine::Graphic.camera.move(0,10);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			Engine::Graphic.camera.move(-.1,0);
+			Engine::Graphic.camera.move(-10,0);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			Engine::Graphic.camera.move(0,-.1);
-
+			Engine::Graphic.camera.move(0,-10);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			Engine::Graphic.camera.move(.1,0);
-
+			Engine::Graphic.camera.move(10,0);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			Engine::Graphic.camera.setCenter(0,0);
 		Engine::Window.View.setView(Engine::Graphic.camera);
 	}
 }

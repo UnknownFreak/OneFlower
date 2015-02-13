@@ -12,7 +12,7 @@ Tile::Tile()
 	sizeY = 0;
 }
 //*/
-Tile::Tile(std::string n, Vector2<int> pos)
+Tile::Tile(std::string n, Vector2 pos)
 {
 	name = n;
 	sprite.setTexture(*Engine::Graphic.requestTexture(n));
