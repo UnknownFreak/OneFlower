@@ -22,7 +22,7 @@ Tile::Tile(std::string n, Vector2 pos)
 	sizeX = 0;
 	sizeY = 0;
 }
-Tile::Tile(std::string n, int x, int y)
+Tile::Tile(std::string n, float x, float y)
 {
 	name = n;
 	sprite.setTexture(*Engine::Graphic.requestTexture(n));
@@ -62,4 +62,16 @@ void Tile::setRepeated(bool b)
 {
 	sf::Texture &tmp = *Engine::Graphic.requestTexture(name);
 	tmp.setRepeated(true);
+}
+void Tile::setPosition(int x, int y)
+{
+	position.x = x;
+	position.y = y;
+	sprite.setPosition(position.x, position.y);
+}
+void Tile::setPosition(float x, float y)
+{
+	position.x = x;
+	position.y = y;
+	sprite.setPosition(position.x, position.y);
 }

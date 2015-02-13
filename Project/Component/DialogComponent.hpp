@@ -2,7 +2,7 @@
 #define DIALOGCOMPONENT_HPP
 
 #include "IBaseComponent.hpp"
-#include "../Text/MessageDefiner.hpp"
+#include "../Text/Message.hpp"
 #include "../Text/FloatingText.hpp"
 #include <string>
 #include <SFML\System\Time.hpp>
@@ -13,7 +13,6 @@ class DialogComponent : public IBaseComponent<DialogComponent>
 {
 public:
 	sf::Sprite sprt;
-	std::string dialogTexture;
 	std::string fontName;
 	std::string dialogMessage;
 	
@@ -37,6 +36,7 @@ public:
 	void updateLocation();
 	bool open;
 	bool dCreated;
+	bool UpdateFromEditor();
 private:
 	void createDialog();
 	void createDialog(bool b);

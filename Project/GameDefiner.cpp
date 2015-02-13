@@ -2,7 +2,7 @@
 #include "Component\GameObject.h"
 #include "Tile.h"
 #include "Gfx.h"
-#include "Text/MessageDefiner.hpp"
+#include "Text/Message.hpp"
 #include "Engine.hpp"//std::vector<GameObject> allGameObject;
 Game::~Game()
 {

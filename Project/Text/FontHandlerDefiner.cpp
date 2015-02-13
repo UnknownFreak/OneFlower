@@ -1,5 +1,7 @@
 #include "FontDefiner.hpp"
 #include <Windows.h>
+#include "../Engine.hpp"
+#include "../Gfx.h"
 Font::Font() {
 	
 }
@@ -23,4 +25,14 @@ sf::Font* Font::requestFont(std::string name) {
 	if (loadFont(name))
 		return &font.find(name)->second;
 	return false;
+}
+
+
+MissingFontException::MissingFontException()
+{
+
+}
+sf::Font* MissingFontException::what()
+{
+	return Engine::Graphic.font.requestFont("arial.ttf");
 }

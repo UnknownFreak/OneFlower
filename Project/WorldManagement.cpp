@@ -23,7 +23,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	else
 	{
 		zone = new Zone();
-		loadZoneFile(zoneInfo.find(zoneID)->second,*	zone);
+		loadZoneFile(zoneInfo.find(zoneID)->second,*zone);
 		worldmap.insert(std::pair<unsigned int, Zone*>(zone->getID(),zone));
 		worldFromZone(zoneID);
 	}

@@ -41,6 +41,10 @@ public:
 	//Get the ID for the zone
 	int getID();
 
+
+	std::vector<Tile> getForegrounds();
+
+
 	//constructor
 	Zone(std::string name, unsigned int ID, Tile background, std::vector<Tile>tiles, std::vector<GameObject*>objects);
 	Zone();

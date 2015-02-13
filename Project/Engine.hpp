@@ -7,6 +7,7 @@
 #include "EngineWindow.hpp" 
 #include "Physics.hpp"
 #include "Time.hpp"
+#include "GraphicalUserInterface.hpp"
 //Game Engine
 namespace AsianVikingMotor
 {
@@ -27,6 +28,7 @@ namespace AsianVikingMotor
 	extern Time time;
 
 	extern PhysicsEngine Physics;
+	extern GraphicalUserInterface GUI ;
 };
 namespace Engine = AsianVikingMotor;
 namespace AVM = AsianVikingMotor;

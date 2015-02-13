@@ -130,9 +130,11 @@ void Gfx::Draw()
 				if (dc)
 				{
 					if (dc->open)
+					{
 						dc->updateLocation();
-					if (dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
-						dc->close();
+						if (dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
+							dc->close();
+					}
 
 				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
@@ -143,7 +145,6 @@ void Gfx::Draw()
 					rc->sprite.setRotation(tc->rotation.x);
 					Engine::Window.View.draw(rc->sprite);
 				}
-				
 			}
 		}
 	}

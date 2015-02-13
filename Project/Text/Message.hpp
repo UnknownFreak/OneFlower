@@ -1,5 +1,5 @@
-#ifndef MESSAGEDEFINER_HPP
-#define MESSAGEDEFINER_HPP
+#ifndef MESSAGE_HPP
+#define MESSAGE_HPP
 #include <SFML\Graphics.hpp>
 #include <SFML\Graphics\Text.hpp>
 #include <SFML\Graphics\Font.hpp>
@@ -45,7 +45,6 @@ public:
 	virtual void setPosition(float x, float y);
 
 	Message& operator=(std::string s);
-
 	virtual void drawMessage(sf::RenderWindow* rwd);
 private:
 
@@ -54,4 +53,4 @@ private:
 	template <class Archive>//, GameObject& go>
 	friend void load(Archive& archive, Message& msg);
 };
-#endif MESSAGEDEFINER_HPP
+#endif Message_HPP

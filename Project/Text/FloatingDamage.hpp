@@ -1,7 +1,7 @@
 #ifndef FLOATINGDAMAGE_HPP
 #define FLOATINGDAMAGE_HPP
 
-#include "MessageDefiner.hpp"
+#include "Message.hpp"
 #include "FloatingText.hpp"
 class FloatingDamage : public FloatingText
 {

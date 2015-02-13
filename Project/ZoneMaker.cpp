@@ -12,3 +12,11 @@ ZoneMap::ZoneMap()
 	name = "";
 	ID = 1;
 }
+
+void ZoneMap::readForegroundsVector(std::vector<Tile> tiles)
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		foregrounds.push_back(tiles[i]);
+	}
+}

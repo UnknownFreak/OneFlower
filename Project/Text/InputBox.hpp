@@ -1,6 +1,6 @@
-#ifndef INPUT_HPP
-#define INPUT_HPP
-#include "MessageDefiner.hpp"
+#ifndef INPUTBOX_HPP
+#define INPUTBOX_HPP
+#include "Message.hpp"
 #include <SFML\Graphics\VertexArray.hpp>
 class InputBox :public Message
 {
@@ -16,8 +16,6 @@ public:
 	void move(float x, float y);
 
 private:
-
-
 
 };
 

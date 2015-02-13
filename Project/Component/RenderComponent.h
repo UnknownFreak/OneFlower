@@ -3,6 +3,8 @@
 #include <SFML\Graphics\Sprite.hpp>	
 #include "IBaseComponent.hpp"
 #include "cereal\access.hpp"
+#include <exception>
+#include "../Vector.h"
 
 class RenderComponent : public IBaseComponent<RenderComponent>
 {
@@ -15,7 +17,7 @@ public:
 	bool UpdateFromEditor();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
-	
+	Vector2 size;
 	//Name of texture;
 	std::string textureName = "test.png";
 private:
@@ -25,7 +27,16 @@ private:
 	friend void load(Archive& archive, RenderComponent& rc);
 };
 
-
+class MissingTextureException : public std::exception
+{
+	friend std::ostream& operator<<(std::ostream& os, MissingTextureException& me);
+	RenderComponent* rcp;
+public:
+	
+	MissingTextureException(RenderComponent &rcp );
+	~MissingTextureException(void);
+	const RenderComponent& what();
+};
 
 
 #endif

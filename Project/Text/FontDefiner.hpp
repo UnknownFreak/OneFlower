@@ -1,10 +1,10 @@
 #ifndef FONTDEFINER_HPP
 #define FONTDEFINER_HPP
-#include "MessageDefiner.hpp"
+#include "Message.hpp"
 #include "SFML\Graphics\Font.hpp"
 #include <string>
 #include <map>
-
+#include <exception>
 class Font
 {
 public:
@@ -15,4 +15,13 @@ public:
 private:
 
 };
+
+class MissingFontException : public std::exception
+{
+public:
+	MissingFontException();
+	sf::Font* what();
+};
+
+
 #endif FONTDEFINER_HPP

@@ -25,12 +25,14 @@ int windowMessage()
 	//testSave();
 	WorldManagement world;
 	//HIGH: Make it do TRY AND CATCH EMIL!
+	//HIGH: Make it do TRY AND CATCH!
 //	world.loadZone(1);
+
 	sf::Texture ab;
 	
 	GameObject* a = new GameObject("TestiingObject");
 	a->AddComponent<RigidComponent>();
-	a->AddComponent(new RenderComponent(/*"Debug.png"*/));
+	a->AddComponent(new RenderComponent("blacktree.png"));
 	a->AddComponent<RenderComponent>("Debug.png");
 	sf::Sprite* sprite = &a->GetComponent<RenderComponent>()->sprite;
 	a->tag = "Rigid";
@@ -54,6 +56,8 @@ int windowMessage()
 	b->GetComponent<TransformComponent>()->position.x = 100;
 	b->GetComponent<TransformComponent>()->position.y = 200;
 	Engine::game.addGameObject(b);
+	Engine::GUI.setObjectToFollow(a);
+
 	//*/	
 	sf::Vector2f vec(10,10);
 	Time time;
@@ -124,7 +128,33 @@ int windowMessage()
 										Engine::Graphic.selectedDrawList.push_back(ab);
 								}
 							}
+							for (size_t i = 0; i < Engine::GUI.ActionSlot.size(); i++)
+							{
+								HitboxComponent* hcp = 0;
+								TransformComponent* tcp = 0;
+								RenderComponent* rcp = 0;
+								hcp = Engine::GUI.ActionSlot.at(i)->GetComponent<HitboxComponent>();
+								tcp = Engine::GUI.ActionSlot.at(i)->GetComponent<TransformComponent>();
+								rcp = Engine::GUI.ActionSlot.at(i)->GetComponent<RenderComponent>();
+								if (hcp)
+								{
+									sf::Vector2i pix = sf::Mouse::getPosition(Engine::Window.View);
+									sf::Vector2f world = Engine::Window.View.mapPixelToCoords(pix);
 
+									int localStartX = (tcp->position.x + (rcp->sprite.getTextureRect().width));
+									int localStartY = (tcp->position.y + (rcp->sprite.getTextureRect().height));
+									int localEndX = (tcp->position.x - (rcp->sprite.getTextureRect().width));
+									int localEndY = (tcp->position.y - (rcp->sprite.getTextureRect().height));
+
+									if (world.x <= localStartX && world.x >= localEndX &&
+										world.y <= localStartY && world.y >= localEndY
+										)
+									{
+										std::cout << Engine::GUI.ActionSlot.at(i)->name << std::endl;
+										Engine::GUI.setActiveSkill(Engine::GUI.ActionSlot.at(i)->name);
+									}
+								}
+							}
 							if(Engine::Graphic.selectedDrawList.size() > 0)
 							{
 								for(size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
@@ -184,6 +214,7 @@ int windowMessage()
 			Engine::Physics.Update();
 			Engine::Graphic.Draw();		
 
+			Engine::GUI.Draw();
 			Engine::Window.View.display();
 
 			Engine::time.delta.restart();

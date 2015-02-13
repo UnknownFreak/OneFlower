@@ -7,3 +7,4 @@ bool Engine::focus = true;
 EngineWindow Engine::Window;
 PhysicsEngine Engine::Physics;
 Time Engine::time;
+GraphicalUserInterface Engine::GUI;

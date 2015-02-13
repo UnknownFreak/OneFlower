@@ -7,6 +7,7 @@ class GameObject;
 class Tile;
 class Gfx;
 class Message;
+class GUI;
 class Game
 {
 

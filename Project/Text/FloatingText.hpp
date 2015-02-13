@@ -1,18 +1,17 @@
 #ifndef FLOATINGTEXT_HPP
 #define FLOATINGTEXT_HPP
 
-
-#include "MessageDefiner.hpp"
+#include "Message.hpp"
 #include <string>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics.hpp>
+#include <exception>
 class FloatingText : public Message
 {
 public:
 	
 	/*
 	Variables
-
 	//*/
 	std::string iconName;
 	sf::Sprite iconSprite;
@@ -45,6 +44,16 @@ private:
 	friend void save(Archive& ar, const FloatingText& ft);
 	template<class Archive>
 	friend void load(Archive& ar, FloatingText& ft);
+};
+
+class MissingIconException : public std::exception
+{
+	sf::Sprite tmp;
+public:
+	MissingIconException(sf::Sprite& sprite);
+//	~MissingIconException(void);
+	const sf::Texture* what();
+
 };
 
 #endif

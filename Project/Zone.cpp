@@ -1,7 +1,8 @@
 #include "Zone.hpp"
 #include <string>
 
-int Zone::getID() {
+int Zone::getID()
+{
 	return ID;
 }
 std::string Zone::getName() 
@@ -53,7 +54,8 @@ Zone::Zone()
 // deconstructor
 Zone::~Zone()
 {
-	for (int i = 0; i < objects.size(); i++) {
+	for (int i = 0; i < objects.size(); i++)
+	{
 		delete objects[i];
 		objects[i] = nullptr;
 	}
@@ -73,4 +75,9 @@ Zone& Zone::operator=(const Zone &z)
 		this->objects.push_back(z.objects[i]);
 
 	return *this;
+}
+
+std::vector<Tile> Zone::getForegrounds()
+{
+	return foregrounds;
 }

@@ -12,6 +12,8 @@ FloatingText::FloatingText()
 	maxLength = -1;
 	offsetX = 0;
 	offsetY = 0;
+	iconSprite.setTexture(*Engine::Graphic.requestTexture("test.png"), true);
+	text.setString("");
 }
 FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, int oX, int oY) : Message(f,dur,l)
 {
@@ -21,8 +23,13 @@ FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, 
 	offsetX = oX;
 	offsetY = oY;
 	iconName = icoName;
+	if (!Engine::Graphic.loadTexture(iconName))
+		throw MissingIconException(this->iconSprite);
+	else
+	{
 	iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName),true);
 	text.setString("");
+	}
 }
 FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength)
 {
@@ -33,9 +40,14 @@ FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.
 	offsetX = ft.offsetX;
 	offsetY = ft.offsetY;
 	iconName = ft.iconName;
-	iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
-	text.setString(ft.text.getString());
-	setPosition(ft.text.getPosition().x, ft.text.getPosition().y);
+	if (!Engine::Graphic.loadTexture(iconName))
+		throw MissingIconException(this->iconSprite);
+	else
+	{
+		iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
+		text.setString(ft.text.getString());
+		setPosition(ft.text.getPosition().x, ft.text.getPosition().y);
+	}
 }
 void FloatingText::drawMessage(sf::RenderWindow* rwd)
 {
@@ -82,5 +94,18 @@ FloatingText& FloatingText::operator=(std::string info)
 void FloatingText::setIcon(std::string name)
 {
 	iconName = name;
-	iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
+	if (!Engine::Graphic.loadTexture(iconName))
+		throw MissingIconException(this->iconSprite);
+	else
+		iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
+}
+
+MissingIconException::MissingIconException(sf::Sprite& sprite)
+{
+	tmp.setTexture(*Engine::Graphic.requestTexture("test.png"));
+}
+
+const sf::Texture* MissingIconException::what()
+{
+	return tmp.getTexture();
 }

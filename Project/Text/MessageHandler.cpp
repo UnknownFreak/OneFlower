@@ -1,5 +1,6 @@
-#include "MessageDefiner.hpp"
+#include "Message.hpp"
 #include "FontDefiner.hpp"
+#include <string>
 Message::Message()
 {
 }
@@ -10,7 +11,10 @@ Message::~Message()
 Message::Message(sf::Font& f, float dur, int length) 
 {
 	font = f;
-	text.setFont(f);
+	text = sf::Text();
+	text.setFont(font);
+	if (text.getFont() == NULL)
+		throw MissingFontException();
 	color = sf::Color::Black;
 	text.setColor(color);
 	size = text.getCharacterSize();
@@ -62,13 +66,15 @@ void Message::setPosition(float x, float y)
 	text.setPosition(x, y);
 
 }
-
 void Message::drawMessage(sf::RenderWindow* rwd)
 {
 	rwd->draw(text);
 }
 void Message::setFont(sf::Font* font)
 {
+	if (font == NULL)
+		throw MissingFontException();
 	this->font = *font;
 	text.setFont(*font);
+		
 }

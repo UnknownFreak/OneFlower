@@ -6,7 +6,6 @@
 #include "RenderComponent.h"
 #include "TransformComponent.hpp"
 
-
 const unsigned int IBaseComponent<DialogComponent>::typeID = 2222;
 std::string IBaseComponent<DialogComponent>::componentName = "DialogComponent";
 
@@ -17,14 +16,15 @@ DialogComponent::DialogComponent()
 	REGISTER_EDITOR_VARIABLE(int, textOffsetX, TextOffsetX);
 	REGISTER_EDITOR_VARIABLE(int, textOffsetY, TextOffsetY);
 	REGISTER_EDITOR_VARIABLE(float, duration, Duration);
-	REGISTER_EDITOR_VARIABLE(std::string, dialogTexture, Texture);
 	REGISTER_EDITOR_VARIABLE(std::string, fontName, FontName);
 	REGISTER_EDITOR_VARIABLE(std::string, dialogMessage, Text);
 	
 	rex = new sf::RenderTexture();
 	rex->create(128, 64);
 	msg = new FloatingText();
-	dialogTexture = "test.png";
+	msg->iconName = "test.png";
+	REGISTER_EDITOR_VARIABLE(std::string, msg->iconName, Texture);
+
 	fontName = "arial.ttf";
 	dialogMessage = "NotSet";
 	duration = -1;
@@ -43,14 +43,14 @@ DialogComponent::DialogComponent(float dur)
 	REGISTER_EDITOR_VARIABLE(int, textOffsetX, TextOffsetX);
 	REGISTER_EDITOR_VARIABLE(int, textOffsetY, TextOffsetY);
 	REGISTER_EDITOR_VARIABLE(float, duration, ShowDuration);
-	REGISTER_EDITOR_VARIABLE(std::string, dialogTexture, Texture);
 	REGISTER_EDITOR_VARIABLE(std::string, fontName, FontName);
 	REGISTER_EDITOR_VARIABLE(std::string, dialogMessage, Text);
 
 	rex = new sf::RenderTexture();
 	rex->create(128, 64);
 	msg = new FloatingText();
-	dialogTexture = "test.png";
+	msg->iconName = "test.png";
+	REGISTER_EDITOR_VARIABLE(std::string, msg->iconName, Texture);
 	fontName = "arial.ttf";
 	dialogMessage = "NotSet";
 	duration = dur;
@@ -68,7 +68,6 @@ DialogComponent::DialogComponent(const DialogComponent &diag)
 	REGISTER_EDITOR_VARIABLE(int, textOffsetX, TextOffsetX);
 	REGISTER_EDITOR_VARIABLE(int, textOffsetY, TextOffsetY);
 	REGISTER_EDITOR_VARIABLE(float, duration, ShowDuration);
-	REGISTER_EDITOR_VARIABLE(std::string, dialogTexture, Texture);
 	REGISTER_EDITOR_VARIABLE(std::string, fontName, FontName);
 	REGISTER_EDITOR_VARIABLE(std::string, dialogMessage, Text);
 
@@ -76,7 +75,9 @@ DialogComponent::DialogComponent(const DialogComponent &diag)
 	rex = new sf::RenderTexture();
 	rex->create(128, 64);
 	msg = new FloatingText();
-	dialogTexture = diag.dialogTexture;
+	msg->iconName = diag.msg->iconName;
+	REGISTER_EDITOR_VARIABLE(std::string, msg->iconName, Texture);
+
 	fontName = diag.fontName;
 	duration = diag.duration;
 	dialogMessage = diag.dialogMessage;
@@ -105,7 +106,7 @@ void DialogComponent::updateLocation()
 //TODO Remove either this one or the other updateLocation
 void DialogComponent::createDialog(bool b)
 {
-	sprt.setTexture(*Engine::Graphic.requestTexture(dialogTexture));
+	sprt.setTexture(*Engine::Graphic.requestTexture(msg->iconName));
 	rex->draw(sprt);
 	msg->setFont(Engine::Graphic.font.requestFont(fontName));
 	msg->duration = -1;
@@ -120,7 +121,15 @@ void DialogComponent::createDialog(bool b)
 }
 void DialogComponent::createDialog()
 {	
-	msg->setIcon(dialogTexture);
+	try
+	{
+		msg->setIcon(msg->iconName);
+	}
+	catch (MissingIconException ex)
+	{
+		MessageBox(Engine::Window.hWnd, "Missing Dialog Texture", "Error:MissingDialogTexture", NULL);
+		msg->iconSprite.setTexture(*ex.what());
+	}
 	msg->setFont(Engine::Graphic.font.requestFont(fontName));
 	msg->duration = -1;
 //	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - offsetX, this->attachedOn->GetComponent<TransformComponent>()->position.y - offsetY);
@@ -153,4 +162,25 @@ void DialogComponent::close()
 		Engine::Graphic.removeFromMessageList(msg,false);
 		open = false;
 	}
+}
+bool DialogComponent::UpdateFromEditor()
+{
+	try
+	{
+		msg->setIcon(msg->iconName);
+		msg->setFont(Engine::Graphic.font.requestFont(fontName));
+
+	}
+	catch (MissingIconException ex)
+	{
+		MessageBox(Engine::Window.hWnd, "Missing Dialog Texture", "Error:MissingDialogTexture", NULL);
+		msg->iconSprite.setTexture(*ex.what());
+	}
+	//TODO exception check for setFont
+	catch (MissingFontException ex)
+	{
+		msg->setFont(ex.what());
+	}
+	*msg = dialogMessage;
+	return true;
 }

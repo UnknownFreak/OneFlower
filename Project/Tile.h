@@ -13,7 +13,7 @@ public:
 	// name input for texture, and coordinates for the position
 	Tile(std::string n = "test.png",Vector2 pos = Vector2(0,0));
 	// name input for texture, and x, y pos for position
-	Tile(std::string n,int x =0, int y=0);
+	Tile(std::string n,float x =0.f, float y=0.f);
 	Tile(const Tile &tile);
 
 	//position of the tile
@@ -28,6 +28,8 @@ public:
 
 	Tile& operator=(const Tile &tile);
 	void setRepeated(bool b);
+	void setPosition(int x, int y);
+	void setPosition(float x, float y);
 private:
 	// save function for the tile
 	template<class Archive>

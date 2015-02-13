@@ -17,7 +17,7 @@ public:
 	std::vector<Tile> foregrounds;
 	void setBackground(Tile &t);
 	void addGameObject(GameObject *go);
-
+	void readForegroundsVector(std::vector<Tile> tiles);
 private:
 	template<class Archive>
 	friend void save(Archive& ar,const ZoneMap & zm);

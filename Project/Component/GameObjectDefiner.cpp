@@ -5,6 +5,7 @@
 #include "TransformComponent.hpp"
 #include "RenderComponent.h"
 #include "HitboxComponent.hpp"
+#include "DialogComponent.hpp"
 std::map<GameObject*,unsigned int> listOfGameObjectID;
 std::vector<unsigned int> listOfOldGameObjectID;
 
@@ -47,6 +48,9 @@ GameObject::GameObject(const GameObject & go)
 		}
 		else if (it->second->getType() == IBaseComponent<HitboxComponent>::typeID) {
 			this->AddComponent(new HitboxComponent(*go.ReadComponent<HitboxComponent>()));
+		}
+		else if (it->second->getType() == IBaseComponent<DialogComponent>::typeID) {
+			this->AddComponent(new DialogComponent(*go.ReadComponent<DialogComponent>()));
 		}
 	}
 }

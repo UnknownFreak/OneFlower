@@ -1,25 +1,31 @@
-
 #include <fstream>
-#include "LoadAndSave.hpp"
-#include "Component\RenderComponent.h"
-#include "Component\GameObject.h"
 #include <cereal/archives/xml.hpp>
-#include <fstream>
 #include <cereal\types\string.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include <cereal/types/map.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/archives/binary.hpp>
+#include <map>
+
+#include "Component\HitboxComponent.hpp"
+#include "Component\TransformComponent.hpp"
+#include "Component\DialogComponent.hpp"
 #include "Component\BaseComponent.hpp"
+#include "Component\RenderComponent.h"
+#include "Component\GameObject.h"
+
+#include "Text/Message.hpp"
+#include "Text/FloatingText.hpp"
+
 #include "ZoneMaker.hpp"
 #include "Zone.hpp"
 #include "WorldManagement.hpp"
-#include <map>
-#include"Component\HitboxComponent.hpp"
-#include "Component\TransformComponent.hpp"
-#include "Component\DialogComponent.hpp"
-#include "Text/MessageDefiner.hpp"
-#include "Text/FloatingText.hpp"
+
+
+#include "Engine.hpp"
+
+#include "LoadAndSave.hpp"
+
 std::string versionName = "Alpha Test: 1.3v";
 CEREAL_REGISTER_ARCHIVE(RenderComponent);
 
@@ -35,7 +41,39 @@ void prefabSave(const GameObject* go)
 		ar(testPrefab);
 	}
 }
+/*
+void saveFile(GameObject& player, Zone& zm)
+{
+	std::string save = "savefile";
+	save.append(".avfile");
 
+	// save character info
+	// save character inventory, location, xp, gold, quests etc.
+	// save the current zone
+	std::ofstream file(save, std::ios::binary);
+	{
+		cereal::BinaryOutputArchive ar(file);
+		ar(player);
+		ar(zm);
+	}
+}
+*/
+void loadFile(GameObject& player, Zone& zm)
+{
+	
+	std::string load = "savefile";
+	load.append(".avfile");
+
+	// load character info
+	// load character inventory,location,xp, ... etc.
+	// load zone...
+	std::ifstream file(load, std::ios::binary);
+	{
+		cereal::BinaryInputArchive ar(file);
+		ar(player);
+		ar(zm);
+	}
+}
 
 void testSave()
 {
@@ -69,8 +107,8 @@ void testSave()
 	target->AddComponent(new RenderComponent("testTarget.png"));
 	
 	target->AddComponent(new DialogComponent(2));
-	target->GetComponent<DialogComponent>()->dialogTexture = "TestDialogChat.png";
-	target->GetComponent<DialogComponent>()->dialogMessage = "Shoot meh pl0x!";
+	target->GetComponent<DialogComponent>()->msg->iconName = "TestDialogChat.png";
+	target->GetComponent<DialogComponent>()->dialogMessage = "Shoot meh pl0x!\n huehue";
 	target->GetComponent<DialogComponent>()->offsetX = 65;
 	target->GetComponent<DialogComponent>()->offsetY = 85;
 	target->GetComponent<DialogComponent>()->textOffsetX = 10;
@@ -178,11 +216,20 @@ void load(Archive& archive, GameObject& go)
 		archive(componentCount);
 		for (int i = 0; i < componentCount; i++)
 		{
+			
 			archive(ID);
 			if (ID == IBaseComponent<RenderComponent>::typeID)
 			{
 				archive(rcp);
-				go.AddComponent(new RenderComponent(rcp));
+				try
+				{
+					go.AddComponent(new RenderComponent(rcp));
+				}
+				catch (MissingTextureException ex)
+				{
+					MessageBox(Engine::Window.hWnd, "Missing Texture", "Error:MissingTexture", NULL);
+					go.AddComponent(new RenderComponent(ex.what()));
+				}
 				sf::Sprite* sprite = &go.GetComponent<RenderComponent>()->sprite;
 
 				float x = sprite->getTextureRect().width;
@@ -210,6 +257,7 @@ void load(Archive& archive, GameObject& go)
 				archive(dcp);
 				go.AddComponent(new DialogComponent(dcp));
 			}
+			
 		}
 	}
 }
@@ -228,6 +276,8 @@ void save(Archive& archive, const RenderComponent& rc)
 	archive(rc.textureName);
 	archive(x);
 	archive(y);
+	archive(rc.size.x);
+	archive(rc.size.y);
 }
 template<class Archive>
 void load(Archive& archive, RenderComponent& rc)
@@ -240,6 +290,8 @@ void load(Archive& archive, RenderComponent& rc)
 	archive(x);
 	archive(y);
 	rc.sprite.setScale(x, y);
+	archive(rc.size.x);
+	archive(rc.size.y);
 }
 #pragma endregion
 
@@ -302,7 +354,6 @@ template <class Archive>
 void save(Archive& ar, const DialogComponent& dc)
 {
 	ar(dc.duration);
-	ar(dc.dialogTexture);
 	ar(dc.fontName);
 	ar(*dc.msg);
 	ar(dc.offsetX);
@@ -316,7 +367,6 @@ template <class Archive>
 void load(Archive& ar, DialogComponent& dc)
 {
 	ar(dc.duration);
-	ar(dc.dialogTexture);
 	ar(dc.fontName);
 	ar(*dc.msg);
 	ar(dc.offsetX);
@@ -552,7 +602,15 @@ void load(Archive& ar, FloatingText& msg)
 	ar(msg.color.b);
 	ar(msg.color.a);
 	ar(iconName);
-	msg.setIcon(iconName);
+	try
+	{
+		msg.setIcon(iconName);
+	}
+	catch (MissingIconException ex)
+	{
+		MessageBox(Engine::Window.hWnd, "Missing Dialog Texture", "Error:MissingDialogTexture", NULL);
+		msg.iconSprite.setTexture(*ex.what());
+	}
 	ar(x);
 	ar(y);
 	msg.text.setPosition(x, y);

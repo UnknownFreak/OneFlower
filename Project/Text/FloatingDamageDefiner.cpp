@@ -15,6 +15,7 @@ FloatingDamage::~FloatingDamage()
 
 FloatingDamage& FloatingDamage::operator=(int damageDone)
 {
+	//Test stuffs
 	if (damageDone < 0)
 		text.setString("Miss");
 	else
