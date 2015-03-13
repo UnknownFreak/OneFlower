@@ -1,4 +1,5 @@
 #include "TransformComponent.hpp"
+#include <SFML\Graphics.hpp>
 const unsigned int IBaseComponent<TransformComponent>::typeID = 1001;
 std::string IBaseComponent<TransformComponent>::componentName = "TransformComponent"; 
 
@@ -13,6 +14,8 @@ REGISTER_EDITOR_TYPE(std::vector<int>)
 REGISTER_EDITOR_TYPE(std::vector<float>)
 REGISTER_EDITOR_TYPE(std::vector<double>)
 REGISTER_EDITOR_TYPE(std::vector<std::string>)
+REGISTER_EDITOR_TYPE(sf::Uint8);
+
 //a::Transform;
 TransformComponent::TransformComponent():position(0,0),rotation(0,1),size(1,1)
 {

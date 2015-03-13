@@ -138,8 +138,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				case ADD_OverHeadComponent:
 				{
-					if(Engine::Window.focus.gameObject)
-						MessageBox(0,"ctrl + f 123-321-123","fix this shit",0);
+					if (Engine::Window.focus.gameObject)
+					{
+						Engine::Window.focus.gameObject->AddComponent<OverheadComponent>();
+						Engine::GUI.addOverhead(Engine::Window.focus.gameObject);
+					}
 					break;
 				}
 				case ADD_RenderComponent:

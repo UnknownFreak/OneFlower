@@ -15,25 +15,51 @@ void Game::Update()
 	//LOW: Make my own Custom Focus
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			Engine::View.camera.move(0,10);
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			Engine::View.camera.move(-10,0);
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			Engine::View.camera.move(0,-10);
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			Engine::View.camera.move(10,0);
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			Engine::View.camera.setCenter(0,0);
+		TransformComponent* tcp = player->GetComponent<TransformComponent>();
+		tcp->move(pos, 2);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			pos.y -= 2;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			//Engine::Graphic.camera.move(-10, 0);
+			pos.x -= 2;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			//Engine::Graphic.camera.move(0, -10);
+			pos.y += 2;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			//Engine::Graphic.camera.move(10, 0);
+			pos.x += 2;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			Engine::View.camera.move(0, 10);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			Engine::View.camera.move(-10, 0);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			Engine::View.camera.move(0, -10);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			Engine::View.camera.move(10, 0);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			Engine::View.camera.setCenter(0, 0);
+			pos.x = 0;
+			pos.y = 0;
+		}
 		Engine::View.render.setView(Engine::View.camera);
+		Engine::GUI.updateMouseIcon();
 	}
 }
 
 void synchronizeComponents()
 {
-
 }
 void mouseClick()
 {
-	
 }

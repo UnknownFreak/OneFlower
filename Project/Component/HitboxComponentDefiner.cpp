@@ -7,16 +7,13 @@ const unsigned int IBaseComponent<HitboxComponent>::typeID = 1003;
 std::string IBaseComponent<HitboxComponent>::componentName = "HitBoxComponent";
 HitboxComponent::HitboxComponent():size(128,128),position(0,0)
 {
+
+
 }
-HitboxComponent::HitboxComponent(const HitboxComponent &hc)
+HitboxComponent::HitboxComponent(const HitboxComponent &hc) :size(hc.size), position(hc.position)
 {
 
 
-	//LOW: Use init list
-	this->position.x = hc.position.x;
-	this->position.y = hc.position.y;
-	this->size.x = hc.size.x;
-	this->size.y = hc.size.y;
 }
 HitboxComponent::HitboxComponent(int width,int height):size(width,height),position(0,0)
 {

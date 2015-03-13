@@ -12,50 +12,28 @@ Tile::Tile()
 	sizeY = 0;
 }
 //*/
-Tile::Tile(std::string n, Vector2 pos)
+Tile::Tile(std::string n, Vector2 pos) : name(n), position(pos), size(0,0)
 {
-	name = n;
 	sprite.setTexture(*Engine::Graphic.requestTexture(n));
-	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
-	position = pos;
 	sprite.setPosition(position.x,position.y);
-	sizeX = 0;
-	sizeY = 0;
 }
-Tile::Tile(std::string n, float x, float y)
+Tile::Tile(std::string n, float x, float y) : name(n), position(x, y), size(0,0)
 {
-	name = n;
 	sprite.setTexture(*Engine::Graphic.requestTexture(n));
-	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
-	position.x = x;
-	position.y = y;
 	sprite.setPosition(position.x, position.y);
-
-	sizeX = 0;
-	sizeY = 0;
 }
-Tile::Tile(const Tile &tile)
+Tile::Tile(const Tile &tile) : name(tile.name), position(tile.position), size(tile.size)
 {
-	name = tile.name;
 	sprite.setTexture(*Engine::Graphic.requestTexture(name));
-	position.x = tile.position.x;
-	position.y = tile.position.y;
 	sprite.setPosition(position.x, position.y);
-
-	sizeX = tile.sizeX;
-	sizeY = tile.sizeY;
 }
 Tile& Tile::operator=(const Tile &tile)
 {
 	name = tile.name;
+	position = tile.position;
+	size = tile.size;
 	sprite.setTexture(*Engine::Graphic.requestTexture(name));
-	//sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height / 2);
-	position.x = tile.position.x;
-	position.y = tile.position.y;
 	sprite.setPosition(position.x, position.y);
-
-	sizeX = tile.sizeX;
-	sizeY = tile.sizeY;
 	return *this;
 }
 void Tile::setRepeated(bool b)

@@ -15,7 +15,9 @@ bool Gfx::loadTexture(std::string name)
 	sf::Texture tempTexture;
 	if (!tempTexture.loadFromFile(name))
 	{
+		#ifdef _DEBUG
 		MessageBox(0, "Error loading this file", name.c_str(), MB_OK);
+		#endif
 		return false;
 	}	
 	loadedTextureMap.insert(loadedTextureMap.end(),std::make_pair(name, tempTexture));
@@ -25,7 +27,6 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name) 
 {
-	//HIGH: make it load missingtexture if texture could not be loaded
 	if(!name.empty())
 	{
 		std::map<std::string,sf::Texture>::iterator it;
@@ -35,7 +36,8 @@ sf::Texture* Gfx::requestTexture(std::string name)
 			return &it->second;
 		if(loadTexture(name))
 			return &loadedTextureMap.find(name)->second;
-		return false;
+		//LOW set propper texturename
+		return &loadedTextureMap.find("test.png")->second;
 	}
 }
 void Gfx::insertDrawableObject(GameObject* entityToDraw)
@@ -104,24 +106,15 @@ void Gfx::Draw()
 				rc = it->second[j]->GetComponent<RenderComponent>();
 				tc = it->second[j]->GetComponent<TransformComponent>();
 				dc = it->second[j]->GetComponent<DialogComponent>();
-				if(rc)
+				if(dc)
 				{
 					if(dc->open)
 					{
 						dc->updateLocation();
-						if(dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
+						if (dc->msg->timer.getElapsedTime().asSeconds() > dc->msg->duration && dc->msg->duration > 0)
 							dc->close();
 					}
-
 				}
-				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				Engine::View.render.draw(rc->sprite);
-				if(rc->sprite.getTexture())
-				{
-
-				}
-				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				Engine::View.render.draw(rc->sprite);
 				if(rc->sprite.getTexture())
 				{
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
@@ -190,8 +183,8 @@ void Gfx::insertDrawableSprite(Tile fg, bool isBackground)
 		backgroundSprite.sprite.setPosition(backgroundSprite.position.x, backgroundSprite.position.y);
 
 		backgroundSprite.sprite.setTextureRect(sf::IntRect(0, 0,
-			backgroundSprite.sprite.getTexture()->getSize().x + backgroundSprite.sizeX,
-			backgroundSprite.sprite.getTexture()->getSize().y + backgroundSprite.sizeY));
+			backgroundSprite.sprite.getTexture()->getSize().x + backgroundSprite.size.x,
+			backgroundSprite.sprite.getTexture()->getSize().y + backgroundSprite.size.x));
 		backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
 	}
 	else

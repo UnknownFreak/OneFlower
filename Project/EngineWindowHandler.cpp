@@ -37,9 +37,6 @@ void EngineWindow::setGameObject(GameObject* t)
 		//LOW: perhaps I should save the Label HWND 2015/02/13
 		//This part is for the gameObject infomation 
 		Engine::Window.focus.addLabel(focus.hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,32,EditorUI::RequestID());
-		focus.test = new EditorField<std::string>(&t->name,t->name);
-		focus.test->hWnd = Engine::Window.focus.addTextbox(focus.hWnd,focus.test->name,std::string("Name: ").size() * 8,0,128,16,1231321);
-		focus.test->ID = EditorUI::RequestID();
 			
 		//All components from the gameObject, gameComponent_it = BaseComponent*
 		for(std::map<int,BaseComponent*>::iterator gameComponent_it = t->GetComponents()->begin(); gameComponent_it != t->GetComponents()->end(); gameComponent_it++)

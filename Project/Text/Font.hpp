@@ -1,5 +1,5 @@
-#ifndef FONTDEFINER_HPP
-#define FONTDEFINER_HPP
+#ifndef Font_HPP
+#define Font_HPP
 #include "Message.hpp"
 #include "SFML\Graphics\Font.hpp"
 #include <string>
@@ -24,4 +24,4 @@ public:
 };
 
 
-#endif FONTDEFINER_HPP
+#endif Font_HPP

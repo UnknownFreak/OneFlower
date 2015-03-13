@@ -19,7 +19,8 @@ sf::Event Engine::event;
 Game Engine::game;
 Time Engine::time;
 PhysicsEngine Engine::Physics;
-
+Mouse Engine::mouse;
+GraphicalUserInterface Engine::GUI;
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
@@ -30,6 +31,12 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
+	WorldManagement world;
+	world.loadZone(1);
+	GameObject* go = new GameObject("player");
+	go->AddComponent<RenderComponent>("testTarget.png");
+	Engine::game.player = go;
+	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
@@ -163,6 +170,8 @@ int windowMessage()
 			Engine::game.Update();
 			Engine::Physics.Update();
 			Engine::Graphic.Draw();
+			Engine::mouse.update();
+			Engine::GUI.Draw();
 			Engine::View.render.display();
 			Engine::time.delta.restart();
 			time.FPS();

@@ -17,8 +17,8 @@ public:
 	std::map <unsigned int, std::string>zoneInfo;
 private:
 	// loads a zone from a specified file
-	friend void loadZoneFile(std::string fileName, Zone &z);
-	friend void loadZoneInfo(std::map<unsigned int, std::string> & zoneInfo);
+	friend bool loadZoneFile(std::string fileName, Zone &z);
+	friend bool loadZoneInfo(std::map<unsigned int, std::string> & zoneInfo);
 	friend void saveInfo(std::map<unsigned int, Zone>map);
 	void worldFromZone(unsigned int zoneID);
 	

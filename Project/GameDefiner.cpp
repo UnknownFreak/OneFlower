@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Component\GameObject.h"
+#include "Component\OverheadComponent.hpp"
 #include "Tile.h"
 #include "Gfx.h"
 #include "Text/Message.hpp"
@@ -28,9 +29,8 @@ void Game::addGameObject(GameObject* entity)
 		mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
 	allGameObjectPointers.push_back(entity);
-	if(entity->GetComponent<RenderComponent>())
-		Engine::Graphic.insertDrawableObject(entity);
-
+	Engine::GUI.addOverhead(entity);
+	Engine::Graphic.insertDrawableObject(entity);
 #ifdef _DEBUG
 	Engine::Window.ListViewer.add(entity);
 #endif
@@ -46,13 +46,12 @@ void Game::requestRemovealForeground(Tile* t)
 	Engine::Graphic.removeFromForegroundList(*t);
 }
 
-
-
 void Game::addGameObject(GameObject* entity,Gfx* editor)
 {
 	allGameObjectPointers.push_back(entity);
 	editor->insertDrawableObject(entity);
 }
+
 void Game::addGameObject(std::string name)
 {
 	//GameObject entity(name);
@@ -62,6 +61,7 @@ void Game::addGameObject(std::string name)
 	Engine::Graphic.insertDrawableObject(&allGameObjectVector.at(allGameObjectVector.size()-1));
 	//*/
 }
+
 void Game::requestRemoveal(GameObject* entity)
 {
 	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
@@ -76,6 +76,7 @@ void Game::requestRemoveal(GameObject* entity)
 				if(allGameObjectPointers[i] == entity)
 				{
 					allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
+					Engine::GUI.requestOverheadRemoval(entity);
 					delete entity;
 					entity = 0;
 					break;
@@ -87,6 +88,7 @@ void Game::requestRemoveal(GameObject* entity)
 			if(allGameObjectPointers[i] == entity)
 			{
 				allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
+				Engine::GUI.requestOverheadRemoval(entity);
 				delete entity;
 				entity = 0;
 				break;
@@ -103,6 +105,7 @@ GameObject* Game::requestGameObject(std::string name)
 			return allGameObjectPointers.at(i);
 	return NULL;
 }
+
 const std::vector<GameObject*>* Game::requestAllGameObjecVector() const
 {
 	return &allGameObjectPointers;

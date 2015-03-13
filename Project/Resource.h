@@ -12,3 +12,9 @@
 #define ADD_DialogComponent 1004
 #define ADD_OverHeadComponent 1005
 #define ADD_RigidComponent 1006
+
+#define ID_ADD_ZONE 2006
+#define ID_SAVE_ZONE 2007
+#define ID_LOAD_ZONE 2008
+#define ID_REMOVE_ZONE 2009
+

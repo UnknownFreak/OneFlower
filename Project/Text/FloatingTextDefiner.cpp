@@ -6,80 +6,43 @@ FloatingText::~FloatingText()
 {
 
 }
-FloatingText::FloatingText()
+FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf"), -1, -1), offset(0,0)
 {
-	duration = -1;
-	maxLength = -1;
-	offsetX = 0;
-	offsetY = 0;
 	iconSprite.setTexture(*Engine::Graphic.requestTexture("test.png"), true);
 	text.setString("");
 }
-FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, int oX, int oY) : Message(f,dur,l)
+FloatingText::FloatingText(std::string icoName, sf::Font& f, double dur, int l, int oX, int oY) : Message(f, dur, l), offset(oX,oY), iconName(icoName)
 {
-	font = f;
-	duration = dur;
-	maxLength = l;
-	offsetX = oX;
-	offsetY = oY;
-	iconName = icoName;
-	if (!Engine::Graphic.loadTexture(iconName))
-		throw MissingIconException(this->iconSprite);
-	else
-	{
-	iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName),true);
 	text.setString("");
-	}
+	setIcon(iconName);
 }
-FloatingText::FloatingText(FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength)
+FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength), offset(ft.offset), iconName(ft.iconName)
 {
-	font = ft.font;
 	setColor(ft.color);
-	duration = ft.duration;
-	maxLength = ft.maxLength;
-	offsetX = ft.offsetX;
-	offsetY = ft.offsetY;
-	iconName = ft.iconName;
-	if (!Engine::Graphic.loadTexture(iconName))
-		throw MissingIconException(this->iconSprite);
-	else
-	{
-		iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
-		text.setString(ft.text.getString());
-		setPosition(ft.text.getPosition().x, ft.text.getPosition().y);
-	}
+	text.setString(ft.text.getString());
+	setPosition(ft.text.getPosition().x, ft.text.getPosition().y);
+	setIcon(iconName);
 }
 void FloatingText::drawMessage(sf::RenderWindow* rwd)
 {
 	rwd->draw(iconSprite);
 	rwd->draw(text);
 }
-void FloatingText::move(int x, int y)
-{
-	text.move(x, y);
-	iconSprite.move(x,y);
-	
-}
-void FloatingText::move(float x, float y)
+void FloatingText::move(double x, double y)
 {
 	text.move(x, y);
 	iconSprite.move(x, y);
 }
 
-void FloatingText::setPosition(int x, int y)
+void FloatingText::setPosition(double x, double y)
 {
-	text.setPosition(x+ offsetX, y+ offsetY);
-	iconSprite.setPosition(x , y );
+	text.setPosition(x + offset.x, y + offset.y);
+	iconSprite.setPosition(x , y);
 }
-void FloatingText::setPosition(float x, float y)
+void FloatingText::setOffset(double x, double y)
 {
-	text.setPosition(x+ offsetX, y+ offsetY);
-	iconSprite.setPosition(x , y );
-}
-void FloatingText::setOffset(int x, int y)
-{
-	offsetX = x;
-	offsetY = y;
+	offset.x = x;
+	offset.y = y;
 }
 
 FloatingText& FloatingText::operator=(std::string info)
@@ -95,9 +58,20 @@ void FloatingText::setIcon(std::string name)
 {
 	iconName = name;
 	if (!Engine::Graphic.loadTexture(iconName))
+#ifdef _DEBUG
 		throw MissingIconException(this->iconSprite);
+#else
+	{
+		//LOW set propper missingtexture
+		icoName = "test.png";
+		iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName), true);
+	}
+#endif
 	else
+	{
 		iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
+		
+	}
 }
 
 MissingIconException::MissingIconException(sf::Sprite& sprite)

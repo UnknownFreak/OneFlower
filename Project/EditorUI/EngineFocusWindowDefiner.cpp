@@ -134,71 +134,57 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{
 			switch(wParam)
 			{
-				#pragma region Enter
-				case(VK_RETURN) :
-				{
-					TCHAR txt[1024];
-					DWORD start = 0;
-					DWORD end = 0;
-					GetWindowText(hWnd,txt,1024);
-					std::string value(txt);
-					std::string newValue = "";
-					int id = GetWindowLong(hWnd,GWL_ID);
-					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+#pragma region Enter
+			case(VK_RETURN) :
+			{
+				TCHAR txt[1024];
+				DWORD start = 0;
+				DWORD end = 0;
+				GetWindowText(hWnd, txt, 1024);
+				std::string value(txt);
+				std::string newValue = "";
+				int id = GetWindowLong(hWnd, GWL_ID);
+				SendMessage(hWnd, EM_GETSEL, reinterpret_cast<WPARAM>(&start), reinterpret_cast<WPARAM>(&end));
 
-					//TODO: Move this out towards a seperate WndProc
-					//Field Object
-					if(!id == Engine::Window.focus.test->ID)
+				//TODO: Move this out towards a seperate WndProc
+				//Field Object
+				std::map<int, BaseField*>::iterator it;
+				for (auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+				{
+					it = i->second.field.find(id);
+					if (it != i->second.field.end())
+						break;
+				}
+				if (!value.empty())
+				{
+					if (it->second->flags & FieldFlag::Decimal)
 					{
-						std::map<int,BaseField*>::iterator it;
-						for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+#pragma region Decimal
+						for (size_t i = 0; i < value.size(); i++)
 						{
-							it = i->second.field.find(id);
-							if(it != i->second.field.end())
-								break;
+							if (isDouble(value.at(i)))
+								newValue.push_back(value[i]);
 						}
-						if(!value.empty())
+						if (!newValue.empty())
 						{
-							if(it->second->flags & FieldFlag::Decimal)
-							{
-								#pragma region Decimal
-								for(size_t i = 0; i < value.size(); i++)
-								{
-									if(isDouble(value.at(i)))
-										newValue.push_back(value[i]);
-								}
-								if(!newValue.empty())
-								{
-									if(value[0] == '-')
-										newValue.insert(newValue.begin(),value[0]);
-								}
-								else
-									newValue = "0";
-								#pragma endregion
-							}
-							else
-								newValue = isLetter(value);
+							if (value[0] == '-')
+								newValue.insert(newValue.begin(), value[0]);
 						}
 						else
-							newValue = '0';
-						SetWindowTextA(hWnd,newValue.c_str());
-						SendMessage(hWnd,EM_SETSEL,start,end);
-						Engine::Window.setValue(it->second,newValue);
+							newValue = "0";
+#pragma endregion
 					}
-					//Game Object 
 					else
-					{
-						SetWindowTextA(hWnd,value.c_str());
-						SendMessage(hWnd,EM_SETSEL,start,end);
-
-						EditorField<std::string>* a = static_cast<EditorField<std::string>*>(Engine::Window.focus.test);
-						*a->variable = value.c_str();
-						Engine::Window.ListViewer.update();
-					}
-					
-					return 0;
+						newValue = isLetter(value);
 				}
-				#pragma endregion
+				else
+					newValue = '0';
+				SetWindowTextA(hWnd, newValue.c_str());
+				SendMessage(hWnd, EM_SETSEL, start, end);
+				Engine::Window.setValue(it->second, newValue);
+			}
+							return 0;
+#pragma endregion
 				default:
 					break;
 			}

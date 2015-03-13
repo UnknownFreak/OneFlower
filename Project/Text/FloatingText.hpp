@@ -6,6 +6,8 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics.hpp>
 #include <exception>
+#include "../Vector.h"
+
 class FloatingText : public Message
 {
 public:
@@ -15,28 +17,26 @@ public:
 	//*/
 	std::string iconName;
 	sf::Sprite iconSprite;
+	Vector2 offset;
 	/*
 	Constructor
 	//*/
 	FloatingText(std::string iconName, sf::Font& font, double duration = 3, int len = -1, int offsetX = 0, int offsetY = 0);
-	FloatingText(FloatingText& ft);
+	FloatingText(const FloatingText& ft);
 	FloatingText();
 	virtual ~FloatingText();
 	/*
 	Functions
 	//*/
-	void move(int x, int y);
-	void move(float x, float y);
-	void setPosition(int x, int y);
-	void setPosition(float x, float y);
+	void move(double x, double y);
+	void setPosition(double x, double y);
 	void setIcon(std::string name);
 	void drawMessage(sf::RenderWindow* rw);
-	void setOffset(int x, int y);
+	void setOffset(double x, double y);
 	FloatingText& operator=(std::string info);
 
 protected:
-	int offsetX;
-	int offsetY;
+	
 private:
 	template<class Archive>
 	friend void save(Archive& ar, const FloatingText& ft);

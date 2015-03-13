@@ -1,42 +1,64 @@
 #ifndef GUI_HPP
 #define GUI_HPP
+
+#include "Component\HitboxComponent.hpp"
+#include "Component\GameObject.h"
+#include "Component\RenderComponent.h"
+#include "Component\TransformComponent.hpp"
+#include "Component\OverheadComponent.hpp"
+#include "ButtonObject.hpp"
+
+
+
 #include "Tile.h"
 #include "Text\Message.hpp"
 #include<vector>
 #include<SFML\Graphics\Text.hpp>
-class GameObject;
+
+
+
 
 class GraphicalUserInterface
 {
 public:
 
 
+	bool hideGUI;
+	bool isMouseVisible;
+	bool showOverhead;
+
 	Tile mouseAim;
-	Tile mouseSlotRight;
-	Tile mouseSlotLeft;
+	//Todo: change to buttonObject (GUI)
+	Button mouseSlotRight;
+	Button mouseSlotLeft;
 
 	sf::Text t;
-	Message overhead;
-	GameObject* ObjectToFollow;
-	//Todo change to Gameobject??
-	std::vector<GameObject*> ActionSlot;
-	//std::vector<GameObject*> gameobjects;
+	std::vector<OverheadComponent*> overhead;
+	//Todo: change to buttonObject (GUI)
+	std::vector<Button*> ActionSlot;
 	//std::vector<Message*> messages;
 
 
 	GraphicalUserInterface();
 	~GraphicalUserInterface();
-	void updateMouse();
+	void updateMouseIcon();
 	void Draw();
 	void setMouseVisible();
 	void setActiveSkill(std::string buttonName);
-	void setObjectToFollow(GameObject* follow);
+
+	void setCursor(std::string name);
+
+
+
+	void addOverhead(GameObject* over);
+	void requestOverheadRemoval(GameObject* go);
 private:
+
+
+	void initialize();
+
 	void setIconLocation();
-	const float* x;
-	const float* xSize;
-	const float* y;
-	const float* ySize;
+	Vector2 offset;
 };
 
 

@@ -23,8 +23,7 @@ public:
 	// the name of the texture
 	std::string name;
 	// for repeated texture
-	int sizeX;
-	int sizeY;
+	Vector2 size;
 
 	Tile& operator=(const Tile &tile);
 	void setRepeated(bool b);

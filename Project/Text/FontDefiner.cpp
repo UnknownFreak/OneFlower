@@ -1,8 +1,9 @@
-#include "FontDefiner.hpp"
+#include "Font.hpp"
 #include <Windows.h>
 #include "../Engine.hpp"
 #include "../Gfx.h"
-Font::Font() {
+Font::Font()
+{
 	
 }
 bool Font::loadFont(std::string name) 
@@ -24,7 +25,8 @@ sf::Font* Font::requestFont(std::string name) {
 		return &it->second;
 	if (loadFont(name))
 		return &font.find(name)->second;
-	return false;
+	// todo: set propper "failed" to load font
+	return &font.find("arial.ttf")->second;
 }
 
 

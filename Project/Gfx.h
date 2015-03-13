@@ -9,7 +9,7 @@
 class Tile;
 #include <SFML\Graphics\Sprite.hpp>
 #include "Tile.h"
-#include "Text/FontDefiner.hpp"
+#include "Text/Font.hpp"
 class GameObject;
 class Message;
 class Gfx

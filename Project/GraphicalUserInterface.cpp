@@ -1,116 +1,100 @@
 #include "GraphicalUserInterface.hpp"
 #include "Engine.hpp"
 #include <SFML\Window\Mouse.hpp>
-#include "Component\HitboxComponent.hpp"
-#include "Component\GameObject.h"
-#include "Component\RenderComponent.h"
-#include "Component\TransformComponent.hpp"
+
 #include <Windows.h>
-GraphicalUserInterface::GraphicalUserInterface() :
-overhead(*Engine::Graphic.font.requestFont("Arial.ttf")), mouseAim(), mouseSlotRight(), mouseSlotLeft()
+GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), showOverhead(true), hideGUI(true) , isMouseVisible(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png")
 {
 	// Mouse
-	mouseAim.sprite.setTexture(*Engine::Graphic.requestTexture("Aim.png"),true);
-	mouseAim.setRepeated(false);
-	mouseAim.name = "AimStuff";
-
-	//Mousebar
-	mouseSlotRight.sprite.setTexture(*Engine::Graphic.requestTexture("MouseIconTest.png"), true);
-	mouseSlotRight.name = "Rightmousebar";
-	mouseSlotRight.setPosition(270, 30);
-	mouseSlotLeft.sprite.setTexture(*Engine::Graphic.requestTexture("MouseIconTest.png"), true);
-	mouseSlotLeft.name = "Leftmousebar";
-	mouseSlotLeft.setPosition(400, 30);
-
-
-	x = &Engine::View.camera.getCenter().x;
-	xSize = &Engine::View.camera.getSize().x;
-	y = &Engine::View.camera.getCenter().y;
-	ySize = &Engine::View.camera.getSize().y;
-	// buttons
-	for (int i = 0; i < 4; i++)
-	{
-		GameObject* tmp = new GameObject();
-		tmp->name = "ActionBar" + std::to_string(i);
-		tmp->AddComponent(new RenderComponent("ButtonTest.png"));
-		tmp->GetComponent<RenderComponent>()->sprite.setColor(sf::Color(255 - (63 * i), 255 - (63 * i), 255 - (63 * i)));
-		tmp->GetComponent<TransformComponent>()->position.x = 40 + 128 * i;
-		tmp->GetComponent<TransformComponent>()->position.x = 500;
-		tmp->AddComponent(new HitboxComponent());
-		ActionSlot.push_back(tmp);
-	}
-
-	// Overhead
-	
-	overhead.text.setString("Some amazing text");
-	overhead.setSize(25);
-	overhead.setPosition(*x - *xSize / 2, *y - *ySize / 2);
-	overhead.setColor(sf::Color(255, 255, 255));
-}
-void GraphicalUserInterface::Draw()
-{
-	setIconLocation();
-	Engine::View.render.draw(mouseSlotLeft.sprite);
-	Engine::View.render.draw(mouseSlotRight.sprite);
-	for (size_t i = 0; i < ActionSlot.size(); i++)
-	{	
-		ActionSlot[i]->GetComponent<TransformComponent>()->position.x = 40 + 128 * i + *x - *xSize / 2;
-		ActionSlot[i]->GetComponent<TransformComponent>()->position.y = 500 + *y - *ySize / 2;
-		ActionSlot[i]->GetComponent<RenderComponent>()->sprite.setPosition(
-			40 + 128 * i + *x - *xSize / 2,
-			500 + *y - *ySize / 2);
-			
-		Engine::View.render.draw(ActionSlot[i]->GetComponent<RenderComponent>()->sprite);
-	}
-	Engine::View.render.draw(overhead.text);
-	Engine::View.render.draw(mouseAim.sprite);
+	setCursor("Aim.png");
+	initialize();
 }
 GraphicalUserInterface::~GraphicalUserInterface()
 {
 	
 }
-void GraphicalUserInterface::updateMouse()
+void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition(
-		sf::Mouse::getPosition(Engine::View.render).x -15 + *x - *xSize / 2,
-		sf::Mouse::getPosition(Engine::View.render).y - 15 + *y - *ySize / 2
-		);
+	mouseAim.setPosition((float)(Engine::mouse.pos.x - 15) ,(float) (Engine::mouse.pos.y - 15 ));
 }
 
 void GraphicalUserInterface::setIconLocation()
 {
 	mouseSlotLeft.setPosition(
-		270 + *x - *xSize/2,
-		30 + *y - *ySize/2
-		);
+		270 +Engine::mouse.offset.x,
+		30 + Engine::mouse.offset.y);
 	mouseSlotRight.setPosition(
-		400 + *x - *xSize/2,
-		30 + *y - *ySize/2
-		);
-		//*/
-	if (ObjectToFollow)
-		overhead.setPosition(
-		(float)(ObjectToFollow->GetComponent<TransformComponent>()->position.x - ObjectToFollow->GetComponent<RenderComponent>()->size.x / 3),
-		(float)(ObjectToFollow->GetComponent<TransformComponent>()->position.y - ObjectToFollow->GetComponent<RenderComponent>()->size.y / 2));
+		400 + Engine::mouse.offset.x,
+		30 + Engine::mouse.offset.y);
 }
 
 void GraphicalUserInterface::setActiveSkill(std::string buttonName)
 {
 	//Todo: check type of skill and set on left or right mouse
 	if (buttonName == "ActionBar0")
-		mouseSlotLeft.sprite = ActionSlot[0]->GetComponent<RenderComponent>()->sprite;
+	{
+		mouseSlotLeft.icon = ActionSlot[0]->icon;
+	}
 	else if (buttonName == "ActionBar1")
-		mouseSlotLeft.sprite = ActionSlot[1]->GetComponent<RenderComponent>()->sprite;
+	{
+		mouseSlotLeft.icon = ActionSlot[1]->icon;
+	}
 	else if (buttonName == "ActionBar2")
-		mouseSlotLeft.sprite = ActionSlot[2]->GetComponent<RenderComponent>()->sprite;
+	{
+		mouseSlotLeft.icon = ActionSlot[2]->icon;
+	}
 	else if (buttonName == "ActionBar3")
-		mouseSlotLeft.sprite = ActionSlot[3]->GetComponent<RenderComponent>()->sprite;
+	{
+		mouseSlotLeft.icon = ActionSlot[3]->icon;
+	}
 }
 
-void GraphicalUserInterface::setObjectToFollow(GameObject* follow)
+void GraphicalUserInterface::addOverhead(GameObject* entity)
 {
-	ObjectToFollow = follow;
-	overhead.setPosition(
-		float(ObjectToFollow->GetComponent<TransformComponent>()->position.x-ObjectToFollow->GetComponent<RenderComponent>()->size.x/2),
-		float(ObjectToFollow->GetComponent<TransformComponent>()->position.y));
+	if (entity->GetComponent<OverheadComponent>())
+		overhead.push_back(entity->GetComponent<OverheadComponent>());
 }
+
+void GraphicalUserInterface::requestOverheadRemoval(GameObject* entity)
+{
+	OverheadComponent* tmp = entity->GetComponent<OverheadComponent>();
+	if (tmp)
+		for (std::vector<OverheadComponent*>::iterator it = overhead.begin(); it != overhead.end(); ++it)
+			if (tmp == *it)
+			{
+				overhead.erase(it);
+				break;
+			}
+}
+
+void GraphicalUserInterface::setCursor(std::string name)
+{
+	mouseAim.sprite.setTexture(*Engine::Graphic.requestTexture(name), true);
+}
+
+void GraphicalUserInterface::initialize()
+{
+	mouseSlotRight.setPosition(270, 30);
+	mouseSlotLeft.setPosition(400, 30);
+
+	// buttons
+	for (size_t i = 0; i < 4; i++)
+	{
+		Button* tmp = new Button();
+		tmp->name = "ActionBar" + std::to_string(i);
+		tmp->setIcon("buttonTest.png");
+		tmp->setPosition(40 + 128 * i,500);
+		ActionSlot.push_back(tmp);
+	}
+	ActionSlot[0]->setIcon("testTarget.png");
+}
+
+
+void GraphicalUserInterface::setMouseVisible()
+{
+	if (isMouseVisible)
+		isMouseVisible = false;
+	else
+		isMouseVisible = true;
+}
+

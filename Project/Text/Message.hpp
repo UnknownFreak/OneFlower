@@ -19,14 +19,14 @@ public:
 	int size;
 	int maxLength;
 	int marginWidth;
-	float duration;
+	double duration;
 	/*
 	Constructor / deconstructor
 	//*/
 
 	Message();
-	Message(sf::Font& font, float dur = -1, int length = -1);
-	//Message(Message& msg);
+	Message(const sf::Font& font,const double dur = -1,const int length = -1);
+	Message(const Message& msg);
 	virtual ~Message();
 
 	/*
@@ -39,10 +39,8 @@ public:
 	void setMarginWidth(int w);
 	void setLength(int l);
 	
-	virtual void move(int x, int y);
-	virtual void move(float x, float y);
-	virtual void setPosition(int x, int y);
-	virtual void setPosition(float x, float y);
+	virtual void move(double x, double y);
+	virtual void setPosition(double x, double y);
 
 	Message& operator=(std::string s);
 	virtual void drawMessage(sf::RenderWindow* rwd);

@@ -22,21 +22,11 @@ public:
 	std::string textureName = "test.png";
 	void attachOn(GameObject* go);
 private:
+	void setTexture();
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>
 	friend void load(Archive& archive, RenderComponent& rc);
-};
-
-class MissingTextureException : public std::exception
-{
-	friend std::ostream& operator<<(std::ostream& os, MissingTextureException& me);
-	RenderComponent* rcp;
-public:
-	
-	MissingTextureException(RenderComponent &rcp );
-	~MissingTextureException(void);
-	const RenderComponent& what();
 };
 
 

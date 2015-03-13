@@ -13,6 +13,10 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F58779DA-3DE9-4DAA-8457-9F0556580466}</ProjectGuid>
     <RootNamespace>AsianViking</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -83,8 +87,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="button.png" />
-    <Image Include="buttonDown.png" />
     <Image Include="test.png" />
   </ItemGroup>
   <ItemGroup>
@@ -95,11 +97,13 @@
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Component\GameObject.h" />
+    <ClInclude Include="Project\Component\HealthComponent.hpp" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
-    <ClInclude Include="Project\Component\MovementComponent.hpp" />
+    <ClInclude Include="Project\Component\OverheadComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\RigidComponent.hpp" />
+    <ClInclude Include="Project\Component\StatsComponent.hpp" />
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\EditorUI\BaseField.hpp" />
     <ClInclude Include="Project\EditorUI\EditorField.hpp" />
@@ -117,16 +121,16 @@
     <ClInclude Include="Project\InputHandler.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave.hpp" />
+    <ClInclude Include="Project\Mouse\Mouse.hpp" />
     <ClInclude Include="Project\Physics.hpp" />
     <ClInclude Include="Project\PhysicsQuad.hpp" />
+    <ClInclude Include="Project\Prefab.hpp" />
+    <ClInclude Include="Project\PrefabContainer.hpp" />
     <ClInclude Include="Project\Resource.h" />
     <ClInclude Include="Project\Text\FloatingDamage.hpp" />
     <ClInclude Include="Project\Text\FloatingText.hpp" />
-    <ClInclude Include="Project\Text\FontDefiner.hpp" />
+    <ClInclude Include="Project\Text\Font.hpp" />
     <ClInclude Include="Project\Text\InputBox.hpp" />
-    <ClInclude Include="Project\Text\Message.hpp" />
-    <ClInclude Include="Project\Text\MessageDefiner.hpp" />
-    <ClInclude Include="Project\Text\Message.hpp" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
@@ -135,12 +139,16 @@
     <ClInclude Include="Project\ZoneMaker.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\ButtonObject.cpp" />
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
+    <ClCompile Include="Project\Component\HealthComponent.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\OverheadComponent.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\StatsComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp" />
@@ -153,17 +161,21 @@
     <ClCompile Include="Project\GameHandler.cpp" />
     <ClCompile Include="Project\GameViewDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterfaceHandler.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
+    <ClCompile Include="Project\Mouse\Mouse.cpp" />
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />
     <ClCompile Include="Project\PhysicsEngineHandler.cpp" />
     <ClCompile Include="Project\PhysicsQuadDefiner.cpp" />
+    <ClCompile Include="Project\PrefabContainerDefiner.cpp" />
+    <ClCompile Include="Project\PrefabDefiner.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Text\FloatingTextDefiner.cpp" />
-    <ClCompile Include="Project\Text\FontHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Text\FontDefiner.cpp" />
     <ClCompile Include="Project\Text\InputBoxDefiner.cpp" />
-    <ClCompile Include="Project\Text\MessageHandler.cpp" />
+    <ClCompile Include="Project\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\TileDefiner.cpp" />
     <ClCompile Include="Project\TimeDefiner.cpp" />
     <ClCompile Include="Project\VectorDefiner.cpp" />

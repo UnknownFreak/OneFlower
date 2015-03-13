@@ -21,8 +21,6 @@ private:
 	template<class Archive>
 	friend void load(Archive&ar, Zone &zone);
 public:
-	
-	
 
 	// Vector containing tiles (backgrounds)
 	std::vector<Tile> foregrounds;

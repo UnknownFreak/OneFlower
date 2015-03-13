@@ -4,7 +4,7 @@ FloatingDamage::FloatingDamage(std::string iconName, sf::Font& font, double dura
 {
 
 }
-FloatingDamage::FloatingDamage(FloatingDamage& fdmg) : FloatingText(fdmg.iconName,fdmg.font,fdmg.duration,fdmg.maxLength,fdmg.offsetX,fdmg.offsetY)
+FloatingDamage::FloatingDamage(FloatingDamage& fdmg) : FloatingText(fdmg.iconName,fdmg.font,fdmg.duration,fdmg.maxLength,fdmg.offset.x,fdmg.offset.y)
 {
 	setColor(fdmg.color);
 }

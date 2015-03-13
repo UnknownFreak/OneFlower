@@ -5,9 +5,8 @@ InputBox::InputBox()
 
 }
 
-InputBox::InputBox(sf::Font& font, int len, int x1, int y1, int x2, int y2 ) : Message(font, -1, len)
+InputBox::InputBox(sf::Font& font, int len, int x1, int y1, int x2, int y2) : Message(font, -1, len), box(sf::VertexArray(sf::LinesStrip,4))
 {
-	box = sf::VertexArray(sf::LinesStrip, 4);
 	box[0].position = sf::Vector2f(x1, y1);
 	box[1].position = sf::Vector2f(x2,y1);
 	box[2].position = sf::Vector2f(x2, y2);

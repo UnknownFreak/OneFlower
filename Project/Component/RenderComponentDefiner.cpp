@@ -7,76 +7,44 @@ std::string IBaseComponent<RenderComponent>::componentName = "RenderComponent";
 
 RenderComponent::RenderComponent()
 {
-	if (!Engine::Graphic.loadTexture(textureName))
-		throw MissingTextureException(*this);
-	else
-	{
-		 
-		sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
-		sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
-		size.x = sprite.getTexture()->getSize().x;
-		size.y = sprite.getTexture()->getSize().y;
-	}
-
+	setTexture();
 }
-RenderComponent::RenderComponent(const RenderComponent &rcp)
+RenderComponent::RenderComponent(const RenderComponent &rcp) : textureName(rcp.textureName), renderlayer(rcp.renderlayer), size(rcp.size)
 {
-	textureName = rcp.textureName;
-	renderlayer = rcp.renderlayer;
-	size.x = rcp.size.x;
-	size.y = rcp.size.y;
-	if (!Engine::Graphic.loadTexture(textureName))
-		throw MissingTextureException(*this);
-	else
-	{
 		sprite.setScale(rcp.sprite.getScale());
-		sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
+		sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
 		sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
 		sprite.setTextureRect(sf::IntRect(0,0,size.x,size.y));
-	}
 }
-RenderComponent::RenderComponent(std::string texture)
+RenderComponent::RenderComponent(std::string texture) : textureName(texture), size(0,0)
 {
-	textureName = texture;
-	if (!Engine::Graphic.loadTexture(textureName))
-		throw MissingTextureException(*this);
-	else
-	{
-		sprite.setTexture(*Engine::Graphic.requestTexture(textureName));
-		sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
+	setTexture();
+}
+void RenderComponent::setTexture()
+{
+		sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
+		//sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
 		size.x = sprite.getTexture()->getSize().x;
 		size.y = sprite.getTexture()->getSize().y;
-	}
+
 }
 bool RenderComponent::UpdateFromEditor()
 {
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
 
-	//Todo: AddException for missing texture
+	setTexture();
 
 	return true;
 }
 void RenderComponent::attachOn(GameObject* attachTo)
 {
-	BaseComponent::attachOn(attachTo);
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
-}
-MissingTextureException::MissingTextureException(RenderComponent &rcpin)
-{
-	rcpin.textureName = "test.png";
-	rcpin.sprite.setTexture(*Engine::Graphic.requestTexture("test.png"));
-	rcpin.sprite.setOrigin(rcpin.sprite.getScale().x / 2, rcpin.sprite.getScale().y / 2);
-	rcpin.sprite.setTextureRect(sf::IntRect(0, 0, rcpin.size.x, rcpin.size.y));
-	rcp = new RenderComponent(rcpin);
-}
-MissingTextureException::~MissingTextureException()
-{
+	RenderComponent::BaseComponent::attachOn(attachTo);
 
-}
-const RenderComponent& MissingTextureException::what()
-{
-	rcp->sprite.setTextureRect(sf::IntRect(0, 0, rcp->size.x, rcp->size.y));
-	return *rcp;
+	Engine::Graphic.removeFromDrawList(attachedOn);
+	Engine::Graphic.insertDrawableObject(attachedOn);
+
+	REGISTER_EDITOR_VARIABLE(int, renderlayer, Layer);
+	REGISTER_EDITOR_VARIABLE(std::string, textureName, Texture);
+
 }

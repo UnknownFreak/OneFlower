@@ -8,6 +8,7 @@
 #include "Physics.hpp"
 #include "Time.hpp"
 #include "GraphicalUserInterface.hpp"
+#include "Mouse\Mouse.hpp"
 #include "GameView.hpp"
 
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
@@ -33,6 +34,8 @@ namespace AsianVikingMotor
 
 	extern PhysicsEngine Physics;
 	extern GraphicalUserInterface GUI ;
+
+	extern Mouse mouse;
 };
 namespace Engine = AsianVikingMotor;
 namespace AVM = AsianVikingMotor;
