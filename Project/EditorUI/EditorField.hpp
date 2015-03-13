@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "BaseField.hpp"
+#include "UIAddon.hpp"
 //#ifdef BaseComponentTest_HPP
 #define REGISTER_EDITOR_TYPE(x)	std::string EditorField<x>::type = #x; //std::string EditorField<x>::getType(){return #x;}
 #define REGISTER_EDITOR_VARIABLE(type,var,DisplayName)\
@@ -27,7 +28,8 @@ public:
 	~EditorField()	
 	{
 		DestroyWindow(label);
-		DestroyWindow(hwnd);
+		DestroyWindow(hWnd);
+		EditorUI::RecycleID(ID);
 		
 //		DestroyWindow(second);
 	}
@@ -38,31 +40,9 @@ public:
 	{
 		return type;//	 static_assert(false,"You are missing a REGISTER_EDITOR_TYPE");;
 	}
-
 	//Name of type
 	static std::string type;
 
-};
-
-class EditorGroup
-{
-public:
-	//The Group Window
-	HWND hwnd;
-	
-	//The Component name
-	std::string name;
-
-	//The Name Label
-	HWND label;
-
-	//All the variable field
-	std::map<int,BaseField*> field;
-
-	int variableCount = 0;
-
-
-	
 };
 
 #endif

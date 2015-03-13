@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "Gfx.h"
 #include "Text/Message.hpp"
+#include "Component\RenderComponent.h"
 #include "Engine.hpp"//std::vector<GameObject> allGameObject;
 Game::~Game()
 {
@@ -27,7 +28,12 @@ void Game::addGameObject(GameObject* entity)
 		mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
 	allGameObjectPointers.push_back(entity);
-	Engine::Graphic.insertDrawableObject(entity);
+	if(entity->GetComponent<RenderComponent>())
+		Engine::Graphic.insertDrawableObject(entity);
+
+#ifdef _DEBUG
+	Engine::Window.ListViewer.add(entity);
+#endif
 }
 
 

@@ -38,58 +38,63 @@ void PhysicsEngine::Update()
 }
 bool AABB(RigidComponent* a,HitboxComponent* b)
 {
-	Vector2 posA = a->attachedOn->GetComponent<TransformComponent>()->position;
-	Vector2 posB = b->attachedOn->GetComponent<TransformComponent>()->position;
-	//HIGH: Remove this after test
-	a->size.x = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
-	a->size.y = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
-	b->size.x = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
-	b->size.y = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
+	//LOW: Remove this one day due to updating AABB code
+	if(a->attachedOn->GetComponent<RenderComponent>() && b->attachedOn->GetComponent<RenderComponent>())
+	{
 
-
-	
-	int OB1top = posA.y - (a->size.y/2);
-	int OB1bot = posA.y + (a->size.y / 2);
-
-	int OB1right = posA.x + (a->size.x/2);
-	int OB1left = posA.x - (a->size.x/2);
-
-	int OB2top = posB.y - (a->size.y/2);
-	int OB2bot = posB.y + (a->size.y / 2);
-
-	int OB2right = posB.x + (a->size.x/2);
-	int OB2left = posB.x - (a->size.x/2);
+		Vector2 posA = a->attachedOn->GetComponent<TransformComponent>()->position;
+		Vector2 posB = b->attachedOn->GetComponent<TransformComponent>()->position;
+		//HIGH: Remove this after test and fix this with a more optimized code structer
+		a->size.x = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
+		a->size.y = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
+		b->size.x = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
+		b->size.y = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
 
 
 
-	// Check the collision Horizontally
+		int OB1top = posA.y - (a->size.y / 2);
+		int OB1bot = posA.y + (a->size.y / 2);
 
-	// > Because the higher the more right, 0,0 top left 
-	// this means that OB1 is to the right of OB2 
-	if(OB1left>OB2right)
-		return false; 
+		int OB1right = posA.x + (a->size.x / 2);
+		int OB1left = posA.x - (a->size.x / 2);
 
+		int OB2top = posB.y - (a->size.y / 2);
+		int OB2bot = posB.y + (a->size.y / 2);
 
-	// > Because the higher the more right, 0,0 top left 
-	// this means that OB2 is to the right of OB1 
-	if(OB2left>OB1right) 
-		return false; 
-
-
-	//< Because the lower the higher, 0,0 top left 
-	//this means that OB1 is above OB2,	far enough to guarantee not to be touching
-	if(OB1bot<OB2top)
-		return false;
+		int OB2right = posB.x + (a->size.x / 2);
+		int OB2left = posB.x - (a->size.x / 2);
 
 
-	//< Because the lower the higher, 0,0 top left 
-	//this means that OB2 is above OB1 
-	if(OB2bot<OB1top)
-		return false;
-	if(Engine::time.time("Collision",5))
-		Engine::Window.print("Collision: "	+	a->attachedOn->name + "-> "+b->attachedOn->name + "\n");
 
-	return true;
+		// Check the collision Horizontally
+
+		// > Because the higher the more right, 0,0 top left 
+		// this means that OB1 is to the right of OB2 
+		if(OB1left > OB2right)
+			return false;
+
+
+		// > Because the higher the more right, 0,0 top left 
+		// this means that OB2 is to the right of OB1 
+		if(OB2left > OB1right)
+			return false;
+
+
+		//< Because the lower the higher, 0,0 top left 
+		//this means that OB1 is above OB2,	far enough to guarantee not to be touching
+		if(OB1bot < OB2top)
+			return false;
+
+
+		//< Because the lower the higher, 0,0 top left 
+		//this means that OB2 is above OB1 
+		if(OB2bot < OB1top)
+			return false;
+		if(Engine::time.time("Collision",5))
+			Engine::Window.print("Collision: " + a->attachedOn->name + "-> " + b->attachedOn->name + "\n");
+
+		return true;
+	}
 }
 
 float SweptAABB(HitboxComponent b1,HitboxComponent b2,float& normalx,float& normaly)

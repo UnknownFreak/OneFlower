@@ -10,6 +10,7 @@ public:
 	
 	//LOW: Remove this if not needed
 	RigidComponent();
+	~RigidComponent();
 	//TODO Add other constructors
 
 	//Absolute Pixel not half pixel

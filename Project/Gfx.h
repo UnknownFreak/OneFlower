@@ -15,7 +15,7 @@ class Message;
 class Gfx
 {
 public:
-    Gfx();
+
     #pragma region Texture Related Functions
     //Load a picture file into a Texture and not a sprite
     bool loadTexture(std::string locatonOfTheTexture);
@@ -29,7 +29,6 @@ public:
 
     void insertDrawableObject(GameObject* drawableEntity);	
 	void removeFromDrawList(GameObject* objectToRemove);
-    sf::View camera; 
     std::vector<std::vector<Tile*>> tileList;
 
     //Draw all Game object with RenderComponent attached to it

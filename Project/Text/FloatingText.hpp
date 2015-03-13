@@ -15,8 +15,6 @@ public:
 	//*/
 	std::string iconName;
 	sf::Sprite iconSprite;
-
-
 	/*
 	Constructor
 	//*/

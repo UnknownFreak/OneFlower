@@ -13,20 +13,19 @@
 void Game::Update()
 {
 	//LOW: Make my own Custom Focus
-	//if(Engine::Window.focus)
+	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			Engine::Graphic.camera.move(0,10);
+			Engine::View.camera.move(0,10);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			Engine::Graphic.camera.move(-10,0);
+			Engine::View.camera.move(-10,0);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			Engine::Graphic.camera.move(0,-10);
+			Engine::View.camera.move(0,-10);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			Engine::Graphic.camera.move(10,0);
+			Engine::View.camera.move(10,0);
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			Engine::Graphic.camera.setCenter(0,0);
-		Engine::Window.View.setView(Engine::Graphic.camera);
-		Engine::GUI.updateMouse();
+			Engine::View.camera.setCenter(0,0);
+		Engine::View.render.setView(Engine::View.camera);
 	}
 }
 

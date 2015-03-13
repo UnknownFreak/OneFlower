@@ -2,13 +2,13 @@
 #include <math.h>
 #include "../Engine.hpp"
 
-void TransformComponent::move(double x,double y,double s)
+void TransformComponent::moveTo(double x,double y,double s)
 {
+	//LOW clean this code up
 	Vector2 test(x,y);
 	Vector2 distance;
 	distance.x = test.x - position.x;
 	distance.y = test.y - position.y;
-		
 
 	if(distance.normalize())
 	{
@@ -37,8 +37,17 @@ void TransformComponent::move(double x,double y,double s)
 		position.x += dx*s;
 		position.y += dy*s;
 	}
-	
 }
+void TransformComponent::move(Vector2 dir,double s)
+{
+	if(!dir.normalized)
+	{
+		dir.normalize();
+	}
+	position.x += dir.x*s;
+	position.y += dir.y*s;
+}
+
 double TransformComponent::distance(TransformComponent* target)
 {
 	return	position.distance(&target->position);

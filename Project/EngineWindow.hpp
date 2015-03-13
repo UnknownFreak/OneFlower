@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 #ifndef EngineWindow_HPP
 #define EngineWindow_HPP
 #include <Windows.h>	
@@ -7,6 +8,11 @@
 #include <SFML\Graphics\RenderWindow.hpp>
 #include "EditorUI\EditorField.hpp"	
 #include <vector>
+#include "EditorUI\EditorIDAssigner.hpp"
+#include "EditorUI\EngineFocusWindow.hpp"
+#include "GameView.hpp"
+#include "EngineObjectListViewer.hpp"
+#include "EditorUI\EngineFocusWindow.hpp"
 class GameObject;
 class EngineWindow
 {
@@ -16,7 +22,6 @@ public:
 
 	void setGameObject(GameObject* gameobject);
 	void cleanse();
-
 	void update();
 
 
@@ -26,26 +31,26 @@ public:
 	void print(std::string);
 	
 	HINSTANCE hInstance;
-	sf::RenderWindow View;
 
-	//All component group, not to be confused with the control fields inside EditorGroup
-	std::map<std::string,EditorGroup> fieldGroup;
 	HWND hWnd;
+	EngineObjectListViewer ListViewer;
+	EngineFocus focus;
 
-	bool focus = true;
 
-	GameObject* focusedGameObject = NULL;
+	//GameObject* focusedGameObject = NULL;
 
+	EditorID editorID;
 	//std::map<std::string,HWND> Fields;
 private:
-	std::vector<std::string> printList;
 	Vector2 size;
-	Vector2 viewPosition;
-	HWND viewport;
+
+	std::vector<std::string> printList;
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;
 	WNDCLASSEX wc;
-	HWND focusWindow;
+	//HWND focus;
 
+	
 };
+#endif
 #endif

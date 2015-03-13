@@ -9,6 +9,7 @@
 class BaseComponent;
 class GameObject
 {
+	friend class BaseComponent;	
 public:
 	GameObject();
 	GameObject(const GameObject & go);
@@ -29,7 +30,6 @@ public:
 		{
 			BaseComponent* componentToAttach = new T(as...);
 			componentToAttach->attachOn(this);
-			componentMap.insert(std::make_pair(componentToAttach->getType(),componentToAttach));
 		
 		
 		}

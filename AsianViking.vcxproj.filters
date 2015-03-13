@@ -172,6 +172,27 @@
     <ClInclude Include="Project\PhysicsQuad.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Project\ButtonObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorUI\EditorFieldGroup.hpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorUI\EditorIDAssigner.hpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Text\MessageDefiner.hpp">
+      <Filter>Source Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameView.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EngineObjectListViewer.hpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\LoadAndSave.cpp">
@@ -222,20 +243,11 @@
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
-    <ClCompile Include="Project\EngineDefiner.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EngineWindowDefiner.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp">
-      <Filter>Source Files\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
@@ -255,12 +267,6 @@
     <ClCompile Include="Project\EngineWindowHandler.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Text\MessageHandler.cpp">
-      <Filter>Source Files\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Component\TransformComponentHandler.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
@@ -279,10 +285,31 @@
     <ClCompile Include="Project\PhysicsQuadDefiner.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Text\MessageHandlerDefiner.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorUI\EditorFieldHandler.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameViewDefiner.cpp">
+      <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\MenuBar.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

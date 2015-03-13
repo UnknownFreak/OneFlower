@@ -10,86 +10,63 @@
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
 int windowMessage();
+void RunMain();
+int test();
+EngineWindow Engine::Window;
+Gfx Engine::Graphic;
+GameView Engine::View;
+sf::Event Engine::event;
+Game Engine::game;
+Time Engine::time;
+PhysicsEngine Engine::Physics;
+
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
-	
 	Engine::Window.hInstance = hInstance;
-	windowMessage();
+	false ? test() : windowMessage();
 	return 0;
 }
+
 int windowMessage()
 {
-	//sf::SoundBuffer buf;
-	//buf.loadFromFile("test.wav");
-	//testSave();
-	WorldManagement world;
-	//HIGH: Make it do TRY AND CATCH EMIL!
-	//HIGH: Make it do TRY AND CATCH!
-//	world.loadZone(1);
-
-	sf::Texture ab;
-	
-	GameObject* a = new GameObject("TestiingObject");
-	a->AddComponent<RigidComponent>();
-	a->AddComponent(new RenderComponent("blacktree.png"));
-	a->AddComponent<RenderComponent>("Debug.png");
-	sf::Sprite* sprite = &a->GetComponent<RenderComponent>()->sprite;
-	a->tag = "Rigid";
-	float x = sprite->getTextureRect().width;
-	float y = sprite->getTextureRect().height;
-	sprite->setOrigin(x / 2,y / 2);
-	a->GetComponent<TransformComponent>()->position.x = 300;
-	a->GetComponent<TransformComponent>()->position.y = 400;
-	Engine::game.addGameObject(a);
-
-
-	GameObject* b = new GameObject("TestiingObject");
-	b->AddComponent<HitboxComponent>();
-	b->AddComponent(new RenderComponent(/*"Debug.png"*/));
-	b->AddComponent<RenderComponent>("Debug.png");
-	sf::Sprite* spriteB = &b->GetComponent<RenderComponent>()->sprite;
-
-	float x2 = spriteB->getTextureRect().width;
-	float y2 = spriteB->getTextureRect().height;
-	spriteB->setOrigin(x2 / 2,y2 / 2);
-	b->GetComponent<TransformComponent>()->position.x = 100;
-	b->GetComponent<TransformComponent>()->position.y = 200;
-	Engine::game.addGameObject(b);
-	Engine::GUI.setObjectToFollow(a);
-
-	//*/	
-	sf::Vector2f vec(10,10);
 	Time time;
-	MSG Message;
-	ZeroMemory(&Message,sizeof(MSG));
-	Engine::Window.View.setFramerateLimit(200);
-	while(Message.message != WM_QUIT)
+	MSG message;
+	ZeroMemory(&message,sizeof(MSG));
+	Engine::View.render.setFramerateLimit(200);
+
+	#ifdef _DEBUG
+	while(message.message != WM_QUIT)
 	{
-		while(PeekMessage(&Message,NULL,0,0,PM_REMOVE))
+		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
 		{
-			if(Message.message == WM_KEYDOWN)
+			/*
+			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-				if(Message.wParam == VK_ESCAPE)
+				if(IsDialogMessage(i->second.hWnd,&message))
+				{
+					break;
+				}
+			}
+			//*/
+
+			if(message.message == WM_KEYDOWN)
+			{
+				if(message.wParam == VK_ESCAPE)
 				{
 					SetFocus(Engine::Window.hWnd);
 				}
 			}
 			// If a message was waiting in the message queue, process it
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
+			TranslateMessage(&message);
+			DispatchMessage(&message);
 		}
-		//else
 		{
-			while(Engine::Window.View.pollEvent(Engine::event))
+			while(Engine::View.render.pollEvent(Engine::event))
 			{
-				if(Engine::event.type == sf::Event::Closed)
+				if(Engine::View.render.hasFocus())
 				{
-					Engine::Window.View.close();
-				}
-				#pragma region Mouse
-				else if(true)
-				{
+					#pragma region Mouse
 					if(Engine::event.type == Engine::event.MouseButtonReleased)
 					{
 						#pragma region Left
@@ -107,54 +84,28 @@ int windowMessage()
 								hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 								transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 								rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
-								if(hitbox || rig)
+								if(hitbox || rig || rc)
 								{
-									sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Window.View);
-									sf::Vector2f worldPos = Engine::Window.View.mapPixelToCoords(pixelPos);
+									sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
+									sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
 
 									rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 									ab = Engine::game.allGameObjectPointers.at(i);
 									dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
-									if (dialog)
+									if(dialog)
 										dialog->show();
 
 									int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * 1);
-									int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) *1);
-									int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) *1);
-									int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) *1);
+									int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * 1);
+									int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * 1);
+									int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * 1);
 
 									if(worldPos.x <= localStartX && worldPos.x >= localEndX)
-									if(worldPos.y <= localStartY && worldPos.y >= localEndY)
-										Engine::Graphic.selectedDrawList.push_back(ab);
+										if(worldPos.y <= localStartY && worldPos.y >= localEndY)
+											Engine::Graphic.selectedDrawList.push_back(ab);
 								}
 							}
-							for (size_t i = 0; i < Engine::GUI.ActionSlot.size(); i++)
-							{
-								HitboxComponent* hcp = 0;
-								TransformComponent* tcp = 0;
-								RenderComponent* rcp = 0;
-								hcp = Engine::GUI.ActionSlot.at(i)->GetComponent<HitboxComponent>();
-								tcp = Engine::GUI.ActionSlot.at(i)->GetComponent<TransformComponent>();
-								rcp = Engine::GUI.ActionSlot.at(i)->GetComponent<RenderComponent>();
-								if (hcp)
-								{
-									sf::Vector2i pix = sf::Mouse::getPosition(Engine::Window.View);
-									sf::Vector2f world = Engine::Window.View.mapPixelToCoords(pix);
 
-									int localStartX = (tcp->position.x + (rcp->sprite.getTextureRect().width));
-									int localStartY = (tcp->position.y + (rcp->sprite.getTextureRect().height));
-									int localEndX = (tcp->position.x - (rcp->sprite.getTextureRect().width));
-									int localEndY = (tcp->position.y - (rcp->sprite.getTextureRect().height));
-
-									if (world.x <= localStartX && world.x >= localEndX &&
-										world.y <= localStartY && world.y >= localEndY
-										)
-									{
-										std::cout << Engine::GUI.ActionSlot.at(i)->name << std::endl;
-										Engine::GUI.setActiveSkill(Engine::GUI.ActionSlot.at(i)->name);
-									}
-								}
-							}
 							if(Engine::Graphic.selectedDrawList.size() > 0)
 							{
 								for(size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
@@ -165,20 +116,21 @@ int windowMessage()
 									}
 								}
 								GameObject* theChoosenOne = Engine::Graphic.selectedDrawList[top];
-								std::cout<< "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
+								std::cout << "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
 								Engine::Window.setGameObject(theChoosenOne);
 								Engine::Graphic.selectedDrawList.clear();
 							}
 						}
-					#pragma endregion
+						#pragma endregion
+						#pragma region Right
 						else if(Engine::event.mouseButton.button == sf::Mouse::Button::Right)
 						{
-							sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Window.View);
-							sf::Vector2f worldPos = Engine::Window.View.mapPixelToCoords(pixelPos);
+							sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
+							sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
 							/*
 							sf::Vector2f dir = testa.sprite.getPosition() - worldPos;
 							dir = dir / sqrt(dir.x * dir.x + dir.y * dir.y) ;
-							
+
 							/*
 							sf::Vector2f shit(a->GetComponent<TransformComponent>()->position.x,a->GetComponent<TransformComponent>()->position.y);
 
@@ -191,59 +143,69 @@ int windowMessage()
 							vec.x = shit2.x;
 							vec.y = shit2.y;
 							//*/
-							vec = worldPos;
 
 							HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
 							HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
 
-							SetWindowText(wnd,std::to_string((int)worldPos.x).c_str());
-							SetWindowText(awnd,std::to_string((int)worldPos.y).c_str());
+							SetWindowTextA(wnd,std::to_string((int)worldPos.x).c_str());
+							SetWindowTextA(awnd,std::to_string((int)worldPos.y).c_str());
 						}
+#pragma endregion
 					}
-
+#pragma endregion
 				}
-				#pragma endregion 
-				else if(Engine::event.type == sf::Event::GainedFocus)
-					Engine::Window.focus = true;
-				else if(Engine::event.type == sf::Event::LostFocus)
-					Engine::Window.focus = false;
+				if(Engine::event.type == sf::Event::Closed)
+				{
+					Engine::View.render.close();
+				}
 			}
-			Engine::Window.View.clear();
+			Engine::View.render.clear();
 			Engine::game.Update();
-			a->GetComponent<TransformComponent>()->move(vec.x,vec.y,5);
 			Engine::Physics.Update();
-			Engine::Graphic.Draw();		
-
-			Engine::GUI.Draw();
-			Engine::Window.View.display();
-
+			Engine::Graphic.Draw();
+			Engine::View.render.display();
 			Engine::time.delta.restart();
 			time.FPS();
 		}
 	}
-	/*
-	if(!true)
+	return message.wParam;
+#endif
+}
+
+int test()
+{
+	// Create the main window
+	sf::RenderWindow window(sf::VideoMode(800,600),"SFML window");
+	// Load a sprite to display
+	sf::Texture texture;
+	if(!texture.loadFromFile("test.png"))
+		return EXIT_FAILURE;
+	sf::Sprite sprite(texture);
+	// Create a graphical text to display
+	sf::Font font;
+	if(!font.loadFromFile("arial.ttf"))
+		return EXIT_FAILURE;
+	sf::Text text("Hello SFML",font,50);
+	sf::Text text2("HellNoFucs",font,50);
+	// Start the game loop
+	while(window.isOpen())
 	{
-		MSG msg;
-		ZeroMemory(&msg,sizeof(MSG));
-		while(GetMessage(&msg,NULL,0,0))
+		// Process events
+		sf::Event event;
+		while(window.pollEvent(event))
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
-			{
-				if(msg.message == WM_QUIT)
-				{
-					Engine::Window.View.close();
-					break;
-				}
-			}
-			else
-			{
-			
-			}
+			// Close window: exit
+			if(event.type == sf::Event::Closed)
+				window.close();
 		}
+		// Clear screen
+		window.clear();
+		// Draw the sprite
+		window.draw(sprite);
+		// Draw the string
+		window.hasFocus() ? window.draw(text) : window.draw(text2);
+		// Update the window
+		window.display();
 	}
-	//*/
-	return Message.wParam;
+	return EXIT_SUCCESS;
 }

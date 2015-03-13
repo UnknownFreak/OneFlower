@@ -9,10 +9,18 @@ BEGIN
 
 	POPUP "Add"
 	BEGIN
+
 		POPUP "Components"
 		BEGIN
-			MENUITEM "RenderComponent",ID_ADD_RENDER
+			MENUITEM "TransformComponent",ADD_TransformComponent
+			MENUITEM "RenderComponent",ADD_RenderComponent
+			MENUITEM "HitboxComponent",ADD_HitboxComponent
+			MENUITEM "DialogComponent",ADD_DialogComponent
+			MENUITEM "OverHeadComponent",ADD_OverHeadComponent
+			MENUITEM "RigidComponent",ADD_RigidComponent
 		END
+		MENUITEM "GameObject",ADD_GameObject
+
 	END
 END
 

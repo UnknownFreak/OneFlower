@@ -8,6 +8,10 @@ RigidComponent::RigidComponent()
 {
 
 }
+RigidComponent::~RigidComponent()
+{
+	Engine::Physics.removePhysics(this);
+}
 void RigidComponent::attachOn(GameObject* go)
 {
 

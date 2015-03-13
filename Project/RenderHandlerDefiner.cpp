@@ -9,29 +9,7 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
 #include "Engine.hpp"
-Gfx gfx;
-Gfx::Gfx()
-{
-	camera.reset(sf::FloatRect(0,0,800,600));
-/*	if(!rex.create(camera.getSize().x,camera.getSize().y))
-	{
-		std::cout+ "Error creating Rex";
-	}
-	/*
-	for(int i = 0; i < 5; i++)
-	{
-		std::vector<Tile> temp;
 
-		for(int j = 0; j < 5; j++)
-		{
-			Tile tTemp(i,j);
-			tTemp.sprite.setPosition(i*tTemp.sprite.getTextureRect().width,j*tTemp.sprite.getTextureRect().height);
-			temp.push_back(tTemp);
-		}
-		tileList.push_back(temp);
-	}
-	//*/
-}
 bool Gfx::loadTexture(std::string name) 
 {
 	sf::Texture tempTexture;
@@ -126,8 +104,7 @@ void Gfx::Draw()
 				rc = it->second[j]->GetComponent<RenderComponent>();
 				tc = it->second[j]->GetComponent<TransformComponent>();
 				dc = it->second[j]->GetComponent<DialogComponent>();
-				// not all gameobjects have dialogs
-				if (dc)
+				if(rc)
 				{
 					if (dc->open)
 					{
@@ -141,9 +118,17 @@ void Gfx::Draw()
 				Engine::Window.View.draw(rc->sprite); 
 				if(rc->sprite.getTexture())
 				{
+
+					}
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
-					rc->sprite.setRotation(tc->rotation.x);
-					Engine::Window.View.draw(rc->sprite);
+					Engine::View.render.draw(rc->sprite);
+					if(rc->sprite.getTexture())
+					{
+						rc->sprite.setPosition(tc->position.x,tc->position.y);
+						rc->sprite.setRotation(tc->rotation.x);
+						Engine::View.render.draw(rc->sprite);
+					}
+
 				}
 			}
 		}
@@ -152,17 +137,17 @@ void Gfx::Draw()
 }
 void Gfx::DrawBG()
 {
-	backgroundSprite.sprite.setPosition(camera.getCenter().x*1.5f, camera.getCenter().y*1.5f);
+	backgroundSprite.sprite.setPosition(Engine::View.camera.getCenter().x*1.5f, Engine::View.camera.getCenter().y*1.5f);
 
-	Engine::Window.View.draw(backgroundSprite.sprite);
+	Engine::View.render.draw(backgroundSprite.sprite);
 	for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
-		Engine::Window.View.draw(it->sprite);
+		Engine::View.render.draw(it->sprite);
 }
 void Gfx::DrawTxt()
 {
 	for (int i = 0; i < msg.size(); i++)
 	{
-		msg[i]->drawMessage(&Engine::Window.View);
+		msg[i]->drawMessage(&Engine::View.render);
 		if (msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
 			removeFromMessageList(msg[i]);
 	}

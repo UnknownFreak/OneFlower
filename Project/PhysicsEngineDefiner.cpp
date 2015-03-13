@@ -15,6 +15,18 @@ void PhysicsEngine::addPhysics(HitboxComponent* obj)
 		hitboxes.push_back(obj);
 }
 
+void PhysicsEngine::removePhysics(RigidComponent* obj)
+{
+	if(obj)
+		for(size_t i = 0; i < rigid.size(); i++)
+			if(rigid[i] == obj)
+			{
+				rigid.erase(rigid.begin() + i);
+				break;
+			}
+}
+
+
 
 
 
@@ -32,8 +44,8 @@ void PhysicsEngine::addPhysics(GameObject* obj)
 }
 PhysicsEngine::PhysicsEngine():quad(0)
 {
-	size_t x = Engine::Window.View.getSize().x;
-	size_t y = Engine::Window.View.getSize().y;
+	size_t x = Engine::View.render.getSize().x;
+	size_t y = Engine::View.render.getSize().y;
 
 	//LOW: Use init list
 	quad.position[0].x = 0;

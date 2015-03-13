@@ -29,6 +29,15 @@ double Vector2::angle(Vector2* target)
 	int angleInDegree = std::atan2(deltaY,deltaX) * 180 / 3.14159265358979323846;
 	return angleInDegree;
 }
+Vector2 Vector2::direction(Vector2* target)
+{
+	//LOW: use operator
+	return Vector2(target->x - x,target->y - y);
+}
+
+
+
+
 
 bool Vector2::normalize()
 {
@@ -38,6 +47,7 @@ bool Vector2::normalize()
 	{
 		x = x / len;
 		y = y / len;
+		normalized = true;
 		return true;
 	}
 	else

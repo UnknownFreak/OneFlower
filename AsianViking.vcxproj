@@ -39,24 +39,26 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.0.0\include;$(SolutionDir)Lib\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.1\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lib\cereal-1.0.0\include;$(SolutionDir)Lib\SFML-2.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.0.0\include;$(SolutionDir)Lib\SVN\AsianViking\Lib\SFML-2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.1\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lib\cereal-1.0.0\include;$(SolutionDir)Lib\SFML-2.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.2\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.1\Libs\Debug;C:\Users\conny\Dropbox\SVN\AsianViking\VLC\lib;$(SolutionDir)Lib\SFML-2.1\Libs\Release;$(SolutionDir)Lib\SFML-2.1\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.2\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
+ %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Manifest>
       <InputResourceManifests>
@@ -70,13 +72,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.1\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.2\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.1\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.2\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -89,6 +91,7 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\ButtonObject.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Component\GameObject.h" />
@@ -100,10 +103,15 @@
     <ClInclude Include="Project\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\EditorUI\BaseField.hpp" />
     <ClInclude Include="Project\EditorUI\EditorField.hpp" />
+    <ClInclude Include="Project\EditorUI\EditorFieldGroup.hpp" />
+    <ClInclude Include="Project\EditorUI\EditorIDAssigner.hpp" />
+    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp" />
     <ClInclude Include="Project\EditorUI\UIAddon.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\EngineObjectListViewer.hpp" />
     <ClInclude Include="Project\EngineWindow.hpp" />
     <ClInclude Include="Project\Game.h" />
+    <ClInclude Include="Project\GameView.hpp" />
     <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\GraphicalUserInterface.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
@@ -116,6 +124,8 @@
     <ClInclude Include="Project\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Text\FontDefiner.hpp" />
     <ClInclude Include="Project\Text\InputBox.hpp" />
+    <ClInclude Include="Project\Text\Message.hpp" />
+    <ClInclude Include="Project\Text\MessageDefiner.hpp" />
     <ClInclude Include="Project\Text\Message.hpp" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
@@ -133,13 +143,15 @@
     <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentHandler.cpp" />
-    <ClCompile Include="Project\EditorUI\UIAddonDefiner.cpp" />
+    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp" />
+    <ClCompile Include="Project\EditorUI\EditorFieldHandler.cpp" />
+    <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp" />
+    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp" />
     <ClCompile Include="Project\EngineWindowHandler.cpp" />
-    <ClCompile Include="Project\EditorUI\UIAddonEditor.cpp" />
     <ClCompile Include="Project\EngineWindowDefiner.cpp" />
     <ClCompile Include="Project\GameDefiner.cpp" />
-    <ClCompile Include="Project\EngineDefiner.cpp" />
     <ClCompile Include="Project\GameHandler.cpp" />
+    <ClCompile Include="Project\GameViewDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
@@ -162,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\MenuBar.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

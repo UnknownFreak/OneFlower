@@ -20,6 +20,7 @@ public:
 	Vector2 size;
 	//Name of texture;
 	std::string textureName = "test.png";
+	void attachOn(GameObject* go);
 private:
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);

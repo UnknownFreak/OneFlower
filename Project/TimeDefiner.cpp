@@ -15,10 +15,6 @@ float Time::deltaTime()
 	return deltaT;
 }
 
-
-
-
-
 float Time::FPS()
 {
 	currentTime = clock.restart().asSeconds();
@@ -30,9 +26,9 @@ float Time::FPS()
 		lastTime = currentTime;
 		if(hWnd)
 		{
-			SetWindowText(hWnd,std::to_string(fps).c_str());
-			SetWindowText(wnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right).c_str());
-			SetWindowText(awnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).left).c_str());
+			SetWindowTextA(hWnd,std::to_string(fps).c_str());
+			SetWindowTextA(wnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right).c_str());
+			SetWindowTextA(awnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).left).c_str());
 		}
 		else
 		{

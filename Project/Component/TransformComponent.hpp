@@ -17,12 +17,15 @@ public:
 
 	//Yet TBD
 	Vector2 rotation;
-
-	
+	bool a = true;
 	void attachOn(GameObject* go);
 
 	//Move towrads Absolute World coordinates with Pixel Per Seconds
-	void move(double x,double y,double s);
+	void moveTo(double x,double y,double s);
+	
+	
+	//Move relative 
+	void move(Vector2 dir,double s);
 
 	//Get the angle towards target
 	double angle(TransformComponent* target);

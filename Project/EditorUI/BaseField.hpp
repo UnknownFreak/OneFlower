@@ -15,7 +15,7 @@ class BaseComponent;
 class BaseField
 {
 public:
-	virtual ~BaseField() = 0{};
+	virtual ~BaseField() = default;
 	virtual	std::string getType() = 0;
 
 	//Name Label
@@ -25,7 +25,7 @@ public:
 	std::string name;
 
 	//The variable control 
-	HWND hwnd;
+	HWND hWnd;
 
 	//Control flags
 	int flags;
