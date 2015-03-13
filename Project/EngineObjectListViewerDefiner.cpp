@@ -47,6 +47,7 @@ void EngineObjectListViewer::update()
 			SendMessage(hWnd,LB_DELETESTRING,index,0);
 			SendMessage(hWnd,LB_INSERTSTRING,index,(LPARAM)temp->name.c_str());
 			SendMessage(hWnd,LB_SETITEMDATA,index,(LPARAM)temp);
+			SendMessage(hWnd,LB_SETCURSEL,index,0);
 		}
 		else
 			MessageBox(0,"NULL GameObject, From ListBox","CTRL+F 4328974",0);

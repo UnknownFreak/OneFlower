@@ -7,10 +7,6 @@ std::string IBaseComponent<RenderComponent>::componentName = "RenderComponent";
 
 RenderComponent::RenderComponent()
 {
-
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture); 
-	
 	if (!Engine::Graphic.loadTexture(textureName))
 		throw MissingTextureException(*this);
 	else
@@ -25,8 +21,6 @@ RenderComponent::RenderComponent()
 }
 RenderComponent::RenderComponent(const RenderComponent &rcp)
 {
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
 	textureName = rcp.textureName;
 	renderlayer = rcp.renderlayer;
 	size.x = rcp.size.x;
@@ -43,8 +37,6 @@ RenderComponent::RenderComponent(const RenderComponent &rcp)
 }
 RenderComponent::RenderComponent(std::string texture)
 {
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
 	textureName = texture;
 	if (!Engine::Graphic.loadTexture(textureName))
 		throw MissingTextureException(*this);
@@ -65,7 +57,12 @@ bool RenderComponent::UpdateFromEditor()
 
 	return true;
 }
-
+void RenderComponent::attachOn(GameObject* attachTo)
+{
+	BaseComponent::attachOn(attachTo);
+	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
+	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
+}
 MissingTextureException::MissingTextureException(RenderComponent &rcpin)
 {
 	rcpin.textureName = "test.png";

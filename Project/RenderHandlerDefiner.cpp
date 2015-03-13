@@ -106,33 +106,33 @@ void Gfx::Draw()
 				dc = it->second[j]->GetComponent<DialogComponent>();
 				if(rc)
 				{
-					if (dc->open)
+					if(dc->open)
 					{
 						dc->updateLocation();
-						if (dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
+						if(dc->msg->timer.getElapsedTime().asSeconds() > dc->duration && dc->duration > 0)
 							dc->close();
 					}
 
 				}
 				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				Engine::Window.View.draw(rc->sprite); 
+				Engine::View.render.draw(rc->sprite);
 				if(rc->sprite.getTexture())
 				{
 
-					}
-					rc->sprite.setPosition(tc->position.x,tc->position.y);
-					Engine::View.render.draw(rc->sprite);
-					if(rc->sprite.getTexture())
-					{
-						rc->sprite.setPosition(tc->position.x,tc->position.y);
-						rc->sprite.setRotation(tc->rotation.x);
-						Engine::View.render.draw(rc->sprite);
-					}
-
 				}
+				rc->sprite.setPosition(tc->position.x,tc->position.y);
+				Engine::View.render.draw(rc->sprite);
+				if(rc->sprite.getTexture())
+				{
+					rc->sprite.setPosition(tc->position.x,tc->position.y);
+					rc->sprite.setRotation(tc->rotation.x);
+					Engine::View.render.draw(rc->sprite);
+				}
+
 			}
 		}
 	}
+	
 	DrawTxt();
 }
 void Gfx::DrawBG()

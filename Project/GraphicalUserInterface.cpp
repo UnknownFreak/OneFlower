@@ -23,10 +23,10 @@ overhead(*Engine::Graphic.font.requestFont("Arial.ttf")), mouseAim(), mouseSlotR
 	mouseSlotLeft.setPosition(400, 30);
 
 
-	x = &Engine::Graphic.camera.getCenter().x;
-	xSize = &Engine::Graphic.camera.getSize().x;
-	y = &Engine::Graphic.camera.getCenter().y;
-	ySize = &Engine::Graphic.camera.getSize().y;
+	x = &Engine::View.camera.getCenter().x;
+	xSize = &Engine::View.camera.getSize().x;
+	y = &Engine::View.camera.getCenter().y;
+	ySize = &Engine::View.camera.getSize().y;
 	// buttons
 	for (int i = 0; i < 4; i++)
 	{
@@ -50,8 +50,8 @@ overhead(*Engine::Graphic.font.requestFont("Arial.ttf")), mouseAim(), mouseSlotR
 void GraphicalUserInterface::Draw()
 {
 	setIconLocation();
-	Engine::Window.View.draw(mouseSlotLeft.sprite);
-	Engine::Window.View.draw(mouseSlotRight.sprite);
+	Engine::View.render.draw(mouseSlotLeft.sprite);
+	Engine::View.render.draw(mouseSlotRight.sprite);
 	for (size_t i = 0; i < ActionSlot.size(); i++)
 	{	
 		ActionSlot[i]->GetComponent<TransformComponent>()->position.x = 40 + 128 * i + *x - *xSize / 2;
@@ -60,10 +60,10 @@ void GraphicalUserInterface::Draw()
 			40 + 128 * i + *x - *xSize / 2,
 			500 + *y - *ySize / 2);
 			
-		Engine::Window.View.draw(ActionSlot[i]->GetComponent<RenderComponent>()->sprite);
+		Engine::View.render.draw(ActionSlot[i]->GetComponent<RenderComponent>()->sprite);
 	}
-	Engine::Window.View.draw(overhead.text);
-	Engine::Window.View.draw(mouseAim.sprite);
+	Engine::View.render.draw(overhead.text);
+	Engine::View.render.draw(mouseAim.sprite);
 }
 GraphicalUserInterface::~GraphicalUserInterface()
 {
@@ -72,8 +72,8 @@ GraphicalUserInterface::~GraphicalUserInterface()
 void GraphicalUserInterface::updateMouse()
 {
 	mouseAim.setPosition(
-		sf::Mouse::getPosition(Engine::Window.View).x -15 + *x - *xSize / 2,
-		sf::Mouse::getPosition(Engine::Window.View).y - 15 + *y- *ySize/2
+		sf::Mouse::getPosition(Engine::View.render).x -15 + *x - *xSize / 2,
+		sf::Mouse::getPosition(Engine::View.render).y - 15 + *y - *ySize / 2
 		);
 }
 
