@@ -29,14 +29,14 @@ void EngineWindow::setGameObject(GameObject* t)
 		//The focused window of the selectd game object
 		focus.hWnd = Engine::Window.focus.addEditor(hWnd,"",window.right - window.left - size - 16,0,size,
 			500,
-			EditorUI::RequestID());
+			0);
 
 
 		std::string lastName = "";
 
 		//LOW: perhaps I should save the Label HWND 2015/02/13
 		//This part is for the gameObject infomation 
-		Engine::Window.focus.addLabel(focus.hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,32,EditorUI::RequestID());
+		Engine::Window.focus.addLabel(focus.hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,32,0);
 			
 		//All components from the gameObject, gameComponent_it = BaseComponent*
 		for(std::map<int,BaseComponent*>::iterator gameComponent_it = t->GetComponents()->begin(); gameComponent_it != t->GetComponents()->end(); gameComponent_it++)
@@ -64,7 +64,7 @@ void EngineWindow::setGameObject(GameObject* t)
 				EditorUI::GetLocalCoordinates(focus.hWnd).right / 2,
 				//Height
 				((gameComponent_it->second->getFields().size()) * 32) + 32,
-				focus.hWnd,(HMENU)EditorUI::RequestID() ,0,
+				focus.hWnd,0 ,0,
 				NULL
 				);
 
@@ -75,7 +75,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			a.name = gameComponent_it->second->getTypeName();
 
 			//Add a Label with said Component name
-			a.label = Engine::Window.focus.addLabel(a.hWnd,a.name,0,0,a.name.size() * 8,16,EditorUI::RequestID());
+			a.label = Engine::Window.focus.addLabel(a.hWnd,a.name,0,0,a.name.size() * 8,16,0);
 
 
 

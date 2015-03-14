@@ -29,9 +29,6 @@ public:
 	{
 		DestroyWindow(label);
 		DestroyWindow(hWnd);
-		EditorUI::RecycleID(ID);
-		
-//		DestroyWindow(second);
 	}
 
 	//The variable

@@ -17,8 +17,6 @@ class BaseField;
 		
 		RECT GetLocalCoordinates(HWND hWnd);
 		RECT GetClientCoordinates(HWND hWnd);
-		void RecycleID(int i);
-		int RequestID();
 		void RedirectIOToConsole();
 		void CompileComponents();
 		extern std::map<std::string,std::map<std::string,std::string>> compiledClass;

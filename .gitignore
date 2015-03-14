@@ -9,4 +9,8 @@ Debug/AsianViking.ilk
 *.sdf
 *.suo
 Debug/
+<<<<<<< HEAD
 *.opensdf
+=======
+*.opensdf
+>>>>>>> origin/master

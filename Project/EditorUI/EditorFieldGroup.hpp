@@ -19,7 +19,7 @@ public:
 	HWND label;
 
 	//All the variable field
-	std::map<int,BaseField*> field;
+	std::map<HWND,BaseField*> field;
 
 	Vector2 position;
 
