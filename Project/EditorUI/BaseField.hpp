@@ -31,7 +31,7 @@ public:
 	int flags;
 
 	//ID for Hwnd
-	int ID;
+	//int ID;//LOW: Doesnt need
 
 	//Owner of Variable
 	BaseComponent* holder;

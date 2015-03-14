@@ -42,7 +42,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	x += 8;
 
 	//variable->name[0] = variable->name[0] + ('A' - 'a');
-	variable->ID = RequestID();
+	//0 = RequestID();
 
 	//LOW: Keep adding diffrent types
 	if(variable->getType() == EditorField<std::string>::type)
@@ -53,17 +53,17 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		size_t multi = value.find("\n");
 		size_t multiNigo = value.find("\\n");
 		if(multi == std::string::npos && multiNigo == std::string::npos)
-			variable->hWnd = Engine::Window.focus.addTextbox(group->hWnd,value,x,y,128,height,variable->ID);
+			variable->hWnd = Engine::Window.focus.addTextbox(group->hWnd,value,x,y,128,height,0);
 		else
 		{
 			if(multi != std::string::npos)
 			{
 				value.replace(multi,std::string("\n").length(),"\\n");
 			}
-			variable->hWnd = Engine::Window.focus.addTextboxMulti(group->hWnd,value,x,y,128,height + 16,variable->ID);
+			variable->hWnd = Engine::Window.focus.addTextboxMulti(group->hWnd,value,x,y,128,height + 16,0);
 
 		}
-		group->field.insert(std::make_pair(variable->ID,a));
+		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 #pragma endregion
 	else if(variable->getType() == EditorField<int>::type)
@@ -71,9 +71,9 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	{
 		EditorField<int>* a = static_cast<EditorField<int>*>(variable);
 		value = std::to_string(*a->variable);
-		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,variable->ID);
+		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only;
-		group->field.insert(std::make_pair(variable->ID,a));
+		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 #pragma endregion
 	else if(variable->getType() == EditorField<Vector2>::type)
@@ -89,15 +89,15 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		valueNigo = std::to_string(a->variable->y);
 
 
-		//variable->hWnd = addComponentGroup(group->hWnd,"",0,y,width,height +4,variable->ID);
+		//variable->hWnd = addComponentGroup(group->hWnd,"",0,y,width,height +4,0);
 		//variable->label = addLabel(group->hWnd,variable->name,0,0,width,16,RequestID());
 
-		//Variable name 
-		varX->ID = RequestID();
-		varY->ID = RequestID();
+		////Variable name 
+		//varX->ID = RequestID();
+		//varY->ID = RequestID();
 
-		varX->hWnd = Engine::Window.focus.addTextbox(group->hWnd,value,x,y,64,height,varX->ID);
-		varY->hWnd = Engine::Window.focus.addTextbox(group->hWnd,valueNigo,x + 64 + 8,y,64,height,varY->ID);
+		varX->hWnd = Engine::Window.focus.addTextbox(group->hWnd,value,x,y,64,height,0);
+		varY->hWnd = Engine::Window.focus.addTextbox(group->hWnd,valueNigo,x + 64 + 8,y,64,height,0);
 
 
 		varX->flags = FieldFlag::Decimal | FieldFlag::Left;
@@ -110,8 +110,8 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		varX->holder = a->holder;
 		varY->holder = a->holder;
 
-		group->field.insert(std::make_pair(varX->ID,varX));
-		group->field.insert(std::make_pair(varY->ID,varY));
+		group->field.insert(std::make_pair(varX->hWnd,varX));
+		group->field.insert(std::make_pair(varX->hWnd,varY));
 		//group->variableCount++;
 
 	}
@@ -121,12 +121,12 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		#pragma region bool
 	{
 		EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
-		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX ,x,y,64,height,group->hWnd,(HMENU)EditorUI::RequestID(),Engine::Window.hInstance,0);
+		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX ,x,y,64,height,group->hWnd,0,Engine::Window.hInstance,0);
 		if(a->variable)
 			SendMessageA(variable->hWnd,BM_SETCHECK,BST_CHECKED,0);
 		
 		value = "Bool";
-		group->field.insert(std::make_pair(variable->ID,a));
+		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 		#pragma endregion
 
@@ -134,7 +134,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	if(!value.empty())
 	{
 		group->variableCount++;
-		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,RequestID());
+		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,0);
 	}
 	#pragma endregion
 }
