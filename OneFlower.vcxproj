@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F58779DA-3DE9-4DAA-8457-9F0556580466}</ProjectGuid>
-    <RootNamespace>AsianViking</RootNamespace>
+    <RootNamespace>OneFlower</RootNamespace>
     <SccProjectName>SAK</SccProjectName>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
