@@ -1,0 +1,11 @@
+*.tlog
+*.obj
+*.dll
+*.pdb
+Debug/vc120.idb
+*.log
+*.exe
+Debug/AsianViking.ilk
+*.sdf
+*.suo
+Debug/
