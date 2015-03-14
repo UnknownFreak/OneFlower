@@ -12,11 +12,10 @@ DialogComponent::DialogComponent() :
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0, 0), 
-open(false), dCreated(false)
+open(false), dCreated(false), msg(new FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
-	msg = new FloatingText();
 	msg->iconName = "test.png";
 
 }
@@ -25,11 +24,10 @@ DialogComponent::DialogComponent(double dur) :
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0, 0), 
-open(false), dCreated(false)
+open(false), dCreated(false), msg(new FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
-	msg = new FloatingText();
 	msg->iconName = "test.png";
 	msg->duration = dur;
 }
@@ -37,12 +35,11 @@ DialogComponent::DialogComponent(const DialogComponent &diag) :
 fontName("arial.ttf"),
 dialogMessage(diag.dialogMessage),
 position(diag.position),
-open(false), dCreated(false)
+open(false), dCreated(false), msg(new FloatingText(*diag.msg))
 {
 	
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
-	msg = new FloatingText(*diag.msg);
 }
 
 DialogComponent::~DialogComponent()

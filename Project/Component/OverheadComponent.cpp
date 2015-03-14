@@ -19,6 +19,10 @@ void OverheadComponent::attachOn(GameObject* attachTo)
 	if (attachedOn->GetComponent<RenderComponent>())
 		spriteSize = attachedOn->GetComponent<RenderComponent>()->size;
 	msg = attachedOn->name;
+
+	Engine::GUI.requestOverheadRemoval(attachedOn);
+	Engine::GUI.addOverhead(attachedOn);
+
 	REGISTER_EDITOR_VARIABLE(Vector2, offset, Offset);
 	REGISTER_EDITOR_VARIABLE(sf::Uint8, msg.color.r, ColorRed);
 	REGISTER_EDITOR_VARIABLE(sf::Uint8, msg.color.g, ColorGreen);

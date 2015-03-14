@@ -27,6 +27,13 @@ BEGIN
 		MENUITEM "GameObject",ADD_GameObject
 
 	END
+
+	POPUP "GUI"
+	BEGIN
+		MENUITEM "Show/Hide GUI", ID_SHOW_HIDE_GUI
+		MENUITEM "Show/Hide Mouse Icon", ID_SHOW_HIDE_MOUSE
+		MENUITEM "Show/Hide Overheads", ID_SHOW_HIDE_OVERHEAD
+	END
 END
 
 MENU_ICON ICON "icon.ico"

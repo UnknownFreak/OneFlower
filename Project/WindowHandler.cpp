@@ -31,6 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
+	
 	WorldManagement world;
 	world.loadZone(1);
 	GameObject* go = new GameObject("player");
@@ -41,7 +42,6 @@ int windowMessage()
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
 	Engine::View.render.setFramerateLimit(200);
-
 	#ifdef _DEBUG
 	while(message.message != WM_QUIT)
 	{
@@ -71,6 +71,7 @@ int windowMessage()
 		{
 			while(Engine::View.render.pollEvent(Engine::event))
 			{
+<<<<<<< HEAD
 				if(Engine::View.render.hasFocus())
 				{
 					#pragma region Mouse
@@ -161,6 +162,9 @@ int windowMessage()
 					}
 					#pragma endregion
 				}
+=======
+				
+>>>>>>> origin/MouseChanges
 				if(Engine::event.type == sf::Event::Closed)
 				{
 					Engine::View.render.close();

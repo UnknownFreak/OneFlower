@@ -17,11 +17,9 @@
 
 
 
-
 class GraphicalUserInterface
 {
 public:
-
 
 	bool hideGUI;
 	bool isMouseVisible;
@@ -43,17 +41,19 @@ public:
 	~GraphicalUserInterface();
 	void updateMouseIcon();
 	void Draw();
-	void setMouseVisible();
+	void showHideMouse();
 	void setActiveSkill(std::string buttonName);
 
 	void setCursor(std::string name);
 
-
-
+	void showHideOverhead();
+	void showHideGUI();
 	void addOverhead(GameObject* over);
 	void requestOverheadRemoval(GameObject* go);
 private:
 
+
+	
 
 	void initialize();
 

@@ -3,8 +3,11 @@
 #include <SFML\Window\Mouse.hpp>
 
 #include <Windows.h>
-GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), showOverhead(true), hideGUI(true) , isMouseVisible(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png")
+
+
+GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), showOverhead(true), isMouseVisible(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png")
 {
+	
 	// Mouse
 	setCursor("Aim.png");
 	initialize();
@@ -90,7 +93,7 @@ void GraphicalUserInterface::initialize()
 }
 
 
-void GraphicalUserInterface::setMouseVisible()
+void GraphicalUserInterface::showHideMouse()
 {
 	if (isMouseVisible)
 		isMouseVisible = false;
@@ -98,3 +101,17 @@ void GraphicalUserInterface::setMouseVisible()
 		isMouseVisible = true;
 }
 
+void GraphicalUserInterface::showHideGUI()
+{
+	if (Engine::GUI.hideGUI)
+		Engine::GUI.hideGUI = false;
+	else
+		Engine::GUI.hideGUI = true;
+}
+void GraphicalUserInterface::showHideOverhead()
+{
+	if (Engine::GUI.hideGUI)
+		Engine::GUI.hideGUI = false;
+	else
+		Engine::GUI.hideGUI = true;
+}
