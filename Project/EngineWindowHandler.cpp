@@ -75,7 +75,7 @@ void EngineWindow::setGameObject(GameObject* t)
 			a.name = gameComponent_it->second->getTypeName();
 
 			//Add a Label with said Component name
-			a.label = Engine::Window.focus.addLabel(a.hWnd,a.name,0,0,a.name.size() * 8,16,EditorUI::RequestID());
+			a.label = Engine::Window.focus.addLabel(a.hWnd,a.name,0,0,a.name.size() * 8,16,0);
 
 
 
