@@ -16,7 +16,7 @@ void Game::Update()
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
 		TransformComponent* tcp = player->GetComponent<TransformComponent>();
-		tcp->move(pos, 2);
+		tcp->moveTo(pos.x,pos.y, 2);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			pos.y -= 2;
@@ -38,11 +38,11 @@ void Game::Update()
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			Engine::View.camera.move(0, 10);
+			Engine::View.camera.move(0, -10);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			Engine::View.camera.move(-10, 0);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			Engine::View.camera.move(0, -10);
+			Engine::View.camera.move(0, 10);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			Engine::View.camera.move(10, 0);
 

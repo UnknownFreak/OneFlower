@@ -139,15 +139,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				case ADD_OverHeadComponent:
 				{
 					if (Engine::Window.focus.gameObject)
-					{
 						Engine::Window.focus.gameObject->AddComponent<OverheadComponent>();
-						Engine::GUI.addOverhead(Engine::Window.focus.gameObject);
-					}
 					break;
 				}
 				case ADD_RenderComponent:
 				{
-					if(Engine::Window.focus.gameObject)
+					if (Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<RenderComponent>();
 					break;
 				}
@@ -165,11 +162,37 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
+
+				#pragma region GUI_MENU
+				case ID_SHOW_HIDE_GUI:
+				{
+					Engine::GUI.showHideGUI();
+					break;
+				}
+				case ID_SHOW_HIDE_MOUSE:
+				{
+					Engine::GUI.showHideMouse();
+					break;
+				}
+				case ID_SHOW_HIDE_OVERHEAD:
+				{
+					Engine::GUI.showHideOverhead();
+					break;
+				}
+				#pragma endregion
+
+				#pragma region FILE_MENU
+				case ID_ADD_ZONE:
+				{
+					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneAdd123", "stuff", NULL);
+					break;
+				}
 				case ID_FILE_EXIT:
 				{
 					DestroyWindow(hWnd);
 					break;
 				}
+				#pragma endregion
 			}
 			switch(HIWORD(wParam))
 			{
