@@ -28,8 +28,6 @@
 #endif
 // maximum mumber of lines the output console should have
 static const WORD MAX_CONSOLE_LINES = 500;
-int currentID = 0;
-std::vector<int> recycleID;
 WNDPROC prevWndEditor;
 WNDPROC prevWndTextMulti;
 WNDPROC prevWndText;
@@ -62,17 +60,7 @@ EngineFocus::EngineFocus()
 }
 
 #pragma region HWND handler Related
-int EditorUI::RequestID()
-{
-	if(!recycleID.empty())
-		return recycleID[0];
-	else
-		return 	currentID++;
-}
-void EditorUI::RecycleID(int i)
-{
-	recycleID.push_back(i);
-}
+
 RECT EditorUI::GetLocalCoordinates(HWND hWnd)
 {
 	RECT Rect;
@@ -143,15 +131,14 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				GetWindowText(hWnd, txt, 1024);
 				std::string value(txt);
 				std::string newValue = "";
-				int id = GetWindowLong(hWnd, GWL_ID);
 				SendMessage(hWnd, EM_GETSEL, reinterpret_cast<WPARAM>(&start), reinterpret_cast<WPARAM>(&end));
 
 				//TODO: Move this out towards a seperate WndProc
 				//Field Object
-				std::map<int, BaseField*>::iterator it;
+				std::map<HWND, BaseField*>::iterator it;
 				for (auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
 				{
-					it = i->second.field.find(id);
+					it = i->second.field.find(hWnd);
 					if (it != i->second.field.end())
 						break;
 				}
@@ -313,6 +300,7 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 	}
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
+/*
 LRESULT CALLBACK WndProcTextMulti(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
@@ -361,6 +349,7 @@ LRESULT CALLBACK WndProcTextMulti(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 	}
 	return CallWindowProc(prevWndTextMulti,hWnd,msg,wParam,lParam);
 }
+//*/
 #pragma endregion
 #pragma region Add HWND
 HWND EngineFocus::addEditor(HWND phWnd,std::string name,int x,int y,int width,int height,int groupID)
@@ -489,7 +478,7 @@ HWND EngineFocus::addTextboxMulti(HWND phWnd,std::string text,int x,int y,int wi
 		);
 	if(!prevWndTextMulti)
 		prevWndTextMulti = (WNDPROC)GetWindowLong(hWnd,GWL_WNDPROC);
-	SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcTextMulti);
+	//SetWindowLong(hWnd,GWL_WNDPROC,(LONG_PTR)WndProcTextMulti);
 	return hWnd;
 }
 HWND EngineFocus::addLabel(HWND phWnd,std::string labelDisplay,int x,int y,int width,int height,int labelID)

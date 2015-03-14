@@ -159,7 +159,7 @@ int windowMessage()
 						}
 #pragma endregion
 					}
-#pragma endregion
+					#pragma endregion
 				}
 				if(Engine::event.type == sf::Event::Closed)
 				{
@@ -173,6 +173,7 @@ int windowMessage()
 			Engine::mouse.update();
 			Engine::GUI.Draw();
 			Engine::View.render.display();
+			//Fix this, By moving it somewhere else? and have it return a constant variable
 			Engine::time.delta.restart();
 			time.FPS();
 		}
