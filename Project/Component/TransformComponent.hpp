@@ -17,7 +17,7 @@ public:
 
 	//Yet TBD
 	Vector2 rotation;
-	bool a = true;
+
 	void attachOn(GameObject* go);
 
 	//Move towrads Absolute World coordinates with Pixel Per Seconds

@@ -30,7 +30,7 @@ void Game::addGameObject(GameObject* entity)
 	}
 	allGameObjectPointers.push_back(entity);
 	Engine::GUI.addOverhead(entity);
-	Engine::Graphic.insertDrawableObject(entity);
+	//Engine::Graphic.insertDrawableObject(entity);
 #ifdef _DEBUG
 	Engine::Window.ListViewer.add(entity);
 #endif

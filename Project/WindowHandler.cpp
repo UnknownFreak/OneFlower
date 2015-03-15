@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 #include <Windows.h>
 #include <string>
 #include "Engine.hpp"
@@ -31,7 +32,6 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
-	
 	WorldManagement world;
 	world.loadZone(1);
 	GameObject* go = new GameObject("player");
@@ -42,7 +42,6 @@ int windowMessage()
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
 	Engine::View.render.setFramerateLimit(200);
-	#ifdef _DEBUG
 	while(message.message != WM_QUIT)
 	{
 		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
@@ -50,10 +49,10 @@ int windowMessage()
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-				if(IsDialogMessage(i->second.hWnd,&message))
-				{
-					break;
-				}
+			if(IsDialogMessage(i->second.hWnd,&message))
+			{
+			break;
+			}
 			}
 			//*/
 
@@ -71,100 +70,6 @@ int windowMessage()
 		{
 			while(Engine::View.render.pollEvent(Engine::event))
 			{
-<<<<<<< HEAD
-				if(Engine::View.render.hasFocus())
-				{
-					#pragma region Mouse
-					if(Engine::event.type == Engine::event.MouseButtonReleased)
-					{
-						#pragma region Left
-						if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
-						{
-							int top = 0;
-							for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
-							{
-								RenderComponent* rc = 0;
-								GameObject* ab = 0;
-								HitboxComponent* hitbox = 0;
-								TransformComponent* transform = 0;
-								DialogComponent* dialog = 0;
-								RigidComponent* rig = 0;
-								hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
-								transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
-								rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
-								if(hitbox || rig || rc)
-								{
-									sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
-									sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
-
-									rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
-									ab = Engine::game.allGameObjectPointers.at(i);
-									dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
-									if(dialog)
-										dialog->show();
-
-									int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * 1);
-									int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * 1);
-									int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * 1);
-									int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * 1);
-
-									if(worldPos.x <= localStartX && worldPos.x >= localEndX)
-										if(worldPos.y <= localStartY && worldPos.y >= localEndY)
-											Engine::Graphic.selectedDrawList.push_back(ab);
-								}
-							}
-
-							if(Engine::Graphic.selectedDrawList.size() > 0)
-							{
-								for(size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
-								{
-									if(Engine::Graphic.selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > Engine::Graphic.selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
-									{
-										top = i;
-									}
-								}
-								GameObject* theChoosenOne = Engine::Graphic.selectedDrawList[top];
-								std::cout << "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
-								Engine::Window.setGameObject(theChoosenOne);
-								Engine::Graphic.selectedDrawList.clear();
-							}
-						}
-						#pragma endregion
-						#pragma region Right
-						else if(Engine::event.mouseButton.button == sf::Mouse::Button::Right)
-						{
-							sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
-							sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
-							/*
-							sf::Vector2f dir = testa.sprite.getPosition() - worldPos;
-							dir = dir / sqrt(dir.x * dir.x + dir.y * dir.y) ;
-
-							/*
-							sf::Vector2f shit(a->GetComponent<TransformComponent>()->position.x,a->GetComponent<TransformComponent>()->position.y);
-
-							vec = worldPos - shit;
-							Vector2 asia(vec.x,vec.y);
-
-							asia.normalize();
-							sf::Vector2f shit2(asia.dx,asia.dy);
-
-							vec.x = shit2.x;
-							vec.y = shit2.y;
-							//*/
-
-							HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
-							HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
-
-							SetWindowTextA(wnd,std::to_string((int)worldPos.x).c_str());
-							SetWindowTextA(awnd,std::to_string((int)worldPos.y).c_str());
-						}
-#pragma endregion
-					}
-					#pragma endregion
-				}
-=======
-				
->>>>>>> origin/MouseChanges
 				if(Engine::event.type == sf::Event::Closed)
 				{
 					Engine::View.render.close();

@@ -18,6 +18,7 @@
 #include "../Engine.hpp"
 #include "EditorFieldGroup.hpp"
 #include "SFML\Main.hpp"
+#include <sstream>
 void EditorUI::Field::addGroup(EditorGroup* name)
 {
 
@@ -70,10 +71,16 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		#pragma region int
 	{
 		EditorField<int>* a = static_cast<EditorField<int>*>(variable);
-		value = std::to_string(*a->variable);
+
+		std::stringstream ss;
+		ss << a->variable;
+		value = ss.str();
+		ss.clear();
+
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only;
 		group->field.insert(std::make_pair(variable->hWnd,a));
+
 	}
 #pragma endregion
 	else if(variable->getType() == EditorField<Vector2>::type)
@@ -85,9 +92,15 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		EditorField<double>* varY = new EditorField<double>(&a->variable->y,a->name + ".y");
 		std::string valueNigo = "";
 
-		value = std::to_string(a->variable->x);
-		valueNigo = std::to_string(a->variable->y);
+		std::stringstream ss;
+		
+		ss << a->variable->x;
+		value = ss.str();
+		ss.clear();
 
+		ss << a->variable->y;
+		valueNigo = ss.str();
+		ss.clear();
 
 		//variable->hWnd = addComponentGroup(group->hWnd,"",0,y,width,height +4,0);
 		//variable->label = addLabel(group->hWnd,variable->name,0,0,width,16,RequestID());
@@ -111,13 +124,12 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		varY->holder = a->holder;
 
 		group->field.insert(std::make_pair(varX->hWnd,varX));
-		group->field.insert(std::make_pair(varX->hWnd,varY));
+		group->field.insert(std::make_pair(varY->hWnd,varY));
 		//group->variableCount++;
 
 	}
 	#pragma endregion
 	else if(variable->getType() == EditorField<bool>::type)
-	{
 		#pragma region bool
 	{
 		EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
@@ -129,13 +141,34 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 		#pragma endregion
+	else if(variable->getType() == EditorField<double>::type)
+		#pragma region double
+	{
+		EditorField<double>* a = static_cast<EditorField<double>*>(variable);
+
+		std::stringstream ss;
+		ss << a->variable;
+		value = ss.str();
+		ss.clear();
+
+		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
+		variable->flags = FieldFlag::Numbers_Only | FieldFlag::Decimal;
+		group->field.insert(std::make_pair(variable->hWnd,a));
 
 	}
+		#pragma endregion
+	
+	else
+		MessageBoxA(0,std::string("No matching type: " + variable->getType()).c_str(),"CTRL + F 945781",0);
+
+
 	if(!value.empty())
 	{
 		group->variableCount++;
 		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,0);
 	}
+	else
+		MessageBoxA(0,"Empty value when adding a focus Field","CTRL + F 9456513",0);
 	#pragma endregion
 }
 

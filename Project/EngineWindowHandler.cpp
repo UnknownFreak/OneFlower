@@ -14,11 +14,6 @@ void EngineWindow::setGameObject(GameObject* t)
 	focus.gameObject = t;
 	DestroyWindow(focus.hWnd);
 	cleanse();
-	if(focus.test)
-	{
-		delete focus.test;
-		focus.test = 0;
-	}
 	if(t)
 	{
 

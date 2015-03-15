@@ -31,7 +31,6 @@ void TransformComponent::attachOn(GameObject* go)
 
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2,rotation,Rotation);
-	REGISTER_EDITOR_VARIABLE(bool,a,Testing);
 	REGISTER_EDITOR_VARIABLE(Vector2,size,Size);
 
 }

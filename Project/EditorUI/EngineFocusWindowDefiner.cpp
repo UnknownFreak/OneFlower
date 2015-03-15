@@ -123,54 +123,73 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			switch(wParam)
 			{
 #pragma region Enter
-			case(VK_RETURN) :
-			{
-				TCHAR txt[1024];
-				DWORD start = 0;
-				DWORD end = 0;
-				GetWindowText(hWnd, txt, 1024);
-				std::string value(txt);
-				std::string newValue = "";
-				SendMessage(hWnd, EM_GETSEL, reinterpret_cast<WPARAM>(&start), reinterpret_cast<WPARAM>(&end));
+				case(VK_RETURN) :
+				{
+					TCHAR txt[1024];
+					DWORD start = 0;
+					DWORD end = 0;
+					GetWindowText(hWnd,txt,1024);
+					std::string value(txt);
+					std::string newValue = "";
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
 
-				//TODO: Move this out towards a seperate WndProc
-				//Field Object
-				std::map<HWND, BaseField*>::iterator it;
-				for (auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
-				{
-					it = i->second.field.find(hWnd);
-					if (it != i->second.field.end())
-						break;
-				}
-				if (!value.empty())
-				{
-					if (it->second->flags & FieldFlag::Decimal)
+					//TODO: Move this out towards a seperate WndProc
+					//Field Object
+
+					bool found = false;
+					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
+					if(it == Engine::Window.focus.extraFields.end())
 					{
-#pragma region Decimal
-						for (size_t i = 0; i < value.size(); i++)
+						for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
 						{
-							if (isDouble(value.at(i)))
-								newValue.push_back(value[i]);
+							it = i->second.field.find(hWnd);
+							if(it != i->second.field.end())
+							{
+								found = true;
+								break;
+							}
 						}
-						if (!newValue.empty())
-						{
-							if (value[0] == '-')
-								newValue.insert(newValue.begin(), value[0]);
-						}
-						else
-							newValue = "0";
-#pragma endregion
 					}
 					else
-						newValue = isLetter(value);
-				}
-				else
-					newValue = '0';
-				SetWindowTextA(hWnd, newValue.c_str());
-				SendMessage(hWnd, EM_SETSEL, start, end);
-				Engine::Window.setValue(it->second, newValue);
+						found = true;
+
+					//try .end one day
+					if(found)
+					{
+						if(!value.empty())
+						{
+							if(it->second->flags & FieldFlag::Decimal)
+							{
+#pragma region Decimal
+								for(size_t i = 0; i < value.size(); i++)
+								{
+									if(isDouble(value.at(i)))
+										newValue.push_back(value[i]);
+								}
+								if(!newValue.empty())
+								{
+									if(value[0] == '-')
+										newValue.insert(newValue.begin(),value[0]);
+								}
+								else
+									newValue = "0";
+#pragma endregion
+							}
+							else
+								newValue = isLetter(value);
+						}
+						else
+							newValue = '0';
+						SetWindowTextA(hWnd,newValue.c_str());
+						SendMessage(hWnd,EM_SETSEL,start,end);
+						Engine::Window.setValue(it->second,newValue);
+
+					}
+					else
+						MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F 87974651",0);
+					return 0;
 			}
-							return 0;
+			
 #pragma endregion
 				default:
 					break;
