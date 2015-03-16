@@ -32,7 +32,7 @@ void EngineWindow::setGameObject(GameObject* t)
 		//LOW: perhaps I should save the Label HWND 2015/02/13
 		//This part is for the gameObject infomation 
 		Engine::Window.focus.addLabel(focus.hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,32,0);
-			
+		
 		//All components from the gameObject, gameComponent_it = BaseComponent*
 		for(std::map<int,BaseComponent*>::iterator gameComponent_it = t->GetComponents()->begin(); gameComponent_it != t->GetComponents()->end(); gameComponent_it++)
 		{

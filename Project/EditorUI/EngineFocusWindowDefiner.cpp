@@ -136,6 +136,8 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					//TODO: Move this out towards a seperate WndProc
 					//Field Object
 
+#pragma region SearchFields
+
 					bool found = false;
 					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
 					if(it == Engine::Window.focus.extraFields.end())
@@ -152,7 +154,7 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					}
 					else
 						found = true;
-
+#pragma endregion
 					//try .end one day
 					if(found)
 					{

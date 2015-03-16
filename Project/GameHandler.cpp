@@ -49,6 +49,7 @@ void Game::Update()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			Engine::View.camera.setCenter(0, 0);
+			Engine::View.camera.setSize(800,600);
 			pos.x = 0;
 			pos.y = 0;
 		}

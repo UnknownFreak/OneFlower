@@ -26,7 +26,7 @@ GraphicalUserInterface Engine::GUI;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	Engine::Window.hInstance = hInstance;
-	false ? test() : windowMessage();
+	!_DEBUG ? test() : windowMessage();
 	return 0;
 }
 
@@ -55,7 +55,7 @@ int windowMessage()
 			}
 			}
 			//*/
-
+		
 			if(message.message == WM_KEYDOWN)
 			{
 				if(message.wParam == VK_ESCAPE)
@@ -67,25 +67,27 @@ int windowMessage()
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
+		while(Engine::View.render.pollEvent(Engine::event))
 		{
-			while(Engine::View.render.pollEvent(Engine::event))
+			if(Engine::event.type == sf::Event::Closed)
 			{
-				if(Engine::event.type == sf::Event::Closed)
-				{
-					Engine::View.render.close();
-				}
+				Engine::View.render.close();
 			}
-			Engine::View.render.clear();
-			Engine::game.Update();
-			Engine::Physics.Update();
-			Engine::Graphic.Draw();
-			Engine::mouse.update();
-			Engine::GUI.Draw();
-			Engine::View.render.display();
-			//Fix this, By moving it somewhere else? and have it return a constant variable
-			Engine::time.delta.restart();
-			time.FPS();
+			if(Engine::event.type == Engine::event.MouseWheelMoved)
+			{
+				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+			}
 		}
+		Engine::View.render.clear();
+		Engine::game.Update();
+		Engine::Physics.Update();
+		Engine::Graphic.Draw();
+		Engine::mouse.update();
+		Engine::GUI.Draw();
+		Engine::View.render.display();
+		//Fix this, By moving it somewhere else? and have it return a constant variable
+		Engine::time.delta.restart();
+		time.FPS();
 	}
 	return message.wParam;
 #endif
