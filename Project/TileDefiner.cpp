@@ -2,12 +2,14 @@
 #include "Gfx.h"
 #include <string>
 #include "Engine.hpp"
+#include <SFML\Graphics.hpp>
+
 /*
 Tile::Tile()
 {
 	name = "test.png";
-	sprite.setTexture(*Engine::Graphic.requestTexture("test.png"));
-	//sprite.setOrigin(sprite.getTextureRect().width / 2,sprite.getTextureRect().height / 2);
+	spritesetTexture(*Engine::Graphic.requestTexture("test.png"));
+	//spritesetOrigin(spritegetTextureRect().width / 2,spritegetTextureRect().height / 2);
 	sizeX = 0;
 	sizeY = 0;
 }

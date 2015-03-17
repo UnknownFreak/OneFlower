@@ -75,26 +75,16 @@ EngineWindow::EngineWindow():size(1366,768)
 		ShowWindow(hWnd,1);
 		UpdateWindow(hWnd);
 		ListViewer.start();
+		focus.start();
 	}
 }
 EngineWindow::~EngineWindow()
 {
-	cleanse();
+	focus.cleanse();
+	DestroyWindow(focus.hWnd);
 	UnregisterClass(windowDefinedName,Engine::Window.hInstance);
 }
-void EngineWindow::cleanse()
-{
-	for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); it++)
-	{
-		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
-		{
-			DestroyWindow(jt->second->label);
-			DestroyWindow(jt->second->hWnd);
-		}
-		DestroyWindow(it->second.hWnd);
-	}
-	focus.componentFieldGroup.clear();
-}
+
 LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)

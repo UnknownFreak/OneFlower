@@ -23,7 +23,7 @@ RenderComponent::RenderComponent(std::string texture) : textureName(texture), si
 void RenderComponent::setTexture()
 {
 		sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
-		//sprite.setOrigin(sprite.getScale().x / 2, sprite.getScale().y / 2);
+		//spritesetOrigin(spritegetScale().x / 2, spritegetScale().y / 2);
 		size.x = sprite.getTexture()->getSize().x;
 		size.y = sprite.getTexture()->getSize().y;
 
@@ -45,6 +45,14 @@ void RenderComponent::attachOn(GameObject* attachTo)
 	Engine::Graphic.insertDrawableObject(attachedOn);
 
 	REGISTER_EDITOR_VARIABLE(int, renderlayer, Layer);
-	REGISTER_EDITOR_VARIABLE(std::string, textureName, Texture);
+	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
+	REGISTER_EDITOR_VARIABLE(bool,animation,Animation);
 
 }
+/*
+sf::Sprite& RenderComponent::sprite()
+{
+
+	return &image;
+}*/
+

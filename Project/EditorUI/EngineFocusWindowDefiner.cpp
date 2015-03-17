@@ -35,6 +35,7 @@ WNDPROC prevWndButton;
 bool isDouble(char a);
 std::string isLetter(std::string line);
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
+LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 EngineFocus::EngineFocus()
 {
 	windowDefinedName = "EngineFocus";
@@ -57,7 +58,118 @@ EngineFocus::EngineFocus()
 	//wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);;
 	if(!RegisterClassEx(&wc))
 		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
+
+
+
 }
+void EngineFocus::start()
+{
+	HWND apa = Engine::Window.hWnd;
+	//TheEngine Window
+	RECT window = EditorUI::GetLocalCoordinates(apa);
+	//Monitor Screens
+	RECT screen = EditorUI::GetClientCoordinates(apa);
+	//TheEngine Window border thickness. The thing that you use to resize
+	int border_thickness = ((screen.right - screen.left) - (window.right - window.left)) / 2;
+
+	//The focused window of the selectd game object
+	hWnd = addEditor(apa,"",window.right - window.left - 256 - 16,0,256,500,0);
+	hWndField = Engine::Window.focus.addTextbox(hWnd,"startEmpty",std::string("Name: ").size() * 8,0,8 * 12,16,0);
+	nameField = new EditorField<std::string>(0,std::string("Empty"));
+	nameField->hWnd = hWndField;
+	nameField->name = "GameObject FieldName";
+	nameField->label = addLabel(hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,16,0);
+
+	extraFields.insert(std::make_pair(hWndField,nameField));
+	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
+	EnableWindow(hWndField,false);
+
+}
+void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariable,int x,int y,int width,int height)
+{
+	addLabel(hWnd,text,0,0,text.size() * 8,16,0);
+	hWndField = CreateWindowExA(0,"edit",text.c_str(),WS_VISIBLE|WS_CHILD | WS_TABSTOP,x,y,width,height,phWnd,0,Engine::Window.hInstance,0);
+	extraFields.insert(std::make_pair(hWndField,theVariable));
+	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
+
+	
+
+}
+
+void EngineFocus::cleanse()
+{
+	for(auto it = componentFieldGroup.begin(); it != componentFieldGroup.end(); it++)
+	{
+		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
+		{
+			DestroyWindow(jt->second->label);
+			DestroyWindow(jt->second->hWnd);
+		}
+		DestroyWindow(it->second.hWnd);
+	}
+	componentFieldGroup.clear();
+	EnableWindow(hWndField,false);
+}
+
+
+
+
+
+
+
+LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+{
+	switch(msg)
+	{
+		case WM_CHAR:
+		{
+			switch(wParam)
+			{
+#pragma region Enter
+				case(VK_RETURN) :
+				{
+					TCHAR txt[1024];
+					DWORD start = 0;
+					DWORD end = 0;
+					GetWindowText(hWnd,txt,1024);
+					std::string value(txt);
+					std::string newValue = "";
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+
+					//TODO: Move this out towards a seperate WndProc
+					//Field Object
+#pragma region SearchFields
+					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
+#pragma endregion
+					//try .end one day
+					if(it != Engine::Window.focus.extraFields.end())
+					{
+						if(value.empty())
+							newValue = '0';
+						else
+							newValue = value;
+						SetWindowTextA(hWnd,newValue.c_str());
+						SendMessage(hWnd,EM_SETSEL,start,end);
+						Engine::Window.setValue(it->second,newValue);
+						Engine::Window.ListViewer.update();
+					}
+					else
+						MessageBoxA(0,"Unknown HWND Inside ExtraFields, Please Modify SearchArea Region","CTRL + F 879487",0);
+					return 0;
+				}
+
+#pragma endregion
+				default:
+					break;
+			}
+		}
+		default:
+			break;
+	}
+	return CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
+
+}
+
 
 #pragma region HWND handler Related
 
@@ -137,23 +249,17 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					//Field Object
 
 #pragma region SearchFields
-
 					bool found = false;
-					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
-					if(it == Engine::Window.focus.extraFields.end())
+					std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
+					for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
 					{
-						for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+						it = i->second.field.find(hWnd);
+						if(it != i->second.field.end())
 						{
-							it = i->second.field.find(hWnd);
-							if(it != i->second.field.end())
-							{
-								found = true;
-								break;
-							}
+							found = true;
+							break;
 						}
 					}
-					else
-						found = true;
 #pragma endregion
 					//try .end one day
 					if(found)
@@ -321,6 +427,10 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 	}
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
+
+
+
+
 /*
 LRESULT CALLBACK WndProcTextMulti(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {

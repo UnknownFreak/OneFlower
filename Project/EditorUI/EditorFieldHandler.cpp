@@ -71,12 +71,13 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		#pragma region int
 	{
 		EditorField<int>* a = static_cast<EditorField<int>*>(variable);
-
+		/*
 		std::stringstream ss;
 		ss << a->variable;
 		value = ss.str();
 		ss.clear();
-
+		//*/
+		value = std::to_string(*a->variable);
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only;
 		group->field.insert(std::make_pair(variable->hWnd,a));

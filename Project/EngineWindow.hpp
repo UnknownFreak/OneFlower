@@ -21,7 +21,6 @@ public:
 	~EngineWindow();
 
 	void setGameObject(GameObject* gameobject);
-	void cleanse();
 	void update();
 
 
@@ -35,6 +34,8 @@ public:
 	HWND hWnd;
 	EngineObjectListViewer ListViewer;
 	EngineFocus focus;
+
+
 
 
 	//GameObject* focusedGameObject = NULL;

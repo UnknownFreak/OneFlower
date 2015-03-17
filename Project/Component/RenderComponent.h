@@ -1,4 +1,4 @@
-#ifndef RenderComponent_H
+	#ifndef RenderComponent_H
 #define RenderComponent_H
 #include <SFML\Graphics\Sprite.hpp>	
 #include "IBaseComponent.hpp"
@@ -13,15 +13,31 @@ public:
 	RenderComponent();
 	RenderComponent(const RenderComponent & rc);
 	RenderComponent(std::string texture);
-	sf::Sprite sprite;
-	bool UpdateFromEditor();
+
+	
+
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
+
+
+	bool animation = false;
+
+	//size of the rectangle for animation
 	Vector2 size;
+
 	//Name of texture;
 	std::string textureName = "test.png";
+
+
+
+
+
+	sf::Sprite sprite;
+
+	bool UpdateFromEditor();
 	void attachOn(GameObject* go);
 private:
+
 	void setTexture();
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);
