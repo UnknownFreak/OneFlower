@@ -14,8 +14,9 @@ public:
 	RenderComponent(const RenderComponent & rc);
 	RenderComponent(std::string texture);
 
-	
-
+	bool UpdateFromEditor();
+	void attachOn(GameObject* go);
+	void updateFrame();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
 
@@ -28,17 +29,14 @@ public:
 	//Name of texture;
 	std::string textureName = "test.png";
 
-
-
-
-
 	sf::Sprite sprite;
+	float currentFrame = 1;
 
-	bool UpdateFromEditor();
-	void attachOn(GameObject* go);
 private:
-
+	//For non animation texture
 	void setTexture();
+	//the size of each frame, For animation use
+	void setTexture(int x,int y);
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>

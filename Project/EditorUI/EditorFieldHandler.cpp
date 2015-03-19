@@ -75,7 +75,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		std::stringstream ss;
 		ss << a->variable;
 		value = ss.str();
-		ss.clear();
+		ss.str(std::string());
 		//*/
 		value = std::to_string(*a->variable);
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
@@ -97,11 +97,11 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		
 		ss << a->variable->x;
 		value = ss.str();
-		ss.clear();
+		ss.str(std::string());
 
 		ss << a->variable->y;
 		valueNigo = ss.str();
-		ss.clear();
+		ss.str(std::string());
 
 		//variable->hWnd = addComponentGroup(group->hWnd,"",0,y,width,height +4,0);
 		//variable->label = addLabel(group->hWnd,variable->name,0,0,width,16,RequestID());
@@ -135,7 +135,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	{
 		EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
 		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX ,x,y,64,height,group->hWnd,0,Engine::Window.hInstance,0);
-		if(a->variable)
+		if(*a->variable)
 			SendMessageA(variable->hWnd,BM_SETCHECK,BST_CHECKED,0);
 		
 		value = "Bool";
@@ -150,7 +150,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		std::stringstream ss;
 		ss << a->variable;
 		value = ss.str();
-		ss.clear();
+		ss.str(std::string());
 
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only | FieldFlag::Decimal;

@@ -116,9 +116,10 @@ void Gfx::Draw()
 					}
 				}
 				if(rc->sprite.getTexture())
-				{
+				{	
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
 					rc->sprite.setRotation(tc->rotation.x);
+					rc->updateFrame();	
 					Engine::View.render.draw(rc->sprite);
 				}
 

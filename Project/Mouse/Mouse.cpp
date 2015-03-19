@@ -46,10 +46,10 @@ void Mouse::update()
 						dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
 
 
-						int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width / 2) * 1);
-						int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height / 2) * 1);
-						int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width / 2) * 1);
-						int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height / 2) * 1);
+						int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width) * 1);
+						int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height) * 1);
+						int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width) * 1);
+						int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height) * 1);
 
 						if(pos.x <= localStartX && pos.x >= localEndX)
 							if(pos.y <= localStartY && pos.y >= localEndY)

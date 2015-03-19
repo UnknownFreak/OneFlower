@@ -86,7 +86,7 @@ int windowMessage()
 		Engine::GUI.Draw();
 		Engine::View.render.display();
 		//Fix this, By moving it somewhere else? and have it return a constant variable
-		Engine::time.delta.restart();
+		Engine::time.restartDelta();
 		time.FPS();
 	}
 	return message.wParam;
