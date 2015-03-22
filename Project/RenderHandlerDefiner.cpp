@@ -29,13 +29,16 @@ sf::Texture* Gfx::requestTexture(std::string name)
 {
 	if(!name.empty())
 	{
+
 		std::map<std::string,sf::Texture>::iterator it;
 		it = loadedTextureMap.find(name);
 
 		if(it != loadedTextureMap.end())
 			return &it->second;
+
 		if(loadTexture(name))
 			return &loadedTextureMap.find(name)->second;
+
 		//LOW set propper texturename
 		return &loadedTextureMap.find("test.png")->second;
 	}

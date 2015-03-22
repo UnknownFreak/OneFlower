@@ -19,6 +19,7 @@
 #include "EditorFieldGroup.hpp"
 #include "SFML\Main.hpp"
 #include <sstream>
+#include "../Resource.h"
 void EditorUI::Field::addGroup(EditorGroup* name)
 {
 
@@ -134,7 +135,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		#pragma region bool
 	{
 		EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
-		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX ,x,y,64,height,group->hWnd,0,Engine::Window.hInstance,0);
+		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,x,y,64,height,group->hWnd,(HMENU)ID_CheckBox,Engine::Window.hInstance,0);
 		if(*a->variable)
 			SendMessageA(variable->hWnd,BM_SETCHECK,BST_CHECKED,0);
 		

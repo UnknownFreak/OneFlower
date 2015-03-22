@@ -21,3 +21,6 @@
 #define ID_SHOW_HIDE_GUI 2010
 #define ID_SHOW_HIDE_MOUSE 2011
 #define ID_SHOW_HIDE_OVERHEAD 2012
+
+#define ID_CheckBox 3001
+

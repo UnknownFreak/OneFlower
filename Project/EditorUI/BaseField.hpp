@@ -17,6 +17,7 @@ class BaseField
 public:
 	virtual ~BaseField() = default;
 	virtual	std::string getType() = 0;
+	virtual	std::string toString() = 0;
 
 	//Name Label
 	HWND label;

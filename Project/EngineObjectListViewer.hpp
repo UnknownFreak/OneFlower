@@ -10,6 +10,7 @@ public:
 	~EngineObjectListViewer();
 	void start();
 	void add(GameObject* entity);
+	void set(GameObject* t);
 	void getSelection();
 	void update();
 

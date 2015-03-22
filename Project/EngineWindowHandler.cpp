@@ -16,7 +16,7 @@ void EngineWindow::setGameObject(GameObject* t)
 
 	//DestroyWindow(focus.hWnd);
 	focus.cleanse();
-	
+	ListViewer.set(t);
 	if(t)
 	{
 		if(focus.nameField)
@@ -57,7 +57,7 @@ void EngineWindow::setGameObject(GameObject* t)
 
 
 			//Add a Component Group HWND that hold all the variable HWND
-			a.hWnd = CreateWindowEx(0,"Static","",
+			a.hWnd = CreateWindowEx(0,"EngineComponentGroup","",
 				WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP,
 				x,y,
 				//Width
@@ -115,7 +115,7 @@ void EngineWindow::setGameObject(GameObject* t)
 		SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
 		GetScrollInfo(focus.hWnd,SB_VERT,&si);
 		int scrollSpeed = 16;
-		int oldPos = si.nPos;
+		int oldPos = si.nPos;	
 		si.nPage = 0;
 		si.nMin = 0;
 		si.nMax = Engine::Window.focus.height + 16;
@@ -147,6 +147,14 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 			EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
 			*a->variable = value;
 		}
+		else if(variable->getType() == EditorField<bool>::type)
+		{
+			EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
+			if(value == "false")
+				*a->variable = false;
+			else 
+				*a->variable = true;
+		}
 		else
 		{
 			MessageBox(Engine::Window.hWnd,"Type is Unknown","Unknown",0);
@@ -161,23 +169,18 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 		MessageBox(Engine::Window.hWnd, "Empty variable", "Error: Variable", NULL);
 
 }
+#include <sstream>
 void EngineWindow::update()
 {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); ++it)
+	{
+		for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
+		{
+			BaseField* variable = jit->second;
+			std::stringstream ss;
+			ss << variable->toString();
+			SetWindowTextA(variable->hWnd,ss.str().c_str());
+		}
+	}
 }
 #endif

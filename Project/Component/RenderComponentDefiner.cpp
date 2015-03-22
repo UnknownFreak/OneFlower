@@ -18,7 +18,14 @@ RenderComponent::RenderComponent(const RenderComponent &rcp): textureName(rcp.te
 }
 RenderComponent::RenderComponent(std::string texture): textureName(texture),size(0,0)
 {
-	setTexture();
+	setTexture(texture);
+}
+RenderComponent::RenderComponent(std::string texture,int x,int y) : textureName(texture),size(x,y)
+{
+	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
+	animation = false;
+
+
 }
 void RenderComponent::setTexture()
 {
@@ -29,23 +36,58 @@ void RenderComponent::setTexture()
 	size.y = sprite.getTexture()->getSize().y;
 }
 
-void RenderComponent::setTexture(int x,int y)
+void RenderComponent::setTexture(std::string texture)
+{
+	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
+	animation = false;
+
+	textureName = texture;
+	size.x = sprite.getTexture()->getSize().x;
+	size.y = sprite.getTexture()->getSize().y;
+}
+
+void RenderComponent::setTexture(std::string texture,int x,int y,int width,int height)
+{
+	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
+	animation = false;
+
+	textureName = texture;
+	size.x = sprite.getTexture()->getSize().x;
+	size.y = sprite.getTexture()->getSize().y;
+}
+
+void RenderComponent::setAnimation(std::string texture,int width,int height)
+{
+	sprite.setTexture(*Engine::Graphic.requestTexture(texture),false);
+	animation = true;
+	textureName = texture;
+	sprite.setTextureRect(sf::IntRect(0,0,width,height));
+	size.x = width;
+	size.y = height;
+	frame.x = sprite.getTexture()->getSize().x / width;
+	frame.y = sprite.getTexture()->getSize().y / height;
+}
+
+
+void RenderComponent::setAnimation(int x,int y,int width,int height)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),false);
-	sprite.setTextureRect(sf::IntRect(0,0,x,y));
-	size.x = sprite.getTexture()->getSize().x/x;
-	size.y = sprite.getTexture()->getSize().y/y;
+	sprite.setTextureRect(sf::IntRect(x,y,width,height));
 	animation = true;
-
-
+	size.x = width;
+	size.y = height;
+	frame.x = sprite.getTexture()->getSize().x / width;
+	frame.y = sprite.getTexture()->getSize().y / height;
 
 }
 bool RenderComponent::UpdateFromEditor()
 {
+	if(animation)
+		setAnimation(position.x,position.y,size.x,size.y);
+	else
+		setTexture(textureName,position.x,position.y,size.x,size.y);
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
-
-	setTexture();
 
 	return true;
 }
@@ -59,19 +101,32 @@ void RenderComponent::attachOn(GameObject* attachTo)
 	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
 	REGISTER_EDITOR_VARIABLE(bool,animation,Animation);
+	REGISTER_EDITOR_VARIABLE(Vector2,size,RectSize);
+	REGISTER_EDITOR_VARIABLE(Vector2,frame,Frames);
+	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
+
 }
 void RenderComponent::updateFrame()
 {
 	if(animation)
 	{
-		sf::IntRect rect = sprite.getTextureRect();
-		rect.left += size.x;
-		if(rect.left > sprite.getTexture()->getSize().x)
+		float oldFrame = currentFrame;
+		currentFrame += Engine::time.deltaTime()*(int)((int)size.x + (int)size.y);
+		if((int)currentFrame > (int)oldFrame)
 		{
-			rect.left = 0;
-			rect.height += size.y;
-			if(rect.height > sprite.getTexture()->getSize().y)
-				rect.height = 0;
+			sf::IntRect rect = sprite.getTextureRect();
+			rect.left += rect.width;		
+			
+			if(rect.left > sprite.getTexture()->getSize().x)
+			{
+				rect.left = 0;
+				rect.top += rect.height;
+				if(rect.top > sprite.getTexture()->getSize().y)
+					rect.top = 0;
+			}
+			//LOW: is this needed
+			currentFrame -= (int)currentFrame;
+			sprite.setTextureRect(rect);
 		}
 	}
 }

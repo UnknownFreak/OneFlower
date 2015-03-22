@@ -65,6 +65,8 @@ EngineWindow::EngineWindow():size(1366,768)
 		NULL						// No Window Creation data
 		//this
 		);
+
+
 	//Move this
 	if(!hWnd)
 	{
@@ -84,7 +86,6 @@ EngineWindow::~EngineWindow()
 	DestroyWindow(focus.hWnd);
 	UnregisterClass(windowDefinedName,Engine::Window.hInstance);
 }
-
 LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
@@ -152,7 +153,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-
 				#pragma region GUI_MENU
 				case ID_SHOW_HIDE_GUI:
 				{
@@ -170,7 +170,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-
 				#pragma region FILE_MENU
 				case ID_ADD_ZONE:
 				{
@@ -183,6 +182,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
+				
+				default: 
+					break;
 			}
 			switch(HIWORD(wParam))
 			{

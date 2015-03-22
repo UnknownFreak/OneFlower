@@ -55,6 +55,18 @@ bool Vector2::normalize()
 
 	//LOW: Fix this someday and be sure to check some math site this time to. 15/02/13
 }
+
+
+
+
+#include <ostream>
+std::ostream & operator<< (std::ostream &out,Vector2 const &t)
+{
+	out << t.x << t.y;
+	return out;
+}
+
+
 void Vector2::operator+=(Vector2& right)
 {
 	x += right.x;

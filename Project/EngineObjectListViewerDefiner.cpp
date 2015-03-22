@@ -69,4 +69,27 @@ void EngineObjectListViewer::getSelection()
 		MessageBox(0,"No Index, From ListBox","CTRL+F 4328974",0);
 
 }
+#include <vector>
+void EngineObjectListViewer::set(GameObject* t)
+{
+	std::vector<int> position;
+	int count = SendMessage(hWnd,LB_GETCOUNT,0,0);
+	for(size_t i = 0; i < count; ++i)
+	{
+		LRESULT l = SendMessage(hWnd,LB_GETTEXTLEN,(WPARAM)i,0);
+		TCHAR* text = new char[l + 1];
+		SendMessage(hWnd,LB_GETTEXT,(WPARAM)i,(LPARAM)text);
+		if(t->name == text)
+		{
+			GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,i,0);
+			if(temp == t)
+			{
+				SendMessage(hWnd,LB_SETCURSEL,i,0);
+				delete text;
+				break;
+			}
+		}
+		delete text;
+	}
+}
 #endif
