@@ -1,4 +1,3 @@
-#ifdef _DEBUG
 #include <Windows.h>
 #include <string>
 #include "Engine.hpp"
@@ -50,10 +49,10 @@ int windowMessage()
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-			if(IsDialogMessage(i->second.hWnd,&message))
-			{
-			break;
-			}
+				if(IsDialogMessage(i->second.hWnd,&message))
+				{
+				break;
+				}
 			}
 			//*/
 		
@@ -93,7 +92,6 @@ int windowMessage()
 		time.FPS();
 	}
 	return message.wParam;
-#endif
 }
 
 int test()
