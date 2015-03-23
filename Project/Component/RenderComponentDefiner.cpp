@@ -30,10 +30,6 @@ RenderComponent::RenderComponent(std::string texture,int x,int y) : textureName(
 void RenderComponent::setTexture()
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
-	animation = false;
-	//spritesetOrigin(spritegetScale().x / 2, spritegetScale().y / 2);
-	size.x = sprite.getTexture()->getSize().x;
-	size.y = sprite.getTexture()->getSize().y;
 }
 
 void RenderComponent::setTexture(std::string texture)
@@ -48,12 +44,14 @@ void RenderComponent::setTexture(std::string texture)
 
 void RenderComponent::setTexture(std::string texture,int x,int y,int width,int height)
 {
-	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
-	animation = false;
+	sprite.setTexture(*Engine::Graphic.requestTexture(texture),false);
+	sprite.setTextureRect(sf::IntRect(position.x,position.y,width,height));
 
+
+	animation = false;
 	textureName = texture;
-	size.x = sprite.getTexture()->getSize().x;
-	size.y = sprite.getTexture()->getSize().y;
+	size.x = width;
+	size.y = height;
 }
 
 void RenderComponent::setAnimation(std::string texture,int width,int height)
@@ -79,13 +77,16 @@ void RenderComponent::setAnimation(int x,int y,int width,int height)
 	frame.x = sprite.getTexture()->getSize().x / width;
 	frame.y = sprite.getTexture()->getSize().y / height;
 
+
 }
 bool RenderComponent::UpdateFromEditor()
 {
 	if(animation)
-		setAnimation(position.x,position.y,size.x,size.y);
+		setAnimation(0,0,size.x,size.y);
 	else
 		setTexture(textureName,position.x,position.y,size.x,size.y);
+
+
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
 

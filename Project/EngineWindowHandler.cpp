@@ -13,8 +13,16 @@ void EngineWindow::setGameObject(GameObject* t)
 	int size = 256;
 
 	focus.gameObject = t;
+	{
+		SCROLLINFO sia = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+		GetScrollInfo(focus.hWnd,SB_VERT,&sia);
+		if(sia.nPos > 0)
+		{
+			ScrollWindowEx(focus.hWnd,0,sia.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+		}
 
-	//DestroyWindow(focus.hWnd);
+	}
+
 	focus.cleanse();
 	ListViewer.set(t);
 	if(t)
@@ -98,7 +106,6 @@ void EngineWindow::setGameObject(GameObject* t)
 			for(std::map<std::string,BaseField*>::iterator componentField_it = test.begin(); componentField_it != test.end(); componentField_it++)
 				EditorUI::Field::addField(componentField_it->second,itFG,0,0);
 
-			focus.height = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom - 500;
 
 
 			//LOW Learn to subclass button without breaking the editor and make a update button
@@ -118,7 +125,7 @@ void EngineWindow::setGameObject(GameObject* t)
 		int oldPos = si.nPos;	
 		si.nPage = 0;
 		si.nMin = 0;
-		si.nMax = Engine::Window.focus.height + 16;
+		si.nMax = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom - 500 +16;
 		SetScrollInfo(focus.hWnd,SB_VERT,&si,false);
 
 	}

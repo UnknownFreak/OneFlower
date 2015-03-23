@@ -414,8 +414,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					}
 					else
 					{
-						ScrollWindowEx(hWnd,0,-si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-						si.nPos += si.nPos;
+						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos -= si.nPos;
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 
@@ -432,12 +432,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					}
 					else
 					{
-						if(si.nPos < 64)
-						{
-							ScrollWindowEx(hWnd,0,-si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-							std::cout << si.nPos << std::endl;
-							si.nPos += si.nPos;
-						}
+							ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+							si.nPos -= si.nPos;
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 					break;
