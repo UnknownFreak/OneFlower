@@ -14,7 +14,8 @@ public:
 
 	GameObject* gameObject;
 	HWND hWnd;
-
+	void start();
+	void addExtraField(HWND phWnd,std::string text,BaseField* theVariable,int x,int y,int width,int height);
 
 	HWND addButton(HWND phWnd,std::string buttonDisplayName,int x,int y,int width,int height,int buttonID);
 	HWND addTextbox(HWND phWnd,std::string textBoxName,int x,int y,int width,int height,int textboxID);
@@ -28,9 +29,13 @@ public:
 	std::map<std::string,EditorGroup> componentFieldGroup;
 	Vector2 scrollPosition;
 	int height = 0;
+	BaseField* nameField;
+
+	void cleanse();
+	HWND hWndField;
+
 
 private:
-
 	WNDCLASSEX wc;
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;

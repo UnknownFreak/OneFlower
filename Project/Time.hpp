@@ -12,9 +12,10 @@ public:
 	bool time(std::string,int sec);
 	void remove(std::string);
 	float deltaTime();
-	sf::Clock delta;
+	void restartDelta();
 
 private:
+	sf::Clock delta;
 	sf::Clock clock;
 	sf::Clock timer;
 	float lastTime = 0;

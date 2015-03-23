@@ -13,16 +13,52 @@ public:
 	RenderComponent();
 	RenderComponent(const RenderComponent & rc);
 	RenderComponent(std::string texture);
-	sf::Sprite sprite;
+
+	//Name of spritesheet and rect position
+	RenderComponent(std::string texture,int x,int y);
+
 	bool UpdateFromEditor();
+	void attachOn(GameObject* go);
+	void updateFrame();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
+
+
+	bool animation = false;
+
+	//size of the rectangle for animation
 	Vector2 size;
+	Vector2 position;
+	
+
 	//Name of texture;
 	std::string textureName = "test.png";
-	void attachOn(GameObject* go);
-private:
+
+	sf::Sprite sprite;
+	float currentFrame = 1;
+
+	//Reload texture with textureName
 	void setTexture();
+
+	//Set texture with name of Texture
+	void setTexture(std::string texture);
+
+	//Set texture with name of Texture and the size of rect for spritesheet and its location
+	void setTexture(std::string texture,int x,int y,int width,int height);
+
+
+
+	//Reload Texture and parameter for the rect size, and it currently "frame position", Makes animation = true
+	void setAnimation(int x,int y,int width,int height);
+	
+	//Set texture, set Width and Height for the rect on each sprite for spritesheet, For animations only
+	void setAnimation(std::string texture,int width,int height);
+
+
+	
+
+private:
+	Vector2 frame;
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>

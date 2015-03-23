@@ -5,6 +5,7 @@
 #include <map>
 #include "BaseField.hpp"
 #include "UIAddon.hpp"
+#include <sstream>
 //#ifdef BaseComponentTest_HPP
 #define REGISTER_EDITOR_TYPE(x)	std::string EditorField<x>::type = #x; //std::string EditorField<x>::getType(){return #x;}
 #define REGISTER_EDITOR_VARIABLE(type,var,DisplayName)\
@@ -37,6 +38,18 @@ public:
 	{
 		return type;//	 static_assert(false,"You are missing a REGISTER_EDITOR_TYPE");;
 	}
+
+	std::string toString()
+	{
+		class ostream;
+		std::stringstream ss;
+		ss << *variable;
+		return ss.str();
+
+	}
+
+
+
 	//Name of type
 	static std::string type;
 

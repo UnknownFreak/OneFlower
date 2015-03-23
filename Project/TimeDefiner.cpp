@@ -8,11 +8,15 @@ HWND hWnd;
 HWND wnd;
 HWND awnd;
 
+void Time::restartDelta()
+{
+	lastTime = delta.getElapsedTime().asSeconds();
+	delta.restart();
+}
 
 float Time::deltaTime()
 {
-	float deltaT = delta.getElapsedTime().asSeconds();
-	return deltaT;
+	return lastTime;
 }
 
 float Time::FPS()

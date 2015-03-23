@@ -1,6 +1,7 @@
 #ifndef TemplateVector
 #define TemplateVector
-struct Vector2
+#include <ostream>
+struct Vector2 
 {
 	Vector2();
 	Vector2(int a,int b);
@@ -29,7 +30,15 @@ struct Vector2
 	//The Direction between this and target
 	Vector2 direction(Vector2* target);
 
+
+
+
+
+
 #pragma region Operator
+	friend std::ostream & operator<< (std::ostream &out,Vector2 const &t);
+
+
 	void operator += (Vector2& right);
 	void operator -= (Vector2& right);
 	void operator *= (Vector2& right);

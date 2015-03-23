@@ -1,4 +1,3 @@
-#ifdef _DEBUG
 #include <Windows.h>
 #include <string>
 #include "Engine.hpp"
@@ -36,6 +35,7 @@ int windowMessage()
 	world.loadZone(1);
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
+	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	Engine::game.player = go;
 	Engine::game.addGameObject(go);
 	Time time;
@@ -49,10 +49,10 @@ int windowMessage()
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-			if(IsDialogMessage(i->second.hWnd,&message))
-			{
-			break;
-			}
+				if(IsDialogMessage(i->second.hWnd,&message))
+				{
+				break;
+				}
 			}
 			//*/
 		
@@ -85,12 +85,13 @@ int windowMessage()
 		Engine::mouse.update();
 		Engine::GUI.Draw();
 		Engine::View.render.display();
+		if(Engine::View.render.hasFocus())
+			Engine::Window.update();
 		//Fix this, By moving it somewhere else? and have it return a constant variable
-		Engine::time.delta.restart();
+		Engine::time.restartDelta();
 		time.FPS();
 	}
 	return message.wParam;
-#endif
 }
 
 int test()
