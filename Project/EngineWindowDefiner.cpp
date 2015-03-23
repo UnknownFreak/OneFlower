@@ -16,6 +16,9 @@
 #include <vector>
 #include "EditorUI\EditorFieldGroup.hpp"
 #include <Windows.h>
+
+#include "InputDialog.hpp"
+
 #include "Component\GameObject.h"
 #include "Component\DialogComponent.hpp"
 #include "Component\RenderComponent.h"
@@ -23,6 +26,8 @@
 #include "Component\RigidComponent.hpp"
 #include "Component\DialogComponent.hpp"
 #include "Component\HitboxComponent.hpp"
+#include "Component\StatsComponent.hpp"
+#include "Component\HealthComponent.hpp"
 
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
@@ -161,6 +166,18 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						Engine::Window.focus.gameObject->AddComponent<TransformComponent>();
 					break;
 				}
+				case ADD_StatsComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<StatsComponent>();
+					break;
+				}
+				case ADD_HealthComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<HealthComponent>();
+					break;
+				}
 				#pragma endregion
 
 				#pragma region GUI_MENU
@@ -180,11 +197,38 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-
+				
 				#pragma region FILE_MENU
 				case ID_ADD_ZONE:
 				{
+					char buf[100] = { 0 };
+					char stuff[100] = { 0 };
+					InputDialog::InputBox("Add Zone", buf,stuff, 100,hWnd);
+					std::string name = buf;
+					unsigned int i = std::atoi(stuff);
+					Engine::World.EditorAddNewZone(name,i);
 					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneAdd123", "stuff", NULL);
+					break;
+				}
+				case ID_LOAD_ZONE:
+				{
+					char buf[100];
+					InputDialog::InputBox("Load Zone",buf,NULL, 100, hWnd);
+					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneLoad123", "stuff", NULL);
+					break;
+				}
+				case ID_SAVE_ZONE:
+				{
+					char buf[100];
+					InputDialog::InputBox("Save Zone", buf, NULL, 100, hWnd);
+					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneSave123", "stuff", NULL);
+					break;
+				}
+				case ID_REMOVE_ZONE:
+				{
+					char buf[100];
+					InputDialog::InputBox("Remove Zone", buf,NULL, 100, hWnd);
+					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneRemove123", "stuff", NULL);
 					break;
 				}
 				case ID_FILE_EXIT:

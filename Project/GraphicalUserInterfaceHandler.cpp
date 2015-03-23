@@ -23,11 +23,13 @@ void GraphicalUserInterface::Draw()
 		if (showOverhead)
 			for (size_t i = 0; i < overhead.size(); ++i)
 			{
-			overhead[i]->setPosition();
-			Engine::View.render.draw(overhead[i]->msg.text);
+				overhead[i]->setPosition();
+				Engine::View.render.draw(overhead[i]->msg.text);
 			}
 		if (isMouseVisible)
+		{
 			updateMouseIcon();
 			Engine::View.render.draw(mouseAim.sprite);
+		}
 	}
 }

@@ -20,8 +20,8 @@ void HealthComponent::attachOn(GameObject* attachTo)
 		stats = attachTo->GetComponent<StatsComponent>();
 	}
 #ifdef _DEBUG
-	REGISTER_EDITOR_VARIABLE(std::string, tmp, Invuln);
-	REGISTER_EDITOR_VARIABLE(std::string, tmp2, Dead);
+	REGISTER_EDITOR_VARIABLE(bool, invulnerable, Invuln);
+	REGISTER_EDITOR_VARIABLE(bool, dead, Dead);
 #endif
 }
 
@@ -47,26 +47,6 @@ double HealthComponent::getHealthPercentDecimals()
 
 bool HealthComponent::UpdateFromEditor()
 {
-#if _DEBUG
-	if (tmp == "True" || tmp == "true")
-	{
-		invulnerable = true;
-	}
-	else
-	{
-		invulnerable = false;
-		tmp = "false";
-	}
-	if (tmp2 == "True" || tmp2 == "true")
-	{
-		dead = true;
-	}
-	else
-	{
-		dead = false;
-		tmp2 = "false";
-	}
-#endif
 	return true;
 }
 

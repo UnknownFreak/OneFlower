@@ -15,6 +15,10 @@ void Game::Update()
 	//LOW: Make my own Custom Focus
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
+		if (Engine::GUI.isMouseVisible)
+			while (ShowCursor(false) >= 0);
+		else
+			while (ShowCursor(true) < 0);
 		TransformComponent* tcp = player->GetComponent<TransformComponent>();
 		tcp->moveTo(pos.x,pos.y, 2);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -55,6 +59,8 @@ void Game::Update()
 		Engine::View.render.setView(Engine::View.camera);
 		Engine::GUI.updateMouseIcon();
 	}
+	else
+		while (ShowCursor(true) <0);
 }
 
 void synchronizeComponents()

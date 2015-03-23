@@ -14,7 +14,8 @@ void WorldManagement::loadZone(unsigned int zoneID)
 {
 	if(worldmap.find(zoneID) != worldmap.end())
 	{
-		std::cout << std::endl << "zone with ID: [" << zoneID << "] is already loaded" << std::endl << "continues to load zone..." << std::endl;
+		std::string info = "zone with ID: [" +std::to_string(zoneID)+ "] is already loaded\ncontinues to load zone...";
+		MessageBox(Engine::Window.hWnd, "Stuff", (LPCSTR)info.c_str(), NULL);
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
 		//worldFromZone(zoneID);
@@ -98,4 +99,25 @@ void WorldManagement::worldFromZone(unsigned int zoneID)
 		worldmap.erase(lastLoadedZone);
 		lastLoadedZone = zoneID;
 	}
+	currentZone = worldmap[lastLoadedZone];
 }
+
+Zone* WorldManagement::getCurrentZone()
+{
+	return currentZone;
+}
+#ifdef _DEBUG
+void WorldManagement::EditorAddNewZone(std::string name, unsigned int ID)
+{
+	bool exist = false;
+	std::map<unsigned int, std::string>::iterator it = zoneInfo.find(ID);
+	if (it != zoneInfo.end())
+		exist = true;
+	if (exist)
+		MessageBox(Engine::Window.hWnd,"ID already taken" , "ERROR", NULL);
+	else
+	{
+		MessageBox(Engine::Window.hWnd,"STUFF WILL BE ADDED" , "YAY", NULL);
+	}
+}
+#endif

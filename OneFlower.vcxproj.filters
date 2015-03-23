@@ -154,9 +154,6 @@
     <ClInclude Include="Project\Resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Text\Message.hpp">
-      <Filter>Header Files\Text</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Text\InputBox.hpp">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
@@ -216,6 +213,9 @@
     </ClInclude>
     <ClInclude Include="Project\Text\Font.hpp">
       <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\InputDialog.hpp">
+      <Filter>Header Files\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="Project\Text\FontDefiner.cpp">
       <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputDialog.cpp">
+      <Filter>Header Files\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

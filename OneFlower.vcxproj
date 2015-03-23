@@ -118,6 +118,7 @@
     <ClInclude Include="Project\GameView.hpp" />
     <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\GraphicalUserInterface.hpp" />
+    <ClInclude Include="Project\InputDialog.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave.hpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Project\GameViewDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\GraphicalUserInterfaceHandler.cpp" />
+    <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
     <ClCompile Include="Project\LoadAndSave.cpp" />
     <ClCompile Include="Project\Mouse\Mouse.cpp" />

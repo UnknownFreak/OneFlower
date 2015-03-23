@@ -15,7 +15,15 @@ public:
 	void loadZone (unsigned int zoneID);
 	std::map <unsigned int,Zone*> worldmap;
 	std::map <unsigned int, std::string>zoneInfo;
+
+	Zone* getCurrentZone();
+	#ifdef _DEBUG
+	void EditorAddNewZone(std::string zoneName, unsigned int ID);
+	#endif
 private:
+
+	Zone* currentZone;
+
 	// loads a zone from a specified file
 	friend bool loadZoneFile(std::string fileName, Zone &z);
 	friend bool loadZoneInfo(std::map<unsigned int, std::string> & zoneInfo);

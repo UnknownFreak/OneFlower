@@ -4,9 +4,8 @@
 
 FloatingText::~FloatingText()
 {
-
 }
-FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf"), -1, -1), offset(0,0)
+FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf"), -1, -1), offset(0, 0), iconName("")
 {
 	iconSprite.setTexture(*Engine::Graphic.requestTexture("test.png"), true);
 	text.setString("");

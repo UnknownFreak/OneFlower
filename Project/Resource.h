@@ -12,6 +12,8 @@
 #define ADD_DialogComponent 1004
 #define ADD_OverHeadComponent 1005
 #define ADD_RigidComponent 1006
+#define ADD_StatsComponent 1007
+#define ADD_HealthComponent 1008
 
 #define ID_ADD_ZONE 2006
 #define ID_SAVE_ZONE 2007
@@ -21,3 +23,14 @@
 #define ID_SHOW_HIDE_GUI 2010
 #define ID_SHOW_HIDE_MOUSE 2011
 #define ID_SHOW_HIDE_OVERHEAD 2012
+
+
+#define DIALOG_CAPTION 2999
+#define DIALOG_ID 3000
+#define ID_DIALOG_TEXT 3001
+#define ID_DIALOG_OK 3002
+#define ID_DIALOG_CANCEL 3003
+#define ID_DIALOG_LABEL 3004
+#define ID_DIALOG_TEXT_ID 3005
+#define ID_DIALOG_LABEL_ID 3006
+

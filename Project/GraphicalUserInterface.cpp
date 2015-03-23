@@ -5,7 +5,7 @@
 #include <Windows.h>
 
 
-GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), showOverhead(true), isMouseVisible(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png")
+GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), showOverhead(true), isMouseVisible(false), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png")
 {
 	
 	// Mouse
@@ -96,9 +96,14 @@ void GraphicalUserInterface::initialize()
 void GraphicalUserInterface::showHideMouse()
 {
 	if (isMouseVisible)
+	{
 		isMouseVisible = false;
+	}
 	else
+	{
 		isMouseVisible = true;
+
+	}
 }
 
 void GraphicalUserInterface::showHideGUI()
@@ -110,8 +115,8 @@ void GraphicalUserInterface::showHideGUI()
 }
 void GraphicalUserInterface::showHideOverhead()
 {
-	if (Engine::GUI.hideGUI)
-		Engine::GUI.hideGUI = false;
+	if (Engine::GUI.showOverhead)
+		Engine::GUI.showOverhead = false;
 	else
-		Engine::GUI.hideGUI = true;
+		Engine::GUI.showOverhead = true;
 }
