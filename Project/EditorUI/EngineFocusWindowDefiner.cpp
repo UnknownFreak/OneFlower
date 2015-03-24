@@ -111,6 +111,18 @@ void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariab
 }
 void EngineFocus::cleanse()
 {
+	#pragma region ResetScrolling
+	SCROLLINFO sia = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+	GetScrollInfo(hWnd,SB_VERT,&sia);
+	if(sia.nPos > 0)
+	{
+		ScrollWindowEx(hWnd,0,sia.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+	}
+
+	#pragma endregion
+
+	
+	#pragma region CleanseChildhWnd
 	for(auto it = componentFieldGroup.begin(); it != componentFieldGroup.end(); it++)
 	{
 		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
@@ -122,6 +134,8 @@ void EngineFocus::cleanse()
 	}
 	componentFieldGroup.clear();
 	EnableWindow(hWndField,false);
+	#pragma endregion
+
 }
 LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
@@ -159,7 +173,6 @@ LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM l
 	}
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
-
 LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)

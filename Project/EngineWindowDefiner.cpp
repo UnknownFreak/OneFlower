@@ -182,7 +182,17 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-				
+				#pragma region Remove_Menu
+				case REMOVE_GameObject:
+				{
+					if(Engine::Window.focus.gameObject)
+					{
+						Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
+					}
+					else
+						MessageBoxA(0,"No focused object","CTRL + F FocusedObjectRemoveal",0);
+				}
+				#pragma endregion
 				default: 
 					break;
 			}

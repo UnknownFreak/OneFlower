@@ -41,15 +41,9 @@ bool AABB(RigidComponent* a,HitboxComponent* b)
 	//LOW: Remove this one day due to updating AABB code
 	if(a->attachedOn->GetComponent<RenderComponent>() && b->attachedOn->GetComponent<RenderComponent>())
 	{
-
 		Vector2 posA = a->attachedOn->GetComponent<TransformComponent>()->position;
 		Vector2 posB = b->attachedOn->GetComponent<TransformComponent>()->position;
-		//HIGH: Remove this after test and fix this with a more optimized code structer
-		a->size.x = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
-		a->size.y = a->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
-		b->size.x = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().width;
-		b->size.y = b->attachedOn->GetComponent<RenderComponent>()->sprite.getTextureRect().height;
-
+		
 
 
 		int OB1top = posA.y - (a->size.y / 2);

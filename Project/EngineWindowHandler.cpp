@@ -13,15 +13,7 @@ void EngineWindow::setGameObject(GameObject* t)
 	int size = 256;
 
 	focus.gameObject = t;
-	{
-		SCROLLINFO sia = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
-		GetScrollInfo(focus.hWnd,SB_VERT,&sia);
-		if(sia.nPos > 0)
-		{
-			ScrollWindowEx(focus.hWnd,0,sia.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-		}
 
-	}
 
 	focus.cleanse();
 	ListViewer.set(t);
@@ -179,14 +171,17 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 #include <sstream>
 void EngineWindow::update()
 {
-	for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); ++it)
+	if(focus.gameObject)
 	{
-		for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
+		for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); ++it)
 		{
-			BaseField* variable = jit->second;
-			std::stringstream ss;
-			ss << variable->toString();
-			SetWindowTextA(variable->hWnd,ss.str().c_str());
+			for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
+			{
+				BaseField* variable = jit->second;
+				std::stringstream ss;
+				ss << variable->toString();
+				SetWindowTextA(variable->hWnd,ss.str().c_str());
+			}
 		}
 	}
 }

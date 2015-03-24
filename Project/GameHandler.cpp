@@ -15,28 +15,7 @@ void Game::Update()
 	//LOW: Make my own Custom Focus
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
-		TransformComponent* tcp = player->GetComponent<TransformComponent>();
-		tcp->moveTo(pos.x,pos.y, 2);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			pos.y -= 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			//Engine::Graphic.camera.move(-10, 0);
-			pos.x -= 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			//Engine::Graphic.camera.move(0, -10);
-			pos.y += 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			//Engine::Graphic.camera.move(10, 0);
-			pos.x += 2;
-		}
-
+		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			Engine::View.camera.move(0, -10);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

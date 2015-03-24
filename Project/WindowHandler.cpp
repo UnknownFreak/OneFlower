@@ -36,6 +36,7 @@ int windowMessage()
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
+	go->AddComponent<RigidComponent>();
 	Engine::game.player = go;
 	Engine::game.addGameObject(go);
 	Time time;
@@ -62,6 +63,8 @@ int windowMessage()
 				{
 					SetFocus(Engine::Window.hWnd);
 				}
+				if(message.wParam ==VK_DELETE)
+					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 			}
 			// If a message was waiting in the message queue, process it
 			TranslateMessage(&message);

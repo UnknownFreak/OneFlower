@@ -44,7 +44,8 @@ public:
 
 //private:
 	std::vector<GameObject*> allGameObjectPointers;
-	std::map<GameObject*,int> mapOfGameObjects;
+	
+	//std::map<GameObject*,int> mapOfGameObjects;
 
 	Vector2 pos;
 };

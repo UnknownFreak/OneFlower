@@ -24,14 +24,12 @@ RenderComponent::RenderComponent(std::string texture,int x,int y) : textureName(
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
 	animation = false;
-
-
 }
+
 void RenderComponent::setTexture()
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
 }
-
 void RenderComponent::setTexture(std::string texture)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
@@ -41,12 +39,10 @@ void RenderComponent::setTexture(std::string texture)
 	size.x = sprite.getTexture()->getSize().x;
 	size.y = sprite.getTexture()->getSize().y;
 }
-
 void RenderComponent::setTexture(std::string texture,int x,int y,int width,int height)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),false);
 	sprite.setTextureRect(sf::IntRect(position.x,position.y,width,height));
-
 
 	animation = false;
 	textureName = texture;
@@ -65,8 +61,6 @@ void RenderComponent::setAnimation(std::string texture,int width,int height)
 	frame.x = sprite.getTexture()->getSize().x / width;
 	frame.y = sprite.getTexture()->getSize().y / height;
 }
-
-
 void RenderComponent::setAnimation(int x,int y,int width,int height)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),false);
@@ -76,16 +70,14 @@ void RenderComponent::setAnimation(int x,int y,int width,int height)
 	size.y = height;
 	frame.x = sprite.getTexture()->getSize().x / width;
 	frame.y = sprite.getTexture()->getSize().y / height;
-
-
 }
+
 bool RenderComponent::UpdateFromEditor()
 {
 	if(animation)
 		setAnimation(0,0,size.x,size.y);
 	else
 		setTexture(textureName,position.x,position.y,size.x,size.y);
-
 
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
@@ -105,19 +97,20 @@ void RenderComponent::attachOn(GameObject* attachTo)
 	REGISTER_EDITOR_VARIABLE(Vector2,size,RectSize);
 	REGISTER_EDITOR_VARIABLE(Vector2,frame,Frames);
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-
+	REGISTER_EDITOR_VARIABLE(double,currentFrame,Frame);
+	REGISTER_EDITOR_VARIABLE(int,frameSpeed,AnimationSpeed);
 }
 void RenderComponent::updateFrame()
 {
 	if(animation)
 	{
-		float oldFrame = currentFrame;
-		currentFrame += Engine::time.deltaTime()*(int)((int)size.x + (int)size.y);
+		double oldFrame = currentFrame;
+		currentFrame += (Engine::time.deltaTime()*(int)((int)frame.x + (int)frame.y))/frameSpeed;
 		if((int)currentFrame > (int)oldFrame)
 		{
 			sf::IntRect rect = sprite.getTextureRect();
-			rect.left += rect.width;		
-			
+			rect.left += rect.width;
+
 			if(rect.left > sprite.getTexture()->getSize().x)
 			{
 				rect.left = 0;

@@ -160,8 +160,9 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	}
 		#pragma endregion
 	
+	
 	else
-		MessageBoxA(0,std::string("No matching type: " + variable->getType()).c_str(),"CTRL + F 945781",0);
+		MessageBoxA(0,std::string("No matching type: " + variable->getType()).c_str(),"CTRL + F AddNewType",0);
 
 
 	if(!value.empty())

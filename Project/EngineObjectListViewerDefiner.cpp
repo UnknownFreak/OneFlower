@@ -3,6 +3,11 @@
 #include "Engine.hpp"
 #include "Component\GameObject.h"
 #include <Windows.h>
+#include <vector>
+EngineObjectListViewer::~EngineObjectListViewer()
+{
+	DestroyWindow(hWnd);
+}
 void EngineObjectListViewer::start()
 {
 	RECT window = EditorUI::GetLocalCoordinates(Engine::Window.hWnd);
@@ -14,9 +19,59 @@ void EngineObjectListViewer::start()
 		256,500,
 		Engine::Window.hWnd,NULL,Engine::Window.hInstance,NULL);
 }
-EngineObjectListViewer::~EngineObjectListViewer()
+void EngineObjectListViewer::update()
 {
-	DestroyWindow(hWnd);
+	int index = SendMessage(hWnd,LB_GETCURSEL,0,0);
+	if(index > -1)
+	{
+		GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,index,0);
+		if(temp)
+		{
+			SendMessage(hWnd,LB_DELETESTRING,index,0);
+			SendMessage(hWnd,LB_INSERTSTRING,index,(LPARAM)temp->name.c_str());
+			SendMessage(hWnd,LB_SETITEMDATA,index,(LPARAM)temp);
+			SendMessage(hWnd,LB_SETCURSEL,index,0);
+		}
+		else
+			MessageBox(0,"NULL GameObject, From ListBox","CTRL+F 4328974",0);
+	}
+}
+void EngineObjectListViewer::getSelection()
+{
+	int index = SendMessage(hWnd,LB_GETCURSEL,0,0);
+	if(index > -1)
+	{
+		GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,index,0);
+		if(temp)
+			Engine::Window.setGameObject(temp);
+		else
+			MessageBox(0,"NULL GameObject, From ListBox","CTRL+F 4328974",0);
+	}
+	else
+		MessageBox(0,"No Index, From ListBox","CTRL+F 4328974",0);
+
+}
+void EngineObjectListViewer::set(GameObject* t)
+{
+	std::vector<int> position;
+	int count = SendMessage(hWnd,LB_GETCOUNT,0,0);
+	for(size_t i = 0; i < count; ++i)
+	{
+		LRESULT l = SendMessage(hWnd,LB_GETTEXTLEN,(WPARAM)i,0);
+		TCHAR* text = new char[l + 1];
+		SendMessage(hWnd,LB_GETTEXT,(WPARAM)i,(LPARAM)text);
+		if(t->name == text)
+		{
+			GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,i,0);
+			if(temp == t)
+			{
+				SendMessage(hWnd,LB_SETCURSEL,i,0);
+				delete text;
+				break;
+			}
+		}
+		delete text;
+	}
 }
 void EngineObjectListViewer::add(GameObject* entity)
 {
@@ -35,42 +90,7 @@ void EngineObjectListViewer::add(GameObject* entity)
 			MessageBox(0,"Error adding strig","Ctrl+F 16455",0);
 	}
 }
-
-void EngineObjectListViewer::update()
-{
-	int index = SendMessage(hWnd,LB_GETCURSEL,0,0);
-	if(index > -1)
-	{
-		GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,index,0);
-		if(temp)
-		{
-			SendMessage(hWnd,LB_DELETESTRING,index,0);
-			SendMessage(hWnd,LB_INSERTSTRING,index,(LPARAM)temp->name.c_str());
-			SendMessage(hWnd,LB_SETITEMDATA,index,(LPARAM)temp);
-			SendMessage(hWnd,LB_SETCURSEL,index,0);
-		}
-		else
-			MessageBox(0,"NULL GameObject, From ListBox","CTRL+F 4328974",0);
-	}
-}
-
-void EngineObjectListViewer::getSelection()
-{
-	int index = SendMessage(hWnd,LB_GETCURSEL,0,0);
-	if(index > -1)
-	{
-		GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,index,0);
-		if(temp)
-			Engine::Window.setGameObject(temp);
-		else
-			MessageBox(0,"NULL GameObject, From ListBox","CTRL+F 4328974",0);
-	}
-	else
-		MessageBox(0,"No Index, From ListBox","CTRL+F 4328974",0);
-
-}
-#include <vector>
-void EngineObjectListViewer::set(GameObject* t)
+void EngineObjectListViewer::remove(GameObject* t)
 {
 	std::vector<int> position;
 	int count = SendMessage(hWnd,LB_GETCOUNT,0,0);
@@ -84,7 +104,7 @@ void EngineObjectListViewer::set(GameObject* t)
 			GameObject* temp = (GameObject*)SendMessageA(hWnd,LB_GETITEMDATA,i,0);
 			if(temp == t)
 			{
-				SendMessage(hWnd,LB_SETCURSEL,i,0);
+				SendMessage(hWnd,LB_DELETESTRING,i,0);
 				delete text;
 				break;
 			}

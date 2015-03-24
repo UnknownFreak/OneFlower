@@ -5,6 +5,7 @@
 #define ID_FILE_EXIT 2003
 #define ID_ADD_RENDER 2004
 
+#define REMOVE_GameObject 1100
 #define ADD_GameObject 1000
 #define ADD_TransformComponent 1001
 #define ADD_RenderComponent 1002
@@ -23,4 +24,3 @@
 #define ID_SHOW_HIDE_OVERHEAD 2012
 
 #define ID_CheckBox 3001
-

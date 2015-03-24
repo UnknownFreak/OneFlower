@@ -22,10 +22,8 @@ public:
 	void updateFrame();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
-
-
 	bool animation = false;
-
+	int frameSpeed = 1;
 	//size of the rectangle for animation
 	Vector2 size;
 	Vector2 position;
@@ -35,7 +33,7 @@ public:
 	std::string textureName = "test.png";
 
 	sf::Sprite sprite;
-	float currentFrame = 1;
+	double currentFrame = 1;
 
 	//Reload texture with textureName
 	void setTexture();
