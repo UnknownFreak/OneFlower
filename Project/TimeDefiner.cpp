@@ -28,9 +28,9 @@ float Time::FPS()
 		timer.restart();
 		fps = 1.f / (currentTime);
 		lastTime = currentTime;
-		if(hWnd)
+		if(Engine::Window.hWnd)
 		{
-			SetWindowTextA(hWnd,std::to_string(fps).c_str());
+			SetWindowText(Engine::Window.hWnd,std::to_string(fps).c_str());
 			SetWindowTextA(wnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right).c_str());
 			SetWindowTextA(awnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).left).c_str());
 		}
