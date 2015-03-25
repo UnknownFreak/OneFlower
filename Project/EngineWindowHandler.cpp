@@ -15,6 +15,7 @@ void EngineWindow::setGameObject(GameObject* t)
 	focus.gameObject = t;
 
 
+
 	focus.cleanse();
 	ListViewer.set(t);
 	if(t)

@@ -35,9 +35,7 @@ int windowMessage()
 	world.loadZone(1);
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
-	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
-	go->AddComponent<RigidComponent>();
-	Engine::game.player = go;
+
 	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;

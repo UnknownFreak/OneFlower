@@ -15,7 +15,7 @@ RenderComponent::RenderComponent(const RenderComponent &rcp): textureName(rcp.te
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
 	//sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);
 	sprite.setTextureRect(sf::IntRect(0,0,size.x,size.y));
-}
+} 
 RenderComponent::RenderComponent(std::string texture): textureName(texture),size(0,0)
 {
 	setTexture(texture);
@@ -90,6 +90,12 @@ void RenderComponent::attachOn(GameObject* attachTo)
 
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
+
+
+
+
+
+	REGISTER_EDITOR_VARIABLE(int,outline,Thickness);
 
 	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);

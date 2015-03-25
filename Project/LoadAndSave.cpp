@@ -265,7 +265,7 @@ void load(Archive& archive, GameObject& go)
 
 				float x = sprite->getTextureRect().width;
 				float y = sprite->getTextureRect().height;
-				sprite->setOrigin(x / 2, y / 2);
+				//sprite->setOrigin(x / 2, y / 2);
 			}
 			else if (ID == IBaseComponent<TransformComponent>::typeID)
 			{

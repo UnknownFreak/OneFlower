@@ -122,8 +122,28 @@ void Gfx::Draw()
 				{	
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
 					rc->sprite.setRotation(tc->rotation.x);
-					rc->updateFrame();	
+					rc->sprite.setScale(tc->size.x,tc->size.y);
+					rc->updateFrame();
+					if(rc->outline)
+					{
+						sf::Sprite outlineTemp(rc->sprite);
+						double cX,cY = 0;
+
+						cX = rc->sprite.getTextureRect().width * rc->sprite.getScale().x;
+						cY = rc->sprite.getTextureRect().height * rc->sprite.getScale().y;
+						
+						//outlineTemp.setScale((cX + rc->outline) / cX,(cY + rc->outline) / cY);
+						outlineTemp.setScale(1.5,1.5);
+
+
+
+						outlineTemp.setColor(sf::Color(0,0,0));
+						Engine::View.render.draw(outlineTemp);
+					}
+					//rc->sprite.setScale(tc->size.y / (tc->size.x + rc->outline),tc->size.y / (tc->size.y + rc->outline));
+
 					Engine::View.render.draw(rc->sprite);
+
 				}
 
 			}
@@ -189,7 +209,7 @@ void Gfx::insertDrawableSprite(Tile fg, bool isBackground)
 		backgroundSprite.sprite.setTextureRect(sf::IntRect(0, 0,
 			backgroundSprite.sprite.getTexture()->getSize().x + backgroundSprite.size.x,
 			backgroundSprite.sprite.getTexture()->getSize().y + backgroundSprite.size.x));
-		backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
+		//backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2, backgroundSprite.sprite.getTextureRect().height / 2);
 	}
 	else
 	{
@@ -201,7 +221,7 @@ void Gfx::insertDrawableSprite(Tile fg, bool isBackground)
 			fg.sprite.getTexture()->getSize().y)
 			);
 
-		fg.sprite.setOrigin(fg.sprite.getTextureRect().width / 2, fg.sprite.getTextureRect().height / 2);
+		//fg.sprite.setOrigin(fg.sprite.getTextureRect().width / 2, fg.sprite.getTextureRect().height / 2);
 		foregroundSpriteList.push_back(fg);
 	}
 }

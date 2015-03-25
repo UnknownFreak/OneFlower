@@ -12,8 +12,8 @@ public:
 	//Relative to the Window
 	Vector2 position;
 	
-	//Pixel count and not Multiply
-	Vector2 size;
+	//Multiply and not Pixelcount
+	Vector2 size;//Dont make this pixel count fuck up to much with rect size
 
 	//Yet TBD
 	Vector2 rotation;

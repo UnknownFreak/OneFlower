@@ -17,17 +17,17 @@ public:
 	//Name of spritesheet and rect position
 	RenderComponent(std::string texture,int x,int y);
 
-	bool UpdateFromEditor();
-	void attachOn(GameObject* go);
-	void updateFrame();
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
 	bool animation = false;
 	int frameSpeed = 1;
-	//size of the rectangle for animation
+
+
 	Vector2 size;
+
 	Vector2 position;
 	
+	int outline = 8;
 
 	//Name of texture;
 	std::string textureName = "test.png";
@@ -52,11 +52,21 @@ public:
 	//Set texture, set Width and Height for the rect on each sprite for spritesheet, For animations only
 	void setAnimation(std::string texture,int width,int height);
 
+	void updateFrame();
 
-	
+
+	bool UpdateFromEditor();
+	void attachOn(GameObject* go);
+	Vector2 oldSizePixel;
 
 private:
+	//How many frames of the animation
 	Vector2 frame;
+
+
+
+
+
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>
