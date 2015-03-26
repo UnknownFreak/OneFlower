@@ -1,9 +1,7 @@
 #include "ZoneMaker.hpp"
 
-
-ZoneMap::ZoneMap() : name(""), ID(1)
+ZoneMap::ZoneMap(): name(""),ID(1)
 {
-
 }
 
 void ZoneMap::setBackground(Tile &t)
@@ -17,7 +15,7 @@ void ZoneMap::addGameObject(GameObject* go)
 
 void ZoneMap::readForegroundsVector(std::vector<Tile> tiles)
 {
-	for (int i = 0; i < tiles.size(); i++)
+	for(int i = 0; i < tiles.size(); i++)
 	{
 		foregrounds.push_back(tiles[i]);
 	}

@@ -66,7 +66,6 @@ EngineWindow::EngineWindow():size(1366,768)
 		//this
 		);
 
-
 	//Move this
 	if(!hWnd)
 	{
@@ -94,7 +93,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{
 			switch(LOWORD(wParam))
 			{
-				#pragma region Buttons
+#pragma region Buttons
 				case SHOW_COMMAND_ID:
 				{
 					EditorUI::RedirectIOToConsole();
@@ -105,8 +104,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					Engine::Window.setGameObject(NULL);
 					break;
 				}
-				#pragma endregion
-				#pragma region ADD_MENU
+#pragma endregion
+#pragma region ADD_MENU
 
 				case ADD_GameObject:
 				{
@@ -129,13 +128,13 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				case ADD_OverHeadComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<OverheadComponent>();
 					break;
 				}
 				case ADD_RenderComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<RenderComponent>();
 					break;
 				}
@@ -152,8 +151,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						Engine::Window.focus.gameObject->AddComponent<TransformComponent>();
 					break;
 				}
-				#pragma endregion
-				#pragma region GUI_MENU
+#pragma endregion
+#pragma region GUI_MENU
 				case ID_SHOW_HIDE_GUI:
 				{
 					Engine::GUI.showHideGUI();
@@ -169,11 +168,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					Engine::GUI.showHideOverhead();
 					break;
 				}
-				#pragma endregion
-				#pragma region FILE_MENU
+#pragma endregion
+#pragma region FILE_MENU
 				case ID_ADD_ZONE:
 				{
-					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneAdd123", "stuff", NULL);
+					MessageBox(Engine::Window.hWnd,"Not implemented ctrl + f ZoneAdd123","stuff",NULL);
 					break;
 				}
 				case ID_FILE_EXIT:
@@ -181,8 +180,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					DestroyWindow(hWnd);
 					break;
 				}
-				#pragma endregion
-				#pragma region Remove_Menu
+#pragma endregion
+#pragma region Remove_Menu
 				case REMOVE_GameObject:
 				{
 					if(Engine::Window.focus.gameObject)
@@ -192,8 +191,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					else
 						MessageBoxA(0,"No focused object","CTRL + F FocusedObjectRemoveal",0);
 				}
-				#pragma endregion
-				default: 
+#pragma endregion
+				default:
 					break;
 			}
 			switch(HIWORD(wParam))
@@ -217,7 +216,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		}
 		case WM_MOVE:
 		{
-			#pragma region WM_MOVE
+#pragma region WM_MOVE
 			RECT a = EditorUI::GetLocalCoordinates(hWnd);
 			RECT b = EditorUI::GetLocalCoordinates(Engine::View.hWnd);
 			SetWindowPos
@@ -230,7 +229,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				b.bottom - b.top,
 				SWP_NOSIZE
 				);
-			#pragma endregion
+#pragma endregion
 			break;
 		}
 		case WM_CLOSE:

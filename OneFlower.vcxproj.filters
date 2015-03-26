@@ -154,9 +154,6 @@
     <ClInclude Include="Project\Resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Text\Message.hpp">
-      <Filter>Header Files\Text</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Text\InputBox.hpp">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
@@ -362,5 +359,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="test.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="test2.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

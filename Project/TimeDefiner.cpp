@@ -30,7 +30,7 @@ float Time::FPS()
 		lastTime = currentTime;
 		if(Engine::Window.hWnd)
 		{
-			SetWindowText(Engine::Window.hWnd,std::to_string(fps).c_str());
+			SetWindowTextA(Engine::Window.hWnd,std::to_string(fps).c_str());
 			SetWindowTextA(wnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right).c_str());
 			SetWindowTextA(awnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).left).c_str());
 		}

@@ -35,12 +35,26 @@ int windowMessage()
 	world.loadZone(1);
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
+	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
+	
+	sf::Color c(1,0,0,1);
+	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
+	sf::Shader& shader = Engine::Graphic.test;
+	//shader.setParameter("texCord",);
+	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
+		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);
+	//else
+		//Engine::Graphic.insertShader(shader,"test.glsl");
+
+
+
 
 	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
-	Engine::View.render.setFramerateLimit(200);
+	//Engine::View.render.setFramerateLimit(200);
+	Engine::Graphic.rex.create(800,600);
 	while(message.message != WM_QUIT)
 	{
 		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
@@ -71,23 +85,31 @@ int windowMessage()
 		while(Engine::View.render.pollEvent(Engine::event))
 		{
 			if(Engine::event.type == sf::Event::Closed)
-			{
 				Engine::View.render.close();
-			}
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
-			{
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
-			}
 		}
 		Engine::View.render.clear();
 		Engine::game.Update();
+		
+
 		Engine::Physics.Update();
+		
+
 		Engine::Graphic.Draw();
+		
+
 		Engine::mouse.update();
+		
+
 		Engine::GUI.Draw();
+		
+
 		Engine::View.render.display();
+		
 		if(Engine::View.render.hasFocus())
 			Engine::Window.update();
+		
 		//Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
 		time.FPS();

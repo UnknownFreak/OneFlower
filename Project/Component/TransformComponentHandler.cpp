@@ -12,10 +12,8 @@ void TransformComponent::moveTo(double x,double y,double s)
 
 	if(distance.normalize())
 	{
-
 		double dx = distance.x;
 		double dy = distance.y;
-
 
 		/*
 		int angle = position.angle(&test);
