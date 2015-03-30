@@ -25,7 +25,6 @@
 #define ID_SHOW_HIDE_MOUSE 2011
 #define ID_SHOW_HIDE_OVERHEAD 2012
 
-<<<<<<< HEAD
 #define ID_SETBACKGROUND 2013
 #define ID_SETBACKGROUND_SIZE 2014
 
@@ -38,6 +37,4 @@
 #define ID_DIALOG_TEXT_ID 3005
 #define ID_DIALOG_LABEL_ID 3006
 
-=======
 #define ID_CheckBox 3001
->>>>>>> origin/master

@@ -70,6 +70,8 @@ EngineWindow::EngineWindow():size(1366,768)
 		NULL						// No Window Creation data
 		//this
 		);
+
+
 	//Move this
 	if(!hWnd)
 	{
@@ -80,25 +82,14 @@ EngineWindow::EngineWindow():size(1366,768)
 		ShowWindow(hWnd,1);
 		UpdateWindow(hWnd);
 		ListViewer.start();
+		focus.start();
 	}
 }
 EngineWindow::~EngineWindow()
 {
-	cleanse();
+	focus.cleanse();
+	DestroyWindow(focus.hWnd);
 	UnregisterClass(windowDefinedName,Engine::Window.hInstance);
-}
-void EngineWindow::cleanse()
-{
-	for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); it++)
-	{
-		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
-		{
-			DestroyWindow(jt->second->label);
-			DestroyWindow(jt->second->hWnd);
-		}
-		DestroyWindow(it->second.hWnd);
-	}
-	focus.componentFieldGroup.clear();
 }
 LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
@@ -179,7 +170,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-
 				#pragma region GUI_MENU
 				case ID_SHOW_HIDE_GUI:
 				{
@@ -197,7 +187,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
-				
 				#pragma region FILE_MENU
 				case ID_ADD_ZONE:
 				{
@@ -235,6 +224,32 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 				}
 				#pragma endregion
+				#pragma region ZONE_MENU
+				case ID_SETBACKGROUND:
+				{
+					MessageBox(Engine::Window.hWnd, "TODO", "INFO", NULL);
+					break;
+				}
+
+				case ID_SETBACKGROUND_SIZE:
+				{
+					MessageBox(Engine::Window.hWnd, "TODO", "INFO", NULL);
+					break;
+				}
+				#pragma endregion
+				#pragma region Remove_Menu
+				case REMOVE_GameObject:
+				{
+					if(Engine::Window.focus.gameObject)
+					{
+						Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
+					}
+					else
+						MessageBoxA(0,"No focused object","CTRL + F FocusedObjectRemoveal",0);
+				}
+				#pragma endregion
+				default: 
+					break;
 			}
 			switch(HIWORD(wParam))
 			{

@@ -15,32 +15,6 @@ void Game::Update()
 	//LOW: Make my own Custom Focus
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
-		if (Engine::GUI.isMouseVisible)
-			while (ShowCursor(false) >= 0);
-		else
-			while (ShowCursor(true) < 0);
-		TransformComponent* tcp = player->GetComponent<TransformComponent>();
-		tcp->moveTo(pos.x,pos.y, 2);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			pos.y -= 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			//Engine::Graphic.camera.move(-10, 0);
-			pos.x -= 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			//Engine::Graphic.camera.move(0, -10);
-			pos.y += 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			//Engine::Graphic.camera.move(10, 0);
-			pos.x += 2;
-		}
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			Engine::View.camera.move(0, -10);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -53,6 +27,7 @@ void Game::Update()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			Engine::View.camera.setCenter(0, 0);
+			Engine::View.camera.setSize(800,600);
 			pos.x = 0;
 			pos.y = 0;
 		}

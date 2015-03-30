@@ -32,12 +32,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 
 int windowMessage()
 {
-<<<<<<< HEAD
 	Engine::World.loadZone(1);
-=======
-	WorldManagement world;
-	world.loadZone(1);
->>>>>>> origin/master
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
@@ -48,12 +43,7 @@ int windowMessage()
 	MSG message;
 	ZeroMemory(&message, sizeof(MSG));
 	Engine::View.render.setFramerateLimit(200);
-<<<<<<< HEAD
-#ifdef _DEBUG
 	while (message.message != WM_QUIT)
-=======
-	while(message.message != WM_QUIT)
->>>>>>> origin/master
 	{
 		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
 		{
@@ -68,17 +58,7 @@ int windowMessage()
 			}
 			//*/
 
-			if (message.message == WM_KEYDOWN)
-=======
-				if(IsDialogMessage(i->second.hWnd,&message))
-				{
-				break;
-				}
-			}
-			//*/
-		
 			if(message.message == WM_KEYDOWN)
->>>>>>> origin/master
 			{
 				if (message.wParam == VK_ESCAPE)
 				{
@@ -93,14 +73,6 @@ int windowMessage()
 		}
 		while(Engine::View.render.pollEvent(Engine::event))
 		{
-<<<<<<< HEAD
-			while (Engine::View.render.pollEvent(Engine::event))
-			{
-				if (Engine::event.type == sf::Event::Closed)
-				{
-					Engine::View.render.close();
-				}
-=======
 			if(Engine::event.type == sf::Event::Closed)
 			{
 				Engine::View.render.close();
@@ -108,7 +80,6 @@ int windowMessage()
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 			{
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
->>>>>>> origin/master
 			}
 		}
 		Engine::View.render.clear();
