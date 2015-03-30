@@ -161,7 +161,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,0);
 	}
 	else
-		MessageBoxA(0,"Empty value when adding a focus Field","CTRL + F 9456513",0);
+		MessageBoxA(0,"Empty value when adding a focus Field, " + *variable->getType().c_str() ,"CTRL + F EmptyValue",0);
 #pragma endregion
 }
 
