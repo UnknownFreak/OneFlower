@@ -10,9 +10,11 @@ class PhysicsEngine
 public:
 	PhysicsEngine();
 	void Update();
+
 	void addPhysics(GameObject* obj);
 	void addPhysics(HitboxComponent* obj);
 	void addPhysics(RigidComponent* obj);
+
 	void removePhysics(RigidComponent* obj);
 	void removePhysics(HitboxComponent* obj);
 	void removePhysics(GameObject* obj);

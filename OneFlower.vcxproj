@@ -112,6 +112,7 @@
     <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp" />
     <ClInclude Include="Project\EditorUI\UIAddon.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\EngineDebugWindow.hpp" />
     <ClInclude Include="Project\EngineObjectListViewer.hpp" />
     <ClInclude Include="Project\EngineWindow.hpp" />
     <ClInclude Include="Project\Game.h" />

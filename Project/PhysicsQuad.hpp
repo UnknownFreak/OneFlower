@@ -12,10 +12,13 @@ public:
 	Vector2 position[2];
 	std::vector<HitboxComponent*> sector[4];
 	void sortBox(HitboxComponent*);
-private:
-	int level;
+
+	
 	PhysicsQuad* parent;
 	PhysicsQuad* child;
+	int level;
+
+private:
 };
 
 

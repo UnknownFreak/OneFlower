@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Mouse">
       <UniqueIdentifier>{2b902aca-bf59-4b71-973e-b0e33d59b269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{4a9ba7ee-c016-417d-9ee8-3ad858add5c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{7de45e16-4da8-4b3a-9153-5c9b368ee835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -178,14 +184,8 @@
     <ClInclude Include="Project\EditorUI\EditorIDAssigner.hpp">
       <Filter>Source Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="Project\GameView.hpp">
       <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EngineObjectListViewer.hpp">
-      <Filter>Source Files\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Project\GraphicalUserInterface.hpp">
       <Filter>Header Files\GUI</Filter>
@@ -214,6 +214,15 @@
     <ClInclude Include="Project\Text\Font.hpp">
       <Filter>Header Files\Text</Filter>
     </ClInclude>
+    <ClInclude Include="Project\EngineDebugWindow.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EngineObjectListViewer.hpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\LoadAndSave.cpp">
@@ -221,15 +230,6 @@
     </ClCompile>
     <ClCompile Include="Project\TileDefiner.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WorldManagement.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\RenderHandlerDefiner.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameHandler.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\ZoneMaker.cpp">
       <Filter>Source Files</Filter>
@@ -239,12 +239,6 @@
     </ClCompile>
     <ClCompile Include="Project\TimeDefiner.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WindowHandler.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameDefiner.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
@@ -294,15 +288,6 @@
     <ClCompile Include="Project\VectorDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Project\PhysicsEngineDefiner.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PhysicsEngineHandler.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PhysicsQuadDefiner.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
@@ -311,12 +296,6 @@
     </ClCompile>
     <ClCompile Include="Project\GameViewDefiner.cpp">
       <Filter>Header Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp">
-      <Filter>Source Files\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp">
-      <Filter>Source Files\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Project\GraphicalUserInterface.cpp">
       <Filter>Source Files\GUI</Filter>
@@ -350,6 +329,36 @@
     </ClCompile>
     <ClCompile Include="Project\Text\FontDefiner.cpp">
       <Filter>Source Files\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameDefiner.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameHandler.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\RenderHandlerDefiner.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\WindowHandler.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\WorldManagement.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsEngineDefiner.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsEngineHandler.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\PhysicsQuadDefiner.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
