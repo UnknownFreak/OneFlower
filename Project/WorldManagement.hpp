@@ -1,6 +1,7 @@
 #ifndef WorldManagement_HPP
 #define WorldManagement_HPP
 #include <map>
+#include <cereal\access.hpp>
 
 class Zone;
 class GameObject;

@@ -2,6 +2,7 @@
 #define BaseComponentTest_HPP
 
 #include <string>
+#include <cereal\access.hpp>
 
 #include <map>
 

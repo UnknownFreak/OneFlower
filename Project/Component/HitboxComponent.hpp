@@ -2,6 +2,7 @@
 #define HitboxComponent_HPP
 #include "IBaseComponent.hpp"
 #include "../Vector.h"
+#include "cereal\access.hpp"
 #include <SFML\Graphics\Rect.hpp>
 class HitboxComponent:public IBaseComponent<HitboxComponent>
 {

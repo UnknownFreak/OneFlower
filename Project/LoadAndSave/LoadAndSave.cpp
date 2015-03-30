@@ -1,5 +1,3 @@
-#define SaveAndLoad
-
 #include <fstream>
 
 #include <cereal/archives/xml.hpp>

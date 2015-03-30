@@ -5,6 +5,7 @@
 #include "Tile.h"
 //#include "Component\BaseComponent.hpp"
 #include "Component\GameObject.h"
+#include <cereal\access.hpp>
 class ZoneMap
 {
 public:

@@ -3,6 +3,7 @@
 #include "IBaseComponent.hpp"
 #include "../Text/Message.hpp"
 #include "../Vector.h"
+#include <cereal/access.hpp>
 class OverheadComponent : public IBaseComponent<OverheadComponent>
 {
 public:

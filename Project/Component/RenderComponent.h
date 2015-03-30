@@ -2,6 +2,7 @@
 #define RenderComponent_H
 #include <SFML\Graphics\Sprite.hpp>	
 #include "IBaseComponent.hpp"
+#include "cereal\access.hpp"
 #include <exception>
 #include "../Vector.h"
 

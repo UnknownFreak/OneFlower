@@ -62,6 +62,7 @@ int windowMessage()
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
+<<<<<<< HEAD
 			if(IsDialogMessage(i->second.hWnd,&message))
 			{
 			break;
