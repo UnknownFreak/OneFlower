@@ -4,7 +4,6 @@
 #include "Vector.h"
 #include <string>
 #include <SFML\Graphics\Sprite.hpp>
-#include <cereal\access.hpp>
 class Tile
 {
 public:

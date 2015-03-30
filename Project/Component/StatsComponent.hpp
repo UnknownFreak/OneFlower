@@ -2,7 +2,6 @@
 #define StatsComponent_HPP
 
 #include "IBaseComponent.hpp"
-#include <cereal/access.hpp>
 
 //tmp stuff, remove this later
 struct Race
