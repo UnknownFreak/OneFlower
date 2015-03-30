@@ -3,30 +3,30 @@
 
 void GraphicalUserInterface::Draw()
 {
-	if (!hideGUI)
+	if(!hideGUI)
 	{
 		setIconLocation();
 		Engine::View.render.draw(mouseSlotLeft.icon);
 		Engine::View.render.draw(mouseSlotRight.icon);
-		if (mouseSlotLeft.onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+		if(mouseSlotLeft.onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			;//mouseSlotLeft.onClick();
-		if (mouseSlotRight.onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+		if(mouseSlotRight.onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			;//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);
-		for (size_t i = 0; i < ActionSlot.size(); ++i)
+		for(size_t i = 0; i < ActionSlot.size(); ++i)
 		{
-			ActionSlot[i]->setPosition(40 + 128 * i + Engine::mouse.offset.x, 500 + Engine::mouse.offset.y);
+			ActionSlot[i]->setPosition(40 + 128 * i + Engine::mouse.offset.x,500 + Engine::mouse.offset.y);
 
 			Engine::View.render.draw(ActionSlot[i]->icon);
-			if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+			if(ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 				ActionSlot[i]->ActionSlotClick();
 		}
-		if (showOverhead)
-			for (size_t i = 0; i < overhead.size(); ++i)
+		if(showOverhead)
+			for(size_t i = 0; i < overhead.size(); ++i)
 			{
 				overhead[i]->setPosition();
 				Engine::View.render.draw(overhead[i]->msg.text);
 			}
-		if (isMouseVisible)
+		if(isMouseVisible)
 		{
 			updateMouseIcon();
 			Engine::View.render.draw(mouseAim.sprite);

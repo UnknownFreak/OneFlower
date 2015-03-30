@@ -15,14 +15,10 @@ public:
 	void getSelection();
 	void update();
 
-
 private:
 	HWND hWnd;
 	std::vector<GameObject*> order;
-
-
 };
-
 
 #endif
 #endif

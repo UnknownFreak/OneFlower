@@ -13,7 +13,7 @@ public:
 	HWND hWnd;
 
 	//The Component name
-	std::string name;	
+	std::string name;
 
 	//The Name Label
 	HWND label;

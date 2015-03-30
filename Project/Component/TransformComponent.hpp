@@ -3,7 +3,7 @@
 #include "IBaseComponent.hpp"
 #include "../Vector.h"
 #include <cereal/access.hpp>
-class TransformComponent: public IBaseComponent<TransformComponent>
+class TransformComponent: public IBaseComponent < TransformComponent >
 {
 public:
 	TransformComponent();
@@ -11,7 +11,7 @@ public:
 	TransformComponent(const TransformComponent &tc);
 	//Relative to the Window
 	Vector2 position;
-	
+
 	//Multiply and not Pixelcount
 	Vector2 size;//Dont make this pixel count fuck up to much with rect size
 
@@ -22,27 +22,21 @@ public:
 
 	//Move towrads Absolute World coordinates with Pixel Per Seconds
 	void moveTo(double x,double y,double s);
-	
-	
-	//Move relative 
+
+	//Move relative
 	void move(Vector2 dir,double s);
 
 	//Get the angle towards target
 	double angle(TransformComponent* target);
-
 
 	//Get distance towards target in Pixels
 	double distance(TransformComponent* target);
 private:
 
 	template<class Archive>
-	friend void save(Archive &ar, const TransformComponent &tc);
+	friend void save(Archive &ar,const TransformComponent &tc);
 	template<class Archive>
-	friend void load(Archive &ar, TransformComponent &tc);
+	friend void load(Archive &ar,TransformComponent &tc);
 };
-
-
-
-
 
 #endif

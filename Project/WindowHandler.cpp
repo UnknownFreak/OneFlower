@@ -23,7 +23,7 @@ PhysicsEngine Engine::Physics;
 Mouse Engine::mouse;
 GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
@@ -36,7 +36,7 @@ int windowMessage()
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
-	
+
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	sf::Shader& shader = Engine::Graphic.test;
@@ -44,25 +44,22 @@ int windowMessage()
 	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
 		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);
 	//else
-		//Engine::Graphic.insertShader(shader,"test.glsl");
-
-
-
+	//Engine::Graphic.insertShader(shader,"test.glsl");
 
 	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
-	//Engine::View.render.setFramerateLimit(200);
+	Engine::View.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
 	while(message.message != WM_QUIT)
 	{
-		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
 		{
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-<<<<<<< HEAD
+			<<<<<<< HEAD
 			if(IsDialogMessage(i->second.hWnd,&message))
 			{
 			break;
@@ -72,11 +69,11 @@ int windowMessage()
 
 			if(message.message == WM_KEYDOWN)
 			{
-				if (message.wParam == VK_ESCAPE)
+				if(message.wParam == VK_ESCAPE)
 				{
 					SetFocus(Engine::Window.hWnd);
 				}
-				if(message.wParam ==VK_DELETE)
+				if(message.wParam == VK_DELETE)
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 			}
 			// If a message was waiting in the message queue, process it
@@ -92,25 +89,20 @@ int windowMessage()
 		}
 		Engine::View.render.clear();
 		Engine::game.Update();
-		
 
 		Engine::Physics.Update();
-		
 
 		Engine::Graphic.Draw();
-		
 
 		Engine::mouse.update();
-		
 
 		Engine::GUI.Draw();
-		
 
 		Engine::View.render.display();
-		
+
 		if(Engine::View.render.hasFocus())
 			Engine::Window.update();
-		
+
 		//Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
 		time.FPS();
@@ -121,27 +113,27 @@ int windowMessage()
 int test()
 {
 	// Create the main window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+	sf::RenderWindow window(sf::VideoMode(800,600),"SFML window");
 	// Load a sprite to display
 	sf::Texture texture;
-	if (!texture.loadFromFile("test.png"))
+	if(!texture.loadFromFile("test.png"))
 		return EXIT_FAILURE;
 	sf::Sprite sprite(texture);
 	// Create a graphical text to display
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
+	if(!font.loadFromFile("arial.ttf"))
 		return EXIT_FAILURE;
-	sf::Text text("Hello SFML", font, 50);
-	sf::Text text2("HellNoFucs", font, 50);
+	sf::Text text("Hello SFML",font,50);
+	sf::Text text2("HellNoFucs",font,50);
 	// Start the game loop
-	while (window.isOpen())
+	while(window.isOpen())
 	{
 		// Process events
 		sf::Event event;
-		while (window.pollEvent(event))
+		while(window.pollEvent(event))
 		{
 			// Close window: exit
-			if (event.type == sf::Event::Closed)
+			if(event.type == sf::Event::Closed)
 				window.close();
 		}
 		// Clear screen

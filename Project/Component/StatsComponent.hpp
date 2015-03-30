@@ -9,17 +9,14 @@ struct Race
 {
 	std::string raceName;
 	//attribute stuff bonus / debuffs.
-
 };
 
-class StatsComponent : public IBaseComponent < StatsComponent >
+class StatsComponent: public IBaseComponent < StatsComponent >
 {
-
 public:
 
 	StatsComponent();
 	StatsComponent(const StatsComponent& comp);
-
 
 	int health;
 	int maxHealth;
@@ -40,11 +37,9 @@ public:
 private:
 
 	template<class Archive>
-	friend void save(Archive& ar, const StatsComponent &stats);
+	friend void save(Archive& ar,const StatsComponent &stats);
 	template<class Archive>
-	friend void load(Archive& ar, const StatsComponent &stats);
-
+	friend void load(Archive& ar,const StatsComponent &stats);
 };
-
 
 #endif //StatsComponent

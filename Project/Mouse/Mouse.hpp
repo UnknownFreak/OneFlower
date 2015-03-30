@@ -5,11 +5,9 @@
 #include "../Vector.h"
 #include <vector>
 
-
 class GameObject;
 class Mouse
 {
-
 public:
 	Mouse();
 	std::vector<GameObject*> list;
@@ -21,13 +19,7 @@ public:
 	int deltaScrolls = 0;
 	float scrollSpeed = 0.05;
 
-
-
-	
 private:
-
-
-
 };
 
 #endif //Mouse_HPP

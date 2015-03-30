@@ -33,15 +33,7 @@ void PhysicsEngine::removePhysics(HitboxComponent* obj)
 			{
 				hitboxes.erase(hitboxes.begin() + i);
 			}
-
 }
-
-
-
-
-
-
-
 
 //LOW dont think this is needed, Only prototype
 #include "Component\GameObject.h"
@@ -50,7 +42,6 @@ void PhysicsEngine::addPhysics(GameObject* obj)
 	HitboxComponent* a = obj->GetComponent<HitboxComponent>();
 	if(a)
 		hitboxes.push_back(a);
-
 }
 PhysicsEngine::PhysicsEngine():quad(0)
 {
@@ -62,5 +53,4 @@ PhysicsEngine::PhysicsEngine():quad(0)
 	quad.position[0].y = 0;
 	quad.position[1].x = x;
 	quad.position[1].y = y;
-
 }

@@ -5,9 +5,7 @@
 #include "Vector.h"
 class Button
 {
-
 private:
-
 
 public:
 
@@ -22,11 +20,10 @@ public:
 	Button(std::string icon);
 	//~Button();
 	void setIcon(std::string ico);
-	void setPosition(double x, double y);
+	void setPosition(double x,double y);
 	void setPosition(Vector2 pos);
 	bool onHover();
 	void onClick();
 	void ActionSlotClick();
-	
 };
 #endif

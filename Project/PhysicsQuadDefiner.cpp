@@ -2,7 +2,6 @@
 PhysicsQuad::PhysicsQuad(int plevel)
 {
 	level = plevel;
-
 }
 
 PhysicsQuad::PhysicsQuad(int plevel,PhysicsQuad* pParent)

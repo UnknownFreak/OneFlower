@@ -22,7 +22,6 @@
 #include "../Resource.h"
 void EditorUI::Field::addGroup(EditorGroup* name)
 {
-
 }
 void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int _y)
 {
@@ -35,7 +34,6 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	int x = variable->name.size() * 8;
 	int y = start + (space + 16) * size;
 
-	 
 	//Acts as a tab space
 	if(x < 64)
 		x = 64;
@@ -48,7 +46,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 
 	//LOW: Keep adding diffrent types
 	if(variable->getType() == EditorField<std::string>::type)
-		#pragma region std::string
+#pragma region std::string
 	{
 		EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
 		value = a->variable->c_str();
@@ -63,13 +61,12 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 				value.replace(multi,std::string("\n").length(),"\\n");
 			}
 			variable->hWnd = Engine::Window.focus.addTextboxMulti(group->hWnd,value,x,y,128,height + 16,0);
-
 		}
 		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 #pragma endregion
 	else if(variable->getType() == EditorField<int>::type)
-		#pragma region int
+#pragma region int
 	{
 		EditorField<int>* a = static_cast<EditorField<int>*>(variable);
 		/*
@@ -82,11 +79,10 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only;
 		group->field.insert(std::make_pair(variable->hWnd,a));
-
 	}
 #pragma endregion
 	else if(variable->getType() == EditorField<Vector2>::type)
-		#pragma region Vector2
+#pragma region Vector2
 	{
 		//y = start + (space + 16) * size / 2;
 		EditorField<Vector2>* a = static_cast<EditorField<Vector2>*>(variable);
@@ -95,7 +91,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		std::string valueNigo = "";
 
 		std::stringstream ss;
-		
+
 		ss << a->variable->x;
 		value = ss.str();
 		ss.str(std::string());
@@ -107,17 +103,15 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		//variable->hWnd = addComponentGroup(group->hWnd,"",0,y,width,height +4,0);
 		//variable->label = addLabel(group->hWnd,variable->name,0,0,width,16,RequestID());
 
-		////Variable name 
+		////Variable name
 		//varX->ID = RequestID();
 		//varY->ID = RequestID();
 
 		varX->hWnd = Engine::Window.focus.addTextbox(group->hWnd,value,x,y,64,height,0);
 		varY->hWnd = Engine::Window.focus.addTextbox(group->hWnd,valueNigo,x + 64 + 8,y,64,height,0);
 
-
 		varX->flags = FieldFlag::Decimal | FieldFlag::Left;
 		varY->flags = FieldFlag::Decimal | FieldFlag::Right;
-
 
 		varX->variable = &a->variable->x;
 		varY->variable = &a->variable->y;
@@ -128,23 +122,22 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		group->field.insert(std::make_pair(varX->hWnd,varX));
 		group->field.insert(std::make_pair(varY->hWnd,varY));
 		//group->variableCount++;
-
 	}
-	#pragma endregion
+#pragma endregion
 	else if(variable->getType() == EditorField<bool>::type)
-		#pragma region bool
+#pragma region bool
 	{
 		EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
 		variable->hWnd = CreateWindowEx(0,"BUTTON",a->name.c_str(),WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,x,y,64,height,group->hWnd,(HMENU)ID_CheckBox,Engine::Window.hInstance,0);
 		if(*a->variable)
 			SendMessageA(variable->hWnd,BM_SETCHECK,BST_CHECKED,0);
-		
+
 		value = "Bool";
 		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
-		#pragma endregion
+#pragma endregion
 	else if(variable->getType() == EditorField<double>::type)
-		#pragma region double
+#pragma region double
 	{
 		EditorField<double>* a = static_cast<EditorField<double>*>(variable);
 
@@ -156,14 +149,11 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
 		variable->flags = FieldFlag::Numbers_Only | FieldFlag::Decimal;
 		group->field.insert(std::make_pair(variable->hWnd,a));
-
 	}
-		#pragma endregion
-	
-	
+#pragma endregion
+
 	else
 		MessageBoxA(0,std::string("No matching type: " + variable->getType()).c_str(),"CTRL + F AddNewType",0);
-
 
 	if(!value.empty())
 	{
@@ -172,9 +162,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 	}
 	else
 		MessageBoxA(0,"Empty value when adding a focus Field","CTRL + F 9456513",0);
-	#pragma endregion
+#pragma endregion
 }
-
-
 
 #endif

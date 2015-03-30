@@ -26,7 +26,7 @@ private:
 	template<class Archive>
 	friend void save(Archive& ar,const ZoneMap & zm);
 	template<class Archive>
-	friend void load(Archive& ar, ZoneMap & zm);
+	friend void load(Archive& ar,ZoneMap & zm);
 };
 
 #endif

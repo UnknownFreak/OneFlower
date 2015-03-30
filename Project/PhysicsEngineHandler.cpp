@@ -17,24 +17,24 @@ void PhysicsEngine::Update()
 			//TODO: Swap for a Swept AABB someday
 			if(AABB(rigid.at(i),hitboxes.at(j)))
 			{
-				//TODO: QuadTree: Atleast divide the Static hitbox into 4 list 
+				//TODO: QuadTree: Atleast divide the Static hitbox into 4 list
 				//LOW: Perhaps move this to inside gameobject? or something similar
 				//LOW: Alternative store what hit what and loop all at the same time: May get better timing?
 				for(std::map<int,BaseComponent*>::iterator kt = rigid[i]->attachedOn->GetComponents()->begin(); kt != rigid[i]->attachedOn->GetComponents()->end(); kt++)
 				{
-	 				kt->second->onCollision(hitboxes[j]->attachedOn);	
+					kt->second->onCollision(hitboxes[j]->attachedOn);
 				}
 			}
 		}
 		/*
 		for(size_t j = i; j < rigid.size(); j++)
 		{
-			if(AABB(rigid.at(i),rigid.at(j)))
-			{
-				std::cout<< "Object " + rigid[i]->attachedOn->name + ": Hit : Object " + rigid[j]->attachedOn->name;
-			}
+		if(AABB(rigid.at(i),rigid.at(j)))
+		{
+		std::cout<< "Object " + rigid[i]->attachedOn->name + ": Hit : Object " + rigid[j]->attachedOn->name;
 		}
-		//*/	
+		}
+		//*/
 	}
 }
 bool AABB(RigidComponent* a,HitboxComponent* b)
@@ -44,8 +44,6 @@ bool AABB(RigidComponent* a,HitboxComponent* b)
 	{
 		Vector2 posA = a->attachedOn->GetComponent<TransformComponent>()->position;
 		Vector2 posB = b->attachedOn->GetComponent<TransformComponent>()->position;
-		
-
 
 		int OB1top = posA.y - (a->size.y / 2);
 		int OB1bot = posA.y + (a->size.y / 2);
@@ -59,30 +57,25 @@ bool AABB(RigidComponent* a,HitboxComponent* b)
 		int OB2right = posB.x + (a->size.x / 2);
 		int OB2left = posB.x - (a->size.x / 2);
 
-
-
 		// Check the collision Horizontally
 
-		// > Because the higher the more right, 0,0 top left 
-		// this means that OB1 is to the right of OB2 
+		// > Because the higher the more right, 0,0 top left
+		// this means that OB1 is to the right of OB2
 		if(OB1left > OB2right)
 			return false;
 
-
-		// > Because the higher the more right, 0,0 top left 
-		// this means that OB2 is to the right of OB1 
+		// > Because the higher the more right, 0,0 top left
+		// this means that OB2 is to the right of OB1
 		if(OB2left > OB1right)
 			return false;
 
-
-		//< Because the lower the higher, 0,0 top left 
+		//< Because the lower the higher, 0,0 top left
 		//this means that OB1 is above OB2,	far enough to guarantee not to be touching
 		if(OB1bot < OB2top)
 			return false;
 
-
-		//< Because the lower the higher, 0,0 top left 
-		//this means that OB2 is above OB1 
+		//< Because the lower the higher, 0,0 top left
+		//this means that OB2 is above OB1
 		if(OB2bot < OB1top)
 			return false;
 		if(Engine::time.time("Collision",5))
@@ -104,27 +97,27 @@ float SweptAABB(HitboxComponent b1,HitboxComponent b2,float& normalx,float& norm
 	// find the distance between the objects on the near and far sides for both x and y
 	if(b1.vx > 0.0f)
 	{
-		xInvEntry = b2.x - (b1.x + b1.w);
-		xInvExit = (b2.x + b2.w) - b1.x;
+	xInvEntry = b2.x - (b1.x + b1.w);
+	xInvExit = (b2.x + b2.w) - b1.x;
 	}
 	else
 	{
-		xInvEntry = (b2.x + b2.w) - b1.x;
-		xInvExit = b2.x - (b1.x + b1.w);
+	xInvEntry = (b2.x + b2.w) - b1.x;
+	xInvExit = b2.x - (b1.x + b1.w);
 	}
 
 	if(b1.vy > 0.0f)
 	{
-		yInvEntry = b2.y - (b1.y + b1.h);
-		yInvExit = (b2.y + b2.h) - b1.y;
+	yInvEntry = b2.y - (b1.y + b1.h);
+	yInvExit = (b2.y + b2.h) - b1.y;
 	}
 	else
 	{
-		yInvEntry = (b2.y + b2.h) - b1.y;
-		yInvExit = b2.y - (b1.y + b1.h);
+	yInvEntry = (b2.y + b2.h) - b1.y;
+	yInvExit = b2.y - (b1.y + b1.h);
 	}
 	// We have an overlap
-	
+
 	//*/
 	return 0.5f;
 };

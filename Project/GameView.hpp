@@ -21,8 +21,4 @@ private:
 	Vector2 size;
 };
 
-
-
-
-
 #endif

@@ -5,7 +5,7 @@
 #include <cereal/access.hpp>
 #include "../Vector.h"
 class StatsComponent;
-class HealthComponent : public IBaseComponent < HealthComponent >
+class HealthComponent: public IBaseComponent < HealthComponent >
 {
 public:
 
@@ -34,9 +34,9 @@ public:
 private:
 
 	template<class Archive>
-	void save(Archive& ar, const HealthComponent &hcp);
+	void save(Archive& ar,const HealthComponent &hcp);
 	template<class Archive>
-	void load(Archive& ar, HealthComponent &hcp);
+	void load(Archive& ar,HealthComponent &hcp);
 };
 
 #endif

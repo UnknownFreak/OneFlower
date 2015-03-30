@@ -11,11 +11,11 @@ EngineObjectListViewer::~EngineObjectListViewer()
 void EngineObjectListViewer::start()
 {
 	RECT window = EditorUI::GetLocalCoordinates(Engine::Window.hWnd);
-	RECT screen = EditorUI::GetClientCoordinates(Engine::Window.hWnd); 
+	RECT screen = EditorUI::GetClientCoordinates(Engine::Window.hWnd);
 	hWnd =
 		CreateWindowEx(0,"LISTBOX","Object Viewer",
-		WS_VISIBLE|WS_CHILDWINDOW | LBS_DISABLENOSCROLL | LBS_HASSTRINGS | LBS_NOTIFY | LBS_STANDARD,
-		window.right - window.left - 256*2 - 16,0,
+		WS_VISIBLE | WS_CHILDWINDOW | LBS_DISABLENOSCROLL | LBS_HASSTRINGS | LBS_NOTIFY | LBS_STANDARD,
+		window.right - window.left - 256 * 2 - 16,0,
 		256,500,
 		Engine::Window.hWnd,NULL,Engine::Window.hInstance,NULL);
 }
@@ -49,7 +49,6 @@ void EngineObjectListViewer::getSelection()
 	}
 	else
 		MessageBox(0,"No Index, From ListBox","CTRL+F 4328974",0);
-
 }
 void EngineObjectListViewer::set(GameObject* t)
 {

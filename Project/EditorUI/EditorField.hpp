@@ -14,7 +14,7 @@ editorFields.insert(std::make_pair(#var,DisplayName));\
 DisplayName->holder = this;
 //#endif
 template<class T>
-class EditorField : public BaseField
+class EditorField: public BaseField
 {
 public:
 	//LOW fix the compilation unit for method type
@@ -26,7 +26,7 @@ public:
 		variable = vPt;
 		name = vName;
 	}
-	~EditorField()	
+	~EditorField()
 	{
 		DestroyWindow(label);
 		DestroyWindow(hWnd);
@@ -45,14 +45,10 @@ public:
 		std::stringstream ss;
 		ss << *variable;
 		return ss.str();
-
 	}
-
-
 
 	//Name of type
 	static std::string type;
-
 };
 
 #endif

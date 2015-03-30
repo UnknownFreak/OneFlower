@@ -1,12 +1,12 @@
 #ifndef RenderComponent_H
 #define RenderComponent_H
-#include <SFML\Graphics\Sprite.hpp>	
+#include <SFML\Graphics\Sprite.hpp>
 #include "IBaseComponent.hpp"
 #include "cereal\access.hpp"
 #include <exception>
 #include "../Vector.h"
 
-class RenderComponent : public IBaseComponent<RenderComponent>
+class RenderComponent: public IBaseComponent < RenderComponent >
 {
 public:
 
@@ -22,11 +22,10 @@ public:
 	bool animation = false;
 	int frameSpeed = 1;
 
-
 	Vector2 size;
 
 	Vector2 position;
-	
+
 	int outline = 8;
 
 	//Name of texture;
@@ -44,16 +43,13 @@ public:
 	//Set texture with name of Texture and the size of rect for spritesheet and its location
 	void setTexture(std::string texture,int x,int y,int width,int height);
 
-
-
 	//Reload Texture and parameter for the rect size, and it currently "frame position", Makes animation = true
 	void setAnimation(int x,int y,int width,int height);
-	
+
 	//Set texture, set Width and Height for the rect on each sprite for spritesheet, For animations only
 	void setAnimation(std::string texture,int width,int height);
 
 	void updateFrame();
-
 
 	bool UpdateFromEditor();
 	void attachOn(GameObject* go);
@@ -63,15 +59,10 @@ private:
 	//How many frames of the animation
 	Vector2 frame;
 
-
-
-
-
 	template < class Archive>//, GameObject& go>
-	friend void save(Archive& archive, const RenderComponent& rc);
+	friend void save(Archive& archive,const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>
-	friend void load(Archive& archive, RenderComponent& rc);
+	friend void load(Archive& archive,RenderComponent& rc);
 };
-
 
 #endif

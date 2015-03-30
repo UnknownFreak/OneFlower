@@ -3,7 +3,6 @@
 
 #include <vector>
 
-
 class BaseComponent;
 class GameObject;
 class Prefab
@@ -19,7 +18,7 @@ public:
 	GameObject* createFromPrefab();
 
 private:
-	
+
 	std::vector<BaseComponent*> base;
 
 	std::string name;
@@ -27,9 +26,7 @@ private:
 	template<class Archive>
 	friend void save(Archive &ar,const Prefab &pre);
 	template<class Archive>
-	friend void load(Archive &ar, Prefab &pre);
+	friend void load(Archive &ar,Prefab &pre);
 };
-
-
 
 #endif

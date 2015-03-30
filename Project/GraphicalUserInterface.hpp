@@ -8,14 +8,10 @@
 #include "Component\OverheadComponent.hpp"
 #include "ButtonObject.hpp"
 
-
-
 #include "Tile.h"
 #include "Text\Message.hpp"
 #include<vector>
 #include<SFML\Graphics\Text.hpp>
-
-
 
 class GraphicalUserInterface
 {
@@ -36,7 +32,6 @@ public:
 	std::vector<Button*> ActionSlot;
 	//std::vector<Message*> messages;
 
-
 	GraphicalUserInterface();
 	~GraphicalUserInterface();
 	void updateMouseIcon();
@@ -52,14 +47,10 @@ public:
 	void requestOverheadRemoval(GameObject* go);
 private:
 
-
-	
-
 	void initialize();
 
 	void setIconLocation();
 	Vector2 offset;
 };
-
 
 #endif // ! GUI_HPP

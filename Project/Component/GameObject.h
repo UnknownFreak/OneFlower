@@ -9,7 +9,7 @@
 class BaseComponent;
 class GameObject
 {
-	friend class BaseComponent;	
+	friend class BaseComponent;
 public:
 	GameObject();
 	GameObject(const GameObject & go);
@@ -20,7 +20,6 @@ public:
 	std::string tag = "";
 	unsigned int id;
 
-	
 	template <class T,typename... Args>
 	void AddComponent(Args... as)
 	{
@@ -30,16 +29,11 @@ public:
 		{
 			BaseComponent* componentToAttach = new T(as...);
 			componentToAttach->attachOn(this);
-		
-		
 		}
-		
 	};
 
-
-	//Attach a derivied component 
+	//Attach a derivied component
 	void AddComponent(BaseComponent* componentToAdd);
-
 
 	template<class T_S>
 	const T_S* ReadComponent()const
@@ -54,33 +48,30 @@ public:
 
 		return NULL;
 	}
-	
+
 	template<class T_S>
 	//Return reference pointer toward the component type
 	T_S* GetComponent()
-		{
-			std::map<int,BaseComponent*>::iterator it;
-			it = componentMap.find(IBaseComponent<T_S>::typeID);
+	{
+		std::map<int,BaseComponent*>::iterator it;
+		it = componentMap.find(IBaseComponent<T_S>::typeID);
 
-			if(it != componentMap.end())
-				return 	(T_S*)it->second;
-			else
-				return NULL;
-		}
+		if(it != componentMap.end())
+			return 	(T_S*)it->second;
+		else
+			return NULL;
+	}
 
-	std::map<int,BaseComponent*>* GetComponents() ;
+	std::map<int,BaseComponent*>* GetComponents();
 
-	
 protected:
 	//std::map<std::string, BaseComponent*> componentMap;
 	//List of all component that is currently attached to the GameObject
-	std::map<int, BaseComponent*> componentMap;
-
+	std::map<int,BaseComponent*> componentMap;
 
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive,const GameObject& go);
 	template < class Archive>//, GameObject& go>
 	friend void load(Archive& archive,GameObject& go);
-
 };
 #endif

@@ -4,7 +4,7 @@
 #include "Vector.h"
 
 class HitboxComponent;
-class PhysicsQuad 
+class PhysicsQuad
 {
 public:
 	PhysicsQuad(int level);
@@ -13,13 +13,11 @@ public:
 	std::vector<HitboxComponent*> sector[4];
 	void sortBox(HitboxComponent*);
 
-	
 	PhysicsQuad* parent;
 	PhysicsQuad* child;
 	int level;
 
 private:
 };
-
 
 #endif

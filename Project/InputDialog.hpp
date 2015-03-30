@@ -5,12 +5,10 @@
 class InputDialog
 {
 public:
-	static INT_PTR InputBox(LPCSTR szTitle, LPTSTR szResult, LPTSTR nResultID, DWORD nResultSize, HWND Parent);
-	
+	static INT_PTR InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent);
+
 private:
-	static INT_PTR CALLBACK dlgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static INT_PTR CALLBACK dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 };
-
-
 
 #endif

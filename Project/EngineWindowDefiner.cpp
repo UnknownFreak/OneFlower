@@ -156,25 +156,20 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						Engine::Window.focus.gameObject->AddComponent<TransformComponent>();
 					break;
 				}
-<<<<<<< HEAD
 				case ADD_StatsComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<StatsComponent>();
 					break;
 				}
 				case ADD_HealthComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<HealthComponent>();
 					break;
 				}
-				#pragma endregion
-				#pragma region GUI_MENU
-=======
 #pragma endregion
 #pragma region GUI_MENU
->>>>>>> origin/Outline-and-ReOrgin-to-top_left
 				case ID_SHOW_HIDE_GUI:
 				{
 					Engine::GUI.showHideGUI();
@@ -194,10 +189,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 #pragma region FILE_MENU
 				case ID_ADD_ZONE:
 				{
-<<<<<<< HEAD
-					char buf[100] = { 0 };
-					char stuff[100] = { 0 };
-					InputDialog::InputBox("Add Zone", buf,stuff, 100,hWnd);
+					char buf[100] = {0};
+					char stuff[100] = {0};
+					InputDialog::InputBox("Add Zone",buf,stuff,100,hWnd);
 					std::string name = buf;
 					unsigned int i = std::atoi(stuff);
 					Engine::World.EditorAddNewZone(name,i);
@@ -205,12 +199,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				case ID_LOAD_ZONE:
 				{
-					char buf[100] = { 0 };
-					char stuff[100] = { 0 };
-					InputDialog::InputBox("Load Zone",buf,stuff, 100, hWnd);
+					char buf[100] = {0};
+					char stuff[100] = {0};
+					InputDialog::InputBox("Load Zone",buf,stuff,100,hWnd);
 					std::string name = buf;
 					unsigned int i = std::atoi(stuff);
-					Engine::World.EditorLoadZone(name, i);
+					Engine::World.EditorLoadZone(name,i);
 					break;
 				}
 				case ID_SAVE_ZONE:
@@ -221,9 +215,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				case ID_REMOVE_ZONE:
 				{
 					Engine::World.EditorRemoveZone();
-=======
 					MessageBox(Engine::Window.hWnd,"Not implemented ctrl + f ZoneAdd123","stuff",NULL);
->>>>>>> origin/Outline-and-ReOrgin-to-top_left
 					break;
 				}
 				case ID_FILE_EXIT:
@@ -231,26 +223,21 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					DestroyWindow(hWnd);
 					break;
 				}
-<<<<<<< HEAD
-				#pragma endregion
-				#pragma region ZONE_MENU
+#pragma endregion
+#pragma region ZONE_MENU
 				case ID_SETBACKGROUND:
 				{
-					MessageBox(Engine::Window.hWnd, "TODO", "INFO", NULL);
+					MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
 					break;
 				}
 
 				case ID_SETBACKGROUND_SIZE:
 				{
-					MessageBox(Engine::Window.hWnd, "TODO", "INFO", NULL);
+					MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
 					break;
 				}
-				#pragma endregion
-				#pragma region Remove_Menu
-=======
 #pragma endregion
 #pragma region Remove_Menu
->>>>>>> origin/Outline-and-ReOrgin-to-top_left
 				case REMOVE_GameObject:
 				{
 					if(Engine::Window.focus.gameObject)

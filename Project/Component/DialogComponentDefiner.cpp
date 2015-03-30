@@ -61,10 +61,10 @@ void DialogComponent::updateLocation()
 {
 	//HIGH Fix this with floor and research more
 
-	if (msg == nullptr)
-		MessageBox(Engine::Window.hWnd, "Not suppoed to happen!", "Dafak", NULL);
+	if(msg == nullptr)
+		MessageBox(Engine::Window.hWnd,"Not suppoed to happen!","Dafak",NULL);
 	else
-		msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f, this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
+		msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
 	msg->setPosition(attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
 }
 //TODO Remove either this one or the other createDialog

@@ -3,11 +3,10 @@
 #include "IBaseComponent.hpp"
 #include <vector>
 #include "../Vector.h"
-class RigidComponent :public IBaseComponent<RigidComponent>
+class RigidComponent:public IBaseComponent < RigidComponent >
 {
-
 public:
-	
+
 	//LOW: Remove this if not needed
 	RigidComponent();
 	~RigidComponent();
@@ -26,8 +25,5 @@ public:
 
 	std::vector<GameObject*> entered;
 };
-
-
-
 
 #endif

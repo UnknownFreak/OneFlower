@@ -4,7 +4,7 @@
 #include "Game.h"
 #include <SFML\Window\Event.hpp>
 #include "Gfx.h"
-#include "EngineWindow.hpp" 
+#include "EngineWindow.hpp"
 #include "Physics.hpp"
 #include "Time.hpp"
 #include "GraphicalUserInterface.hpp"
@@ -34,7 +34,7 @@ namespace AsianVikingMotor
 
 	extern PhysicsEngine Physics;
 
-	extern GraphicalUserInterface GUI ;
+	extern GraphicalUserInterface GUI;
 
 	extern Mouse mouse;
 
@@ -42,8 +42,5 @@ namespace AsianVikingMotor
 };
 namespace Engine = AsianVikingMotor;
 namespace AVM = AsianVikingMotor;
-
-
-
 
 #endif

@@ -25,11 +25,11 @@ void Game::addGameObject(GameObject* entity)
 	/*
 	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
 	{
-		mapOfGameObjects[entity]++;
+	mapOfGameObjects[entity]++;
 	}
 	else
 	{
-		mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
+	mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
 	//*/
 	allGameObjectPointers.push_back(entity);
@@ -40,8 +40,7 @@ void Game::addGameObject(GameObject* entity)
 #endif
 }
 
-
-void Game::addSprite(Tile* t, bool isBackground)
+void Game::addSprite(Tile* t,bool isBackground)
 {
 	Engine::Graphic.insertDrawableSprite(*t,isBackground);
 }
@@ -105,7 +104,6 @@ void Game::requestRemoveal(GameObject* entity)
 					Engine::Window.focus.gameObject = 0;
 					Engine::Window.focus.cleanse();
 				}
-
 
 				delete entity;
 				entity = 0;

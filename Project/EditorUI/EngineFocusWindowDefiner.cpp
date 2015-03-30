@@ -34,7 +34,6 @@ WNDPROC prevWndText;
 WNDPROC prevWndComponentGroup;
 WNDPROC prevWndTextMulti;
 
-
 bool isDouble(char a);
 std::string isLetter(std::string line);
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
@@ -62,9 +61,7 @@ EngineFocus::EngineFocus()
 	//wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);;
 	if(!RegisterClassEx(&wc))
 		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
-	
-	
-	
+
 	wc.lpszClassName = "EngineComponentGroup";
 	wc.lpfnWndProc = WndProcComponentGroup;						// This function is called by windows
 	wc.style = CS_HREDRAW | CS_VREDRAW;;							// Catch double-clicks
@@ -78,7 +75,6 @@ EngineFocus::EngineFocus()
 	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);;
 	if(!RegisterClassEx(&wc))
 		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
-
 }
 void EngineFocus::start()
 {
@@ -111,7 +107,7 @@ void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariab
 }
 void EngineFocus::cleanse()
 {
-	#pragma region ResetScrolling
+#pragma region ResetScrolling
 	SCROLLINFO sia = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
 	GetScrollInfo(hWnd,SB_VERT,&sia);
 	if(sia.nPos > 0)
@@ -121,10 +117,9 @@ void EngineFocus::cleanse()
 	sia.nPos = 0;
 	SetScrollInfo(hWnd,SB_VERT,&sia,false);
 
-	#pragma endregion
+#pragma endregion
 
-	
-	#pragma region CleanseChildhWnd
+#pragma region CleanseChildhWnd
 	for(auto it = componentFieldGroup.begin(); it != componentFieldGroup.end(); it++)
 	{
 		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
@@ -136,8 +131,7 @@ void EngineFocus::cleanse()
 	}
 	componentFieldGroup.clear();
 	EnableWindow(hWndField,false);
-	#pragma endregion
-
+#pragma endregion
 }
 LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
@@ -153,17 +147,17 @@ LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM l
 				{
 					for(auto it = Engine::Window.focus.componentFieldGroup.begin(); it != Engine::Window.focus.componentFieldGroup.end(); ++it)
 					{
-					auto jit = it->second.field.find((HWND)lParam);
-					if(jit != it->second.field.end())
-					{
-					EditorField<bool>* field = static_cast<EditorField<bool>*>(jit->second);
-					if(*field->variable)
-					Engine::Window.setValue(field,"false");
-					else
-					Engine::Window.setValue(field,"true");
+						auto jit = it->second.field.find((HWND)lParam);
+						if(jit != it->second.field.end())
+						{
+							EditorField<bool>* field = static_cast<EditorField<bool>*>(jit->second);
+							if(*field->variable)
+								Engine::Window.setValue(field,"false");
+							else
+								Engine::Window.setValue(field,"true");
 
-					break;
-					}
+							break;
+						}
 					}
 					//*/
 					break;
@@ -376,7 +370,6 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 	xCurrentScroll = scrollNfo.nPos;
 	switch(msg)
 	{
-		
 		// User clicked the scroll bar shaft left of the scroll box.
 		case WM_VSCROLL:
 		{
@@ -447,8 +440,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					}
 					else
 					{
-							ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-							si.nPos -= si.nPos;
+						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos -= si.nPos;
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 					break;

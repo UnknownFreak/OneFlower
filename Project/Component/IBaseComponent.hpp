@@ -5,7 +5,7 @@
 #include "../EditorUI/EditorField.hpp"
 
 template<typename>
-class IBaseComponent :public BaseComponent
+class IBaseComponent:public BaseComponent
 {
 public:
 	const unsigned int getType()
@@ -20,11 +20,10 @@ public:
 	{
 		return editorFields;
 	}
-	
+
 	//Name of the componentn
 	static std::string componentName;
 	static const unsigned int typeID;
 	std::map<std::string,BaseField*> editorFields;
-
 };
 #endif

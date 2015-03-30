@@ -24,8 +24,7 @@ private:
 	std::vector<HitboxComponent*> hitboxes;
 	std::vector<RigidComponent*> rigid;
 	std::vector<HitboxComponent*> checkList;
-	
-	PhysicsQuad quad;
 
+	PhysicsQuad quad;
 };
 #endif

@@ -1,12 +1,12 @@
 #ifdef _DEBUG
 #ifndef EngineWindow_HPP
 #define EngineWindow_HPP
-#include <Windows.h>	
+#include <Windows.h>
 #include <map>
 #include "Vector.h"
 #include <string>
 #include <SFML\Graphics\RenderWindow.hpp>
-#include "EditorUI\EditorField.hpp"	
+#include "EditorUI\EditorField.hpp"
 #include <vector>
 #include "EditorUI\EditorIDAssigner.hpp"
 #include "EditorUI\EngineFocusWindow.hpp"
@@ -23,20 +23,16 @@ public:
 	void setGameObject(GameObject* gameobject);
 	void update();
 
-
-//	void setValue(BaseField* var,std::string value);
+	//	void setValue(BaseField* var,std::string value);
 	void setValue(BaseField* id,std::string value);
 
 	void print(std::string);
-	
+
 	HINSTANCE hInstance;
 
 	HWND hWnd;
 	EngineObjectListViewer ListViewer;
 	EngineFocus focus;
-
-
-
 
 	//GameObject* focusedGameObject = NULL;
 
@@ -50,8 +46,6 @@ private:
 	LPCTSTR titleBarDisplay;
 	WNDCLASSEX wc;
 	//HWND focus;
-
-	
 };
 #endif
 #endif

@@ -3,16 +3,12 @@
 #include "../Component/DialogComponent.hpp"
 void scrollUpdate();
 
-Mouse::Mouse() : pos(0, 0), offset(0,0)
+Mouse::Mouse(): pos(0,0),offset(0,0)
 {
-
 }
-
 
 void Mouse::update()
 {
-
-	
 	if(Engine::View.render.hasFocus())
 	{
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
@@ -34,7 +30,6 @@ void Mouse::update()
 					rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
 					if(hitbox || rig || rc)
 					{
-
 						sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
 						sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
 
@@ -44,7 +39,6 @@ void Mouse::update()
 						rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 						ab = Engine::game.allGameObjectPointers.at(i);
 						dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
-
 
 						int localStartX = transform->position.x;
 						int localStartY = transform->position.y;
@@ -79,7 +73,6 @@ void Mouse::update()
 #pragma region Right
 			else if(Engine::event.mouseButton.button == sf::Mouse::Button::Right)
 			{
-
 				HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
 				HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
 
@@ -88,7 +81,7 @@ void Mouse::update()
 			}
 #pragma endregion
 		}
-		
+
 		if(deltaScrolls < 0)
 		{
 			Engine::View.camera.zoom(1 + (scrollSpeed*-deltaScrolls));
@@ -100,6 +93,5 @@ void Mouse::update()
 			Engine::View.camera.zoom(1 - (scrollSpeed*deltaScrolls));
 			deltaScrolls = 0;
 		}
-
 	}
 }

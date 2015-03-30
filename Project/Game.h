@@ -10,7 +10,6 @@ class Gfx;
 class Message;
 class Game
 {
-
 public:
 
 	~Game();
@@ -18,8 +17,8 @@ public:
 	GameObject* requestGameObject(std::string);
 	//Get a pointer towards a GameObject via a its IdentityCode
 	GameObject* requestGameObject(unsigned int ID);
-	//Get a pointer towards a GameObject via a copy pointer 
-	GameObject* requestGameObject(const GameObject* gameObjectPointer );
+	//Get a pointer towards a GameObject via a copy pointer
+	GameObject* requestGameObject(const GameObject* gameObjectPointer);
 
 	GameObject* player;
 
@@ -38,13 +37,13 @@ public:
 
 	void requestRemoveal(GameObject* entity);
 	void Update();
-		
-	void addSprite(Tile* t, bool isBackground = false);
+
+	void addSprite(Tile* t,bool isBackground = false);
 	void requestRemovealForeground(Tile* t);
 
-//private:
+	//private:
 	std::vector<GameObject*> allGameObjectPointers;
-	
+
 	//std::map<GameObject*,int> mapOfGameObjects;
 
 	Vector2 pos;

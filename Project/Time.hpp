@@ -5,7 +5,6 @@
 #include <string>
 class Time
 {
-
 public:
 
 	float FPS();
@@ -23,7 +22,6 @@ private:
 
 	//LOW: Put this in Definer to avoid include of Map:String?
 	std::map<std::string,sf::Clock> timers;
-	
 };
 
 #endif

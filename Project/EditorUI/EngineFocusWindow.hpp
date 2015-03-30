@@ -24,7 +24,7 @@ public:
 	HWND addComponentGroup(HWND phWnd,std::string name,int x,int y,int width,int height,int groupID);
 	HWND addEditor(HWND phWnd,std::string name,int x,int y,int width,int height,int groupID);
 	HWND addTextboxMulti(HWND phWnd,std::string text,int x,int y,int width,int height,int textboxID);
-		
+
 	std::map<HWND,BaseField*> extraFields;
 	std::map<std::string,EditorGroup> componentFieldGroup;
 	Vector2 scrollPosition;
@@ -34,14 +34,10 @@ public:
 	void cleanse();
 	HWND hWndField;
 
-
 private:
 	WNDCLASSEX wc;
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;
-
-
 };
-
 
 #endif

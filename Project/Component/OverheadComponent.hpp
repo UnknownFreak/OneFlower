@@ -4,37 +4,30 @@
 #include "../Text/Message.hpp"
 #include "../Vector.h"
 #include <cereal/access.hpp>
-class OverheadComponent : public IBaseComponent<OverheadComponent>
+class OverheadComponent: public IBaseComponent < OverheadComponent >
 {
 public:
 
-	
 	Message msg;
 	Vector2* pos;
 	OverheadComponent();
 	//~OverheadComponent();
-	
 
 	void attachOn(GameObject* attachTo);
 	void setPosition();
 	void setPosition(Vector2 pos);
-	void setPosition(double x, double y);
+	void setPosition(double x,double y);
 	bool UpdateFromEditor();
 
-	
-	
 private:
 
 	Vector2 spriteSize;
 	Vector2 offset;
-	
 
 	template<class Archive>
-	friend void save(Archive &ar, const OverheadComponent &overhead);
+	friend void save(Archive &ar,const OverheadComponent &overhead);
 	template<class Archive>
-	friend void load(Archive &ar, OverheadComponent &overehead);
-
+	friend void load(Archive &ar,OverheadComponent &overehead);
 };
-
 
 #endif
