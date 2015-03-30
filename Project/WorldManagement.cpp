@@ -1,8 +1,9 @@
 #include "WorldManagement.hpp"
 #include "Zone.hpp"
+#include "ZoneMaker.hpp"
 #include <string>
 #include <fstream>
-#include "LoadAndSave.hpp"
+#include "LoadAndSave/LoadAndSave.hpp"
 #include "Engine.hpp"
 #include "Component\RenderComponent.h"
 #include "Component\GameObject.h"
@@ -15,7 +16,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	if(worldmap.find(zoneID) != worldmap.end())
 	{
 		std::string info = "zone with ID: [" +std::to_string(zoneID)+ "] is already loaded\ncontinues to load zone...";
-		MessageBox(Engine::Window.hWnd, "Stuff", (LPCSTR)info.c_str(), NULL);
+		MessageBox(Engine::Window.hWnd,(LPCSTR)info.c_str() , "Stuff", NULL);
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
 		//worldFromZone(zoneID);
@@ -109,15 +110,69 @@ Zone* WorldManagement::getCurrentZone()
 #ifdef _DEBUG
 void WorldManagement::EditorAddNewZone(std::string name, unsigned int ID)
 {
+
 	bool exist = false;
 	std::map<unsigned int, std::string>::iterator it = zoneInfo.find(ID);
 	if (it != zoneInfo.end())
 		exist = true;
 	if (exist)
-		MessageBox(Engine::Window.hWnd,"ID already taken" , "ERROR", NULL);
+		MessageBox(Engine::Window.hWnd, "ID already taken", "ERROR", NULL);
 	else
 	{
-		MessageBox(Engine::Window.hWnd,"STUFF WILL BE ADDED" , "YAY", NULL);
+		ZoneMap* tmp = new ZoneMap();
+		tmp->name = name;
+		tmp->ID = ID;
+		saveZone(*tmp);
+		zoneInfo.insert(std::pair<unsigned int, std::string>(ID, name+".zone"));
+		loadZone(ID);
+		saveInfo(zoneInfo);
 	}
+}
+
+void WorldManagement::EditorLoadZone(std::string name, unsigned int ID)
+{
+	std::map<unsigned int, std::string>::iterator it = zoneInfo.find(ID);
+	if (it != zoneInfo.end())
+		loadZone(ID);
+	else
+		for (it = zoneInfo.begin(); it != zoneInfo.end(); ++it)
+			if (it->second == name+".zone")
+			{
+				loadZone(it->first);
+				break;
+			}
+}
+
+void WorldManagement::EditorRemoveZone()
+{
+	std::map<unsigned int, std::string>::iterator it = zoneInfo.find(currentZone->getID());
+	if (it != zoneInfo.end())
+	{
+		if (std::remove(it->second.c_str()) != 0)
+		{
+			MessageBox(Engine::Window.hWnd, "File does not exist.", "Error", NULL);
+			zoneInfo.erase(it);
+			saveInfo(zoneInfo);
+		}
+		else
+		{
+			zoneInfo.erase(it);
+			saveInfo(zoneInfo);
+			MessageBox(Engine::Window.hWnd, "TODO", "INFO", NULL);
+		}
+	}
+}
+void WorldManagement::EditorSaveZone()
+{
+	ZoneMap zm;
+
+	zm.background = currentZone->getBackground();
+	zm.foregrounds = currentZone->getForegrounds();
+	zm.objects = currentZone->objects;
+	zm.ID = currentZone->getID();
+	zm.name = currentZone->getName();
+
+	saveZone(zm);
+
 }
 #endif

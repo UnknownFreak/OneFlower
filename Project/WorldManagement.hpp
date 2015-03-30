@@ -19,6 +19,9 @@ public:
 	Zone* getCurrentZone();
 	#ifdef _DEBUG
 	void EditorAddNewZone(std::string zoneName, unsigned int ID);
+	void EditorLoadZone(std::string zoneName, unsigned int ID);
+	void EditorRemoveZone();
+	void EditorSaveZone();
 	#endif
 private:
 

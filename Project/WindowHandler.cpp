@@ -9,6 +9,7 @@
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
+
 int windowMessage();
 void RunMain();
 int test();

@@ -121,7 +121,7 @@
     <ClInclude Include="Project\InputDialog.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
-    <ClInclude Include="Project\LoadAndSave.hpp" />
+    <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Mouse\Mouse.hpp" />
     <ClInclude Include="Project\Physics.hpp" />
     <ClInclude Include="Project\PhysicsQuad.hpp" />
@@ -165,7 +165,7 @@
     <ClCompile Include="Project\GraphicalUserInterfaceHandler.cpp" />
     <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
-    <ClCompile Include="Project\LoadAndSave.cpp" />
+    <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Mouse\Mouse.cpp" />
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />
     <ClCompile Include="Project\PhysicsEngineHandler.cpp" />

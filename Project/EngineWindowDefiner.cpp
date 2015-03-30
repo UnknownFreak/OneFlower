@@ -207,28 +207,26 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					std::string name = buf;
 					unsigned int i = std::atoi(stuff);
 					Engine::World.EditorAddNewZone(name,i);
-					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneAdd123", "stuff", NULL);
 					break;
 				}
 				case ID_LOAD_ZONE:
 				{
-					char buf[100];
-					InputDialog::InputBox("Load Zone",buf,NULL, 100, hWnd);
-					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneLoad123", "stuff", NULL);
+					char buf[100] = { 0 };
+					char stuff[100] = { 0 };
+					InputDialog::InputBox("Load Zone",buf,stuff, 100, hWnd);
+					std::string name = buf;
+					unsigned int i = std::atoi(stuff);
+					Engine::World.EditorLoadZone(name, i);
 					break;
 				}
 				case ID_SAVE_ZONE:
 				{
-					char buf[100];
-					InputDialog::InputBox("Save Zone", buf, NULL, 100, hWnd);
-					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneSave123", "stuff", NULL);
+					Engine::World.EditorSaveZone();
 					break;
 				}
 				case ID_REMOVE_ZONE:
 				{
-					char buf[100];
-					InputDialog::InputBox("Remove Zone", buf,NULL, 100, hWnd);
-					MessageBox(Engine::Window.hWnd, "Not implemented ctrl + f ZoneRemove123", "stuff", NULL);
+					Engine::World.EditorRemoveZone();
 					break;
 				}
 				case ID_FILE_EXIT:

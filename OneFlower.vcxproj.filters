@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Mouse">
       <UniqueIdentifier>{2b902aca-bf59-4b71-973e-b0e33d59b269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Load &amp; Save">
+      <UniqueIdentifier>{85d15a59-1d3c-4f02-b7a0-83ed1a186e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Load &amp; Save">
+      <UniqueIdentifier>{ca760162-b42b-4a64-b741-989717340850}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -148,9 +154,6 @@
     <ClInclude Include="Project\Component\DialogComponent.hpp">
       <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Project\LoadAndSave.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -217,11 +220,11 @@
     <ClInclude Include="Project\InputDialog.hpp">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp">
+      <Filter>Header Files\Load &amp; Save</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\LoadAndSave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project\TileDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -356,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="Project\InputDialog.cpp">
       <Filter>Header Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp">
+      <Filter>Source Files\Load &amp; Save</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
