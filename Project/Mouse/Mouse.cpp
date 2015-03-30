@@ -12,12 +12,7 @@ Mouse::Mouse() : pos(0, 0), offset(0,0)
 void Mouse::update()
 {
 
-	sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
-	sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
 	
-	pos.x = worldPos.x;
-	pos.y = worldPos.y;
-
 	if(Engine::View.render.hasFocus())
 	{
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
@@ -40,19 +35,24 @@ void Mouse::update()
 					if(hitbox || rig || rc)
 					{
 
+						sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
+						sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
+
+						pos.x = worldPos.x;
+						pos.y = worldPos.y;
 
 						rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 						ab = Engine::game.allGameObjectPointers.at(i);
 						dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
 
 
-						int localStartX = (transform->position.x + (rc->sprite.getTextureRect().width) * 1);
-						int localStartY = (transform->position.y + (rc->sprite.getTextureRect().height) * 1);
-						int localEndX = (transform->position.x - (rc->sprite.getTextureRect().width) * 1);
-						int localEndY = (transform->position.y - (rc->sprite.getTextureRect().height) * 1);
+						int localStartX = transform->position.x;
+						int localStartY = transform->position.y;
+						int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
+						int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
 
-						if(pos.x <= localStartX && pos.x >= localEndX)
-							if(pos.y <= localStartY && pos.y >= localEndY)
+						if(pos.x >= localStartX && pos.x <= localEndX)
+							if(pos.y >= localStartY && pos.y <= localEndY)
 							{
 								Engine::Graphic.selectedDrawList.push_back(ab);
 								if(dialog)

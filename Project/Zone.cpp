@@ -1,38 +1,37 @@
 #include "Zone.hpp"
 #include <string>
 
-
-Zone::Zone(std::string n, unsigned int i, Tile bg, std::vector<Tile> tiles, std::vector<GameObject*> ob) :
-name(n), ID(i), background(bg)
+Zone::Zone(std::string n,unsigned int i,Tile bg,std::vector<Tile> tiles,std::vector<GameObject*> ob):
+name(n),ID(i),background(bg)
 {
 	//add the foregrounds from tiles vector
-	for (size_t i = 0; i < tiles.size(); i++)
+	for(size_t i = 0; i < tiles.size(); i++)
 		foregrounds.push_back(tiles[i]);
 	//add the gameobjects from GameObject vector
-	for (size_t i = 0; i < ob.size(); i++) {
-	//	GameObject go = ob[i];
+	for(size_t i = 0; i < ob.size(); i++)
+	{
+		//	GameObject go = ob[i];
 		objects.push_back(ob[i]);
 	}
 }
 // Copy constructor
-Zone::Zone(Zone &z) :
-name(z.name), ID(z.ID), background(z.background)
+Zone::Zone(Zone &z):
+name(z.name),ID(z.ID),background(z.background)
 {
-	for (int i = 0; i < z.foregrounds.size(); i++)
+	for(int i = 0; i < z.foregrounds.size(); i++)
 		foregrounds.push_back(z.foregrounds[i]);
-	for (int i = 0; i < z.objects.size(); i++)
+	for(int i = 0; i < z.objects.size(); i++)
 		this->objects.push_back(z.objects[i]);
 }
 //default constructor
-Zone::Zone() :
-name(""), ID(0)
+Zone::Zone():
+name(""),ID(0)
 {
-
 }
 // deconstructor
 Zone::~Zone()
 {
-	for (size_t i = 0; i < objects.size(); i++)
+	for(size_t i = 0; i < objects.size(); i++)
 	{
 		delete objects[i];
 		objects[i] = nullptr;
@@ -43,13 +42,12 @@ Zone::~Zone()
 // operator =
 Zone& Zone::operator=(const Zone &z)
 {
-
 	name = z.name;
 	ID = z.ID;
 	background = z.background;
-	for (size_t i = 0; i < z.foregrounds.size(); i++)
+	for(size_t i = 0; i < z.foregrounds.size(); i++)
 		foregrounds.push_back(z.foregrounds[i]);
-	for (size_t i = 0; i < z.objects.size(); i++)
+	for(size_t i = 0; i < z.objects.size(); i++)
 		objects.push_back(z.objects[i]);
 
 	return *this;

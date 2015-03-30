@@ -18,7 +18,6 @@ double Vector2::distance(Vector2* target)
 	double py = ((target->y - y) * (target->y - y));
 
 	return  std::sqrt(px + py);
-	
 }
 
 double Vector2::angle(Vector2* target)
@@ -35,13 +34,8 @@ Vector2 Vector2::direction(Vector2* target)
 	return Vector2(target->x - x,target->y - y);
 }
 
-
-
-
-
 bool Vector2::normalize()
 {
-
 	float len = sqrt(x*x + y*y);
 	if(len != 0)
 	{
@@ -56,16 +50,12 @@ bool Vector2::normalize()
 	//LOW: Fix this someday and be sure to check some math site this time to. 15/02/13
 }
 
-
-
-
 #include <ostream>
 std::ostream & operator<< (std::ostream &out,Vector2 const &t)
 {
 	out << t.x << t.y;
 	return out;
 }
-
 
 void Vector2::operator+=(Vector2& right)
 {
@@ -87,7 +77,6 @@ Vector2 Vector2::operator-(Vector2 right)
 	Vector2 left(x,y);
 	left.x -= right.x;
 	left.y -= right.y;
-
 
 	return left;
 }

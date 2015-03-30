@@ -149,7 +149,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		EditorField<double>* a = static_cast<EditorField<double>*>(variable);
 
 		std::stringstream ss;
-		ss << a->variable;
+		ss << *a->variable;
 		value = ss.str();
 		ss.str(std::string());
 

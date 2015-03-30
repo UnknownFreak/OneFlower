@@ -118,6 +118,8 @@ void EngineFocus::cleanse()
 	{
 		ScrollWindowEx(hWnd,0,sia.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
 	}
+	sia.nPos = 0;
+	SetScrollInfo(hWnd,SB_VERT,&sia,false);
 
 	#pragma endregion
 

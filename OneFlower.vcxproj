@@ -112,6 +112,7 @@
     <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp" />
     <ClInclude Include="Project\EditorUI\UIAddon.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\EngineDebugWindow.hpp" />
     <ClInclude Include="Project\EngineObjectListViewer.hpp" />
     <ClInclude Include="Project\EngineWindow.hpp" />
     <ClInclude Include="Project\Game.h" />
@@ -191,6 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="test.frag" />
+    <None Include="test2.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

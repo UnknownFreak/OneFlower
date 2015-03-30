@@ -9,7 +9,24 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
 #include "Engine.hpp"
-
+/*
+void Gfx::insertShader(sf::Shader sf,std::string t)
+{
+	loadedShaders.insert(std::make_pair(t,sf));
+}
+sf::Shader* Gfx::reqeustShader(std::string t)
+{
+	if(!t.empty())
+	{
+		std::map<std::string,sf::Shader>::iterator it;
+		it = loadedShaders.find(t);
+		if(it != loadedShaders.end())
+			return &it->second;
+		else
+			return 0;
+	}
+}
+//*/
 bool Gfx::loadTexture(std::string name) 
 {
 	sf::Texture tempTexture;
@@ -94,6 +111,7 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 		}
 	}
 }
+
 void Gfx::Draw()
 {
 	DrawBG();
@@ -102,6 +120,7 @@ void Gfx::Draw()
 		TransformComponent* tc;
 		DialogComponent* dc;
 		//HIGH Fix draw batches to reduce draw calls
+		rex.clear();
 		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
 			for(int j = 0; j < it->second.size(); j++)
@@ -122,12 +141,35 @@ void Gfx::Draw()
 				{	
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
 					rc->sprite.setRotation(tc->rotation.x);
-					rc->updateFrame();	
+					rc->sprite.setScale(tc->size.x,tc->size.y);
+					rc->updateFrame();
+					if(rc->outline)
+					{
+						sf::Sprite outlineTemp(rc->sprite);
+
+						outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
+						outlineTemp.setOrigin(rc->outline/2,rc->outline/2);
+						outlineTemp.setPosition(tc->position.x,tc->position.y);
+						test.setParameter("color",1,1,0,1);
+						test.setParameter("tex",*rc->sprite.getTexture());
+
+						Engine::View.render.draw(outlineTemp,sf::RenderStates(&test));
+						//outlineTemp.setColor(sf::Color(255,128,128));
+					//	rex.draw(outlineTemp,sf::RenderStates(&test));
+					}
 					Engine::View.render.draw(rc->sprite);
+
+					//rc->sprite.setScale(tc->size.y / (tc->size.x + rc->outline),tc->size.y / (tc->size.y + rc->outline));
+
+				//	rex.draw(rc->sprite);
+
 				}
 
 			}
 		}
+	//	rex.display();
+	//	tex.setTexture(rex.getTexture());
+		//Engine::View.render.draw(tex);
 	}
 	
 	DrawTxt();

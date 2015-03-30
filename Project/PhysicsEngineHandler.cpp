@@ -11,6 +11,7 @@ void PhysicsEngine::Update()
 {
 	for(size_t i = 0; i < rigid.size(); i++)
 	{
+		//TODO swap for quad
 		for(size_t j = 0; j < hitboxes.size(); j++)
 		{
 			//TODO: Swap for a Swept AABB someday
