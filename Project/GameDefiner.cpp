@@ -6,8 +6,10 @@
 #include "Text/Message.hpp"
 #include "Component\RenderComponent.h"
 #include "Engine.hpp"//std::vector<GameObject> allGameObject;
+
 Game::~Game()
 {
+	//TODO: Use find from algorithm
 	for(int i = 0; i < allGameObjectPointers.size(); i++)
 	{
 		if(allGameObjectPointers[i])
@@ -20,6 +22,7 @@ Game::~Game()
 
 void Game::addGameObject(GameObject* entity)
 {
+	/*
 	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
 	{
 		mapOfGameObjects[entity]++;
@@ -28,6 +31,7 @@ void Game::addGameObject(GameObject* entity)
 	{
 		mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
+	//*/
 	allGameObjectPointers.push_back(entity);
 	Engine::GUI.addOverhead(entity);
 	//Engine::Graphic.insertDrawableObject(entity);
@@ -64,31 +68,45 @@ void Game::addGameObject(std::string name)
 
 void Game::requestRemoveal(GameObject* entity)
 {
+	/*
 	if(mapOfGameObjects.find(entity) != mapOfGameObjects.end())
 	{
-		mapOfGameObjects[entity]--;
-		if(mapOfGameObjects[entity] < 1)
-		{
-			Engine::Graphic.removeFromDrawList(entity);
-			mapOfGameObjects.erase(entity);
-			for(int i = 0; i < allGameObjectPointers.size(); i++)
-			{
-				if(allGameObjectPointers[i] == entity)
-				{
-					allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
-					Engine::GUI.requestOverheadRemoval(entity);
-					delete entity;
-					entity = 0;
-					break;
-				}
-			}
-		}
+	mapOfGameObjects[entity]--;
+	if(mapOfGameObjects[entity] < 1)
+	{
+	Engine::Graphic.removeFromDrawList(entity);
+	mapOfGameObjects.erase(entity);
+	for(int i = 0; i < allGameObjectPointers.size(); i++)
+	{
+	if(allGameObjectPointers[i] == entity)
+	{
+	Engine::Window.ListViewer.remove(entity);
+	allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
+	Engine::GUI.requestOverheadRemoval(entity);
+	delete entity;
+	entity = 0;
+	break;
+	}
+	}
+	}
+	//*/
+	if(entity)
+	{
 		for(int i = 0; i < allGameObjectPointers.size(); i++)
 		{
 			if(allGameObjectPointers[i] == entity)
 			{
 				allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
 				Engine::GUI.requestOverheadRemoval(entity);
+				Engine::Graphic.removeFromDrawList(entity);
+				Engine::Window.ListViewer.remove(entity);
+				if(Engine::Window.focus.gameObject == entity)
+				{
+					Engine::Window.focus.gameObject = 0;
+					Engine::Window.focus.cleanse();
+				}
+
+
 				delete entity;
 				entity = 0;
 				break;

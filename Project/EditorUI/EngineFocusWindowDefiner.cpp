@@ -17,6 +17,7 @@
 #include "../Component/RenderComponent.h"
 #include "../Engine.hpp"
 #include "EditorFieldGroup.hpp"
+#include "../Resource.h"
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #elif defined _M_IA64
@@ -29,12 +30,16 @@
 // maximum mumber of lines the output console should have
 static const WORD MAX_CONSOLE_LINES = 500;
 WNDPROC prevWndEditor;
-WNDPROC prevWndTextMulti;
 WNDPROC prevWndText;
-WNDPROC prevWndButton;
+WNDPROC prevWndComponentGroup;
+WNDPROC prevWndTextMulti;
+
+
 bool isDouble(char a);
 std::string isLetter(std::string line);
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
+LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
+LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 EngineFocus::EngineFocus()
 {
 	windowDefinedName = "EngineFocus";
@@ -57,6 +62,167 @@ EngineFocus::EngineFocus()
 	//wc.hIconSm = LoadIcon(NULL,IDI_APPLICATION);;
 	if(!RegisterClassEx(&wc))
 		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
+	
+	
+	
+	wc.lpszClassName = "EngineComponentGroup";
+	wc.lpfnWndProc = WndProcComponentGroup;						// This function is called by windows
+	wc.style = CS_HREDRAW | CS_VREDRAW;;							// Catch double-clicks
+	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.hIcon = LoadIcon(NULL,IDI_WINLOGO);
+	wc.hIconSm = 0;//LoadIcon(NULL,IDI_APPLICATION);
+	wc.hCursor = LoadCursor(NULL,IDC_ARROW);
+	wc.lpszMenuName = NULL;//MAKEINTRESOURCE(MENU_ID);;							// No menu
+	wc.cbClsExtra = 0;														// No extra bytes after the window class
+	wc.cbWndExtra = 0;														// structure or the window instance
+	wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);;
+	if(!RegisterClassEx(&wc))
+		MessageBox(NULL,"Error Registering The Window Class","Error",MB_OK | MB_ICONERROR);
+
+}
+void EngineFocus::start()
+{
+	HWND apa = Engine::Window.hWnd;
+	//TheEngine Window
+	RECT window = EditorUI::GetLocalCoordinates(apa);
+	//Monitor Screens
+	RECT screen = EditorUI::GetClientCoordinates(apa);
+	//TheEngine Window border thickness. The thing that you use to resize
+	int border_thickness = ((screen.right - screen.left) - (window.right - window.left)) / 2;
+
+	//The focused window of the selectd game object
+	hWnd = addEditor(apa,"",window.right - window.left - 256 - 16,0,256,500,0);
+	hWndField = Engine::Window.focus.addTextbox(hWnd,"startEmpty",std::string("Name: ").size() * 8,0,8 * 12,16,0);
+	nameField = new EditorField<std::string>(0,std::string("Empty"));
+	nameField->hWnd = hWndField;
+	nameField->name = "GameObject FieldName";
+	nameField->label = addLabel(hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,16,0);
+
+	extraFields.insert(std::make_pair(hWndField,nameField));
+	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
+	EnableWindow(hWndField,false);
+}
+void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariable,int x,int y,int width,int height)
+{
+	addLabel(hWnd,text,0,0,text.size() * 8,16,0);
+	hWndField = CreateWindowExA(0,"edit",text.c_str(),WS_VISIBLE | WS_CHILD | WS_TABSTOP,x,y,width,height,phWnd,0,Engine::Window.hInstance,0);
+	extraFields.insert(std::make_pair(hWndField,theVariable));
+	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
+}
+void EngineFocus::cleanse()
+{
+	#pragma region ResetScrolling
+	SCROLLINFO sia = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+	GetScrollInfo(hWnd,SB_VERT,&sia);
+	if(sia.nPos > 0)
+	{
+		ScrollWindowEx(hWnd,0,sia.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+	}
+
+	#pragma endregion
+
+	
+	#pragma region CleanseChildhWnd
+	for(auto it = componentFieldGroup.begin(); it != componentFieldGroup.end(); it++)
+	{
+		for(auto jt = it->second.field.begin(); jt != it->second.field.end(); jt++)
+		{
+			DestroyWindow(jt->second->label);
+			DestroyWindow(jt->second->hWnd);
+		}
+		DestroyWindow(it->second.hWnd);
+	}
+	componentFieldGroup.clear();
+	EnableWindow(hWndField,false);
+	#pragma endregion
+
+}
+LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+{
+	switch(msg)
+	{
+		case WM_COMMAND:
+		{
+			int a = HIWORD(wParam);
+			int b = BN_CLICKED;
+			switch(HIWORD(wParam))
+			{
+				case BN_CLICKED:
+				{
+					for(auto it = Engine::Window.focus.componentFieldGroup.begin(); it != Engine::Window.focus.componentFieldGroup.end(); ++it)
+					{
+					auto jit = it->second.field.find((HWND)lParam);
+					if(jit != it->second.field.end())
+					{
+					EditorField<bool>* field = static_cast<EditorField<bool>*>(jit->second);
+					if(*field->variable)
+					Engine::Window.setValue(field,"false");
+					else
+					Engine::Window.setValue(field,"true");
+
+					break;
+					}
+					}
+					//*/
+					break;
+				}
+			}
+		}
+		default:
+			break;
+	}
+	return DefWindowProc(hWnd,msg,wParam,lParam);
+}
+LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+{
+	switch(msg)
+	{
+		case WM_CHAR:
+		{
+			switch(wParam)
+			{
+#pragma region Enter
+				case(VK_RETURN) :
+				{
+					TCHAR txt[1024];
+					DWORD start = 0;
+					DWORD end = 0;
+					GetWindowText(hWnd,txt,1024);
+					std::string value(txt);
+					std::string newValue = "";
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+
+					//TODO: Move this out towards a seperate WndProc
+					//Field Object
+#pragma region SearchFields
+					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
+#pragma endregion
+					//try .end one day
+					if(it != Engine::Window.focus.extraFields.end())
+					{
+						if(value.empty())
+							newValue = '0';
+						else
+							newValue = value;
+						SetWindowTextA(hWnd,newValue.c_str());
+						SendMessage(hWnd,EM_SETSEL,start,end);
+						Engine::Window.setValue(it->second,newValue);
+						Engine::Window.ListViewer.update();
+					}
+					else
+						MessageBoxA(0,"Unknown HWND Inside ExtraFields, Please Modify SearchArea Region","CTRL + F 879487",0);
+					return 0;
+				}
+
+#pragma endregion
+				default:
+					break;
+			}
+		}
+		default:
+			break;
+	}
+	return CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
 }
 
 #pragma region HWND handler Related
@@ -123,54 +289,68 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			switch(wParam)
 			{
 #pragma region Enter
-			case(VK_RETURN) :
-			{
-				TCHAR txt[1024];
-				DWORD start = 0;
-				DWORD end = 0;
-				GetWindowText(hWnd, txt, 1024);
-				std::string value(txt);
-				std::string newValue = "";
-				SendMessage(hWnd, EM_GETSEL, reinterpret_cast<WPARAM>(&start), reinterpret_cast<WPARAM>(&end));
+				case(VK_RETURN) :
+				{
+					TCHAR txt[1024];
+					DWORD start = 0;
+					DWORD end = 0;
+					GetWindowText(hWnd,txt,1024);
+					std::string value(txt);
+					std::string newValue = "";
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
 
-				//TODO: Move this out towards a seperate WndProc
-				//Field Object
-				std::map<HWND, BaseField*>::iterator it;
-				for (auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
-				{
-					it = i->second.field.find(hWnd);
-					if (it != i->second.field.end())
-						break;
-				}
-				if (!value.empty())
-				{
-					if (it->second->flags & FieldFlag::Decimal)
+					//TODO: Move this out towards a seperate WndProc
+					//Field Object
+
+#pragma region SearchFields
+					bool found = false;
+					std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
+					for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
 					{
-#pragma region Decimal
-						for (size_t i = 0; i < value.size(); i++)
+						it = i->second.field.find(hWnd);
+						if(it != i->second.field.end())
 						{
-							if (isDouble(value.at(i)))
-								newValue.push_back(value[i]);
+							found = true;
+							break;
 						}
-						if (!newValue.empty())
+					}
+#pragma endregion
+					//try .end one day
+					if(found)
+					{
+						if(!value.empty())
 						{
-							if (value[0] == '-')
-								newValue.insert(newValue.begin(), value[0]);
+							if(it->second->flags & FieldFlag::Decimal)
+							{
+#pragma region Decimal
+								for(size_t i = 0; i < value.size(); i++)
+								{
+									if(isDouble(value.at(i)))
+										newValue.push_back(value[i]);
+								}
+								if(!newValue.empty())
+								{
+									if(value[0] == '-')
+										newValue.insert(newValue.begin(),value[0]);
+								}
+								else
+									newValue = "0";
+#pragma endregion
+							}
+							else
+								newValue = isLetter(value);
 						}
 						else
-							newValue = "0";
-#pragma endregion
+							newValue = '0';
+						SetWindowTextA(hWnd,newValue.c_str());
+						SendMessage(hWnd,EM_SETSEL,start,end);
+						Engine::Window.setValue(it->second,newValue);
 					}
 					else
-						newValue = isLetter(value);
+						MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F 87974651",0);
+					return 0;
 				}
-				else
-					newValue = '0';
-				SetWindowTextA(hWnd, newValue.c_str());
-				SendMessage(hWnd, EM_SETSEL, start, end);
-				Engine::Window.setValue(it->second, newValue);
-			}
-							return 0;
+
 #pragma endregion
 				default:
 					break;
@@ -194,6 +374,7 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 	xCurrentScroll = scrollNfo.nPos;
 	switch(msg)
 	{
+		
 		// User clicked the scroll bar shaft left of the scroll box.
 		case WM_VSCROLL:
 		{
@@ -246,8 +427,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					}
 					else
 					{
-						ScrollWindowEx(hWnd,0,-si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-						si.nPos += si.nPos;
+						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos -= si.nPos;
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 
@@ -264,12 +445,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					}
 					else
 					{
-						if(si.nPos < 64)
-						{
-							ScrollWindowEx(hWnd,0,-si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-							std::cout << si.nPos << std::endl;
-							si.nPos += si.nPos;
-						}
+							ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+							si.nPos -= si.nPos;
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 					break;
@@ -300,54 +477,55 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 	}
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
+
 /*
 LRESULT CALLBACK WndProcTextMulti(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
-	switch(msg)
-	{
-		case WM_CHAR:
-		{
-			switch(wParam)
-			{
-				#pragma region VK_RETURN
-				case(VK_RETURN) :
-				{
-					TCHAR txt[1024];
-					DWORD start = 0;
-					DWORD end = 0;
-					int id = GetWindowLong(hWnd,GWL_ID);
-					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
-					GetWindowText(hWnd,txt,1024);
-					std::string value(txt);
-					std::string newValue = "";
+switch(msg)
+{
+case WM_CHAR:
+{
+switch(wParam)
+{
+#pragma region VK_RETURN
+case(VK_RETURN) :
+{
+TCHAR txt[1024];
+DWORD start = 0;
+DWORD end = 0;
+int id = GetWindowLong(hWnd,GWL_ID);
+SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+GetWindowText(hWnd,txt,1024);
+std::string value(txt);
+std::string newValue = "";
 
-					std::map<int,BaseField*>::iterator it;
-					for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
-					{
-						it = i->second.field.find(id);
-						if(it != i->second.field.end())
-							break;
-					}
-					if(!value.empty())
-					{
-						newValue = isLetter(value);
-					}
-					else
-						newValue = "";
-					SetWindowTextA(hWnd,newValue.c_str());
-					SendMessage(hWnd,EM_SETSEL,start,end);
-					Engine::Window.setValue(it->second,newValue);
-					break;
-				}
+std::map<int,BaseField*>::iterator it;
+for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+{
+it = i->second.field.find(id);
+if(it != i->second.field.end())
+break;
+}
+if(!value.empty())
+{
+newValue = isLetter(value);
+}
+else
+newValue = "";
+SetWindowTextA(hWnd,newValue.c_str());
+SendMessage(hWnd,EM_SETSEL,start,end);
+Engine::Window.setValue(it->second,newValue);
+break;
+}
 #pragma endregion
-				default:
-					break;
-			}
-		}
-		default:
-			break;
-	}
-	return CallWindowProc(prevWndTextMulti,hWnd,msg,wParam,lParam);
+default:
+break;
+}
+}
+default:
+break;
+}
+return CallWindowProc(prevWndTextMulti,hWnd,msg,wParam,lParam);
 }
 //*/
 #pragma endregion

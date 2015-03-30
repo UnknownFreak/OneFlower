@@ -11,7 +11,6 @@ BEGIN
 
 		MENUITEM "Exit",ID_FILE_EXIT
 	END
-
 	POPUP "Add"
 	BEGIN
 
@@ -28,13 +27,23 @@ BEGIN
 		END
 		MENUITEM "GameObject",ADD_GameObject
 
-	END
 
+	END
+	POPUP "Remove"
+		BEGIN
+			MENUITEM "GameObject",REMOVE_GameObject
+		END
 	POPUP "GUI"
 	BEGIN
 		MENUITEM "Show/Hide GUI", ID_SHOW_HIDE_GUI
 		MENUITEM "Show/Hide Mouse Icon", ID_SHOW_HIDE_MOUSE
 		MENUITEM "Show/Hide Overheads", ID_SHOW_HIDE_OVERHEAD
+	END
+
+	POPUP "Zone"
+	BEGIN
+		MENUITEM "Set Background", ID_SETBACKGROUND
+		MENUITEM "Set Background Size", ID_SETBACKGROUND_SIZE
 	END
 END
 

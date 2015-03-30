@@ -26,29 +26,41 @@ WorldManagement Engine::World;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {
 	Engine::Window.hInstance = hInstance;
-	false ? test() : windowMessage();
+	!_DEBUG ? test() : windowMessage();
 	return 0;
 }
 
 int windowMessage()
 {
+<<<<<<< HEAD
 	Engine::World.loadZone(1);
+=======
+	WorldManagement world;
+	world.loadZone(1);
+>>>>>>> origin/master
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
+	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
+	go->AddComponent<RigidComponent>();
 	Engine::game.player = go;
 	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;
 	ZeroMemory(&message, sizeof(MSG));
 	Engine::View.render.setFramerateLimit(200);
+<<<<<<< HEAD
 #ifdef _DEBUG
 	while (message.message != WM_QUIT)
+=======
+	while(message.message != WM_QUIT)
+>>>>>>> origin/master
 	{
 		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
 		{
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
+<<<<<<< HEAD
 			if(IsDialogMessage(i->second.hWnd,&message))
 			{
 			break;
@@ -57,38 +69,62 @@ int windowMessage()
 			//*/
 
 			if (message.message == WM_KEYDOWN)
+=======
+				if(IsDialogMessage(i->second.hWnd,&message))
+				{
+				break;
+				}
+			}
+			//*/
+		
+			if(message.message == WM_KEYDOWN)
+>>>>>>> origin/master
 			{
 				if (message.wParam == VK_ESCAPE)
 				{
 					SetFocus(Engine::Window.hWnd);
 				}
+				if(message.wParam ==VK_DELETE)
+					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 			}
 			// If a message was waiting in the message queue, process it
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
+		while(Engine::View.render.pollEvent(Engine::event))
 		{
+<<<<<<< HEAD
 			while (Engine::View.render.pollEvent(Engine::event))
 			{
 				if (Engine::event.type == sf::Event::Closed)
 				{
 					Engine::View.render.close();
 				}
+=======
+			if(Engine::event.type == sf::Event::Closed)
+			{
+				Engine::View.render.close();
 			}
-			Engine::View.render.clear();
-			Engine::game.Update();
-			Engine::Physics.Update();
-			Engine::Graphic.Draw();
-			Engine::mouse.update();
-			Engine::GUI.Draw();
-			Engine::View.render.display();
-			//Fix this, By moving it somewhere else? and have it return a constant variable
-			Engine::time.delta.restart();
-			time.FPS();
+			if(Engine::event.type == Engine::event.MouseWheelMoved)
+			{
+				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+>>>>>>> origin/master
+			}
 		}
+		Engine::View.render.clear();
+		Engine::game.Update();
+		Engine::Physics.Update();
+		Engine::Graphic.Draw();
+		Engine::mouse.update();
+		Engine::GUI.Draw();
+		Engine::View.render.display();
+		if(Engine::View.render.hasFocus())
+			Engine::Window.update();
+		//Fix this, By moving it somewhere else? and have it return a constant variable
+		Engine::time.restartDelta();
+		time.FPS();
 	}
 	return message.wParam;
-#endif
 }
 
 int test()

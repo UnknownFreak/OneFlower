@@ -9,7 +9,9 @@ class EngineObjectListViewer
 public:
 	~EngineObjectListViewer();
 	void start();
+	void remove(GameObject* t);
 	void add(GameObject* entity);
+	void set(GameObject* t);
 	void getSelection();
 	void update();
 

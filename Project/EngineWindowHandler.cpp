@@ -11,33 +11,33 @@
 void EngineWindow::setGameObject(GameObject* t)
 {
 	int size = 256;
+
 	focus.gameObject = t;
-	DestroyWindow(focus.hWnd);
-	cleanse();
-	if(focus.test)
-	{
-		delete focus.test;
-		focus.test = 0;
-	}
+
+
+	focus.cleanse();
+	ListViewer.set(t);
 	if(t)
 	{
-
-		RECT window = EditorUI::GetLocalCoordinates(hWnd);
-		RECT screen = EditorUI::GetClientCoordinates(hWnd);
-		int border_thickness = ((screen.right - screen.left) - (window.right - window.left)) / 2;
-
-		//The focused window of the selectd game object
-		focus.hWnd = Engine::Window.focus.addEditor(hWnd,"",window.right - window.left - size - 16,0,size,
-			500,
-			0);
-
+		if(focus.nameField)
+		{
+			EditorField<std::string>* a = static_cast<EditorField<std::string>*>(focus.nameField);
+			a->variable = &t->name;
+			a->name = t->name;
+			
+			SetWindowTextA(a->hWnd,t->name.c_str());
+			EnableWindow(focus.hWndField,true);
+		}
+		else
+			MessageBoxA(0,"No nameField for GameObject Name","CTRL + F: 22312",0);
 
 		std::string lastName = "";
 
 		//LOW: perhaps I should save the Label HWND 2015/02/13
 		//This part is for the gameObject infomation 
-		Engine::Window.focus.addLabel(focus.hWnd,"Name: ",0,0,std::string("Name: ").size() * 8,32,0);
-			
+
+
+
 		//All components from the gameObject, gameComponent_it = BaseComponent*
 		for(std::map<int,BaseComponent*>::iterator gameComponent_it = t->GetComponents()->begin(); gameComponent_it != t->GetComponents()->end(); gameComponent_it++)
 		{
@@ -50,21 +50,21 @@ void EngineWindow::setGameObject(GameObject* t)
 				x = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).left;
 				y = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom + 8;
 			}
-			
+
 			//LOW: Remove this a and get iterator from focus.componentFieldGroup via insert. 15/02/15
 			EditorGroup a;
 			//= focus.componentFieldGroup.at(gameComponent_it->second->getTypeName());
 
 
 			//Add a Component Group HWND that hold all the variable HWND
-			a.hWnd = CreateWindowEx(0,"Static","",
+			a.hWnd = CreateWindowEx(0,"EngineComponentGroup","",
 				WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP,
 				x,y,
 				//Width
 				EditorUI::GetLocalCoordinates(focus.hWnd).right / 2,
 				//Height
 				((gameComponent_it->second->getFields().size()) * 32) + 32,
-				focus.hWnd,0 ,0,
+				focus.hWnd,0,0,
 				NULL
 				);
 
@@ -98,7 +98,6 @@ void EngineWindow::setGameObject(GameObject* t)
 			for(std::map<std::string,BaseField*>::iterator componentField_it = test.begin(); componentField_it != test.end(); componentField_it++)
 				EditorUI::Field::addField(componentField_it->second,itFG,0,0);
 
-			focus.height = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom-500;
 
 
 			//LOW Learn to subclass button without breaking the editor and make a update button
@@ -115,11 +114,12 @@ void EngineWindow::setGameObject(GameObject* t)
 		SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
 		GetScrollInfo(focus.hWnd,SB_VERT,&si);
 		int scrollSpeed = 16;
-		int oldPos = si.nPos;
+		int oldPos = si.nPos;	
 		si.nPage = 0;
 		si.nMin = 0;
-		si.nMax = Engine::Window.focus.height + 16;
+		si.nMax = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom - 500 +16;
 		SetScrollInfo(focus.hWnd,SB_VERT,&si,false);
+
 	}
 }
 
@@ -146,6 +146,14 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 			EditorField<std::string>* a = static_cast<EditorField<std::string>*>(variable);
 			*a->variable = value;
 		}
+		else if(variable->getType() == EditorField<bool>::type)
+		{
+			EditorField<bool>* a = static_cast<EditorField<bool>*>(variable);
+			if(value == "false")
+				*a->variable = false;
+			else 
+				*a->variable = true;
+		}
 		else
 		{
 			MessageBox(Engine::Window.hWnd,"Type is Unknown","Unknown",0);
@@ -153,30 +161,28 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 		}
 		if(variable->holder)
 			variable->holder->UpdateFromEditor();
-		else
-			MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error: MissingHolder",NULL);
+		//else
+			//MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error: MissingHolder",NULL);
 	}
 	else 
 		MessageBox(Engine::Window.hWnd, "Empty variable", "Error: Variable", NULL);
 
 }
+#include <sstream>
 void EngineWindow::update()
 {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	if(focus.gameObject)
+	{
+		for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); ++it)
+		{
+			for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
+			{
+				BaseField* variable = jit->second;
+				std::stringstream ss;
+				ss << variable->toString();
+				SetWindowTextA(variable->hWnd,ss.str().c_str());
+			}
+		}
+	}
 }
 #endif

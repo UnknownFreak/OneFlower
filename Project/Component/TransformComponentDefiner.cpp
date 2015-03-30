@@ -9,11 +9,11 @@ REGISTER_EDITOR_TYPE(float)
 REGISTER_EDITOR_TYPE(double)
 REGISTER_EDITOR_TYPE(bool)
 REGISTER_EDITOR_TYPE(std::string)
-REGISTER_EDITOR_TYPE(Vector2)
+REGISTER_EDITOR_TYPE(Vector2)/*
 REGISTER_EDITOR_TYPE(std::vector<int>)
 REGISTER_EDITOR_TYPE(std::vector<float>)
-REGISTER_EDITOR_TYPE(std::vector<double>)
-REGISTER_EDITOR_TYPE(std::vector<std::string>)
+REGISTER_EDITOR_TYPE(std::vector<double>)*/
+//REGISTER_EDITOR_TYPE(std::vector<std::string>)
 REGISTER_EDITOR_TYPE(sf::Uint8);
 
 //a::Transform;
@@ -31,7 +31,6 @@ void TransformComponent::attachOn(GameObject* go)
 
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2,rotation,Rotation);
-	REGISTER_EDITOR_VARIABLE(bool,a,Testing);
 	REGISTER_EDITOR_VARIABLE(Vector2,size,Size);
 
 }

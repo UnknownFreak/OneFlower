@@ -5,6 +5,7 @@
 #define ID_FILE_EXIT 2003
 #define ID_ADD_RENDER 2004
 
+#define REMOVE_GameObject 1100
 #define ADD_GameObject 1000
 #define ADD_TransformComponent 1001
 #define ADD_RenderComponent 1002
@@ -24,6 +25,9 @@
 #define ID_SHOW_HIDE_MOUSE 2011
 #define ID_SHOW_HIDE_OVERHEAD 2012
 
+<<<<<<< HEAD
+#define ID_SETBACKGROUND 2013
+#define ID_SETBACKGROUND_SIZE 2014
 
 #define DIALOG_CAPTION 2999
 #define DIALOG_ID 3000
@@ -34,3 +38,6 @@
 #define ID_DIALOG_TEXT_ID 3005
 #define ID_DIALOG_LABEL_ID 3006
 
+=======
+#define ID_CheckBox 3001
+>>>>>>> origin/master

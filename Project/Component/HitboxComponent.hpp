@@ -11,7 +11,7 @@ public:
 	HitboxComponent(const HitboxComponent &hc);
 	HitboxComponent(int width,int height);
 	//LOW: Make a Render and Transform constructor
-
+	~HitboxComponent();
 
 	//Absolute Pixel not half pixel	
 	Vector2 size;

@@ -18,12 +18,22 @@ void PhysicsEngine::addPhysics(HitboxComponent* obj)
 void PhysicsEngine::removePhysics(RigidComponent* obj)
 {
 	if(obj)
-		for(size_t i = 0; i < rigid.size(); i++)
+		for(size_t i = 0; i < rigid.size(); ++i)
 			if(rigid[i] == obj)
 			{
 				rigid.erase(rigid.begin() + i);
 				break;
 			}
+}
+void PhysicsEngine::removePhysics(HitboxComponent* obj)
+{
+	if(obj)
+		for(size_t i = 0; i < hitboxes.size(); ++i)
+			if(obj == hitboxes[i])
+			{
+				hitboxes.erase(hitboxes.begin() + i);
+			}
+
 }
 
 
