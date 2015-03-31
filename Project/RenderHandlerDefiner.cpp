@@ -30,7 +30,7 @@ return 0;
 bool Gfx::loadTexture(std::string name)
 {
 	sf::Texture tempTexture;
-	if(!tempTexture.loadFromFile(name))
+	if(!tempTexture.loadFromFile("Texture/"+name))
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Error loading this file",name.c_str(),MB_OK);

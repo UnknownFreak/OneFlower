@@ -81,6 +81,9 @@
     <Image Include="test.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Project\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\win7Style.xml">
@@ -154,9 +157,6 @@
     <ClInclude Include="Project\Component\DialogComponent.hpp">
       <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Project\LoadAndSave.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -223,11 +223,14 @@
     <ClInclude Include="Project\EngineObjectListViewer.hpp">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Project\InputDialog.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\LoadAndSave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Project\TileDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -359,6 +362,12 @@
     </ClCompile>
     <ClCompile Include="Project\PhysicsEngineHandler.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

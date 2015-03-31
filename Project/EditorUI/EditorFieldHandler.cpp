@@ -151,6 +151,21 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		group->field.insert(std::make_pair(variable->hWnd,a));
 	}
 #pragma endregion
+	else if(variable->getType() == EditorField<sf::Uint8>::type)
+#pragma region sf::Uint8
+	{
+		EditorField<sf::Uint8>* a = static_cast<EditorField<sf::Uint8>*>(variable);
+
+		std::stringstream ss;
+		ss << *a->variable;
+		value = ss.str();
+		ss.str(std::string());
+
+		variable->hWnd = Engine::Window.focus.addTextboxInt(group->hWnd,value,x,y,64,height,0);
+		variable->flags = FieldFlag::Numbers_Only | FieldFlag::Decimal;
+		group->field.insert(std::make_pair(variable->hWnd,a));
+	}
+#pragma endregion
 
 	else
 		MessageBoxA(0,std::string("No matching type: " + variable->getType()).c_str(),"CTRL + F AddNewType",0);
@@ -161,7 +176,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,0);
 	}
 	else
-		MessageBoxA(0,"Empty value when adding a focus Field, " + *variable->getType().c_str() ,"CTRL + F EmptyValue",0);
+		MessageBoxA(0,"WrongType: " + *variable->getType().c_str() ,"CTRL + F EmptyValue",0);
 #pragma endregion
 }
 

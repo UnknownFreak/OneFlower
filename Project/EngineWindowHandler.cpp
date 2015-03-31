@@ -143,6 +143,12 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 			else
 				*a->variable = true;
 		}
+		else if(variable->getType() == EditorField<sf::Uint8>::type)
+		{
+			EditorField<sf::Uint8>* a = static_cast<EditorField<sf::Uint8>*>(variable);
+			int b = std::atoi(value.c_str());
+			*a->variable = b;
+		}
 		else
 		{
 			MessageBox(Engine::Window.hWnd,"Type is Unknown","Unknown",0);

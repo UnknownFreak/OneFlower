@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="Project\icon.ico" />
     <Image Include="test.png" />
   </ItemGroup>
   <ItemGroup>
