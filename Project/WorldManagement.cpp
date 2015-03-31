@@ -170,4 +170,10 @@ void WorldManagement::EditorSaveZone()
 
 	saveZone(zm);
 }
+
+void WorldManagement::EditorSetBackground(std::string name)
+{
+	currentZone->setBackground(name);
+	Engine::game.addSprite(&currentZone->getBackground(), true);
+}
 #endif

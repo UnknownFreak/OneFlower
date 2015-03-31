@@ -47,6 +47,10 @@ public:
 	Zone(Zone &zone);
 	~Zone();
 	Zone& operator=(const Zone &z);
+
+#ifdef _DEBUG
+	void setBackground(std::string name);
+#endif
 };
 
 #endif ZONE_HPP

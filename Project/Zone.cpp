@@ -1,6 +1,6 @@
 #include "Zone.hpp"
 #include <string>
-
+#include "Engine.hpp"
 Zone::Zone(std::string n,unsigned int i,Tile bg,std::vector<Tile> tiles,std::vector<GameObject*> ob):
 name(n),ID(i),background(bg)
 {
@@ -74,3 +74,13 @@ void Zone::addForeground(Tile fg)
 {
 	foregrounds.push_back(fg);
 }
+
+#ifdef _DEBUG
+
+void Zone::setBackground(std::string name)
+{
+	background.name = name;
+	background.sprite.setTexture(*Engine::Graphic.requestTexture(name));
+}
+
+#endif

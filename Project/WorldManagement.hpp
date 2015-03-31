@@ -21,6 +21,7 @@ public:
 	void EditorLoadZone(std::string zoneName,unsigned int ID);
 	void EditorRemoveZone();
 	void EditorSaveZone();
+	void EditorSetBackground(std::string textureName);
 #endif
 private:
 

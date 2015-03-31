@@ -215,7 +215,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				case ID_REMOVE_ZONE:
 				{
 					Engine::World.EditorRemoveZone();
-					MessageBox(Engine::Window.hWnd,"Not implemented ctrl + f ZoneAdd123","stuff",NULL);
 					break;
 				}
 				case ID_FILE_EXIT:
@@ -227,6 +226,10 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 #pragma region ZONE_MENU
 				case ID_SETBACKGROUND:
 				{
+					char buffer[100] = { 0 };
+					//Probably redo this with editorfield instead
+					InputDialog::InputBox("SetBackground", buffer, NULL, 100, hWnd,1);
+					Engine::World.EditorSetBackground(buffer);
 					MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
 					break;
 				}

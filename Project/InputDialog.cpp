@@ -6,12 +6,14 @@ static LPTSTR buffer;
 static int nMax;
 static LPCSTR title;
 static LPTSTR ID;
-INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent)
+static int type;
+INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent, int diagType)
 {
 	nMax = nResultSize;
 	buffer = szResult;
 	title = szTitle;
 	ID = nResultID;
+	type = diagType;
 	DialogBox(Engine::Window.hInstance,MAKEINTRESOURCE(DIALOG_ID),Parent,dlgProc);
 
 	//GetDlgItemText(Engine::Window.hWnd, ID_DIALOG_TEXT, szResult, nResultSize);
@@ -27,9 +29,17 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 		case WM_CREATE:
 			return (INT_PTR)TRUE;
 		case WM_INITDIALOG:
+			switch (type)
+			{
+				case 1:
+					HWND dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL_ID);
+					ShowWindow(dlg, FALSE);
+					dlg = GetDlgItem(hWnd, ID_DIALOG_TEXT_ID);
+					ShowWindow(dlg, FALSE);
+					break;
+			}
 			SetWindowText(hWnd,title);
 			return (INT_PTR)TRUE;
-
 		case WM_CLOSE:
 			EndDialog(hWnd,LOWORD(ID_DIALOG_CANCEL));
 			return (INT_PTR)TRUE;
