@@ -1,35 +1,36 @@
 #include <fstream>
 
-#include <cereal/archives/xml.hpp>
+#include <cereal\archives\xml.hpp>
 #include <cereal\types\string.hpp>
 #include <cereal\types\polymorphic.hpp>
-#include <cereal/types/map.hpp>
-#include <cereal/types/memory.hpp>
-#include <cereal/archives/binary.hpp>
+#include <cereal\types\map.hpp>
+#include <cereal\types\memory.hpp>
+#include <cereal\archives\binary.hpp>
+#include <cereal\access.hpp>
 
 #include <map>
 
-#include "../Component\/OverheadComponent.hpp"
-#include "../Component\HitboxComponent.hpp"
-#include "../Component\TransformComponent.hpp"
-#include "../Component\DialogComponent.hpp"
-#include "../Component\BaseComponent.hpp"
-#include "../Component\RenderComponent.h"
-#include "../Component\GameObject.h"
+#include "..\Component\\OverheadComponent.hpp"
+#include "..\Component\HitboxComponent.hpp"
+#include "..\Component\TransformComponent.hpp"
+#include "..\Component\DialogComponent.hpp"
+#include "..\Component\BaseComponent.hpp"
+#include "..\Component\RenderComponent.h"
+#include "..\Component\GameObject.h"
 
 #include "LoadAndSave.hpp"
 
-#include "../Text/Message.hpp"
-#include "../Text/FloatingText.hpp"
+#include "..\Text\Message.hpp"
+#include "..\Text\FloatingText.hpp"
 
-#include "../ZoneMaker.hpp"
-#include "../Zone.hpp"
-#include "../WorldManagement.hpp"
+#include "..\ZoneMaker.hpp"
+#include "..\Zone.hpp"
+#include "..\WorldManagement.hpp"
 
-#include "../Prefab.hpp"
-#include "../PrefabContainer.hpp"
+#include "..\Prefab.hpp"
+#include "..\PrefabContainer.hpp"
 
-#include "../Engine.hpp"
+#include "..\Engine.hpp"
 
 std::string versionName = "Alpha Test: 1.3v";
 CEREAL_REGISTER_ARCHIVE(RenderComponent);
@@ -269,7 +270,7 @@ void load(Archive& archive,GameObject& go)
 
 				float x = sprite->getTextureRect().width;
 				float y = sprite->getTextureRect().height;
-				sprite->setOrigin(x / 2,y / 2);
+				//sprite->setOrigin(x / 2,y / 2);
 			}
 			else if(ID == IBaseComponent<TransformComponent>::typeID)
 			{

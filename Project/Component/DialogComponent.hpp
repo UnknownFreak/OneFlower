@@ -6,7 +6,6 @@
 #include "../Text/FloatingText.hpp"
 #include <string>
 #include <SFML\System\Time.hpp>
-#include <cereal\access.hpp>
 #include <SFML\Graphics.hpp>
 #include "../Vector.h"
 

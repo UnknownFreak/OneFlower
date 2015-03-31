@@ -2,7 +2,6 @@
 #define TransformComponent_HPP
 #include "IBaseComponent.hpp"
 #include "../Vector.h"
-#include <cereal/access.hpp>
 class TransformComponent: public IBaseComponent < TransformComponent >
 {
 public:

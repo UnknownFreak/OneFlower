@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 #include "BaseComponent.hpp" //Remove this and use class basecomponent; 2014-04-17
-#include <cereal/access.hpp>
 
 class BaseComponent;
 class GameObject

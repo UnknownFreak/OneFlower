@@ -2,7 +2,6 @@
 #define HealthComponent_HPP
 
 #include "IBaseComponent.hpp"
-#include <cereal/access.hpp>
 #include "../Vector.h"
 class StatsComponent;
 class HealthComponent: public IBaseComponent < HealthComponent >

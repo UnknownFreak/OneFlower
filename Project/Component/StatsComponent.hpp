@@ -2,12 +2,11 @@
 #define StatsComponent_HPP
 
 #include "IBaseComponent.hpp"
-#include <cereal/access.hpp>
 
 //tmp stuff, remove this later
 struct Race
 {
-	std::string raceName;
+	std::string raceName = "null";
 	//attribute stuff bonus / debuffs.
 };
 
