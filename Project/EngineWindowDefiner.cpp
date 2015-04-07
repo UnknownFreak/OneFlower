@@ -228,9 +228,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					char buffer[100] = { 0 };
 					//Probably redo this with editorfield instead
-					InputDialog::InputBox("SetBackground", buffer, NULL, 100, hWnd,1);
-					Engine::World.EditorSetBackground(buffer);
-					MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
+					InputDialog::InputBox("SetBackground", buffer, NULL, 100, hWnd,ID_DIALOG_RENAME);
+					if (!InputDialog::getIfCancelled())
+						Engine::World.EditorSetBackground(buffer);
+					else
+						MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
 					break;
 				}
 

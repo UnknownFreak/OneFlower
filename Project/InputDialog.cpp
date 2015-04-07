@@ -7,6 +7,9 @@ static int nMax;
 static LPCSTR title;
 static LPTSTR ID;
 static int type;
+static bool cancel;
+
+//TODO fix all ugly hacks
 INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent, int diagType)
 {
 	nMax = nResultSize;
@@ -31,7 +34,7 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 		case WM_INITDIALOG:
 			switch (type)
 			{
-				case 1:
+				case ID_DIALOG_RENAME:
 					HWND dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL_ID);
 					ShowWindow(dlg, FALSE);
 					dlg = GetDlgItem(hWnd, ID_DIALOG_TEXT_ID);
@@ -44,14 +47,26 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 			EndDialog(hWnd,LOWORD(ID_DIALOG_CANCEL));
 			return (INT_PTR)TRUE;
 		case WM_COMMAND:
-			if(LOWORD(wParam) == ID_DIALOG_OK || LOWORD(wParam) == ID_DIALOG_CANCEL)
+			if(LOWORD(wParam) == ID_DIALOG_OK )
 			{
 				GetDlgItemText(hWnd,ID_DIALOG_TEXT,buffer,nMax);
 				GetDlgItemText(hWnd,ID_DIALOG_TEXT_ID,ID,nMax);
+				cancel = false;
 				EndDialog(hWnd,LOWORD(wParam));
+				return (INT_PTR)TRUE;
+			}
+			else if (LOWORD(wParam) == ID_DIALOG_CANCEL)
+			{
+				cancel = true;
+				EndDialog(hWnd, LOWORD(wParam));
 				return (INT_PTR)TRUE;
 			}
 			break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+bool InputDialog::getIfCancelled()
+{
+	return cancel;
 }
