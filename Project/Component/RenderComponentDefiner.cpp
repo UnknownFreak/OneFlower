@@ -113,11 +113,11 @@ void RenderComponent::updateFrame()
 			sf::IntRect rect = sprite.getTextureRect();
 			rect.left += rect.width;
 
-			if(rect.left > sprite.getTexture()->getSize().x)
+			if(rect.left >= sprite.getTexture()->getSize().x)
 			{
 				rect.left = 0;
 				rect.top += rect.height;
-				if(rect.top > sprite.getTexture()->getSize().y)
+				if(rect.top >= sprite.getTexture()->getSize().y)
 					rect.top = 0;
 			}
 			//LOW: is this needed
