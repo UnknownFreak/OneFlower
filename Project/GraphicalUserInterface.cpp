@@ -7,7 +7,7 @@
 GraphicalUserInterface::GraphicalUserInterface(): offset(0,0),hideGUI(true),showOverhead(true),isMouseVisible(false),mouseSlotRight("ButtonTest.png"),mouseSlotLeft("ButtonTest.png")
 {
 	// Mouse
-	setCursor("Aim.png");
+	setCursor("Cursor.png");
 	initialize();
 }
 GraphicalUserInterface::~GraphicalUserInterface()
@@ -15,7 +15,7 @@ GraphicalUserInterface::~GraphicalUserInterface()
 }
 void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition((float)(Engine::mouse.pos.x - 15),(float)(Engine::mouse.pos.y - 15));
+	mouseAim.setPosition((float)(Engine::mouse.pos.x),(float)(Engine::mouse.pos.y));
 }
 
 void GraphicalUserInterface::setIconLocation()
