@@ -185,6 +185,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					Engine::GUI.showHideOverhead();
 					break;
 				}
+				case ID_SHOW_HIDE_DIALOGS:
+				{
+					Engine::GUI.showHideDialogs();
+					break;
+				}
 #pragma endregion
 #pragma region FILE_MENU
 				

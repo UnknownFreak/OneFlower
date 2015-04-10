@@ -124,6 +124,7 @@ void Gfx::Draw()
 			{
 				rc = it->second[j]->GetComponent<RenderComponent>();
 				tc = it->second[j]->GetComponent<TransformComponent>();
+				/*
 				dc = it->second[j]->GetComponent<DialogComponent>();
 				if(dc)
 				{
@@ -134,6 +135,7 @@ void Gfx::Draw()
 							dc->close();
 					}
 				}
+				*/
 				if(rc->sprite.getTexture())
 				{
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
@@ -167,7 +169,7 @@ void Gfx::Draw()
 		//Engine::View.render.draw(tex);
 	}
 
-	DrawTxt();
+	//DrawTxt();
 }
 void Gfx::DrawBG()
 {
@@ -177,6 +179,7 @@ void Gfx::DrawBG()
 	for(std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 		Engine::View.render.draw(it->sprite);
 }
+/*
 void Gfx::DrawTxt()
 {
 	for(int i = 0; i < msg.size(); i++)
@@ -213,7 +216,7 @@ void Gfx::removeFromMessageList(Message* messageToRemove,bool dElete)
 		}
 	}
 }
-
+*/
 void Gfx::insertDrawableSprite(Tile& fg,bool isBackground)
 {
 	if(isBackground)

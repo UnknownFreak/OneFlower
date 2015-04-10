@@ -47,11 +47,11 @@ public:
 	sf::Sprite tex;
 	void insertDrawableSprite(Tile& fg,bool isBackground);
 	void removeFromForegroundList(Tile& fgToRemove);
-
+	/*
 	void insertDrawableMessage(Message* msg);
 	void removeFromMessageList(Message* msg,bool dElete = true);
 	void DrawTxt();
-
+	*/
 	sf::Shader test;
 
 private:

@@ -13,6 +13,7 @@
 #include<vector>
 #include<SFML\Graphics\Text.hpp>
 
+class DialogComponent;
 class GraphicalUserInterface
 {
 public:
@@ -20,15 +21,18 @@ public:
 	bool hideGUI;
 	bool isMouseVisible;
 	bool showOverhead;
+	bool showDialog;
 
 	Tile mouseAim;
-	//Todo: change to buttonObject (GUI)
+
+
 	Button mouseSlotRight;
 	Button mouseSlotLeft;
 
 	sf::Text t;
 	std::vector<OverheadComponent*> overhead;
-	//Todo: change to buttonObject (GUI)
+	std::vector<DialogComponent*> dialogs;
+	
 	std::vector<Button*> ActionSlot;
 	//std::vector<Message*> messages;
 
@@ -37,6 +41,7 @@ public:
 	void updateMouseIcon();
 	void Draw();
 	void showHideMouse();
+	void showHideDialogs();
 	void setActiveSkill(std::string buttonName);
 
 	void setCursor(std::string name);
@@ -45,6 +50,8 @@ public:
 	void showHideGUI();
 	void addOverhead(GameObject* over);
 	void requestOverheadRemoval(GameObject* go);
+	void addDialog(DialogComponent &dcp);
+	void removeDialog(DialogComponent &dcp);
 private:
 
 	void initialize();

@@ -1,5 +1,6 @@
 #include "GraphicalUserInterface.hpp"
 #include "Engine.hpp"
+#include "Component\DialogComponent.hpp"
 
 void GraphicalUserInterface::Draw()
 {
@@ -27,6 +28,21 @@ void GraphicalUserInterface::Draw()
 				{
 					overhead[i]->setPosition();
 					Engine::View.render.draw(overhead[i]->msg.text);
+				}
+			if (showDialog)
+				for (std::vector<DialogComponent*>::iterator it = dialogs.begin(); it != dialogs.end(); ++it)
+				{
+					DialogComponent* dcp = *it;
+					if (dcp->open)
+					{
+						dcp->updateLocation();
+						dcp->msg->drawMessage(&Engine::View.render);//Engine::View.render.draw(dcp->msg->text);
+						if (dcp->msg->timer.getElapsedTime().asSeconds() > dcp->msg->duration && dcp->msg->duration > 0)
+						{
+							dcp->close();
+							break;
+						}
+					}
 				}
 			if (isMouseVisible)
 			{
