@@ -45,8 +45,8 @@ public:
 	std::vector<Tile> foregroundSpriteList;
 	sf::RenderTexture rex;
 	sf::Sprite tex;
-	void insertDrawableSprite(Tile fg,bool isBackground);
-	void removeFromForegroundList(Tile fgToRemove);
+	void insertDrawableSprite(Tile& fg,bool isBackground);
+	void removeFromForegroundList(Tile& fgToRemove);
 
 	void insertDrawableMessage(Message* msg);
 	void removeFromMessageList(Message* msg,bool dElete = true);
@@ -58,6 +58,6 @@ private:
 	//Map with all texture, key value is the name of the texture
 	std::map<std::string,sf::Texture> loadedTextureMap;
 	std::map<int,std::vector<GameObject*>> gameObjectDrawList;
-	Tile backgroundSprite;
+	Tile* backgroundSprite;
 };
 #endif	

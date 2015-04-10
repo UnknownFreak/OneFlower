@@ -76,6 +76,12 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{7de45e16-4da8-4b3a-9153-5c9b368ee835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Item &amp; ItemComponent">
+      <UniqueIdentifier>{5bc3c1f5-fdb9-46a2-b6e9-82d2b25cb3b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Item &amp; ItemComponent">
+      <UniqueIdentifier>{ff233111-eed3-4ddb-a2bd-37dbc06557d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -229,6 +235,15 @@
     <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Component\InventoryComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\PickupComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Item.hpp">
+      <Filter>Header Files\Item &amp; ItemComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\TileDefiner.cpp">
@@ -368,6 +383,15 @@
     </ClCompile>
     <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\InventoryComponent.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\PickupComponent.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Item.cpp">
+      <Filter>Source Files\Item &amp; ItemComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

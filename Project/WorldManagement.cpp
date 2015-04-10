@@ -35,7 +35,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	}
 }
 // default constructor
-WorldManagement::WorldManagement(): lastLoadedZone(0)
+WorldManagement::WorldManagement() : lastLoadedZone(0), zone(0), currentZone(0)
 {
 	if(loadZoneInfo(zoneInfo) == false)
 	{
@@ -71,7 +71,7 @@ void WorldManagement::worldFromZone(unsigned int zoneID)
 		Engine::game.addGameObject(worldmap[zoneID]->objects[i]);
 	}
 	//add background;
-	Engine::game.addSprite(&worldmap[zoneID]->getBackground(),true);
+	Engine::game.addSprite(worldmap[zoneID]->getBackground(),true);
 	//add foregrounds;
 	for(size_t i = 0; i < worldmap[zoneID]->foregrounds.size(); i++)
 	{
@@ -162,7 +162,7 @@ void WorldManagement::EditorSaveZone()
 {
 	ZoneMap zm;
 
-	zm.background = currentZone->getBackground();
+	zm.background = *currentZone->getBackground();
 	zm.foregrounds = currentZone->getForegrounds();
 	zm.objects = currentZone->objects;
 	zm.ID = currentZone->getID();
@@ -174,6 +174,12 @@ void WorldManagement::EditorSaveZone()
 void WorldManagement::EditorSetBackground(std::string name)
 {
 	currentZone->setBackground(name);
-	Engine::game.addSprite(&currentZone->getBackground(), true);
+	Engine::game.addSprite(currentZone->getBackground(), true);
+}
+void WorldManagement::EditorSetBackgroundSize(int x, int y)
+{
+	currentZone->getBackground()->size.x = x;
+	currentZone->getBackground()->size.y = y;
+	Engine::game.addSprite(currentZone->getBackground(), true);	
 }
 #endif

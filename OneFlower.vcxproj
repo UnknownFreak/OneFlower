@@ -101,7 +101,9 @@
     <ClInclude Include="Project\Component\HealthComponent.hpp" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
+    <ClInclude Include="Project\Component\InventoryComponent.hpp" />
     <ClInclude Include="Project\Component\OverheadComponent.hpp" />
+    <ClInclude Include="Project\Component\PickupComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Component\StatsComponent.hpp" />
@@ -122,6 +124,7 @@
     <ClInclude Include="Project\GraphicalUserInterface.hpp" />
     <ClInclude Include="Project\InputDialog.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
+    <ClInclude Include="Project\Item.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Mouse\Mouse.hpp" />
@@ -148,7 +151,9 @@
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HealthComponent.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\InventoryComponent.cpp" />
     <ClCompile Include="Project\Component\OverheadComponent.cpp" />
+    <ClCompile Include="Project\Component\PickupComponent.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\StatsComponentDefiner.cpp" />
@@ -167,6 +172,7 @@
     <ClCompile Include="Project\GraphicalUserInterfaceHandler.cpp" />
     <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
+    <ClCompile Include="Project\Item.cpp" />
     <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Mouse\Mouse.cpp" />
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />

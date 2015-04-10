@@ -187,24 +187,32 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 #pragma endregion
 #pragma region FILE_MENU
+				
+				case ID_FILE_EXIT:
+				{
+					DestroyWindow(hWnd);
+					break;
+				}
+#pragma endregion
+#pragma region ZONE_MENU
 				case ID_ADD_ZONE:
 				{
-					char buf[100] = {0};
-					char stuff[100] = {0};
-					InputDialog::InputBox("Add Zone",buf,stuff,100,hWnd);
-					std::string name = buf;
-					unsigned int i = std::atoi(stuff);
-					Engine::World.EditorAddNewZone(name,i);
+					char name[100] = { 0 };
+					char value[100] = { 0 };
+					InputDialog::InputBox("Add Zone",name,value,100,hWnd);
+					unsigned int i = std::atoi(value);
+					if (!InputDialog::getIfCancelled())
+						Engine::World.EditorAddNewZone(name,i);
 					break;
 				}
 				case ID_LOAD_ZONE:
 				{
-					char buf[100] = {0};
-					char stuff[100] = {0};
-					InputDialog::InputBox("Load Zone",buf,stuff,100,hWnd);
-					std::string name = buf;
-					unsigned int i = std::atoi(stuff);
-					Engine::World.EditorLoadZone(name,i);
+					char name[100] = { 0 };
+					char value[100] = { 0 };
+					InputDialog::InputBox("Load Zone", name, value, 100, hWnd);
+					unsigned int i = std::atoi(value);
+					if (!InputDialog::getIfCancelled())
+						Engine::World.EditorLoadZone(name, i);
 					break;
 				}
 				case ID_SAVE_ZONE:
@@ -217,28 +225,25 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					Engine::World.EditorRemoveZone();
 					break;
 				}
-				case ID_FILE_EXIT:
-				{
-					DestroyWindow(hWnd);
-					break;
-				}
-#pragma endregion
-#pragma region ZONE_MENU
 				case ID_SETBACKGROUND:
 				{
-					char buffer[100] = { 0 };
+					char name[100] = { 0 };
 					//Probably redo this with editorfield instead
-					InputDialog::InputBox("SetBackground", buffer, NULL, 100, hWnd,ID_DIALOG_RENAME);
+					InputDialog::InputBox("Set Background", name, NULL, 100, hWnd,ID_DIALOG_RENAME);
 					if (!InputDialog::getIfCancelled())
-						Engine::World.EditorSetBackground(buffer);
-					else
-						MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
+						Engine::World.EditorSetBackground(name);
 					break;
 				}
 
 				case ID_SETBACKGROUND_SIZE:
 				{
-					MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
+					char cX[7] = { 0 };
+					char cY[7] = { 0 };
+					InputDialog::InputBox("Set Background Size", cX, cY, 7, hWnd, ID_DIALOG_RESIZE);
+					int x = std::atoi(cX);
+					int y = std::atoi(cY);
+					if (!InputDialog::getIfCancelled())
+						Engine::World.EditorSetBackgroundSize(x, y);
 					break;
 				}
 #pragma endregion
