@@ -66,9 +66,9 @@ std::string Zone::getName()
 {
 	return name;
 }
-Tile Zone::getBackground()
+Tile* Zone::getBackground()
 {
-	return background;
+	return &background;
 }
 void Zone::addForeground(Tile fg)
 {

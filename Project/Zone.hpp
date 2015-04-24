@@ -28,7 +28,7 @@ public:
 	// Vector containing objects (gameobjects)
 	std::vector<GameObject*> objects;
 	// Gets the background image
-	Tile getBackground();
+	Tile* getBackground();
 
 	// Gets the name of the zone
 	std::string getName();

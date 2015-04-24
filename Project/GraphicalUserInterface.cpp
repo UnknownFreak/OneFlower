@@ -3,11 +3,10 @@
 #include <SFML\Window\Mouse.hpp>
 
 #include <Windows.h>
-
-GraphicalUserInterface::GraphicalUserInterface(): offset(0,0),hideGUI(true),showOverhead(true),isMouseVisible(false),mouseSlotRight("ButtonTest.png"),mouseSlotLeft("ButtonTest.png")
+GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), showOverhead(true), isMouseVisible(false), showDialog(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png"), dialogs()
 {
 	// Mouse
-	setCursor("Aim.png");
+	setCursor("Cursor.png");
 	initialize();
 }
 GraphicalUserInterface::~GraphicalUserInterface()
@@ -15,7 +14,7 @@ GraphicalUserInterface::~GraphicalUserInterface()
 }
 void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition((float)(Engine::mouse.pos.x - 15),(float)(Engine::mouse.pos.y - 15));
+	mouseAim.setPosition((float)(Engine::mouse.pos.x),(float)(Engine::mouse.pos.y));
 }
 
 void GraphicalUserInterface::setIconLocation()
@@ -49,6 +48,21 @@ void GraphicalUserInterface::setActiveSkill(std::string buttonName)
 	}
 }
 
+void GraphicalUserInterface::addDialog(DialogComponent& dcp)
+{
+	dialogs.push_back(&dcp);
+}
+void GraphicalUserInterface::removeDialog(DialogComponent& dcp)
+{
+	for (int i = 0; i < dialogs.size(); i++)
+	{
+		if (dialogs[i] == &dcp)
+		{
+			dialogs.erase(dialogs.begin() + i);
+			break;
+		}
+	}
+}
 void GraphicalUserInterface::addOverhead(GameObject* entity)
 {
 	if(entity->GetComponent<OverheadComponent>())
@@ -114,4 +128,11 @@ void GraphicalUserInterface::showHideOverhead()
 		Engine::GUI.showOverhead = false;
 	else
 		Engine::GUI.showOverhead = true;
+}
+void GraphicalUserInterface::showHideDialogs()
+{
+	if (Engine::GUI.showDialog)
+		Engine::GUI.showDialog = false;
+	else
+		Engine::GUI.showDialog = true;
 }

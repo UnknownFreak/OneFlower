@@ -103,7 +103,8 @@ void DialogComponent::show()
 		//TODO: Fix this cause this apparently use alot of resources depedning on machine
 		if(!dCreated)
 			createDialog();
-		Engine::Graphic.insertDrawableMessage(msg);
+		Engine::GUI.addDialog(*this);
+		//Engine::Graphic.insertDrawableMessage(msg);
 		open = true;
 	}
 }
@@ -111,7 +112,8 @@ void DialogComponent::close()
 {
 	if(open)
 	{
-		Engine::Graphic.removeFromMessageList(msg,false);
+		Engine::GUI.removeDialog(*this);
+		//Engine::Graphic.removeFromMessageList(msg,false);
 		open = false;
 	}
 }

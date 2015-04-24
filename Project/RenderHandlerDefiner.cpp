@@ -135,6 +135,7 @@ void Gfx::Draw()
 			{
 				rc = it->second[j]->GetComponent<RenderComponent>();
 				tc = it->second[j]->GetComponent<TransformComponent>();
+				/*
 				dc = it->second[j]->GetComponent<DialogComponent>();
 				if(dc)
 				{
@@ -145,6 +146,7 @@ void Gfx::Draw()
 							dc->close();
 					}
 				}
+				*/
 				if(rc->sprite.getTexture())
 				{
 					rc->sprite.setPosition(tc->position.x,tc->position.y);
@@ -217,6 +219,7 @@ void Gfx::Draw()
 
 			//RightVBar
 
+<<<<<<< HEAD
 			//Engine::View.render.draw(hitbox);
 			hitbox.setPosition(tc->position.x + Engine::Physics.hitboxes[i]->size.x,tc->position.y);
 			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
@@ -268,15 +271,19 @@ void Gfx::Draw()
 #endif
 	//*/
 	DrawTxt();
+=======
+	//DrawTxt();
+>>>>>>> origin/master
 }
 void Gfx::DrawBG()
 {
-	backgroundSprite.sprite.setPosition(Engine::View.camera.getCenter().x*1.5f,Engine::View.camera.getCenter().y*1.5f);
+	backgroundSprite->sprite.setPosition(Engine::View.camera.getCenter().x*1.5f,Engine::View.camera.getCenter().y*1.5f);
 
-	Engine::View.render.draw(backgroundSprite.sprite);
+	Engine::View.render.draw(backgroundSprite->sprite);
 	for(std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 		Engine::View.render.draw(it->sprite);
 }
+/*
 void Gfx::DrawTxt()
 {
 	for(int i = 0; i < msg.size(); i++)
@@ -313,19 +320,19 @@ void Gfx::removeFromMessageList(Message* messageToRemove,bool dElete)
 		}
 	}
 }
-
-void Gfx::insertDrawableSprite(Tile fg,bool isBackground)
+*/
+void Gfx::insertDrawableSprite(Tile& fg,bool isBackground)
 {
 	if(isBackground)
 	{
-		backgroundSprite = fg;
-		backgroundSprite.setRepeated(true);
-		backgroundSprite.sprite.setPosition(backgroundSprite.position.x,backgroundSprite.position.y);
+		backgroundSprite = &fg;
+		backgroundSprite->setRepeated(true);
+		backgroundSprite->sprite.setPosition(backgroundSprite->position.x,backgroundSprite->position.y);
 
-		backgroundSprite.sprite.setTextureRect(sf::IntRect(0,0,
-			backgroundSprite.sprite.getTexture()->getSize().x + backgroundSprite.size.x,
-			backgroundSprite.sprite.getTexture()->getSize().y + backgroundSprite.size.x));
-		backgroundSprite.sprite.setOrigin(backgroundSprite.sprite.getTextureRect().width / 2,backgroundSprite.sprite.getTextureRect().height / 2);
+		backgroundSprite->sprite.setTextureRect(sf::IntRect(0,0,
+			backgroundSprite->sprite.getTexture()->getSize().x + backgroundSprite->size.x,
+			backgroundSprite->sprite.getTexture()->getSize().y + backgroundSprite->size.x));
+		backgroundSprite->sprite.setOrigin(backgroundSprite->sprite.getTextureRect().width / 2,backgroundSprite->sprite.getTextureRect().height / 2);
 	}
 	else
 	{
@@ -341,7 +348,7 @@ void Gfx::insertDrawableSprite(Tile fg,bool isBackground)
 		foregroundSpriteList.push_back(fg);
 	}
 }
-void Gfx::removeFromForegroundList(Tile fgToRemove)
+void Gfx::removeFromForegroundList(Tile& fgToRemove)
 {
 	for(int i = 0; i < foregroundSpriteList.size(); i++)
 	{

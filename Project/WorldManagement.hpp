@@ -22,6 +22,7 @@ public:
 	void EditorRemoveZone();
 	void EditorSaveZone();
 	void EditorSetBackground(std::string textureName);
+	void EditorSetBackgroundSize(int x, int y);
 #endif
 private:
 

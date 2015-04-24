@@ -11,6 +11,12 @@ void Mouse::update()
 {
 	if(Engine::View.render.hasFocus())
 	{
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
+		sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
+
+		pos.x = worldPos.x;
+		pos.y = worldPos.y;
+
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
 #pragma region Left
@@ -31,11 +37,6 @@ void Mouse::update()
 					rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 					if(hitbox || rig || rc)
 					{
-						sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
-						sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
-
-						pos.x = worldPos.x;
-						pos.y = worldPos.y;
 
 						rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 						ab = Engine::game.allGameObjectPointers.at(i);

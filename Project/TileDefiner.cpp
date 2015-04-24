@@ -40,8 +40,8 @@ Tile& Tile::operator=(const Tile &tile)
 }
 void Tile::setRepeated(bool b)
 {
-	sf::Texture &tmp = *Engine::Graphic.requestTexture(name);
-	tmp.setRepeated(true);
+	sf::Texture *tmp = (sf::Texture*)sprite.getTexture();
+	tmp->setRepeated(b);
 }
 void Tile::setPosition(int x,int y)
 {
