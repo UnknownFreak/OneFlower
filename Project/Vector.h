@@ -5,7 +5,7 @@ struct Vector2
 {
 	Vector2();
 	Vector2(int a,int b);
-	virtual ~Vector2() = default;
+	//virtual ~Vector2() = default;
 	double x;
 	double y;
 	//LOW: Make it so that normalize returns a normal vector instead 2015/13/02
@@ -23,15 +23,17 @@ struct Vector2
 	double angle(Vector2* target);
 
 	//The Direction between this and target
-	Vector2 direction(Vector2* target);
+	Vector2 direction(Vector2& target);
 
 #pragma region Operator
 	friend std::ostream & operator<< (std::ostream &out,Vector2 const &t);
-
 	void operator += (Vector2& right);
 	void operator -= (Vector2& right);
 	void operator *= (Vector2& right);
-	Vector2 operator-(Vector2 left);
+
+	//TODO: Make these inline cause primitive covert type, V.x + Left.x while the other is assignment operator (+= etc)
+	Vector2 operator - (Vector2 left);
+	Vector2 operator + (Vector2 right);
 #pragma endregion
 };
 

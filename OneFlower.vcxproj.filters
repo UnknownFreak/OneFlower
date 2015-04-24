@@ -175,9 +175,6 @@
     <ClInclude Include="Project\Physics.hpp">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Project\PhysicsQuad.hpp">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Project\EditorUI\EditorFieldGroup.hpp">
       <Filter>Source Files\Editor</Filter>
     </ClInclude>
@@ -355,9 +352,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PhysicsQuadDefiner.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Project\PhysicsEngineHandler.cpp">

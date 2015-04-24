@@ -50,7 +50,7 @@ GameView::~GameView()
 	UnregisterClass("GameViewWindow",Engine::Window.hInstance);
 }
 #endif
-
+//HIGH: Remove this if not needed, Legacy shit?
 LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)

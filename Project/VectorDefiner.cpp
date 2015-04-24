@@ -28,10 +28,13 @@ double Vector2::angle(Vector2* target)
 	int angleInDegree = std::atan2(deltaY,deltaX) * 180 / 3.14159265358979323846;
 	return angleInDegree;
 }
-Vector2 Vector2::direction(Vector2* target)
+Vector2 Vector2::direction(Vector2& target)
 {
+	Vector2 a(target.x - x,target.y - y);
+	a.normalize();
+
 	//LOW: use operator
-	return Vector2(target->x - x,target->y - y);
+	return a;
 }
 
 bool Vector2::normalize()
@@ -45,8 +48,13 @@ bool Vector2::normalize()
 		return true;
 	}
 	else
-		return false;	//MessageBox(NULL,"Divided by 0","Law of Physics says No",0);
-
+	{
+#ifdef _DEBUG
+		MessageBoxA(0,"len = 0","Vector2 Normalize failed, Error: Vector2Norm",0);
+		MessageBox(NULL,"Divided by 0","Law of Physics says No",0);
+#endif
+		return false;
+	}
 	//LOW: Fix this someday and be sure to check some math site this time to. 15/02/13
 }
 
@@ -77,6 +85,14 @@ Vector2 Vector2::operator-(Vector2 right)
 	Vector2 left(x,y);
 	left.x -= right.x;
 	left.y -= right.y;
+
+	return left;
+}
+Vector2 Vector2::operator+(Vector2 right)
+{
+	Vector2 left(x,y);
+	left.x += right.x;
+	left.y += right.y;
 
 	return left;
 }

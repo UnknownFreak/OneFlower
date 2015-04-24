@@ -4,42 +4,42 @@ MENU_ID MENU
 BEGIN
 POPUP "&File"
 BEGIN
-MENUITEM "&Exit", ID_FILE_EXIT
+MENUITEM "&Exit",ID_FILE_EXIT
 END
 POPUP "&Add"
 BEGIN
 POPUP "&Components"
 BEGIN
-MENUITEM "&TransformComponent", ADD_TransformComponent
-MENUITEM "&RenderComponent", ADD_RenderComponent
-MENUITEM "&HitboxComponent", ADD_HitboxComponent
-MENUITEM "&DialogComponent", ADD_DialogComponent
-MENUITEM "&OverHeadComponent", ADD_OverHeadComponent
-MENUITEM "&RigidComponent", ADD_RigidComponent
-MENUITEM "&StatsComponent", ADD_StatsComponent
-MENUITEM "H&ealthComponent", ADD_HealthComponent
+MENUITEM "&TransformComponent",ADD_TransformComponent
+MENUITEM "&RenderComponent",ADD_RenderComponent
+MENUITEM "&HitboxComponent",ADD_HitboxComponent
+MENUITEM "&DialogComponent",ADD_DialogComponent
+MENUITEM "&OverHeadComponent",ADD_OverHeadComponent
+MENUITEM "&RigidComponent",ADD_RigidComponent
+MENUITEM "&StatsComponent",ADD_StatsComponent
+MENUITEM "H&ealthComponent",ADD_HealthComponent
 END
-MENUITEM "&GameObject", ADD_GameObject
+MENUITEM "&GameObject",ADD_GameObject
 END
-POPUP "&Remove"
-BEGIN
-MENUITEM "&GameObject", REMOVE_GameObject
-END
+//POPUP "&Remove"
+//BEGIN
+//MENUITEM "&GameObject", REMOVE_GameObject
+//END
 POPUP "&GUI"
 BEGIN
-MENUITEM "Show/Hide GUI", ID_SHOW_HIDE_GUI
-MENUITEM "Show/Hide Mouse Icon", ID_SHOW_HIDE_MOUSE
-MENUITEM "Show/Hide Overheads", ID_SHOW_HIDE_OVERHEAD
+MENUITEM "Show/Hide GUI",ID_SHOW_HIDE_GUI
+MENUITEM "Show/Hide Mouse Icon",ID_SHOW_HIDE_MOUSE
+MENUITEM "Show/Hide Overheads",ID_SHOW_HIDE_OVERHEAD
 END
 POPUP "&Zone"
 BEGIN
-MENUITEM "&Add Zone", ID_ADD_ZONE
-MENUITEM "&Save Zone", ID_SAVE_ZONE
-MENUITEM "&Load Zone", ID_LOAD_ZONE
-MENUITEM "&Remove Zone", ID_REMOVE_ZONE
+MENUITEM "&Add Zone",ID_ADD_ZONE
+MENUITEM "&Save Zone",ID_SAVE_ZONE
+MENUITEM "&Load Zone",ID_LOAD_ZONE
+MENUITEM "&Remove Zone",ID_REMOVE_ZONE
 MENUITEM SEPARATOR
-MENUITEM "Set &Background", ID_SETBACKGROUND
-MENUITEM "S&et Background Size", ID_SETBACKGROUND_SIZE
+MENUITEM "Set &Background",ID_SETBACKGROUND
+MENUITEM "S&et Background Size",ID_SETBACKGROUND_SIZE
 END
 END
 
@@ -59,11 +59,3 @@ PUSHBUTTON      "CANCEL",ID_DIALOG_CANCEL,61,57,50,14
 END
 
 MENU_ICON ICON "icon.ico"
-
-
-
-
-
-
-
-

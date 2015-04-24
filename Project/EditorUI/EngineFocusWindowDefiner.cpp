@@ -39,7 +39,7 @@ std::string isLetter(std::string line);
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
-EngineFocus::EngineFocus()
+EngineFocus::EngineFocus():size(256,500)
 {
 	windowDefinedName = "EngineFocus";
 	titleBarDisplay = "EngineFocus";
@@ -87,7 +87,7 @@ void EngineFocus::start()
 	int border_thickness = ((screen.right - screen.left) - (window.right - window.left)) / 2;
 
 	//The focused window of the selectd game object
-	hWnd = addEditor(apa,"",window.right - window.left - 256 - 16,0,256,500,0);
+	hWnd = addEditor(apa,"",window.right - window.left - 256 - 16,0,size.x,size.y,0);
 	hWndField = Engine::Window.focus.addTextbox(hWnd,"startEmpty",std::string("Name: ").size() * 8,0,8 * 12,16,0);
 	nameField = new EditorField<std::string>(0,std::string("Empty"));
 	nameField->hWnd = hWndField;
@@ -532,7 +532,7 @@ HWND EngineFocus::addEditor(HWND phWnd,std::string name,int x,int y,int width,in
 		WS_EX_CONTROLPARENT,		// Extended possibilites for variation
 		windowDefinedName,			// Classname
 		titleBarDisplay,			// Title Text
-		WS_CHILD | LBS_DISABLENOSCROLL | WS_VISIBLE | WS_THICKFRAME | WS_VSCROLL,	// default window
+		LBS_DISABLENOSCROLL | WS_VISIBLE | WS_THICKFRAME | WS_VSCROLL,	// default window
 		x,							// Windows decides the position
 		y,							// where the window ends up on the screen
 		width,						// The programs width
@@ -562,7 +562,7 @@ HWND EngineFocus::addComponentGroup(HWND phWnd,std::string name,int x,int y,int 
 		0,
 		"EngineFocus",
 		name.c_str(),
-		WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP,
+		WS_VISIBLE | WS_BORDER | WS_TABSTOP,
 		x,y,
 		width,height,
 		phWnd,

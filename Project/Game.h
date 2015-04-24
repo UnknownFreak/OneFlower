@@ -33,7 +33,7 @@ public:
 	const std::vector<GameObject*>* requestAllGameObjecVector() const;
 
 	//Editor
-	void Game::addGameObject(GameObject* entity,Gfx*);
+	//	void Game::addGameObject(GameObject* entity,Gfx*);
 
 	void requestRemoveal(GameObject* entity);
 	void Update();

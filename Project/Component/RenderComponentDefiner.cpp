@@ -97,9 +97,7 @@ void RenderComponent::attachOn(GameObject* attachTo)
 	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
 	REGISTER_EDITOR_VARIABLE(bool,animation,Animation);
 	REGISTER_EDITOR_VARIABLE(Vector2,size,RectSize);
-	REGISTER_EDITOR_VARIABLE(Vector2,frame,Frames);
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(double,currentFrame,Frame);
 	REGISTER_EDITOR_VARIABLE(int,frameSpeed,AnimationSpeed);
 }
 void RenderComponent::updateFrame()
@@ -123,6 +121,7 @@ void RenderComponent::updateFrame()
 			//LOW: is this needed
 			currentFrame -= (int)currentFrame;
 			sprite.setTextureRect(rect);
+			sf::Texture a;
 		}
 	}
 }

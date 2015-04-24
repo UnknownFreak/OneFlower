@@ -27,10 +27,21 @@ return 0;
 }
 }
 //*/
+#include "Component\RigidComponent.hpp"
+
+Gfx::Gfx()
+{
+	sf::Shader& shader = Engine::Graphic.test;
+	//shader.setParameter("texCord",);
+	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
+		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);
+	hitbox.setTexture(*requestTexture("HitBox.png"));
+}
+//*/
 bool Gfx::loadTexture(std::string name)
 {
 	sf::Texture tempTexture;
-	if(!tempTexture.loadFromFile("Texture/"+name))
+	if(!tempTexture.loadFromFile("Texture/" + name))
 	{
 #ifdef _DEBUG
 		MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
@@ -166,7 +177,96 @@ void Gfx::Draw()
 		//	tex.setTexture(rex.getTexture());
 		//Engine::View.render.draw(tex);
 	}
+#ifdef _DEBUG
+	if(!Engine::GUI.hideGUI)
+	{
+		for(size_t i = 0; i < Engine::Physics.hitboxes.size(); i++)
+		{
+			TransformComponent* tc = Engine::Physics.hitboxes[i]->attachedOn->GetComponent<TransformComponent>();
+			hitbox.setPosition(tc->position.x,tc->position.y);
 
+			//TopBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.hitboxes[i]->size.x,2));
+			Engine::View.render.draw(hitbox);
+
+			double hypno = std::sqrt((
+				Engine::Physics.hitboxes[i]->size.x*Engine::Physics.hitboxes[i]->size.x +
+				Engine::Physics.hitboxes[i]->size.y*Engine::Physics.hitboxes[i]->size.y
+				));
+			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
+
+			double degree = (std::asin(Engine::Physics.hitboxes[i]->size.y / hypno) * 180) / 3.14159265;
+
+			hitbox.setRotation(degree);
+			Engine::View.render.draw(hitbox);
+
+			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.hitboxes[i]->size.y);
+
+			hitbox.setRotation(-degree);
+			Engine::View.render.draw(hitbox);
+			hitbox.setRotation(0);
+
+			//BottomBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.hitboxes[i]->size.x,2));
+			Engine::View.render.draw(hitbox);
+
+			//LeftBar
+			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
+			Engine::View.render.draw(hitbox);
+
+			//RightVBar
+
+			//Engine::View.render.draw(hitbox);
+			hitbox.setPosition(tc->position.x + Engine::Physics.hitboxes[i]->size.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
+			Engine::View.render.draw(hitbox);
+		}
+		for(size_t i = 0; i < Engine::Physics.rigid.size(); i++)
+		{
+			TransformComponent* tc = Engine::Physics.rigid[i]->attachedOn->GetComponent<TransformComponent>();
+			hitbox.setPosition(tc->position.x,tc->position.y);
+
+			//TopBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
+			Engine::View.render.draw(hitbox);
+
+			double hypno = std::sqrt((
+				Engine::Physics.rigid[i]->size.x*Engine::Physics.rigid[i]->size.x +
+				Engine::Physics.rigid[i]->size.y*Engine::Physics.rigid[i]->size.y
+				));
+			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
+
+			double degree = (std::asin(Engine::Physics.rigid[i]->size.y / hypno) * 180) / 3.14159265;
+
+			hitbox.setRotation(degree);
+			Engine::View.render.draw(hitbox);
+
+			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.rigid[i]->size.y);
+
+			hitbox.setRotation(-degree);
+			Engine::View.render.draw(hitbox);
+			hitbox.setRotation(0);
+
+			//BottomBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
+			Engine::View.render.draw(hitbox);
+
+			//LeftBar
+			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
+			Engine::View.render.draw(hitbox);
+
+			//RightVBar
+
+			//Engine::View.render.draw(hitbox);
+			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
+			Engine::View.render.draw(hitbox);
+		}
+	}
+#endif
+	//*/
 	DrawTxt();
 }
 void Gfx::DrawBG()

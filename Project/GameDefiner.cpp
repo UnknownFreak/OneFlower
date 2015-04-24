@@ -48,12 +48,13 @@ void Game::requestRemovealForeground(Tile* t)
 {
 	Engine::Graphic.removeFromForegroundList(*t);
 }
-
+/*
 void Game::addGameObject(GameObject* entity,Gfx* editor)
 {
-	allGameObjectPointers.push_back(entity);
-	editor->insertDrawableObject(entity);
+allGameObjectPointers.push_back(entity);
+editor->insertDrawableObject(entity);
 }
+//*/
 
 void Game::addGameObject(std::string name)
 {

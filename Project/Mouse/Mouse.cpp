@@ -28,6 +28,7 @@ void Mouse::update()
 					hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 					transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 					rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
+					rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 					if(hitbox || rig || rc)
 					{
 						sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
@@ -71,17 +72,18 @@ void Mouse::update()
 			}
 #pragma endregion
 #pragma region Right
+			/*
 			else if(Engine::event.mouseButton.button == sf::Mouse::Button::Right)
 			{
-				HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
-				HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
+			HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
+			HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
 
-				SetWindowTextA(wnd,std::to_string((int)pos.x).c_str());
-				SetWindowTextA(awnd,std::to_string((int)pos.y).c_str());
+			SetWindowTextA(wnd,std::to_string((int)pos.x).c_str());
+			SetWindowTextA(awnd,std::to_string((int)pos.y).c_str());
 			}
+			//*/
 #pragma endregion
 		}
-
 		if(deltaScrolls < 0)
 		{
 			Engine::View.camera.zoom(1 + (scrollSpeed*-deltaScrolls));

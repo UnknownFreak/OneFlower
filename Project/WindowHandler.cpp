@@ -36,22 +36,30 @@ int windowMessage()
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
-
-	sf::Color c(1,0,0,1);
+	go->AddComponent<RigidComponent>();
+	go->GetComponent<TransformComponent>()->position.x = 300;
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
-	sf::Shader& shader = Engine::Graphic.test;
-	//shader.setParameter("texCord",);
-	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
-		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
-
+	Engine::GUI.showHideGUI();
 	Engine::game.addGameObject(go);
 	Time time;
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
 	Engine::View.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
+
+	CreateWindowEx(
+		0,"Button","Start/Pause",
+		BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,
+		EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right - 128 - 16,EditorUI::GetLocalCoordinates(Engine::Window.hWnd).bottom - 256,
+		128,64,
+		Engine::Window.hWnd,
+		(HMENU)27457,
+		Engine::Window.hInstance,
+		NULL
+		);
+
 	while(message.message != WM_QUIT)
 	{
 		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
@@ -59,14 +67,12 @@ int windowMessage()
 			/*
 			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
 			{
-			<<<<<<< HEAD
 			if(IsDialogMessage(i->second.hWnd,&message))
 			{
 			break;
 			}
 			}
 			//*/
-
 			if(message.message == WM_KEYDOWN)
 			{
 				if(message.wParam == VK_ESCAPE)
@@ -75,6 +81,10 @@ int windowMessage()
 				}
 				if(message.wParam == VK_DELETE)
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
+				if(message.wParam == VK_OEM_PLUS)
+					Engine::mouse.deltaScrolls += 5;
+				if(message.wParam == VK_OEM_MINUS)
+					Engine::mouse.deltaScrolls -= 5;
 			}
 			// If a message was waiting in the message queue, process it
 			TranslateMessage(&message);
@@ -87,7 +97,9 @@ int windowMessage()
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 		}
+
 		Engine::View.render.clear();
+
 		Engine::game.Update();
 
 		Engine::Physics.Update();
@@ -100,7 +112,6 @@ int windowMessage()
 
 		Engine::View.render.display();
 
-		if(Engine::View.render.hasFocus())
 			Engine::Window.update();
 
 		//Fix this, By moving it somewhere else? and have it return a constant variable

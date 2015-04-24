@@ -43,14 +43,15 @@ void PhysicsEngine::addPhysics(GameObject* obj)
 	if(a)
 		hitboxes.push_back(a);
 }
-PhysicsEngine::PhysicsEngine():quad(0)
+PhysicsEngine::PhysicsEngine()
+//:quad(0)
 {
 	size_t x = Engine::View.render.getSize().x;
 	size_t y = Engine::View.render.getSize().y;
 
-	//LOW: Use init list
-	quad.position[0].x = 0;
-	quad.position[0].y = 0;
-	quad.position[1].x = x;
-	quad.position[1].y = y;
+	////LOW: Use init list
+	//quad.position[0].x = 0;
+	//quad.position[0].y = 0;
+	//quad.position[1].x = x;
+	//quad.position[1].y = y;
 }

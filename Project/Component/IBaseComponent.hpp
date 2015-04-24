@@ -24,6 +24,8 @@ public:
 	//Name of the componentn
 	static std::string componentName;
 	static const unsigned int typeID;
+
+	//HIGH: Friendclass stuffz so you can put this into private
 	std::map<std::string,BaseField*> editorFields;
 };
 #endif

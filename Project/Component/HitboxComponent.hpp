@@ -3,6 +3,7 @@
 #include "IBaseComponent.hpp"
 #include "../Vector.h"
 #include <SFML\Graphics\Rect.hpp>
+#include <vector>
 class HitboxComponent:public IBaseComponent < HitboxComponent >
 {
 public:
@@ -18,13 +19,16 @@ public:
 	//Pixel position relative to Transform
 	Vector2 position;
 
+	void registerCollisionCheck(BaseComponent* component);
+
 	//Rect
-	sf::Rect<int> box;
 	void attachOn(GameObject* go);
 
-	void onCollision();
-	void OnClick();
+	std::vector<BaseComponent*> collisionCall;
+
 private:
+	sf::Rect<int> box;
+
 	template <class Archive>
 	void save(Archive &ar,const HitboxComponent &hc);
 	template <class Archive>

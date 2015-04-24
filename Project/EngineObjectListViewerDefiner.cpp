@@ -10,13 +10,16 @@ EngineObjectListViewer::~EngineObjectListViewer()
 }
 void EngineObjectListViewer::start()
 {
+	size.x = 256;
+	size.y = 512;
+
 	RECT window = EditorUI::GetLocalCoordinates(Engine::Window.hWnd);
 	RECT screen = EditorUI::GetClientCoordinates(Engine::Window.hWnd);
 	hWnd =
 		CreateWindowEx(0,"LISTBOX","Object Viewer",
-		WS_VISIBLE | WS_CHILDWINDOW | LBS_DISABLENOSCROLL | LBS_HASSTRINGS | LBS_NOTIFY | LBS_STANDARD,
-		window.right - window.left - 256 * 2 - 16,0,
-		256,500,
+		WS_VISIBLE | LBS_DISABLENOSCROLL | LBS_HASSTRINGS | LBS_NOTIFY | LBS_STANDARD,
+		window.right - window.left - Engine::Window.focus.size.x - size.x - (GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2)),0,
+		size.x,size.y,
 		Engine::Window.hWnd,NULL,Engine::Window.hInstance,NULL);
 }
 void EngineObjectListViewer::update()

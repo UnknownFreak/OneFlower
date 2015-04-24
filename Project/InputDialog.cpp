@@ -10,7 +10,7 @@ static int type;
 static bool cancel;
 
 //TODO fix all ugly hacks
-INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent, int diagType)
+INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent,int diagType)
 {
 	nMax = nResultSize;
 	buffer = szResult;
@@ -32,13 +32,13 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 		case WM_CREATE:
 			return (INT_PTR)TRUE;
 		case WM_INITDIALOG:
-			switch (type)
+			switch(type)
 			{
 				case ID_DIALOG_RENAME:
-					HWND dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL_ID);
-					ShowWindow(dlg, FALSE);
-					dlg = GetDlgItem(hWnd, ID_DIALOG_TEXT_ID);
-					ShowWindow(dlg, FALSE);
+					HWND dlg = GetDlgItem(hWnd,ID_DIALOG_LABEL_ID);
+					ShowWindow(dlg,FALSE);
+					dlg = GetDlgItem(hWnd,ID_DIALOG_TEXT_ID);
+					ShowWindow(dlg,FALSE);
 					break;
 			}
 			SetWindowText(hWnd,title);
@@ -47,7 +47,7 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 			EndDialog(hWnd,LOWORD(ID_DIALOG_CANCEL));
 			return (INT_PTR)TRUE;
 		case WM_COMMAND:
-			if(LOWORD(wParam) == ID_DIALOG_OK )
+			if(LOWORD(wParam) == ID_DIALOG_OK)
 			{
 				GetDlgItemText(hWnd,ID_DIALOG_TEXT,buffer,nMax);
 				GetDlgItemText(hWnd,ID_DIALOG_TEXT_ID,ID,nMax);
@@ -55,10 +55,10 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 				EndDialog(hWnd,LOWORD(wParam));
 				return (INT_PTR)TRUE;
 			}
-			else if (LOWORD(wParam) == ID_DIALOG_CANCEL)
+			else if(LOWORD(wParam) == ID_DIALOG_CANCEL)
 			{
 				cancel = true;
-				EndDialog(hWnd, LOWORD(wParam));
+				EndDialog(hWnd,LOWORD(wParam));
 				return (INT_PTR)TRUE;
 			}
 			break;

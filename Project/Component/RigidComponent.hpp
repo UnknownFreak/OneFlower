@@ -8,9 +8,13 @@ class RigidComponent:public IBaseComponent < RigidComponent >
 public:
 
 	//LOW: Remove this if not needed
+	//TODO Add other constructors
 	RigidComponent();
 	~RigidComponent();
-	//TODO Add other constructors
+
+	void addForce(Vector2 dir,float power);
+	void attachOn(GameObject* go);
+	std::vector<std::pair<Vector2,double>> forceQueue;
 
 	//Absolute Pixel not half pixel
 	Vector2 size;
@@ -21,7 +25,13 @@ public:
 	//Colliding
 	bool colliding = false;
 
-	void attachOn(GameObject* go);
+	//Colliding Object. [0] up and than go Clock-Wise
+	GameObject* colisionDirection[4];
+
+	bool gravity = false;
+
+	//Mass in Kilogram
+	int Mass = 10;
 
 	std::vector<GameObject*> entered;
 };

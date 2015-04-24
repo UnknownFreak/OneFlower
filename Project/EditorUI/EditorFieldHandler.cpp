@@ -20,6 +20,22 @@
 #include "SFML\Main.hpp"
 #include <sstream>
 #include "../Resource.h"
+
+//std::string EditorField<std::string>::type = "test";
+REGISTER_EDITOR_TYPE(int)
+REGISTER_EDITOR_TYPE(float)
+REGISTER_EDITOR_TYPE(double)
+REGISTER_EDITOR_TYPE(bool)
+REGISTER_EDITOR_TYPE(std::string)
+REGISTER_EDITOR_TYPE(Vector2)
+/*
+REGISTER_EDITOR_TYPE(std::vector<int>)
+REGISTER_EDITOR_TYPE(std::vector<float>)
+REGISTER_EDITOR_TYPE(std::vector<double>)
+REGISTER_EDITOR_TYPE(std::vector<std::string>)
+//*/
+REGISTER_EDITOR_TYPE(sf::Uint8);
+
 void EditorUI::Field::addGroup(EditorGroup* name)
 {
 }
@@ -176,7 +192,7 @@ void EditorUI::Field::addField(BaseField* variable,EditorGroup* group,int _x,int
 		variable->label = Engine::Window.focus.addLabel(group->hWnd,variable->name,0,y,variable->name.size() * 8,height,0);
 	}
 	else
-		MessageBoxA(0,"WrongType: " + *variable->getType().c_str() ,"CTRL + F EmptyValue",0);
+		MessageBoxA(0,"WrongType: " + *variable->getType().c_str(),"CTRL + F EmptyValue",0);
 #pragma endregion
 }
 

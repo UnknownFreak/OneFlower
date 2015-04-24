@@ -28,7 +28,7 @@ public:
 	std::map<HWND,BaseField*> extraFields;
 	std::map<std::string,EditorGroup> componentFieldGroup;
 	Vector2 scrollPosition;
-	int height = 0;
+	Vector2 size;
 	BaseField* nameField;
 
 	void cleanse();

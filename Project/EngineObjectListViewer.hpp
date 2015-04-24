@@ -3,6 +3,7 @@
 #define EngineEditorObjectViewer_HPP
 #include <Windows.h>
 #include <vector>
+#include "Vector.h"
 class GameObject;
 class EngineObjectListViewer
 {
@@ -14,9 +15,9 @@ public:
 	void set(GameObject* t);
 	void getSelection();
 	void update();
-
-private:
 	HWND hWnd;
+	Vector2 size;
+private:
 	std::vector<GameObject*> order;
 };
 

@@ -2,39 +2,10 @@
 #include <math.h>
 #include "../Engine.hpp"
 
-void TransformComponent::moveTo(double x,double y,double s)
+void TransformComponent::moveTo(Vector2 newPosition)
 {
-	//LOW clean this code up
-	Vector2 test(x,y);
-	Vector2 distance;
-	distance.x = test.x - position.x;
-	distance.y = test.y - position.y;
-
-	if(distance.normalize())
-	{
-		double dx = distance.x;
-		double dy = distance.y;
-
-		/*
-		int angle = position.angle(&test);
-		angle = (360 + (angle % 360)) % 360;
-
-		double cos = std::cos(angle);
-		double sin = std::sin(angle);
-		//*/
-		/*
-		dx = cos * s;
-		dy = sin * s;
-		//*/
-		/*
-		test.normalize();
-		dx = test.x * s;
-		dy = test.y * s;
-		//*/
-
-		position.x += dx*s;
-		position.y += dy*s;
-	}
+	//HIGH: Remove this or insert HitCollision test before moving toward new position
+	position = newPosition;
 }
 void TransformComponent::move(Vector2 dir,double s)
 {
@@ -53,4 +24,8 @@ double TransformComponent::distance(TransformComponent* target)
 double TransformComponent::angle(TransformComponent* target)
 {
 	return position.angle(&target->position);
+}
+Vector2 TransformComponent::DirectionTowards(TransformComponent* target)
+{
+	return Vector2();
 }

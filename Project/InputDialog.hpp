@@ -5,7 +5,7 @@
 class InputDialog
 {
 public:
-	static INT_PTR InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent,int diagType =0);
+	static INT_PTR InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent,int diagType = 0);
 	//returns if dialog input shall be discarded or not
 	static bool getIfCancelled();
 private:

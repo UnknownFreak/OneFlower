@@ -16,7 +16,7 @@ class Message;
 class Gfx
 {
 public:
-
+	Gfx();
 	Font font;
 	std::vector<Message *> msg;
 
@@ -53,7 +53,7 @@ public:
 	void DrawTxt();
 
 	sf::Shader test;
-
+	sf::Sprite hitbox;
 private:
 	//Map with all texture, key value is the name of the texture
 	std::map<std::string,sf::Texture> loadedTextureMap;

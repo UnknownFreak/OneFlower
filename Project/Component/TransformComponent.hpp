@@ -20,7 +20,7 @@ public:
 	void attachOn(GameObject* go);
 
 	//Move towrads Absolute World coordinates with Pixel Per Seconds
-	void moveTo(double x,double y,double s);
+	void moveTo(Vector2 newPosition);
 
 	//Move relative
 	void move(Vector2 dir,double s);
@@ -30,6 +30,9 @@ public:
 
 	//Get distance towards target in Pixels
 	double distance(TransformComponent* target);
+
+	Vector2 DirectionTowards(TransformComponent* target);
+
 private:
 
 	template<class Archive>

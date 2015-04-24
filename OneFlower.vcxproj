@@ -126,7 +126,6 @@
     <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Mouse\Mouse.hpp" />
     <ClInclude Include="Project\Physics.hpp" />
-    <ClInclude Include="Project\PhysicsQuad.hpp" />
     <ClInclude Include="Project\Prefab.hpp" />
     <ClInclude Include="Project\PrefabContainer.hpp" />
     <ClInclude Include="Project\Resource.h" />
@@ -171,7 +170,6 @@
     <ClCompile Include="Project\Mouse\Mouse.cpp" />
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />
     <ClCompile Include="Project\PhysicsEngineHandler.cpp" />
-    <ClCompile Include="Project\PhysicsQuadDefiner.cpp" />
     <ClCompile Include="Project\PrefabContainerDefiner.cpp" />
     <ClCompile Include="Project\PrefabDefiner.cpp" />
     <ClCompile Include="Project\RenderHandlerDefiner.cpp" />

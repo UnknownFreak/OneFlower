@@ -30,15 +30,10 @@ public:
 
 	//LOW: is this needed
 	//Send infomation what happend when colliding
-	virtual void sendCollision(GameObject* target)
-	{
-	};
 
 	//LOW: Create a body?
 	//On hit collision
-	virtual void onCollision(GameObject* target)
-	{
-	};
+	virtual void onCollision(GameObject* target);
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;

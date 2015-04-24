@@ -18,6 +18,12 @@ HitboxComponent::~HitboxComponent()
 {
 	Engine::Physics.removePhysics(this);
 }
+
+void HitboxComponent::registerCollisionCheck(BaseComponent* component)
+{
+	collisionCall.push_back(component);
+}
+
 void HitboxComponent::attachOn(GameObject* go)
 {
 	BaseComponent::attachOn(go);

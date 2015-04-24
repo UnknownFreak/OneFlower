@@ -9,6 +9,10 @@ bool BaseComponent::UpdateFromEditor()
 {
 	return false;
 }
+void BaseComponent::onCollision(GameObject* target)
+{
+}
+
 /*
 std::string BaseComponent::getTypeName()
 {

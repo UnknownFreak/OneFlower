@@ -107,7 +107,9 @@ void EngineWindow::setGameObject(GameObject* t)
 		int oldPos = si.nPos;
 		si.nPage = 0;
 		si.nMin = 0;
-		si.nMax = EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom - 500 + 16;
+		si.nMax =
+			EditorUI::GetLocalCoordinates(focus.componentFieldGroup.at(lastName).hWnd).bottom - focus.size.y + 16 +
+			(GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU);
 		SetScrollInfo(focus.hWnd,SB_VERT,&si,false);
 	}
 }
@@ -166,14 +168,22 @@ void EngineWindow::update()
 {
 	if(focus.gameObject)
 	{
+		HWND focusedWindow = GetFocus();
+		DWORD start = 0;
+		DWORD end = 0;
+		SendMessage(focusedWindow,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+
 		for(auto it = focus.componentFieldGroup.begin(); it != focus.componentFieldGroup.end(); ++it)
 		{
 			for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
 			{
 				BaseField* variable = jit->second;
-				std::stringstream ss;
-				ss << variable->toString();
-				SetWindowTextA(variable->hWnd,ss.str().c_str());
+				if(focusedWindow != variable->hWnd)
+				{
+					std::stringstream ss;
+					ss << variable->toString();
+					SetWindowTextA(variable->hWnd,ss.str().c_str());
+				}
 			}
 		}
 	}
