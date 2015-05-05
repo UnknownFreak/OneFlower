@@ -244,6 +244,9 @@
     <ClInclude Include="Project\Item.hpp">
       <Filter>Header Files\Item &amp; ItemComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Component\ProjectileComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\TileDefiner.cpp">
@@ -392,6 +395,15 @@
     </ClCompile>
     <ClCompile Include="Project\Item.cpp">
       <Filter>Source Files\Item &amp; ItemComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\ReputationComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\ReputationComponentDefiners.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\ProjectileComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,8 @@
 #include "Component\HitboxComponent.hpp"
 #include "Component\StatsComponent.hpp"
 #include "Component\HealthComponent.hpp"
+#include "Component\ReputationComponent.hpp"
+#include "Component\ProjectileComponent.hpp"
 
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
@@ -166,6 +168,18 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<HealthComponent>();
+					break;
+				}
+				case ADD_ReputationComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<ReputationComponent>();
+					break;
+				}
+				case ADD_ProjectileComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<ProjectileComponent>();
 					break;
 				}
 #pragma endregion

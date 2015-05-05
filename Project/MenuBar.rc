@@ -18,6 +18,7 @@ MENUITEM "&OverHeadComponent", ADD_OverHeadComponent
 MENUITEM "&RigidComponent", ADD_RigidComponent
 MENUITEM "&StatsComponent", ADD_StatsComponent
 MENUITEM "H&ealthComponent", ADD_HealthComponent
+MENUITEM "Re&putationComponent", ADD_ReputationComponent
 END
 MENUITEM "&GameObject", ADD_GameObject
 END

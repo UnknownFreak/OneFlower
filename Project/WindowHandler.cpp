@@ -6,6 +6,7 @@
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
+#include "Component\ProjectileComponent.hpp"
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
@@ -34,6 +35,7 @@ int windowMessage()
 {
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
+	go->AddComponent<ProjectileComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 
@@ -89,6 +91,7 @@ int windowMessage()
 		}
 		Engine::View.render.clear();
 		Engine::game.Update();
+		//go->GetComponent<ProjectileComponent>()->updateTwo();
 
 		Engine::Physics.Update();
 

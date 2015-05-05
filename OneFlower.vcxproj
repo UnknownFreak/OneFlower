@@ -104,6 +104,7 @@
     <ClInclude Include="Project\Component\InventoryComponent.hpp" />
     <ClInclude Include="Project\Component\OverheadComponent.hpp" />
     <ClInclude Include="Project\Component\PickupComponent.hpp" />
+    <ClInclude Include="Project\Component\ProjectileComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Component\StatsComponent.hpp" />
@@ -154,7 +155,10 @@
     <ClCompile Include="Project\Component\InventoryComponent.cpp" />
     <ClCompile Include="Project\Component\OverheadComponent.cpp" />
     <ClCompile Include="Project\Component\PickupComponent.cpp" />
+    <ClCompile Include="Project\Component\ProjectileComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\ReputationComponentDefiners.cpp" />
+    <ClCompile Include="Project\Component\ReputationComponent.hpp" />
     <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\StatsComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
