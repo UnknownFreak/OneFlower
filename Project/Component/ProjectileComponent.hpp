@@ -9,8 +9,6 @@ class GameObject;
 class ProjectileComponent : public IBaseComponent < ProjectileComponent >
 {
 public:
-	ProjectileComponent();
-
 	void attachOn(GameObject * go);
 	void shoot(Vector2 mouse);
 	void updateOne();
@@ -19,10 +17,13 @@ public:
 
 private:
 	//speed of projectile
-	double velosity = 0;
+	double velosity = 100;
 	double speed;
-	double x;
-	double dt;
-	Vector2 destination;
+	double x = 500;
+	double y = 0;
+	double centerMid = 0;
+	float distance;
+	Vector2 wave;
+	Vector2 movementDirection;
 };
 #endif

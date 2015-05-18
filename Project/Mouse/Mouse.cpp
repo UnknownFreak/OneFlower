@@ -20,12 +20,12 @@ void Mouse::update()
 
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
-#pragma region Left
+#pragma region Left		
 			if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
-				ProjectileComponent* tp;
-				tp = Engine::Window.focus.gameObject->GetComponent < ProjectileComponent > ();
-				tp->shoot(Engine::mouse.pos);
+				ProjectileComponent* cp = Engine::Window.focus.gameObject->GetComponent<ProjectileComponent>();
+				if (cp)
+					cp->shoot(Engine::mouse.pos);
 				int top = 0;
 				for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 				{

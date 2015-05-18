@@ -88,16 +88,16 @@ int windowMessage()
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+			Engine::mouse.update();
 		}
 		Engine::View.render.clear();
+		
 		Engine::game.Update();
-		//go->GetComponent<ProjectileComponent>()->updateTwo();
 
 		Engine::Physics.Update();
+		go->GetComponent<ProjectileComponent>()->updateTwo();
 
 		Engine::Graphic.Draw();
-
-		Engine::mouse.update();
 
 		Engine::GUI.Draw();
 
