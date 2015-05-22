@@ -17,7 +17,7 @@ void GraphicalUserInterface::Draw()
 				;//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);
 			for (size_t i = 0; i < ActionSlot.size(); ++i)
 			{
-				ActionSlot[i]->setPosition(40 + 128 * i + Engine::mouse.offset.x, 500 + Engine::mouse.offset.y);
+				ActionSlot[i]->setPosition(40 + 128 * i + Engine::Input.mouse.offset.x, 500 + Engine::Input.mouse.offset.y);
 
 				Engine::View.render.draw(ActionSlot[i]->icon);
 				if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)

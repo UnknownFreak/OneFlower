@@ -61,6 +61,8 @@ public:
 			return NULL;
 	}
 
+	void destroy();
+
 	std::map<int,BaseComponent*>* GetComponents();
 
 protected:

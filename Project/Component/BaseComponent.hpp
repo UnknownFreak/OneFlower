@@ -7,6 +7,15 @@
 
 class BaseField;
 class GameObject;
+class BaseMessage
+{
+public:
+	BaseMessage(std::string msg);
+	std::string process();
+private:
+	std::string msg;
+};
+
 class BaseComponent
 {
 public:
@@ -30,10 +39,10 @@ public:
 
 	//LOW: is this needed
 	//Send infomation what happend when colliding
-
+	//void sendMessage(const BaseMessage& msg);
 	//LOW: Create a body?
-	//On hit collision
-	virtual void onCollision(GameObject* target);
+	//On hit collision		//TODO: Make this virtal
+	void recieveMessage(const BaseMessage& target);
 
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;

@@ -14,17 +14,17 @@ GraphicalUserInterface::~GraphicalUserInterface()
 }
 void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition((float)(Engine::mouse.pos.x),(float)(Engine::mouse.pos.y));
+	mouseAim.setPosition((float)(Engine::Input.mouse.pos.x),(float)(Engine::Input.mouse.pos.y));
 }
 
 void GraphicalUserInterface::setIconLocation()
 {
 	mouseSlotLeft.setPosition(
-		270 + Engine::mouse.offset.x,
-		30 + Engine::mouse.offset.y);
+		270 + Engine::Input.mouse.offset.x,
+		30 + Engine::Input.mouse.offset.y);
 	mouseSlotRight.setPosition(
-		400 + Engine::mouse.offset.x,
-		30 + Engine::mouse.offset.y);
+		400 + Engine::Input.mouse.offset.x,
+		30 + Engine::Input.mouse.offset.y);
 }
 
 void GraphicalUserInterface::setActiveSkill(std::string buttonName)

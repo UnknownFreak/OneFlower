@@ -219,7 +219,6 @@ void Gfx::Draw()
 
 			//RightVBar
 
-<<<<<<< HEAD
 			//Engine::View.render.draw(hitbox);
 			hitbox.setPosition(tc->position.x + Engine::Physics.hitboxes[i]->size.x,tc->position.y);
 			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
@@ -270,10 +269,7 @@ void Gfx::Draw()
 	}
 #endif
 	//*/
-	DrawTxt();
-=======
 	//DrawTxt();
->>>>>>> origin/master
 }
 void Gfx::DrawBG()
 {

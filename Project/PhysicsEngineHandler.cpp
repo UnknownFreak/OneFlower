@@ -121,7 +121,7 @@ float PhysicsEngine::collision(RigidComponent* inMotion,Vector2 speed)
 			fastestCollision = collisionList[i];
 	if(fastestCollision.first)
 	{
-		fastestCollision.first->onCollision(inMotion->attachedOn);
+		//fastestCollision.first->onCollision(inMotion->attachedOn);
 		return fastestCollision.second;
 	}
 	else

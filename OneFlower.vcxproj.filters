@@ -241,6 +241,9 @@
     <ClInclude Include="Project\Item.hpp">
       <Filter>Header Files\Item &amp; ItemComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Component\MovementComponent.hpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\TileDefiner.cpp">
@@ -266,9 +269,6 @@
     </ClCompile>
     <ClCompile Include="Project\Component\TransformComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\InputHandler.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
@@ -386,6 +386,12 @@
     </ClCompile>
     <ClCompile Include="Project\Item.cpp">
       <Filter>Source Files\Item &amp; ItemComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\InputHandlerDefiner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

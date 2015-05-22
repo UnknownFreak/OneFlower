@@ -131,3 +131,8 @@ unsigned int RequestID()
 		return	 temp + 1;
 	}
 }
+#include "../Engine.hpp"
+void GameObject::destroy()
+{
+	Engine::game.requestRemoveal(this);
+}

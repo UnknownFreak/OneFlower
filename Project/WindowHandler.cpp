@@ -20,7 +20,7 @@ sf::Event Engine::event;
 Game Engine::game;
 Time Engine::time;
 PhysicsEngine Engine::Physics;
-Mouse Engine::mouse;
+InputHandler Engine::Input;
 GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
@@ -76,15 +76,13 @@ int windowMessage()
 			if(message.message == WM_KEYDOWN)
 			{
 				if(message.wParam == VK_ESCAPE)
-				{
 					SetFocus(Engine::Window.hWnd);
-				}
 				if(message.wParam == VK_DELETE)
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 				if(message.wParam == VK_OEM_PLUS)
-					Engine::mouse.deltaScrolls += 5;
+					Engine::Input.mouse.deltaScrolls += 5;
 				if(message.wParam == VK_OEM_MINUS)
-					Engine::mouse.deltaScrolls -= 5;
+					Engine::Input.mouse.deltaScrolls -= 5;
 			}
 			// If a message was waiting in the message queue, process it
 			TranslateMessage(&message);
@@ -95,7 +93,8 @@ int windowMessage()
 			if(Engine::event.type == sf::Event::Closed)
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
-				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+			Engine::Input.update();
 		}
 
 		Engine::View.render.clear();
@@ -106,7 +105,6 @@ int windowMessage()
 
 		Engine::Graphic.Draw();
 
-		Engine::mouse.update();
 
 		Engine::GUI.Draw();
 
@@ -152,7 +150,7 @@ int test()
 		// Draw the sprite
 		window.draw(sprite);
 		// Draw the string
-		window.hasFocus() ? window.draw(text) : window.draw(text2);
+	//	window.hasFocus() ? window.draw(text) : window.draw(text2);
 		// Update the window
 		window.display();
 	}
