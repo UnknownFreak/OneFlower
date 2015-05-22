@@ -63,6 +63,8 @@ public:
 
 	std::map<int,BaseComponent*>* GetComponents();
 
+	void destroy();
+
 protected:
 	//std::map<std::string, BaseComponent*> componentMap;
 	//List of all component that is currently attached to the GameObject

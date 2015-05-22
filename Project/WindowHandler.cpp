@@ -6,6 +6,8 @@
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
+#include "Component\ProjectilePatternComponent.hpp"
+#include "Component\LevelComponent.h"
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
@@ -34,6 +36,8 @@ int windowMessage()
 {
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
+	go->AddComponent<ProjectilePatternComponent>();
+	go->AddComponent<LevelComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();
@@ -96,17 +100,17 @@ int windowMessage()
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+			Engine::mouse.update();
 		}
 
 		Engine::View.render.clear();
-
+		
 		Engine::game.Update();
 
 		Engine::Physics.Update();
+		go->GetComponent<ProjectilePatternComponent>()->vPattern();
 
 		Engine::Graphic.Draw();
-
-		Engine::mouse.update();
 
 		Engine::GUI.Draw();
 
