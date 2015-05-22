@@ -10,11 +10,11 @@ void GraphicalUserInterface::Draw()
 		{
 			if (mouseOutsideOpenWindow())
 			{
-				if (mouseSlotLeft.onHover() && Engine::mouse.leftClick())
+				if (mouseSlotLeft.onHover() && Engine::Input.mouse.leftClick())
 				{
 					//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);//mouseSlotLeft.onClick();
 				}
-				if (mouseSlotRight.onHover() && Engine::mouse.leftClick())
+				if (mouseSlotRight.onHover() && Engine::Input.mouse.leftClick())
 				{
 					;//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);
 				}

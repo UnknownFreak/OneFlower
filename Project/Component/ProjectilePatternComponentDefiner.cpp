@@ -54,7 +54,7 @@ void ProjectilePatternComponent::missileX()
 {
 	TransformComponent* tcp = attachedOn->GetComponent<TransformComponent>();
 	speed = velosity*Engine::time.deltaTime();
-	tcp->move(Vector2(x, Engine::mouse.pos.y), speed);
+	tcp->move(Vector2(x, Engine::Input.mouse.pos.y), speed);
 
 }
 
@@ -62,7 +62,7 @@ void ProjectilePatternComponent::missileY()
 {
 	TransformComponent* tcp = attachedOn->GetComponent<TransformComponent>();
 	speed = velosity*Engine::time.deltaTime();
-	tcp->move(Vector2(Engine::mouse.pos.x, -1), speed);
+	tcp->move(Vector2(Engine::Input.mouse.pos.x, -1), speed);
 }
 
 void ProjectilePatternComponent::vPattern()

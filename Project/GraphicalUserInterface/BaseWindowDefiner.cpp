@@ -48,37 +48,37 @@ void BaseWindow::checkMouseOffset(double&x, double &y)
 }
 void BaseWindow::WindowHandle()
 {
-	if (close.onHover() && Engine::mouse.leftClick() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
-		close.onHover() && Engine::mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
+	if (close.onHover() && Engine::Input.mouse.leftClick() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
+		close.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
 	{
 		open = false;
 		focus = false;
 	}
-	if (resize.onHover() && Engine::mouse.leftClick() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
-		resize.onHover() && Engine::mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
+	if (resize.onHover() && Engine::Input.mouse.leftClick() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
+		resize.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
 		resizeing = true;
-	if (Engine::mouse.LMBPressed && resizeing)
-		Iresize(Engine::mouse.pos.x, Engine::mouse.pos.y);
+	if (Engine::Input.mouse.LMBPressed && resizeing)
+		Iresize(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
 	else if (resizeing)
 		resizeing = false;
-	if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && Engine::mouse.leftClick() && checkMouseInside() && !Engine::GUI.focusedWindow->moving)
+	if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && Engine::Input.mouse.leftClick() && checkMouseInside() && !Engine::GUI.focusedWindow->moving)
 	{
 		requestFocus = true;
 		Engine::GUI.updateFocus = true;
 	}
 	if (MouseInsideTitleBar() && focus && Engine::GUI.focusedWindow->checkMouseInside() || MouseInsideTitleBar() && requestFocus)
 	{
-		if (Engine::mouse.leftClick() || requestFocus)
+		if (Engine::Input.mouse.leftClick() || requestFocus)
 		{
 			moving = true;
-			clickOffset.x = Engine::mouse.pos.x - window.getPosition().x;
-			clickOffset.y = Engine::mouse.pos.y - window.getPosition().y;
+			clickOffset.x = Engine::Input.mouse.pos.x - window.getPosition().x;
+			clickOffset.y = Engine::Input.mouse.pos.y - window.getPosition().y;
 		}
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && moving)
-			Imove(Engine::mouse.pos.x, Engine::mouse.pos.y);
+			Imove(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
 	}
 	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && moving)
-		Imove(Engine::mouse.pos.x, Engine::mouse.pos.y);
+		Imove(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
 	else
 		moving = false;
 }

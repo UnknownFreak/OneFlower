@@ -125,35 +125,35 @@ void ScrollBar::scrollHandle()
 {
 	if (_draw)
 	{
-		if (top.onHover() && Engine::mouse.leftClick())
+		if (top.onHover() && Engine::Input.mouse.leftClick())
 		{
 			scrolled -= 8;
 			if (scrolled < 0)
 				scrolled = 0;
 		}
-		if (bot.onHover() && Engine::mouse.leftClick())
+		if (bot.onHover() && Engine::Input.mouse.leftClick())
 		{
 			scrolled += 8;
 			if (scrolled > maxScrolls)
 				scrolled = maxScrolls;
 		}
-		if (scroll.onHover() && Engine::mouse.leftClick())
+		if (scroll.onHover() && Engine::Input.mouse.leftClick())
 			scrolling = true;
 
 		if (scrolling && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			if (mousePosY < Engine::mouse.pos.y)
+			if (mousePosY < Engine::Input.mouse.pos.y)
 			{
-				scrolled += Engine::mouse.pos.y - mousePosY;
-				mousePosY = Engine::mouse.pos.y;
+				scrolled += Engine::Input.mouse.pos.y - mousePosY;
+				mousePosY = Engine::Input.mouse.pos.y;
 			}
-			else if (mousePosY > Engine::mouse.pos.y)
+			else if (mousePosY > Engine::Input.mouse.pos.y)
 			{
-				scrolled -= mousePosY - Engine::mouse.pos.y;
-				mousePosY = Engine::mouse.pos.y;
+				scrolled -= mousePosY - Engine::Input.mouse.pos.y;
+				mousePosY = Engine::Input.mouse.pos.y;
 			}
 			else
-				mousePosY = Engine::mouse.pos.y;
+				mousePosY = Engine::Input.mouse.pos.y;
 			if (scrolled < 0)
 				scrolled = 0;
 			else if (scrolled > maxScrolls)
@@ -222,8 +222,8 @@ void ScrollBar::drawIcon(BaseWindowObject& obj, Vector2& off, int i)
 					tooltip.first = &ico.icon;
 					tooltip.second.setToolTipText(ico.toolTipTitle, ico.toolTipBody);
 				}
-				if (Engine::mouse.leftClick() && canSwapItems && parent->focus && ico.toolTipBody != "" ||
-					Engine::mouse.leftClick() && canSwapItems && ico.toolTipBody != "" && !Engine::GUI.focusedWindow->checkMouseInside() || 
+				if (Engine::Input.mouse.leftClick() && canSwapItems && parent->focus && ico.toolTipBody != "" ||
+					Engine::Input.mouse.leftClick() && canSwapItems && ico.toolTipBody != "" && !Engine::GUI.focusedWindow->checkMouseInside() || 
 					canSwapItems && parent->requestFocus && ico.toolTipBody != "")
 				{
 					movingItem = true;

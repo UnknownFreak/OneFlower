@@ -138,6 +138,6 @@ bool Mouse::leftClick()
 bool Mouse::rightClick()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !RMBPressed && Engine::time.time("RMBPress", 25))
-		return Engine::mouse.RMBPressed = true;
+		return Engine::Input.mouse.RMBPressed = true;
 	return false;
 }

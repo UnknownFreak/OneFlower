@@ -65,7 +65,6 @@ public:
 
 	std::map<int,BaseComponent*>* GetComponents();
 
-	void destroy();
 
 protected:
 	//std::map<std::string, BaseComponent*> componentMap;

@@ -20,17 +20,17 @@ GraphicalUserInterface::~GraphicalUserInterface()
 */
 void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition((float)(Engine::mouse.pos.x), (float)(Engine::mouse.pos.y));
+	mouseAim.setPosition((float)(Engine::Input.mouse.pos.x), (float)(Engine::Input.mouse.pos.y));
 }
 
 void GraphicalUserInterface::setIconLocation()
 {
 	mouseSlotLeft.setPosition(
-		270 + Engine::mouse.offset.x,
-		30 + Engine::mouse.offset.y);
+		270 + Engine::Input.mouse.offset.x,
+		30 + Engine::Input.mouse.offset.y);
 	mouseSlotRight.setPosition(
-		400 + Engine::mouse.offset.x,
-		30 + Engine::mouse.offset.y);
+		400 + Engine::Input.mouse.offset.x,
+		30 + Engine::Input.mouse.offset.y);
 }
 
 void GraphicalUserInterface::setActiveSkill(std::string buttonName)
@@ -170,10 +170,10 @@ bool GraphicalUserInterface::windowHasFocus()
 void GraphicalUserInterface::scroll()
 {
 	if (inventory.checkMouseInside())
-		inventory.scroll.setScroll(Engine::mouse.deltaScrolls);
+		inventory.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
 	else if (stats.checkMouseInside())
-		stats.items.setScroll(Engine::mouse.deltaScrolls);
-	Engine::mouse.deltaScrolls = 0;
+		stats.items.setScroll(Engine::Input.mouse.deltaScrolls);
+	Engine::Input.mouse.deltaScrolls = 0;
 }
 
 void GraphicalUserInterface::showHideInventory()

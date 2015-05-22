@@ -474,6 +474,9 @@
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\MenuBar.rc">

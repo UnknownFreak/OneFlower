@@ -142,10 +142,10 @@ void GraphicalInventory::ClickOnBagSlot(Bag* bag)
 {
 	if (mouseInsideIcon(bag->icon) && !scroll.movingItem)
 	{
-		if (Engine::mouse.leftClick())
+		if (Engine::Input.mouse.leftClick())
 		{
-			clickOffset.x = Engine::mouse.pos.x - bag->icon.getPosition().x;
-			clickOffset.y = Engine::mouse.pos.y - bag->icon.getPosition().y;
+			clickOffset.x = Engine::Input.mouse.pos.x - bag->icon.getPosition().x;
+			clickOffset.y = Engine::Input.mouse.pos.y - bag->icon.getPosition().y;
 			scroll.movingItem = true;
 			bagSlotSelected = true;
 			scroll.unequipBag = true;
