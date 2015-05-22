@@ -44,7 +44,9 @@ float Time::FPS()
 	}
 	return 0;
 }
-bool Time::time(std::string name,double sec)
+
+bool Time::time(std::string name,double msec)
+
 {
 	std::map<std::string,sf::Clock>::iterator it = timers.find(name);
 	if(it == timers.end())
@@ -56,7 +58,9 @@ bool Time::time(std::string name,double sec)
 	{
 		//LOW: Research if needed
 		//Make it modulus instead, Also make a custom Holder so that we can have diffrent start timer if needed
-		if(it->second.getElapsedTime().asMilliseconds() > sec)
+
+		if(it->second.getElapsedTime().asMilliseconds() > msec)
+
 		{
 			//Make it so that it doesnt restart
 			it->second.restart();

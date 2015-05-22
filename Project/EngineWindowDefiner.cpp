@@ -29,6 +29,12 @@
 #include "Component\StatsComponent.hpp"
 #include "Component\HealthComponent.hpp"
 
+#include "Component\ReputationComponent.hpp"
+#include "Component\ProjectilePatternComponent.hpp"
+#include "Component\LevelComponent.h"
+
+#include "Component\InventoryComponent.hpp"
+
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
 
@@ -182,6 +188,30 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						Engine::Window.focus.gameObject->AddComponent<HealthComponent>();
 					else
 						MessageBoxA(0,"No focused Object, Select a GameObject first","Error 500",0);
+					break;
+				}
+				case ADD_ReputationComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<ReputationComponent>();
+					break;
+				}
+				case ADD_ProjectilePatternComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<ProjectilePatternComponent>();
+					break;
+				}
+				case ADD_LevelComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<LevelComponent>();
+					break;
+				}
+				case ADD_InventoryComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<InventoryComponent>();
 					break;
 				}
 #pragma endregion

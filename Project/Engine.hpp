@@ -7,7 +7,9 @@
 #include "EngineWindow.hpp"
 #include "Physics.hpp"
 #include "Time.hpp"
-#include "GraphicalUserInterface.hpp"
+
+#include "GraphicalUserInterface\GraphicalUserInterface.hpp"
+#include "Mouse\Mouse.hpp"
 #include "GameView.hpp"
 #include "WorldManagement.hpp"'
 #include "InputHandler.hpp"

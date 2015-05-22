@@ -54,18 +54,22 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name)
 {
-	if(!name.empty())
+	if (!name.empty())
 	{
-		std::map<std::string,sf::Texture>::iterator it;
+		std::map<std::string, sf::Texture>::iterator it;
 		it = loadedTextureMap.find(name);
 
-		if(it != loadedTextureMap.end())
+		if (it != loadedTextureMap.end())
 			return &it->second;
 
-		if(loadTexture(name))
+		if (loadTexture(name))
 			return &loadedTextureMap.find(name)->second;
 
 		//LOW set propper texturename
+		it = loadedTextureMap.find("test.png");
+		if (it != loadedTextureMap.end())
+			return &it->second;
+		loadTexture("test.png");
 		return &loadedTextureMap.find("test.png")->second;
 	}
 }
@@ -160,7 +164,7 @@ void Gfx::Draw()
 						outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
 						outlineTemp.setOrigin(rc->outline / 2,rc->outline / 2);
 						outlineTemp.setPosition(tc->position.x,tc->position.y);
-						test.setParameter("color",1,1,0,1);
+						test.setParameter("color",1,0,1,1);
 						test.setParameter("tex",*rc->sprite.getTexture());
 
 						Engine::View.render.draw(outlineTemp,sf::RenderStates(&test));
@@ -224,52 +228,54 @@ void Gfx::Draw()
 			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
 			Engine::View.render.draw(hitbox);
 		}
-		for(size_t i = 0; i < Engine::Physics.rigid.size(); i++)
+		for (size_t i = 0; i < Engine::Physics.rigid.size(); i++)
 		{
 			TransformComponent* tc = Engine::Physics.rigid[i]->attachedOn->GetComponent<TransformComponent>();
-			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setPosition(tc->position.x, tc->position.y);
 
 			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
 			Engine::View.render.draw(hitbox);
 
 			double hypno = std::sqrt((
 				Engine::Physics.rigid[i]->size.x*Engine::Physics.rigid[i]->size.x +
 				Engine::Physics.rigid[i]->size.y*Engine::Physics.rigid[i]->size.y
 				));
-			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, hypno, 2));
 
 			double degree = (std::asin(Engine::Physics.rigid[i]->size.y / hypno) * 180) / 3.14159265;
 
 			hitbox.setRotation(degree);
 			Engine::View.render.draw(hitbox);
 
-			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.rigid[i]->size.y);
+			hitbox.setPosition(tc->position.x, tc->position.y + Engine::Physics.rigid[i]->size.y);
 
 			hitbox.setRotation(-degree);
 			Engine::View.render.draw(hitbox);
 			hitbox.setRotation(0);
 
 			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
 			Engine::View.render.draw(hitbox);
 
 			//LeftBar
-			hitbox.setPosition(tc->position.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
+			hitbox.setPosition(tc->position.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
 			Engine::View.render.draw(hitbox);
 
 			//RightVBar
 
 			//Engine::View.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
+			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
 			Engine::View.render.draw(hitbox);
 		}
 	}
 #endif
+
 	//*/
 	//DrawTxt();
+
 }
 void Gfx::DrawBG()
 {

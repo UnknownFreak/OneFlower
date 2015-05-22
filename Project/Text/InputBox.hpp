@@ -11,7 +11,7 @@ public:
 	InputBox();
 	InputBox(sf::Font& font,int len,int xStart,int yStart,int xEnd,int yEnd);
 
-	void drawMessage(sf::RenderWindow* rwd);
+	void draw();
 	void move(int x,int y);
 	void move(float x,float y);
 

@@ -6,6 +6,10 @@
 #include "RenderComponent.h"
 #include "HitboxComponent.hpp"
 #include "DialogComponent.hpp"
+
+#include "../Engine.hpp"
+
+
 std::map<GameObject*,unsigned int> listOfGameObjectID;
 std::vector<unsigned int> listOfOldGameObjectID;
 
@@ -131,7 +135,7 @@ unsigned int RequestID()
 		return	 temp + 1;
 	}
 }
-#include "../Engine.hpp"
+
 void GameObject::destroy()
 {
 	Engine::game.requestRemoveal(this);

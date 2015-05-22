@@ -15,7 +15,8 @@ public:
 	sf::Font font;
 	sf::Clock timer;
 	sf::Color color;
-	sf::Text text;
+	sf::Text entireString;
+	std::vector<std::pair<sf::Text, bool>> text;
 	int size;
 	int maxLength;
 	int marginWidth;
@@ -32,6 +33,7 @@ public:
 	/*
 	Functions
 	//*/
+	virtual void draw();
 
 	void setFont(sf::Font* font);
 	void setColor(sf::Color c);
@@ -43,8 +45,16 @@ public:
 	virtual void setPosition(double x, double y);
 
 	Message& operator=(std::string s);
-	virtual void drawMessage(sf::RenderWindow* rwd);
+	//Message& operator+=(std::string s);
+	
+	virtual const std::string getString();
+	
+protected:
+	void createBody(std::string s);
+	virtual int iconFormat(std::pair<sf::Text, bool>& pair,std::vector<std::string>& iit, int iterpos);
 private:
+
+	
 
 	template <class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const Message& msg);

@@ -6,10 +6,13 @@
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
+#include "Component\ProjectilePatternComponent.hpp"
+#include "Component\LevelComponent.h"
+#include "Component\EquipmentComponent.hpp"
+
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
-
 int windowMessage();
 void RunMain();
 int test();
@@ -34,10 +37,14 @@ int windowMessage()
 {
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
+	go->AddComponent<ProjectilePatternComponent>();
+	go->AddComponent<LevelComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
+	//go->AddComponent<EquipmentComponent>();
+	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
@@ -93,16 +100,17 @@ int windowMessage()
 			if(Engine::event.type == sf::Event::Closed)
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
+
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			Engine::Input.update();
+				
 		}
 
 		Engine::View.render.clear();
-
+		
 		Engine::game.Update();
 
 		Engine::Physics.Update();
-
 		Engine::Graphic.Draw();
 
 
