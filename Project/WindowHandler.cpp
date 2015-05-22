@@ -8,10 +8,11 @@
 #include "Component\DialogComponent.hpp"
 #include "Component\ProjectilePatternComponent.hpp"
 #include "Component\LevelComponent.h"
+#include "Component\EquipmentComponent.hpp"
+
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
-
 int windowMessage();
 void RunMain();
 int test();
@@ -42,6 +43,8 @@ int windowMessage()
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
+	//go->AddComponent<EquipmentComponent>();
+	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
@@ -108,8 +111,6 @@ int windowMessage()
 		Engine::game.Update();
 
 		Engine::Physics.Update();
-		go->GetComponent<ProjectilePatternComponent>()->vPattern();
-
 		Engine::Graphic.Draw();
 
 		Engine::GUI.Draw();

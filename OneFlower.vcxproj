@@ -94,9 +94,9 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\ButtonObject.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
+    <ClInclude Include="Project\Component\EquipmentComponent.hpp" />
     <ClInclude Include="Project\Component\GameObject.h" />
     <ClInclude Include="Project\Component\HealthComponent.hpp" />
     <ClInclude Include="Project\Component\HitboxComponent.hpp" />
@@ -123,10 +123,20 @@
     <ClInclude Include="Project\Game.h" />
     <ClInclude Include="Project\GameView.hpp" />
     <ClInclude Include="Project\Gfx.h" />
-    <ClInclude Include="Project\GraphicalUserInterface.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\BaseWindow.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\BaseWindowObject.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\Button.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\GraphicalUserInterface.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\GraphicalInventory.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\StatsWindow.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\ToolTip.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\WindowIcon.hpp" />
     <ClInclude Include="Project\InputDialog.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
-    <ClInclude Include="Project\Item.hpp" />
+    <ClInclude Include="Project\Item\Armor.hpp" />
+    <ClInclude Include="Project\Item\Bag.hpp" />
+    <ClInclude Include="Project\Item\Item.hpp" />
     <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Mouse\Mouse.hpp" />
@@ -138,6 +148,7 @@
     <ClInclude Include="Project\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Text\Font.hpp" />
     <ClInclude Include="Project\Text\InputBox.hpp" />
+    <ClInclude Include="Project\Text\Message.hpp" />
     <ClInclude Include="Project\Tile.h" />
     <ClInclude Include="Project\Time.hpp" />
     <ClInclude Include="Project\Vector.h" />
@@ -146,9 +157,9 @@
     <ClInclude Include="Project\ZoneMaker.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\ButtonObject.cpp" />
     <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\DialogComponentDefiner.cpp" />
+    <ClCompile Include="Project\Component\EquipmentComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
     <ClCompile Include="Project\Component\HealthComponent.cpp" />
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
@@ -173,11 +184,21 @@
     <ClCompile Include="Project\GameDefiner.cpp" />
     <ClCompile Include="Project\GameHandler.cpp" />
     <ClCompile Include="Project\GameViewDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterfaceHandler.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowObjectDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterface.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterfaceHandler.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\GraphicalInventoryDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\StatsWindow.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\ToolTipDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\WindowIconDefiner.cpp" />
     <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandler.cpp" />
-    <ClCompile Include="Project\Item.cpp" />
+    <ClCompile Include="Project\Item\ArmorDefiner.cpp" />
+    <ClCompile Include="Project\Item\BagDefiner.cpp" />
+    <ClCompile Include="Project\Item\ItemDefiner.cpp" />
     <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Mouse\Mouse.cpp" />
     <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />

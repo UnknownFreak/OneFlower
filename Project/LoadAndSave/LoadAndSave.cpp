@@ -584,7 +584,7 @@ bool loadZoneFile(std::string name,Zone& zone)
 template <class Archive>
 void save(Archive& ar,const Message& msg)
 {
-	std::string txt = msg.text.getString();
+	std::string txt = msg.entireString.getString();
 	ar(msg.marginWidth);
 	ar(msg.maxLength);
 	ar(msg.size);
@@ -593,8 +593,8 @@ void save(Archive& ar,const Message& msg)
 	ar(msg.color.g);
 	ar(msg.color.b);
 	ar(msg.color.a);
-	ar(msg.text.getPosition().x);
-	ar(msg.text.getPosition().y);
+	ar(msg.text[0].first.getPosition().x);
+	ar(msg.text[0].first.getPosition().y);
 	ar(msg.duration);
 }
 
@@ -615,7 +615,7 @@ void load(Archive& ar,Message& msg)
 	ar(msg.color.a);
 	ar(x);
 	ar(y);
-	msg.text.setPosition(x,y);
+	msg.setPosition(x,y);
 	ar(msg.duration);
 }
 
@@ -625,7 +625,7 @@ void load(Archive& ar,Message& msg)
 template <class Archive>
 void save(Archive& ar,const FloatingText& msg)
 {
-	std::string txt = msg.text.getString();
+	std::string txt = msg.entireString.getString();
 	ar(msg.marginWidth);
 	ar(msg.maxLength);
 	ar(msg.size);
@@ -635,8 +635,8 @@ void save(Archive& ar,const FloatingText& msg)
 	ar(msg.color.b);
 	ar(msg.color.a);
 	ar(msg.iconName);
-	ar(msg.text.getPosition().x);
-	ar(msg.text.getPosition().y);
+	ar(msg.text[0].first.getPosition().x);
+	ar(msg.text[0].first.getPosition().y);
 	ar(msg.offset.x);
 	ar(msg.offset.y);
 	ar(msg.duration);
@@ -677,7 +677,7 @@ void load(Archive& ar,FloatingText& msg)
 #endif
 	ar(x);
 	ar(y);
-	msg.text.setPosition(x,y);
+	msg.setPosition(x,y);
 	ar(msg.offset.x);
 	ar(msg.offset.y);
 	ar(msg.duration);

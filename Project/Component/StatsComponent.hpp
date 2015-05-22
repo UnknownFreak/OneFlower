@@ -38,7 +38,7 @@ private:
 	template<class Archive>
 	friend void save(Archive& ar,const StatsComponent &stats);
 	template<class Archive>
-	friend void load(Archive& ar,const StatsComponent &stats);
+	friend void load(Archive& ar, StatsComponent &stats);
 };
 
 #endif //StatsComponent

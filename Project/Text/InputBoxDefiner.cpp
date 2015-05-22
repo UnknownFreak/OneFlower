@@ -1,5 +1,5 @@
 #include "InputBox.hpp"
-
+#include "../Engine.hpp"
 InputBox::InputBox()
 {
 }
@@ -11,13 +11,13 @@ InputBox::InputBox(sf::Font& font,int len,int x1,int y1,int x2,int y2): Message(
 	box[2].position = sf::Vector2f(x2,y2);
 	box[3].position = sf::Vector2f(x2,y1);
 
-	text.setString("Some string goes here");
+	createBody("Some string goes here");
 }
 
-void InputBox::drawMessage(sf::RenderWindow* rwd)
+void InputBox::draw()
 {
-	rwd->draw(box);
-	rwd->draw(text);
+	Engine::View.render.draw(box);
+	draw();
 }
 
 void InputBox::move(int x,int y)
