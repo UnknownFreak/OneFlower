@@ -198,7 +198,6 @@
     <ClCompile Include="Project\GraphicalUserInterface\WindowIconDefiner.cpp" />
     <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Item.cpp" />
     <ClCompile Include="Project\Item\ArmorDefiner.cpp" />
     <ClCompile Include="Project\Item\BagDefiner.cpp" />
     <ClCompile Include="Project\Item\ItemDefiner.cpp" />
