@@ -1,7 +1,7 @@
 #include "Mouse.hpp"
 #include "../Engine.hpp"
 #include "../Component/DialogComponent.hpp"
-#include "../Component/ProjectileComponent.hpp"
+#include "../Component/ProjectilePatternComponent.hpp"
 void scrollUpdate();
 
 Mouse::Mouse(): pos(0,0),offset(0,0)
@@ -23,9 +23,9 @@ void Mouse::update()
 #pragma region Left		
 			if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
-				ProjectileComponent* cp = Engine::Window.focus.gameObject->GetComponent<ProjectileComponent>();
+				ProjectilePatternComponent* cp = Engine::Window.focus.gameObject->GetComponent<ProjectilePatternComponent>();
 				if (cp)
-					cp->shoot(Engine::mouse.pos);
+					cp->updateMousePos(Engine::mouse.pos);
 				int top = 0;
 				for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 				{
