@@ -228,6 +228,48 @@ void Gfx::Draw()
 			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
 			Engine::View.render.draw(hitbox);
 		}
+		for (size_t i = 0; i < Engine::Physics.rigid.size(); i++)
+		{
+			TransformComponent* tc = Engine::Physics.rigid[i]->attachedOn->GetComponent<TransformComponent>();
+			hitbox.setPosition(tc->position.x, tc->position.y);
+
+			//TopBar
+			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
+			Engine::View.render.draw(hitbox);
+
+			double hypno = std::sqrt((
+				Engine::Physics.rigid[i]->size.x*Engine::Physics.rigid[i]->size.x +
+				Engine::Physics.rigid[i]->size.y*Engine::Physics.rigid[i]->size.y
+				));
+			hitbox.setTextureRect(sf::IntRect(0, 0, hypno, 2));
+
+			double degree = (std::asin(Engine::Physics.rigid[i]->size.y / hypno) * 180) / 3.14159265;
+
+			hitbox.setRotation(degree);
+			Engine::View.render.draw(hitbox);
+
+			hitbox.setPosition(tc->position.x, tc->position.y + Engine::Physics.rigid[i]->size.y);
+
+			hitbox.setRotation(-degree);
+			Engine::View.render.draw(hitbox);
+			hitbox.setRotation(0);
+
+			//BottomBar
+			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
+			Engine::View.render.draw(hitbox);
+
+			//LeftBar
+			hitbox.setPosition(tc->position.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
+			Engine::View.render.draw(hitbox);
+
+			//RightVBar
+
+			//Engine::View.render.draw(hitbox);
+			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
+			Engine::View.render.draw(hitbox);
+		}
 	}
 #endif
 }
