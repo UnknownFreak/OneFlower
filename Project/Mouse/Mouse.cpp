@@ -31,18 +31,6 @@ void Mouse::update()
 				int top = 0;
 				if (Engine::GUI.mouseOutsideOpenWindow())
 				{
-					RenderComponent* rc = 0;
-					GameObject* ab = 0;
-					HitboxComponent* hitbox = 0;
-					TransformComponent* transform = 0;
-					DialogComponent* dialog = 0;
-					RigidComponent* rig = 0;
-					hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
-					transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
-					rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
-					rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
-					if(hitbox || rig || rc)
-
 					for (int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 
 					{

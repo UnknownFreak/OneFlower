@@ -22,7 +22,7 @@ void ProjectilePatternComponent::updateMousePos(Vector2 mouse)
 {
 	TransformComponent* tcp = attachedOn->GetComponent<TransformComponent>();
 	velosity = 100;
-	movementDirection = tcp->position.direction(&mouse);
+	movementDirection = tcp->position.direction(mouse);
 	centerMid = mouse.y;
 	startPos = tcp->position;
 
