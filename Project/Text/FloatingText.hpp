@@ -15,13 +15,15 @@ public:
 	/*
 	Variables
 	//*/
+	bool drawIcon;
 	std::string iconName;
 	sf::Sprite iconSprite;
+	std::map<int,std::pair<sf::Sprite, Vector2>> icons;
 	Vector2 offset;
 	/*
 	Constructor
 	//*/
-	FloatingText(std::string iconName,sf::Font& font,double duration = 3,int len = -1,int offsetX = 0,int offsetY = 0);
+	FloatingText(std::string iconName, sf::Font& font,bool drawIcon = true, double duration = 3, int len = -1, int offsetX = 0, int offsetY = 0);
 	FloatingText(const FloatingText& ft);
 	FloatingText();
 	virtual ~FloatingText();
@@ -31,8 +33,11 @@ public:
 	void move(double x,double y);
 	void setPosition(double x,double y);
 	void setIcon(std::string name);
-	void drawMessage(sf::RenderWindow* rw);
+	void draw();
 	void setOffset(double x,double y);
+
+	int iconFormat(std::pair<sf::Text, bool>& pair,std::vector<std::string>& iit, int iterpos) override;
+
 	FloatingText& operator=(std::string info);
 
 protected:

@@ -8,7 +8,7 @@ class Time
 public:
 
 	float FPS();
-	bool time(std::string,int sec);
+	bool time(std::string,double msec);
 	void remove(std::string);
 	float deltaTime();
 	void restartDelta();

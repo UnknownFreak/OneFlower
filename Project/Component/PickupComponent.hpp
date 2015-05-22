@@ -5,9 +5,21 @@
 
 class PickupComponent : public IBaseComponent < PickupComponent >
 {
-private:
-	unsigned int ID;
+public:
 
+	PickupComponent() = default;
+	PickupComponent(unsigned int itemID);
+
+	void attachOn(GameObject* attachTo);
+	bool UpdateFromEditor();
+private:
+	unsigned int itemID;
+	bool pickedUp = false;
+
+	template<class Archive>
+	friend void save(Archive& ar, const PickupComponent &stats);
+	template<class Archive>
+	friend void load(Archive& ar, PickupComponent &stats);
 };
 
 

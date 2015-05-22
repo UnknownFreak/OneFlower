@@ -1,6 +1,9 @@
 #include "StatsComponent.hpp"
 #include "GameObject.h"
 
+//tmp
+#include "../Engine.hpp"
+
 const unsigned int IBaseComponent<StatsComponent>::typeID = 1007;
 std::string IBaseComponent<StatsComponent>::componentName = "StatsComponent";
 
@@ -28,5 +31,7 @@ void StatsComponent::attachOn(GameObject* attachTo)
 
 bool StatsComponent::UpdateFromEditor()
 {
+	//tmp - remove this later.
+	Engine::GUI.stats.updateStats = true;
 	return true;
 }

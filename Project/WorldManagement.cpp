@@ -154,7 +154,6 @@ void WorldManagement::EditorRemoveZone()
 		{
 			zoneInfo.erase(it);
 			saveInfo(zoneInfo);
-			MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
 		}
 	}
 }

@@ -28,6 +28,7 @@
 #include "Component\HitboxComponent.hpp"
 #include "Component\StatsComponent.hpp"
 #include "Component\HealthComponent.hpp"
+#include "Component\InventoryComponent.hpp"
 
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
@@ -166,6 +167,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<HealthComponent>();
+					break;
+				}
+				case ADD_InventoryComponent:
+				{
+					if (Engine::Window.focus.gameObject)
+						Engine::Window.focus.gameObject->AddComponent<InventoryComponent>();
 					break;
 				}
 #pragma endregion

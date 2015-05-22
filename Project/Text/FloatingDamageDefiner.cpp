@@ -15,9 +15,9 @@ FloatingDamage& FloatingDamage::operator=(int damageDone)
 {
 	//Test stuffs
 	if(damageDone < 0)
-		text.setString("Miss");
+		createBody("Miss");
 	else
-		text.setString(std::to_string(damageDone));
+		createBody(std::to_string(damageDone));
 
 	return *this;
 }

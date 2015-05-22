@@ -8,7 +8,7 @@ const unsigned int IBaseComponent<OverheadComponent>::typeID = 1005;
 std::string IBaseComponent<OverheadComponent>::componentName = "OverheadComponent";
 OverheadComponent::OverheadComponent(): msg(Message(*Engine::Graphic.font.requestFont("Arial.ttf"))),offset(0,0),spriteSize(0,0)
 {
-	msg.text.setCharacterSize(25);
+	msg.setSize(25);
 }
 
 void OverheadComponent::attachOn(GameObject* attachTo)

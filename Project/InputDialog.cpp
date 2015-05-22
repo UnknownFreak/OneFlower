@@ -9,7 +9,6 @@ static LPTSTR ID;
 static int type;
 static bool cancel;
 
-//TODO fix all ugly hacks
 INT_PTR InputDialog::InputBox(LPCSTR szTitle,LPTSTR szResult,LPTSTR nResultID,DWORD nResultSize,HWND Parent, int diagType)
 {
 	nMax = nResultSize;

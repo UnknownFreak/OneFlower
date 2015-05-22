@@ -43,18 +43,22 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name)
 {
-	if(!name.empty())
+	if (!name.empty())
 	{
-		std::map<std::string,sf::Texture>::iterator it;
+		std::map<std::string, sf::Texture>::iterator it;
 		it = loadedTextureMap.find(name);
 
-		if(it != loadedTextureMap.end())
+		if (it != loadedTextureMap.end())
 			return &it->second;
 
-		if(loadTexture(name))
+		if (loadTexture(name))
 			return &loadedTextureMap.find(name)->second;
 
 		//LOW set propper texturename
+		it = loadedTextureMap.find("test.png");
+		if (it != loadedTextureMap.end())
+			return &it->second;
+		loadTexture("test.png");
 		return &loadedTextureMap.find("test.png")->second;
 	}
 }
@@ -149,7 +153,7 @@ void Gfx::Draw()
 						outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
 						outlineTemp.setOrigin(rc->outline / 2,rc->outline / 2);
 						outlineTemp.setPosition(tc->position.x,tc->position.y);
-						test.setParameter("color",1,1,0,1);
+						test.setParameter("color",1,0,1,1);
 						test.setParameter("tex",*rc->sprite.getTexture());
 
 						Engine::View.render.draw(outlineTemp,sf::RenderStates(&test));

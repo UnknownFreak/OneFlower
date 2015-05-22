@@ -24,7 +24,7 @@ public:
 
 	Vector2 position;
 
-	int outline = 8;
+	int outline = 0;
 
 	//Name of texture;
 	std::string textureName = "test.png";

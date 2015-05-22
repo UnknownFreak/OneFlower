@@ -6,10 +6,10 @@
 #include "Component\RenderComponent.h"
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
+#include "Component\EquipmentComponent.hpp"
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
-
 int windowMessage();
 void RunMain();
 int test();
@@ -36,7 +36,7 @@ int windowMessage()
 	GameObject* go = new GameObject("player");
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
-
+	go->AddComponent<EquipmentComponent>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	sf::Shader& shader = Engine::Graphic.test;
@@ -86,15 +86,14 @@ int windowMessage()
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+			Engine::mouse.update();
 		}
 		Engine::View.render.clear();
 		Engine::game.Update();
 
 		Engine::Physics.Update();
-
+		
 		Engine::Graphic.Draw();
-
-		Engine::mouse.update();
 
 		Engine::GUI.Draw();
 
