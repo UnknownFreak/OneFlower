@@ -33,5 +33,10 @@ private:
 	//map
 	std::map<std::string, int> rep;
 	std::map<std::string, int> levels;
+
+	template<class Archive>
+	friend void save(Archive &ar, const ReputationComponent& rep);
+	template<class Archive>
+	friend void load(Archive &ar, ReputationComponent& rep);
 };
 #endif

@@ -3,7 +3,7 @@
 #include "IBaseComponent.hpp"
 #include <vector>
 #include "../Vector.h"
-class RigidComponent:public IBaseComponent < RigidComponent >
+class RigidComponent :public IBaseComponent < RigidComponent >
 {
 public:
 
@@ -11,10 +11,10 @@ public:
 	//TODO Add other constructors
 	RigidComponent();
 	~RigidComponent();
-
-	void addForce(Vector2 dir,float power);
+	RigidComponent(const RigidComponent & copy) = default;
+	void addForce(Vector2 dir, float power);
 	void attachOn(GameObject* go);
-	std::vector<std::pair<Vector2,double>> forceQueue;
+	std::vector<std::pair<Vector2, double>> forceQueue;
 
 	//Absolute Pixel not half pixel
 	Vector2 size;
@@ -34,6 +34,11 @@ public:
 	int Mass = 10;
 
 	std::vector<GameObject*> entered;
+
+	template<class Archive>
+	friend void save(Archive &ar, const RigidComponent& rep);
+	template<class Archive>
+	friend void load(Archive &ar, RigidComponent& rep);
 };
 
 #endif

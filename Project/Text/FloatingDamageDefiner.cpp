@@ -7,9 +7,6 @@ FloatingDamage::FloatingDamage(FloatingDamage& fdmg) : FloatingText(fdmg.iconNam
 {
 	setColor(fdmg.color);
 }
-FloatingDamage::~FloatingDamage()
-{
-}
 
 FloatingDamage& FloatingDamage::operator=(int damageDone)
 {

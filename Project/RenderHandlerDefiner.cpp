@@ -110,15 +110,18 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 }
 void Gfx::removeFromDrawList(GameObject* entityToRemove)
 {
-	int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
-	for(auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+	if (entityToRemove->GetComponent<RenderComponent>())
 	{
-		for(int i = 0; i < it->second.size(); i++)
+		int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
+		for (auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
-			if(it->second[i] == entityToRemove)
+			for (int i = 0; i < it->second.size(); i++)
 			{
-				it->second.erase(it->second.begin() + i);
-				break;
+				if (it->second[i] == entityToRemove)
+				{
+					it->second.erase(it->second.begin() + i);
+					break;
+				}
 			}
 		}
 	}

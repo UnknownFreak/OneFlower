@@ -12,9 +12,6 @@ Message::Message(const Message& msg) :text(msg.text), color(msg.color), size(msg
 Message::Message() : text(), color(sf::Color::Black), size(30), duration(5), maxLength(-1), entireString()
 {
 }
-Message::~Message()
-{
-}
 Message::Message(const sf::Font& f, const double dur, const int length) : text(), font(f), color(sf::Color::Black), size(30), duration(dur), maxLength(length), entireString("",font,size)
 {
 }

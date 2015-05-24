@@ -84,8 +84,11 @@ int windowMessage()
 			{
 				if(message.wParam == VK_ESCAPE)
 					SetFocus(Engine::Window.hWnd);
-				if(message.wParam == VK_DELETE)
+				if (message.wParam == VK_DELETE)
+				{
+					Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
+				}
 				if(message.wParam == VK_OEM_PLUS)
 					Engine::Input.mouse.deltaScrolls += 5;
 				if(message.wParam == VK_OEM_MINUS)

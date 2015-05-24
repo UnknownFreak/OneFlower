@@ -35,6 +35,8 @@
 
 #include "Component\InventoryComponent.hpp"
 
+#include "Zone.hpp"
+
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
 
@@ -123,6 +125,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					GameObject* a = new GameObject();
 					Engine::game.addGameObject(a);
 					Engine::Window.setGameObject(a);
+					Engine::World.getCurrentZone()->objects.push_back(a);
 					break;
 				}
 				case ADD_DialogComponent:
@@ -305,6 +308,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					if(Engine::Window.focus.gameObject)
 					{
+						Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
 						Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 					}
 					else

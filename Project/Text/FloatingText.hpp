@@ -26,7 +26,7 @@ public:
 	FloatingText(std::string iconName, sf::Font& font,bool drawIcon = true, double duration = 3, int len = -1, int offsetX = 0, int offsetY = 0);
 	FloatingText(const FloatingText& ft);
 	FloatingText();
-	virtual ~FloatingText();
+	virtual ~FloatingText() = default;
 	/*
 	Functions
 	//*/

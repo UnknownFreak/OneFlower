@@ -9,14 +9,9 @@ class HealthComponent: public IBaseComponent < HealthComponent >
 public:
 
 	HealthComponent();
-	HealthComponent(const HealthComponent& hcp);
 
 	bool invulnerable;
 	bool dead;
-#if _DEBUG
-	std::string tmp;
-	std::string tmp2;
-#endif
 	//probably rework this
 	StatsComponent* stats;
 

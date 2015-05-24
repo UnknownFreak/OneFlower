@@ -165,10 +165,13 @@ void ScrollBar::scrollHandle()
 	}
 	if (movingItem && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		selected->setColor(sf::Color(255, 255, 255, 127));
-		selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-		Engine::View.render.draw(*selected);
-		selected->setColor(sf::Color(255, 255, 255, 255));
+		if (selected)
+		{
+			selected->setColor(sf::Color(255, 255, 255, 127));
+			selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
+			Engine::View.render.draw(*selected);
+			selected->setColor(sf::Color(255, 255, 255, 255));
+		}
 	}
 	else if (!canSwapItems)
 	{
@@ -189,6 +192,10 @@ void ScrollBar::scrollHandle()
 	{
 		movingItem = false;
 		requestSwap = false;
+	}
+	else
+	{
+		movingItem = false;
 	}
 }
 void ScrollBar::setSizeX(int x)
