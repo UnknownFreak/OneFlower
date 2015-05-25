@@ -68,7 +68,7 @@ int Bag::findFirstEmptySlot()
 	return -1;
 }
 
-int Bag::addItem(Item *item)
+int Bag::addItem(Item *item, int numberOfItems)
 {
 	int i = findFirstEmptySlot();
 	if (i == -1)
@@ -79,17 +79,17 @@ int Bag::addItem(Item *item)
 	if (item->tag == Item::armor)
 	{
 		Armor* arm = (Armor*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Armor(*arm), 1));
+		items.insert(items.begin() + i, std::pair<Item*, int>(new Armor(*arm), numberOfItems));
 	}
 	else if (item->tag == Item::bag)
 	{
 		Bag* arm = (Bag*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Bag(*arm), 1));
+		items.insert(items.begin() + i, std::pair<Item*, int>(new Bag(*arm), numberOfItems));
 	}
 	else if (item->tag == Item::undefined)
 	{
 		Item* arm = (Item*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Item(*arm), 1));
+		items.insert(items.begin() + i, std::pair<Item*, int>(new Item(*arm), numberOfItems));
 	}
 	--freeSlots;
 	return i;

@@ -13,21 +13,21 @@ InventoryComponent::InventoryComponent() : maxWeight(150), currentWeight(0), bag
 #ifdef _DEBUG
 	usedBags = bags.size();
 	Item itm(0, true, "Boo", "ArrowTest.Png", Item::undefined, 0.1, 12, "Arrows <Debug>");
-	addItem(itm);
+	addItem(itm,1);
 	Armor Arm;
 	Arm.ID = 1;
 	Arm.armorType = "Helm";
-	addItem(Arm);
+	addItem(Arm,1);
 	Armor a(3, 3, "TestArmorHelm", "HelmTest.png", 2, 24, "ArmorTest", "Helm");
-	addItem(a);
+	addItem(a,1);
 	Arm.ID = 4;
 	Arm.armorType = "Boots";
-	addItem(Arm);
+	addItem(Arm,1);
 	Bag bg;
 	bg.ID = 2;
-	addItem(bg);
-	addItem(bg);
-	addItem(bg);
+	addItem(bg,1);
+	addItem(bg,1);
+	addItem(bg,1);
 #endif
 }
 InventoryComponent::~InventoryComponent()
@@ -35,7 +35,7 @@ InventoryComponent::~InventoryComponent()
 	for (auto it = bags.begin(); it != bags.end(); it++)
 		delete *it;
 }
-bool InventoryComponent::addItem(Item& item)
+bool InventoryComponent::addItem(Item& item, int numberOfItems)
 {
 	int i = 0;
 	bool exists = true;
@@ -52,10 +52,19 @@ bool InventoryComponent::addItem(Item& item)
 					break;
 				tmp++;
 			}
-			exists = false;
-			pair->second++;
+			
+			pair->second+= numberOfItems;
+			if (pair->second > STACKSIZE)
+			{
+				numberOfItems = pair->second - STACKSIZE;
+				if (Engine::GUI.inventory.createdInventory)
+					((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+				break;
+			}
 			if (Engine::GUI.inventory.createdInventory)
 				((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+
+			exists = false;
 			return true;
 		}
 		i += bg->size;
@@ -67,7 +76,7 @@ bool InventoryComponent::addItem(Item& item)
 			Bag* bg = *it;
 			if (bg->freeSlots != 0)
 			{
-				int tmp = bg->addItem(&item);
+				int tmp = bg->addItem(&item, numberOfItems);
 				if (tmp != -1)
 				{
 					if (Engine::GUI.inventory.createdInventory)

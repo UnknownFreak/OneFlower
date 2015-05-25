@@ -38,6 +38,7 @@ private:
 
 	bool mouseInsideIcon(sf::Sprite&);
 	
+	void onClose();
 	void swap();
 	void IconDrawHandle();
 	void IconSelectHandle();

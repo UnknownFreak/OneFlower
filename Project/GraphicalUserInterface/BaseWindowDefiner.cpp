@@ -2,16 +2,28 @@
 #include "../Engine.hpp"
 
 BaseWindow::BaseWindow(int x, int y, int sizeX, int sizeY, bool resizeable, std::string title) : close("WindowCloseIcon.png", 16, 16, x + sizeX - 16, sizeY),
-window(*Engine::Graphic.requestTexture("BoringInventoryGray.png"), sf::IntRect(0, 0, sizeX, sizeY)),
-resize("WindowResize.png", 16, 16, x + sizeX - 16, y + sizeY - 16), clickOffset(0, 0), position(x, y), drawResizeIcon(resizeable), title(*Engine::Graphic.font.requestFont("arial.ttf"))
+window(*Engine::Graphic.requestTexture("DefaultWindow.png"), sf::IntRect(0, 0, sizeX, sizeY)),
+resize("WindowResize.png", 16, 16, x + sizeX - 16, y + sizeY - 16), clickOffset(0, 0), position(x, y), drawResizeIcon(resizeable), title(*Engine::Graphic.font.requestFont("arial.ttf")),
+outline(sf::LinesStrip,5)
 {
 	this->title = title;
 	this->title.setSize(21);
+	outline[0].position = sf::Vector2f(x, y);
+	outline[1].position = sf::Vector2f(x + sizeX, y);
+	outline[2].position = sf::Vector2f(x + sizeX, y + sizeY);
+	outline[3].position = sf::Vector2f(x, y + sizeY);
+	outline[4].position = sf::Vector2f(x, y);
+	outline[0].color = sf::Color::Black;
+	outline[1].color = sf::Color::Black;
+	outline[2].color = sf::Color::Black;
+	outline[3].color = sf::Color::Black;
+	outline[4].color = sf::Color::Black;
 }
 
 void BaseWindow::draw()
 {
 	Engine::View.render.draw(window);
+	Engine::View.render.draw(outline);
 	title.draw();
 	close.draw();
 	if (drawResizeIcon)
@@ -22,6 +34,11 @@ void BaseWindow::Imove(double x, double y)
 	checkMouseOffset(x, y);
 	position.x = x - offsetX - clickOffset.x;
 	position.y = y - offsetY - clickOffset.y;
+	outline[0].position = sf::Vector2f(position.x, position.y);
+	outline[1].position = sf::Vector2f(position.x + window.getTextureRect().width, position.y);
+	outline[2].position = sf::Vector2f(position.x + window.getTextureRect().width, position.y + window.getTextureRect().height);
+	outline[3].position = sf::Vector2f(position.x, position.y + window.getTextureRect().height);
+	outline[4].position = sf::Vector2f(position.x, position.y);
 }
 void BaseWindow::Iresize(double x, double y)
 {
@@ -32,6 +49,10 @@ void BaseWindow::Iresize(double x, double y)
 	if (y1 < 240)
 		y1 = 240;
 	window.setTextureRect(sf::IntRect(0, 0, x1, y1));
+	outline[1].position = sf::Vector2f(window.getPosition().x + x1, window.getPosition().y);
+	outline[2].position = sf::Vector2f(window.getPosition().x + x1, window.getPosition().y + y1);
+	outline[3].position = sf::Vector2f(window.getPosition().x, window.getPosition().y + y1);
+
 }
 void BaseWindow::checkMouseOffset(double&x, double &y)
 {
@@ -51,8 +72,7 @@ void BaseWindow::WindowHandle()
 	if (close.onHover() && Engine::Input.mouse.leftClick() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
 		close.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
 	{
-		open = false;
-		focus = false;
+		requestClose = true;
 	}
 	if (resize.onHover() && Engine::Input.mouse.leftClick() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
 		resize.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())

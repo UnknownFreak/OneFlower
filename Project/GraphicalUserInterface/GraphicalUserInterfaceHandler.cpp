@@ -61,9 +61,23 @@ void GraphicalUserInterface::Draw()
 			for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
 			{
 				if (*it == &inventory)
+				{
 					inventory.draw();
+					if (inventory.requestClose)
+					{
+						showHideInventory();
+						break;
+					}
+				}
 				else if (*it == &stats)
+				{
 					stats.draw();
+					if (stats.requestClose)
+					{
+						showHideStats();
+						break;
+					}
+				}
 			}
 			if(updateFocus)
 			{

@@ -184,9 +184,15 @@ void GraphicalUserInterface::showHideInventory()
 		inventory.focus = false;
 		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
 			if (*it == &inventory)
+			{
 				openWindows.erase(it);
+				break;
+			}
 		if (openWindows.size() != 0)
+		{
 			focusedWindow = openWindows.back();
+			focusedWindow->focus = true;
+		}
 		else
 			focusedWindow = NULL;
 	}
@@ -208,9 +214,15 @@ void GraphicalUserInterface::showHideStats()
 		stats.focus = false;
 		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
 			if (*it == &stats)
+			{
 				openWindows.erase(it);
+				break;
+			}
 		if (openWindows.size() != 0)
+		{
 			focusedWindow = openWindows.back();
+			focusedWindow->focus = true;
+		}
 		else
 			focusedWindow = NULL;
 	}

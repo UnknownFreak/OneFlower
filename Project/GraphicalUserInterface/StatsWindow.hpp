@@ -28,6 +28,7 @@ private:
 	void createStats();
 	void createEquipmentList();
 	void IconSelectHandle();
+	void onClose();
 
 	void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
 

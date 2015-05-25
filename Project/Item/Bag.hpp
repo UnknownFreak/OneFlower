@@ -14,7 +14,7 @@ public:
 	int size;
 	int freeSlots;
 
-	int addItem(Item* item);
+	int addItem(Item* item, int numberOfItems);
 
 	std::vector<std::pair<Item*, int>> items;
 	std::pair<Item*, int>* FindNonFilledStack(int ID);

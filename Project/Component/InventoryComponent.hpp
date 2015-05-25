@@ -19,7 +19,7 @@ public:
 	InventoryComponent();
 	~InventoryComponent();
 	
-	bool addItem(Item& item);
+	bool addItem(Item& item, int numberOfItems);
 	bool swapItem(Bag* first, int firstPair, Bag* second,int secondPair);
 	bool equipBag(Bag* first, int firstPair);
 	bool unequipBag(Bag* bag, Bag* second, int emptySlot);

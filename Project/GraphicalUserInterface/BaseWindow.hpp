@@ -2,6 +2,7 @@
 #define BaseWindow_HPP
 
 #include <SFML\Graphics\Sprite.hpp>
+#include <SFML\Graphics\VertexArray.hpp>
 #include "Button.hpp"
 #include "../Text/Message.hpp"
 #include "../Vector.h"
@@ -16,10 +17,10 @@ public:
 	bool focus = false;
 	bool requestFocus = false;
 	bool drawResizeIcon;
-
+	bool requestClose = false;
 	sf::Sprite window;
 	Vector2 position;
-	
+	sf::VertexArray outline;
 	void draw();
 	void move();
 	void WindowHandle();
@@ -42,6 +43,7 @@ protected:
 	float offsetY = 0;
 
 	bool MouseInsideTitleBar();
+
 	void checkMouseOffset(double&x, double &y);
 	void Imove(double x, double y);
 	void Iresize(double x, double y);
