@@ -6,9 +6,7 @@ class BaseWindowObject
 {
 public:
 
-	virtual ~BaseWindowObject() = 0
-	{
-	};
+	virtual ~BaseWindowObject() = default;
 	virtual void draw() = 0
 	{
 	};

@@ -201,7 +201,7 @@ void GraphicalUserInterface::showHideInventory()
 	}
 }
 void GraphicalUserInterface::showHideStats()
-{	
+{
 	if (stats.open)
 	{
 		stats.open = false;

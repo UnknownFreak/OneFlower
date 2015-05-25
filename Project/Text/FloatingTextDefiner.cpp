@@ -2,10 +2,8 @@
 #include "../Gfx.h"
 #include "../Engine.hpp"
 
-FloatingText::~FloatingText()
-{
-}
-FloatingText::FloatingText(): Message(*Engine::Graphic.font.requestFont("Arial.ttf"),-1,-1),offset(0,0),iconName("")
+
+FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf"), -1, -1), offset(0, 0), iconName(""), drawIcon(true)
 {
 	iconSprite.setTexture(*Engine::Graphic.requestTexture("test.png"),true);
 	createBody("");
@@ -15,7 +13,7 @@ FloatingText::FloatingText(std::string icoName, sf::Font& f, bool drawIcon, doub
 	createBody("");
 	setIcon(iconName);
 }
-FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font,ft.duration,ft.maxLength),offset(ft.offset),iconName(ft.iconName)
+FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength), offset(ft.offset), iconName(ft.iconName), drawIcon(ft.drawIcon)
 {
 	setColor(ft.color);
 	createBody(ft.entireString.getString());

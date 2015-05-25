@@ -12,10 +12,6 @@ Item::Item(const Item& item) : ID(item.ID), stackable(item.stackable), name(item
 {
 
 }
-Item::~Item()
-{
-
-}
 
 Item& Item::operator=(const Item& other)
 {

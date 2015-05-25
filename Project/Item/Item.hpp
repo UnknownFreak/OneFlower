@@ -12,13 +12,12 @@ public:
 		armor,
 		weapon,
 		consumable,
-
 	};
 	Item();
 	Item(int ID, bool stackable, std::string name, std::string iconName, int tag, double weight, int price, std::string description);
 	Item(const Item& item);
 	Item& operator=(const Item& other);
-	virtual ~Item();
+	virtual ~Item() = default;
 
 	unsigned int ID;
 	bool stackable;
@@ -33,7 +32,7 @@ public:
 
 	virtual std::string toToolTipString();
 private:
-	
+
 	template<class Archive>
 	friend void save(Archive &Ar, const Item& item);
 	template<class Archive>

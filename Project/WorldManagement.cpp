@@ -181,4 +181,15 @@ void WorldManagement::EditorSetBackgroundSize(int x, int y)
 	currentZone->getBackground()->size.y = y;
 	Engine::game.addSprite(currentZone->getBackground(), true);	
 }
+void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
+{
+	std::vector<GameObject*>::iterator it = currentZone->objects.begin();
+	std::vector<GameObject*>::iterator end = currentZone->objects.end();
+	for (it; it != end; it++)
+		if (*it == go)
+		{
+			currentZone->objects.erase(it);
+			break;
+		}
+}
 #endif
