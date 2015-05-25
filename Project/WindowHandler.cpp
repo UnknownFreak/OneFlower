@@ -7,7 +7,6 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
 #include "Component\ProjectilePatternComponent.hpp"
-#include "Component\LevelComponent.h"
 #include "Component\EquipmentComponent.hpp"
 
 #include "Time.hpp"
@@ -38,7 +37,6 @@ int windowMessage()
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
 	go->AddComponent<ProjectilePatternComponent>();
-	go->AddComponent<LevelComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();

@@ -277,9 +277,6 @@
     <ClInclude Include="Project\Component\ProjectilePatternComponent.hpp">
       <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Component\LevelComponent.h">
-      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Component\MovementComponent.hpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClInclude>
@@ -463,9 +460,6 @@
       <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Component\ProjectilePatternComponentDefiner.cpp">
-      <Filter>Source Files\ComponentDefiners\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\LevelComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\InputHandlerDefiner.cpp">

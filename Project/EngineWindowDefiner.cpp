@@ -28,10 +28,8 @@
 #include "Component\HitboxComponent.hpp"
 #include "Component\StatsComponent.hpp"
 #include "Component\HealthComponent.hpp"
-
 #include "Component\ReputationComponent.hpp"
 #include "Component\ProjectilePatternComponent.hpp"
-#include "Component\LevelComponent.h"
 
 #include "Component\InventoryComponent.hpp"
 
@@ -200,12 +198,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					if (Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<ProjectilePatternComponent>();
-					break;
-				}
-				case ADD_LevelComponent:
-				{
-					if (Engine::Window.focus.gameObject)
-						Engine::Window.focus.gameObject->AddComponent<LevelComponent>();
 					break;
 				}
 				case ADD_InventoryComponent:

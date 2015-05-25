@@ -103,7 +103,6 @@
     <ClInclude Include="Project\Component\IBaseComponent.hpp" />
     <ClInclude Include="Project\Component\InventoryComponent.hpp" />
     <ClInclude Include="Project\Component\MovementComponent.hpp" />
-    <ClInclude Include="Project\Component\LevelComponent.h" />
     <ClInclude Include="Project\Component\OverheadComponent.hpp" />
     <ClInclude Include="Project\Component\PickupComponent.hpp" />
     <ClInclude Include="Project\Component\ProjectilePatternComponent.hpp" />
@@ -166,7 +165,6 @@
     <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\InventoryComponent.cpp" />
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\LevelComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\OverheadComponent.cpp" />
     <ClCompile Include="Project\Component\PickupComponent.cpp" />
     <ClCompile Include="Project\Component\ProjectilePatternComponentDefiner.cpp" />

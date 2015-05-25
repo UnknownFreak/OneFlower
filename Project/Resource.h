@@ -17,7 +17,6 @@
 #define ADD_HealthComponent 1008
 #define ADD_ReputationComponent 1023
 #define ADD_ProjectilePatternComponent 1024
-#define ADD_LevelComponent 1025
 #define ADD_InventoryComponent 1009
 #define ID_ADD_ZONE 2006
 #define ID_SAVE_ZONE 2007

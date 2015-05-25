@@ -1,6 +1,6 @@
 #include "ReputationComponent.hpp"
 #include "GameObject.h"
-#include "BaseComponent.hpp"
+#include "IBaseComponent.hpp"
 #include "../Engine.hpp"
 const unsigned int IBaseComponent<ReputationComponent>::typeID = 1023;
 std::string IBaseComponent<ReputationComponent>::componentName = "ReputationComponent";
