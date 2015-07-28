@@ -340,7 +340,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{
 #pragma region WM_WINDOWPOSCHANGED
 			RECT a = EditorUI::GetLocalCoordinates(hWnd);
-			RECT b = EditorUI::GetLocalCoordinates(Engine::View.hWnd);
+			RECT b = EditorUI::GetLocalCoordinates(Engine::Graphic.view.hWnd);
 #pragma region Focus Window
 			SetWindowPos
 				(
@@ -369,7 +369,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 #pragma region Game View
 			SetWindowPos
 				(
-				Engine::View.hWnd,hWnd,
+				Engine::Graphic.view.hWnd,hWnd,
 				a.left + GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2),
 				//LOW: Replace with GetThemeSysSize inside UxTheme.h
 				a.top + GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU),

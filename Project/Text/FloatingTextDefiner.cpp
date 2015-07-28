@@ -26,9 +26,9 @@ FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font,ft.duration
 void FloatingText::draw()
 {
 	if (drawIcon)
-		Engine::View.render.draw(iconSprite);
+		Engine::Graphic.view.render.draw(iconSprite);
 	for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); it++)
-		Engine::View.render.draw(it->second.first);
+		Engine::Graphic.view.render.draw(it->second.first);
 	Message::draw();
 }
 void FloatingText::move(double x,double y)

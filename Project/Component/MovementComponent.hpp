@@ -25,7 +25,7 @@ private:
 		Vector2 direction;
 	};
 	//*/
-protected:
+public:
 
 	Vector2 direction;
 	int distance;

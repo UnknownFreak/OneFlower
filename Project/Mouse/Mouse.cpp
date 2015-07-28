@@ -10,10 +10,10 @@ Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
 
 void Mouse::update()
 {
-	if(Engine::View.render.hasFocus())
+	if(Engine::Graphic.view.render.hasFocus())
 	{
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::View.render);
-		sf::Vector2f worldPos = Engine::View.render.mapPixelToCoords(pixelPos);
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Graphic.view.render);
+		sf::Vector2f worldPos = Engine::Graphic.view.render.mapPixelToCoords(pixelPos);
 
 		pos.x = worldPos.x;
 		pos.y = worldPos.y;
@@ -106,7 +106,7 @@ void Mouse::update()
 				Engine::GUI.scroll();
 			else
 			{
-				Engine::View.camera.zoom(1 + (scrollSpeed*-deltaScrolls));
+				Engine::Graphic.view.camera.zoom(1 + (scrollSpeed*-deltaScrolls));
 				Engine::GUI.setGUIScale();
 				deltaScrolls = 0;
 			}
@@ -117,8 +117,8 @@ void Mouse::update()
 				Engine::GUI.scroll();
 			else
 			{
-				sf::Vector2f size = Engine::View.camera.getSize();
-				Engine::View.camera.zoom(1 - (scrollSpeed*deltaScrolls));
+				sf::Vector2f size = Engine::Graphic.view.camera.getSize();
+				Engine::Graphic.view.camera.zoom(1 - (scrollSpeed*deltaScrolls));
 				Engine::GUI.setGUIScale();
 				deltaScrolls = 0;
 			}

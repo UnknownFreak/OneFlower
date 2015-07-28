@@ -27,15 +27,15 @@ ToolTip::ToolTip(const ToolTip& copy) : toolTipText(copy.toolTipText), toolTipBo
 }
 void ToolTip::setPosition(double x, double y)
 {
-	float width = Engine::View.camera.getSize().x;
-	float height = Engine::View.camera.getSize().y;
+	float width = Engine::Graphic.view.camera.getSize().x;
+	float height = Engine::Graphic.view.camera.getSize().y;
 
 	x += 8;
 	y -= 16;
 	double dy = y - toolTipIcon.getTextureRect().height + 12;
-	if (x + toolTipIcon.getTextureRect().width + 24 > Engine::View.camera.getCenter().x + width / 2)
+	if (x + toolTipIcon.getTextureRect().width + 24 > Engine::Graphic.view.camera.getCenter().x + width / 2)
 		x -= toolTipIcon.getTextureRect().width + 24;
-	if (!(dy > Engine::View.camera.getCenter().y - height / 2))
+	if (!(dy > Engine::Graphic.view.camera.getCenter().y - height / 2))
 		dy = y + 24;
 	toolTipText.setPosition(x + 12, dy + 4);
 	toolTipBody.setPosition(x + 12, dy + 28);
@@ -44,7 +44,7 @@ void ToolTip::setPosition(double x, double y)
 void ToolTip::draw()
 {
 	setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-	Engine::View.render.draw(toolTipIcon);
+	Engine::Graphic.view.render.draw(toolTipIcon);
 	toolTipText.draw();
 	toolTipBody.draw();
 }
@@ -78,14 +78,14 @@ void ToolTip::draw(std::string text)
 {
 	setToolTipText(text);
 	setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-	Engine::View.render.draw(toolTipIcon);
+	Engine::Graphic.view.render.draw(toolTipIcon);
 	toolTipText.draw();
 }
 void ToolTip::draw(std::string title, std::string _body)
 {
 	setToolTipText(title, _body);
 	setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-	Engine::View.render.draw(toolTipIcon);
+	Engine::Graphic.view.render.draw(toolTipIcon);
 	toolTipText.draw();
 	toolTipBody.draw();
 }

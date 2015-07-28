@@ -4,7 +4,7 @@
 
 void GraphicalUserInterface::Draw()
 {
-	if (Engine::View.render.hasFocus())
+	if (Engine::Graphic.view.render.hasFocus())
 	{
 		if (!hideGUI)
 		{
@@ -25,15 +25,15 @@ void GraphicalUserInterface::Draw()
 				mouseSlotRight.icon.setColor(sf::Color(255, 255, 255));
 			}
 			setIconLocation();
-			Engine::View.render.draw(mouseSlotLeft.icon);
-			Engine::View.render.draw(mouseSlotRight.icon);
-			float offsetX = Engine::View.camera.getCenter().x - (800 * Engine::View.camera.getViewport().width / 2);
-			float offsetY = Engine::View.camera.getCenter().y - (600 * Engine::View.camera.getViewport().height / 2);
+			Engine::Graphic.view.render.draw(mouseSlotLeft.icon);
+			Engine::Graphic.view.render.draw(mouseSlotRight.icon);
+			float offsetX = Engine::Graphic.view.camera.getCenter().x - (800 * Engine::Graphic.view.camera.getViewport().width / 2);
+			float offsetY = Engine::Graphic.view.camera.getCenter().y - (600 * Engine::Graphic.view.camera.getViewport().height / 2);
 			for (size_t i = 0; i < ActionSlot.size(); i++)
 			{
 				ActionSlot[i]->setPosition(40 + 128 * i + offsetX, 500 + offsetY);
 
-				Engine::View.render.draw(ActionSlot[i]->icon);
+				Engine::Graphic.view.render.draw(ActionSlot[i]->icon);
 				if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 					ActionSlot[i]->ActionSlotClick();
 			}
@@ -50,7 +50,7 @@ void GraphicalUserInterface::Draw()
 					if (dcp->open)
 					{
 						dcp->updateLocation();
-						dcp->msg->draw();//Engine::View.render.draw(dcp->msg->text);
+						dcp->msg->draw();//Engine::Graphic.view.render.draw(dcp->msg->text);
 						if (dcp->msg->timer.getElapsedTime().asSeconds() > dcp->msg->duration && dcp->msg->duration > 0)
 						{
 							dcp->close();
@@ -98,7 +98,7 @@ void GraphicalUserInterface::Draw()
 			{
 				while (ShowCursor(FALSE) > 0);
 				updateMouseIcon();
-				Engine::View.render.draw(mouseAim.sprite);
+				Engine::Graphic.view.render.draw(mouseAim.sprite);
 			}
 			else
 				while (ShowCursor(TRUE) < 0);

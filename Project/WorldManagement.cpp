@@ -65,7 +65,7 @@ WorldManagement::~WorldManagement()
 // load a zone from the world, removes the old one
 void WorldManagement::worldFromZone(unsigned int zoneID)
 {
-	Engine::View.camera.reset(sf::FloatRect(0,0,800,600));
+	Engine::Graphic.view.camera.reset(sf::FloatRect(0,0,800,600));
 	for(size_t i = 0; i < worldmap[zoneID]->objects.size(); i++)
 	{
 		Engine::game.addGameObject(worldmap[zoneID]->objects[i]);

@@ -11,7 +11,7 @@ resize("WindowResize.png", 16, 16, x + sizeX - 16, y + sizeY - 16), clickOffset(
 
 void BaseWindow::draw()
 {
-	Engine::View.render.draw(window);
+	Engine::Graphic.view.render.draw(window);
 	title.draw();
 	close.draw();
 	if (drawResizeIcon)
@@ -35,16 +35,16 @@ void BaseWindow::Iresize(double x, double y)
 }
 void BaseWindow::checkMouseOffset(double&x, double &y)
 {
-	float width = Engine::View.camera.getSize().x;
-	float height = Engine::View.camera.getSize().y;
-	if (x > Engine::View.camera.getCenter().x + width / 2 - 50)
-		x = Engine::View.camera.getCenter().x + width / 2 - 50;
-	if (x < Engine::View.camera.getCenter().x - width / 2)
-		x = Engine::View.camera.getCenter().x - width / 2;
-	if (y > Engine::View.camera.getCenter().y + height / 2 - 30)
-		y = Engine::View.camera.getCenter().y + height / 2 - 30;
-	if (y < Engine::View.camera.getCenter().y - height / 2)
-		y = Engine::View.camera.getCenter().y - height / 2;
+	float width = Engine::Graphic.view.camera.getSize().x;
+	float height = Engine::Graphic.view.camera.getSize().y;
+	if (x > Engine::Graphic.view.camera.getCenter().x + width / 2 - 50)
+		x = Engine::Graphic.view.camera.getCenter().x + width / 2 - 50;
+	if (x < Engine::Graphic.view.camera.getCenter().x - width / 2)
+		x = Engine::Graphic.view.camera.getCenter().x - width / 2;
+	if (y > Engine::Graphic.view.camera.getCenter().y + height / 2 - 30)
+		y = Engine::Graphic.view.camera.getCenter().y + height / 2 - 30;
+	if (y < Engine::Graphic.view.camera.getCenter().y - height / 2)
+		y = Engine::Graphic.view.camera.getCenter().y - height / 2;
 }
 void BaseWindow::WindowHandle()
 {
@@ -93,8 +93,8 @@ bool BaseWindow::MouseInsideTitleBar()
 }
 void BaseWindow::move()
 {
-	offsetX = Engine::View.camera.getCenter().x - (800 * Engine::View.camera.getViewport().width / 2);
-	offsetY = Engine::View.camera.getCenter().y - (600 * Engine::View.camera.getViewport().height / 2);
+	offsetX = Engine::Graphic.view.camera.getCenter().x - (800 * Engine::Graphic.view.camera.getViewport().width / 2);
+	offsetY = Engine::Graphic.view.camera.getCenter().y - (600 * Engine::Graphic.view.camera.getViewport().height / 2);
 	window.setPosition(position.x + offsetX, position.y + offsetY);
 	close.setPosition(position.x + offsetX + window.getTextureRect().width - inventoryButtonOffsets, position.y + offsetY);
 	resize.setPosition(position.x + offsetX + window.getTextureRect().width - inventoryButtonOffsets, position.y + offsetY + window.getTextureRect().height - inventoryButtonOffsets);

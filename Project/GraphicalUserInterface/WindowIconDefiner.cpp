@@ -19,7 +19,7 @@ WindowIcon::WindowIcon(sf::Sprite icon, std::string toolTipTitle, std::string to
 
 void WindowIcon::draw()
 {
-	Engine::View.render.draw(icon);
+	Engine::Graphic.view.render.draw(icon);
 	messageText.draw();
 }
 void WindowIcon::setPosition(Vector2 pos)

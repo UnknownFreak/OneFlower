@@ -86,10 +86,10 @@ int windowMessage()
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
-		while(Engine::View.render.pollEvent(Engine::event))
+		while(Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
 			if(Engine::event.type == sf::Event::Closed)
-				Engine::View.render.close();
+				Engine::Graphic.view.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			/*
@@ -111,7 +111,7 @@ int windowMessage()
 
 		Engine::GUI.Draw();
 
-		Engine::View.render.display();
+		Engine::Graphic.view.render.display();
 
 			Engine::Window.update();
 
