@@ -25,7 +25,6 @@ public:
 	DialogComponent(const DialogComponent &diag);
 	~DialogComponent();
 
-	void attachOn(GameObject* go);
 	void show();
 	void close();
 	void setMessage(std::string text,double duration = -1,int length = -1);
@@ -33,6 +32,8 @@ public:
 	bool open;
 	bool dCreated;
 	bool UpdateFromEditor();
+protected: 
+	void attachOn(GameObject* go);
 
 private:
 

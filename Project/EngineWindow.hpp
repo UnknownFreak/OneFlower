@@ -13,6 +13,7 @@
 #include "GameView.hpp"
 #include "EngineObjectListViewer.hpp"
 #include "EditorUI\EngineFocusWindow.hpp"
+#include "EngineDebugWindow.hpp"
 class GameObject;
 class EngineWindow
 {
@@ -23,7 +24,6 @@ public:
 	void setGameObject(GameObject* gameobject);
 	void update();
 
-	//	void setValue(BaseField* var,std::string value);
 	void setValue(BaseField* id,std::string value);
 
 	void print(std::string);
@@ -32,12 +32,14 @@ public:
 
 	HWND hWnd;
 	EngineObjectListViewer ListViewer;
+	
 	EngineFocus focus;
 
-	//GameObject* focusedGameObject = NULL;
+	EngineDebugWindow debug;
 
 	EditorID editorID;
-	//std::map<std::string,HWND> Fields;
+
+
 private:
 	Vector2 size;
 

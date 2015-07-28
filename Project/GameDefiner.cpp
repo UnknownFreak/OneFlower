@@ -19,6 +19,10 @@ Game::~Game()
 		}
 	}
 }
+void Game::addMotionObject(GameObject* entity)
+{
+	motionObjectPointers.push_back(entity);
+}
 
 void Game::addGameObject(GameObject* entity)
 {
@@ -32,6 +36,12 @@ void Game::addGameObject(GameObject* entity)
 	mapOfGameObjects.insert(std::pair<GameObject*,int>(entity,1));
 	}
 	//*/
+
+
+	
+
+
+
 	allGameObjectPointers.push_back(entity);
 	Engine::GUI.addOverhead(entity);
 	//Engine::Graphic.insertDrawableObject(entity);

@@ -21,7 +21,6 @@ void Mouse::update()
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
 
-
 #pragma region Left
 			if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
@@ -32,7 +31,6 @@ void Mouse::update()
 				if (Engine::GUI.mouseOutsideOpenWindow())
 				{
 					for (int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
-
 					{
 						RenderComponent* rc = 0;
 						GameObject* ab = 0;

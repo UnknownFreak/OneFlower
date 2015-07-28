@@ -9,6 +9,10 @@ bool BaseComponent::UpdateFromEditor()
 {
 	return false;
 }
+void BaseComponent::update()
+{
+
+}
 /*
 void BaseComponent::sendMessage(const BaseMessage& msg)
 {

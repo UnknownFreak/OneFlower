@@ -126,6 +126,9 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 
 void Gfx::Draw()
 {
+	
+	Engine::View.render.clear();
+
 	DrawBG();
 	{
 		RenderComponent* rc;

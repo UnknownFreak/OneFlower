@@ -32,6 +32,7 @@ void PhysicsEngine::removePhysics(HitboxComponent* obj)
 			if(obj == hitboxes[i])
 			{
 				hitboxes.erase(hitboxes.begin() + i);
+				break;
 			}
 }
 

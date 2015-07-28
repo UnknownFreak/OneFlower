@@ -6,6 +6,7 @@
 #include "Component\RenderComponent.h"
 #include "Component\HitboxComponent.hpp"
 #include "Engine.hpp"
+#include "ColliderBasic.hpp"
 void PhysicsEngine::Update()
 {
 	gravity();
@@ -18,46 +19,51 @@ void PhysicsEngine::gravity()
 		if(rigid[i]->gravity)
 		{
 			TransformComponent* tc = rigid[i]->attachedOn->GetComponent<TransformComponent>();
-			double velocity = (Gravity*PixelInOneMeter);
+
 			Vector2 past = tc->position;
-			rigid[i]->addForce(Vector2(0,1),velocity*Engine::time.deltaTime());
+
+			Vector2 direction(0,1);
+			double velocity = (Gravity*PixelInOneMeter);
+
+			std::pair<GameObject*,double> collisiontime = collision(rigid[i],Vector2(0,direction.y*velocity*Engine::time.deltaTime()));
+			
+			//HIGH: Checking how force move object on google.PS check collision and pass throug hitbox but still tirgger
+			if(collisiontime.second >= 1)
+				//tc->move(direction,velocity*Engine::time.deltaTime());
+				//tc->position.x += direction.x*velocity;
+				tc->position.y += direction.y*(velocity*Engine::time.deltaTime());
+			else
+				//tc->move(direction,(velocity*Engine::time.deltaTime())*collisiontime);
+				//tc->position.x += direction.x*velocity*collisiontime;
+				tc->position.y += direction.y*collisiontime.second*(velocity*Engine::time.deltaTime());
+			//*/	
+			//rigid[i]->replaceForce(Vector2(0,1),velocity*Engifne::time.deltaTime());
 		}
 	}
 }
 
-void RigidComponent::addForce(Vector2 dir,float power)
-{
-	if(dir.normalize())
-		forceQueue.push_back(std::make_pair(dir,power));
-#ifdef _DEBUG
-	else
-		MessageBoxA(0,"Not a Direction vector","AddForce CTRL + F ForcePower",0);
-#endif
-}
 void PhysicsEngine::simulation()
 {
 	for(size_t i = 0; i < rigid.size(); i++)
 	{
 		TransformComponent* tc = rigid[i]->attachedOn->GetComponent<TransformComponent>();
-		for(size_t j = 0; j < rigid[i]->forceQueue.size(); j++)
 		{
-			double force = rigid[i]->forceQueue[j].second;
-			Vector2 direction = rigid[i]->forceQueue[j].first;
-			double collisiontime = collision(rigid[i],Vector2(direction.x*force,direction.y*force));
-
-			if(collisiontime >= 1)
-				tc->move(direction,force);
-			else
-				tc->move(direction,force*collisiontime);
+			if(rigid[i]->inMotion())
+			{
+				double force = rigid[i]->force;
+				Vector2 direction = rigid[i]->direction;
+				std::pair<GameObject*,double> collider = collision(rigid[i],Vector2(direction.x*force,direction.y*force));
+				//HIGH: Checking how force move object on google.PS check collision and pass throug hitbox but still tirgger
+				if(collider.second >= 1)
+					tc->move(direction,force);
+				else
+					tc->move(direction,force*collider.second);
+			}
 		}
-		rigid[i]->forceQueue.clear();
+		//rigid[i]->forceQueue.clear();
 	}
 }
-#include <Windows.h>
-#include <math.h>
-#include <algorithm>
-
-float PhysicsEngine::collision(RigidComponent* inMotion,Vector2 speed)
+std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,Vector2 speed)
 {
 	TransformComponent* tc = inMotion->attachedOn->GetComponent<TransformComponent>();
 	Vector2 topLeft = tc->position + inMotion->position;
@@ -120,12 +126,9 @@ float PhysicsEngine::collision(RigidComponent* inMotion,Vector2 speed)
 		if(fastestCollision.second > collisionList[i].second)
 			fastestCollision = collisionList[i];
 	if(fastestCollision.first)
-	{
-		//fastestCollision.first->onCollision(inMotion->attachedOn);
-		return fastestCollision.second;
-	}
+		return std::pair<GameObject*,double>(fastestCollision.first->attachedOn,fastestCollision.second);
 	else
-		return 1;
+		return std::pair<GameObject*,double>(0,1);
 }
 
 float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,float& normalx,float& normaly,Vector2 speed)

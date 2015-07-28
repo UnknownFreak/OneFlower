@@ -52,8 +52,10 @@ public:
 	void updateFrame();
 
 	bool UpdateFromEditor();
-	void attachOn(GameObject* go);
+	
 	Vector2 oldSizePixel;
+protected:
+	void attachOn(GameObject* go);
 
 private:
 	//LOW: Remove this, dont think it needed

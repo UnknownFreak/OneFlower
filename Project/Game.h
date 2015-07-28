@@ -20,10 +20,11 @@ public:
 	//Get a pointer towards a GameObject via a copy pointer
 	GameObject* requestGameObject(const GameObject* gameObjectPointer);
 
-	GameObject* player;
+	//GameObject* player;
 
 	//This one work
 	void addGameObject(GameObject* entity);
+	void addMotionObject(GameObject* entity);
 
 	void addGameObject(GameObject entity);
 	//This one doesnt work
@@ -41,9 +42,11 @@ public:
 	void addSprite(Tile* t,bool isBackground = false);
 	void requestRemovealForeground(Tile* t);
 
-	//private:
-	std::vector<GameObject*> allGameObjectPointers;
+	private:
+		friend class Mouse;
+		std::vector<GameObject*> motionObjectPointers;
 
+	std::vector<GameObject*> allGameObjectPointers;
 	//std::map<GameObject*,int> mapOfGameObjects;
 
 	Vector2 pos;

@@ -17,13 +17,13 @@
 //Game Engine
 namespace AsianVikingMotor
 {
-	extern  GameView View;
 
 	extern sf::Event event;
 	//The Editor Window
 
 #ifdef _DEBUG
-	//The Window of the Game
+	//Main window of the Editor
+	//TODO: Rename this shit
 	extern EngineWindow Window;
 #endif
 	//Change this name to GameHandler Game

@@ -10,8 +10,25 @@
 #include <SFML\Window\Keyboard.hpp>
 #include <SFML\Window\Event.hpp>
 #include "Engine.hpp"
+#include "Component\MovementComponent.hpp"
 void Game::Update()
 {
+
+	for(size_t i = 0; i < motionObjectPointers.size(); i++)
+	{
+		MovementComponent* movement = motionObjectPointers[i]->GetComponent<MovementComponent>();
+		if(movement)
+		{
+			if(movement->inMotion())
+			{
+				Vector2& position = motionObjectPointers[i]->GetComponent<TransformComponent>()->position;
+
+
+				position.x += movement->direction.x*movement->speed*Engine::time.deltaTime();
+				position.y += movement->direction.y*movement->speed*Engine::time.deltaTime();
+			}
+		}
+	}
 	//LOW: Make my own Custom Focus
 	if(Engine::View.render.hasFocus())//Engine::Window.focus)
 	{
@@ -36,11 +53,4 @@ void Game::Update()
 	}
 	else
 		while(ShowCursor(true) < 0);
-}
-
-void synchronizeComponents()
-{
-}
-void mouseClick()
-{
 }

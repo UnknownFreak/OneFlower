@@ -37,9 +37,11 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\OneFlowerStandard.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\OneFlowerStandard.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,6 +96,7 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\ColliderBasic.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Component\EquipmentComponent.hpp" />
@@ -106,6 +109,7 @@
     <ClInclude Include="Project\Component\LevelComponent.h" />
     <ClInclude Include="Project\Component\OverheadComponent.hpp" />
     <ClInclude Include="Project\Component\PickupComponent.hpp" />
+    <ClInclude Include="Project\Component\PlayerComponent.hpp" />
     <ClInclude Include="Project\Component\ProjectilePatternComponent.hpp" />
     <ClInclude Include="Project\Component\RenderComponent.h" />
     <ClInclude Include="Project\Component\RigidComponent.hpp" />
@@ -138,7 +142,6 @@
     <ClInclude Include="Project\Item\Armor.hpp" />
     <ClInclude Include="Project\Item\Bag.hpp" />
     <ClInclude Include="Project\Item\Item.hpp" />
-    <ClInclude Include="Project\Keybind.hpp" />
     <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Mouse\Mouse.hpp" />
     <ClInclude Include="Project\Physics.hpp" />
@@ -169,6 +172,7 @@
     <ClCompile Include="Project\Component\LevelComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\OverheadComponent.cpp" />
     <ClCompile Include="Project\Component\PickupComponent.cpp" />
+    <ClCompile Include="Project\Component\PlayerComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\ProjectilePatternComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
     <ClCompile Include="Project\Component\ReputationComponentDefiners.cpp" />
@@ -180,6 +184,7 @@
     <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp" />
     <ClCompile Include="Project\EditorUI\EditorFieldHandler.cpp" />
     <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp" />
+    <ClCompile Include="Project\EngineDebugWindowDefiner.cpp" />
     <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp" />
     <ClCompile Include="Project\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\EngineWindowDefiner.cpp" />
