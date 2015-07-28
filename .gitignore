@@ -6,6 +6,7 @@
 *.exe
 *.sdf
 *.suo
-Debug/
 *.opensdf
 *.db
+Lib/
+Debug/
