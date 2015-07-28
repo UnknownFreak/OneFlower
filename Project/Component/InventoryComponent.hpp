@@ -19,6 +19,8 @@ public:
 	InventoryComponent();
 	~InventoryComponent();
 	
+	std::string getWeight();
+
 	bool addItem(Item& item, int numberOfItems);
 	bool swapItem(Bag* first, int firstPair, Bag* second,int secondPair);
 	bool equipBag(Bag* first, int firstPair);
@@ -28,6 +30,8 @@ public:
 	void attachOn(GameObject* attachTo);
 	void addGold(unsigned int goldToAdd);
 	void removeGold(unsigned int goldToRemove);
+	
+	Item* removeItem(int bag, int index, int numberOfItems);
 private:
 
 	template<class Archive>

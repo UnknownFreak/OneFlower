@@ -23,7 +23,7 @@ public:
 	/*
 	Constructor
 	//*/
-	FloatingText(std::string iconName, sf::Font& font,bool drawIcon = true, double duration = 3, int len = -1, int offsetX = 0, int offsetY = 0);
+	FloatingText(std::string iconName, sf::Font& font, bool drawIcon = true, double duration = 3, int len = -1, double offsetX = 0, double offsetY = 0);
 	FloatingText(const FloatingText& ft);
 	FloatingText();
 	virtual ~FloatingText() = default;
@@ -34,6 +34,7 @@ public:
 	void setPosition(double x,double y);
 	void setIcon(std::string name);
 	void draw();
+	void drawCrop(sf::IntRect area);
 	void setOffset(double x,double y);
 
 	int iconFormat(std::pair<sf::Text, bool>& pair,std::vector<std::string>& iit, int iterpos) override;

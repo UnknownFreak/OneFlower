@@ -32,7 +32,6 @@ void Mouse::update()
 				if (Engine::GUI.mouseOutsideOpenWindow())
 				{
 					for (int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
-
 					{
 						RenderComponent* rc = 0;
 						GameObject* ab = 0;
@@ -131,13 +130,13 @@ void Mouse::update()
 bool Mouse::leftClick()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !LMBPressed && Engine::time.time("LMBPress", 25))
-		return LMBPressed = true;
+		return (LMBPressed = true);
 	return false;
 }
 
 bool Mouse::rightClick()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !RMBPressed && Engine::time.time("RMBPress", 25))
-		return Engine::Input.mouse.RMBPressed = true;
+		return (RMBPressed = true);
 	return false;
 }

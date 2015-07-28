@@ -4,27 +4,38 @@
 #include <string>
 #include "..\Engine.hpp"
 
-Button::Button() : position(0, 0), name(""), hover(125, 125, 125), toolTip("None", "ToolTipIcon.png"), showToolTip(false)
+Button::Button() : position(0, 0), name(""), hover(125, 125, 125), toolTip("None", "ToolTipIcon.png"), showToolTip(false), text(*Engine::Graphic.font.requestFont("arial.ttf"))
 {
+	text.setSize(12);
 	icon.setTexture(*Engine::Graphic.requestTexture("ButtonTest.png"));
 	icon.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	setPosition(position);
 }
 
-Button::Button(std::string name) : position(0, 0), toolTip("None", "ToolTipIcon.png"), showToolTip(false)
+Button::Button(std::string _icon) : position(0, 0), toolTip("None", "ToolTipIcon.png"), showToolTip(false), text(*Engine::Graphic.font.requestFont("arial.ttf"))
 {
-	icon.setTexture(*Engine::Graphic.requestTexture(name));
+	text.setSize(12);
+	icon.setTexture(*Engine::Graphic.requestTexture(_icon));
 	icon.setTextureRect(sf::IntRect(0, 0, 64, 64));
 	setPosition(position);
 }
 
-Button::Button(std::string icon, int sizeX, int sizeY, double posX, double posY, sf::Color hover, bool showToolTip) : name(""), icon(*Engine::Graphic.requestTexture(icon), sf::IntRect(0, 0, sizeX, sizeY)), position(posX, posY), hover(hover), showToolTip(showToolTip), toolTip("None", "ToolTipIcon.png")
+Button::Button(std::string icon, int sizeX, int sizeY, double posX, double posY, sf::Color hover, bool showToolTip) : name(""), icon(*Engine::Graphic.requestTexture(icon), sf::IntRect(0, 0, sizeX, sizeY)), position(posX, posY), hover(hover), showToolTip(showToolTip), toolTip("", "", "ToolTipIcon.png"), text(*Engine::Graphic.font.requestFont("arial.ttf"))
 {
+	text.setSize(12);
 	setPosition(position);
 }
 
-Button::Button(std::string icon, int sizeX, int sizeY, double posX, double posY, std::string toolTip, sf::Color hover) : name(""), icon(*Engine::Graphic.requestTexture(icon), sf::IntRect(0, 0, sizeX, sizeY)), position(posX, posY), hover(hover), showToolTip(true), toolTip(toolTip, "ToolTipIcon.png")
+Button::Button(std::string icon, int sizeX, int sizeY, double posX, double posY, std::string toolTip, sf::Color hover) : name(""), icon(*Engine::Graphic.requestTexture(icon), sf::IntRect(0, 0, sizeX, sizeY)), position(posX, posY), hover(hover), showToolTip(true), toolTip("", toolTip, "ToolTipIcon.png"), text(*Engine::Graphic.font.requestFont("arial.ttf"))
 {
+	text.setSize(12);
+	setPosition(position);
+}
+Button::Button(std::string icon, sf::IntRect rect, double posX, double posY, std::string toolTip, sf::Color hover) : name(""), icon(*Engine::Graphic.requestTexture(icon), rect), position(posX, posY), hover(hover), showToolTip(true), toolTip("",toolTip, "ToolTipIcon.png"), text(*Engine::Graphic.font.requestFont("arial.ttf"))
+{
+	if (toolTip == "")
+		showToolTip = false;
+	text.setSize(12);
 	setPosition(position);
 }
 
@@ -59,11 +70,13 @@ void Button::setPosition(double x, double y)
 	position.x = x;
 	position.y = y;
 	icon.setPosition(x, y);
+	text.setPosition(x, y);
 }
 void Button::setPosition(Vector2 pos)
 {
 	position = pos;
 	icon.setPosition(pos.x, pos.y);
+	text.setPosition(pos.x, pos.y);
 }
 
 void Button::ActionSlotClick()
@@ -74,6 +87,7 @@ void Button::ActionSlotClick()
 void Button::draw()
 {
 	Engine::View.render.draw(icon);
+	text.draw();
 }
 Vector2 Button::getPosition()
 {
@@ -82,4 +96,9 @@ Vector2 Button::getPosition()
 void Button::setName(std::string name)
 {
 	this->name = name;
+	text = name;
+}
+std::string Button::getName()
+{
+	return name;
 }

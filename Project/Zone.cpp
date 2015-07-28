@@ -18,9 +18,9 @@ name(n),ID(i),background(bg)
 Zone::Zone(Zone &z):
 name(z.name),ID(z.ID),background(z.background)
 {
-	for(int i = 0; i < z.foregrounds.size(); i++)
+	for(size_t i = 0; i < z.foregrounds.size(); i++)
 		foregrounds.push_back(z.foregrounds[i]);
-	for(int i = 0; i < z.objects.size(); i++)
+	for(size_t i = 0; i < z.objects.size(); i++)
 		this->objects.push_back(z.objects[i]);
 }
 //default constructor

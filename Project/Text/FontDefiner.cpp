@@ -8,7 +8,7 @@ Font::Font()
 bool Font::loadFont(std::string name)
 {
 	sf::Font tmp;
-	if(!tmp.loadFromFile(name))
+	if(!tmp.loadFromFile("Font\\"+name))
 	{
 		MessageBox(0,"Error loading from file",name.c_str(),MB_OK);
 		return false;
@@ -25,7 +25,7 @@ sf::Font* Font::requestFont(std::string name)
 		return &it->second;
 	if(loadFont(name))
 		return &font.find(name)->second;
-	// todo: set propper "failed" to load font
+	// TODO: set propper "failed" to load font
 	return &font.find("arial.ttf")->second;
 }
 

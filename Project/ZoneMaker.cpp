@@ -15,7 +15,7 @@ void ZoneMap::addGameObject(GameObject* go)
 
 void ZoneMap::readForegroundsVector(std::vector<Tile> tiles)
 {
-	for(int i = 0; i < tiles.size(); i++)
+	for(size_t i = 0; i < tiles.size(); i++)
 	{
 		foregrounds.push_back(tiles[i]);
 	}

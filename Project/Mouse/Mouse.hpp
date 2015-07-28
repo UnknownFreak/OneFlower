@@ -20,7 +20,7 @@ public:
 	bool leftClick();
 	bool rightClick();
 	int deltaScrolls = 0;
-	float scrollSpeed = 0.05;
+	float scrollSpeed = 0.05f;
 
 private:
 };

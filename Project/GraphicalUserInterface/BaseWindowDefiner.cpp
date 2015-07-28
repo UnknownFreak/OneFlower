@@ -1,11 +1,17 @@
 #include "BaseWindow.hpp"
 #include "../Engine.hpp"
 
-BaseWindow::BaseWindow(int x, int y, int sizeX, int sizeY, bool resizeable, std::string title) : close("WindowCloseIcon.png", 16, 16, x + sizeX - 16, sizeY),
+BaseWindow::BaseWindow(float x, float y, int sizeX, int sizeY, bool resizeable, std::string title) : close("WindowIcons.png", sf::IntRect(0, 0, Engine::Graphic.requestTexture("WindowIcons.png")->getSize().x / 2, Engine::Graphic.requestTexture("WindowIcons.png")->getSize().y), x + sizeX - 16, sizeY, ""),
 window(*Engine::Graphic.requestTexture("DefaultWindow.png"), sf::IntRect(0, 0, sizeX, sizeY)),
-resize("WindowResize.png", 16, 16, x + sizeX - 16, y + sizeY - 16), clickOffset(0, 0), position(x, y), drawResizeIcon(resizeable), title(*Engine::Graphic.font.requestFont("arial.ttf")),
+resize("WindowIcons.png", sf::IntRect(Engine::Graphic.requestTexture("WindowIcons.png")->getSize().x / 2, 0, Engine::Graphic.requestTexture("WindowIcons.png")->getSize().x / 2, Engine::Graphic.requestTexture("WindowIcons.png")->getSize().y), x + sizeX - 16, y + sizeY - 16, ""),
+clickOffset(0, 0), position(x, y), drawResizeIcon(resizeable), title(*Engine::Graphic.font.requestFont("arial.ttf")),
 outline(sf::LinesStrip,5)
 {
+	double scaleX = 16 / (Engine::Graphic.requestTexture("WindowIcons.png")->getSize().x / 2);
+	double scaleY = 16 / Engine::Graphic.requestTexture("WindowIcons.png")->getSize().y;
+	close.icon.setScale(scaleX, scaleY);
+	resize.icon.setScale(scaleX, scaleY);
+
 	this->title = title;
 	this->title.setSize(21);
 	outline[0].position = sf::Vector2f(x, y);
@@ -34,21 +40,23 @@ void BaseWindow::Imove(double x, double y)
 	checkMouseOffset(x, y);
 	position.x = x - offsetX - clickOffset.x;
 	position.y = y - offsetY - clickOffset.y;
+	/*
 	outline[0].position = sf::Vector2f(position.x, position.y);
 	outline[1].position = sf::Vector2f(position.x + window.getTextureRect().width, position.y);
 	outline[2].position = sf::Vector2f(position.x + window.getTextureRect().width, position.y + window.getTextureRect().height);
 	outline[3].position = sf::Vector2f(position.x, position.y + window.getTextureRect().height);
 	outline[4].position = sf::Vector2f(position.x, position.y);
+	*/
 }
-void BaseWindow::Iresize(double x, double y)
+void BaseWindow::Iresize(float x, float y)
 {
-	int x1 = x - window.getPosition().x;
-	int y1 = y - window.getPosition().y;
+	float x1 = x - window.getPosition().x;
+	float y1 = y - window.getPosition().y;
 	if (x1 < 220)
 		x1 = 220;
-	if (y1 < 240)
-		y1 = 240;
-	window.setTextureRect(sf::IntRect(0, 0, x1, y1));
+	if (y1 < 290)
+		y1 = 290;
+	window.setTextureRect(sf::IntRect(0, 0, (int)x1, (int)y1));
 	outline[1].position = sf::Vector2f(window.getPosition().x + x1, window.getPosition().y);
 	outline[2].position = sf::Vector2f(window.getPosition().x + x1, window.getPosition().y + y1);
 	outline[3].position = sf::Vector2f(window.getPosition().x, window.getPosition().y + y1);
@@ -69,35 +77,59 @@ void BaseWindow::checkMouseOffset(double&x, double &y)
 }
 void BaseWindow::WindowHandle()
 {
-	if (close.onHover() && Engine::Input.mouse.leftClick() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
-		close.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
+	// check if user clicked inside a window that does not have focus - then request focus for that window
+	if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && checkMouseInside() && !Engine::GUI.focusedWindow->moving && !Engine::GUI.focusedWindow->resizeing
+		&& !Engine::GUI.focusedWindow->windowLClick)
 	{
-		requestClose = true;
+		if (Engine::Input.mouse.leftClick() || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			requestFocus = true;
+			Engine::GUI.updateFocus = true;
+		}
 	}
-	if (resize.onHover() && Engine::Input.mouse.leftClick() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
-		resize.onHover() && Engine::Input.mouse.leftClick() && !Engine::GUI.focusedWindow->checkMouseInside())
-		resizeing = true;
-	if (Engine::Input.mouse.LMBPressed && resizeing)
-		Iresize(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
-	else if (resizeing)
-		resizeing = false;
-	if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && Engine::Input.mouse.leftClick() && checkMouseInside() && !Engine::GUI.focusedWindow->moving)
+	// check if the user clicked inside a window with focus.
+	if (checkMouseInside() && (focus || requestFocus))
 	{
-		requestFocus = true;
-		Engine::GUI.updateFocus = true;
+		if (Engine::Input.mouse.leftClick())
+			windowLClick = true;
+		else if (Engine::Input.mouse.rightClick())
+			windowRClick = true;
+		else
+		{
+			windowLClick = false;
+			windowRClick = false;
+		}
 	}
-	if (MouseInsideTitleBar() && focus && Engine::GUI.focusedWindow->checkMouseInside() || MouseInsideTitleBar() && requestFocus)
+	//User hovers over the close button. in window that has focus, or a window that has the close button visible and has no focus, or if the window requests focus
+	if (close.onHover() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this && !moving ||
+		close.onHover() && !Engine::GUI.focusedWindow->checkMouseInside() && !moving ||
+		close.onHover() && requestFocus && !moving)
 	{
-		if (Engine::Input.mouse.leftClick() || requestFocus)
+		if (windowLClick || requestFocus)
+			requestClose = true;
+	}
+	// User hovers over the resize button (if it is drawn), same as above description
+	if (resize.onHover() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this && !moving ||
+		resize.onHover() && drawResizeIcon && !Engine::GUI.focusedWindow->checkMouseInside() && !moving)
+		if (windowLClick || requestFocus)
+			resizeing = true;
+		
+	if (MouseInsideTitleBar() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
+		MouseInsideTitleBar() && !Engine::GUI.focusedWindow->checkMouseInside() || 
+		MouseInsideTitleBar() && requestFocus)
+	{
+		if (windowLClick || requestFocus)
 		{
 			moving = true;
 			clickOffset.x = Engine::Input.mouse.pos.x - window.getPosition().x;
 			clickOffset.y = Engine::Input.mouse.pos.y - window.getPosition().y;
 		}
-		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && moving)
-			Imove(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
 	}
-	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && moving)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && resizeing)
+		Iresize(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
+	else if (resizeing)
+		resizeing = false;
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && moving && (focus || requestFocus))
 		Imove(Engine::Input.mouse.pos.x, Engine::Input.mouse.pos.y);
 	else
 		moving = false;
@@ -119,6 +151,12 @@ void BaseWindow::move()
 	close.setPosition(position.x + offsetX + window.getTextureRect().width - inventoryButtonOffsets, position.y + offsetY);
 	resize.setPosition(position.x + offsetX + window.getTextureRect().width - inventoryButtonOffsets, position.y + offsetY + window.getTextureRect().height - inventoryButtonOffsets);
 	title.setPosition(position.x + offsetX, position.y+ offsetY);
+
+	outline[0].position = sf::Vector2f(position.x + offsetX, position.y + offsetY);
+	outline[1].position = sf::Vector2f(position.x + offsetX + window.getTextureRect().width, position.y + offsetY);
+	outline[2].position = sf::Vector2f(position.x + offsetX + window.getTextureRect().width, position.y + offsetY + window.getTextureRect().height);
+	outline[3].position = sf::Vector2f(position.x + offsetX, position.y + offsetY + window.getTextureRect().height);
+	outline[4].position = sf::Vector2f(position.x + offsetX, position.y + offsetY);
 }
 bool BaseWindow::checkMouseInside()
 {

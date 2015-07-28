@@ -127,10 +127,11 @@
     <ClInclude Include="Project\GraphicalUserInterface\BaseWindowObject.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\Button.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\GraphicalUserInterface.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\GraphicalInventory.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\InventoryWindow.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\StatsWindow.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\ToolTip.hpp" />
+    <ClInclude Include="Project\GraphicalUserInterface\TradeWindow.hpp" />
     <ClInclude Include="Project\GraphicalUserInterface\WindowIcon.hpp" />
     <ClInclude Include="Project\InputDialog.hpp" />
     <ClInclude Include="Project\InputHandler.hpp" />
@@ -189,10 +190,11 @@
     <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalInventoryDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\InventoryWindowDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\StatsWindow.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\ToolTipDefiner.cpp" />
+    <ClCompile Include="Project\GraphicalUserInterface\TradeWindow.cpp" />
     <ClCompile Include="Project\GraphicalUserInterface\WindowIconDefiner.cpp" />
     <ClCompile Include="Project\InputDialog.cpp" />
     <ClCompile Include="Project\InputHandlerDefiner.cpp" />

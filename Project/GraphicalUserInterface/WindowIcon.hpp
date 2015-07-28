@@ -4,19 +4,21 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include "BaseWindowObject.hpp"
 #include "ToolTip.hpp"
-#include "../Text/Message.hpp"
+#include "../Text/FloatingText.hpp"
 
 class WindowIcon : public BaseWindowObject
 {
 public:
 
 	WindowIcon();
-	WindowIcon(sf::Sprite icon, std::string toolTipTitle, std::string toolTipBody, std::string messageText, Vector2 textOffset, std::pair<int,int> index, sf::Color color = sf::Color(255, 165, 0));
+	WindowIcon(sf::Sprite icon, std::string toolTipTitle, std::string toolTipBody,
+		std::string messageText, Vector2 textOffset, std::pair<int,int> index, 
+		sf::Color color = sf::Color(0, 0, 0), int fontSize= 14);
 
 	//used for inventory slots
 	std::pair<int, int> index;
 	sf::Sprite icon;
-	Message messageText;
+	FloatingText messageText;
 	std::string toolTipTitle;
 	std::string toolTipBody;
 	void draw();

@@ -9,7 +9,7 @@ private:
 
 public:
 	FloatingDamage();
-	FloatingDamage(std::string iconName,sf::Font& font,double duration = 3,int len = -1,int offsetX = 0,int offsetY = 0);
+	FloatingDamage(std::string iconName,sf::Font& font,double duration = 3,int len = -1,double offsetX = 0,double offsetY = 0);
 	FloatingDamage(FloatingDamage &fdmg);
 
 	FloatingDamage& operator=(int damageDone);

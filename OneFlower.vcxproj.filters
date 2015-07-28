@@ -250,9 +250,6 @@
     <ClInclude Include="Project\GraphicalUserInterface\Button.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\GraphicalInventory.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -279,6 +276,12 @@
     </ClInclude>
     <ClInclude Include="Project\Component\MovementComponent.hpp">
       <Filter>Source Files\ComponentDefiners</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GraphicalUserInterface\TradeWindow.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GraphicalUserInterface\InventoryWindow.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -429,9 +432,6 @@
     <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalInventoryDefiner.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -467,6 +467,12 @@
     </ClCompile>
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GraphicalUserInterface\TradeWindow.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GraphicalUserInterface\InventoryWindowDefiner.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

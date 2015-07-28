@@ -7,8 +7,9 @@
 #include "..\Component\TransformComponent.hpp"
 #include "..\Component\OverheadComponent.hpp"
 #include "Button.hpp"
-#include "GraphicalInventory.hpp"
+#include "InventoryWindow.hpp"
 #include "StatsWindow.hpp"
+#include "TradeWindow.hpp"
 #include "..\Tile.h"
 #include "..\Text\Message.hpp"
 #include<vector>
@@ -20,8 +21,9 @@ class GraphicalUserInterface
 {
 public:
 
-	GraphicalInventory inventory;
+	InventoryWindow inventory;
 	StatsWindow stats;
+	TradeWindow tradingWindow;
 	bool hideGUI;
 	bool isMouseVisible;
 	bool showOverhead;
@@ -63,8 +65,11 @@ public:
 
 	void showHideOverhead();
 	void showHideGUI();
+
 	void showHideInventory();
 	void showHideStats();
+	void showHideTradeWindow();
+
 	void addOverhead(GameObject* over);
 	void requestOverheadRemoval(GameObject* go);
 	void addDialog(DialogComponent &dcp);

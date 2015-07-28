@@ -12,6 +12,9 @@ public:
 		armor,
 		weapon,
 		consumable,
+		craftingMaterial,
+		junk,
+
 	};
 	Item();
 	Item(int ID, bool stackable, std::string name, std::string iconName, int tag, double weight, int price, std::string description);

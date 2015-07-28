@@ -11,7 +11,7 @@
 #include "GraphicalUserInterface\GraphicalUserInterface.hpp"
 #include "Mouse\Mouse.hpp"
 #include "GameView.hpp"
-#include "WorldManagement.hpp"'
+#include "WorldManagement.hpp"
 #include "InputHandler.hpp"
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
 //Game Engine

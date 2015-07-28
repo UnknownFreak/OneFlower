@@ -6,7 +6,7 @@
 #include "../Component/InventoryComponent.hpp"
 #include "../Item/Armor.hpp"
 #include "../Item/Bag.hpp"
-StatsWindow::StatsWindow(int x, int y, int sizeX, int sizeY) : BaseWindow(x, y, sizeX, sizeY, false, "Equipment"), stats(x - 64, y + 32, 64, 32, 16, Vector2(64, 5), this, false), noEquippedItemIcon(*Engine::Graphic.requestTexture("InventoryEmptyIcon.png")), items(0, 0, 64, 32, 32, Vector2(5, 5), this, true), toolTip("None")
+StatsWindow::StatsWindow(float x, float y, int sizeX, int sizeY) : BaseWindow(x, y, sizeX, sizeY, false, "Equipment"), stats(x - 64, y + 32, 64, 32, Vector2(16,16), Vector2(64, 5), this, false), noEquippedItemIcon(*Engine::Graphic.requestTexture("InventoryEmptyIcon.png")), items(0, 0, 64, 32, Vector2(32,32), Vector2(5, 5), this, true), toolTip("None")
 {
 }
 
@@ -43,9 +43,11 @@ void StatsWindow::draw()
 }
 void StatsWindow::WindowHandle()
 {
+	
 	stats.setPosition(position.x + 340 + offsetX, position.y + 64 + offsetY);
 	stats.setSizeY(256);
 	stats.setSizeX(136);
+	
 	items.setPosition(position.x - 32 + offsetX, position.y + 64 + offsetY);
 	items.setSizeY(300);
 	items.setSizeX(180);
@@ -77,7 +79,7 @@ void StatsWindow::createStats()
 }
 void StatsWindow::createEquipmentList()
 {
-	for (std::vector<BaseWindowObject*>::iterator it = items.sprites.begin(); it != items.sprites.end(); it++)
+	for (std::vector<BaseWindowObject*>::iterator it = items.sprites.begin(); it != items.sprites.end(); ++it)
 	{
 		delete *it;
 		*it = NULL;
@@ -89,7 +91,7 @@ void StatsWindow::createEquipmentList()
 		InventoryComponent* inv = go->GetComponent<InventoryComponent>();
 		if (inv)
 		{
-			for (size_t i = 0; i < inv->bags.size(); i++)
+			for (size_t i = 0; i < inv->bags.size(); ++i)
 			{
 				int ii = 0;
 				std::vector<std::pair<Item*, int>>::iterator it = inv->bags[i]->items.begin();
@@ -262,7 +264,7 @@ void StatsWindow::swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equ
 						size_t ii = 0;
 						for (size_t i = 0; i < icp->bags.size(); i++)
 						{
-							for (ii = 0; ii < icp->bags[i]->items.size(); ii++)
+							for (ii = 0; ii < icp->bags[i]->items.size(); ++ii)
 							{
 								if (icp->bags[i]->items[ii].first == arm)
 								{

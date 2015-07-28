@@ -9,6 +9,9 @@
 #include "Component\ProjectilePatternComponent.hpp"
 #include "Component\EquipmentComponent.hpp"
 
+#include "Component\PickupComponent.hpp"
+#include "Component\InventoryComponent.hpp"
+
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
@@ -41,7 +44,9 @@ int windowMessage()
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
-	//go->AddComponent<EquipmentComponent>();
+	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<PickupComponent>(1);
+	go->AddComponent<InventoryComponent>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	//else
@@ -101,7 +106,6 @@ int windowMessage()
 			if(Engine::event.type == sf::Event::Closed)
 				Engine::View.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
-
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			Engine::Input.update();
 				
@@ -112,14 +116,14 @@ int windowMessage()
 		Engine::game.Update();
 
 		Engine::Physics.Update();
-		Engine::Graphic.Draw();
 
+		Engine::Graphic.Draw();
 
 		Engine::GUI.Draw();
 
 		Engine::View.render.display();
 
-			Engine::Window.update();
+		Engine::Window.update();
 
 		//Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();

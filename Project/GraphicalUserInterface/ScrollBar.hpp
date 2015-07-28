@@ -9,8 +9,8 @@ class ScrollBar
 {
 public:
 
-	ScrollBar(int x, int y, int sizeX, int sizeY, int iconSize, Vector2 iconOffset, BaseWindow* parent, bool swapItems);
-
+	ScrollBar(float x, float y, int sizeX, int sizeY, Vector2 iconSize, Vector2 iconOffset, BaseWindow* parent, bool swapItems, bool clickableIcons = true);
+	~ScrollBar();
 	int selectedBag = 0;
 	int swapBag = 0;
 
@@ -27,11 +27,11 @@ public:
 	sf::VertexArray scrollLine;
 
 	void draw();
-	void setPosition(int x, int y);
+	void setPosition(double x, double y);
 	void setSizeY(int sizeY);
 	void setScrollBarSize(int size);
 	void setSizeX(int x);
-	void setScroll(float deltaScroll);
+	void setScroll(int deltaScroll);
 	
 	bool getIfMovingItem();
 	bool mouseInside();
@@ -40,12 +40,12 @@ public:
 
 private:
 
-	int iconSize;
+	Vector2 iconSize;
 	
 	bool _draw = false;
 	bool canSwapItems;
 	bool scrolling;
-
+	bool clickableIcons;
 	float scrolled = 0;
 	float maxScrolls = 1;
 	float deltaScrolls = 0;
@@ -60,8 +60,10 @@ private:
 	BaseWindow* parent;
 
 	void scrollHandle();
+	void movingItemScrollHandle();
 	void setTiles(Vector2& off);
 	void checkIfScrollBar(Vector2&off);
 	void drawIcon(BaseWindowObject& obj, Vector2& off, int i);
+	void drawMoving(sf::Sprite& sprite,int index, std::string toolTipBody);
 };
 #endif
