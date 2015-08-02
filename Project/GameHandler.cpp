@@ -11,21 +11,33 @@
 #include <SFML\Window\Event.hpp>
 #include "Engine.hpp"
 #include "Component\MovementComponent.hpp"
-void Game::Update()
+void Game::update()
 {
 
 	for(size_t i = 0; i < motionObjectPointers.size(); i++)
 	{
 		MovementComponent* movement = motionObjectPointers[i]->GetComponent<MovementComponent>();
+		//HIGH: Learn the math, Been to long to remember
 		if(movement)
 		{
+			Vector2 position = motionObjectPointers[i]->GetComponent<TransformComponent>()->position;
+			Vector2 finalDirection(0,0);
+			std::vector<std::pair<Vector2,double>> forces = movement->forces;
+			double movementSpeed = 0;
+
 			if(movement->inMotion())
 			{
-				Vector2& position = motionObjectPointers[i]->GetComponent<TransformComponent>()->position;
+				finalDirection = movement->direction;
 
+				for(size_t i = 0; i < forces.size(); ++i)
+				{
+					finalDirection += forces[i].first;
+					finalDirection.normalize();
 
-				position.x += movement->direction.x*movement->speed*Engine::time.deltaTime();
-				position.y += movement->direction.y*movement->speed*Engine::time.deltaTime();
+				}
+				position.x += finalDirection.x*movementSpeed*Engine::time.deltaTime();
+				position.y += finalDirection.y*movementSpeed*Engine::time.deltaTime();
+
 			}
 		}
 	}

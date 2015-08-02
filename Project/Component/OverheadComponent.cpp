@@ -27,7 +27,7 @@ void OverheadComponent::attachOn(GameObject* attachTo)
 	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.g,ColorGreen);
 	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.b,ColorBlue);
 }
-bool OverheadComponent::UpdateFromEditor()
+bool OverheadComponent::updateFromEditor()
 {
 	msg.setColor(msg.color);
 

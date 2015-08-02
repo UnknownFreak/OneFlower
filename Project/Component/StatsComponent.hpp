@@ -31,7 +31,7 @@ public:
 	Race race;
 
 	void attachOn(GameObject* attachTo);
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 
 private:
 

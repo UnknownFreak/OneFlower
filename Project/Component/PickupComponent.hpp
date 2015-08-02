@@ -11,7 +11,7 @@ public:
 	PickupComponent(unsigned int itemID);
 
 	void attachOn(GameObject* attachTo);
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 private:
 	unsigned int itemID;
 	bool pickedUp = false;

@@ -29,7 +29,7 @@ void StatsComponent::attachOn(GameObject* attachTo)
 	REGISTER_EDITOR_VARIABLE(int,agility,Agility);
 }
 
-bool StatsComponent::UpdateFromEditor()
+bool StatsComponent::updateFromEditor()
 {
 	//tmp - remove this later.
 	Engine::GUI.stats.updateStats = true;

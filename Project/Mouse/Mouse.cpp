@@ -2,7 +2,7 @@
 #include "../Engine.hpp"
 #include "../Component/DialogComponent.hpp"
 #include "../Component/ProjectilePatternComponent.hpp"
-void scrollUpdate();
+void scrollupdate();
 
 Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
 {

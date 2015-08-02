@@ -51,7 +51,7 @@ public:
 
 	void updateFrame();
 
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 	
 	Vector2 oldSizePixel;
 protected:

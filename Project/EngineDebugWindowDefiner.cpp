@@ -57,24 +57,27 @@ void EngineDebugWindow::init(HWND phWnd)
 }
 void EngineDebugWindow::print(std::string msg,int codeline,std::string filePath)
 {
-	EngineDebugMessage windowMsg(msg);
-	size_t reversePos = filePath.rfind("\\");
-
-	std::string nameOfFile(filePath.begin() + reversePos + 1,filePath.end());
-
-	if(reversePos != std::wstring::npos)
+	if(hWnd)
 	{
-		std::string newMsg = msg + "\nCodeLine: " + std::to_string(codeline) + '\n' + nameOfFile;
-		windowMsg.hWnd = CreateWindowEx
-			(
-			0,"STATIC",newMsg.c_str(),WS_CHILD | WS_VISIBLE | WS_BORDER,
-			0,list.size()*messageSize,width - (GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2)),(list.size() + 1)*messageSize,
-			hWnd,(HMENU)123456789,Engine::Window.hInstance,NULL
-			);
-		if(windowMsg.hWnd)
-			list.push_back(windowMsg);
-		else
-			MessageBox(0,std::string("Unable to add: " + msg).c_str(),"Unable to add Message to Debug Window",0);
+		EngineDebugMessage windowMsg(msg);
+		size_t reversePos = filePath.rfind("\\");
+
+		std::string nameOfFile(filePath.begin() + reversePos + 1,filePath.end());
+
+		if(reversePos != std::wstring::npos)
+		{
+			std::string newMsg = msg + "\nCodeLine: " + std::to_string(codeline) + '\n' + nameOfFile;
+			windowMsg.hWnd = CreateWindowEx
+				(
+				0,"STATIC",newMsg.c_str(),WS_CHILD | WS_VISIBLE | WS_BORDER,
+				0,list.size()*messageSize,width - (GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2)),(list.size() + 1)*messageSize,
+				hWnd,(HMENU)123456789,Engine::Window.hInstance,NULL
+				);
+			if(windowMsg.hWnd)
+				list.push_back(windowMsg);
+			else
+				MessageBox(0,std::string("Unable to add: " + msg).c_str(),"Unable to add Message to Debug Window",0);
+		}
 	}
 }
 

@@ -7,7 +7,7 @@
 #include "Component\HitboxComponent.hpp"
 #include "Engine.hpp"
 #include "ColliderBasic.hpp"
-void PhysicsEngine::Update()
+void PhysicsEngine::update()
 {
 	gravity();
 	simulation();

@@ -36,6 +36,6 @@ public:
 	BaseComponent* holder;
 
 	//Auto call EditorComponentFunction if true
-	bool autoUpdate;
+	bool autoupdate;
 };
 #endif

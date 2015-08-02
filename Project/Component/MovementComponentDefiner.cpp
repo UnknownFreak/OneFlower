@@ -17,8 +17,8 @@ bool MovementComponent::inMotion()
 		return true;
 	if(rotation)
 		return true;
-	if(distance)
-		return true;
+//	if(distance)
+	//	return true;
 
 
 	return false;

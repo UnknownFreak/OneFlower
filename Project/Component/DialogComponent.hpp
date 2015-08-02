@@ -31,7 +31,7 @@ public:
 	void updateLocation();
 	bool open;
 	bool dCreated;
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 protected: 
 	void attachOn(GameObject* go);
 

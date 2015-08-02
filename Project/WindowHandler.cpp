@@ -98,22 +98,20 @@ int windowMessage()
 			std::cout << "system:" << event.key.system << std::endl;
 			//*/				
 		}
-		
 
 		Engine::Input.update();
-		
-		
-		Engine::game.Update();
 
-		Engine::Physics.Update();
+		Engine::game.update();
+
+		Engine::Physics.update();
+
 		Engine::Graphic.Draw();
-
 
 		Engine::GUI.Draw();
 
 		Engine::Graphic.view.render.display();
-
-			Engine::Window.update();
+		
+		Engine::Window.update();
 
 		//Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
@@ -154,7 +152,7 @@ int test()
 		window.draw(sprite);
 		// Draw the string
 	//	window.hasFocus() ? window.draw(text) : window.draw(text2);
-		// Update the window
+		// update the window
 		window.display();
 	}
 	return EXIT_SUCCESS;

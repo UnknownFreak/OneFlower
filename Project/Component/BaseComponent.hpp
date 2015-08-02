@@ -65,8 +65,8 @@ protected:
 	virtual std::map<std::string,BaseField*> getFields() = 0;
 
 	
-	//Update component whenever Editor change a variable value
-	virtual bool UpdateFromEditor();
+	//update component whenever Editor change a variable value
+	virtual bool updateFromEditor();
 #endif
 
 protected:

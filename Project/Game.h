@@ -37,7 +37,7 @@ public:
 	//	void Game::addGameObject(GameObject* entity,Gfx*);
 
 	void requestRemoveal(GameObject* entity);
-	void Update();
+	void update();
 
 	void addSprite(Tile* t,bool isBackground = false);
 	void requestRemovealForeground(Tile* t);

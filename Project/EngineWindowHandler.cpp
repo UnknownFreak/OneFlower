@@ -94,9 +94,9 @@ void EngineWindow::setGameObject(GameObject* t)
 			/*
 			//Add a Manual update button
 			int tempID = EditorUI::RequestID();
-			EditorField<int>* tempField = new EditorField<int>(NULL,"Update_Button");
+			EditorField<int>* tempField = new EditorField<int>(NULL,"update_Button");
 			tempField->holder = gameComponent_it->second->getFields().begin()->second->holder;
-			Engine::Window.focus.addLabel(itFG->hWnd,"Auto Update: ",0,(itFG->variableCount * 8) + 64 + 8,128,32,tempID);
+			Engine::Window.focus.addLabel(itFG->hWnd,"Auto update: ",0,(itFG->variableCount * 8) + 64 + 8,128,32,tempID);
 			itFG->field.insert(std::make_pair(tempID,tempField));
 			}
 			//*/
@@ -156,7 +156,7 @@ void EngineWindow::setValue(BaseField* id,std::string value)
 			MessageBox(Engine::Window.hWnd,"Type is Unknown","Unknown",0);
 		}
 		if(variable->holder)
-			variable->holder->UpdateFromEditor();
+			variable->holder->updateFromEditor();
 		//else
 		//MessageBox(Engine::Window.hWnd,"Empty variable Holder","Error: MissingHolder",NULL);
 	}

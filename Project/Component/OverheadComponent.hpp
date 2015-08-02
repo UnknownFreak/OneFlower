@@ -16,7 +16,7 @@ public:
 	void setPosition();
 	void setPosition(Vector2 pos);
 	void setPosition(double x,double y);
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 
 private:
 

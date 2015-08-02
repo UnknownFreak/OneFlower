@@ -11,7 +11,7 @@ class PhysicsEngine
 	friend class Gfx;
 public:
 	PhysicsEngine();
-	void Update();
+	void update();
 
 	void addPhysics(GameObject* obj);
 	void addPhysics(HitboxComponent* obj);

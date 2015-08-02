@@ -117,7 +117,7 @@ void DialogComponent::close()
 		open = false;
 	}
 }
-bool DialogComponent::UpdateFromEditor()
+bool DialogComponent::updateFromEditor()
 {
 	tryLoadTextureAndFont();
 	updateLocation();
