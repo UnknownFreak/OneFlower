@@ -27,6 +27,7 @@ public:
 
 	//Colliding Object. [0] up and than go Clock-Wise
 	GameObject* colisionDirection[4];
+	//GameObject* colisionDirection[4];
 
 	bool gravity = false;
 

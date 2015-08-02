@@ -103,9 +103,6 @@
     <ClInclude Include="Project\InputHandler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Keybind.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Project\ZoneMaker.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -119,9 +116,6 @@
       <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\HitboxComponent.hpp">
-      <Filter>Header Files\GameObject &amp; Component\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\IBaseComponent.hpp">
       <Filter>Header Files\GameObject &amp; Component\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\RenderComponent.h">
@@ -279,6 +273,15 @@
     </ClInclude>
     <ClInclude Include="Project\Component\MovementComponent.hpp">
       <Filter>Source Files\ComponentDefiners</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\PlayerComponent.hpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\ColliderBasic.hpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Component\IBaseComponent.hpp">
+      <Filter>Header Files\GameObject &amp; Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -465,9 +468,24 @@
     <ClCompile Include="Project\InputHandlerDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="Project\Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EngineDebugWindowDefiner.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\PlayerComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
+      <Filter>Source Files\ComponentDefiners</Filter>
+    </ClCompile>
+>>>>>>> origin/Centerlizing-Project-With-Input-System
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\MenuBar.rc">
@@ -475,12 +493,14 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="test.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="test2.frag">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>

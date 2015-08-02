@@ -7,8 +7,8 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\DialogComponent.hpp"
 #include "Component\ProjectilePatternComponent.hpp"
-#include "Component\EquipmentComponent.hpp"
-
+#include "Component\EquipmentComponent.hpp"	
+#include "Component\PlayerComponent.hpp"
 #include "Time.hpp"
 #include "WorldManagement.hpp"
 #include "Component\RigidComponent.hpp"
@@ -17,7 +17,6 @@ void RunMain();
 int test();
 EngineWindow Engine::Window;
 Gfx Engine::Graphic;
-GameView Engine::View;
 sf::Event Engine::event;
 Game Engine::game;
 Time Engine::time;
@@ -41,6 +40,7 @@ int windowMessage()
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
+	go->AddComponent<PlayerComponent>();
 	//go->AddComponent<EquipmentComponent>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
@@ -51,7 +51,7 @@ int windowMessage()
 	Time time;
 	MSG message;
 	ZeroMemory(&message,sizeof(MSG));
-	Engine::View.render.setFramerateLimit(200);
+	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
 
 	CreateWindowEx(
@@ -64,20 +64,11 @@ int windowMessage()
 		Engine::Window.hInstance,
 		NULL
 		);
-
+	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	while(message.message != WM_QUIT)
 	{
 		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
 		{
-			/*
-			for(auto i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); ++i)
-			{
-			if(IsDialogMessage(i->second.hWnd,&message))
-			{
-			break;
-			}
-			}
-			//*/
 			if(message.message == WM_KEYDOWN)
 			{
 				if(message.wParam == VK_ESCAPE)
@@ -96,30 +87,32 @@ int windowMessage()
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
-		while(Engine::View.render.pollEvent(Engine::event))
+		while(Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
 			if(Engine::event.type == sf::Event::Closed)
-				Engine::View.render.close();
+				Engine::Graphic.view.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
-
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
-			Engine::Input.update();
-				
+			/*
+			std::cout << "alt:" << event.key.alt << std::endl;
+			std::cout << "shift:" << event.key.shift << std::endl;
+			std::cout << "system:" << event.key.system << std::endl;
+			//*/				
 		}
 
-		Engine::View.render.clear();
-		
-		Engine::game.Update();
+		Engine::Input.update();
 
-		Engine::Physics.Update();
+		Engine::game.update();
+
+		Engine::Physics.update();
+
 		Engine::Graphic.Draw();
-
 
 		Engine::GUI.Draw();
 
-		Engine::View.render.display();
-
-			Engine::Window.update();
+		Engine::Graphic.view.render.display();
+		
+		Engine::Window.update();
 
 		//Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
@@ -160,7 +153,7 @@ int test()
 		window.draw(sprite);
 		// Draw the string
 	//	window.hasFocus() ? window.draw(text) : window.draw(text2);
-		// Update the window
+		// update the window
 		window.display();
 	}
 	return EXIT_SUCCESS;

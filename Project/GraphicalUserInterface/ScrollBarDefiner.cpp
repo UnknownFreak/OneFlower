@@ -19,7 +19,7 @@ void ScrollBar::draw()
 	scrollHandle();
 	if (_draw)
 	{
-		Engine::View.render.draw(scrollLine);
+		Engine::Graphic.view.render.draw(scrollLine);
 		top.draw();
 		bot.draw();
 		scroll.draw();
@@ -165,13 +165,10 @@ void ScrollBar::scrollHandle()
 	}
 	if (movingItem && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		if (selected)
-		{
-			selected->setColor(sf::Color(255, 255, 255, 127));
-			selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-			Engine::View.render.draw(*selected);
-			selected->setColor(sf::Color(255, 255, 255, 255));
-		}
+		selected->setColor(sf::Color(255, 255, 255, 127));
+		selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
+		Engine::Graphic.view.render.draw(*selected);
+		selected->setColor(sf::Color(255, 255, 255, 255));
 	}
 	else if (!canSwapItems)
 	{
@@ -179,7 +176,7 @@ void ScrollBar::scrollHandle()
 		{
 			selected->setColor(sf::Color(255, 255, 255, 127));
 			selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-			Engine::View.render.draw(*selected);
+			Engine::Graphic.view.render.draw(*selected);
 			selected->setColor(sf::Color(255, 255, 255, 255));
 		}
 	}
@@ -192,10 +189,6 @@ void ScrollBar::scrollHandle()
 	{
 		movingItem = false;
 		requestSwap = false;
-	}
-	else
-	{
-		movingItem = false;
 	}
 }
 void ScrollBar::setSizeX(int x)
