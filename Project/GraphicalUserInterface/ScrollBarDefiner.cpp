@@ -4,29 +4,51 @@
 #include "../Item/Bag.hpp"
 #include "BaseWindowObject.hpp"
 #include "WindowIcon.hpp"
-ScrollBar::ScrollBar(int x, int y, int sizeX, int sizeY, int iconSize, Vector2 iconOffset, BaseWindow* parent, bool swapItems) : scrollLine(sf::PrimitiveType::LinesStrip, 2),
-top("ScrollBarArrowUp.png", 8, 8, x, y),
-bot("ScrollBarArrowDown.png", 8, 8, x, y + sizeY), scrolling(false),
-scroll("ScrollBar.png", 8, 4, x, y + 8), parent(parent),
+
+ScrollBar::ScrollBar(float x, float y, int sizeX, int sizeY, Vector2 iconSize, Vector2 iconOffset, BaseWindow* parent, bool swapItems, bool clickableIcons) : scrollLine(sf::PrimitiveType::LinesStrip, 2),
+top("ScrollBar.png", sf::IntRect(Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2, 0, 
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2, 
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().y / 2), x, y, ""),
+
+bot("ScrollBar.png", sf::IntRect(Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2,
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().y / 2,
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2,
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().y / 2), x, y + sizeY, ""), scrolling(false),
+
+scroll("ScrollBar.png", sf::IntRect(0,0,Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2,
+Engine::Graphic.requestTexture("ScrollBar.png")->getSize().y / 2), x, y + 8, ""), parent(parent),
 offset(parent->position.x, parent->position.y), canSwapItems(swapItems),
 iconSize(iconSize), iconOffset(iconOffset), position(x, y), size(sizeX, sizeY)
-, tooltip(NULL, ToolTip())
+, tooltip(NULL, ToolTip()), clickableIcons(clickableIcons)
 {
+	double scaleX = 8 / (Engine::Graphic.requestTexture("ScrollBar.png")->getSize().x / 2.0);
+	double scaleY = 8 / (Engine::Graphic.requestTexture("ScrollBar.png")->getSize().y / 2.0);
+	top.icon.setScale(scaleX, scaleY);
+	bot.icon.setScale(scaleX, scaleY);
+	scroll.icon.setScale(scaleX, 1);
 	setPosition(x, y);
+}
+ScrollBar::~ScrollBar()
+{
+	for (size_t i = 0; i < sprites.size(); i++)
+	{
+		delete sprites[i];
+		sprites[i] = NULL;
+	}
 }
 void ScrollBar::draw()
 {
 	scrollHandle();
 	if (_draw)
 	{
-		Engine::Graphic.view.render.draw(scrollLine);
+		Engine::View.render.draw(scrollLine);
 		top.draw();
 		bot.draw();
 		scroll.draw();
 	}
 	int i = 0;
 	Vector2 off(offset);
-	for (std::vector<BaseWindowObject*>::iterator it = sprites.begin(); it != sprites.end(); it++)
+	for (std::vector<BaseWindowObject*>::iterator it = sprites.begin(); it != sprites.end(); ++it)
 	{
 		BaseWindowObject* obj = *it;
 		if (obj)
@@ -41,7 +63,7 @@ void ScrollBar::draw()
 	i = 0;
 	off = offset;
 }
-void ScrollBar::setPosition(int x, int y)
+void ScrollBar::setPosition(double x, double y)
 {
 	position.x = x;
 	position.y = y;
@@ -55,32 +77,26 @@ void ScrollBar::setPosition(int x, int y)
 }
 void ScrollBar::setTiles(Vector2& off)
 {
-	off.x += iconSize + iconOffset.x;
-	if (off.x > top.icon.getPosition().x - iconSize - iconOffset.x)
+	off.x += iconSize.x + iconOffset.x;
+	if (off.x > top.icon.getPosition().x - iconSize.x - iconOffset.x)
 	{
-		off.y += iconSize + iconOffset.y;
+		off.y += iconSize.y + iconOffset.y;
 		off.x = offset.x;
 	}
 }
 void ScrollBar::checkIfScrollBar(Vector2&off)
 {
-	float width = top.icon.getPosition().x - offset.x;
-	float itemsPerRow_f = width / (iconSize + iconOffset.x);
-	float iconOutside = off.y - bot.getPosition().y + 8;
-	float windowSize = bot.getPosition().y + 8 - offset.y;
-	float totalRows_f = sprites.size() / itemsPerRow_f;
+	double width = top.icon.getPosition().x - offset.x;
+	double itemsPerRow_f = width / (iconSize.x + iconOffset.x);
+	double windowSize = bot.getPosition().y + 8 - offset.y;
+	double totalRows_f = sprites.size() / itemsPerRow_f;
+	double itemsInWindow = (windowSize) / (iconSize.y + iconOffset.y);
 
-	int itemsPerRow = int(itemsPerRow_f);
-	int totalRows = int(totalRows_f);
+	if ((int)totalRows_f < totalRows_f)
+		totalRows_f = (int)totalRows_f + 1;
+	maxScrolls = off.y - bot.getPosition().y + 8 + iconOffset.y;
+	deltaScrolls = itemsInWindow / (totalRows_f);
 
-	if (itemsPerRow > itemsPerRow_f + 0.5f)
-		--itemsPerRow;
-	if (totalRows > totalRows_f)
-		--totalRows;
-	
-	maxScrolls = iconOutside + iconSize;
-	float itemsInWindow = (windowSize) / (iconSize + iconOffset.y);
-	deltaScrolls = itemsInWindow / (totalRows);
 	int size = (bot.getPosition().y - (top.getPosition().y + 8)) * deltaScrolls;
 	setScrollBarSize(size);
 
@@ -91,7 +107,7 @@ void ScrollBar::checkIfScrollBar(Vector2&off)
 }
 void ScrollBar::setScrollBarSize(int size)
 {
-	scroll.icon.setTextureRect(sf::IntRect(0, 0, 8, size));
+	scroll.icon.setTextureRect(sf::IntRect(0, 0, scroll.icon.getTextureRect().width, size));
 }
 void ScrollBar::setSizeY(int len)
 {
@@ -99,24 +115,24 @@ void ScrollBar::setSizeY(int len)
 }
 bool ScrollBar::checkCulling(sf::Sprite* sprite, Vector2& position)
 {
-	if (position.y - scrolled > top.getPosition().y && position.y - scrolled + iconSize < bot.getPosition().y + 8)
+	if (position.y - scrolled > top.getPosition().y && position.y - scrolled + iconSize.y < bot.getPosition().y + 8)
 	{
-		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, 0, iconSize, iconSize));
+		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, 0, iconSize.x, iconSize.y));
 		return true;
 	}
-	else if (position.y - scrolled + iconSize > top.getPosition().y && !(position.y - scrolled + iconSize + iconOffset.y > bot.getPosition().y + 8))
+	else if (position.y - scrolled + iconSize.y > top.getPosition().y && !(position.y - scrolled + iconSize.y + iconOffset.y > bot.getPosition().y + 8))
 	{
-		int minSize = sprite->getPosition().y + iconSize;
-		int topSize = top.getPosition().y;
-		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, iconSize - (minSize - topSize), iconSize, (minSize - topSize)));
+		double minSize = sprite->getPosition().y + iconSize.y;
+		double topSize = top.getPosition().y;
+		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, iconSize.y - (minSize - topSize), iconSize.x, (minSize - topSize)));
 		sprite->setPosition(position.x, top.getPosition().y);
 		return true;
 	}
-	else if (position.y - scrolled < bot.getPosition().y && position.y - scrolled + iconSize + iconOffset.y > bot.icon.getPosition().y + 8)
+	else if (position.y - scrolled < bot.getPosition().y && position.y - scrolled + iconSize.y + iconOffset.y > bot.icon.getPosition().y + 8)
 	{
-		int minSize = sprite->getPosition().y + iconSize;
-		int topSize = bot.getPosition().y + 8;
-		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, 0, iconSize, iconSize - (minSize - topSize)));
+		double minSize = sprite->getPosition().y + iconSize.y;
+		double topSize = bot.getPosition().y + 8;
+		sprite->setTextureRect(sf::IntRect(sprite->getTextureRect().left, 0, iconSize.x, iconSize.y - (minSize - topSize)));
 		return true;
 	}
 	return false;
@@ -125,21 +141,23 @@ void ScrollBar::scrollHandle()
 {
 	if (_draw)
 	{
-		if (top.onHover() && Engine::Input.mouse.leftClick())
+		if (parent->focus)
 		{
-			scrolled -= 8;
-			if (scrolled < 0)
-				scrolled = 0;
+			if (top.onHover() && parent->windowLClick)
+			{
+				scrolled -= 8;
+				if (scrolled < 0)
+					scrolled = 0;
+			}
+			else if (bot.onHover() && parent->windowLClick)
+			{
+				scrolled += 8;
+				if (scrolled > maxScrolls)
+					scrolled = maxScrolls;
+			}
+			else if (scroll.onHover() && parent->windowLClick)
+				scrolling = true;
 		}
-		if (bot.onHover() && Engine::Input.mouse.leftClick())
-		{
-			scrolled += 8;
-			if (scrolled > maxScrolls)
-				scrolled = maxScrolls;
-		}
-		if (scroll.onHover() && Engine::Input.mouse.leftClick())
-			scrolling = true;
-
 		if (scrolling && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
 			if (mousePosY < Engine::Input.mouse.pos.y)
@@ -159,25 +177,22 @@ void ScrollBar::scrollHandle()
 			else if (scrolled > maxScrolls)
 				scrolled = maxScrolls;
 		}
-		else if (scrolling)
+		else
 			scrolling = false;
 		scroll.setPosition(scroll.getPosition().x, top.getPosition().y + 8 + (((bot.getPosition().y - 16 - scroll.icon.getTextureRect().height) - top.getPosition().y + 8) * (scrolled / maxScrolls)));
 	}
+	movingItemScrollHandle();
+}
+void ScrollBar::movingItemScrollHandle()
+{
 	if (movingItem && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
-		selected->setColor(sf::Color(255, 255, 255, 127));
-		selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-		Engine::Graphic.view.render.draw(*selected);
-		selected->setColor(sf::Color(255, 255, 255, 255));
-	}
-	else if (!canSwapItems)
 	{
 		if (selected)
 		{
-			selected->setColor(sf::Color(255, 255, 255, 127));
 			selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
-			Engine::Graphic.view.render.draw(*selected);
-			selected->setColor(sf::Color(255, 255, 255, 255));
+			selected->setColor(sf::Color(255, 255, 255, 127));
+			Engine::View.render.draw(*selected);
+			selected->setColor(sf::Color(255, 255, 255));
 		}
 	}
 	else if (movingItem && !mouseInsideIcon(*selected) && canSwapItems && mouseInside())
@@ -190,7 +205,10 @@ void ScrollBar::scrollHandle()
 		movingItem = false;
 		requestSwap = false;
 	}
+	else
+		movingItem = false;
 }
+
 void ScrollBar::setSizeX(int x)
 {
 	size.x = x;
@@ -211,57 +229,61 @@ void ScrollBar::drawIcon(BaseWindowObject& obj, Vector2& off, int i)
 		WindowIcon& ico = (WindowIcon&)obj;
 		if (checkCulling(&ico.icon, off))
 		{
-			if (mouseInsideIcon(ico.icon) && !movingItem)
+			if (mouseInsideIcon(ico.icon) && !movingItem && parent->focus ||
+				mouseInsideIcon(ico.icon) && !movingItem && !Engine::GUI.focusedWindow->checkMouseInside() ||
+				mouseInsideIcon(ico.icon) && !movingItem && parent->requestFocus)
 			{
-				ico.icon.setColor(sf::Color(150, 150, 150));
-				ico.draw();
-				ico.icon.setColor(sf::Color(255, 255, 255));
+				if (!canSwapItems && selected == &ico.icon)
+				{
+					ico.icon.setColor(sf::Color(25, 230, 140));
+					ico.draw();
+					ico.icon.setColor(sf::Color(255, 255, 255));
 
+				}
+				else if (!canSwapItems && clickableIcons)
+				{
+					ico.icon.setColor(sf::Color(25, 230, 140,127));
+					ico.draw();
+					ico.icon.setColor(sf::Color(255, 255, 255));
+				}
+				else if (!clickableIcons)
+					ico.draw();
+				else
+				{
+					ico.icon.setColor(sf::Color(150,150,150));
+					ico.draw();
+					ico.icon.setColor(sf::Color(255, 255, 255));
+				}
 				if (ico.toolTipBody != "")
 				{
 					tooltip.first = &ico.icon;
 					tooltip.second.setToolTipText(ico.toolTipTitle, ico.toolTipBody);
 				}
-				if (Engine::Input.mouse.leftClick() && canSwapItems && parent->focus && ico.toolTipBody != "" ||
-					Engine::Input.mouse.leftClick() && canSwapItems && ico.toolTipBody != "" && !Engine::GUI.focusedWindow->checkMouseInside() || 
-					canSwapItems && parent->requestFocus && ico.toolTipBody != "")
+				if ((parent->windowLClick || parent->requestFocus) && canSwapItems && ico.toolTipBody != "")
 				{
 					movingItem = true;
 					selected = &ico.icon;
 					selectedBag = i;
 				}
+				if ((parent->windowLClick || parent->requestFocus) && !canSwapItems && clickableIcons && ico.toolTipBody != "")
+				{
+					selected = &ico.icon;
+					selected->setPosition(ico.getPosition().x, ico.getPosition().y);
+					selectedBag = i;
+				}
 			}
+
 			else if (mouseInsideIcon(ico.icon) && movingItem && &ico.icon != selected)
-			{
-				InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
-				swapBag = i;
-				int bagSwapIndex = i;
-				int droppedIndex = 0;
-				for (size_t it = 0; it < icp->bags.size(); ++it)
-					if (icp->bags[it]->size > bagSwapIndex)
-					{
-						droppedIndex = it;
-						break;
-					}
-					else
-						bagSwapIndex -= icp->bags[it]->size;
-				if (icp->bags[droppedIndex]->items[bagSwapIndex].first && unequipBag && ico.toolTipBody != "")
-				{
-					ico.icon.setColor(sf::Color(150, 25, 25));
-					ico.draw();
-					ico.icon.setColor(sf::Color(255, 255, 255));
-				}
-				else
-				{
-					ico.icon.setColor(sf::Color(25, 150, 25));
-					ico.draw();
-					ico.icon.setColor(sf::Color(255, 255, 255));
-				}
-			}
+				drawMoving(ico.icon, i, ico.toolTipBody);
 			else if (mouseInsideIcon(ico.icon) && movingItem)
 			{
-				
 				ico.icon.setColor(sf::Color(150, 25, 25));
+				ico.draw();
+				ico.icon.setColor(sf::Color(255, 255, 255));
+			}
+			else if (!canSwapItems && selected == &ico.icon)
+			{
+				ico.icon.setColor(sf::Color(25, 230, 140));
 				ico.draw();
 				ico.icon.setColor(sf::Color(255, 255, 255));
 			}
@@ -290,7 +312,7 @@ bool ScrollBar::mouseInside()
 			return true;
 	return false;
 }
-void ScrollBar::setScroll(float deltaScroll)
+void ScrollBar::setScroll(int deltaScroll)
 {
 	deltaScroll *= 8;
 	if (_draw)
@@ -300,5 +322,32 @@ void ScrollBar::setScroll(float deltaScroll)
 			scrolled = 0;
 		else if (scrolled > maxScrolls)
 			scrolled = maxScrolls;
+	}
+}
+void ScrollBar::drawMoving(sf::Sprite& icon, int index, std::string toolTipBody)
+{
+	InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+	swapBag = index;
+	int bagSwapIndex = index;
+	int droppedIndex = 0;
+	for (size_t it = 0; it < icp->bags.size(); ++it)
+		if (icp->bags[it]->size > bagSwapIndex)
+		{
+			droppedIndex = it;
+			break;
+		}
+		else
+			bagSwapIndex -= icp->bags[it]->size;
+	if (icp->bags[droppedIndex]->items[bagSwapIndex].first && unequipBag && toolTipBody != "")
+	{
+		icon.setColor(sf::Color(150, 25, 25));
+		Engine::View.render.draw(icon);
+		icon.setColor(sf::Color(255, 255, 255));
+	}
+	else
+	{
+		icon.setColor(sf::Color(25, 150, 25));
+		Engine::View.render.draw(icon);
+		icon.setColor(sf::Color(255, 255, 255));
 	}
 }

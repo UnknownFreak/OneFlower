@@ -325,8 +325,8 @@ void load(Archive& archive, GameObject& go)
 
 				sf::Sprite* sprite = &go.GetComponent<RenderComponent>()->sprite;
 
-				float x = sprite->getTextureRect().width;
-				float y = sprite->getTextureRect().height;
+				//int x = sprite->getTextureRect().width;
+				//int y = sprite->getTextureRect().height;
 				//sprite->setOrigin(x / 2,y / 2);
 			}
 			else if (ID == IBaseComponent<TransformComponent>::typeID)
@@ -630,6 +630,18 @@ void load(Archive& ar, StatsComponent &stats)
 
 //*/
 
+#pragma region loadItem
+
+void loadItem(unsigned int ID, Item& item)
+{
+	std::ifstream file("Items/item_"+std::to_string(ID)+".item");
+	{
+		cereal::XMLInputArchive ar(file);
+		ar(item.tag);
+		ar(item);
+	}
+}
+
 #pragma region Item
 
 template <class Archive>
@@ -733,12 +745,12 @@ void save(Archive &ar, const ZoneMap &zm)
 	ar(zm.ID);
 	ar(zm.background);
 	ar(zm.foregrounds.size());
-	for (int i = 0; i < zm.foregrounds.size(); i++)
+	for (size_t i = 0; i < zm.foregrounds.size(); i++)
 	{
 		ar(zm.foregrounds[i]);
 	}
 	ar(zm.objects.size());
-	for (int i = 0; i < zm.objects.size(); i++)
+	for (size_t i = 0; i < zm.objects.size(); i++)
 	{
 		ar(*zm.objects[i]);
 	}
@@ -985,7 +997,7 @@ void load(Archive& ar, Prefab& pre)
 	unsigned int type;
 	int size;
 	ar(size);
-	for (size_t i = 0; i < size; ++i)
+	for (int i = 0; i < size; ++i)
 	{
 		ar(type);
 		if (type == IBaseComponent<RenderComponent>::typeID)
@@ -1114,7 +1126,7 @@ void load(Archive& ar, PrefabContainer& con)
 {
 	int size;
 	ar(size);
-	for (size_t i = 0; i < size; ++i)
+	for (int i = 0; i < size; ++i)
 	{
 		Prefab pre;
 		std::string n;

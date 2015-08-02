@@ -34,6 +34,7 @@ public:
 	Functions
 	//*/
 	virtual void draw();
+	virtual void drawCrop(sf::IntRect area);
 
 	void setFont(sf::Font* font);
 	void setColor(sf::Color c);
@@ -50,11 +51,11 @@ public:
 	virtual const std::string getString();
 	
 protected:
+
 	void createBody(std::string s);
 	virtual int iconFormat(std::pair<sf::Text, bool>& pair,std::vector<std::string>& iit, int iterpos);
-private:
 
-	
+private:
 
 	template <class Archive>//, GameObject& go>
 	friend void save(Archive& archive, const Message& msg);

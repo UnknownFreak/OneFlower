@@ -13,14 +13,20 @@ ToolTip::ToolTip(std::string name) : toolTipText("test.png",*Engine::Graphic.fon
 	toolTipText = name;
 	toolTipText.setSize(21);
 	toolTipBody.setSize(13);
-	toolTipIcon.setTextureRect(sf::IntRect(0, 0, toolTipText.entireString.getLocalBounds().width + 24, toolTipText.entireString.getLocalBounds().height + 24));
+	toolTipIcon.setTextureRect(sf::IntRect(0, 0, (int)toolTipText.entireString.getLocalBounds().width + 24, (int)toolTipText.entireString.getLocalBounds().height + 24));
 }
-ToolTip::ToolTip(std::string name, std::string icon) : toolTipText("test.png",*Engine::Graphic.font.requestFont("arial.ttf"),false), toolTipBody("test.png",*Engine::Graphic.font.requestFont("arial.ttf"),false), toolTipIcon(*Engine::Graphic.requestTexture(icon))
+ToolTip::ToolTip(std::string name, std::string icon) : toolTipText("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipBody("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipIcon(*Engine::Graphic.requestTexture(icon))
 {
 	toolTipText = name;
 	toolTipText.setSize(21);
 	toolTipBody.setSize(13);
-	toolTipIcon.setTextureRect(sf::IntRect(0, 0, toolTipText.entireString.getLocalBounds().width + 24, toolTipText.entireString.getLocalBounds().height + 24));
+	toolTipIcon.setTextureRect(sf::IntRect(0, 0, (int)toolTipText.entireString.getLocalBounds().width + 24, (int)toolTipText.entireString.getLocalBounds().height + 24));
+}
+ToolTip::ToolTip(std::string name, std::string body, std::string icon) : toolTipText("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipBody("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipIcon(*Engine::Graphic.requestTexture(icon))
+{
+	toolTipText.setSize(21);
+	toolTipBody.setSize(13);
+	setToolTipText(name, body);
 }
 ToolTip::ToolTip(const ToolTip& copy) : toolTipText(copy.toolTipText), toolTipBody(copy.toolTipBody), toolTipIcon(copy.toolTipIcon)
 {
@@ -37,9 +43,17 @@ void ToolTip::setPosition(double x, double y)
 		x -= toolTipIcon.getTextureRect().width + 24;
 	if (!(dy > Engine::Graphic.view.camera.getCenter().y - height / 2))
 		dy = y + 24;
-	toolTipText.setPosition(x + 12, dy + 4);
-	toolTipBody.setPosition(x + 12, dy + 28);
-	toolTipIcon.setPosition(x, dy);
+	if (toolTipText.entireString.getString() != "")
+	{
+		toolTipText.setPosition(x + 12, dy + 4);
+		toolTipBody.setPosition(x + 12, dy + 28);
+		toolTipIcon.setPosition(x, dy);
+	}
+	else
+	{
+		toolTipBody.setPosition(x + 12, dy + 4);
+		toolTipIcon.setPosition(x, dy);
+	}
 }
 void ToolTip::draw()
 {
@@ -71,7 +85,7 @@ void ToolTip::setToolTipText(std::string _text, std::string _body)
 			tmp = sizeString.getLocalBounds().width;
 		else
 			tmp = toolTipText.entireString.getLocalBounds().width;
-		toolTipIcon.setTextureRect(sf::IntRect(0, 0, tmp + 24, toolTipText.entireString.getLocalBounds().height + sizeString.getLocalBounds().height + 10 + 24));
+		toolTipIcon.setTextureRect(sf::IntRect(0, 0, tmp + 24, (int)toolTipText.entireString.getLocalBounds().height + (int)sizeString.getLocalBounds().height + 10 + 24));
 	}
 }
 void ToolTip::draw(std::string text)

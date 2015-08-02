@@ -10,7 +10,7 @@ class BaseWindow
 {
 public:
 
-	BaseWindow(int x, int y, int sizeX, int sizeY, bool resizeable, std::string title);
+	BaseWindow(float x, float y, int sizeX, int sizeY, bool resizeable, std::string title);
 	virtual ~BaseWindow() = default;
 	
 	bool open = false;
@@ -26,12 +26,15 @@ public:
 	void WindowHandle();
 
 	bool checkMouseInside();
+
+	bool windowLClick = false;
+	bool windowRClick = false;
 protected:
 
 	int inventoryButtonOffsets = 16;
 	bool resizeing = false;
 	bool moving = false;
-
+	
 	Button close;
 	Button resize;
 	
@@ -39,14 +42,14 @@ protected:
 
 	Message title;
 
-	float offsetX = 0;
-	float offsetY = 0;
+	double offsetX = 0;
+	double offsetY = 0;
 
 	bool MouseInsideTitleBar();
 
 	void checkMouseOffset(double&x, double &y);
 	void Imove(double x, double y);
-	void Iresize(double x, double y);
+	void Iresize(float x, float y);
 };
 
 

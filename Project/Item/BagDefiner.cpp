@@ -62,7 +62,7 @@ std::pair<Item*, int>* Bag::FindNonFilledStack(int ID)
 
 int Bag::findFirstEmptySlot()
 {
-	for (size_t i = 0; i < size; ++i)
+	for (int i = 0; i < size; ++i)
 		if (items[i].first==NULL)
 			return i;
 	return -1;
@@ -73,28 +73,38 @@ int Bag::addItem(Item *item, int numberOfItems)
 	int i = findFirstEmptySlot();
 	if (i == -1)
 		return -1;
-	std::vector<std::pair<Item*, int>>::iterator it = items.erase(items.begin() + i);
+	std::vector<std::pair<Item*, int>>::iterator it = items.begin() + i;
 	if (it->first)
 		delete it->first;
 	if (item->tag == Item::armor)
 	{
 		Armor* arm = (Armor*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Armor(*arm), numberOfItems));
+		it->first = new Armor(*arm);
+		it->second = numberOfItems;
 	}
 	else if (item->tag == Item::bag)
 	{
 		Bag* arm = (Bag*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Bag(*arm), numberOfItems));
+		it->first = new Bag(*arm);
+		it->second = numberOfItems;
 	}
 	else if (item->tag == Item::undefined)
 	{
 		Item* arm = (Item*)item;
-		items.insert(items.begin() + i, std::pair<Item*, int>(new Item(*arm), numberOfItems));
+		it->first = new Item(*arm);
+		it->second = numberOfItems;
 	}
 	--freeSlots;
 	return i;
 }
 std::string Bag::toToolTipString()
 {
-	return description + "\n" + std::to_string(size - freeSlots) + "/" + std::to_string(size) + " slots used.\n" + "weight: " + std::to_string(weight) + "\nBag" + "\n§Icon|coins|16|0|" + std::to_string(price) + "§";
+	std::string _price = std::to_string(price);
+	int _size = _price.length();
+	if (_size > 4)
+		return description + "\n" + std::to_string(size - freeSlots) + "/" + std::to_string(size) + " slots used.\n" + "weight: " + std::to_string(weight) + "\nBag" + "\n§Icon|coins|72|NumberOfRows|" + _price + "§";
+	else if (_size > 2)
+		return description + "\n" + std::to_string(size - freeSlots) + "/" + std::to_string(size) + " slots used.\n" + "weight: " + std::to_string(weight) + "\nBag" + "\n§Icon|coins|42|NumberOfRows|" + _price + "§";
+	else
+		return description + "\n" + std::to_string(size - freeSlots) + "/" + std::to_string(size) + " slots used.\n" + "weight: " + std::to_string(weight) + "\nBag" + "\n§Icon|coins|12|NumberOfRows|" + _price + "§";
 }

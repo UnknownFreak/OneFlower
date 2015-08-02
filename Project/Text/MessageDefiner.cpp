@@ -1,4 +1,4 @@
-#include "Message.hpp"
+﻿#include "Message.hpp"
 #include "Font.hpp"
 #include <string>
 #include "../Engine.hpp"
@@ -34,7 +34,7 @@ Message& Message::operator=(std::string s)
 void Message::setColor(sf::Color c)
 {
 	color = c;
-	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
+	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 		it->first.setColor(c);
 }
 void Message::setSize(int s)
@@ -43,7 +43,7 @@ void Message::setSize(int s)
 	{
 		size = s;
 		entireString.setCharacterSize(size);
-		for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
+		for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 			it->first.setCharacterSize(size);
 	}
 }
@@ -53,7 +53,7 @@ void Message::setLength(int l)
 	maxLength = l;
 	if(l > 0)
 	{
-		for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
+		for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 			tmp += it->first.getString();
 		tmp.resize(l);
 		createBody(tmp);
@@ -65,27 +65,42 @@ void Message::setPosition(double x,double y)
 	int i = 0;
 	if (text.size() != 0)
 		if (x != text[0].first.getPosition().x || y != text[0].first.getPosition().y)
-			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
+			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 			{
 				if (it->second)
 				{
 					std::vector<std::pair<sf::Text, bool>>::iterator before = it;
-					before--;
-					i--;
+					if(text.size() > 1)
+						--before;
+					--i;
 					it->first.setPosition(before->first.getPosition().x + before->first.getLocalBounds().width, y + 16 * i);
-					i++;
+					++i;
 				}
 				else
 				{
 					it->first.setPosition(x, y + 16 * i);
-					i++;
+					++i;
 				}
 			}
 }
 void Message::draw()
 {
-	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
-		Engine::Graphic.view.render.draw(it->first);
+
+for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
+		Engine::View.render.draw(it->first);
+}
+
+void Message::drawCrop(sf::IntRect area)
+{
+	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
+	{
+		if (it->first.getPosition().y > area.top && it->first.getPosition().y + it->first.getGlobalBounds().height < area.top + area.height)
+			Engine::View.render.draw(it->first);
+		else if (it->first.getPosition().y + it->first.getGlobalBounds().height > area.top && !(it->first.getPosition().y + it->first.getGlobalBounds().height > area.top + area.height))
+			Engine::View.render.draw(it->first);
+		else if (it->first.getPosition().y < area.top + area.height && it->first.getPosition().y + it->first.getGlobalBounds().height > area.top + area.height)
+			Engine::View.render.draw(it->first);
+	}
 }
 void Message::setFont(sf::Font* font)
 {
@@ -99,7 +114,7 @@ void Message::setFont(sf::Font* font)
 
 	this->font = *font;
 	entireString.setFont(*font);
-	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
+	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 		it->first.setFont(*font);
 }
 
@@ -122,10 +137,10 @@ void Message::createBody(std::string s)
 			lines.push_back(item);
 
 		std::vector<std::string> elems;
-		for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); it++)
+		for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
 		{
 			std::stringstream ss(*it);
-			while (std::getline(ss, item, '�'))
+			while (std::getline(ss, item, '§'))
 			{
 				if (item != "")
 					elems.push_back(item);
@@ -134,7 +149,7 @@ void Message::createBody(std::string s)
 		sf::Text msg("", *Engine::Graphic.font.requestFont("Arial.ttf"), size);
 		msg.setColor(color);
 		std::pair<sf::Text, bool> pair(msg, false);
-		for (std::vector<std::string>::iterator it = elems.begin(); it != elems.end(); it++)
+		for (std::vector<std::string>::iterator it = elems.begin(); it != elems.end(); ++it)
 		{
 			std::string tmp = *it;
 			int i = tmp.find("|");

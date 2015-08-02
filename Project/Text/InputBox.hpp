@@ -9,7 +9,7 @@ class InputBox:public Message
 public:
 
 	InputBox();
-	InputBox(sf::Font& font,int len,int xStart,int yStart,int xEnd,int yEnd);
+	InputBox(sf::Font& font, int len, float xStart, float yStart, float xEnd, float yEnd);
 
 	void draw();
 	void move(int x,int y);

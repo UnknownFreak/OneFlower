@@ -13,7 +13,7 @@ public:
 	bool updateEquipment = true;
 	ScrollBar stats;
 	ScrollBar items;
-	StatsWindow(int x, int y, int sizeX, int SizeY);
+	StatsWindow(float x, float y, int sizeX, int SizeY);
 
 	void draw();
 	void WindowHandle();
@@ -24,11 +24,9 @@ private:
 
 	sf::Sprite noEquippedItemIcon;
 
-
 	void createStats();
 	void createEquipmentList();
 	void IconSelectHandle();
-	void onClose();
 
 	void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
 

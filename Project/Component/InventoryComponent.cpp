@@ -5,10 +5,11 @@
 #include "../Item/Armor.hpp"
 #include "../Engine.hpp"
 #include "../GraphicalUserInterface/WindowIcon.hpp"
+#include <string>
 const unsigned int IBaseComponent<InventoryComponent>::typeID = 1008;
 std::string IBaseComponent<InventoryComponent>::componentName = "InventoryComponent";
 
-InventoryComponent::InventoryComponent() : maxWeight(150), currentWeight(0), bags({ new Bag(), new Bag() }), maxBags(5), coins(15)
+InventoryComponent::InventoryComponent() : maxWeight(150), currentWeight(0), bags({ new Bag(), new Bag() }), maxBags(4), coins(15)
 {
 #ifdef _DEBUG
 	usedBags = bags.size();
@@ -57,15 +58,20 @@ bool InventoryComponent::addItem(Item& item, int numberOfItems)
 			if (pair->second > STACKSIZE)
 			{
 				numberOfItems = pair->second - STACKSIZE;
+				pair->second = STACKSIZE;
+				currentWeight += pair->first->weight*STACKSIZE;
 				if (Engine::GUI.inventory.createdInventory)
 					((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 				break;
+			}
+			else
+			{
+				currentWeight += pair->first->weight*numberOfItems;
 			}
 			if (Engine::GUI.inventory.createdInventory)
 				((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 
 			exists = false;
-			return true;
 		}
 		i += bg->size;
 	}
@@ -79,12 +85,13 @@ bool InventoryComponent::addItem(Item& item, int numberOfItems)
 				int tmp = bg->addItem(&item, numberOfItems);
 				if (tmp != -1)
 				{
+					currentWeight += item.weight*numberOfItems;
 					if (Engine::GUI.inventory.createdInventory)
 					{
 						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
 						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.name;
 						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
-						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = "";
+						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
 						if (item.tag == Item::armor || item.tag == Item::weapon && !Engine::GUI.stats.updateEquipment)
 							Engine::GUI.stats.updateEquipment = true;
 					}
@@ -95,6 +102,47 @@ bool InventoryComponent::addItem(Item& item, int numberOfItems)
 		}
 	return false;
 }
+Item* InventoryComponent::removeItem(int bag, int index, int numberOfItems)
+{
+	Item* item = NULL;
+	int j = 0;
+	for (int i = 0; i < bag; i++)
+		j += bags[bag]->size;
+	if (bags[bag]->items[index].second >= numberOfItems)
+	{
+		bags[bag]->items[index].second -= numberOfItems;
+		currentWeight -= bags[bag]->items[index].first->weight*numberOfItems;
+	}
+	else
+	{
+		currentWeight -= bags[bag]->items[index].first->weight*bags[bag]->items[index].second;
+		numberOfItems = bags[bag]->items[index].second;
+		bags[bag]->items[index].second -= numberOfItems;
+	}
+
+	if (bags[bag]->items[index].second <= 0)
+	{
+		item = bags[bag]->items[index].first;
+		bags[bag]->items[index].first = NULL;
+	}
+	if (Engine::GUI.inventory.createdInventory)
+	{
+		if (bags[bag]->items[index].second == 0)
+		{
+			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = "";
+			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
+			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
+			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
+			if ((item->tag == Item::armor || item->tag == Item::weapon) && !Engine::GUI.stats.updateEquipment)
+				Engine::GUI.stats.updateEquipment = true;
+			Engine::GUI.tradingWindow.setScrollbarUpdate(true);
+		}
+		else
+			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = std::to_string(bags[bag]->items[index].second);
+	}
+	return item;
+}
+
 bool InventoryComponent::swapItem(Bag* first, int firstPair, Bag*second, int secondPair)
 {
 	if (firstPair < 0 || secondPair < 0)
@@ -198,9 +246,15 @@ void InventoryComponent::addGold(unsigned int goldToAdd)
 }
 void InventoryComponent::removeGold(unsigned int goldToRemove)
 {
-	coins += goldToRemove;
+	coins -= goldToRemove;
 }
 bool InventoryComponent::updateFromEditor()
 {
 	return true;
+}
+std::string InventoryComponent::getWeight()
+{
+	std::string w = std::to_string(currentWeight);
+	std::string mw = std::to_string(maxWeight);
+	return w.substr(0, w.size() - 4) + " / " + mw.substr(0, mw.size() - 4);
 }

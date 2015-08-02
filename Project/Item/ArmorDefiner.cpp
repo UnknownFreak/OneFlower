@@ -32,6 +32,12 @@ Armor& Armor::operator=(const Armor& other)
 std::string Armor::toToolTipString()
 {
 	std::string _defense = std::to_string(defense);
-	
-	return description + "\n" + "Defense: "+ _defense + "§Compare|i|"+ _defense + "|s-i|"+ armorType + "§" + "\nWeight: " + std::to_string(weight) + "\n" + armorType + "\n§Icon|coins|16|0|" + std::to_string(price)+"§";
+	std::string _price = std::to_string(price);
+	int size = _price.length();
+	if (size > 4)
+		return description + "\n" + "Defense: " + _defense + "§Compare|i|" + _defense + "|s-i|" + armorType + "§" + "\nWeight: " + std::to_string(weight) + "\n" + armorType + "\n§Icon|coins|72|NumberOfRows|" + _price + "§";
+	else if (size > 2)
+		return description + "\n" + "Defense: " + _defense + "§Compare|i|" + _defense + "|s-i|" + armorType + "§" + "\nWeight: " + std::to_string(weight) + "\n" + armorType + "\n§Icon|coins|42|NumberOfRows|" + _price + "§";
+	else
+		return description + "\n" + "Defense: "+ _defense + "§Compare|i|"+ _defense + "|s-i|"+ armorType + "§" + "\nWeight: " + std::to_string(weight) + "\n" + armorType + "\n§Icon|coins|12|NumberOfRows|" + _price + "§";
 }

@@ -9,6 +9,7 @@ public:
 	ToolTip();
 	ToolTip(std::string text);
 	ToolTip(std::string text, std::string icon);
+	ToolTip(std::string text, std::string body, std::string icon);
 	ToolTip(const ToolTip& toolTip);
 
 	void setPosition(double x, double y);

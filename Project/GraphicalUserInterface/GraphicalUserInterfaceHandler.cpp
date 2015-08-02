@@ -4,7 +4,7 @@
 
 void GraphicalUserInterface::Draw()
 {
-	if (Engine::Graphic.view.render.hasFocus())
+	//if (Engine::View.render.hasFocus())
 	{
 		if (!hideGUI)
 		{
@@ -38,13 +38,13 @@ void GraphicalUserInterface::Draw()
 					ActionSlot[i]->ActionSlotClick();
 			}
 			if (showOverhead)
-				for (size_t i = 0; i < overhead.size(); i++)
+				for (size_t i = 0; i < overhead.size(); ++i)
 				{
 					overhead[i]->setPosition();
 					overhead[i]->msg.draw();
 				}
 			if (showDialog)
-				for (std::vector<DialogComponent*>::iterator it = dialogs.begin(); it != dialogs.end(); it++)
+				for (std::vector<DialogComponent*>::iterator it = dialogs.begin(); it != dialogs.end(); ++it)
 				{
 					DialogComponent* dcp = *it;
 					if (dcp->open)
@@ -58,7 +58,7 @@ void GraphicalUserInterface::Draw()
 						}
 					}
 				}
-			for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+			for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); ++it)
 			{
 				if (*it == &inventory)
 				{
@@ -78,23 +78,31 @@ void GraphicalUserInterface::Draw()
 						break;
 					}
 				}
+				else if (*it == &tradingWindow)
+				{
+					tradingWindow.draw();
+					if (tradingWindow.requestClose)
+					{
+						showHideTradeWindow();
+						break;
+					}
+				}
 			}
 			if(updateFocus)
-			{
+			{	
 				updateFocus = false;
 				bool done = false;
 				int size = openWindows.size() - 1;
-				for (int i = size; i > -1; i--)
+				for (int i = size; i > -1; --i)
 				{
 					if (openWindows[i]->requestFocus && !done)
 					{
 						openWindows[i]->focus = true;
 						openWindows[i]->requestFocus = false;
 						focusedWindow->focus = false;
-						BaseWindow* tmp = focusedWindow;
+						openWindows.push_back(openWindows[i]);
 						focusedWindow = openWindows[i];
-						openWindows[i] = tmp;
-						openWindows.back() = focusedWindow;
+						openWindows.erase(openWindows.begin() + i);
 						done = true;
 					}
 					else if (openWindows[i]->requestFocus)
@@ -118,6 +126,6 @@ void GraphicalUserInterface::Draw()
 				while (ShowCursor(TRUE) < 0);
 		}
 	}
-	else
-		while (ShowCursor(TRUE) < 0);
+	//else
+		//while (ShowCursor(TRUE) < 0);
 }

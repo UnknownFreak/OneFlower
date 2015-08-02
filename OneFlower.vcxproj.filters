@@ -244,9 +244,6 @@
     <ClInclude Include="Project\GraphicalUserInterface\Button.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\GraphicalInventory.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -275,6 +272,7 @@
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClInclude>
     <ClInclude Include="Project\Component\PlayerComponent.hpp">
+    <ClInclude Include="Project\GraphicalUserInterface\TradeWindow.hpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClInclude>
     <ClInclude Include="Project\ColliderBasic.hpp">
@@ -282,6 +280,11 @@
     </ClInclude>
     <ClInclude Include="Project\Component\IBaseComponent.hpp">
       <Filter>Header Files\GameObject &amp; Component</Filter>
+    </ClInclude>
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GraphicalUserInterface\InventoryWindow.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,9 +435,6 @@
     <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalInventoryDefiner.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -472,7 +472,7 @@
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
+    <ClCompile Include="Project\GraphicalUserInterface\TradeWindow.cpp">
     <ClCompile Include="Project\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -485,7 +485,11 @@
     <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
       <Filter>Source Files\ComponentDefiners</Filter>
     </ClCompile>
->>>>>>> origin/Centerlizing-Project-With-Input-System
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GraphicalUserInterface\InventoryWindowDefiner.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\MenuBar.rc">

@@ -47,10 +47,10 @@ WorldManagement::WorldManagement() : lastLoadedZone(0), zone(0), currentZone(0)
 WorldManagement::~WorldManagement()
 {
 	//rmeove the last loaded zone
-	for(int i = 0; i < worldmap.size(); i++)
+	for(size_t i = 0; i < worldmap.size(); i++)
 		// if a zone have been unloaded/deleted already
 		if(worldmap[i])
-			for(int j = 0; j < worldmap[i]->objects.size(); j++)
+			for(size_t j = 0; j < worldmap[i]->objects.size(); j++)
 			{
 				// request removal of GameObjects /to fix
 				Engine::game.requestRemoveal(worldmap[i]->objects[j]);

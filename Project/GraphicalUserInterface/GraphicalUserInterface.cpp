@@ -3,15 +3,28 @@
 #include <SFML\Window\Mouse.hpp>
 
 #include <Windows.h>
-GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), showOverhead(true), isMouseVisible(false), showDialog(true), mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png"), dialogs(), inventory(50, 50, 300, 250), ActionSlot(), showToolTip(true), stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip()
+
+void showHideInv()
+{
+	Engine::GUI.showHideInventory();
+}
+
+GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), 
+showOverhead(true), isMouseVisible(false), showDialog(true), 
+mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png"), 
+dialogs(), inventory(50, 50, 300, 290), ActionSlot(), showToolTip(true), 
+stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50,50,350,400)
 {
 	// Mouse
 	setCursor("Cursor.png");
 	sf::Texture* tmp = (sf::Texture*)mouseAim.sprite.getTexture();
 	tmp->setSmooth(true);
 	initialize();
-	showHideStats();
-	showHideInventory();
+	//Engine::Input.addKeybind(sf::Keyboard::Key::I,showHideInv);
+	/*showHideStats();*/
+	
+	//showHideTradeWindow();
+	//showHideInventory();
 }
 /*
 GraphicalUserInterface::~GraphicalUserInterface()
@@ -164,15 +177,19 @@ bool GraphicalUserInterface::windowHasFocus()
 		return true;
 	else if (stats.checkMouseInside() && stats.focus && !hideGUI)
 		return true;
+	else if (tradingWindow.checkMouseInside() && tradingWindow.focus && !hideGUI)
+		return true;
 	return false;
 }
 
 void GraphicalUserInterface::scroll()
 {
-	if (inventory.checkMouseInside())
+	if (inventory.checkMouseInside() && inventory.focus)
 		inventory.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
-	else if (stats.checkMouseInside())
+	else if (stats.checkMouseInside() && stats.focus)
 		stats.items.setScroll(Engine::Input.mouse.deltaScrolls);
+	else if (tradingWindow.checkMouseInside() && tradingWindow.focus)
+		tradingWindow.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
 	Engine::Input.mouse.deltaScrolls = 0;
 }
 
@@ -236,6 +253,38 @@ void GraphicalUserInterface::showHideStats()
 		openWindows.push_back(&stats);
 	}
 }
+
+void GraphicalUserInterface::showHideTradeWindow()
+{
+	if (tradingWindow.open)
+	{
+		tradingWindow.open = false;
+		tradingWindow.focus = false;
+		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+			if (*it == &tradingWindow)
+			{
+				openWindows.erase(it);
+				break;
+			}
+		if (openWindows.size() != 0)
+		{
+			focusedWindow = openWindows.back();
+			focusedWindow->focus = true;
+		}
+		else
+			focusedWindow = NULL;
+	}
+	else
+	{
+		tradingWindow.open = true;
+		tradingWindow.focus = true;
+		if (focusedWindow)
+			focusedWindow->focus = false;
+		focusedWindow = &tradingWindow;
+		openWindows.push_back(&tradingWindow);
+	}
+}
+
 bool GraphicalUserInterface::mouseOutsideOpenWindow()
 {
 	for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
