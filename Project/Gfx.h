@@ -9,13 +9,14 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include "Tile.h"
 #include "Text/Font.hpp"
-
+#include "GameView.hpp"
 class Tile;
 class GameObject;
 class Message;
 class Gfx
 {
 public:
+	GameView view;
 	Gfx();
 	Font font;
 	std::vector<Message *> msg;

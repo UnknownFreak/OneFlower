@@ -336,6 +336,6 @@ void StatsWindow::swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equ
 #pragma endregion
 	else
 		icon.setColor(sf::Color(255, 255, 255));
-	Engine::View.render.draw(icon);
+	Engine::Graphic.view.render.draw(icon);
 	icon.setColor(sf::Color(255, 255, 255));
 }

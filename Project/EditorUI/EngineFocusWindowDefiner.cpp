@@ -554,6 +554,9 @@ HWND EngineFocus::addEditor(HWND phWnd,std::string name,int x,int y,int width,in
 	//*/
 	return hWnd;
 }
+
+
+/*
 HWND EngineFocus::addComponentGroup(HWND phWnd,std::string name,int x,int y,int width,int height,int groupID)
 {
 	HWND hWnd =
@@ -573,6 +576,8 @@ HWND EngineFocus::addComponentGroup(HWND phWnd,std::string name,int x,int y,int 
 
 	return hWnd;
 }
+
+//*/
 HWND EngineFocus::addButton(HWND phWnd,std::string buttonDisplayName,int x,int y,int width,int height,int buttonID)
 {
 	HWND hWnd;

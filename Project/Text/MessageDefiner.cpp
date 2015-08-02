@@ -85,7 +85,7 @@ void Message::setPosition(double x,double y)
 void Message::draw()
 {
 	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); it++)
-		Engine::View.render.draw(it->first);
+		Engine::Graphic.view.render.draw(it->first);
 }
 void Message::setFont(sf::Font* font)
 {

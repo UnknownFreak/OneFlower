@@ -200,7 +200,7 @@ void InventoryComponent::removeGold(unsigned int goldToRemove)
 {
 	coins += goldToRemove;
 }
-bool InventoryComponent::UpdateFromEditor()
+bool InventoryComponent::updateFromEditor()
 {
 	return true;
 }

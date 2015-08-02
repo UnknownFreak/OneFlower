@@ -8,6 +8,7 @@ template<typename>
 class IBaseComponent:public BaseComponent
 {
 public:
+
 	const unsigned int getType()
 	{
 		return typeID;
@@ -16,14 +17,20 @@ public:
 	{
 		return componentName;
 	}
+
+	static std::string componentName;
+	static const unsigned int typeID;
+
+
+
+protected:
+
+
+	
 	std::map<std::string,BaseField*> getFields()
 	{
 		return editorFields;
 	}
-
-	//Name of the componentn
-	static std::string componentName;
-	static const unsigned int typeID;
 
 	//HIGH: Friendclass stuffz so you can put this into private
 	std::map<std::string,BaseField*> editorFields;

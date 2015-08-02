@@ -11,7 +11,7 @@ class PhysicsEngine
 	friend class Gfx;
 public:
 	PhysicsEngine();
-	void Update();
+	void update();
 
 	void addPhysics(GameObject* obj);
 	void addPhysics(HitboxComponent* obj);
@@ -24,7 +24,7 @@ public:
 	void physics();
 
 private:
-	float collision(RigidComponent* inMotion,Vector2 speed);
+	std::pair<GameObject*,double> collision(RigidComponent* inMotion,Vector2 speed);
 	void simulation();
 	void gravity();
 	float SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,float& normalx,float& normaly,Vector2 speed);

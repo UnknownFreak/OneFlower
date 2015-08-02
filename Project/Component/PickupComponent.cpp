@@ -13,7 +13,7 @@ void PickupComponent::attachOn(GameObject* attachTo)
 	BaseComponent::attachOn(attachTo);
 	//REGISTER_EDITOR_VARIABLE(unsigned int,itemID,ItemID);
 }
-bool PickupComponent::UpdateFromEditor()
+bool PickupComponent::updateFromEditor()
 {
 	return true;
 }

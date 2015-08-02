@@ -23,7 +23,7 @@ public:
 	bool swapItem(Bag* first, int firstPair, Bag* second,int secondPair);
 	bool equipBag(Bag* first, int firstPair);
 	bool unequipBag(Bag* bag, Bag* second, int emptySlot);
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 
 	void attachOn(GameObject* attachTo);
 	void addGold(unsigned int goldToAdd);

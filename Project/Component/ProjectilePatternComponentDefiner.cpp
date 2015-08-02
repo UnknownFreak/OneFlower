@@ -17,7 +17,7 @@ void ProjectilePatternComponent::attachOn(GameObject * go)
 
 
 }
-
+/*
 void ProjectilePatternComponent::updateMousePos(Vector2 mouse)
 {
 	TransformComponent* tcp = attachedOn->GetComponent<TransformComponent>();
@@ -83,4 +83,4 @@ void ProjectilePatternComponent::vPattern()
 	{
 		velosity = 0;
 	}
-}
+}//*/

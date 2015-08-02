@@ -5,9 +5,13 @@ void BaseComponent::attachOn(GameObject* attachTo)
 	this->attachedOn = attachTo;
 	attachTo->componentMap.insert(std::make_pair(this->getType(),this));
 }
-bool BaseComponent::UpdateFromEditor()
+bool BaseComponent::updateFromEditor()
 {
 	return false;
+}
+void BaseComponent::update()
+{
+
 }
 /*
 void BaseComponent::sendMessage(const BaseMessage& msg)

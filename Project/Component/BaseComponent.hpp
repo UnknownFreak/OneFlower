@@ -11,7 +11,11 @@ class BaseMessage
 {
 public:
 	BaseMessage(std::string msg);
+	void add();
 	std::string process();
+
+	bool permission(std::string key);
+
 private:
 	std::string msg;
 };
@@ -19,33 +23,52 @@ private:
 class BaseComponent
 {
 public:
+	//LOW: is this needed
+	//Send infomation what happend when colliding
+	void sendMessage(const BaseMessage& msg);
+	
+	//LOW: Create a body?
+	//On hit collision		//TODO: Make this virtal
+
+	//Gameobject this component currently attached to;
+	GameObject* attachedOn;
+
+protected:
+	friend class GameObject;
 	virtual ~BaseComponent() = 0
 	{
 	};
 	//Return a Uniq classID
 	virtual const unsigned int getType() = 0;// = 0;
 
-	//Attach the component to a GameObject
-	virtual void attachOn(GameObject* attachTo);
-
-	//Copy of Registerd editor variables
-	virtual std::map<std::string,BaseField*> getFields() = 0;
-
-	//Update component whenever Editor change a variable value
-	virtual bool UpdateFromEditor();
 
 	//Return the type name
 	virtual	std::string getTypeName() = 0;
 
-	//LOW: is this needed
-	//Send infomation what happend when colliding
-	//void sendMessage(const BaseMessage& msg);
-	//LOW: Create a body?
-	//On hit collision		//TODO: Make this virtal
+
+	
+	
+	//HIGH: remove? 
+	virtual void update();
+
+	//Attach the component to a GameObject
+	virtual void attachOn(GameObject* attachTo);
+	
+	
 	void recieveMessage(const BaseMessage& target);
 
-	//Gameobject this component currently attached to;
-	GameObject* attachedOn;
+#ifdef _DEBUG
+	friend class EngineWindow;
+	friend class Prefab;
+
+	//Copy of Registerd editor variables
+	virtual std::map<std::string,BaseField*> getFields() = 0;
+
+	
+	//update component whenever Editor change a variable value
+	virtual bool updateFromEditor();
+#endif
+
 protected:
 
 	template < class Archive>//, GameObject& go>

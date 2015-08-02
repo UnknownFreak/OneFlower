@@ -48,11 +48,11 @@ bool Vector2::normalize()
 		return true;
 	}
 	else
-	{
+	{ 
 #ifdef _DEBUG
-		MessageBoxA(0,"len = 0","Vector2 Normalize failed, Error: Vector2Norm",0);
-		MessageBox(NULL,"Divided by 0","Law of Physics says No",0);
+		Engine::Window.debug.print("len = 0 Vector2 Normalize failed, Error: Vector2Norm",__LINE__,__FILE__);
 #endif
+		//*/
 		return false;
 	}
 	//LOW: Fix this someday and be sure to check some math site this time to. 15/02/13

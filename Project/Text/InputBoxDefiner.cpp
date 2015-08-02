@@ -16,7 +16,7 @@ InputBox::InputBox(sf::Font& font,int len,int x1,int y1,int x2,int y2): Message(
 
 void InputBox::draw()
 {
-	Engine::View.render.draw(box);
+	Engine::Graphic.view.render.draw(box);
 	draw();
 }
 

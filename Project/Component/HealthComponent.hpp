@@ -22,7 +22,7 @@ public:
 
 	void doDamage(int damageDealt);
 
-	bool UpdateFromEditor();
+	bool updateFromEditor();
 
 	Vector2 GetHealthStats();
 private:

@@ -73,7 +73,7 @@ void Button::ActionSlotClick()
 
 void Button::draw()
 {
-	Engine::View.render.draw(icon);
+	Engine::Graphic.view.render.draw(icon);
 }
 Vector2 Button::getPosition()
 {

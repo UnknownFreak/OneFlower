@@ -146,8 +146,8 @@ void GraphicalUserInterface::setGUIScale()
 {
 	double x1 = 800;
 	double y1 = 600;
-	double x = Engine::View.camera.getSize().x;
-	double y = Engine::View.camera.getSize().y;
+	double x = Engine::Graphic.view.camera.getSize().x;
+	double y = Engine::Graphic.view.camera.getSize().y;
 	double dx = x1 - x;
 	double dy = y1 - y;
 	dx = dx / x1;

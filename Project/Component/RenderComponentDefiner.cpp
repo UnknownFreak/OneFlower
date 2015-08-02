@@ -72,7 +72,7 @@ void RenderComponent::setAnimation(int x,int y,int width,int height)
 	frame.y = sprite.getTexture()->getSize().y / height;
 }
 
-bool RenderComponent::UpdateFromEditor()
+bool RenderComponent::updateFromEditor()
 {
 	if(animation)
 		setAnimation(0,0,size.x,size.y);

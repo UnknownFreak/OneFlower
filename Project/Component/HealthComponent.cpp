@@ -44,7 +44,7 @@ double HealthComponent::getHealthPercentDecimals()
 	return (double)(stats->health / double(stats->maxHealth));
 }
 
-bool HealthComponent::UpdateFromEditor()
+bool HealthComponent::updateFromEditor()
 {
 	return true;
 }

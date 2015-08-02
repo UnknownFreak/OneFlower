@@ -22,9 +22,10 @@ public:
 	void registerCollisionCheck(BaseComponent* component);
 
 	//Rect
-	void attachOn(GameObject* go);
-
+	
 	std::vector<BaseComponent*> collisionCall;
+protected:
+	void attachOn(GameObject* go);
 
 private:
 	sf::Rect<int> box;

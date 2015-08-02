@@ -121,12 +121,12 @@ void GraphicalInventory::IconDrawHandle()
 						if (mouseInsideIcon(bag->icon) && scroll.getIfMovingItem() && scroll.equipItem)
 						{
 							bag->icon.setColor(sf::Color(150, 25, 25));
-							Engine::View.render.draw(bag->icon);
+							Engine::Graphic.view.render.draw(bag->icon);
 							bag->icon.setColor(sf::Color(255, 255, 255));
 							off.y += iconSize + iconOffset;
 							continue;
 						}
-					Engine::View.render.draw(bag->icon);
+					Engine::Graphic.view.render.draw(bag->icon);
 				}
 				else
 				{
@@ -283,7 +283,7 @@ bool GraphicalInventory::tryEquipBag(Vector2& off)
 			if (icp->bags[swap->index.first]->items[swap->index.second].first->tag == Item::bag)
 			{
 				emptyInventorySlot.setColor(sf::Color(25, 150, 25));
-				Engine::View.render.draw(emptyInventorySlot);
+				Engine::Graphic.view.render.draw(emptyInventorySlot);
 				emptyInventorySlot.setColor(sf::Color(255, 255, 255));
 				if (Engine::event.type == Engine::event.MouseButtonReleased)
 				{
@@ -313,13 +313,13 @@ bool GraphicalInventory::tryEquipBag(Vector2& off)
 			else
 			{
 				emptyInventorySlot.setColor(sf::Color(150, 25, 25));
-				Engine::View.render.draw(emptyInventorySlot);
+				Engine::Graphic.view.render.draw(emptyInventorySlot);
 				emptyInventorySlot.setColor(sf::Color(255, 255, 255));
 			}
 	}
 	else if (scroll.mouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap || !checkMouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap)
-		Engine::View.render.draw(emptyInventorySlot);
+		Engine::Graphic.view.render.draw(emptyInventorySlot);
 	else
-		Engine::View.render.draw(emptyInventorySlot);
+		Engine::Graphic.view.render.draw(emptyInventorySlot);
 	return false;
 }

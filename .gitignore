@@ -2,28 +2,11 @@
 *.obj
 *.dll
 *.pdb
-Debug/vc120.idb
 *.log
 *.exe
-Debug/AsianViking.ilk
 *.sdf
 *.suo
+*.opensdf
+*.db
+Lib/
 Debug/
-<<<<<<< HEAD
-<<<<<<< HEAD
-*.opensdf
-=======
-*.opensdf
->>>>>>> origin/master
-=======
-*.opensdf
->>>>>>> origin/MouseChanges
-*.db
-*.db
-*.db
-Screenshots/Thumbs.db
-*.db
-Screenshots/Thumbs.db
-*.db
-*.db
-*.db

@@ -6,7 +6,7 @@
 #include <vector>
 #include <SFML\Window\Keyboard.hpp>
 #include "Mouse\Mouse.hpp"
-
+#include <functional>
 /*
 template<typename returnType,typename parameterType>
 class EventType : EventTypeBase
@@ -45,14 +45,38 @@ private:
 //*/
 typedef void (*CallBack)(void);
 
+namespace Input
+{
+	enum Action
+	{
+		Press = 1 << 0,
+		Hold = 1 << 1,
+		Release = 1 << 2
+	};
+};
 class InputHandler
 {
 public:
 	void update();
-	void addKeybind(sf::Keyboard::Key key,CallBack type);
+	void registerCallback(std::function<void(void)> callbk,sf::Keyboard::Key key,Input::Action);
+	
+	
+	
 	Mouse mouse;
 private:
-	std::map<sf::Keyboard::Key,CallBack> keybinds;
+	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnPress;
+	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnRelease;
+	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnHold;
+	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnControl;
+	std::vector<sf::Keyboard::Key> callbackRelease;
+
+
+	/*
+	void onKeyPress(CallBack type,sf::Keyboard::Key key);
+	void onKeyRelease(CallBack type,sf::Keyboard::Key key);
+	void onControlPress(std::function<void(void)>,sf::Keyboard::Key key);
+	//*/
+
 
 };
 
