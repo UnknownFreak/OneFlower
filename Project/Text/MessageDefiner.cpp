@@ -87,7 +87,7 @@ void Message::draw()
 {
 
 for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
-		Engine::View.render.draw(it->first);
+		Engine::Graphic.view.render.draw(it->first);
 }
 
 void Message::drawCrop(sf::IntRect area)
@@ -95,11 +95,11 @@ void Message::drawCrop(sf::IntRect area)
 	for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 	{
 		if (it->first.getPosition().y > area.top && it->first.getPosition().y + it->first.getGlobalBounds().height < area.top + area.height)
-			Engine::View.render.draw(it->first);
+			Engine::Graphic.view.render.draw(it->first);
 		else if (it->first.getPosition().y + it->first.getGlobalBounds().height > area.top && !(it->first.getPosition().y + it->first.getGlobalBounds().height > area.top + area.height))
-			Engine::View.render.draw(it->first);
+			Engine::Graphic.view.render.draw(it->first);
 		else if (it->first.getPosition().y < area.top + area.height && it->first.getPosition().y + it->first.getGlobalBounds().height > area.top + area.height)
-			Engine::View.render.draw(it->first);
+			Engine::Graphic.view.render.draw(it->first);
 	}
 }
 void Message::setFont(sf::Font* font)

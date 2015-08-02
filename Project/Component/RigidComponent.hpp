@@ -3,7 +3,7 @@
 #include "IBaseComponent.hpp"
 #include <vector>
 #include "../Vector.h"
-class RigidComponent :public IBaseComponent < RigidComponent >
+class RigidComponent:public IBaseComponent < RigidComponent >
 {
 public:
 
@@ -11,10 +11,9 @@ public:
 	//TODO Add other constructors
 	RigidComponent();
 	~RigidComponent();
-	RigidComponent(const RigidComponent & copy) = default;
-	void addForce(Vector2 dir, float power);
-	void attachOn(GameObject* go);
-	std::vector<std::pair<Vector2, double>> forceQueue;
+	bool inMotion();
+	void replaceForce(Vector2 dir,float power);
+	//std::vector<std::pair<Vector2,double>> forceQueue;
 
 	//Absolute Pixel not half pixel
 	Vector2 size;
@@ -22,24 +21,27 @@ public:
 	//Pixel position relative to Transform
 	Vector2 position;
 
+	Vector2 direction;
+	double force;
+
 	//Colliding
 	bool colliding = false;
 
 	//Colliding Object. [0] up and than go Clock-Wise
-	GameObject* colisionDirection[4];
 	//GameObject* colisionDirection[4];
 
 	bool gravity = false;
 
 	//Mass in Kilogram
-	int Mass = 10;
+	int mass = 10;
 
 	std::vector<GameObject*> entered;
 
-	template<class Archive>
-	friend void save(Archive &ar, const RigidComponent& rep);
-	template<class Archive>
-	friend void load(Archive &ar, RigidComponent& rep);
+protected:
+	void attachOn(GameObject* go);
+private:
+
+
 };
 
 #endif

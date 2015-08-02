@@ -21,7 +21,7 @@ WindowIcon::WindowIcon(sf::Sprite icon, std::string toolTipTitle, std::string to
 
 void WindowIcon::draw()
 {
-	Engine::View.render.draw(icon);
+	Engine::Graphic.view.render.draw(icon);
 	messageText.drawCrop(sf::IntRect(icon.getPosition().x, icon.getPosition().y,icon.getTextureRect().width, icon.getTextureRect().height));
 }
 void WindowIcon::setPosition(Vector2 pos)

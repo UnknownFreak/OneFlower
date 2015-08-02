@@ -29,7 +29,7 @@ outline(sf::LinesStrip,5)
 void BaseWindow::draw()
 {
 	Engine::Graphic.view.render.draw(window);
-	Engine::View.render.draw(outline);
+	Engine::Graphic.view.render.draw(outline);
 	title.draw();
 	close.draw();
 	if (drawResizeIcon)

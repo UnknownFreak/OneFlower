@@ -41,7 +41,7 @@ void ScrollBar::draw()
 	scrollHandle();
 	if (_draw)
 	{
-		Engine::View.render.draw(scrollLine);
+		Engine::Graphic.view.render.draw(scrollLine);
 		top.draw();
 		bot.draw();
 		scroll.draw();
@@ -191,7 +191,7 @@ void ScrollBar::movingItemScrollHandle()
 		{
 			selected->setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
 			selected->setColor(sf::Color(255, 255, 255, 127));
-			Engine::View.render.draw(*selected);
+			Engine::Graphic.view.render.draw(*selected);
 			selected->setColor(sf::Color(255, 255, 255));
 		}
 	}
@@ -341,13 +341,13 @@ void ScrollBar::drawMoving(sf::Sprite& icon, int index, std::string toolTipBody)
 	if (icp->bags[droppedIndex]->items[bagSwapIndex].first && unequipBag && toolTipBody != "")
 	{
 		icon.setColor(sf::Color(150, 25, 25));
-		Engine::View.render.draw(icon);
+		Engine::Graphic.view.render.draw(icon);
 		icon.setColor(sf::Color(255, 255, 255));
 	}
 	else
 	{
 		icon.setColor(sf::Color(25, 150, 25));
-		Engine::View.render.draw(icon);
+		Engine::Graphic.view.render.draw(icon);
 		icon.setColor(sf::Color(255, 255, 255));
 	}
 }

@@ -24,18 +24,18 @@ void FloatingText::draw()
 {
 	if (drawIcon)
 		for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); ++it)
-			Engine::View.render.draw(it->second.first);
+			Engine::Graphic.view.render.draw(it->second.first);
 	Message::draw();
 }
 void FloatingText::drawCrop(sf::IntRect area)
 {
 	if (drawIcon)
-		Engine::View.render.draw(iconSprite);
+		Engine::Graphic.view.render.draw(iconSprite);
 	for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); ++it)
 	{
 		if (it->second.first.getPosition().y > area.top && it->second.first.getPosition().y + it->second.first.getTextureRect().height < area.top + area.height)
 		{
-			Engine::View.render.draw(it->second.first);
+			Engine::Graphic.view.render.draw(it->second.first);
 		}
 		else if (it->second.first.getPosition().y + it->second.first.getTextureRect().height > area.top && !(it->second.first.getPosition().y + it->second.first.getTextureRect().height > area.top + area.height))
 		{
@@ -50,7 +50,7 @@ void FloatingText::drawCrop(sf::IntRect area)
 
 			it->second.first.setTextureRect(sf::IntRect(it->second.first.getTextureRect().left, iconSize.y - (minSize - topSize), iconSize.x, (minSize - topSize)));
 			it->second.first.setPosition(position.x, position.y + iconSize.y - (minSize - topSize));
-			Engine::View.render.draw(it->second.first);
+			Engine::Graphic.view.render.draw(it->second.first);
 			it->second.first.setTextureRect(sf::IntRect(it->second.first.getTextureRect().left, 0, iconSize.x, iconSize.y));
 			it->second.first.setPosition(position.x, position.y);
 		}
@@ -66,7 +66,7 @@ void FloatingText::drawCrop(sf::IntRect area)
 			double topSize = area.top + area.height;
 
 			it->second.first.setTextureRect(sf::IntRect(it->second.first.getTextureRect().left, 0, iconSize.x, iconSize.y - (minSize - topSize)));
-			Engine::View.render.draw(it->second.first);
+			Engine::Graphic.view.render.draw(it->second.first);
 			it->second.first.setTextureRect(sf::IntRect(it->second.first.getTextureRect().left, 0, iconSize.x, iconSize.y));
 		}
 	}

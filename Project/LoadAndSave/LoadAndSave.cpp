@@ -536,7 +536,7 @@ void save(Archive& ar, const RigidComponent& rig)
 	ar(rig.size.x);
 	ar(rig.size.y);
 	//ar(rig.gravity);
-	ar(rig.Mass);
+	ar(rig.mass);
 }
 template <class Archive>
 void load(Archive& ar, RigidComponent& rig)

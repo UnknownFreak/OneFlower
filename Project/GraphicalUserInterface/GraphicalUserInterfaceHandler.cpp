@@ -4,7 +4,7 @@
 
 void GraphicalUserInterface::Draw()
 {
-	//if (Engine::View.render.hasFocus())
+	//if (Engine::Graphic.view.render.hasFocus())
 	{
 		if (!hideGUI)
 		{
