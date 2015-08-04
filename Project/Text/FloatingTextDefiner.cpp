@@ -23,8 +23,9 @@ FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font, ft.duratio
 void FloatingText::draw()
 {
 	if (drawIcon)
-		for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); ++it)
-			Engine::Graphic.view.render.draw(it->second.first);
+		Engine::Graphic.view.render.draw(iconSprite);
+	for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); ++it)
+		Engine::Graphic.view.render.draw(it->second.first);
 	Message::draw();
 }
 void FloatingText::drawCrop(sf::IntRect area)

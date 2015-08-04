@@ -89,7 +89,7 @@ EngineWindow::EngineWindow():size(1366,768)
 		ShowWindow(hWnd,1);
 		UpdateWindow(hWnd);
 
-		//debug.init(hWnd);
+		debug.init(hWnd);
 		ListViewer.start();
 		focus.start();
 	}

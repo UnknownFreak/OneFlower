@@ -40,7 +40,10 @@ public:
 protected:
 	void attachOn(GameObject* go);
 private:
-
+	template <class Archive>
+	friend void save(Archive& Ar,const RigidComponent& rig);
+	template <class Archive>
+	friend void load(Archive& Ar, RigidComponent& rig);
 
 };
 

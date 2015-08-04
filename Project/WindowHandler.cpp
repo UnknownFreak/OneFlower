@@ -41,7 +41,7 @@ int windowMessage()
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->AddComponent<PlayerComponent>();
-	//go->AddComponent<EquipmentComponent>();
+	go->AddComponent<EquipmentComponent>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	//else

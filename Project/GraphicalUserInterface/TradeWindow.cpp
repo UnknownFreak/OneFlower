@@ -24,7 +24,7 @@ tradingItemBackground(*Engine::Graphic.requestTexture("TradeWindowIcon.png"))
 {
 	tab_buy.icon.setColor(sf::Color(125, 125, 125));
 	tradeSigleItem.setName("\tBuy");
-	currentGold = "§Icon|coins|0|0|0§";
+	currentGold = "b §Icon|coins|0|0|0§";
 	currentGold.setSize(12);
 	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1234567, "Giggity"), -1));
 	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 123456, "Giggity"), -1));

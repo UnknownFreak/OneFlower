@@ -544,7 +544,7 @@ void load(Archive& ar, RigidComponent& rig)
 	ar(rig.size.x);
 	ar(rig.size.y);
 	//ar(rig.gravity);
-	ar(rig.Mass);
+	ar(rig.mass);
 }
 #pragma endregion
 

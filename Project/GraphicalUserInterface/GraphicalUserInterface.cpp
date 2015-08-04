@@ -20,7 +20,8 @@ stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWind
 	sf::Texture* tmp = (sf::Texture*)mouseAim.sprite.getTexture();
 	tmp->setSmooth(true);
 	initialize();
-	//Engine::Input.addKeybind(sf::Keyboard::Key::I,showHideInv);
+	//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideInventory,this), sf::Keyboard::I,Input::Action::Release);
+	//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideTradeWindow,this), sf::Keyboard::O,Input::Action::Release);
 	/*showHideStats();*/
 	
 	//showHideTradeWindow();
