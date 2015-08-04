@@ -35,7 +35,7 @@ int windowMessage()
 {
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
-	go->AddComponent<ProjectilePatternComponent>();
+	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
 	go->AddComponent<RigidComponent>();

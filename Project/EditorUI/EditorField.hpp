@@ -30,6 +30,9 @@ public:
 	{
 		DestroyWindow(label);
 		DestroyWindow(hWnd);
+		//HIGH check if this is valid
+		delete variable;
+
 	}
 
 	//The variable

@@ -6,7 +6,7 @@
 #include "Component\RenderComponent.h"
 #include "Component\HitboxComponent.hpp"
 #include "Engine.hpp"
-#include "ColliderBasic.hpp"
+//#include "ColliderBasic.hpp"
 void PhysicsEngine::update()
 {
 	gravity();

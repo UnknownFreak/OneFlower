@@ -96,7 +96,6 @@
     <Xml Include="..\win7Style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\ColliderBasic.hpp" />
     <ClInclude Include="Project\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Component\EquipmentComponent.hpp" />
