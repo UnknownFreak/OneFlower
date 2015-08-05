@@ -7,9 +7,9 @@
 #include <SFML\Graphics\RenderTexture.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
 #include <SFML\Graphics\Sprite.hpp>
-#include "Tile.h"
-#include "Text/Font.hpp"
-#include "GameView.hpp"
+#include "Game\Tile.h"
+#include "Game\GUI\Text\Font.hpp"
+#include "Game/GameView.hpp"
 class Tile;
 class GameObject;
 class Message;

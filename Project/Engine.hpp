@@ -1,18 +1,18 @@
 #ifndef Engine_HPP
 #define Engine_HPP
 #include <SFML\Window\Window.hpp>
-#include "Game.h"
 #include <SFML\Window\Event.hpp>
-#include "Gfx.h"
-#include "EngineWindow.hpp"
-#include "Physics.hpp"
-#include "Time.hpp"
+#include "Game\Game.h"
+#include "Game\Gfx.h"
+#include "Engine\Window\EngineWindow.hpp"
+#include "Game\Logic\Physics\Physics.hpp"
+#include "Game\Logic\Time\Time.hpp"
+#include "Game\Logic\Input\Mouse.hpp"
+#include "Game\Logic\Input\InputHandler.hpp"
 
-#include "GraphicalUserInterface\GraphicalUserInterface.hpp"
-#include "Mouse\Mouse.hpp"
-#include "GameView.hpp"
-#include "WorldManagement.hpp"
-#include "InputHandler.hpp"
+#include "Game\GUI\GraphicalUserInterface.hpp"
+#include "Game\GameView.hpp"
+#include "Game\World\WorldManagement.hpp"
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
 //Game Engine
 namespace AsianVikingMotor

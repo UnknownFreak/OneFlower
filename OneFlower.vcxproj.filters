@@ -1,473 +1,436 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Project\Item\ArmorDefiner.cpp">
-      <Filter>Game\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Item\BagDefiner.cpp">
-      <Filter>Game\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\BaseComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowDefiner.cpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowObjectDefiner.cpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\EditorFieldHandler.cpp">
-      <Filter>Engine\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp">
-      <Filter>Engine\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EngineWindowDefiner.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EngineWindowHandler.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EngineDebugWindowDefiner.cpp">
-      <Filter>Engine\Window\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp">
-      <Filter>Engine\Window\Focus</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp">
-      <Filter>Engine\Window\ListViewer</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterface.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterfaceHandler.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\EquipmentComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Text\FloatingDamageDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Text\FloatingTextDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\PickupComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\PlayerComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\OverheadComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\StatsComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\StatsWindow.cpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\TransformComponentHandler.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\TransformComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PhysicsEngineHandler.cpp">
-      <Filter>Game\LogicEngine\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PhysicsEngineDefiner.cpp">
-      <Filter>Game\LogicEngine\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\InputHandlerDefiner.cpp">
-      <Filter>Game\LogicEngine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Mouse\Mouse.cpp">
-      <Filter>Game\LogicEngine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameDefiner.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameHandler.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GameViewDefiner.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Item\ItemDefiner.cpp">
-      <Filter>Game\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\InventoryComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\HealthComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\ReputationComponentDefiners.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\RenderComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\ReputationComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\ProjectilePatternComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Zone.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\ZoneMaker.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\TradeWindow.cpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\RigidComponentDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Component\GameObjectDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\InventoryWindowDefiner.cpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Text\InputBoxDefiner.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\InputDialog.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Text\FontDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WindowHandler.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\TimeDefiner.cpp">
-      <Filter>Game\LogicEngine\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\ToolTipDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\WorldManagement.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\GraphicalUserInterface\WindowIconDefiner.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PrefabDefiner.cpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\PrefabContainerDefiner.cpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Text\MessageDefiner.cpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\RenderHandlerDefiner.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\VectorDefiner.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\TileDefiner.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Project\Item\Armor.hpp">
-      <Filter>Game\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Item\Bag.hpp">
-      <Filter>Game\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\BaseComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\BaseField.hpp">
-      <Filter>Engine\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\BaseWindow.hpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\BaseWindowObject.hpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\EditorField.hpp">
-      <Filter>Engine\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\EditorFieldGroup.hpp">
-      <Filter>Engine\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\EditorIDAssigner.hpp">
-      <Filter>Engine\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EngineWindow.hpp">
-      <Filter>Engine\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine.hpp">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EngineDebugWindow.hpp">
-      <Filter>Engine\Window\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp">
-      <Filter>Engine\Window\Focus</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EngineObjectListViewer.hpp">
-      <Filter>Engine\Window\ListViewer</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\GraphicalUserInterface.hpp">
-      <Filter>Game\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\DialogComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\EquipmentComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Text\FloatingDamage.hpp">
-      <Filter>Game\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Text\FloatingText.hpp">
-      <Filter>Game\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\PickupComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\PlayerComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\OverheadComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\MovementComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\StatsComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\StatsWindow.hpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\TransformComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics.hpp">
-      <Filter>Game\LogicEngine\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\InputHandler.hpp">
-      <Filter>Game\LogicEngine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Mouse\Mouse.hpp">
-      <Filter>Game\LogicEngine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GameView.hpp">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Item\Item.hpp">
-      <Filter>Game\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\InventoryComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\HealthComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\HitboxComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\IBaseComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\RenderComponent.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\ProjectilePatternComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Zone.hpp">
-      <Filter>Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\ZoneMaker.hpp">
-      <Filter>Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Resource.h">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\TradeWindow.hpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\RigidComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\PrefabContainer.hpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Prefab.hpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp">
-      <Filter>Game\Load_Save</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Component\GameObject.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Gfx.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\InventoryWindow.hpp">
-      <Filter>Game\GUI\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Text\InputBox.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\InputDialog.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\Button.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Text\Font.hpp">
-      <Filter>Game\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\EditorUI\UIAddon.hpp">
-      <Filter>Engine\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Time.hpp">
-      <Filter>Game\LogicEngine\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\ToolTip.hpp">
-      <Filter>Game\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\WorldManagement.hpp">
-      <Filter>Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\GraphicalUserInterface\WindowIcon.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Text\Message.hpp">
-      <Filter>Game\GUI\Window\Addons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Vector.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Tile.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Project\icon.ico">
-      <Filter>Other</Filter>
-    </Image>
-    <Image Include="test.png">
-      <Filter>Other</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd">
-      <Filter>Other</Filter>
-    </None>
-    <None Include="test2.frag">
-      <Filter>Other</Filter>
-    </None>
-    <None Include="test.frag">
-      <Filter>Other</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Engine">
-      <UniqueIdentifier>{8e827a13-6c37-491a-9760-fa094dda0f73}</UniqueIdentifier>
+      <UniqueIdentifier>{1d604030-0fe4-466a-a75d-207b37df8965}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
-      <UniqueIdentifier>{8629c177-069c-4995-8470-1754b5e92ab3}</UniqueIdentifier>
+      <UniqueIdentifier>{eea9e98d-1670-4574-8a8c-c87f25e23892}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Window">
-      <UniqueIdentifier>{6b308a5d-87b7-4f4c-a032-3327dd842433}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Component">
-      <UniqueIdentifier>{db416e4a-7404-49e6-8577-ba8213b35219}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Item">
-      <UniqueIdentifier>{43b4a839-1e6e-4803-b641-b248ed8df0fb}</UniqueIdentifier>
+      <UniqueIdentifier>{610e2f9d-8024-464c-90e7-e67867747c5f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Editor">
-      <UniqueIdentifier>{ca383194-60db-4d94-9cce-01444dfb1e66}</UniqueIdentifier>
+      <UniqueIdentifier>{3c81c7ba-2fb1-4505-83ab-2a15a49e0d24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI">
-      <UniqueIdentifier>{f9a9c822-f2ce-4dd7-aedb-3b1768f1aa51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GUI\Window">
-      <UniqueIdentifier>{7402fd4c-455e-43a4-ab92-59207cd10c0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Window\Debug">
-      <UniqueIdentifier>{bc8ceff5-ee44-4138-b580-d41cc199ad84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Window\Focus">
-      <UniqueIdentifier>{c3cecf52-e231-4ee2-87f6-38ca4c08f963}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Window\ListViewer">
-      <UniqueIdentifier>{2c8d7308-7f67-4fa6-b200-8922ea89a2a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Other">
-      <UniqueIdentifier>{e4c93a78-2501-47ca-9791-48a6de7301b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\LogicEngine">
-      <UniqueIdentifier>{25590a83-44f3-419b-82d6-0f9a2aaaaddf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Load_Save">
-      <UniqueIdentifier>{61aca1ef-68fe-442a-81e9-1091f5462182}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\LogicEngine\Physics">
-      <UniqueIdentifier>{21808354-a0f4-47ae-80f9-3381a4e3e756}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\LogicEngine\Input">
-      <UniqueIdentifier>{b091519a-e6af-4861-8fda-29c811f31a32}</UniqueIdentifier>
+    <Filter Include="Game\Logic">
+      <UniqueIdentifier>{d05649a9-7455-4c72-8bd4-85426d597dec}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\World">
-      <UniqueIdentifier>{1612cb52-5c7f-4060-b845-3186ec037aa8}</UniqueIdentifier>
+      <UniqueIdentifier>{74ae155e-24fe-40b5-8cdc-51102255f18a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI\Window\Addons">
-      <UniqueIdentifier>{baf3cd88-826e-4a9e-abf1-3eb80af92b64}</UniqueIdentifier>
+    <Filter Include="Game\Logic\Input">
+      <UniqueIdentifier>{d746b361-5429-4928-a789-20d0aaae673b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\LogicEngine\Time">
-      <UniqueIdentifier>{c77e8dd8-7732-4921-9b50-7bbe8911f0a2}</UniqueIdentifier>
+    <Filter Include="Game\Logic\Physics">
+      <UniqueIdentifier>{d538ff4a-be70-475f-9b66-9eadbb86c1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\LoadAndSave">
+      <UniqueIdentifier>{e306350d-8cfd-4a77-b4a0-21e704ec6bd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{f70be89a-c8b6-4a12-8ec5-f04ee1e876d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Logic\Time">
+      <UniqueIdentifier>{463e74af-509f-4f86-b5f4-d3972115dc36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI">
+      <UniqueIdentifier>{8ca9e112-3aa6-4f3e-868e-ab85fb5a397f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI\Text">
+      <UniqueIdentifier>{d88decec-9f71-41a5-9d46-62cc01a09ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI\Window">
+      <UniqueIdentifier>{631d2440-0ed3-47e2-8d71-a01649a61566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI\Window\Addon">
+      <UniqueIdentifier>{fd116e0a-e879-4e19-be2f-e7cf9be0b513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Item">
+      <UniqueIdentifier>{b92c913b-d22b-462e-9e82-72cd667d6f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{b72af699-4ed4-44e8-8b97-e26a688be792}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Project\MenuBar.rc">
+    <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\DialogComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\GameObject.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\HealthComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\HitboxComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\IBaseComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\InventoryComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\MovementComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\OverheadComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\PickupComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\PlayerComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\ProjectilePatternComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\RenderComponent.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\ReputationComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\RigidComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\StatsComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\TransformComponent.hpp">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\Font.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\Message.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\BaseWindowObject.hpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Armor.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Bag.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Item.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\WorldManagement.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\Zone.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\ZoneMaker.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp">
+      <Filter>Game\Logic\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp">
+      <Filter>Game\Logic\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Time\Time.hpp">
+      <Filter>Game\Logic\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Gfx.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Tile.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Gfx.h" />
+    <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\Engine\Resource.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp">
+      <Filter>Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\ToolTip.hpp">
+      <Filter>Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Editor\BaseField.hpp">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Editor\EditorField.hpp">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Editor\EditorFieldGroup.hpp">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Editor\EditorIDAssigner.hpp">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Editor\UIAddon.hpp">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\enginewindow.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GameView.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\HealthComponent.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\HitboxComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\InventoryComponent.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\MovementComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\OverheadComponent.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\PickupComponent.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\PlayerComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\ProjectilePatternComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\RenderComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\ReputationComponentDefiners.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\RigidComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\BaseWindowObjectDefiner.cpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp">
+      <Filter>Game\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\BagDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\ItemDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\World\WorldManagement.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\World\Zone.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\World\ZoneMaker.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp">
+      <Filter>Game\Logic\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Input\Mouse.cpp">
+      <Filter>Game\Logic\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineDefiner.cpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp">
+      <Filter>Game\Logic\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\TileDefiner.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GameDefiner.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GameHandler.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\WindowHandler.cpp" />
+    <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp">
+      <Filter>Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp">
+      <Filter>Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp">
+      <Filter>Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp">
+      <Filter>Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp">
+      <Filter>Engine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Editor\EditorIDAssignerDefiner.cpp">
+      <Filter>Engine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\EngineWindowDefiner.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GameViewDefiner.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\VectorDefiner.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project\Other\MenuBar.rc">
       <Filter>Other</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\win7Style.xml">
-      <Filter>Other</Filter>
-    </Xml>
   </ItemGroup>
 </Project>

@@ -10,6 +10,140 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\Engine\Editor\BaseField.hpp" />
+    <ClInclude Include="Project\Engine\Editor\EditorField.hpp" />
+    <ClInclude Include="Project\Engine\Editor\EditorFieldGroup.hpp" />
+    <ClInclude Include="Project\Engine\Editor\EditorIDAssigner.hpp" />
+    <ClInclude Include="Project\Engine\Editor\UIAddon.hpp" />
+    <ClInclude Include="Project\Engine\Resource.h" />
+    <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\enginewindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp" />
+    <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\GameObject.h" />
+    <ClInclude Include="Project\Game\Component\HealthComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\HitboxComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\IBaseComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\InventoryComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\MovementComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\OverheadComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\PickupComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\PlayerComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\ProjectilePatternComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\RenderComponent.h" />
+    <ClInclude Include="Project\Game\Component\ReputationComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\RigidComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
+    <ClInclude Include="Project\Game\Game.h" />
+    <ClInclude Include="Project\Game\GameView.hpp" />
+    <ClInclude Include="Project\Game\Gfx.h" />
+    <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp" />
+    <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\Message.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\BaseWindowObject.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp" />
+    <ClInclude Include="Project\Game\Item\Armor.hpp" />
+    <ClInclude Include="Project\Game\Item\Bag.hpp" />
+    <ClInclude Include="Project\Game\Item\Item.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
+    <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
+    <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp" />
+    <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
+    <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
+    <ClInclude Include="Project\Game\Tile.h" />
+    <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
+    <ClInclude Include="Project\Game\World\Zone.hpp" />
+    <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
+    <ClInclude Include="Project\Gfx.h" />
+    <ClInclude Include="Project\Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp" />
+    <ClCompile Include="Project\Engine\Editor\EditorIDAssignerDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\EngineWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp" />
+    <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\HealthComponent.cpp" />
+    <ClCompile Include="Project\Game\Component\HitboxComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\InventoryComponent.cpp" />
+    <ClCompile Include="Project\Game\Component\MovementComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\OverheadComponent.cpp" />
+    <ClCompile Include="Project\Game\Component\PickupComponent.cpp" />
+    <ClCompile Include="Project\Game\Component\PlayerComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\ProjectilePatternComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\RenderComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\ReputationComponentDefiners.cpp" />
+    <ClCompile Include="Project\Game\Component\RigidComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp" />
+    <ClCompile Include="Project\Game\GameDefiner.cpp" />
+    <ClCompile Include="Project\Game\GameHandler.cpp" />
+    <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
+    <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
+    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\BaseWindowObjectDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp" />
+    <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\ItemDefiner.cpp" />
+    <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp" />
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp" />
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp" />
+    <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Game\Logic\Input\Mouse.cpp" />
+    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineDefiner.cpp" />
+    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
+    <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
+    <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Game\TileDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
+    <ClCompile Include="Project\Game\World\Zone.cpp" />
+    <ClCompile Include="Project\Game\World\ZoneMaker.cpp" />
+    <ClCompile Include="Project\VectorDefiner.cpp" />
+    <ClCompile Include="Project\WindowHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project\Other\MenuBar.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F58779DA-3DE9-4DAA-8457-9F0556580466}</ProjectGuid>
     <RootNamespace>OneFlower</RootNamespace>
@@ -44,11 +178,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -56,7 +190,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.3.1\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -77,7 +211,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Lib\SFML-2.3.1\include;$(SolutionDir)Lib\cereal-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -87,151 +221,6 @@
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <Image Include="Project\icon.ico" />
-    <Image Include="test.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\win7Style.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Project\Component\BaseComponent.hpp" />
-    <ClInclude Include="Project\Component\DialogComponent.hpp" />
-    <ClInclude Include="Project\Component\EquipmentComponent.hpp" />
-    <ClInclude Include="Project\Component\GameObject.h" />
-    <ClInclude Include="Project\Component\HealthComponent.hpp" />
-    <ClInclude Include="Project\Component\HitboxComponent.hpp" />
-    <ClInclude Include="Project\Component\IBaseComponent.hpp" />
-    <ClInclude Include="Project\Component\InventoryComponent.hpp" />
-    <ClInclude Include="Project\Component\MovementComponent.hpp" />
-    <ClInclude Include="Project\Component\OverheadComponent.hpp" />
-    <ClInclude Include="Project\Component\PickupComponent.hpp" />
-    <ClInclude Include="Project\Component\PlayerComponent.hpp" />
-    <ClInclude Include="Project\Component\ProjectilePatternComponent.hpp" />
-    <ClInclude Include="Project\Component\RenderComponent.h" />
-    <ClInclude Include="Project\Component\RigidComponent.hpp" />
-    <ClInclude Include="Project\Component\StatsComponent.hpp" />
-    <ClInclude Include="Project\Component\TransformComponent.hpp" />
-    <ClInclude Include="Project\EditorUI\BaseField.hpp" />
-    <ClInclude Include="Project\EditorUI\EditorField.hpp" />
-    <ClInclude Include="Project\EditorUI\EditorFieldGroup.hpp" />
-    <ClInclude Include="Project\EditorUI\EditorIDAssigner.hpp" />
-    <ClInclude Include="Project\EditorUI\EngineFocusWindow.hpp" />
-    <ClInclude Include="Project\EditorUI\UIAddon.hpp" />
-    <ClInclude Include="Project\Engine.hpp" />
-    <ClInclude Include="Project\EngineDebugWindow.hpp" />
-    <ClInclude Include="Project\EngineObjectListViewer.hpp" />
-    <ClInclude Include="Project\EngineWindow.hpp" />
-    <ClInclude Include="Project\Game.h" />
-    <ClInclude Include="Project\GameView.hpp" />
-    <ClInclude Include="Project\Gfx.h" />
-    <ClInclude Include="Project\GraphicalUserInterface\BaseWindow.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\BaseWindowObject.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\Button.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\GraphicalUserInterface.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\InventoryWindow.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\ScrollBar.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\StatsWindow.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\ToolTip.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\TradeWindow.hpp" />
-    <ClInclude Include="Project\GraphicalUserInterface\WindowIcon.hpp" />
-    <ClInclude Include="Project\InputDialog.hpp" />
-    <ClInclude Include="Project\InputHandler.hpp" />
-    <ClInclude Include="Project\Item\Armor.hpp" />
-    <ClInclude Include="Project\Item\Bag.hpp" />
-    <ClInclude Include="Project\Item\Item.hpp" />
-    <ClInclude Include="Project\LoadAndSave\LoadAndSave.hpp" />
-    <ClInclude Include="Project\Mouse\Mouse.hpp" />
-    <ClInclude Include="Project\Physics.hpp" />
-    <ClInclude Include="Project\Prefab.hpp" />
-    <ClInclude Include="Project\PrefabContainer.hpp" />
-    <ClInclude Include="Project\Resource.h" />
-    <ClInclude Include="Project\Text\FloatingDamage.hpp" />
-    <ClInclude Include="Project\Text\FloatingText.hpp" />
-    <ClInclude Include="Project\Text\Font.hpp" />
-    <ClInclude Include="Project\Text\InputBox.hpp" />
-    <ClInclude Include="Project\Text\Message.hpp" />
-    <ClInclude Include="Project\Tile.h" />
-    <ClInclude Include="Project\Time.hpp" />
-    <ClInclude Include="Project\Vector.h" />
-    <ClInclude Include="Project\WorldManagement.hpp" />
-    <ClInclude Include="Project\Zone.hpp" />
-    <ClInclude Include="Project\ZoneMaker.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Project\Component\BaseComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\DialogComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\EquipmentComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\GameObjectDefiner.cpp" />
-    <ClCompile Include="Project\Component\HealthComponent.cpp" />
-    <ClCompile Include="Project\Component\HitboxComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\InventoryComponent.cpp" />
-    <ClCompile Include="Project\Component\MovementComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\OverheadComponent.cpp" />
-    <ClCompile Include="Project\Component\PickupComponent.cpp" />
-    <ClCompile Include="Project\Component\PlayerComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\ProjectilePatternComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\RenderComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\ReputationComponentDefiners.cpp" />
-    <ClCompile Include="Project\Component\ReputationComponent.hpp" />
-    <ClCompile Include="Project\Component\RigidComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\StatsComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\TransformComponentDefiner.cpp" />
-    <ClCompile Include="Project\Component\TransformComponentHandler.cpp" />
-    <ClCompile Include="Project\EditorUI\EngineFocusWindowDefiner.cpp" />
-    <ClCompile Include="Project\EditorUI\EditorFieldHandler.cpp" />
-    <ClCompile Include="Project\EditorUI\EditorIDAssignerDefiner.cpp" />
-    <ClCompile Include="Project\EngineDebugWindowDefiner.cpp" />
-    <ClCompile Include="Project\EngineObjectListViewerDefiner.cpp" />
-    <ClCompile Include="Project\EngineWindowHandler.cpp" />
-    <ClCompile Include="Project\EngineWindowDefiner.cpp" />
-    <ClCompile Include="Project\GameDefiner.cpp" />
-    <ClCompile Include="Project\GameHandler.cpp" />
-    <ClCompile Include="Project\GameViewDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\BaseWindowObjectDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\ButtonDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterface.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\InventoryWindowDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\ScrollBarDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\StatsWindow.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\ToolTipDefiner.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\TradeWindow.cpp" />
-    <ClCompile Include="Project\GraphicalUserInterface\WindowIconDefiner.cpp" />
-    <ClCompile Include="Project\InputDialog.cpp" />
-    <ClCompile Include="Project\InputHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Item\ArmorDefiner.cpp" />
-    <ClCompile Include="Project\Item\BagDefiner.cpp" />
-    <ClCompile Include="Project\Item\ItemDefiner.cpp" />
-    <ClCompile Include="Project\LoadAndSave\LoadAndSave.cpp" />
-    <ClCompile Include="Project\Mouse\Mouse.cpp" />
-    <ClCompile Include="Project\PhysicsEngineDefiner.cpp" />
-    <ClCompile Include="Project\PhysicsEngineHandler.cpp" />
-    <ClCompile Include="Project\PrefabContainerDefiner.cpp" />
-    <ClCompile Include="Project\PrefabDefiner.cpp" />
-    <ClCompile Include="Project\RenderHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Text\FloatingDamageDefiner.cpp" />
-    <ClCompile Include="Project\Text\FloatingTextDefiner.cpp" />
-    <ClCompile Include="Project\Text\FontDefiner.cpp" />
-    <ClCompile Include="Project\Text\InputBoxDefiner.cpp" />
-    <ClCompile Include="Project\Text\MessageDefiner.cpp" />
-    <ClCompile Include="Project\TileDefiner.cpp" />
-    <ClCompile Include="Project\TimeDefiner.cpp" />
-    <ClCompile Include="Project\VectorDefiner.cpp" />
-    <ClCompile Include="Project\WindowHandler.cpp" />
-    <ClCompile Include="Project\WorldManagement.cpp" />
-    <ClCompile Include="Project\Zone.cpp" />
-    <ClCompile Include="Project\ZoneMaker.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Project\MenuBar.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="test.frag" />
-    <None Include="test2.frag" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
