@@ -52,7 +52,7 @@ public:
 	void updateFrame();
 
 	bool updateFromEditor();
-	
+
 	Vector2 oldSizePixel;
 protected:
 	void attachOn(GameObject* go);

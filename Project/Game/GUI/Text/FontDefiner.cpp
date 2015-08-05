@@ -9,7 +9,7 @@ Font::Font()
 bool Font::loadFont(std::string name)
 {
 	sf::Font tmp;
-	if(!tmp.loadFromFile("Font\\"+name))
+	if(!tmp.loadFromFile("Font\\" + name))
 	{
 		MessageBox(0,"Error loading from file",name.c_str(),MB_OK);
 		return false;

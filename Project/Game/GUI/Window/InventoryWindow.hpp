@@ -12,11 +12,11 @@ class Item;
 class EquipmentComponent;
 class InventoryComponent;
 
-class InventoryWindow : public BaseWindow
+class InventoryWindow: public BaseWindow
 {
 public:
 
-	InventoryWindow(float x1, float y1, int x2, int y2);
+	InventoryWindow(float x1,float y1,int x2,int y2);
 
 	bool bagSlotSelected = false;
 	bool createdInventory = false;
@@ -34,7 +34,6 @@ private:
 	int selectedIndex = 0;
 	int bagIndex = 0;
 
-
 	sf::Sprite emptyInventorySlot;
 	Item* item;
 	ToolTip toolTip;
@@ -42,7 +41,7 @@ private:
 	Message weight;
 
 	bool mouseInsideIcon(sf::Sprite&);
-	
+
 	void drawGold();
 	void drawWeight(InventoryComponent* inv);
 	void onClose();
@@ -56,8 +55,8 @@ private:
 	void createStats();
 
 	void ClickOnBagSlot(Bag* bag);
-	void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
-	
+	void swap(sf::Sprite& icon,GameObject* go,EquipmentComponent* equip,std::string armorType);
+
 	bool tryEquipBag(Vector2& off);
 };
 

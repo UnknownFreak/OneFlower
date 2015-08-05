@@ -16,12 +16,12 @@ void BaseWindowObject::setSize(Vector2 s)
 {
 	size = s;
 }
-void BaseWindowObject::setPosition(double x, double y)
+void BaseWindowObject::setPosition(double x,double y)
 {
 	position.x = x;
 	position.y = y;
 }
-void BaseWindowObject::setSize(double sizeX, double sizeY)
+void BaseWindowObject::setSize(double sizeX,double sizeY)
 {
 	size.x = sizeX;
 	size.y = sizeY;

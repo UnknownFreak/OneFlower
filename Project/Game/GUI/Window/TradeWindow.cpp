@@ -5,45 +5,45 @@
 #include "../../Item/Armor.hpp"
 #include "Addon/WindowIcon.hpp"
 
-TradeWindow::TradeWindow() : BaseWindow(50, 50, 250, 600, false, "Trade - Buy"),
-scroll(50 + 12, 50 + 12, 250 - 24, 600 - 24, Vector2(64,40), Vector2(220, 10), this, false),
-tradeSigleItem("ButtonTest.png", 40, 20, 20, 20), tradeStack("ButtonTest.png", 40, 20, 20, 45),
-tab_buy("ButtonTest.png", 32, 32, 20, 20), tab_sell("ButtonTest.png", 32, 32, 20, 20), tab_history("ButtonTest.png", 32, 32, 20, 20),
+TradeWindow::TradeWindow(): BaseWindow(50,50,250,600,false,"Trade - Buy"),
+scroll(50 + 12,50 + 12,250 - 24,600 - 24,Vector2(64,40),Vector2(220,10),this,false),
+tradeSigleItem("ButtonTest.png",40,20,20,20),tradeStack("ButtonTest.png",40,20,20,45),
+tab_buy("ButtonTest.png",32,32,20,20),tab_sell("ButtonTest.png",32,32,20,20),tab_history("ButtonTest.png",32,32,20,20),
 tradingItemBackground(*Engine::Graphic.requestTexture("TradeWindowIcon.png"))
 {
-	tab_buy.icon.setColor(sf::Color(125, 125, 125));
+	tab_buy.icon.setColor(sf::Color(125,125,125));
 	tradeSigleItem.setName("Sell");
 }
 
-TradeWindow::TradeWindow(float x, float y, int sizeX, int sizeY) : BaseWindow(x, y, sizeX, sizeY, false, "Trade - Buy"),
-scroll(x + 12, y + 12, sizeX - 24, sizeY - 24, Vector2(255, 40), Vector2(220, 2), this, false),
-tradeSigleItem("ButtonWide.png", sf::IntRect(0,0,50,20), 20, 20,"Trade"), tradeStack("ButtonWide.png", 50, 20, 20, 45),
-tab_buy("BuySell.png", sf::IntRect(0, 0, 36, 36), 20, 20, "buy"), tab_sell("BuySell.png", sf::IntRect(36, 0, 36, 36), 20, 20, "sell"), tab_history("ButtonTest.png", sf::IntRect(0, 0, 32, 32), 20, 20, ""),
-currentGold("test.png", *Engine::Graphic.font.requestFont("arial.ttf"),false),
+TradeWindow::TradeWindow(float x,float y,int sizeX,int sizeY): BaseWindow(x,y,sizeX,sizeY,false,"Trade - Buy"),
+scroll(x + 12,y + 12,sizeX - 24,sizeY - 24,Vector2(255,40),Vector2(220,2),this,false),
+tradeSigleItem("ButtonWide.png",sf::IntRect(0,0,50,20),20,20,"Trade"),tradeStack("ButtonWide.png",50,20,20,45),
+tab_buy("BuySell.png",sf::IntRect(0,0,36,36),20,20,"buy"),tab_sell("BuySell.png",sf::IntRect(36,0,36,36),20,20,"sell"),tab_history("ButtonTest.png",sf::IntRect(0,0,32,32),20,20,""),
+currentGold("test.png",*Engine::Graphic.font.requestFont("arial.ttf"),false),
 tradingItemBackground(*Engine::Graphic.requestTexture("TradeWindowIcon.png"))
 {
-	tab_buy.icon.setColor(sf::Color(125, 125, 125));
+	tab_buy.icon.setColor(sf::Color(125,125,125));
 	tradeSigleItem.setName("\tBuy");
 	currentGold = "b §Icon|coins|0|0|0§";
 	currentGold.setSize(12);
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1234567, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 123456, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 12345, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1234, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 123, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 12, "Giggity"), -1));
-	itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1, "Giggity"), -1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,1234567,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,123456,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,12345,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,1234,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,123,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,12,"Giggity"),-1));
+	itemsBuy.push_back(std::pair<Item*,int>(new Item(0,true,"test","InventoryIconTest.png",Item::undefined,.4,1,"Giggity"),-1));
 }
 
 TradeWindow::~TradeWindow()
 {
 	size_t i = 0;
-	for (i; i < itemsBuy.size(); i++)
+	for(i; i < itemsBuy.size(); i++)
 	{
 		delete itemsBuy[i].first;
 		itemsBuy[i].first = NULL;
 	}
-	for (i = 0; i < history.size(); i++)
+	for(i = 0; i < history.size(); i++)
 	{
 		delete history[i].first;
 		history[i].first = NULL;
@@ -52,9 +52,9 @@ TradeWindow::~TradeWindow()
 
 void TradeWindow::draw()
 {
-	if (open)
+	if(open)
 	{
-		if (updateScrollbar)
+		if(updateScrollbar)
 			createScrollbar();
 		move();
 		WindowHandle();
@@ -62,33 +62,32 @@ void TradeWindow::draw()
 		scroll.draw();
 		drawTab();
 		currentGold.draw();
-		if (scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
+		if(scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 			scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && !Engine::GUI.focusedWindow->checkMouseInside())
-			if (scroll.mouseInsideIcon(*scroll.tooltip.first) && scroll.tooltip.second.getToolTipBody() != "")
+			if(scroll.mouseInsideIcon(*scroll.tooltip.first) && scroll.tooltip.second.getToolTipBody() != "")
 			{
-				Engine::GUI.openedWindowToolTip.setToolTipText(scroll.tooltip.second.getToolTipTitle(), scroll.tooltip.second.getToolTipBody());
+				Engine::GUI.openedWindowToolTip.setToolTipText(scroll.tooltip.second.getToolTipTitle(),scroll.tooltip.second.getToolTipBody());
 				Engine::GUI.drawOpenedWindowToolTip = true;
 			}
 	}
 }
 void TradeWindow::WindowHandle()
 {
-
 	//currentGold
-	currentGold.setPosition(position.x + offsetX + 20, position.y + window.getTextureRect().height - 28 + offsetY);
+	currentGold.setPosition(position.x + offsetX + 20,position.y + window.getTextureRect().height - 28 + offsetY);
 
 	//button
-	tradeSigleItem.setPosition(position.x + offsetX + window.getTextureRect().width - 56, position.y + window.getTextureRect().height - 28 + offsetY);
+	tradeSigleItem.setPosition(position.x + offsetX + window.getTextureRect().width - 56,position.y + window.getTextureRect().height - 28 + offsetY);
 
 	//tabs
-	tab_buy.setPosition(position.x + offsetX + 5, position.y + 30 + offsetY);
-	tab_sell.setPosition(position.x + offsetX + 5, position.y + 30 + 37 + offsetY);
-	tab_history.setPosition(position.x + offsetX + 5, position.y + 30 + 74 + offsetY);
+	tab_buy.setPosition(position.x + offsetX + 5,position.y + 30 + offsetY);
+	tab_sell.setPosition(position.x + offsetX + 5,position.y + 30 + 37 + offsetY);
+	tab_history.setPosition(position.x + offsetX + 5,position.y + 30 + 74 + offsetY);
 
 	//scrollbar
 	scroll.setSizeY(window.getTextureRect().height - 130);
 	scroll.setSizeX(328);
-	scroll.setPosition(position.x + offsetX, position.y + 40 + offsetY);
+	scroll.setPosition(position.x + offsetX,position.y + 40 + offsetY);
 
 	BaseWindow::WindowHandle();
 }
@@ -103,7 +102,7 @@ bool TradeWindow::getScrollbarUpdate()
 void TradeWindow::setInventory()
 {
 	GameObject* go = Engine::Window.focus.gameObject;
-	if (go)
+	if(go)
 		playerInventory = go->GetComponent<InventoryComponent>();
 }
 void TradeWindow::drawTab()
@@ -116,11 +115,11 @@ void TradeWindow::drawTab()
 
 	setGold();
 
-	if (focus)
+	if(focus)
 	{
-		if (selectedTab != tabs::sellTab)
+		if(selectedTab != tabs::sellTab)
 		{
-			if (tab_sell.onHover() && windowLClick)
+			if(tab_sell.onHover() && windowLClick)
 			{
 				selectedTab = tabs::sellTab;
 				updateScrollbar = true;
@@ -130,15 +129,15 @@ void TradeWindow::drawTab()
 		}
 		/*if (selectedTab != tabs::historyTab)
 		{
-			if (tab_history.onHover() && windowClick)
-			{
-				selectedTab = tabs::historyTab;
-				updateScrollbar = true;
-			}
-		}*/
-		if (selectedTab != tabs::buyTab)
+		if (tab_history.onHover() && windowClick)
 		{
-			if (tab_buy.onHover() && windowLClick)
+		selectedTab = tabs::historyTab;
+		updateScrollbar = true;
+		}
+		}*/
+		if(selectedTab != tabs::buyTab)
+		{
+			if(tab_buy.onHover() && windowLClick)
 			{
 				selectedTab = tabs::buyTab;
 				updateScrollbar = true;
@@ -147,24 +146,24 @@ void TradeWindow::drawTab()
 			}
 		}
 #pragma endregion
-		if (tradeSigleItem.onHover() && windowLClick)
+		if(tradeSigleItem.onHover() && windowLClick)
 		{
-			if (scroll.selected)
+			if(scroll.selected)
 			{
-				if (playerInventory)
-					if (selectedTab == tabs::buyTab)
+				if(playerInventory)
+					if(selectedTab == tabs::buyTab)
 						buy(1);
-					else if (selectedTab == tabs::sellTab)
+					else if(selectedTab == tabs::sellTab)
 						sell(1);
 					else
 						;
 				else
 				{
 					setInventory();
-					if (playerInventory)
-						if (selectedTab == tabs::buyTab)
+					if(playerInventory)
+						if(selectedTab == tabs::buyTab)
 							buy(1);
-						else if (selectedTab == tabs::sellTab)
+						else if(selectedTab == tabs::sellTab)
 							sell(1);
 				}
 			}
@@ -176,43 +175,43 @@ void TradeWindow::createScrollbar()
 	scroll.setScroll(155);
 	scroll.selected = NULL;
 	std::vector<BaseWindowObject*>::iterator it = scroll.sprites.begin();
-	for (it; it != scroll.sprites.end(); it++)
+	for(it; it != scroll.sprites.end(); it++)
 	{
 		delete *it;
 	}
 	scroll.sprites.clear();
-	if (selectedTab == tabs::buyTab)
+	if(selectedTab == tabs::buyTab)
 	{
 		//tmp
-		for (std::vector<std::pair<Item*, int>>::iterator it = itemsBuy.begin(); it != itemsBuy.end(); ++it)
+		for(std::vector<std::pair<Item*,int>>::iterator it = itemsBuy.begin(); it != itemsBuy.end(); ++it)
 		{
 			Item* itm = it->first;
 			std::string number = std::to_string(it->second);
-			if (number == "-1")
+			if(number == "-1")
 				number = "N/A";
-			scroll.sprites.push_back(new WindowIcon(tradingItemBackground, itm->name, itm->toToolTipString(), number + "\t\t" + itm->name + "\t§Icon|coins|190|0|" +
-				std::to_string(itm->price) + "|Icon|"+ itm->iconName +"|-36|-4|false| ", Vector2(40, 8), std::pair<int, int>(0, 0), sf::Color::Black, 12));
+			scroll.sprites.push_back(new WindowIcon(tradingItemBackground,itm->name,itm->toToolTipString(),number + "\t\t" + itm->name + "\t§Icon|coins|190|0|" +
+				std::to_string(itm->price) + "|Icon|" + itm->iconName + "|-36|-4|false| ",Vector2(40,8),std::pair<int,int>(0,0),sf::Color::Black,12));
 		}
 		updateScrollbar = false;
 	}
-	else if (selectedTab == tabs::sellTab)
+	else if(selectedTab == tabs::sellTab)
 	{
-		if (playerInventory)
+		if(playerInventory)
 		{
 			int i = 0;
 			std::vector<Bag*>::iterator it = playerInventory->bags.begin();
-			for (it; it != playerInventory->bags.end(); it++)
+			for(it; it != playerInventory->bags.end(); it++)
 			{
-				if (((Bag*)*it)->freeSlots == ((Bag*)*it)->size)
+				if(((Bag*)*it)->freeSlots == ((Bag*)*it)->size)
 					continue;
-				std::vector<std::pair<Item*, int>>::iterator iit = ((Bag*)*it)->items.begin();
+				std::vector<std::pair<Item*,int>>::iterator iit = ((Bag*)*it)->items.begin();
 				int j = 0;
-				for (iit; iit != ((Bag*)*it)->items.end(); ++iit)
+				for(iit; iit != ((Bag*)*it)->items.end(); ++iit)
 				{
-					if (iit->first)
-						scroll.sprites.push_back(new WindowIcon(tradingItemBackground, iit->first->name, iit->first->toToolTipString(),
+					if(iit->first)
+						scroll.sprites.push_back(new WindowIcon(tradingItemBackground,iit->first->name,iit->first->toToolTipString(),
 						std::to_string(iit->second) + "\t\t" + iit->first->name + "\t§Icon|coins|190|0|" + std::to_string(iit->first->price)
-						+ "|Icon|" + iit->first->iconName + "|-36|-4|false| ", Vector2(40, 8), std::pair<int, int>(i, j), sf::Color::Black, 12));
+						+ "|Icon|" + iit->first->iconName + "|-36|-4|false| ",Vector2(40,8),std::pair<int,int>(i,j),sf::Color::Black,12));
 					j++;
 				}
 				i++;
@@ -223,35 +222,35 @@ void TradeWindow::createScrollbar()
 		{
 			//change to player
 			GameObject* go = Engine::Window.focus.gameObject;
-			if (go)
+			if(go)
 				playerInventory = go->GetComponent<InventoryComponent>();
 		}
 	}
 	/*else
 	{
-		for (std::vector<std::pair<Item*, int>>::iterator it = history.begin(); it != history.end(); it++)
-		{
-		Item* itm = it->first;
-		scroll.sprites.push_back(new WindowIcon(itm->icon, itm->name, itm->toToolTipString(), std::to_string(it->second) + " " + itm->name + "§Icon|coins|12|0|" +
-		std::to_string(itm->price), Vector2(64, 3), std::pair<int, int>(0, 0), sf::Color::Black, 12));
-		}
-		updateScrollbar = false;
+	for (std::vector<std::pair<Item*, int>>::iterator it = history.begin(); it != history.end(); it++)
+	{
+	Item* itm = it->first;
+	scroll.sprites.push_back(new WindowIcon(itm->icon, itm->name, itm->toToolTipString(), std::to_string(it->second) + " " + itm->name + "§Icon|coins|12|0|" +
+	std::to_string(itm->price), Vector2(64, 3), std::pair<int, int>(0, 0), sf::Color::Black, 12));
+	}
+	updateScrollbar = false;
 	}*/
 }
 void TradeWindow::buy(int size)
 {
-	if (playerInventory->coins >= itemsBuy[scroll.selectedBag].first->price)
+	if(playerInventory->coins >= itemsBuy[scroll.selectedBag].first->price)
 	{
-		if (itemsBuy[scroll.selectedBag].second < size && itemsBuy[scroll.selectedBag].second != -1)
+		if(itemsBuy[scroll.selectedBag].second < size && itemsBuy[scroll.selectedBag].second != -1)
 			size = itemsBuy[scroll.selectedBag].second;
-		if (playerInventory->addItem(*itemsBuy[scroll.selectedBag].first, size))
+		if(playerInventory->addItem(*itemsBuy[scroll.selectedBag].first,size))
 		{
 			playerInventory->removeGold(size*itemsBuy[scroll.selectedBag].first->price);
 
-			if (itemsBuy[scroll.selectedBag].second != -1)
+			if(itemsBuy[scroll.selectedBag].second != -1)
 			{
 				itemsBuy[scroll.selectedBag].second -= size;
-				if (itemsBuy[scroll.selectedBag].second == 0)
+				if(itemsBuy[scroll.selectedBag].second == 0)
 				{
 					delete scroll.sprites[scroll.selectedBag];
 					scroll.sprites[scroll.selectedBag] = NULL;
@@ -272,38 +271,38 @@ void TradeWindow::sell(int size)
 {
 	WindowIcon* icon = (WindowIcon*)scroll.sprites[scroll.selectedBag];
 	int itemStack = playerInventory->bags[icon->index.first]->items[icon->index.second].second;
-	if (itemStack < size)
+	if(itemStack < size)
 		size = itemStack;
-	Item* item = playerInventory->removeItem(icon->index.first, icon->index.second, size);
+	Item* item = playerInventory->removeItem(icon->index.first,icon->index.second,size);
 
-	if (item)
+	if(item)
 	{
 		bool found = false;
-		for (size_t i = 0; i < itemsBuy.size(); i++)
+		for(size_t i = 0; i < itemsBuy.size(); i++)
 		{
-			if (itemsBuy[i].first->ID == item->ID)
+			if(itemsBuy[i].first->ID == item->ID)
 			{
 				found = true;
-				if (itemsBuy[i].second != -1)
+				if(itemsBuy[i].second != -1)
 					itemsBuy[i].second += size;
 				break;
 			}
 		}
-		if (!found)
+		if(!found)
 		{
-			if (item->tag == Item::bag)
+			if(item->tag == Item::bag)
 			{
 				Bag* bag = (Bag*)item;
-				itemsBuy.push_back(std::pair<Item*, int>(new Bag(*bag), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Bag(*bag),size));
 			}
-			else if (item->tag == Item::armor)
+			else if(item->tag == Item::armor)
 			{
 				Armor* arm = (Armor*)item;
-				itemsBuy.push_back(std::pair<Item*, int>(new Armor(*arm), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Armor(*arm),size));
 			}
-			else if (item->tag == Item::undefined)
+			else if(item->tag == Item::undefined)
 			{
-				itemsBuy.push_back(std::pair<Item*, int>(new Item(*item), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Item(*item),size));
 			}
 		}
 		//history.push_back(std::pair<Item*,int>(item,size));
@@ -315,31 +314,31 @@ void TradeWindow::sell(int size)
 	else
 	{
 		bool found = false;
-		for (size_t i = 0; i < itemsBuy.size(); i++)
+		for(size_t i = 0; i < itemsBuy.size(); i++)
 		{
-			if (itemsBuy[i].first->ID == playerInventory->bags[icon->index.first]->items[icon->index.second].first->ID)
+			if(itemsBuy[i].first->ID == playerInventory->bags[icon->index.first]->items[icon->index.second].first->ID)
 			{
 				found = true;
-				if (itemsBuy[i].second != -1)
+				if(itemsBuy[i].second != -1)
 					itemsBuy[i].second += size;
 				break;
 			}
 		}
-		if (!found)
+		if(!found)
 		{
-			if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::bag)
+			if(playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::bag)
 			{
 				Bag* bag = (Bag*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
-				itemsBuy.push_back(std::pair<Item*, int>(new Bag(*bag), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Bag(*bag),size));
 			}
-			else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::armor)
+			else if(playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::armor)
 			{
 				Armor* arm = (Armor*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
-				itemsBuy.push_back(std::pair<Item*, int>(new Armor(*arm), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Armor(*arm),size));
 			}
-			else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::undefined)
+			else if(playerInventory->bags[icon->index.first]->items[icon->index.second].first->tag == Item::undefined)
 			{
-				itemsBuy.push_back(std::pair<Item*, int>(new Item(*playerInventory->bags[icon->index.first]->items[icon->index.second].first), size));
+				itemsBuy.push_back(std::pair<Item*,int>(new Item(*playerInventory->bags[icon->index.first]->items[icon->index.second].first),size));
 			}
 		}
 		icon->messageText = std::to_string(playerInventory->bags[icon->index.first]->items[icon->index.second].second) +
@@ -353,23 +352,23 @@ void TradeWindow::sell(int size)
 }
 void TradeWindow::setGold()
 {
-	if (playerInventory)
+	if(playerInventory)
 	{
 		std::string _gold = std::to_string(playerInventory->coins);
 		int size = _gold.length();
-		if (size > 9)
+		if(size > 9)
 			currentGold = "§Icon|coins|95|0|" + std::to_string(playerInventory->coins);
-		else if (size > 8)
+		else if(size > 8)
 			currentGold = "§Icon|coins|88|0|" + std::to_string(playerInventory->coins);
-		else if (size > 7)
+		else if(size > 7)
 			currentGold = "§Icon|coins|81|0|" + std::to_string(playerInventory->coins);
-		else if (size > 6)
+		else if(size > 6)
 			currentGold = "§Icon|coins|74|0|" + std::to_string(playerInventory->coins);
-		else if (size > 5)
+		else if(size > 5)
 			currentGold = "§Icon|coins|67|0|" + std::to_string(playerInventory->coins);
-		else if (size > 4)
+		else if(size > 4)
 			currentGold = "§Icon|coins|60|0|" + std::to_string(playerInventory->coins);
-		else if (size > 2)
+		else if(size > 2)
 			currentGold = "§Icon|coins|30|0|" + std::to_string(playerInventory->coins);
 		else
 			currentGold = "§Icon|coins|0|0|" + std::to_string(playerInventory->coins);
@@ -377,7 +376,7 @@ void TradeWindow::setGold()
 	else
 	{
 		GameObject* go = Engine::Window.focus.gameObject;
-		if (go)
+		if(go)
 			playerInventory = go->GetComponent<InventoryComponent>();
 	}
 }

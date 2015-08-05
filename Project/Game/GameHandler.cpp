@@ -13,7 +13,6 @@
 #include "Component\MovementComponent.hpp"
 void Game::update()
 {
-
 	for(size_t i = 0; i < motionObjectPointers.size(); i++)
 	{
 		MovementComponent* movement = motionObjectPointers[i]->GetComponent<MovementComponent>();
@@ -33,11 +32,9 @@ void Game::update()
 				{
 					finalDirection += forces[i].first;
 					finalDirection.normalize();
-
 				}
 				position.x += finalDirection.x*movementSpeed*Engine::time.deltaTime();
 				position.y += finalDirection.y*movementSpeed*Engine::time.deltaTime();
-
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 #include "IBaseComponent.hpp"
 #include <string>
 class GameObject;
-class ReputationComponent :public IBaseComponent < ReputationComponent >
+class ReputationComponent:public IBaseComponent < ReputationComponent >
 {
 public:
 	//Name of the friend you get Reputation with.
@@ -18,10 +18,10 @@ public:
 	ReputationComponent();
 
 	void attachOn(GameObject * go);
-	void increaseReputation(std::string faction, int x);
-	void decreaseReputation(std::string faction, int x);
-	void addNewRep(std::string x, int y);
-	void showRep(std::string a, int x, int  y);
+	void increaseReputation(std::string faction,int x);
+	void decreaseReputation(std::string faction,int x);
+	void addNewRep(std::string x,int y);
+	void showRep(std::string a,int x,int  y);
 	void removeRep(std::string a);
 	//TODO low:  inline one day!!
 	std::string getStanding();
@@ -31,12 +31,12 @@ private:
 	int requierment[6];
 
 	//map
-	std::map<std::string, int> rep;
-	std::map<std::string, int> levels;
+	std::map<std::string,int> rep;
+	std::map<std::string,int> levels;
 
 	template<class Archive>
-	friend void save(Archive &ar, const ReputationComponent& rep);
+	friend void save(Archive &ar,const ReputationComponent& rep);
 	template<class Archive>
-	friend void load(Archive &ar, ReputationComponent& rep);
+	friend void load(Archive &ar,ReputationComponent& rep);
 };
 #endif

@@ -37,11 +37,6 @@ void Game::addGameObject(GameObject* entity)
 	}
 	//*/
 
-
-	
-
-
-
 	allGameObjectPointers.push_back(entity);
 	Engine::GUI.addOverhead(entity);
 	//Engine::Graphic.insertDrawableObject(entity);

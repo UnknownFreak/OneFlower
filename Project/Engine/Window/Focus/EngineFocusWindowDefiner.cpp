@@ -556,26 +556,25 @@ HWND EngineFocus::addEditor(HWND phWnd,std::string name,int x,int y,int width,in
 	return hWnd;
 }
 
-
 /*
 HWND EngineFocus::addComponentGroup(HWND phWnd,std::string name,int x,int y,int width,int height,int groupID)
 {
-	HWND hWnd =
-		CreateWindowEx
-		(
-		0,
-		"EngineFocus",
-		name.c_str(),
-		WS_VISIBLE | WS_BORDER | WS_TABSTOP,
-		x,y,
-		width,height,
-		phWnd,
-		(HMENU)groupID,
-		Engine::Window.hInstance,
-		NULL
-		);
+HWND hWnd =
+CreateWindowEx
+(
+0,
+"EngineFocus",
+name.c_str(),
+WS_VISIBLE | WS_BORDER | WS_TABSTOP,
+x,y,
+width,height,
+phWnd,
+(HMENU)groupID,
+Engine::Window.hInstance,
+NULL
+);
 
-	return hWnd;
+return hWnd;
 }
 
 //*/

@@ -26,7 +26,7 @@ public:
 	//LOW: is this needed
 	//Send infomation what happend when colliding
 	void sendMessage(const BaseMessage& msg);
-	
+
 	//LOW: Create a body?
 	//On hit collision		//TODO: Make this virtal
 
@@ -41,20 +41,15 @@ protected:
 	//Return a Uniq classID
 	virtual const unsigned int getType() = 0;// = 0;
 
-
 	//Return the type name
 	virtual	std::string getTypeName() = 0;
 
-
-	
-	
-	//HIGH: remove? 
+	//HIGH: remove?
 	virtual void update();
 
 	//Attach the component to a GameObject
 	virtual void attachOn(GameObject* attachTo);
-	
-	
+
 	void recieveMessage(const BaseMessage& target);
 
 #ifdef _DEBUG
@@ -64,7 +59,6 @@ protected:
 	//Copy of Registerd editor variables
 	virtual std::map<std::string,BaseField*> getFields() = 0;
 
-	
 	//update component whenever Editor change a variable value
 	virtual bool updateFromEditor();
 #endif

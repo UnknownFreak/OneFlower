@@ -14,10 +14,9 @@ public:
 		consumable,
 		craftingMaterial,
 		junk,
-
 	};
 	Item();
-	Item(int ID, bool stackable, std::string name, std::string iconName, int tag, double weight, int price, std::string description);
+	Item(int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description);
 	Item(const Item& item);
 	Item& operator=(const Item& other);
 	virtual ~Item() = default;
@@ -37,9 +36,9 @@ public:
 private:
 
 	template<class Archive>
-	friend void save(Archive &Ar, const Item& item);
+	friend void save(Archive &Ar,const Item& item);
 	template<class Archive>
-	friend void load(Archive &Ar, Item& item);
+	friend void load(Archive &Ar,Item& item);
 };
 
 #endif

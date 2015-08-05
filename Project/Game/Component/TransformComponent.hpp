@@ -24,7 +24,7 @@ public:
 	double distance(TransformComponent* target);
 
 	Vector2 DirectionTowards(TransformComponent* target);
-	
+
 	//TODO move move() to protect or remove entirly
 	//Move relative
 	void move(Vector2 dir,double s);
@@ -32,7 +32,6 @@ public:
 protected:
 	//Move towrads Absolute World coordinates with Pixel Per Seconds
 	void moveTo(Vector2 newPosition);
-
 
 	void attachOn(GameObject* go);
 

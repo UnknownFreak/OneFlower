@@ -28,8 +28,7 @@ void HitboxComponent::attachOn(GameObject* go)
 {
 	BaseComponent::attachOn(go);
 	//Dont put this in constructors, Cause rigidcomponent will call this twice from constructor hierarchy calls
-	
-	
+
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2,size,Size);
 	if(size.x == 0 || size.y == 0)

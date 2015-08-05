@@ -9,27 +9,26 @@
 #include "../../Component/StatsComponent.hpp"
 #include "Addon/WindowIcon.hpp"
 
-InventoryWindow::InventoryWindow(float x1, float y1, int x2, int y2) : BaseWindow(x1, y1, x2, y2, false, "CTRL+F: PANEL 2186321963"),
-emptyInventorySlot(*Engine::Graphic.requestTexture("InventoryEmptyIcon.png"), sf::IntRect(0, 0, 32, 32)),
-scroll(x1, y1 + 24, 0, 4, Vector2(32, 32), Vector2(5, 5), this, true), stats(x1, y1 + 32, 0, 4, Vector2(16, 16), Vector2(64, 5), this, false,false),
-toolTip("None"), item(NULL), gold("coins.png", *Engine::Graphic.font.requestFont("Arial.ttf"), false, 0, 0, -16, 0),
+InventoryWindow::InventoryWindow(float x1,float y1,int x2,int y2): BaseWindow(x1,y1,x2,y2,false,"CTRL+F: PANEL 2186321963"),
+emptyInventorySlot(*Engine::Graphic.requestTexture("InventoryEmptyIcon.png"),sf::IntRect(0,0,32,32)),
+scroll(x1,y1 + 24,0,4,Vector2(32,32),Vector2(5,5),this,true),stats(x1,y1 + 32,0,4,Vector2(16,16),Vector2(64,5),this,false,false),
+toolTip("None"),item(NULL),gold("coins.png",*Engine::Graphic.font.requestFont("Arial.ttf"),false,0,0,-16,0),
 weight(*Engine::Graphic.font.requestFont("Arial.ttf"))
 {
 	weight.setSize(13);
 	gold.setSize(13);
-	emptyInventorySlot.setColor(sf::Color(255, 255, 255));
-	window.setPosition(x1, y1);
+	emptyInventorySlot.setColor(sf::Color(255,255,255));
+	window.setPosition(x1,y1);
 	sf::Texture * tx = Engine::Graphic.requestTexture("ToolTipIcon.png");
 	tx->setRepeated(true);
-	
 }
 void InventoryWindow::draw()
 {
-	if (open)
+	if(open)
 	{
-		if (updateStats)
+		if(updateStats)
 			createStats();
-		if (!createdInventory)
+		if(!createdInventory)
 			CreateScrollItems();
 		move();
 		WindowHandle();
@@ -38,77 +37,77 @@ void InventoryWindow::draw()
 		drawGearIcons();
 		IconDrawHandle();
 
-		if (scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
+		if(scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 			scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && !Engine::GUI.focusedWindow->checkMouseInside())
-			if (scroll.mouseInsideIcon(*scroll.tooltip.first) && scroll.tooltip.second.getToolTipBody() != "")
+			if(scroll.mouseInsideIcon(*scroll.tooltip.first) && scroll.tooltip.second.getToolTipBody() != "")
 			{
-				Engine::GUI.openedWindowToolTip.setToolTipText(scroll.tooltip.second.getToolTipTitle(), scroll.tooltip.second.getToolTipBody());
+				Engine::GUI.openedWindowToolTip.setToolTipText(scroll.tooltip.second.getToolTipTitle(),scroll.tooltip.second.getToolTipBody());
 				Engine::GUI.drawOpenedWindowToolTip = true;
 			}
 			else;
-		else if (stats.tooltip.first && !stats.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
+		else if(stats.tooltip.first && !stats.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 			stats.tooltip.first && !stats.movingItem && Engine::GUI.showToolTip  && !Engine::GUI.focusedWindow->checkMouseInside())
-			if (stats.mouseInsideIcon(*stats.tooltip.first) && stats.tooltip.second.getToolTipBody() != "")
+			if(stats.mouseInsideIcon(*stats.tooltip.first) && stats.tooltip.second.getToolTipBody() != "")
 			{
-				Engine::GUI.openedWindowToolTip.setToolTipText(stats.tooltip.second.getToolTipTitle(), stats.tooltip.second.getToolTipBody());
+				Engine::GUI.openedWindowToolTip.setToolTipText(stats.tooltip.second.getToolTipTitle(),stats.tooltip.second.getToolTipBody());
 				Engine::GUI.drawOpenedWindowToolTip = true;
 			}
 	}
 }
 void InventoryWindow::CreateScrollItems()
 {
-	for (auto it = scroll.sprites.begin(); it != scroll.sprites.end(); ++it)
+	for(auto it = scroll.sprites.begin(); it != scroll.sprites.end(); ++it)
 	{
 		delete *it;
 		*it = NULL;
 	}
 	scroll.sprites.clear();
 	GameObject* go = Engine::Window.focus.gameObject;
-	if (go)
+	if(go)
 	{
-		if (go->GetComponent<InventoryComponent>())
+		if(go->GetComponent<InventoryComponent>())
 		{
 			int max = go->GetComponent<InventoryComponent>()->maxBags;
 			std::vector<Bag*>& b = go->GetComponent<InventoryComponent>()->bags;
-			for (int it = 0; it < max; ++it)
+			for(int it = 0; it < max; ++it)
 			{
 				int i = 0;
-				if (it < b.size())
+				if(it < b.size())
 				{
 					Bag* bag = b[it];
-					for (std::vector<std::pair<Item*, int>>::iterator iit = bag->items.begin(); iit != bag->items.end(); ++iit)
+					for(std::vector<std::pair<Item*,int>>::iterator iit = bag->items.begin(); iit != bag->items.end(); ++iit)
 					{
-						if (iit->first)
-							scroll.sprites.push_back(new WindowIcon(iit->first->icon, iit->first->name, iit->first->toToolTipString(), std::to_string(iit->second), Vector2(0, 16), std::pair<int, int>(it, i), sf::Color::Black, 12));
+						if(iit->first)
+							scroll.sprites.push_back(new WindowIcon(iit->first->icon,iit->first->name,iit->first->toToolTipString(),std::to_string(iit->second),Vector2(0,16),std::pair<int,int>(it,i),sf::Color::Black,12));
 						else
-							scroll.sprites.push_back(new WindowIcon(emptyInventorySlot, "", "", "", Vector2(0, 16), std::pair<int, int>(it, i), sf::Color::Black, 12));
+							scroll.sprites.push_back(new WindowIcon(emptyInventorySlot,"","","",Vector2(0,16),std::pair<int,int>(it,i),sf::Color::Black,12));
 						++i;
 					}
 				}
 			}
 		}
 	}
-	if (scroll.sprites.size() > 0)
+	if(scroll.sprites.size() > 0)
 		createdInventory = true;
 }
 void InventoryWindow::WindowHandle()
 {
-	stats.setPosition(position.x + 40.0 + offsetX, position.y + 40.0 + offsetY);
+	stats.setPosition(position.x + 40.0 + offsetX,position.y + 40.0 + offsetY);
 	stats.setSizeY(256);
 	stats.setSizeX(136);
 
 	scroll.setSizeY(window.getTextureRect().height - 108);
 	scroll.setSizeX(window.getTextureRect().width - 120);
-	scroll.setPosition(position.x + 100 + offsetX, position.y + 40.0 + offsetY);
-	gold.setPosition(window.getPosition().x + window.getTextureRect().width - 18, window.getPosition().y + window.getTextureRect().height - 20);
-	weight.setPosition(window.getPosition().x + 8, window.getPosition().y + window.getTextureRect().height - 20);
+	scroll.setPosition(position.x + 100 + offsetX,position.y + 40.0 + offsetY);
+	gold.setPosition(window.getPosition().x + window.getTextureRect().width - 18,window.getPosition().y + window.getTextureRect().height - 20);
+	weight.setPosition(window.getPosition().x + 8,window.getPosition().y + window.getTextureRect().height - 20);
 	BaseWindow::WindowHandle();
 }
 bool InventoryWindow::mouseInsideIcon(sf::Sprite& sprite)
 {
-	if (Engine::GUI.mouseAim.position.x <= sprite.getLocalBounds().width + sprite.getPosition().x &&
+	if(Engine::GUI.mouseAim.position.x <= sprite.getLocalBounds().width + sprite.getPosition().x &&
 		Engine::GUI.mouseAim.position.x >= sprite.getLocalBounds().left + sprite.getPosition().x)
-		if (Engine::GUI.mouseAim.position.y <= sprite.getLocalBounds().height + sprite.getPosition().y &&
+		if(Engine::GUI.mouseAim.position.y <= sprite.getLocalBounds().height + sprite.getPosition().y &&
 			Engine::GUI.mouseAim.position.y >= sprite.getLocalBounds().top + sprite.getPosition().y)
 			return true;
 	return false;
@@ -116,10 +115,10 @@ bool InventoryWindow::mouseInsideIcon(sf::Sprite& sprite)
 void InventoryWindow::IconDrawHandle()
 {
 	GameObject* go = Engine::Window.focus.gameObject;
-	if (go)
+	if(go)
 	{
 		InventoryComponent* inv = go->GetComponent<InventoryComponent>();
-		if (inv)
+		if(inv)
 		{
 			drawGold();
 			drawWeight(inv);
@@ -127,25 +126,25 @@ void InventoryWindow::IconDrawHandle()
 
 			int max = inv->maxBags;
 			std::vector<Bag*>& b = inv->bags;
-			Vector2 off(window.getPosition().x + (window.getTextureRect().width / 2) - 74.f, window.getPosition().y + window.getTextureRect().height - 54);
-			for (int it = 0; it < max; ++it)
+			Vector2 off(window.getPosition().x + (window.getTextureRect().width / 2) - 74.f,window.getPosition().y + window.getTextureRect().height - 54);
+			for(int it = 0; it < max; ++it)
 			{
-				if (it < b.size())
+				if(it < b.size())
 				{
 					Bag* bag = b[it];
 					ClickOnBagSlot(bag);
-					bag->icon.setPosition(off.x, off.y);
-					if (mouseInsideIcon(bag->icon) && scroll.getIfMovingItem())
+					bag->icon.setPosition(off.x,off.y);
+					if(mouseInsideIcon(bag->icon) && scroll.getIfMovingItem())
 					{
-						bag->icon.setColor(sf::Color(150, 25, 25));
+						bag->icon.setColor(sf::Color(150,25,25));
 						Engine::Graphic.view.render.draw(bag->icon);
-						bag->icon.setColor(sf::Color(255, 255, 255));
+						bag->icon.setColor(sf::Color(255,255,255));
 					}
-					else if (mouseInsideIcon(bag->icon))
+					else if(mouseInsideIcon(bag->icon))
 					{
-						bag->icon.setColor(sf::Color(150, 150, 150));
+						bag->icon.setColor(sf::Color(150,150,150));
 						Engine::Graphic.view.render.draw(bag->icon);
-						bag->icon.setColor(sf::Color(255, 255, 255));
+						bag->icon.setColor(sf::Color(255,255,255));
 					}
 					else
 						Engine::Graphic.view.render.draw(bag->icon);
@@ -160,9 +159,9 @@ void InventoryWindow::IconDrawHandle()
 }
 void InventoryWindow::ClickOnBagSlot(Bag* bag)
 {
-	if (mouseInsideIcon(bag->icon) && !scroll.movingItem)
+	if(mouseInsideIcon(bag->icon) && !scroll.movingItem)
 	{
-		if (windowLClick)
+		if(windowLClick)
 		{
 			clickOffset.x = Engine::Input.mouse.pos.x - bag->icon.getPosition().x;
 			clickOffset.y = Engine::Input.mouse.pos.y - bag->icon.getPosition().y;
@@ -173,27 +172,27 @@ void InventoryWindow::ClickOnBagSlot(Bag* bag)
 			item = bag;
 			scroll.selected = &bag->icon;
 		}
-		if (Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
+		if(Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 			Engine::GUI.showToolTip && !Engine::GUI.focusedWindow->checkMouseInside())
 		{
-			Engine::GUI.openedWindowToolTip.setToolTipText(bag->name, bag->toToolTipString());
+			Engine::GUI.openedWindowToolTip.setToolTipText(bag->name,bag->toToolTipString());
 			Engine::GUI.drawOpenedWindowToolTip = true;
 		}
 	}
 }
 void InventoryWindow::swap()
 {
-	if (Engine::event.type == Engine::event.MouseButtonReleased && focus)
+	if(Engine::event.type == Engine::event.MouseButtonReleased && focus)
 	{
-		if (Engine::event.mouseButton.button == sf::Mouse::Button::Left && scroll.selectedBag != -1 && scroll.swapBag != -1)
+		if(Engine::event.mouseButton.button == sf::Mouse::Button::Left && scroll.selectedBag != -1 && scroll.swapBag != -1)
 		{
 			WindowIcon* selected = (WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 			WindowIcon* swap = (WindowIcon*)(scroll.sprites[scroll.swapBag]);
 			InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
 
-			if (scroll.requestSwap && !bagSlotSelected && scroll.mouseInside() && !scroll.equipItem)
+			if(scroll.requestSwap && !bagSlotSelected && scroll.mouseInside() && !scroll.equipItem)
 			{
-				if (icp->swapItem(icp->bags[selected->index.first], selected->index.second, icp->bags[swap->index.first], swap->index.second))
+				if(icp->swapItem(icp->bags[selected->index.first],selected->index.second,icp->bags[swap->index.first],swap->index.second))
 				{
 					scroll.requestSwap = false;
 					scroll.movingItem = false;
@@ -204,22 +203,22 @@ void InventoryWindow::swap()
 					scroll.sprites[scroll.selectedBag] = scroll.sprites[scroll.swapBag];
 					scroll.sprites[scroll.swapBag] = tmp;
 
-					std::pair<int, int> tmp_two = ((WindowIcon*)scroll.sprites[scroll.selectedBag])->index;
+					std::pair<int,int> tmp_two = ((WindowIcon*)scroll.sprites[scroll.selectedBag])->index;
 					((WindowIcon*)scroll.sprites[scroll.selectedBag])->index = ((WindowIcon*)scroll.sprites[scroll.swapBag])->index;
 					((WindowIcon*)scroll.sprites[scroll.swapBag])->index = tmp_two;
 					Engine::GUI.stats.updateEquipment = true;
 					Engine::GUI.tradingWindow.setScrollbarUpdate(true);
 				}
 			}
-			if (scroll.requestSwap && bagSlotSelected && scroll.mouseInside())
+			if(scroll.requestSwap && bagSlotSelected && scroll.mouseInside())
 			{
 				int start = 0;
 				int end = 0;
-				for (std::vector<Bag*>::iterator it = icp->bags.begin(); it != icp->bags.end(); ++it)
+				for(std::vector<Bag*>::iterator it = icp->bags.begin(); it != icp->bags.end(); ++it)
 				{
 					Bag* tmp = *it;
 					Bag* itm = (Bag*)item;
-					if (tmp == itm)
+					if(tmp == itm)
 					{
 						end += itm->size;
 						break;
@@ -227,10 +226,10 @@ void InventoryWindow::swap()
 					end += tmp->size;
 					start += tmp->size;
 				}
-				if (icp->unequipBag((Bag*)item, icp->bags[swap->index.first], swap->index.second))
+				if(icp->unequipBag((Bag*)item,icp->bags[swap->index.first],swap->index.second))
 				{
 					int insertLocationBag = 0;
-					for (int i = 0; i < swap->index.first; ++i)
+					for(int i = 0; i < swap->index.first; ++i)
 					{
 						insertLocationBag += icp->bags[i]->size;
 					}
@@ -241,12 +240,12 @@ void InventoryWindow::swap()
 					itm->messageText = "1";
 					itm->toolTipTitle = item->name;
 					itm->toolTipBody = item->toToolTipString();
-					for (std::vector<BaseWindowObject*>::iterator it = scroll.sprites.begin() + start; it != scroll.sprites.begin() + end; ++it)
+					for(std::vector<BaseWindowObject*>::iterator it = scroll.sprites.begin() + start; it != scroll.sprites.begin() + end; ++it)
 					{
 						delete *it;
 						*it = NULL;
 					}
-					scroll.sprites.erase(scroll.sprites.begin() + start, scroll.sprites.begin() + end);
+					scroll.sprites.erase(scroll.sprites.begin() + start,scroll.sprites.begin() + end);
 
 					scroll.movingItem = false;
 					scroll.requestSwap = false;
@@ -256,7 +255,7 @@ void InventoryWindow::swap()
 					Engine::GUI.tradingWindow.setScrollbarUpdate(true);
 				}
 			}
-			if (!scroll.movingItem)
+			if(!scroll.movingItem)
 			{
 				scroll.selectedBag = -1;
 				scroll.swapBag = -1;
@@ -270,43 +269,43 @@ void InventoryWindow::swap()
 }
 bool InventoryWindow::tryEquipBag(Vector2& off)
 {
-	emptyInventorySlot.setTextureRect(sf::IntRect(0, 0, iconSize, iconSize));
-	emptyInventorySlot.setPosition(off.x, off.y);
-	if (scroll.getIfMovingItem() && mouseInsideIcon(emptyInventorySlot))
+	emptyInventorySlot.setTextureRect(sf::IntRect(0,0,iconSize,iconSize));
+	emptyInventorySlot.setPosition(off.x,off.y);
+	if(scroll.getIfMovingItem() && mouseInsideIcon(emptyInventorySlot))
 	{
 		InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
 		WindowIcon* swap = (WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 
-		if (icp->bags[swap->index.first]->items[swap->index.second].first)
-			if (icp->bags[swap->index.first]->items[swap->index.second].first->tag == Item::bag)
+		if(icp->bags[swap->index.first]->items[swap->index.second].first)
+			if(icp->bags[swap->index.first]->items[swap->index.second].first->tag == Item::bag)
 			{
-				emptyInventorySlot.setColor(sf::Color(25, 150, 25));
+				emptyInventorySlot.setColor(sf::Color(25,150,25));
 				Engine::Graphic.view.render.draw(emptyInventorySlot);
-				emptyInventorySlot.setColor(sf::Color(255, 255, 255));
-				if (Engine::event.type == Engine::event.MouseButtonReleased)
+				emptyInventorySlot.setColor(sf::Color(255,255,255));
+				if(Engine::event.type == Engine::event.MouseButtonReleased)
 				{
-					if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+					if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 					{
-						if (icp->equipBag(icp->bags[swap->index.first], swap->index.second))
+						if(icp->equipBag(icp->bags[swap->index.first],swap->index.second))
 						{
 							scroll.movingItem = false;
 							scroll.requestSwap = false;
 							scroll.equipItem = false;
 							WindowIcon* itm = (WindowIcon*)scroll.sprites[scroll.selectedBag];
-							std::pair<int, int> pair = itm->index;
+							std::pair<int,int> pair = itm->index;
 							delete scroll.sprites[scroll.selectedBag];
 							scroll.sprites[scroll.selectedBag] = NULL;
-							scroll.sprites[scroll.selectedBag] = new WindowIcon(emptyInventorySlot, "", "", "", Vector2(0, 16), pair);
+							scroll.sprites[scroll.selectedBag] = new WindowIcon(emptyInventorySlot,"","","",Vector2(0,16),pair);
 							int bag = icp->bags.size();
-							for (int i = 0; i < icp->bags[icp->bags.size() - 1]->size; ++i)
+							for(int i = 0; i < icp->bags[icp->bags.size() - 1]->size; ++i)
 							{
-								scroll.sprites.push_back(new WindowIcon(emptyInventorySlot, "", "", "", Vector2(0, 16), std::pair<int, int>(bag, i), sf::Color::Black, 12));
+								scroll.sprites.push_back(new WindowIcon(emptyInventorySlot,"","","",Vector2(0,16),std::pair<int,int>(bag,i),sf::Color::Black,12));
 							}
-							if (!Engine::GUI.tradingWindow.getScrollbarUpdate())
+							if(!Engine::GUI.tradingWindow.getScrollbarUpdate())
 							{
-								for (size_t it = 0;
+								for(size_t it = 0;
 									it != Engine::GUI.tradingWindow.scroll.sprites.size(); ++it)
-									if (((WindowIcon*)Engine::GUI.tradingWindow.scroll.sprites[it])->index == pair)
+									if(((WindowIcon*)Engine::GUI.tradingWindow.scroll.sprites[it])->index == pair)
 									{
 										delete Engine::GUI.tradingWindow.scroll.sprites[it];
 										Engine::GUI.tradingWindow.scroll.sprites[it] = NULL;
@@ -321,12 +320,12 @@ bool InventoryWindow::tryEquipBag(Vector2& off)
 			}
 			else
 			{
-				emptyInventorySlot.setColor(sf::Color(150, 25, 25));
+				emptyInventorySlot.setColor(sf::Color(150,25,25));
 				Engine::Graphic.view.render.draw(emptyInventorySlot);
-				emptyInventorySlot.setColor(sf::Color(255, 255, 255));
+				emptyInventorySlot.setColor(sf::Color(255,255,255));
 			}
 	}
-	else if (scroll.mouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap || !checkMouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap)
+	else if(scroll.mouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap || !checkMouseInside() && scroll.getIfMovingItem() && !scroll.requestSwap)
 		Engine::Graphic.view.render.draw(emptyInventorySlot);
 	else
 		Engine::Graphic.view.render.draw(emptyInventorySlot);
@@ -354,205 +353,205 @@ void InventoryWindow::drawWeight(InventoryComponent* inv)
 void InventoryWindow::drawGearIcons()
 {
 	GameObject* go = Engine::Window.focus.gameObject;
-	if (go)
+	if(go)
 	{
 		EquipmentComponent* equip = go->GetComponent<EquipmentComponent>();
-		if (equip)
+		if(equip)
 		{
-			for (int i = 0; i < 5; i++)
+			for(int i = 0; i < 5; i++)
 			{
-				switch (i)
+				switch(i)
 				{
-				case 0:
+					case 0:
 #pragma region Helm
-					if (equip->helm)
-					{
-						equip->helm->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(equip->helm->icon, go, equip, "Helm");
-						if (mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
-							mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && !Engine::GUI.focusedWindow->checkMouseInside())
+						if(equip->helm)
 						{
-							Engine::GUI.openedWindowToolTip.setToolTipText(equip->helm->name, equip->helm->toToolTipString());
-							Engine::GUI.drawOpenedWindowToolTip = true;
+							equip->helm->icon.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(equip->helm->icon,go,equip,"Helm");
+							if(mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
+								mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && !Engine::GUI.focusedWindow->checkMouseInside())
+							{
+								Engine::GUI.openedWindowToolTip.setToolTipText(equip->helm->name,equip->helm->toToolTipString());
+								Engine::GUI.drawOpenedWindowToolTip = true;
+							}
 						}
-					}
-					else
-					{
-						emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(emptyInventorySlot, go, equip, "Helm");
-					}
+						else
+						{
+							emptyInventorySlot.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(emptyInventorySlot,go,equip,"Helm");
+						}
 #pragma endregion
-					break;
-				case 1:
+						break;
+					case 1:
 #pragma region Chest
-					if (equip->chest)
-					{
-						equip->chest->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(equip->chest->icon, go, equip, "Chest");
-						if (mouseInsideIcon(equip->chest->icon) && !scroll.movingItem)
+						if(equip->chest)
 						{
-							Engine::GUI.openedWindowToolTip.setToolTipText(equip->chest->name, equip->chest->toToolTipString());
-							Engine::GUI.drawOpenedWindowToolTip = true;
+							equip->chest->icon.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(equip->chest->icon,go,equip,"Chest");
+							if(mouseInsideIcon(equip->chest->icon) && !scroll.movingItem)
+							{
+								Engine::GUI.openedWindowToolTip.setToolTipText(equip->chest->name,equip->chest->toToolTipString());
+								Engine::GUI.drawOpenedWindowToolTip = true;
+							}
 						}
-					}
-					else
-					{
-						emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(emptyInventorySlot, go, equip, "Chest");
-					}
+						else
+						{
+							emptyInventorySlot.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(emptyInventorySlot,go,equip,"Chest");
+						}
 #pragma endregion
-					break;
-				case 2:
+						break;
+					case 2:
 #pragma region Gloves
-					if (equip->gloves)
-					{
-						equip->gloves->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(equip->gloves->icon, go, equip, "Gloves");
-						if (mouseInsideIcon(equip->gloves->icon) && !scroll.movingItem)
+						if(equip->gloves)
 						{
-							Engine::GUI.openedWindowToolTip.setToolTipText(equip->gloves->name, equip->gloves->toToolTipString());
-							Engine::GUI.drawOpenedWindowToolTip = true;
+							equip->gloves->icon.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(equip->gloves->icon,go,equip,"Gloves");
+							if(mouseInsideIcon(equip->gloves->icon) && !scroll.movingItem)
+							{
+								Engine::GUI.openedWindowToolTip.setToolTipText(equip->gloves->name,equip->gloves->toToolTipString());
+								Engine::GUI.drawOpenedWindowToolTip = true;
+							}
 						}
-					}
-					else
-					{
-						emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(emptyInventorySlot, go, equip, "Gloves");
-					}
+						else
+						{
+							emptyInventorySlot.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(emptyInventorySlot,go,equip,"Gloves");
+						}
 #pragma endregion
-					break;
-				case 3:
+						break;
+					case 3:
 #pragma region Leggings
-					if (equip->leggings)
-					{
-						equip->leggings->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(equip->leggings->icon, go, equip, "Leggings");
-						if (mouseInsideIcon(equip->leggings->icon) && !scroll.movingItem)
+						if(equip->leggings)
 						{
-							Engine::GUI.openedWindowToolTip.setToolTipText(equip->leggings->name, equip->leggings->toToolTipString());
-							Engine::GUI.drawOpenedWindowToolTip = true;
+							equip->leggings->icon.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(equip->leggings->icon,go,equip,"Leggings");
+							if(mouseInsideIcon(equip->leggings->icon) && !scroll.movingItem)
+							{
+								Engine::GUI.openedWindowToolTip.setToolTipText(equip->leggings->name,equip->leggings->toToolTipString());
+								Engine::GUI.drawOpenedWindowToolTip = true;
+							}
 						}
-					}
-					else
-					{
-						emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(emptyInventorySlot, go, equip, "Leggings");
-					}
+						else
+						{
+							emptyInventorySlot.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(emptyInventorySlot,go,equip,"Leggings");
+						}
 #pragma endregion
-					break;
-				case 4:
+						break;
+					case 4:
 #pragma region Boots
-					if (equip->boots)
-					{
-						equip->boots->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(equip->boots->icon, go, equip, "Boots");
-						if (mouseInsideIcon(equip->boots->icon) && !scroll.movingItem)
+						if(equip->boots)
 						{
-							Engine::GUI.openedWindowToolTip.setToolTipText(equip->boots->name, equip->boots->toToolTipString());
-							Engine::GUI.drawOpenedWindowToolTip = true;
+							equip->boots->icon.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(equip->boots->icon,go,equip,"Boots");
+							if(mouseInsideIcon(equip->boots->icon) && !scroll.movingItem)
+							{
+								Engine::GUI.openedWindowToolTip.setToolTipText(equip->boots->name,equip->boots->toToolTipString());
+								Engine::GUI.drawOpenedWindowToolTip = true;
+							}
 						}
-					}
-					else
-					{
-						emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-						swap(emptyInventorySlot, go, equip, "Boots");
-					}
+						else
+						{
+							emptyInventorySlot.setPosition(position.x + 10 + offsetX,position.y + offsetY + 46.f + 37 * i);
+							swap(emptyInventorySlot,go,equip,"Boots");
+						}
 #pragma endregion
-					break;
+						break;
 				}
 			}
 		}
 	}
 }
 
-void InventoryWindow::swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType)
+void InventoryWindow::swap(sf::Sprite& icon,GameObject* go,EquipmentComponent* equip,std::string armorType)
 {
-	if (mouseInsideIcon(icon) && scroll.movingItem)
+	if(mouseInsideIcon(icon) && scroll.movingItem)
 	{
 #pragma region swapFromThisWindow
 		InventoryComponent* icp = go->GetComponent<InventoryComponent>();
 		WindowIcon* _item = (WindowIcon*)scroll.sprites[scroll.selectedBag];
 		Armor* arm = (Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
-		if (arm)
-			if (arm->armorType == armorType)
+		if(arm)
+			if(arm->armorType == armorType)
 			{
-				icon.setColor(sf::Color(25, 150, 25));
-				if (Engine::event.type == Engine::event.MouseButtonReleased)
+				icon.setColor(sf::Color(25,150,25));
+				if(Engine::event.type == Engine::event.MouseButtonReleased)
 				{
-					if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+					if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 					{
 						bool done = false;
 						size_t ii = 0;
-						for (size_t i = 0; i < icp->bags.size(); i++)
+						for(size_t i = 0; i < icp->bags.size(); i++)
 						{
-							for (ii = 0; ii < icp->bags[i]->items.size(); ++ii)
+							for(ii = 0; ii < icp->bags[i]->items.size(); ++ii)
 							{
-								if (icp->bags[i]->items[ii].first == arm)
+								if(icp->bags[i]->items[ii].first == arm)
 								{
 									done = true;
 									break;
 								}
 							}
-							if (done)
+							if(done)
 								break;
 						}
 						icp->bags[_item->index.first]->items[_item->index.second].first = equip->equipArmor(arm);
-						if (icp->bags[_item->index.first]->items[_item->index.second].first)
+						if(icp->bags[_item->index.first]->items[_item->index.second].first)
 						{
-							icon.setColor(sf::Color(255, 255, 255));
+							icon.setColor(sf::Color(255,255,255));
 							icp->bags[_item->index.first]->items[_item->index.second].second = 1;
-							std::pair<int, int> pair = ((WindowIcon*)scroll.sprites[scroll.selectedBag])->index;
+							std::pair<int,int> pair = ((WindowIcon*)scroll.sprites[scroll.selectedBag])->index;
 
 							delete scroll.sprites[scroll.selectedBag];
 							scroll.sprites[scroll.selectedBag] = new WindowIcon(icp->bags[pair.first]->items[pair.second].first->icon,
 								icp->bags[pair.first]->items[pair.second].first->name,
-								icp->bags[pair.first]->items[pair.second].first->toToolTipString(), "1", Vector2(0, 16), pair);
+								icp->bags[pair.first]->items[pair.second].first->toToolTipString(),"1",Vector2(0,16),pair);
 						}
 						else
 						{
 							icp->bags[_item->index.first]->items[_item->index.second].second = 0;
 							++icp->bags[_item->index.first]->freeSlots;
 							WindowIcon* tmp = (WindowIcon*)Engine::GUI.inventory.scroll.sprites[ii];
-							std::pair<int, int> pair = tmp->index;
+							std::pair<int,int> pair = tmp->index;
 							delete scroll.sprites[scroll.selectedBag];
 
 							scroll.sprites[scroll.selectedBag] = NULL;
-							icon.setColor(sf::Color(255, 255, 255));
-							Engine::GUI.inventory.scroll.sprites[ii] = new WindowIcon(icon, "", "", "", Vector2(0, 16), pair);
+							icon.setColor(sf::Color(255,255,255));
+							Engine::GUI.inventory.scroll.sprites[ii] = new WindowIcon(icon,"","","",Vector2(0,16),pair);
 						}
 					}
 				}
 			}
 			else
-				icon.setColor(sf::Color(150, 25, 25));
+				icon.setColor(sf::Color(150,25,25));
 #pragma endregion
 	}
 	else
-		icon.setColor(sf::Color(255, 255, 255));
+		icon.setColor(sf::Color(255,255,255));
 	Engine::Graphic.view.render.draw(icon);
-	icon.setColor(sf::Color(255, 255, 255));
+	icon.setColor(sf::Color(255,255,255));
 }
 //*
 void InventoryWindow::createStats()
 {
-	for (std::vector<BaseWindowObject*>::iterator it = stats.sprites.begin(); it != stats.sprites.end(); it++)
+	for(std::vector<BaseWindowObject*>::iterator it = stats.sprites.begin(); it != stats.sprites.end(); it++)
 	{
 		delete *it;
 		*it = NULL;
 	}
 	stats.sprites.clear();
 	GameObject* go = Engine::Window.focus.gameObject;
-	if (go)
+	if(go)
 	{
 		StatsComponent* stat = go->GetComponent<StatsComponent>();
-		if (stat)
+		if(stat)
 		{
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(0, 0, 16, 16)), "Health", "Maximum health.", std::to_string(stat->maxHealth), Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(16, 0, 16, 16)), "Mana", "Maximum mana.", std::to_string(stat->maxMana), Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(32, 0, 16, 16)), "Stamina", "Maximum stamina.", std::to_string(stat->maxStamina), Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(48, 0, 16, 16)), "Agility", "Current agility, <TODO>", std::to_string(stat->agility), Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(64, 0, 16, 16)), "Defense", "Current defense.\nReduces incoming damage.", "0", Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
-			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(80, 0, 16, 16)), "Attack", "Current attack.\nIncreases outgoing damage.", "0", Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(0,0,16,16)),"Health","Maximum health.",std::to_string(stat->maxHealth),Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(16,0,16,16)),"Mana","Maximum mana.",std::to_string(stat->maxMana),Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(32,0,16,16)),"Stamina","Maximum stamina.",std::to_string(stat->maxStamina),Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(48,0,16,16)),"Agility","Current agility, <TODO>",std::to_string(stat->agility),Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(64,0,16,16)),"Defense","Current defense.\nReduces incoming damage.","0",Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
+			stats.sprites.push_back(new WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"),sf::IntRect(80,0,16,16)),"Attack","Current attack.\nIncreases outgoing damage.","0",Vector2(18,0),std::pair<int,int>(0,0),sf::Color(255,255,255)));
 			updateStats = false;
 		}
 	}

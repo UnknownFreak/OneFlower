@@ -19,9 +19,8 @@ bool MovementComponent::inMotion()
 		return true;
 	if(rotation)
 		return true;
-//	if(distance)
+	//	if(distance)
 	//	return true;
-
 
 	return false;
 }
@@ -39,23 +38,20 @@ void MovementComponent::replaceMotion(Vector2 dir,double s,int dist)
 /*
 MovementComponent::SpeedVector::SpeedVector(Vector2 dir,double cSpeed)
 {
-	direction = dir;
-	speed  = cSpeed;
+direction = dir;
+speed  = cSpeed;
 }
 //*/
-
-
 
 /*
 void MovementComponent::moveAt(Vector2 direction,double speed)
 {
-	Vector2& position = attachedOn->GetComponent<TransformComponent>()->position;
-	if(!direction.normalized)
-		direction.normalize();
+Vector2& position = attachedOn->GetComponent<TransformComponent>()->position;
+if(!direction.normalized)
+direction.normalize();
 
-	position.x += direction.x*speed;
-	position.y += direction.y*speed;
-
+position.x += direction.x*speed;
+position.y += direction.y*speed;
 }
 
 //*/

@@ -17,7 +17,6 @@
 //Game Engine
 namespace AsianVikingMotor
 {
-
 	extern sf::Event event;
 	//The Editor Window
 

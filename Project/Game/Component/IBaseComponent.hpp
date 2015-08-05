@@ -3,8 +3,8 @@
 #include "BaseComponent.hpp"
 #include <string>
 #ifdef _DEBUG
-	#include "../../Engine/Editor/BaseField.hpp"
-	#include "../../Engine/Editor/EditorField.hpp"
+#include "../../Engine/Editor/BaseField.hpp"
+#include "../../Engine/Editor/EditorField.hpp"
 #endif
 template<typename>
 class IBaseComponent:public BaseComponent
@@ -23,12 +23,9 @@ public:
 	static std::string componentName;
 	static const unsigned int typeID;
 
-
-
 protected:
 
-
-#ifdef _DEBUG	
+#ifdef _DEBUG
 	std::map<std::string,BaseField*> getFields()
 	{
 		return editorFields;

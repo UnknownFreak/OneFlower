@@ -32,7 +32,7 @@ public:
 	bool open;
 	bool dCreated;
 	bool updateFromEditor();
-protected: 
+protected:
 	void attachOn(GameObject* go);
 
 private:

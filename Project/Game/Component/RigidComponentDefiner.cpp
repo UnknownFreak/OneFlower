@@ -14,7 +14,7 @@ RigidComponent::~RigidComponent()
 void RigidComponent::attachOn(GameObject* go)
 {
 	//Dont put this in constructors, Cause rigidcomponent will call this twice from constructor hierarchy calls
-	
+
 	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
 	REGISTER_EDITOR_VARIABLE(Vector2,size,Size);
 	REGISTER_EDITOR_VARIABLE(int,mass,Mass);
@@ -28,8 +28,6 @@ bool RigidComponent::inMotion()
 	if(force)
 		return true;
 
-
-	
 	return false;
 }
 

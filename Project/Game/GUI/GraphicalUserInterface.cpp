@@ -10,11 +10,11 @@ void showHideInv()
 	Engine::GUI.showHideInventory();
 }
 
-GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true), 
-showOverhead(true), isMouseVisible(false), showDialog(true), 
-mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png"), 
-dialogs(), inventory(50, 50, 300, 290), ActionSlot(), showToolTip(true), 
-stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50,50,350,400)
+GraphicalUserInterface::GraphicalUserInterface(): offset(0,0),hideGUI(true),
+showOverhead(true),isMouseVisible(false),showDialog(true),
+mouseSlotRight("ButtonTest.png"),mouseSlotLeft("ButtonTest.png"),
+dialogs(),inventory(50,50,300,290),ActionSlot(),showToolTip(true),
+stats(50,50,500,400),focusedWindow(NULL),openedWindowToolTip(),tradingWindow(50,50,350,400)
 {
 	// Mouse
 	setCursor("Cursor.png");
@@ -24,7 +24,7 @@ stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWind
 	//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideInventory,this), sf::Keyboard::I,Input::Action::Release);
 	//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideTradeWindow,this), sf::Keyboard::O,Input::Action::Release);
 	/*showHideStats();*/
-	
+
 	//showHideTradeWindow();
 	//showHideInventory();
 }
@@ -35,7 +35,7 @@ GraphicalUserInterface::~GraphicalUserInterface()
 */
 void GraphicalUserInterface::updateMouseIcon()
 {
-	mouseAim.setPosition((float)(Engine::Input.mouse.pos.x), (float)(Engine::Input.mouse.pos.y));
+	mouseAim.setPosition((float)(Engine::Input.mouse.pos.x),(float)(Engine::Input.mouse.pos.y));
 }
 
 void GraphicalUserInterface::setIconLocation()
@@ -51,19 +51,19 @@ void GraphicalUserInterface::setIconLocation()
 void GraphicalUserInterface::setActiveSkill(std::string buttonName)
 {
 	//Todo: check type of skill and set on left or right mouse
-	if (buttonName == "ActionBar0")
+	if(buttonName == "ActionBar0")
 	{
 		mouseSlotLeft.icon = ActionSlot[0]->icon;
 	}
-	else if (buttonName == "ActionBar1")
+	else if(buttonName == "ActionBar1")
 	{
 		mouseSlotLeft.icon = ActionSlot[1]->icon;
 	}
-	else if (buttonName == "ActionBar2")
+	else if(buttonName == "ActionBar2")
 	{
 		mouseSlotLeft.icon = ActionSlot[2]->icon;
 	}
-	else if (buttonName == "ActionBar3")
+	else if(buttonName == "ActionBar3")
 	{
 		mouseSlotLeft.icon = ActionSlot[3]->icon;
 	}
@@ -75,9 +75,9 @@ void GraphicalUserInterface::addDialog(DialogComponent& dcp)
 }
 void GraphicalUserInterface::removeDialog(DialogComponent& dcp)
 {
-	for (size_t i = 0; i < dialogs.size(); i++)
+	for(size_t i = 0; i < dialogs.size(); i++)
 	{
-		if (dialogs[i] == &dcp)
+		if(dialogs[i] == &dcp)
 		{
 			dialogs.erase(dialogs.begin() + i);
 			break;
@@ -86,16 +86,16 @@ void GraphicalUserInterface::removeDialog(DialogComponent& dcp)
 }
 void GraphicalUserInterface::addOverhead(GameObject* entity)
 {
-	if (entity->GetComponent<OverheadComponent>())
+	if(entity->GetComponent<OverheadComponent>())
 		overhead.push_back(entity->GetComponent<OverheadComponent>());
 }
 
 void GraphicalUserInterface::requestOverheadRemoval(GameObject* entity)
 {
 	OverheadComponent* tmp = entity->GetComponent<OverheadComponent>();
-	if (tmp)
-		for (std::vector<OverheadComponent*>::iterator it = overhead.begin(); it != overhead.end(); it++)
-			if (tmp == *it)
+	if(tmp)
+		for(std::vector<OverheadComponent*>::iterator it = overhead.begin(); it != overhead.end(); it++)
+			if(tmp == *it)
 			{
 				overhead.erase(it);
 				break;
@@ -104,21 +104,21 @@ void GraphicalUserInterface::requestOverheadRemoval(GameObject* entity)
 
 void GraphicalUserInterface::setCursor(std::string name)
 {
-	mouseAim.sprite.setTexture(*Engine::Graphic.requestTexture(name), true);
+	mouseAim.sprite.setTexture(*Engine::Graphic.requestTexture(name),true);
 }
 
 void GraphicalUserInterface::initialize()
 {
-	mouseSlotRight.setPosition(270, 30);
-	mouseSlotLeft.setPosition(400, 30);
+	mouseSlotRight.setPosition(270,30);
+	mouseSlotLeft.setPosition(400,30);
 
 	// buttons
-	for (size_t i = 0; i < 4; i++)
+	for(size_t i = 0; i < 4; i++)
 	{
 		Button* tmp = new Button();
 		tmp->setName("ActionBar" + std::to_string(i));
 		tmp->setIcon("buttonTest.png");
-		tmp->setPosition(40 + 128 * i, 500);
+		tmp->setPosition(40 + 128 * i,500);
 		ActionSlot.push_back(tmp);
 	}
 	ActionSlot[0]->setIcon("testTarget.png");
@@ -126,7 +126,7 @@ void GraphicalUserInterface::initialize()
 
 void GraphicalUserInterface::showHideMouse()
 {
-	if (isMouseVisible)
+	if(isMouseVisible)
 	{
 		isMouseVisible = false;
 	}
@@ -138,21 +138,21 @@ void GraphicalUserInterface::showHideMouse()
 
 void GraphicalUserInterface::showHideGUI()
 {
-	if (Engine::GUI.hideGUI)
+	if(Engine::GUI.hideGUI)
 		Engine::GUI.hideGUI = false;
 	else
 		Engine::GUI.hideGUI = true;
 }
 void GraphicalUserInterface::showHideOverhead()
 {
-	if (Engine::GUI.showOverhead)
+	if(Engine::GUI.showOverhead)
 		Engine::GUI.showOverhead = false;
 	else
 		Engine::GUI.showOverhead = true;
 }
 void GraphicalUserInterface::showHideDialogs()
 {
-	if (Engine::GUI.showDialog)
+	if(Engine::GUI.showDialog)
 		Engine::GUI.showDialog = false;
 	else
 		Engine::GUI.showDialog = true;
@@ -171,43 +171,43 @@ void GraphicalUserInterface::setGUIScale()
 	dy = dy - 1;
 	dx = -dx;
 	dy = -dy;
-	Engine::GUI.mouseAim.sprite.setScale(dx, dx);
+	Engine::GUI.mouseAim.sprite.setScale(dx,dx);
 }
 bool GraphicalUserInterface::windowHasFocus()
 {
-	if (inventory.checkMouseInside() && inventory.focus && !hideGUI)
+	if(inventory.checkMouseInside() && inventory.focus && !hideGUI)
 		return true;
-	else if (stats.checkMouseInside() && stats.focus && !hideGUI)
+	else if(stats.checkMouseInside() && stats.focus && !hideGUI)
 		return true;
-	else if (tradingWindow.checkMouseInside() && tradingWindow.focus && !hideGUI)
+	else if(tradingWindow.checkMouseInside() && tradingWindow.focus && !hideGUI)
 		return true;
 	return false;
 }
 
 void GraphicalUserInterface::scroll()
 {
-	if (inventory.checkMouseInside() && inventory.focus)
+	if(inventory.checkMouseInside() && inventory.focus)
 		inventory.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
-	else if (stats.checkMouseInside() && stats.focus)
+	else if(stats.checkMouseInside() && stats.focus)
 		stats.items.setScroll(Engine::Input.mouse.deltaScrolls);
-	else if (tradingWindow.checkMouseInside() && tradingWindow.focus)
+	else if(tradingWindow.checkMouseInside() && tradingWindow.focus)
 		tradingWindow.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
 	Engine::Input.mouse.deltaScrolls = 0;
 }
 
 void GraphicalUserInterface::showHideInventory()
 {
-	if (inventory.open)
+	if(inventory.open)
 	{
 		inventory.open = false;
 		inventory.focus = false;
-		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-			if (*it == &inventory)
+		for(std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+			if(*it == &inventory)
 			{
 				openWindows.erase(it);
 				break;
 			}
-		if (openWindows.size() != 0)
+		if(openWindows.size() != 0)
 		{
 			focusedWindow = openWindows.back();
 			focusedWindow->focus = true;
@@ -219,7 +219,7 @@ void GraphicalUserInterface::showHideInventory()
 	{
 		inventory.open = true;
 		inventory.focus = true;
-		if (focusedWindow)
+		if(focusedWindow)
 			focusedWindow->focus = false;
 		focusedWindow = &inventory;
 		openWindows.push_back(&inventory);
@@ -227,17 +227,17 @@ void GraphicalUserInterface::showHideInventory()
 }
 void GraphicalUserInterface::showHideStats()
 {
-	if (stats.open)
+	if(stats.open)
 	{
 		stats.open = false;
 		stats.focus = false;
-		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-			if (*it == &stats)
+		for(std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+			if(*it == &stats)
 			{
 				openWindows.erase(it);
 				break;
 			}
-		if (openWindows.size() != 0)
+		if(openWindows.size() != 0)
 		{
 			focusedWindow = openWindows.back();
 			focusedWindow->focus = true;
@@ -249,7 +249,7 @@ void GraphicalUserInterface::showHideStats()
 	{
 		stats.open = true;
 		stats.focus = true;
-		if (focusedWindow)
+		if(focusedWindow)
 			focusedWindow->focus = false;
 		focusedWindow = &stats;
 		openWindows.push_back(&stats);
@@ -258,17 +258,17 @@ void GraphicalUserInterface::showHideStats()
 
 void GraphicalUserInterface::showHideTradeWindow()
 {
-	if (tradingWindow.open)
+	if(tradingWindow.open)
 	{
 		tradingWindow.open = false;
 		tradingWindow.focus = false;
-		for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-			if (*it == &tradingWindow)
+		for(std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+			if(*it == &tradingWindow)
 			{
 				openWindows.erase(it);
 				break;
 			}
-		if (openWindows.size() != 0)
+		if(openWindows.size() != 0)
 		{
 			focusedWindow = openWindows.back();
 			focusedWindow->focus = true;
@@ -280,7 +280,7 @@ void GraphicalUserInterface::showHideTradeWindow()
 	{
 		tradingWindow.open = true;
 		tradingWindow.focus = true;
-		if (focusedWindow)
+		if(focusedWindow)
 			focusedWindow->focus = false;
 		focusedWindow = &tradingWindow;
 		openWindows.push_back(&tradingWindow);
@@ -289,8 +289,8 @@ void GraphicalUserInterface::showHideTradeWindow()
 
 bool GraphicalUserInterface::mouseOutsideOpenWindow()
 {
-	for (std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-		if (((BaseWindow*)*it)->checkMouseInside() && !hideGUI)
+	for(std::vector<BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+		if(((BaseWindow*)*it)->checkMouseInside() && !hideGUI)
 			return false;
 	return true;
 }

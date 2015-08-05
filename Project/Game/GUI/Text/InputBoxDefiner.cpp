@@ -4,7 +4,7 @@ InputBox::InputBox()
 {
 }
 
-InputBox::InputBox(sf::Font& font, int len, float x1, float y1, float x2, float y2) : Message(font, -1, len), box(sf::VertexArray(sf::LinesStrip, 4))
+InputBox::InputBox(sf::Font& font,int len,float x1,float y1,float x2,float y2): Message(font,-1,len),box(sf::VertexArray(sf::LinesStrip,4))
 {
 	box[0].position = sf::Vector2f(x1,y1);
 	box[1].position = sf::Vector2f(x2,y1);

@@ -43,7 +43,7 @@ public:
 	std::vector<DialogComponent*> dialogs;
 
 	std::vector<Button*> ActionSlot;
-	
+
 	BaseWindow* focusedWindow;
 	std::vector<BaseWindow*> openWindows;
 	//std::vector<Message*> messages;
@@ -59,7 +59,7 @@ public:
 	void Draw();
 	void showHideMouse();
 	void showHideDialogs();
-	
+
 	void setActiveSkill(std::string buttonName);
 	void setCursor(std::string name);
 
@@ -82,9 +82,8 @@ private:
 
 	void initialize();
 	void setIconLocation();
-	
-	Vector2 offset;
 
+	Vector2 offset;
 };
 
 #endif // ! GUI_HPP

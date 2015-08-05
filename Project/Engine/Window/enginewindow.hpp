@@ -31,13 +31,12 @@ public:
 
 	HWND hWnd;
 	EngineObjectListViewer ListViewer;
-	
+
 	EngineFocus focus;
 
 	EngineDebugWindow debug;
 
 	EditorID editorID;
-
 
 private:
 	Vector2 size;

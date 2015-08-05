@@ -12,38 +12,31 @@ template<typename returnType,typename parameterType>
 class EventType : EventTypeBase
 {
 public:
-	returnType(*callback)(parameterType);
+returnType(*callback)(parameterType);
 private:
-
 };
 
 class EventTypeBase
 {
 public:
-	EventTypeBase();
+EventTypeBase();
 
-	CallBack callback;
-
-
-
+CallBack callback;
 };
 
 class EventSystem
 {
 public:
-	std::map<std::string,std::vector<CallBack>> events;
-	void add(std::string,void(void));
+std::map<std::string,std::vector<CallBack>> events;
+void add(std::string,void(void));
 private:
-	
+
 #ifdef _DEBUG
 
-
 #endif
-
-
 };
 //*/
-typedef void (*CallBack)(void);
+typedef void(*CallBack)(void);
 
 namespace Input
 {
@@ -59,9 +52,7 @@ class InputHandler
 public:
 	void update();
 	void registerCallback(std::function<void(void)> callbk,sf::Keyboard::Key key,Input::Action);
-	
-	
-	
+
 	Mouse mouse;
 private:
 	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnPress;
@@ -70,19 +61,11 @@ private:
 	std::map<sf::Keyboard::Key,std::vector<std::function<void(void)>>> bindsOnControl;
 	std::vector<sf::Keyboard::Key> callbackRelease;
 
-
 	/*
 	void onKeyPress(CallBack type,sf::Keyboard::Key key);
 	void onKeyRelease(CallBack type,sf::Keyboard::Key key);
 	void onControlPress(std::function<void(void)>,sf::Keyboard::Key key);
 	//*/
-
-
 };
-
-
-
-
-
 
 #endif

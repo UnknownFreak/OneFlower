@@ -54,20 +54,20 @@ bool Gfx::loadTexture(std::string name)
 }
 sf::Texture* Gfx::requestTexture(std::string name)
 {
-	if (!name.empty())
+	if(!name.empty())
 	{
-		std::map<std::string, sf::Texture>::iterator it;
+		std::map<std::string,sf::Texture>::iterator it;
 		it = loadedTextureMap.find(name);
 
-		if (it != loadedTextureMap.end())
+		if(it != loadedTextureMap.end())
 			return &it->second;
 
-		if (loadTexture(name))
+		if(loadTexture(name))
 			return &loadedTextureMap.find(name)->second;
 
 		//LOW set propper texturename
 		it = loadedTextureMap.find("test.png");
-		if (it != loadedTextureMap.end())
+		if(it != loadedTextureMap.end())
 			return &it->second;
 		loadTexture("test.png");
 		return &loadedTextureMap.find("test.png")->second;
@@ -110,14 +110,14 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 }
 void Gfx::removeFromDrawList(GameObject* entityToRemove)
 {
-	if (entityToRemove->GetComponent<RenderComponent>())
+	if(entityToRemove->GetComponent<RenderComponent>())
 	{
 		int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
-		for (auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+		for(auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
 		{
-			for (int i = 0; i < it->second.size(); i++)
+			for(int i = 0; i < it->second.size(); i++)
 			{
-				if (it->second[i] == entityToRemove)
+				if(it->second[i] == entityToRemove)
 				{
 					it->second.erase(it->second.begin() + i);
 					break;
@@ -129,7 +129,6 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 
 void Gfx::Draw()
 {
-	
 	Engine::Graphic.view.render.clear();
 
 	DrawBG();
@@ -149,12 +148,12 @@ void Gfx::Draw()
 				dc = it->second[j]->GetComponent<DialogComponent>();
 				if(dc)
 				{
-					if(dc->open)
-					{
-						dc->updateLocation();
-						if(dc->msg->timer.getElapsedTime().asSeconds() > dc->msg->duration && dc->msg->duration > 0)
-							dc->close();
-					}
+				if(dc->open)
+				{
+				dc->updateLocation();
+				if(dc->msg->timer.getElapsedTime().asSeconds() > dc->msg->duration && dc->msg->duration > 0)
+				dc->close();
+				}
 				}
 				*/
 				if(rc->sprite.getTexture())
@@ -234,46 +233,46 @@ void Gfx::Draw()
 			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->size.y));
 			Engine::Graphic.view.render.draw(hitbox);
 		}
-		for (size_t i = 0; i < Engine::Physics.rigid.size(); i++)
+		for(size_t i = 0; i < Engine::Physics.rigid.size(); i++)
 		{
 			TransformComponent* tc = Engine::Physics.rigid[i]->attachedOn->GetComponent<TransformComponent>();
-			hitbox.setPosition(tc->position.x, tc->position.y);
+			hitbox.setPosition(tc->position.x,tc->position.y);
 
 			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
 			Engine::Graphic.view.render.draw(hitbox);
 
 			double hypno = std::sqrt((
 				Engine::Physics.rigid[i]->size.x*Engine::Physics.rigid[i]->size.x +
 				Engine::Physics.rigid[i]->size.y*Engine::Physics.rigid[i]->size.y
 				));
-			hitbox.setTextureRect(sf::IntRect(0, 0, hypno, 2));
+			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
 
 			double degree = (std::asin(Engine::Physics.rigid[i]->size.y / hypno) * 180) / 3.14159265;
 
 			hitbox.setRotation(degree);
 			Engine::Graphic.view.render.draw(hitbox);
 
-			hitbox.setPosition(tc->position.x, tc->position.y + Engine::Physics.rigid[i]->size.y);
+			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.rigid[i]->size.y);
 
 			hitbox.setRotation(-degree);
 			Engine::Graphic.view.render.draw(hitbox);
 			hitbox.setRotation(0);
 
 			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics.rigid[i]->size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->size.x,2));
 			Engine::Graphic.view.render.draw(hitbox);
 
 			//LeftBar
-			hitbox.setPosition(tc->position.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
+			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
 			Engine::Graphic.view.render.draw(hitbox);
 
 			//RightVBar
 
 			//Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics.rigid[i]->size.y));
+			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->size.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->size.y));
 			Engine::Graphic.view.render.draw(hitbox);
 		}
 	}
@@ -281,7 +280,6 @@ void Gfx::Draw()
 
 	//*/
 	//DrawTxt();
-
 }
 void Gfx::DrawBG()
 {
@@ -294,39 +292,39 @@ void Gfx::DrawBG()
 /*
 void Gfx::DrawTxt()
 {
-	for(int i = 0; i < msg.size(); i++)
-	{
-		msg[i]->drawMessage(&Engine::Graphic.view.render);
-		if(msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
-			removeFromMessageList(msg[i]);
-	}
+for(int i = 0; i < msg.size(); i++)
+{
+msg[i]->drawMessage(&Engine::Graphic.view.render);
+if(msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
+removeFromMessageList(msg[i]);
+}
 }
 
 void Gfx::insertDrawableMessage(Message* messageToDraw)
 {
-	messageToDraw->timer.restart();
-	msg.push_back(messageToDraw);
+messageToDraw->timer.restart();
+msg.push_back(messageToDraw);
 }
 void Gfx::removeFromMessageList(Message* messageToRemove,bool dElete)
 {
-	for(int i = 0; i < msg.size(); i++)
-	{
-		if(msg[i] == messageToRemove)
-		{
-			if(dElete)
-			{
-				msg.erase(msg.begin() + i);
-				delete messageToRemove;
-				messageToRemove = 0;
-				break;
-			}
-			else
-			{
-				msg.erase(msg.begin() + i);
-				break;
-			}
-		}
-	}
+for(int i = 0; i < msg.size(); i++)
+{
+if(msg[i] == messageToRemove)
+{
+if(dElete)
+{
+msg.erase(msg.begin() + i);
+delete messageToRemove;
+messageToRemove = 0;
+break;
+}
+else
+{
+msg.erase(msg.begin() + i);
+break;
+}
+}
+}
 }
 */
 void Gfx::insertDrawableSprite(Tile& fg,bool isBackground)

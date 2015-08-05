@@ -26,7 +26,7 @@ void PhysicsEngine::gravity()
 			double velocity = (Gravity*PixelInOneMeter);
 
 			std::pair<GameObject*,double> collisiontime = collision(rigid[i],Vector2(0,direction.y*velocity*Engine::time.deltaTime()));
-			
+
 			//HIGH: Checking how force move object on google.PS check collision and pass throug hitbox but still tirgger
 			if(collisiontime.second >= 1)
 				//tc->move(direction,velocity*Engine::time.deltaTime());
@@ -36,7 +36,7 @@ void PhysicsEngine::gravity()
 				//tc->move(direction,(velocity*Engine::time.deltaTime())*collisiontime);
 				//tc->position.x += direction.x*velocity*collisiontime;
 				tc->position.y += direction.y*collisiontime.second*(velocity*Engine::time.deltaTime());
-			//*/	
+			//*/
 			//rigid[i]->replaceForce(Vector2(0,1),velocity*Engifne::time.deltaTime());
 		}
 	}

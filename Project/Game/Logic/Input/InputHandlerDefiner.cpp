@@ -28,14 +28,13 @@ void InputHandler::update()
 			if(jit != bindsOnRelease.end())
 				for(size_t i = 0; i < jit->second.size(); ++i)
 					jit->second.at(i)();
-			callbackRelease.erase(callbackRelease.begin()+i++);
+			callbackRelease.erase(callbackRelease.begin() + i++);
 		}
 		else
 			++i;
 
-
-	//[DONE] 25/06/15 
-	//LOW: Make it so that callback is inside a vector, to reduce the need to recheck if the same key condition is correct,	
+	//[DONE] 25/06/15
+	//LOW: Make it so that callback is inside a vector, to reduce the need to recheck if the same key condition is correct,
 	//if(true)//Engine::event.type == sf::Event::KeyPressed)
 	//if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
 	//{
@@ -55,7 +54,7 @@ void InputHandler::update()
 	//					it->second[i]();
 	//					callbackRelease.insert(std::make_pair(it->first,&it->second));
 	//				}
-	//	
+	//
 	//	/*for(auto it = bindsOnRelease.begin(); it != bindsOnRelease.end(); ++it)
 	//		if(sf::Keyboard::isKeyPressed(it->first))
 	//			for(auto i = 0; i < it->second.size(); ++i)
@@ -77,7 +76,6 @@ void InputHandler::update()
 
 void InputHandler::registerCallback(std::function<void(void)> callback,sf::Keyboard::Key key,Input::Action actionType)
 {
-
 	if(actionType & Input::Action::Press)
 	{
 		auto it = bindsOnPress.find(key);
@@ -106,49 +104,45 @@ void InputHandler::registerCallback(std::function<void(void)> callback,sf::Keybo
 
 	if(actionType & Input::Action::Hold)
 	{
-		
 	}
 }
-
-
 
 /*
 void InputHandler::onControlPress(std::function<void(void)> callback,sf::Keyboard::Key key)
 {
-	auto it = bindsOnControl.find(key);
-	if(it == bindsOnControl.end())
-	{
-		std::vector<std::function<void(void)>> tempVector;
-		tempVector.push_back(callback);
-		bindsOnControl.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
-	}
-	else
-		it->second.push_back(callback);
+auto it = bindsOnControl.find(key);
+if(it == bindsOnControl.end())
+{
+std::vector<std::function<void(void)>> tempVector;
+tempVector.push_back(callback);
+bindsOnControl.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
 }
-
+else
+it->second.push_back(callback);
+}
 
 void InputHandler::onKeyPress(CallBack callback,sf::Keyboard::Key key)
 {
-	auto it = bindsOnPress.find(key);
-	if(it == bindsOnPress.end())
-	{
-		std::vector<std::function<void(void)>> tempVector;
-		tempVector.push_back(callback);
-		bindsOnPress.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
-	}
-	else
-		it->second.push_back(callback);
+auto it = bindsOnPress.find(key);
+if(it == bindsOnPress.end())
+{
+std::vector<std::function<void(void)>> tempVector;
+tempVector.push_back(callback);
+bindsOnPress.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
+}
+else
+it->second.push_back(callback);
 }
 void InputHandler::onKeyRelease(CallBack callback,sf::Keyboard::Key key)
 {
-	auto it = bindsOnRelease.find(key);
-	if(it == bindsOnRelease.end())
-	{
-		std::vector<std::function<void(void)>> tempVector;
-		tempVector.push_back(callback);
-		bindsOnRelease.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
-	}
-	else
-		it->second.push_back(callback);
+auto it = bindsOnRelease.find(key);
+if(it == bindsOnRelease.end())
+{
+std::vector<std::function<void(void)>> tempVector;
+tempVector.push_back(callback);
+bindsOnRelease.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
+}
+else
+it->second.push_back(callback);
 }
 //*/

@@ -5,7 +5,7 @@
 
 class GameObject;
 class EquipmentComponent;
-class StatsWindow : public BaseWindow
+class StatsWindow: public BaseWindow
 {
 public:
 
@@ -13,13 +13,13 @@ public:
 	bool updateEquipment = true;
 	ScrollBar stats;
 	ScrollBar items;
-	StatsWindow(float x, float y, int sizeX, int SizeY);
+	StatsWindow(float x,float y,int sizeX,int SizeY);
 
 	void draw();
 	void WindowHandle();
 	void drawGearIcons();
 private:
-	
+
 	ToolTip toolTip;
 
 	sf::Sprite noEquippedItemIcon;
@@ -28,10 +28,9 @@ private:
 	void createEquipmentList();
 	void IconSelectHandle();
 
-	void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
+	void swap(sf::Sprite& icon,GameObject* go,EquipmentComponent* equip,std::string armorType);
 
 	bool mouseInsideIcon(sf::Sprite& sprite);
 };
-
 
 #endif

@@ -34,20 +34,20 @@ INT_PTR CALLBACK InputDialog::dlgProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lP
 		case WM_INITDIALOG:
 			switch(type)
 			{
-				HWND dlg; 
+				HWND dlg;
 				case ID_DIALOG_RENAME:
-					dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL_ID);
-					ShowWindow(dlg, FALSE);
-					dlg = GetDlgItem(hWnd, ID_DIALOG_TEXT_ID);
-					ShowWindow(dlg, FALSE);
+					dlg = GetDlgItem(hWnd,ID_DIALOG_LABEL_ID);
+					ShowWindow(dlg,FALSE);
+					dlg = GetDlgItem(hWnd,ID_DIALOG_TEXT_ID);
+					ShowWindow(dlg,FALSE);
 					break;
 				case ID_DIALOG_RESIZE:
-					dlg = GetDlgItem(hWnd, ID_DIALOG_TEXT);
-					SetWindowLong(dlg, GWL_STYLE, ES_AUTOHSCROLL | ES_NUMBER | WS_VISIBLE | WS_CHILD | WS_TABSTOP);
-					dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL);
-					SetWindowText(dlg, "X");
-					dlg = GetDlgItem(hWnd, ID_DIALOG_LABEL_ID);
-					SetWindowText(dlg, "Y");
+					dlg = GetDlgItem(hWnd,ID_DIALOG_TEXT);
+					SetWindowLong(dlg,GWL_STYLE,ES_AUTOHSCROLL | ES_NUMBER | WS_VISIBLE | WS_CHILD | WS_TABSTOP);
+					dlg = GetDlgItem(hWnd,ID_DIALOG_LABEL);
+					SetWindowText(dlg,"X");
+					dlg = GetDlgItem(hWnd,ID_DIALOG_LABEL_ID);
+					SetWindowText(dlg,"Y");
 					break;
 			}
 			SetWindowText(hWnd,title);

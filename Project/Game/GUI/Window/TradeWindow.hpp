@@ -6,7 +6,7 @@
 #include "../Text/FloatingText.hpp"
 class InventoryComponent;
 class Item;
-class TradeWindow : public BaseWindow
+class TradeWindow: public BaseWindow
 {
 public:
 
@@ -14,7 +14,7 @@ public:
 
 	TradeWindow();
 	~TradeWindow();
-	TradeWindow(float x, float y, int sizeX, int sizeY);
+	TradeWindow(float x,float y,int sizeX,int sizeY);
 
 	void draw();
 	void WindowHandle();
@@ -33,9 +33,9 @@ private:
 	void drawTab();
 
 	int selectedTab = 0;
-	
+
 	bool updateScrollbar = true;
-	
+
 	InventoryComponent* playerInventory = NULL;
 
 	// testVector

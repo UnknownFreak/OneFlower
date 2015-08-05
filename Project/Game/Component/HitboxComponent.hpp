@@ -23,7 +23,7 @@ public:
 	void registerCollisionCheck(BaseComponent* component);
 
 	//Rect
-	
+
 	std::vector<BaseComponent*> collisionCall;
 protected:
 	void attachOn(GameObject* go);

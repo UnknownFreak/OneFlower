@@ -35,7 +35,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	}
 }
 // default constructor
-WorldManagement::WorldManagement() : lastLoadedZone(0), zone(0), currentZone(0)
+WorldManagement::WorldManagement(): lastLoadedZone(0),zone(0),currentZone(0)
 {
 	if(loadZoneInfo(zoneInfo) == false)
 	{
@@ -173,20 +173,20 @@ void WorldManagement::EditorSaveZone()
 void WorldManagement::EditorSetBackground(std::string name)
 {
 	currentZone->setBackground(name);
-	Engine::game.addSprite(currentZone->getBackground(), true);
+	Engine::game.addSprite(currentZone->getBackground(),true);
 }
-void WorldManagement::EditorSetBackgroundSize(int x, int y)
+void WorldManagement::EditorSetBackgroundSize(int x,int y)
 {
 	currentZone->getBackground()->size.x = x;
 	currentZone->getBackground()->size.y = y;
-	Engine::game.addSprite(currentZone->getBackground(), true);	
+	Engine::game.addSprite(currentZone->getBackground(),true);
 }
 void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 {
 	std::vector<GameObject*>::iterator it = currentZone->objects.begin();
 	std::vector<GameObject*>::iterator end = currentZone->objects.end();
-	for (it; it != end; it++)
-		if (*it == go)
+	for(it; it != end; it++)
+		if(*it == go)
 		{
 			currentZone->objects.erase(it);
 			break;

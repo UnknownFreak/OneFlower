@@ -22,7 +22,7 @@ public:
 	void EditorRemoveZone();
 	void EditorSaveZone();
 	void EditorSetBackground(std::string textureName);
-	void EditorSetBackgroundSize(int x, int y);
+	void EditorSetBackgroundSize(int x,int y);
 
 	void RemoveGameObjectFromZone(GameObject* go);
 #endif

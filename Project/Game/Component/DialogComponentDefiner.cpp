@@ -8,33 +8,33 @@
 const unsigned int IBaseComponent<DialogComponent>::typeID = 1004;
 std::string IBaseComponent<DialogComponent>::componentName = "DialogComponent";
 
-DialogComponent::DialogComponent() :
+DialogComponent::DialogComponent():
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
-position(0, 0),
-open(false), dCreated(false), msg(new FloatingText())
+position(0,0),
+open(false),dCreated(false),msg(new FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
 	msg->iconName = "test.png";
 }
 
-DialogComponent::DialogComponent(double dur) :
+DialogComponent::DialogComponent(double dur):
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
-position(0, 0),
-open(false), dCreated(false), msg(new FloatingText())
+position(0,0),
+open(false),dCreated(false),msg(new FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
 	msg->iconName = "test.png";
 	msg->duration = dur;
 }
-DialogComponent::DialogComponent(const DialogComponent &diag) :
+DialogComponent::DialogComponent(const DialogComponent &diag):
 fontName("arial.ttf"),
 dialogMessage(diag.dialogMessage),
 position(diag.position),
-open(false), dCreated(false), msg(new FloatingText(*diag.msg))
+open(false),dCreated(false),msg(new FloatingText(*diag.msg))
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -50,23 +50,23 @@ DialogComponent::~DialogComponent()
 void DialogComponent::attachOn(GameObject* go)
 {
 	DialogComponent::BaseComponent::attachOn(go);
-	REGISTER_EDITOR_VARIABLE(Vector2, position, Position);
-	REGISTER_EDITOR_VARIABLE(Vector2, msg->offset, TextOffset);
-	REGISTER_EDITOR_VARIABLE(double, msg->duration, ShowDuration);
-	REGISTER_EDITOR_VARIABLE(std::string, fontName, FontName);
-	REGISTER_EDITOR_VARIABLE(std::string, dialogMessage, Text);
-	REGISTER_EDITOR_VARIABLE(std::string, msg->iconName, Texture);
-	REGISTER_EDITOR_VARIABLE(bool, msg->drawIcon, DrawBackgroundImage);
+	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
+	REGISTER_EDITOR_VARIABLE(Vector2,msg->offset,TextOffset);
+	REGISTER_EDITOR_VARIABLE(double,msg->duration,ShowDuration);
+	REGISTER_EDITOR_VARIABLE(std::string,fontName,FontName);
+	REGISTER_EDITOR_VARIABLE(std::string,dialogMessage,Text);
+	REGISTER_EDITOR_VARIABLE(std::string,msg->iconName,Texture);
+	REGISTER_EDITOR_VARIABLE(bool,msg->drawIcon,DrawBackgroundImage);
 }
 void DialogComponent::updateLocation()
 {
 	//HIGH Fix this with floor and research more
 
-	if (!msg)
-		MessageBox(Engine::Window.hWnd, "Not suppoed to happen!", "Dafak", NULL);
+	if(!msg)
+		MessageBox(Engine::Window.hWnd,"Not suppoed to happen!","Dafak",NULL);
 	else
-		msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f, this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
-	msg->setPosition(attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f, attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
+		msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
+	msg->setPosition(attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
 }
 //TODO Remove either this one or the other createDialog
 void DialogComponent::createDialog(bool b)
@@ -97,12 +97,12 @@ void DialogComponent::createDialog()
 void DialogComponent::show()
 {
 	updateLocation();
-	if (!open)
+	if(!open)
 	{
 		msg->timer.restart();
 
 		//TODO: Fix this cause this apparently use alot of resources depedning on machine
-		if (!dCreated)
+		if(!dCreated)
 			createDialog();
 		Engine::GUI.addDialog(*this);
 		//Engine::Graphic.insertDrawableMessage(msg);
@@ -111,7 +111,7 @@ void DialogComponent::show()
 }
 void DialogComponent::close()
 {
-	if (open)
+	if(open)
 	{
 		Engine::GUI.removeDialog(*this);
 		//Engine::Graphic.removeFromMessageList(msg,false);
@@ -122,7 +122,7 @@ bool DialogComponent::updateFromEditor()
 {
 	tryLoadTextureAndFont();
 	updateLocation();
-	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.y, this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y);
+	msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.y,this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y);
 	*msg = dialogMessage;
 
 	return true;
@@ -139,15 +139,15 @@ void DialogComponent::tryLoadTextureAndFont()
 
 #ifdef _DEBUG
 	}
-	catch (MissingIconException ex)
+	catch(MissingIconException ex)
 	{
-		MessageBox(Engine::Window.hWnd, "Missing Dialog Texture", "Error:MissingDialogTexture", NULL);
+		MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
 
 		msg->iconSprite.setTexture(*ex.what());
 	}
-	catch (MissingFontException ex)
+	catch(MissingFontException ex)
 	{
-		MessageBox(Engine::Window.hWnd, "Missing Dialog Font", "Error:MissingDialogFont", NULL);
+		MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
 
 		msg->setFont(ex.what());
 	}

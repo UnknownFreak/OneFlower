@@ -18,12 +18,12 @@ public:
 	bool drawIcon;
 	std::string iconName;
 	sf::Sprite iconSprite;
-	std::map<int,std::pair<sf::Sprite, Vector2>> icons;
+	std::map<int,std::pair<sf::Sprite,Vector2>> icons;
 	Vector2 offset;
 	/*
 	Constructor
 	//*/
-	FloatingText(std::string iconName, sf::Font& font, bool drawIcon = true, double duration = 3, int len = -1, double offsetX = 0, double offsetY = 0);
+	FloatingText(std::string iconName,sf::Font& font,bool drawIcon = true,double duration = 3,int len = -1,double offsetX = 0,double offsetY = 0);
 	FloatingText(const FloatingText& ft);
 	FloatingText();
 	virtual ~FloatingText() = default;
@@ -37,7 +37,7 @@ public:
 	void drawCrop(sf::IntRect area);
 	void setOffset(double x,double y);
 
-	int iconFormat(std::pair<sf::Text, bool>& pair,std::vector<std::string>& iit, int iterpos) override;
+	int iconFormat(std::pair<sf::Text,bool>& pair,std::vector<std::string>& iit,int iterpos) override;
 
 	FloatingText& operator=(std::string info);
 

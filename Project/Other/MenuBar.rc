@@ -11,18 +11,17 @@ BEGIN
 POPUP "&Components"
 BEGIN
 
-MENUITEM "&TransformComponent", ADD_TransformComponent
-MENUITEM "&RenderComponent", ADD_RenderComponent
-MENUITEM "&HitboxComponent", ADD_HitboxComponent
-MENUITEM "&DialogComponent", ADD_DialogComponent
-MENUITEM "&OverHeadComponent", ADD_OverHeadComponent
-MENUITEM "&RigidComponent", ADD_RigidComponent
-MENUITEM "&StatsComponent", ADD_StatsComponent
-MENUITEM "H&ealthComponent", ADD_HealthComponent
-MENUITEM "Re&putationComponent", ADD_ReputationComponent
+MENUITEM "&TransformComponent",ADD_TransformComponent
+MENUITEM "&RenderComponent",ADD_RenderComponent
+MENUITEM "&HitboxComponent",ADD_HitboxComponent
+MENUITEM "&DialogComponent",ADD_DialogComponent
+MENUITEM "&OverHeadComponent",ADD_OverHeadComponent
+MENUITEM "&RigidComponent",ADD_RigidComponent
+MENUITEM "&StatsComponent",ADD_StatsComponent
+MENUITEM "H&ealthComponent",ADD_HealthComponent
+MENUITEM "Re&putationComponent",ADD_ReputationComponent
 
-
-MENUITEM "&InventoryComponent", ADD_InventoryComponent
+MENUITEM "&InventoryComponent",ADD_InventoryComponent
 
 END
 MENUITEM "&GameObject",ADD_GameObject
@@ -34,10 +33,10 @@ END
 POPUP "&GUI"
 BEGIN
 
-MENUITEM "Show/Hide GUI", ID_SHOW_HIDE_GUI
-MENUITEM "Show/Hide Mouse Icon", ID_SHOW_HIDE_MOUSE
-MENUITEM "Show/Hide Overheads", ID_SHOW_HIDE_OVERHEAD
-MENUITEM "Show/Hide Dialogs", ID_SHOW_HIDE_DIALOGS
+MENUITEM "Show/Hide GUI",ID_SHOW_HIDE_GUI
+MENUITEM "Show/Hide Mouse Icon",ID_SHOW_HIDE_MOUSE
+MENUITEM "Show/Hide Overheads",ID_SHOW_HIDE_OVERHEAD
+MENUITEM "Show/Hide Dialogs",ID_SHOW_HIDE_DIALOGS
 
 END
 POPUP "&Zone"

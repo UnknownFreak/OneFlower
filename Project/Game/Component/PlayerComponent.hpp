@@ -5,14 +5,12 @@
 
 class MovementComponent;
 class GameObject;
-class PlayerComponent :public IBaseComponent<PlayerComponent>
+class PlayerComponent:public IBaseComponent < PlayerComponent >
 {
 public:
 
-
 protected:
 	void attachOn(GameObject* attachingOn);
-
 
 private:
 	/*
@@ -22,9 +20,6 @@ private:
 	void moveLeft();
 	//*/
 	void manoeuvre(Vector2 direction);
-	
 };
-
-
 
 #endif

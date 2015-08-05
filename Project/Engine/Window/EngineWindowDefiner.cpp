@@ -87,7 +87,6 @@ EngineWindow::EngineWindow():size(1366,768)
 	}
 	else
 	{
-		
 		ShowWindow(hWnd,1);
 		UpdateWindow(hWnd);
 
@@ -199,19 +198,19 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				case ADD_ReputationComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<ReputationComponent>();
 					break;
 				}
 				case ADD_ProjectilePatternComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<ProjectilePatternComponent>();
 					break;
 				}
 				case ADD_InventoryComponent:
 				{
-					if (Engine::Window.focus.gameObject)
+					if(Engine::Window.focus.gameObject)
 						Engine::Window.focus.gameObject->AddComponent<InventoryComponent>();
 					break;
 				}
@@ -239,7 +238,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 #pragma endregion
 #pragma region FILE_MENU
-				
+
 				case ID_FILE_EXIT:
 				{
 					DestroyWindow(hWnd);
@@ -249,22 +248,22 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 #pragma region ZONE_MENU
 				case ID_ADD_ZONE:
 				{
-					char name[100] = { 0 };
-					char value[100] = { 0 };
+					char name[100] = {0};
+					char value[100] = {0};
 					InputDialog::InputBox("Add Zone",name,value,100,hWnd);
 					unsigned int i = std::atoi(value);
-					if (!InputDialog::getIfCancelled())
+					if(!InputDialog::getIfCancelled())
 						Engine::World.EditorAddNewZone(name,i);
 					break;
 				}
 				case ID_LOAD_ZONE:
 				{
-					char name[100] = { 0 };
-					char value[100] = { 0 };
-					InputDialog::InputBox("Load Zone", name, value, 100, hWnd);
+					char name[100] = {0};
+					char value[100] = {0};
+					InputDialog::InputBox("Load Zone",name,value,100,hWnd);
 					unsigned int i = std::atoi(value);
-					if (!InputDialog::getIfCancelled())
-						Engine::World.EditorLoadZone(name, i);
+					if(!InputDialog::getIfCancelled())
+						Engine::World.EditorLoadZone(name,i);
 					break;
 				}
 				case ID_SAVE_ZONE:
@@ -291,13 +290,13 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 				case ID_SETBACKGROUND_SIZE:
 				{
-					char cX[7] = { 0 };
-					char cY[7] = { 0 };
-					InputDialog::InputBox("Set Background Size", cX, cY, 7, hWnd, ID_DIALOG_RESIZE);
+					char cX[7] = {0};
+					char cY[7] = {0};
+					InputDialog::InputBox("Set Background Size",cX,cY,7,hWnd,ID_DIALOG_RESIZE);
 					int x = std::atoi(cX);
 					int y = std::atoi(cY);
-					if (!InputDialog::getIfCancelled())
-						Engine::World.EditorSetBackgroundSize(x, y);
+					if(!InputDialog::getIfCancelled())
+						Engine::World.EditorSetBackgroundSize(x,y);
 					break;
 				}
 #pragma endregion

@@ -10,19 +10,18 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 {
 	BaseComponent::attachOn(toAttach);
 	toAttach->AddComponent<MovementComponent>();
-	
+
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,0)),sf::Keyboard::D,Input::Action::Release);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(1,0)),sf::Keyboard::D,Input::Action::Press);
-	
 }
 /*
 void PlayerComponent::moveRight()
 {
-	manoeuvre(Vector2(1,0));
+manoeuvre(Vector2(1,0));
 }
 void PlayerComponent::moveLeft()
 {
-	manoeuvre(Vector2(-1,0));
+manoeuvre(Vector2(-1,0));
 }
 //*/
 void PlayerComponent::manoeuvre(Vector2 Direction)

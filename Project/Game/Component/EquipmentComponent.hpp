@@ -4,7 +4,7 @@
 #include "IBaseComponent.hpp"
 class Armor;
 class Item;
-class EquipmentComponent : public IBaseComponent < EquipmentComponent >
+class EquipmentComponent: public IBaseComponent < EquipmentComponent >
 {
 public:
 
@@ -16,17 +16,14 @@ public:
 	Armor* leggings;
 	Armor* boots;
 
-
 	Item* equipArmor(Item* item);
 
 private:
 
 	template<class Archive>
-	friend void save(Archive& ar, const EquipmentComponent& ecp);
+	friend void save(Archive& ar,const EquipmentComponent& ecp);
 	template<class Archive>
-	friend void load(Archive& ar, EquipmentComponent& ecp);
-
+	friend void load(Archive& ar,EquipmentComponent& ecp);
 };
-
 
 #endif

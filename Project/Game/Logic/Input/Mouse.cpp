@@ -7,7 +7,7 @@
 
 void scrollupdate();
 
-Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
+Mouse::Mouse(): pos(0,0),offset(0,0),LMBPressed(false),RMBPressed(true)
 {
 }
 
@@ -23,17 +23,16 @@ void Mouse::update()
 
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
-
 #pragma region Left
-			if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+			if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
-				if (LMBPressed)
+				if(LMBPressed)
 					LMBPressed = false;
 
 				int top = 0;
-				if (Engine::GUI.mouseOutsideOpenWindow())
+				if(Engine::GUI.mouseOutsideOpenWindow())
 				{
-					for (int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
+					for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 					{
 						RenderComponent* rc = 0;
 						GameObject* ab = 0;
@@ -44,7 +43,7 @@ void Mouse::update()
 						hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 						transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 						rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
-						if (hitbox || rig || rc)
+						if(hitbox || rig || rc)
 						{
 							rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 							ab = Engine::game.allGameObjectPointers.at(i);
@@ -55,20 +54,20 @@ void Mouse::update()
 							int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
 							int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
 
-							if (pos.x >= localStartX && pos.x <= localEndX)
-								if (pos.y >= localStartY && pos.y <= localEndY)
+							if(pos.x >= localStartX && pos.x <= localEndX)
+								if(pos.y >= localStartY && pos.y <= localEndY)
 								{
 									Engine::Graphic.selectedDrawList.push_back(ab);
-									if (dialog)
+									if(dialog)
 										dialog->show();
 								}
 						}
 					}
-					if (Engine::Graphic.selectedDrawList.size() > 0)
+					if(Engine::Graphic.selectedDrawList.size() > 0)
 					{
-						for (size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
+						for(size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
 						{
-							if (Engine::Graphic.selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > Engine::Graphic.selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
+							if(Engine::Graphic.selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > Engine::Graphic.selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
 							{
 								top = i;
 							}
@@ -85,15 +84,13 @@ void Mouse::update()
 			/*
 			else if(Engine::event.mouseButton.button == sf::Mouse::Button::Right)
 			{
-
 			HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
 			HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
 
 			if (RMBPressed)
-					RMBPressed = false;
-				HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
-				HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
-
+			RMBPressed = false;
+			HWND wnd = GetDlgItem(Engine::Window.hWnd,90562);
+			HWND awnd = GetDlgItem(Engine::Window.hWnd,90572);
 
 			SetWindowTextA(wnd,std::to_string((int)pos.x).c_str());
 			SetWindowTextA(awnd,std::to_string((int)pos.y).c_str());
@@ -102,10 +99,10 @@ void Mouse::update()
 #pragma endregion
 		}
 
-		if (deltaScrolls < 0)
+		if(deltaScrolls < 0)
 
 		{
-			if (Engine::GUI.windowHasFocus())
+			if(Engine::GUI.windowHasFocus())
 				Engine::GUI.scroll();
 			else
 			{
@@ -116,7 +113,7 @@ void Mouse::update()
 		}
 		else if(deltaScrolls > 0)
 		{
-			if (Engine::GUI.windowHasFocus())
+			if(Engine::GUI.windowHasFocus())
 				Engine::GUI.scroll();
 			else
 			{
@@ -131,14 +128,14 @@ void Mouse::update()
 
 bool Mouse::leftClick()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !LMBPressed && Engine::time.time("LMBPress", 25))
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !LMBPressed && Engine::time.time("LMBPress",25))
 		return (LMBPressed = true);
 	return false;
 }
 
 bool Mouse::rightClick()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !RMBPressed && Engine::time.time("RMBPress", 25))
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !RMBPressed && Engine::time.time("RMBPress",25))
 		return (RMBPressed = true);
 	return false;
 }

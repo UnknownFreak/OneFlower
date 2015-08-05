@@ -7,7 +7,7 @@
 #include "Game\Component\TransformComponent.hpp"
 #include "Game\Component\DialogComponent.hpp"
 #include "Game\Component\ProjectilePatternComponent.hpp"
-#include "Game\Component\EquipmentComponent.hpp"	
+#include "Game\Component\EquipmentComponent.hpp"
 #include "Game\Component\PlayerComponent.hpp"
 #include "Game\Component\RigidComponent.hpp"
 #include "Game\Logic\Time\Time.hpp"
@@ -73,7 +73,7 @@ int windowMessage()
 			{
 				if(message.wParam == VK_ESCAPE)
 					SetFocus(Engine::Window.hWnd);
-				if (message.wParam == VK_DELETE)
+				if(message.wParam == VK_DELETE)
 				{
 					Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
@@ -97,7 +97,7 @@ int windowMessage()
 			std::cout << "alt:" << event.key.alt << std::endl;
 			std::cout << "shift:" << event.key.shift << std::endl;
 			std::cout << "system:" << event.key.system << std::endl;
-			//*/				
+			//*/
 		}
 
 		Engine::Input.update();
@@ -111,7 +111,7 @@ int windowMessage()
 		Engine::GUI.Draw();
 
 		Engine::Graphic.view.render.display();
-		
+
 		Engine::Window.update();
 
 		//Fix this, By moving it somewhere else? and have it return a constant variable
@@ -152,7 +152,7 @@ int test()
 		// Draw the sprite
 		window.draw(sprite);
 		// Draw the string
-	//	window.hasFocus() ? window.draw(text) : window.draw(text2);
+		//	window.hasFocus() ? window.draw(text) : window.draw(text2);
 		// update the window
 		window.display();
 	}

@@ -8,5 +8,5 @@ void testLoad();// (Archive& archive, const GameObject& go);
 void testSave();// (Archive& archive, const GameObject& go);
 void saveZone(ZoneMap& zone);
 void saveInfo(std::map<unsigned int,std::string>zoneInfo);
-void loadItem(unsigned int ID, Item& item);
+void loadItem(unsigned int ID,Item& item);
 #endif

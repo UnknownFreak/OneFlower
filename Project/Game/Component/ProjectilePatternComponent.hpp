@@ -6,7 +6,7 @@
 #define G 9.081
 
 class GameObject;
-class ProjectilePatternComponent : public IBaseComponent < ProjectilePatternComponent >
+class ProjectilePatternComponent: public IBaseComponent < ProjectilePatternComponent >
 {
 public:
 	void attachOn(GameObject * go);
