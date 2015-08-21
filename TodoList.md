@@ -1,18 +1,6 @@
 #Engine
-	##Game Editor
-		- [ ] Test	
-
-	##Item Creator
-		- [ ] Test	
-
-
+	- [ ] Test	
 
 
 #Game 
-	##Core Logic
-		###Component
-			- [ ] Test	
-
-
-	##Rendering 
-		- [ ] Test	
+	- [ ] Test	
