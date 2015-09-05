@@ -15,6 +15,11 @@ void InputHandler::update()
 					it->second[i]();
 				callbackRelease.push_back(it->first);
 			}
+	for(auto it = bindsOnHold.begin(); it != bindsOnHold.end(); ++it)
+		if(sf::Keyboard::isKeyPressed(it->first))
+			for(size_t i = 0; i < it->second.size(); ++i)
+				it->second[i]();
+	
 
 	for(auto it = bindsOnRelease.begin(); it != bindsOnRelease.end(); ++it)
 		if(std::find(callbackRelease.begin(),callbackRelease.end(),it->first) == callbackRelease.end())
@@ -104,6 +109,18 @@ void InputHandler::registerCallback(std::function<void(void)> callback,sf::Keybo
 
 	if(actionType & Input::Action::Hold)
 	{
+		auto it = bindsOnHold.find(key);
+
+		if(it == bindsOnHold.end())
+		{
+			std::vector<std::function<void(void)>> tempVector;
+			tempVector.push_back(callback);
+			bindsOnHold.insert(std::pair<sf::Keyboard::Key,std::vector < std::function < void(void)>>>(key,tempVector));
+		}
+		else
+			it->second.push_back(callback);
+
+
 	}
 }
 
