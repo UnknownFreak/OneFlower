@@ -24,10 +24,12 @@ bool MovementComponent::inMotion()
 
 	return false;
 }
+
 void MovementComponent::addForce(Vector2 direction,double speed)
 {
-	forces.push_back(std::make_pair(direction,speed));
+	movementsQueue.push_back(std::make_pair(direction,speed));
 }
+//*/
 void MovementComponent::replaceMotion(Vector2 dir,double s,int dist)
 {
 	direction = dir;
