@@ -11,23 +11,67 @@
 #include <SFML\Window\Event.hpp>
 #include "../Engine.hpp"
 #include "Component\MovementComponent.hpp"
+#include <math.h>
+#define PI 3.14159265
+
 void Game::update()
 {
 	for(size_t i = 0; i < motionObjectPointers.size(); i++)
 	{
 		MovementComponent* movement = motionObjectPointers[i]->GetComponent<MovementComponent>();
 		//HIGH: Learn the math, Been to long to remember
+#ifdef _DEBUG
 		if(movement)
+#endif
 		{
-			Vector2 position = motionObjectPointers[i]->GetComponent<TransformComponent>()->position;
-			Vector2 finalDirection(0,0);
-			std::vector<std::pair<Vector2,double>> forces = movement->forces;
-			double movementSpeed = 0;
+			//Start Position of Object
+			Vector2 position = movement->attachedOn->GetComponent<TransformComponent>()->position;
+			
+			//The movement direction 
+			Vector2 direction = movement->direction;
 
+			//Currently velocity speed
+			double speed = movement->speed;
+
+
+			//Stored force queue
+			std::vector<std::pair<Vector2,double>> queue = movement->movementsQueue;
+			
+			if(queue.size() > 0)
+			{
+
+				Vector2 directionForce(direction.x*speed,direction.y*speed);
+				Vector2 newForce;
+
+				//HIGH: Remove this no need to save the different forces, only need one iteration
+				std::vector<Vector2> forces;
+				for(size_t i = 0; i < queue.size(); ++i)
+					forces.push_back(Vector2(queue[i].first.x*queue[i].second,queue[i].first.y*queue[i].second));
+				for(size_t i = 0; i < forces.size(); ++i)
+					newForce += forces[i];
+
+				double angle = atan2(newForce.x,newForce.y);
+				Vector2 newDir(cos(angle),sin(angle));
+
+				double newSpeed = newDir.x / newForce.x;
+
+				position.x += newForce.x*Engine::time.deltaTime();
+				position.y += newForce.y*Engine::time.deltaTime();
+				movement->movementsQueue.clear();
+			}
+			else
+			{
+				position.x += direction.x*speed*Engine::time.deltaTime();
+				position.y += direction.y*speed*Engine::time.deltaTime();
+
+			}
+			movement->attachedOn->GetComponent<TransformComponent>()->position = position;
+
+			/*
 			if(movement->inMotion())
 			{
 				finalDirection = movement->direction;
-
+					
 				for(size_t i = 0; i < forces.size(); ++i)
 				{
 					finalDirection += forces[i].first;
@@ -36,6 +80,7 @@ void Game::update()
 				position.x += finalDirection.x*movementSpeed*Engine::time.deltaTime();
 				position.y += finalDirection.y*movementSpeed*Engine::time.deltaTime();
 			}
+			//*/
 		}
 	}
 	//LOW: Make my own Custom Focus
@@ -54,8 +99,8 @@ void Game::update()
 		{
 			Engine::Graphic.view.camera.setCenter(0,0);
 			Engine::Graphic.view.camera.setSize(800,600);
-			pos.x = 0;
-			pos.y = 0;
+//			pos.x = 0;
+//			pos.y = 0;
 		}
 		Engine::Graphic.view.render.setView(Engine::Graphic.view.camera);
 		Engine::GUI.updateMouseIcon();
