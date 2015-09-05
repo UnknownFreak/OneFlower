@@ -111,10 +111,10 @@ int windowMessage()
 		Engine::GUI.Draw();
 
 		Engine::Graphic.view.render.display();
-
+#ifdef _DEBUG
 		Engine::Window.update();
-
-		//Fix this, By moving it somewhere else? and have it return a constant variable
+#endif
+		//LOW: Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
 		time.FPS();
 	}
