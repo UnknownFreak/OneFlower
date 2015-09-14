@@ -1,16 +1,17 @@
 #include "Game.h"
 #include <SFML\Window\Mouse.hpp>
 #include <vector>
-#include "Component\GameObject.h"
-#include "Component\IBaseComponent.hpp"
-#include "Component\HitboxComponent.hpp"
-#include "Component\TransformComponent.hpp"
-#include "Component\RenderComponent.h"
+#include "Component/GameObject.h"
+#include "Component/IBaseComponent.hpp"
+#include "Component/HitboxComponent.hpp"
+#include "Component/RigidComponent.hpp"
+#include "Component/TransformComponent.hpp"
+#include "Component/RenderComponent.h"
 #include "Gfx.h"
-#include <SFML\Window\Keyboard.hpp>
-#include <SFML\Window\Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
 #include "../Engine.hpp"
-#include "Component\MovementComponent.hpp"
+#include "Component/MovementComponent.hpp"
 #include <math.h>
 #define PI 3.14159265
 
@@ -24,16 +25,29 @@ void Game::update()
 		if(movement)
 #endif
 		{
-			//Start Position of Object
-			Vector2 position = movement->attachedOn->GetComponent<TransformComponent>()->position;
-			
-			//The movement direction 
-			Vector2 direction = movement->direction;
+			Vector2 position = motionObjectPointers[i]->GetComponent<TransformComponent>()->position;
+			Vector2 resultant;
 
-			//Currently velocity speed
-			double speed = movement->speed;
+			if(RigidComponent* rigid = motionObjectPointers[i]->GetComponent<RigidComponent>())
+			{
+				for(size_t i = 0; i < movement->movementsQueue.size(); ++i)
+					resultant += movement->movementsQueue[i].first;
 
+					
+			}
+			else if(HitboxComponent* hitbox = motionObjectPointers[i]->GetComponent<HitboxComponent>())
+			{
 
+			}
+
+			////Start Position of Object
+			//Vector2 position = movement->attachedOn->GetComponent<TransformComponent>()->position;
+			//
+			////The movement direction 
+			//Vector2 direction = movement->direction;
+			////Currently velocity speed
+			//double speed = movement->speed;
+			/*
 			//Stored force queue
 			std::vector<std::pair<Vector2,double>> queue = movement->movementsQueue;
 			
@@ -66,7 +80,7 @@ void Game::update()
 
 			}
 			movement->attachedOn->GetComponent<TransformComponent>()->position = position;
-
+			//*/
 			/*
 			if(movement->inMotion())
 			{

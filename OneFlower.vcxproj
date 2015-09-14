@@ -67,6 +67,7 @@
     <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp" />
+    <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
@@ -130,6 +131,7 @@
     <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Input\Mouse.cpp" />
+    <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
     <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />

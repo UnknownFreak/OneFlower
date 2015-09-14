@@ -4,6 +4,14 @@
 #include "../../../Vector.h"
 #include "../../Component/RigidComponent.hpp"
 
+
+/*
+PhysicsEngine::Collider::Collider()
+{
+
+}
+//*/
+
 void PhysicsEngine::addPhysics(RigidComponent* obj)
 {
 	if(obj)

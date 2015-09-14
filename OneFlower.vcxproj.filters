@@ -240,6 +240,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Vector.h" />
+    <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -427,6 +430,9 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\VectorDefiner.cpp" />
+    <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">
