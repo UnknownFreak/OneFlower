@@ -180,10 +180,9 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 		{
 			switch(wParam)
 			{
-				
-				default :
+				default:
 					//case(VK_RETURN) :
-					#pragma region Enter WndProcNameField
+#pragma region Enter WndProcNameField
 				{
 					TCHAR txt[1024];
 					DWORD start = 0;
@@ -195,9 +194,9 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 
 					//TODO: Move this out towards a seperate WndProc
 					//Field Object
-					#pragma region SearchFields
+#pragma region SearchFields
 					std::map<HWND,BaseField*>::iterator it = Engine::Window.focus.extraFields.find(hWnd);
-					#pragma endregion
+#pragma endregion
 					//try .end one day
 					if(it != Engine::Window.focus.extraFields.end())
 					{
@@ -215,7 +214,7 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 					break;
 				}
 
-					#pragma endregion
+#pragma endregion
 				//*/
 			}
 		}
@@ -288,26 +287,26 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{
 			switch(wParam)
 			{
-				#pragma region Non-CharKey
+#pragma region Non-CharKey
 				//case 0x08:
-					// Process a backspace. 
-			//		break;
+				// Process a backspace.
+				//		break;
 				case 0x0A:
-					// Process a linefeed. 
+					// Process a linefeed.
 					break;
 				case 0x1B:
-					// Process an escape. 
+					// Process an escape.
 					break;
 				case 0x09:
-					// Process a tab. 
+					// Process a tab.
 					break;
 				case 0x0D:
-					// Process a carriage return. 
+					// Process a carriage return.
 					break;
-				#pragma endregion
+#pragma endregion
 
-				#pragma region Enter
-				default:		
+#pragma region Enter
+				default:
 				{
 					TCHAR txt[1024];
 					DWORD start = 0;
@@ -321,19 +320,19 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
 					//TODO: Move this out towards a seperate WndProc
 					//Field Object
-					#pragma region SearchFields
-						bool found = false;
-						std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
-						for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+#pragma region SearchFields
+					bool found = false;
+					std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
+					for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+					{
+						it = i->second.field.find(hWnd);
+						if(it != i->second.field.end())
 						{
-							it = i->second.field.find(hWnd);
-							if(it != i->second.field.end())
-							{
-								found = true;
-								break;
-							}
+							found = true;
+							break;
 						}
-	#pragma endregion
+					}
+#pragma endregion
 					//try .end one day
 					if(found)
 					{
@@ -341,20 +340,20 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						{
 							if(it->second->flags & FieldFlag::Decimal)
 							{
-								#pragma region Decimal
-									for(size_t i = 0; i < value.size(); i++)
-									{
-										if(isDouble(value.at(i)))
-											newValue.push_back(value[i]);
-									}
-									if(!newValue.empty())
-									{
-										if(value[0] == '-')
-											newValue.insert(newValue.begin(),value[0]);
-									}
-									else
-										newValue = "0";
-	#pragma endregion
+#pragma region Decimal
+								for(size_t i = 0; i < value.size(); i++)
+								{
+									if(isDouble(value.at(i)))
+										newValue.push_back(value[i]);
+								}
+								if(!newValue.empty())
+								{
+									if(value[0] == '-')
+										newValue.insert(newValue.begin(),value[0]);
+								}
+								else
+									newValue = "0";
+#pragma endregion
 							}
 							else
 								newValue = isLetter(value);
@@ -372,7 +371,7 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					break;
 					//return 0;
 				}
-				#pragma endregion
+#pragma endregion
 			}
 		}
 		default:
@@ -394,41 +393,41 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 			switch(wParam)
 			{
 				#pragma region SB_PAGEUP
-								case SB_PAGEUP:
-								{
-									scrollSpeed = -64;
-									//Negative + Negative = Positive
-									if(si.nPos + scrollSpeed >= 0)
-									{
-										ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-										si.nPos += scrollSpeed;
-									}
-									else
-									{
-										ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-										si.nPos -= si.nPos;
-									}
-									SetScrollInfo(hWnd,SB_VERT,&si,false);
-									break;
-								}
+				case SB_PAGEUP:
+				{
+					scrollSpeed = -64;
+					//Negative + Negative = Positive
+					if(si.nPos + scrollSpeed >= 0)
+					{
+						ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos += scrollSpeed;
+					}
+					else
+					{
+						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos -= si.nPos;
+					}
+					SetScrollInfo(hWnd,SB_VERT,&si,false);
+					break;
+				}
 				#pragma endregion
 				#pragma region SB_PAGEDOWN
-								case SB_PAGEDOWN:
-								{
-									scrollSpeed = 64;
-									if(si.nPos + scrollSpeed <= si.nMax)
-									{
-										ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-										si.nPos += scrollSpeed;
-									}
-									else
-									{
-										ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-										si.nPos += (si.nMax - si.nPos);
-									}
-									SetScrollInfo(hWnd,SB_VERT,&si,false);
-									break;
-								}
+				case SB_PAGEDOWN:
+				{
+					scrollSpeed = 64;
+					if(si.nPos + scrollSpeed <= si.nMax)
+					{
+						ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos += scrollSpeed;
+					}
+					else
+					{
+						ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos += (si.nMax - si.nPos);
+					}
+					SetScrollInfo(hWnd,SB_VERT,&si,false);
+					break;
+				}
 				#pragma endregion
 				#pragma region SB_LINEUP
 				case SB_LINEUP:
@@ -470,21 +469,20 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 				}
 				#pragma endregion
 
-
 				/*
 				case SB_THUMBPOSITION:
 				{
-					int move = HIWORD(wParam);
-					si.nPos = move;
-					SetScrollInfo(hWnd,SB_VERT,&si,false);
+				int move = HIWORD(wParam);
+				si.nPos = move;
+				SetScrollInfo(hWnd,SB_VERT,&si,false);
 
-					break;
+				break;
 				}
 				//*/
 				default:
 					break;
 			}
-#pragma endregion
+			#pragma endregion
 		}
 		case WM_MOUSEACTIVATE:
 		{
@@ -495,7 +493,7 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 		{
 			SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
 			GetScrollInfo(hWnd,SB_VERT,&si);
-			
+
 			int wheelTicks = GET_WHEEL_DELTA_WPARAM(wParam);// / WHEEL_DELTA;
 			int scrollSpeed = wheelTicks;
 			if(wheelTicks > 0)
@@ -532,11 +530,10 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					si.nPos += (si.nMax - si.nPos);
 				}
 				#pragma endregion
-
 			}
 
 			SetScrollInfo(hWnd,SB_VERT,&si,false);
-			
+
 			break;
 		}
 		default:
