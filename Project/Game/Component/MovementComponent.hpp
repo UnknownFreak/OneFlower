@@ -8,6 +8,7 @@ class MovementComponent: public IBaseComponent < MovementComponent >
 {
 
 public:
+	~MovementComponent();
 
 	Vector2 direction;
 	int distance;

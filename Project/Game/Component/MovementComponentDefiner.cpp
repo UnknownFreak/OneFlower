@@ -8,6 +8,12 @@
 
 const unsigned int IBaseComponent<MovementComponent>::typeID = 14564;
 std::string IBaseComponent<MovementComponent>::componentName = "MovementComponent";
+
+MovementComponent::~MovementComponent()
+{
+	Engine::game.removealMotion(attachedOn);
+}
+//*/
 void MovementComponent::attachOn(GameObject* entity)
 {
 	BaseComponent::attachOn(entity);

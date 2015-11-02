@@ -23,6 +23,17 @@ void Game::addMotionObject(GameObject* entity)
 {
 	motionObjectPointers.push_back(entity);
 }
+void Game::removealMotion(GameObject* entity)
+{
+	for(int i = 0; i < motionObjectPointers.size(); i++)
+	{
+		if(motionObjectPointers[i] == entity)
+		{
+			motionObjectPointers.erase(motionObjectPointers.begin() + i);
+			break;
+		}
+	}
+}
 
 void Game::addGameObject(GameObject* entity)
 {
@@ -42,6 +53,8 @@ void Game::addGameObject(GameObject* entity)
 	//Engine::Graphic.insertDrawableObject(entity);
 #ifdef _DEBUG
 	Engine::Window.ListViewer.add(entity);
+	Engine::Window.setGameObject(entity);
+
 #endif
 }
 
@@ -104,7 +117,7 @@ void Game::requestRemoveal(GameObject* entity)
 				allGameObjectPointers.erase(allGameObjectPointers.begin() + i);
 				Engine::GUI.requestOverheadRemoval(entity);
 				Engine::Graphic.removeFromDrawList(entity);
-				Engine::Window.ListViewer.remove(entity);
+				//Engine::Window.ListViewer.remove(entity);
 				if(Engine::Window.focus.gameObject == entity)
 				{
 					Engine::Window.focus.gameObject = 0;
