@@ -127,7 +127,6 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					GameObject* a = new GameObject();
 					Engine::game.addGameObject(a);
-					Engine::Window.setGameObject(a);
 					Engine::World.getCurrentZone()->objects.push_back(a);
 					break;
 				}
@@ -238,7 +237,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 #pragma endregion
 #pragma region FILE_MENU
-
+				case ID_CLEAR_DEBUG:
+				{
+					Engine::Window.debug.clear();
+					break;
+				}
 				case ID_FILE_EXIT:
 				{
 					DestroyWindow(hWnd);

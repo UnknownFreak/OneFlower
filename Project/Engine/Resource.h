@@ -4,6 +4,7 @@
 
 #define ID_FILE_EXIT 2003
 #define ID_ADD_RENDER 2004
+#define ID_CLEAR_DEBUG 2005
 
 #define REMOVE_GameObject 1100
 #define ADD_GameObject 1000
