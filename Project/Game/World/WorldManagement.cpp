@@ -5,99 +5,123 @@
 #include <fstream>
 #include "../LoadAndSave/LoadAndSave.hpp"
 #include "../../Engine.hpp"
-#include "../Component\RenderComponent.h"
-#include "../Component\GameObject.h"
+#include "../Component/RenderComponent.h"
+#include "../Component/GameObject.h"
 #include "../Gfx.h"
-
 // load zone with ID
 void WorldManagement::loadZone(unsigned int zoneID)
 {
 	if(worldmap.find(zoneID) != worldmap.end())
 	{
-		std::string info = "zone with ID: [" + std::to_string(zoneID) + "] is already loaded\ncontinues to load zone...";
-		MessageBox(Engine::Window.hWnd,(LPCSTR)info.c_str(),"Stuff",NULL);
+		std::string info = "Zone structure with ID: [" + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
+		Engine::Window.debug.print(info, __LINE__, __FILE__);
+		//MessageBox(Engine::Window.hWnd,(LPCSTR)info.c_str(),"INFO",MB_ICONINFORMATION);
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
-		//worldFromZone(zoneID);
+		worldFromZone(zoneID);
 	}
 	else
 	{
-		zone = new Zone();
-		if(loadZoneFile(zoneInfo.find(zoneID)->second,*zone))
+#ifdef _DEBUG
+		std::map<size_t, DBZone>::iterator it = EditorAllZones.find(zoneID);
+		if (it != EditorAllZones.end())
 		{
-			worldmap.insert(std::pair<unsigned int,Zone*>(zone->getID(),zone));
+			worldmap.insert(std::pair<unsigned int, Zone*>(zoneID, new Zone(it->second)));
 			worldFromZone(zoneID);
+		}
+#else
+
+		DBZone zone;
+		loadZoneFromDB(zone,zoneID);
+		Zone* zoneToAdd = new Zone();
+		if(loadZoneFromSaveFile("savefile",*zoneToAdd,zoneID))
+		{
+			if(zoneID.prefabList.size() == zoneToAdd.objects.size() + zoneToAdd.rc.respawnTable.size())
+			{
+				worldmap.insert(std::pair<unsigned in, Zone*>(zoneID, zoneToAdd));
+				worldFromZone(zoneID);
+			}
+			else
+			{
+				//reload zone cause it's not the same anymore
+			}
 		}
 		else
 		{
-			//Todo return to menu if failed to load zone.
+			delete zoneToAdd;
+			worldmap.insert(std::pair<unsigned in, Zone*>(zoneID, new Zone(zone));
+			worldFromZone(zoneID);
 		}
+#endif
 	}
 }
 // default constructor
-WorldManagement::WorldManagement(): lastLoadedZone(0),zone(0),currentZone(0)
+WorldManagement::WorldManagement() : lastLoadedZone(0), currentZone(0), modLoadOrder()
 {
-	if(loadZoneInfo(zoneInfo) == false)
+	//testSave();
+	if (loadModOrderFile(modLoadOrder) == false)
 	{
-		MessageBox(Engine::Window.hWnd,"Error loading zoneinfo","Error",NULL);
-		zoneInfo.insert(std::pair<int,std::string>(1,"test.zone"));
+		MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
+		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
 	}
+#ifdef _DEBUG
+	LoadAllZones(EditorAllZones);
+	LoadAllPrefabs(editorPrefabContainer);
+#endif
 }
 // deconstructor
 WorldManagement::~WorldManagement()
 {
-	//rmeove the last loaded zone
+	//remove loaded zones
 	for(size_t i = 0; i < worldmap.size(); i++)
 		// if a zone have been unloaded/deleted already
 		if(worldmap[i])
 			for(size_t j = 0; j < worldmap[i]->objects.size(); j++)
 			{
 				// request removal of GameObjects /to fix
-				Engine::game.requestRemoveal(worldmap[i]->objects[j]);
-				worldmap[i]->objects[j] = nullptr;
+				Engine::game.requestRemoveal(worldmap[i]->objects[j].second);
+				worldmap[i]->objects[j].second = nullptr;
 			}
-
-	delete zone;
-	zone = nullptr;
 }
 
 // TODO remake the load structure
-// load a zone from the world, removes the old one
 void WorldManagement::worldFromZone(unsigned int zoneID)
 {
-	Engine::Graphic.view.camera.reset(sf::FloatRect(0,0,800,600));
-	for(size_t i = 0; i < worldmap[zoneID]->objects.size(); i++)
+	if (lastLoadedZone != 0)
 	{
-		Engine::game.addGameObject(worldmap[zoneID]->objects[i]);
-	}
-	//add background;
-	Engine::game.addSprite(worldmap[zoneID]->getBackground(),true);
-	//add foregrounds;
-	for(size_t i = 0; i < worldmap[zoneID]->foregrounds.size(); i++)
-	{
-		Engine::game.addSprite(&worldmap[zoneID]->foregrounds[i]);
-	}
-	// when loading first zone
-	if(lastLoadedZone == 0)
-		lastLoadedZone = zoneID;
-	else
-	{
-		for(size_t i = 0; i < worldmap[lastLoadedZone]->foregrounds.size(); i++)
+#ifdef _DEBUG
+		for (size_t i = 0; i < EditorAllZones[lastLoadedZone].prefabList.size(); i++)
 		{
-			Engine::game.requestRemovealForeground(&worldmap[lastLoadedZone]->foregrounds[i]);
-		}
-		for(size_t i = 0; i < worldmap[lastLoadedZone]->objects.size(); i++)
+
+			EditorAllZones[lastLoadedZone].prefabList[i].second = listOfZoneObjects[i]->GetComponent<TransformComponent>()->position;
+#else
+		for (size_t i = 0; i < worldmap[lastLoadedZone].objects.size(); i++)
 		{
-			// request removal of GameObjects /to fix
-			Engine::game.requestRemoveal(worldmap[lastLoadedZone]->objects[i]);
-			worldmap[lastLoadedZone]->objects[i] = nullptr;
+#endif
+			Engine::game.requestRemoveal(listOfZoneObjects[i]);
 		}
-		delete worldmap[lastLoadedZone];
-		worldmap[lastLoadedZone] = nullptr;
-		worldmap.erase(lastLoadedZone);
-		lastLoadedZone = zoneID;
+		listOfZoneObjects.clear();
 	}
-	currentZone = worldmap[lastLoadedZone];
+	Engine::game.addSprite(worldmap[zoneID]->getBackground(), true);
+#ifdef _DEBUG
+	for each (std::pair<size_t, Vector2> prefabID in EditorAllZones[zoneID].prefabList)
+	{
+		std::map<size_t,Prefab>::iterator it = editorPrefabContainer.find(prefabID.first);
+		if (it != editorPrefabContainer.end())
+		{
+			GameObject* go = it->second.createFromPrefab();
+			go->GetComponent<TransformComponent>()->position = prefabID.second;
+
+			worldmap[zoneID]->objects.push_back(std::pair<size_t, GameObject*>(it->second.ID, go));
+			listOfZoneObjects.push_back(go);
+			Engine::game.addGameObject(go);
+		}
+	}
+#else
+	// TODO
+#endif
+	lastLoadedZone = zoneID;
+	currentZone = worldmap[zoneID];
 }
 
 Zone* WorldManagement::getCurrentZone()
@@ -107,6 +131,8 @@ Zone* WorldManagement::getCurrentZone()
 #ifdef _DEBUG
 void WorldManagement::EditorAddNewZone(std::string name,unsigned int ID)
 {
+	Engine::Window.debug.print("Rework in progress", __LINE__, __FILE__);
+	/*
 	bool exist = false;
 	std::map<unsigned int,std::string>::iterator it = zoneInfo.find(ID);
 	if(it != zoneInfo.end())
@@ -122,12 +148,16 @@ void WorldManagement::EditorAddNewZone(std::string name,unsigned int ID)
 		zoneInfo.insert(std::pair<unsigned int,std::string>(ID,name + ".zone"));
 		loadZone(ID);
 		saveInfo(zoneInfo);
-	}
+	}*/
 }
 
 void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
 {
-	std::map<unsigned int,std::string>::iterator it = zoneInfo.find(ID);
+	//*change this with listview instead?//*/
+	if (EditorAllZones.find(ID) != EditorAllZones.end())
+		loadZone(ID);
+	MessageBox(Engine::Window.hWnd, "Load for name only is not added yet", "Info", MB_ICONWARNING);
+	/*std::map<unsigned int,std::string>::iterator it = zoneInfo.find(ID);
 	if(it != zoneInfo.end())
 		loadZone(ID);
 	else
@@ -136,30 +166,22 @@ void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
 			{
 				loadZone(it->first);
 				break;
-			}
+			}*/
 }
 
 void WorldManagement::EditorRemoveZone()
 {
-	std::map<unsigned int,std::string>::iterator it = zoneInfo.find(currentZone->getID());
-	if(it != zoneInfo.end())
-	{
-		if(std::remove(it->second.c_str()) != 0)
-		{
-			MessageBox(Engine::Window.hWnd,"File does not exist.","Error",NULL);
-			zoneInfo.erase(it);
-			saveInfo(zoneInfo);
-		}
-		else
-		{
-			zoneInfo.erase(it);
-			saveInfo(zoneInfo);
-		}
-	}
+	if (EditorAllZones[lastLoadedZone].isRemoved)
+		EditorAllZones[lastLoadedZone].isRemoved = false;
+	else
+		EditorAllZones[lastLoadedZone].isRemoved = true;
+	Engine::Window.debug.print("Zone with ID " + std::to_string(EditorAllZones[lastLoadedZone].ID)
+		+ " have the DeleteFlag set to: " + std::to_string(EditorAllZones[lastLoadedZone].isRemoved), __LINE__, __FILE__);
 }
 void WorldManagement::EditorSaveZone()
 {
-	ZoneMap zm;
+	Engine::Window.debug.print("To be replaced with \"Save\"", __LINE__, __FILE__);
+	/*ZoneMap zm;
 
 	zm.background = *currentZone->getBackground();
 	zm.foregrounds = currentZone->getForegrounds();
@@ -168,6 +190,7 @@ void WorldManagement::EditorSaveZone()
 	zm.name = currentZone->getName();
 
 	saveZone(zm);
+	*/
 }
 
 void WorldManagement::EditorSetBackground(std::string name)
@@ -183,13 +206,10 @@ void WorldManagement::EditorSetBackgroundSize(int x,int y)
 }
 void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 {
-	std::vector<GameObject*>::iterator it = currentZone->objects.begin();
-	std::vector<GameObject*>::iterator end = currentZone->objects.end();
-	for(it; it != end; it++)
-		if(*it == go)
-		{
-			currentZone->objects.erase(it);
-			break;
-		}
+	for (size_t i = 0; i < EditorAllZones[lastLoadedZone].prefabList.size(); i++)
+	{
+		if (currentZone->objects[i].second == go)
+			currentZone->objects.erase(currentZone->objects.begin()+i);
+	}
 }
 #endif

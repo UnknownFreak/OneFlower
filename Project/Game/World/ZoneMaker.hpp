@@ -5,6 +5,7 @@
 #include "../Tile.h"
 //#include "Component\BaseComponent.hpp"
 #include "../Component/GameObject.h"
+/*
 class ZoneMap
 {
 public:
@@ -27,5 +28,5 @@ private:
 	template<class Archive>
 	friend void load(Archive& ar,ZoneMap & zm);
 };
-
+//*/
 #endif

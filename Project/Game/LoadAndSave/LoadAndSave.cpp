@@ -35,21 +35,21 @@
 
 #include "LoadAndSave.hpp"
 
-#include "../GUI/Message.hpp"
+#include "../GUI/Text/Message.hpp"
 #include "../GUI/Text\FloatingText.hpp"
 
 #include "../World/ZoneMaker.hpp"
 #include "../World/Zone.hpp"
-#include "../World/WorldManagement.hpp"
+#include "../World/ModLoader.hpp"
 
 #include "../LoadAndSave/Prefab.hpp"
 #include "../LoadAndSave/PrefabContainer.hpp"
+#include "../LoadAndSave/DatabaseIndex.hpp"
 
 #include "../../Engine.hpp"
 
 std::string versionName = "Alpha Test: 1.3v";
-CEREAL_REGISTER_ARCHIVE(RenderComponent);
-
+CEREAL_REGISTER_ARCHIVE(RenderComponent)
 void prefabSave(const GameObject* go)
 {
 	GameObject testPrefab("test");
@@ -61,54 +61,79 @@ void prefabSave(const GameObject* go)
 		ar(testPrefab);
 	}
 }
-/*
-void saveFile(GameObject& player, Zone& zm)
+bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID)
 {
-std::string save = "savefile";
-save.append(".avfile");
-
-// save character info
-// save character inventory, location, xp, gold, quests etc.
-// save the current zone
-std::ofstream file(save, std::ios::binary);
-{
-cereal::BinaryOutputArchive ar(file);
-ar(player);
-ar(zm);
+	saveFile.append(".avfile");
+	GameObject trash;
+	std::ifstream file(saveFile, std::ios::binary);
+	{
+		cereal::BinaryInputArchive ar(file);
+		ar(trash);
+		size_t iter;
+		ar(iter);
+		for (int i = 0; i < iter; i++)
+		{
+			size_t _zoneToLoad;
+			ar(_zoneToLoad);
+			if (_zoneToLoad == zoneID)
+			{
+				ar(zoneToLoad);
+				return true;
+			}
+			else
+			{
+				Zone trashZone;
+				ar(trashZone);
+			}
+		}
+	}
+	return false;
 }
-}
-*/
-void loadFile(GameObject& player,Zone& zm)
+void saveGame(GameObject& player,std::string saveFile)
 {
-	std::string load = "savefile";
-	load.append(".avfile");
-
-	// load character info
-	// load character inventory,location,xp, ... etc.
-	// load zone...
-	std::ifstream file(load,std::ios::binary);
+	saveFile.append(".avfile");
+	std::ofstream file(saveFile, std::ios::binary);
+	{
+		cereal::BinaryOutputArchive ar(file);
+		ar(player);
+		ar(Engine::World.getCurrentZone()->ID);
+		size_t size = Engine::World.worldmap.size();
+		ar(size);
+		for (std::map<size_t, Zone*>::iterator i = Engine::World.worldmap.begin(); i != Engine::World.worldmap.end(); i++)
+		{
+			ar(i->first);
+			ar(*i->second);
+		}
+	}
+}
+void loadGame(GameObject& player,std::string loadFile)
+{
+	loadFile.append(".avfile");
+	std::ifstream file(loadFile, std::ios::binary);
 	{
 		cereal::BinaryInputArchive ar(file);
 		ar(player);
-		ar(zm);
-	}
-}
+		size_t zoneID;
+		ar(zoneID);
+		Engine::World.loadZone(zoneID);
 
-void saveZone(ZoneMap& zone)
-{
-	std::string save = zone.name;
-	save.append(".zone");
-
-	std::ofstream file(save,std::ios::binary);
-	{
-		cereal::BinaryOutputArchive ar(file);
-		ar(zone);
+		size_t size = Engine::World.worldmap.size();
+		ar(size);
+		for (size_t i = 0; i < size; i++)
+		{
+			size_t id;
+			Zone* zone = new Zone();
+			ar(id);
+			ar(*zone);
+			Engine::World.worldmap.insert(std::pair<size_t, Zone*>(id, zone));
+		}
 	}
 }
 
 #ifdef _DEBUG
 void testSave()
 {
+	/*
 	Item item;
 	item.ID = 1;
 	item.iconName = "test.png";
@@ -125,11 +150,10 @@ void testSave()
 		ar(item.tag);
 		ar(item);
 	}
+	//*/
+	
 
-	/*
-	PrefabContainer con;
-
-	ZoneMap zone;
+	DBZone zone;
 	zone.ID = 1;
 	zone.name = "test";
 	GameObject *test = new GameObject();
@@ -138,7 +162,10 @@ void testSave()
 	test->GetComponent<TransformComponent>()->position.y = 316;
 	test->AddComponent(new HitboxComponent());
 	test->AddComponent(new RenderComponent("testCutHalf.png"));
-	zone.addGameObject(test);
+	zone.prefabList.push_back(std::pair<size_t, Vector2>(1, Vector2(300, 316)));
+	Prefab pref(test);
+	pref.ID = 1;
+	//zone.addGameObject(test);
 
 	GameObject *ground = new GameObject();
 	ground->name = "da kewl ground";
@@ -148,7 +175,11 @@ void testSave()
 	ground->AddComponent(new RenderComponent("ground.marker_1.png"));
 	ground->GetComponent<RenderComponent>()->sprite.setScale(2, 1);
 	ground->GetComponent<HitboxComponent>()->size.x = ground->GetComponent<HitboxComponent>()->size.x * 2;
-	zone.addGameObject(ground);
+	Prefab pref2(ground);
+	pref2.ID = 2;
+	zone.prefabList.push_back(std::pair<size_t, Vector2>(2, Vector2(400, 550)));
+	
+	//zone.addGameObject(ground);
 
 	GameObject *target = new GameObject();
 	target->name = "testTarget";
@@ -164,52 +195,67 @@ void testSave()
 	target->GetComponent<DialogComponent>()->position.y = 80;
 	target->GetComponent<DialogComponent>()->msg->setOffset(10, 5);
 
-	zone.addGameObject(target);
+	Prefab pref3(target);
+	pref3.ID = 3;
+	zone.prefabList.push_back(std::pair<size_t, Vector2>(3, Vector2(580, 480)));
 
-	zone.setBackground(Tile("testBackground_1.png", 400, 300));
+	//zone.addGameObject(target);
+
+	zone.background = Tile("testBackground_1.png", 400, 300);
 	zone.background.size.x = 4000;
 	zone.background.size.y = 800;
 
-	zone.foregrounds.push_back(Tile("blacktree_1.png", 250, 50));
+	/*zone.foregrounds.push_back(Tile("blacktree_1.png", 250, 50));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 450, 250));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 400, 250));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 350, 250));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 550, 250));
-	zone.foregrounds.push_back(Tile("blacktree_1.png", 500, 250));
-	std::ofstream file("test.zone", std::ios::binary);
+	zone.foregrounds.push_back(Tile("blacktree_1.png", 500, 250));*/
+	std::ofstream index("OneFlower.main.index", std::ios::binary);
+	std::ofstream file("OneFlower.main", std::ios::binary);//
 	{
-	cereal::BinaryOutputArchive ar(file);
-	ar(zone);
+		DatabaseIndex ind;
+		cereal::BinaryOutputArchive mainAr(file);
+		cereal::BinaryOutputArchive indexAr(index);
+		ind.flags = "-";
+		ind.ID = zone.ID;
+		ind.type = "Zone";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(zone);
+		Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+
+		ind.ID = pref.ID;
+		ind.type = "Prefab";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(pref);
+		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+
+
+		ind.ID = pref2.ID;
+		ind.type = "Prefab";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(pref2);
+		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+
+
+		ind.ID = pref3.ID;
+		ind.type = "Prefab";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(pref3);
+		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+
+
+		ind.ID = 0xffffffff;
+		ind.type = "";
+		ind.row = file.tellp();
+		ind.flags = "EoF";
+		indexAr(ind);
+		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 	}
-
-	con.addPrefab(target);
-	con.addPrefab(ground);
-	con.addPrefab(test);
-
-	//	delete target;
-	//	delete ground;
-	//	delete test;
-	/*
-
-	std::ofstream ffile("prefabtest.prefabs", std::ios::binary);
-	{
-	cereal::BinaryOutputArchive ar(ffile);
-	ar(con);
-	}
-	*/
-
-	/*
-	GameObject go;
-	go.name = "testObject";
-	go.AddComponent(new DialogComponent(2.0f));
-	go.GetComponent<DialogComponent>()->dialogTexture = "TestDialogChat.png";
-	go.GetComponent<DialogComponent>()->msg = "Testmsg";
-	std::ofstream file("test.binary", std::ios::binary);
-	{
-	cereal::BinaryOutputArchive ar(file);
-	ar(go);
-	}
-	//*/
 }
 
 void testLoad()
@@ -223,12 +269,14 @@ void testLoad()
 	ar(test);
 	}*/
 
+	/*
 	PrefabContainer con;
 	std::ifstream file("prefabtest.prefabs",std::ios::binary);
 	{
 		cereal::BinaryInputArchive ar(file);
 		ar(con);
 	}
+	//*/
 }
 #endif
 //*
@@ -293,7 +341,6 @@ void save(Archive& archive,const GameObject& go)
 		}
 	}
 }
-
 template<class Archive>
 void load(Archive& archive,GameObject& go)
 {
@@ -484,7 +531,6 @@ void load(Archive &ar,HitboxComponent &hc)
 #pragma endregion
 
 #pragma region DialogComponent
-
 template <class Archive>
 void save(Archive& ar,const DialogComponent& dc)
 {
@@ -494,7 +540,6 @@ void save(Archive& ar,const DialogComponent& dc)
 	ar(dc.position.y);
 	ar(dc.dialogMessage);
 }
-
 template <class Archive>
 void load(Archive& ar,DialogComponent& dc)
 {
@@ -507,7 +552,6 @@ void load(Archive& ar,DialogComponent& dc)
 #pragma endregion
 
 #pragma region OverheadComponent
-
 template <class Archive>
 void save(Archive& ar,const OverheadComponent& ohd)
 {
@@ -630,20 +674,7 @@ void load(Archive& ar,StatsComponent &stats)
 
 //*/
 
-#pragma region loadItem
-
-void loadItem(unsigned int ID,Item& item)
-{
-	std::ifstream file("Items/item_" + std::to_string(ID) + ".item");
-	{
-		cereal::XMLInputArchive ar(file);
-		ar(item.tag);
-		ar(item);
-	}
-}
-
 #pragma region Item
-
 template <class Archive>
 void save(Archive& ar,const Item& item)
 {
@@ -668,11 +699,9 @@ void load(Archive& ar,Item& item)
 	ar(item.tag);
 	ar(item.weight);
 }
-
 #pragma endregion
 
 #pragma region Armor
-
 template <class Archive>
 void save(Archive& ar,const Armor& item)
 {
@@ -688,7 +717,6 @@ void save(Archive& ar,const Armor& item)
 	ar(item.armorType);
 	ar(item..defense);
 }
-
 template <class Archive>
 void load(Archive& ar,Armor& item)
 {
@@ -707,7 +735,6 @@ void load(Archive& ar,Armor& item)
 #pragma endregion
 
 #pragma region Bag
-
 template<class Archive>
 void save(Archive& ar,const Bag& item)
 {
@@ -736,56 +763,76 @@ void load(Archive& ar,Bag& item)
 }
 #pragma endregion
 
-#pragma region ZoneMap
-// Saves a Zone with name, id, and vector of tiles, and gameobjects
+#pragma region Zone
 template<class Archive>
-void save(Archive &ar,const ZoneMap &zm)
+void save(Archive &ar, const DBZone&zone)
 {
-	ar(zm.name);
-	ar(zm.ID);
-	ar(zm.background);
-	ar(zm.foregrounds.size());
-	for(size_t i = 0; i < zm.foregrounds.size(); i++)
+	ar(zone.name);
+	ar(zone.ID);
+	ar(zone.background);
+	ar(zone.prefabList.size());
+	for (size_t i = 0; i < zone.prefabList.size(); i++)
 	{
-		ar(zm.foregrounds[i]);
-	}
-	ar(zm.objects.size());
-	for(size_t i = 0; i < zm.objects.size(); i++)
-	{
-		ar(*zm.objects[i]);
+		ar(zone.prefabList[i].first);
+		ar(zone.prefabList[i].second.x);
+		ar(zone.prefabList[i].second.y);
 	}
 }
-// Loads a Zone with name, id, and vector of tiles and gameobjects
 template<class Archive>
-void load(Archive &ar,Zone &zone)
+void load(Archive &ar,DBZone &zone)
 {
-	int size = 0;
-	GameObject *go = nullptr;
+	size_t size = 0;
 	Tile t;
 	ar(zone.name);
 	ar(zone.ID);
 	ar(t);
 	zone.background = t;
 	ar(size);
-	for(int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
-		Tile qq;
-		ar(qq);
-		zone.foregrounds.push_back(Tile(qq));
+		size_t ID;
+		Vector2 pos;
+		ar(ID);
+		ar(pos.x);
+		ar(pos.y);
+		zone.prefabList.push_back(std::pair<size_t, Vector2>(ID, pos));
 	}
-	ar(size);
-	for(int i = 0; i < size; i++)
+}
+template<class Archive>
+void save(Archive &ar, const Zone&zone)
+{
+	ar(zone.name);
+	ar(zone.ID);
+	ar(zone.background);
+	ar(zone.objects.size());
+	for (size_t i = 0; i < zone.objects.size(); i++)
 	{
-		go = new GameObject();
-		ar(*go);
-		zone.objects.push_back(go);
+		ar(zone.objects[i].first);
+		ar(*zone.objects[i].second);
+	}
+}
+template<class Archive>
+void load(Archive &ar, Zone &zone)
+{
+	size_t size = 0;
+	Tile t;
+	ar(zone.name);
+	ar(zone.ID);
+	ar(t);
+	zone.background = t;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		size_t ID;
+		GameObject* obj = new GameObject();
+		ar(ID);
+		ar(*obj);
+		zone.objects.push_back(std::pair<size_t, GameObject*>(ID, obj));
 	}
 }
 #pragma endregion
 
 #pragma region Tile
-
-// Saves a tile texture name, and x, y pos
 template<class Archive>
 void save(Archive &ar,const Tile & t)
 {
@@ -795,8 +842,6 @@ void save(Archive &ar,const Tile & t)
 	ar(t.size.x);
 	ar(t.size.y);
 }
-
-// loads a tile texture name, and x,y pos
 template<class Archive>
 void load(Archive &ar,Tile & t)
 {
@@ -807,193 +852,127 @@ void load(Archive &ar,Tile & t)
 	ar(t.size.y);
 }
 #pragma endregion
-//Empty functions
-#pragma region keybinds
 
-// prepared save function for keybinds
-template<class Archive>
-void save(Archive &ar,int q)
+namespace GUI
 {
-}
-// prepared load function for keybinds
-template<class Archive>
-void load(Archive &ar,int q)
-{
-}
-#pragma endregion
-
-#pragma region zoneInfo
-void saveInfo(std::map<unsigned int,std::string>map)
-{
-	std::ofstream file("zone.info",std::ios::binary);
+	namespace Text
 	{
-		cereal::BinaryOutputArchive ar(file);
-		std::map<unsigned int,std::string>::iterator it = map.begin();
-		ar(map.size());
-		for(it; it != map.end(); ++it)
-		{
-			ar(it->first);
-			ar(it->second);
-		}
-	}
-}
-bool loadZoneInfo(std::map<unsigned int,std::string> & zoneInfo)
-{
-	std::ifstream file("zone.info",std::ios::binary);
-	if(file.is_open())
-	{
-		cereal::BinaryInputArchive ar(file);
-		unsigned int zoneID;
-		std::string zoneName;
-		int number;
-		ar(number);
-		for(int i = 0; i < number; i++)
-		{
-			ar(zoneID);
-			ar(zoneName);
-			zoneInfo.insert(std::pair<int,std::string>(zoneID,zoneName));
-		}
-		return true;
-	}
-	else
-	{
-		MessageBox(Engine::Window.hWnd,"Could not open file","zone.info",NULL);
-		return false;
-	}
-}
-#pragma endregion
-
-#pragma region zoneFile
-bool loadZoneFile(std::string name,Zone& zone)
-{
-	std::ifstream file(name,std::ios::binary);
-
-	if(file.is_open())
-	{
-		cereal::BinaryInputArchive ar(file);
-		ar(zone); //load(Archive &ar, Zone &zone);
-		return true;
-	}
-	else
-	{
-		MessageBox(Engine::Window.hWnd,"Could not open file",name.c_str(),NULL);
-		return false;
-	}
-}
-#pragma endregion
-
 #pragma region Message
-template <class Archive>
-void save(Archive& ar,const Message& msg)
-{
-	std::string txt = msg.entireString.getString();
-	ar(msg.marginWidth);
-	ar(msg.maxLength);
-	ar(msg.size);
-	ar(txt);
-	ar(msg.color.r);
-	ar(msg.color.g);
-	ar(msg.color.b);
-	ar(msg.color.a);
-	ar(msg.text[0].first.getPosition().x);
-	ar(msg.text[0].first.getPosition().y);
-	ar(msg.duration);
-}
-
-template <class Archive>
-void load(Archive& ar,Message& msg)
-{
-	std::string text;
-	int x = 0;
-	int y = 0;
-	ar(msg.marginWidth);
-	ar(msg.maxLength);
-	ar(msg.size);
-	ar(text);
-	msg = text;
-	ar(msg.color.r);
-	ar(msg.color.g);
-	ar(msg.color.b);
-	ar(msg.color.a);
-	ar(x);
-	ar(y);
-	msg.setPosition(x,y);
-	ar(msg.duration);
-}
-
+		template <class Archive>
+		void save(Archive& ar, const GUI::Text::Message& msg)
+		{
+			std::string txt = msg.entireString.getString();
+			ar(msg.marginWidth);
+			ar(msg.maxLength);
+			ar(msg.size);
+			ar(txt);
+			ar(msg.color.r);
+			ar(msg.color.g);
+			ar(msg.color.b);
+			ar(msg.color.a);
+			ar(msg.text[0].first.getPosition().x);
+			ar(msg.text[0].first.getPosition().y);
+			ar(msg.duration);
+		}
+		template <class Archive>
+		void load(Archive& ar, GUI::Text::Message& msg)
+		{
+			std::string text;
+			int x = 0;
+			int y = 0;
+			ar(msg.marginWidth);
+			ar(msg.maxLength);
+			ar(msg.size);
+			ar(text);
+			msg = text;
+			ar(msg.color.r);
+			ar(msg.color.g);
+			ar(msg.color.b);
+			ar(msg.color.a);
+			ar(x);
+			ar(y);
+			msg.setPosition(x, y);
+			ar(msg.duration);
+		}
 #pragma endregion
 
 #pragma region FloatingText
-template <class Archive>
-void save(Archive& ar,const FloatingText& msg)
-{
-	std::string txt = msg.entireString.getString();
-	ar(msg.marginWidth);
-	ar(msg.maxLength);
-	ar(msg.size);
-	ar(txt);
-	ar(msg.color.r);
-	ar(msg.color.g);
-	ar(msg.color.b);
-	ar(msg.color.a);
-	ar(msg.iconName);
-	ar(msg.text[0].first.getPosition().x);
-	ar(msg.text[0].first.getPosition().y);
-	ar(msg.offset.x);
-	ar(msg.offset.y);
-	ar(msg.duration);
-	ar(msg.drawIcon);
-}
+		template <class Archive>
+		void save(Archive& ar, const GUI::Text::FloatingText& msg)
+		{
+			Engine::Window.debug.print("Saving floatingtext not implemented!", __LINE__, __FILE__);
+			/*REWORK
+			std::string txt = msg.entireString.getString();
+			ar(msg.marginWidth);
+			ar(msg.maxLength);
+			ar(msg.size);
+			ar(txt);
+			ar(msg.color.r);
+			ar(msg.color.g);
+			ar(msg.color.b);
+			ar(msg.color.a);
+			ar(msg.iconName);
+			ar(msg.text[0].first.getPosition().x);
+			ar(msg.text[0].first.getPosition().y);
+			ar(msg.offset.x);
+			ar(msg.offset.y);
+			ar(msg.duration);
+			ar(msg.drawIcon);
+			//*/
+		}
+		template <class Archive>
+		void load(Archive& ar, GUI::Text::FloatingText& msg)
+		{
+			Engine::Window.debug.print("Loading floatingtext not implemented!", __LINE__, __FILE__);
+			/*REWORK
+			std::string iconName;
+			std::string text;
+			float x = 0;
+			float y = 0;
+			ar(msg.marginWidth);
+			ar(msg.maxLength);
+			ar(msg.size);
+			ar(text);
+			msg = text;
+			ar(msg.color.r);
+			ar(msg.color.g);
+			ar(msg.color.b);
+			ar(msg.color.a);
+			ar(iconName);
+			#ifdef _DEBUG
+			try
+			{
+			msg.setIcon(iconName);
+			}
+			catch(MissingIconException ex)
+			{
+			MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
 
-template <class Archive>
-void load(Archive& ar,FloatingText& msg)
-{
-	std::string iconName;
-	std::string text;
-	float x = 0;
-	float y = 0;
-	ar(msg.marginWidth);
-	ar(msg.maxLength);
-	ar(msg.size);
-	ar(text);
-	msg = text;
-	ar(msg.color.r);
-	ar(msg.color.g);
-	ar(msg.color.b);
-	ar(msg.color.a);
-	ar(iconName);
-#ifdef _DEBUG
-	try
-	{
-		msg.setIcon(iconName);
+			msg.iconSprite.setTexture(*ex.what());
+			}
+			#else
+
+			msg.setIcon(iconName);
+
+			#endif
+			ar(x);
+			ar(y);
+			msg.setPosition(x,y);
+			ar(msg.offset.x);
+			ar(msg.offset.y);
+			ar(msg.duration);
+			ar(msg.drawIcon);
+			*/
+		}
 	}
-	catch(MissingIconException ex)
-	{
-		MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
-
-		msg.iconSprite.setTexture(*ex.what());
-	}
-#else
-
-	msg.setIcon(iconName);
-
-#endif
-	ar(x);
-	ar(y);
-	msg.setPosition(x,y);
-	ar(msg.offset.x);
-	ar(msg.offset.y);
-	ar(msg.duration);
-	ar(msg.drawIcon);
-}
-
 #pragma endregion
+}
 
 #pragma region Prefab
 template <class Archive>
 void load(Archive& ar,Prefab& pre)
 {
-	// untested
+	ar(pre.ID);
 	unsigned int type;
 	int size;
 	ar(size);
@@ -1061,11 +1040,12 @@ void load(Archive& ar,Prefab& pre)
 template <class Archive>
 void save(Archive& ar,const Prefab& pre)
 {
+	ar(pre.ID);
 	ar(pre.base.size());
-	int size = pre.base.size();
+	size_t size = pre.base.size();
 	for(int i = 0; i < size; ++i)
 	{
-		int type = pre.base[i]->getType();
+		const unsigned int type = (Prefab(pre)).getTypeID(i);
 		ar(type);
 		if(type == IBaseComponent<RenderComponent>::typeID)
 		{
@@ -1094,7 +1074,7 @@ void save(Archive& ar,const Prefab& pre)
 		}
 		else if(type == IBaseComponent<RigidComponent>::typeID)
 		{
-			RigidComponent* tmp = (OverheadComponent*)pre.base[i];
+			RigidComponent* tmp = (RigidComponent*)pre.base[i];
 			ar(*tmp);
 		}
 		else if(type == IBaseComponent<ReputationComponent>::typeID)
@@ -1107,11 +1087,10 @@ void save(Archive& ar,const Prefab& pre)
 			HealthComponent* tmp = new HealthComponent();
 			ar(*tmp);
 		}
-		else if(type == IBaseComponent<HealthComponent>::typeID)
+		else if(type == IBaseComponent<StatsComponent>::typeID)
 		{
-			HealthComponent* tmp = new HealthComponent();
+			StatsComponent* tmp = new StatsComponent();
 			ar(*tmp);
-			pre.base.push_back(tmp);
 		}
 	}
 	ar(pre.name);
@@ -1120,7 +1099,6 @@ void save(Archive& ar,const Prefab& pre)
 #pragma endregion
 
 #pragma region PrefabContainer
-
 template<class Archive>
 void load(Archive& ar,PrefabContainer& con)
 {
@@ -1129,22 +1107,233 @@ void load(Archive& ar,PrefabContainer& con)
 	for(int i = 0; i < size; ++i)
 	{
 		Prefab pre;
-		std::string n;
+		size_t n;
 		ar(n);
 		ar(pre);
-		con.mapOfPrefabs.insert(std::pair<std::string,Prefab>(n,pre));
+		con.mapOfPrefabs.insert(std::pair<size_t,Prefab>(n,pre));
 	}
 }
-
 template<class Archive>
 void save(Archive& ar,const PrefabContainer& con)
 {
 	ar(con.mapOfPrefabs.size());
-	for(std::map<std::string,Prefab>::const_iterator it = con.mapOfPrefabs.begin(); it != con.mapOfPrefabs.end(); ++it)
+	for(std::map<size_t,Prefab>::const_iterator it = con.mapOfPrefabs.begin(); it != con.mapOfPrefabs.end(); ++it)
 	{
 		ar(it->first);
 		ar(it->second);
 	}
 }
+#pragma endregion
 
+#pragma region DatabaseIndex
+template<class Archive>
+void load(Archive& ar, DatabaseIndex& index)
+{
+	ar(index.row);
+	ar(index.ID);
+	ar(index.type);
+	ar(index.flags);
+}
+template<class Archive>
+void save(Archive& ar, const DatabaseIndex& index)
+{
+	ar(index.row);
+	ar(index.ID);
+	ar(index.type);
+	ar(index.flags);
+}
+#pragma endregion
+
+#pragma region Modloader
+template <class Archive>
+void load(Archive& ar, ModLoader& mod)
+{
+	std::string tmp;
+	size_t size;
+	ar(size);
+	for (size_t i= 0; i < size; i++)
+	{
+		ar(tmp);
+		mod.loadOrder.insert(std::pair<std::string, size_t>(tmp, i));
+	}
+}
+bool loadModOrderFile(ModLoader& mod)
+{
+	std::ifstream file("ModLoadOrder.xml");
+	if (file.is_open())
+	{
+		cereal::XMLInputArchive ar(file);
+		ar(mod);
+		return true;
+	}
+	return false;
+}
+#pragma endregion
+
+#pragma region notdefined
+void loadPrefab(std::string modname, Prefab& prefab,const DatabaseIndex& index)
+{
+	if (index.type == "Prefab")
+	{
+		if (index.flags == "-")
+		{
+			std::ifstream file(modname, std::ios::binary);
+			cereal::BinaryInputArchive ar(file);
+			{
+				file.seekg(index.row);
+				ar(prefab);
+			}
+		}
+	}
+	else
+		Engine::Window.debug.print("Type is not a Prefab!", __LINE__, __FILE__);
+}
+DatabaseIndex loadIndex(std::string modname, size_t objectID, std::string loadType)
+{
+	DatabaseIndex index;
+	
+	std::ifstream file(modname + ".index", std::ios::binary);
+	if(file.is_open())
+	{
+		cereal::BinaryInputArchive ar(file);
+		while (index.flags != "EoF")
+		{
+			ar(index);
+			if (index.ID == objectID && loadType == index.type)
+				break;
+		}
+		if (index.type != loadType)
+			index.type == "Err";
+	}
+	return index;
+}
+#pragma endregion
+
+#pragma region zoneFile
+void loadZoneFile(std::string modname,const DatabaseIndex& index, DBZone& zone)
+{
+	if (index.type == "Zone")
+	{
+		if (index.flags == "-")
+		{
+			std::ifstream file(modname, std::ios::binary);
+			if (file.is_open())
+			{
+				cereal::BinaryInputArchive ar(file);
+				{
+					file.seekg(index.row);
+					ar(zone);
+				}
+			}
+		}
+	}
+	else
+		Engine::Window.debug.print("Type is not a Zone!", __LINE__, __FILE__);
+}
+void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID)
+{
+	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "Zone")
+					{
+						database.seekg(ind.row);
+						cereal::BinaryInputArchive zoneLoad(database);
+						zoneLoad(zoneToLoad);
+						if (zoneToLoad.ID == zoneID);
+							break;
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
+void LoadAllZones(std::map<unsigned int, DBZone>& worldmap)
+{
+	for each (std::pair<std::string,size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "Zone")
+					{
+						std::map<unsigned int, DBZone>::iterator it = worldmap.find(ind.ID);
+						if (it != worldmap.end())
+						{
+							// stuff exist add extra things to zone.
+						}
+						else
+						{
+							database.seekg(ind.row);
+							DBZone tmp;
+							cereal::BinaryInputArchive zoneLoad(database);
+							zoneLoad(tmp);
+							worldmap.insert(std::pair<unsigned int, DBZone>(tmp.ID, tmp));
+						}
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
+void LoadAllPrefabs(PrefabContainer& pre)
+{
+	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "Prefab")
+					{
+						std::map<unsigned int, Prefab>::iterator it = pre.find(ind.ID);
+						if (it != pre.end())
+						{
+							// stuff exist add extra things to prefab.
+						}
+						else
+						{
+							database.seekg(ind.row);
+							Prefab tmp;
+							cereal::BinaryInputArchive prefabLoad(database);
+							prefabLoad(tmp);
+							pre.addPrefab(tmp);
+						}
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
 #pragma endregion

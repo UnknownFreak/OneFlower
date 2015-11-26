@@ -2,27 +2,33 @@
 #define Prefab_HPP
 
 #include <vector>
-
-class BaseComponent;
+#include"../Component/BaseComponent.hpp"
 class GameObject;
 class Prefab
 {
+	friend class BaseComponent;
 public:
-
-	Prefab();
-	Prefab(GameObject* go);
-	Prefab(GameObject go);
+	
+	Prefab() = default;
+	Prefab(const GameObject* go);
+	Prefab(const GameObject go);
 	Prefab(const Prefab& pre);
 	~Prefab();
 
 	GameObject* createFromPrefab();
 
 private:
-
+#ifdef _DEBUG
+public:
+#endif
 	std::vector<BaseComponent*> base;
-
+	size_t ID;
 	std::string name;
 	std::string tag;
+	std::string modOrigin = "OneFlower.main";
+	const unsigned int getTypeID(size_t index);
+
+protected:
 	template<class Archive>
 	friend void save(Archive &ar,const Prefab &pre);
 	template<class Archive>

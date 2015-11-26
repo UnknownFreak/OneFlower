@@ -1,5 +1,5 @@
 #include "ZoneMaker.hpp"
-
+/*
 ZoneMap::ZoneMap(): name(""),ID(1)
 {
 }
@@ -25,3 +25,4 @@ void ZoneMap::setID(unsigned int _ID)
 {
 	ID = _ID;
 }
+//*/

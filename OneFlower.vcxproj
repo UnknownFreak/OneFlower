@@ -48,10 +48,10 @@
     <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\Message.hpp" />
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\Message.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp" />
@@ -62,6 +62,7 @@
     <ClInclude Include="Project\Game\Item\Armor.hpp" />
     <ClInclude Include="Project\Game\Item\Bag.hpp" />
     <ClInclude Include="Project\Game\Item\Item.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
@@ -70,6 +71,9 @@
     <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
+    <ClInclude Include="Project\Game\World\DBZone.hpp" />
+    <ClInclude Include="Project\Game\World\ModLoader.hpp" />
+    <ClInclude Include="Project\Game\World\RespawnContainer.hpp" />
     <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
     <ClInclude Include="Project\Game\World\Zone.hpp" />
     <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
@@ -107,11 +111,11 @@
     <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp" />
@@ -135,6 +139,7 @@
     <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
     <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\Game\TileDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
     <ClCompile Include="Project\Game\World\Zone.cpp" />
     <ClCompile Include="Project\Game\World\ZoneMaker.cpp" />

@@ -9,11 +9,7 @@
 #include "../Component/TransformComponent.hpp"
 #include "../Component/BaseComponent.hpp"
 
-//LOW: Remove this if not needed and just use the default compiler ctor instead of empty body
-// Default c-tor
-Prefab::Prefab()
-{
-}
+#include "../../Engine.hpp"
 // D-tor
 Prefab::~Prefab()
 {
@@ -25,7 +21,7 @@ Prefab::~Prefab()
 	base.clear();
 }
 // Copy-c-tor
-Prefab::Prefab(const Prefab& pre): name(pre.name),tag(pre.tag)
+Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ID(pre.ID)
 {
 	for(size_t i = 0; i < pre.base.size(); ++i)
 	{
@@ -57,9 +53,9 @@ Prefab::Prefab(const Prefab& pre): name(pre.name),tag(pre.tag)
 	}
 }
 // Ctor with Gameobject ptr
-Prefab::Prefab(GameObject* go): name(go->name),tag(go->tag)
+Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), ID(0)
 {
-	for(std::map<int,BaseComponent*>::iterator it = go->GetComponents()->begin(); it != go->GetComponents()->end(); ++it)
+	for (std::map<int, BaseComponent*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
 	{
 		//Make directives id instead and use switches
 		if(it->first == IBaseComponent<RenderComponent>::typeID)
@@ -92,4 +88,33 @@ Prefab::Prefab(GameObject* go): name(go->name),tag(go->tag)
 		BaseComponent* tmp = *it;
 		tmp->attachedOn = NULL;
 	}
+}
+
+GameObject* Prefab::createFromPrefab()
+{
+	GameObject* go = new GameObject();
+	go->name = name;
+	go->tag = tag;
+	for each (BaseComponent* var in base)
+	{
+		if (var->getType() == IBaseComponent<RenderComponent>::typeID)
+			go->AddComponent(new RenderComponent(*(RenderComponent*)var));
+		else if (var->getType() == IBaseComponent<TransformComponent>::typeID)
+			go->AddComponent(new TransformComponent(*(TransformComponent*)var));
+		else if (var->getType() == IBaseComponent<HitboxComponent>::typeID)
+			go->AddComponent(new HitboxComponent(*(HitboxComponent*)var));
+		else if (var->getType() == IBaseComponent<DialogComponent>::typeID)
+			go->AddComponent(new DialogComponent(*(DialogComponent*)var));
+		else if (var->getType() == IBaseComponent<OverheadComponent>::typeID)
+			go->AddComponent(new OverheadComponent(*(OverheadComponent*)var));
+		else if (var->getType() == IBaseComponent<RigidComponent>::typeID)
+			go->AddComponent(new RigidComponent(*(RigidComponent*)var));
+		else
+			Engine::Window.debug.print("Missing if statement for component type:" + std::to_string(var->getType()), __LINE__, __FILE__);
+	}
+	return go;
+}
+const unsigned int Prefab::getTypeID(size_t index)
+{
+	return base[index]->getType();
 }

@@ -283,11 +283,14 @@ void Gfx::Draw()
 }
 void Gfx::DrawBG()
 {
-	backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f,Engine::Graphic.view.camera.getCenter().y*1.5f);
+	if (backgroundSprite)
+	{
+		backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f, Engine::Graphic.view.camera.getCenter().y*1.5f);
 
-	Engine::Graphic.view.render.draw(backgroundSprite->sprite);
-	for(std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
-		Engine::Graphic.view.render.draw(it->sprite);
+		Engine::Graphic.view.render.draw(backgroundSprite->sprite);
+		for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
+			Engine::Graphic.view.render.draw(it->sprite);
+	}
 }
 /*
 void Gfx::DrawTxt()

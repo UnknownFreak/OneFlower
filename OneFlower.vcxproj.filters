@@ -52,6 +52,9 @@
     <Filter Include="Other">
       <UniqueIdentifier>{b72af699-4ed4-44e8-8b97-e26a688be792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\World\ToBeRemoved&lt;TEMP&gt;">
+      <UniqueIdentifier>{54160ae0-cd8e-4662-ae64-8fd2be18d37e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -126,9 +129,6 @@
     <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Game\GUI\Window\Addon\Message.hpp">
-      <Filter>Game\GUI\Window\Addon</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClInclude>
@@ -163,9 +163,6 @@
       <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\World\Zone.hpp">
-      <Filter>Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\World\ZoneMaker.hpp">
       <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp">
@@ -240,6 +237,24 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Vector.h" />
+    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\ModLoader.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\ZoneMaker.hpp">
+      <Filter>Game\World\ToBeRemoved&lt;TEMP&gt;</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\Message.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\RespawnContainer.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\DBZone.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -350,9 +365,6 @@
     <ClCompile Include="Project\Game\World\Zone.cpp">
       <Filter>Game\World</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\World\ZoneMaker.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClCompile>
@@ -399,9 +411,6 @@
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp">
       <Filter>Game\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp">
       <Filter>Engine\Editor</Filter>
     </ClCompile>
@@ -427,6 +436,15 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\VectorDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\World\ZoneMaker.cpp">
+      <Filter>Game\World\ToBeRemoved&lt;TEMP&gt;</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">
