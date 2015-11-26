@@ -28,7 +28,7 @@ void PickupComponent::pickupLoot(GameObject* character)
 Item PickupComponent::createItem()
 {
 	Item item;
-	loadItem(itemID,item);
+	//loadItem(itemID,item);
 	return item;
 }
 #ifdef _DEBUG

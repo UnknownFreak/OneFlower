@@ -27,7 +27,6 @@ bool RigidComponent::inMotion()
 {
 	if(force)
 		return true;
-
 	return false;
 }
 

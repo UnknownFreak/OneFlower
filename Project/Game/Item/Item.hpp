@@ -14,6 +14,8 @@ public:
 		consumable,
 		craftingMaterial,
 		junk,
+		ammo,
+		trophy
 	};
 	Item();
 	Item(int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description);
