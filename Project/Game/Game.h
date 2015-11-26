@@ -8,6 +8,7 @@ class GameObject;
 class Tile;
 class Gfx;
 class Message;
+
 class Game
 {
 public:
@@ -25,6 +26,7 @@ public:
 	//This one work
 	void addGameObject(GameObject* entity);
 	void addMotionObject(GameObject* entity);
+	void removealMotion(GameObject* entity);
 
 	void addGameObject(GameObject entity);
 	//This one doesnt work
@@ -37,6 +39,7 @@ public:
 	//	void Game::addGameObject(GameObject* entity,Gfx*);
 
 	void requestRemoveal(GameObject* entity);
+
 	void update();
 
 	void addSprite(Tile* t,bool isBackground = false);
