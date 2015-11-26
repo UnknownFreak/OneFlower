@@ -6,61 +6,66 @@
 #include "../Text/FloatingText.hpp"
 class InventoryComponent;
 class Item;
-class TradeWindow: public BaseWindow
+namespace GUI
 {
-public:
-
-	ScrollBar scroll;
-
-	TradeWindow();
-	~TradeWindow();
-	TradeWindow(float x,float y,int sizeX,int sizeY);
-
-	void draw();
-	void WindowHandle();
-
-	void setScrollbarUpdate(bool b);
-	bool getScrollbarUpdate();
-private:
-
-	enum tabs
+	namespace Window
 	{
-		buyTab = 0,
-		sellTab,
-		historyTab,
-	};
+		class TradeWindow : public BaseWindow
+		{
+		public:
 
-	void drawTab();
+			Addon::ScrollBar scroll;
 
-	int selectedTab = 0;
+			TradeWindow();
+			~TradeWindow();
+			TradeWindow(float x, float y, int sizeX, int sizeY);
 
-	bool updateScrollbar = true;
+			void draw();
+			void WindowHandle();
 
-	InventoryComponent* playerInventory = NULL;
+			void setScrollbarUpdate(bool b);
+			bool getScrollbarUpdate();
+		private:
 
-	// testVector
-	std::vector<std::pair<Item*,int>> itemsBuy;
-	std::vector<std::pair<Item*,int>> history;
+			enum tabs
+			{
+				buyTab = 0,
+				sellTab,
+				historyTab,
+			};
 
-	FloatingText currentGold;
+			void drawTab();
 
-	sf::Sprite selectedButton;
-	sf::Sprite tradingItemBackground;
+			int selectedTab = 0;
 
-	Button tradeSigleItem;
-	Button tradeStack;
+			bool updateScrollbar = true;
 
-	Button tab_history;
-	Button tab_sell;
-	Button tab_buy;
+			InventoryComponent* playerInventory = NULL;
 
-	void createScrollbar();
-	void buy(int size);
-	void sell(int size);
-	void buyBack();
+			// testVector
+			std::vector<std::pair<Item*, int>> itemsBuy;
+			std::vector<std::pair<Item*, int>> history;
 
-	void setInventory();
-	void setGold();
-};
+			Text::FloatingText currentGold;
 
+			sf::Sprite selectedButton;
+			sf::Sprite tradingItemBackground;
+
+			Addon::Button tradeSigleItem;
+			Addon::Button tradeStack;
+
+			Addon::Button tab_history;
+			Addon::Button tab_sell;
+			Addon::Button tab_buy;
+
+			void createScrollbar();
+			void buy(int size);
+			void sell(int size);
+			void buyBack();
+
+			void setInventory();
+			void setGold();
+		};
+	}
+}
 #endif

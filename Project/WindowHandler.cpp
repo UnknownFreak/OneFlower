@@ -12,6 +12,7 @@
 #include "Game\Component\RigidComponent.hpp"
 #include "Game\Logic\Time\Time.hpp"
 #include "Game\World\WorldManagement.hpp"
+#include "Game\LoadAndSave\LoadAndSave.hpp"
 int windowMessage();
 void RunMain();
 int test();
@@ -22,7 +23,7 @@ Game Engine::game;
 Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
-GraphicalUserInterface Engine::GUI;
+GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
@@ -33,6 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
+	//testSave();
 	Engine::World.loadZone(1);
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();

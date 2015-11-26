@@ -1,13 +1,13 @@
 #ifndef OverheadComponent_HPP
 #define OverheadComponent_HPP
 #include "IBaseComponent.hpp"
-#include "../GUI/Message.hpp"
+#include "../GUI/Text/Message.hpp"
 #include "../../Vector.h"
 class OverheadComponent: public IBaseComponent < OverheadComponent >
 {
 public:
 
-	Message msg;
+	GUI::Text::Message msg;
 	Vector2* pos;
 	OverheadComponent();
 	//~OverheadComponent();

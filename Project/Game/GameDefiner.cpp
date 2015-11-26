@@ -3,7 +3,7 @@
 #include "Component\OverheadComponent.hpp"
 #include "Tile.h"
 #include "Gfx.h"
-#include "GUI/Message.hpp"
+#include "GUI/Text/Message.hpp"
 #include "Component\RenderComponent.h"
 #include "../Engine.hpp"//std::vector<GameObject> allGameObject;
 

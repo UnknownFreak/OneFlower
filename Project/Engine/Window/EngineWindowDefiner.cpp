@@ -128,7 +128,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					GameObject* a = new GameObject();
 					Engine::game.addGameObject(a);
 					Engine::Window.setGameObject(a);
-					Engine::World.getCurrentZone()->objects.push_back(a);
+					MessageBoxA(0, "Not implemented, Wait for an update", "Error 501", 0);
+					//Engine::World.getCurrentZone()->objects.push_back(a);
 					break;
 				}
 				case ADD_DialogComponent:
@@ -250,9 +251,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					char name[100] = {0};
 					char value[100] = {0};
-					InputDialog::InputBox("Add Zone",name,value,100,hWnd);
+					GUI::Window::Addon::InputDialog::InputBox("Add Zone",name,value,100,hWnd);
 					unsigned int i = std::atoi(value);
-					if(!InputDialog::getIfCancelled())
+					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
 						Engine::World.EditorAddNewZone(name,i);
 					break;
 				}
@@ -260,9 +261,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					char name[100] = {0};
 					char value[100] = {0};
-					InputDialog::InputBox("Load Zone",name,value,100,hWnd);
+					GUI::Window::Addon::InputDialog::InputBox("Load Zone", name, value, 100, hWnd);
 					unsigned int i = std::atoi(value);
-					if(!InputDialog::getIfCancelled())
+					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
 						Engine::World.EditorLoadZone(name,i);
 					break;
 				}
@@ -280,8 +281,8 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					char buffer[100] = {0};
 					//Probably redo this with editorfield instead
-					InputDialog::InputBox("SetBackground",buffer,NULL,100,hWnd,ID_DIALOG_RENAME);
-					if(!InputDialog::getIfCancelled())
+					GUI::Window::Addon::InputDialog::InputBox("SetBackground", buffer, NULL, 100, hWnd, ID_DIALOG_RENAME);
+					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
 						Engine::World.EditorSetBackground(buffer);
 					else
 						MessageBox(Engine::Window.hWnd,"TODO","INFO",NULL);
@@ -292,10 +293,10 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				{
 					char cX[7] = {0};
 					char cY[7] = {0};
-					InputDialog::InputBox("Set Background Size",cX,cY,7,hWnd,ID_DIALOG_RESIZE);
+					GUI::Window::Addon::InputDialog::InputBox("Set Background Size", cX, cY, 7, hWnd, ID_DIALOG_RESIZE);
 					int x = std::atoi(cX);
 					int y = std::atoi(cY);
-					if(!InputDialog::getIfCancelled())
+					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
 						Engine::World.EditorSetBackgroundSize(x,y);
 					break;
 				}

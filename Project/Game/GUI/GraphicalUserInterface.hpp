@@ -11,79 +11,82 @@
 #include "Window/StatsWindow.hpp"
 #include "Window/TradeWindow.hpp"
 #include "..\Tile.h"
-#include "Message.hpp"
+#include "Text/Message.hpp"
 #include<vector>
 #include<stack>
 #include<SFML\Graphics\Text.hpp>
 
+
 class DialogComponent;
-class GraphicalUserInterface
+namespace GUI
 {
-public:
+	class GraphicalUserInterface
+	{
+	public:
 
-	InventoryWindow inventory;
-	StatsWindow stats;
-	TradeWindow tradingWindow;
-	bool hideGUI;
-	bool isMouseVisible;
-	bool showOverhead;
-	bool showDialog;
-	bool updateFocus = false;
-	//Show tooltips in game
-	bool showToolTip;
-	//Used for drawing tooltip for opened window.
-	bool drawOpenedWindowToolTip = false;
-	Tile mouseAim;
+		Window::InventoryWindow inventory;
+		Window::StatsWindow stats;
+		Window::TradeWindow tradingWindow;
+		bool hideGUI;
+		bool isMouseVisible;
+		bool showOverhead;
+		bool showDialog;
+		bool updateFocus = false;
+		//Show tooltips in game
+		bool showToolTip;
+		//Used for drawing tooltip for opened window.
+		bool drawOpenedWindowToolTip = false;
+		Tile mouseAim;
 
-	Button mouseSlotRight;
-	Button mouseSlotLeft;
+		Window::Addon::Button mouseSlotRight;
+		Window::Addon::Button mouseSlotLeft;
 
-	sf::Text t;
-	std::vector<OverheadComponent*> overhead;
-	std::vector<DialogComponent*> dialogs;
+		sf::Text t;
+		std::vector<OverheadComponent*> overhead;
+		std::vector<DialogComponent*> dialogs;
 
-	std::vector<Button*> ActionSlot;
+		std::vector<Window::Addon::Button*> ActionSlot;
 
-	BaseWindow* focusedWindow;
-	std::vector<BaseWindow*> openWindows;
-	//std::vector<Message*> messages;
+		Window::BaseWindow* focusedWindow;
+		std::vector<Window::BaseWindow*> openWindows;
+		//std::vector<Message*> messages;
 
-	ToolTip openedWindowToolTip;
+		ToolTip openedWindowToolTip;
 
-	GraphicalUserInterface();
-	//~GraphicalUserInterface();
+		GraphicalUserInterface();
+		//~GraphicalUserInterface();
 
-	bool windowHasFocus();
-	void scroll();
-	void updateMouseIcon();
-	void Draw();
-	void showHideMouse();
-	void showHideDialogs();
+		bool windowHasFocus();
+		void scroll();
+		void updateMouseIcon();
+		void Draw();
+		void showHideMouse();
+		void showHideDialogs();
 
-	void setActiveSkill(std::string buttonName);
-	void setCursor(std::string name);
+		void setActiveSkill(std::string buttonName);
+		void setCursor(std::string name);
 
-	void showHideOverhead();
-	void showHideGUI();
+		void showHideOverhead();
+		void showHideGUI();
 
-	void showHideInventory();
-	void showHideStats();
-	void showHideTradeWindow();
+		void showHideInventory();
+		void showHideStats();
+		void showHideTradeWindow();
 
-	void addOverhead(GameObject* over);
-	void requestOverheadRemoval(GameObject* go);
-	void addDialog(DialogComponent &dcp);
-	void removeDialog(DialogComponent &dcp);
+		void addOverhead(GameObject* over);
+		void requestOverheadRemoval(GameObject* go);
+		void addDialog(DialogComponent &dcp);
+		void removeDialog(DialogComponent &dcp);
 
-	void setGUIScale();
+		void setGUIScale();
 
-	bool mouseOutsideOpenWindow();
-private:
+		bool mouseOutsideOpenWindow();
+	private:
 
-	void initialize();
-	void setIconLocation();
+		void initialize();
+		void setIconLocation();
 
-	Vector2 offset;
-};
-
+		Vector2 offset;
+	};
+}
 #endif // ! GUI_HPP

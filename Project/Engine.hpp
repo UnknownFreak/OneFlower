@@ -35,7 +35,7 @@ namespace AsianVikingMotor
 
 	extern PhysicsEngine Physics;
 
-	extern GraphicalUserInterface GUI;
+	extern GUI::GraphicalUserInterface GUI;
 
 	extern InputHandler Input;
 

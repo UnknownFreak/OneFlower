@@ -18,7 +18,7 @@ class Gfx
 public:
 	GameView view;
 	Gfx();
-	Font font;
+	GUI::Text::Font font;
 	std::vector<Message *> msg;
 
 #pragma region Texture Related Functions

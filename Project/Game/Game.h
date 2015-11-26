@@ -7,7 +7,7 @@
 class GameObject;
 class Tile;
 class Gfx;
-class Message;
+//class Message;
 class Game
 {
 public:

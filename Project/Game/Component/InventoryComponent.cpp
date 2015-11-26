@@ -62,7 +62,7 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 				pair->second = STACKSIZE;
 				currentWeight += pair->first->weight*STACKSIZE;
 				if(Engine::GUI.inventory.createdInventory)
-					((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+					((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 				break;
 			}
 			else
@@ -70,7 +70,7 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 				currentWeight += pair->first->weight*numberOfItems;
 			}
 			if(Engine::GUI.inventory.createdInventory)
-				((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+				((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 
 			exists = false;
 		}
@@ -89,10 +89,10 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 					currentWeight += item.weight*numberOfItems;
 					if(Engine::GUI.inventory.createdInventory)
 					{
-						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
-						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.name;
-						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
-						((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
+						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
+						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.name;
+						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
+						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
 						if(item.tag == Item::armor || item.tag == Item::weapon && !Engine::GUI.stats.updateEquipment)
 							Engine::GUI.stats.updateEquipment = true;
 					}
@@ -130,16 +130,16 @@ Item* InventoryComponent::removeItem(int bag,int index,int numberOfItems)
 	{
 		if(bags[bag]->items[index].second == 0)
 		{
-			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = "";
-			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
-			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
-			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
+			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = "";
+			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
+			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
+			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
 			if((item->tag == Item::armor || item->tag == Item::weapon) && !Engine::GUI.stats.updateEquipment)
 				Engine::GUI.stats.updateEquipment = true;
 			Engine::GUI.tradingWindow.setScrollbarUpdate(true);
 		}
 		else
-			((WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = std::to_string(bags[bag]->items[index].second);
+			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = std::to_string(bags[bag]->items[index].second);
 	}
 	return item;
 }
