@@ -125,9 +125,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 				case ADD_GameObject:
 				{
-					GameObject* a = new GameObject();
-					Engine::game.addGameObject(a);
-					Engine::Window.setGameObject(a);
+					//GameObject* a = new GameObject();
+					//Engine::game.addGameObject(a);
+					//Engine::Window.setGameObject(a);
 					MessageBoxA(0, "Not implemented, Wait for an update", "Error 501", 0);
 					//Engine::World.getCurrentZone()->objects.push_back(a);
 					break;
@@ -239,7 +239,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 #pragma endregion
 #pragma region FILE_MENU
-
+				case ID_CLEAR_DEBUG:
+				{
+					Engine::Window.debug.clear();
+					break;
+				}
 				case ID_FILE_EXIT:
 				{
 					DestroyWindow(hWnd);

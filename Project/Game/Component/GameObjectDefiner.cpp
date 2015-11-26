@@ -85,6 +85,8 @@ GameObject::GameObject(std::string _name)
 }
 GameObject::~GameObject()
 {
+	Engine::Window.ListViewer.remove(this);
+
 	std::map<GameObject*,unsigned int>::iterator it;
 	it = listOfGameObjectID.find(this);
 	if(it != listOfGameObjectID.end())
@@ -99,6 +101,7 @@ GameObject::~GameObject()
 			cIt->second = 0;
 		}
 	}
+
 }
 /*
 void GameObject::AddComponent(BaseComponent* componentToAttach)

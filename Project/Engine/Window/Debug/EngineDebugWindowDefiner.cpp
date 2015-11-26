@@ -2,8 +2,17 @@
 #include "EngineDebugWindow.hpp"
 #include "../../../Engine.hpp"
 #include <Windows.h>
+
+LRESULT CALLBACK EngineDebugWindowProc(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+
+
+
 EngineDebugMessage::EngineDebugMessage(std::string str):msg(str)
 {
+}
+EngineDebugMessage::~EngineDebugMessage()
+{
+	DestroyWindow(hWnd);
 }
 void EngineDebugWindow::init(HWND phWnd)
 {
@@ -31,10 +40,10 @@ void EngineDebugWindow::init(HWND phWnd)
 
 	hWnd = CreateWindowEx
 		(
-		0,		// Extended possibilites for variation
+		0,							// Extended possibilites for variation
 		"DebugWindow",				// Classname
 		"Debug Window ",			// Title Text
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,	// default window
+		WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_VSCROLL,	// default window
 		0,
 		0,							// Windows decides the position
 		width,						// The programs width
@@ -45,6 +54,7 @@ void EngineDebugWindow::init(HWND phWnd)
 		NULL						// No Window Creation data
 		//this
 		);
+	SetWindowLongPtr(hWnd,GWLP_WNDPROC,(LONG_PTR)EngineDebugWindowProc);
 }
 void EngineDebugWindow::print(std::string msg,int codeline,std::string filePath)
 {
@@ -65,11 +75,89 @@ void EngineDebugWindow::print(std::string msg,int codeline,std::string filePath)
 				hWnd,(HMENU)123456789,Engine::Window.hInstance,NULL
 				);
 			if(windowMsg.hWnd)
+			{
+				
 				list.push_back(windowMsg);
+				SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+				GetScrollInfo(hWnd,SB_VERT,&si);
+				int scrollSpeed = 16;
+				int oldPos = si.nPos;
+				si.nPage = 0;
+				si.nMin = 0;
+				si.nMax =
+					list.size()*messageSize	- height + 16 +
+					(GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU);
+				SetScrollInfo(hWnd,SB_VERT,&si,false);
+				//*/
+			
+			}
 			else
 				MessageBox(0,std::string("Unable to add: " + msg).c_str(),"Unable to add Message to Debug Window",0);
 		}
 	}
+}
+void EngineDebugWindow::clear()
+{
+	list.clear();
+}
+
+LRESULT CALLBACK EngineDebugWindowProc(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam)    
+{
+	switch(uMsg)
+	{
+		case WM_MOUSEWHEEL:
+		{
+			SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+			GetScrollInfo(hWnd,SB_VERT,&si);
+
+			int wheelTicks = GET_WHEEL_DELTA_WPARAM(wParam);// / WHEEL_DELTA;
+			int scrollSpeed = wheelTicks;
+			if(wheelTicks > 0)
+			{
+				//Wheel UP,Content Go DOWN
+				#pragma region SB_LINEUP
+				scrollSpeed = -16;
+				//Negative + Negative = Positive
+				if(si.nPos + scrollSpeed >= 0)
+				{
+					ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += scrollSpeed;
+				}
+				else
+				{
+					ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos -= si.nPos;
+				}
+#pragma endregion
+			}
+			else
+			{
+				//Wheel Down, Content go UP
+				#pragma region SB_LINEDOWN
+				scrollSpeed = 16;
+				if(si.nPos + scrollSpeed <= si.nMax)
+				{
+					ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += scrollSpeed;
+				}
+				else
+				{
+					ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += (si.nMax - si.nPos);
+				}
+#pragma endregion
+			}
+
+			SetScrollInfo(hWnd,SB_VERT,&si,false);
+
+			break;
+		
+		}
+
+		default:
+			return DefWindowProc(hWnd,uMsg,wParam,lParam);
+	}
+	return 0;
 }
 
 #endif

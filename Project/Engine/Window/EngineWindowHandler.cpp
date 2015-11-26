@@ -53,7 +53,8 @@ void EngineWindow::setGameObject(GameObject* t)
 				WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP,
 				x,y,
 				//Width
-				EditorUI::GetLocalCoordinates(focus.hWnd).right / 2,
+				focus.size.x - GetSystemMetrics(SM_CXSIZE) - GetSystemMetrics(SM_CXEDGE),
+				//EditorUI::GetLocalCoordinates(focus.hWnd).right / 2,
 				//Height
 				((gameComponent_it->second->getFields().size()) * 32) + 32,
 				focus.hWnd,0,0,
@@ -174,12 +175,21 @@ void EngineWindow::update()
 			for(auto jit = it->second.field.begin(); jit != it->second.field.end(); ++jit)
 			{
 				BaseField* variable = jit->second;
+				/*
+				std::stringstream ss;
+				ss << variable->toString(); 
+				SetWindowTextA(variable->hWnd,ss.str().c_str());
+				if(focusedWindow != variable->hWnd)
+					SendMessage(variable->hWnd,EM_SETSEL,start,end);
+				//*/
 				if(focusedWindow != variable->hWnd)
 				{
 					std::stringstream ss;
 					ss << variable->toString();
 					SetWindowTextA(variable->hWnd,ss.str().c_str());
 				}
+			
+			
 			}
 		}
 	}

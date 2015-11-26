@@ -1,16 +1,16 @@
 #include <SFML\Graphics\Rect.hpp>
 #include "Physics.hpp"
 #include "../../Component/RigidComponent.hpp"
-#include "../../Component\GameObject.h"
-#include "../../Component\TransformComponent.hpp"
-#include "../../Component\RenderComponent.h"
-#include "../../Component\HitboxComponent.hpp"
+#include "../../Component/GameObject.h"
+#include "../../Component/TransformComponent.hpp"
+#include "../../Component/HitboxComponent.hpp"
 #include "../../../Engine.hpp"
 //#include "ColliderBasic.hpp"
+
 void PhysicsEngine::update()
 {
-	gravity();
-	simulation();
+	//gravity();
+	//simulation();
 }
 void PhysicsEngine::gravity()
 {
@@ -24,9 +24,11 @@ void PhysicsEngine::gravity()
 
 			Vector2 direction(0,1);
 			double velocity = (Gravity*PixelInOneMeter);
+			//rigid[i]->attachedOn->GetComponent<RigidComponent>()->addForce(Vector2(0,1),velocity);
 
+			/*
 			std::pair<GameObject*,double> collisiontime = collision(rigid[i],Vector2(0,direction.y*velocity*Engine::time.deltaTime()));
-
+				
 			//HIGH: Checking how force move object on google.PS check collision and pass throug hitbox but still tirgger
 			if(collisiontime.second >= 1)
 				//tc->move(direction,velocity*Engine::time.deltaTime());
@@ -44,6 +46,7 @@ void PhysicsEngine::gravity()
 
 void PhysicsEngine::simulation()
 {
+	/*
 	for(size_t i = 0; i < rigid.size(); i++)
 	{
 		TransformComponent* tc = rigid[i]->attachedOn->GetComponent<TransformComponent>();
@@ -62,9 +65,25 @@ void PhysicsEngine::simulation()
 		}
 		//rigid[i]->forceQueue.clear();
 	}
+	//*/
 }
-std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,Vector2 speed)
+PhysicsEngine::Collider PhysicsEngine::collision(Physics::BoundingBox box,Vector2 speed)
 {
+	Collider collider;
+	for(size_t i = 0; i < hitboxes.size(); ++i)
+	{
+		Physics::BoundingBox testbox = hitboxes[i]->bounding;
+		
+
+
+
+
+	}
+	return collider;
+	/*
+	PhysicsEngine::Collider collider;
+	
+	/*
 	TransformComponent* tc = inMotion->attachedOn->GetComponent<TransformComponent>();
 	Vector2 topLeft = tc->position + inMotion->position;
 	std::vector<std::pair<HitboxComponent*,double>> collisionList;
@@ -76,7 +95,7 @@ std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,
 		double timeUntillCollision = 0;
 
 		Vector2 distanceEntry;
-		//= topLeft - topLeftH;
+		= topLeft - topLeftH;
 
 		if(speed.x > 0)			//Get the right side of rigid, LeftSide of hitbox
 			distanceEntry.x = (topLeft.x + inMotion->size.x) - topLeftH.x;
@@ -98,7 +117,7 @@ std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,
 			entryTime.y = std::numeric_limits<double>::infinity();
 
 		double collisionTime = 1;
-		//Check which entry time is the shortest, than do a broad check, A check to see if object is a aligned to each other
+		Check which entry time is the shortest, than do a broad check, A check to see if object is a aligned to each other
 		if(entryTime.y < entryTime.x)
 			if(topLeft.x > topLeftH.x + hitboxes[i]->size.x)//If rigid left side is to right side of hitbox right side its a miss
 				continue;
@@ -113,7 +132,7 @@ std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,
 				continue;
 			else
 				collisionTime = entryTime.x;
-			//= (((entryTime.x) < (entryTime.y)) ? (entryTime.x) : (entryTime.y));
+			= (((entryTime.x) < (entryTime.y)) ? (entryTime.x) : (entryTime.y));
 
 			if(collisionTime >= 1 || collisionTime < 0)
 				continue;
@@ -129,8 +148,9 @@ std::pair<GameObject*,double> PhysicsEngine::collision(RigidComponent* inMotion,
 		return std::pair<GameObject*,double>(fastestCollision.first->attachedOn,fastestCollision.second);
 	else
 		return std::pair<GameObject*,double>(0,1);
+	//*/
 }
-
+/*
 float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,float& normalx,float& normaly,Vector2 speed)
 {
 	std::vector<std::pair<HitboxComponent*,double>> collided;
@@ -249,7 +269,7 @@ float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,flo
 		{
 		collided.push_back(hitboxes[i]);
 		}
-		//*/
+		
 		// if there was no collision
 		double normalx,normaly = 0;
 		if(entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f)
@@ -258,7 +278,7 @@ float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,flo
 			/*
 			normaly = 0.0f;
 			return 1.0f;
-			//*/
+			
 		}
 		else // if there was a collision
 		{
@@ -315,7 +335,8 @@ float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,flo
 	collided[i]->collisionCall[j]->onCollision(inMotion->attachedOn);
 	}
 	}
-	//*/
+	
 
 	//return Vector2();
 };
+//*/

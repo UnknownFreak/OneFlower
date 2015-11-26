@@ -3,6 +3,14 @@
 #include "IBaseComponent.hpp"
 #include <vector>
 #include "../../Vector.h"
+#include "../Logic/Physics/BoundingBox.hpp"
+enum Material
+{
+	Standard = 0 //<< 0
+
+};
+
+
 class RigidComponent:public IBaseComponent < RigidComponent >
 {
 public:
@@ -15,12 +23,9 @@ public:
 	void replaceForce(Vector2 dir,float power);
 	//std::vector<std::pair<Vector2,double>> forceQueue;
 
-	//Absolute Pixel not half pixel
-	Vector2 size;
+	Physics::BoundingBox bounding;
 
-	//Pixel position relative to Transform
-	Vector2 position;
-
+	
 	Vector2 direction;
 	double force;
 
@@ -36,9 +41,27 @@ public:
 	int mass = 10;
 
 	std::vector<GameObject*> entered;
+	
+	
+	Material material = Material::Standard;
 
 protected:
 	void attachOn(GameObject* go);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 private:
 	template <class Archive>
 	friend void save(Archive& Ar,const RigidComponent& rig);

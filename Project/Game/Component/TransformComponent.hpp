@@ -27,11 +27,11 @@ public:
 
 	//TODO move move() to protect or remove entirly
 	//Move relative
-	void move(Vector2 dir,double s);
+	//void move(Vector2 dir,double s);
 
 protected:
 	//Move towrads Absolute World coordinates with Pixel Per Seconds
-	void moveTo(Vector2 newPosition);
+	//void moveTo(Vector2 newPosition);
 
 	void attachOn(GameObject* go);
 

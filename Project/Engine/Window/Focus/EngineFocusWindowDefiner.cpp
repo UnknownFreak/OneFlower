@@ -170,6 +170,8 @@ LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM l
 	}
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
+
+//The Callback for the: Text field for Game Object names inside Focus Window when selecting a GameObject
 LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
@@ -178,8 +180,9 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 		{
 			switch(wParam)
 			{
-#pragma region Enter
-				case(VK_RETURN) :
+				default:
+					//case(VK_RETURN) :
+#pragma region Enter WndProcNameField
 				{
 					TCHAR txt[1024];
 					DWORD start = 0;
@@ -207,13 +210,12 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 						Engine::Window.ListViewer.update();
 					}
 					else
-						MessageBoxA(0,"Unknown HWND Inside ExtraFields, Please Modify SearchArea Region","CTRL + F 879487",0);
-					return 0;
+						MessageBoxA(0,"Unknown HWND Inside ExtraFields, Please Modify SearchArea Region","CTRL + F: No FocusWindow/field",0);
+					break;
 				}
 
 #pragma endregion
-				default:
-					break;
+				//*/
 			}
 		}
 		default:
@@ -285,20 +287,39 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		{
 			switch(wParam)
 			{
+#pragma region Non-CharKey
+				//case 0x08:
+				// Process a backspace.
+				//		break;
+				case 0x0A:
+					// Process a linefeed.
+					break;
+				case 0x1B:
+					// Process an escape.
+					break;
+				case 0x09:
+					// Process a tab.
+					break;
+				case 0x0D:
+					// Process a carriage return.
+					break;
+#pragma endregion
+
 #pragma region Enter
-				case(VK_RETURN) :
+				default:
 				{
 					TCHAR txt[1024];
 					DWORD start = 0;
 					DWORD end = 0;
+					char newTempInput = wParam;
+
 					GetWindowText(hWnd,txt,1024);
 					std::string value(txt);
 					std::string newValue = "";
-					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
 
+					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
 					//TODO: Move this out towards a seperate WndProc
 					//Field Object
-
 #pragma region SearchFields
 					bool found = false;
 					std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
@@ -339,18 +360,18 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 						}
 						else
 							newValue = '0';
-						SetWindowTextA(hWnd,newValue.c_str());
+
+						//SetWindowTextA(hWnd,newValue.c_str());
 						SendMessage(hWnd,EM_SETSEL,start,end);
+						newValue.insert(start,1,newTempInput);
 						Engine::Window.setValue(it->second,newValue);
 					}
 					else
-						MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F 87974651",0);
-					return 0;
-				}
-
-#pragma endregion
-				default:
+						MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F: TextField_Variable WndProc_Text",0);
 					break;
+					//return 0;
+				}
+#pragma endregion
 			}
 		}
 		default:
@@ -360,15 +381,6 @@ LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 }
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
-	int xDelta;     // xDelta = new_pos - current_pos
-	int xNewPos;    // new position
-	int yDelta = 0;
-	SCROLLINFO scrollNfo;
-
-	int xCurrentScroll;
-
-	GetScrollInfo(hWnd,SB_HORZ,&scrollNfo);
-	xCurrentScroll = scrollNfo.nPos;
 	switch(msg)
 	{
 		// User clicked the scroll bar shaft left of the scroll box.
@@ -377,9 +389,29 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 			SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
 			GetScrollInfo(hWnd,SB_VERT,&si);
 			int scrollSpeed = 16;
-#pragma region wParam
+			#pragma region wParam
 			switch(wParam)
 			{
+				#pragma region SB_PAGEUP
+				case SB_PAGEUP:
+				{
+					scrollSpeed = -64;
+					//Negative + Negative = Positive
+					if(si.nPos + scrollSpeed >= 0)
+					{
+						ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos += scrollSpeed;
+					}
+					else
+					{
+						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos -= si.nPos;
+					}
+					SetScrollInfo(hWnd,SB_VERT,&si,false);
+					break;
+				}
+				#pragma endregion
+				#pragma region SB_PAGEDOWN
 				case SB_PAGEDOWN:
 				{
 					scrollSpeed = 64;
@@ -396,22 +428,8 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 					break;
 				}
-				case SB_LINEDOWN:
-				{
-					scrollSpeed = 16;
-					if(si.nPos + scrollSpeed <= si.nMax)
-					{
-						ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-						si.nPos += scrollSpeed;
-					}
-					else
-					{
-						ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-						si.nPos += (si.nMax - si.nPos);
-					}
-					SetScrollInfo(hWnd,SB_VERT,&si,false);
-					break;
-				}
+				#pragma endregion
+				#pragma region SB_LINEUP
 				case SB_LINEUP:
 				{
 					scrollSpeed = -16;
@@ -430,42 +448,94 @@ LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lPar
 
 					break;
 				}
-				case SB_PAGEUP:
+				#pragma endregion
+				#pragma region SB_LINEDOWN
+				case SB_LINEDOWN:
 				{
-					scrollSpeed = -64;
-					//Negative + Negative = Positive
-					if(si.nPos + scrollSpeed >= 0)
+					//LOW: Figure out why -scrollSpeed -> scrollSpeed and si.nPos - scrollSpeed <- si.nPos + scrollSpeed doesnt work?
+					scrollSpeed = 16;
+					if(si.nPos + scrollSpeed <= si.nMax)
 					{
 						ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
 						si.nPos += scrollSpeed;
 					}
 					else
 					{
-						ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
-						si.nPos -= si.nPos;
+						ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+						si.nPos += (si.nMax - si.nPos);
 					}
 					SetScrollInfo(hWnd,SB_VERT,&si,false);
 					break;
 				}
+				#pragma endregion
+
+				/*
 				case SB_THUMBPOSITION:
 				{
-					int move = HIWORD(wParam);
-					si.nPos = move;
-					SetScrollInfo(hWnd,SB_VERT,&si,false);
+				int move = HIWORD(wParam);
+				si.nPos = move;
+				SetScrollInfo(hWnd,SB_VERT,&si,false);
 
-					break;
+				break;
 				}
+				//*/
 				default:
 					break;
 			}
-#pragma endregion
+			#pragma endregion
 		}
 		case WM_MOUSEACTIVATE:
 		{
 			SetFocus(hWnd);
 			break;
 		}
+		case WM_MOUSEWHEEL:
+		{
+			SCROLLINFO si = {sizeof(SCROLLINFO),SIF_PAGE | SIF_POS | SIF_RANGE | SIF_TRACKPOS,0,0,0,0,0};
+			GetScrollInfo(hWnd,SB_VERT,&si);
 
+			int wheelTicks = GET_WHEEL_DELTA_WPARAM(wParam);// / WHEEL_DELTA;
+			int scrollSpeed = wheelTicks;
+			if(wheelTicks > 0)
+			{
+				//Wheel UP,Content Go DOWN
+				#pragma region SB_LINEUP
+				scrollSpeed = -16;
+				//Negative + Negative = Positive
+				if(si.nPos + scrollSpeed >= 0)
+				{
+					ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += scrollSpeed;
+				}
+				else
+				{
+					ScrollWindowEx(hWnd,0,si.nPos,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos -= si.nPos;
+				}
+				#pragma endregion
+			}
+			else
+			{
+				//Wheel Down, Content go UP
+				#pragma region SB_LINEDOWN
+				scrollSpeed = 16;
+				if(si.nPos + scrollSpeed <= si.nMax)
+				{
+					ScrollWindowEx(hWnd,0,-scrollSpeed,NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += scrollSpeed;
+				}
+				else
+				{
+					ScrollWindowEx(hWnd,0,-(si.nMax - si.nPos),NULL,NULL,NULL,0,SW_INVALIDATE | SW_ERASE | SW_SCROLLCHILDREN);
+					si.nPos += (si.nMax - si.nPos);
+				}
+				#pragma endregion
+			}
+
+			SetScrollInfo(hWnd,SB_VERT,&si,false);
+
+			break;
+		}
 		default:
 		{
 			break;

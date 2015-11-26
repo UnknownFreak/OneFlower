@@ -174,7 +174,7 @@ void testSave()
 	ground->AddComponent(new HitboxComponent());
 	ground->AddComponent(new RenderComponent("ground.marker_1.png"));
 	ground->GetComponent<RenderComponent>()->sprite.setScale(2, 1);
-	ground->GetComponent<HitboxComponent>()->size.x = ground->GetComponent<HitboxComponent>()->size.x * 2;
+	ground->GetComponent<HitboxComponent>()->bounding.size.x = ground->GetComponent<HitboxComponent>()->bounding.size.x * 2;
 	Prefab pref2(ground);
 	pref2.ID = 2;
 	zone.prefabList.push_back(std::pair<size_t, Vector2>(2, Vector2(400, 550)));
@@ -515,18 +515,18 @@ void load(Archive &ar,TransformComponent &tc)
 template <class Archive>
 void save(Archive &ar,const HitboxComponent &hc)
 {
-	ar(hc.position.x);
-	ar(hc.position.y);
-	ar(hc.size.x);
-	ar(hc.size.y);
+	ar(hc.bounding.position.x);
+	ar(hc.bounding.position.y);
+	ar(hc.bounding.size.x);
+	ar(hc.bounding.size.y);
 }
 template <class Archive>
 void load(Archive &ar,HitboxComponent &hc)
 {
-	ar(hc.position.x);
-	ar(hc.position.y);
-	ar(hc.size.x);
-	ar(hc.size.y);
+	ar(hc.bounding.position.x);
+	ar(hc.bounding.position.y);
+	ar(hc.bounding.size.x);
+	ar(hc.bounding.size.y);
 }
 #pragma endregion
 
@@ -577,16 +577,16 @@ void load(Archive& ar,OverheadComponent& ohd)
 template <class Archive>
 void save(Archive& ar,const RigidComponent& rig)
 {
-	ar(rig.size.x);
-	ar(rig.size.y);
+	ar(rig.bounding.size.x);
+	ar(rig.bounding.size.y);
 	//ar(rig.gravity);
 	ar(rig.mass);
 }
 template <class Archive>
 void load(Archive& ar,RigidComponent& rig)
 {
-	ar(rig.size.x);
-	ar(rig.size.y);
+	ar(rig.bounding.size.x);
+	ar(rig.bounding.size.y);
 	//ar(rig.gravity);
 	ar(rig.mass);
 }

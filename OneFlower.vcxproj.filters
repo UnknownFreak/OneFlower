@@ -254,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="Project\Game\World\DBZone.hpp">
       <Filter>Game\World</Filter>
+	</ClInclude>
+    <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp">
+      <Filter>Game\Logic\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -444,6 +447,9 @@
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp">
       <Filter>Game\GUI\Text</Filter>
+	</ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp">
+      <Filter>Game\Logic\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

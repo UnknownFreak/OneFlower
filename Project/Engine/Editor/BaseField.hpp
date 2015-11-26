@@ -2,6 +2,7 @@
 #define BaseField_HPP
 #include <Windows.h>
 #include <string>
+//Remove this
 enum FieldFlag
 {
 	Decimal = (1 + 0),

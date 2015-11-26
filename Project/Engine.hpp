@@ -15,7 +15,7 @@
 #include "Game\World\WorldManagement.hpp"
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
 //Game Engine
-namespace AsianVikingMotor
+namespace Engine
 {
 	extern sf::Event event;
 	//The Editor Window
@@ -40,8 +40,9 @@ namespace AsianVikingMotor
 	extern InputHandler Input;
 
 	extern WorldManagement World;
-};
+}
+/*
 namespace Engine = AsianVikingMotor;
 namespace AVM = AsianVikingMotor;
-
+//*/
 #endif

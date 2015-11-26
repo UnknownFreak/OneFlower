@@ -2,7 +2,7 @@
 #define HitboxComponent_HPP
 #include <SFML\Graphics\Rect.hpp>
 #include <vector>
-
+#include "../Logic/Physics/BoundingBox.hpp"
 #include "IBaseComponent.hpp"
 #include "../../Vector.h"
 class HitboxComponent:public IBaseComponent < HitboxComponent >
@@ -10,21 +10,18 @@ class HitboxComponent:public IBaseComponent < HitboxComponent >
 public:
 	HitboxComponent();
 	HitboxComponent(const HitboxComponent &hc);
-	HitboxComponent(int width,int height);
-	//LOW: Make a Render and Transform constructor
+	HitboxComponent(int x,int y,int w,int h);
+
+	//LOW: Make a Render and Transform constructor ??
 	~HitboxComponent();
-
-	//Absolute Pixel not half pixel
-	Vector2 size;
-
-	//Pixel position relative to Transform
-	Vector2 position;
 
 	void registerCollisionCheck(BaseComponent* component);
 
-	//Rect
+	Physics::BoundingBox bounding;
+
 
 	std::vector<BaseComponent*> collisionCall;
+
 protected:
 	void attachOn(GameObject* go);
 

@@ -8,6 +8,12 @@
 
 const unsigned int IBaseComponent<MovementComponent>::typeID = 14564;
 std::string IBaseComponent<MovementComponent>::componentName = "MovementComponent";
+
+MovementComponent::~MovementComponent()
+{
+	Engine::game.removealMotion(attachedOn);
+}
+//*/
 void MovementComponent::attachOn(GameObject* entity)
 {
 	BaseComponent::attachOn(entity);
@@ -24,10 +30,12 @@ bool MovementComponent::inMotion()
 
 	return false;
 }
+
 void MovementComponent::addForce(Vector2 direction,double speed)
 {
-	forces.push_back(std::make_pair(direction,speed));
+	movementsQueue.push_back(std::make_pair(direction,speed));
 }
+//*/
 void MovementComponent::replaceMotion(Vector2 dir,double s,int dist)
 {
 	direction = dir;

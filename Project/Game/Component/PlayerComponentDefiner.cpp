@@ -11,20 +11,15 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 	BaseComponent::attachOn(toAttach);
 	toAttach->AddComponent<MovementComponent>();
 
-	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,0)),sf::Keyboard::D,Input::Action::Release);
-	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(1,0)),sf::Keyboard::D,Input::Action::Press);
+	//Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,0)),sf::Keyboard::D,Input::Action::Release);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(1,0)),sf::Keyboard::D,Input::Action::Hold);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(-1,0)),sf::Keyboard::A,Input::Action::Hold);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,-1)),sf::Keyboard::W,Input::Action::Hold);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,1)),sf::Keyboard::S,Input::Action::Hold);
+
 }
-/*
-void PlayerComponent::moveRight()
-{
-manoeuvre(Vector2(1,0));
-}
-void PlayerComponent::moveLeft()
-{
-manoeuvre(Vector2(-1,0));
-}
-//*/
+
 void PlayerComponent::manoeuvre(Vector2 Direction)
 {
-	attachedOn->GetComponent<MovementComponent>()->replaceMotion(Direction,50,0);
+	attachedOn->GetComponent<MovementComponent>()->addForce(Direction,50);
 }
