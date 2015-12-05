@@ -20,6 +20,9 @@ public:
 	// Unique id for each zone
 	unsigned int ID;
 
+	Tile loadScreen;
+	std::string loadingScreenMessage = "";
+
 protected:
 	//Load function
 	template<class Archive>
@@ -40,6 +43,9 @@ public:
 	std::vector<std::pair<size_t,GameObject*>> objects;
 	// Gets the background image
 	Tile* getBackground();
+
+	Tile* getLoadingScreen();
+	std::string& getLoadingScreenMessage();
 
 	// Gets the name of the zone
 	std::string getName();

@@ -292,6 +292,34 @@ void Gfx::DrawBG()
 			Engine::Graphic.view.render.draw(it->sprite);
 	}
 }
+
+void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
+{
+	float centerX = Engine::Graphic.view.camera.getCenter().x;
+	float centerY = Engine::Graphic.view.camera.getCenter().y;
+	int sizeX = Engine::Graphic.view.camera.getSize().x;
+	int sizeY = Engine::Graphic.view.camera.getSize().y;
+	float width = Engine::Graphic.view.camera.getViewport().width;
+	float height = Engine::Graphic.view.camera.getViewport().height;
+
+	loadingScreen.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height/2.f));
+
+	
+	loadingScreen.sprite.setScale(sizeX / (float)loadingScreen.sprite.getTexture()->getSize().x,
+		sizeY / (float)loadingScreen.sprite.getTexture()->getSize().y);
+
+	Engine::Graphic.view.render.draw(loadingScreen.sprite);
+
+	GUI::Text::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
+
+	msg = message;
+	msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
+	msg.setColor(sf::Color(255,255,255));
+	msg.draw();
+
+	Engine::Graphic.view.render.display();
+}
+
 /*
 void Gfx::DrawTxt()
 {

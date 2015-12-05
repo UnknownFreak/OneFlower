@@ -273,7 +273,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 				}
 				case ID_SAVE_ZONE:
 				{
-					Engine::World.EditorSaveZone();
+					Engine::World.EditorSaveZones();
 					break;
 				}
 				case ID_REMOVE_ZONE:

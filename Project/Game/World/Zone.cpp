@@ -16,17 +16,17 @@ Zone::Zone(std::string n,unsigned int i,Tile bg,std::vector<Tile> tiles,std::vec
 	}*/
 }
 // Copy constructor
-Zone::Zone(Zone &z): name(z.name),ID(z.ID),background(z.background)
+Zone::Zone(Zone &z) : name(z.name), ID(z.ID), background(z.background), loadScreen(z.loadScreen), loadingScreenMessage(z.loadingScreenMessage)
 {
 	for(size_t i = 0; i < z.foregrounds.size(); i++)
 		foregrounds.push_back(z.foregrounds[i]);
 	for(size_t i = 0; i < z.objects.size(); i++)
 		this->objects.push_back(z.objects[i]);
+
 }
 
-Zone::Zone(DBZone& zone) : name(zone.name), ID(zone.ID), background(zone.background)
+Zone::Zone(DBZone& zone) : name(zone.name), ID(zone.ID), background(zone.background), loadScreen(zone.loadingScreen), loadingScreenMessage(zone.loadingScreenMessage)
 {
-
 }
 //default constructor
 Zone::Zone(): name(""),ID(0)
@@ -49,6 +49,8 @@ Zone& Zone::operator=(const Zone &z)
 	name = z.name;
 	ID = z.ID;
 	background = z.background;
+	loadScreen = z.loadScreen;
+	loadingScreenMessage = z.loadingScreenMessage;
 	for(size_t i = 0; i < z.foregrounds.size(); i++)
 		foregrounds.push_back(z.foregrounds[i]);
 	for(size_t i = 0; i < z.objects.size(); i++)
@@ -74,6 +76,17 @@ Tile* Zone::getBackground()
 {
 	return &background;
 }
+
+Tile* Zone::getLoadingScreen()
+{
+	return &loadScreen;
+}
+
+std::string& Zone::getLoadingScreenMessage()
+{
+	return loadingScreenMessage;
+}
+
 void Zone::addForeground(Tile fg)
 {
 	foregrounds.push_back(fg);

@@ -1,8 +1,9 @@
 #ifndef LoadAndSave_H
 #define LoadAndSave_H
 
-#include "../World/ZoneMaker.hpp"
+#include "../World/DBZone.hpp"
 #include "DatabaseIndex.hpp"
+#include "PrefabContainer.hpp"
 class Item;
 void testLoad();// (Archive& archive, const GameObject& go);
 void testSave();// (Archive& archive, const GameObject& go);
@@ -16,7 +17,10 @@ void databaseTestRemove();
 void saveGame(GameObject& player, std::string saveFile);
 void loadGame(GameObject& player, std::string loadFile);
 
-//void saveZone(ZoneMap& zone);
+#ifdef _DEBUG
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones);
+#endif
 void saveInfo(std::map<unsigned int,std::string>zoneInfo);
 //void loadItem(unsigned int ID,Item& item);
+
 #endif

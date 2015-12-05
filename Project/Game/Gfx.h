@@ -41,6 +41,7 @@ public:
 	std::vector<std::vector<Tile*>> tileList;
 
 	//Draw all Game object with RenderComponent attached to it
+	void DrawLoadingScreen(Tile& loadingscreen, std::string& info);
 	void Draw();
 	void DrawBG();
 	std::vector<GameObject*> selectedDrawList;

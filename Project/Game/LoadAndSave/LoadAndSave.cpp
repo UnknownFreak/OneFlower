@@ -130,6 +130,54 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones)
+{
+	std::ofstream file(filename, std::ios::binary);
+	filename.append(".index");
+	std::ofstream index(filename, std::ios::binary);
+	{
+		DatabaseIndex ind;
+		cereal::BinaryOutputArchive mainAr(file);
+		cereal::BinaryOutputArchive indexAr(index);
+		for (std::map<size_t, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
+		{
+			ind.flags = "-";
+			ind.ID = it->first;
+			ind.type = "Zone";
+			ind.row = file.tellp();
+			indexAr(ind);
+			mainAr(it->second);
+			Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+		}
+		for (std::map<size_t,Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
+		{
+			ind.flags = "-";
+			ind.ID = it->first;
+			ind.type = "Prefab";
+			ind.row = file.tellp();
+			indexAr(ind);
+			mainAr(it->second);
+			Engine::Window.debug.print("SavingPrefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+		}
+		/*for (loop)
+		{
+			ind.flags = "-";
+			ind.ID = it->first;
+			ind.type = "Item";
+			ind.row = file.tellp();
+			indexAr(ind);
+			mainAr(it->second);
+			Engine::Window.debug.print("SavingItem - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+		}*/
+		ind.ID = 0xffffffff;
+		ind.type = "EoF";
+		ind.row = file.tellp();
+		ind.flags = "EoF";
+		indexAr(ind);
+		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+	}
+}
+
 #ifdef _DEBUG
 void testSave()
 {
@@ -151,7 +199,6 @@ void testSave()
 		ar(item);
 	}
 	//*/
-	
 
 	DBZone zone;
 	zone.ID = 1;
@@ -160,7 +207,7 @@ void testSave()
 	test->name = "TestPlatform";
 	test->GetComponent<TransformComponent>()->position.x = 300;
 	test->GetComponent<TransformComponent>()->position.y = 316;
-	test->AddComponent(new HitboxComponent());
+	test->AddComponent(new HitboxComponent(0, 0, 40, 40));
 	test->AddComponent(new RenderComponent("testCutHalf.png"));
 	zone.prefabList.push_back(std::pair<size_t, Vector2>(1, Vector2(300, 316)));
 	Prefab pref(test);
@@ -171,7 +218,7 @@ void testSave()
 	ground->name = "da kewl ground";
 	ground->GetComponent<TransformComponent>()->position.x = 400;
 	ground->GetComponent<TransformComponent>()->position.y = 550;
-	ground->AddComponent(new HitboxComponent());
+	ground->AddComponent(new HitboxComponent(0,0,40,40));
 	ground->AddComponent(new RenderComponent("ground.marker_1.png"));
 	ground->GetComponent<RenderComponent>()->sprite.setScale(2, 1);
 	ground->GetComponent<HitboxComponent>()->bounding.size.x = ground->GetComponent<HitboxComponent>()->bounding.size.x * 2;
@@ -185,7 +232,7 @@ void testSave()
 	target->name = "testTarget";
 	target->GetComponent<TransformComponent>()->position.x = 580;
 	target->GetComponent<TransformComponent>()->position.y = 480;
-	target->AddComponent(new HitboxComponent());
+	target->AddComponent(new HitboxComponent(0, 0, 40, 40));
 	target->AddComponent(new RenderComponent("testTarget.png"));
 
 	target->AddComponent(new DialogComponent(2));
@@ -204,7 +251,8 @@ void testSave()
 	zone.background = Tile("testBackground_1.png", 400, 300);
 	zone.background.size.x = 4000;
 	zone.background.size.y = 800;
-
+	zone.loadingScreen = Tile("black.png", Vector2(0, 0));
+	zone.loadingScreenMessage = "This is a test";
 	/*zone.foregrounds.push_back(Tile("blacktree_1.png", 250, 50));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 450, 250));
 	zone.foregrounds.push_back(Tile("blacktree_1.png", 400, 250));
@@ -440,6 +488,7 @@ void load(Archive& archive,GameObject& go)
 
 #pragma endregion
 
+#pragma region Components
 #pragma region RenderComponent
 template<class Archive>
 void save(Archive& archive,const RenderComponent& rc)
@@ -672,8 +721,9 @@ void load(Archive& ar,StatsComponent &stats)
 }
 #pragma endregion
 
-//*/
+#pragma endregion
 
+#pragma region ItemTypes
 #pragma region Item
 template <class Archive>
 void save(Archive& ar,const Item& item)
@@ -763,6 +813,7 @@ void load(Archive& ar,Bag& item)
 }
 #pragma endregion
 
+#pragma endregion
 #pragma region Zone
 template<class Archive>
 void save(Archive &ar, const DBZone&zone)
@@ -770,6 +821,8 @@ void save(Archive &ar, const DBZone&zone)
 	ar(zone.name);
 	ar(zone.ID);
 	ar(zone.background);
+	ar(zone.loadingScreen);
+	ar(zone.loadingScreenMessage);
 	ar(zone.prefabList.size());
 	for (size_t i = 0; i < zone.prefabList.size(); i++)
 	{
@@ -787,6 +840,9 @@ void load(Archive &ar,DBZone &zone)
 	ar(zone.ID);
 	ar(t);
 	zone.background = t;
+	ar(t);
+	zone.loadingScreen = t;
+	ar(zone.loadingScreenMessage);
 	ar(size);
 	for (size_t i = 0; i < size; i++)
 	{
@@ -804,6 +860,8 @@ void save(Archive &ar, const Zone&zone)
 	ar(zone.name);
 	ar(zone.ID);
 	ar(zone.background);
+	ar(zone.loadScreen);
+	ar(zone.loadingScreenMessage);
 	ar(zone.objects.size());
 	for (size_t i = 0; i < zone.objects.size(); i++)
 	{
@@ -820,6 +878,9 @@ void load(Archive &ar, Zone &zone)
 	ar(zone.ID);
 	ar(t);
 	zone.background = t;
+	ar(t);
+	zone.loadScreen = t;
+	ar(zone.loadingScreenMessage);
 	ar(size);
 	for (size_t i = 0; i < size; i++)
 	{

@@ -9,7 +9,8 @@ public:
 	unsigned int ID;
 	std::string name;
 	Tile background;
-
+	Tile loadingScreen;
+	std::string loadingScreenMessage;
 	std::vector<std::pair<size_t, Vector2>> prefabList;
 #ifdef _DEBUG
 	bool isRemoved = false;

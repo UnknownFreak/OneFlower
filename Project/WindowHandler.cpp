@@ -101,7 +101,13 @@ int windowMessage()
 			std::cout << "system:" << event.key.system << std::endl;
 			//*/
 		}
-
+		if (Engine::World.getIsLoading())
+		{
+			Engine::World.loadSome();
+			Engine::World.drawLoadingScreen();
+		}
+		else
+		{
 		Engine::Input.update();
 
 		Engine::game.update();
@@ -119,6 +125,7 @@ int windowMessage()
 		//LOW: Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
 		time.FPS();
+		}
 	}
 	return message.wParam;
 }

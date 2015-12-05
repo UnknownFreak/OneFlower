@@ -9,6 +9,13 @@ class Zone;
 class GameObject;
 class WorldManagement
 {
+	enum loadstate {
+		STATE_NOT_SET,
+		STATE_PREPARE_LOAD,
+		STATE_UNLOAD_OBJECTS,
+		STATE_RELOAD_OBJECTS,
+		STATE_DONE,
+	};
 public:
 
 #ifdef _DEBUG
@@ -25,14 +32,19 @@ public:
 	WorldManagement();
 	~WorldManagement();
 	void loadZone(unsigned int zoneID);
+
+	int getCurrentLoadingState();
 	std::map <unsigned int,Zone*> worldmap;
 
 	Zone* getCurrentZone();
+
+	bool getIsLoading();
+
 #ifdef _DEBUG
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
 	void EditorLoadZone(std::string zoneName,unsigned int ID);
 	void EditorRemoveZone();
-	void EditorSaveZone();
+	void EditorSaveZones();
 	void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x,int y);
 
@@ -42,7 +54,19 @@ public:
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 
 #endif
+
+	void drawLoadingScreen();
+	void loadSome();
 private:
+
+	void startLoad();
+
+	int loadState = STATE_NOT_SET;
+	bool isLoading = false;
+	size_t currentObj = 0;
+	size_t totalLoaded = 0;
+	size_t totalToLoad = 0;
+	size_t zoneToLoadID = 0;
 
 	friend bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID);
 	friend void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);

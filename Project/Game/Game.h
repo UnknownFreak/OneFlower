@@ -41,7 +41,7 @@ public:
 
 	void addSprite(Tile* t,bool isBackground = false);
 	void requestRemovealForeground(Tile* t);
-
+	void removealMotion(GameObject* entity);
 private:
 	friend class Mouse;
 	std::vector<GameObject*> motionObjectPointers;
