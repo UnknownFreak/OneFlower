@@ -52,6 +52,7 @@
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp" />
