@@ -60,7 +60,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	}
 }
 // default constructor
-WorldManagement::WorldManagement() : lastLoadedZone(0), currentZone(0), modLoadOrder()
+WorldManagement::WorldManagement() : lastLoadedZone(0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
 {
 	//testSave();
 	if (loadModOrderFile(modLoadOrder) == false)
@@ -91,6 +91,10 @@ WorldManagement::~WorldManagement()
 Zone* WorldManagement::getCurrentZone()
 {
 	return currentZone;
+}
+GUI::Window::Addon::ProgressBar& WorldManagement::getLoadingScreenProgressBar()
+{
+	return loadingScreenProgress;
 }
 bool WorldManagement::getIsLoading()
 {
@@ -127,6 +131,9 @@ void WorldManagement::loadSome()
 #endif
 		Engine::game.addSprite(worldmap[zoneToLoadID]->getBackground(), true);
 		currentZone = worldmap[zoneToLoadID];
+		loadingScreenProgress.setMax(totalToLoad);
+		totalLoaded = 0;
+		currentObj = 0;
 		loadState = STATE_UNLOAD_OBJECTS;
 		break;
 	case STATE_UNLOAD_OBJECTS:
@@ -145,6 +152,7 @@ void WorldManagement::loadSome()
 			Engine::game.requestRemoveal(listOfZoneObjects[currentObj]);
 			currentObj++;
 			totalLoaded++;
+			loadingScreenProgress.setValue(totalLoaded);
 		}
 		else
 			loadState = STATE_RELOAD_OBJECTS;
@@ -154,7 +162,7 @@ void WorldManagement::loadSome()
 		if (currentObj == EditorAllZones[zoneToLoadID].prefabList.size())
 		{
 			loadState = STATE_DONE;
-			currentObj = 0;
+			loadState = 1337;
 			break;
 		}
 		else
@@ -177,12 +185,21 @@ void WorldManagement::loadSome()
 #else
 		// TODO
 #endif
+		loadingScreenProgress.setValue(totalLoaded);
 		}
 		break;	
 	case STATE_DONE:
 		lastLoadedZone = zoneToLoadID;
 		isLoading = false;
 		break;
+#ifdef _DEBUG
+	case 1337:
+		loadingScreenProgress.setMax(1337);
+		totalLoaded++;
+		loadingScreenProgress.setValue(totalLoaded);
+		if (totalLoaded == 1337)
+			loadState = STATE_DONE;
+#endif
 	default:
 		break;
 	}

@@ -4,6 +4,7 @@
 #include "ModLoader.hpp"
 #include "../LoadAndSave/PrefabContainer.hpp"
 #include "../LoadAndSave/DatabaseIndex.hpp"
+#include "../GUI/Window/Addon/ProgressBar.hpp"
 #include "DBZone.hpp"
 class Zone;
 class GameObject;
@@ -29,16 +30,20 @@ public:
 	ModLoader modLoadOrder;
 
 	unsigned int lastLoadedZone;
+
+	
+	std::map <unsigned int,Zone*> worldmap;
+	Zone* getCurrentZone();
+	GUI::Window::Addon::ProgressBar& getLoadingScreenProgressBar();
+
+
 	WorldManagement();
 	~WorldManagement();
+
 	void loadZone(unsigned int zoneID);
+	bool getIsLoading();
 
 	int getCurrentLoadingState();
-	std::map <unsigned int,Zone*> worldmap;
-
-	Zone* getCurrentZone();
-
-	bool getIsLoading();
 
 #ifdef _DEBUG
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
@@ -58,6 +63,8 @@ public:
 	void drawLoadingScreen();
 	void loadSome();
 private:
+
+	GUI::Window::Addon::ProgressBar loadingScreenProgress;
 
 	void startLoad();
 
