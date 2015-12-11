@@ -318,7 +318,8 @@ void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
 	msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
 	msg.setColor(sf::Color(255,255,255));
 	msg.draw();
-	Engine::World.getLoadingScreenProgressBar().draw();
+	GUI::Window::Addon::ProgressBar p(0, 100, 20, Vector2(50,50), Vector2(200,20), false);
+	p.draw();
 	Engine::Graphic.view.render.display();
 }
 
