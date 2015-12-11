@@ -59,6 +59,18 @@ namespace GUI
 				Engine::Graphic.view.render.draw(temporaryOutline);
 				Engine::Graphic.view.render.draw(temporaryBar);
 			}
+			void ProgressBar::setValue(int value)
+			{
+				this->value = value;
+			}
+			void ProgressBar::setMin(int min)
+			{
+				this->min = min;
+			}
+			void ProgressBar::setMax(int max)
+			{
+				this->max = max;
+			}
 		}
 	}
 }
