@@ -5,7 +5,7 @@ namespace GUI
 {
 	namespace Text
 	{
-		FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf"), -1, -1), offset(0, 0), iconName(""), drawIcon(true)
+		FloatingText::FloatingText() : Message(*Engine::Graphic.font.requestFont("Arial.ttf")), offset(0, 0), iconName(""), drawIcon(true)
 		{
 			iconSprite.setTexture(*Engine::Graphic.requestTexture("test.png"), true);
 			createBody("");

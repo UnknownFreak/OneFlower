@@ -45,3 +45,11 @@
 #define ID_DIALOG_RESIZE 3101
 
 #define ID_CheckBox 3001
+
+
+// Treeview item id <temp>
+#define MENU_TREEVIEW_ID 4001
+#define NEW_ 4002
+#define REMOVE_ 4003
+#define EDIT_ 4004
+#define PREVIEW 4005

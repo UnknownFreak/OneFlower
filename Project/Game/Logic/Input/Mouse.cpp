@@ -13,6 +13,15 @@ Mouse::Mouse(): pos(0,0),offset(0,0),LMBPressed(false),RMBPressed(true)
 
 void Mouse::update()
 {
+#ifdef _DEBUG
+	sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Graphic.view.render);
+	sf::Vector2f worldPos = Engine::Graphic.view.render.mapPixelToCoords(pixelPos);
+
+	pos.x = worldPos.x;
+	pos.y = worldPos.y;
+	if (Engine::Graphic.view.render.hasFocus())
+	{
+#else
 	if(Engine::Graphic.view.render.hasFocus())
 	{
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Graphic.view.render);
@@ -20,7 +29,7 @@ void Mouse::update()
 
 		pos.x = worldPos.x;
 		pos.y = worldPos.y;
-
+#endif
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
 #pragma region Left

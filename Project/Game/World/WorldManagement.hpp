@@ -52,7 +52,7 @@ public:
 	void EditorSaveZones();
 	void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x,int y);
-
+	void EditorAddGameObjectToZone(Prefab& prefab,GameObject* go);
 	void RemoveGameObjectFromZone(GameObject* go);
 
 	friend void LoadAllZones(std::map<unsigned int, DBZone>& nameOfAllZones);

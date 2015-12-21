@@ -10,6 +10,7 @@
 #include "../Editor/EditorIDAssigner.hpp"
 #include "Focus/EngineFocusWindow.hpp"
 #include "../../Game/GameView.hpp"
+#include "ListViewer\EnginePrefabListViewer.hpp"
 #include "ListViewer/EngineObjectListViewer.hpp"
 #include "Focus/EngineFocusWindow.hpp"
 #include "Debug/EngineDebugWindow.hpp"
@@ -30,6 +31,9 @@ public:
 	HINSTANCE hInstance;
 
 	HWND hWnd;
+
+	EnginePrefabListViewer prefabList;
+
 	EngineObjectListViewer ListViewer;
 
 	EngineFocus focus;

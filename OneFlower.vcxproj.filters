@@ -261,6 +261,9 @@
     <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -456,6 +459,9 @@
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp">
       <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp">
+      <Filter>Engine\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

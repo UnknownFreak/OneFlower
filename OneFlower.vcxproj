@@ -21,6 +21,7 @@
     <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp" />
     <ClInclude Include="Project\Engine\Window\enginewindow.hpp" />
     <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
@@ -204,7 +206,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.3.1\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
  %(AdditionalOptions)</AdditionalOptions>
     </Link>

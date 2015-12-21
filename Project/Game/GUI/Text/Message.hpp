@@ -29,7 +29,7 @@ namespace GUI
 			//*/
 
 			Message();
-			Message(const sf::Font& font, const double dur = -1, const int length = -1);
+			Message(const sf::Font& font, const double dur = 1, const int length = -1);
 			Message(const Message& msg);
 			virtual ~Message() = default;
 

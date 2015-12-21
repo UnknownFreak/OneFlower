@@ -38,6 +38,7 @@
 
 #include "../../Game/World/Zone.hpp"
 #include "../../Game/GUI/Window/Addon/InputDialog.hpp"
+
 #define SHOW_COMMAND_ID 501
 #define SET_NULL_FOCUS_ID 503
 
@@ -92,6 +93,7 @@ EngineWindow::EngineWindow():size(1366,768)
 
 		debug.init(hWnd);
 		ListViewer.start();
+		prefabList.start();
 		focus.start();
 	}
 }
@@ -105,6 +107,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
 	{
+		case WM_NOTIFY:
+		{
+			LPNMHDR note = (LPNMHDR)lParam;
+			Engine::Window.prefabList.parentWindowNotify(note, lParam);
+			break;
+		}
 		case WM_COMMAND:
 		{
 			switch(LOWORD(wParam))
@@ -383,6 +391,18 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 #pragma endregion
 
 #pragma endregion
+			break;
+		}
+		case WM_MOUSEMOVE:
+		{
+			POINT p;
+			GetCursorPos(&p);
+			Engine::Window.prefabList.onMouseMove(hWnd,p.x,p.y);
+			break;
+		}
+		case WM_LBUTTONUP:
+		{
+			Engine::Window.prefabList.onMouseLUp(hWnd);
 			break;
 		}
 		case WM_CLOSE:

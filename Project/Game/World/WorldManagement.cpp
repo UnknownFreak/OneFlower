@@ -120,6 +120,7 @@ void WorldManagement::loadSome()
 		break;
 	case STATE_PREPARE_LOAD:
 #ifdef _DEBUG
+		Engine::Window.prefabList.Disable();
 		if (lastLoadedZone != 0)
 		{
 			totalToLoad = EditorAllZones[lastLoadedZone].prefabList.size();
@@ -162,7 +163,7 @@ void WorldManagement::loadSome()
 		if (currentObj == EditorAllZones[zoneToLoadID].prefabList.size())
 		{
 			loadState = STATE_DONE;
-			loadState = 1337;
+			//loadState = 1337;
 			break;
 		}
 		else
@@ -189,6 +190,9 @@ void WorldManagement::loadSome()
 		}
 		break;	
 	case STATE_DONE:
+#ifdef _DEBUG
+		Engine::Window.prefabList.Enable();
+#endif
 		lastLoadedZone = zoneToLoadID;
 		isLoading = false;
 		break;
@@ -254,7 +258,12 @@ void WorldManagement::EditorSaveZones()
 	}
 	saveGameDatabase("OneFlower.main", editorPrefabContainer, EditorAllZones);
 }
-
+void WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
+{
+	EditorAllZones[lastLoadedZone].prefabList.push_back(std::pair<size_t, Vector2>(prefab.ID, go->GetComponent<TransformComponent>()->position));
+	currentZone->objects.push_back(std::pair<size_t, GameObject*>(prefab.ID, go));
+	listOfZoneObjects.push_back(go);
+}
 void WorldManagement::EditorSetBackground(std::string name)
 {
 	currentZone->setBackground(name);
@@ -273,7 +282,7 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 		if (currentZone->objects[i].second == go)
 		{
 			EditorAllZones[lastLoadedZone].prefabList.erase(EditorAllZones[lastLoadedZone].prefabList.begin() + i);
-			currentZone->objects.erase(currentZone->objects.begin() + i);
+			//currentZone->objects.erase(currentZone->objects.begin() + i);
 			listOfZoneObjects.erase(listOfZoneObjects.begin() + i);
 			break;
 		}

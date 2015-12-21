@@ -204,6 +204,7 @@ void testSave()
 	zone.ID = 1;
 	zone.name = "test";
 	GameObject *test = new GameObject();
+	test->tag = "debug";
 	test->name = "TestPlatform";
 	test->GetComponent<TransformComponent>()->position.x = 300;
 	test->GetComponent<TransformComponent>()->position.y = 316;
@@ -216,6 +217,7 @@ void testSave()
 
 	GameObject *ground = new GameObject();
 	ground->name = "da kewl ground";
+	ground->tag = "debug";
 	ground->GetComponent<TransformComponent>()->position.x = 400;
 	ground->GetComponent<TransformComponent>()->position.y = 550;
 	ground->AddComponent(new HitboxComponent(0,0,40,40));
@@ -230,6 +232,7 @@ void testSave()
 
 	GameObject *target = new GameObject();
 	target->name = "testTarget";
+	target->tag = "debug";
 	target->GetComponent<TransformComponent>()->position.x = 580;
 	target->GetComponent<TransformComponent>()->position.y = 480;
 	target->AddComponent(new HitboxComponent(0, 0, 40, 40));
