@@ -71,11 +71,16 @@ WorldManagement::WorldManagement() : lastLoadedZone(0), currentZone(0), modLoadO
 #ifdef _DEBUG
 	LoadAllZones(EditorAllZones);
 	LoadAllPrefabs(editorPrefabContainer);
+	LoadAllItems(EditorAllItems);
 #endif
 }
 // deconstructor
 WorldManagement::~WorldManagement()
 {
+	for (std::map<size_t, Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it ++)
+	{
+		delete it->second;
+	}
 	//remove loaded zones
 	for(size_t i = 0; i < worldmap.size(); i++)
 		// if a zone have been unloaded/deleted already
@@ -256,7 +261,7 @@ void WorldManagement::EditorSaveZones()
 	{
 		EditorAllZones[lastLoadedZone].prefabList[i].second = listOfZoneObjects[i]->GetComponent<TransformComponent>()->position;
 	}
-	saveGameDatabase("OneFlower.main", editorPrefabContainer, EditorAllZones);
+	saveGameDatabase("OneFlower.main", editorPrefabContainer, EditorAllZones, EditorAllItems);
 }
 void WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
 {
@@ -288,6 +293,12 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 		}
 	}
 }
+
+std::string WorldManagement::getLoadedMod()
+{
+	return "TODO";
+}
+
 #endif
 #pragma region old
 // TODO remake the load structure

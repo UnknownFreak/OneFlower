@@ -17,8 +17,13 @@ void databaseTestRemove();
 void saveGame(GameObject& player, std::string saveFile);
 void loadGame(GameObject& player, std::string loadFile);
 
+template<class Archive>
+void saveItem(Archive & ar, Item* item);
+template<class Archive>
+void loadItem(Archive & ar, Item*& item);
+
 #ifdef _DEBUG
-void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones);
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems);
 #endif
 void saveInfo(std::map<unsigned int,std::string>zoneInfo);
 //void loadItem(unsigned int ID,Item& item);

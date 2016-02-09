@@ -11,7 +11,7 @@ EquipmentComponent::EquipmentComponent(): helm(NULL),chest(NULL),gloves(NULL),le
 Item* EquipmentComponent::equipArmor(Item* item)
 {
 	if(item)
-		if(item->tag != Item::armor)
+		if(item->getTag() != Item::armor)
 			return false;
 		else
 		{

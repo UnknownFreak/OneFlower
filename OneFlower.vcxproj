@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enchantment.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Engine\Editor\BaseField.hpp" />
     <ClInclude Include="Project\Engine\Editor\EditorField.hpp" />
@@ -19,8 +20,14 @@
     <ClInclude Include="Project\Engine\Editor\UIAddon.hpp" />
     <ClInclude Include="Project\Engine\Resource.h" />
     <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.hpp" />
     <ClInclude Include="Project\Engine\Window\enginewindow.hpp" />
     <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\AttachmentPointDialog.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EffectEnchantDialog.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageField.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeField.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindow.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
@@ -41,6 +48,7 @@
     <ClInclude Include="Project\Game\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
     <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
+    <ClInclude Include="Project\Game\Effect\Effect.hpp" />
     <ClInclude Include="Project\Game\Game.h" />
     <ClInclude Include="Project\Game\GameView.hpp" />
     <ClInclude Include="Project\Game\Gfx.h" />
@@ -61,8 +69,10 @@
     <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp" />
+    <ClInclude Include="Project\Game\Item\Ammo.hpp" />
     <ClInclude Include="Project\Game\Item\Armor.hpp" />
     <ClInclude Include="Project\Game\Item\Bag.hpp" />
+    <ClInclude Include="Project\Game\Item\Consumable.hpp" />
     <ClInclude Include="Project\Game\Item\Item.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
@@ -80,16 +90,21 @@
     <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
     <ClInclude Include="Project\Game\World\Zone.hpp" />
     <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
-    <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp" />
     <ClCompile Include="Project\Engine\Editor\EditorIDAssignerDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.cpp" />
     <ClCompile Include="Project\Engine\Window\EngineWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\AttachmentPointDialogDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EffectEnchantDialogDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageFieldDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeFieldDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
@@ -110,6 +125,7 @@
     <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp" />
+    <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp" />
     <ClCompile Include="Project\Game\GameDefiner.cpp" />
     <ClCompile Include="Project\Game\GameHandler.cpp" />
     <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
@@ -131,8 +147,10 @@
     <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp" />
+    <ClCompile Include="Project\Game\Item\Ammo.cpp" />
     <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\Consumable.cpp" />
     <ClCompile Include="Project\Game\Item\ItemDefiner.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp" />

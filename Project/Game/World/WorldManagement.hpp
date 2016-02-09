@@ -8,6 +8,7 @@
 #include "DBZone.hpp"
 class Zone;
 class GameObject;
+class Item;
 class WorldManagement
 {
 	enum loadstate {
@@ -23,6 +24,7 @@ public:
 	//Probably move this to editor
 	PrefabContainer editorPrefabContainer;
 	std::map<unsigned int, DBZone> EditorAllZones;
+	std::map<unsigned int, Item*> EditorAllItems;
 	//std::vector<std::pair<size_t, Vector2&>> prefabListEditorReference;
 #endif
 	//to be able to remove gameobjects when unloading;
@@ -46,6 +48,9 @@ public:
 	int getCurrentLoadingState();
 
 #ifdef _DEBUG
+
+	std::string getLoadedMod();
+
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
 	void EditorLoadZone(std::string zoneName,unsigned int ID);
 	void EditorRemoveZone();
@@ -57,6 +62,7 @@ public:
 
 	friend void LoadAllZones(std::map<unsigned int, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
+	friend void LoadAllItems(std::map<unsigned int, Item*>& editorAllItems);
 
 #endif
 

@@ -17,16 +17,16 @@ InventoryComponent::InventoryComponent(): maxWeight(150),currentWeight(0),bags({
 	Item itm(0,true,"Boo","ArrowTest.Png",Item::undefined,0.1,12,"Arrows <Debug>");
 	addItem(itm,1);
 	Armor Arm;
-	Arm.ID = 1;
+	//Arm.ID = 1;
 	Arm.armorType = "Helm";
 	addItem(Arm,1);
-	Armor a(3,3,"TestArmorHelm","HelmTest.png",2,24,"ArmorTest","Helm");
+	Armor a(3, 3, "TestArmorHelm", "HelmTest.png", 2, 24, "ArmorTest", "Helm", "HelmTest.png", {});
 	addItem(a,1);
-	Arm.ID = 4;
+	//Arm.ID = 4;
 	Arm.armorType = "Boots";
 	addItem(Arm,1);
 	Bag bg;
-	bg.ID = 2;
+	//bg.ID = 2;
 	addItem(bg,1);
 	addItem(bg,1);
 	addItem(bg,1);
@@ -44,7 +44,7 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 	for(std::vector<Bag*>::iterator it = bags.begin(); it != bags.end(); it++)
 	{
 		Bag *bg = *it;
-		std::pair<Item*,int>* pair = bg->FindNonFilledStack(item.ID);
+		std::pair<Item*,int>* pair = bg->FindNonFilledStack(item.getID());
 		if(pair)
 		{
 			int tmp = 0;
@@ -60,14 +60,14 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 			{
 				numberOfItems = pair->second - STACKSIZE;
 				pair->second = STACKSIZE;
-				currentWeight += pair->first->weight*STACKSIZE;
+				currentWeight += pair->first->getWeight()*STACKSIZE;
 				if(Engine::GUI.inventory.createdInventory)
 					((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 				break;
 			}
 			else
 			{
-				currentWeight += pair->first->weight*numberOfItems;
+				currentWeight += pair->first->getWeight()*numberOfItems;
 			}
 			if(Engine::GUI.inventory.createdInventory)
 				((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
@@ -86,14 +86,14 @@ bool InventoryComponent::addItem(Item& item,int numberOfItems)
 				int tmp = bg->addItem(&item,numberOfItems);
 				if(tmp != -1)
 				{
-					currentWeight += item.weight*numberOfItems;
+					currentWeight += item.getWeight()*numberOfItems;
 					if(Engine::GUI.inventory.createdInventory)
 					{
 						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
-						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.name;
+						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.getName();
 						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
 						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
-						if(item.tag == Item::armor || item.tag == Item::weapon && !Engine::GUI.stats.updateEquipment)
+						if (item.getTag() == Item::armor || item.getTag() == Item::weapon && !Engine::GUI.stats.updateEquipment)
 							Engine::GUI.stats.updateEquipment = true;
 					}
 					return true;
@@ -112,11 +112,11 @@ Item* InventoryComponent::removeItem(int bag,int index,int numberOfItems)
 	if(bags[bag]->items[index].second >= numberOfItems)
 	{
 		bags[bag]->items[index].second -= numberOfItems;
-		currentWeight -= bags[bag]->items[index].first->weight*numberOfItems;
+		currentWeight -= bags[bag]->items[index].first->getWeight()*numberOfItems;
 	}
 	else
 	{
-		currentWeight -= bags[bag]->items[index].first->weight*bags[bag]->items[index].second;
+		currentWeight -= bags[bag]->items[index].first->getWeight()*bags[bag]->items[index].second;
 		numberOfItems = bags[bag]->items[index].second;
 		bags[bag]->items[index].second -= numberOfItems;
 	}
@@ -134,7 +134,7 @@ Item* InventoryComponent::removeItem(int bag,int index,int numberOfItems)
 			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
 			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
 			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
-			if((item->tag == Item::armor || item->tag == Item::weapon) && !Engine::GUI.stats.updateEquipment)
+			if ((item->getTag() == Item::armor || item->getTag() == Item::weapon) && !Engine::GUI.stats.updateEquipment)
 				Engine::GUI.stats.updateEquipment = true;
 			Engine::GUI.tradingWindow.setScrollbarUpdate(true);
 		}
@@ -190,7 +190,7 @@ bool InventoryComponent::swapItem(Bag* first,int firstPair,Bag*second,int second
 }
 bool InventoryComponent::equipBag(Bag* first,int firstPair)
 {
-	if(first->items[firstPair].first->tag == Item::bag && usedBags <= maxBags)
+	if (first->items[firstPair].first->getTag() == Item::bag && usedBags <= maxBags)
 	{
 		std::pair<Item*,int>* it = &first->items[firstPair];
 		Bag* b = (Bag*)it->first;

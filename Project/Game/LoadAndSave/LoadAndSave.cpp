@@ -28,9 +28,12 @@
 #include "..\Component\PickupComponent.hpp"
 #include "..\Component\ProjectilePatternComponent.hpp"
 
+#include "..\Item\Ammo.hpp"
 #include "..\Item\Armor.hpp"
 #include "..\Item\Bag.hpp"
 #include "..\Item\Item.hpp"
+#include "..\Item\Consumable.hpp"
+
 //
 
 #include "LoadAndSave.hpp"
@@ -71,7 +74,7 @@ bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID)
 		ar(trash);
 		size_t iter;
 		ar(iter);
-		for (int i = 0; i < iter; i++)
+		for (size_t i = 0; i < iter; i++)
 		{
 			size_t _zoneToLoad;
 			ar(_zoneToLoad);
@@ -130,7 +133,7 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
-void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones)
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -144,7 +147,7 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<u
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Zone";
-			ind.row = file.tellp();
+			ind.row = (size_t)file.tellp();
 			indexAr(ind);
 			mainAr(it->second);
 			Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -154,24 +157,24 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<u
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Prefab";
-			ind.row = file.tellp();
+			ind.row = (size_t)file.tellp();
 			indexAr(ind);
 			mainAr(it->second);
 			Engine::Window.debug.print("SavingPrefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 		}
-		/*for (loop)
+		for (std::map<size_t, Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
 		{
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Item";
-			ind.row = file.tellp();
+			ind.row = (size_t)file.tellp();
 			indexAr(ind);
-			mainAr(it->second);
+			saveItem(mainAr,it->second);
 			Engine::Window.debug.print("SavingItem - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
-		}*/
+		}
 		ind.ID = 0xffffffff;
 		ind.type = "EoF";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
 		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -271,14 +274,14 @@ void testSave()
 		ind.flags = "-";
 		ind.ID = zone.ID;
 		ind.type = "Zone";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(zone);
 		Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 
 		ind.ID = pref.ID;
 		ind.type = "Prefab";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref);
 		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -286,7 +289,7 @@ void testSave()
 
 		ind.ID = pref2.ID;
 		ind.type = "Prefab";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref2);
 		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -294,7 +297,7 @@ void testSave()
 
 		ind.ID = pref3.ID;
 		ind.type = "Prefab";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref3);
 		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -302,7 +305,7 @@ void testSave()
 
 		ind.ID = 0xffffffff;
 		ind.type = "";
-		ind.row = file.tellp();
+		ind.row = (size_t)file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
 		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
@@ -727,6 +730,48 @@ void load(Archive& ar,StatsComponent &stats)
 #pragma endregion
 
 #pragma region ItemTypes
+template<class Archive>
+void saveItem(Archive & ar, Item* item)
+{
+	ar(item->getTag());
+	if (item->getTag() == Item::ammo)
+		ar(*(Ammo*)item);
+	else if (item->getTag() == Item::armor)
+		ar(*(Armor*)item);
+	else if (item->getTag() == Item::bag)
+		ar(*(Bag*)item);
+	else // default item
+		ar(*item);
+}
+template<class Archive>
+void loadItem(Archive & ar, Item*& item)
+{
+	size_t tag; // size_t 4294967295 = int -1
+	ar(tag);
+	if (tag == Item::ammo)
+	{
+		item = new Ammo();
+		ar(*(Ammo*)item);
+	}
+	else if (tag == Item::armor)
+	{
+		item = new Armor();
+		ar(*(Armor*)item);
+	}
+	else if (tag == Item::bag)
+	{
+		item = new Bag();
+		ar(*(Bag*)item);
+	}
+	else // default item
+	{
+		item = new Item();
+		ar(*item);
+	}
+	Engine::Window.prefabList.addItem(item);
+}
+#pragma endregion
+
 #pragma region Item
 template <class Archive>
 void save(Archive& ar,const Item& item)
@@ -739,6 +784,13 @@ void save(Archive& ar,const Item& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
+	ar(item.attachmentPoints.size());
+	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+	{
+		ar(it->first);
+		ar(it->second.x);
+		ar(it->second.y);
+	}
 }
 template <class Archive>
 void load(Archive& ar,Item& item)
@@ -751,6 +803,70 @@ void load(Archive& ar,Item& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
+	size_t len;
+	std::string s;
+	Vector2 v;
+	ar(len);
+	for (size_t i = 0; i < len; i++)
+	{
+		ar(s);
+		ar(v.x);
+		ar(v.y);
+		if (s != "Default")
+			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+	}
+}
+#pragma endregion
+
+#pragma region Ammo
+template <class Archive>
+void save(Archive& ar, const Ammo& item)
+{
+	ar(item.ID);
+	ar(item.description);
+	ar(item.iconName);
+	ar(item.name);
+	ar(item.price);
+	ar(item.stackable);
+	ar(item.tag);
+	ar(item.weight);
+	ar(item.ammoType);
+	ar(item.damage);
+	ar(item.ammoSprite);
+	ar(item.attachmentPoints.size());
+	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+	{
+		ar(it->first);
+		ar(it->second.x);
+		ar(it->second.y);
+	}
+}
+template <class Archive>
+void load(Archive& ar, Ammo& item)
+{
+	ar(item.ID);
+	ar(item.description);
+	ar(item.iconName);
+	ar(item.name);
+	ar(item.price);
+	ar(item.stackable);
+	ar(item.tag);
+	ar(item.weight);
+	ar(item.ammoType);
+	ar(item.damage);
+	ar(item.ammoSprite);
+	size_t len;
+	std::string s;
+	Vector2 v;
+	ar(len);
+	for (size_t i = 0; i < len; i++)
+	{
+		ar(s);
+		ar(v.x);
+		ar(v.y);
+		if (s != "Default")
+			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+	}
 }
 #pragma endregion
 
@@ -768,7 +884,14 @@ void save(Archive& ar,const Armor& item)
 	ar(item.weight);
 	ar(item.armorIcon);
 	ar(item.armorType);
-	ar(item..defense);
+	ar(item.defense);
+	ar(item.attachmentPoints.size());
+	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+	{
+		ar(it->first);
+		ar(it->second.x);
+		ar(it->second.y);
+	}
 }
 template <class Archive>
 void load(Archive& ar,Armor& item)
@@ -783,13 +906,25 @@ void load(Archive& ar,Armor& item)
 	ar(item.weight);
 	ar(item.armorIcon);
 	ar(item.armorType);
-	ar(item..defense);
+	ar(item.defense);
+	size_t len;
+	std::string s;
+	Vector2 v;
+	ar(len);
+	for (size_t i = 0; i < len; i++)
+	{
+		ar(s);
+		ar(v.x);
+		ar(v.y);
+		if (s != "Default")
+			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+	}
 }
 #pragma endregion
 
 #pragma region Bag
 template<class Archive>
-void save(Archive& ar,const Bag& item)
+void save(Archive& ar, const Bag& item)
 {
 	ar(item.ID);
 	ar(item.description);
@@ -800,9 +935,20 @@ void save(Archive& ar,const Bag& item)
 	ar(item.tag);
 	ar(item.weight);
 	ar(item.size);
+	ar(item.freeSlots);
+	for (int i = 0; i < item.size; i++)
+	{
+		bool b = (item.items[i].first != NULL);
+		ar(b);
+		if (b)
+		{
+			ar(*item.items[i].first);
+			ar(item.items[i].second);
+		}
+	}
 }
 template<class Archive>
-void load(Archive& ar,Bag& item)
+void load(Archive& ar, Bag& item)
 {
 	ar(item.ID);
 	ar(item.description);
@@ -813,10 +959,48 @@ void load(Archive& ar,Bag& item)
 	ar(item.tag);
 	ar(item.weight);
 	ar(item.size);
+	ar(item.freeSlots);
+	item.items = std::vector<std::pair<Item*, int>>(item.size, std::pair<Item*, int>(NULL, 0));
+	for (int i = 0; i < item.size; i++)
+	{
+		bool b;
+		ar(b);
+		if (b)
+		{
+			ar(*item.items[i].first);
+			ar(item.items[i].second);
+		}
+	}
 }
 #pragma endregion
 
+#pragma region Consumable
+template<class Archive>
+void save(Archive& ar, const Consumable& item)
+{
+	ar(item.ID);
+	ar(item.description);
+	ar(item.iconName);
+	ar(item.name);
+	ar(item.price);
+	ar(item.stackable);
+	ar(item.tag);
+	ar(item.weight);
+}
+template<class Archive>
+void load(Archive& ar, Consumable& item)
+{
+	ar(item.ID);
+	ar(item.description);
+	ar(item.iconName);
+	ar(item.name);
+	ar(item.price);
+	ar(item.stackable);
+	ar(item.tag);
+	ar(item.weight);
+}
 #pragma endregion
+
 #pragma region Zone
 template<class Archive>
 void save(Archive &ar, const DBZone&zone)
@@ -1107,7 +1291,7 @@ void save(Archive& ar,const Prefab& pre)
 	ar(pre.ID);
 	ar(pre.base.size());
 	size_t size = pre.base.size();
-	for(int i = 0; i < size; ++i)
+	for(size_t i = 0; i < size; ++i)
 	{
 		const unsigned int type = (Prefab(pre)).getTypeID(i);
 		ar(type);
@@ -1314,8 +1498,8 @@ void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID)
 						database.seekg(ind.row);
 						cereal::BinaryInputArchive zoneLoad(database);
 						zoneLoad(zoneToLoad);
-						if (zoneToLoad.ID == zoneID);
-							break;
+						if (zoneToLoad.ID == zoneID)
+							return;
 					}
 					else if (ind.flags == "EoF")
 						eof = true;
@@ -1400,4 +1584,45 @@ void LoadAllPrefabs(PrefabContainer& pre)
 		}
 	}
 }
+void LoadAllItems(std::map<unsigned int,Item*>& item)
+{
+	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "Item")
+					{
+						std::map<unsigned int, Item*>::iterator it = item.find(ind.ID);
+						if (it != item.end())
+						{
+							// stuff exist add extra things to item
+							// or override
+							// or ignore
+						}
+						else
+						{
+							database.seekg(ind.row);
+							Item* tmp = NULL;
+							cereal::BinaryInputArchive itemLoad(database);
+							loadItem(itemLoad, tmp);
+							item.insert(std::pair<unsigned int, Item*>(tmp->getID(), tmp));
+						}
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
+
 #pragma endregion

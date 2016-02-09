@@ -209,18 +209,18 @@ namespace GUI
 											if (substr[iit + 4] == "Helm")
 												if (ecp->helm)
 													second = ecp->helm->defense;
-												else if (substr[iit + 4] == "Chest")
-													if (ecp->chest)
-														second = ecp->chest->defense;
-													else if (substr[iit + 4] == "Gloves")
-														if (ecp->gloves)
-															second = ecp->gloves->defense;
-														else if (substr[iit + 4] == "Leggings")
-															if (ecp->leggings)
-																second = ecp->leggings->defense;
-															else if (substr[iit + 4] == "Boots")
-																if (ecp->boots)
-																	second = ecp->boots->defense;
+											else if (substr[iit + 4] == "Chest")
+												if (ecp->chest)
+													second = ecp->chest->defense;
+											else if (substr[iit + 4] == "Gloves")
+												if (ecp->gloves)
+													second = ecp->gloves->defense;
+											else if (substr[iit + 4] == "Leggings")
+												if (ecp->leggings)
+													second = ecp->leggings->defense;
+											else if (substr[iit + 4] == "Boots")
+												if (ecp->boots)
+													second = ecp->boots->defense;
 									}
 									int split = first - second;
 									if (split < 0)

@@ -3,6 +3,11 @@
 Bag::Bag(): Item(0,false,"None","InventoryIconTest.png",Item::bag,0,0,"15 Slot bag. <Debug>"),size(15),freeSlots(15),items(size,std::pair<Item*,int>(NULL,0))
 {
 }
+Bag::Bag(unsigned int ID, std::string name, std::string iconName, double weight, int price, std::string description, int size) :
+Item(ID, false, name, iconName, Item::bag, weight, price, description), size(size), freeSlots(size), items(size,std::pair<Item*,int>(NULL,0))
+{
+
+}
 
 Bag::~Bag()
 {
@@ -38,7 +43,7 @@ std::pair<Item*,int>* Bag::findItem(int ID)
 {
 	for(std::vector<std::pair<Item*,int>>::iterator it = items.begin(); it != items.end(); ++it)
 	{
-		if(it->first->ID == ID)
+		if(it->first->getID() == ID)
 			return &*it;
 	}
 	return NULL;
@@ -50,7 +55,7 @@ std::pair<Item*,int>* Bag::FindNonFilledStack(int ID)
 	for(std::vector<std::pair<Item*,int>>::iterator it = items.begin(); it != items.end(); ++it)
 	{
 		if(it->first)
-			if(it->first->ID == ID && it->first->stackable)
+			if(it->first->getID() == ID && it->first->getStackable())
 				if(it->second < STACKSIZE)
 					return &*it;
 	}
@@ -73,19 +78,19 @@ int Bag::addItem(Item *item,int numberOfItems)
 	std::vector<std::pair<Item*,int>>::iterator it = items.begin() + i;
 	if(it->first)
 		delete it->first;
-	if(item->tag == Item::armor)
+	if(item->getTag() == Item::armor)
 	{
 		Armor* arm = (Armor*)item;
 		it->first = new Armor(*arm);
 		it->second = numberOfItems;
 	}
-	else if(item->tag == Item::bag)
+	else if (item->getTag() == Item::bag)
 	{
 		Bag* arm = (Bag*)item;
 		it->first = new Bag(*arm);
 		it->second = numberOfItems;
 	}
-	else if(item->tag == Item::undefined)
+	else if (item->getTag() == Item::undefined)
 	{
 		Item* arm = (Item*)item;
 		it->first = new Item(*arm);

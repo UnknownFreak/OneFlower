@@ -1,15 +1,50 @@
 #include "Item.hpp"
 #include "../../Engine.hpp"
-Item::Item(): ID(0),stackable(true),name("NotSet"),iconName("InventoryIconTest.png"),icon(*Engine::Graphic.requestTexture(iconName)),tag(undefined),weight(0),price(11110),description("Nan")
+Item::Item() : ID(0), stackable(true), name("NotSet"), iconName("InventoryIconTest.png"), icon(*Engine::Graphic.requestTexture(iconName)), tag(undefined), weight(0), price(11110), description("Nan"), attachmentPoints({ { "Default", Vector2(0, 0) } })
 {
 }
-Item::Item(int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description) : ID(ID),stackable(stackable),name(name),iconName(iconName),icon(*Engine::Graphic.requestTexture(iconName)),tag(tag),weight(weight),price(price),description(description)
+Item::Item(unsigned int ID, bool stackable, std::string name, std::string iconName, int tag, double weight, int price, std::string description) : ID(ID), stackable(stackable), name(name), iconName(iconName), icon(*Engine::Graphic.requestTexture(iconName)), tag(tag), weight(weight), price(price), description(description), attachmentPoints({ { "Default", Vector2(0, 0) } })
 {
 }
-Item::Item(const Item& item) : ID(item.ID),stackable(item.stackable),name(item.name),iconName(item.iconName),price(item.price),icon(*Engine::Graphic.requestTexture(iconName)),weight(item.weight),tag(item.tag),description(item.description)
+Item::Item(const Item& item) : ID(item.ID), stackable(item.stackable), name(item.name), iconName(item.iconName), price(item.price), icon(*Engine::Graphic.requestTexture(iconName)), weight(item.weight), tag(item.tag), description(item.description), attachmentPoints({ { "Default", Vector2(0, 0) } })
 {
 }
-
+Vector2& Item::getAttachmentPoint(std::string& name)
+{
+	std::map<std::string, Vector2>::iterator it = attachmentPoints.find(name);
+	if (it != attachmentPoints.end())
+		return it->second;
+	else
+		return attachmentPoints.find("Default")->second;
+}
+bool Item::getStackable()
+{
+	return stackable;
+}
+std::string Item::getName()
+{
+	return name;
+}
+std::string Item::getIconName()
+{
+	return iconName;
+}
+double Item::getWeight()
+{
+	return weight;
+}
+int Item::getPrice()
+{
+	return price;
+}
+unsigned int Item::getTag()
+{
+	return tag;
+}
+unsigned int Item::getID()
+{
+	return ID;
+}
 Item& Item::operator=(const Item& other)
 {
 	ID = other.ID;
@@ -22,6 +57,33 @@ Item& Item::operator=(const Item& other)
 	tag = other.tag;
 	return *this;
 }
+std::string Item::getTagAsString()
+{
+	switch (tag)
+	{
+	case undefined:
+		return "Undefined";
+	case bag:
+		return "Bag";
+	case armor:
+		return "Armor";
+	case weapon:
+		return "Weapon";
+	case consumable:
+		return "Consumable";
+	case craftingMaterial:
+		return "CraftingMaterial";
+	case junk:
+		return "Junk";
+	case ammo:
+		return "Ammo";
+	case trophy:
+		return "Trophy";
+	default:
+		return "None";
+	}
+}
+
 std::string Item::toToolTipString()
 {
 	std::string _tag;

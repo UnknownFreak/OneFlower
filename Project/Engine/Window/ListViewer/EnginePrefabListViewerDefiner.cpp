@@ -2,6 +2,9 @@
 #include "EnginePrefabListViewer.hpp"
 #include "../../../Engine.hpp"
 #include "../../Resource.h"
+#include "../../../Game/Item/Item.hpp"
+#include "../../../Game/Item/Armor.hpp"
+#include "../../../Game/Item/Ammo.hpp"
 EnginePrefabListViewer::~EnginePrefabListViewer()
 {
 	DestroyWindow(hWnd);
@@ -10,25 +13,29 @@ EnginePrefabListViewer::~EnginePrefabListViewer()
 }
 void EnginePrefabListViewer::start()
 {
+	//prolly move this.
 	InitCommonControls();
 	size.x = 256+128;
 	size.y = 512;
-	RECT window = EditorUI::GetLocalCoordinates(Engine::Window.hWnd);
-	RECT screen = EditorUI::GetClientCoordinates(Engine::Window.hWnd);
-	hWnd = CreateWindowEx(0, WC_TREEVIEW, "Prefab Viewer",
-		WS_VISIBLE /*| LBS_DISABLENOSCROLL | LBS_HASSTRINGS | LBS_NOTIFY | LBS_STANDARD*/ | TVS_HASBUTTONS | TVS_TRACKSELECT | TVS_HASLINES |TVIS_DROPHILITED,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		size.x, size.y, Engine::Window.hWnd, NULL, Engine::Window.hInstance, NULL);
 
 	wierdHackMenu = CreatePopupMenu();
 	rightClickMenu = LoadMenu(Engine::Window.hInstance, (LPCSTR)MENU_TREEVIEW_ID);
 	AppendMenu(wierdHackMenu, MF_POPUP, (UINT_PTR)rightClickMenu, "Hack");
+
+	hWnd = CreateWindowEx(0, WC_TREEVIEW, "Prefab Viewer",
+		WS_VISIBLE | TVS_HASBUTTONS | TVS_TRACKSELECT | TVS_HASLINES | TVIS_DROPHILITED | TVS_LINESATROOT,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		size.x, size.y, Engine::Window.hWnd, NULL, Engine::Window.hInstance, NULL);
+
 	inserter.item.mask = TVIF_TEXT;
 	addLabel(NULL, "Prefabs", false);
 	addLabel(NULL, "Items", false);
+	addLabel(NULL, "Effects", false);
 	addLabel(NULL, "Quests", false);
-	
+	addLabel(NULL, "Sound", false);
 
+	itemCreator.start();
+	
 }
 
 void EnginePrefabListViewer::addLabel(HTREEITEM p, std::string labelName, bool subTree)
@@ -38,7 +45,6 @@ void EnginePrefabListViewer::addLabel(HTREEITEM p, std::string labelName, bool s
 	inserter.hInsertAfter = (subTree == true) ? TVI_LAST : TVI_ROOT;
 	parent = (HTREEITEM)SendMessage(hWnd, TVM_INSERTITEM, 0, (LPARAM)&inserter);
 	labels.insert(std::pair<std::string,HTREEITEM>(labelName, parent));
-
 }
 void EnginePrefabListViewer::addPrefab(Prefab& prefab)
 {
@@ -68,28 +74,110 @@ void EnginePrefabListViewer::addItem(HTREEITEM p, Prefab& prefab)
 	inserter.item.pszText = (LPSTR)prefab.name.c_str();
 	inserter.hInsertAfter = TVI_LAST;
 	parent = (HTREEITEM)SendMessage(hWnd, TVM_INSERTITEM, 0, (LPARAM)&inserter);
-	prefabs.insert(std::pair<Prefab*,HTREEITEM>(&prefab, parent));
+	prefabs.insert(std::pair<Prefab*, HTREEITEM>(&prefab, parent));
 	TreeView_SortChildren(hWnd, p, FALSE);
 }
+void EnginePrefabListViewer::addItem(HTREEITEM p, Item& item)
+{
+	std::string name = item.getName();
+	inserter.hParent = p;
+	inserter.item.pszText = (LPSTR)name.c_str();
+	inserter.hInsertAfter = TVI_LAST;
+	parent = (HTREEITEM)SendMessage(hWnd, TVM_INSERTITEM, 0, (LPARAM)&inserter);
+	items.insert(std::pair<Item*, HTREEITEM>(&item, parent));
+	TreeView_SortChildren(hWnd, p, FALSE);
+}
+void EnginePrefabListViewer::removeItem(Item& item)
+{
+	std::map<Item*, HTREEITEM>::iterator it = items.find(&item);
+	if (it != items.end())
+	{
+		SendMessage(hWnd, TVM_DELETEITEM, 0, (LPARAM)it->second);
+		items.erase(it);
+	}
+}
+void EnginePrefabListViewer::addItem(Item* item)
+{
+	std::string secondTag = "NotDefined";
+	std::map<std::string, HTREEITEM>::iterator it = labels.find(item->getTagAsString());
+	if (item->getTagAsString() == "Armor")
+	{
+		Armor* arm = ((Armor*)item);
+		secondTag = arm->armorType;
+		it = labels.find(secondTag);
+	}
+	else if (item->getTagAsString() == "Weapon")
+	{
+		//secondTag = ((Weapon*)&item)->armorType;
+		//it = labels.find(secondTag);
+	}
+	else if (item->getTagAsString() == "Ammo")
+	{
+		Ammo* a = ((Ammo*)item);
+		secondTag = a->ammoType;
+		it = labels.find(secondTag);
+	}
 
+	if (it != labels.end())
+	{
+		addItem(it->second, *item);
+	}
+	else
+	{
+		if (secondTag == "NotDefined")
+		{
+			addLabel(labels.find("Items")->second, item->getTagAsString(), true);
+			addItem(labels.find(item->getTagAsString())->second, *item);
+		}
+		else
+		{
+			if (labels.find(item->getTagAsString()) != labels.end())
+				addLabel(labels.find(item->getTagAsString())->second, secondTag, true);
+			else
+			{
+				addLabel(labels.find("Items")->second, item->getTagAsString(), true);
+				addLabel(labels.find(item->getTagAsString())->second, secondTag, true);
+			}
+			addItem(labels.find(secondTag)->second, *item);
+		}
+	}
+}
 void EnginePrefabListViewer::parentWindowNotify(LPNMHDR note, LPARAM lParam)
 {
 	if (note->hwndFrom == hWnd) // checks that it's the correct window
 	{
 		switch (note->code)
 		{
-		case NM_RCLICK:
-		{
-			POINT cursor;
-			GetCursorPos(&cursor);
-			TrackPopupMenu(rightClickMenu, TPM_RIGHTBUTTON, cursor.x, cursor.y, NULL, hWnd, NULL);
-		}
-		case TVN_BEGINDRAG:
-		{
-			onBeginDrag((LPNMTREEVIEW)lParam);
-		}
-		default:
-			break;
+			case NM_RCLICK:
+			{
+				POINT cursor;
+				GetCursorPos(&cursor);
+				BOOL rtn = TrackPopupMenu(rightClickMenu, TPM_RIGHTBUTTON | TPM_RETURNCMD, cursor.x, cursor.y, NULL, Engine::Window.hWnd, NULL);
+
+				switch (rtn)
+				{
+				#pragma region Treeview_Menu
+				case NEW_PREFAB:
+					break;
+				case NEW_ITEM:
+				{
+					itemCreator.show();
+					break;
+				}
+				case PREVIEW:
+					break;
+				default:
+					break;
+				}
+				#pragma endregion
+				break;
+			}
+			case TVN_BEGINDRAG:
+			{
+				onBeginDrag((LPNMTREEVIEW)lParam);
+			}
+			default:
+				break;
 		}
 	}
 }
@@ -129,11 +217,6 @@ void EnginePrefabListViewer::onMouseMove(HWND parent, LONG x, LONG y)
 
 		test.pt.x = p.x;
 		test.pt.y = p.y;
-		/*if ((hiTarget = TreeView_HitTest(hWnd, &test)) != NULL)
-		{
-			TreeView_SelectDropTarget(hWnd, hiTarget);
-		}
-		//*/
 		ImageList_DragShowNolock(TRUE);
 	}
 }
@@ -142,12 +225,12 @@ void EnginePrefabListViewer::onMouseLUp(HWND parent)
 
 	if (isDragging)
 	{
-		HTREEITEM Destination = TreeView_GetSelection(hWnd);
-		if (Destination != NULL)
+		HTREEITEM destination = TreeView_GetSelection(hWnd);
+		if (destination != NULL)
 		{
 			//Todo
-			std::map<Prefab*, HTREEITEM>::iterator it = prefabs.begin();
-			std::map<Prefab*, HTREEITEM>::iterator eit = prefabs.end();
+			std::map<Prefab*, HTREEITEM>::iterator pit = prefabs.begin();
+			std::map<Prefab*, HTREEITEM>::iterator peit = prefabs.end();
 			POINT p;
 			RECT r;
 			GetCursorPos(&p);
@@ -156,14 +239,14 @@ void EnginePrefabListViewer::onMouseLUp(HWND parent)
 
 			if (r.left < p.x && p.x < r.right && r.top < p.y && p.y < r.bottom)
 			{ 
-				for (it; it != eit; it++)
+				for (pit; pit != peit; pit++)
 				{
-					if (it->second == Destination)
+					if (pit->second == destination)
 					{
-						GameObject* go = it->first->createFromPrefab();
+						GameObject* go = pit->first->createFromPrefab();
 						Engine::game.addGameObject(go);
 						go->GetComponent<TransformComponent>()->position = Engine::Input.mouse.pos;
-						Engine::World.EditorAddGameObjectToZone(*it->first,go);
+						Engine::World.EditorAddGameObjectToZone(*pit->first,go);
 					}
 				}
 			}

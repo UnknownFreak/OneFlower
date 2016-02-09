@@ -1,5 +1,5 @@
 #include "FloatingText.hpp"
-#include "../../../Gfx.h"
+#include "../../../Game/Gfx.h"
 #include "../../../Engine.hpp"
 namespace GUI
 {
@@ -122,7 +122,7 @@ namespace GUI
 		void FloatingText::setIcon(std::string name)
 		{
 			iconName = name;
-			if (!Engine::Graphic.loadTexture(iconName))
+			if (!Engine::Graphic.requestTexture(iconName))
 #ifdef _DEBUG
 				throw MissingIconException(this->iconSprite);
 #else

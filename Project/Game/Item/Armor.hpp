@@ -14,7 +14,7 @@ public:
 		Boots
 	};
 	Armor();
-	Armor(int ID,int defense,std::string name,std::string iconName,double weight,int price,std::string description,std::string armorType);
+	Armor(unsigned int ID,int defense,std::string name,std::string iconName,double weight,int price,std::string description,std::string armorType, std::string armorSprite, std::map<std::string,Vector2>attachPoints);
 	Armor(const Armor& armor);
 	Armor& operator=(const Armor& other);
 
@@ -22,7 +22,7 @@ public:
 
 	std::string armorType;
 	std::string armorIcon;
-	sf::Sprite armorSprite;
+	sf::Sprite sprite;
 
 	std::string toToolTipString();
 

@@ -1,7 +1,9 @@
 #ifndef Item_HPP
 #define Item_HPP
+#include <map>
 #include <string>
 #include <SFML\Graphics\Sprite.hpp>
+#include "../../Vector.h"
 class Item
 {
 public:
@@ -18,10 +20,23 @@ public:
 		trophy
 	};
 	Item();
-	Item(int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description);
+	Item(unsigned int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description);
 	Item(const Item& item);
 	Item& operator=(const Item& other);
+	std::string getTagAsString();
+	std::string getName();
+	std::string getIconName();
+	Vector2& getAttachmentPoint(std::string& name);
+	virtual std::string toToolTipString();
 	virtual ~Item() = default;
+	double getWeight();
+	unsigned int getID();
+	unsigned int getTag();
+	int getPrice();
+	bool getStackable();
+	sf::Sprite icon;
+protected:
+	
 
 	unsigned int ID;
 	bool stackable;
@@ -32,9 +47,8 @@ public:
 	std::string description;
 	std::string name;
 	std::string iconName;
-	sf::Sprite icon;
-
-	virtual std::string toToolTipString();
+	
+	std::map<std::string, Vector2> attachmentPoints;
 private:
 
 	template<class Archive>

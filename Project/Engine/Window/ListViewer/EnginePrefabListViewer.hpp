@@ -7,18 +7,28 @@
 
 #include "../../../Vector.h"
 #include "../../../Game/LoadAndSave/Prefab.hpp"
+#include "../ItemCreator/EngineItemCreatorWindow.hpp"
+class Item;
+class Quest;
 class EnginePrefabListViewer
 {
 public:
 	~EnginePrefabListViewer();
 	void start();
-
+	EngineItemCreator itemCreator;
 	HMENU rightClickMenu;
 	HWND hWnd;
 	Vector2 size;
 
 	void addPrefab(Prefab& prefab);
 	void removePrefab(Prefab& prefab);
+
+	void addItem(Item* item);
+	void removeItem(Item& item);
+
+	void addQuest(Quest& quset);
+	void removeQuet(Quest& quest);
+
 	void parentWindowNotify(LPNMHDR note, LPARAM lParam);
 
 	void onMouseMove(HWND parent,LONG x, LONG y);
@@ -28,13 +38,22 @@ public:
 	// enables viewer after load
 	void Enable();
 private:
+
+	void removeSelected();
+	void editSelected();
+	void previewSelected();
+
 	void onBeginDrag(LPNMTREEVIEW idrag);
 	bool isDragging;
 	HMENU wierdHackMenu;
 	void addItem(HTREEITEM parent, Prefab& prefab);
+	void addItem(HTREEITEM parent, Item& prefab);
 	void addLabel(HTREEITEM parent, std::string labelName, bool subTree);
+	void addITem(HTREEITEM parent, Quest& quest);
 	std::map<std::string, HTREEITEM> labels;
 	std::map<Prefab*, HTREEITEM> prefabs;
+	std::map<Item*, HTREEITEM> items;
+	std::map<Quest*, HTREEITEM> quests;
 	HTREEITEM parent;
 
 	TV_INSERTSTRUCT inserter;

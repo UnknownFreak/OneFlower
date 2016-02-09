@@ -8,18 +8,20 @@ class Bag: public Item
 public:
 
 	Bag();
+	Bag(unsigned int ID, std::string name, std::string iconName, double weight, int price, std::string description, int size);
 	Bag(const Bag& bag);
 	~Bag();
 	Bag& operator=(const Bag& other);
+
 	int size;
 	int freeSlots;
+	std::vector<std::pair<Item*, int>> items;
 
 	int addItem(Item* item,int numberOfItems);
+	int findFirstEmptySlot();
 
-	std::vector<std::pair<Item*,int>> items;
 	std::pair<Item*,int>* FindNonFilledStack(int ID);
 	std::pair<Item*,int>* findItem(int ID);
-	int findFirstEmptySlot();
 	std::string toToolTipString();
 private:
 

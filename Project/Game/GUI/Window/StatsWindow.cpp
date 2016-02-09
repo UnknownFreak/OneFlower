@@ -102,8 +102,8 @@ namespace GUI
 						for (it; it != inv->bags[i]->items.end(); ++it)
 						{
 							if (it->first)
-								if (it->first->tag == Item::armor || it->first->tag == Item::weapon)
-									items.sprites.push_back(new Addon::WindowIcon(it->first->icon, it->first->name, it->first->toToolTipString(), "", Vector2(0, 0), std::pair<int, int>(i, ii)));
+								if (it->first->getTag() == Item::armor || it->first->getTag() == Item::weapon)
+									items.sprites.push_back(new Addon::WindowIcon(it->first->icon, it->first->getName(), it->first->toToolTipString(), "", Vector2(0, 0), std::pair<int, int>(i, ii)));
 							ii++;
 						}
 					}
@@ -132,7 +132,7 @@ namespace GUI
 								if (mouseInsideIcon(equip->helm->icon) && !items.movingItem && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 									mouseInsideIcon(equip->helm->icon) && !items.movingItem && !Engine::GUI.focusedWindow->checkMouseInside())
 								{
-									Engine::GUI.openedWindowToolTip.setToolTipText(equip->helm->name, equip->helm->toToolTipString());
+									Engine::GUI.openedWindowToolTip.setToolTipText(equip->helm->getName(), equip->helm->toToolTipString());
 									Engine::GUI.drawOpenedWindowToolTip = true;
 								}
 							}
@@ -151,7 +151,7 @@ namespace GUI
 								swap(equip->chest->icon, go, equip, "Chest");
 								if (mouseInsideIcon(equip->chest->icon) && !items.movingItem)
 								{
-									Engine::GUI.openedWindowToolTip.setToolTipText(equip->chest->name, equip->chest->toToolTipString());
+									Engine::GUI.openedWindowToolTip.setToolTipText(equip->chest->getName(), equip->chest->toToolTipString());
 									Engine::GUI.drawOpenedWindowToolTip = true;
 								}
 							}
@@ -170,7 +170,7 @@ namespace GUI
 								swap(equip->gloves->icon, go, equip, "Gloves");
 								if (mouseInsideIcon(equip->gloves->icon) && !items.movingItem)
 								{
-									Engine::GUI.openedWindowToolTip.setToolTipText(equip->gloves->name, equip->gloves->toToolTipString());
+									Engine::GUI.openedWindowToolTip.setToolTipText(equip->gloves->getName(), equip->gloves->toToolTipString());
 									Engine::GUI.drawOpenedWindowToolTip = true;
 								}
 							}
@@ -189,7 +189,7 @@ namespace GUI
 								swap(equip->leggings->icon, go, equip, "Leggings");
 								if (mouseInsideIcon(equip->leggings->icon) && !items.movingItem)
 								{
-									Engine::GUI.openedWindowToolTip.setToolTipText(equip->leggings->name, equip->leggings->toToolTipString());
+									Engine::GUI.openedWindowToolTip.setToolTipText(equip->leggings->getName(), equip->leggings->toToolTipString());
 									Engine::GUI.drawOpenedWindowToolTip = true;
 								}
 							}
@@ -208,7 +208,7 @@ namespace GUI
 								swap(equip->boots->icon, go, equip, "Boots");
 								if (mouseInsideIcon(equip->boots->icon) && !items.movingItem)
 								{
-									Engine::GUI.openedWindowToolTip.setToolTipText(equip->boots->name, equip->boots->toToolTipString());
+									Engine::GUI.openedWindowToolTip.setToolTipText(equip->boots->getName(), equip->boots->toToolTipString());
 									Engine::GUI.drawOpenedWindowToolTip = true;
 								}
 							}
@@ -285,7 +285,7 @@ namespace GUI
 
 									delete items.sprites[items.selectedBag];
 									items.sprites[items.selectedBag] = new Addon::WindowIcon(icp->bags[pair.first]->items[pair.second].first->icon,
-										icp->bags[pair.first]->items[pair.second].first->name,
+										icp->bags[pair.first]->items[pair.second].first->getName(),
 										icp->bags[pair.first]->items[pair.second].first->toToolTipString(), "", Vector2(0, 0), pair);
 									if (Engine::GUI.inventory.createdInventory)
 									{
@@ -295,7 +295,7 @@ namespace GUI
 										std::pair<int, int> pair = tmp->index;
 										delete Engine::GUI.inventory.scroll.sprites[ii];
 										Engine::GUI.inventory.scroll.sprites[ii] = new Addon::WindowIcon(icon,
-											icp->bags[pair.first]->items[pair.second].first->name,
+											icp->bags[pair.first]->items[pair.second].first->getName(),
 											icp->bags[pair.first]->items[pair.second].first->toToolTipString(), "1", Vector2(0, 16), pair);
 									}
 								}
@@ -327,7 +327,7 @@ namespace GUI
 #pragma region swapFromInventoryWindow
 				InventoryComponent* icp = go->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* _item = (Addon::WindowIcon*)Engine::GUI.inventory.scroll.sprites[Engine::GUI.inventory.scroll.selectedBag];
-				if (icp->bags[_item->index.first]->items[_item->index.second].first->tag == Item::armor)
+				if (icp->bags[_item->index.first]->items[_item->index.second].first->getTag() == Item::armor)
 				{
 					Armor* arm = (Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
 					icon.setColor(sf::Color(25, 150, 25));
