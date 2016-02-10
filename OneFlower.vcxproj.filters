@@ -67,6 +67,9 @@
     <Filter Include="Engine\Window\QuesetCreator">
       <UniqueIdentifier>{02ea16c0-064c-4d0e-9a09-d7a14c9b02bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Quest">
+      <UniqueIdentifier>{0c385113-fa0a-4622-b961-8b9ab9635a80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -304,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="Project\Engine\Window\ItemCreator\EffectEnchantDialog.hpp">
       <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Quest\Quest.hpp">
+      <Filter>Game\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Quest\QuestObjective.hpp">
+      <Filter>Game\Quest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

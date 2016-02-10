@@ -83,6 +83,8 @@
     <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
+    <ClInclude Include="Project\Game\Quest\Quest.hpp" />
+    <ClInclude Include="Project\Game\Quest\QuestObjective.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
     <ClInclude Include="Project\Game\World\DBZone.hpp" />
     <ClInclude Include="Project\Game\World\ModLoader.hpp" />
