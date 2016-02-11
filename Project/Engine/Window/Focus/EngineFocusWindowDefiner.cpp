@@ -28,18 +28,24 @@
 #else
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #endif
-// maximum mumber of lines the output console should have
-static const WORD MAX_CONSOLE_LINES = 500;
+
+
 WNDPROC prevWndEditor;
 WNDPROC prevWndText;
 WNDPROC prevWndComponentGroup;
 WNDPROC prevWndTextMulti;
 
-bool isDouble(char a);
-std::string isLetter(std::string line);
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
 LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
+
+
+bool isDouble(char a);
+std::string isLetter(std::string line);
+
+
+
+
 EngineFocus::EngineFocus():size(256,500)
 {
 	windowDefinedName = "EngineFocus";
@@ -99,13 +105,6 @@ void EngineFocus::start()
 	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
 	EnableWindow(hWndField,false);
 }
-void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariable,int x,int y,int width,int height)
-{
-	addLabel(hWnd,text,0,0,text.size() * 8,16,0);
-	hWndField = CreateWindowExA(0,"edit",text.c_str(),WS_VISIBLE | WS_CHILD | WS_TABSTOP,x,y,width,height,phWnd,0,Engine::Window.hInstance,0);
-	extraFields.insert(std::make_pair(hWndField,theVariable));
-	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
-}
 void EngineFocus::cleanse()
 {
 #pragma region ResetScrolling
@@ -134,6 +133,60 @@ void EngineFocus::cleanse()
 	EnableWindow(hWndField,false);
 #pragma endregion
 }
+
+RECT EditorUI::GetLocalCoordinates(HWND hWnd)
+{
+	RECT Rect;
+	GetWindowRect(hWnd,&Rect);
+	MapWindowPoints(HWND_DESKTOP,GetParent(hWnd),(LPPOINT)&Rect,2);
+	//Rect.right -= Rect.left;
+	return Rect;
+}
+RECT EditorUI::GetClientCoordinates(HWND hWnd)
+{
+	RECT Rect;
+	GetWindowRect(hWnd,&Rect);
+	return Rect;
+}
+
+bool isDouble(char a)
+{
+	if(!(a > 0 && a < 255))
+		return false;
+	else if(isdigit(a))
+		return true;
+	else if(a == '.')
+		return true;
+	else if(a == ',')
+		return true;
+	else
+		return false;
+}
+std::string isLetter(std::string line)
+{
+	std::string newValue;
+	char c;
+	for(int i = 0; i < line.length(); i++)
+	{
+		c = line.at(i);
+		if(
+			(c >= 'a' && c <= 'z') ||
+			(c >= 'A' && c <= 'Z') ||
+			(c >= '0' && c <= '9') ||
+			c == '.' ||
+			c == '!' ||
+			c == '\n' ||
+			c == '\\'
+			)
+		{
+			newValue.push_back(c);
+		}
+	}
+	return newValue;
+}
+
+#pragma region WndProc
+
 LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	switch(msg)
@@ -144,6 +197,7 @@ LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM l
 			int b = BN_CLICKED;
 			switch(HIWORD(wParam))
 			{
+				#pragma region BN_CLICKED
 				case BN_CLICKED:
 				{
 					for(auto it = Engine::Window.focus.componentFieldGroup.begin(); it != Engine::Window.focus.componentFieldGroup.end(); ++it)
@@ -163,6 +217,7 @@ LRESULT CALLBACK WndProcComponentGroup(HWND hWnd,UINT msg,WPARAM wParam,LPARAM l
 					//*/
 					break;
 				}
+				#pragma endregion
 			}
 		}
 		default:
@@ -223,161 +278,199 @@ LRESULT CALLBACK WndProcNameField(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam
 	}
 	return CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
 }
-
-#pragma region HWND handler Related
-
-RECT EditorUI::GetLocalCoordinates(HWND hWnd)
-{
-	RECT Rect;
-	GetWindowRect(hWnd,&Rect);
-	MapWindowPoints(HWND_DESKTOP,GetParent(hWnd),(LPPOINT)&Rect,2);
-	//Rect.right -= Rect.left;
-	return Rect;
-}
-RECT EditorUI::GetClientCoordinates(HWND hWnd)
-{
-	RECT Rect;
-	GetWindowRect(hWnd,&Rect);
-	return Rect;
-}
-
-bool isDouble(char a)
-{
-	if(!(a > 0 && a < 255))
-		return false;
-	else if(isdigit(a))
-		return true;
-	else if(a == '.')
-		return true;
-	else if(a == ',')
-		return true;
-	else
-		return false;
-}
-std::string isLetter(std::string line)
-{
-	std::string newValue;
-	char c;
-	for(int i = 0; i < line.length(); i++)
-	{
-		c = line.at(i);
-		if(
-			(c >= 'a' && c <= 'z') ||
-			(c >= 'A' && c <= 'Z') ||
-			(c >= '0' && c <= '9') ||
-			c == '.' ||
-			c == '!' ||
-			c == '\n' ||
-			c == '\\'
-			)
-		{
-			newValue.push_back(c);
-		}
-	}
-	return newValue;
-}
-#pragma endregion
-#pragma region WndProc
 LRESULT CALLBACK WndProcText(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
 	//LOW: Set a limit of char to TextBox
 	switch(msg)
 	{
-		case WM_CHAR:
-		{
-			switch(wParam)
-			{
-#pragma region Non-CharKey
-				//case 0x08:
-				// Process a backspace.
-				//		break;
-				case 0x0A:
-					// Process a linefeed.
-					break;
-				case 0x1B:
-					// Process an escape.
-					break;
-				case 0x09:
-					// Process a tab.
-					break;
-				case 0x0D:
-					// Process a carriage return.
-					break;
-#pragma endregion
-
-#pragma region Enter
-				default:
+		#pragma region WM_Char
+				case WM_CHAR:
 				{
-					TCHAR txt[1024];
-					DWORD start = 0;
-					DWORD end = 0;
-					char newTempInput = wParam;
-
-					GetWindowText(hWnd,txt,1024);
-					std::string value(txt);
-					std::string newValue = "";
-
-					SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
-					//TODO: Move this out towards a seperate WndProc
-					//Field Object
-#pragma region SearchFields
-					bool found = false;
-					std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
-					for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+					switch(wParam)
 					{
-						it = i->second.field.find(hWnd);
-						if(it != i->second.field.end())
+						#pragma region Non-CharKey
+						// Process a backspace.
+						case VK_BACK:
+
+						#pragma region Number
+							//0-9
+						case 0x30:
+						case 0x31:
+						case 0x32:
+						case 0x33:
+						case 0x34:
+						case 0x35:
+						case 0x36:
+						case 0x37:
+						case 0x38:
+						case 0x39:
+						case 0x60:
+
+						#pragma endregion
+						#pragma region Numpad
+							/*
+						//Numpad 0-9
+						case 0x61:
+						case 0x62:
+						case 0x63:
+						case 0x64:
+						case 0x65:
+						case 0x66:
+						case 0x67:
+						case 0x68:
+						case 0x69:
+							//*/
+						#pragma endregion
 						{
+							TCHAR text[1024];
+							CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
+							GetWindowText(hWnd,text,1024);
+
+							std::string value(text);
+							std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
+
+							for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+							{
+								it = i->second.field.find(hWnd);
+								if(it != i->second.field.end())
+									break;
+							}
+							
+							Engine::Window.setValue(it->second,value);
+
+							return 0;
+						}
+
+
+
+
+						#pragma endregion
+						
+						default:
+							return 0;
+							
+					}
+				#pragma region Enter
+							/*
+							{
+							TCHAR txt[1024];
+							DWORD start = 0;
+							DWORD end = 0;
+							char newTempInput = wParam;
+
+							GetWindowText(hWnd,txt,1024);
+							std::string value(txt);
+							std::string newValue = "";
+
+							SendMessage(hWnd,EM_GETSEL,reinterpret_cast<WPARAM>(&start),reinterpret_cast<WPARAM>(&end));
+							//TODO: Move this out towards a seperate WndProc
+							//Field Object
+							#pragma region SearchFields
+							bool found = false;
+							std::map<HWND,BaseField*>::iterator it;// = Engine::Window.focus.extraFields.find(hWnd);
+							for(std::map<std::string,EditorGroup>::iterator i = Engine::Window.focus.componentFieldGroup.begin(); i != Engine::Window.focus.componentFieldGroup.end(); i++)
+							{
+							it = i->second.field.find(hWnd);
+							if(it != i->second.field.end())
+							{
 							found = true;
 							break;
-						}
-					}
-#pragma endregion
-					//try .end one day
-					if(found)
-					{
-						if(!value.empty())
-						{
+							}
+							}
+							#pragma endregion
+							//try .end one day
+							if(found)
+							{
+							if(!value.empty())
+							{
 							if(it->second->flags & FieldFlag::Decimal)
 							{
-#pragma region Decimal
-								for(size_t i = 0; i < value.size(); i++)
-								{
-									if(isDouble(value.at(i)))
-										newValue.push_back(value[i]);
-								}
-								if(!newValue.empty())
-								{
-									if(value[0] == '-')
-										newValue.insert(newValue.begin(),value[0]);
-								}
-								else
-									newValue = "0";
-#pragma endregion
+							#pragma region Decimal
+							for(size_t i = 0; i < value.size(); i++)
+							if(isDouble(value.at(i)))
+							newValue.push_back(value[i]);
+							if(!newValue.empty())
+							if(value[0] == '-')
+							newValue.insert(newValue.begin(),value[0]);
+							else
+							newValue = "0";
+							#pragma endregion
 							}
 							else
-								newValue = isLetter(value);
-						}
-						else
+							newValue = isLetter(value);
+							}
+							else
 							newValue = '0';
 
-						//SetWindowTextA(hWnd,newValue.c_str());
-						SendMessage(hWnd,EM_SETSEL,start,end);
-						newValue.insert(start,1,newTempInput);
-						Engine::Window.setValue(it->second,newValue);
-					}
-					else
-						MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F: TextField_Variable WndProc_Text",0);
-					break;
-					//return 0;
+							if(wParam == VK_BACK)
+							value.erase(value.begin() + //start,value.begin() +
+							end);
+							else
+							newValue.insert(start,1,newTempInput);
+							SendMessage(hWnd,EM_SETSEL,start,end);
+
+							Engine::Window.setValue(it->second,newValue);
+							}
+							else
+							MessageBoxA(0,"Unknown HWND, Please Modify SearchArea Region","CTRL + F: TextField_Variable WndProc_Text",0);
+							break;
+							//return 0;
+							}
+							//*/
+				#pragma endregion
 				}
-#pragma endregion
-			}
-		}
+		#pragma endregion
+		#pragma region WM_Command
+				case WM_COMMAND:
+				{
+		#pragma region EN_Change
+				case EN_CHANGE:
+				{
+					break;
+				}
+
+				/*case EN_CHANGE:
+				{
+				TCHAR txt[1024],txt2[1024];
+				DWORD start = 0;
+				DWORD end = 0;
+				GetWindowText(hWnd,txt,1024);
+				SendMessage(hWnd,EM_GETLINE,(WPARAM)0,(LPARAM)txt2);
+
+				std::string value(txt);
+				std::string newValue = "";
+				std::string newValue2(txt2);
+
+				std::map<HWND,BaseField*>::iterator it;
+				if(!value.empty())
+				{
+				for(size_t i = 0; i < value.size(); i++)
+				if(isDouble(value.at(i)))
+				newValue.push_back(value[i]);
+				if(!newValue.empty())
+				if(value[0] == '-')
+				newValue.insert(newValue.begin(),value[0]);
+				else
+				newValue = "0";
+
+				//SendMessage(hWnd,EM_SETSEL,start,end);
+				//SendMessage(hWnd,EM_REPLACESEL,0,(LPARAM)((LPSTR)newValue.c_str()));
+				SetWindowTextA(hWnd,newValue.c_str());
+				Engine::Window.setValue(it->second,newValue);
+				}
+				break;
+				}
+				//*/
+
+		#pragma endregion
+				}
+		#pragma endregion
+
 		default:
 			break;
 	}
-	return CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
+	return 	CallWindowProc(prevWndText,hWnd,msg,wParam,lParam);
+
 }
 LRESULT CALLBACK WndProcEditorFocus(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 {
@@ -749,6 +842,19 @@ HWND EngineFocus::addLabel(HWND phWnd,std::string labelDisplay,int x,int y,int w
 	return hWnd;
 }
 #pragma endregion
+
+/*void EngineFocus::addExtraField(HWND phWnd,std::string text,BaseField* theVariable,int x,int y,intwidth,int height)
+{
+	addLabel(hWnd,text,0,0,text.size() * 8,16,0);
+	hWndField = CreateWindowExA(0,"edit",text.c_str(),WS_VISIBLE | WS_CHILD | WS_TABSTOP,x,y,width,height,phWnd,0,Engine::Window.hInstance,0);
+	extraFields.insert(std::make_pair(hWndField,theVariable));
+	SetWindowLong(hWndField,GWL_WNDPROC,(LONG_PTR)WndProcNameField);
+}
+//*/
+
+// maximum mumber of lines the output console should have
+//static const WORD MAX_CONSOLE_LINES = 500;
+/*
 void EditorUI::RedirectIOToConsole()
 {
 	using namespace std;
@@ -800,3 +906,4 @@ void EditorUI::RedirectIOToConsole()
 		ios::sync_with_stdio();
 	}
 }
+//*/
