@@ -8,6 +8,8 @@
 #include "../../../Vector.h"
 #include "../../../Game/LoadAndSave/Prefab.hpp"
 #include "../ItemCreator/EngineItemCreatorWindow.hpp"
+#include "../QuestCreator/EngineQuestCreatorWindow.hpp"
+
 class Item;
 class Quest;
 class EnginePrefabListViewer
@@ -16,6 +18,7 @@ public:
 	~EnginePrefabListViewer();
 	void start();
 	EngineItemCreator itemCreator;
+	EngineQuestCreator questCreator;
 	HMENU rightClickMenu;
 	HWND hWnd;
 	Vector2 size;

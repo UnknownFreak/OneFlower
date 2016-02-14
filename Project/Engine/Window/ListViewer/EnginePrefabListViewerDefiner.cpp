@@ -35,7 +35,7 @@ void EnginePrefabListViewer::start()
 	addLabel(NULL, "Sound", false);
 
 	itemCreator.start();
-	
+	questCreator.start();
 }
 
 void EnginePrefabListViewer::addLabel(HTREEITEM p, std::string labelName, bool subTree)
@@ -162,6 +162,11 @@ void EnginePrefabListViewer::parentWindowNotify(LPNMHDR note, LPARAM lParam)
 				case NEW_ITEM:
 				{
 					itemCreator.show();
+					break;
+				}
+				case NEW_QUEST:
+				{
+					questCreator.show();
 					break;
 				}
 				case PREVIEW:

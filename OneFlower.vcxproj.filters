@@ -302,9 +302,6 @@
     <ClInclude Include="Project\Game\Effect\Effect.hpp">
       <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Enchantment.hpp">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Engine\Window\ItemCreator\EffectEnchantDialog.hpp">
       <Filter>Engine\Window\ItemCreator</Filter>
     </ClInclude>
@@ -313,6 +310,12 @@
     </ClInclude>
     <ClInclude Include="Project\Game\Quest\QuestObjective.hpp">
       <Filter>Game\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Effect\Enchantment.hpp">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindow.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +542,9 @@
     </ClCompile>
     <ClCompile Include="Project\Engine\Window\ItemCreator\EffectEnchantDialogDefiner.cpp">
       <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindowDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

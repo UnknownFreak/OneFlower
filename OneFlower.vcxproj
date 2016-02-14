@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enchantment.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Engine\Editor\BaseField.hpp" />
     <ClInclude Include="Project\Engine\Editor\EditorField.hpp" />
@@ -30,6 +29,7 @@
     <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindow.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp" />
+    <ClInclude Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindow.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp" />
@@ -49,6 +49,7 @@
     <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
     <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\Game\Effect\Effect.hpp" />
+    <ClInclude Include="Project\Game\Effect\Enchantment.hpp" />
     <ClInclude Include="Project\Game\Game.h" />
     <ClInclude Include="Project\Game\GameView.hpp" />
     <ClInclude Include="Project\Game\Gfx.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindowDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
