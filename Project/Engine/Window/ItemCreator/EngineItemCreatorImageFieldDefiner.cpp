@@ -11,7 +11,7 @@ EngineItemCreatorImageField::~EngineItemCreatorImageField()
 {
 	DestroyWindow(panel);
 	isRegistered--;
-	if (isRegistered == 0)
+	if (!isRegistered)
 	{
 		UnregisterClass("ImageView", hInstance);
 	}

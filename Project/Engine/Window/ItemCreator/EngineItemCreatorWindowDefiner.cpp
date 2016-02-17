@@ -71,7 +71,7 @@ void EngineItemCreator::start()
 	itemIDHWnd = CreateWindowEx(0, "EDIT", "0", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_NUMBER, 126, 70, 49, 20, hWnd, (HMENU)ID_ITEMID, hInstance, NULL);
 	itemIDPrefixHWnd = CreateWindowEx(0, "EDIT", Engine::World.getLoadedMod().c_str(), WS_CHILD | WS_VISIBLE | WS_BORDER | ES_NUMBER | ES_READONLY, 100, 70, 25, 20, hWnd, (HMENU)ID_ITEMID_PREFIX, hInstance, NULL);
 	itemIDLabelHWnd = CreateWindowEx(WS_EX_TRANSPARENT, "STATIC", "ID", WS_CHILD | WS_VISIBLE, 75, 70, 14, 20, hWnd, (HMENU)ID_CREATOR_LABELS, hInstance, NULL);
-	itemIDButtonHWnd = CreateWindowEx(0, "BUTTON", "Get Valid ID", BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE, 176, 70, 94, 20, hWnd, (HMENU)ID_ITEMID_NEXT_VALID_ID, hInstance, NULL);
+	itemIDButtonHWnd = CreateWindowEx(0, "BUTTON", "Suggest", BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE, 176, 70, 94, 20, hWnd, (HMENU)ID_ITEMID_NEXT_VALID_ID, hInstance, NULL);
 
 	itemTooltipLabelHWnd = CreateWindowEx(WS_EX_TRANSPARENT, "STATIC", "Item Tooltip", WS_CHILD | WS_VISIBLE, 15, 90, 90, 20, hWnd, (HMENU)ID_CREATOR_LABELS, hInstance, NULL);
 	itemToolTipHWnd = CreateWindowEx(0, "EDIT", "", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_MULTILINE | ES_AUTOHSCROLL | WS_VSCROLL , 100, 90, 170, 80, hWnd, (HMENU)ID_ITEMTOOLTIP, hInstance, NULL);

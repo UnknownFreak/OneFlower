@@ -3,10 +3,11 @@
 #define ENGINEQUESTCREATORWINDOW_HPP
 #include <Windows.h>
 #include "../../../Vector.h"
+#include "../ItemCreator/EngineItemCreatorImageField.hpp"
+
 class EngineQuestCreator
 {
 public:
-
 	HINSTANCE hInstance;
 	HWND hWnd;
 
@@ -14,9 +15,37 @@ public:
 	//EngineItemCreator() = default;
 	void start();
 	void show();
-
+	void setNextValidID();
 private:
 
+	HWND NameHWnd;	   			//Textfield
+	HWND NameLabelHWnd;			//Label
+
+	HWND IDLabelHWnd;		  	//Label
+	HWND IDHWnd;			  	//Textfiel
+	HWND IDButtonHWnd;		  	//Button
+
+	HWND DescriptionHWnd;	  	//Textfield
+	HWND DescriptionLabelHWnd;	//Label
+
+	HWND ObjectiveListHWnd;		//ListBox
+	HWND ObjectiveListLabelHWnd;//Label
+
+	HWND AddObjectiveButton;	//Button
+	HWND RemoveObjectiveButton;	//Button
+	HWND EditObjectiveButton;	//Button
+
+	HWND RewardListHWnd;		//ListBox
+	HWND RewardListLabelHWnd;	//Label
+
+	HWND AddRewardButton;		//Button
+	HWND RemoveRewardButton;	//Button
+	HWND EditRewardButton;		//Button
+
+
+	EngineItemCreatorImageField iconField;
+
+	size_t ID;
 	Vector2 size;
 	WNDCLASSEX wc;
 	LPCTSTR windowDefinedName;
