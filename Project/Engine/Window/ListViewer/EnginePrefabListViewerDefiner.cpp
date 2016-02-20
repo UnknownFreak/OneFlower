@@ -59,6 +59,10 @@ void EnginePrefabListViewer::addPrefab(Prefab& prefab)
 		addItem(labels.find(prefab.tag)->second, prefab);
 	}
 }
+std::map<Item*, HTREEITEM>& EnginePrefabListViewer::allItemsInGame()
+{
+	return items;
+}
 void EnginePrefabListViewer::removePrefab(Prefab& prefab)
 {
 	std::map<Prefab*, HTREEITEM>::iterator it = prefabs.find(&prefab);

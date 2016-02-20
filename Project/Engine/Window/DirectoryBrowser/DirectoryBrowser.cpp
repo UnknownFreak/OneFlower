@@ -6,13 +6,13 @@ LRESULT CALLBACK DirectoryBrowser::DirectoryBrowserCallback(HWND hWnd, UINT msg,
 {
 	switch (msg)
 	{
-	case BFFM_INITIALIZED:
-	{
-		if (NULL != lParam)
+		case BFFM_INITIALIZED:
 		{
-			SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lParam);
+			if (lParam)
+			{
+				SendMessage(hWnd, BFFM_SETSELECTION, TRUE, lParam);
+			}
 		}
-	}
 	}
 
 	return 0; // The function should always return 0.

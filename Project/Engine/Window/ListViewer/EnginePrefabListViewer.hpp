@@ -40,6 +40,9 @@ public:
 	void Disable();
 	// enables viewer after load
 	void Enable();
+
+	std::map<Item*, HTREEITEM>& allItemsInGame();
+
 private:
 
 	void removeSelected();
