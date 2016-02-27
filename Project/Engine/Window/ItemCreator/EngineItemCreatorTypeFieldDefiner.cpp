@@ -12,6 +12,10 @@ void EngineItemCreatorTypeField::start(HWND parent, HINSTANCE hInstance, Vector2
 	if (items.size() != 0)
 		SendMessage(radiobuttons.at(radiobuttons.size()-1), BM_SETCHECK, BST_CHECKED, NULL);
 }
+void EngineItemCreatorTypeField::setText(std::string text)
+{
+	SendMessage(panel, WM_SETTEXT, NULL, (LPARAM)text.c_str());
+}
 std::string EngineItemCreatorTypeField::getCheckedType()
 {
 	for (size_t i = 0; i < items.size(); i++)

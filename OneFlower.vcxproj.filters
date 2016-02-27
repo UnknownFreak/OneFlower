@@ -320,6 +320,12 @@
     <ClInclude Include="Project\Engine\Window\QuestCreator\QuestRewardSelector.hpp">
       <Filter>Engine\Window\QuesetCreator</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreator.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -550,6 +556,12 @@
       <Filter>Engine\Window\QuesetCreator</Filter>
     </ClCompile>
     <ClCompile Include="Project\Engine\Window\QuestCreator\QuestRewardSelectorDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreatorDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindowDefiner.cpp">
       <Filter>Engine\Window\QuesetCreator</Filter>
     </ClCompile>
   </ItemGroup>

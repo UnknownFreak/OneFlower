@@ -4,7 +4,9 @@
 #include <Windows.h>
 #include "../../../Vector.h"
 #include "../ItemCreator/EngineItemCreatorImageField.hpp"
+#include "QuestObjectiveCreator.hpp"
 #include "QuestRewardSelector.hpp"
+#include "../../../Game/Quest/QuestObjective.hpp"
 class EngineQuestCreator
 {
 public:
@@ -16,7 +18,9 @@ public:
 	void start();
 	void show();
 	void setNextValidID();
+
 	void openRewardWindow(bool edit);
+	void openObjectiveWindow(bool edit);
 
 	void addReward();
 	void editReward();
@@ -25,8 +29,9 @@ public:
 	void editObjective();
 
 	int getCurrentSelectedReward();
+	int getCurrentSelectedObjective();
 
-
+	std::vector<QuestObjective*> objectives;
 private:
 
 	std::vector<std::pair<unsigned int, int>> rewards;
@@ -58,6 +63,7 @@ private:
 
 	EngineItemCreatorImageField iconField;
 	QuestRewardSelectorWindow rewardsWindow;
+	QuestObjectiveCreator objectiveWindow;
 	size_t ID;
 	Vector2 size;
 	WNDCLASSEX wc;

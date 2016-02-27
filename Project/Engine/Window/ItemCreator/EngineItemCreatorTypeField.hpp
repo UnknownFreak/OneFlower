@@ -14,6 +14,7 @@ public:
 	size_t getRadiobuttonCount();
 	void setItems(std::vector<std::string> items);
 	void enable(bool value);
+	void setText(std::string text);
 private:
 	std::vector<std::string> items;
 	std::vector<HWND> radiobuttons;

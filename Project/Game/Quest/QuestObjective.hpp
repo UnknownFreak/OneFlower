@@ -24,25 +24,23 @@ protected:
 
 	};
 	
-	// Quest* myQuest;
-	// unsigned int myQuest;
-
-
+	//The Target ID
+	size_t target;
+	// The number of times to repeat this.
+	size_t count;
+	// name of the objective
 	std::string objectiveName;
-
 	// description will only be showed in the questLog;
 	std::string description;
-
-	//QuestObjective id, only unique within the quest it is assigned to.
-	unsigned int ID;
 
 	//List of objectives needed to be completed before this can be progressed;
 	std::vector<unsigned int>ObjectiveIDBefore;
 
 	short type;
 	short state;
-	bool canFail;
 
+	//If true this will list the objective as a bonus objective.
+	bool isBonusObjective;
 
 	// no need for virtual?
 	virtual void onFail() = 0;

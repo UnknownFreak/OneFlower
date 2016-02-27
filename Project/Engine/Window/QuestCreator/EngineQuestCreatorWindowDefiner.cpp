@@ -84,18 +84,19 @@ void EngineQuestCreator::openRewardWindow(bool edit)
 {
 	rewardsWindow.show(hWnd, hInstance, edit);
 }
-
+void EngineQuestCreator::openObjectiveWindow(bool edit)
+{
+	objectiveWindow.show(hWnd, hInstance, edit);
+}
 void EngineQuestCreator::editReward()
 {
-	{
-		std::string myValue = rewardsWindow.ItemName;
-		int pos = (int)SendMessage(RewardListHWnd, LB_GETCURSEL, NULL, NULL);
-		SendMessage(RewardListHWnd, LB_DELETESTRING, pos, NULL);
-		SendMessage(RewardListHWnd, LB_INSERTSTRING, pos, (LPARAM)myValue.c_str());
-		size_t index = myValue.find_first_of(':');
-		size_t indexLast = myValue.find_last_of(':');
-		rewards[pos] = std::pair<unsigned int, int>(std::stoi(myValue.substr(0, index)), std::stoi(myValue.substr(indexLast+1)));
-	}
+	std::string myValue = rewardsWindow.ItemName;
+	int pos = (int)SendMessage(RewardListHWnd, LB_GETCURSEL, NULL, NULL);
+	SendMessage(RewardListHWnd, LB_DELETESTRING, pos, NULL);
+	SendMessage(RewardListHWnd, LB_INSERTSTRING, pos, (LPARAM)myValue.c_str());
+	size_t index = myValue.find_first_of(':');
+	size_t indexLast = myValue.find_last_of(':');
+	rewards[pos] = std::pair<unsigned int, int>(std::stoi(myValue.substr(0, index)), std::stoi(myValue.substr(indexLast+1)));
 }
 
 void EngineQuestCreator::removeReward()
@@ -107,14 +108,21 @@ void EngineQuestCreator::removeReward()
 
 void EngineQuestCreator::addReward()
 {
-	{
-		std::string myValue = rewardsWindow.ItemName;
-		int pos = (int)SendMessage(RewardListHWnd, LB_ADDSTRING, NULL, (LPARAM)myValue.c_str());
-		SendMessage(RewardListHWnd, LB_SETITEMDATA, pos, (LPARAM)myValue.c_str());
-		size_t index = myValue.find_first_of(':');
-		size_t indexLast = myValue.find_last_of(':');
-		rewards.push_back(std::pair<unsigned int, int>(std::stoi(myValue.substr(0, index)), std::stoi(myValue.substr(indexLast + 1))));
-	}
+	std::string myValue = rewardsWindow.ItemName;
+	int pos = (int)SendMessage(RewardListHWnd, LB_ADDSTRING, NULL, (LPARAM)myValue.c_str());
+	SendMessage(RewardListHWnd, LB_SETITEMDATA, pos, (LPARAM)myValue.c_str());
+	size_t index = myValue.find_first_of(':');
+	size_t indexLast = myValue.find_last_of(':');
+	rewards.push_back(std::pair<unsigned int, int>(std::stoi(myValue.substr(0, index)), std::stoi(myValue.substr(indexLast + 1))));
+}
+
+void EngineQuestCreator::addObjective()
+{
+	objectiveWindow;
+	std::string myValue;
+	int pos = (int)SendMessage(ObjectiveListHWnd, LB_ADDSTRING, NULL, (LPARAM)myValue.c_str());
+	SendMessage(ObjectiveListHWnd, LB_SETITEMDATA, pos, (LPARAM)myValue.c_str());
+
 }
 
 void EngineQuestCreator::setNextValidID()
@@ -132,6 +140,11 @@ int EngineQuestCreator::getCurrentSelectedReward()
 {
 	return SendMessage(RewardListHWnd, LB_GETCURSEL, 0, 0);
 }
+int EngineQuestCreator::getCurrentSelectedObjective()
+{
+	return SendMessage(ObjectiveListHWnd, LB_GETCURSEL, 0, 0);
+}
+
 LRESULT CALLBACK WndProcQuestCreator(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -166,13 +179,14 @@ LRESULT CALLBACK WndProcQuestCreator(HWND hWnd, UINT msg, WPARAM wParam, LPARAM 
 			Engine::Window.prefabList.questCreator.setNextValidID();
 			return 0;
 		case ID_ADDOBJECTIVE:
-			Engine::Window.debug.print("ADDOBJECTIVE", __LINE__, __FILE__);
+			Engine::Window.prefabList.questCreator.openObjectiveWindow(false);
 			return 0;
 		case ID_ADDREWARD:
 			Engine::Window.prefabList.questCreator.openRewardWindow(false);
 			return 0;
 		case ID_EDITOBJECTIVE:
-			Engine::Window.debug.print("EDITOBJECTIVE", __LINE__, __FILE__);
+			if (Engine::Window.prefabList.questCreator.getCurrentSelectedObjective() != -1)
+				Engine::Window.prefabList.questCreator.openObjectiveWindow(true);
 			return 0;
 		case ID_EDITREWARD:
 			if (Engine::Window.prefabList.questCreator.getCurrentSelectedReward() != -1)

@@ -42,6 +42,7 @@ public:
 	void Enable();
 
 	std::map<Item*, HTREEITEM>& allItemsInGame();
+	std::map<Prefab*, HTREEITEM>& allPrefabsInGame();
 
 private:
 

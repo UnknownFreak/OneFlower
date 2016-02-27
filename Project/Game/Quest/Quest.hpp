@@ -38,7 +38,7 @@ private:
 	
 	// wether this quest is hidden in the questlog or not.
 	bool showInQuestLog;
-	std::vector<QuestObjective> objectives;
+	std::vector<QuestObjective*> objectives;
 	bool started;
 
 	// Item id that are rewarded, and number of items
