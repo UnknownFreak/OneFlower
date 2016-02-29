@@ -40,7 +40,7 @@ public:
 	std::vector<Tile> foregrounds;
 
 	// Vector containing pair <prefabid, object(gameobjects)> 
-	std::vector<std::pair<size_t,GameObject*>> objects;
+	std::vector<std::pair<std::pair<std::string,size_t>,GameObject*>> objects;
 	// Gets the background image
 	Tile* getBackground();
 

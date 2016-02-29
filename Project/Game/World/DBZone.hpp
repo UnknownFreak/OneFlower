@@ -63,7 +63,7 @@ public:
 	Tile background;
 	Tile loadingScreen;
 	std::string loadingScreenMessage;
-	std::vector<DBZonePrefabStruct> prefabList;
+	std::map<std::pair<std::string,size_t>,DBZonePrefabStruct> prefabList;
 #ifdef _DEBUG
 	bool isRemoved = false;
 #endif

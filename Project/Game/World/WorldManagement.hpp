@@ -28,7 +28,7 @@ public:
 	//std::vector<std::pair<size_t, Vector2&>> prefabListEditorReference;
 #endif
 	//to be able to remove gameobjects when unloading;
-	std::vector<GameObject*> listOfZoneObjects;
+	std::map<std::pair<std::string,size_t>,GameObject*> listOfZoneObjects;
 	ModLoader modLoadOrder;
 
 	unsigned int lastLoadedZone;
@@ -65,7 +65,8 @@ public:
 	friend void LoadAllZones(std::map<unsigned int, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	friend void LoadAllItems(std::map<unsigned int, Item*>& editorAllItems);
-
+	size_t EditorGetValidID();
+	size_t ID = 1;
 #endif
 
 	void drawLoadingScreen();
@@ -78,6 +79,7 @@ private:
 
 	int loadState = STATE_NOT_SET;
 	bool isLoading = false;
+	std::map<std::pair<std::string,size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
 	size_t currentObj = 0;
 	size_t totalLoaded = 0;
 	size_t totalToLoad = 0;
