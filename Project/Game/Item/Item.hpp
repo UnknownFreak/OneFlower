@@ -35,6 +35,7 @@ public:
 	int getPrice();
 	bool getStackable();
 	sf::Sprite icon;
+	std::string myMod = "OneFlower.main";
 protected:
 	
 

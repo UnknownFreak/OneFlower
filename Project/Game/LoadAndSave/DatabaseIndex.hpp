@@ -26,6 +26,10 @@ public:
 	"-" - No flag
 	//*/
 	std::string flags = "";
+	/*
+	ModFile tells from what mod that object comes from
+	//*/
+	std::string modFile = "";
 
 protected:
 	template<class Archive>

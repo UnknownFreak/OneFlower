@@ -70,23 +70,26 @@ bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID)
 	GameObject trash;
 	std::ifstream file(saveFile, std::ios::binary);
 	{
-		cereal::BinaryInputArchive ar(file);
-		ar(trash);
-		size_t iter;
-		ar(iter);
-		for (size_t i = 0; i < iter; i++)
+		if (file.is_open())
 		{
-			size_t _zoneToLoad;
-			ar(_zoneToLoad);
-			if (_zoneToLoad == zoneID)
+			cereal::BinaryInputArchive ar(file);
+			ar(trash);
+			size_t iter;
+			ar(iter);
+			for (size_t i = 0; i < iter; i++)
 			{
-				ar(zoneToLoad);
-				return true;
-			}
-			else
-			{
-				Zone trashZone;
-				ar(trashZone);
+				size_t _zoneToLoad;
+				ar(_zoneToLoad);
+				if (_zoneToLoad == zoneID)
+				{
+					ar(zoneToLoad);
+					return true;
+				}
+				else
+				{
+					Zone trashZone;
+					ar(trashZone);
+				}
 			}
 		}
 	}
@@ -147,16 +150,21 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<u
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Zone";
+			ind.modFile = it->second.fromMod;
 			ind.row = (size_t)file.tellp();
-			indexAr(ind);
-			mainAr(it->second);
-			Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+			if (!it->second.isRemoved)
+			{
+				indexAr(ind);
+				mainAr(it->second);
+				Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+			}
 		}
-		for (std::map<size_t,Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
+		for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
 		{
 			ind.flags = "-";
-			ind.ID = it->first;
+			ind.ID = it->first.second;
 			ind.type = "Prefab";
+			ind.modFile = it->second.modOrigin;
 			ind.row = (size_t)file.tellp();
 			indexAr(ind);
 			mainAr(it->second);
@@ -167,6 +175,7 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<u
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Item";
+			ind.modFile = it->second->myMod;
 			ind.row = (size_t)file.tellp();
 			indexAr(ind);
 			saveItem(mainAr,it->second);
@@ -213,7 +222,11 @@ void testSave()
 	test->GetComponent<TransformComponent>()->position.y = 316;
 	test->AddComponent(new HitboxComponent(0, 0, 40, 40));
 	test->AddComponent(new RenderComponent("testCutHalf.png"));
-	zone.prefabList.push_back(std::pair<size_t, Vector2>(1, Vector2(300, 316)));
+	DBZonePrefabStruct s;
+	s.ID = 1;
+	s.position = Vector2(300, 316);
+	s.oldPosition = s.position;
+	zone.prefabList.push_back(s);
 	Prefab pref(test);
 	pref.ID = 1;
 	//zone.addGameObject(test);
@@ -229,7 +242,10 @@ void testSave()
 	ground->GetComponent<HitboxComponent>()->bounding.size.x = ground->GetComponent<HitboxComponent>()->bounding.size.x * 2;
 	Prefab pref2(ground);
 	pref2.ID = 2;
-	zone.prefabList.push_back(std::pair<size_t, Vector2>(2, Vector2(400, 550)));
+	s.ID = 2;
+	s.position = Vector2(400, 550);
+	s.oldPosition = s.position;
+	zone.prefabList.push_back(s);
 	
 	//zone.addGameObject(ground);
 
@@ -250,7 +266,10 @@ void testSave()
 
 	Prefab pref3(target);
 	pref3.ID = 3;
-	zone.prefabList.push_back(std::pair<size_t, Vector2>(3, Vector2(580, 480)));
+	s.ID = 3;
+	s.position = Vector2(580, 480);
+	s.oldPosition = s.position;
+	zone.prefabList.push_back(s);
 
 	//zone.addGameObject(target);
 
@@ -791,6 +810,7 @@ void save(Archive& ar,const Item& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
+	ar(item.myMod);
 }
 template <class Archive>
 void load(Archive& ar,Item& item)
@@ -815,6 +835,7 @@ void load(Archive& ar,Item& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
+	ar(item.myMod);
 }
 #pragma endregion
 
@@ -840,6 +861,7 @@ void save(Archive& ar, const Ammo& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
+	ar(item.myMod);
 }
 template <class Archive>
 void load(Archive& ar, Ammo& item)
@@ -867,6 +889,7 @@ void load(Archive& ar, Ammo& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
+	ar(item.myMod);
 }
 #pragma endregion
 
@@ -892,6 +915,7 @@ void save(Archive& ar,const Armor& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
+	ar(item.myMod);
 }
 template <class Archive>
 void load(Archive& ar,Armor& item)
@@ -919,6 +943,7 @@ void load(Archive& ar,Armor& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
+	ar(item.myMod);
 }
 #pragma endregion
 
@@ -946,6 +971,7 @@ void save(Archive& ar, const Bag& item)
 			ar(item.items[i].second);
 		}
 	}
+	ar(item.myMod);
 }
 template<class Archive>
 void load(Archive& ar, Bag& item)
@@ -971,6 +997,7 @@ void load(Archive& ar, Bag& item)
 			ar(item.items[i].second);
 		}
 	}
+	ar(item.myMod);
 }
 #pragma endregion
 
@@ -986,6 +1013,7 @@ void save(Archive& ar, const Consumable& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
+	ar(item.myMod);
 }
 template<class Archive>
 void load(Archive& ar, Consumable& item)
@@ -998,10 +1026,34 @@ void load(Archive& ar, Consumable& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
+	ar(item.myMod);
 }
 #pragma endregion
 
 #pragma region Zone
+template<class Archive>
+void save(Archive& ar, const DBZonePrefabStruct& dbzps)
+{
+	ar(dbzps.fromMod);
+	ar(dbzps.ID);
+	ar(dbzps.position.x);
+	ar(dbzps.oldPosition.x);
+	ar(dbzps.position.y);
+	ar(dbzps.oldPosition.y);
+	ar(dbzps.type);
+}
+template<class Archive>
+void load(Archive& ar, DBZonePrefabStruct& dbzps)
+{
+	ar(dbzps.fromMod);
+	ar(dbzps.ID);
+	ar(dbzps.position.x);
+	ar(dbzps.oldPosition.x);
+	ar(dbzps.position.y);
+	ar(dbzps.oldPosition.y);
+	ar(dbzps.type);
+}
+
 template<class Archive>
 void save(Archive &ar, const DBZone&zone)
 {
@@ -1010,13 +1062,57 @@ void save(Archive &ar, const DBZone&zone)
 	ar(zone.background);
 	ar(zone.loadingScreen);
 	ar(zone.loadingScreenMessage);
-	ar(zone.prefabList.size());
+
+	std::vector<DBZonePrefabStruct> theStuffWeWillActuallySave;
+
 	for (size_t i = 0; i < zone.prefabList.size(); i++)
 	{
-		ar(zone.prefabList[i].first);
-		ar(zone.prefabList[i].second.x);
-		ar(zone.prefabList[i].second.y);
+		if (zone.prefabList[i].type == DBZonePrefabStruct::DEFAULT)
+		{
+			if (zone.fromMod == Engine::World.openedMod)
+			{
+				DBZonePrefabStruct dbzps = zone.prefabList[i];
+				dbzps.oldPosition.x = dbzps.position.x;
+				dbzps.oldPosition.y = dbzps.position.y;
+				theStuffWeWillActuallySave.push_back(dbzps);
+			}
+		}
+		else if (zone.prefabList[i].type == DBZonePrefabStruct::REMOVE)
+		{
+			if(zone.fromMod != Engine::World.openedMod)
+			{
+				theStuffWeWillActuallySave.push_back(zone.prefabList[i]);
+			}
+		}
+		else if (zone.prefabList[i].type == DBZonePrefabStruct::MOVE)
+		{
+			DBZonePrefabStruct dbzps = zone.prefabList[i];
+			if (zone.prefabList[i].fromMod == zone.fromMod)
+			{
+				dbzps.type = DBZonePrefabStruct::DEFAULT;
+				dbzps.oldPosition.x = dbzps.position.x;
+				dbzps.oldPosition.y = dbzps.position.y;
+			}
+			theStuffWeWillActuallySave.push_back(dbzps);
+		}
+		else if (zone.prefabList[i].type == DBZonePrefabStruct::ADD)
+		{
+			DBZonePrefabStruct dbzps = zone.prefabList[i];
+			if (zone.fromMod == Engine::World.openedMod)
+			{
+				dbzps.type = DBZonePrefabStruct::DEFAULT;
+				dbzps.oldPosition.x = dbzps.position.x;
+				dbzps.oldPosition.y = dbzps.position.y;
+			}
+			theStuffWeWillActuallySave.push_back(dbzps);
+		}
 	}
+	ar(theStuffWeWillActuallySave.size());
+	for (size_t i = 0; i < theStuffWeWillActuallySave.size(); i++)
+	{
+		ar(theStuffWeWillActuallySave[i]);
+	}
+	
 }
 template<class Archive>
 void load(Archive &ar,DBZone &zone)
@@ -1033,12 +1129,9 @@ void load(Archive &ar,DBZone &zone)
 	ar(size);
 	for (size_t i = 0; i < size; i++)
 	{
-		size_t ID;
-		Vector2 pos;
-		ar(ID);
-		ar(pos.x);
-		ar(pos.y);
-		zone.prefabList.push_back(std::pair<size_t, Vector2>(ID, pos));
+		DBZonePrefabStruct dbzps;
+		ar(dbzps);
+		zone.prefabList.push_back(dbzps);
 	}
 }
 template<class Archive>
@@ -1284,6 +1377,7 @@ void load(Archive& ar,Prefab& pre)
 	}
 	ar(pre.name);
 	ar(pre.tag);
+	ar(pre.modOrigin);
 }
 template <class Archive>
 void save(Archive& ar,const Prefab& pre)
@@ -1343,33 +1437,7 @@ void save(Archive& ar,const Prefab& pre)
 	}
 	ar(pre.name);
 	ar(pre.tag);
-}
-#pragma endregion
-
-#pragma region PrefabContainer
-template<class Archive>
-void load(Archive& ar,PrefabContainer& con)
-{
-	int size;
-	ar(size);
-	for(int i = 0; i < size; ++i)
-	{
-		Prefab pre;
-		size_t n;
-		ar(n);
-		ar(pre);
-		con.mapOfPrefabs.insert(std::pair<size_t,Prefab>(n,pre));
-	}
-}
-template<class Archive>
-void save(Archive& ar,const PrefabContainer& con)
-{
-	ar(con.mapOfPrefabs.size());
-	for(std::map<size_t,Prefab>::const_iterator it = con.mapOfPrefabs.begin(); it != con.mapOfPrefabs.end(); ++it)
-	{
-		ar(it->first);
-		ar(it->second);
-	}
+	ar(pre.modOrigin);
 }
 #pragma endregion
 
@@ -1381,6 +1449,7 @@ void load(Archive& ar, DatabaseIndex& index)
 	ar(index.ID);
 	ar(index.type);
 	ar(index.flags);
+	ar(index.modFile);
 }
 template<class Archive>
 void save(Archive& ar, const DatabaseIndex& index)
@@ -1389,6 +1458,7 @@ void save(Archive& ar, const DatabaseIndex& index)
 	ar(index.ID);
 	ar(index.type);
 	ar(index.flags);
+	ar(index.modFile);
 }
 #pragma endregion
 
@@ -1435,6 +1505,39 @@ void loadPrefab(std::string modname, Prefab& prefab,const DatabaseIndex& index)
 	}
 	else
 		Engine::Window.debug.print("Type is not a Prefab!", __LINE__, __FILE__);
+}
+bool loadPrefab(std::string fromMod,unsigned int ID, Prefab& prefab)
+{
+	bool eof = false;
+	DatabaseIndex ind;
+	std::ifstream index(fromMod + ".index", std::ios::binary);
+	std::ifstream database(fromMod, std::ios::binary);
+	if (index.is_open())
+	{
+		cereal::BinaryInputArchive ar(index);
+		{
+			while (!eof)
+			{
+				ar(ind);
+				if (ind.type == "Prefab" && ind.ID == ID)
+				{
+					cereal::BinaryInputArchive arr(database);
+					{
+						database.seekg(ind.row);
+						arr(prefab);
+					}
+				}
+				else if (ind.flags == "EoF")
+				{
+					eof = true;
+					if (prefab.name == "NotInit")
+						return false;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 DatabaseIndex loadIndex(std::string modname, size_t objectID, std::string loadType)
 {
@@ -1563,7 +1666,7 @@ void LoadAllPrefabs(PrefabContainer& pre)
 					ar(ind);
 					if (ind.type == "Prefab")
 					{
-						std::map<unsigned int, Prefab>::iterator it = pre.find(ind.ID);
+						std::map<std::pair<std::string, size_t>, Prefab>::iterator it = pre.find(ind.modFile, ind.ID);
 						if (it != pre.end())
 						{
 							// stuff exist add extra things to prefab.

@@ -1,9 +1,5 @@
 #include "ModLoader.hpp"
 #include "../../Engine.hpp"
-ModLoader::ModLoader() : loadOrder()
-{
-
-}
 
 size_t ModLoader::getModPosition(std::string modName)
 {

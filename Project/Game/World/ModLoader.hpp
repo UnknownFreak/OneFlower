@@ -4,7 +4,7 @@
 class ModLoader
 {
 public:
-	ModLoader();
+	ModLoader() = default;
 	std::map <std::string, size_t> loadOrder;
 
 	size_t getModPosition(std::string mod);

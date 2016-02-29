@@ -49,6 +49,8 @@ public:
 
 #ifdef _DEBUG
 
+	std::string openedMod = "OneFlower.main";
+
 	std::string getLoadedMod();
 
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
@@ -84,11 +86,12 @@ private:
 	friend bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID);
 	friend void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);
 	Zone* currentZone;
-
+	DBZone zoneToLoad;
 	// loads a zone from a specified file
 	friend bool loadModOrderFile(ModLoader &mod);
 	friend void loadZoneFile(std::string fileName, const DatabaseIndex& index,DBZone &z);
 	void worldFromZone(unsigned int zoneID);
+	friend bool loadPrefab(std::string fromMod,unsigned int index, Prefab& prefab);
 	friend void loadPrefab(std::string modName, Prefab& prefab, const DatabaseIndex &index);
 	friend DatabaseIndex loadIndex(std::string modname, size_t objectID, std::string loadType);
 };

@@ -86,15 +86,13 @@ std::string Item::getTagAsString()
 
 std::string Item::toToolTipString()
 {
-	std::string _tag;
-	if(tag == undefined)
-		_tag = "undefined";
+
 	std::string _price = std::to_string(price);
 	int size = _price.length();
 	if(size > 4)
-		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + _tag + "\n§Icon|coins|72|NumberOfRows|" + _price;
+		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + getTagAsString() + "\n§Icon|coins|72|NumberOfRows|" + _price;
 	else if(size > 2)
-		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + _tag + "\n§Icon|coins|42|NumberOfRows|" + _price;
+		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + getTagAsString() + "\n§Icon|coins|42|NumberOfRows|" + _price;
 	else
-		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + _tag + "\n§Icon|coins|12|NumberOfRows|" + _price;
+		return description + "\n" + "Weight: " + std::to_string(weight) + "\n" + getTagAsString() + "\n§Icon|coins|12|NumberOfRows|" + _price;
 }
