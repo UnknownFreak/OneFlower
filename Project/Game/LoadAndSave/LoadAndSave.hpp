@@ -23,7 +23,7 @@ template<class Archive>
 void loadItem(Archive & ar, Item*& item);
 
 #ifdef _DEBUG
-void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems);
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems);
 #endif
 void saveInfo(std::map<unsigned int,std::string>zoneInfo);
 //void loadItem(unsigned int ID,Item& item);

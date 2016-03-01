@@ -23,7 +23,7 @@ public:
 #ifdef _DEBUG
 	//Probably move this to editor
 	PrefabContainer editorPrefabContainer;
-	std::map<unsigned int, DBZone> EditorAllZones;
+	std::map<std::pair<std::string,unsigned int>, DBZone> EditorAllZones;
 	std::map<unsigned int, Item*> EditorAllItems;
 	//std::vector<std::pair<size_t, Vector2&>> prefabListEditorReference;
 #endif
@@ -31,10 +31,10 @@ public:
 	std::map<std::pair<std::string,size_t>,GameObject*> listOfZoneObjects;
 	ModLoader modLoadOrder;
 
-	unsigned int lastLoadedZone;
+	std::pair<std::string,unsigned int> lastLoadedZone;
 
 	
-	std::map <unsigned int,Zone*> worldmap;
+	std::map <std::pair<std::string,unsigned int>,Zone*> worldmap;
 	Zone* getCurrentZone();
 	GUI::Window::Addon::ProgressBar& getLoadingScreenProgressBar();
 
@@ -42,7 +42,7 @@ public:
 	WorldManagement();
 	~WorldManagement();
 
-	void loadZone(unsigned int zoneID);
+	void loadZone(std::string addedFromMod,unsigned int zoneID);
 	bool getIsLoading();
 
 	int getCurrentLoadingState();
@@ -62,7 +62,7 @@ public:
 	void EditorAddGameObjectToZone(Prefab& prefab,GameObject* go);
 	void RemoveGameObjectFromZone(GameObject* go);
 
-	friend void LoadAllZones(std::map<unsigned int, DBZone>& nameOfAllZones);
+	friend void LoadAllZones(std::map<std::pair<std::string,unsigned int>, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	friend void LoadAllItems(std::map<unsigned int, Item*>& editorAllItems);
 	size_t EditorGetValidID();
@@ -83,7 +83,7 @@ private:
 	size_t currentObj = 0;
 	size_t totalLoaded = 0;
 	size_t totalToLoad = 0;
-	size_t zoneToLoadID = 0;
+	std::pair<std::string, size_t> zoneToLoadID;
 
 	friend bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID);
 	friend void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);

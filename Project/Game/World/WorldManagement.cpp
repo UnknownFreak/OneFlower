@@ -9,9 +9,9 @@
 #include "../Component/GameObject.h"
 #include "../Gfx.h"
 // load zone with ID
-void WorldManagement::loadZone(unsigned int zoneID)
+void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 {
-	if (worldmap.find(zoneID) != worldmap.end())
+	if (worldmap.find(std::pair<std::string,size_t>(addedFromMod,zoneID)) != worldmap.end())
 	{
 		std::string info = "Zone structure with ID: [" + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
 #ifdef _DEBUG
@@ -19,18 +19,18 @@ void WorldManagement::loadZone(unsigned int zoneID)
 #endif
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
-		zoneToLoadID = zoneID;
+		zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
 		startLoad();
 		//worldFromZone(zoneID);
 	}
 	else
 	{
 #ifdef _DEBUG
-		std::map<size_t, DBZone>::iterator it = EditorAllZones.find(zoneID);
+		std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.find(std::pair<std::string, size_t>(addedFromMod, zoneID));
 		if (it != EditorAllZones.end())
 		{
-			worldmap.insert(std::pair<unsigned int, Zone*>(zoneID, new Zone(it->second)));
-			zoneToLoadID = zoneID;
+			worldmap.insert(std::pair<std::pair<std::string, size_t>, Zone*>(std::pair<std::string, size_t>(addedFromMod, zoneID), new Zone(it->second)));
+			zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
 			startLoad();
 		}
 #else
@@ -59,7 +59,7 @@ void WorldManagement::loadZone(unsigned int zoneID)
 	}
 }
 // default constructor
-WorldManagement::WorldManagement() : lastLoadedZone(0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
+WorldManagement::WorldManagement() : lastLoadedZone("",0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
 {
 	//testSave();
 	if (loadModOrderFile(modLoadOrder) == false)
@@ -81,15 +81,14 @@ WorldManagement::~WorldManagement()
 		delete it->second;
 	}
 	//remove loaded zones
-	for(size_t i = 0; i < worldmap.size(); i++)
+	for (std::map<std::pair<std::string, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
 		// if a zone have been unloaded/deleted already
-		if(worldmap[i])
-			for(size_t j = 0; j < worldmap[i]->objects.size(); j++)
-			{
-				// request removal of GameObjects /to fix
-				Engine::game.requestRemoveal(worldmap[i]->objects[j].second);
-				worldmap[i]->objects[j].second = nullptr;
-			}
+		for(size_t j = 0; j < it->second->objects.size(); j++)
+		{
+			// request removal of GameObjects /to fix
+			Engine::game.requestRemoveal(it->second->objects[j].second);
+			it->second->objects[j].second = nullptr;
+		}
 }
 
 Zone* WorldManagement::getCurrentZone()
@@ -127,7 +126,7 @@ void WorldManagement::loadSome()
 	case STATE_PREPARE_LOAD:
 #ifdef _DEBUG
 		Engine::Window.prefabList.Disable();
-		if (lastLoadedZone != 0)
+		if (lastLoadedZone.second != 0)
 		{
 			totalToLoad = EditorAllZones[lastLoadedZone].prefabList.size();
 			currentObjIterator = EditorAllZones[lastLoadedZone].prefabList.begin();
@@ -146,7 +145,7 @@ void WorldManagement::loadSome()
 		loadState = STATE_UNLOAD_OBJECTS;
 		break;
 	case STATE_UNLOAD_OBJECTS:
-		if (lastLoadedZone != 0)
+		if (lastLoadedZone.second != 0)
 		{
 			if (currentObj == listOfZoneObjects.size())
 			{
@@ -258,8 +257,8 @@ void WorldManagement::EditorAddNewZone(std::string name,unsigned int ID)
 void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
 {
 	//*change this with listview instead?//*/
-	if (EditorAllZones.find(ID) != EditorAllZones.end())
-		loadZone(ID);
+	if (EditorAllZones.find(std::pair<std::string, size_t>(name, ID)) != EditorAllZones.end())
+		loadZone(name,ID);
 	else
 	{
 		MessageBox(Engine::Window.hWnd, "Could not load Zone", "Err", NULL);

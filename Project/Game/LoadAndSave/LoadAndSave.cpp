@@ -102,12 +102,14 @@ void saveGame(GameObject& player,std::string saveFile)
 	{
 		cereal::BinaryOutputArchive ar(file);
 		ar(player);
+		ar(Engine::World.getCurrentZone()->modOrigin);
 		ar(Engine::World.getCurrentZone()->ID);
 		size_t size = Engine::World.worldmap.size();
 		ar(size);
-		for (std::map<size_t, Zone*>::iterator i = Engine::World.worldmap.begin(); i != Engine::World.worldmap.end(); i++)
+		for (std::map<std::pair<std::string,size_t>, Zone*>::iterator i = Engine::World.worldmap.begin(); i != Engine::World.worldmap.end(); i++)
 		{
-			ar(i->first);
+			ar(i->first.first);
+			ar(i->first.second);
 			ar(*i->second);
 		}
 	}
@@ -120,23 +122,27 @@ void loadGame(GameObject& player,std::string loadFile)
 		cereal::BinaryInputArchive ar(file);
 		ar(player);
 		size_t zoneID;
+		std::string name;
+		ar(name);
 		ar(zoneID);
-		Engine::World.loadZone(zoneID);
+		Engine::World.loadZone(name,zoneID);
 
 		size_t size = Engine::World.worldmap.size();
 		ar(size);
 		for (size_t i = 0; i < size; i++)
 		{
 			size_t id;
+			std::string modorigin;
 			Zone* zone = new Zone();
+			ar(modorigin);
 			ar(id);
 			ar(*zone);
-			Engine::World.worldmap.insert(std::pair<size_t, Zone*>(id, zone));
+			Engine::World.worldmap.insert(std::pair<std::pair<std::string, size_t>, Zone*>(std::pair<std::string, size_t>(modorigin, id), zone));
 		}
 	}
 }
 
-void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<unsigned int, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
+void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -145,10 +151,10 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<u
 		DatabaseIndex ind;
 		cereal::BinaryOutputArchive mainAr(file);
 		cereal::BinaryOutputArchive indexAr(index);
-		for (std::map<size_t, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
+		for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
 		{
 			ind.flags = "-";
-			ind.ID = it->first;
+			ind.ID = it->first.second;
 			ind.type = "Zone";
 			ind.modFile = it->second.fromMod;
 			ind.row = (size_t)file.tellp();
@@ -1166,6 +1172,7 @@ void save(Archive &ar, const Zone&zone)
 		ar(i->first.second);
 		ar(*i->second);
 	}
+	ar(zone.modOrigin);
 }
 template<class Archive>
 void load(Archive &ar, Zone &zone)
@@ -1190,6 +1197,7 @@ void load(Archive &ar, Zone &zone)
 		ar(*obj);
 		zone.objects.push_back(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(name,ID), obj));
 	}
+	ar(zone.modOrigin);
 }
 #pragma endregion
 
@@ -1634,7 +1642,7 @@ void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID)
 		}
 	}
 }
-void LoadAllZones(std::map<unsigned int, DBZone>& worldmap)
+void LoadAllZones(std::map<std::pair<std::string,size_t>, DBZone>& worldmap)
 {
 	for each (std::pair<std::string,size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
@@ -1651,10 +1659,12 @@ void LoadAllZones(std::map<unsigned int, DBZone>& worldmap)
 					ar(ind);
 					if (ind.type == "Zone")
 					{
-						std::map<unsigned int, DBZone>::iterator it = worldmap.find(ind.ID);
+						std::map<std::pair<std::string,size_t>, DBZone>::iterator it = worldmap.find(std::pair<std::string,size_t>(ind.modFile,ind.ID));
 						if (it != worldmap.end())
 						{
 							// stuff exist add extra things to zone.
+							cereal::BinaryInputArchive zoneLoad(database);
+							zoneLoad(it->second);
 						}
 						else
 						{
@@ -1662,7 +1672,7 @@ void LoadAllZones(std::map<unsigned int, DBZone>& worldmap)
 							DBZone tmp;
 							cereal::BinaryInputArchive zoneLoad(database);
 							zoneLoad(tmp);
-							worldmap.insert(std::pair<unsigned int, DBZone>(tmp.ID, tmp));
+							worldmap.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(ind.modFile,tmp.ID), tmp));
 						}
 					}
 					else if (ind.flags == "EoF")

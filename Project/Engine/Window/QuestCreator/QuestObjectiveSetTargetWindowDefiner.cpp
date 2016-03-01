@@ -91,6 +91,7 @@ void SetTargetWindow::show(HWND parent, HINSTANCE hInst, std::string type)
 	}
 	else if(type == "Explore")
 	{
+		/*
 		int index = 0;
 		for each (std::pair<unsigned int, DBZone> pair in Engine::World.EditorAllZones)
 		{
@@ -99,6 +100,7 @@ void SetTargetWindow::show(HWND parent, HINSTANCE hInst, std::string type)
 			items.push_back(ListViewItemStruct(pair.second.ID, pair.second.name, ListViewItemStruct::Zone));
 			index++;
 		}
+		//*/
 	}
 	g_items = &items;
 	ShowWindow(hWnd, TRUE);

@@ -34,6 +34,8 @@ protected:
 public:
 
 	RespawnContainer rc;
+	
+	std::string modOrigin;
 
 	//std::vector<std::pair<size_t,Vector2>> prefabList;
 	// Vector containing tiles (backgrounds)

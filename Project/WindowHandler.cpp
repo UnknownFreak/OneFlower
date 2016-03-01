@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	//testSave();
-	Engine::World.loadZone(1);
+	Engine::World.loadZone("OneFlower.main",1);
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
