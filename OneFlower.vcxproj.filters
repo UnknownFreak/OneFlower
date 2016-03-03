@@ -326,6 +326,9 @@
     <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp">
       <Filter>Engine\Window\QuesetCreator</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">

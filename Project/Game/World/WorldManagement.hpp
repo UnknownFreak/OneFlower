@@ -5,6 +5,7 @@
 #include "../LoadAndSave/PrefabContainer.hpp"
 #include "../LoadAndSave/DatabaseIndex.hpp"
 #include "../GUI/Window/Addon/ProgressBar.hpp"
+#include "../LoadAndSave/ModHeader.hpp"
 #include "DBZone.hpp"
 class Zone;
 class GameObject;
@@ -50,9 +51,12 @@ public:
 #ifdef _DEBUG
 
 	std::string openedMod = "OneFlower.main";
+	ModHeader myModHeader;
 
 	std::string getLoadedMod();
 
+	void loadMod(std::string modName);
+	bool loadMods(std::string modName);
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
 	void EditorLoadZone(std::string zoneName,unsigned int ID);
 	void EditorRemoveZone();
@@ -80,6 +84,8 @@ private:
 	int loadState = STATE_NOT_SET;
 	bool isLoading = false;
 	std::map<std::pair<std::string,size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
+	std::map<std::pair<std::string, size_t>, GameObject*>::iterator currentObjIteratorUnload;
+
 	size_t currentObj = 0;
 	size_t totalLoaded = 0;
 	size_t totalToLoad = 0;

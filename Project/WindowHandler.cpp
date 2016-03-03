@@ -35,6 +35,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	//testSave();
+	//Loads the mods required for the "editor", not required for release mode.
+	//Engine::World.loadMod("OneFlower.main");
 	Engine::World.loadZone("OneFlower.main",1);
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();

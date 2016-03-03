@@ -45,6 +45,7 @@ public:
 	Vector2 oldPosition;
 	// which mod to load the prefab from;
 	std::string fromMod = "OneFlower.main";
+	std::string prefabName;
 	//type, contains a value from the DBZonePrefabStructType enum
 	size_t type = ADD;
 protected:

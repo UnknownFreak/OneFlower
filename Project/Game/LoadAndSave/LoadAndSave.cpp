@@ -48,6 +48,7 @@
 #include "../LoadAndSave/Prefab.hpp"
 #include "../LoadAndSave/PrefabContainer.hpp"
 #include "../LoadAndSave/DatabaseIndex.hpp"
+#include "../LoadAndSave/ModHeader.hpp"
 
 #include "../../Engine.hpp"
 
@@ -142,7 +143,7 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
-void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
+void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -151,6 +152,13 @@ void saveGameDatabase(std::string filename, PrefabContainer& prefabs, std::map<s
 		DatabaseIndex ind;
 		cereal::BinaryOutputArchive mainAr(file);
 		cereal::BinaryOutputArchive indexAr(index);
+		ind.flags = "-";
+		ind.ID = 0;
+		ind.type = "Header";
+		ind.modFile = modhdr.name;
+		ind.row = (size_t)file.tellp();
+		indexAr(ind);
+		mainAr(modhdr);
 		for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
 		{
 			ind.flags = "-";
@@ -1037,6 +1045,30 @@ void load(Archive& ar, Consumable& item)
 #pragma endregion
 
 #pragma region Zone
+
+template <class Archive>
+void save(Archive& ar, const ModHeader& hdr)
+{
+	ar(hdr.name);
+	ar(hdr.dependencies.size());
+	for each (std::string var in hdr.dependencies)
+	{
+		ar(var);
+	}
+}
+template<class Archive>
+void load(Archive& ar, ModHeader& hdr)
+{
+	size_t mysize;
+	ar(hdr.name);
+	ar(mysize);
+	for (size_t i = 0; i < mysize; i++)
+	{
+		std::string mydep;
+		ar(mydep);
+		hdr.dependencies.push_back(mydep);
+	}
+}
 template<class Archive>
 void save(Archive& ar, const DBZonePrefabStruct& dbzps)
 {
@@ -1047,6 +1079,7 @@ void save(Archive& ar, const DBZonePrefabStruct& dbzps)
 	ar(dbzps.position.y);
 	ar(dbzps.oldPosition.y);
 	ar(dbzps.type);
+	ar(dbzps.prefabName);
 }
 template<class Archive>
 void load(Archive& ar, DBZonePrefabStruct& dbzps)
@@ -1058,6 +1091,7 @@ void load(Archive& ar, DBZonePrefabStruct& dbzps)
 	ar(dbzps.position.y);
 	ar(dbzps.oldPosition.y);
 	ar(dbzps.type);
+	ar(dbzps.prefabName);
 }
 
 template<class Archive>
@@ -1592,6 +1626,37 @@ DatabaseIndex loadIndex(std::string modname, size_t objectID, std::string loadTy
 #pragma endregion
 
 #pragma region zoneFile
+
+bool loadModHeader(std::string modName, ModHeader& myheader)
+{
+	bool eof = false;
+	DatabaseIndex ind;
+	std::ifstream index(modName + ".index", std::ios::binary);
+	std::ifstream database(modName, std::ios::binary);
+	if (index.is_open())
+	{
+		cereal::BinaryInputArchive ar(index);
+		{
+			while (!eof)
+			{
+				ar(ind);
+				if (ind.type == "Header")
+				{
+					database.seekg(ind.row);
+					cereal::BinaryInputArchive headerLoad(database);
+					headerLoad(myheader);
+					index.close();
+					database.close();
+					return true;
+				}
+				else if (ind.flags == "EoF")
+					eof = true;
+			}
+		}
+	}
+	return false;
+}
+
 void loadZoneFile(std::string modname,const DatabaseIndex& index, DBZone& zone)
 {
 	if (index.type == "Zone")
