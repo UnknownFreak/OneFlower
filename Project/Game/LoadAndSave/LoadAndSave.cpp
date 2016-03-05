@@ -1729,6 +1729,7 @@ void LoadAllZones(std::map<std::pair<std::string,size_t>, DBZone>& worldmap)
 						{
 							// stuff exist add extra things to zone.
 							cereal::BinaryInputArchive zoneLoad(database);
+							database.seekg(ind.row);
 							zoneLoad(it->second);
 						}
 						else

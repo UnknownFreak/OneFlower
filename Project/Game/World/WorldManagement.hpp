@@ -55,8 +55,11 @@ public:
 
 	std::string getLoadedMod();
 
-	void loadMod(std::string modName);
-	bool loadMods(std::string modName);
+
+	void newMod(std::string modName, std::vector<std::string> dependencies);
+	std::vector<std::string> getModDependencies(std::string mod);
+	std::vector<std::string> loadMod(std::string modName);
+	std::string loadMods(std::string modName);
 	void EditorAddNewZone(std::string zoneName,unsigned int ID);
 	void EditorLoadZone(std::string zoneName,unsigned int ID);
 	void EditorRemoveZone();

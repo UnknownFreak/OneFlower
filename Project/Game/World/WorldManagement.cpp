@@ -60,43 +60,77 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 	}
 }
 
-void WorldManagement::loadMod(std::string myMod)
+void WorldManagement::newMod(std::string modName, std::vector<std::string> dependencies)
 {
+	modLoadOrder.loadOrder.clear();
+	myModHeader.name = modName;
+	myModHeader.dependencies = dependencies;
+	for each (std::string var in myModHeader.dependencies)
+	{
+		loadMods(var);
+	}
+	openedMod = modName;
+	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, modLoadOrder.loadOrder.size()));
+	LoadAllZones(EditorAllZones);
+	LoadAllPrefabs(editorPrefabContainer);
+	LoadAllItems(EditorAllItems);
+}
+std::vector<std::string> WorldManagement::loadMod(std::string myMod)
+{
+	std::vector<std::string> myFailed;
 	openedMod = myMod;
 	modLoadOrder.loadOrder.clear();
 	if (!loadModHeader(myMod, myModHeader))
 	{
-		MessageBox(Engine::Window.hWnd, "Error loading Mod", "Error", NULL);
-		openedMod = "<None>";
+		myFailed.push_back("Error loading "+myMod+"!");
+		openedMod = "<Not Set>";
 	}
 	else
 	{
 		for each (std::string var in myModHeader.dependencies)
 		{
-			loadMods(var);
+			std::string myReturn = loadMods(var);
+			if (myReturn != "<Fine>")
+				myFailed.push_back(myReturn);
 		}
 	}
 	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
 	LoadAllZones(EditorAllZones);
 	LoadAllPrefabs(editorPrefabContainer);
 	LoadAllItems(EditorAllItems);
+	return myFailed;
 }
-bool WorldManagement::loadMods(std::string myMod)
+std::vector<std::string> WorldManagement::getModDependencies(std::string mod)
+{
+	ModHeader modHdr;
+	if (!loadModHeader(mod, modHdr))
+	{
+		return{};
+	}
+	else
+	{
+		return  modHdr.dependencies;
+	}
+}
+std::string WorldManagement::loadMods(std::string myMod)
 {
 	ModHeader modHdr;
 	if (!loadModHeader(myMod, modHdr))
 	{
-		return false;
+		return "Failed to load dependency mod: " + myMod;
 	}
 	else
 	{
-		for each (std::string var in myModHeader.dependencies)
+		for each (std::string var in modHdr.dependencies)
 		{
 			loadMods(var);
 		}
-		if (modLoadOrder.loadOrder.find(myMod) != modLoadOrder.loadOrder.end())
-			modLoadOrder.loadOrder.insert(std::pair<std::string,size_t>(myMod, modLoadOrder.loadOrder.size()));
+		if (modLoadOrder.loadOrder.find(myMod) == modLoadOrder.loadOrder.end())
+		{
+			modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
+		}
 	}
+	return "<Fine>";
 }
 // default constructor
 WorldManagement::WorldManagement() : lastLoadedZone("",0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
