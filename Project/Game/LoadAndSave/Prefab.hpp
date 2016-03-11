@@ -2,7 +2,8 @@
 #define Prefab_HPP
 
 #include <vector>
-#include"../Component/BaseComponent.hpp"
+#include "../Component/BaseComponent.hpp"
+#include "EditorObjectSaveMode.hpp"
 class GameObject;
 class Prefab
 {
@@ -21,11 +22,13 @@ private:
 #ifdef _DEBUG
 public:
 #endif
+	
 	std::vector<BaseComponent*> base;
 	size_t ID;
 	std::string name;
 	std::string tag;
-	std::string modOrigin = "OneFlower.main";
+	std::string fromMod = "OneFlower.main";
+	size_t mode = EditorObjectSaveMode::ADD;
 	const unsigned int getTypeID(size_t index);
 
 protected:

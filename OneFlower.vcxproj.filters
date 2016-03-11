@@ -329,6 +329,9 @@
     <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp">
+      <Filter>Game\LoadAndSave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">

@@ -7,7 +7,7 @@
 void PrefabContainer::addPrefab(const Prefab prefab)
 {
 	mapOfPrefabs2.insert(std::pair<size_t, Prefab>(prefab.ID, Prefab(prefab)));
-	mapOfPrefabs.insert(std::pair<std::pair<std::string, size_t>, Prefab>(std::pair<std::string, size_t>(prefab.modOrigin, prefab.ID), Prefab(prefab)));
+	mapOfPrefabs.insert(std::pair<std::pair<std::string, size_t>, Prefab>(std::pair<std::string, size_t>(prefab.fromMod, prefab.ID), Prefab(prefab)));
 #ifdef _DEBUG
 	Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(prefab.ID)->second);
 #endif

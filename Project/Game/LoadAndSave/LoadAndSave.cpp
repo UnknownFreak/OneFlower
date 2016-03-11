@@ -41,7 +41,6 @@
 #include "../GUI/Text/Message.hpp"
 #include "../GUI/Text\FloatingText.hpp"
 
-#include "../World/ZoneMaker.hpp"
 #include "../World/Zone.hpp"
 #include "../World/ModLoader.hpp"
 
@@ -166,11 +165,14 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.type = "Zone";
 			ind.modFile = it->second.fromMod;
 			ind.row = (size_t)file.tellp();
-			if (!it->second.isRemoved)
+			if (it->second.mode != EditorObjectSaveMode::REMOVE)
 			{
+				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+					it->second.fromMod = EditorObjectSaveMode::DEFAULT;
 				indexAr(ind);
 				mainAr(it->second);
-				Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 			}
 		}
 		for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
@@ -178,11 +180,17 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.flags = "-";
 			ind.ID = it->first.second;
 			ind.type = "Prefab";
-			ind.modFile = it->second.modOrigin;
+			ind.modFile = it->second.fromMod;
 			ind.row = (size_t)file.tellp();
-			indexAr(ind);
-			mainAr(it->second);
-			Engine::Window.debug.print("SavingPrefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
+			if (it->second.mode != EditorObjectSaveMode::REMOVE)
+			{
+				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+					it->second.fromMod = EditorObjectSaveMode::DEFAULT;
+				indexAr(ind);
+				mainAr(it->second);
+			}
 		}
 		for (std::map<size_t, Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
 		{
@@ -193,14 +201,12 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.row = (size_t)file.tellp();
 			indexAr(ind);
 			saveItem(mainAr,it->second);
-			Engine::Window.debug.print("SavingItem - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 		}
 		ind.ID = 0xffffffff;
 		ind.type = "EoF";
 		ind.row = (size_t)file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
-		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 	}
 }
 
@@ -310,14 +316,12 @@ void testSave()
 		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(zone);
-		Engine::Window.debug.print("SavingZone - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 
 		ind.ID = pref.ID;
 		ind.type = "Prefab";
 		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref);
-		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 
 
 		ind.ID = pref2.ID;
@@ -325,7 +329,6 @@ void testSave()
 		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref2);
-		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 
 
 		ind.ID = pref3.ID;
@@ -333,7 +336,6 @@ void testSave()
 		ind.row = (size_t)file.tellp();
 		indexAr(ind);
 		mainAr(pref3);
-		Engine::Window.debug.print("Saving Prefab - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 
 
 		ind.ID = 0xffffffff;
@@ -341,7 +343,6 @@ void testSave()
 		ind.row = (size_t)file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
-		Engine::Window.debug.print("Saving EoF - FilePos " + std::to_string(ind.row), __LINE__, __FILE__);
 	}
 }
 
@@ -801,7 +802,6 @@ void loadItem(Archive & ar, Item*& item)
 		item = new Item();
 		ar(*item);
 	}
-	Engine::Window.prefabList.addItem(item);
 }
 #pragma endregion
 
@@ -1078,7 +1078,7 @@ void save(Archive& ar, const DBZonePrefabStruct& dbzps)
 	ar(dbzps.oldPosition.x);
 	ar(dbzps.position.y);
 	ar(dbzps.oldPosition.y);
-	ar(dbzps.type);
+	ar(dbzps.mode);
 	ar(dbzps.prefabName);
 }
 template<class Archive>
@@ -1090,7 +1090,7 @@ void load(Archive& ar, DBZonePrefabStruct& dbzps)
 	ar(dbzps.oldPosition.x);
 	ar(dbzps.position.y);
 	ar(dbzps.oldPosition.y);
-	ar(dbzps.type);
+	ar(dbzps.mode);
 	ar(dbzps.prefabName);
 }
 
@@ -1104,10 +1104,10 @@ void save(Archive &ar, const DBZone&zone)
 	ar(zone.loadingScreenMessage);
 
 	std::map<std::pair<std::string,size_t>,DBZonePrefabStruct> theStuffWeWillActuallySave;
-
+	
 	for (std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::const_iterator i = zone.prefabList.begin(); i != zone.prefabList.end(); i++)
 	{
-		if (i->second.type == DBZonePrefabStruct::DEFAULT)
+		if (i->second.mode == EditorObjectSaveMode::DEFAULT)
 		{
 			if (zone.fromMod == Engine::World.openedMod)
 			{
@@ -1117,30 +1117,30 @@ void save(Archive &ar, const DBZone&zone)
 				theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(i->first, dbzps));
 			}
 		}
-		else if (i->second.type == DBZonePrefabStruct::REMOVE)
+		else if (i->second.mode == EditorObjectSaveMode::REMOVE)
 		{
 			if(zone.fromMod != Engine::World.openedMod)
 			{
 				theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(i->first, i->second));
 			}
 		}
-		else if (i->second.type == DBZonePrefabStruct::MOVE)
+		else if (i->second.mode == EditorObjectSaveMode::EDIT)
 		{
 			DBZonePrefabStruct dbzps = i->second;
 			if (i->second.fromMod == zone.fromMod)
 			{
-				dbzps.type = DBZonePrefabStruct::DEFAULT;
+				dbzps.mode = EditorObjectSaveMode::DEFAULT;
 				dbzps.oldPosition.x = dbzps.position.x;
 				dbzps.oldPosition.y = dbzps.position.y;
 			}
 			theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(i->first, dbzps));
 		}
-		else if (i->second.type == DBZonePrefabStruct::ADD)
+		else if (i->second.mode == EditorObjectSaveMode::ADD)
 		{
 			DBZonePrefabStruct dbzps = i->second;
 			if (zone.fromMod == Engine::World.openedMod)
 			{
-				dbzps.type = DBZonePrefabStruct::DEFAULT;
+				dbzps.mode = EditorObjectSaveMode::DEFAULT;
 				dbzps.oldPosition.x = dbzps.position.x;
 				dbzps.oldPosition.y = dbzps.position.y;
 			}
@@ -1154,7 +1154,7 @@ void save(Archive &ar, const DBZone&zone)
 		ar(i->first.second);
 		ar(i->second);
 	}
-	
+	ar(zone.mode);
 }
 template<class Archive>
 void load(Archive &ar,DBZone &zone)
@@ -1177,12 +1177,12 @@ void load(Archive &ar,DBZone &zone)
 		ar(name);
 		ar(ID);
 		ar(dbzps);
-		if (dbzps.type == DBZonePrefabStruct::REMOVE)
+		if (dbzps.mode == EditorObjectSaveMode::REMOVE)
 		{
 			if (zone.prefabList.find(std::pair<std::string,size_t>(name,ID)) != zone.prefabList.end())
 				zone.prefabList.erase(zone.prefabList.find(std::pair<std::string, size_t>(name, ID)));
 		}
-		else if (dbzps.type == DBZonePrefabStruct::MOVE)
+		else if (dbzps.mode == EditorObjectSaveMode::EDIT)
 		{
 			if (zone.prefabList.find(std::pair<std::string, size_t>(name, ID)) != zone.prefabList.end())
 				zone.prefabList[std::pair<std::string, size_t>(name, ID)].position = dbzps.position;
@@ -1303,7 +1303,6 @@ namespace GUI
 		template <class Archive>
 		void save(Archive& ar, const GUI::Text::FloatingText& msg)
 		{
-			Engine::Window.debug.print("Saving floatingtext not implemented!", __LINE__, __FILE__);
 			/*REWORK
 			std::string txt = msg.entireString.getString();
 			ar(msg.marginWidth);
@@ -1326,7 +1325,6 @@ namespace GUI
 		template <class Archive>
 		void load(Archive& ar, GUI::Text::FloatingText& msg)
 		{
-			Engine::Window.debug.print("Loading floatingtext not implemented!", __LINE__, __FILE__);
 			/*REWORK
 			std::string iconName;
 			std::string text;
@@ -1439,7 +1437,7 @@ void load(Archive& ar,Prefab& pre)
 	}
 	ar(pre.name);
 	ar(pre.tag);
-	ar(pre.modOrigin);
+	ar(pre.fromMod);
 }
 template <class Archive>
 void save(Archive& ar,const Prefab& pre)
@@ -1499,7 +1497,7 @@ void save(Archive& ar,const Prefab& pre)
 	}
 	ar(pre.name);
 	ar(pre.tag);
-	ar(pre.modOrigin);
+	ar(pre.fromMod);
 }
 #pragma endregion
 
@@ -1565,8 +1563,6 @@ void loadPrefab(std::string modname, Prefab& prefab,const DatabaseIndex& index)
 			}
 		}
 	}
-	else
-		Engine::Window.debug.print("Type is not a Prefab!", __LINE__, __FILE__);
 }
 bool loadPrefab(std::string fromMod,unsigned int ID, Prefab& prefab)
 {
@@ -1674,8 +1670,6 @@ void loadZoneFile(std::string modname,const DatabaseIndex& index, DBZone& zone)
 			}
 		}
 	}
-	else
-		Engine::Window.debug.print("Type is not a Zone!", __LINE__, __FILE__);
 }
 void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID)
 {
@@ -1728,8 +1722,8 @@ void LoadAllZones(std::map<std::pair<std::string,size_t>, DBZone>& worldmap)
 						if (it != worldmap.end())
 						{
 							// stuff exist add extra things to zone.
-							cereal::BinaryInputArchive zoneLoad(database);
 							database.seekg(ind.row);
+							cereal::BinaryInputArchive zoneLoad(database);
 							zoneLoad(it->second);
 						}
 						else

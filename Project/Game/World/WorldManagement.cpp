@@ -352,12 +352,10 @@ void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
 
 void WorldManagement::EditorRemoveZone()
 {
-	if (EditorAllZones[lastLoadedZone].isRemoved)
-		EditorAllZones[lastLoadedZone].isRemoved = false;
+	if (EditorAllZones[lastLoadedZone].mode == EditorObjectSaveMode::REMOVE)
+		EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::EDIT;
 	else
-		EditorAllZones[lastLoadedZone].isRemoved = true;
-	Engine::Window.debug.print("Zone with ID " + std::to_string(EditorAllZones[lastLoadedZone].ID)
-		+ " have the DeleteFlag set to: " + std::to_string(EditorAllZones[lastLoadedZone].isRemoved), __LINE__, __FILE__);
+		EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::REMOVE;
 }
 void WorldManagement::EditorSaveZones()
 {
@@ -372,7 +370,7 @@ void WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
 {
 	DBZonePrefabStruct dbzps;
 	dbzps.ID = prefab.ID;
-	dbzps.fromMod = prefab.modOrigin;
+	dbzps.fromMod = prefab.fromMod;
 	dbzps.position = go->GetComponent<TransformComponent>()->position;
 	dbzps.oldPosition = dbzps.position;
 	dbzps.prefabName = prefab.name;
@@ -405,12 +403,16 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 	for (std::map<std::pair<std::string, size_t>,DBZonePrefabStruct>::iterator i = EditorAllZones[lastLoadedZone].prefabList.begin(); 
 		i != EditorAllZones[lastLoadedZone].prefabList.end(); i++)
 	{
-		if (currentZone->objects[i->first.second].second == go)
+		for (std::vector<std::pair<std::pair<std::string, size_t>, GameObject*>>::iterator it = currentZone->objects.begin();
+			it != currentZone->objects.end(); it++)
 		{
-			EditorAllZones[lastLoadedZone].prefabList.erase(i);
-			//currentZone->objects.erase(currentZone->objects.begin() + i);
-			listOfZoneObjects.erase(listOfZoneObjects.find(i->first));
-			break;
+			if (it->second == go && it->first == i->first)
+			{
+				//currentZone->objects.erase(currentZone->objects.begin() + i);
+				listOfZoneObjects.erase(listOfZoneObjects.find(i->first));
+				EditorAllZones[lastLoadedZone].prefabList.erase(i);
+				return;
+			}
 		}
 	}
 }

@@ -21,7 +21,7 @@ Prefab::~Prefab()
 	base.clear();
 }
 // Copy-c-tor
-Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ID(pre.ID)
+Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ID(pre.ID), fromMod(pre.fromMod), mode(pre.mode)
 {
 	for(size_t i = 0; i < pre.base.size(); ++i)
 	{

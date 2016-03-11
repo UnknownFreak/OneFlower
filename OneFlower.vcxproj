@@ -79,6 +79,7 @@
     <ClInclude Include="Project\Game\Item\Consumable.hpp" />
     <ClInclude Include="Project\Game\Item\Item.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
