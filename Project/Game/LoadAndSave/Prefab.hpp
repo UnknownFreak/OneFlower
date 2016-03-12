@@ -28,7 +28,7 @@ public:
 	std::string name;
 	std::string tag;
 	std::string fromMod = "OneFlower.main";
-	size_t mode = EditorObjectSaveMode::ADD;
+	EditorObjectSaveMode mode = EditorObjectSaveMode::ADD;
 	const unsigned int getTypeID(size_t index);
 
 protected:

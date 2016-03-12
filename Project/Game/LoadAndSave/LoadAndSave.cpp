@@ -170,7 +170,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
-					it->second.fromMod = EditorObjectSaveMode::DEFAULT;
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				indexAr(ind);
 				mainAr(it->second);
 			}
@@ -187,7 +187,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
-					it->second.fromMod = EditorObjectSaveMode::DEFAULT;
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				indexAr(ind);
 				mainAr(it->second);
 			}
@@ -197,12 +197,16 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.flags = "-";
 			ind.ID = it->first;
 			ind.type = "Item";
-			ind.modFile = it->second->myMod;
+			ind.modFile = it->second->fromMod;
 			ind.row = (size_t)file.tellp();
+			if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
+				it->second->mode = EditorObjectSaveMode::DEFAULT;
+			else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
+				it->second->mode = EditorObjectSaveMode::DEFAULT;
 			indexAr(ind);
 			saveItem(mainAr,it->second);
 		}
-		ind.ID = 0xffffffff;
+		ind.ID = 0xFFFFFFFF;
 		ind.type = "EoF";
 		ind.row = (size_t)file.tellp();
 		ind.flags = "EoF";
@@ -824,7 +828,8 @@ void save(Archive& ar,const Item& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 template <class Archive>
 void load(Archive& ar,Item& item)
@@ -849,7 +854,8 @@ void load(Archive& ar,Item& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 #pragma endregion
 
@@ -875,7 +881,8 @@ void save(Archive& ar, const Ammo& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 template <class Archive>
 void load(Archive& ar, Ammo& item)
@@ -903,7 +910,8 @@ void load(Archive& ar, Ammo& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 #pragma endregion
 
@@ -929,7 +937,8 @@ void save(Archive& ar,const Armor& item)
 		ar(it->second.x);
 		ar(it->second.y);
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 template <class Archive>
 void load(Archive& ar,Armor& item)
@@ -957,7 +966,8 @@ void load(Archive& ar,Armor& item)
 		if (s != "Default")
 			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 #pragma endregion
 
@@ -985,7 +995,8 @@ void save(Archive& ar, const Bag& item)
 			ar(item.items[i].second);
 		}
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 template<class Archive>
 void load(Archive& ar, Bag& item)
@@ -1011,7 +1022,8 @@ void load(Archive& ar, Bag& item)
 			ar(item.items[i].second);
 		}
 	}
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 #pragma endregion
 
@@ -1027,7 +1039,8 @@ void save(Archive& ar, const Consumable& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 template<class Archive>
 void load(Archive& ar, Consumable& item)
@@ -1040,7 +1053,8 @@ void load(Archive& ar, Consumable& item)
 	ar(item.stackable);
 	ar(item.tag);
 	ar(item.weight);
-	ar(item.myMod);
+	ar(item.fromMod);
+	ar(item.mode);
 }
 #pragma endregion
 
@@ -1438,6 +1452,7 @@ void load(Archive& ar,Prefab& pre)
 	ar(pre.name);
 	ar(pre.tag);
 	ar(pre.fromMod);
+	ar(pre.mode);
 }
 template <class Archive>
 void save(Archive& ar,const Prefab& pre)
@@ -1498,6 +1513,7 @@ void save(Archive& ar,const Prefab& pre)
 	ar(pre.name);
 	ar(pre.tag);
 	ar(pre.fromMod);
+	ar(pre.mode);
 }
 #pragma endregion
 

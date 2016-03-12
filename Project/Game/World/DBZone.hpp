@@ -17,7 +17,7 @@ public:
 	std::string fromMod = "OneFlower.main";
 	std::string prefabName;
 	//type, contains a value from the DBZonePrefabStructType enum
-	size_t mode = EditorObjectSaveMode::ADD;
+	EditorObjectSaveMode mode = EditorObjectSaveMode::ADD;
 protected:
 	template<class T>
 	friend void save(T& ar, const DBZonePrefabStruct& dbzps);
@@ -35,7 +35,7 @@ public:
 	Tile loadingScreen;
 	std::string loadingScreenMessage;
 	std::map<std::pair<std::string,size_t>,DBZonePrefabStruct> prefabList;
-	size_t mode = EditorObjectSaveMode::ADD;
+	EditorObjectSaveMode mode = EditorObjectSaveMode::ADD;
 protected:
 #ifdef _DEBUG
 	template<class T>

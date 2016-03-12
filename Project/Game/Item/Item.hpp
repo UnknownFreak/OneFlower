@@ -4,6 +4,8 @@
 #include <string>
 #include <SFML\Graphics\Sprite.hpp>
 #include "../../Vector.h"
+#include "../LoadAndSave/EditorObjectSaveMode.hpp"
+
 class Item
 {
 public:
@@ -35,7 +37,8 @@ public:
 	int getPrice();
 	bool getStackable();
 	sf::Sprite icon;
-	std::string myMod = "OneFlower.main";
+	std::string fromMod = "OneFlower.main";
+	EditorObjectSaveMode mode = EditorObjectSaveMode::ADD;
 protected:
 	
 
