@@ -4,8 +4,7 @@
 class DatabaseIndex
 {
 public:
-	
-	size_t row =0;
+	long long row = 0;
 	unsigned int ID=0;
 	/*
 	Type of object to load:

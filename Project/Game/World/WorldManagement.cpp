@@ -1,8 +1,6 @@
 #include "WorldManagement.hpp"
 #include "Zone.hpp"
-#include "ZoneMaker.hpp"
 #include <string>
-#include <fstream>
 #include "../LoadAndSave/LoadAndSave.hpp"
 #include "../../Engine.hpp"
 #include "../Component/RenderComponent.h"
@@ -13,12 +11,10 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 {
 	if (worldmap.find(std::pair<std::string,size_t>(addedFromMod,zoneID)) != worldmap.end())
 	{
-		std::string info = "Zone structure with ID: [" + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
-#ifdef _DEBUG
-		Engine::Window.debug.print(info, __LINE__, __FILE__);
-#endif
+		std::string info = "Zone structure with ID: [" +addedFromMod + ", " + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
+		std::cout << info;
 		zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
 		startLoad();
 		//worldFromZone(zoneID);
@@ -29,6 +25,7 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 		std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.find(std::pair<std::string, size_t>(addedFromMod, zoneID));
 		if (it != EditorAllZones.end())
 		{
+			std::cout << "From Mod " << addedFromMod << " ID " << zoneID << std::endl;
 			worldmap.insert(std::pair<std::pair<std::string, size_t>, Zone*>(std::pair<std::string, size_t>(addedFromMod, zoneID), new Zone(it->second)));
 			zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
 			startLoad();
@@ -59,7 +56,6 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 #endif
 	}
 }
-
 void WorldManagement::newMod(std::string modName, std::vector<std::string> dependencies)
 {
 	modLoadOrder.loadOrder.clear();
@@ -82,7 +78,7 @@ std::vector<std::string> WorldManagement::loadMod(std::string myMod)
 	modLoadOrder.loadOrder.clear();
 	if (!loadModHeader(myMod, myModHeader))
 	{
-		myFailed.push_back("Error loading "+myMod+"!");
+		myFailed.push_back("Error loading Mod!");
 		openedMod = "<Not Set>";
 	}
 	else
@@ -95,6 +91,9 @@ std::vector<std::string> WorldManagement::loadMod(std::string myMod)
 		}
 	}
 	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
+	std::cout << "Mod loaded in this order\n";
+	for each (auto it in modLoadOrder.loadOrder)
+		std::cout << it.first << " - " << it.second << "\n";
 	LoadAllZones(EditorAllZones);
 	LoadAllPrefabs(editorPrefabContainer);
 	LoadAllItems(EditorAllItems);
@@ -117,16 +116,19 @@ std::string WorldManagement::loadMods(std::string myMod)
 	ModHeader modHdr;
 	if (!loadModHeader(myMod, modHdr))
 	{
+		std::cout << "Failed to load dependency mod: " + myMod << std::endl;
 		return "Failed to load dependency mod: " + myMod;
 	}
 	else
 	{
+		std::cout << "checking: " + myMod + "dependencies" << std::endl;
 		for each (std::string var in modHdr.dependencies)
 		{
 			loadMods(var);
 		}
 		if (modLoadOrder.loadOrder.find(myMod) == modLoadOrder.loadOrder.end())
 		{
+			std::cout << "adding: " + myMod + "to the modLoadOrder"<< std::endl;
 			modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
 		}
 	}
@@ -146,7 +148,7 @@ WorldManagement::WorldManagement() : lastLoadedZone("",0), currentZone(0), modLo
 // deconstructor
 WorldManagement::~WorldManagement()
 {
-	for (std::map<size_t, Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it ++)
+	for (std::map<std::pair<std::string, size_t>, Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it++)
 	{
 		delete it->second;
 	}
@@ -189,18 +191,15 @@ void WorldManagement::loadSome()
 	switch (loadState)
 	{
 	case STATE_NOT_SET:
-#ifdef _DEBUG
-		Engine::Window.debug.print("Err! Loadstate not set!", __LINE__, __FILE__);
-#endif
 		break;
 	case STATE_PREPARE_LOAD:
 #ifdef _DEBUG
-		Engine::Window.prefabList.Disable();
 		if (lastLoadedZone.second != 0)
 		{
 			totalToLoad = EditorAllZones[lastLoadedZone].prefabList.size();
 			currentObjIterator = EditorAllZones[lastLoadedZone].prefabList.begin();
 		}
+		currentObjIteratorUnload = listOfZoneObjects.begin();
 		totalToLoad += EditorAllZones[zoneToLoadID].prefabList.size();
 #else
 		totalToLoad = listOfZoneObjects.size();
@@ -222,11 +221,16 @@ void WorldManagement::loadSome()
 				loadState = STATE_RELOAD_OBJECTS;
 				listOfZoneObjects.clear();
 				currentObj = 0;
+#ifdef _DEBUG
+				currentObjIterator = EditorAllZones[zoneToLoadID].prefabList.begin();
+#else
 				currentObjIterator = zoneToLoad.prefabList.begin();
+#endif
 				break;
 			}
 #ifdef _DEBUG
-			currentObjIterator->second.position = listOfZoneObjects[currentObjIterator->first]->GetComponent<TransformComponent>()->position;
+			currentObjIterator->second.position = listOfZoneObjects[currentObjIteratorUnload->first]->GetComponent<TransformComponent>()->position;
+			currentObjIterator++;
 #endif
 			Engine::game.requestRemoveal(listOfZoneObjects[currentObjIteratorUnload->first]);
 			currentObj++;
@@ -299,9 +303,6 @@ void WorldManagement::loadSome()
 		}
 		break;
 	case STATE_DONE:
-#ifdef _DEBUG
-		Engine::Window.prefabList.Enable();
-#endif
 		lastLoadedZone = zoneToLoadID;
 		isLoading = false;
 		break;
@@ -324,9 +325,46 @@ void WorldManagement::startLoad()
 }
 
 #ifdef _DEBUG
-void WorldManagement::EditorAddNewZone(std::string name,unsigned int ID)
+void WorldManagement::EditorAddNewZone(std::string zoneName, std::string background, std::string loadingScreen, std::string loadingScreenMessage, size_t ID, double x, double y)
 {
-	Engine::Window.debug.print("Rework in progress", __LINE__, __FILE__);
+	DBZone myDbZone;
+	myDbZone.name = zoneName;
+	myDbZone.fromMod = openedMod;
+	myDbZone.ID = ID;
+	myDbZone.background = Tile(background,0,0);
+	myDbZone.background.size.x = x;
+	myDbZone.background.size.y = y;
+
+	myDbZone.loadingScreen = Tile(loadingScreen,0,0);
+	myDbZone.loadingScreenMessage = loadingScreenMessage;
+
+	EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(openedMod, ID), myDbZone));
+}
+void WorldManagement::EditorEditZone(std::string zoneName, std::string background, std::string loadingScreen, std::string loadingScreenMessage, size_t ID, double x, double y)
+{
+	EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::EDIT;
+	EditorAllZones[lastLoadedZone].name = zoneName;
+	EditorAllZones[lastLoadedZone].fromMod = openedMod;
+	EditorAllZones[lastLoadedZone].ID = ID;
+	EditorAllZones[lastLoadedZone].background = Tile(background, 0, 0);
+	EditorAllZones[lastLoadedZone].background.size.x = x;
+	EditorAllZones[lastLoadedZone].background.size.y = y;
+
+	EditorAllZones[lastLoadedZone].loadingScreen = Tile(loadingScreen, 0, 0);
+	EditorAllZones[lastLoadedZone].loadingScreenMessage = loadingScreenMessage;
+	EditorSetBackground(background);
+}
+void WorldManagement::EditorFlagGameObjectForEdit(GameObject* go)
+{
+	for (std::map<std::pair<std::string, size_t>, GameObject*>::iterator
+		i = listOfZoneObjects.begin(); i != listOfZoneObjects.end(); i++)
+	{
+		if (i->second == go)
+		{
+			EditorAllZones[lastLoadedZone].prefabList.find(i->first)->second.mode = EditorObjectSaveMode::EDIT;
+			EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::EDIT;
+		}
+	}
 }
 
 void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
@@ -357,16 +395,20 @@ void WorldManagement::EditorRemoveZone()
 	else
 		EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::REMOVE;
 }
-void WorldManagement::EditorSaveZones()
+std::string WorldManagement::EditorSave()
 {
-	for (std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::iterator
-		i = EditorAllZones[lastLoadedZone].prefabList.begin(); i != EditorAllZones[lastLoadedZone].prefabList.end(); i++)
+	if (openedMod != "<Not Set>")
 	{
-		i->second.position = listOfZoneObjects[i->first]->GetComponent<TransformComponent>()->position;
+		for (std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::iterator
+			i = EditorAllZones[lastLoadedZone].prefabList.begin(); i != EditorAllZones[lastLoadedZone].prefabList.end(); i++)
+		{
+			i->second.position = listOfZoneObjects[i->first]->GetComponent<TransformComponent>()->position;
+		}
+		saveGameDatabase(getLoadedMod(), myModHeader, editorPrefabContainer, EditorAllZones, EditorAllItems,EditorAllQuests);
 	}
-	saveGameDatabase(getLoadedMod(),myModHeader, editorPrefabContainer, EditorAllZones, EditorAllItems);
+	return openedMod;
 }
-void WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
+std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
 {
 	DBZonePrefabStruct dbzps;
 	dbzps.ID = prefab.ID;
@@ -375,9 +417,12 @@ void WorldManagement::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
 	dbzps.oldPosition = dbzps.position;
 	dbzps.prefabName = prefab.name;
 	size_t ValidID = EditorGetValidID();
+	EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::EDIT;
 	EditorAllZones[lastLoadedZone].prefabList.insert(std::pair<std::pair<std::string,size_t>,DBZonePrefabStruct>(std::pair<std::string,size_t>(openedMod,ValidID),dbzps));
 	currentZone->objects.push_back(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(openedMod, ValidID), go));
 	listOfZoneObjects.insert(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(openedMod, ValidID), go));
+	
+	return std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(std::pair<std::string, size_t>(openedMod, ValidID), dbzps);
 }
 size_t WorldManagement::EditorGetValidID()
 {
@@ -400,7 +445,7 @@ void WorldManagement::EditorSetBackgroundSize(int x,int y)
 }
 void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 {
-	for (std::map<std::pair<std::string, size_t>,DBZonePrefabStruct>::iterator i = EditorAllZones[lastLoadedZone].prefabList.begin(); 
+	for (std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::iterator i = EditorAllZones[lastLoadedZone].prefabList.begin();
 		i != EditorAllZones[lastLoadedZone].prefabList.end(); i++)
 	{
 		for (std::vector<std::pair<std::pair<std::string, size_t>, GameObject*>>::iterator it = currentZone->objects.begin();
@@ -416,7 +461,14 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 		}
 	}
 }
-
+void WorldManagement::AddQuest(Quest quest)
+{
+	std::pair<std::string, unsigned int> ID;
+	ID.first = openedMod;
+	ID.second = quest.ID;
+	quest.fromMod = openedMod;
+	EditorAllQuests.insert(std::pair<std::pair<std::string, unsigned int>, Quest>(ID, quest));
+}
 std::string WorldManagement::getLoadedMod()
 {
 	return openedMod;

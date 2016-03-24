@@ -130,10 +130,10 @@ void EngineQuestCreator::setNextValidID()
 	if (ID == 0)
 		ID++;
 	// change to the list of quests
-	while (Engine::World.EditorAllItems.find(ID) != Engine::World.EditorAllItems.end())
+	/*while (Engine::World.EditorAllItems.find(ID) != Engine::World.EditorAllItems.end())
 	{
 		ID++;
-	}
+	}*/
 	SendMessage(IDHWnd, WM_SETTEXT, NULL, (LPARAM)std::to_string(ID).c_str());
 }
 int EngineQuestCreator::getCurrentSelectedReward()

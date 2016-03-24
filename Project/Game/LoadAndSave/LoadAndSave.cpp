@@ -50,6 +50,7 @@
 #include "../LoadAndSave/ModHeader.hpp"
 
 #include "../../Engine.hpp"
+#include "../Quest/Quest.hpp"
 
 std::string versionName = "Alpha Test: 1.3v";
 CEREAL_REGISTER_ARCHIVE(RenderComponent)
@@ -142,7 +143,7 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
-void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<unsigned int, Item*>& editorAllItems)
+void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<std::pair<std::string,size_t>, Item*>& editorAllItems, std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -155,7 +156,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 		ind.ID = 0;
 		ind.type = "Header";
 		ind.modFile = modhdr.name;
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(modhdr);
 		for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
@@ -164,15 +165,25 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.ID = it->first.second;
 			ind.type = "Zone";
 			ind.modFile = it->second.fromMod;
-			ind.row = (size_t)file.tellp();
+			ind.row = file.tellp();
 			if (it->second.mode != EditorObjectSaveMode::REMOVE)
 			{
+				bool b = true;
 				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
-				indexAr(ind);
-				mainAr(it->second);
+				else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+				{
+					b = false;
+				}
+				if (ind.ID == 0)
+					b = false;
+				if (b)
+				{
+					indexAr(ind);
+					mainAr(it->second);
+				}
 			}
 		}
 		for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
@@ -181,24 +192,34 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			ind.ID = it->first.second;
 			ind.type = "Prefab";
 			ind.modFile = it->second.fromMod;
-			ind.row = (size_t)file.tellp();
+			ind.row = file.tellp();
 			if (it->second.mode != EditorObjectSaveMode::REMOVE)
 			{
+				bool b = true;
 				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
-				indexAr(ind);
-				mainAr(it->second);
+				else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+				{
+					b = false;
+				}
+				else if (it->second.mode > EditorObjectSaveMode::ADD)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				if (b)
+				{
+					indexAr(ind);
+					mainAr(it->second);
+				}
 			}
 		}
-		for (std::map<size_t, Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
+		for (std::map<std::pair<std::string,size_t>, Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
 		{
 			ind.flags = "-";
-			ind.ID = it->first;
+			ind.ID = it->first.second;
 			ind.type = "Item";
 			ind.modFile = it->second->fromMod;
-			ind.row = (size_t)file.tellp();
+			ind.row = file.tellp();
 			if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
 				it->second->mode = EditorObjectSaveMode::DEFAULT;
 			else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
@@ -206,9 +227,36 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 			indexAr(ind);
 			saveItem(mainAr,it->second);
 		}
+		for (std::map<std::pair<std::string, size_t>, Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
+		{
+			ind.flags = "-";
+			ind.ID = it->first.second;
+			ind.type = "Quest";
+			ind.modFile = it->second.fromMod;
+			ind.row = file.tellp();
+			if (it->second.mode != EditorObjectSaveMode::REMOVE)
+			{
+				bool b = true;
+				if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+				{
+					b = false;
+				}
+				else if (it->second.mode > EditorObjectSaveMode::ADD)
+					it->second.mode = EditorObjectSaveMode::DEFAULT;
+				if (b)
+				{
+					indexAr(ind);
+					mainAr(it->second);
+				}
+			}
+		}
 		ind.ID = 0xFFFFFFFF;
 		ind.type = "EoF";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
 	}
@@ -317,34 +365,34 @@ void testSave()
 		ind.flags = "-";
 		ind.ID = zone.ID;
 		ind.type = "Zone";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(zone);
 
 		ind.ID = pref.ID;
 		ind.type = "Prefab";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref);
 
 
 		ind.ID = pref2.ID;
 		ind.type = "Prefab";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref2);
 
 
 		ind.ID = pref3.ID;
 		ind.type = "Prefab";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref3);
 
 
 		ind.ID = 0xffffffff;
 		ind.type = "";
-		ind.row = (size_t)file.tellp();
+		ind.row = file.tellp();
 		ind.flags = "EoF";
 		indexAr(ind);
 	}
@@ -1141,7 +1189,7 @@ void save(Archive &ar, const DBZone&zone)
 		else if (i->second.mode == EditorObjectSaveMode::EDIT)
 		{
 			DBZonePrefabStruct dbzps = i->second;
-			if (i->second.fromMod == zone.fromMod)
+			if (zone.fromMod == Engine::World.openedMod || Engine::World.openedMod == i->second.fromMod)
 			{
 				dbzps.mode = EditorObjectSaveMode::DEFAULT;
 				dbzps.oldPosition.x = dbzps.position.x;
@@ -1169,6 +1217,7 @@ void save(Archive &ar, const DBZone&zone)
 		ar(i->second);
 	}
 	ar(zone.mode);
+	ar(zone.fromMod);
 }
 template<class Archive>
 void load(Archive &ar,DBZone &zone)
@@ -1193,7 +1242,7 @@ void load(Archive &ar,DBZone &zone)
 		ar(dbzps);
 		if (dbzps.mode == EditorObjectSaveMode::REMOVE)
 		{
-			if (zone.prefabList.find(std::pair<std::string,size_t>(name,ID)) != zone.prefabList.end())
+			if (zone.prefabList.find(std::pair<std::string, size_t>(name, ID)) != zone.prefabList.end())
 				zone.prefabList.erase(zone.prefabList.find(std::pair<std::string, size_t>(name, ID)));
 		}
 		else if (dbzps.mode == EditorObjectSaveMode::EDIT)
@@ -1202,8 +1251,10 @@ void load(Archive &ar,DBZone &zone)
 				zone.prefabList[std::pair<std::string, size_t>(name, ID)].position = dbzps.position;
 		}
 		else
-			zone.prefabList.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(std::pair<std::string,size_t>(name,ID), dbzps));
+			zone.prefabList.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(std::pair<std::string, size_t>(name, ID), dbzps));
 	}
+	ar(zone.mode);
+	ar(zone.fromMod);
 }
 template<class Archive>
 void save(Archive &ar, const Zone&zone)
@@ -1748,7 +1799,7 @@ void LoadAllZones(std::map<std::pair<std::string,size_t>, DBZone>& worldmap)
 							DBZone tmp;
 							cereal::BinaryInputArchive zoneLoad(database);
 							zoneLoad(tmp);
-							worldmap.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(ind.modFile,tmp.ID), tmp));
+							worldmap.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(ind.modFile,ind.ID), tmp));
 						}
 					}
 					else if (ind.flags == "EoF")
@@ -1796,7 +1847,7 @@ void LoadAllPrefabs(PrefabContainer& pre)
 		}
 	}
 }
-void LoadAllItems(std::map<unsigned int,Item*>& item)
+void LoadAllItems(std::map<std::pair<std::string, size_t>, Item*>& item)
 {
 	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
@@ -1813,7 +1864,7 @@ void LoadAllItems(std::map<unsigned int,Item*>& item)
 					ar(ind);
 					if (ind.type == "Item")
 					{
-						std::map<unsigned int, Item*>::iterator it = item.find(ind.ID);
+						std::map<std::pair<std::string, size_t>, Item*>::iterator it = item.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
 						if (it != item.end())
 						{
 							// stuff exist add extra things to item
@@ -1826,7 +1877,47 @@ void LoadAllItems(std::map<unsigned int,Item*>& item)
 							Item* tmp = NULL;
 							cereal::BinaryInputArchive itemLoad(database);
 							loadItem(itemLoad, tmp);
-							item.insert(std::pair<unsigned int, Item*>(tmp->getID(), tmp));
+							item.insert(std::pair<std::pair<std::string, size_t>, Item*>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
+						}
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
+void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quest>& quests)
+{
+	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "Quest")
+					{
+						std::map<std::pair<std::string, unsigned int>, Quest>::iterator it = quests.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+						if (it != quests.end())
+						{
+							// stuff exist add extra things to item
+							// or override
+							// or ignore
+						}
+						else
+						{
+							database.seekg(ind.row);
+							Quest tmp;
+							cereal::BinaryInputArchive itemLoad(database);
+							itemLoad(tmp);
+							quests.insert(std::pair<std::pair<std::string, unsigned int>, Quest>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
 						}
 					}
 					else if (ind.flags == "EoF")
@@ -1837,4 +1928,92 @@ void LoadAllItems(std::map<unsigned int,Item*>& item)
 	}
 }
 
+template<class Archive>
+void save(Archive &ar, const Quest&quest)
+{
+	ar(quest.title);
+	ar(quest.description);
+	ar(quest.mode);
+	ar(quest.ID);
+	ar(quest.fromMod);
+	ar(quest.goldReward);
+	ar(quest.showInQuestLog);
+	ar(quest.started);
+	ar(quest.ItemRewards.size());
+	for (std::vector<std::pair<std::pair<std::string, unsigned int>, int>>::const_iterator it = quest.ItemRewards.begin();
+		it != quest.ItemRewards.end(); it++)
+	{
+		ar(it->first.first);
+		ar(it->first.second);
+		ar(it->second);
+	}
+	ar(quest.objectives.size());
+	for (std::vector<QuestObjective>::const_iterator it = quest.objectives.begin();
+		it != quest.objectives.end(); it++)
+	{
+		ar(*it);
+	}
+}
+template<class Archive>
+void load(Archive &ar, Quest& quest)
+{
+	ar(quest.title);
+	ar(quest.description);
+	ar(quest.mode);
+	ar(quest.ID);
+	ar(quest.fromMod);
+	ar(quest.goldReward);
+	ar(quest.showInQuestLog);
+	ar(quest.started);
+	size_t size;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		std::pair<std::pair<std::string, size_t>, int> p;
+		ar(p.first.first);
+		ar(p.first.second);
+		ar(p.second);
+		quest.ItemRewards.push_back(p);
+	}
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		QuestObjective p;
+		ar(p);
+		quest.objectives.push_back(p);
+	}
+}
+
+template<class Archive>
+void save(Archive& ar,const QuestObjective & qo)
+{
+	ar(qo.count);
+	ar(qo.description);
+	ar(qo.destination.first);
+	ar(qo.destination.second);
+	ar(qo.isBonusObjective);
+	ar(qo.objectiveName);
+	ar(qo.state);
+	ar(qo.target.first);
+	ar(qo.target.second);
+	ar(qo.targetDestination.first);
+	ar(qo.targetDestination.second);
+	ar(qo.type);
+}
+template<class Archive>
+void load(Archive& ar, QuestObjective & qo)
+{
+	ar(qo.count);
+	ar(qo.description);
+	ar(qo.destination.first);
+	ar(qo.destination.second);
+	ar(qo.isBonusObjective);
+	ar(qo.objectiveName);
+	ar(qo.state);
+	ar(qo.target.first);
+	ar(qo.target.second);
+	ar(qo.targetDestination.first);
+	ar(qo.targetDestination.second);
+	ar(qo.type);
+}
 #pragma endregion

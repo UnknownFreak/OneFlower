@@ -266,7 +266,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					GUI::Window::Addon::InputDialog::InputBox("Add Zone",name,value,100,hWnd);
 					unsigned int i = std::atoi(value);
 					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
-						Engine::World.EditorAddNewZone(name,i);
+						//Engine::World.EditorAddNewZone(name,i);
 					break;
 				}
 				case ID_LOAD_ZONE:
@@ -276,12 +276,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
 					GUI::Window::Addon::InputDialog::InputBox("Load Zone", name, value, 100, hWnd);
 					unsigned int i = std::atoi(value);
 					if (!GUI::Window::Addon::InputDialog::getIfCancelled())
-						Engine::World.EditorLoadZone(name,i);
+						//Engine::World.EditorLoadZone(name,i);
 					break;
 				}
 				case ID_SAVE_ZONE:
 				{
-					Engine::World.EditorSaveZones();
+					//Engine::World.EditorSaveZones();
 					break;
 				}
 				case ID_REMOVE_ZONE:
