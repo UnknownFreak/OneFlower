@@ -9,12 +9,6 @@
 class Item;
 void testLoad();// (Archive& archive, const GameObject& go);
 void testSave();// (Archive& archive, const GameObject& go);
-// Test for new data structure
-void databaseTestSave();
-void databaseTestLoad();
-void databaseTestAdd();
-void databaseTestRemove();
-// End
 
 void saveGame(GameObject& player, std::string saveFile);
 void loadGame(GameObject& player, std::string loadFile);

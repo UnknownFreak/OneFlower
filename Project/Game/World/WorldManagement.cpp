@@ -6,6 +6,37 @@
 #include "../Component/RenderComponent.h"
 #include "../Component/GameObject.h"
 #include "../Gfx.h"
+#include "../Item/Item.hpp"
+
+// default constructor
+WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
+{
+	//testSave();
+	if (loadModOrderFile(modLoadOrder) == false)
+	{
+		MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
+		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
+	}
+
+}
+// deconstructor
+WorldManagement::~WorldManagement()
+{
+	for (std::map<std::pair<std::string, size_t>, Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it++)
+	{
+		delete it->second;
+	}
+	//remove loaded zones
+	for (std::map<std::pair<std::string, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
+		// if a zone have been unloaded/deleted already
+		for (size_t j = 0; j < it->second->objects.size(); j++)
+		{
+			// request removal of GameObjects /to fix
+			Engine::game.requestRemoveal(it->second->objects[j].second);
+			it->second->objects[j].second = nullptr;
+		}
+}
+
 // load zone with ID
 void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 {
@@ -17,7 +48,6 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 		std::cout << info;
 		zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
 		startLoad();
-		//worldFromZone(zoneID);
 	}
 	else
 	{
@@ -56,112 +86,7 @@ void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
 #endif
 	}
 }
-void WorldManagement::newMod(std::string modName, std::vector<std::string> dependencies)
-{
-	modLoadOrder.loadOrder.clear();
-	myModHeader.name = modName;
-	myModHeader.dependencies = dependencies;
-	for each (std::string var in myModHeader.dependencies)
-	{
-		loadMods(var);
-	}
-	openedMod = modName;
-	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, modLoadOrder.loadOrder.size()));
-	LoadAllZones(EditorAllZones);
-	LoadAllPrefabs(editorPrefabContainer);
-	LoadAllItems(EditorAllItems);
-}
-std::vector<std::string> WorldManagement::loadMod(std::string myMod)
-{
-	std::vector<std::string> myFailed;
-	openedMod = myMod;
-	modLoadOrder.loadOrder.clear();
-	if (!loadModHeader(myMod, myModHeader))
-	{
-		myFailed.push_back("Error loading Mod!");
-		openedMod = "<Not Set>";
-	}
-	else
-	{
-		for each (std::string var in myModHeader.dependencies)
-		{
-			std::string myReturn = loadMods(var);
-			if (myReturn != "<Fine>")
-				myFailed.push_back(myReturn);
-		}
-	}
-	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
-	std::cout << "Mod loaded in this order\n";
-	for each (auto it in modLoadOrder.loadOrder)
-		std::cout << it.first << " - " << it.second << "\n";
-	LoadAllZones(EditorAllZones);
-	LoadAllPrefabs(editorPrefabContainer);
-	LoadAllItems(EditorAllItems);
-	return myFailed;
-}
-std::vector<std::string> WorldManagement::getModDependencies(std::string mod)
-{
-	ModHeader modHdr;
-	if (!loadModHeader(mod, modHdr))
-	{
-		return{};
-	}
-	else
-	{
-		return  modHdr.dependencies;
-	}
-}
-std::string WorldManagement::loadMods(std::string myMod)
-{
-	ModHeader modHdr;
-	if (!loadModHeader(myMod, modHdr))
-	{
-		std::cout << "Failed to load dependency mod: " + myMod << std::endl;
-		return "Failed to load dependency mod: " + myMod;
-	}
-	else
-	{
-		std::cout << "checking: " + myMod + "dependencies" << std::endl;
-		for each (std::string var in modHdr.dependencies)
-		{
-			loadMods(var);
-		}
-		if (modLoadOrder.loadOrder.find(myMod) == modLoadOrder.loadOrder.end())
-		{
-			std::cout << "adding: " + myMod + "to the modLoadOrder"<< std::endl;
-			modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
-		}
-	}
-	return "<Fine>";
-}
-// default constructor
-WorldManagement::WorldManagement() : lastLoadedZone("",0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
-{
-	//testSave();
-	if (loadModOrderFile(modLoadOrder) == false)
-	{
-		MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
-		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
-	}
 
-}
-// deconstructor
-WorldManagement::~WorldManagement()
-{
-	for (std::map<std::pair<std::string, size_t>, Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it++)
-	{
-		delete it->second;
-	}
-	//remove loaded zones
-	for (std::map<std::pair<std::string, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
-		// if a zone have been unloaded/deleted already
-		for(size_t j = 0; j < it->second->objects.size(); j++)
-		{
-			// request removal of GameObjects /to fix
-			Engine::game.requestRemoveal(it->second->objects[j].second);
-			it->second->objects[j].second = nullptr;
-		}
-}
 
 Zone* WorldManagement::getCurrentZone()
 {
@@ -175,7 +100,7 @@ bool WorldManagement::getIsLoading()
 {
 	return isLoading;
 }
-int WorldManagement::getCurrentLoadingState()
+WorldManagement::loadstate WorldManagement::getCurrentLoadingState()
 {
 	return loadState;
 }
@@ -474,48 +399,82 @@ std::string WorldManagement::getLoadedMod()
 	return openedMod;
 }
 
+void WorldManagement::newMod(std::string modName, std::vector<std::string> dependencies)
+{
+	modLoadOrder.loadOrder.clear();
+	myModHeader.name = modName;
+	myModHeader.dependencies = dependencies;
+	for each (std::string var in myModHeader.dependencies)
+	{
+		loadMods(var);
+	}
+	openedMod = modName;
+	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, modLoadOrder.loadOrder.size()));
+	LoadAllZones(EditorAllZones);
+	LoadAllPrefabs(editorPrefabContainer);
+	LoadAllItems(EditorAllItems);
+}
+std::vector<std::string> WorldManagement::loadMod(std::string myMod)
+{
+	std::vector<std::string> myFailed;
+	openedMod = myMod;
+	modLoadOrder.loadOrder.clear();
+	if (!loadModHeader(myMod, myModHeader))
+	{
+		myFailed.push_back("Error loading Mod!");
+		openedMod = "<Not Set>";
+	}
+	else
+	{
+		for each (std::string var in myModHeader.dependencies)
+		{
+			std::string myReturn = loadMods(var);
+			if (myReturn != "<Fine>")
+				myFailed.push_back(myReturn);
+		}
+	}
+	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
+	std::cout << "Mod loaded in this order\n";
+	for each (auto it in modLoadOrder.loadOrder)
+		std::cout << it.first << " - " << it.second << "\n";
+	LoadAllZones(EditorAllZones);
+	LoadAllPrefabs(editorPrefabContainer);
+	LoadAllItems(EditorAllItems);
+	return myFailed;
+}
+std::vector<std::string> WorldManagement::getModDependencies(std::string mod)
+{
+	ModHeader modHdr;
+	if (!loadModHeader(mod, modHdr))
+	{
+		return{};
+	}
+	else
+	{
+		return  modHdr.dependencies;
+	}
+}
+std::string WorldManagement::loadMods(std::string myMod)
+{
+	ModHeader modHdr;
+	if (!loadModHeader(myMod, modHdr))
+	{
+		std::cout << "Failed to load dependency mod: " + myMod << std::endl;
+		return "Failed to load dependency mod: " + myMod;
+	}
+	else
+	{
+		std::cout << "checking: " + myMod + "dependencies" << std::endl;
+		for each (std::string var in modHdr.dependencies)
+		{
+			loadMods(var);
+		}
+		if (modLoadOrder.loadOrder.find(myMod) == modLoadOrder.loadOrder.end())
+		{
+			std::cout << "adding: " + myMod + "to the modLoadOrder" << std::endl;
+			modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
+		}
+	}
+	return "<Fine>";
+}
 #endif
-#pragma region old
-// TODO remake the load structure
-// deprecated
-/*
-void WorldManagement::worldFromZone(unsigned int zoneID)
-{
-if (lastLoadedZone != 0)
-{
-#ifdef _DEBUG
-for (size_t i = 0; i < EditorAllZones[lastLoadedZone].prefabList.size(); i++)
-{
-
-EditorAllZones[lastLoadedZone].prefabList[i].second = listOfZoneObjects[i]->GetComponent<TransformComponent>()->position;
-#else
-for (size_t i = 0; i < worldmap[lastLoadedZone].objects.size(); i++)
-{
-#endif
-Engine::game.requestRemoveal(listOfZoneObjects[i]);
-}
-listOfZoneObjects.clear();
-}
-Engine::game.addSprite(worldmap[zoneID]->getBackground(), true);
-#ifdef _DEBUG
-for each (std::pair<size_t, Vector2> prefabID in EditorAllZones[zoneID].prefabList)
-{
-std::map<size_t,Prefab>::iterator it = editorPrefabContainer.find(prefabID.first);
-if (it != editorPrefabContainer.end())
-{
-GameObject* go = it->second.createFromPrefab();
-go->GetComponent<TransformComponent>()->position = prefabID.second;
-
-worldmap[zoneID]->objects.push_back(std::pair<size_t, GameObject*>(it->second.ID, go));
-listOfZoneObjects.push_back(go);
-Engine::game.addGameObject(go);
-}
-}
-#else
-// TODO
-#endif
-lastLoadedZone = zoneID;
-currentZone = worldmap[zoneID];
-}
-*/
-#pragma endregion

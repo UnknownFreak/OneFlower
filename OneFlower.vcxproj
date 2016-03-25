@@ -97,7 +97,6 @@
     <ClInclude Include="Project\Game\World\RespawnContainer.hpp" />
     <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
     <ClInclude Include="Project\Game\World\Zone.hpp" />
-    <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
     <ClInclude Include="Project\Vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +177,6 @@
     <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
     <ClCompile Include="Project\Game\World\Zone.cpp" />
-    <ClCompile Include="Project\Game\World\ZoneMaker.cpp" />
     <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
   </ItemGroup>

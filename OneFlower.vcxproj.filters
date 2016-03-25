@@ -52,9 +52,6 @@
     <Filter Include="Other">
       <UniqueIdentifier>{b72af699-4ed4-44e8-8b97-e26a688be792}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\World\ToBeRemoved&lt;TEMP&gt;">
-      <UniqueIdentifier>{54160ae0-cd8e-4662-ae64-8fd2be18d37e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Window\ItemCreator">
       <UniqueIdentifier>{685efb56-9bf8-4cfe-86d3-98a70e496fe0}</UniqueIdentifier>
     </Filter>
@@ -256,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="Project\Game\World\ModLoader.hpp">
       <Filter>Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\World\ZoneMaker.hpp">
-      <Filter>Game\World\ToBeRemoved&lt;TEMP&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\Message.hpp">
       <Filter>Game\GUI\Text</Filter>
@@ -515,9 +509,6 @@
     <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp">
       <Filter>Game\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\World\ZoneMaker.cpp">
-      <Filter>Game\World\ToBeRemoved&lt;TEMP&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp">
       <Filter>Game\GUI\Text</Filter>

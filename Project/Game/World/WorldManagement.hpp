@@ -29,7 +29,6 @@ public:
 	std::map<std::pair<std::string,unsigned int>, DBZone> EditorAllZones;
 	std::map<std::pair<std::string, size_t>, Item*> EditorAllItems;
 	std::map<std::pair<std::string, unsigned int>, Quest> EditorAllQuests;
-	//std::vector<std::pair<size_t, Vector2&>> prefabListEditorReference;
 #endif
 	//to be able to remove gameobjects when unloading;
 	std::map<std::pair<std::string,size_t>,GameObject*> listOfZoneObjects;
@@ -49,7 +48,7 @@ public:
 	void loadZone(std::string addedFromMod,unsigned int zoneID);
 	bool getIsLoading();
 
-	int getCurrentLoadingState();
+	loadstate getCurrentLoadingState();
 
 #ifdef _DEBUG
 
@@ -92,7 +91,7 @@ private:
 
 	void startLoad();
 
-	int loadState = STATE_NOT_SET;
+	loadstate loadState = STATE_NOT_SET;
 	bool isLoading = false;
 	std::map<std::pair<std::string,size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
 	std::map<std::pair<std::string, size_t>, GameObject*>::iterator currentObjIteratorUnload;
@@ -109,7 +108,6 @@ private:
 	// loads a zone from a specified file
 	friend bool loadModOrderFile(ModLoader &mod);
 	friend void loadZoneFile(std::string fileName, const DatabaseIndex& index,DBZone &z);
-	void worldFromZone(unsigned int zoneID);
 	friend bool loadPrefab(std::string fromMod,unsigned int index, Prefab& prefab);
 	friend void loadPrefab(std::string modName, Prefab& prefab, const DatabaseIndex &index);
 	friend DatabaseIndex loadIndex(std::string modname, size_t objectID, std::string loadType);
