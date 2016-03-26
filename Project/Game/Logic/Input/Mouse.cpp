@@ -6,7 +6,6 @@
 #include "../../Component/DialogComponent.hpp"
 
 void scrollupdate();
-
 Mouse::Mouse(): pos(0,0),offset(0,0),LMBPressed(false),RMBPressed(true)
 {
 }
@@ -30,11 +29,45 @@ void Mouse::update()
 		pos.x = worldPos.x;
 		pos.y = worldPos.y;
 #endif
+
+		if (Engine::event.type == Engine::event.MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (mySelected)
+			{
+				TransformComponent* transform = mySelected->GetComponent<TransformComponent>();
+				RenderComponent* rc = mySelected->GetComponent<RenderComponent>();
+				int localStartX = transform->position.x;
+				int localStartY = transform->position.y;
+				int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
+				int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
+
+				if (pos.x >= localStartX && pos.x <= localEndX || moving)
+					if (pos.y >= localStartY && pos.y <= localEndY || moving)
+					{
+						if (resetDxDy)
+						{ 
+							moving = true;
+							dxDy.x = pos.x - localStartX;
+							dxDy.y = pos.y - localStartY;
+							resetDxDy = false;
+						}
+						Engine::World.EditorFlagGameObjectForEdit(mySelected);
+						transform->position.x = pos.x - dxDy.x;
+						transform->position.y = pos.y - dxDy.y;
+					}
+					else
+						mySelected = NULL;
+				else
+					mySelected = NULL;
+			}
+		}
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
 #pragma region Left
 			if(Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
+				resetDxDy = true;
+				moving = false;
 				if(LMBPressed)
 					LMBPressed = false;
 
@@ -52,7 +85,7 @@ void Mouse::update()
 						hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 						transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 						rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
-						if(hitbox || rig || rc)
+						if (hitbox || rig || rc)
 						{
 							rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
 							ab = Engine::game.allGameObjectPointers.at(i);
@@ -63,14 +96,15 @@ void Mouse::update()
 							int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
 							int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
 
-							if(pos.x >= localStartX && pos.x <= localEndX)
-								if(pos.y >= localStartY && pos.y <= localEndY)
+							if (pos.x >= localStartX && pos.x <= localEndX)
+								if (pos.y >= localStartY && pos.y <= localEndY)
 								{
 									Engine::Graphic.selectedDrawList.push_back(ab);
-									if(dialog)
+									if (dialog)
 										dialog->show();
 								}
 						}
+						
 					}
 					if(Engine::Graphic.selectedDrawList.size() > 0)
 					{
@@ -81,10 +115,13 @@ void Mouse::update()
 								top = i;
 							}
 						}
-						GameObject* theChoosenOne = Engine::Graphic.selectedDrawList[top];
-						std::cout << "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
-						Engine::Window.setGameObject(theChoosenOne);
+						mySelected = Engine::Graphic.selectedDrawList[top];
 						Engine::Graphic.selectedDrawList.clear();
+						return;
+					}
+					else
+					{
+						mySelected = NULL;
 					}
 				}
 			}

@@ -22,7 +22,7 @@ public:
 		trophy
 	};
 	Item();
-	Item(unsigned int ID,bool stackable,std::string name,std::string iconName,int tag,double weight,int price,std::string description);
+	Item(unsigned int ID, bool stackable, std::string name, std::string iconName, ItemType tag, double weight, int price, std::string description);
 	Item(const Item& item);
 	Item& operator=(const Item& other);
 	std::string getTagAsString();
@@ -33,7 +33,7 @@ public:
 	virtual ~Item() = default;
 	double getWeight();
 	unsigned int getID();
-	unsigned int getTag();
+	ItemType getTag();
 	int getPrice();
 	bool getStackable();
 	sf::Sprite icon;
@@ -45,7 +45,7 @@ protected:
 	unsigned int ID;
 	bool stackable;
 	double weight;
-	int tag;
+	ItemType tag;
 	int price;
 
 	std::string description;

@@ -326,6 +326,9 @@
     <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Item\Weapon.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -537,12 +540,6 @@
     <ClCompile Include="Project\Engine\Window\ItemCreator\AttachmentPointDialogDefiner.cpp">
       <Filter>Engine\Window\ItemCreator</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\Item\Ammo.cpp">
-      <Filter>Game\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\Item\Consumable.cpp">
-      <Filter>Game\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp">
       <Filter>Game\Effect</Filter>
     </ClCompile>
@@ -560,6 +557,15 @@
     </ClCompile>
     <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindowDefiner.cpp">
       <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\ConsumableDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp">
+      <Filter>Game\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -78,6 +78,7 @@
     <ClInclude Include="Project\Game\Item\Bag.hpp" />
     <ClInclude Include="Project\Game\Item\Consumable.hpp" />
     <ClInclude Include="Project\Game\Item\Item.hpp" />
+    <ClInclude Include="Project\Game\Item\Weapon.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
@@ -158,11 +159,12 @@
     <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp" />
-    <ClCompile Include="Project\Game\Item\Ammo.cpp" />
+    <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\Consumable.cpp" />
+    <ClCompile Include="Project\Game\Item\ConsumableDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\ItemDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp" />

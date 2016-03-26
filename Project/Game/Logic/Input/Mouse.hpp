@@ -13,6 +13,7 @@ public:
 	bool LMBPressed;
 	Mouse();
 	std::vector<GameObject*> list;
+	GameObject* mySelected;
 	//mousebox;
 	Vector2 pos;
 	Vector2 offset;
@@ -23,6 +24,9 @@ public:
 	float scrollSpeed = 0.05f;
 
 private:
+	bool resetDxDy = true;
+	bool moving = false;
+	Vector2 dxDy;
 };
 
 #endif //Mouse_HPP

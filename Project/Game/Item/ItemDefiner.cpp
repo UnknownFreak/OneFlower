@@ -3,7 +3,7 @@
 Item::Item() : ID(0), stackable(true), name("NotSet"), iconName("InventoryIconTest.png"), icon(*Engine::Graphic.requestTexture(iconName)), tag(undefined), weight(0), price(11110), description("Nan"), attachmentPoints({ { "Default", Vector2(0, 0) } })
 {
 }
-Item::Item(unsigned int ID, bool stackable, std::string name, std::string iconName, int tag, double weight, int price, std::string description) : ID(ID), stackable(stackable), name(name), iconName(iconName), icon(*Engine::Graphic.requestTexture(iconName)), tag(tag), weight(weight), price(price), description(description), attachmentPoints({ { "Default", Vector2(0, 0) } })
+Item::Item(unsigned int ID, bool stackable, std::string name, std::string iconName, ItemType tag, double weight, int price, std::string description) : ID(ID), stackable(stackable), name(name), iconName(iconName), icon(*Engine::Graphic.requestTexture(iconName)), tag(tag), weight(weight), price(price), description(description), attachmentPoints({ { "Default", Vector2(0, 0) } })
 {
 }
 Item::Item(const Item& item) : ID(item.ID), stackable(item.stackable), name(item.name), iconName(item.iconName), price(item.price), icon(*Engine::Graphic.requestTexture(iconName)), weight(item.weight), tag(item.tag), description(item.description), attachmentPoints({ { "Default", Vector2(0, 0) } })
@@ -37,7 +37,7 @@ int Item::getPrice()
 {
 	return price;
 }
-unsigned int Item::getTag()
+Item::ItemType Item::getTag()
 {
 	return tag;
 }
