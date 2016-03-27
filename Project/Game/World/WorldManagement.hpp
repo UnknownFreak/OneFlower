@@ -9,9 +9,9 @@
 #include "DBZone.hpp"
 #include "../LoadAndSave/EditorObjectSaveMode.hpp"
 #include "../Quest/Quest.hpp"
+#include "../Item/Item.hpp"
 class Zone;
 class GameObject;
-class Item;
 class WorldManagement
 {
 	enum loadstate {
@@ -27,7 +27,7 @@ public:
 	//Probably move this to editor
 	PrefabContainer editorPrefabContainer;
 	std::map<std::pair<std::string,unsigned int>, DBZone> EditorAllZones;
-	std::map<std::pair<std::string, size_t>, Item*> EditorAllItems;
+	std::map<std::pair<std::string, size_t>, Items::Item*> EditorAllItems;
 	std::map<std::pair<std::string, unsigned int>, Quest> EditorAllQuests;
 #endif
 	//to be able to remove gameobjects when unloading;
@@ -77,7 +77,7 @@ public:
 
 	friend void LoadAllZones(std::map<std::pair<std::string,unsigned int>, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
-	friend void LoadAllItems(std::map<std::pair<std::string, size_t>, Item*>& editorAllItems);
+	friend void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems);
 	friend void LoadAllQuests(std::map<std::pair<std::string, unsigned int>, Quest> editorAllQuests);
 	size_t EditorGetValidID();
 	size_t ID = 1;

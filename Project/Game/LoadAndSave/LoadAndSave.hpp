@@ -6,7 +6,7 @@
 #include "PrefabContainer.hpp"
 #include "../LoadAndSave/ModHeader.hpp"
 #include "../Quest/Quest.hpp"
-class Item;
+#include "../Item/Item.hpp"
 void testLoad();// (Archive& archive, const GameObject& go);
 void testSave();// (Archive& archive, const GameObject& go);
 
@@ -16,9 +16,9 @@ bool loadModHeader(std::string modName, ModHeader& myheader);
 
 
 template<class Archive>
-void saveItem(Archive & ar, Item* item);
+void saveItem(Archive & ar, Items::Item* item);
 template<class Archive>
-void loadItem(Archive & ar, Item*& item);
+void loadItem(Archive & ar, Items::Item*& item);
 
 
 #ifdef _DEBUG
@@ -26,7 +26,7 @@ void saveGameDatabase(
 	std::string filename, ModHeader& modhdr,
 	PrefabContainer& prefabs,
 	std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones,
-	std::map<std::pair<std::string, size_t>, Item*>& editorAllItems,
+	std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
 	std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests);
 #endif
 //void loadItem(unsigned int ID,Item& item);

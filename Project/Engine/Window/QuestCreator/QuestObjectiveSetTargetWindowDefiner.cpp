@@ -67,7 +67,7 @@ void SetTargetWindow::show(HWND parent, HINSTANCE hInst, std::string type)
 	if (type == "Fetch/Collect")
 	{
 		int index = 0;
-		for each (std::pair<Item*, HTREEITEM> pair in Engine::Window.prefabList.allItemsInGame())
+		for each (std::pair<Items::Item*, HTREEITEM> pair in Engine::Window.prefabList.allItemsInGame())
 		{
 			int pos = (int)SendMessage(listBox, LB_ADDSTRING, NULL, (LPARAM)pair.first->getName().c_str());
 			SendMessage(listBox, LB_SETITEMDATA, pos, (LPARAM)index);

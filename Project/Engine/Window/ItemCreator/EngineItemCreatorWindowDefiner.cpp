@@ -307,45 +307,45 @@ bool EngineItemCreator::createItem()
 		damage = std::stoi(numbers);
 		SendMessage(bagslotHWnd, WM_GETTEXT, 15, (LPARAM)numbers);
 		slots = std::stoi(numbers);
-		Item* tmp;
+		Items::Item* tmp;
 		if (type == "Undefined")
 		{
-			tmp = new Item(ID, stackable, name, invIco, Item::undefined, weight, price, tooltip);
+			tmp = new Items::Item(ID, stackable, name, invIco, Items::Item::undefined, weight, price, tooltip);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Trophy")
 		{
-			tmp = new Item(ID, stackable, name, invIco, Item::trophy, weight, price, tooltip);
+			tmp = new Items::Item(ID, stackable, name, invIco, Items::Item::trophy, weight, price, tooltip);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Junk")
 		{
-			tmp = new Item(ID, stackable, name, invIco, Item::junk, weight, price, tooltip);
+			tmp = new Items::Item(ID, stackable, name, invIco, Items::Item::junk, weight, price, tooltip);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Crafting Mat")
 		{
-			tmp = new Item(ID, stackable, name, invIco, Item::craftingMaterial, weight, price, tooltip);
+			tmp = new Items::Item(ID, stackable, name, invIco, Items::Item::craftingMaterial, weight, price, tooltip);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Ammo")
 		{
-			tmp = new Ammo(ID,name,invIco,weight,price,tooltip,itemSpriteField.getTextureName(),damage,Ammo::Arrow);
+			tmp = new Items::Ammo(ID, name, invIco, weight, price, tooltip, itemSpriteField.getTextureName(), damage, Items::Ammo::Arrow);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Bag")
 		{
-			tmp = new Bag(ID,name,invIco,weight,price,tooltip,slots);
+			tmp = new Items::Bag(ID, name, invIco, weight, price, tooltip, slots);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Armor")
 		{
-			tmp = new Armor(ID, defense, name, invIco, weight, price, tooltip, secondaryType.getCheckedType(),itemSpriteField.getTextureName(), attachpoint.attachpoints);
+			tmp = new Items::Armor(ID, defense, name, invIco, weight, price, tooltip, secondaryType.getCheckedType(), itemSpriteField.getTextureName(), attachpoint.attachpoints);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else if (type == "Consumable")
 		{
-			tmp = new Consumable(ID,name,invIco,weight,price,tooltip);
+			tmp = new Items::Consumable(ID, name, invIco, weight, price, tooltip);
 			//Engine::World.EditorAllItems.insert(std::pair<size_t, Item*>(ID, tmp));
 		}
 		else

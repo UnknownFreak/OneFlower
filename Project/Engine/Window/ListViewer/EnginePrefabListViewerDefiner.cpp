@@ -59,7 +59,7 @@ void EnginePrefabListViewer::addPrefab(Prefab& prefab)
 		addItem(labels.find(prefab.tag)->second, prefab);
 	}
 }
-std::map<Item*, HTREEITEM>& EnginePrefabListViewer::allItemsInGame()
+std::map<Items::Item*, HTREEITEM>& EnginePrefabListViewer::allItemsInGame()
 {
 	return items;
 }
@@ -85,32 +85,32 @@ void EnginePrefabListViewer::addItem(HTREEITEM p, Prefab& prefab)
 	prefabs.insert(std::pair<Prefab*, HTREEITEM>(&prefab, parent));
 	TreeView_SortChildren(hWnd, p, FALSE);
 }
-void EnginePrefabListViewer::addItem(HTREEITEM p, Item& item)
+void EnginePrefabListViewer::addItem(HTREEITEM p, Items::Item& item)
 {
 	std::string name = item.getName();
 	inserter.hParent = p;
 	inserter.item.pszText = (LPSTR)name.c_str();
 	inserter.hInsertAfter = TVI_LAST;
 	parent = (HTREEITEM)SendMessage(hWnd, TVM_INSERTITEM, 0, (LPARAM)&inserter);
-	items.insert(std::pair<Item*, HTREEITEM>(&item, parent));
+	items.insert(std::pair<Items::Item*, HTREEITEM>(&item, parent));
 	TreeView_SortChildren(hWnd, p, FALSE);
 }
-void EnginePrefabListViewer::removeItem(Item& item)
+void EnginePrefabListViewer::removeItem(Items::Item& item)
 {
-	std::map<Item*, HTREEITEM>::iterator it = items.find(&item);
+	std::map<Items::Item*, HTREEITEM>::iterator it = items.find(&item);
 	if (it != items.end())
 	{
 		SendMessage(hWnd, TVM_DELETEITEM, 0, (LPARAM)it->second);
 		items.erase(it);
 	}
 }
-void EnginePrefabListViewer::addItem(Item* item)
+void EnginePrefabListViewer::addItem(Items::Item* item)
 {
 	std::string secondTag = "NotDefined";
 	std::map<std::string, HTREEITEM>::iterator it = labels.find(item->getTagAsString());
 	if (item->getTagAsString() == "Armor")
 	{
-		Armor* arm = ((Armor*)item);
+		Items::Armor* arm = ((Items::Armor*)item);
 		secondTag = arm->armorType;
 		it = labels.find(secondTag);
 	}
@@ -121,7 +121,7 @@ void EnginePrefabListViewer::addItem(Item* item)
 	}
 	else if (item->getTagAsString() == "Ammo")
 	{
-		Ammo* a = ((Ammo*)item);
+		Items::Ammo* a = ((Items::Ammo*)item);
 		secondTag = a->ammoType;
 		it = labels.find(secondTag);
 	}

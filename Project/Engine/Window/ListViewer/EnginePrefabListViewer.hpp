@@ -9,8 +9,7 @@
 #include "../../../Game/LoadAndSave/Prefab.hpp"
 #include "../ItemCreator/EngineItemCreatorWindow.hpp"
 #include "../QuestCreator/EngineQuestCreatorWindow.hpp"
-
-class Item;
+#include "../../../Game/Item/Item.hpp"
 class Quest;
 class EnginePrefabListViewer
 {
@@ -26,8 +25,8 @@ public:
 	void addPrefab(Prefab& prefab);
 	void removePrefab(Prefab& prefab);
 
-	void addItem(Item* item);
-	void removeItem(Item& item);
+	void addItem(Items::Item* item);
+	void removeItem(Items::Item& item);
 
 	void addQuest(Quest& quset);
 	void removeQuet(Quest& quest);
@@ -41,7 +40,7 @@ public:
 	// enables viewer after load
 	void Enable();
 
-	std::map<Item*, HTREEITEM>& allItemsInGame();
+	std::map<Items::Item*, HTREEITEM>& allItemsInGame();
 	std::map<Prefab*, HTREEITEM>& allPrefabsInGame();
 
 private:
@@ -54,12 +53,12 @@ private:
 	bool isDragging;
 	HMENU wierdHackMenu;
 	void addItem(HTREEITEM parent, Prefab& prefab);
-	void addItem(HTREEITEM parent, Item& prefab);
+	void addItem(HTREEITEM parent, Items::Item& prefab);
 	void addLabel(HTREEITEM parent, std::string labelName, bool subTree);
 	void addITem(HTREEITEM parent, Quest& quest);
 	std::map<std::string, HTREEITEM> labels;
 	std::map<Prefab*, HTREEITEM> prefabs;
-	std::map<Item*, HTREEITEM> items;
+	std::map<Items::Item*, HTREEITEM> items;
 	std::map<Quest*, HTREEITEM> quests;
 	HTREEITEM parent;
 

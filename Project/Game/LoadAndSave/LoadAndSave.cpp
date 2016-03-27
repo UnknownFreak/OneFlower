@@ -143,7 +143,9 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
-void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones, std::map<std::pair<std::string,size_t>, Item*>& editorAllItems, std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests)
+void saveGameDatabase(std::string filename,ModHeader& modhdr, 
+	PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones,
+	std::map<std::pair<std::string,size_t>, Items::Item*>& editorAllItems, std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -213,7 +215,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr, PrefabContainer& p
 				}
 			}
 		}
-		for (std::map<std::pair<std::string,size_t>, Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
+		for (std::map<std::pair<std::string,size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
 		{
 			ind.flags = "-";
 			ind.ID = it->first.second;
@@ -817,294 +819,298 @@ void load(Archive& ar,StatsComponent &stats)
 
 #pragma region ItemTypes
 template<class Archive>
-void saveItem(Archive & ar, Item* item)
+void saveItem(Archive & ar, Items::Item* item)
 {
 	ar(item->getTag());
-	if (item->getTag() == Item::ammo)
-		ar(*(Ammo*)item);
-	else if (item->getTag() == Item::armor)
-		ar(*(Armor*)item);
-	else if (item->getTag() == Item::bag)
-		ar(*(Bag*)item);
+	if (item->getTag() == Items::Item::ammo)
+		ar(*(Items::Ammo*)item);
+	else if (item->getTag() == Items::Item::armor)
+		ar(*(Items::Armor*)item);
+	else if (item->getTag() == Items::Item::bag)
+		ar(*(Items::Bag*)item);
 	else // default item
 		ar(*item);
 }
 template<class Archive>
-void loadItem(Archive & ar, Item*& item)
+void loadItem(Archive & ar, Items::Item*& item)
 {
 	size_t tag; // size_t 4294967295 = int -1
 	ar(tag);
-	if (tag == Item::ammo)
+	if (tag == Items::Item::ammo)
 	{
-		item = new Ammo();
-		ar(*(Ammo*)item);
+		item = new Items::Ammo();
+		ar(*(Items::Ammo*)item);
 	}
-	else if (tag == Item::armor)
+	else if (tag == Items::Item::armor)
 	{
-		item = new Armor();
-		ar(*(Armor*)item);
+		item = new Items::Armor();
+		ar(*(Items::Armor*)item);
 	}
-	else if (tag == Item::bag)
+	else if (tag == Items::Item::bag)
 	{
-		item = new Bag();
-		ar(*(Bag*)item);
+		item = new Items::Bag();
+		ar(*(Items::Bag*)item);
 	}
 	else // default item
 	{
-		item = new Item();
+		item = new Items::Item();
 		ar(*item);
 	}
 }
 #pragma endregion
 
+namespace Items
+{
 #pragma region Item
-template <class Archive>
-void save(Archive& ar,const Item& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.attachmentPoints.size());
-	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+
+	template <class Archive>
+	void save(Archive& ar, const Items::Item& item)
 	{
-		ar(it->first);
-		ar(it->second.x);
-		ar(it->second.y);
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.attachmentPoints.size());
+		for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+		{
+			ar(it->first);
+			ar(it->second.x);
+			ar(it->second.y);
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
-template <class Archive>
-void load(Archive& ar,Item& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	size_t len;
-	std::string s;
-	Vector2 v;
-	ar(len);
-	for (size_t i = 0; i < len; i++)
+	template <class Archive>
+	void load(Archive& ar, Items::Item& item)
 	{
-		ar(s);
-		ar(v.x);
-		ar(v.y);
-		if (s != "Default")
-			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		size_t len;
+		std::string s;
+		Vector2 v;
+		ar(len);
+		for (size_t i = 0; i < len; i++)
+		{
+			ar(s);
+			ar(v.x);
+			ar(v.y);
+			if (s != "Default")
+				item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
 #pragma endregion
 
 #pragma region Ammo
-template <class Archive>
-void save(Archive& ar, const Ammo& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.ammoType);
-	ar(item.damage);
-	ar(item.ammoSprite);
-	ar(item.attachmentPoints.size());
-	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+	template <class Archive>
+	void save(Archive& ar, const Items::Ammo& item)
 	{
-		ar(it->first);
-		ar(it->second.x);
-		ar(it->second.y);
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.ammoType);
+		ar(item.damage);
+		ar(item.ammoSprite);
+		ar(item.attachmentPoints.size());
+		for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+		{
+			ar(it->first);
+			ar(it->second.x);
+			ar(it->second.y);
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
-template <class Archive>
-void load(Archive& ar, Ammo& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.ammoType);
-	ar(item.damage);
-	ar(item.ammoSprite);
-	size_t len;
-	std::string s;
-	Vector2 v;
-	ar(len);
-	for (size_t i = 0; i < len; i++)
+	template <class Archive>
+	void load(Archive& ar, Items::Ammo& item)
 	{
-		ar(s);
-		ar(v.x);
-		ar(v.y);
-		if (s != "Default")
-			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.ammoType);
+		ar(item.damage);
+		ar(item.ammoSprite);
+		size_t len;
+		std::string s;
+		Vector2 v;
+		ar(len);
+		for (size_t i = 0; i < len; i++)
+		{
+			ar(s);
+			ar(v.x);
+			ar(v.y);
+			if (s != "Default")
+				item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
 #pragma endregion
 
 #pragma region Armor
-template <class Archive>
-void save(Archive& ar,const Armor& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.armorIcon);
-	ar(item.armorType);
-	ar(item.defense);
-	ar(item.attachmentPoints.size());
-	for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+	template <class Archive>
+	void save(Archive& ar, const Items::Armor& item)
 	{
-		ar(it->first);
-		ar(it->second.x);
-		ar(it->second.y);
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.armorIcon);
+		ar(item.armorType);
+		ar(item.defense);
+		ar(item.attachmentPoints.size());
+		for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+		{
+			ar(it->first);
+			ar(it->second.x);
+			ar(it->second.y);
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
-template <class Archive>
-void load(Archive& ar,Armor& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.armorIcon);
-	ar(item.armorType);
-	ar(item.defense);
-	size_t len;
-	std::string s;
-	Vector2 v;
-	ar(len);
-	for (size_t i = 0; i < len; i++)
+	template <class Archive>
+	void load(Archive& ar, Items::Armor& item)
 	{
-		ar(s);
-		ar(v.x);
-		ar(v.y);
-		if (s != "Default")
-			item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.armorIcon);
+		ar(item.armorType);
+		ar(item.defense);
+		size_t len;
+		std::string s;
+		Vector2 v;
+		ar(len);
+		for (size_t i = 0; i < len; i++)
+		{
+			ar(s);
+			ar(v.x);
+			ar(v.y);
+			if (s != "Default")
+				item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
 #pragma endregion
 
 #pragma region Bag
-template<class Archive>
-void save(Archive& ar, const Bag& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.size);
-	ar(item.freeSlots);
-	for (int i = 0; i < item.size; i++)
+	template<class Archive>
+	void save(Archive& ar, const Items::Bag& item)
 	{
-		bool b = (item.items[i].first != NULL);
-		ar(b);
-		if (b)
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.size);
+		ar(item.freeSlots);
+		for (int i = 0; i < item.size; i++)
 		{
-			ar(*item.items[i].first);
-			ar(item.items[i].second);
+			bool b = (item.items[i].first != NULL);
+			ar(b);
+			if (b)
+			{
+				ar(*item.items[i].first);
+				ar(item.items[i].second);
+			}
 		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
-template<class Archive>
-void load(Archive& ar, Bag& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.size);
-	ar(item.freeSlots);
-	item.items = std::vector<std::pair<Item*, int>>(item.size, std::pair<Item*, int>(NULL, 0));
-	for (int i = 0; i < item.size; i++)
+	template<class Archive>
+	void load(Archive& ar, Items::Bag& item)
 	{
-		bool b;
-		ar(b);
-		if (b)
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.size);
+		ar(item.freeSlots);
+		item.items = std::vector<std::pair<Item*, int>>(item.size, std::pair<Item*, int>(NULL, 0));
+		for (int i = 0; i < item.size; i++)
 		{
-			ar(*item.items[i].first);
-			ar(item.items[i].second);
+			bool b;
+			ar(b);
+			if (b)
+			{
+				ar(*item.items[i].first);
+				ar(item.items[i].second);
+			}
 		}
+		ar(item.fromMod);
+		ar(item.mode);
 	}
-	ar(item.fromMod);
-	ar(item.mode);
-}
 #pragma endregion
 
 #pragma region Consumable
-template<class Archive>
-void save(Archive& ar, const Consumable& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.fromMod);
-	ar(item.mode);
-}
-template<class Archive>
-void load(Archive& ar, Consumable& item)
-{
-	ar(item.ID);
-	ar(item.description);
-	ar(item.iconName);
-	ar(item.name);
-	ar(item.price);
-	ar(item.stackable);
-	ar(item.tag);
-	ar(item.weight);
-	ar(item.fromMod);
-	ar(item.mode);
-}
+	template<class Archive>
+	void save(Archive& ar, const Items::Consumable& item)
+	{
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.fromMod);
+		ar(item.mode);
+	}
+	template<class Archive>
+	void load(Archive& ar, Items::Consumable& item)
+	{
+		ar(item.ID);
+		ar(item.description);
+		ar(item.iconName);
+		ar(item.name);
+		ar(item.price);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.weight);
+		ar(item.fromMod);
+		ar(item.mode);
+	}
 #pragma endregion
+}
 
 #pragma region Zone
 
@@ -1847,7 +1853,7 @@ void LoadAllPrefabs(PrefabContainer& pre)
 		}
 	}
 }
-void LoadAllItems(std::map<std::pair<std::string, size_t>, Item*>& item)
+void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& item)
 {
 	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
@@ -1864,7 +1870,7 @@ void LoadAllItems(std::map<std::pair<std::string, size_t>, Item*>& item)
 					ar(ind);
 					if (ind.type == "Item")
 					{
-						std::map<std::pair<std::string, size_t>, Item*>::iterator it = item.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+						std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = item.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
 						if (it != item.end())
 						{
 							// stuff exist add extra things to item
@@ -1874,10 +1880,10 @@ void LoadAllItems(std::map<std::pair<std::string, size_t>, Item*>& item)
 						else
 						{
 							database.seekg(ind.row);
-							Item* tmp = NULL;
+							Items::Item* tmp = NULL;
 							cereal::BinaryInputArchive itemLoad(database);
 							loadItem(itemLoad, tmp);
-							item.insert(std::pair<std::pair<std::string, size_t>, Item*>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
+							item.insert(std::pair<std::pair<std::string, size_t>, Items::Item*>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
 						}
 					}
 					else if (ind.flags == "EoF")

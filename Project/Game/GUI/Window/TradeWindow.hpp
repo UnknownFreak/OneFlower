@@ -4,6 +4,7 @@
 #include "BaseWindow.hpp"
 #include "Addon/ScrollBar.hpp"
 #include "../Text/FloatingText.hpp"
+#include "../../Item/Item.hpp"
 class InventoryComponent;
 class Item;
 namespace GUI
@@ -43,8 +44,8 @@ namespace GUI
 			InventoryComponent* playerInventory = NULL;
 
 			// testVector
-			std::vector<std::pair<Item*, int>> itemsBuy;
-			std::vector<std::pair<Item*, int>> history;
+			std::vector<std::pair<Items::Item*, int>> itemsBuy;
+			std::vector<std::pair<Items::Item*, int>> history;
 
 			Text::FloatingText currentGold;
 

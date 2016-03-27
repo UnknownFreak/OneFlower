@@ -73,14 +73,14 @@ namespace GUI
 				if (go->GetComponent<InventoryComponent>())
 				{
 					int max = go->GetComponent<InventoryComponent>()->maxBags;
-					std::vector<Bag*>& b = go->GetComponent<InventoryComponent>()->bags;
+					std::vector<Items::Bag*>& b = go->GetComponent<InventoryComponent>()->bags;
 					for (int it = 0; it < max; ++it)
 					{
 						int i = 0;
 						if (it < b.size())
 						{
-							Bag* bag = b[it];
-							for (std::vector<std::pair<Item*, int>>::iterator iit = bag->items.begin(); iit != bag->items.end(); ++iit)
+							Items::Bag* bag = b[it];
+							for (std::vector<std::pair<Items::Item*, int>>::iterator iit = bag->items.begin(); iit != bag->items.end(); ++iit)
 							{
 								if (iit->first)
 									scroll.sprites.push_back(new Addon::WindowIcon(iit->first->icon, iit->first->getName(), iit->first->toToolTipString(), std::to_string(iit->second), Vector2(0, 16), std::pair<int, int>(it, i), sf::Color::Black, 12));
@@ -130,13 +130,13 @@ namespace GUI
 					swap();
 
 					int max = inv->maxBags;
-					std::vector<Bag*>& b = inv->bags;
+					std::vector<Items::Bag*>& b = inv->bags;
 					Vector2 off(window.getPosition().x + (window.getTextureRect().width / 2) - 74.f, window.getPosition().y + window.getTextureRect().height - 54);
 					for (int it = 0; it < max; ++it)
 					{
 						if (it < b.size())
 						{
-							Bag* bag = b[it];
+							Items::Bag* bag = b[it];
 							ClickOnBagSlot(bag);
 							bag->icon.setPosition(off.x, off.y);
 							if (mouseInsideIcon(bag->icon) && scroll.getIfMovingItem())
@@ -162,7 +162,7 @@ namespace GUI
 				}
 			}
 		}
-		void InventoryWindow::ClickOnBagSlot(Bag* bag)
+		void InventoryWindow::ClickOnBagSlot(Items::Bag* bag)
 		{
 			if (mouseInsideIcon(bag->icon) && !scroll.movingItem)
 			{
@@ -219,10 +219,10 @@ namespace GUI
 					{
 						int start = 0;
 						int end = 0;
-						for (std::vector<Bag*>::iterator it = icp->bags.begin(); it != icp->bags.end(); ++it)
+						for (std::vector<Items::Bag*>::iterator it = icp->bags.begin(); it != icp->bags.end(); ++it)
 						{
-							Bag* tmp = *it;
-							Bag* itm = (Bag*)item;
+							Items::Bag* tmp = *it;
+							Items::Bag* itm = (Items::Bag*)item;
 							if (tmp == itm)
 							{
 								end += itm->size;
@@ -231,7 +231,7 @@ namespace GUI
 							end += tmp->size;
 							start += tmp->size;
 						}
-						if (icp->unequipBag((Bag*)item, icp->bags[swap->index.first], swap->index.second))
+						if (icp->unequipBag((Items::Bag*)item, icp->bags[swap->index.first], swap->index.second))
 						{
 							int insertLocationBag = 0;
 							for (int i = 0; i < swap->index.first; ++i)
@@ -282,7 +282,7 @@ namespace GUI
 				Addon::WindowIcon* swap = (Addon::WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 
 				if (icp->bags[swap->index.first]->items[swap->index.second].first)
-					if (icp->bags[swap->index.first]->items[swap->index.second].first->getTag() == Item::bag)
+					if (icp->bags[swap->index.first]->items[swap->index.second].first->getTag() == Items::Item::bag)
 					{
 						emptyInventorySlot.setColor(sf::Color(25, 150, 25));
 						Engine::Graphic.view.render.draw(emptyInventorySlot);
@@ -476,7 +476,7 @@ namespace GUI
 #pragma region swapFromThisWindow
 				InventoryComponent* icp = go->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* _item = (Addon::WindowIcon*)scroll.sprites[scroll.selectedBag];
-				Armor* arm = (Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
+				Items::Armor* arm = (Items::Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
 				if (arm)
 					if (arm->armorType == armorType)
 					{

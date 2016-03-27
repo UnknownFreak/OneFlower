@@ -86,7 +86,7 @@ void QuestRewardSelectorWindow::show(HWND hWndParent, HINSTANCE hInst, bool edit
 
 	SendMessage(dlgItem, LB_RESETCONTENT, 0,0);
 
-	for (std::map<Item*, HTREEITEM>::iterator it = Engine::Window.prefabList.allItemsInGame().begin();
+	for (std::map<Items::Item*, HTREEITEM>::iterator it = Engine::Window.prefabList.allItemsInGame().begin();
 		it != Engine::Window.prefabList.allItemsInGame().end(); it++)
 	{
 		std::string myValue = std::to_string(it->first->getID())+ ':' + it->first->getName();

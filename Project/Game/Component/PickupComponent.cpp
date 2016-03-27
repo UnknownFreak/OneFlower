@@ -25,9 +25,9 @@ void PickupComponent::pickupLoot(GameObject* character)
 			if(character->GetComponent<InventoryComponent>()->addItem(createItem(),stackSize))
 				pickedUp = true;
 }
-Item PickupComponent::createItem()
+Items::Item PickupComponent::createItem()
 {
-	Item item;
+	Items::Item item;
 	//loadItem(itemID,item);
 	return item;
 }

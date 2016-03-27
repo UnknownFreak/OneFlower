@@ -7,8 +7,7 @@
 #include "Addon/ScrollBar.hpp"
 #include "BaseWindow.hpp"
 #include "../Text/FloatingText.hpp"
-class Bag;
-class Item;
+#include "../../Item/Bag.hpp"
 class EquipmentComponent;
 class InventoryComponent;
 namespace GUI
@@ -38,7 +37,7 @@ namespace GUI
 			int bagIndex = 0;
 
 			sf::Sprite emptyInventorySlot;
-			Item* item;
+			Items::Item* item;
 			ToolTip toolTip;
 			Text::FloatingText gold;
 			Text::Message weight;
@@ -57,7 +56,7 @@ namespace GUI
 
 			void createStats();
 
-			void ClickOnBagSlot(Bag* bag);
+			void ClickOnBagSlot(Items::Bag* bag);
 			void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
 
 			bool tryEquipBag(Vector2& off);

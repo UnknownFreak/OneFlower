@@ -98,11 +98,11 @@ namespace GUI
 					for (size_t i = 0; i < inv->bags.size(); ++i)
 					{
 						int ii = 0;
-						std::vector<std::pair<Item*, int>>::iterator it = inv->bags[i]->items.begin();
+						std::vector<std::pair<Items::Item*, int>>::iterator it = inv->bags[i]->items.begin();
 						for (it; it != inv->bags[i]->items.end(); ++it)
 						{
 							if (it->first)
-								if (it->first->getTag() == Item::armor || it->first->getTag() == Item::weapon)
+								if (it->first->getTag() == Items::Item::armor || it->first->getTag() == Items::Item::weapon)
 									items.sprites.push_back(new Addon::WindowIcon(it->first->icon, it->first->getName(), it->first->toToolTipString(), "", Vector2(0, 0), std::pair<int, int>(i, ii)));
 							ii++;
 						}
@@ -252,7 +252,7 @@ namespace GUI
 #pragma region swapFromThisWindow
 				InventoryComponent* icp = go->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* _item = (Addon::WindowIcon*)items.sprites[items.selectedBag];
-				Armor* arm = (Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
+				Items::Armor* arm = (Items::Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
 				if (arm)
 					if (arm->armorType == armorType)
 					{
@@ -327,9 +327,9 @@ namespace GUI
 #pragma region swapFromInventoryWindow
 				InventoryComponent* icp = go->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* _item = (Addon::WindowIcon*)Engine::GUI.inventory.scroll.sprites[Engine::GUI.inventory.scroll.selectedBag];
-				if (icp->bags[_item->index.first]->items[_item->index.second].first->getTag() == Item::armor)
+				if (icp->bags[_item->index.first]->items[_item->index.second].first->getTag() == Items::Item::armor)
 				{
-					Armor* arm = (Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
+					Items::Armor* arm = (Items::Armor*)icp->bags[_item->index.first]->items[_item->index.second].first;
 					icon.setColor(sf::Color(25, 150, 25));
 				}
 				else

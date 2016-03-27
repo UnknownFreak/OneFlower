@@ -29,13 +29,13 @@ namespace GUI
 			tradeSigleItem.setName("\tBuy");
 			currentGold = "b §Icon|coins|0|0|0§";
 			currentGold.setSize(12);
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1234567, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 123456, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 12345, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1234, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 123, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 12, "Giggity"), -1));
-			itemsBuy.push_back(std::pair<Item*, int>(new Item(0, true, "test", "InventoryIconTest.png", Item::undefined, .4, 1, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 1234567, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 123456, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 12345, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 1234, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 123, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 12, "Giggity"), -1));
+			itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(0, true, "test", "InventoryIconTest.png", Items::Item::undefined, .4, 1, "Giggity"), -1));
 		}
 
 		TradeWindow::~TradeWindow()
@@ -186,9 +186,9 @@ namespace GUI
 			if (selectedTab == tabs::buyTab)
 			{
 				//tmp
-				for (std::vector<std::pair<Item*, int>>::iterator it = itemsBuy.begin(); it != itemsBuy.end(); ++it)
+				for (std::vector<std::pair<Items::Item*, int>>::iterator it = itemsBuy.begin(); it != itemsBuy.end(); ++it)
 				{
-					Item* itm = it->first;
+					Items::Item* itm = it->first;
 					std::string number = std::to_string(it->second);
 					if (number == "-1")
 						number = "N/A";
@@ -202,14 +202,14 @@ namespace GUI
 				if (playerInventory)
 				{
 					int i = 0;
-					std::vector<Bag*>::iterator it = playerInventory->bags.begin();
+					std::vector<Items::Bag*>::iterator it = playerInventory->bags.begin();
 					for (it; it != playerInventory->bags.end(); it++)
 					{
-						if (((Bag*)*it)->freeSlots == ((Bag*)*it)->size)
+						if (((Items::Bag*)*it)->freeSlots == ((Items::Bag*)*it)->size)
 							continue;
-						std::vector<std::pair<Item*, int>>::iterator iit = ((Bag*)*it)->items.begin();
+						std::vector<std::pair<Items::Item*, int>>::iterator iit = ((Items::Bag*)*it)->items.begin();
 						int j = 0;
-						for (iit; iit != ((Bag*)*it)->items.end(); ++iit)
+						for (iit; iit != ((Items::Bag*)*it)->items.end(); ++iit)
 						{
 							if (iit->first)
 								scroll.sprites.push_back(new Addon::WindowIcon(tradingItemBackground, iit->first->getName(), iit->first->toToolTipString(),
@@ -276,7 +276,7 @@ namespace GUI
 			int itemStack = playerInventory->bags[icon->index.first]->items[icon->index.second].second;
 			if (itemStack < size)
 				size = itemStack;
-			Item* item = playerInventory->removeItem(icon->index.first, icon->index.second, size);
+			Items::Item* item = playerInventory->removeItem(icon->index.first, icon->index.second, size);
 
 			if (item)
 			{
@@ -293,19 +293,19 @@ namespace GUI
 				}
 				if (!found)
 				{
-					if (item->getTag() == Item::bag)
+					if (item->getTag() == Items::Item::bag)
 					{
-						Bag* bag = (Bag*)item;
-						itemsBuy.push_back(std::pair<Item*, int>(new Bag(*bag), size));
+						Items::Bag* bag = (Items::Bag*)item;
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Bag(*bag), size));
 					}
-					else if (item->getTag() == Item::armor)
+					else if (item->getTag() == Items::Item::armor)
 					{
-						Armor* arm = (Armor*)item;
-						itemsBuy.push_back(std::pair<Item*, int>(new Armor(*arm), size));
+						Items::Armor* arm = (Items::Armor*)item;
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Armor(*arm), size));
 					}
-					else if (item->getTag() == Item::undefined)
+					else if (item->getTag() == Items::Item::undefined)
 					{
-						itemsBuy.push_back(std::pair<Item*, int>(new Item(*item), size));
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(*item), size));
 					}
 				}
 				//history.push_back(std::pair<Item*,int>(item,size));
@@ -329,19 +329,19 @@ namespace GUI
 				}
 				if (!found)
 				{
-					if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Item::bag)
+					if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Items::Item::bag)
 					{
-						Bag* bag = (Bag*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
-						itemsBuy.push_back(std::pair<Item*, int>(new Bag(*bag), size));
+						Items::Bag* bag = (Items::Bag*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Bag(*bag), size));
 					}
-					else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Item::armor)
+					else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Items::Item::armor)
 					{
-						Armor* arm = (Armor*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
-						itemsBuy.push_back(std::pair<Item*, int>(new Armor(*arm), size));
+						Items::Armor* arm = (Items::Armor*)playerInventory->bags[icon->index.first]->items[icon->index.second].first;
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Armor(*arm), size));
 					}
-					else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Item::undefined)
+					else if (playerInventory->bags[icon->index.first]->items[icon->index.second].first->getTag() == Items::Item::undefined)
 					{
-						itemsBuy.push_back(std::pair<Item*, int>(new Item(*playerInventory->bags[icon->index.first]->items[icon->index.second].first), size));
+						itemsBuy.push_back(std::pair<Items::Item*, int>(new Items::Item(*playerInventory->bags[icon->index.first]->items[icon->index.second].first), size));
 					}
 				}
 				icon->messageText = std::to_string(playerInventory->bags[icon->index.first]->items[icon->index.second].second) +
