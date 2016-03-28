@@ -28,7 +28,7 @@ public:
 	PrefabContainer editorPrefabContainer;
 	std::map<std::pair<std::string,unsigned int>, DBZone> EditorAllZones;
 	std::map<std::pair<std::string, size_t>, Items::Item*> EditorAllItems;
-	std::map<std::pair<std::string, unsigned int>, Quest> EditorAllQuests;
+	std::map<std::pair<std::string, unsigned int>, Quests::Quest> EditorAllQuests;
 #endif
 	//to be able to remove gameobjects when unloading;
 	std::map<std::pair<std::string,size_t>,GameObject*> listOfZoneObjects;
@@ -73,12 +73,12 @@ public:
 
 	void EditorFlagGameObjectForEdit(GameObject* go);
 
-	void AddQuest(Quest quest);
+	void AddQuest(Quests::Quest quest);
 
 	friend void LoadAllZones(std::map<std::pair<std::string,unsigned int>, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	friend void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems);
-	friend void LoadAllQuests(std::map<std::pair<std::string, unsigned int>, Quest> editorAllQuests);
+	friend void LoadAllQuests(std::map<std::pair<std::string, unsigned int>, Quests::Quest> editorAllQuests);
 	size_t EditorGetValidID();
 	size_t ID = 1;
 #endif

@@ -31,7 +31,7 @@ public:
 	int getCurrentSelectedReward();
 	int getCurrentSelectedObjective();
 
-	std::vector<QuestObjective*> objectives;
+	std::vector<Quests::QuestObjective*> objectives;
 private:
 
 	std::vector<std::pair<unsigned int, int>> rewards;

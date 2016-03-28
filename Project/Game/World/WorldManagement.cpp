@@ -386,13 +386,13 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 		}
 	}
 }
-void WorldManagement::AddQuest(Quest quest)
+void WorldManagement::AddQuest(Quests::Quest quest)
 {
 	std::pair<std::string, unsigned int> ID;
 	ID.first = openedMod;
 	ID.second = quest.ID;
 	quest.fromMod = openedMod;
-	EditorAllQuests.insert(std::pair<std::pair<std::string, unsigned int>, Quest>(ID, quest));
+	EditorAllQuests.insert(std::pair<std::pair<std::string, unsigned int>, Quests::Quest>(ID, quest));
 }
 std::string WorldManagement::getLoadedMod()
 {

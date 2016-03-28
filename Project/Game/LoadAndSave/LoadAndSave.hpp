@@ -27,7 +27,7 @@ void saveGameDatabase(
 	PrefabContainer& prefabs,
 	std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones,
 	std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
-	std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests);
+	std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests);
 #endif
 //void loadItem(unsigned int ID,Item& item);
 

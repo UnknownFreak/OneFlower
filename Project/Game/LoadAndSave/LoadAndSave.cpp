@@ -145,7 +145,7 @@ void loadGame(GameObject& player,std::string loadFile)
 
 void saveGameDatabase(std::string filename,ModHeader& modhdr, 
 	PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones,
-	std::map<std::pair<std::string,size_t>, Items::Item*>& editorAllItems, std::map<std::pair<std::string,size_t>,Quest>& EditorAllQuests)
+	std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems, std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -229,7 +229,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr,
 			indexAr(ind);
 			saveItem(mainAr,it->second);
 		}
-		for (std::map<std::pair<std::string, size_t>, Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
+		for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
 		{
 			ind.flags = "-";
 			ind.ID = it->first.second;
@@ -1893,7 +1893,7 @@ void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& item)
 		}
 	}
 }
-void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quest>& quests)
+void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quests::Quest>& quests)
 {
 	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
@@ -1910,7 +1910,7 @@ void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quest>& quests)
 					ar(ind);
 					if (ind.type == "Quest")
 					{
-						std::map<std::pair<std::string, unsigned int>, Quest>::iterator it = quests.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+						std::map<std::pair<std::string, unsigned int>, Quests::Quest>::iterator it = quests.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
 						if (it != quests.end())
 						{
 							// stuff exist add extra things to item
@@ -1920,10 +1920,10 @@ void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quest>& quests)
 						else
 						{
 							database.seekg(ind.row);
-							Quest tmp;
-							cereal::BinaryInputArchive itemLoad(database);
-							itemLoad(tmp);
-							quests.insert(std::pair<std::pair<std::string, unsigned int>, Quest>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
+							Quests::Quest tmp;
+							cereal::BinaryInputArchive questLoad(database);
+							questLoad(tmp);
+							quests.insert(std::pair<std::pair<std::string, unsigned int>, Quests::Quest>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
 						}
 					}
 					else if (ind.flags == "EoF")
@@ -1933,93 +1933,95 @@ void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quest>& quests)
 		}
 	}
 }
+namespace Quests
+{
+	template<class Archive>
+	void save(Archive &ar, const Quests::Quest&quest)
+	{
+		ar(quest.title);
+		ar(quest.description);
+		ar(quest.mode);
+		ar(quest.ID);
+		ar(quest.fromMod);
+		ar(quest.goldReward);
+		ar(quest.showInQuestLog);
+		ar(quest.started);
+		ar(quest.ItemRewards.size());
+		for (std::vector<std::pair<std::pair<std::string, unsigned int>, int>>::const_iterator it = quest.ItemRewards.begin();
+			it != quest.ItemRewards.end(); it++)
+		{
+			ar(it->first.first);
+			ar(it->first.second);
+			ar(it->second);
+		}
+		ar(quest.objectives.size());
+		for (std::vector<QuestObjective>::const_iterator it = quest.objectives.begin();
+			it != quest.objectives.end(); it++)
+		{
+			ar(*it);
+		}
+	}
+	template<class Archive>
+	void load(Archive &ar, Quests::Quest& quest)
+	{
+		ar(quest.title);
+		ar(quest.description);
+		ar(quest.mode);
+		ar(quest.ID);
+		ar(quest.fromMod);
+		ar(quest.goldReward);
+		ar(quest.showInQuestLog);
+		ar(quest.started);
+		size_t size;
+		ar(size);
+		for (size_t i = 0; i < size; i++)
+		{
+			std::pair<std::pair<std::string, size_t>, int> p;
+			ar(p.first.first);
+			ar(p.first.second);
+			ar(p.second);
+			quest.ItemRewards.push_back(p);
+		}
+		ar(size);
+		for (size_t i = 0; i < size; i++)
+		{
+			QuestObjective p;
+			ar(p);
+			quest.objectives.push_back(p);
+		}
+	}
 
-template<class Archive>
-void save(Archive &ar, const Quest&quest)
-{
-	ar(quest.title);
-	ar(quest.description);
-	ar(quest.mode);
-	ar(quest.ID);
-	ar(quest.fromMod);
-	ar(quest.goldReward);
-	ar(quest.showInQuestLog);
-	ar(quest.started);
-	ar(quest.ItemRewards.size());
-	for (std::vector<std::pair<std::pair<std::string, unsigned int>, int>>::const_iterator it = quest.ItemRewards.begin();
-		it != quest.ItemRewards.end(); it++)
+	template<class Archive>
+	void save(Archive& ar, const Quests::QuestObjective & qo)
 	{
-		ar(it->first.first);
-		ar(it->first.second);
-		ar(it->second);
+		ar(qo.count);
+		ar(qo.description);
+		ar(qo.destination.first);
+		ar(qo.destination.second);
+		ar(qo.isBonusObjective);
+		ar(qo.objectiveName);
+		ar(qo.state);
+		ar(qo.target.first);
+		ar(qo.target.second);
+		ar(qo.targetDestination.first);
+		ar(qo.targetDestination.second);
+		ar(qo.type);
 	}
-	ar(quest.objectives.size());
-	for (std::vector<QuestObjective>::const_iterator it = quest.objectives.begin();
-		it != quest.objectives.end(); it++)
+	template<class Archive>
+	void load(Archive& ar, Quests::QuestObjective & qo)
 	{
-		ar(*it);
+		ar(qo.count);
+		ar(qo.description);
+		ar(qo.destination.first);
+		ar(qo.destination.second);
+		ar(qo.isBonusObjective);
+		ar(qo.objectiveName);
+		ar(qo.state);
+		ar(qo.target.first);
+		ar(qo.target.second);
+		ar(qo.targetDestination.first);
+		ar(qo.targetDestination.second);
+		ar(qo.type);
 	}
-}
-template<class Archive>
-void load(Archive &ar, Quest& quest)
-{
-	ar(quest.title);
-	ar(quest.description);
-	ar(quest.mode);
-	ar(quest.ID);
-	ar(quest.fromMod);
-	ar(quest.goldReward);
-	ar(quest.showInQuestLog);
-	ar(quest.started);
-	size_t size;
-	ar(size);
-	for (size_t i = 0; i < size; i++)
-	{
-		std::pair<std::pair<std::string, size_t>, int> p;
-		ar(p.first.first);
-		ar(p.first.second);
-		ar(p.second);
-		quest.ItemRewards.push_back(p);
-	}
-	ar(size);
-	for (size_t i = 0; i < size; i++)
-	{
-		QuestObjective p;
-		ar(p);
-		quest.objectives.push_back(p);
-	}
-}
-
-template<class Archive>
-void save(Archive& ar,const QuestObjective & qo)
-{
-	ar(qo.count);
-	ar(qo.description);
-	ar(qo.destination.first);
-	ar(qo.destination.second);
-	ar(qo.isBonusObjective);
-	ar(qo.objectiveName);
-	ar(qo.state);
-	ar(qo.target.first);
-	ar(qo.target.second);
-	ar(qo.targetDestination.first);
-	ar(qo.targetDestination.second);
-	ar(qo.type);
-}
-template<class Archive>
-void load(Archive& ar, QuestObjective & qo)
-{
-	ar(qo.count);
-	ar(qo.description);
-	ar(qo.destination.first);
-	ar(qo.destination.second);
-	ar(qo.isBonusObjective);
-	ar(qo.objectiveName);
-	ar(qo.state);
-	ar(qo.target.first);
-	ar(qo.target.second);
-	ar(qo.targetDestination.first);
-	ar(qo.targetDestination.second);
-	ar(qo.type);
 }
 #pragma endregion
