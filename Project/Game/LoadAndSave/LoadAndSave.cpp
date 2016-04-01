@@ -33,7 +33,7 @@
 #include "..\Item\Bag.hpp"
 #include "..\Item\Item.hpp"
 #include "..\Item\Consumable.hpp"
-
+#include "..\Item\Weapon.hpp"
 //
 
 #include "LoadAndSave.hpp"
@@ -143,9 +143,13 @@ void loadGame(GameObject& player,std::string loadFile)
 	}
 }
 
-void saveGameDatabase(std::string filename,ModHeader& modhdr, 
-	PrefabContainer& prefabs, std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones,
-	std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems, std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
+void saveGameDatabase(
+	std::string filename,
+	ModHeader& modhdr, 
+	PrefabContainer& prefabs, 
+	std::map<std::pair<std::string,size_t>, DBZone>& EditorAllZones,
+	std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems, 
+	std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 {
 	std::ofstream file(filename, std::ios::binary);
 	filename.append(".index");
@@ -176,9 +180,7 @@ void saveGameDatabase(std::string filename,ModHeader& modhdr,
 				else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
 					it->second.mode = EditorObjectSaveMode::DEFAULT;
 				else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
-				{
 					b = false;
-				}
 				if (ind.ID == 0)
 					b = false;
 				if (b)
@@ -828,13 +830,17 @@ void saveItem(Archive & ar, Items::Item* item)
 		ar(*(Items::Armor*)item);
 	else if (item->getTag() == Items::Item::bag)
 		ar(*(Items::Bag*)item);
+	else if (item->getTag() == Items::Item::weapon)
+		ar(*(Items::Weapon*)item);
+	else if (item->getTag() == Items::Consumable)
+		ar(*(Items::Consumable*)item);
 	else // default item
 		ar(*item);
 }
 template<class Archive>
 void loadItem(Archive & ar, Items::Item*& item)
 {
-	size_t tag; // size_t 4294967295 = int -1
+	Items::Item::ItemType tag; // size_t 4294967295 = int -1
 	ar(tag);
 	if (tag == Items::Item::ammo)
 	{
@@ -850,6 +856,16 @@ void loadItem(Archive & ar, Items::Item*& item)
 	{
 		item = new Items::Bag();
 		ar(*(Items::Bag*)item);
+	}
+	else if (tag == Items::Item::weapon)
+	{
+		item = new Items::Weapon();
+		ar(*(Items::Weapon*)item);
+	}
+	else if (tag == Items::Item::consumable)
+	{
+		item = new Items::Consumable();
+		ar(*(Items::Consumable*)item);
 	}
 	else // default item
 	{
@@ -1108,6 +1124,64 @@ namespace Items
 		ar(item.weight);
 		ar(item.fromMod);
 		ar(item.mode);
+	}
+#pragma endregion
+
+#pragma region Weapon
+	template<class Archive>
+	void save(Archive& ar, const Items::Weapon & item)
+	{
+		ar(item.ID);
+		ar(item.description);
+		ar(item.damage);
+		ar(item.defense);
+		ar(item.iconName);
+		ar(item.price);
+		ar(item.name);
+		ar(item.spriteName);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.WeaponType);
+		ar(item.weight);
+		ar(item.fromMod);
+		ar(item.mode);
+		ar(item.attachmentPoints.size());
+		for (std::map<std::string, Vector2>::const_iterator it = item.attachmentPoints.begin(); it != item.attachmentPoints.end(); it++)
+		{
+			ar(it->first);
+			ar(it->second.x);
+			ar(it->second.y);
+		}
+	}
+	template<class Archive>
+	void load(Archive& ar, Items::Weapon & item)
+	{
+		ar(item.ID);
+		ar(item.description);
+		ar(item.damage);
+		ar(item.defense);
+		ar(item.iconName);
+		ar(item.price);
+		ar(item.name);
+		ar(item.spriteName);
+		ar(item.stackable);
+		ar(item.tag);
+		ar(item.WeaponType);
+		ar(item.weight);
+		ar(item.fromMod);
+		ar(item.mode);
+		size_t len;
+		std::string s;
+		Vector2 v;
+		ar(len);
+		for (size_t i = 0; i < len; i++)
+		{
+			ar(s);
+			ar(v.x);
+			ar(v.y);
+			if (s != "Default")
+				item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
+		}
 	}
 #pragma endregion
 }
