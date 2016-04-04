@@ -832,7 +832,7 @@ void saveItem(Archive & ar, Items::Item* item)
 		ar(*(Items::Bag*)item);
 	else if (item->getTag() == Items::Item::weapon)
 		ar(*(Items::Weapon*)item);
-	else if (item->getTag() == Items::Consumable)
+	else if (item->getTag() == Items::Item::consumable)
 		ar(*(Items::Consumable*)item);
 	else // default item
 		ar(*item);
@@ -899,6 +899,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 	template <class Archive>
 	void load(Archive& ar, Items::Item& item)
@@ -925,6 +926,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 #pragma endregion
 
@@ -952,6 +954,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 	template <class Archive>
 	void load(Archive& ar, Items::Ammo& item)
@@ -981,6 +984,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 #pragma endregion
 
@@ -1008,6 +1012,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 	template <class Archive>
 	void load(Archive& ar, Items::Armor& item)
@@ -1066,6 +1071,8 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
+
 	}
 	template<class Archive>
 	void load(Archive& ar, Items::Bag& item)
@@ -1093,6 +1100,7 @@ namespace Items
 		}
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 #pragma endregion
 
@@ -1110,6 +1118,7 @@ namespace Items
 		ar(item.weight);
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 	template<class Archive>
 	void load(Archive& ar, Items::Consumable& item)
@@ -1124,6 +1133,7 @@ namespace Items
 		ar(item.weight);
 		ar(item.fromMod);
 		ar(item.mode);
+		ar(item.rarity);
 	}
 #pragma endregion
 
@@ -1152,6 +1162,7 @@ namespace Items
 			ar(it->second.x);
 			ar(it->second.y);
 		}
+		ar(item.rarity);
 	}
 	template<class Archive>
 	void load(Archive& ar, Items::Weapon & item)
@@ -1182,6 +1193,7 @@ namespace Items
 			if (s != "Default")
 				item.attachmentPoints.insert(std::pair<std::string, Vector2>(s, v));
 		}
+		ar(item.rarity);
 	}
 #pragma endregion
 }

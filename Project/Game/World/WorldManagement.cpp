@@ -22,6 +22,8 @@ WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modL
 // deconstructor
 WorldManagement::~WorldManagement()
 {
+	//Temp
+	//EditorSave();
 	for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = EditorAllItems.begin(); it != EditorAllItems.end(); it++)
 	{
 		delete it->second;

@@ -22,6 +22,15 @@ namespace Items
 			ammo,
 			trophy
 		};
+		enum Rarity
+		{
+			Basic,
+			Common,
+			Fine,
+			Rare,
+			Exotic,
+			Legendary,
+		};
 		Item();
 		Item(unsigned int ID, bool stackable, std::string name, std::string iconName, ItemType tag, double weight, int price, std::string description);
 		Item(const Item& item);
@@ -42,7 +51,7 @@ namespace Items
 		EditorObjectSaveMode mode = EditorObjectSaveMode::ADD;
 	protected:
 
-
+		Rarity rarity = Basic;
 		unsigned int ID;
 		bool stackable;
 		double weight;
