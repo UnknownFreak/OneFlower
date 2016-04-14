@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C459A581-16EF-4FBF-9710-DDC6B6EE2C81}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BaseEditor</RootNamespace>
+    <AssemblyName>BaseEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Editor\Attchments\AddAttachmentPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Attchments\AddAttachmentPoint.Designer.cs">
+      <DependentUpon>AddAttachmentPoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\MouseHook\MouseHook.cs" />
+    <Compile Include="Mods\AddMod.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mods\AddMod.Designer.cs">
+      <DependentUpon>AddMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Attchments\AttachmentPoints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Attchments\AttachmentPoints.Designer.cs">
+      <DependentUpon>AttachmentPoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\DragableTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Editor\Windows\DragNDropWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Windows\DragNDropWindow.Designer.cs">
+      <DependentUpon>DragNDropWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Item\ItemCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Item\ItemCreator.Designer.cs">
+      <DependentUpon>ItemCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Messages\MessageWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Messages\MessageWindow.Designer.cs">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mods\ModManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mods\ModManager.Designer.cs">
+      <DependentUpon>ModManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\ObjectArea.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\ObjectArea.Designer.cs">
+      <DependentUpon>ObjectArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prefab\PrefabCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Prefab\PrefabCreator.Designer.cs">
+      <DependentUpon>PrefabCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Quest\Objective.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quest\Objective.Designer.cs">
+      <DependentUpon>Objective.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Quest\QuestCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quest\QuestCreator.Designer.cs">
+      <DependentUpon>QuestCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Quest\RewardField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Quest\RewardField.Designer.cs">
+      <DependentUpon>RewardField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Quest\Selector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Quest\Selector.Designer.cs">
+      <DependentUpon>Selector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RenderAreaControls.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RenderAreaControls.Designer.cs">
+      <DependentUpon>RenderAreaControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zone\ZoneField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Zone\ZoneField.Designer.cs">
+      <DependentUpon>ZoneField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zone\ZoneManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Zone\ZoneManager.Designer.cs">
+      <DependentUpon>ZoneManager.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Editor\Attchments\AddAttachmentPoint.resx">
+      <DependentUpon>AddAttachmentPoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mods\AddMod.resx">
+      <DependentUpon>AddMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Attchments\AttachmentPoints.resx">
+      <DependentUpon>AttachmentPoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Windows\DragNDropWindow.resx">
+      <DependentUpon>DragNDropWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Item\ItemCreator.resx">
+      <DependentUpon>ItemCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Messages\MessageWindow.resx">
+      <DependentUpon>MessageWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mods\ModManager.resx">
+      <DependentUpon>ModManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\ObjectArea.resx">
+      <DependentUpon>ObjectArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Prefab\PrefabCreator.resx">
+      <DependentUpon>PrefabCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quest\Objective.resx">
+      <DependentUpon>Objective.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quest\QuestCreator.resx">
+      <DependentUpon>QuestCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quest\RewardField.resx">
+      <DependentUpon>RewardField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quest\Selector.resx">
+      <DependentUpon>Selector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenderAreaControls.resx">
+      <DependentUpon>RenderAreaControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zone\ZoneField.resx">
+      <DependentUpon>ZoneField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zone\ZoneManager.resx">
+      <DependentUpon>ZoneManager.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CppInterop\CppInterop.vcxproj">
+      <Project>{75e3433b-ad17-4579-b115-32dd2a097974}</Project>
+      <Name>CppInterop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
