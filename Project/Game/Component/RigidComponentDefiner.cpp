@@ -15,11 +15,6 @@ void RigidComponent::attachOn(GameObject* go)
 {
 	//Dont put this in constructors, Cause rigidcomponent will call this twice from constructor hierarchy calls
 
-	REGISTER_EDITOR_VARIABLE(Vector2,bounding.position,Position);
-	REGISTER_EDITOR_VARIABLE(Vector2,bounding.size,Size);
-	REGISTER_EDITOR_VARIABLE(int,mass,Mass);
-	REGISTER_EDITOR_VARIABLE(bool,gravity,Gravity);
-
 	BaseComponent::attachOn(go);
 	Engine::Physics.addPhysics(this);
 }

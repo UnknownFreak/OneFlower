@@ -104,7 +104,8 @@ namespace GUI
 		}
 		void TradeWindow::setInventory()
 		{
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 				playerInventory = go->GetComponent<InventoryComponent>();
 		}
@@ -224,7 +225,8 @@ namespace GUI
 				else
 				{
 					//change to player
-					GameObject* go = Engine::Window.focus.gameObject;
+					// TODO: REWORK THIS
+					GameObject* go = NULL;// Engine::Window.focus.gameObject;
 					if (go)
 						playerInventory = go->GetComponent<InventoryComponent>();
 				}
@@ -378,7 +380,8 @@ namespace GUI
 			}
 			else
 			{
-				GameObject* go = Engine::Window.focus.gameObject;
+				//TODO: REWORK THIS
+				GameObject* go = NULL;// Engine::Window.focus.gameObject;
 				if (go)
 					playerInventory = go->GetComponent<InventoryComponent>();
 			}

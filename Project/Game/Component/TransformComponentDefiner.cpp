@@ -14,7 +14,4 @@ void TransformComponent::attachOn(GameObject* go)
 {
 	TransformComponent::BaseComponent::attachOn(go);
 
-	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(Vector2,rotation,Rotation);
-	REGISTER_EDITOR_VARIABLE(Vector2,size,Size);
 }

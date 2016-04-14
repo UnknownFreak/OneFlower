@@ -110,7 +110,7 @@ GameObject* Prefab::createFromPrefab()
 		else if (var->getType() == IBaseComponent<RigidComponent>::typeID)
 			go->AddComponent(new RigidComponent(*(RigidComponent*)var));
 		else
-			Engine::Window.debug.print("Missing if statement for component type:" + std::to_string(var->getType()), __LINE__, __FILE__);
+			;// Engine::Window.debug.print("Missing if statement for component type:" + std::to_string(var->getType()), __LINE__, __FILE__);
 	}
 	return go;
 }

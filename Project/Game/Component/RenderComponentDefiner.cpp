@@ -89,15 +89,6 @@ void RenderComponent::attachOn(GameObject* attachTo)
 
 	Engine::Graphic.removeFromDrawList(attachedOn);
 	Engine::Graphic.insertDrawableObject(attachedOn);
-
-	REGISTER_EDITOR_VARIABLE(int,outline,Thickness);
-
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
-	REGISTER_EDITOR_VARIABLE(bool,animation,Animation);
-	REGISTER_EDITOR_VARIABLE(Vector2,size,RectSize);
-	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(int,frameSpeed,AnimationSpeed);
 }
 void RenderComponent::updateFrame()
 {

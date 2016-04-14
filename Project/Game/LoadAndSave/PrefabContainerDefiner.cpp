@@ -9,7 +9,7 @@ void PrefabContainer::addPrefab(const Prefab prefab)
 	mapOfPrefabs2.insert(std::pair<size_t, Prefab>(prefab.ID, Prefab(prefab)));
 	mapOfPrefabs.insert(std::pair<std::pair<std::string, size_t>, Prefab>(std::pair<std::string, size_t>(prefab.fromMod, prefab.ID), Prefab(prefab)));
 #ifdef _DEBUG
-	Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(prefab.ID)->second);
+	//Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(prefab.ID)->second);
 #endif
 }
 /*Adds a prefab from existing GameObject, with the id of the gameobject as key
@@ -22,7 +22,7 @@ void PrefabContainer::addPrefab(const GameObject* go)
 	mapOfPrefabs.insert(std::pair<std::pair<std::string, size_t>, Prefab>(std::pair<std::string, size_t>("NotSet", go->id), Prefab(go)));
 
 #ifdef _DEBUG
-	Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(go->id)->second);
+	//Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(go->id)->second);
 #endif
 }
 
@@ -31,7 +31,7 @@ void PrefabContainer::addPrefab(const size_t ID,const GameObject* go)
 {
 	mapOfPrefabs2.insert(std::pair<size_t,Prefab>(ID,Prefab(go)));
 #ifdef _DEBUG
-	Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(ID)->second);
+	//Engine::Window.prefabList.addPrefab(mapOfPrefabs2.find(ID)->second);
 #endif
 }
 
@@ -43,7 +43,7 @@ void PrefabContainer::removePrefab(size_t prefabID)
 	if (it != mapOfPrefabs2.end())
 	{
 #ifdef _DEBUG
-		Engine::Window.prefabList.removePrefab(it->second);
+		//Engine::Window.prefabList.removePrefab(it->second);
 #endif
 		mapOfPrefabs2.erase(it);
 	}

@@ -5,7 +5,7 @@
 #include "../../../Engine.hpp"
 #include "../../Component/EquipmentComponent.hpp"
 #include "../../Item/Armor.hpp"
-
+#include <sstream>
 namespace GUI
 {
 	namespace Text
@@ -94,7 +94,11 @@ namespace GUI
 			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
 				Engine::Graphic.view.render.draw(it->first);
 		}
-
+		void Message::draw(sf::RenderWindow& myrender)
+		{
+			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
+				myrender.draw(it->first);
+		}
 		void Message::drawCrop(sf::IntRect area)
 		{
 			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
@@ -114,7 +118,7 @@ namespace GUI
 				throw MissingFontException();
 #else
 				//LOW set propper misingFontt
-				this->font = Engine::Graphic.font.requestFont("arial.ttf");
+				this->font = *Engine::Graphic.font.requestFont("arial.ttf");
 #endif
 
 			this->font = *font;
@@ -170,91 +174,107 @@ namespace GUI
 						{
 							if (substr[iit] == "Color")
 							{
-								int r = std::stoi(substr[iit + 1]);
-								int g = std::stoi(substr[iit + 2]);
-								int b = std::stoi(substr[iit + 3]);
-								pair.first.setString(substr[iit + 4]);
-								pair.first.setColor(sf::Color(r, g, b));
-								text.push_back(pair);
-								pair.first.setColor(color);
-								iit += 4;
+								if (iit + 4 < substr.size())
+								{
+									int r = std::stoi(substr[iit + 1]);
+									int g = std::stoi(substr[iit + 2]);
+									int b = std::stoi(substr[iit + 3]);
+									pair.first.setString(substr[iit + 4]);
+									pair.first.setColor(sf::Color(r, g, b));
+									text.push_back(pair);
+									pair.first.setColor(color);
+									iit += 4;
+								}
 							}
 							else if (substr[iit] == "sColor")
 							{
-								int r = std::stoi(substr[iit + 1]);
-								int g = std::stoi(substr[iit + 2]);
-								int b = std::stoi(substr[iit + 3]);
-								pair.first.setString(substr[iit + 4]);
-								pair.second = true;
-								pair.first.setColor(sf::Color(r, g, b));
-								text.push_back(pair);
-								pair.first.setColor(color);
-								pair.second = false;
-								iit += 4;
+								if (iit + 4 < substr.size())
+								{
+									int r = std::stoi(substr[iit + 1]);
+									int g = std::stoi(substr[iit + 2]);
+									int b = std::stoi(substr[iit + 3]);
+									pair.first.setString(substr[iit + 4]);
+									pair.second = true;
+									pair.first.setColor(sf::Color(r, g, b));
+									text.push_back(pair);
+									pair.first.setColor(color);
+									pair.second = false;
+									iit += 4;
+								}
 							}
 							else if (substr[iit] == "Compare")
 #pragma region compare
 							{
-								std::string compType = substr[iit + 1] + substr[iit + 3];
-								if (compType == "is-i")
+								if (iit + 4 < substr.size())
 								{
+									std::string compType = substr[iit + 1] + substr[iit + 3];
+									if (compType == "is-i")
+									{
 #pragma region int-intCompare
-									int first = std::stoi(substr[iit + 2]);
-									int second = 0;
-									GameObject* go = Engine::Window.focus.gameObject;
-									if (go)
-									{
-										EquipmentComponent* ecp = go->GetComponent<EquipmentComponent>();
-										if (ecp)
-											if (substr[iit + 4] == "Helm")
-												if (ecp->helm)
-													second = ecp->helm->defense;
-											else if (substr[iit + 4] == "Chest")
-												if (ecp->chest)
-													second = ecp->chest->defense;
-											else if (substr[iit + 4] == "Gloves")
-												if (ecp->gloves)
-													second = ecp->gloves->defense;
-											else if (substr[iit + 4] == "Leggings")
-												if (ecp->leggings)
-													second = ecp->leggings->defense;
-											else if (substr[iit + 4] == "Boots")
-												if (ecp->boots)
-													second = ecp->boots->defense;
-									}
-									int split = first - second;
-									if (split < 0)
-									{
-										plusMinus = " ";
-										pair.first.setColor(sf::Color(150, 25, 25));
-									}
-									else if (split > 0)
-									{
-										plusMinus = " +";
-										pair.first.setColor(sf::Color(25, 150, 25));
-									}
-									else
-									{
-										plusMinus = " ";
-										pair.first.setColor(sf::Color(color));
-									}
-									if (split != 0)
-										pair.first.setString(plusMinus + std::to_string(split));
-									else
-										pair.first.setString("");
+										int first = std::stoi(substr[iit + 2]);
+										int second = 0;
+										GameObject* go = NULL;// Engine::Window.focus.gameObject;
+										if (go)
+										{
+											EquipmentComponent* ecp = go->GetComponent<EquipmentComponent>();
+											if (ecp)
+												if (substr[iit + 4] == "Helm")
+													if (ecp->helm)
+														second = ecp->helm->defense;
+													else;
+												else if (substr[iit + 4] == "Chest")
+													if (ecp->chest)
+														second = ecp->chest->defense;
+													else;
+												else if (substr[iit + 4] == "Gloves")
+													if (ecp->gloves)
+														second = ecp->gloves->defense;
+													else;
+												else if (substr[iit + 4] == "Leggings")
+													if (ecp->leggings)
+														second = ecp->leggings->defense;
+													else;
+												else if (substr[iit + 4] == "Boots")
+													if (ecp->boots)
+														second = ecp->boots->defense;
+													else;
+										}
+										int split = first - second;
+										if (split < 0)
+										{
+											plusMinus = " ";
+											pair.first.setColor(sf::Color(150, 25, 25));
+										}
+										else if (split > 0)
+										{
+											plusMinus = " +";
+											pair.first.setColor(sf::Color(25, 150, 25));
+										}
+										else
+										{
+											plusMinus = " ";
+											pair.first.setColor(sf::Color(color));
+										}
+										if (split != 0)
+											pair.first.setString(plusMinus + std::to_string(split));
+										else
+											pair.first.setString("");
 #pragma endregion
+									}
+
+									pair.second = true;
+									text.push_back(pair);
+
+									pair.second = false;
+									iit += 4;
 								}
-
-								pair.second = true;
-								text.push_back(pair);
-
-								pair.second = false;
-								iit += 4;
 							}
 #pragma endregion
 							else if (substr[iit] == "Icon")
 							{
-								iit = iconFormat(pair, substr, iit);
+								if (iit + 1 < substr.size())
+									if (iit + 5 < substr.size() || substr[iit+1] == "coins" && iit + 4 < substr.size())
+										iit = iconFormat(pair, substr, iit);
 							}
 						}
 					}

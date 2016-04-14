@@ -10,7 +10,11 @@ namespace GUI
 		toolTipText.setSize(21);
 		toolTipBody.setSize(13);
 	}
-
+	ToolTip::ToolTip(sf::Font& font) : toolTipText("test.png", font, false), toolTipBody("test.png", font, false), toolTipIcon(*Engine::Graphic.requestTexture("ToolTipIcon.png"))
+	{
+		toolTipText.setSize(21);
+		toolTipBody.setSize(13);
+	}
 	ToolTip::ToolTip(std::string name) : toolTipText("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipBody("test.png", *Engine::Graphic.font.requestFont("arial.ttf"), false), toolTipIcon(*Engine::Graphic.requestTexture("ToolTipIcon.png"))
 	{
 		toolTipText = name;
@@ -65,6 +69,13 @@ namespace GUI
 		toolTipText.draw();
 		toolTipBody.draw();
 	}
+	void ToolTip::draw(sf::RenderWindow& myrender)
+	{
+		setPosition(0, 0);
+		myrender.draw(toolTipIcon);
+		toolTipText.draw(myrender);
+		toolTipBody.draw(myrender);
+	}
 	void ToolTip::setToolTipText(std::string _text, std::string _body)
 	{
 		toolTipText = _text;
@@ -93,7 +104,7 @@ namespace GUI
 	}
 	void ToolTip::draw(std::string text)
 	{
-		setToolTipText(text);
+		setToolTipText(text,"");
 		setPosition(Engine::GUI.mouseAim.position.x, Engine::GUI.mouseAim.position.y);
 		Engine::Graphic.view.render.draw(toolTipIcon);
 		toolTipText.draw();

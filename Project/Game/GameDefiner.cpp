@@ -52,8 +52,9 @@ void Game::addGameObject(GameObject* entity)
 	Engine::GUI.addOverhead(entity);
 	//Engine::Graphic.insertDrawableObject(entity);
 #ifdef _DEBUG
-	Engine::Window.ListViewer.add(entity);
-	Engine::Window.setGameObject(entity);
+	//OLD EDITOR STUFF
+	//Engine::Window.ListViewer.add(entity);
+	//Engine::Window.setGameObject(entity);
 
 #endif
 }
@@ -118,11 +119,12 @@ void Game::requestRemoveal(GameObject* entity)
 				Engine::GUI.requestOverheadRemoval(entity);
 				Engine::Graphic.removeFromDrawList(entity);
 				//Engine::Window.ListViewer.remove(entity);
-				if(Engine::Window.focus.gameObject == entity)
+				//OLD EDITOR STUFF
+				/*if(Engine::Window.focus.gameObject == entity)
 				{
 					Engine::Window.focus.gameObject = 0;
 					Engine::Window.focus.cleanse();
-				}
+				}*/
 
 				delete entity;
 				entity = 0;

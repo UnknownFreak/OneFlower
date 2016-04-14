@@ -85,23 +85,25 @@ GameObject::GameObject(std::string _name)
 }
 GameObject::~GameObject()
 {
-	Engine::Window.ListViewer.remove(this);
+	//Engine::Window.ListViewer.remove(this);
 
 	std::map<GameObject*,unsigned int>::iterator it;
-	it = listOfGameObjectID.find(this);
-	if(it != listOfGameObjectID.end())
+	if (listOfGameObjectID.size() != 0)
 	{
-		listOfOldGameObjectID.insert(listOfOldGameObjectID.end(),it->second);
-
-		if(it != listOfGameObjectID.end())
-			listOfGameObjectID.erase(it);
-		for(std::map<int,BaseComponent*>::iterator cIt = componentMap.begin(); cIt != this->componentMap.end(); cIt++)
+		it = listOfGameObjectID.find(this);
+		if (it != listOfGameObjectID.end())
 		{
-			delete cIt->second;
-			cIt->second = 0;
+			listOfOldGameObjectID.insert(listOfOldGameObjectID.end(), it->second);
+
+			if (it != listOfGameObjectID.end())
+				listOfGameObjectID.erase(it);
 		}
 	}
-
+	for (std::map<int, BaseComponent*>::iterator cIt = componentMap.begin(); cIt != this->componentMap.end(); cIt++)
+	{
+		delete cIt->second;
+		cIt->second = 0;
+	}
 }
 /*
 void GameObject::AddComponent(BaseComponent* componentToAttach)

@@ -51,13 +51,6 @@ DialogComponent::~DialogComponent()
 void DialogComponent::attachOn(GameObject* go)
 {
 	DialogComponent::BaseComponent::attachOn(go);
-	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(Vector2,msg->offset,TextOffset);
-	REGISTER_EDITOR_VARIABLE(double,msg->duration,ShowDuration);
-	REGISTER_EDITOR_VARIABLE(std::string,fontName,FontName);
-	REGISTER_EDITOR_VARIABLE(std::string,dialogMessage,Text);
-	REGISTER_EDITOR_VARIABLE(std::string,msg->iconName,Texture);
-	REGISTER_EDITOR_VARIABLE(bool,msg->drawIcon,DrawBackgroundImage);
 }
 void DialogComponent::updateLocation()
 {
@@ -137,13 +130,13 @@ void DialogComponent::tryLoadTextureAndFont()
 	}
 	catch (GUI::Text::MissingIconException ex)
 	{
-		MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
+		//MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
 
 		msg->iconSprite.setTexture(*ex.what());
 	}
 	catch (GUI::Text::MissingFontException ex)
 	{
-		MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
+		//MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
 
 		msg->setFont(ex.what());
 	}

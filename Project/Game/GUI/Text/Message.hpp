@@ -37,6 +37,7 @@ namespace GUI
 			Functions
 			//*/
 			virtual void draw();
+			virtual void draw(sf::RenderWindow& myrender); 
 			virtual void drawCrop(sf::IntRect area);
 
 			void setFont(sf::Font* font);

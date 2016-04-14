@@ -22,10 +22,6 @@ void OverheadComponent::attachOn(GameObject* attachTo)
 	Engine::GUI.requestOverheadRemoval(attachedOn);
 	Engine::GUI.addOverhead(attachedOn);
 
-	REGISTER_EDITOR_VARIABLE(Vector2,offset,Offset);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.r,ColorRed);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.g,ColorGreen);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.b,ColorBlue);
 }
 bool OverheadComponent::updateFromEditor()
 {

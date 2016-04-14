@@ -49,8 +49,8 @@ bool Vector2::normalize()
 	}
 	else
 	{ 
-#ifdef _DEBUG
-		Engine::Window.debug.print("len = 0 Vector2 Normalize failed, Error: Vector2Norm",__LINE__,__FILE__);
+#ifdef _EDITOR_
+		//Engine::Window.debug.print("len = 0 Vector2 Normalize failed, Error: Vector2Norm",__LINE__,__FILE__);
 #endif
 		//*/
 		return false;

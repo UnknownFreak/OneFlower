@@ -65,7 +65,8 @@ namespace GUI
 				*it = NULL;
 			}
 			stats.sprites.clear();
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				StatsComponent* stat = go->GetComponent<StatsComponent>();
@@ -89,7 +90,8 @@ namespace GUI
 				*it = NULL;
 			}
 			items.sprites.clear();
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				InventoryComponent* inv = go->GetComponent<InventoryComponent>();
@@ -113,7 +115,8 @@ namespace GUI
 		}
 		void StatsWindow::drawGearIcons()
 		{
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				EquipmentComponent* equip = go->GetComponent<EquipmentComponent>();
@@ -236,7 +239,8 @@ namespace GUI
 		//Not being used atm.
 		void StatsWindow::IconSelectHandle()
 		{
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				InventoryComponent* icp = go->GetComponent<InventoryComponent>();

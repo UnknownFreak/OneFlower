@@ -37,6 +37,7 @@ namespace GUI
 			void setPosition(double x, double y);
 			void setIcon(std::string name);
 			void draw();
+			void draw(sf::RenderWindow& myrender);
 			void drawCrop(sf::IntRect area);
 			void setOffset(double x, double y);
 

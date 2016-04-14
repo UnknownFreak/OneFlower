@@ -67,6 +67,18 @@
     <Filter Include="Game\Quest">
       <UniqueIdentifier>{0c385113-fa0a-4622-b961-8b9ab9635a80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\LoadAndSave\Database">
+      <UniqueIdentifier>{95e3d316-59d8-41ab-beb6-0657f2f502f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\LoadAndSave\Prefab">
+      <UniqueIdentifier>{8d6ce5c8-8018-4b6c-b4e4-ac8a78a06af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="C++Interop">
+      <UniqueIdentifier>{3a655ec5-3188-4532-ad69-0e10a2666539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Skills">
+      <UniqueIdentifier>{8bfe22a3-06b8-4a95-b44c-5999c3e10eef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -180,12 +192,6 @@
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp">
       <Filter>Game\Logic\Input</Filter>
     </ClInclude>
@@ -248,9 +254,6 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Vector.h" />
-    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\World\ModLoader.hpp">
       <Filter>Game\World</Filter>
     </ClInclude>
@@ -320,14 +323,26 @@
     <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp">
       <Filter>Engine\Window\QuesetCreator</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\Item\Weapon.hpp">
       <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\NativeContainer.hpp">
+      <Filter>C++Interop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,12 +455,6 @@
       <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp">
@@ -566,6 +575,15 @@
     </ClCompile>
     <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp">
       <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\NativeContainer.cpp">
+      <Filter>C++Interop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

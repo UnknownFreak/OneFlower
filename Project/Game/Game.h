@@ -35,6 +35,8 @@ public:
 
 	//Editor
 	//	void Game::addGameObject(GameObject* entity,Gfx*);
+	GameObject* player;
+	GameObject* target;
 
 	void requestRemoveal(GameObject* entity);
 	void update();

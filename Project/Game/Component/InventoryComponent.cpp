@@ -236,9 +236,6 @@ bool InventoryComponent::unequipBag(Items::Bag* bag, Items::Bag* second, int emp
 void InventoryComponent::attachOn(GameObject* attachTo)
 {
 	BaseComponent::attachOn(attachTo);
-	REGISTER_EDITOR_VARIABLE(int,coins,Coins);
-	REGISTER_EDITOR_VARIABLE(double,maxWeight,MaxWeight);
-	REGISTER_EDITOR_VARIABLE(double,currentWeight,CurrentWeight);
 }
 void InventoryComponent::addGold(unsigned int goldToAdd)
 {

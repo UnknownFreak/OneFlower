@@ -9,6 +9,7 @@ namespace GUI
 	{
 	public:
 		ToolTip();
+		ToolTip(sf::Font& font);
 		ToolTip(std::string text);
 		ToolTip(std::string text, std::string icon);
 		ToolTip(std::string text, std::string body, std::string icon);
@@ -16,7 +17,7 @@ namespace GUI
 
 		void setPosition(double x, double y);
 		void draw();
-
+		void draw(sf::RenderWindow& myrender);
 		void draw(std::string text);
 		void draw(std::string title, std::string body);
 

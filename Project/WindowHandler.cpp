@@ -1,3 +1,4 @@
+#ifndef _EDITOR_
 #include <Windows.h>
 #include <string>
 #include "Engine.hpp"
@@ -169,3 +170,4 @@ int test()
 	}
 	return EXIT_SUCCESS;
 }
+#endif

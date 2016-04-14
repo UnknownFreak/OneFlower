@@ -10,7 +10,7 @@ size_t ModLoader::getModPosition(std::string modName)
 	}
 	else
 	{
-		Engine::Window.debug.print("Error Getting mod position", __LINE__, __FILE__);
+		//Engine::Window.debug.print("Error Getting mod position", __LINE__, __FILE__);
 		return 0xFFFFFFFF;
 	}
 }

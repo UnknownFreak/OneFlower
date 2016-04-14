@@ -31,6 +31,14 @@ namespace GUI
 				Engine::Graphic.view.render.draw(it->second.first);
 			Message::draw();
 		}
+		void FloatingText::draw(sf::RenderWindow& myrender)
+		{
+			if (drawIcon)
+				myrender.draw(iconSprite);
+			for (std::map<int, std::pair<sf::Sprite, Vector2>>::iterator it = icons.begin(); it != icons.end(); ++it)
+				myrender.draw(it->second.first);
+			Message::draw(myrender);
+		}
 		void FloatingText::drawCrop(sf::IntRect area)
 		{
 			if (drawIcon)
@@ -128,8 +136,8 @@ namespace GUI
 #else
 			{
 				//LOW set propper missingtexture
-				icoName = "test.png";
-				iconSprite.setTexture(*Engine::Graphic.requestTexture(icoName),true);
+				iconName = "test.png";
+				iconSprite.setTexture(*Engine::Graphic.requestTexture(iconName), true);
 			}
 #endif
 			else

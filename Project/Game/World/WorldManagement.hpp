@@ -74,6 +74,7 @@ public:
 	void EditorFlagGameObjectForEdit(GameObject* go);
 
 	void AddQuest(Quests::Quest quest);
+	void AddItem(Items::Item* item);
 
 	friend void LoadAllZones(std::map<std::pair<std::string,unsigned int>, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);

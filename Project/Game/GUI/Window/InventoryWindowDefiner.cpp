@@ -67,7 +67,8 @@ namespace GUI
 				*it = NULL;
 			}
 			scroll.sprites.clear();
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				if (go->GetComponent<InventoryComponent>())
@@ -119,7 +120,8 @@ namespace GUI
 		}
 		void InventoryWindow::IconDrawHandle()
 		{
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				InventoryComponent* inv = go->GetComponent<InventoryComponent>();
@@ -193,7 +195,8 @@ namespace GUI
 				{
 					Addon::WindowIcon* selected = (Addon::WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 					Addon::WindowIcon* swap = (Addon::WindowIcon*)(scroll.sprites[scroll.swapBag]);
-					InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+					//TODO: REWORK THIS
+					InventoryComponent* icp = NULL;// Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
 
 					if (scroll.requestSwap && !bagSlotSelected && scroll.mouseInside() && !scroll.equipItem)
 					{
@@ -278,7 +281,8 @@ namespace GUI
 			emptyInventorySlot.setPosition(off.x, off.y);
 			if (scroll.getIfMovingItem() && mouseInsideIcon(emptyInventorySlot))
 			{
-				InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+				//TODO: REWORK THIS
+				InventoryComponent* icp = NULL;// Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* swap = (Addon::WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 
 				if (icp->bags[swap->index.first]->items[swap->index.second].first)
@@ -343,7 +347,7 @@ namespace GUI
 		void InventoryWindow::drawGold()
 		{
 			gold.draw();
-			std::string sgold = std::to_string(Engine::Window.focus.gameObject->GetComponent<InventoryComponent>()->coins);
+			std::string sgold = "0";// std::to_string(Engine::Window.focus.gameObject->GetComponent<InventoryComponent>()->coins);
 			gold = "§Icon|coins|0|0|" + sgold;
 		}
 
@@ -357,7 +361,8 @@ namespace GUI
 
 		void InventoryWindow::drawGearIcons()
 		{
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				EquipmentComponent* equip = go->GetComponent<EquipmentComponent>();
@@ -545,7 +550,8 @@ namespace GUI
 				*it = NULL;
 			}
 			stats.sprites.clear();
-			GameObject* go = Engine::Window.focus.gameObject;
+			//TODO: REWORK THIS
+			GameObject* go = NULL;// Engine::Window.focus.gameObject;
 			if (go)
 			{
 				StatsComponent* stat = go->GetComponent<StatsComponent>();

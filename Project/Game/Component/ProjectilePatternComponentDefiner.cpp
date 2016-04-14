@@ -11,9 +11,6 @@ std::string IBaseComponent<ProjectilePatternComponent>::componentName = "Project
 void ProjectilePatternComponent::attachOn(GameObject * go)
 {
 	BaseComponent::attachOn(go);
-	REGISTER_EDITOR_VARIABLE(double,velosity,Speed);
-	REGISTER_EDITOR_VARIABLE(Vector2,movementDirection,Direction);
-	REGISTER_EDITOR_VARIABLE(double,distanceTraveled,DistanceTraveled);
 }
 /*
 void ProjectilePatternComponent::updateMousePos(Vector2 mouse)

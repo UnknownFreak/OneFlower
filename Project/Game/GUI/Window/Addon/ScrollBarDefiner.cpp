@@ -331,7 +331,8 @@ namespace GUI
 			}
 			void ScrollBar::drawMoving(sf::Sprite& icon, int index, std::string toolTipBody)
 			{
-				InventoryComponent* icp = Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+				//TODO: REWORK THIS
+				InventoryComponent* icp = NULL;// Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
 				swapBag = index;
 				int bagSwapIndex = index;
 				int droppedIndex = 0;

@@ -14,7 +14,8 @@ WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modL
 	//testSave();
 	if (loadModOrderFile(modLoadOrder) == false)
 	{
-		MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
+		
+		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
 		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
 	}
 
@@ -301,7 +302,7 @@ void WorldManagement::EditorLoadZone(std::string name,unsigned int ID)
 		loadZone(name,ID);
 	else
 	{
-		MessageBox(Engine::Window.hWnd, "Could not load Zone", "Err", NULL);
+		//MessageBox(Engine::Window.hWnd, "Could not load Zone", "Err", NULL);
 	}
 	/*std::map<unsigned int,std::string>::iterator it = zoneInfo.find(ID);
 	if(it != zoneInfo.end())
@@ -390,17 +391,18 @@ void WorldManagement::RemoveGameObjectFromZone(GameObject* go)
 }
 void WorldManagement::AddQuest(Quests::Quest quest)
 {
-	std::pair<std::string, unsigned int> ID;
-	ID.first = openedMod;
-	ID.second = quest.ID;
 	quest.fromMod = openedMod;
-	EditorAllQuests.insert(std::pair<std::pair<std::string, unsigned int>, Quests::Quest>(ID, quest));
+	EditorAllQuests.insert(std::pair<std::pair<std::string, unsigned int>, Quests::Quest>(std::pair<std::string,unsigned int>(openedMod,quest.ID), quest));
+}
+void WorldManagement::AddItem(Items::Item* item)
+{
+	item->fromMod = openedMod;
+	EditorAllItems.insert(std::pair<std::pair<std::string, unsigned int>, Items::Item*>(std::pair<std::string, unsigned int>(openedMod, item->getID()), item));
 }
 std::string WorldManagement::getLoadedMod()
 {
 	return openedMod;
 }
-
 void WorldManagement::newMod(std::string modName, std::vector<std::string> dependencies)
 {
 	modLoadOrder.loadOrder.clear();
