@@ -4,9 +4,9 @@
 #include "../../Component/RigidComponent.hpp"
 #include "../../Component/TransformComponent.hpp"
 #include "../../Component/DialogComponent.hpp"
-
+#include "../../Component/CombatComponenet.hpp"
 void scrollupdate();
-Mouse::Mouse(): pos(0,0),offset(0,0),LMBPressed(false),RMBPressed(true)
+Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
 {
 }
 
@@ -61,6 +61,13 @@ void Mouse::update()
 					mySelected = NULL;
 			}
 		}
+		if (Engine::event.type == Engine::event.MouseButtonPressed)
+		{
+			if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+			{
+				Engine::game.player->GetComponent<Component::Combat>()->execute();
+			}
+		}
 		if(Engine::event.type == Engine::event.MouseButtonReleased)
 		{
 #pragma region Left
@@ -85,24 +92,26 @@ void Mouse::update()
 						hitbox = Engine::game.allGameObjectPointers.at(i)->GetComponent<HitboxComponent>();
 						transform = Engine::game.allGameObjectPointers.at(i)->GetComponent<TransformComponent>();
 						rig = Engine::game.allGameObjectPointers.at(i)->GetComponent<RigidComponent>();
+						rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
+						ab = Engine::game.allGameObjectPointers.at(i);
+						dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
 						if (hitbox || rig || rc)
 						{
-							rc = Engine::game.allGameObjectPointers.at(i)->GetComponent<RenderComponent>();
-							ab = Engine::game.allGameObjectPointers.at(i);
-							dialog = Engine::game.allGameObjectPointers.at(i)->GetComponent<DialogComponent>();
+							if (rc)
+							{
+								int localStartX = transform->position.x;
+								int localStartY = transform->position.y;
+								int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
+								int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
 
-							int localStartX = transform->position.x;
-							int localStartY = transform->position.y;
-							int localEndX = transform->position.x + rc->sprite.getTextureRect().width;
-							int localEndY = transform->position.y + rc->sprite.getTextureRect().height;
-
-							if (pos.x >= localStartX && pos.x <= localEndX)
-								if (pos.y >= localStartY && pos.y <= localEndY)
-								{
-									Engine::Graphic.selectedDrawList.push_back(ab);
-									if (dialog)
-										dialog->show();
-								}
+								if (pos.x >= localStartX && pos.x <= localEndX)
+									if (pos.y >= localStartY && pos.y <= localEndY)
+									{
+										Engine::Graphic.selectedDrawList.push_back(ab);
+										if (dialog)
+											dialog->show();
+									}
+							}
 						}
 						
 					}

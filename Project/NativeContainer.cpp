@@ -53,13 +53,30 @@ void NativeContainer::TestAdd()
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
+	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32,32);
 	go->GetComponent<TransformComponent>()->position.x = 300;
+	go->GetComponent<TransformComponent>()->position.y = 300;
 	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<Component::Combat>();
 	Engine::game.addGameObject(go);
-	Engine::World.loadZone("OneFlower.main", 1);
+	Engine::game.player = go;
+}
+//temp test
+void NativeContainer::lock()
+{
+	std::cout << "locking" << std::endl;
+	mutex.lock();
+	std::cout << "locking Done" << std::endl;
+}
+void NativeContainer::unlock()
+{
+	std::cout << "unlocking" << std::endl;
+	mutex.unlock();
+	std::cout << "unlocking Done" << std::endl;
 }
 int NativeContainer::windowMessage()
 {
+	TestAdd();
 	MSG message;
 	ZeroMemory(&message, sizeof(MSG));
 	//testSave();
@@ -70,33 +87,33 @@ int NativeContainer::windowMessage()
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800, 600);
-
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	while (running)
 	{
-		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
-		{
-			if (message.message == WM_KEYDOWN)
-			{
-				if (message.wParam == VK_ESCAPE)
-					std::cout << "\nEsc";//SetFocus(Engine::Window.hWnd);
-				if (message.wParam == VK_DELETE)
-				{
-#ifdef _DEBUG
-					//Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
-					//Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
-#endif
-				}
-				if (message.wParam == VK_OEM_PLUS)
-					Engine::Input.mouse.deltaScrolls += 5;
-				if (message.wParam == VK_OEM_MINUS)
-					Engine::Input.mouse.deltaScrolls -= 5;
-			}
-			// If a message was waiting in the message queue, process it
-			TranslateMessage(&message);
-			DispatchMessage(&message);
-		}
+//		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+//		{
+//			if (message.message == WM_KEYDOWN)
+//			{
+//				if (message.wParam == VK_ESCAPE)
+//					std::cout << "\nEsc";//SetFocus(Engine::Window.hWnd);
+//				if (message.wParam == VK_DELETE)
+//				{
+//#ifdef _DEBUG
+//					//Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
+//					//Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
+//#endif
+//				}
+//				if (message.wParam == VK_OEM_PLUS)
+//					Engine::Input.mouse.deltaScrolls += 5;
+//				if (message.wParam == VK_OEM_MINUS)
+//					Engine::Input.mouse.deltaScrolls -= 5;
+//			}
+//			// If a message was waiting in the message queue, process it
+//			TranslateMessage(&message);
+//			DispatchMessage(&message);
+//		}
 		//*/
+		mutex.lock();
 		Engine::Graphic.view.render.setActive(true);
 		while (Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
@@ -140,8 +157,9 @@ int NativeContainer::windowMessage()
 		t.draw(rw);
 		rw.display();
 		rw.setActive(false);
+		mutex.unlock();
 	}
 	DestroyWindow(Engine::Graphic.view.hWnd);
-	return message.wParam;
+	return 0;
 }
 #endif

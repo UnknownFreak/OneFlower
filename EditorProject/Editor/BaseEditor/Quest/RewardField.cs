@@ -7,21 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ManagedGame;
 
 namespace BaseEditor.Quest
 {
     public partial class RewardField : UserControl
     {
-        public event EventHandler<AddRewardEvent> onAdd = null;
-        Reward myReward;
-        public RewardField(Form parent, String mode)
+        public event EventHandler<OnModifyRewardEvent> onModify = null;
+        private _Reward myReward;
+        public RewardField()
         {
-            myReward = new Reward() { Count = 1 };
             InitializeComponent();
-            parent.AcceptButton = Add;
-            parent.CancelButton = Cancel;
-            Add.Text = mode;
         }
 
         private void Set_Click(object sender, EventArgs e)
@@ -41,44 +36,39 @@ namespace BaseEditor.Quest
                 myReward.Item = new Tuple<string, uint>(name, id);
                 myReward.Name = _iname;
                 textBox1.Text = _iname + " (" + name + "," + id + ")";
+                onModifyFnc(new OnModifyRewardEvent() { Text = myReward.Name, index = 1 });
+                onModifyFnc(new OnModifyRewardEvent() { Text = "(" + myReward.Item.Item1 + "," + myReward.Item.Item2 + ")", index = 0 });
+
             }
         }
-
+        private void onModifyFnc(OnModifyRewardEvent args)
+        {
+            if (onModify != null)
+                onModify(this, args);
+        }
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             myReward.Count = (UInt32)numericUpDown1.Value;
+            onModifyFnc(new OnModifyRewardEvent() { Text = myReward.Count.ToString(), index = 2 });
         }
-
-        private void Add_Click(object sender, EventArgs e)
+        public void setUpFields(_Reward rwd)
         {
-            AddRewardEvent evt = new AddRewardEvent();
-            evt._Reward = myReward;
-            if (onAdd != null)
-                onAdd(this, evt);
-            (Parent as Form).Close();
-        }
-
-        private void Cancel_Click(object sender, EventArgs e)
-        {
-            (Parent as Form).Close();
-        }
-
-
-        internal void editReward(Reward reward)
-        {
-            numericUpDown1.Value = (UInt32)reward.Count;
-            textBox1.Text = reward.Name + " (" + reward.Item.Item1 + "," + reward.Item.Item2 + ")";
-            myReward = reward;
+            myReward = rwd;
+            if (rwd.Item != null)
+                textBox1.Text = rwd.Name +" (" + rwd.Item.Item1 + "," + rwd.Item.Item2 + ")";
+            numericUpDown1.Value = (UInt32)rwd.Count;
         }
     }
-    public class AddRewardEvent : EventArgs
+    public class OnModifyRewardEvent : EventArgs
     {
-        public Reward _Reward{ get; set; }
+        public String Text { get; set; }
+        public int index { get; set; }
     }
-    /*public class Reward
+    public class _Reward
     {
-        public Tuple<String, UInt32> Item { get; set; }
-        public String Name { get; set; }
-        public UInt32 Count { get; set; }
-    }*/
+        public ManagedGame.Reward Reward { get; set; }
+        public Tuple<String, UInt32> Item { get { return this.Reward.Item; } set { this.Reward.Item = value;} }
+        public String Name { get { return this.Reward.Name; } set { this.Reward.Name = value; } }
+        public UInt32 Count { get { return System.Convert.ToUInt32(this.Reward.Count); } set { this.Reward.Count = value; } }
+    }
 }

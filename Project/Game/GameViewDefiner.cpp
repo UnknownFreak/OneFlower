@@ -33,18 +33,20 @@ GameView::GameView():size(800,600)
 		0, "GameViewWindow", "Game View", WS_POPUP | WS_VISIBLE | WS_SYSMENU,
 		0, 0, 800, 600,
 		NULL, NULL, NULL, NULL);
-#else
-	hWnd = CreateWindowEx(
-		0,windowDefinedName,"Game View",WS_OVERLAPPEDWINDOW,
-		GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2),
-		GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU),
-		800,600,
-		Engine::Window.hWnd,NULL,Engine::Window.hInstance,NULL);
-#endif
-	if(hWnd)
+	if (hWnd)
 		render.create(hWnd);
 	else
-		MessageBox(0,"Critical Error: Cannot create hWnd","GameViewDefiner.cpp",0);
+		MessageBox(0, "Critical Error: Cannot create hWnd", "GameViewDefiner.cpp", 0);
+#else
+	//hWnd = CreateWindowEx(
+		//0,windowDefinedName,"Game View",WS_OVERLAPPEDWINDOW,
+		//GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2),
+		//GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU),
+		//800,600,
+		//NULL,NULL,NULL,NULL);
+	render.create(sf::VideoMode(800,600),"Game View");
+#endif
+	
 	camera.reset(sf::FloatRect(0,0,800,600));
 
 #endif

@@ -7,6 +7,8 @@
 #include "Component/RigidComponent.hpp"
 #include "Component/TransformComponent.hpp"
 #include "Component/RenderComponent.h"
+#include "Component/CombatComponenet.hpp"
+#include "Component/TimerComponent.hpp"
 #include "Gfx.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
@@ -14,6 +16,8 @@
 #include "Component/MovementComponent.hpp"
 #include <math.h>
 #define PI 3.14159265
+//probably remove this, for now used with timerComponent when they get removed
+std::vector<GameObject*> erase;
 
 void Game::update()
 {
@@ -96,6 +100,25 @@ void Game::update()
 			}
 			//*/
 		}
+	}
+	for (size_t i = 0; i < timedObjectPointers.size(); i++)
+	{
+		Component::Timer* timed = timedObjectPointers[i]->GetComponent<Component::Timer>();
+		{
+			timed->update();
+			if (timed->canRemove())
+				erase.push_back(timedObjectPointers[i]);
+		}
+	}
+	for( size_t i = 0; i < erase.size(); i++)
+	{
+		erase[i]->destroy();
+	}
+	erase.clear();
+	Component::Combat* combat = player->GetComponent<Component::Combat>();
+	if (combat->executingSkill)
+	{
+		combat->update();
 	}
 	//LOW: Make my own Custom Focus
 	if(Engine::Graphic.view.render.hasFocus())//Engine::Window.focus)

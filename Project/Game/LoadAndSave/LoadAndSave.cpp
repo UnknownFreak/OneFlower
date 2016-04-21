@@ -27,6 +27,8 @@
 #include "..\Component\InventoryComponent.hpp"
 #include "..\Component\PickupComponent.hpp"
 #include "..\Component\ProjectilePatternComponent.hpp"
+#include "..\Component\CombatComponenet.hpp"
+#include "..\Component\TimerComponent.hpp"
 
 #include "..\Item\Ammo.hpp"
 #include "..\Item\Armor.hpp"
@@ -425,6 +427,7 @@ void testLoad()
 #endif
 //*
 #pragma region GameObject
+
 template<class Archive>
 void save(Archive& archive,const GameObject& go)
 {
@@ -585,6 +588,36 @@ void load(Archive& archive,GameObject& go)
 #pragma endregion
 
 #pragma region Components
+namespace Component
+{
+#pragma region Combat
+	// for now, save nothing
+	template<class Archive>
+	void save(Archive& ar, const Component::Combat & combat)
+	{
+		//ar(combat.)
+	}
+	template<class Archive>
+	void load(Archive& ar, Component::Combat & combat)
+	{
+		//ar(combat.)
+	}
+#pragma endregion
+#pragma region Timer
+	template<class Archive>
+	void save(Archive& ar, const Component::Timer & timer)
+	{
+		ar(timer.currentTime);
+		ar(timer.timedLife);
+	}
+	template<class Archive>
+	void load(Archive& ar, Component::Timer & timer)
+	{
+		ar(timer.currentTime);
+		ar(timer.timedLife);
+	}
+#pragma endregion
+}
 #pragma region RenderComponent
 template<class Archive>
 void save(Archive& archive,const RenderComponent& rc)
@@ -2111,3 +2144,84 @@ namespace Quests
 	}
 }
 #pragma endregion
+
+#pragma region Skills
+
+template<class Archive>
+void save(Archive& ar, const Skill& mySkill)
+{
+	ar(mySkill.afterCast);
+	ar(mySkill.animationName);
+	ar(mySkill.attacks.size());
+	for (size_t i = 0; i < mySkill.attacks.size(); i++)
+	{
+		ar(mySkill.attacks[i]);
+	}
+	ar(mySkill.canBeUsedByPlayer);
+	ar(mySkill.castTime);
+	ar(mySkill.cooldown);
+	ar(mySkill.description);
+	ar(mySkill.distanceX);
+	ar(mySkill.distanceY);
+	ar(mySkill.ID);
+	ar(mySkill.modname);
+	ar(mySkill.movesCharacter);
+	ar(mySkill.name);
+	ar(mySkill.skillType);
+
+}
+template<class Archive>
+void load(Archive& ar, Skill& mySkill)
+{
+	ar(mySkill.afterCast);
+	ar(mySkill.animationName);
+	size_t size;
+	for (size_t i = 0; i < size; i++)
+	{
+		Attack a;
+		ar(a);
+		mySkill.attacks.push_back(a);
+	}
+	ar(mySkill.canBeUsedByPlayer);
+	ar(mySkill.castTime);
+	ar(mySkill.cooldown);
+	ar(mySkill.description);
+	ar(mySkill.distanceX);
+	ar(mySkill.distanceY);
+	ar(mySkill.ID);
+	ar(mySkill.modname);
+	ar(mySkill.movesCharacter);
+	ar(mySkill.name);
+	ar(mySkill.skillType);
+}
+
+template<class Archive>
+void save(Archive& ar, const Attack& atk)
+{
+	ar(atk.damage);
+	ar(atk.duration);
+	ar(atk.hitbox.position.x);
+	ar(atk.hitbox.position.y);
+	ar(atk.hitbox.size.x);
+	ar(atk.hitbox.size.y);
+	ar(atk.ProjectileDistance);
+	ar(atk.projectileID);
+	ar(atk.timeframe);
+	ar(atk.type);
+}
+template<class Archive>
+void load(Archive& ar, Attack& atk)
+{
+	ar(atk.damage);
+	ar(atk.duration);
+	ar(atk.hitbox.position.x);
+	ar(atk.hitbox.position.y);
+	ar(atk.hitbox.size.x);
+	ar(atk.hitbox.size.y);
+	ar(atk.ProjectileDistance);
+	ar(atk.projectileID);
+	ar(atk.timeframe);
+	ar(atk.type);
+}
+
+#pragma endrgion

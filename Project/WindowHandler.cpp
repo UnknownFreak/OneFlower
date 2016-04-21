@@ -10,6 +10,7 @@
 #include "Game\Component\ProjectilePatternComponent.hpp"
 #include "Game\Component\EquipmentComponent.hpp"
 #include "Game\Component\PlayerComponent.hpp"
+#include "Game\Component\CombatComponenet.hpp"
 #include "Game\Component\RigidComponent.hpp"
 #include "Game\Logic\Time\Time.hpp"
 #include "Game\World\WorldManagement.hpp"
@@ -17,7 +18,6 @@
 int windowMessage();
 void RunMain();
 int test();
-EngineWindow Engine::Window;
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
@@ -28,7 +28,7 @@ GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
-	Engine::Window.hInstance = hInstance;
+	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	return 0;
 }
@@ -47,55 +47,28 @@ int windowMessage()
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->AddComponent<PlayerComponent>();
 	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<Component::Combat>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
+	Engine::game.player = go;
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
 	Engine::GUI.showHideGUI();
 	Engine::game.addGameObject(go);
 	Time time;
-	MSG message;
-	ZeroMemory(&message,sizeof(MSG));
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
-
-	CreateWindowEx(
-		0,"Button","Start/Pause",
-		BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,
-		EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right - 128 - 16,EditorUI::GetLocalCoordinates(Engine::Window.hWnd).bottom - 256,
-		128,64,
-		Engine::Window.hWnd,
-		(HMENU)27457,
-		Engine::Window.hInstance,
-		NULL
-		);
+	bool running = true;
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
-	while(message.message != WM_QUIT)
+	while(running)
 	{
-		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
-		{
-			if(message.message == WM_KEYDOWN)
-			{
-				if(message.wParam == VK_ESCAPE)
-					SetFocus(Engine::Window.hWnd);
-				if(message.wParam == VK_DELETE)
-				{
-					Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
-					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
-				}
-				if(message.wParam == VK_OEM_PLUS)
-					Engine::Input.mouse.deltaScrolls += 5;
-				if(message.wParam == VK_OEM_MINUS)
-					Engine::Input.mouse.deltaScrolls -= 5;
-			}
-			// If a message was waiting in the message queue, process it
-			TranslateMessage(&message);
-			DispatchMessage(&message);
-		}
 		while(Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
-			if(Engine::event.type == sf::Event::Closed)
+			if (Engine::event.type == sf::Event::Closed)
+			{
 				Engine::Graphic.view.render.close();
+				running = false;
+			}
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			/*
@@ -122,15 +95,12 @@ int windowMessage()
 		Engine::GUI.Draw();
 
 		Engine::Graphic.view.render.display();
-#ifdef _DEBUG
-		Engine::Window.update();
-#endif
 		//LOW: Fix this, By moving it somewhere else? and have it return a constant variable
 		Engine::time.restartDelta();
 		time.FPS();
 		}
 	}
-	return message.wParam;
+	return 1;
 }
 
 int test()

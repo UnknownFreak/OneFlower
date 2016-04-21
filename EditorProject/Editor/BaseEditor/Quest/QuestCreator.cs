@@ -23,6 +23,24 @@ namespace BaseEditor
             myRewards = new List<Reward>();
             InitializeComponent();
             addQuest += QuestCreator_addQuest;
+            objectiveField1.onModify += objectiveField1_onAdd;
+            rewardField1.onModify += rewardField1_onModify;
+        }
+
+        void rewardField1_onModify(object sender, OnModifyRewardEvent e)
+        {
+            if (RewardList.SelectedItems.Count != 0)
+            {
+                RewardList.SelectedItems[0].SubItems[e.index].Text = e.Text;
+            }
+        }
+
+        void objectiveField1_onAdd(object sender, OnModifyObjectiveEventArgs e)
+        {
+            if(ObjectiveList.SelectedItems.Count != 0)
+            {
+                ObjectiveList.SelectedItems[0].SubItems[e.index].Text = e.Text;
+            }
         }
         public void QuestCreator_addQuest(object sender, AddQuestEvent e)
         {
@@ -32,95 +50,40 @@ namespace BaseEditor
         #region Objectives
         private void button1_Click(object sender, EventArgs e)
         {
-            ModManager mm = new ModManager();
-            mm.Text = "Add Objective";
-            var zm = new ObjectiveField(mm,"Add");
-            zm.onAdd += addObjective;
-            mm.Controls.Add(zm);
-            mm.ClientSize = zm.Size;
-            mm.ShowDialog(Program.main);
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            ModManager mm = new ModManager();
-            mm.Text = "Edit Objective";
-            var zm = new ObjectiveField(mm, "Edit");
-            zm.onAdd += EditObjective;
-            if (listBox1.SelectedIndex != -1)
-            {
-                zm.setEditObjective(myObjectives[listBox1.SelectedIndex]);
-                mm.Controls.Add(zm);
-                mm.ClientSize = zm.Size;
-                mm.ShowDialog(Program.main);
-            }
-        }
-        private void EditObjective(object sender, AddObjectiveEventArgs e)
-        {
-            myObjectives[listBox1.SelectedIndex] = e.Objective;
-            listBox1.Items[listBox1.SelectedIndex] = e.Objective.Name;
+            addObjective(this, new AddObjectiveEventArgs());
         }
         private void addObjective(object sender, AddObjectiveEventArgs e)
         {
             myObjectives.Add(e.Objective);
-            listBox1.Items.Add(e.Objective.Name);
+            String[] list = { e.Objective.Name, e.Objective.Type, e.Objective.IsBonusObjective.ToString() };
+            ObjectiveList.Items.Add(new ListViewItem(list,-1));
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
+            if (ObjectiveList.SelectedItems.Count != 0)
             {
-                myObjectives.RemoveAt(listBox1.SelectedIndex);
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                myObjectives.RemoveAt(ObjectiveList.SelectedIndices[0]);
+                ObjectiveList.Items.RemoveAt(ObjectiveList.SelectedIndices[0]);
             }
         }
         #endregion
 
         private void button7_Click(object sender, EventArgs e)
         {
-            ModManager mm = new ModManager();
-            mm.Text = "Add Reward";
-            var zm = new RewardField(mm, "Add");
-            zm.onAdd += addReward;
-            mm.Controls.Add(zm);
-            mm.ClientSize = zm.Size;
-            mm.ShowDialog(Program.main);
+            addReward(this, new AddRewardEvent());
         }
         private void addReward(object sender, AddRewardEvent e)
         {
-            if (e._Reward.Name != null)
-            {
-                myRewards.Add(e._Reward);
-                listBox2.Items.Add(e._Reward.Name);
-            }
-            else
-                Program.messages.addErrorMessage("Could not add reward.");
+            myRewards.Add(e.Reward);
+            String[] list = { "("+e.Reward.Item.Item1+","+e.Reward.Item.Item2+")", e.Reward.Name, e.Reward.Count.ToString()};
+            RewardList.Items.Add(new ListViewItem(list, -1));
         }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            ModManager mm = new ModManager();
-            mm.Text = "Edit Reward";
-            var zm = new RewardField(mm, "Edit");
-            zm.onAdd += editReward;
-            if (listBox2.SelectedIndex != -1)
-            {
-                zm.editReward(myRewards[listBox2.SelectedIndex]);
-                mm.Controls.Add(zm);
-                mm.ClientSize = zm.Size;
-                mm.ShowDialog(Program.main);
-            }
-        }
-
-        private void editReward(object sender, AddRewardEvent e)
-        {
-            myRewards[listBox2.SelectedIndex] = e._Reward;
-            listBox2.Items[listBox2.SelectedIndex] = e._Reward.Name;
-        }
-
         private void button6_Click(object sender, EventArgs e)
         {
-            if (listBox2.SelectedIndex != -1)
+            if (RewardList.SelectedItems.Count != 0)
             {
-                myRewards.RemoveAt(listBox2.SelectedIndex);
-                listBox2.Items.RemoveAt(listBox2.SelectedIndex);
+                myRewards.RemoveAt(RewardList.SelectedIndices[0]);
+                RewardList.Items.RemoveAt(RewardList.SelectedIndices[0]);
             }
         }
 
@@ -148,7 +111,29 @@ namespace BaseEditor
 
         private void button8_Click(object sender, EventArgs e)
         {
-            (Parent as Form).Close();
+            (Parent.Parent as Form).Close();
+        }
+
+        private void ObjectiveList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ObjectiveList.SelectedItems.Count != 0)
+            {
+                objectiveField1.Enabled = true;
+                objectiveField1.setEditObjective(new _Objective() { obj = myObjectives[ObjectiveList.SelectedIndices[0]] });
+            }
+            else
+                objectiveField1.Enabled = false;
+        }
+
+        private void RewardList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RewardList.SelectedItems.Count != 0)
+            {
+                rewardField1.Enabled = true;
+                rewardField1.setUpFields(new _Reward() { Reward = myRewards[RewardList.SelectedIndices[0]] });
+            }
+            else
+                rewardField1.Enabled = false;
         }
     }
     public class AddQuestEvent : EventArgs
@@ -159,5 +144,23 @@ namespace BaseEditor
         public UInt32 Coins { get; set; }
         public String Description { get; set; }
         public UInt32 ID { get; set; }
+    }
+    public class AddObjectiveEventArgs : EventArgs
+    {
+        public AddObjectiveEventArgs()
+        {
+            Objective = new Objective { Count = 1, Description = "", DestinationZone = new Tuple<string,uint>("None",0),
+             IsBonusObjective = false, Name = "New Objective", Target = new Tuple<string,uint> ("None",0), TargetDestination = 
+             new Tuple<string,uint>("None",0), Type = "Excort", TypeIndex = 0};
+        }
+        public Objective Objective { get; set; }
+    }
+    public class AddRewardEvent : EventArgs
+    {
+        public AddRewardEvent()
+        {
+            Reward = new Reward { Count = 1, Item = new Tuple<string, uint>("None", 0), Name = "None" };
+        }
+        public Reward Reward { get; set; }
     }
 }

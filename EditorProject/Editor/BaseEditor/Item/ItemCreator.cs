@@ -254,7 +254,7 @@ namespace BaseEditor
         {
             ManagedGame.ItemStruct itm = new ManagedGame.ItemStruct();
             itm.name = nameField.Text;
-            itm.Description = descriptionField.Text;
+            itm.Description = descriptionField.Text.Replace("\r",String.Empty);
             itm.type = itemTypeField.SelectedItem.ToString();
             if (subTypeField.SelectedItem != null)
                 itm.secondType = subTypeField.SelectedItem.ToString();
@@ -312,6 +312,11 @@ namespace BaseEditor
         {
             if (onAdd != null)
                 onAdd(this, item);
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            (this.Parent.Parent as Form).Close();
         }
     }
 }

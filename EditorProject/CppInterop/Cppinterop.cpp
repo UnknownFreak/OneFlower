@@ -13,7 +13,9 @@ namespace ManagedGame
 	}
 	void ManagedGame::TestAdd()
 	{
+		mc->lock();
 		mc->TestAdd();
+		mc->unlock();
 	}
 	void ManagedGame::ManagedWindowLoop()
 	{
@@ -30,6 +32,7 @@ namespace ManagedGame
 
 	bool ManagedGame::getRightClickedObject()
 	{
+		//mc->lock();
 		GameObject* mine = Engine::Input.mouse.mySelected;
 		if (mine != nullptr)
 		{
@@ -46,6 +49,7 @@ namespace ManagedGame
 					return true;
 				}
 		}
+		//mc->unlock();
 		return false;
 	}
 	void ManagedGame::showHideHitboxes()

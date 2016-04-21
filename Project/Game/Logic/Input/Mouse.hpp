@@ -5,6 +5,9 @@
 #include "../../../Vector.h"
 #include <vector>
 
+//tmp
+#include "../../Skills/Skill.hpp"
+
 class GameObject;
 class Mouse
 {

@@ -47,8 +47,8 @@ namespace BaseEditor
             BaseEditor.Program.itemCreator = new DragNDropWindow();
             BaseEditor.Program.creatorField = new ItemCreator();
             BaseEditor.Program.creatorField.Dock = DockStyle.Fill;
-            BaseEditor.Program.itemCreator.ClientSize = BaseEditor.Program.creatorField.Size;
-            BaseEditor.Program.itemCreator.ClientSize = new Size(BaseEditor.Program.itemCreator.ClientSize.Width + 4, BaseEditor.Program.itemCreator.ClientSize.Height + 35);
+            BaseEditor.Program.itemCreator.ClientSize = new Size(BaseEditor.Program.creatorField.ClientSize.Width + 4, BaseEditor.Program.creatorField.ClientSize.Height + 24);
+            BaseEditor.Program.itemCreator.addOnPanel.Dock = DockStyle.Fill;
             BaseEditor.Program.itemCreator.addOnPanel.Controls.Add(BaseEditor.Program.creatorField);
             BaseEditor.Program.itemCreator.Show(this);
             BaseEditor.Program.itemCreator.Hide();

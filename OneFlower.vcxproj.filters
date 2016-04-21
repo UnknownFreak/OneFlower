@@ -79,6 +79,9 @@
     <Filter Include="Game\Skills">
       <UniqueIdentifier>{8bfe22a3-06b8-4a95-b44c-5999c3e10eef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\&lt;TMP&gt; Namespaced Components">
+      <UniqueIdentifier>{0eecb7af-3040-4dab-82af-d946dbc2443f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -148,9 +151,6 @@
       <Filter>Game\GUI\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp">
-      <Filter>Game\GUI\Window\Addon</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp">
@@ -344,6 +344,15 @@
     <ClInclude Include="Project\NativeContainer.hpp">
       <Filter>C++Interop</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Skills\Skill.hpp">
+      <Filter>Game\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\CombatComponenet.hpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\TimerComponent.hpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -413,9 +422,6 @@
       <Filter>Game\GUI\Text</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp">
-      <Filter>Game\GUI\Window\Addon</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp">
@@ -584,6 +590,15 @@
     </ClCompile>
     <ClCompile Include="Project\NativeContainer.cpp">
       <Filter>C++Interop</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Skills\SkillDefiner.cpp">
+      <Filter>Game\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\CombatComponent.cpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\TimerComponent.cpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

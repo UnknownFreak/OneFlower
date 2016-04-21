@@ -25,6 +25,7 @@ public:
 	//This one work
 	void addGameObject(GameObject* entity);
 	void addMotionObject(GameObject* entity);
+	void addTimedObject(GameObject* entity);
 
 	void addGameObject(GameObject entity);
 	//This one doesnt work
@@ -35,6 +36,7 @@ public:
 
 	//Editor
 	//	void Game::addGameObject(GameObject* entity,Gfx*);
+
 	GameObject* player;
 	GameObject* target;
 
@@ -44,9 +46,12 @@ public:
 	void addSprite(Tile* t,bool isBackground = false);
 	void requestRemovealForeground(Tile* t);
 	void removealMotion(GameObject* entity);
+	void removealTimed(GameObject* entity);
 private:
 	friend class Mouse;
 	std::vector<GameObject*> motionObjectPointers;
+
+	std::vector<GameObject*> timedObjectPointers;
 
 	std::vector<GameObject*> allGameObjectPointers;
 	//std::map<GameObject*,int> mapOfGameObjects;

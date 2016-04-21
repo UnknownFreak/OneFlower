@@ -7,26 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ManagedGame;
-
 namespace BaseEditor.Quest
 {
-    
     public partial class ObjectiveField : UserControl
     {
-        String mode;
-        public event EventHandler<AddObjectiveEventArgs> onAdd = null;
-        private Objective myObjective;
-        public ObjectiveField(Form window,String mode)
+        public event EventHandler<OnModifyObjectiveEventArgs> onModify = null;
+        private _Objective myObjective;
+        public ObjectiveField()
         {
-            myObjective = new Objective() { Count = 1 , IsBonusObjective = false};
-            this.mode = mode;
             InitializeComponent();
-            window.AcceptButton = button4;
-            window.CancelButton = button3;
             types.SelectedIndex = 0;
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (types.SelectedItem.ToString() == "Escort")
@@ -57,42 +48,42 @@ namespace BaseEditor.Quest
                 button6.Enabled = false;
                 button7.Enabled = false;
             }
-            myObjective.Type = types.SelectedItem.ToString();
-            myObjective.TypeIndex = types.SelectedIndex; 
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            AddObjectiveEventArgs obj = new AddObjectiveEventArgs();
-            obj.Objective = myObjective;
-            onClick(obj);
-            (Parent as Form).Close();
-        }
-        private void onClick(AddObjectiveEventArgs e)
-        {
-            if (onAdd != null)
+            if (myObjective != null)
             {
-                onAdd(this, e);
+                myObjective.Type = types.SelectedItem.ToString();
+                myObjective.TypeIndex = types.SelectedIndex;
+                onModify(this, new OnModifyObjectiveEventArgs() { Text = myObjective.Type, index = 1 });
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void onClick(OnModifyObjectiveEventArgs e)
         {
-            (Parent as Form).Close();
+            if (onModify != null)
+            {
+                onModify(this, e);
+            }
         }
-
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            myObjective.Count = (UInt32)repeatCount.Value;
+            if(myObjective != null)
+                myObjective.Count = (UInt32)repeatCount.Value;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            myObjective.Name = nameBox.Text;
+            if (myObjective != null)
+            {
+                myObjective.Name = nameBox.Text;
+                onModify(this, new OnModifyObjectiveEventArgs() { Text = myObjective.Name, index = 0 });
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            myObjective.IsBonusObjective = bonusObjective.Checked;
+            if (myObjective != null)
+            {
+                myObjective.IsBonusObjective = bonusObjective.Checked;
+                onModify(this, new OnModifyObjectiveEventArgs() { Text = myObjective.IsBonusObjective.ToString(), index = 2 });
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -124,7 +115,8 @@ namespace BaseEditor.Quest
             {
                 String name = e.item.SubItems[3].Text;
                 uint id = Convert.ToUInt32(e.item.SubItems[1].Text);
-                myObjective.Target = new Tuple<string, uint>(name,id);
+                if (myObjective != null)
+                    myObjective.Target = new Tuple<string, uint>(name, id);
                 targetBox.Text = "("+name+","+id+")";
             }
         }
@@ -134,7 +126,8 @@ namespace BaseEditor.Quest
             {
                 String name = e.item.SubItems[3].Text;
                 uint id = Convert.ToUInt32(e.item.SubItems[1].Text);
-                myObjective.DestinationZone = new Tuple<string, uint>(name, id);
+                if (myObjective != null)
+                    myObjective.DestinationZone = new Tuple<string, uint>(name, id);
                 destinationBox.Text = "(" + name + "," + id + ")";
             }
         }
@@ -144,7 +137,8 @@ namespace BaseEditor.Quest
             {
                 String name = e.item.SubItems[3].Text;
                 uint id = Convert.ToUInt32(e.item.SubItems[1].Text);
-                myObjective.TargetDestination = new Tuple<string, uint>(name, id);
+                if (myObjective != null)
+                    myObjective.TargetDestination = new Tuple<string, uint>(name, id);
                 targetDestinationBox.Text = "(" + name + "," + id + ")";
             }
         }
@@ -173,14 +167,15 @@ namespace BaseEditor.Quest
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            myObjective.Description = descriptionBox.Text;
+            if (myObjective != null)
+                myObjective.Description = descriptionBox.Text;
         }
-        public void setEditObjective(Objective edit)
+        public void setEditObjective(_Objective edit)
         {
-            button4.Text = "Edit";
+            myObjective = edit;
             nameBox.Text = edit.Name;
             descriptionBox.Text = edit.Description;
-            if(edit.Target != null)
+            if (edit.Target != null)
                 targetBox.Text = "(" + edit.Target.Item1 + "," + edit.Target.Item2 + ")";
             if (edit.DestinationZone != null)
                 destinationBox.Text = "(" + edit.DestinationZone.Item1 + "," + edit.DestinationZone.Item2 + ")";
@@ -191,20 +186,22 @@ namespace BaseEditor.Quest
             types.SelectedIndex = (int)edit.TypeIndex;
         }
     }
-    public class AddObjectiveEventArgs : EventArgs
+    public class OnModifyObjectiveEventArgs : EventArgs
     {
-        public Objective Objective { get; set; }
+        public String Text { get; set; }
+        public int index { get; set; }
     }
-    /*public class Objective
+    public class _Objective
     {
-        public String Type { get; set; }
-        public int TypeIndex { get; set; }
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public Tuple<String, UInt32> Target { get; set; }
-        public Tuple<String, UInt32> DestinationZone { get; set; }
-        public Tuple<String, UInt32> TargetDestination { get; set; }
-        public UInt32 Count { get; set; }
-        public Boolean IsBonusObjective { get; set; }
-    }*/
+        public ManagedGame.Objective obj { get; set; }
+        public String Type { get { return this.obj.Type; } set { this.obj.Type = value; } }
+        public int TypeIndex { get { return System.Convert.ToInt32(this.obj.TypeIndex); } set { this.obj.TypeIndex = value; } }
+        public String Name { get { return this.obj.Name; } set { this.obj.Name = value; } }
+        public String Description { get{ return this.obj.Description;} set{this.obj.Description = value;} }
+        public Tuple<String, UInt32> Target { get { return this.obj.Target; } set { this.obj.Target = value; } }
+        public Tuple<String, UInt32> DestinationZone { get { return this.obj.DestinationZone; } set { this.obj.DestinationZone = value; } }
+        public Tuple<String, UInt32> TargetDestination { get { return this.obj.TargetDestination; } set { this.obj.TargetDestination = value; } }
+        public UInt32 Count { get { return System.Convert.ToUInt32(this.obj.Count); } set { this.obj.Count = value; } }
+        public Boolean IsBonusObjective { get { return System.Convert.ToBoolean(this.obj.IsBonusObjective); } set { this.obj.IsBonusObjective = value; } }
+    }
 }

@@ -35,6 +35,22 @@ void Game::removealMotion(GameObject* entity)
 	}
 }
 
+void Game::addTimedObject(GameObject* entity)
+{
+	timedObjectPointers.push_back(entity);
+}
+void Game::removealTimed(GameObject* entity)
+{
+	for (size_t i = 0; i < timedObjectPointers.size(); i++)
+	{
+		if (timedObjectPointers[i] == entity)
+		{
+			timedObjectPointers.erase(timedObjectPointers.begin() + i);
+			break;
+		}
+	}
+}
+
 void Game::addGameObject(GameObject* entity)
 {
 	/*

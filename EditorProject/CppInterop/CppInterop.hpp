@@ -59,14 +59,14 @@ namespace ManagedGame
 	{
 	public:
 		String^ Type;
-		int^ TypeIndex;
+		Int32^ TypeIndex;
 		String^ Name;
 		String^ Description;
 		Tuple<String^, UInt32>^ Target;
 		Tuple<String^, UInt32>^ DestinationZone;
 		Tuple<String^, UInt32>^ TargetDestination;
 		UInt32^ Count;
-		Boolean^ IsBonusObjective;
+		System::Boolean^ IsBonusObjective;
 	};
 	public ref class Reward
 	{

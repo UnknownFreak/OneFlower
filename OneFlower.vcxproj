@@ -38,6 +38,7 @@
     <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp" />
     <ClInclude Include="Project\Engine\Window\QuestCreator\QuestRewardSelector.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\CombatComponenet.hpp" />
     <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp" />
     <ClInclude Include="Project\Game\Component\GameObject.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Project\Game\Component\ReputationComponent.hpp" />
     <ClInclude Include="Project\Game\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\TimerComponent.hpp" />
     <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
     <ClInclude Include="Project\Game\Effect\Effect.hpp" />
     <ClInclude Include="Project\Game\Effect\Enchantment.hpp" />
@@ -68,7 +70,6 @@
     <ClInclude Include="Project\Game\GUI\Text\Message.hpp" />
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
     <ClInclude Include="Project\Game\Quest\Quest.hpp" />
     <ClInclude Include="Project\Game\Quest\QuestObjective.hpp" />
+    <ClInclude Include="Project\Game\Skills\Skill.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
     <ClInclude Include="Project\Game\World\DBZone.hpp" />
     <ClInclude Include="Project\Game\World\ModLoader.hpp" />
@@ -125,6 +127,7 @@
     <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\QuestCreator\QuestRewardSelectorDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\CombatComponent.cpp" />
     <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp" />
@@ -140,6 +143,7 @@
     <ClCompile Include="Project\Game\Component\ReputationComponentDefiners.cpp" />
     <ClCompile Include="Project\Game\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\TimerComponent.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp" />
@@ -155,7 +159,6 @@
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
@@ -180,6 +183,7 @@
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
     <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
     <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Game\Skills\SkillDefiner.cpp" />
     <ClCompile Include="Project\Game\TileDefiner.cpp" />
     <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />

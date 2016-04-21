@@ -14,6 +14,7 @@
 #include "Game\Component\EquipmentComponent.hpp"
 #include "Game\Component\PlayerComponent.hpp"
 #include "Game\Component\RigidComponent.hpp"
+#include "Game\Component\CombatComponenet.hpp"
 #include "Game\LoadAndSave\DatabaseIndex.hpp"
 #include <SFML\Graphics\Text.hpp>
 #include "Game\GUI\Text\Font.hpp"
@@ -21,6 +22,7 @@
 class NativeContainer
 {
 public:
+	sf::Mutex mutex;
 	sf::RenderWindow rw;
 	GUI::ToolTip t;
 	NativeContainer(HWND handle);
@@ -32,6 +34,8 @@ public:
 	void quit();
 	void loadZone(unsigned int myZoneID);
 	std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> addGameObjectToZone(std::string modName, size_t ID);
+	void lock();
+	void unlock();
 private:
 	HWND m;
 	bool creatingTooltip = false;
