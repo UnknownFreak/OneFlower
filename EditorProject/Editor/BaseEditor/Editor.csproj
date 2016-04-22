@@ -136,6 +136,12 @@
     <Compile Include="Prefab\PrefabCreator.Designer.cs">
       <DependentUpon>PrefabCreator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Prefab\Render.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Prefab\Render.Designer.cs">
+      <DependentUpon>Render.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -218,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Prefab\PrefabCreator.resx">
       <DependentUpon>PrefabCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Prefab\Render.resx">
+      <DependentUpon>Render.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

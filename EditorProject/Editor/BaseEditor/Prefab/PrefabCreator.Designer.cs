@@ -30,13 +30,6 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
@@ -119,10 +112,9 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
+            this.render1 = new BaseEditor.Prefab.Render();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -170,83 +162,14 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Controls.Add(this.checkBox1);
+            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.render1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(453, 680);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Render";
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Enabled = false;
-            this.panel2.Location = new System.Drawing.Point(6, 29);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(443, 351);
-            this.panel2.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(290, 97);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "This gonna be reworked_?";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-3, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Texture";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(181, 58);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 22);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "Set Texture";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 84);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(256, 256);
-            this.pictureBox2.TabIndex = 13;
-            this.pictureBox2.TabStop = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(46, 58);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(129, 20);
-            this.textBox3.TabIndex = 14;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 6);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(137, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Use RenderComponent";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -1044,6 +967,13 @@
             this.textBox8.Size = new System.Drawing.Size(145, 20);
             this.textBox8.TabIndex = 18;
             // 
+            // render1
+            // 
+            this.render1.Location = new System.Drawing.Point(10, 8);
+            this.render1.Name = "render1";
+            this.render1.Size = new System.Drawing.Size(425, 664);
+            this.render1.TabIndex = 0;
+            // 
             // PrefabCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1053,10 +983,6 @@
             this.Size = new System.Drawing.Size(790, 748);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1107,13 +1033,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Panel panel3;
@@ -1192,5 +1111,6 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Panel panel10;
+        private Prefab.Render render1;
     }
 }

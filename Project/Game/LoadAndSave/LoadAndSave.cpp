@@ -633,7 +633,7 @@ void save(Archive& archive,const RenderComponent& rc)
 	archive(rc.size.x);
 	archive(rc.size.y);
 	archive(rc.animation);
-	archive(rc.frameSpeed);
+	//archive(rc.frameSpeed);
 	archive(rc.outline);
 }
 template<class Archive>
@@ -649,8 +649,10 @@ void load(Archive& archive,RenderComponent& rc)
 	rc.sprite.setScale(x,y);
 	archive(rc.size.x);
 	archive(rc.size.y);
-	archive(rc.animation);
-	archive(rc.frameSpeed);
+	bool oldA;
+	archive(oldA);
+	int old;
+	archive(old);
 	archive(rc.outline);
 }
 #pragma endregion
@@ -2224,4 +2226,4 @@ void load(Archive& ar, Attack& atk)
 	ar(atk.type);
 }
 
-#pragma endrgion
+#pragma endregion

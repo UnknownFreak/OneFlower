@@ -82,6 +82,18 @@
     <Filter Include="Game\Component\&lt;TMP&gt; Namespaced Components">
       <UniqueIdentifier>{0eecb7af-3040-4dab-82af-d946dbc2443f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Animations">
+      <UniqueIdentifier>{842cfe91-dc3e-49f2-a5c8-b0c009cbe71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\Armature">
+      <UniqueIdentifier>{e8286068-66a9-415a-a7b3-3ba7499953eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\SpriteSheet">
+      <UniqueIdentifier>{98cf7c05-5346-4a96-8dcc-20fe90697c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\Armature\Spriter">
+      <UniqueIdentifier>{b4bb4bb1-1760-4c3f-ba0b-dfe326797822}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -353,6 +365,9 @@
     <ClInclude Include="Project\Game\Component\TimerComponent.hpp">
       <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Animations\SpriteSheetAnimation.hpp">
+      <Filter>Game\Animations\SpriteSheet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -599,6 +614,9 @@
     </ClCompile>
     <ClCompile Include="Project\Game\Component\TimerComponent.cpp">
       <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Animations\SpriteSheetAnimationDefiner.cpp">
+      <Filter>Game\Animations\SpriteSheet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

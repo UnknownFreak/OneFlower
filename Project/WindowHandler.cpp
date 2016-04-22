@@ -42,7 +42,18 @@ int windowMessage()
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
-	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
+	go->GetComponent<RenderComponent>()->animation = RenderComponent::SpriteSheet;
+	SpriteSheetAnimation anim;
+	anim.AnimationTime = 1.0;
+	anim.looping = true;
+	anim.AnimationFrames.push_back(sf::IntRect(0, 0, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 0, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(0, 16, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 16, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(0, 32, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 32, 16, 16));
+	go->GetComponent<RenderComponent>()->animations.insert(std::pair<std::string,SpriteSheetAnimation>("Default",anim));
+
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->AddComponent<PlayerComponent>();

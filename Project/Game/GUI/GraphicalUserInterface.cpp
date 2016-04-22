@@ -23,7 +23,7 @@ namespace GUI {
 		sf::Texture* tmp = (sf::Texture*)mouseAim.sprite.getTexture();
 		tmp->setSmooth(true);
 		initialize();
-		Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideInventory,this), sf::Keyboard::I,Input::Action::Release);
+		//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideInventory,this), sf::Keyboard::I,Input::Action::Release);
 		//Engine::Input.registerCallback(std::bind(&GraphicalUserInterface::showHideTradeWindow,this), sf::Keyboard::O,Input::Action::Release);
 		/*showHideStats();*/
 

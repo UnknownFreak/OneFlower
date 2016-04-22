@@ -16,13 +16,5 @@ namespace BaseEditor
         {
             InitializeComponent();
         }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-                panel2.Enabled = true;
-            else
-                panel2.Enabled = false;
-        }
     }
 }
