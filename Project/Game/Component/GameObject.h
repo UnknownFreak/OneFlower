@@ -4,7 +4,8 @@
 #include <map>
 #include <string>
 #include "BaseComponent.hpp" //Remove this and use class basecomponent; 2014-04-17
-
+#include "../Logic/Physics/Collider.hpp"
+#include <vector>
 class BaseComponent;
 class GameObject
 {
@@ -19,12 +20,13 @@ public:
 	std::string tag = "";
 	unsigned int id;
 
+	//HIGH: Make this return the adress pointer towards the newly created component
 	template <class T,typename... Args>
 	void AddComponent(Args... as)
 	{
 		int a = IBaseComponent<T>::typeID;
 		//use map inbuild function to check if there is a
-		if(!componentMap.count(IBaseComponent<T>::typeID) > 0)
+		if(!componentMap.count(IBaseComponent<T>::typeID))
 		{
 			BaseComponent* componentToAttach = new T(as...);
 			componentToAttach->attachOn(this);
@@ -33,7 +35,8 @@ public:
 
 	//Attach a derivied component
 	void AddComponent(BaseComponent* componentToAdd);
-
+	//HIGH: Remove reeadComponent? Obsolete since get Component exist
+	
 	template<class T_S>
 	const T_S* ReadComponent()const
 	{
@@ -47,7 +50,7 @@ public:
 
 		return NULL;
 	}
-
+	//*/
 	template<class T_S>
 	//Return reference pointer toward the component type
 	T_S* GetComponent()
@@ -62,6 +65,13 @@ public:
 	}
 
 	void destroy();
+	
+	void sendMessage(const BaseMessage msg,BaseComponent* c);
+	void sendAll(const BaseMessage msg);
+	
+	
+	
+	void collision(std::vector<Physics::Collider>& msgs);
 
 	std::map<int,BaseComponent*>* GetComponents();
 
