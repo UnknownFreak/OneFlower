@@ -56,7 +56,7 @@ void DialogComponent::attachOn(GameObject* go)
 	REGISTER_EDITOR_VARIABLE(std::string,fontName,FontName);
 	REGISTER_EDITOR_VARIABLE(std::string,dialogMessage,Text);
 	REGISTER_EDITOR_VARIABLE(std::string,msg->iconName,Texture);
-	REGISTER_EDITOR_VARIABLE(bool,msg->drawIcon,DrawBackgroundImage);
+	REGISTER_EDITOR_VARIABLE(bool,msg->drawIcon,drawBackgroundImage);
 }
 void DialogComponent::updateLocation()
 {
@@ -105,7 +105,7 @@ void DialogComponent::show()
 		if(!dCreated)
 			createDialog();
 		Engine::GUI.addDialog(*this);
-		//Engine::Graphic.insertDrawableMessage(msg);
+		//Engine::Graphic.insertdrawableMessage(msg);
 		open = true;
 	}
 }
