@@ -18,7 +18,7 @@ public:
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
 	bool animation = false;
-	int frameSpeed = 1;
+	int frameSpeed = 30;
 
 	Vector2 size;
 
