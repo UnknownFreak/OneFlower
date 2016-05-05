@@ -5,7 +5,7 @@
 #include "TransformComponent.hpp"
 const unsigned int IBaseComponent<HitboxComponent>::typeID = 1003;
 std::string IBaseComponent<HitboxComponent>::componentName = "HitBoxComponent";
-HitboxComponent::HitboxComponent():bounding(0,0,1,1)
+HitboxComponent::HitboxComponent():bounding(0,0,128,128)
 {
 
 }
@@ -19,7 +19,7 @@ HitboxComponent::HitboxComponent(int x,int y,int w,int h) : bounding(x,y,w,h)
 }
 HitboxComponent::~HitboxComponent()
 {
-	Engine::Physics.removePhysics(this);
+	Engine::game.removePhysics(this);
 }
 
 void HitboxComponent::registerCollisionCheck(BaseComponent* component)
@@ -48,5 +48,5 @@ void HitboxComponent::attachOn(GameObject* go)
 			bounding.size.y = 64;
 		}
 	}
-	Engine::Physics.addPhysics(this);
+	Engine::game.addPhysics(this);
 }
