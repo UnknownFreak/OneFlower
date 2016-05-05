@@ -78,8 +78,8 @@ bool RenderComponent::updateFromEditor()
 	else
 		setTexture(textureName,position.x,position.y,size.x,size.y);
 
-	Engine::Graphic.removeFromDrawList(attachedOn);
-	Engine::Graphic.insertDrawableObject(attachedOn);
+	Engine::Graphic.removeFromdrawList(attachedOn);
+	Engine::Graphic.insertdrawableObject(attachedOn);
 
 	return true;
 }
@@ -87,8 +87,8 @@ void RenderComponent::attachOn(GameObject* attachTo)
 {
 	RenderComponent::BaseComponent::attachOn(attachTo);
 
-	Engine::Graphic.removeFromDrawList(attachedOn);
-	Engine::Graphic.insertDrawableObject(attachedOn);
+	Engine::Graphic.removeFromdrawList(attachedOn);
+	Engine::Graphic.insertdrawableObject(attachedOn);
 
 	REGISTER_EDITOR_VARIABLE(int,outline,Thickness);
 

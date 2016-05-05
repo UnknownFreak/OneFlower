@@ -73,30 +73,30 @@ sf::Texture* Gfx::requestTexture(std::string name)
 		return &loadedTextureMap.find("test.png")->second;
 	}
 }
-void Gfx::insertDrawableObject(GameObject* entityToDraw)
+void Gfx::insertdrawableObject(GameObject* entityTodraw)
 {
 	std::map<int,std::vector<GameObject*>>::iterator it;
 	std::map < int,std::vector<GameObject*>>::iterator endIt;
-	int renderID = entityToDraw->GetComponent<RenderComponent>()->renderlayer;
+	int renderID = entityTodraw->GetComponent<RenderComponent>()->renderlayer;
 
-	it = this->gameObjectDrawList.find(renderID);
-	endIt = gameObjectDrawList.end();
+	it = this->gameObjectdrawList.find(renderID);
+	endIt = gameObjectdrawList.end();
 
-	if(it == this->gameObjectDrawList.end())
-		gameObjectDrawList.insert(gameObjectDrawList.end(),std::pair<int,std::vector<GameObject*>>(renderID,{entityToDraw}));							//it->second.insert(it->second.end(),entityToDraw);
-	else if(it != gameObjectDrawList.end())
+	if(it == this->gameObjectdrawList.end())
+		gameObjectdrawList.insert(gameObjectdrawList.end(),std::pair<int,std::vector<GameObject*>>(renderID,{entityTodraw}));							//it->second.insert(it->second.end(),entityTodraw);
+	else if(it != gameObjectdrawList.end())
 	{
 		bool temp = false; //Rework this, Somehow: check .end()->first < renderID
-#pragma region EntityToDrawInsertionBetween layers
-		for(it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+#pragma region EntityTodrawInsertionBetween layers
+		for(it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
 		{
 			if(renderID > it->first)
 			{
 				if(renderID < 1 + it->first)
 				{
-					gameObjectDrawList.insert
-						(gameObjectDrawList.begin(),
-						std::pair<int,std::vector<GameObject*>>(renderID,{entityToDraw})
+					gameObjectdrawList.insert
+						(gameObjectdrawList.begin(),
+						std::pair<int,std::vector<GameObject*>>(renderID,{entityTodraw})
 						);
 					temp = true;
 					break;
@@ -105,17 +105,17 @@ void Gfx::insertDrawableObject(GameObject* entityToDraw)
 		}
 #pragma endregion
 		if(!temp)
-			gameObjectDrawList.at(renderID).push_back(entityToDraw);
+			gameObjectdrawList.at(renderID).push_back(entityTodraw);
 	}
 }
-void Gfx::removeFromDrawList(GameObject* entityToRemove)
+void Gfx::removeFromdrawList(GameObject* entityToRemove)
 {
 	if(entityToRemove->GetComponent<RenderComponent>())
 	{
 		int renderID = entityToRemove->GetComponent<RenderComponent>()->renderlayer;
-		for(auto it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
+		for(auto it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
 		{
-			for(int i = 0; i < it->second.size(); i++)
+			for(size_t i = 0; i < it->second.size(); i++)
 			{
 				if(it->second[i] == entityToRemove)
 				{
@@ -127,161 +127,21 @@ void Gfx::removeFromDrawList(GameObject* entityToRemove)
 	}
 }
 
-void Gfx::Draw()
+void Gfx::draw()
 {
 	Engine::Graphic.view.render.clear();
 
-	DrawBG();
-	{
-		RenderComponent* rc;
-		TransformComponent* tc;
-		DialogComponent* dc;
-		//HIGH Fix draw batches to reduce draw calls
-		rex.clear();
-		for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectDrawList.begin(); it != gameObjectDrawList.end(); it++)
-		{
-			for(int j = 0; j < it->second.size(); j++)
-			{
-				rc = it->second[j]->GetComponent<RenderComponent>();
-				tc = it->second[j]->GetComponent<TransformComponent>();
-				/*
-				dc = it->second[j]->GetComponent<DialogComponent>();
-				if(dc)
-				{
-				if(dc->open)
-				{
-				dc->updateLocation();
-				if(dc->msg->timer.getElapsedTime().asSeconds() > dc->msg->duration && dc->msg->duration > 0)
-				dc->close();
-				}
-				}
-				*/
-				if(rc->sprite.getTexture())
-				{
-					rc->sprite.setPosition(tc->position.x,tc->position.y);
-					rc->sprite.setRotation(tc->rotation.x);
-					rc->sprite.setScale(tc->size.x,tc->size.y);
-					rc->updateFrame();
-					if(rc->outline)
-					{
-						sf::Sprite outlineTemp(rc->sprite);
-
-						outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
-						outlineTemp.setOrigin(rc->outline / 2,rc->outline / 2);
-						outlineTemp.setPosition(tc->position.x,tc->position.y);
-						test.setParameter("color",1,0,1,1);
-						test.setParameter("tex",*rc->sprite.getTexture());
-
-						Engine::Graphic.view.render.draw(outlineTemp,sf::RenderStates(&test));
-						//outlineTemp.setColor(sf::Color(255,128,128));
-						//	rex.draw(outlineTemp,sf::RenderStates(&test));
-					}
-					Engine::Graphic.view.render.draw(rc->sprite);
-
-					//rc->sprite.setScale(tc->bounding.size.y / (tc->bounding.size.x + rc->outline),tc->bounding.size.y / (tc->bounding.size.y + rc->outline));
-
-					//	rex.draw(rc->sprite);
-				}
-			}
-		}
-		//	rex.display();
-		//	tex.setTexture(rex.getTexture());
-		//Engine::Graphic.view.render.draw(tex);
-	}
+	drawBG();
+	drawObject();
+	drawGrid();
 #ifdef _DEBUG
-	if(!Engine::GUI.hideGUI)
-	{
-		for(size_t i = 0; i < Engine::Physics.hitboxes.size(); i++)
-		{
-			TransformComponent* tc = Engine::Physics.hitboxes[i]->attachedOn->GetComponent<TransformComponent>();
-			hitbox.setPosition(tc->position.x,tc->position.y);
-
-			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.hitboxes[i]->bounding.size.x,2));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			double hypno = std::sqrt((
-				Engine::Physics.hitboxes[i]->bounding.size.x*Engine::Physics.hitboxes[i]->bounding.size.x +
-				Engine::Physics.hitboxes[i]->bounding.size.y*Engine::Physics.hitboxes[i]->bounding.size.y
-				));
-			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
-
-			double degree = (std::asin(Engine::Physics.hitboxes[i]->bounding.size.y / hypno) * 180) / 3.14159265;
-
-			hitbox.setRotation(degree);
-			Engine::Graphic.view.render.draw(hitbox);
-
-			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.hitboxes[i]->bounding.size.y);
-
-			hitbox.setRotation(-degree);
-			Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setRotation(0);
-
-			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.hitboxes[i]->bounding.size.x,2));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			//LeftBar
-			hitbox.setPosition(tc->position.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->bounding.size.y));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			//RightVBar
-
-			//Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics.hitboxes[i]->bounding.size.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.hitboxes[i]->bounding.size.y));
-			Engine::Graphic.view.render.draw(hitbox);
-		}
-		for(size_t i = 0; i < Engine::Physics.rigid.size(); i++)
-		{
-			TransformComponent* tc = Engine::Physics.rigid[i]->attachedOn->GetComponent<TransformComponent>();
-			hitbox.setPosition(tc->position.x,tc->position.y);
-
-			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->bounding.size.x,2));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			double hypno = std::sqrt((
-				Engine::Physics.rigid[i]->bounding.size.x*Engine::Physics.rigid[i]->bounding.size.x +
-				Engine::Physics.rigid[i]->bounding.size.y*Engine::Physics.rigid[i]->bounding.size.y
-				));
-			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
-
-			double degree = (std::asin(Engine::Physics.rigid[i]->bounding.size.y / hypno) * 180) / 3.14159265;
-
-			hitbox.setRotation(degree);
-			Engine::Graphic.view.render.draw(hitbox);
-
-			hitbox.setPosition(tc->position.x,tc->position.y + Engine::Physics.rigid[i]->bounding.size.y);
-
-			hitbox.setRotation(-degree);
-			Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setRotation(0);
-
-			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0,0,Engine::Physics.rigid[i]->bounding.size.x,2));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			//LeftBar
-			hitbox.setPosition(tc->position.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->bounding.size.y));
-			Engine::Graphic.view.render.draw(hitbox);
-
-			//RightVBar
-
-			//Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics.rigid[i]->bounding.size.x,tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::Physics.rigid[i]->bounding.size.y));
-			Engine::Graphic.view.render.draw(hitbox);
-		}
-	}
+	drawGizmo();
 #endif
 
 	//*/
-	//DrawTxt();
+	//drawTxt();
 }
-void Gfx::DrawBG()
+void Gfx::drawBG()
 {
 	backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f,Engine::Graphic.view.camera.getCenter().y*1.5f);
 
@@ -289,10 +149,196 @@ void Gfx::DrawBG()
 	for(std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 		Engine::Graphic.view.render.draw(it->sprite);
 }
-/*
-void Gfx::DrawTxt()
+void Gfx::drawObject()
 {
-for(int i = 0; i < msg.size(); i++)
+
+	RenderComponent* rc;
+	TransformComponent* tc;
+	DialogComponent* dc;
+	//HIGH Fix draw batches to reduce draw calls
+	rex.clear();
+	for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
+	{
+		for(size_t j = 0; j < it->second.size(); j++)
+		{
+			rc = it->second[j]->GetComponent<RenderComponent>();
+			tc = it->second[j]->GetComponent<TransformComponent>();
+			/*
+			dc = it->second[j]->GetComponent<DialogComponent>();
+			if(dc)
+			{
+			if(dc->open)
+			{
+			dc->updateLocation();
+			if(dc->msg->timer.getElapsedTime().asSeconds() > dc->msg->duration && dc->msg->duration > 0)
+			dc->close();
+			}
+			}
+			*/
+			if(rc->sprite.getTexture())
+			{
+				rc->sprite.setPosition(tc->position.x,tc->position.y);
+				rc->sprite.setRotation(tc->rotation.x);
+				rc->sprite.setScale(tc->size.x,tc->size.y);
+				rc->updateFrame();
+				if(rc->outline)
+				{
+					sf::Sprite outlineTemp(rc->sprite);
+
+					outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
+					outlineTemp.setOrigin(rc->outline / 2,rc->outline / 2);
+					outlineTemp.setPosition(tc->position.x,tc->position.y);
+					test.setParameter("color",1,0,1,1);
+					test.setParameter("tex",*rc->sprite.getTexture());
+
+					Engine::Graphic.view.render.draw(outlineTemp,sf::RenderStates(&test));
+					//outlineTemp.setColor(sf::Color(255,128,128));
+					//	rex.draw(outlineTemp,sf::RenderStates(&test));
+				}
+				Engine::Graphic.view.render.draw(rc->sprite);
+
+				//rc->sprite.setScale(tc->bounding.size.y / (tc->bounding.size.x + rc->outline),tc->bounding.size.y / (tc->bounding.size.y + rc->outline));
+
+				//	rex.draw(rc->sprite);
+			}
+		}
+	}
+	//	rex.display();
+	//	tex.setTexture(rex.getTexture());
+	//Engine::Graphic.view.render.draw(tex);
+
+}
+void Gfx::drawGrid()
+{
+	sf::RectangleShape box;
+	box.setOrigin(sf::Vector2f(0,0));
+	box.setOutlineColor(sf::Color::Black);
+	box.setOutlineThickness(1);	
+	box.setSize(sf::Vector2f(16,16));
+	for(size_t i = 0; i < Engine::game.tiles.size(); i++)
+	{
+		World::Grid::Tile& tile = Engine::game.tiles.at(i);
+		//box.setPosition(i%Engine::game.width,(int)i / Engine::game.width);
+		if(tile.type == World::Grid::Tile::Blank)
+		{
+			box.setFillColor(sf::Color::Transparent);
+		}
+		else if(tile.type == World::Grid::Tile::Block)
+		{
+			box.setFillColor(sf::Color::Cyan);
+		}
+		else if(tile.type == World::Grid::Tile::Slope)
+		{
+			box.setFillColor(sf::Color::Green);
+		}
+		else if(tile.type == World::Grid::Tile::Platform)
+		{
+			box.setFillColor(sf::Color::Magenta);
+			box.setSize(sf::Vector2f(World::Grid::Tile::size,World::Grid::Tile::size/4));
+		}
+		box.setPosition(tile.x * World::Grid::Tile::size,tile.y * World::Grid::Tile::size);
+		view.render.draw(box);
+	}
+}
+#ifdef _DEBUG
+void Gfx::drawGizmo()
+{
+	if(!Engine::GUI.hideGUI)
+	{
+		for(size_t i = 0; i < Engine::game.hitboxes.size(); i++)
+		{
+			TransformComponent* tc = Engine::game.hitboxes[i]->attachedOn->GetComponent<TransformComponent>();
+			hitbox.setPosition(tc->position.x,tc->position.y);
+
+			//TopBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::game.hitboxes[i]->bounding.size.x,2));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			double hypno = std::sqrt((
+				Engine::game.hitboxes[i]->bounding.size.x*Engine::game.hitboxes[i]->bounding.size.x +
+				Engine::game.hitboxes[i]->bounding.size.y*Engine::game.hitboxes[i]->bounding.size.y
+				));
+			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
+
+			double degree = (std::asin(Engine::game.hitboxes[i]->bounding.size.y / hypno) * 180) / 3.14159265;
+
+			hitbox.setRotation(degree);
+			Engine::Graphic.view.render.draw(hitbox);
+
+			hitbox.setPosition(tc->position.x,tc->position.y + Engine::game.hitboxes[i]->bounding.size.y);
+
+			hitbox.setRotation(-degree);
+			Engine::Graphic.view.render.draw(hitbox);
+			hitbox.setRotation(0);
+
+			//BottomBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::game.hitboxes[i]->bounding.size.x,2));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			//LeftBar
+			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::game.hitboxes[i]->bounding.size.y));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			//RightVBar
+
+			//Engine::Graphic.view.render.draw(hitbox);
+			hitbox.setPosition(tc->position.x + Engine::game.hitboxes[i]->bounding.size.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::game.hitboxes[i]->bounding.size.y));
+			Engine::Graphic.view.render.draw(hitbox);
+		}
+		for(size_t i = 0; i < Engine::game.rigids.size(); i++)
+		{
+			TransformComponent* tc = Engine::game.rigids[i]->attachedOn->GetComponent<TransformComponent>();
+			hitbox.setPosition(tc->position.x,tc->position.y);
+
+			//TopBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::game.rigids[i]->bounding.size.x,2));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			double hypno = std::sqrt((
+				Engine::game.rigids[i]->bounding.size.x*Engine::game.rigids[i]->bounding.size.x +
+				Engine::game.rigids[i]->bounding.size.y*Engine::game.rigids[i]->bounding.size.y
+				));
+			hitbox.setTextureRect(sf::IntRect(0,0,hypno,2));
+
+			double degree = (std::asin(Engine::game.rigids[i]->bounding.size.y / hypno) * 180) / 3.14159265;
+
+			hitbox.setRotation(degree);
+			Engine::Graphic.view.render.draw(hitbox);
+
+			hitbox.setPosition(tc->position.x,tc->position.y + Engine::game.rigids[i]->bounding.size.y);
+
+			hitbox.setRotation(-degree);
+			Engine::Graphic.view.render.draw(hitbox);
+			hitbox.setRotation(0);
+
+			//BottomBar
+			hitbox.setTextureRect(sf::IntRect(0,0,Engine::game.rigids[i]->bounding.size.x,2));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			//LeftBar
+			hitbox.setPosition(tc->position.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::game.rigids[i]->bounding.size.y));
+			Engine::Graphic.view.render.draw(hitbox);
+
+			//RightVBar
+
+			//Engine::Graphic.view.render.draw(hitbox);
+			hitbox.setPosition(tc->position.x + Engine::game.rigids[i]->bounding.size.x,tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0,0,2,Engine::game.rigids[i]->bounding.size.y));
+			Engine::Graphic.view.render.draw(hitbox);
+		}
+	}
+
+}
+#endif
+
+
+/*
+void Gfx::drawTxt()
+{
+for(size_t i = 0; i < msg.size(); i++)
 {
 msg[i]->drawMessage(&Engine::Graphic.view.render);
 if(msg[i]->timer.getElapsedTime().asSeconds() > msg[i]->duration && msg[i]->duration > 0)
@@ -300,14 +346,14 @@ removeFromMessageList(msg[i]);
 }
 }
 
-void Gfx::insertDrawableMessage(Message* messageToDraw)
+void Gfx::insertdrawableMessage(Message* messageTodraw)
 {
-messageToDraw->timer.restart();
-msg.push_back(messageToDraw);
+messageTodraw->timer.restart();
+msg.push_back(messageTodraw);
 }
 void Gfx::removeFromMessageList(Message* messageToRemove,bool dElete)
 {
-for(int i = 0; i < msg.size(); i++)
+for(size_t i = 0; i < msg.size(); i++)
 {
 if(msg[i] == messageToRemove)
 {
@@ -327,7 +373,7 @@ break;
 }
 }
 */
-void Gfx::insertDrawableSprite(Tile& fg,bool isBackground)
+void Gfx::insertdrawableSprite(Tile& fg,bool isBackground)
 {
 	if(isBackground)
 	{
@@ -356,7 +402,7 @@ void Gfx::insertDrawableSprite(Tile& fg,bool isBackground)
 }
 void Gfx::removeFromForegroundList(Tile& fgToRemove)
 {
-	for(int i = 0; i < foregroundSpriteList.size(); i++)
+	for(size_t i = 0; i < foregroundSpriteList.size(); i++)
 	{
 		if(foregroundSpriteList[i].name == fgToRemove.name)
 		{

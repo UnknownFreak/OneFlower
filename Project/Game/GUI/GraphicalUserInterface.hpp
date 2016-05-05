@@ -56,7 +56,7 @@ public:
 	bool windowHasFocus();
 	void scroll();
 	void updateMouseIcon();
-	void Draw();
+	void draw();
 	void showHideMouse();
 	void showHideDialogs();
 

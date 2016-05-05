@@ -46,7 +46,7 @@ private:
 	void drawWeight(InventoryComponent* inv);
 	void onClose();
 	void swap();
-	void IconDrawHandle();
+	void IcondrawHandle();
 	void IconSelectHandle();
 	void CreateScrollItems();
 	void WindowHandle();

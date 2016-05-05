@@ -32,7 +32,7 @@ void Mouse::update()
 				int top = 0;
 				if(Engine::GUI.mouseOutsideOpenWindow())
 				{
-					for(int i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
+					for(size_t i = 0; i < Engine::game.allGameObjectPointers.size(); i++)
 					{
 						RenderComponent* rc = 0;
 						GameObject* ab = 0;
@@ -57,25 +57,25 @@ void Mouse::update()
 							if(pos.x >= localStartX && pos.x <= localEndX)
 								if(pos.y >= localStartY && pos.y <= localEndY)
 								{
-									Engine::Graphic.selectedDrawList.push_back(ab);
+									Engine::Graphic.selecteddrawList.push_back(ab);
 									if(dialog)
 										dialog->show();
 								}
 						}
 					}
-					if(Engine::Graphic.selectedDrawList.size() > 0)
+					if(Engine::Graphic.selecteddrawList.size() > 0)
 					{
-						for(size_t i = 0; i < Engine::Graphic.selectedDrawList.size(); i++)
+						for(size_t i = 0; i < Engine::Graphic.selecteddrawList.size(); i++)
 						{
-							if(Engine::Graphic.selectedDrawList[i]->ReadComponent<RenderComponent>()->renderlayer > Engine::Graphic.selectedDrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
+							if(Engine::Graphic.selecteddrawList[i]->ReadComponent<RenderComponent>()->renderlayer > Engine::Graphic.selecteddrawList[top]->ReadComponent<RenderComponent>()->renderlayer)
 							{
 								top = i;
 							}
 						}
-						GameObject* theChoosenOne = Engine::Graphic.selectedDrawList[top];
-						std::cout << "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selectedDrawList[top]->GetComponent<TransformComponent>()->position.y;
+						GameObject* theChoosenOne = Engine::Graphic.selecteddrawList[top];
+						std::cout << "\nSelected Object: " << theChoosenOne->name << std::endl << "Game Object Position: " << Engine::Graphic.selecteddrawList[top]->GetComponent<TransformComponent>()->position.x << " " << Engine::Graphic.selecteddrawList[top]->GetComponent<TransformComponent>()->position.y;
 						Engine::Window.setGameObject(theChoosenOne);
-						Engine::Graphic.selectedDrawList.clear();
+						Engine::Graphic.selecteddrawList.clear();
 					}
 				}
 			}

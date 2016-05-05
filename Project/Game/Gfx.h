@@ -35,30 +35,35 @@ public:
 	void insertShader(sf::Shader sf,std::string);
 	sf::Shader* reqeustShader(std::string t);
 	//*/
-	void insertDrawableObject(GameObject* drawableEntity);
-	void removeFromDrawList(GameObject* objectToRemove);
+	void insertdrawableObject(GameObject* drawableEntity);
+	void removeFromdrawList(GameObject* objectToRemove);
 	std::vector<std::vector<Tile*>> tileList;
 
-	//Draw all Game object with RenderComponent attached to it
-	void Draw();
-	void DrawBG();
-	std::vector<GameObject*> selectedDrawList;
+	//draw all Game object with RenderComponent attached to it
+	void draw();
+	void drawBG();
+	void drawObject();
+	void drawGrid();
+#ifdef _DEBUG
+	void drawGizmo();
+#endif
+	std::vector<GameObject*> selecteddrawList;
 	std::vector<Tile> foregroundSpriteList;
 	sf::RenderTexture rex;
 	sf::Sprite tex;
-	void insertDrawableSprite(Tile& fg,bool isBackground);
+	void insertdrawableSprite(Tile& fg,bool isBackground);
 	void removeFromForegroundList(Tile& fgToRemove);
 	/*
-	void insertDrawableMessage(Message* msg);
+	void insertdrawableMessage(Message* msg);
 	void removeFromMessageList(Message* msg,bool dElete = true);
-	void DrawTxt();
+	void drawTxt();
 	*/
 	sf::Shader test;
 	sf::Sprite hitbox;
 private:
 	//Map with all texture, key value is the name of the texture
 	std::map<std::string,sf::Texture> loadedTextureMap;
-	std::map<int,std::vector<GameObject*>> gameObjectDrawList;
+	std::map<int,std::vector<GameObject*>> gameObjectdrawList;
 	Tile* backgroundSprite;
 };
 #endif	
