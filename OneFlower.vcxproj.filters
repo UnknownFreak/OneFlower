@@ -52,6 +52,15 @@
     <Filter Include="Other">
       <UniqueIdentifier>{b72af699-4ed4-44e8-8b97-e26a688be792}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Window\Focus">
+      <UniqueIdentifier>{e368d0f2-bfb8-4f7c-b4a0-f67274b964b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Window\Debug">
+      <UniqueIdentifier>{ab3d9fef-7748-400a-8152-a4ffc7a2fc82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Window\ObjectList">
+      <UniqueIdentifier>{0c95140c-c74b-4431-83e8-78d3945c23a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -61,9 +70,6 @@
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\Component\GameObject.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\HealthComponent.hpp">
@@ -76,9 +82,6 @@
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\InventoryComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\Component\MovementComponent.hpp">
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\OverheadComponent.hpp">
@@ -224,16 +227,7 @@
     <ClInclude Include="Project\Engine\Editor\UIAddon.hpp">
       <Filter>Engine\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp">
-      <Filter>Engine\Window</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Engine\Window\enginewindow.hpp">
-      <Filter>Engine\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp">
-      <Filter>Engine\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp">
       <Filter>Engine\Window</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GameView.hpp">
@@ -242,6 +236,27 @@
     <ClInclude Include="Project\Vector.h" />
     <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp">
       <Filter>Game\Logic\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp">
+      <Filter>Engine\Window\Focus</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp">
+      <Filter>Engine\Window\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp">
+      <Filter>Engine\Window\ObjectList</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Physics\Collider.hpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\GameObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\GridTile.h">
+      <Filter>Game\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +269,6 @@
     <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\Component\HealthComponent.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
@@ -264,9 +276,6 @@
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Component\InventoryComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\Component\MovementComponentDefiner.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Component\OverheadComponent.cpp">
@@ -411,32 +420,44 @@
     <ClCompile Include="Project\Engine\Editor\EditorIDAssignerDefiner.cpp">
       <Filter>Engine\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\Window\EngineWindowDefiner.cpp">
       <Filter>Engine\Window</Filter>
     </ClCompile>
     <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp">
       <Filter>Engine\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\GameViewDefiner.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp">
       <Filter>Game\Logic\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp">
+      <Filter>Engine\Window\Focus</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp">
+      <Filter>Engine\Window\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp">
+      <Filter>Engine\Window\ObjectList</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\Movement.cpp">
+      <Filter>Game\Logic\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\VectorDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\GridTileDefiner.cpp">
+      <Filter>Game\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">
       <Filter>Other</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project\Vector.inl" />
   </ItemGroup>
 </Project>

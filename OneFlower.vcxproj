@@ -30,7 +30,6 @@
     <ClInclude Include="Project\Game\Component\HitboxComponent.hpp" />
     <ClInclude Include="Project\Game\Component\IBaseComponent.hpp" />
     <ClInclude Include="Project\Game\Component\InventoryComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\MovementComponent.hpp" />
     <ClInclude Include="Project\Game\Component\OverheadComponent.hpp" />
     <ClInclude Include="Project\Game\Component\PickupComponent.hpp" />
     <ClInclude Include="Project\Game\Component\PlayerComponent.hpp" />
@@ -68,9 +67,12 @@
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp" />
+    <ClInclude Include="Project\Game\Logic\Physics\Collider.hpp" />
+    <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
+    <ClInclude Include="Project\Game\World\GridTile.h" />
     <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
     <ClInclude Include="Project\Game\World\Zone.hpp" />
     <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
@@ -92,7 +94,6 @@
     <ClCompile Include="Project\Game\Component\HealthComponent.cpp" />
     <ClCompile Include="Project\Game\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\InventoryComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\MovementComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\OverheadComponent.cpp" />
     <ClCompile Include="Project\Game\Component\PickupComponent.cpp" />
     <ClCompile Include="Project\Game\Component\PlayerComponentDefiner.cpp" />
@@ -132,11 +133,13 @@
     <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Input\Mouse.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp" />
+    <ClCompile Include="Project\Game\Logic\Physics\Movement.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineDefiner.cpp" />
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
     <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
     <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
     <ClCompile Include="Project\Game\TileDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
     <ClCompile Include="Project\Game\World\Zone.cpp" />
     <ClCompile Include="Project\Game\World\ZoneMaker.cpp" />
@@ -145,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project\Vector.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F58779DA-3DE9-4DAA-8457-9F0556580466}</ProjectGuid>
