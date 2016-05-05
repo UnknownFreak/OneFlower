@@ -9,7 +9,7 @@ RigidComponent::RigidComponent():bounding(0,0,128,128)
 }
 RigidComponent::~RigidComponent()
 {
-	Engine::Physics.removePhysics(this);
+	Engine::game.removePhysics(this);
 }
 void RigidComponent::attachOn(GameObject* go)
 {
@@ -19,10 +19,12 @@ void RigidComponent::attachOn(GameObject* go)
 	REGISTER_EDITOR_VARIABLE(Vector2,bounding.size,Size);
 	REGISTER_EDITOR_VARIABLE(int,mass,Mass);
 	REGISTER_EDITOR_VARIABLE(bool,gravity,Gravity);
+	REGISTER_EDITOR_VARIABLE(Vector2,movement.direction,Direction);
 
 	BaseComponent::attachOn(go);
-	Engine::Physics.addPhysics(this);
+	Engine::game.addPhysics(this);
 }
+/*
 bool RigidComponent::inMotion()
 {
 	if(force)
@@ -30,10 +32,12 @@ bool RigidComponent::inMotion()
 
 	return false;
 }
-
+//*/
+/*
 void RigidComponent::replaceForce(Vector2 dir,float power)
 {
 	if(dir.normalize())
 		direction = dir;
 	force = power;
 }
+//*/
