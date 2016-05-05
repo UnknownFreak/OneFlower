@@ -23,22 +23,34 @@ class NativeContainer
 {
 public:
 	sf::Mutex mutex;
-	sf::RenderWindow rw;
+
+	sf::RenderWindow gameObjectPreviewRender;
+	sf::RenderWindow tooltipPreviewRender;
 	GUI::ToolTip t;
 	NativeContainer(HWND handle);
 	~NativeContainer() = default;
 	int windowMessage();
 	void TestAdd();
-	void setPreviewHandle(HWND handle);
+	void setTooltipPreviewHandle(HWND handle);
 	void setTooltipPreview(std::string a, std::string b);
+
+	void setGameObjectPreviewHandle(HWND handle);
+	void setGameObjectRenderPreview(RenderComponent* render);
+	void setAnimation(std::string animation);
 	void quit();
 	void loadZone(unsigned int myZoneID);
 	std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> addGameObjectToZone(std::string modName, size_t ID);
 	void lock();
 	void unlock();
 private:
-	HWND m;
+
+	GameObject* previewObject = NULL;
+	RenderComponent* tmprender = NULL;
+	SpriterEngine::EntityInstance* previewEntityInstance = NULL;
+	HWND gameObjectPreview;
+	HWND tooltipPreview;
 	bool creatingTooltip = false;
+	bool creatingNewRender = false;
 	bool running = true;
 
 };

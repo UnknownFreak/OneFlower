@@ -23,93 +23,104 @@ namespace BaseEditor
             MouseHook.MouseActionR += new EventHandler(MouseEvent);
             InitializeComponent();
             //Could be better organized, but this will have to do for now.
-            BaseEditor.Program.mg = new ManagedGame.ManagedGame();
+            Program.mg = new ManagedGame.ManagedGame();
 
-            BaseEditor.Program.messageWindow = new DragNDropWindow();
-            BaseEditor.Program.messages = new MessageWindow();
-            BaseEditor.Program.messages.Dock = DockStyle.Fill;
-            BaseEditor.Program.messageWindow.Size = BaseEditor.Program.messages.Size;
-            BaseEditor.Program.messageWindow.addOnPanel.Dock = DockStyle.Fill;
-            BaseEditor.Program.messageWindow.addOnPanel.Controls.Add(BaseEditor.Program.messages);
-            BaseEditor.Program.messageWindow.Show(this);
-            BaseEditor.Program.messageWindow.Text = "Messages";
+            Program.messageWindow = new DragNDropWindow();
+            Program.messages = new MessageWindow();
+            Program.messages.Dock = DockStyle.Fill;
+            Program.messageWindow.Size = BaseEditor.Program.messages.Size;
+            Program.messageWindow.addOnPanel.Dock = DockStyle.Fill;
+            Program.messageWindow.addOnPanel.Controls.Add(BaseEditor.Program.messages);
+            Program.messageWindow.Show(this);
+            Program.messageWindow.Text = "Messages";
 
-            BaseEditor.Program.renderWindow = new DragNDropWindow();
-            BaseEditor.Program.renderControls = new RenderAreaControls();
-            BaseEditor.Program.renderWindow.addComponent(BaseEditor.Program.renderControls);
-            BaseEditor.Program.renderWindow.Size = new Size(800, 667);
-            BaseEditor.Program.renderWindow.Show(this);
-            BaseEditor.Program.renderWindow.Text = "C++ Window <Render Window>";
-
-
-            BaseEditor.Program.mg.setUpWindows(getRenderWindowHandle());
-
-            BaseEditor.Program.itemCreator = new DragNDropWindow();
-            BaseEditor.Program.creatorField = new ItemCreator();
-            BaseEditor.Program.creatorField.Dock = DockStyle.Fill;
-            BaseEditor.Program.itemCreator.ClientSize = new Size(BaseEditor.Program.creatorField.ClientSize.Width + 4, BaseEditor.Program.creatorField.ClientSize.Height + 24);
-            BaseEditor.Program.itemCreator.addOnPanel.Dock = DockStyle.Fill;
-            BaseEditor.Program.itemCreator.addOnPanel.Controls.Add(BaseEditor.Program.creatorField);
-            BaseEditor.Program.itemCreator.Show(this);
-            BaseEditor.Program.itemCreator.Hide();
+            Program.renderWindow = new DragNDropWindow();
+            Program.renderControls = new RenderAreaControls();
+            Program.renderWindow.addComponent(BaseEditor.Program.renderControls);
+            Program.renderWindow.Size = new Size(800, 667);
+            Program.renderWindow.Show(this);
+            Program.renderWindow.Text = "C++ Window <Render Window>";
 
 
-            BaseEditor.Program.questCreator = new DragNDropWindow();
-            BaseEditor.Program.questCreatorField = new QuestCreator();
-            BaseEditor.Program.questCreatorField.Dock = DockStyle.Fill;
-            BaseEditor.Program.questCreator.ClientSize = BaseEditor.Program.questCreatorField.Size;
-            BaseEditor.Program.questCreator.ClientSize = new Size(BaseEditor.Program.questCreator.ClientSize.Width + 4, BaseEditor.Program.questCreator.ClientSize.Height + 35);
-            BaseEditor.Program.questCreator.addOnPanel.Controls.Add(BaseEditor.Program.questCreatorField);
-            BaseEditor.Program.questCreator.Show(this);
-            BaseEditor.Program.questCreator.Hide();
+            Program.mg.setUpWindows(getRenderWindowHandle());
+
+            Program.itemCreator = new DragNDropWindow();
+            Program.creatorField = new ItemCreator();
+            Program.creatorField.Dock = DockStyle.Fill;
+            Program.itemCreator.ClientSize = new Size(BaseEditor.Program.creatorField.ClientSize.Width + 4, BaseEditor.Program.creatorField.ClientSize.Height + 24);
+            Program.itemCreator.addOnPanel.Dock = DockStyle.Fill;
+            Program.itemCreator.addOnPanel.Controls.Add(BaseEditor.Program.creatorField);
+            Program.itemCreator.Show(this);
+            Program.itemCreator.Hide();
 
 
-            BaseEditor.Program.prefabCreator = new DragNDropWindow();
-            BaseEditor.Program.prefabField = new PrefabCreator();
-            BaseEditor.Program.prefabField.Dock = DockStyle.Fill;
-            BaseEditor.Program.prefabCreator.ClientSize = BaseEditor.Program.prefabField.Size;
-            BaseEditor.Program.prefabCreator.ClientSize = new Size(BaseEditor.Program.prefabCreator.ClientSize.Width + 4, BaseEditor.Program.prefabCreator.ClientSize.Height + 35);
-            BaseEditor.Program.prefabCreator.addOnPanel.Controls.Add(BaseEditor.Program.prefabField);
-            BaseEditor.Program.prefabCreator.Show(this);
-            BaseEditor.Program.prefabCreator.Hide();
+            Program.questCreator = new DragNDropWindow();
+            Program.questCreatorField = new QuestCreator();
+            Program.questCreatorField.Dock = DockStyle.Fill;
+            Program.questCreator.ClientSize = BaseEditor.Program.questCreatorField.Size;
+            Program.questCreator.ClientSize = new Size(BaseEditor.Program.questCreator.ClientSize.Width + 4, BaseEditor.Program.questCreator.ClientSize.Height + 35);
+            Program.questCreator.addOnPanel.Controls.Add(BaseEditor.Program.questCreatorField);
+            Program.questCreator.Show(this);
+            Program.questCreator.Hide();
 
 
-            BaseEditor.Program.objectViewWindow = new DragNDropWindow();
-            BaseEditor.Program.objectViewWindow.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            BaseEditor.Program.objectView = new ObjectArea();
-            BaseEditor.Program.objectView.Dock = DockStyle.Fill;
-            BaseEditor.Program.objectViewWindow.Size = BaseEditor.Program.objectView.Size;
-            BaseEditor.Program.objectViewWindow.addOnPanel.Dock = DockStyle.Fill;
-            BaseEditor.Program.objectViewWindow.addOnPanel.Controls.Add(BaseEditor.Program.objectView);
-            BaseEditor.Program.objectViewWindow.Show(this);
-            BaseEditor.Program.objectViewWindow.Text ="Object List";
+            Program.prefabCreator = new DragNDropWindow();
+            Program.prefabField = new PrefabCreator();
+            Program.prefabField.Dock = DockStyle.Fill;
+            Program.prefabCreator.ClientSize = BaseEditor.Program.prefabField.Size;
+            Program.prefabCreator.ClientSize = new Size(BaseEditor.Program.prefabCreator.ClientSize.Width + 4, BaseEditor.Program.prefabCreator.ClientSize.Height + 35);
+            Program.prefabCreator.addOnPanel.Controls.Add(BaseEditor.Program.prefabField);
+            Program.prefabCreator.Show(this);
+            Program.prefabCreator.Hide();
 
 
-            BaseEditor.Program.zoneViewWindow = new DragNDropWindow();
-            BaseEditor.Program.zoneViewWindow.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            BaseEditor.Program.zoneView = new zonefield();
-            BaseEditor.Program.zoneView.Dock = DockStyle.Fill;
-            BaseEditor.Program.zoneViewWindow.Size = BaseEditor.Program.zoneView.Size;
-            BaseEditor.Program.zoneViewWindow.addOnPanel.Dock = DockStyle.Fill;
-            BaseEditor.Program.zoneViewWindow.addOnPanel.Controls.Add(BaseEditor.Program.zoneView);
-            BaseEditor.Program.zoneViewWindow.Show(this);
-            BaseEditor.Program.zoneViewWindow.Text = "Zone view";
+            Program.objectViewWindow = new DragNDropWindow();
+            Program.objectViewWindow.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            Program.objectView = new ObjectArea();
+            Program.objectView.Dock = DockStyle.Fill;
+            Program.objectViewWindow.Size = BaseEditor.Program.objectView.Size;
+            Program.objectViewWindow.addOnPanel.Dock = DockStyle.Fill;
+            Program.objectViewWindow.addOnPanel.Controls.Add(BaseEditor.Program.objectView);
+            Program.objectViewWindow.Show(this);
+            Program.objectViewWindow.Text ="Object List";
 
-            BaseEditor.Program.messageWindow.Left = Left;
-            BaseEditor.Program.messageWindow.Top = Bottom - BaseEditor.Program.messageWindow.Size.Height;
 
-            BaseEditor.Program.renderWindow.Left = Left + BaseEditor.Program.objectViewWindow.Size.Width;
-            BaseEditor.Program.renderWindow.Top = Top + 55;
+            Program.zoneViewWindow = new DragNDropWindow();
+            Program.zoneViewWindow.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            Program.zoneView = new zonefield();
+            Program.zoneView.Dock = DockStyle.Fill;
+            Program.zoneViewWindow.Size = BaseEditor.Program.zoneView.Size;
+            Program.zoneViewWindow.addOnPanel.Dock = DockStyle.Fill;
+            Program.zoneViewWindow.addOnPanel.Controls.Add(BaseEditor.Program.zoneView);
+            Program.zoneViewWindow.Show(this);
+            Program.zoneViewWindow.Text = "Zone view";
 
-            BaseEditor.Program.zoneViewWindow.Left = Left + BaseEditor.Program.objectViewWindow.Size.Width;
-            BaseEditor.Program.zoneViewWindow.Top = Bottom - BaseEditor.Program.zoneViewWindow.Size.Height;
+            Program.spriterSceneWindow = new DragNDropWindow();
+            Program.spriterScene = new SpriterScene.SpriterScene();
+            Program.spriterScene.Dock = DockStyle.Fill;
+            Program.spriterSceneWindow.Size = new Size(BaseEditor.Program.spriterScene.ClientSize.Width + 10, BaseEditor.Program.spriterScene.ClientSize.Height + 60);
+            Program.spriterSceneWindow.addOnPanel.Dock = DockStyle.Fill;
+            Program.spriterSceneWindow.addOnPanel.Controls.Add(BaseEditor.Program.spriterScene);
+            Program.spriterSceneWindow.Show(this);
+            Program.spriterSceneWindow.Hide();
+            Program.spriterSceneWindow.Text = "Manage Spriter Scenes";
+            Program.spriterScene.onListChange += Program.prefabField.renderPanel.spriterScene_onListChange;
 
-            BaseEditor.Program.objectViewWindow.Left = Left;
-            BaseEditor.Program.objectViewWindow.Top = Top + 55;
+            Program.messageWindow.Left = Left;
+            Program.messageWindow.Top = Bottom - BaseEditor.Program.messageWindow.Size.Height;
 
-            BaseEditor.Program.mainDrawThread = new Thread(BaseEditor.Program.mg.ManagedWindowLoop);
-            BaseEditor.Program.mainDrawThread.Start();
-            BaseEditor.Program.zoneView.init();
+            Program.renderWindow.Left = Left + BaseEditor.Program.objectViewWindow.Size.Width;
+            Program.renderWindow.Top = Top + 55;
+
+            Program.zoneViewWindow.Left = Left + BaseEditor.Program.objectViewWindow.Size.Width;
+            Program.zoneViewWindow.Top = Bottom - BaseEditor.Program.zoneViewWindow.Size.Height;
+
+            Program.objectViewWindow.Left = Left;
+            Program.objectViewWindow.Top = Top + 55;
+
+            Program.mainDrawThread = new Thread(BaseEditor.Program.mg.ManagedWindowLoop);
+            Program.mainDrawThread.Start();
+            Program.zoneView.init();
         }
 
         private void MouseEvent(object sender, EventArgs e)
@@ -189,7 +200,7 @@ namespace BaseEditor
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog();
-            opf.InitialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            opf.InitialDirectory = Directory.GetCurrentDirectory();
             opf.Filter = "GameFile (*.main .*mod)|*.main;*.mod|MAIN (*.main)|*.main|MOD (*.mod)|*.mod";
             opf.Multiselect = false;
             opf.ShowDialog(this);
@@ -201,6 +212,7 @@ namespace BaseEditor
                     Text = "Editor  " + myLoadedMod;
                     Program.zoneView.init();
                     Program.objectView.init();
+                    Program.spriterScene.init();
                 }
             }
         }
@@ -208,6 +220,16 @@ namespace BaseEditor
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void spriterScenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.spriterSceneWindow.Show();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

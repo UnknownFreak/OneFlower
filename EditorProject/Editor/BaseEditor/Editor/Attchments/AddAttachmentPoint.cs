@@ -13,9 +13,14 @@ namespace BaseEditor
     public partial class AddAttachmentPoint : Form
     {
         public event EventHandler<AttachmentPointsEventArgs> onAdd = null;
-        public AddAttachmentPoint()
+        public AddAttachmentPoint(bool TextureMap = false)
         {
             InitializeComponent();
+            if(TextureMap)
+            {
+                Text = "Add Texture Map";
+                buttonAdd.Text = "Add Map";
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

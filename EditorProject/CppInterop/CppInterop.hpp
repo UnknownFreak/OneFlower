@@ -22,8 +22,47 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Drawing;
 using namespace System::Collections::Generic;
+
 namespace ManagedGame 
 {
+	public ref class TextureMapPointStruct
+	{
+	public:
+		Tuple<int, int>^ pos = gcnew Tuple<int,int>(0,0);
+		Tuple<int, int>^ size = gcnew Tuple<int, int>(0, 0);
+		Boolean^ rotated = false;
+		int r =255;
+		int g = 255;
+		int b = 255;
+
+	};
+	public ref class SpriteSheetAnimationStruct
+	{
+	public:
+		String^ name = "";
+		Double^ time = 0.0;
+		Boolean^ loop = false;
+		List<Tuple<int, int, int, int>^>^ textureRect = gcnew List<Tuple<int,int,int,int>^>();
+	};
+	public ref class RenderComponentStruct
+	{
+	public:
+		Boolean^ isUsed = false;
+		String^ textureName = "";
+		int^ animationType = 0;
+		//
+		List<SpriteSheetAnimationStruct^>^ animations = gcnew List<SpriteSheetAnimationStruct^>();
+		//
+		String^ spriterScene = "";
+		String^ spriterEntity = "";
+		String^ textureMapMod = "";
+		String^ textureMapName = "";
+	};
+	public ref class PrefabStruct
+	{
+	public:
+		RenderComponentStruct ^rc;
+	};
 	public ref class ItemStruct
 	{
 	public:
@@ -93,6 +132,7 @@ namespace ManagedGame
 		void setUpWindows(IntPtr^ handle);
 		bool getRightClickedObject();
 		void showHideHitboxes();
+
 		//ManagedGame_Zones
 		AddZoneStruct^ getZone();
 		void editZone(AddZoneStruct^ myNewZone, ListView^ lv);
@@ -101,8 +141,9 @@ namespace ManagedGame
 		void loadZone(String^ name, UInt32^ID, ListView^ lv);
 
 		//ManagedGame_Mod
-		String^ newMod(String^ modName, List<String^>^ dependencies);
+		String^ newMod(String^ modName, List<String^>^ dependencies, Boolean^ isMainFile);
 		String^ loadMod(String^ modToLoad);
+		String^ getLoadedMod();
 		void save();
 		void getDependencies(String^ myMod, ListBox^ dependencies);
 
@@ -126,6 +167,20 @@ namespace ManagedGame
 		void addItem(ItemStruct^ item);
 		ListViewItem^ addItem(String^Name, UInt32^ ID);
 		int removeItem(String^name, UInt32^ ID);
+
+		//ManagedGame_Prefab
+		void previewPrefab(PrefabStruct^ prefab);
+		void setPrefabPreview(IntPtr^ handle);
+		List<String^>^ getEntityNames(String^ model);
+		List<String^>^ getSceneFiles();
+		void removeSpriterModel(String^ modelFileName);
+		List<String^>^ getTextureMaps(String^ model);
+		Dictionary<String^, TextureMapPointStruct^>^ getTextureMapPoints(String^ model, String^ modName, String^ textureMap);
+		void addTextureMap(String^ model, String^ textureMap);
+		void removeTextureMap(String^ model, String^ modName, String^ textureMap);
+		void setPointPosition(String^ model, String^ modName, String^ TextureMap, String^ pointName, TextureMapPointStruct^ point);
+		List<String^>^ getAnimations(String^model, String^entity);
+		void setPrefabAnimation(String^ animationName);
 	};
 }
 

@@ -8,20 +8,55 @@ PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
+SpriterModelContainer Engine::ModelContainer;
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
 	Engine::Graphic.view.create(handle);
-	m = CreateWindowEx(0, "STATIC", "", WS_POPUP | WS_VISIBLE | WS_SYSMENU, 0, 0, 500, 250, NULL, NULL, NULL, NULL);
-	rw.create(m);
-	rw.setActive(false);
+	tooltipPreview = CreateWindowEx(0, "STATIC", "", WS_POPUP | WS_VISIBLE | WS_SYSMENU, 0, 0, 500, 250, NULL, NULL, NULL, NULL);
+	tooltipPreviewRender.create(tooltipPreview);
+	tooltipPreviewRender.setActive(false);
+
+	gameObjectPreview = CreateWindowEx(0, "STATIC", "", WS_POPUP | WS_VISIBLE | WS_SYSMENU, 0, 0, 512, 512, NULL, NULL, NULL, NULL);
+	gameObjectPreviewRender.create(gameObjectPreview);
+	gameObjectPreviewRender.setActive(false);
 }
 void NativeContainer::quit()
 {
 	running = false;
 }
-void NativeContainer::setPreviewHandle(HWND handle)
+void NativeContainer::setTooltipPreviewHandle(HWND handle)
 {
-	SetParent(m, handle);
+	SetParent(tooltipPreview, handle);
+}
+void NativeContainer::setGameObjectPreviewHandle(HWND handle)
+{
+	SetParent(gameObjectPreview, handle);
+}
+void NativeContainer::setGameObjectRenderPreview(RenderComponent* inputrender)
+{
+	if (!previewObject)
+	{
+		previewObject = new GameObject();
+		previewObject->GetComponent<TransformComponent>()->position.x = 200;
+		previewObject->GetComponent<TransformComponent>()->position.y = 400;
+
+	}
+	if (previewObject->GetComponent<RenderComponent>())
+	{
+		if (!creatingNewRender)
+		{
+			creatingNewRender = true;
+			tmprender = inputrender;
+			creatingNewRender = false;
+		}
+		else
+			delete inputrender;
+	}
+	else
+	{
+		previewObject->AddComponent(inputrender);
+		Engine::Graphic.removeFromDrawList(previewObject);
+	}
 }
 void NativeContainer::setTooltipPreview(std::string a, std::string b)
 {
@@ -51,7 +86,7 @@ void NativeContainer::TestAdd()
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
-	go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
+	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32,32);
 	go->GetComponent<TransformComponent>()->position.x = 300;
@@ -73,6 +108,14 @@ void NativeContainer::unlock()
 	std::cout << "unlocking" << std::endl;
 	mutex.unlock();
 	std::cout << "unlocking Done" << std::endl;
+}
+void NativeContainer::setAnimation(std::string animation)
+{
+	if (previewEntityInstance)
+	{
+		previewEntityInstance->setCurrentAnimation(animation);
+		previewEntityInstance->setCurrentTime(0);
+	}
 }
 int NativeContainer::windowMessage()
 {
@@ -148,18 +191,86 @@ int NativeContainer::windowMessage()
 			time.FPS();
 		}
 		Engine::Graphic.view.render.setActive(false);
-		rw.setActive(true);
-		while (rw.pollEvent(Engine::event))
+		tooltipPreviewRender.setActive(true);
+		while (tooltipPreviewRender.pollEvent(Engine::event))
 		{
-			std::cout << "polling event for preview window" << std::endl;
 		}
-		rw.clear();
-		t.draw(rw);
-		rw.display();
-		rw.setActive(false);
+		tooltipPreviewRender.clear();
+		t.draw(tooltipPreviewRender);
+		tooltipPreviewRender.display();
+		tooltipPreviewRender.setActive(false);
+
+		gameObjectPreviewRender.setActive(true);
+		while (gameObjectPreviewRender.pollEvent(Engine::event))
+		{
+		}
+		gameObjectPreviewRender.clear();
+		if (previewObject)
+		{
+			RenderComponent* render = previewObject->GetComponent<RenderComponent>();
+			if (render)
+			{
+				if (tmprender)
+				{
+					render->animation = tmprender->animation;
+					render->sprite.setTexture(*Engine::Graphic.requestTexture(tmprender->textureName),true);
+					render->textureName = tmprender->textureName;
+					std::cout << "tex name: " << render->textureName << std::endl;
+					render->animations = tmprender->animations;
+					render->instance = tmprender->instance;
+					if (tmprender->instance.entityName != "")
+					{
+						if (render->instance.MyEntityInstance)
+							delete render->instance.MyEntityInstance;
+						std::cout << tmprender->instance.sceneFile;
+						render->instance = Engine::ModelContainer.requestEntityInstance(tmprender->instance.sceneFile, tmprender->instance.entityName);
+						render->instance.sceneFile = tmprender->instance.sceneFile;
+						render->instance.entityName = tmprender->instance.entityName;
+						render->instance.myTextureMap = tmprender->instance.myTextureMap;
+						previewEntityInstance = render->instance.MyEntityInstance;
+					}
+					else
+						previewEntityInstance = NULL;
+					render->outline = tmprender->outline;
+					delete tmprender;
+					tmprender = 0;
+				}
+				switch (render->animation)
+				{
+				case RenderComponent::AnimationType::SpriteSheet:
+					render->updateFrame();
+				case RenderComponent::AnimationType::Static:
+					gameObjectPreviewRender.draw(render->sprite);
+					break;
+				case RenderComponent::AnimationType::Armature:
+				{
+					if (render->instance.MyEntityInstance && render->instance.textureMaps)
+					{
+						Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
+						render->instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime() * 1000);
+						render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
+						render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
+						render->instance.render(&render->sprite);
+						if(previewEntityInstance->animationJustFinished())
+						{
+							previewEntityInstance->setCurrentTime(0);
+						}
+					}
+					break;
+				}
+				default:
+					break;
+				}
+			}
+		}
+		gameObjectPreviewRender.display();
+		gameObjectPreviewRender.setActive(false);
+
 		mutex.unlock();
 	}
 	DestroyWindow(Engine::Graphic.view.hWnd);
+	DestroyWindow(tooltipPreview);
+	DestroyWindow(gameObjectPreview);
 	return 0;
 }
 #endif

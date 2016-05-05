@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BaseEditor
 {
-    public partial class RenderAreaControls : Component
+    public partial class RenderAreaControls : System.ComponentModel.Component
     {
         public RenderAreaControls()
         {

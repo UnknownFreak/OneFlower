@@ -18,8 +18,8 @@ namespace BaseEditor
         {
             this.pForm = pForm;
             InitializeComponent();
+            String path = Directory.GetCurrentDirectory();
             checkedListBox1.Size = checkedListBox1.MaximumSize;
-            String path = Path.GetDirectoryName(Application.ExecutablePath);
             String [] mods = System.IO.Directory.GetFiles(path, "*.main");
             foreach (String m in mods)
                 checkedListBox1.Items.Add(m.Remove(0, path.Count()+1));
@@ -43,7 +43,7 @@ namespace BaseEditor
                 {
                     myList.Add(str);
                 }
-                String myLoadedMod = Program.mg.newMod(textBox1.Text,myList);
+                String myLoadedMod = Program.mg.newMod(textBox1.Text,myList, checkBox1.Checked);
                 pForm.Text = "Editor  " + myLoadedMod;
                 Program.objectView.init();
                 Program.zoneView.init();

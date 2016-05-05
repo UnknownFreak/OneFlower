@@ -13,6 +13,7 @@
 #include "Game\GUI\GraphicalUserInterface.hpp"
 #include "Game\GameView.hpp"
 #include "Game\World\WorldManagement.hpp"
+#include "Game\Animations\SpriterModelContainer.hpp"
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
 //Game Engine
 namespace Engine
@@ -40,6 +41,8 @@ namespace Engine
 	extern InputHandler Input;
 
 	extern WorldManagement World;
+
+	extern SpriterModelContainer ModelContainer;
 }
 /*
 namespace Engine = AsianVikingMotor;
