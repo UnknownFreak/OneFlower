@@ -3,7 +3,7 @@
 #include "IBaseComponent.hpp"
 #include "../../Vector.h"
 
-class MovementComponent;
+class RigidComponent;
 class GameObject;
 class PlayerComponent:public IBaseComponent < PlayerComponent >
 {
@@ -13,12 +13,11 @@ protected:
 	void attachOn(GameObject* attachingOn);
 
 private:
-	/*
-	void moveUp();
-	void moveDown();
-	void moveRight();
-	void moveLeft();
-	//*/
+	RigidComponent* rigid;
+	int movementSpeed = 150;
+
+
+	//HIGH: Fix the double movementspeed bug by holdind down two buttons
 	void manoeuvre(Vector2 direction);
 };
 
