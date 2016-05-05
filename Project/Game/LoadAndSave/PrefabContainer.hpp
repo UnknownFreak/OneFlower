@@ -7,21 +7,23 @@
 class GameObject;
 class PrefabContainer
 {
+private:
+	std::map<size_t, Prefab> mapOfPrefabs2;
+	std::map<std::pair<std::string,size_t>, Prefab> mapOfPrefabs;
 public:
-	PrefabContainer();
+	PrefabContainer() = default;
 
-	std::map<std::string,Prefab> mapOfPrefabs;
+	void addPrefab(const Prefab pref);
+	void addPrefab(const GameObject* go);
+	void addPrefab(const size_t prefabID, const GameObject* go);
+	void removePrefab(size_t prefabID);
 
-	void addPrefab(GameObject* go);
-	void addPrefab(std::string prefabName,GameObject* go);
+	std::map<std::pair<std::string, size_t>, Prefab>::iterator find(std::string name, size_t prefabID);
+	std::map<std::pair<std::string, size_t>, Prefab>::iterator end();
+	std::map<std::pair<std::string, size_t>, Prefab>::iterator begin();
+	std::map<std::pair<std::string, size_t>, Prefab>& getMap();
+	size_t size();
 
-	void removePrefab(std::string prefab);
-
-protected:
-	template<class Archive>
-	friend void save(Archive &ar,const PrefabContainer &pre);
-	template<class Archive>
-	friend void load(Archive &ar,PrefabContainer &pre);
 };
 
 #endif

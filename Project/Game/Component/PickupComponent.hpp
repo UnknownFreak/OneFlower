@@ -1,8 +1,7 @@
 #ifndef PickupComponent_HPP
 #define PickupComponent_HPP
 #include "IBaseComponent.hpp"
-
-class Item;
+#include "../item/item.hpp"
 class PickupComponent: public IBaseComponent < PickupComponent >
 {
 public:
@@ -20,7 +19,7 @@ private:
 	bool pickedUp = false;
 
 	void pickupLoot(GameObject* character);
-	Item createItem();
+	Items::Item createItem();
 
 	template<class Archive>
 	friend void save(Archive& ar,const PickupComponent &stats);

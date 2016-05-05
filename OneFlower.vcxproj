@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug Lib Engine|Win32">
+      <Configuration>Debug Lib Engine</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -19,10 +23,23 @@
     <ClInclude Include="Project\Engine\Editor\UIAddon.hpp" />
     <ClInclude Include="Project\Engine\Resource.h" />
     <ClInclude Include="Project\Engine\Window\Debug\EngineDebugWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.hpp" />
     <ClInclude Include="Project\Engine\Window\enginewindow.hpp" />
     <ClInclude Include="Project\Engine\Window\Focus\EngineFocusWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\AttachmentPointDialog.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EffectEnchantDialog.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageField.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeField.hpp" />
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp" />
     <ClInclude Include="Project\Engine\Window\ListViewer\EngineObjectListViewer.hpp" />
+    <ClInclude Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreator.hpp" />
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp" />
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestRewardSelector.hpp" />
+    <ClInclude Include="Project\Game\Animations\SpriteSheetAnimation.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\CombatComponenet.hpp" />
     <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp" />
     <ClInclude Include="Project\Game\Component\GameObject.h" />
@@ -38,7 +55,10 @@
     <ClInclude Include="Project\Game\Component\ReputationComponent.hpp" />
     <ClInclude Include="Project\Game\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
+    <ClInclude Include="Project\Game\Component\TimerComponent.hpp" />
     <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
+    <ClInclude Include="Project\Game\Effect\Effect.hpp" />
+    <ClInclude Include="Project\Game\Effect\Enchantment.hpp" />
     <ClInclude Include="Project\Game\Game.h" />
     <ClInclude Include="Project\Game\GameView.hpp" />
     <ClInclude Include="Project\Game\Gfx.h" />
@@ -47,10 +67,10 @@
     <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp" />
+    <ClInclude Include="Project\Game\GUI\Text\Message.hpp" />
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\InputDialog.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\Message.hpp" />
+    <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp" />
@@ -58,10 +78,16 @@
     <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp" />
     <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp" />
+    <ClInclude Include="Project\Game\Item\Ammo.hpp" />
     <ClInclude Include="Project\Game\Item\Armor.hpp" />
     <ClInclude Include="Project\Game\Item\Bag.hpp" />
+    <ClInclude Include="Project\Game\Item\Consumable.hpp" />
     <ClInclude Include="Project\Game\Item\Item.hpp" />
+    <ClInclude Include="Project\Game\Item\Weapon.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
+    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
@@ -71,23 +97,41 @@
     <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
+    <ClInclude Include="Project\Game\Quest\Quest.hpp" />
+    <ClInclude Include="Project\Game\Quest\QuestObjective.hpp" />
+    <ClInclude Include="Project\Game\Skills\Skill.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
     <ClInclude Include="Project\Game\World\GridTile.h" />
+    <ClInclude Include="Project\Game\World\DBZone.hpp" />
+    <ClInclude Include="Project\Game\World\ModLoader.hpp" />
+    <ClInclude Include="Project\Game\World\RespawnContainer.hpp" />
     <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
     <ClInclude Include="Project\Game\World\Zone.hpp" />
-    <ClInclude Include="Project\Game\World\ZoneMaker.hpp" />
-    <ClInclude Include="Project\Gfx.h" />
+    <ClInclude Include="Project\NativeContainer.hpp" />
     <ClInclude Include="Project\Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp" />
     <ClCompile Include="Project\Engine\Editor\EditorIDAssignerDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\Debug\EngineDebugWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.cpp" />
     <ClCompile Include="Project\Engine\Window\EngineWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\EngineWindowHandler.cpp" />
     <ClCompile Include="Project\Engine\Window\Focus\EngineFocusWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\AttachmentPointDialogDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EffectEnchantDialogDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageFieldDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeFieldDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindowDefiner.cpp" />
     <ClCompile Include="Project\Engine\Window\ListViewer\EngineObjectListViewerDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreatorDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindowDefiner.cpp" />
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestRewardSelectorDefiner.cpp" />
+    <ClCompile Include="Project\Game\Animations\SpriteSheetAnimationDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\CombatComponent.cpp" />
     <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp" />
@@ -102,21 +146,23 @@
     <ClCompile Include="Project\Game\Component\ReputationComponentDefiners.cpp" />
     <ClCompile Include="Project\Game\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp" />
+    <ClCompile Include="Project\Game\Component\TimerComponent.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp" />
+    <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp" />
     <ClCompile Include="Project\Game\GameDefiner.cpp" />
     <ClCompile Include="Project\Game\GameHandler.cpp" />
     <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp" />
@@ -124,9 +170,12 @@
     <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp" />
+    <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\ConsumableDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\ItemDefiner.cpp" />
+    <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp" />
     <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp" />
@@ -138,11 +187,13 @@
     <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
     <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
     <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Game\Skills\SkillDefiner.cpp" />
     <ClCompile Include="Project\Game\TileDefiner.cpp" />
     <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
     <ClCompile Include="Project\Game\World\Zone.cpp" />
-    <ClCompile Include="Project\Game\World\ZoneMaker.cpp" />
+    <ClCompile Include="Project\NativeContainer.cpp" />
     <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
   </ItemGroup>
@@ -167,6 +218,12 @@
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -180,14 +237,22 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\OneFlowerStandard.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'">
+    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
@@ -203,7 +268,27 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.3.1\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
+ %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Manifest>
+      <InputResourceManifests>
+      </InputResourceManifests>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_EDITOR_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.3.1\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
  %(AdditionalOptions)</AdditionalOptions>
     </Link>

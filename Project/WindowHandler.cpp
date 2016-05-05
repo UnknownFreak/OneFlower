@@ -1,3 +1,4 @@
+#ifndef _EDITOR_
 #include <Windows.h>
 #include <string>
 #include "Engine.hpp"
@@ -9,87 +10,92 @@
 #include "Game\Component\ProjectilePatternComponent.hpp"
 #include "Game\Component\EquipmentComponent.hpp"
 #include "Game\Component\PlayerComponent.hpp"
+#include "Game\Component\CombatComponenet.hpp"
 #include "Game\Component\RigidComponent.hpp"
 #include "Game\Logic\Time\Time.hpp"
 #include "Game\World\WorldManagement.hpp"
+#include "Game\LoadAndSave\LoadAndSave.hpp"
 int windowMessage();
 void RunMain();
 int test();
-EngineWindow Engine::Window;
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
 Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
-GraphicalUserInterface Engine::GUI;
+GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
-	Engine::Window.hInstance = hInstance;
+	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	return 0;
 }
-void update();
+
 int windowMessage()
 {
-#ifdef _DEBUG
-	Engine::World.loadZone(1);
-	Engine::game.player = new GameObject();
-	GameObject* go = Engine::game.player;
+	//testSave();
+	//Loads the mods required for the "editor", not required for release mode.
+	Engine::World.loadMod("OneFlower.main");
+	Engine::World.loadZone("OneFlower.main",1);
+	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
-	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
+	go->GetComponent<RenderComponent>()->animation = RenderComponent::SpriteSheet;
+	SpriteSheetAnimation anim;
+	anim.AnimationTime = 1.0;
+	anim.looping = true;
+	anim.AnimationFrames.push_back(sf::IntRect(0, 0, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 0, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(0, 16, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 16, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(0, 32, 16, 16));
+	anim.AnimationFrames.push_back(sf::IntRect(16, 32, 16, 16));
+	go->GetComponent<RenderComponent>()->animations.insert(std::pair<std::string,SpriteSheetAnimation>("Default",anim));
+
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->AddComponent<PlayerComponent>();
 	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<Component::Combat>();
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
+	Engine::game.player = go;
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
 	Engine::GUI.showHideGUI();
 	Engine::game.addGameObject(go);
 	Time time;
-	MSG message;
-	ZeroMemory(&message,sizeof(MSG));
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
-
-	while(message.message != WM_QUIT)
+	bool running = true;
+	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
+	while(running)
 	{
-		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
-		{
-			if(message.message == WM_KEYDOWN)
-			{
-				if(message.wParam == VK_ESCAPE)
-					SetFocus(Engine::Window.hWnd);
-				if(message.wParam == VK_DELETE)
-				{
-					Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
-					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
-				}
-			}
-			// If a message was waiting in the message queue, process it
-			TranslateMessage(&message);
-			DispatchMessage(&message);
-		}
 		while(Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
-			if(Engine::event.type == sf::Event::Closed)
+			if (Engine::event.type == sf::Event::Closed)
+			{
 				Engine::Graphic.view.render.close();
+				running = false;
+			}
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
-			
+			/*
+			std::cout << "alt:" << event.key.alt << std::endl;
+			std::cout << "shift:" << event.key.shift << std::endl;
+			std::cout << "system:" << event.key.system << std::endl;
+			//*/
 		}
-		update();
-		//*/
-	}
-	return message.wParam;
-#endif
-}
-
-
+		if (Engine::World.getIsLoading())
+		{
+			Engine::World.loadSome();
+			Engine::World.drawLoadingScreen();
+		}
+		else
+		{
+		Engine::Input.update();
 
 void update()
 {
@@ -125,12 +131,12 @@ int test()
 	sf::RenderWindow window(sf::VideoMode(800,600),"SFML window");
 	// Load a sprite to display
 	sf::Texture texture;
-	if(!texture.loadFromFile("Texture/test.png"))
+	if(!texture.loadFromFile("test.png"))
 		return EXIT_FAILURE;
 	sf::Sprite sprite(texture);
 	// Create a graphical text to display
 	sf::Font font;
-	if(!font.loadFromFile("Font/arial.ttf"))
+	if(!font.loadFromFile("arial.ttf"))
 		return EXIT_FAILURE;
 	sf::Text text("Hello SFML",font,50);
 	sf::Text text2("HellNoFucs",font,50);
@@ -147,12 +153,13 @@ int test()
 		}
 		// Clear screen
 		window.clear();
-		// draw the sprite
+		// Draw the sprite
 		window.draw(sprite);
-		// draw the string
-		window.hasFocus() ? window.draw(text) : window.draw(text2);
+		// Draw the string
+		//	window.hasFocus() ? window.draw(text) : window.draw(text2);
 		// update the window
 		window.display();
 	}
 	return EXIT_SUCCESS;
 }
+#endif

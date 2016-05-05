@@ -18,10 +18,6 @@ void HealthComponent::attachOn(GameObject* attachTo)
 		attachTo->AddComponent<StatsComponent>();
 		stats = attachTo->GetComponent<StatsComponent>();
 	}
-#ifdef _DEBUG
-	REGISTER_EDITOR_VARIABLE(bool,invulnerable,Invuln);
-	REGISTER_EDITOR_VARIABLE(bool,dead,Dead);
-#endif
 }
 
 void HealthComponent::doDamage(int damageDealt)

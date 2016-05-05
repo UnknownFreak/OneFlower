@@ -15,8 +15,6 @@ PickupComponent::PickupComponent(unsigned int itemID,int stackSize): itemID(item
 void PickupComponent::attachOn(GameObject* attachTo)
 {
 	BaseComponent::attachOn(attachTo);
-	REGISTER_EDITOR_VARIABLE(int,stackSize,StackSize);
-	REGISTER_EDITOR_VARIABLE(bool,pickedUp,PickedUp);
 }
 void PickupComponent::pickupLoot(GameObject* character)
 {
@@ -25,16 +23,16 @@ void PickupComponent::pickupLoot(GameObject* character)
 			if(character->GetComponent<InventoryComponent>()->addItem(createItem(),stackSize))
 				pickedUp = true;
 }
-Item PickupComponent::createItem()
+Items::Item PickupComponent::createItem()
 {
-	Item item;
-	loadItem(itemID,item);
+	Items::Item item;
+	//loadItem(itemID,item);
 	return item;
 }
 #ifdef _DEBUG
 bool PickupComponent::UpdateFromEditor()
 {
-	pickupLoot(Engine::Window.focus.gameObject);
+	//pickupLoot(Engine::Window.focus.gameObject);
 	return true;
 }
 #endif

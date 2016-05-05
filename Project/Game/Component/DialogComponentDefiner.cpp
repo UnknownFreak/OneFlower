@@ -12,7 +12,7 @@ DialogComponent::DialogComponent():
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0,0),
-open(false),dCreated(false),msg(new FloatingText())
+open(false),dCreated(false),msg(new GUI::Text::FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -23,7 +23,7 @@ DialogComponent::DialogComponent(double dur):
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0,0),
-open(false),dCreated(false),msg(new FloatingText())
+open(false), dCreated(false), msg(new GUI::Text::FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -34,7 +34,7 @@ DialogComponent::DialogComponent(const DialogComponent &diag):
 fontName("arial.ttf"),
 dialogMessage(diag.dialogMessage),
 position(diag.position),
-open(false),dCreated(false),msg(new FloatingText(*diag.msg))
+open(false), dCreated(false), msg(new GUI::Text::FloatingText(*diag.msg))
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -44,28 +44,17 @@ DialogComponent::~DialogComponent()
 {
 	delete msg;
 	msg = nullptr;
+	Engine::GUI.removeDialog(*this);
 	//delete rex;
 }
 
 void DialogComponent::attachOn(GameObject* go)
 {
 	DialogComponent::BaseComponent::attachOn(go);
-	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(Vector2,msg->offset,TextOffset);
-	REGISTER_EDITOR_VARIABLE(double,msg->duration,ShowDuration);
-	REGISTER_EDITOR_VARIABLE(std::string,fontName,FontName);
-	REGISTER_EDITOR_VARIABLE(std::string,dialogMessage,Text);
-	REGISTER_EDITOR_VARIABLE(std::string,msg->iconName,Texture);
-	REGISTER_EDITOR_VARIABLE(bool,msg->drawIcon,drawBackgroundImage);
 }
 void DialogComponent::updateLocation()
 {
 	//HIGH Fix this with floor and research more
-
-	if(!msg)
-		MessageBox(Engine::Window.hWnd,"Not suppoed to happen!","Dafak",NULL);
-	else
-		msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
 	msg->setPosition(attachedOn->GetComponent<TransformComponent>()->position.x - position.x + .51f,attachedOn->GetComponent<TransformComponent>()->position.y - position.y + .51f);
 }
 //TODO Remove either this one or the other createDialog
@@ -139,15 +128,15 @@ void DialogComponent::tryLoadTextureAndFont()
 
 #ifdef _DEBUG
 	}
-	catch(MissingIconException ex)
+	catch (GUI::Text::MissingIconException ex)
 	{
-		MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
+		//MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
 
 		msg->iconSprite.setTexture(*ex.what());
 	}
-	catch(MissingFontException ex)
+	catch (GUI::Text::MissingFontException ex)
 	{
-		MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
+		//MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
 
 		msg->setFont(ex.what());
 	}

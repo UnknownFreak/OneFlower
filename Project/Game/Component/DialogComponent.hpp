@@ -3,7 +3,7 @@
 
 #include "IBaseComponent.hpp"
 #include "../GUI/Text/FloatingText.hpp"
-#include "../GUI/Message.hpp"
+#include "../GUI/Text/Message.hpp"
 #include <string>
 #include <SFML\System\Time.hpp>
 #include <SFML\Graphics.hpp>
@@ -18,7 +18,7 @@ public:
 
 	//sf::RenderTexture *rex;
 
-	FloatingText *msg;
+	GUI::Text::FloatingText *msg;
 	Vector2 position;
 	DialogComponent();
 	DialogComponent(double duration);

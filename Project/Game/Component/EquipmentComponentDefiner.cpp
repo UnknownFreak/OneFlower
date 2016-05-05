@@ -8,41 +8,41 @@ EquipmentComponent::EquipmentComponent(): helm(NULL),chest(NULL),gloves(NULL),le
 {
 }
 
-Item* EquipmentComponent::equipArmor(Item* item)
+Items::Item* EquipmentComponent::equipArmor(Items::Item* item)
 {
 	if(item)
-		if(item->tag != Item::armor)
+		if(item->getTag() != Items::Item::armor)
 			return false;
 		else
 		{
-			Armor* arm = (Armor*)item;
+			Items::Armor* arm = (Items::Armor*)item;
 			if(arm->armorType == "Helm")
 			{
-				Item* tmp = helm;
+				Items::Item* tmp = helm;
 				helm = arm;
 				return tmp;
 			}
 			else if(arm->armorType == "Chest")
 			{
-				Item* tmp = chest;
+				Items::Item* tmp = chest;
 				chest = arm;
 				return tmp;
 			}
 			else if(arm->armorType == "Gloves")
 			{
-				Item* tmp = gloves;
+				Items::Item* tmp = gloves;
 				gloves = arm;
 				return tmp;
 			}
 			else if(arm->armorType == "Leggings")
 			{
-				Item* tmp = leggings;
+				Items::Item* tmp = leggings;
 				leggings = arm;
 				return tmp;
 			}
 			else if(arm->armorType == "Boots")
 			{
-				Item* tmp = boots;
+				Items::Item* tmp = boots;
 				boots = arm;
 				return tmp;
 			}

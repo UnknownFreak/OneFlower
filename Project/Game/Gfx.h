@@ -10,9 +10,11 @@
 #include "Tile.h"
 #include "GUI/Text/Font.hpp"
 #include "GameView.hpp"
+#include "GUI\Text\Message.hpp"
 class Tile;
 class GameObject;
 class Message;
+//class GUI::Text::Message;
 class Gfx
 {
 public:
@@ -20,6 +22,8 @@ public:
 	Gfx();
 	Font font;
 	std::vector<Message *> msg;
+	GUI::Text::Font font;
+	std::vector<GUI::Text::Message *> msg;
 
 #pragma region Texture Related Functions
 	//Load a picture file into a Texture and not a sprite
@@ -39,6 +43,8 @@ public:
 	void removeFromdrawList(GameObject* objectToRemove);
 	std::vector<std::vector<Tile*>> tileList;
 
+	//Draw all Game object with RenderComponent attached to it
+	void DrawLoadingScreen(Tile& loadingscreen, std::string& info);
 	//draw all Game object with RenderComponent attached to it
 	void draw();
 	void drawBG();

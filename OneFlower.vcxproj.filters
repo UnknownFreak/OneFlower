@@ -61,6 +61,48 @@
     <Filter Include="Engine\Window\ObjectList">
       <UniqueIdentifier>{0c95140c-c74b-4431-83e8-78d3945c23a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Window\ItemCreator">
+      <UniqueIdentifier>{685efb56-9bf8-4cfe-86d3-98a70e496fe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Window\DirectoryBrowser">
+      <UniqueIdentifier>{4ee64188-7eaf-4367-ad4c-aaaa4dd2d24f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect">
+      <UniqueIdentifier>{31ea8980-bb4a-4804-9cf1-d8821f44de1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Window\QuesetCreator">
+      <UniqueIdentifier>{02ea16c0-064c-4d0e-9a09-d7a14c9b02bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Quest">
+      <UniqueIdentifier>{0c385113-fa0a-4622-b961-8b9ab9635a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\LoadAndSave\Database">
+      <UniqueIdentifier>{95e3d316-59d8-41ab-beb6-0657f2f502f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\LoadAndSave\Prefab">
+      <UniqueIdentifier>{8d6ce5c8-8018-4b6c-b4e4-ac8a78a06af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="C++Interop">
+      <UniqueIdentifier>{3a655ec5-3188-4532-ad69-0e10a2666539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Skills">
+      <UniqueIdentifier>{8bfe22a3-06b8-4a95-b44c-5999c3e10eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\&lt;TMP&gt; Namespaced Components">
+      <UniqueIdentifier>{0eecb7af-3040-4dab-82af-d946dbc2443f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations">
+      <UniqueIdentifier>{842cfe91-dc3e-49f2-a5c8-b0c009cbe71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\Armature">
+      <UniqueIdentifier>{e8286068-66a9-415a-a7b3-3ba7499953eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\SpriteSheet">
+      <UniqueIdentifier>{98cf7c05-5346-4a96-8dcc-20fe90697c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations\Armature\Spriter">
+      <UniqueIdentifier>{b4bb4bb1-1760-4c3f-ba0b-dfe326797822}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -168,16 +210,7 @@
     <ClInclude Include="Project\Game\World\Zone.hpp">
       <Filter>Game\World</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Game\World\ZoneMaker.hpp">
-      <Filter>Game\World</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp">
@@ -201,7 +234,6 @@
     <ClInclude Include="Project\Game\Tile.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Gfx.h" />
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Engine\Resource.h">
       <Filter>Engine</Filter>
@@ -234,6 +266,18 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Vector.h" />
+    <ClInclude Include="Project\Game\World\ModLoader.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\Message.hpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\RespawnContainer.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\World\DBZone.hpp">
+      <Filter>Game\World</Filter>
+    </ClInclude>
     <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp">
       <Filter>Game\Logic\Physics</Filter>
     </ClInclude>
@@ -257,6 +301,93 @@
     </ClInclude>
     <ClInclude Include="Project\Game\World\GridTile.h">
       <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ListViewer\EnginePrefabListViewer.hpp">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindow.hpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.hpp">
+      <Filter>Engine\Window\DirectoryBrowser</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeField.hpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageField.hpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ItemCreator\AttachmentPointDialog.hpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Ammo.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Consumable.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Effect\Effect.hpp">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\ItemCreator\EffectEnchantDialog.hpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Quest\Quest.hpp">
+      <Filter>Game\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Quest\QuestObjective.hpp">
+      <Filter>Game\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Effect\Enchantment.hpp">
+      <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindow.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestRewardSelector.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreator.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindow.hpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Item\Weapon.hpp">
+      <Filter>Game\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp">
+      <Filter>Game\LoadAndSave\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\NativeContainer.hpp">
+      <Filter>C++Interop</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Skills\Skill.hpp">
+      <Filter>Game\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\CombatComponenet.hpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Component\TimerComponent.hpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Animations\SpriteSheetAnimation.hpp">
+      <Filter>Game\Animations\SpriteSheet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +454,6 @@
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\GUI\Window\Addon\InputDialog.cpp">
-      <Filter>Game\GUI\Window\Addon</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp">
       <Filter>Game\GUI\Window\Addon</Filter>
     </ClCompile>
@@ -362,16 +490,7 @@
     <ClCompile Include="Project\Game\World\Zone.cpp">
       <Filter>Game\World</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\World\ZoneMaker.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp">
-      <Filter>Game\LoadAndSave</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp">
       <Filter>Game\LoadAndSave</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp">
@@ -411,9 +530,6 @@
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp">
       <Filter>Game\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Game\GUI\MessageDefiner.cpp">
-      <Filter>Game\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\Editor\EditorFieldHandler.cpp">
       <Filter>Engine\Editor</Filter>
     </ClCompile>
@@ -448,8 +564,85 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\VectorDefiner.cpp" />
+    <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp">
+      <Filter>Game\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp">
+      <Filter>Game\Logic\Physics</Filter>
     <ClCompile Include="Project\Game\World\GridTileDefiner.cpp">
       <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp">
+      <Filter>Game\GUI\Window\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ListViewer\EnginePrefabListViewerDefiner.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorWindowDefiner.cpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\DirectoryBrowser\DirectoryBrowser.cpp">
+      <Filter>Engine\Window\DirectoryBrowser</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorTypeFieldDefiner.cpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EngineItemCreatorImageFieldDefiner.cpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ItemCreator\AttachmentPointDialogDefiner.cpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\ItemCreator\EffectEnchantDialogDefiner.cpp">
+      <Filter>Engine\Window\ItemCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\EngineQuestCreatorWindowDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestRewardSelectorDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveCreatorDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\Window\QuestCreator\QuestObjectiveSetTargetWindowDefiner.cpp">
+      <Filter>Engine\Window\QuesetCreator</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\ConsumableDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp">
+      <Filter>Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp">
+      <Filter>Game\LoadAndSave\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\NativeContainer.cpp">
+      <Filter>C++Interop</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Skills\SkillDefiner.cpp">
+      <Filter>Game\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\CombatComponent.cpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Component\TimerComponent.cpp">
+      <Filter>Game\Component\&lt;TMP&gt; Namespaced Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\Animations\SpriteSheetAnimationDefiner.cpp">
+      <Filter>Game\Animations\SpriteSheet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

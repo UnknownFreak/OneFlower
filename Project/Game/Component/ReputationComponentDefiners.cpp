@@ -26,9 +26,6 @@ ReputationComponent::ReputationComponent()
 void ReputationComponent::attachOn(GameObject* go)
 {
 	BaseComponent::attachOn(go);
-	REGISTER_EDITOR_VARIABLE(std::string,name,Name);
-	REGISTER_EDITOR_VARIABLE(std::string,repStanding,Standing);
-	REGISTER_EDITOR_VARIABLE(int,reputation,Rep);
 }
 
 void ReputationComponent::increaseReputation(std::string faction,int x)

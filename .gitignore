@@ -10,3 +10,4 @@
 *.db
 Lib/
 Debug/
+EditorProject/Editor/BaseEditor/bin/*

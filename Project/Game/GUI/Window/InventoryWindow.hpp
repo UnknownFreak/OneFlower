@@ -7,57 +7,60 @@
 #include "Addon/ScrollBar.hpp"
 #include "BaseWindow.hpp"
 #include "../Text/FloatingText.hpp"
-class Bag;
-class Item;
+#include "../../Item/Bag.hpp"
 class EquipmentComponent;
 class InventoryComponent;
-
-class InventoryWindow: public BaseWindow
+namespace GUI
 {
-public:
+	namespace Window
+	{
+		class InventoryWindow : public BaseWindow
+		{
+		public:
 
-	InventoryWindow(float x1,float y1,int x2,int y2);
+			InventoryWindow(float x1, float y1, int x2, int y2);
 
-	bool bagSlotSelected = false;
-	bool createdInventory = false;
-	bool updateStats = true;
+			bool bagSlotSelected = false;
+			bool createdInventory = false;
+			bool updateStats = true;
 
-	ScrollBar scroll;
-	ScrollBar stats;
+			Addon::ScrollBar scroll;
+			Addon::ScrollBar stats;
 
-	void draw();
-	sf::Sprite getEmptyInventorySlotIcon();
-private:
+			void draw();
+			sf::Sprite getEmptyInventorySlotIcon();
+		private:
 
-	int iconSize = 32;
-	int iconOffset = 5;
-	int selectedIndex = 0;
-	int bagIndex = 0;
+			int iconSize = 32;
+			int iconOffset = 5;
+			int selectedIndex = 0;
+			int bagIndex = 0;
 
-	sf::Sprite emptyInventorySlot;
-	Item* item;
-	ToolTip toolTip;
-	FloatingText gold;
-	Message weight;
+			sf::Sprite emptyInventorySlot;
+			Items::Item* item;
+			ToolTip toolTip;
+			Text::FloatingText gold;
+			Text::Message weight;
 
-	bool mouseInsideIcon(sf::Sprite&);
+			bool mouseInsideIcon(sf::Sprite&);
 
-	void drawGold();
-	void drawWeight(InventoryComponent* inv);
-	void onClose();
-	void swap();
+			void drawGold();
+			void drawWeight(InventoryComponent* inv);
+			void onClose();
+			void swap();
 	void IcondrawHandle();
-	void IconSelectHandle();
-	void CreateScrollItems();
-	void WindowHandle();
-	void drawGearIcons();
+			void IconSelectHandle();
+			void CreateScrollItems();
+			void WindowHandle();
+			void drawGearIcons();
 
-	void createStats();
+			void createStats();
 
-	void ClickOnBagSlot(Bag* bag);
-	void swap(sf::Sprite& icon,GameObject* go,EquipmentComponent* equip,std::string armorType);
+			void ClickOnBagSlot(Items::Bag* bag);
+			void swap(sf::Sprite& icon, GameObject* go, EquipmentComponent* equip, std::string armorType);
 
-	bool tryEquipBag(Vector2& off);
-};
-
+			bool tryEquipBag(Vector2& off);
+		};
+	}
+}
 #endif

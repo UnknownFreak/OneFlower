@@ -14,7 +14,7 @@ public:
 	sf::View camera;
 	sf::RenderWindow render;
 	HWND hWnd;
-
+	void create(HWND hWnd);
 	//HWND viewport;
 	bool docked = false;
 private:

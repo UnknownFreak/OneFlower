@@ -9,17 +9,12 @@ RigidComponent::RigidComponent():bounding(0,0,128,128)
 }
 RigidComponent::~RigidComponent()
 {
+	Engine::Physics.removePhysics(this);
 	Engine::game.removePhysics(this);
 }
 void RigidComponent::attachOn(GameObject* go)
 {
 	//Dont put this in constructors, Cause rigidcomponent will call this twice from constructor hierarchy calls
-
-	REGISTER_EDITOR_VARIABLE(Vector2,bounding.position,Position);
-	REGISTER_EDITOR_VARIABLE(Vector2,bounding.size,Size);
-	REGISTER_EDITOR_VARIABLE(int,mass,Mass);
-	REGISTER_EDITOR_VARIABLE(bool,gravity,Gravity);
-	REGISTER_EDITOR_VARIABLE(Vector2,movement.direction,Direction);
 
 	BaseComponent::attachOn(go);
 	Engine::game.addPhysics(this);
@@ -29,7 +24,6 @@ bool RigidComponent::inMotion()
 {
 	if(force)
 		return true;
-
 	return false;
 }
 //*/

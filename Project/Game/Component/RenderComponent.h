@@ -3,10 +3,23 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include "IBaseComponent.hpp"
 #include "../../Vector.h"
+#include "../Animations/SpriteSheetAnimation.hpp"
 
 class RenderComponent: public IBaseComponent < RenderComponent >
 {
 public:
+
+	enum AnimationType
+	{
+		//Static means this sprite has no animation.
+		Static,
+		//SpriteSheet means this sprite have one or more animations where
+		//All animations can fit inside the spreadsheet, and have to be manually mapped
+		SpriteSheet,
+		//Armature means this sprite have many animations, moving parts, etc.
+		//Animations are preset, only need to manually map the spriteparts
+		Armature,
+	};
 
 	RenderComponent();
 	RenderComponent(const RenderComponent & rc);
@@ -17,6 +30,7 @@ public:
 
 	//Closer the bigger the number, Farther away less the number
 	int renderlayer = 1;
+	AnimationType animation = Static;
 	bool animation = false;
 	int frameSpeed = 30;
 
@@ -31,8 +45,7 @@ public:
 
 	sf::Sprite sprite;
 
-	//LOW: Remove this not needed
-	double currentFrame = 1;
+	std::map<std::string, SpriteSheetAnimation> animations;
 
 	//Reload texture with textureName
 	void setTexture();
@@ -43,28 +56,22 @@ public:
 	//Set texture with name of Texture and the size of rect for spritesheet and its location
 	void setTexture(std::string texture,int x,int y,int width,int height);
 
-	//Reload Texture and parameter for the rect size, and it currently "frame position", Makes animation = true
-	void setAnimation(int x,int y,int width,int height);
-
 	//Set texture, set Width and Height for the rect on each sprite for spritesheet, For animations only
-	void setAnimation(std::string texture,int width,int height);
+	void setAnimation(std::string animationName);
 
 	void updateFrame();
 
 	bool updateFromEditor();
 
-	Vector2 oldSizePixel;
 protected:
 	void attachOn(GameObject* go);
 
 private:
-	//LOW: Remove this, dont think it needed
-	Vector2 frame;
 
+	std::string currentAnimation = "Default";
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive,const RenderComponent& rc);
 	template < class Archive>//, GameObject& go>
 	friend void load(Archive& archive,RenderComponent& rc);
 };
-
 #endif

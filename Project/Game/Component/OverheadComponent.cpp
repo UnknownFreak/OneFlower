@@ -6,7 +6,7 @@
 #include <string>
 const unsigned int IBaseComponent<OverheadComponent>::typeID = 1005;
 std::string IBaseComponent<OverheadComponent>::componentName = "OverheadComponent";
-OverheadComponent::OverheadComponent(): msg(Message(*Engine::Graphic.font.requestFont("Arial.ttf"))),offset(0,0),spriteSize(0,0)
+OverheadComponent::OverheadComponent(): msg(GUI::Text::Message(*Engine::Graphic.font.requestFont("Arial.ttf"))),offset(0,0),spriteSize(0,0)
 {
 	msg.setSize(25);
 }
@@ -22,10 +22,6 @@ void OverheadComponent::attachOn(GameObject* attachTo)
 	Engine::GUI.requestOverheadRemoval(attachedOn);
 	Engine::GUI.addOverhead(attachedOn);
 
-	REGISTER_EDITOR_VARIABLE(Vector2,offset,Offset);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.r,ColorRed);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.g,ColorGreen);
-	REGISTER_EDITOR_VARIABLE(sf::Uint8,msg.color.b,ColorBlue);
 }
 bool OverheadComponent::updateFromEditor()
 {

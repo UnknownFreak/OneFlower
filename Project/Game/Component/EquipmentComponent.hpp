@@ -2,21 +2,20 @@
 #define EQUIPMENTCOMPONENT_HPP
 
 #include "IBaseComponent.hpp"
-class Armor;
-class Item;
+#include "../Item/Armor.hpp"
 class EquipmentComponent: public IBaseComponent < EquipmentComponent >
 {
 public:
 
 	EquipmentComponent();
 
-	Armor* helm;
-	Armor* chest;
-	Armor* gloves;
-	Armor* leggings;
-	Armor* boots;
+	Items::Armor* helm;
+	Items::Armor* chest;
+	Items::Armor* gloves;
+	Items::Armor* leggings;
+	Items::Armor* boots;
 
-	Item* equipArmor(Item* item);
+	Items::Item* equipArmor(Items::Item* item);
 
 private:
 

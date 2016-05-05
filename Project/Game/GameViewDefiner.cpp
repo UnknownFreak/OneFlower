@@ -28,26 +28,40 @@ GameView::GameView():size(800,600)
 
 	if(!RegisterClassEx(&wc))
 		MessageBox(NULL,"Error Registering The GameViewWindow Class","Error",MB_OK | MB_ICONERROR);
-
+#ifdef _EDITOR_
 	hWnd = CreateWindowEx(
-		0,windowDefinedName,"Game View",WS_OVERLAPPEDWINDOW,
-		GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2),
-		GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU),
-		800,600,
-		Engine::Window.hWnd,NULL,Engine::Window.hInstance,NULL);
-	if(hWnd)
+		0, "GameViewWindow", "Game View", WS_POPUP | WS_VISIBLE | WS_SYSMENU,
+		0, 0, 800, 600,
+		NULL, NULL, NULL, NULL);
+	if (hWnd)
 		render.create(hWnd);
 	else
-		MessageBox(0,"Critical Error: Cannot create hWnd","GameViewDefiner.cpp",0);
+		MessageBox(0, "Critical Error: Cannot create hWnd", "GameViewDefiner.cpp", 0);
+#else
+	//hWnd = CreateWindowEx(
+		//0,windowDefinedName,"Game View",WS_OVERLAPPEDWINDOW,
+		//GetSystemMetrics(SM_CXBORDER) + (GetSystemMetrics(SM_CXSIZEFRAME) + GetSystemMetrics(SM_CXEDGE) * 2),
+		//GetSystemMetrics(SM_CYCAPTION) + (GetSystemMetrics(SM_CYSIZEFRAME) + GetSystemMetrics(SM_CYEDGE) * 2) + GetSystemMetrics(SM_CYMENU),
+		//800,600,
+		//NULL,NULL,NULL,NULL);
+	render.create(sf::VideoMode(800,600),"Game View");
+#endif
+	
 	camera.reset(sf::FloatRect(0,0,800,600));
 
 #endif
 }
 
+void GameView::create(HWND _hWnd)
+{
+	std::cout << "creating renderWindow\n";
+	SetParent(hWnd, _hWnd);
+}
+
 #ifdef _DEBUG
 GameView::~GameView()
 {
-	UnregisterClass("GameViewWindow",Engine::Window.hInstance);
+	UnregisterClass("GameViewWindow",NULL);
 }
 //HIGH: Remove this if not needed, Legacy shit?
 LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)

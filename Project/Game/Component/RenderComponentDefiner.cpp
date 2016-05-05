@@ -22,7 +22,6 @@ RenderComponent::RenderComponent(std::string texture): textureName(texture),size
 RenderComponent::RenderComponent(std::string texture,int x,int y) : textureName(texture),size(x,y)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
-	animation = false;
 }
 
 void RenderComponent::setTexture()
@@ -32,7 +31,6 @@ void RenderComponent::setTexture()
 void RenderComponent::setTexture(std::string texture)
 {
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),true);
-	animation = false;
 
 	textureName = texture;
 	size.x = sprite.getTexture()->getSize().x;
@@ -40,41 +38,39 @@ void RenderComponent::setTexture(std::string texture)
 }
 void RenderComponent::setTexture(std::string texture,int x,int y,int width,int height)
 {
+	//fix this
 	sprite.setTexture(*Engine::Graphic.requestTexture(texture),false);
 	sprite.setTextureRect(sf::IntRect(position.x,position.y,width,height));
 
-	animation = false;
 	textureName = texture;
 	size.x = width;
 	size.y = height;
 }
 
-void RenderComponent::setAnimation(std::string texture,int width,int height)
+void RenderComponent::setAnimation(std::string animationName)
 {
-	sprite.setTexture(*Engine::Graphic.requestTexture(texture),false);
-	animation = true;
-	textureName = texture;
-	sprite.setTextureRect(sf::IntRect(0,0,width,height));
-	size.x = width;
-	size.y = height;
-	frame.x = sprite.getTexture()->getSize().x / width;
-	frame.y = sprite.getTexture()->getSize().y / height;
-}
-void RenderComponent::setAnimation(int x,int y,int width,int height)
-{
-	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),false);
-	sprite.setTextureRect(sf::IntRect(x,y,width,height));
-	animation = true;
-	size.x = width;
-	size.y = height;
-	frame.x = sprite.getTexture()->getSize().x / width;
-	frame.y = sprite.getTexture()->getSize().y / height;
+	switch (animation)
+	{
+		case RenderComponent::Static:
+			return;
+		case RenderComponent::SpriteSheet:
+			if (animations.find(animationName) != animations.end())
+			{
+				currentAnimation = animationName;
+			}
+			break;
+		case RenderComponent::Armature:
+		{
+		// TODO:
+		}
+		break;
+	}
 }
 
 bool RenderComponent::updateFromEditor()
 {
 	if(animation)
-		setAnimation(0,0,size.x,size.y);
+		setAnimation(currentAnimation);
 	else
 		setTexture(textureName,position.x,position.y,size.x,size.y);
 
@@ -89,38 +85,37 @@ void RenderComponent::attachOn(GameObject* attachTo)
 
 	Engine::Graphic.removeFromdrawList(attachedOn);
 	Engine::Graphic.insertdrawableObject(attachedOn);
-
-	REGISTER_EDITOR_VARIABLE(int,outline,Thickness);
-
-	REGISTER_EDITOR_VARIABLE(int,renderlayer,Layer);
-	REGISTER_EDITOR_VARIABLE(std::string,textureName,Texture);
-	REGISTER_EDITOR_VARIABLE(bool,animation,Animation);
-	REGISTER_EDITOR_VARIABLE(Vector2,size,RectSize);
-	REGISTER_EDITOR_VARIABLE(Vector2,position,Position);
-	REGISTER_EDITOR_VARIABLE(int,frameSpeed,AnimationSpeed);
 }
 void RenderComponent::updateFrame()
 {
-	if(animation)
+	switch (animation)
 	{
-		double oldFrame = currentFrame;
-		currentFrame += (Engine::time.deltaTime()*(int)((int)frame.x + (int)frame.y)) / frameSpeed;
-		if((int)currentFrame > (int)oldFrame)
+	case RenderComponent::Static:
+		return;
+	case RenderComponent::SpriteSheet:
+	{
+		if (animations.find(currentAnimation) != animations.end())
 		{
-			sf::IntRect rect = sprite.getTextureRect();
-			rect.left += rect.width;
-
-			if(rect.left >= sprite.getTexture()->getSize().x)
+			if (animations[currentAnimation].CurrentTime > animations[currentAnimation].AnimationTime)
 			{
-				rect.left = 0;
-				rect.top += rect.height;
-				if(rect.top >= sprite.getTexture()->getSize().y)
-					rect.top = 0;
+				if (animations[currentAnimation].looping)
+					animations[currentAnimation].CurrentTime -= animations[currentAnimation].AnimationTime;
 			}
-			//LOW: is this needed
-			currentFrame -= (int)currentFrame;
-			sprite.setTextureRect(rect);
-			sf::Texture a;
+			else
+				animations[currentAnimation].CurrentTime += Engine::time.deltaTime();
+			{
+				sf::IntRect r = animations[currentAnimation].getCurrentAnimationFrame();
+				if (!(r.width == r.height == 0))
+					sprite.setTextureRect(r);
+			}
 		}
+	}
+		break;
+	case RenderComponent::Armature:
+		//todo
+		break;
+	default:
+		break;
+
 	}
 }
