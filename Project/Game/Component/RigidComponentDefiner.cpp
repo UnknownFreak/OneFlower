@@ -9,7 +9,7 @@ RigidComponent::RigidComponent():bounding(0,0,128,128)
 }
 RigidComponent::~RigidComponent()
 {
-	Engine::Physics.removePhysics(this);
+	//Engine::Physics.removePhysics(this);
 	Engine::game.removePhysics(this);
 }
 void RigidComponent::attachOn(GameObject* go)

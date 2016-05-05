@@ -2,10 +2,9 @@
 #include "../../Engine.hpp"
 #include "..\Component\DialogComponent.hpp"
 
-void GraphicalUserInterface::draw()
 namespace GUI
 {
-	void GraphicalUserInterface::Draw()
+	void GraphicalUserInterface::draw()
 	{
 		//if (Engine::Graphic.view.render.hasFocus())
 		{

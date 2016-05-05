@@ -59,7 +59,7 @@ namespace GUI
 		bool windowHasFocus();
 		void scroll();
 		void updateMouseIcon();
-	void draw();
+		void draw();
 		void showHideMouse();
 		void showHideDialogs();
 

@@ -143,11 +143,14 @@ void Gfx::draw()
 }
 void Gfx::drawBG()
 {
-	backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f,Engine::Graphic.view.camera.getCenter().y*1.5f);
+	if (backgroundSprite)
+	{
+		backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f, Engine::Graphic.view.camera.getCenter().y*1.5f);
 
-	Engine::Graphic.view.render.draw(backgroundSprite->sprite);
-	for(std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
-		Engine::Graphic.view.render.draw(it->sprite);
+		Engine::Graphic.view.render.draw(backgroundSprite->sprite);
+		for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
+			Engine::Graphic.view.render.draw(it->sprite);
+	}
 }
 void Gfx::drawObject()
 {
@@ -402,12 +405,38 @@ void Gfx::insertdrawableSprite(Tile& fg,bool isBackground)
 }
 void Gfx::removeFromForegroundList(Tile& fgToRemove)
 {
-	for(size_t i = 0; i < foregroundSpriteList.size(); i++)
+	for (size_t i = 0; i < foregroundSpriteList.size(); i++)
 	{
-		if(foregroundSpriteList[i].name == fgToRemove.name)
+		if (foregroundSpriteList[i].name == fgToRemove.name)
 		{
 			foregroundSpriteList.erase(foregroundSpriteList.begin() + i);
 			break;
 		}
 	}
+}
+void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
+{
+		float centerX = Engine::Graphic.view.camera.getCenter().x;
+		float centerY = Engine::Graphic.view.camera.getCenter().y;
+		int sizeX = Engine::Graphic.view.camera.getSize().x;
+		int sizeY = Engine::Graphic.view.camera.getSize().y;
+		float width = Engine::Graphic.view.camera.getViewport().width;
+		float height = Engine::Graphic.view.camera.getViewport().height;
+
+		loadingScreen.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
+
+
+		loadingScreen.sprite.setScale(sizeX / (float)loadingScreen.sprite.getTexture()->getSize().x,
+			sizeY / (float)loadingScreen.sprite.getTexture()->getSize().y);
+
+		Engine::Graphic.view.render.draw(loadingScreen.sprite);
+
+		GUI::Text::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
+
+		msg = message;
+		msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
+		msg.setColor(sf::Color(255, 255, 255));
+		msg.draw();
+		Engine::World.getLoadingScreenProgressBar().draw();
+		Engine::Graphic.view.render.display();
 }

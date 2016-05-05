@@ -28,6 +28,7 @@
 int windowMessage();
 void RunMain();
 int test();
+void update();
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
@@ -47,9 +48,11 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	Engine::World.loadMod("Demo.main");
+	Engine::World.EditorAddNewZone("test", "test.png", "test.png", "testing", 0, 500, 500);
+	Engine::World.loadZone("Demo.main", 0);
 	// test
 	sf::Sprite sprite(*Engine::Graphic.requestTexture("DemoTest.png"));
-	SpriterEntityInstance inst = Engine::ModelContainer.requestEntityInstance("Spriter\\playerDemo.scml", "Player");
+	SpriterEntityInstance inst = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	inst.myTextureMap.first = "Demo.main";
 	inst.myTextureMap.second = "DemoTest";
 	inst.MyEntityInstance->setPosition(SpriterEngine::point(400, 400));
@@ -88,19 +91,19 @@ int windowMessage()
 	//Engine::game.addGameObject(go);
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
-	Engine::Graphic.rex.create(800,600);
+	Engine::Graphic.rex.create(800, 600);
 	bool running = true;
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
-	while(running)
+	while (running)
 	{
-		while(Engine::Graphic.view.render.pollEvent(Engine::event))
+		while (Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
 			if (Engine::event.type == sf::Event::Closed)
 			{
 				Engine::Graphic.view.render.close();
 				running = false;
 			}
-			if(Engine::event.type == Engine::event.MouseWheelMoved)
+			if (Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			/*
 			std::cout << "alt:" << event.key.alt << std::endl;
@@ -115,13 +118,16 @@ int windowMessage()
 		}
 		else
 		{
-		Engine::Input.update();
-
+			update();
+		}
+	}
+	return 1;
+}
 void update()
 {
 	Engine::time.elapsed += Engine::time.clock.restart();
 
-	while(Engine::time.elapsed >= Engine::time.update_ms)
+	while (Engine::time.elapsed >= Engine::time.update_ms)
 	{
 		Engine::Input.update();
 		//Engine::Physics.update();
@@ -134,17 +140,7 @@ void update()
 	Engine::GUI.draw();
 	Engine::Graphic.view.render.display();
 
-
-
-	Engine::Window.update();
-
 }
-
-
-
-
-
-
 int test()
 {
 	// Create the main window

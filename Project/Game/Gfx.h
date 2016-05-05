@@ -13,15 +13,12 @@
 #include "GUI\Text\Message.hpp"
 class Tile;
 class GameObject;
-class Message;
 //class GUI::Text::Message;
 class Gfx
 {
 public:
 	GameView view;
 	Gfx();
-	Font font;
-	std::vector<Message *> msg;
 	GUI::Text::Font font;
 	std::vector<GUI::Text::Message *> msg;
 
@@ -53,7 +50,7 @@ public:
 #ifdef _DEBUG
 	void drawGizmo();
 #endif
-	std::vector<GameObject*> selecteddrawList;
+	std::vector<GameObject*> selectedDrawList;
 	std::vector<Tile> foregroundSpriteList;
 	sf::RenderTexture rex;
 	sf::Sprite tex;

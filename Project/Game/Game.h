@@ -68,6 +68,7 @@ private:
 	//Why do I have two of this? (rigidPointers and Rigid)
 	//std::vector<RigidComponent*> rigidPointers;
 	std::vector<GameObject*> allGameObjectPointers;
+	std::vector<GameObject*> timedObjectPointers;
 	std::vector<GameObject> objects;
 	//std::map<GameObject*,int> mapOfGameObjects;
 

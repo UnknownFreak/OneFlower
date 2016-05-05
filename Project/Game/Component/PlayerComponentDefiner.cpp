@@ -15,7 +15,7 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 		toAttach->AddComponent<RigidComponent>();
 		toAttach->GetComponent<RigidComponent>();
 	}
-	REGISTER_EDITOR_VARIABLE(int,movementSpeed,MovementSpeed);
+	//REGISTER_EDITOR_VARIABLE(int,movementSpeed,MovementSpeed);
 
 	//toAttach->AddComponent<MovementComponent>();
 	//Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,0)),sf::Keyboard::D,Input::Action::Release);

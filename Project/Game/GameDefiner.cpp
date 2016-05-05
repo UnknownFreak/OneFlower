@@ -3,7 +3,7 @@
 #include "Component\OverheadComponent.hpp"
 #include "Tile.h"
 #include "Gfx.h"
-#include "GUI/Message.hpp"
+#include "GUI/Text/Message.hpp"
 #include "Component\RenderComponent.h"
 #include "Component/HitboxComponent.hpp"
 
@@ -70,11 +70,11 @@ void Game::addGameObject(GameObject* entity)
 	allGameObjectPointers.push_back(entity);
 	Engine::GUI.addOverhead(entity);
 	//Engine::Graphic.insertdrawableObject(entity);
-#ifdef _DEBUG
-	Engine::Window.ListViewer.add(entity);
-	Engine::Window.setGameObject(entity);
-
-#endif
+//#ifdef _DEBUG
+//	Engine::Window.ListViewer.add(entity);
+//	Engine::Window.setGameObject(entity);
+//
+//#endif
 }
 GameObject& Game::addGameObject()
 {
@@ -141,11 +141,11 @@ void Game::requestRemoveal(GameObject* entity)
 				Engine::GUI.requestOverheadRemoval(entity);
 				Engine::Graphic.removeFromdrawList(entity);
 				//Engine::Window.ListViewer.remove(entity);
-				if(Engine::Window.focus.gameObject == entity)
-				{
-					Engine::Window.focus.gameObject = 0;
-					Engine::Window.focus.cleanse();
-				}
+				//if(Engine::Window.focus.gameObject == entity)
+				//{
+				//	Engine::Window.focus.gameObject = 0;
+				//	Engine::Window.focus.cleanse();
+				//}
 
 				delete entity;
 				entity = 0;

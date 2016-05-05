@@ -31,8 +31,8 @@ Global
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug Lib Engine|Win32.ActiveCfg = Debug|Win32
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug Lib Engine|Win32.Build.0 = Debug|Win32
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Mixed Platforms.ActiveCfg = Debug Lib Engine|Win32
-		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Mixed Platforms.Build.0 = Debug Lib Engine|Win32
+		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Win32.ActiveCfg = Debug Lib Engine|Win32
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Win32.Build.0 = Debug Lib Engine|Win32
 		{F58779DA-3DE9-4DAA-8457-9F0556580466}.Debug|Win32.Deploy.0 = Debug Lib Engine|Win32

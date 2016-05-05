@@ -48,7 +48,7 @@ namespace GUI
 			void drawWeight(InventoryComponent* inv);
 			void onClose();
 			void swap();
-	void IcondrawHandle();
+			void IconDrawHandle();
 			void IconSelectHandle();
 			void CreateScrollItems();
 			void WindowHandle();

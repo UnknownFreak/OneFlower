@@ -7,12 +7,15 @@
 #include "Component/RigidComponent.hpp"
 #include "Component/TransformComponent.hpp"
 #include "Component/RenderComponent.h"
+#include "Component/TimerComponent.hpp"
+#include "Component/CombatComponenet.hpp"
 #include "Gfx.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
 #include "../Engine.hpp"
 #include <math.h>
 
+std::vector<GameObject*> erase;
 void Game::update()
 {
 	#pragma region oldcode
@@ -111,9 +114,6 @@ void Game::update()
 	//}
 	//*/
 	#pragma endregion
-
-		}
-	}
 	for (size_t i = 0; i < timedObjectPointers.size(); i++)
 	{
 		Component::Timer* timed = timedObjectPointers[i]->GetComponent<Component::Timer>();
