@@ -11,7 +11,7 @@ PhysicsEngine::Collider::Collider()
 
 }
 //*/
-
+/*
 void PhysicsEngine::addPhysics(RigidComponent* obj)
 {
 	if(obj)
@@ -22,7 +22,8 @@ void PhysicsEngine::addPhysics(HitboxComponent* obj)
 	if(obj)
 		hitboxes.push_back(obj);
 }
-
+//*/
+/*
 void PhysicsEngine::removePhysics(RigidComponent* obj)
 {
 	if(obj)
@@ -43,15 +44,17 @@ void PhysicsEngine::removePhysics(HitboxComponent* obj)
 				break;
 			}
 }
-
+//*/
 //LOW dont think this is needed, Only prototype
 #include "../../Component/GameObject.h"
+/*
 void PhysicsEngine::addPhysics(GameObject* obj)
 {
 	HitboxComponent* a = obj->GetComponent<HitboxComponent>();
 	if(a)
 		hitboxes.push_back(a);
 }
+//*/
 PhysicsEngine::PhysicsEngine()
 //:quad(0)
 {

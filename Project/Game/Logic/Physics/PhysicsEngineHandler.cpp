@@ -6,7 +6,7 @@
 #include "../../Component/HitboxComponent.hpp"
 #include "../../../Engine.hpp"
 //#include "ColliderBasic.hpp"
-
+#include "Movement.hpp"
 void PhysicsEngine::update()
 {
 	//gravity();
@@ -14,34 +14,21 @@ void PhysicsEngine::update()
 }
 void PhysicsEngine::gravity()
 {
-	for(size_t i = 0; i < rigid.size(); i++)
+	/*
+	for(size_t i = 0; i < rigids.size(); i++)
 	{
 		if(rigid[i]->gravity)
 		{
 			TransformComponent* tc = rigid[i]->attachedOn->GetComponent<TransformComponent>();
-
 			Vector2 past = tc->position;
 
 			Vector2 direction(0,1);
 			double velocity = (Gravity*PixelInOneMeter);
-			//rigid[i]->attachedOn->GetComponent<RigidComponent>()->addForce(Vector2(0,1),velocity);
-
-			/*
-			std::pair<GameObject*,double> collisiontime = collision(rigid[i],Vector2(0,direction.y*velocity*Engine::time.deltaTime()));
-				
-			//HIGH: Checking how force move object on google.PS check collision and pass throug hitbox but still tirgger
-			if(collisiontime.second >= 1)
-				//tc->move(direction,velocity*Engine::time.deltaTime());
-				//tc->position.x += direction.x*velocity;
-				tc->position.y += direction.y*(velocity*Engine::time.deltaTime());
-			else
-				//tc->move(direction,(velocity*Engine::time.deltaTime())*collisiontime);
-				//tc->position.x += direction.x*velocity*collisiontime;
-				tc->position.y += direction.y*collisiontime.second*(velocity*Engine::time.deltaTime());
-			//*/
-			//rigid[i]->replaceForce(Vector2(0,1),velocity*Engifne::time.deltaTime());
+			//rigid[i]->movement.addTranslation(direction,velocity);
+			//->GetComponent<>()->addForce(Vector2(0,1),velocity);
 		}
 	}
+	//*/
 }
 
 void PhysicsEngine::simulation()
@@ -67,276 +54,63 @@ void PhysicsEngine::simulation()
 	}
 	//*/
 }
-PhysicsEngine::Collider PhysicsEngine::collision(Physics::BoundingBox box,Vector2 speed)
+
+//LOW: Change owner 
+Physics::Collider PhysicsEngine::collision(TransformComponent* motion,Physics::BoundingBox bbox,Vector2 speed)
 {
-	Collider collider;
+	//When two object travel in the same direction, The one who "Update" first will decide the outcome. If its the chaser than it catches, if its the runner than it flee. Thats the simpliest way todo it 
+	Physics::Collider collider;
+
+	/*
 	for(size_t i = 0; i < hitboxes.size(); ++i)
 	{
-		Physics::BoundingBox testbox = hitboxes[i]->bounding;
-		
+		HitboxComponent* hitbox = hitboxes[i];
+		Physics::BoundingBox boxMoving(motion->position+speed,bbox.size);
+		Physics::BoundingBox boxStatic
+			(
+				hitbox->attachedOn->GetComponent<TransformComponent>()->position,hitbox->bounding.size
+			);
 
+		//if(X1 + W1<X2 or X2 + W2<X1 or
+		//Y1 + H1<Y2 or Y2 + H2<Y1) :
 
-
-
-	}
-	return collider;
-	/*
-	PhysicsEngine::Collider collider;
-	
-	/*
-	TransformComponent* tc = inMotion->attachedOn->GetComponent<TransformComponent>();
-	Vector2 topLeft = tc->position + inMotion->position;
-	std::vector<std::pair<HitboxComponent*,double>> collisionList;
-
-	for(size_t i = 0; i < hitboxes.size(); i++)
-	{
-		TransformComponent* tcH = hitboxes[i]->attachedOn->GetComponent<TransformComponent>();
-		Vector2 topLeftH = tcH->position + hitboxes[i]->position;
-		double timeUntillCollision = 0;
-
-		Vector2 distanceEntry;
-		= topLeft - topLeftH;
-
-		if(speed.x > 0)			//Get the right side of rigid, LeftSide of hitbox
-			distanceEntry.x = (topLeft.x + inMotion->size.x) - topLeftH.x;
-		else
-			distanceEntry.x = (topLeftH.x + hitboxes[i]->size.x) - topLeft.x;
-		if(speed.y > 0)			//If the speed is positive it mean the object is going DOWN, and thus topleft.y+height
-			distanceEntry.y = topLeftH.y - (topLeft.y + inMotion->size.y);
-		else
-			distanceEntry.y = topLeft.y - (topLeftH.y + topLeftH.y);
-
-		Vector2 entryTime;
-		if(speed.x)
-			entryTime.x = distanceEntry.x / speed.x;
-		else
-			entryTime.x = std::numeric_limits<double>::infinity();
-		if(speed.y)
-			entryTime.y = distanceEntry.y / speed.y;
-		else
-			entryTime.y = std::numeric_limits<double>::infinity();
-
-		double collisionTime = 1;
-		Check which entry time is the shortest, than do a broad check, A check to see if object is a aligned to each other
-		if(entryTime.y < entryTime.x)
-			if(topLeft.x > topLeftH.x + hitboxes[i]->size.x)//If rigid left side is to right side of hitbox right side its a miss
-				continue;
-			else if(topLeft.x + inMotion->size.x < topLeftH.x)
-				continue;
-			else
-				collisionTime = entryTime.y;
-		else
-			if(topLeft.y + inMotion->size.y < topLeftH.y)
-				continue;
-			else if(topLeft.y > topLeftH.y + hitboxes[i]->size.y)
-				continue;
-			else
-				collisionTime = entryTime.x;
-			= (((entryTime.x) < (entryTime.y)) ? (entryTime.x) : (entryTime.y));
-
-			if(collisionTime >= 1 || collisionTime < 0)
-				continue;
-			else
-				collisionList.push_back(std::make_pair(hitboxes[i],collisionTime));
-	}
-
-	std::pair<HitboxComponent*,double> fastestCollision(0,1);
-	for(size_t i = 0; i < collisionList.size(); i++)
-		if(fastestCollision.second > collisionList[i].second)
-			fastestCollision = collisionList[i];
-	if(fastestCollision.first)
-		return std::pair<GameObject*,double>(fastestCollision.first->attachedOn,fastestCollision.second);
-	else
-		return std::pair<GameObject*,double>(0,1);
-	//*/
-}
-/*
-float PhysicsEngine::SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,float& normalx,float& normaly,Vector2 speed)
-{
-	std::vector<std::pair<HitboxComponent*,double>> collided;
-
-	TransformComponent* tc = inMotion->attachedOn->GetComponent<TransformComponent>();
-	Vector2 topLeft = tc->position + inMotion->position;
-	Vector2 bottomRight = topLeft + inMotion->size;
-
-	struct Box
-	{
-		// position of top-left corner
-		float x,y;
-
-		// dimensions
-		float w,h;
-
-		// velocity
-		float vx,vy;
-	};
-	Box b1;
-	b1.x = topLeft.x;
-	b1.y = topLeft.y;
-	b1.w = inMotion->size.x;
-	b1.h = inMotion->size.y;
-	b1.vx = speed.x;
-	b1.vy = speed.y;
-
-	for(size_t i = 0; i < hitboxes.size(); i++)
-	{
-		TransformComponent* tcH = hitboxes[i]->attachedOn->GetComponent<TransformComponent>();
-		Vector2 topLeftH = tcH->position + hitboxes[i]->position;
-		Vector2 bottomRightH = topLeftH + hitboxes[i]->size;
-		Box b2;
-
-		b2.x = topLeft.x;
-		b2.y = topLeft.y;
-		b2.w = hitboxes[i]->size.x;
-		b2.h = hitboxes[i]->size.y;
-		b2.vx = 0;
-		b2.vy = 0;
-		float xInvEntry,yInvEntry;
-		float xInvExit,yInvExit;
-
-		// find the distance between the objects on the near and far sides for both x and y
-		if(b1.vx > 0.0f)//If the hitbox have movement, but our hitbox will never have movement persay, unless its a rigidbody(cause we use force)
-		{
-			xInvEntry = b2.x - (b1.x + b1.w);
-			xInvExit = (b2.x + b2.w) - b1.x;
-		}
-		else
-		{
-			//Hitbox position.x + its width - rigidbod position to get xInvEntry
-			xInvEntry = (b2.x + b2.w) - b1.x;
-			//Hitbox position - Rigidbody.x + width to get xInvExit
-			xInvExit = b2.x - (b1.x + b1.w);
-		}
-
-		if(b1.vy > 0.0f)
-		{
-			yInvEntry = b2.y - (b1.y + b1.h);
-			yInvExit = (b2.y + b2.h) - b1.y;
-		}
-		else
-		{
-			yInvEntry = (b2.y + b2.h) - b1.y;
-			yInvExit = b2.y - (b1.y + b1.h);
-		}
-
-		// find time of collision and time of leaving for each axis (if statement is to prevent divide by zero)
-		float xEntry,yEntry;
-		float xExit,yExit;
-
-		if(b1.vx == 0.0f)
-		{
-			xEntry = -std::numeric_limits<float>::infinity();
-			xExit = std::numeric_limits<float>::infinity();
-		}
-		else
-		{
-			xEntry = xInvEntry / b1.vx;
-			xExit = xInvExit / b1.vx;
-		}
-
-		if(b1.vy == 0.0f)
-		{
-			yEntry = -std::numeric_limits<float>::infinity();
-			yExit = std::numeric_limits<float>::infinity();
-		}
-		else
-		{
-			yEntry = yInvEntry / b1.vy;
-			yExit = yInvExit / b1.vy;
-		}
-		// find the earliest/latest times of collision
-		float entryTime = std::max<double>(xEntry,yEntry);
-		float exitTime = std::min<double>(xExit,yExit);
-		/*
-		// Check the collision Horizontally
-		// > Because the higher the more right, 0,0 top left
-		// this means that rigid left side is to the right of hitbox right side
-		if(topLeft.x > bottomRightH.x)
-		continue;
-		// > Because the higher the more right, 0,0 top left
-		// this means that rigid right side is to the left side of hitbox
-		else if(bottomRight.x < topLeftH.x)
-		continue;
-		//< Because the lower the higher, 0,0 top left
-		//this means that Rigid below hitbox, Top part of rigid is below hitbox bottom part
-		else if(topLeft.y > bottomRightH.y)
-		continue;
-		//< Because the lower the higher, 0,0 top left
-		//this means that rigid is above HitBox, Bottom part of rigid is higher than top part of Hitbox
-		else if(bottomRight.y  < topLeftH.y)
-		continue;
-		else
-		{
-		collided.push_back(hitboxes[i]);
-		}
-		
-		// if there was no collision
-		double normalx,normaly = 0;
-		if(entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f)
-		{
+		#pragma region BroadPhase
+		if(boxMoving.position.y +boxMoving.size.y < boxStatic.position.y)
 			continue;
-			/*
-			normaly = 0.0f;
-			return 1.0f;
-			
-		}
-		else // if there was a collision
+		else if(boxStatic.position.y + boxStatic.size.y < boxMoving.position.y)
+			continue;
+		else if(boxMoving.position.x + boxMoving.size.x < boxStatic.position.x)
+			continue;
+		else if(boxStatic.position.x + boxStatic.size.x < boxMoving.position.x)
+			continue;
+		#pragma endregion 
+		else
 		{
-			// calculate normal of collided surface
-			if(xEntry > yEntry)
-			{
-				if(xInvEntry < 0.0f)
-				{
-					normalx = 1.0f;
-					normaly = 0.0f;
-				}
-				else
-				{
-					normalx = -1.0f;
-					normaly = 0.0f;
-				}
-			}
-			else
-			{
-				if(yInvEntry < 0.0f)
-				{
-					normalx = 0.0f;
-					normaly = 1.0f;
-				}
-				else
-				{
-					normalx = 0.0f;
-					normaly = -1.0f;
-				}
-			}
+			float timeCx = 9000;
+			float timeCy = 9000;
+			float distanceCx = 9000;
+			float distanceCy = 9000;
 
-			//TODO: Remake this as a bubble sort, aka Only save the nearest hitbox
-			collided.push_back(std::make_pair(hitboxes[i],entryTime));
-			// return the time of collision
+			if(speed.x > 0)
+				distanceCx = boxStatic.position.x - (boxMoving.position.x + boxMoving.size.x);
+			else if(speed.x < 0)
+				distanceCx = (boxStatic.position.x + boxStatic.size.x) - boxMoving.position.x;
+			if(speed.y > 0)
+				distanceCy = boxStatic.position.y - (boxMoving.position.y + boxMoving.size.y);
+			else if(speed.y < 0)
+				distanceCy = (boxStatic.position.y + boxStatic.size.y) - boxMoving.position.y;
+			//HIGH: Remove this and make it just return the collision time and let the game decide what happends with multi collision, put this intersection inside boundingbox? 
+
+			//HIGH: this is somehow wrongs dont know any fixes yet
+			float shortDist = distanceCx < distanceCy ? distanceCx : distanceCy;
+			
+			if(shortDist < collider.time)
+			{
+				collider.time = shortDist;
+				collider.contact = hitbox->attachedOn;
+			}
 		}
 	}
-	HitboxComponent* a;
-	double horse = 1;
-	int index = -1;
-	for(size_t i = 0; i < collided.size(); i++)
-	{
-		horse = collided[i].second;
-		index = i;
-		a = collided[i].first;
-	}
-
-	return horse;
-	/*
-	//HIGH: Move this to a function call
-	for(size_t i = 0; i < collided.size(); i++)
-	{
-	for(size_t j = 0; j < collided[i]->collisionCall.size(); j++)
-	{
-	collided[i]->collisionCall[j]->onCollision(inMotion->attachedOn);
-	}
-	}
-	
-
-	//return Vector2();
-};
-//*/
+	//*/
+	return collider;
+}
