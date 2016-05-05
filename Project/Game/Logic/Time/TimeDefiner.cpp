@@ -7,46 +7,10 @@ HWND hWnd;
 HWND wnd;
 HWND awnd;
 //*/
-
-void Time::restartDelta()
+double Time::deltaTime()
 {
-	lastTime = delta.getElapsedTime().asSeconds();
-	delta.restart();
+	return update_ms.asSeconds();
 }
-
-float Time::deltaTime()
-{
-	return lastTime;
-}
-
-float Time::FPS()
-{
-	currentTime = clock.restart().asSeconds();
-	if(timer.getElapsedTime().asSeconds() > 1)
-	{
-		float fps = 0;
-		timer.restart();
-		fps = 1.f / (currentTime);
-		lastTime = currentTime;
-		/*
-		if(Engine::Window.hWnd)
-		{
-		SetWindowTextA(Engine::Window.hWnd,std::to_string(fps).c_str());
-		SetWindowTextA(wnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right).c_str());
-		SetWindowTextA(awnd,std::to_string(EditorUI::GetLocalCoordinates(Engine::Window.hWnd).left).c_str());
-		}
-		else
-		{
-		hWnd = GetDlgItem(Engine::Window.hWnd,9003);
-		wnd = GetDlgItem(Engine::Window.hWnd,9056);
-		awnd = GetDlgItem(Engine::Window.hWnd,9057);
-		}
-		//*/
-		return 1;
-	}
-	return 0;
-}
-
 bool Time::time(std::string name,double msec)
 
 {
@@ -62,7 +26,6 @@ bool Time::time(std::string name,double msec)
 		//Make it modulus instead, Also make a custom Holder so that we can have diffrent start timer if needed
 
 		if(it->second.getElapsedTime().asMilliseconds() > msec)
-
 		{
 			//Make it so that it doesnt restart
 			it->second.restart();

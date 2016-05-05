@@ -30,11 +30,13 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 	!_DEBUG ? test() : windowMessage();
 	return 0;
 }
-
+void update();
 int windowMessage()
 {
+#ifdef _DEBUG
 	Engine::World.loadZone(1);
-	GameObject* go = new GameObject("player");
+	Engine::game.player = new GameObject();
+	GameObject* go = Engine::game.player;
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
 	go->GetComponent<RenderComponent>()->setAnimation("anime2.png",32,32);
@@ -54,17 +56,6 @@ int windowMessage()
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
 
-	CreateWindowEx(
-		0,"Button","Start/Pause",
-		BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD,
-		EditorUI::GetLocalCoordinates(Engine::Window.hWnd).right - 128 - 16,EditorUI::GetLocalCoordinates(Engine::Window.hWnd).bottom - 256,
-		128,64,
-		Engine::Window.hWnd,
-		(HMENU)27457,
-		Engine::Window.hInstance,
-		NULL
-		);
-	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	while(message.message != WM_QUIT)
 	{
 		while(PeekMessage(&message,NULL,0,0,PM_REMOVE))
@@ -78,10 +69,6 @@ int windowMessage()
 					Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
 					Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
 				}
-				if(message.wParam == VK_OEM_PLUS)
-					Engine::Input.mouse.deltaScrolls += 5;
-				if(message.wParam == VK_OEM_MINUS)
-					Engine::Input.mouse.deltaScrolls -= 5;
 			}
 			// If a message was waiting in the message queue, process it
 			TranslateMessage(&message);
@@ -93,33 +80,44 @@ int windowMessage()
 				Engine::Graphic.view.render.close();
 			if(Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
-			/*
-			std::cout << "alt:" << event.key.alt << std::endl;
-			std::cout << "shift:" << event.key.shift << std::endl;
-			std::cout << "system:" << event.key.system << std::endl;
-			//*/
+			
 		}
-
-		Engine::Input.update();
-
-		Engine::game.update();
-
-		Engine::Physics.update();
-
-		Engine::Graphic.Draw();
-
-		Engine::GUI.Draw();
-
-		Engine::Graphic.view.render.display();
-#ifdef _DEBUG
-		Engine::Window.update();
-#endif
-		//LOW: Fix this, By moving it somewhere else? and have it return a constant variable
-		Engine::time.restartDelta();
-		time.FPS();
+		update();
+		//*/
 	}
 	return message.wParam;
+#endif
 }
+
+
+
+void update()
+{
+	Engine::time.elapsed += Engine::time.clock.restart();
+
+	while(Engine::time.elapsed >= Engine::time.update_ms)
+	{
+		Engine::Input.update();
+		//Engine::Physics.update();
+		Engine::game.update();
+
+		Engine::time.elapsed -= Engine::time.update_ms;
+	}
+
+	Engine::Graphic.draw();
+	Engine::GUI.draw();
+	Engine::Graphic.view.render.display();
+
+
+
+	Engine::Window.update();
+
+}
+
+
+
+
+
 
 int test()
 {
@@ -127,12 +125,12 @@ int test()
 	sf::RenderWindow window(sf::VideoMode(800,600),"SFML window");
 	// Load a sprite to display
 	sf::Texture texture;
-	if(!texture.loadFromFile("test.png"))
+	if(!texture.loadFromFile("Texture/test.png"))
 		return EXIT_FAILURE;
 	sf::Sprite sprite(texture);
 	// Create a graphical text to display
 	sf::Font font;
-	if(!font.loadFromFile("arial.ttf"))
+	if(!font.loadFromFile("Font/arial.ttf"))
 		return EXIT_FAILURE;
 	sf::Text text("Hello SFML",font,50);
 	sf::Text text2("HellNoFucs",font,50);
@@ -149,10 +147,10 @@ int test()
 		}
 		// Clear screen
 		window.clear();
-		// Draw the sprite
+		// draw the sprite
 		window.draw(sprite);
-		// Draw the string
-		//	window.hasFocus() ? window.draw(text) : window.draw(text2);
+		// draw the string
+		window.hasFocus() ? window.draw(text) : window.draw(text2);
 		// update the window
 		window.display();
 	}

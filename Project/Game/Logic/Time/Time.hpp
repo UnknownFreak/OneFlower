@@ -7,18 +7,20 @@ class Time
 {
 public:
 
-	float FPS();
+	double deltaTime();
+
 	bool time(std::string,double msec);
 	void remove(std::string);
-	float deltaTime();
-	void restartDelta();
+	
+
+
+	const sf::Time update_ms = sf::seconds(1.f / 30.f);
+
+	sf::Time elapsed;
+	sf::Clock clock;
 
 private:
-	sf::Clock delta;
-	sf::Clock clock;
 	sf::Clock timer;
-	float lastTime = 0;
-	float currentTime = 0;
 
 	//LOW: Put this in Definer to avoid include of Map:String?
 	std::map<std::string,sf::Clock> timers;
