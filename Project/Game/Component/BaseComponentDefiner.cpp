@@ -1,5 +1,6 @@
 #include "BaseComponent.hpp"
 #include "GameObject.h"
+#include "../Logic/Physics/Collider.hpp"
 void BaseComponent::attachOn(GameObject* attachTo)
 {
 	this->attachedOn = attachTo;
@@ -9,9 +10,17 @@ bool BaseComponent::updateFromEditor()
 {
 	return false;
 }
+//*/
 void BaseComponent::update()
 {
 }
+void BaseComponent::onCollision(Physics::Collider c)
+{
+
+}
+
+
+
 /*
 void BaseComponent::sendMessage(const BaseMessage& msg)
 {
@@ -25,8 +34,9 @@ it->second->recieveMessage(msg);
 #endif
 }
 //*/
-void recieveMessage(const BaseMessage& target)
+void BaseComponent::getMessage(const BaseMessage target)
 {
+
 }
 
 /*

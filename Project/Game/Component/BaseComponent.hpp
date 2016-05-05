@@ -1,35 +1,21 @@
 #ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
-
+#include "../BaseMessage.hpp"
 #include <string>
 
 #include <map>
+namespace Physics{class Collider;}
 
 class BaseField;
 class GameObject;
-class BaseMessage
-{
-public:
-	BaseMessage(std::string msg);
-	void add();
-	std::string process();
-
-	bool permission(std::string key);
-
-private:
-	std::string msg;
-};
 
 class BaseComponent
 {
 public:
-	//LOW: is this needed
-	//Send infomation what happend when colliding
-	void sendMessage(const BaseMessage& msg);
 
 	//LOW: Create a body?
 	//On hit collision		//TODO: Make this virtal
-
+	virtual void onCollision(Physics::Collider);
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn;
 
@@ -50,7 +36,7 @@ protected:
 	//Attach the component to a GameObject
 	virtual void attachOn(GameObject* attachTo);
 
-	void recieveMessage(const BaseMessage& target);
+	virtual void getMessage(const BaseMessage message);
 
 #ifdef _DEBUG
 	friend class EngineWindow;
