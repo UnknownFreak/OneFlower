@@ -10,7 +10,6 @@
 #include "ReputationComponent.hpp"
 #include "HealthComponent.hpp"
 #include "../../Engine.hpp"
-
 std::map<GameObject*,unsigned int> listOfGameObjectID;
 std::vector<unsigned int> listOfOldGameObjectID;
 
@@ -123,7 +122,7 @@ componentToAttach
 void GameObject::AddComponent(BaseComponent* componentToAttach)
 {
 	//use map inbuild function to check if there is a
-	if(!componentMap.count(componentToAttach->getType()) > 0)
+	if(!componentMap.count(componentToAttach->getType()))
 	{
 		componentToAttach->attachOn(this);
 		componentMap.insert(std::make_pair(componentToAttach->getType(),componentToAttach));
@@ -134,12 +133,31 @@ void GameObject::AddComponent(BaseComponent* componentToAttach)
 		componentToAttach = 0;
 	}
 }
+void GameObject::sendMessage(const BaseMessage msg,BaseComponent* c)
+{
+	componentMap.find(c->getType())->second->getMessage(msg);
+}
+void GameObject::sendAll(const BaseMessage msg)
+{
+	for(std::map<int,BaseComponent*>::iterator it = componentMap.begin(); it != componentMap.end(); ++it)
+	{
+		it->second->getMessage(msg);
+	}
+}
+void GameObject::collision(std::vector<Physics::Collider>& msgs)
+{
+	Physics::Collider msg = msgs[0];
+	for(std::map<int,BaseComponent*>::iterator it = componentMap.begin(); it != componentMap.end(); ++it)
+	{
+		it->second->onCollision(msg);
+	}
+}
 
 //Return a unused or a new ID
 unsigned int RequestID()
 {
 	unsigned int temp = 0;
-	if(!listOfGameObjectID.size() > 0)
+	if(!listOfGameObjectID.size())
 	{
 		return 1;
 	}
@@ -151,7 +169,6 @@ unsigned int RequestID()
 		return	 temp + 1;
 	}
 }
-
 void GameObject::destroy()
 {
 	Engine::game.requestRemoveal(this);
