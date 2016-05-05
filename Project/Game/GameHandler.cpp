@@ -112,6 +112,30 @@ void Game::update()
 	//*/
 	#pragma endregion
 
+		}
+	}
+	for (size_t i = 0; i < timedObjectPointers.size(); i++)
+	{
+		Component::Timer* timed = timedObjectPointers[i]->GetComponent<Component::Timer>();
+		{
+			timed->update();
+			if (timed->canRemove())
+				erase.push_back(timedObjectPointers[i]);
+		}
+	}
+	for( size_t i = 0; i < erase.size(); i++)
+	{
+		erase[i]->destroy();
+	}
+	erase.clear();
+	if (player)
+	{
+		Component::Combat* combat = player->GetComponent<Component::Combat>();
+		if (combat->executingSkill)
+		{
+			combat->update();
+		}
+	}
 	//LOW: Make my own Custom Focus
 	if(Engine::Graphic.view.render.hasFocus())//Engine::Window.focus)
 	{
