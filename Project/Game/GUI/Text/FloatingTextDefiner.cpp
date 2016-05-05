@@ -1,5 +1,5 @@
 #include "FloatingText.hpp"
-#include "../../../Gfx.h"
+#include "../../Gfx.h"
 #include "../../../Engine.hpp"
 
 FloatingText::FloatingText(): Message(*Engine::Graphic.font.requestFont("Arial.ttf"),-1,-1),offset(0,0),iconName(""),drawIcon(true)
