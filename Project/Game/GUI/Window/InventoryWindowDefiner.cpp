@@ -35,7 +35,7 @@ void InventoryWindow::draw()
 		BaseWindow::draw();
 		stats.draw();
 		drawGearIcons();
-		IconDrawHandle();
+		IcondrawHandle();
 
 		if(scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 			scroll.tooltip.first && !scroll.movingItem && Engine::GUI.showToolTip && !Engine::GUI.focusedWindow->checkMouseInside())
@@ -69,7 +69,7 @@ void InventoryWindow::CreateScrollItems()
 		{
 			int max = go->GetComponent<InventoryComponent>()->maxBags;
 			std::vector<Bag*>& b = go->GetComponent<InventoryComponent>()->bags;
-			for(int it = 0; it < max; ++it)
+			for(size_t it = 0; it < max; ++it)
 			{
 				int i = 0;
 				if(it < b.size())
@@ -112,7 +112,7 @@ bool InventoryWindow::mouseInsideIcon(sf::Sprite& sprite)
 			return true;
 	return false;
 }
-void InventoryWindow::IconDrawHandle()
+void InventoryWindow::IcondrawHandle()
 {
 	GameObject* go = Engine::Window.focus.gameObject;
 	if(go)
@@ -127,7 +127,7 @@ void InventoryWindow::IconDrawHandle()
 			int max = inv->maxBags;
 			std::vector<Bag*>& b = inv->bags;
 			Vector2 off(window.getPosition().x + (window.getTextureRect().width / 2) - 74.f,window.getPosition().y + window.getTextureRect().height - 54);
-			for(int it = 0; it < max; ++it)
+			for(size_t it = 0; it < max; ++it)
 			{
 				if(it < b.size())
 				{
@@ -229,7 +229,7 @@ void InventoryWindow::swap()
 				if(icp->unequipBag((Bag*)item,icp->bags[swap->index.first],swap->index.second))
 				{
 					int insertLocationBag = 0;
-					for(int i = 0; i < swap->index.first; ++i)
+					for(size_t i = 0; i < swap->index.first; ++i)
 					{
 						insertLocationBag += icp->bags[i]->size;
 					}
@@ -297,7 +297,7 @@ bool InventoryWindow::tryEquipBag(Vector2& off)
 							scroll.sprites[scroll.selectedBag] = NULL;
 							scroll.sprites[scroll.selectedBag] = new WindowIcon(emptyInventorySlot,"","","",Vector2(0,16),pair);
 							int bag = icp->bags.size();
-							for(int i = 0; i < icp->bags[icp->bags.size() - 1]->size; ++i)
+							for(size_t i = 0; i < icp->bags[icp->bags.size() - 1]->size; ++i)
 							{
 								scroll.sprites.push_back(new WindowIcon(emptyInventorySlot,"","","",Vector2(0,16),std::pair<int,int>(bag,i),sf::Color::Black,12));
 							}
@@ -358,7 +358,7 @@ void InventoryWindow::drawGearIcons()
 		EquipmentComponent* equip = go->GetComponent<EquipmentComponent>();
 		if(equip)
 		{
-			for(int i = 0; i < 5; i++)
+			for(size_t i = 0; i < 5; i++)
 			{
 				switch(i)
 				{

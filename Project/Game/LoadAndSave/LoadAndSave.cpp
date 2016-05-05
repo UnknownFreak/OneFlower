@@ -314,7 +314,7 @@ void load(Archive& archive,GameObject& go)
 		//archive(a);
 		archive(go.name);
 		archive(componentCount);
-		for(int i = 0; i < componentCount; i++)
+		for(size_t i = 0; i < componentCount; i++)
 		{
 			archive(ID);
 			if(ID == IBaseComponent<RenderComponent>::typeID)
@@ -572,14 +572,14 @@ void load(Archive& ar,ReputationComponent& rep)
 	std::string first = "";
 	int second = 0;
 	ar(size);
-	for(int it = 0; it < size; it++)
+	for(size_t it = 0; it < size; it++)
 	{
 		ar(first);
 		ar(second);
 		rep.rep.insert(std::pair<std::string,int>(first,second));
 	}
 	ar(size);
-	for(int it = 0; it < size; it++)
+	for(size_t it = 0; it < size; it++)
 	{
 		ar(first);
 		ar(second);
@@ -767,14 +767,14 @@ void load(Archive &ar,Zone &zone)
 	ar(t);
 	zone.background = t;
 	ar(size);
-	for(int i = 0; i < size; i++)
+	for(size_t i = 0; i < size; i++)
 	{
 		Tile qq;
 		ar(qq);
 		zone.foregrounds.push_back(Tile(qq));
 	}
 	ar(size);
-	for(int i = 0; i < size; i++)
+	for(size_t i = 0; i < size; i++)
 	{
 		go = new GameObject();
 		ar(*go);
@@ -847,7 +847,7 @@ bool loadZoneInfo(std::map<unsigned int,std::string> & zoneInfo)
 		std::string zoneName;
 		int number;
 		ar(number);
-		for(int i = 0; i < number; i++)
+		for(size_t i = 0; i < number; i++)
 		{
 			ar(zoneID);
 			ar(zoneName);
@@ -997,7 +997,7 @@ void load(Archive& ar,Prefab& pre)
 	unsigned int type;
 	int size;
 	ar(size);
-	for(int i = 0; i < size; ++i)
+	for(size_t i = 0; i < size; ++i)
 	{
 		ar(type);
 		if(type == IBaseComponent<RenderComponent>::typeID)
@@ -1063,7 +1063,7 @@ void save(Archive& ar,const Prefab& pre)
 {
 	ar(pre.base.size());
 	int size = pre.base.size();
-	for(int i = 0; i < size; ++i)
+	for(size_t i = 0; i < size; ++i)
 	{
 		int type = pre.base[i]->getType();
 		ar(type);
@@ -1126,7 +1126,7 @@ void load(Archive& ar,PrefabContainer& con)
 {
 	int size;
 	ar(size);
-	for(int i = 0; i < size; ++i)
+	for(size_t i = 0; i < size; ++i)
 	{
 		Prefab pre;
 		std::string n;

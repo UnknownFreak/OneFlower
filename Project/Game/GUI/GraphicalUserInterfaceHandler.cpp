@@ -2,7 +2,7 @@
 #include "../../Engine.hpp"
 #include "..\Component\DialogComponent.hpp"
 
-void GraphicalUserInterface::Draw()
+void GraphicalUserInterface::draw()
 {
 	//if (Engine::Graphic.view.render.hasFocus())
 	{
@@ -93,7 +93,7 @@ void GraphicalUserInterface::Draw()
 				updateFocus = false;
 				bool done = false;
 				int size = openWindows.size() - 1;
-				for(int i = size; i > -1; --i)
+				for(size_t i = size; i > -1; --i)
 				{
 					if(openWindows[i]->requestFocus && !done)
 					{

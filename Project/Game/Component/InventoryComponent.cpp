@@ -107,7 +107,7 @@ Item* InventoryComponent::removeItem(int bag,int index,int numberOfItems)
 {
 	Item* item = NULL;
 	int j = 0;
-	for(int i = 0; i < bag; i++)
+	for(size_t i = 0; i < bag; i++)
 		j += bags[bag]->size;
 	if(bags[bag]->items[index].second >= numberOfItems)
 	{
