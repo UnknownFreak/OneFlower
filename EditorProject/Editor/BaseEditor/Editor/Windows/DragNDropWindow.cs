@@ -39,7 +39,7 @@ namespace BaseEditor
         {
             windowName.Text = str;
         }
-        public void addComponent(Component component)
+        public void addComponent(System.ComponentModel.Component component)
         {
             if (component == null)
             {

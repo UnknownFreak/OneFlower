@@ -29,8 +29,8 @@ namespace BaseEditor
             pointsToDraw = new Dictionary<String, Tuple<Point, Boolean>>();
             tmp = new Bitmap(256,256);
             empty = new Bitmap(256, 256);
-            selected = new Bitmap("selectedPoint.png");
-            regularPoint = new Bitmap("regularPoint.png");
+            selected = new Bitmap("Editor/selectedPoint.png");
+            regularPoint = new Bitmap("Editor/regularPoint.png");
             pictureBox1.Image = tmp;
             attachmentPoints1.onChangedIndex += onSelected;
             attachmentPoints1.onCheckedChange += onCheckedChange;
@@ -124,6 +124,7 @@ namespace BaseEditor
         }
         private void setUpImage()
         {
+            tmp = new Bitmap(tmp, mySelectedBitmap.Size);
             using (var canvas = Graphics.FromImage(tmp))
             {
                 canvas.Clear(Color.White);
@@ -139,6 +140,7 @@ namespace BaseEditor
                 }
             }
             pictureBox1.Image = tmp;
+            pictureBox1.Size = tmp.Size;
         }
 
         private void button1_Click(object sender, EventArgs e)

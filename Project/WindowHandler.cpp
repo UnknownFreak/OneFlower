@@ -15,6 +15,16 @@
 #include "Game\Logic\Time\Time.hpp"
 #include "Game\World\WorldManagement.hpp"
 #include "Game\LoadAndSave\LoadAndSave.hpp"
+
+#include "Game\Animations\SpriterOverride\SFMLObjectFactory.h"
+#include "Game\Animations\SpriterOverride\SFMLFileFactory.h"
+
+#include "Game\Animations\SpriterEngine\spriterengine.h"
+
+#include "Game\Animations\SpriterEntityInstance.hpp"
+#include "Game\Animations\SpriterModelContainer.hpp"
+
+
 int windowMessage();
 void RunMain();
 int test();
@@ -26,6 +36,7 @@ PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
+SpriterModelContainer Engine::ModelContainer;
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	//Engine::Window.hInstance = hInstance;
@@ -35,10 +46,18 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
+	Engine::World.loadMod("Demo.main");
+	// test
+	sf::Sprite sprite(*Engine::Graphic.requestTexture("DemoTest.png"));
+	SpriterEntityInstance inst = Engine::ModelContainer.requestEntityInstance("Spriter\\playerDemo.scml", "Player");
+	inst.myTextureMap.first = "Demo.main";
+	inst.myTextureMap.second = "DemoTest";
+	inst.MyEntityInstance->setPosition(SpriterEngine::point(400, 400));
 	//testSave();
 	//Loads the mods required for the "editor", not required for release mode.
-	Engine::World.loadMod("OneFlower.main");
-	Engine::World.loadZone("OneFlower.main",1);
+	//Engine::World.loadMod("OneFlower.main");
+	//Engine::World.loadZone("OneFlower.main",1);
+	/*
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
 	go->AddComponent<RenderComponent>("testTarget.png");
@@ -62,10 +81,11 @@ int windowMessage()
 	sf::Color c(1,0,0,1);
 	sf::Sprite sp = go->GetComponent<RenderComponent>()->sprite;
 	Engine::game.player = go;
+	//*/
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
-	Engine::GUI.showHideGUI();
-	Engine::game.addGameObject(go);
+	//Engine::GUI.showHideGUI();
+	//Engine::game.addGameObject(go);
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800,600);
@@ -103,6 +123,8 @@ int windowMessage()
 
 		Engine::Graphic.Draw();
 
+		inst.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime()*1000);
+		inst.render(&sprite);
 		Engine::GUI.Draw();
 
 		Engine::Graphic.view.render.display();

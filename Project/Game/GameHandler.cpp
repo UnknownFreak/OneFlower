@@ -115,10 +115,13 @@ void Game::update()
 		erase[i]->destroy();
 	}
 	erase.clear();
-	Component::Combat* combat = player->GetComponent<Component::Combat>();
-	if (combat->executingSkill)
+	if (player)
 	{
-		combat->update();
+		Component::Combat* combat = player->GetComponent<Component::Combat>();
+		if (combat->executingSkill)
+		{
+			combat->update();
+		}
 	}
 	//LOW: Make my own Custom Focus
 	if(Engine::Graphic.view.render.hasFocus())//Engine::Window.focus)

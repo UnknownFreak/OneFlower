@@ -10,6 +10,7 @@
 #include "../LoadAndSave/EditorObjectSaveMode.hpp"
 #include "../Quest/Quest.hpp"
 #include "../Item/Item.hpp"
+#include "../Animations/SpriterModelContainer.hpp"
 class Zone;
 class GameObject;
 class WorldManagement
@@ -79,7 +80,8 @@ public:
 	friend void LoadAllZones(std::map<std::pair<std::string,unsigned int>, DBZone>& nameOfAllZones);
 	friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	friend void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems);
-	friend void LoadAllQuests(std::map<std::pair<std::string, unsigned int>, Quests::Quest> editorAllQuests);
+	friend void LoadAllQuests(std::map<std::pair<std::string, unsigned int>, Quests::Quest>& editorAllQuests);
+	friend void LoadAllTextureMaps(SpriterModelContainer& container);
 	size_t EditorGetValidID();
 	size_t ID = 1;
 #endif
@@ -87,6 +89,8 @@ public:
 	void drawLoadingScreen();
 	void loadSome();
 private:
+
+	void LoadAllEditorVariables();
 
 	GUI::Window::Addon::ProgressBar loadingScreenProgress;
 

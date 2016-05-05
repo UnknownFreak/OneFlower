@@ -32,9 +32,13 @@ namespace BaseEditor
         public static DragNDropWindow questCreator;
         public static QuestCreator questCreatorField;
 
-
         public static DragNDropWindow zoneViewWindow;
         public static zonefield zoneView;
+
+        public static DragNDropWindow spriterSceneWindow;
+        public static SpriterScene.SpriterScene spriterScene;
+
+
         public static MainEditorWindow main;
         /// <summary>
         /// The main entry point for the application.
@@ -44,7 +48,9 @@ namespace BaseEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             main = new MainEditorWindow();
+
             Console.WriteLine(main);
             Application.Run(main);
         }

@@ -14,11 +14,11 @@ namespace BaseEditor.Editor.MouseHook
         public static event EventHandler MouseActionR = delegate { };
         public static void Start()
         {
-            _hookID = SetHook(_proc);
+            //_hookID = SetHook(_proc);
         }
         public static void stop()
         {
-            UnhookWindowsHookEx(_hookID);
+            //UnhookWindowsHookEx(_hookID);
         }
 
         private static LowLevelMouseProc _proc = HookCallback;

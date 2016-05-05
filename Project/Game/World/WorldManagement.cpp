@@ -414,9 +414,7 @@ void WorldManagement::newMod(std::string modName, std::vector<std::string> depen
 	}
 	openedMod = modName;
 	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, modLoadOrder.loadOrder.size()));
-	LoadAllZones(EditorAllZones);
-	LoadAllPrefabs(editorPrefabContainer);
-	LoadAllItems(EditorAllItems);
+	LoadAllEditorVariables();
 }
 std::vector<std::string> WorldManagement::loadMod(std::string myMod)
 {
@@ -441,21 +439,27 @@ std::vector<std::string> WorldManagement::loadMod(std::string myMod)
 	std::cout << "Mod loaded in this order\n";
 	for each (auto it in modLoadOrder.loadOrder)
 		std::cout << it.first << " - " << it.second << "\n";
+	LoadAllEditorVariables();
+	return myFailed;
+}
+void WorldManagement::LoadAllEditorVariables()
+{
+	LoadAllTextureMaps(Engine::ModelContainer);
 	LoadAllZones(EditorAllZones);
 	LoadAllPrefabs(editorPrefabContainer);
 	LoadAllItems(EditorAllItems);
-	return myFailed;
+	LoadAllQuests(EditorAllQuests);
 }
 std::vector<std::string> WorldManagement::getModDependencies(std::string mod)
 {
 	ModHeader modHdr;
 	if (!loadModHeader(mod, modHdr))
 	{
-		return{};
+		return {};
 	}
 	else
 	{
-		return  modHdr.dependencies;
+		return modHdr.dependencies;
 	}
 }
 std::string WorldManagement::loadMods(std::string myMod)
@@ -463,7 +467,6 @@ std::string WorldManagement::loadMods(std::string myMod)
 	ModHeader modHdr;
 	if (!loadModHeader(myMod, modHdr))
 	{
-		std::cout << "Failed to load dependency mod: " + myMod << std::endl;
 		return "Failed to load dependency mod: " + myMod;
 	}
 	else

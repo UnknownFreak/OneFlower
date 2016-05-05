@@ -4,6 +4,7 @@
 #include "IBaseComponent.hpp"
 #include "../../Vector.h"
 #include "../Animations/SpriteSheetAnimation.hpp"
+#include "../Animations/SpriterEntityInstance.hpp"
 
 class RenderComponent: public IBaseComponent < RenderComponent >
 {
@@ -45,6 +46,8 @@ public:
 
 	std::map<std::string, SpriteSheetAnimation> animations;
 
+	SpriterEntityInstance instance;
+
 	//Reload texture with textureName
 	void setTexture();
 
@@ -54,7 +57,7 @@ public:
 	//Set texture with name of Texture and the size of rect for spritesheet and its location
 	void setTexture(std::string texture,int x,int y,int width,int height);
 
-	//Set texture, set Width and Height for the rect on each sprite for spritesheet, For animations only
+	//Set current animation, For animations only
 	void setAnimation(std::string animationName);
 
 	void updateFrame();

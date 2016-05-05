@@ -33,10 +33,10 @@ return 0;
 
 Gfx::Gfx()
 {
-	sf::Shader& shader = Engine::Graphic.test;
+	/*sf::Shader& shader = Engine::Graphic.test;
 	//shader.setParameter("texCord",);
 	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
-		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);
+		MessageBoxA(0,"ErrorLoadingShader","FUUU",0);*/
 	hitbox.setTexture(*requestTexture("HitBox.png"));
 }
 //*/

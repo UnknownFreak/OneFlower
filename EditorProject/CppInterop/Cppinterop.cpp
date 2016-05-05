@@ -1,7 +1,28 @@
 #include "CppInterop.hpp"
-
+using namespace System::IO;
 namespace ManagedGame
 {
+	std::string toString(String^ string)
+	{
+		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
+		return _mc->marshal_as<std::string>(string);
+	}
+	template<class T>
+	std::string toString(T^ value)
+	{
+		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
+		return _mc->marshal_as<std::string>(System::Convert::ToString(value));
+	}
+	bool toBoolean(Boolean^ b)
+	{
+		return b ? true : false;
+	}
+	template<class T>
+	int toInt(T value)
+	{
+		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
+		return std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(value)));
+	}
 #pragma region Main
 	ManagedGame::~ManagedGame()
 	{
@@ -28,6 +49,12 @@ namespace ManagedGame
 	void ManagedGame::setUpWindows(IntPtr^ handle)
 	{
 		mc = new NativeContainer((HWND)handle->ToPointer());
+
+#ifdef _DEBUG
+		String^ str = Directory::GetCurrentDirectory();
+		str = str->Replace("EditorProject\\Editor\\BaseEditor\\bin\\Debug","");
+		Directory::SetCurrentDirectory(str);
+#endif
 	}
 
 	bool ManagedGame::getRightClickedObject()
@@ -55,6 +82,141 @@ namespace ManagedGame
 	void ManagedGame::showHideHitboxes()
 	{
 		Engine::GUI.showHideGUI();
+	}
+#pragma endregion
+#pragma region Prefabs
+	List<String^>^ ManagedGame::getEntityNames(String^ string)
+	{
+		List<String^>^ list = gcnew List<String^>();
+		std::string str = toString(string);
+		for each (std::string var in Engine::ModelContainer.getEntities(Engine::ModelContainer.getModel(str)))
+		{
+			list->Add(gcnew String(var.c_str()));
+		}
+		return list;
+	}
+	List<String^>^ ManagedGame::getSceneFiles()
+	{
+		List<String^>^ list = gcnew List<String^>();
+		for each (std::pair<std::string ,SpriterTextureMapper*> var in Engine::ModelContainer.modelTextureMapper)
+		{
+			list->Add(gcnew String(var.first.c_str()));
+		}
+		return list;
+	}
+	List<String^>^ ManagedGame::getTextureMaps(String^ str)
+	{
+		List<String^>^ list = gcnew List<String^>();
+		for each (auto var in Engine::ModelContainer.getTextureMaps(toString(str)))
+		{
+			std::string str = var.first.first + ", " + var.first.second;
+			list->Add(gcnew String(str.c_str()));
+		}
+		return list;
+	}
+	void ManagedGame::removeSpriterModel(String^ sceneFile)
+	{
+		Engine::ModelContainer.removeModel(toString(sceneFile));
+	}
+	Dictionary<String^, TextureMapPointStruct^>^ ManagedGame::getTextureMapPoints(String^ model, String^ modName, String^ textureMap)
+	{
+		Dictionary<String^, TextureMapPointStruct^>^ points = gcnew Dictionary<String^, TextureMapPointStruct^>();
+		for each (auto var in Engine::ModelContainer.getTextureMapPoints(toString(model),toString(modName), toString(textureMap)))
+		{
+			TextureMapPointStruct^ tmp = gcnew TextureMapPointStruct();
+			tmp->pos = gcnew Tuple<int, int>(var.second.pos.x, var.second.pos.y);
+			tmp->size = gcnew Tuple<int, int>(var.second.size.x, var.second.size.y);
+			if (var.second.rotated)
+				tmp->rotated = true;
+			tmp->r = var.second.color.r;
+			tmp->g = var.second.color.g;
+			tmp->b = var.second.color.b;
+			points->Add(gcnew String(var.first.c_str()), tmp);
+		}
+		return points;
+	}
+	void ManagedGame::addTextureMap(String^ model, String^ textureMap)
+	{
+		Engine::ModelContainer.addTextureMap(toString(model),Engine::World.openedMod, toString(textureMap));
+	}
+	void ManagedGame::removeTextureMap(String^ model, String^ modName, String^ textureMap)
+	{
+		Engine::ModelContainer.removeTextureMap(toString(model), toString(modName), toString(textureMap));
+	}
+	void ManagedGame::setPointPosition(String^ model, String^ modName, String^ TextureMap, String^ pointName, TextureMapPointStruct^ point)
+	{
+		TextureMapPoint p;
+		p.pos.x = point->pos->Item1;
+		p.pos.y = point->pos->Item2;
+		p.size.x = point->size->Item1;
+		p.size.y = point->size->Item2;
+		Console::WriteLine("ispointrotated - before " + point->rotated->ToString() );
+		if (point->rotated->ToString() == "True")
+			p.rotated = true;
+		else
+			p.rotated = false;
+		Console::WriteLine("ispointrotated - after " + p.rotated);
+		p.color.r = point->r;
+		p.color.g = point->g;
+		p.color.b = point->b;
+		Engine::ModelContainer.setTextureMapPoint(toString(model), toString(modName), toString(TextureMap), toString(pointName), p);
+	}
+	void ManagedGame::setPrefabPreview(IntPtr^ handle)
+	{
+		mc->setGameObjectPreviewHandle((HWND)handle->ToPointer());
+	}
+	void ManagedGame::previewPrefab(PrefabStruct^ prefab)
+	{
+		if (prefab->rc->isUsed)
+		{
+			RenderComponent* render = new RenderComponent();
+			int a = toInt(prefab->rc->animationType);
+			if (a == 0)
+				render->animation = RenderComponent::AnimationType::Static;
+			else if (a == 1)
+				render->animation = RenderComponent::AnimationType::SpriteSheet;
+			else
+				render->animation = RenderComponent::AnimationType::Armature;
+			render->textureName = toString(prefab->rc->textureName);
+			if (render->textureName == "")
+				render->textureName = "test.png";
+			if (render->animation == RenderComponent::AnimationType::SpriteSheet)
+			{
+				for each (auto var in prefab->rc->animations)
+				{
+					SpriteSheetAnimation anim;
+					anim.AnimationTime = std::stoi(toString(var->time));
+					anim.looping = toBoolean(var->loop);
+					for each (auto rects in var->textureRect)
+					{
+						anim.AnimationFrames.push_back(sf::IntRect(toInt(rects->Item1), toInt(rects->Item2), toInt(rects->Item3), toInt(rects->Item4)));
+					}
+					render->animations.insert(std::pair<std::string, SpriteSheetAnimation>(toString(var->name), anim));
+				}
+			}
+			else if (render->animation == RenderComponent::AnimationType::Armature)
+			{
+				render->instance.entityName = toString(prefab->rc->spriterEntity);
+				render->instance.sceneFile = toString(prefab->rc->spriterScene);
+				render->instance.myTextureMap.first = toString(prefab->rc->textureMapMod);
+				render->instance.myTextureMap.second = toString(prefab->rc->textureMapName);
+			}
+			mc->setGameObjectRenderPreview(render);
+		}
+	}
+	List<String^>^ ManagedGame::getAnimations(String^model, String^entity)
+	{
+		List <String^>^ lst = gcnew List < String ^ >();
+		std::vector<std::string> animations = Engine::ModelContainer.getAnimationNames(toString(model), toString(entity));
+		for each (std::string var in animations)
+		{
+			lst->Add(gcnew String(var.c_str()));
+		}
+		return lst;
+	}
+	void ManagedGame::setPrefabAnimation(String^ animation)
+	{
+		mc->setAnimation(toString(animation));
 	}
 #pragma endregion
 #pragma region Quests
@@ -393,7 +555,7 @@ namespace ManagedGame
 	}
 #pragma endregion
 #pragma region Mods
-	String^ ManagedGame::newMod(String^ modName, List<String^>^ dependencies)
+	String^ ManagedGame::newMod(String^ modName, List<String^>^ dependencies,Boolean^ isMain)
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		std::vector<std::string> dep;
@@ -403,7 +565,10 @@ namespace ManagedGame
 		{
 			dep.push_back(_mc->marshal_as<std::string>(var));
 		}
-		Engine::World.newMod(name + ".mod", dep);
+		if (isMain)
+			Engine::World.newMod(name + ".main", dep);
+		else
+			Engine::World.newMod(name + ".mod", dep);
 		addInfoMessage("Successfully created new mod");
 		return gcnew String(Engine::World.openedMod.c_str());
 	}
@@ -418,6 +583,10 @@ namespace ManagedGame
 			}
 		else
 			addInfoMessage(gcnew String(Engine::World.openedMod.c_str()) + " loaded with no errors");
+		return gcnew String(Engine::World.openedMod.c_str());
+	}
+	String^ ManagedGame::getLoadedMod()
+	{
 		return gcnew String(Engine::World.openedMod.c_str());
 	}
 	void ManagedGame::save()
@@ -549,7 +718,7 @@ namespace ManagedGame
 	}
 	void ManagedGame::setTooltipPreview(IntPtr^ handle)
 	{
-		mc->setPreviewHandle((HWND)handle->ToPointer());
+		mc->setTooltipPreviewHandle((HWND)handle->ToPointer());
 	}
 #pragma endregion
 #pragma region DragDrop
@@ -588,43 +757,43 @@ namespace ManagedGame
 	{
 		for each (auto var in Engine::World.editorPrefabContainer)
 		{
-			String ^woop = gcnew String(var.second.tag.c_str());
-			if (!tv->Nodes["Prefabs"]->Nodes->ContainsKey(woop))
+			String ^tag = gcnew String(var.second.tag.c_str());
+			if (!tv->Nodes["Prefabs"]->Nodes->ContainsKey(tag))
 			{
-				tv->Nodes["Prefabs"]->Nodes->Add(woop, woop);
+				tv->Nodes["Prefabs"]->Nodes->Add(tag, tag);
 			}
 		}
 		for each (auto var in Engine::World.EditorAllItems)
 		{
-			String ^woop = gcnew String(var.second->getTagAsString().c_str());
-			if (!tv->Nodes["Items"]->Nodes->ContainsKey(woop))
+			String ^tag = gcnew String(var.second->getTagAsString().c_str());
+			if (!tv->Nodes["Items"]->Nodes->ContainsKey(tag))
 			{
-				tv->Nodes["Items"]->Nodes->Add(woop, woop);
-				if (woop->Equals("Armor"))
+				tv->Nodes["Items"]->Nodes->Add(tag, tag);
+				if (tag->Equals("Armor"))
 				{
-					String ^woop2 = gcnew String(((Items::Armor*)var.second)->armorType.c_str());
-					tv->Nodes["Items"]->Nodes[woop]->Nodes->Add(woop2, woop2);
+					String ^tag2 = gcnew String(((Items::Armor*)var.second)->armorType.c_str());
+					tv->Nodes["Items"]->Nodes[tag]->Nodes->Add(tag2, tag2);
 				}
-				else if (woop->Equals("Ammo"))
+				else if (tag->Equals("Ammo"))
 				{
-					String ^woop2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
-					tv->Nodes["Items"]->Nodes[woop]->Nodes->Add(woop2, woop2);
+					String ^tag2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
+					tv->Nodes["Items"]->Nodes[tag]->Nodes->Add(tag2, tag2);
 				}
-				else if (woop->Equals("Weapon"))
+				else if (tag->Equals("Weapon"))
 				{
-					String ^woop2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
-					tv->Nodes["Items"]->Nodes[woop]->Nodes->Add(woop2, woop2);
+					String ^tag2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
+					tv->Nodes["Items"]->Nodes[tag]->Nodes->Add(tag2, tag2);
 				}
 			}
-			else if (woop->Equals("Armor"))
+			else if (tag->Equals("Armor"))
 			{
-				String ^woop2 = gcnew String(((Items::Armor*)var.second)->armorType.c_str());
-				tv->Nodes["Items"]->Nodes[woop]->Nodes->Add(woop2, woop2);
+				String ^tag2 = gcnew String(((Items::Armor*)var.second)->armorType.c_str());
+				tv->Nodes["Items"]->Nodes[tag]->Nodes->Add(tag2, tag2);
 			}
-			else if (woop->Equals("Ammo"))
+			else if (tag->Equals("Ammo"))
 			{
-				String ^woop2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
-				tv->Nodes["Items"]->Nodes[woop]->Nodes->Add(woop2, woop2);
+				String ^tag2 = gcnew String(((Items::Ammo*)var.second)->ammoType.c_str());
+				tv->Nodes["Items"]->Nodes[tag]->Nodes->Add(tag2, tag2);
 			}
 		}
 	}

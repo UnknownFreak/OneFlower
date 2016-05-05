@@ -61,7 +61,10 @@ void RenderComponent::setAnimation(std::string animationName)
 			break;
 		case RenderComponent::Armature:
 		{
-		// TODO:
+			if (instance.MyEntityInstance != NULL)
+			{
+				instance.MyEntityInstance->setCurrentAnimation(animationName, 1);
+			}
 		}
 		break;
 	}

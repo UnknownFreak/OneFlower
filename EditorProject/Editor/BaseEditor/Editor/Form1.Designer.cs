@@ -40,6 +40,7 @@
             this.renderWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zonesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.messagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addZoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +48,7 @@
             this.removeZoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editZoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objectsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.spriterScenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,12 +60,14 @@
             this.windowToolStripMenuItem,
             this.worldToolStripMenuItem,
             this.objectsToolStripMenuItem1,
+            this.spriterScenesToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1335, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -119,6 +123,7 @@
             this.renderWindowToolStripMenuItem,
             this.objectsToolStripMenuItem,
             this.zonesToolStripMenuItem,
+            this.toolStripSeparator2,
             this.messagesToolStripMenuItem});
             this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
@@ -142,6 +147,11 @@
             this.zonesToolStripMenuItem.Name = "zonesToolStripMenuItem";
             this.zonesToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.zonesToolStripMenuItem.Text = "Zones";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(155, 6);
             // 
             // messagesToolStripMenuItem
             // 
@@ -190,6 +200,13 @@
             this.objectsToolStripMenuItem1.Size = new System.Drawing.Size(59, 20);
             this.objectsToolStripMenuItem1.Text = "Objects";
             // 
+            // spriterScenesToolStripMenuItem
+            // 
+            this.spriterScenesToolStripMenuItem.Name = "spriterScenesToolStripMenuItem";
+            this.spriterScenesToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.spriterScenesToolStripMenuItem.Text = "Spriter Scenes";
+            this.spriterScenesToolStripMenuItem.Click += new System.EventHandler(this.spriterScenesToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -237,6 +254,8 @@
         private System.Windows.Forms.ToolStripMenuItem objectsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem messagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem spriterScenesToolStripMenuItem;
 
 
     }

@@ -2,11 +2,11 @@
 #include <Windows.h>
 #include "../Vector.h"
 #include "../Engine.hpp"
-LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
-GameView::GameView():size(800,600)
+//LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam);
+GameView::GameView() : size(800, 600)
 {
 #ifdef _DEBUG
-	Vector2 size;
+	//Vector2 size;
 	LPCTSTR windowDefinedName;
 	LPCTSTR titleBarDisplay;
 	WNDCLASSEX wc;
@@ -64,17 +64,17 @@ GameView::~GameView()
 	UnregisterClass("GameViewWindow",NULL);
 }
 //HIGH: Remove this if not needed, Legacy shit?
-LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
-{
-	switch(msg)
-	{
-		case WM_MOVE:
-		{
-			break;
-		}
-		default:
-			break;
-	}
-	return DefWindowProc(hWnd,msg,wParam,lParam);
-}
+//LRESULT CALLBACK WndProcGameView(HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam)
+//{
+//	switch(msg)
+//	{
+//		case WM_MOVE:
+//		{
+//			break;
+//		}
+//		default:
+//			break;
+//	}
+//	return DefWindowProc(hWnd,msg,wParam,lParam);
+//}
 #endif

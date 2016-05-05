@@ -30,6 +30,10 @@
 #include "..\Component\CombatComponenet.hpp"
 #include "..\Component\TimerComponent.hpp"
 
+#include "../Animations/SpriterModelContainer.hpp"
+#include "../Animations/SpriteSheetAnimation.hpp"
+
+//
 #include "..\Item\Ammo.hpp"
 #include "..\Item\Armor.hpp"
 #include "..\Item\Bag.hpp"
@@ -167,6 +171,15 @@ void saveGameDatabase(
 		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(modhdr);
+
+		ind.flags = "-";
+		ind.ID = 0;
+		ind.type = "ModelContainer";
+		ind.modFile = "NULL";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(Engine::ModelContainer);
+
 		for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = EditorAllZones.begin(); it != EditorAllZones.end(); it++)
 		{
 			ind.flags = "-";
@@ -192,6 +205,7 @@ void saveGameDatabase(
 				}
 			}
 		}
+
 		for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
 		{
 			ind.flags = "-";
@@ -649,10 +663,7 @@ void load(Archive& archive,RenderComponent& rc)
 	rc.sprite.setScale(x,y);
 	archive(rc.size.x);
 	archive(rc.size.y);
-	bool oldA;
-	archive(oldA);
-	int old;
-	archive(old);
+	archive(rc.animation);
 	archive(rc.outline);
 }
 #pragma endregion
@@ -2054,6 +2065,35 @@ void LoadAllQuests(std::map<std::pair<std::string,unsigned int>, Quests::Quest>&
 		}
 	}
 }
+void LoadAllTextureMaps(SpriterModelContainer & container)
+{
+	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index(var.first + ".index", std::ios::binary);
+		std::ifstream database(var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == "ModelContainer")
+					{
+						database.seekg(ind.row);
+						std::cout << "loading textureMaps" << std::endl;
+						cereal::BinaryInputArchive ModelLoad(database);
+						ModelLoad(container);
+					}
+					else if (ind.flags == "EoF")
+						eof = true;
+				}
+			}
+		}
+	}
+}
 namespace Quests
 {
 	template<class Archive>
@@ -2226,4 +2266,218 @@ void load(Archive& ar, Attack& atk)
 	ar(atk.type);
 }
 
+#pragma endregion
+
+#pragma region Animations
+
+#pragma region Sprite Sheet Animation
+template<class Archive>
+void save(Archive& ar, const SpriteSheetAnimation& animation)
+{
+	ar(animation.looping);
+	ar(animation.AnimationTime);
+	ar(animation.CurrentTime);
+	ar(animation.AnimationFrames.size());
+	for each (sf::IntRect var in animation.AnimationFrames)
+		ar(var.height,var.left,var.top,var.width);
+}
+template<class Archive>
+void load(Archive& ar, SpriteSheetAnimation& animation)
+{
+	ar(animation.looping);
+	ar(animation.AnimationTime);
+	ar(animation.CurrentTime);
+	size_t size;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		int h, l, t, w;
+		ar(h, l, t, w);
+		animation.AnimationFrames.push_back(sf::IntRect(l,t,w,h));
+	}
+}
+#pragma endregion
+
+#pragma region spriterModels
+template<class Archive>
+void save(Archive& ar, const SpriterModelContainer &smc)
+{
+	ar(smc.modelTextureMapper.size());
+	for each (auto var in smc.modelTextureMapper)
+	{
+		ar(var.first);
+		ar(*var.second);
+	}
+}
+template<class Archive>
+void load(Archive& ar, SpriterModelContainer &smc)
+{
+	size_t size;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		std::string a;
+		ar(a);
+		SpriterTextureMapper* stm = new SpriterTextureMapper();
+		ar(*stm);
+		smc.modelTextureMapper.insert(std::pair<std::string,SpriterTextureMapper*>(a,stm));
+	}
+}
+
+template<class Archive>
+void save(Archive& ar, const SpriterTextureMapper &stm)
+{
+	ar(stm.currentTextureMapString.first,stm.currentTextureMapString.second);
+	std::map < std::pair<std::string, std::string>, TextureMap> theStuffWeWillActuallySave;
+	for (std::map<std::pair<std::string, std::string>, TextureMap>::const_iterator it = stm.textureMaps.begin();
+		it != stm.textureMaps.end(); it++)
+	{
+
+		if (it->second.mode == EditorObjectSaveMode::DEFAULT)
+		{
+			if (it->second.modName == Engine::World.openedMod || it->second.modName == "DEFAULT" )
+			{
+				theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
+			}
+		}
+		else if (it->second.mode == EditorObjectSaveMode::REMOVE)
+		{
+			if (it->second.modName != Engine::World.openedMod)
+			{
+				theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
+			}
+		}
+		else if (it->second.mode == EditorObjectSaveMode::EDIT)
+		{
+			TextureMap tex = it->second;
+			std::cout << "texturemap modname: " << it->second.modName << std::endl;
+			std::cout << "opened mod: " << Engine::World.openedMod << std::endl;
+			if (it->second.modName == Engine::World.openedMod || it->second.modName == "DEFAULT")
+			{
+				tex.mode = EditorObjectSaveMode::DEFAULT;
+			}
+			theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, tex));
+		}
+		else if (it->second.mode == EditorObjectSaveMode::ADD)
+		{
+			TextureMap tex = it->second;
+			if (it->second.modName == Engine::World.openedMod)
+			{
+				tex.mode = EditorObjectSaveMode::DEFAULT;
+			}
+			theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, tex));
+		}
+	}
+	ar(theStuffWeWillActuallySave.size());
+	for (std::map<std::pair<std::string, std::string>, TextureMap>::iterator i = theStuffWeWillActuallySave.begin(); i != theStuffWeWillActuallySave.end(); i++)
+	{
+		ar(i->first.first);
+		ar(i->first.second);
+		ar(i->second);
+	}
+}
+template<class Archive>
+void load(Archive& ar, SpriterTextureMapper &stm)
+{
+	ar(stm.currentTextureMapString.first, stm.currentTextureMapString.second);
+	size_t size;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		std::string name = "OneFlower.main";
+		std::string name2 = "Default";
+		TextureMap tex;
+		ar(name);
+		ar(name2);
+		ar(tex);
+		std::cout << "loaded map mode: " << tex.mode << std::endl;
+		std::cout << " key is <" << name << ", " << name2 << ">\n";
+		if (tex.mode == EditorObjectSaveMode::REMOVE)
+		{
+			if (stm.textureMaps.find(std::pair<std::string, std::string>(name, name2)) != stm.textureMaps.end())
+				stm.textureMaps.erase(stm.textureMaps.find(std::pair<std::string, std::string>(name, name2)));
+		}
+		else if (tex.mode == EditorObjectSaveMode::EDIT)
+		{
+			if (stm.textureMaps.find(std::pair<std::string, std::string>(name, name2)) != stm.textureMaps.end())
+				stm.textureMaps[std::pair<std::string, std::string>(name, name2)].TexturePoints = tex.TexturePoints;
+		}
+		else
+		{
+			if (stm.textureMaps.find({ name, name2 }) != stm.textureMaps.end())
+				stm.textureMaps.at({ name, name2 }) = tex;
+			else
+				stm.textureMaps.insert(std::pair<std::pair<std::string, std::string>, TextureMap>({ name, name2 }, tex));
+		}
+	}
+}
+
+template <class Archive>
+void save(Archive& ar, const TextureMap& tm)
+{
+	ar(tm.TexturePoints.size());
+	for each (std::pair<std::string,TextureMapPoint> var in tm.TexturePoints)
+	{
+		ar(var.first);
+		ar(var.second.pos.x);
+		ar(var.second.pos.y);
+		ar(var.second.size.x);
+		ar(var.second.size.y);
+		ar(var.second.rotated);
+		ar(var.second.color.r);
+		ar(var.second.color.g);
+		ar(var.second.color.b);
+	}
+	ar(tm.mode);
+	ar(tm.modName);
+	std::cout << "saving texturemap\n";
+}
+template <class Archive>
+void load(Archive& ar, TextureMap& tm)
+{
+	size_t size;
+	ar(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		std::string a;
+		TextureMapPoint b;
+		ar(a);
+		ar(b.pos.x);
+		ar(b.pos.y);
+		ar(b.size.x);
+		ar(b.size.y);
+		ar(b.rotated);
+		ar(b.color.r);
+		ar(b.color.g);
+		ar(b.color.b);
+		tm.TexturePoints.insert(std::pair<std::string, TextureMapPoint>(a, b));
+	}
+	ar(tm.mode);
+	ar(tm.modName);
+	std::cout << "loaded texturemap\n containing: " << tm.TexturePoints.size() << " points\n";
+}
+#pragma endregion
+
+#pragma region SpriterEntityInstance
+
+template<class Archive>
+void save(Archive& ar, const SpriterEntityInstance& inst)
+{
+	ar(inst.entityName);
+	ar(inst.sceneFile);
+	ar(inst.myTextureMap.first);
+	ar(inst.myTextureMap.second);
+}
+template<class Archive>
+void load(Archive& ar, SpriterEntityInstance& inst)
+{
+	ar(inst.entityName);
+	ar(inst.sceneFile);
+	ar(inst.myTextureMap.first);
+	ar(inst.myTextureMap.second);
+
+	inst.MyEntityInstance = Engine::ModelContainer.requestEntityInstance(inst.sceneFile, inst.entityName).MyEntityInstance;
+}
+
+#pragma endregion
 #pragma endregion

@@ -58,6 +58,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -183,6 +184,12 @@
     <Compile Include="RenderAreaControls.Designer.cs">
       <DependentUpon>RenderAreaControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpriterScene\SpriterScene.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpriterScene\SpriterScene.Designer.cs">
+      <DependentUpon>SpriterScene.cs</DependentUpon>
+    </Compile>
     <Compile Include="Zone\ZoneField.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -247,6 +254,9 @@
     <EmbeddedResource Include="RenderAreaControls.resx">
       <DependentUpon>RenderAreaControls.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SpriterScene\SpriterScene.resx">
+      <DependentUpon>SpriterScene.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Zone\ZoneField.resx">
       <DependentUpon>ZoneField.cs</DependentUpon>
     </EmbeddedResource>
@@ -277,9 +287,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CppInterop\CppInterop.vcxproj">
