@@ -55,7 +55,7 @@ void NativeContainer::setGameObjectRenderPreview(RenderComponent* inputrender)
 	else
 	{
 		previewObject->AddComponent(inputrender);
-		Engine::Graphic.removeFromDrawList(previewObject);
+		Engine::Graphic.removeFromdrawList(previewObject);
 	}
 }
 void NativeContainer::setTooltipPreview(std::string a, std::string b)
@@ -117,6 +117,24 @@ void NativeContainer::setAnimation(std::string animation)
 		previewEntityInstance->setCurrentTime(0);
 	}
 }
+void update()
+{
+	Engine::time.elapsed += Engine::time.clock.restart();
+
+	while (Engine::time.elapsed >= Engine::time.update_ms)
+	{
+		Engine::Input.update();
+		//Engine::Physics.update();
+		Engine::game.update();
+
+		Engine::time.elapsed -= Engine::time.update_ms;
+	}
+
+	Engine::Graphic.draw();
+	Engine::GUI.draw();
+	Engine::Graphic.view.render.display();
+
+}
 int NativeContainer::windowMessage()
 {
 	TestAdd();
@@ -175,20 +193,7 @@ int NativeContainer::windowMessage()
 		}
 		else
 		{
-			Engine::Input.update();
-
-			Engine::game.update();
-
-			Engine::Physics.update();
-
-			Engine::Graphic.Draw();
-
-			//Engine::GUI.Draw();
-			Engine::Graphic.view.render.display();
-
-			//LOW: Fix this, By moving it somewhere else? and have it return a constant variable
-			Engine::time.restartDelta();
-			time.FPS();
+			update();
 		}
 		Engine::Graphic.view.render.setActive(false);
 		tooltipPreviewRender.setActive(true);

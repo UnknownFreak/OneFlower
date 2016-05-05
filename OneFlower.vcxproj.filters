@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Engine">      <UniqueIdentifier>{1d604030-0fe4-466a-a75d-207b37df8965}</UniqueIdentifier>    </Filter>    <Filter Include="Game">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{1d604030-0fe4-466a-a75d-207b37df8965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
       <UniqueIdentifier>{eea9e98d-1670-4574-8a8c-c87f25e23892}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Window">      <UniqueIdentifier>{610e2f9d-8024-464c-90e7-e67867747c5f}</UniqueIdentifier>    </Filter>    <Filter Include="Engine\Editor">      <UniqueIdentifier>{3c81c7ba-2fb1-4505-83ab-2a15a49e0d24}</UniqueIdentifier>    </Filter>    <Filter Include="Game\Logic">
+    <Filter Include="Engine\Window">
+      <UniqueIdentifier>{610e2f9d-8024-464c-90e7-e67867747c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Editor">
+      <UniqueIdentifier>{3c81c7ba-2fb1-4505-83ab-2a15a49e0d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Logic">
       <UniqueIdentifier>{d05649a9-7455-4c72-8bd4-85426d597dec}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\World">
@@ -148,9 +157,6 @@
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\InventoryComponent.hpp">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\Component\MovementComponent.hpp">
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Component\OverheadComponent.hpp">
@@ -617,6 +623,9 @@
     <ClInclude Include="Project\Game\Animations\TextureMapPoint.hpp">
       <Filter>Game\Animations\Armature</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Physics\Collider.hpp" />
+    <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp" />
+    <ClInclude Include="Project\Game\World\GridTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -638,9 +647,6 @@
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Component\InventoryComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\Component\MovementComponentDefiner.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Component\OverheadComponent.cpp">
@@ -1086,10 +1092,15 @@
     <ClCompile Include="Project\Game\Animations\TextureMapPointDefiner.cpp">
       <Filter>Game\Animations\Armature</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Game\Logic\Physics\Movement.cpp" />
+    <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">
       <Filter>Other</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project\Vector.inl" />
   </ItemGroup>
 </Project>
