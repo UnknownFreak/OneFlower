@@ -1,10 +1,8 @@
 // ManagedGame.h
-
 #ifndef MANAGEDGAME_HPP
 #define MANAGEDGAME_HPP
-#ifndef _EDITOR_
-#define _EDITOR_
 #endif
+#ifdef _EDITOR_
 #include "NativeContainer.hpp"
 #include "Game\Item\Item.hpp"
 #include "Game\Item\Ammo.hpp"
@@ -18,6 +16,11 @@
 #include "Game\GUI\ToolTip.hpp"
 #include "Game\LoadAndSave\DatabaseIndex.hpp"
 #include <msclr\marshal_cppstd.h>
+
+#using <mscorlib.dll>
+#using <System.dll>
+#using <System.Windows.Forms.dll>
+#using <System.Drawing.dll>
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Drawing;

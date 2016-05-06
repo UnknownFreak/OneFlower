@@ -104,7 +104,7 @@ namespace BaseEditor
             Program.spriterSceneWindow.Show(this);
             Program.spriterSceneWindow.Hide();
             Program.spriterSceneWindow.Text = "Manage Spriter Scenes";
-            Program.spriterScene.onListChange += Program.prefabField.renderPanel.spriterScene_onListChange;
+            //Program.spriterScene.onListChange += Program.prefabField.renderPanel.spriterScene_onListChange;
 
             Program.messageWindow.Left = Left;
             Program.messageWindow.Top = Bottom - BaseEditor.Program.messageWindow.Size.Height;
@@ -214,6 +214,18 @@ namespace BaseEditor
                     Program.objectView.init();
                     Program.spriterScene.init();
                 }
+            }
+        }
+
+        public void loadMod(String str)
+        {
+            String myLoadedMod = Program.mg.loadMod(str);
+            if (myLoadedMod != "<Not Set>")
+            {
+                Text = "Editor  " + myLoadedMod;
+                Program.zoneView.init();
+                Program.objectView.init();
+                Program.spriterScene.init();
             }
         }
 

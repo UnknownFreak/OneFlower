@@ -1,5 +1,4 @@
 #include "CppInterop.hpp"
-using namespace System::IO;
 namespace ManagedGame
 {
 	std::string toString(String^ string)
@@ -15,7 +14,9 @@ namespace ManagedGame
 	}
 	bool toBoolean(Boolean^ b)
 	{
-		return b ? true : false;
+		if (b->ToString() == "True")
+		return true;
+		return false;
 	}
 	template<class T>
 	int toInt(T value)
@@ -49,14 +50,7 @@ namespace ManagedGame
 	void ManagedGame::setUpWindows(IntPtr^ handle)
 	{
 		mc = new NativeContainer((HWND)handle->ToPointer());
-
-#ifdef _DEBUG
-		String^ str = Directory::GetCurrentDirectory();
-		str = str->Replace("EditorProject\\Editor\\BaseEditor\\bin\\Debug","");
-		Directory::SetCurrentDirectory(str);
-#endif
 	}
-
 	bool ManagedGame::getRightClickedObject()
 	{
 		//mc->lock();
@@ -167,7 +161,7 @@ namespace ManagedGame
 	}
 	void ManagedGame::previewPrefab(PrefabStruct^ prefab)
 	{
-		if (prefab->rc->isUsed)
+		if (toBoolean(prefab->rc->isUsed))
 		{
 			RenderComponent* render = new RenderComponent();
 			int a = toInt(prefab->rc->animationType);
@@ -202,6 +196,10 @@ namespace ManagedGame
 				render->instance.myTextureMap.second = toString(prefab->rc->textureMapName);
 			}
 			mc->setGameObjectRenderPreview(render);
+		}
+		else
+		{
+			mc->setGameObjectRenderPreview(NULL);
 		}
 	}
 	List<String^>^ ManagedGame::getAnimations(String^model, String^entity)
@@ -565,7 +563,7 @@ namespace ManagedGame
 		{
 			dep.push_back(_mc->marshal_as<std::string>(var));
 		}
-		if (isMain)
+		if (toBoolean(isMain))
 			Engine::World.newMod(name + ".main", dep);
 		else
 			Engine::World.newMod(name + ".mod", dep);

@@ -7,11 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OneFlower", "OneFlower.vcxp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "EditorProject\Editor\BaseEditor\Editor.csproj", "{C459A581-16EF-4FBF-9710-DDC6B6EE2C81}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppInterop", "EditorProject\CppInterop\CppInterop.vcxproj", "{75E3433B-AD17-4579-B115-32DD2A097974}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F58779DA-3DE9-4DAA-8457-9F0556580466} = {F58779DA-3DE9-4DAA-8457-9F0556580466}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Lib Engine|Any CPU = Debug Lib Engine|Any CPU
@@ -57,21 +52,6 @@ Global
 		{C459A581-16EF-4FBF-9710-DDC6B6EE2C81}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C459A581-16EF-4FBF-9710-DDC6B6EE2C81}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C459A581-16EF-4FBF-9710-DDC6B6EE2C81}.Release|Win32.ActiveCfg = Release|Any CPU
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug Lib Engine|Any CPU.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug Lib Engine|Mixed Platforms.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug Lib Engine|Mixed Platforms.Build.0 = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug Lib Engine|Win32.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug Lib Engine|Win32.Build.0 = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug|Win32.ActiveCfg = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Debug|Win32.Build.0 = Debug|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Release|Any CPU.ActiveCfg = Release|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Release|Win32.ActiveCfg = Release|Win32
-		{75E3433B-AD17-4579-B115-32DD2A097974}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

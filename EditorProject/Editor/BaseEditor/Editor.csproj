@@ -289,9 +289,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CppInterop\CppInterop.vcxproj">
-      <Project>{75e3433b-ad17-4579-b115-32dd2a097974}</Project>
-      <Name>CppInterop</Name>
+    <ProjectReference Include="..\..\..\OneFlower.vcxproj">
+      <Project>{f58779da-3de9-4daa-8457-9f0556580466}</Project>
+      <Name>OneFlower</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

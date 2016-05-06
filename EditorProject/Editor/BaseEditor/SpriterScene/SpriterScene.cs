@@ -35,15 +35,14 @@ namespace BaseEditor.SpriterScene
             foreach (var item in list)
             {
                 sceneFilesList.Items.Add(item, item);
-                onListChange(this, new AddSpriterModel() { Name = item, Remove = false });
+                if(onListChange != null)
+                    onListChange(this, new AddSpriterModel() { Name = item, Remove = false });
             }
         }
         private void addSpriterSceneFile_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
         }
-
-
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -60,7 +60,7 @@ namespace BaseEditor.Prefab
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Program.spriterSceneWindow.ShowDialog();
+            Program.spriterSceneWindow.Visible = true;
         }
 
         private void SceneFileDropDown_SelectedIndexChanged(object sender, EventArgs e)
@@ -107,7 +107,6 @@ namespace BaseEditor.Prefab
 
 
         }
-
         private void textureMap_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (textureMap.SelectedItem != null)
@@ -129,7 +128,7 @@ namespace BaseEditor.Prefab
             EntityNameDropDown.SelectedItem = rc.spriterEntity;
             textBox3.Text = rc.textureName;
             if(textBox3.Text.EndsWith(".png"))
-            pictureBox2.Load(textBox3.Text);
+                pictureBox2.Load(textBox3.Text);
             SceneFileDropDown.SelectedItem = rc.spriterScene;
             animationType.SelectedIndex = rc.animationType;
             checkBox1.Checked = rc.isUsed;
@@ -142,7 +141,7 @@ namespace BaseEditor.Prefab
     }
     public class _RenderComponentStruct
     {
-        public ManagedGame.RenderComponentStruct rc { get; set;}
+        public ManagedGame.RenderComponentStruct rc { get; set; }
         public Boolean isUsed { get { return System.Convert.ToBoolean(rc.isUsed); } set { rc.isUsed = value; } }
         public String textureName { get { return rc.textureName; } set { rc.textureName = value; } }
         public int animationType { get { return System.Convert.ToInt32(rc.animationType); } set { rc.animationType = value; } }

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ManagedGame;
 using System.Threading;
 using BaseEditor.Editor;
+using System.IO;
 namespace BaseEditor
 {
     static class Program
@@ -28,7 +29,6 @@ namespace BaseEditor
         public static DragNDropWindow prefabCreator;
         public static PrefabCreator prefabField;
 
-
         public static DragNDropWindow questCreator;
         public static QuestCreator questCreatorField;
 
@@ -37,7 +37,6 @@ namespace BaseEditor
 
         public static DragNDropWindow spriterSceneWindow;
         public static SpriterScene.SpriterScene spriterScene;
-
 
         public static MainEditorWindow main;
         /// <summary>
@@ -49,9 +48,12 @@ namespace BaseEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            main = new MainEditorWindow();
+        	String str = Directory.GetCurrentDirectory();
+		    str = str.Replace("EditorProject\\Editor\\BaseEditor\\bin\\Debug","");
+		    Directory.SetCurrentDirectory(str);
 
-            Console.WriteLine(main);
+            main = new MainEditorWindow();
+            main.loadMod("Demo.main");
             Application.Run(main);
         }
     }

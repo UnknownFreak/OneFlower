@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ManagedGame;
+using BaseEditor.Prefab;
 
 namespace BaseEditor
 {
@@ -17,20 +19,16 @@ namespace BaseEditor
         {
             prefab = new ManagedGame.PrefabStruct();
             InitializeComponent();
-            renderPanel.setRenderEdit(new Prefab._RenderComponentStruct() { rc = new ManagedGame.RenderComponentStruct() });
+            //renderPanel.setRenderEdit(new _RenderComponentStruct() { rc = new ManagedGame.RenderComponentStruct() });
             Program.mg.setPrefabPreview(previewPanel.Handle);
-            renderPanel.onEdit += renderPanel_onEdit;
+            //renderPanel.onEdit += renderPanel_onEdit;
         }
 
-        void renderPanel_onEdit(object sender, Prefab._RenderComponentStruct e)
+        void renderPanel_onEdit(object sender, _RenderComponentStruct e)
         {
             prefab.rc = e.rc;
             Program.mg.previewPrefab(prefab);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-          
-        }
     }
+ 
 }

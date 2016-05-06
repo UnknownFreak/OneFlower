@@ -34,12 +34,15 @@ void NativeContainer::setGameObjectPreviewHandle(HWND handle)
 }
 void NativeContainer::setGameObjectRenderPreview(RenderComponent* inputrender)
 {
+	if (!inputrender)
+		drawPreviewRender = false;
+	else
+		drawPreviewRender = true;
 	if (!previewObject)
 	{
 		previewObject = new GameObject();
 		previewObject->GetComponent<TransformComponent>()->position.x = 200;
 		previewObject->GetComponent<TransformComponent>()->position.y = 400;
-
 	}
 	if (previewObject->GetComponent<RenderComponent>())
 	{
@@ -213,7 +216,7 @@ int NativeContainer::windowMessage()
 		if (previewObject)
 		{
 			RenderComponent* render = previewObject->GetComponent<RenderComponent>();
-			if (render)
+			if (render && drawPreviewRender)
 			{
 				if (tmprender)
 				{
@@ -240,18 +243,19 @@ int NativeContainer::windowMessage()
 					delete tmprender;
 					tmprender = 0;
 				}
+				Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
 				switch (render->animation)
 				{
 				case RenderComponent::AnimationType::SpriteSheet:
 					render->updateFrame();
 				case RenderComponent::AnimationType::Static:
+					render->sprite.setPosition(pos.x,pos.y);
 					gameObjectPreviewRender.draw(render->sprite);
 					break;
 				case RenderComponent::AnimationType::Armature:
 				{
 					if (render->instance.MyEntityInstance && render->instance.textureMaps)
 					{
-						Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
 						render->instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime() * 1000);
 						render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
 						render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;

@@ -626,6 +626,9 @@
     <ClInclude Include="Project\Game\Logic\Physics\Collider.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp" />
     <ClInclude Include="Project\Game\World\GridTile.h" />
+    <ClInclude Include="Project\CppInterop.hpp">
+      <Filter>C++Interop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -1094,6 +1097,9 @@
     </ClCompile>
     <ClCompile Include="Project\Game\Logic\Physics\Movement.cpp" />
     <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
+    <ClCompile Include="Project\Cppinterop.cpp">
+      <Filter>C++Interop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">

@@ -52,7 +52,7 @@ private:
 	bool creatingTooltip = false;
 	bool creatingNewRender = false;
 	bool running = true;
-
+	bool drawPreviewRender;
 };
 #endif
 #endif
