@@ -104,7 +104,7 @@ namespace BaseEditor
             Program.spriterSceneWindow.Show(this);
             Program.spriterSceneWindow.Hide();
             Program.spriterSceneWindow.Text = "Manage Spriter Scenes";
-            //Program.spriterScene.onListChange += Program.prefabField.renderPanel.spriterScene_onListChange;
+            Program.spriterScene.onListChange += Program.prefabField.renderPanel.spriterScene_onListChange;
 
             Program.messageWindow.Left = Left;
             Program.messageWindow.Top = Bottom - BaseEditor.Program.messageWindow.Size.Height;

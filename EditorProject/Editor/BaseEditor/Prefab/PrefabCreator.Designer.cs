@@ -40,6 +40,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.renderPanel = new BaseEditor.Prefab.Render();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
@@ -113,6 +114,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -255,12 +257,20 @@
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.renderPanel);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(436, 680);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Render";
+            // 
+            // renderPanel
+            // 
+            this.renderPanel.Location = new System.Drawing.Point(3, 2);
+            this.renderPanel.Name = "renderPanel";
+            this.renderPanel.Size = new System.Drawing.Size(425, 664);
+            this.renderPanel.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -945,6 +955,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1064,8 +1075,8 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Panel panel10;
-        public Prefab.Render renderPanel;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Panel previewPanel;
+        public Prefab.Render renderPanel;
     }
 }

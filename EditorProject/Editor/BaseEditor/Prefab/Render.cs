@@ -15,7 +15,6 @@ namespace BaseEditor.Prefab
         public Render()
         {
             InitializeComponent();
-            animationType.SelectedIndex = 0;
         }
 
         public void spriterScene_onListChange(object sender, SpriterScene.AddSpriterModel e)
@@ -132,6 +131,7 @@ namespace BaseEditor.Prefab
             SceneFileDropDown.SelectedItem = rc.spriterScene;
             animationType.SelectedIndex = rc.animationType;
             checkBox1.Checked = rc.isUsed;
+            animationType.SelectedIndex = 0;
         }
 
         private void AnimationDropDown_SelectedIndexChanged(object sender, EventArgs e)

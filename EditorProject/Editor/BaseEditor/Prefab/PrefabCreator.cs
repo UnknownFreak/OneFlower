@@ -19,9 +19,9 @@ namespace BaseEditor
         {
             prefab = new ManagedGame.PrefabStruct();
             InitializeComponent();
-            //renderPanel.setRenderEdit(new _RenderComponentStruct() { rc = new ManagedGame.RenderComponentStruct() });
+            renderPanel.setRenderEdit(new _RenderComponentStruct() { rc = new ManagedGame.RenderComponentStruct() });
             Program.mg.setPrefabPreview(previewPanel.Handle);
-            //renderPanel.onEdit += renderPanel_onEdit;
+            renderPanel.onEdit += renderPanel_onEdit;
         }
 
         void renderPanel_onEdit(object sender, _RenderComponentStruct e)
