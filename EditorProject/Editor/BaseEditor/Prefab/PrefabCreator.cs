@@ -30,5 +30,4 @@ namespace BaseEditor
             Program.mg.previewPrefab(prefab);
         }
     }
- 
 }

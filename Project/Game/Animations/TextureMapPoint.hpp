@@ -6,8 +6,8 @@
 struct TextureMapPoint
 {
 	TextureMapPoint();
-	Vector2 pos;
-	Vector2 size;
+	Vector2i pos;
+	Vector2i size;
 	bool rotated;;
 	sf::Color color;
 };

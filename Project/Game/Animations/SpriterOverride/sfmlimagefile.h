@@ -20,7 +20,6 @@ namespace SpriterEngine
 		std::string refName;
 		SpriterTextureMapper *TextureMapper;
 
-		Vector2 position;
 		void initializeFile();
 	};
 

@@ -49,6 +49,7 @@ public:
 	void drawGrid();
 #ifdef _DEBUG
 	void drawGizmo();
+	bool drawHitboxes = true;
 #endif
 	std::vector<GameObject*> selectedDrawList;
 	std::vector<Tile> foregroundSpriteList;

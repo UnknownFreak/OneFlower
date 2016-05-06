@@ -56,6 +56,10 @@ namespace BaseEditor
                 addZone.X = tmp;
                 Double.TryParse(textBox6.Text, out tmp);
                 addZone.Y = tmp;
+                if (addZone.background == "")
+                    addZone.background = "test.png";
+                if (addZone.loadingScreen == "")
+                    addZone.loadingScreen = "test.png";
                 Program.mg.editZone(addZone, Program.zoneView.zoneView);
             }
             else
@@ -71,7 +75,11 @@ namespace BaseEditor
                 addZone.X = tmp;
                 Double.TryParse(textBox6.Text, out tmp);
                 addZone.Y = tmp;
-                Program.mg.addZone(addZone,Program.zoneView.zoneView);
+                if (addZone.background == "")
+                    addZone.background = "test.png";
+                if (addZone.loadingScreen == "")
+                    addZone.loadingScreen = "test.png";
+                Program.mg.addZone(addZone, Program.zoneView.zoneView);
             }
             //UpdateZoneList and create a new zone.
             (this.Parent as Form).Close();

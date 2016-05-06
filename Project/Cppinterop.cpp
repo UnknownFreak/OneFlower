@@ -75,7 +75,7 @@ namespace ManagedGame
 	}
 	void ManagedGame::showHideHitboxes()
 	{
-		Engine::GUI.showHideGUI();
+		mc->showHideHitboxes();
 	}
 #pragma endregion
 #pragma region Prefabs
@@ -510,7 +510,7 @@ namespace ManagedGame
 		Engine::World.EditorAddNewZone(name, bg, ls, desc, id, x, y);
 		Console::WriteLine("All zones Size: {0}", Engine::World.EditorAllZones.size());
 
-
+		String^str = gcnew String(Engine::World.openedMod.c_str());
 		auto var = Engine::World.EditorAllZones.find(std::pair<std::string, size_t>(Engine::World.openedMod, id));
 		List<String^>^ list = gcnew List<String^>();
 		list->Add(gcnew String(var->first.first.c_str()));
@@ -572,8 +572,10 @@ namespace ManagedGame
 	}
 	String^ ManagedGame::loadMod(String^ modToLoad)
 	{
+		std::cout << "LoadMod Start\n";
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		std::vector<std::string> loadErrors = Engine::World.loadMod(_mc->marshal_as<std::string>(modToLoad));
+		std::cout << "LoadMod Engine - Loaded\n";
 		if (loadErrors.size() != 0)
 			for each (std::string var in loadErrors)
 			{
@@ -581,6 +583,7 @@ namespace ManagedGame
 			}
 		else
 			addInfoMessage(gcnew String(Engine::World.openedMod.c_str()) + " loaded with no errors");
+		std::cout << "LoadMod Finished\n";
 		return gcnew String(Engine::World.openedMod.c_str());
 	}
 	String^ ManagedGame::getLoadedMod()

@@ -17,7 +17,7 @@ public:
 	Mouse();
 	std::vector<GameObject*> list;
 	GameObject* mySelected;
-	//mousebox;
+	//World pos;
 	Vector2 pos;
 	Vector2 offset;
 	void update();

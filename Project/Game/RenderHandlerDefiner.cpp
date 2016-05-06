@@ -246,7 +246,7 @@ void Gfx::drawGrid()
 #ifdef _DEBUG
 void Gfx::drawGizmo()
 {
-	if(!Engine::GUI.hideGUI)
+	if(drawHitboxes)
 	{
 		for(size_t i = 0; i < Engine::game.hitboxes.size(); i++)
 		{

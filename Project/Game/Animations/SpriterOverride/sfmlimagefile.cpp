@@ -25,12 +25,11 @@ namespace SpriterEngine
 			TextureMapper->currentTextureMap->TexturePoints.insert(std::pair<std::string, TextureMapPoint>(refName, TextureMapPoint()));
 		else
 		{
-			position.x = TextureMapper->currentTextureMap->TexturePoints.at(refName).pos.x;
-			position.y = TextureMapper->currentTextureMap->TexturePoints.at(refName).pos.y;
+			//Do nothing
 		}
 		if (!sprite)
 			sprite = TextureMapper->currentSprite;
-		sprite->setTextureRect(sf::IntRect((int)position.x, (int)position.y, (int)size.x, (int)size.y));
+		sprite->setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 	}
 
 	void SfmlImageFile::renderSprite(UniversalObjectInterface * spriteInfo)
@@ -43,14 +42,14 @@ namespace SpriterEngine
 		{
 			sprite->setOrigin((1-spriteInfo->getPivot().y)*p.size.y, spriteInfo->getPivot().x*p.size.x);
 			sprite->setRotation(toDegrees(spriteInfo->getAngle()) - 90.0);
-			sprite->setTextureRect(sf::IntRect((int)p.pos.x, (int)p.pos.y, (int)p.size.y, (int)p.size.x));
+			sprite->setTextureRect(sf::IntRect(p.pos.x, p.pos.y, p.size.y, p.size.x));
 			sprite->setScale(spriteInfo->getScale().y, spriteInfo->getScale().x);
 		}
 		else
 		{
 			sprite->setOrigin(spriteInfo->getPivot().x*p.size.x, spriteInfo->getPivot().y*p.size.y);
 			sprite->setRotation(toDegrees(spriteInfo->getAngle()));
-			sprite->setTextureRect(sf::IntRect((int)p.pos.x, (int)p.pos.y, (int)p.size.x, (int)p.size.y));
+			sprite->setTextureRect(sf::IntRect(p.pos.x, p.pos.y, p.size.x, p.size.y));
 			sprite->setScale(spriteInfo->getScale().x, spriteInfo->getScale().y);
 		}
 		TextureMapper->renderWindow->draw(*sprite);

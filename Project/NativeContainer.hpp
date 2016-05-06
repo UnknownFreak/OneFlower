@@ -40,8 +40,10 @@ public:
 	void quit();
 	void loadZone(unsigned int myZoneID);
 	std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> addGameObjectToZone(std::string modName, size_t ID);
+
 	void lock();
 	void unlock();
+	void showHideHitboxes();
 private:
 
 	GameObject* previewObject = NULL;
@@ -53,6 +55,8 @@ private:
 	bool creatingNewRender = false;
 	bool running = true;
 	bool drawPreviewRender;
+
+	bool addNewZone = false;
 };
 #endif
 #endif

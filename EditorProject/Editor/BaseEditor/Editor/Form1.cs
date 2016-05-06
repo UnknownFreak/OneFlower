@@ -137,7 +137,6 @@ namespace BaseEditor
 
             }
         }
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BaseEditor.Program.mg.save();

@@ -138,45 +138,26 @@ void update()
 	Engine::Graphic.view.render.display();
 
 }
+void NativeContainer::showHideHitboxes()
+{
+	Engine::Graphic.drawHitboxes = !Engine::Graphic.drawHitboxes;
+}
 int NativeContainer::windowMessage()
 {
 	TestAdd();
-	MSG message;
-	ZeroMemory(&message, sizeof(MSG));
-	//testSave();
-	sf::Color c(1, 0, 0, 1);
-	//else
-	//Engine::Graphic.insertShader(shader,"test.glsl");
-	Engine::GUI.showHideGUI();
-	Time time;
-	Engine::Graphic.view.render.setFramerateLimit(200);
-	Engine::Graphic.rex.create(800, 600);
-	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
+	////testSave();
+	//sf::Color c(1, 0, 0, 1);
+	////else
+	////Engine::Graphic.insertShader(shader,"test.glsl");
+	//Engine::GUI.showHideGUI();
+	//Time time;
+	//Engine::Graphic.view.render.setFramerateLimit(200);
+	//Engine::Graphic.rex.create(800, 600);
+
+	Engine::Input.mouse.pos;
+
 	while (running)
 	{
-//		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
-//		{
-//			if (message.message == WM_KEYDOWN)
-//			{
-//				if (message.wParam == VK_ESCAPE)
-//					std::cout << "\nEsc";//SetFocus(Engine::Window.hWnd);
-//				if (message.wParam == VK_DELETE)
-//				{
-//#ifdef _DEBUG
-//					//Engine::World.RemoveGameObjectFromZone(Engine::Window.focus.gameObject);
-//					//Engine::game.requestRemoveal(Engine::Window.focus.gameObject);
-//#endif
-//				}
-//				if (message.wParam == VK_OEM_PLUS)
-//					Engine::Input.mouse.deltaScrolls += 5;
-//				if (message.wParam == VK_OEM_MINUS)
-//					Engine::Input.mouse.deltaScrolls -= 5;
-//			}
-//			// If a message was waiting in the message queue, process it
-//			TranslateMessage(&message);
-//			DispatchMessage(&message);
-//		}
-		//*/
 		mutex.lock();
 		Engine::Graphic.view.render.setActive(true);
 		while (Engine::Graphic.view.render.pollEvent(Engine::event))
