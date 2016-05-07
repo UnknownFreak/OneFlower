@@ -57,8 +57,43 @@ void NativeContainer::setGameObjectRenderPreview(RenderComponent* inputrender)
 	}
 	else
 	{
-		previewObject->AddComponent(inputrender);
-		Engine::Graphic.removeFromdrawList(previewObject);
+		if (inputrender)
+		{
+			previewObject->AddComponent(inputrender);
+			Engine::Graphic.removeFromdrawList(previewObject);
+		}
+	}
+}
+void NativeContainer::setGameObjectHitboxPreview(HitboxComponent* inputhitbox)
+{
+	if (!inputhitbox)
+		drawPreviewHitbox = false;
+	else
+		drawPreviewHitbox = true;
+	if (!previewObject)
+	{
+		previewObject = new GameObject();
+		previewObject->GetComponent<TransformComponent>()->position.x = 200;
+		previewObject->GetComponent<TransformComponent>()->position.y = 400;
+	}
+	if (previewObject->GetComponent<HitboxComponent>())
+	{
+		if (!creatingNewRender)
+		{
+			creatingNewRender = true;
+			tmpHitbox = inputhitbox;
+			creatingNewRender = false;
+		}
+		else
+			delete inputhitbox;
+	}
+	else
+	{
+		if (inputhitbox)
+		{
+			previewObject->AddComponent(inputhitbox);
+			Engine::game.removePhysics(inputhitbox);
+		}
 	}
 }
 void NativeContainer::setTooltipPreview(std::string a, std::string b)
@@ -144,6 +179,10 @@ void NativeContainer::showHideHitboxes()
 }
 int NativeContainer::windowMessage()
 {
+	shape.setFillColor(sf::Color(0, 150, 0, 100));
+	shape.setOutlineThickness(2.f);
+	shape.setOutlineColor(sf::Color(0, 220, 0));
+	shape.setSize(sf::Vector2f(0, 0));
 	TestAdd();
 	////testSave();
 	//sf::Color c(1, 0, 0, 1);
@@ -197,21 +236,22 @@ int NativeContainer::windowMessage()
 		if (previewObject)
 		{
 			RenderComponent* render = previewObject->GetComponent<RenderComponent>();
+			HitboxComponent* hitbox = previewObject->GetComponent<HitboxComponent>();
+			Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
 			if (render && drawPreviewRender)
 			{
+			#pragma region render
 				if (tmprender)
 				{
 					render->animation = tmprender->animation;
 					render->sprite.setTexture(*Engine::Graphic.requestTexture(tmprender->textureName),true);
 					render->textureName = tmprender->textureName;
-					std::cout << "tex name: " << render->textureName << std::endl;
 					render->animations = tmprender->animations;
 					render->instance = tmprender->instance;
 					if (tmprender->instance.entityName != "")
 					{
 						if (render->instance.MyEntityInstance)
 							delete render->instance.MyEntityInstance;
-						std::cout << tmprender->instance.sceneFile;
 						render->instance = Engine::ModelContainer.requestEntityInstance(tmprender->instance.sceneFile, tmprender->instance.entityName);
 						render->instance.sceneFile = tmprender->instance.sceneFile;
 						render->instance.entityName = tmprender->instance.entityName;
@@ -224,33 +264,46 @@ int NativeContainer::windowMessage()
 					delete tmprender;
 					tmprender = 0;
 				}
-				Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
 				switch (render->animation)
 				{
-				case RenderComponent::AnimationType::SpriteSheet:
-					render->updateFrame();
-				case RenderComponent::AnimationType::Static:
-					render->sprite.setPosition(pos.x,pos.y);
-					gameObjectPreviewRender.draw(render->sprite);
-					break;
-				case RenderComponent::AnimationType::Armature:
-				{
-					if (render->instance.MyEntityInstance && render->instance.textureMaps)
+					case RenderComponent::AnimationType::SpriteSheet:
+						render->updateFrame();
+					case RenderComponent::AnimationType::Static:
+						render->sprite.setPosition(pos.x,pos.y);
+						gameObjectPreviewRender.draw(render->sprite);
+						break;
+					case RenderComponent::AnimationType::Armature:
 					{
-						render->instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime() * 1000);
-						render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
-						render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
-						render->instance.render(&render->sprite);
-						if(previewEntityInstance->animationJustFinished())
+						if (render->instance.MyEntityInstance && render->instance.textureMaps)
 						{
-							previewEntityInstance->setCurrentTime(0);
+							render->instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime() * 1000);
+							render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
+							render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
+							render->instance.render(&render->sprite);
+							if(previewEntityInstance->animationJustFinished())
+							{
+								previewEntityInstance->setCurrentTime(0);
+							}
 						}
+						break;
 					}
-					break;
+					default:
+						break;
 				}
-				default:
-					break;
+			#pragma endregion
+			}
+			if (hitbox && drawPreviewHitbox)
+			{
+				if (tmpHitbox)
+				{
+					hitbox->bounding = tmpHitbox->bounding;
+					delete tmpHitbox;
+					tmpHitbox = 0;
 				}
+
+				shape.setSize(sf::Vector2f(hitbox->bounding.size.x,hitbox->bounding.size.y));
+				shape.setPosition(pos.x + hitbox->bounding.position.x, pos.y + hitbox->bounding.position.y);
+				gameObjectPreviewRender.draw(shape);
 			}
 		}
 		gameObjectPreviewRender.display();

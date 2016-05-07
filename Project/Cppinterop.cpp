@@ -161,6 +161,7 @@ namespace ManagedGame
 	}
 	void ManagedGame::previewPrefab(PrefabStruct^ prefab)
 	{
+#pragma region Render
 		if (toBoolean(prefab->rc->isUsed))
 		{
 			RenderComponent* render = new RenderComponent();
@@ -198,9 +199,25 @@ namespace ManagedGame
 			mc->setGameObjectRenderPreview(render);
 		}
 		else
-		{
 			mc->setGameObjectRenderPreview(NULL);
+#pragma endregion
+#pragma region Hitboxes
+		if (toBoolean(prefab->hitbox->isUsed))
+		{
+			HitboxComponent* render = new HitboxComponent();
+			int x = toInt(prefab->hitbox->posX);
+			int y = toInt(prefab->hitbox->posY);
+			int sx = toInt(prefab->hitbox->sizeX);
+			int sy = toInt(prefab->hitbox->sizeY);
+
+			render->bounding.position = Vector2(x, y);
+			render->bounding.size = Vector2(sx, sy);
+
+			mc->setGameObjectHitboxPreview(render);
 		}
+		else
+			mc->setGameObjectHitboxPreview(NULL);
+#pragma endregion
 	}
 	List<String^>^ ManagedGame::getAnimations(String^model, String^entity)
 	{

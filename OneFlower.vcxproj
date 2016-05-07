@@ -112,6 +112,7 @@
     <ClInclude Include="Project\Game\Animations\TextureMap.hpp" />
     <ClInclude Include="Project\Game\Animations\TextureMapPoint.hpp" />
     <ClInclude Include="Project\Game\Animations\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="Project\Game\BaseMessage.hpp" />
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
     <ClInclude Include="Project\Game\Component\CombatComponenet.hpp" />
     <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
@@ -278,6 +279,7 @@
     <ClCompile Include="Project\Game\Animations\TextureMapDefiner.cpp" />
     <ClCompile Include="Project\Game\Animations\TextureMapPointDefiner.cpp" />
     <ClCompile Include="Project\Game\Animations\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="Project\Game\BaseMessageDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Game\Component\CombatComponent.cpp" />
     <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />

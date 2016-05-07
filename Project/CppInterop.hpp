@@ -61,10 +61,24 @@ namespace ManagedGame
 		String^ textureMapMod = "";
 		String^ textureMapName = "";
 	};
+	public ref class Hitbox_RigidComponentStruct
+	{
+	public:
+		Boolean ^isUsed = false;
+		//if this is false and isUsed is true, this is defining rigidcomponent; 
+		Boolean isHitbox = false;
+
+		//MaterialType
+		int^ Material = 0;
+		int^ mass = 0;
+		int^ posX = 0, posY = 0, sizeX = 0, sizeY = 0;
+
+	};
 	public ref class PrefabStruct
 	{
 	public:
 		RenderComponentStruct ^rc;
+		Hitbox_RigidComponentStruct ^hitbox;
 	};
 	public ref class ItemStruct
 	{

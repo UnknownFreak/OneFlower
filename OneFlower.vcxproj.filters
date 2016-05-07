@@ -620,6 +620,9 @@
     <ClInclude Include="Project\CppInterop.hpp">
       <Filter>C++Interop</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\BaseMessage.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -1090,6 +1093,9 @@
     <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
     <ClCompile Include="Project\Cppinterop.cpp">
       <Filter>C++Interop</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\BaseMessageDefiner.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

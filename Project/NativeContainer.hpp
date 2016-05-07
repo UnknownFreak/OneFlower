@@ -36,6 +36,7 @@ public:
 
 	void setGameObjectPreviewHandle(HWND handle);
 	void setGameObjectRenderPreview(RenderComponent* render);
+	void setGameObjectHitboxPreview(HitboxComponent* hitbox);
 	void setAnimation(std::string animation);
 	void quit();
 	void loadZone(unsigned int myZoneID);
@@ -45,18 +46,19 @@ public:
 	void unlock();
 	void showHideHitboxes();
 private:
-
+	sf::RectangleShape shape;
 	GameObject* previewObject = NULL;
 	RenderComponent* tmprender = NULL;
+	HitboxComponent* tmpHitbox = NULL;
 	SpriterEngine::EntityInstance* previewEntityInstance = NULL;
 	HWND gameObjectPreview;
 	HWND tooltipPreview;
 	bool creatingTooltip = false;
 	bool creatingNewRender = false;
+	bool creatingNewHitbox = false;
 	bool running = true;
-	bool drawPreviewRender;
-
-	bool addNewZone = false;
+	bool drawPreviewRender = false;
+	bool drawPreviewHitbox = false;
 };
 #endif
 #endif
