@@ -8,7 +8,9 @@ class GameObject;
 class PlayerComponent:public IBaseComponent < PlayerComponent >
 {
 public:
-
+#ifdef _EDITOR_
+	void setMovementSpeed(int speed);
+#endif
 protected:
 	void attachOn(GameObject* attachingOn);
 

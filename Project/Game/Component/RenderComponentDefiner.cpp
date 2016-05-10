@@ -8,7 +8,8 @@ RenderComponent::RenderComponent()
 {
 	setTexture();
 }
-RenderComponent::RenderComponent(const RenderComponent &rcp): textureName(rcp.textureName),renderlayer(rcp.renderlayer),size(rcp.size)
+RenderComponent::RenderComponent(const RenderComponent &rcp) : textureName(rcp.textureName), renderlayer(rcp.renderlayer), size(rcp.size), animation(rcp.animation)
+, animations(rcp.animations), instance(rcp.instance)
 {
 	sprite.setScale(rcp.sprite.getScale());
 	sprite.setTexture(*Engine::Graphic.requestTexture(textureName),true);
@@ -61,10 +62,8 @@ void RenderComponent::setAnimation(std::string animationName)
 			break;
 		case RenderComponent::Armature:
 		{
-			if (instance.MyEntityInstance != NULL)
-			{
+			if (instance.MyEntityInstance)
 				instance.MyEntityInstance->setCurrentAnimation(animationName, 1);
-			}
 		}
 		break;
 	}
@@ -115,10 +114,19 @@ void RenderComponent::updateFrame()
 	}
 		break;
 	case RenderComponent::Armature:
-		//todo
+		if (instance.MyEntityInstance)
+			instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime()*90);
 		break;
 	default:
 		break;
 
+	}
+}
+void RenderComponent::getMessage(const BaseMessage message)
+{
+	if (message.msg == "SET_ANIMATION")
+	{
+		if (message.value == 0)
+			setAnimation("walk");
 	}
 }

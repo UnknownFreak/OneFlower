@@ -6,7 +6,11 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 {
 	if (modelFiles.find(sceneFile) != modelFiles.end())
 	{
-		return SpriterEntityInstance(modelFiles.at(sceneFile)->getNewEntityInstance(entityName),requestTextureMapper(sceneFile));
+		SpriterEngine::EntityInstance* instance = modelFiles.at(sceneFile)->getNewEntityInstance(entityName);
+		SpriterEntityInstance sinstance(instance,requestTextureMapper(sceneFile));
+		sinstance.entityName = entityName;
+		sinstance.sceneFile = sceneFile;
+		return sinstance;
 	}
 	else
 	{
@@ -17,7 +21,11 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 			new SpriterEngine::SFMLFileFactory(requestTextureMapper(sceneFile)),
 			new SpriterEngine::SFMLObjectFactory(requestTextureMapper(sceneFile)))));
 	}
-	return SpriterEntityInstance(modelFiles.at(sceneFile)->getNewEntityInstance(entityName), requestTextureMapper(sceneFile));
+	SpriterEngine::EntityInstance* instance = modelFiles.at(sceneFile)->getNewEntityInstance(entityName);
+	SpriterEntityInstance sinstance(instance, requestTextureMapper(sceneFile));
+	sinstance.entityName = entityName;
+	sinstance.sceneFile = sceneFile;
+	return sinstance;
 }
 SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sceneFile)
 {
@@ -129,13 +137,12 @@ std::vector<std::string> SpriterModelContainer::getAnimationNames(std::string mo
 {
 	std::vector<std::string> animations;
 
-	SpriterEngine::EntityInstance* inst = requestEntityInstance(modelName, entityName).MyEntityInstance;
-	int animationCount = inst->animationCount();
+	SpriterEntityInstance inst = requestEntityInstance(modelName, entityName);
+	int animationCount = inst.MyEntityInstance->animationCount();
 	for (int i = 0; i < animationCount; i++)
 	{
-		inst->setCurrentAnimation(i);
-		animations.push_back(inst->currentAnimationName());
+		inst.MyEntityInstance->setCurrentAnimation(i);
+		animations.push_back(inst.MyEntityInstance->currentAnimationName());
 	}
-	delete inst;
 	return animations;
 }

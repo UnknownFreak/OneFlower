@@ -64,6 +64,7 @@ public:
 
 	bool updateFromEditor();
 
+	void getMessage(const BaseMessage message);
 protected:
 	void attachOn(GameObject* go);
 

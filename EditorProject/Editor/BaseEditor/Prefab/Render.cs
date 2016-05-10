@@ -83,6 +83,8 @@ namespace BaseEditor.Prefab
                 textBox3.Text = opf.SafeFileName;
                 pictureBox2.Load(opf.FileName);
                 rc.textureName = textBox3.Text;
+                sizeX.Text = pictureBox2.Image.Size.Width.ToString();
+                sizeY.Text = pictureBox2.Image.Size.Height.ToString();
             }
             edit();
         }
@@ -128,6 +130,8 @@ namespace BaseEditor.Prefab
             textBox3.Text = rc.textureName;
             if(textBox3.Text.EndsWith(".png"))
                 pictureBox2.Load(textBox3.Text);
+            sizeX.Text = render.sizeX.ToString();
+            sizeY.Text = render.sizeY.ToString();
             SceneFileDropDown.SelectedItem = rc.spriterScene;
             animationType.SelectedIndex = rc.animationType;
             checkBox1.Checked = rc.isUsed;
@@ -137,6 +141,16 @@ namespace BaseEditor.Prefab
         private void AnimationDropDown_SelectedIndexChanged(object sender, EventArgs e)
         {
             Program.mg.setPrefabAnimation(AnimationDropDown.SelectedItem.ToString());
+        }
+
+        private void sizeX_TextChanged(object sender, EventArgs e)
+        {
+            rc.sizeX = System.Convert.ToInt32(sizeX.Text);
+        }
+
+        private void sizeY_TextChanged(object sender, EventArgs e)
+        {
+            rc.sizeY = System.Convert.ToInt32(sizeY.Text);
         }
     }
     public class _RenderComponentStruct
@@ -150,5 +164,7 @@ namespace BaseEditor.Prefab
         public String spriterEntity { get { return rc.spriterEntity; } set { rc.spriterEntity = value; } }
         public String textureMapMod { get { return rc.textureMapMod; } set { rc.textureMapMod = value; } }
         public String textureMapName { get { return rc.textureMapName; } set { rc.textureMapName = value; } }
+        public int sizeX { get { return (int)rc.sizeX; } set { rc.sizeX = value; } }
+        public int sizeY { get { return (int)rc.sizeX; } set { rc.sizeY = value; } }
     };
 }

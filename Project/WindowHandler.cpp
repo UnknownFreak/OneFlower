@@ -49,9 +49,9 @@ int windowMessage()
 {
 	Engine::World.loadMod("Demo.main");
 	Engine::World.EditorAddNewZone("test", "test.png", "test.png", "testing", 0, 500, 500);
-	Engine::World.loadZone("Demo.main", 0);
+	Engine::World.loadZone("Demo.main", 1);
 	// test
-	sf::Sprite sprite(*Engine::Graphic.requestTexture("DemoTest.png"));
+	sf::Sprite sprite(*Engine::Graphic.requestTexture("PlayerDemo.png"));
 	SpriterEntityInstance inst = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	inst.myTextureMap.first = "Demo.main";
 	inst.myTextureMap.second = "DemoTest";

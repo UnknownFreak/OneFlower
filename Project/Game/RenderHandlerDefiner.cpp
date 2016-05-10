@@ -180,29 +180,46 @@ void Gfx::drawObject()
 			*/
 			if(rc->sprite.getTexture())
 			{
-				rc->sprite.setPosition(tc->position.x,tc->position.y);
-				rc->sprite.setRotation(tc->rotation.x);
-				rc->sprite.setScale(tc->size.x,tc->size.y);
-				rc->updateFrame();
-				if(rc->outline)
+				switch (rc->animation)
 				{
-					sf::Sprite outlineTemp(rc->sprite);
+					case RenderComponent::AnimationType::SpriteSheet:
+					case RenderComponent::AnimationType::Static:
+					{
+						rc->sprite.setPosition(tc->position.x, tc->position.y);
+						rc->sprite.setRotation(tc->rotation.x);
+						rc->sprite.setScale(tc->size.x, tc->size.y);
+						rc->updateFrame();
+						if (rc->outline)
+						{
+							sf::Sprite outlineTemp(rc->sprite);
 
-					outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x,(rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
-					outlineTemp.setOrigin(rc->outline / 2,rc->outline / 2);
-					outlineTemp.setPosition(tc->position.x,tc->position.y);
-					test.setParameter("color",1,0,1,1);
-					test.setParameter("tex",*rc->sprite.getTexture());
+							outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x, (rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
+							outlineTemp.setOrigin(rc->outline / 2, rc->outline / 2);
+							outlineTemp.setPosition(tc->position.x, tc->position.y);
+							test.setParameter("color", 1, 0, 1, 1);
+							test.setParameter("tex", *rc->sprite.getTexture());
 
-					Engine::Graphic.view.render.draw(outlineTemp,sf::RenderStates(&test));
-					//outlineTemp.setColor(sf::Color(255,128,128));
-					//	rex.draw(outlineTemp,sf::RenderStates(&test));
+							Engine::Graphic.view.render.draw(outlineTemp, sf::RenderStates(&test));
+							//outlineTemp.setColor(sf::Color(255,128,128));
+							//	rex.draw(outlineTemp,sf::RenderStates(&test));
+						}
+						Engine::Graphic.view.render.draw(rc->sprite);
+						break;
+					}
+					//rc->sprite.setScale(tc->bounding.size.y / (tc->bounding.size.x + rc->outline),tc->bounding.size.y / (tc->bounding.size.y + rc->outline));
+
+					//	rex.draw(rc->sprite);
+					case RenderComponent::AnimationType::Armature:
+					{
+						rc->updateFrame();
+						rc->instance.MyEntityInstance->setPosition(SpriterEngine::point(tc->position.x, tc->position.y));
+					#ifdef _EDITOR_
+						rc->instance.textureMaps->renderWindow = &Engine::Graphic.view.render;
+					#endif
+						rc->instance.render(&rc->sprite);
+						break;
+					}
 				}
-				Engine::Graphic.view.render.draw(rc->sprite);
-
-				//rc->sprite.setScale(tc->bounding.size.y / (tc->bounding.size.x + rc->outline),tc->bounding.size.y / (tc->bounding.size.y + rc->outline));
-
-				//	rex.draw(rc->sprite);
 			}
 		}
 	}

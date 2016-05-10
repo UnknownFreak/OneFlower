@@ -18,6 +18,23 @@ namespace BaseEditor
             backgroundWorker1.WorkerSupportsCancellation = true;
             Program.questCreatorField.addQuest += questCreatorField_addQuest;
             Program.creatorField.onAdd += creatorField_onAdd;
+            Program.prefabField.onAdd += prefabField_onAdd;
+        }
+
+        void prefabField_onAdd(object sender, ManagedGame.PrefabStruct e)
+        {
+            if (treeView1.SelectedNode.FullPath.Contains("Prefabs"))
+            {
+                List<String> list = new List<String>();
+                list.Add(e.name);
+                list.Add(e.ID.ToString());
+                list.Add(e.tag);
+                list.Add(e.fromMod);
+                list.Add("Prefab");
+                list.Add("A");
+                ListViewItem myNewItem = new ListViewItem(list.ToArray(), -1);
+                listView1.Items.Add(myNewItem);
+            }
         }
 
         void creatorField_onAdd(object sender, ManagedGame.ItemStruct e)

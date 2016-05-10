@@ -14,12 +14,11 @@ namespace BaseEditor
 {
     public partial class PrefabCreator : UserControl
     {
+        public event EventHandler<PrefabStruct> onAdd = null;
         ManagedGame.PrefabStruct prefab;
         public PrefabCreator()
         {
             prefab = new ManagedGame.PrefabStruct();
-            prefab.hitbox = new Hitbox_RigidComponentStruct();
-            prefab.rc = new ManagedGame.RenderComponentStruct();
             InitializeComponent();
             renderPanel.setRenderEdit(new _RenderComponentStruct() { rc = new ManagedGame.RenderComponentStruct() });
             Program.mg.setPrefabPreview(previewPanel.Handle);
@@ -93,6 +92,29 @@ namespace BaseEditor
         {
             prefab.hitbox.Material = material.SelectedIndex;
             renderPanel_onEditHitbox_Rigid();
+        }
+
+        private void addPrefab_Click(object sender, EventArgs e)
+        {
+            prefab.fromMod = Program.mg.getLoadedMod();
+            Program.mg.addPrefab(prefab);
+            if (onAdd != null)
+                onAdd(this, prefab);
+        }
+
+        private void prefabName_TextChanged(object sender, EventArgs e)
+        {
+            prefab.name = prefabName.Text;
+        }
+
+        private void prefabTag_TextChanged(object sender, EventArgs e)
+        {
+            prefab.tag = prefabTag.Text;
+        }
+
+        private void prefabID_ValueChanged(object sender, EventArgs e)
+        {
+            prefab.ID = prefabID.Value;
         }
     }
 }

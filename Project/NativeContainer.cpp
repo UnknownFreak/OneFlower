@@ -123,13 +123,18 @@ void NativeContainer::TestAdd()
 {
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
-	go->AddComponent<RenderComponent>("testTarget.png");
+	go->AddComponent<RenderComponent>("PlayerDemo.png");
+	go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
+	RenderComponent* render = go->GetComponent<RenderComponent>();
+	go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
+	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32,32);
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->GetComponent<TransformComponent>()->position.y = 300;
 	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<PlayerComponent>();
 	go->AddComponent<Component::Combat>();
 	Engine::game.addGameObject(go);
 	Engine::game.player = go;
@@ -253,8 +258,6 @@ int NativeContainer::windowMessage()
 						if (render->instance.MyEntityInstance)
 							delete render->instance.MyEntityInstance;
 						render->instance = Engine::ModelContainer.requestEntityInstance(tmprender->instance.sceneFile, tmprender->instance.entityName);
-						render->instance.sceneFile = tmprender->instance.sceneFile;
-						render->instance.entityName = tmprender->instance.entityName;
 						render->instance.myTextureMap = tmprender->instance.myTextureMap;
 						previewEntityInstance = render->instance.MyEntityInstance;
 					}
@@ -276,7 +279,7 @@ int NativeContainer::windowMessage()
 					{
 						if (render->instance.MyEntityInstance && render->instance.textureMaps)
 						{
-							render->instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime() * 1000);
+							render->instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds()*500);
 							render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
 							render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
 							render->instance.render(&render->sprite);

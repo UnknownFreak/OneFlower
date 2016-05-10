@@ -67,6 +67,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.animationType = new System.Windows.Forms.ComboBox();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.sizeY = new System.Windows.Forms.TextBox();
+            this.sizeX = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -116,7 +120,7 @@
             this.armatureAnimation.Controls.Add(this.EntityNameDropDown);
             this.armatureAnimation.Controls.Add(this.button1);
             this.armatureAnimation.Controls.Add(this.label3);
-            this.armatureAnimation.Location = new System.Drawing.Point(18, 885);
+            this.armatureAnimation.Location = new System.Drawing.Point(18, 904);
             this.armatureAnimation.Name = "armatureAnimation";
             this.armatureAnimation.Size = new System.Drawing.Size(372, 184);
             this.armatureAnimation.TabIndex = 22;
@@ -210,7 +214,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(15, 869);
+            this.label41.Location = new System.Drawing.Point(15, 888);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(98, 13);
             this.label41.TabIndex = 21;
@@ -223,7 +227,7 @@
             this.spriteSheet.Controls.Add(this.button13);
             this.spriteSheet.Controls.Add(this.button12);
             this.spriteSheet.Controls.Add(this.listBox3);
-            this.spriteSheet.Location = new System.Drawing.Point(18, 418);
+            this.spriteSheet.Location = new System.Drawing.Point(18, 447);
             this.spriteSheet.Name = "spriteSheet";
             this.spriteSheet.Size = new System.Drawing.Size(372, 438);
             this.spriteSheet.TabIndex = 20;
@@ -437,7 +441,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(15, 402);
+            this.label26.Location = new System.Drawing.Point(15, 431);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(114, 13);
             this.label26.TabIndex = 19;
@@ -446,7 +450,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 351);
+            this.label2.Location = new System.Drawing.Point(15, 391);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 18;
@@ -460,7 +464,7 @@
             "Static",
             "SpriteSheet",
             "Armature"});
-            this.animationType.Location = new System.Drawing.Point(18, 367);
+            this.animationType.Location = new System.Drawing.Point(18, 407);
             this.animationType.Name = "animationType";
             this.animationType.Size = new System.Drawing.Size(184, 21);
             this.animationType.TabIndex = 16;
@@ -470,13 +474,53 @@
             // 
             this.panel12.AutoScroll = true;
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.label8);
+            this.panel12.Controls.Add(this.sizeY);
+            this.panel12.Controls.Add(this.sizeX);
+            this.panel12.Controls.Add(this.label7);
             this.panel12.Controls.Add(this.textBox3);
             this.panel12.Controls.Add(this.button4);
             this.panel12.Controls.Add(this.pictureBox2);
             this.panel12.Location = new System.Drawing.Point(18, 25);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(372, 313);
+            this.panel12.Size = new System.Drawing.Size(372, 363);
             this.panel12.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(84, 60);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(12, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "x";
+            // 
+            // sizeY
+            // 
+            this.sizeY.Location = new System.Drawing.Point(102, 57);
+            this.sizeY.Name = "sizeY";
+            this.sizeY.ReadOnly = true;
+            this.sizeY.Size = new System.Drawing.Size(64, 20);
+            this.sizeY.TabIndex = 25;
+            this.sizeY.TextChanged += new System.EventHandler(this.sizeY_TextChanged);
+            // 
+            // sizeX
+            // 
+            this.sizeX.Location = new System.Drawing.Point(14, 57);
+            this.sizeX.Name = "sizeX";
+            this.sizeX.ReadOnly = true;
+            this.sizeX.Size = new System.Drawing.Size(64, 20);
+            this.sizeX.TabIndex = 24;
+            this.sizeX.TextChanged += new System.EventHandler(this.sizeX_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 40);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(27, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Size";
             // 
             // textBox3
             // 
@@ -501,7 +545,7 @@
             // 
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(14, 43);
+            this.pictureBox2.Location = new System.Drawing.Point(14, 92);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(256, 256);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -604,5 +648,9 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox textureMap;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox sizeY;
+        private System.Windows.Forms.TextBox sizeX;
+        private System.Windows.Forms.Label label7;
     }
 }

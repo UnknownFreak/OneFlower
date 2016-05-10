@@ -13,7 +13,7 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 	if(!rigid)
 	{
 		toAttach->AddComponent<RigidComponent>();
-		toAttach->GetComponent<RigidComponent>();
+		rigid = toAttach->GetComponent<RigidComponent>();
 	}
 	//REGISTER_EDITOR_VARIABLE(int,movementSpeed,MovementSpeed);
 
@@ -31,5 +31,18 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 
 void PlayerComponent::manoeuvre(Vector2 Direction)
 {
+	BaseMessage msg;
+	msg.msg = "SET_ANIMATION";
+	msg.value = 0;
+	std::cout << "movement:" << std::endl;
+	RenderComponent* render = attachedOn->GetComponent<RenderComponent>();
+	if (render)
+		attachedOn->sendMessage(msg, render);
 	rigid->movement.addTranslation(Direction,movementSpeed);
 }
+#ifdef _EDITOR_
+void PlayerComponent::setMovementSpeed(int speed)
+{
+	movementSpeed = speed;
+}
+#endif

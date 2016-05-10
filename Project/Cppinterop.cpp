@@ -1,3 +1,4 @@
+#ifdef _EDITOR_
 #include "CppInterop.hpp"
 namespace ManagedGame
 {
@@ -204,20 +205,95 @@ namespace ManagedGame
 #pragma region Hitboxes
 		if (toBoolean(prefab->hitbox->isUsed))
 		{
-			HitboxComponent* render = new HitboxComponent();
+			HitboxComponent* hitbox = new HitboxComponent();
 			int x = toInt(prefab->hitbox->posX);
 			int y = toInt(prefab->hitbox->posY);
 			int sx = toInt(prefab->hitbox->sizeX);
 			int sy = toInt(prefab->hitbox->sizeY);
 
-			render->bounding.position = Vector2(x, y);
-			render->bounding.size = Vector2(sx, sy);
+			hitbox->bounding.position = Vector2(x, y);
+			hitbox->bounding.size = Vector2(sx, sy);
 
-			mc->setGameObjectHitboxPreview(render);
+			mc->setGameObjectHitboxPreview(hitbox);
 		}
 		else
 			mc->setGameObjectHitboxPreview(NULL);
 #pragma endregion
+	}
+	void ManagedGame::addPrefab(PrefabStruct^ prefab)
+	{
+		Prefab p;
+		p.fromMod = toString(prefab->fromMod);
+		p.name = toString(prefab->name);
+		p.ID = toInt(prefab->ID);
+		p.tag = toString(prefab->tag);
+		if (toBoolean(prefab->rc->isUsed))
+		{
+		#pragma region Render
+			RenderComponent* render = new RenderComponent();
+			int a = toInt(prefab->rc->animationType);
+			if (a == 0)
+				render->animation = RenderComponent::AnimationType::Static;
+			else if (a == 1)
+				render->animation = RenderComponent::AnimationType::SpriteSheet;
+			else
+				render->animation = RenderComponent::AnimationType::Armature;
+			render->textureName = toString(prefab->rc->textureName);
+			render->size.x = toInt(prefab->rc->sizeX);
+			render->size.y = toInt(prefab->rc->sizeY);
+			if (render->textureName == "")
+				render->textureName = "test.png";
+			if (render->animation == RenderComponent::AnimationType::SpriteSheet)
+			{
+				for each (auto var in prefab->rc->animations)
+				{
+					SpriteSheetAnimation anim;
+					anim.AnimationTime = std::stoi(toString(var->time));
+					anim.looping = toBoolean(var->loop);
+					for each (auto rects in var->textureRect)
+					{
+						anim.AnimationFrames.push_back(sf::IntRect(toInt(rects->Item1), toInt(rects->Item2), toInt(rects->Item3), toInt(rects->Item4)));
+					}
+					render->animations.insert(std::pair<std::string, SpriteSheetAnimation>(toString(var->name), anim));
+				}
+			}
+			else if (render->animation == RenderComponent::AnimationType::Armature)
+			{
+				render->instance.entityName = toString(prefab->rc->spriterEntity);
+				render->instance.sceneFile = toString(prefab->rc->spriterScene);
+				render->instance.myTextureMap.first = toString(prefab->rc->textureMapMod);
+				render->instance.myTextureMap.second = toString(prefab->rc->textureMapName);
+			}
+			p.base.push_back(render);
+		#pragma endregion
+		}
+		if (toBoolean(prefab->hitbox->isUsed))
+		{
+		#pragma region hitbox/Rigid
+			if (toBoolean(prefab->hitbox->isHitbox))
+			{
+				HitboxComponent* hitbox = new HitboxComponent();
+				hitbox->bounding.position = Vector2(toInt(prefab->hitbox->posX), toInt(prefab->hitbox->posY));
+				hitbox->bounding.size = Vector2(toInt(prefab->hitbox->sizeX), toInt(prefab->hitbox->sizeY));
+				p.base.push_back(hitbox);
+			}
+			else
+			{
+				RigidComponent* rig = new RigidComponent();
+				rig->bounding.position = Vector2(toInt(prefab->hitbox->posX), toInt(prefab->hitbox->posY));
+				rig->bounding.size = Vector2(toInt(prefab->hitbox->sizeX), toInt(prefab->hitbox->sizeY));
+				rig->mass = toInt(prefab->hitbox->mass);
+				//rig->material = material;
+			}
+		#pragma endregion
+		}
+		if (toBoolean(prefab->player->isUsed))
+		{
+			PlayerComponent* player = new PlayerComponent();
+			player->setMovementSpeed(toInt(prefab->player->movementSpeed));
+			p.base.push_back(player);
+		}
+		Engine::World.editorPrefabContainer.addPrefab(p);
 	}
 	List<String^>^ ManagedGame::getAnimations(String^model, String^entity)
 	{
@@ -589,10 +665,8 @@ namespace ManagedGame
 	}
 	String^ ManagedGame::loadMod(String^ modToLoad)
 	{
-		std::cout << "LoadMod Start\n";
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		std::vector<std::string> loadErrors = Engine::World.loadMod(_mc->marshal_as<std::string>(modToLoad));
-		std::cout << "LoadMod Engine - Loaded\n";
 		if (loadErrors.size() != 0)
 			for each (std::string var in loadErrors)
 			{
@@ -600,7 +674,6 @@ namespace ManagedGame
 			}
 		else
 			addInfoMessage(gcnew String(Engine::World.openedMod.c_str()) + " loaded with no errors");
-		std::cout << "LoadMod Finished\n";
 		return gcnew String(Engine::World.openedMod.c_str());
 	}
 	String^ ManagedGame::getLoadedMod()
@@ -911,3 +984,4 @@ namespace ManagedGame
 	}
 #pragma endregion
 }
+#endif

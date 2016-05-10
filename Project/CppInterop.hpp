@@ -53,6 +53,8 @@ namespace ManagedGame
 		Boolean^ isUsed = false;
 		String^ textureName = "";
 		int^ animationType = 0;
+		int^ sizeX = 0;
+		int^ sizeY = 0;
 		//
 		List<SpriteSheetAnimationStruct^>^ animations = gcnew List<SpriteSheetAnimationStruct^>();
 		//
@@ -66,7 +68,7 @@ namespace ManagedGame
 	public:
 		Boolean ^isUsed = false;
 		//if this is false and isUsed is true, this is defining rigidcomponent; 
-		Boolean isHitbox = false;
+		Boolean ^isHitbox = false;
 
 		//MaterialType
 		int^ Material = 0;
@@ -74,11 +76,22 @@ namespace ManagedGame
 		int^ posX = 0, posY = 0, sizeX = 0, sizeY = 0;
 
 	};
+	public ref class PlayerComponentStruct
+	{
+	public:
+		Boolean^ isUsed = false;
+		int^ movementSpeed = 0;
+	};
 	public ref class PrefabStruct
 	{
 	public:
-		RenderComponentStruct ^rc;
-		Hitbox_RigidComponentStruct ^hitbox;
+		String^ name = "";
+		int^ ID = 0;
+		String ^ tag = "";
+		String ^ fromMod = "";
+		RenderComponentStruct ^rc = gcnew RenderComponentStruct();
+		Hitbox_RigidComponentStruct ^hitbox = gcnew Hitbox_RigidComponentStruct();
+		PlayerComponentStruct ^player = gcnew PlayerComponentStruct();
 	};
 	public ref class ItemStruct
 	{
@@ -186,6 +199,7 @@ namespace ManagedGame
 		int removeItem(String^name, UInt32^ ID);
 
 		//ManagedGame_Prefab
+		void addPrefab(PrefabStruct^ prefab);
 		void previewPrefab(PrefabStruct^ prefab);
 		void setPrefabPreview(IntPtr^ handle);
 		List<String^>^ getEntityNames(String^ model);

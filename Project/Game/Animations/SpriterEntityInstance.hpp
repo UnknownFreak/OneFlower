@@ -6,7 +6,10 @@
 struct SpriterEntityInstance
 {
 	SpriterEntityInstance();
+	SpriterEntityInstance(const SpriterEntityInstance&copy);
 	SpriterEntityInstance(SpriterEngine::EntityInstance* myEntity, SpriterTextureMapper* textureMap);
+	~SpriterEntityInstance();
+	SpriterEntityInstance& operator=(const SpriterEntityInstance& right);
 	SpriterEngine::EntityInstance* MyEntityInstance = NULL;
 	SpriterTextureMapper* textureMaps = NULL;
 

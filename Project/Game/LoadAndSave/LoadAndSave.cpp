@@ -649,6 +649,10 @@ void save(Archive& archive,const RenderComponent& rc)
 	archive(rc.animation);
 	//archive(rc.frameSpeed);
 	archive(rc.outline);
+	if (rc.animation == rc.SpriteSheet)
+		archive(rc.animations);
+	else if (rc.animation == rc.Armature)
+		archive(rc.instance);
 }
 template<class Archive>
 void load(Archive& archive,RenderComponent& rc)
@@ -665,6 +669,10 @@ void load(Archive& archive,RenderComponent& rc)
 	archive(rc.size.y);
 	archive(rc.animation);
 	archive(rc.outline);
+	if (rc.animation == rc.SpriteSheet)
+		archive(rc.animations);
+	else if (rc.animation == rc.Armature)
+		archive(rc.instance);
 }
 #pragma endregion
 
