@@ -54,7 +54,7 @@ namespace GUI
 		ToolTip openedWindowToolTip;
 
 		GraphicalUserInterface();
-		//~GraphicalUserInterface();
+		~GraphicalUserInterface();
 
 		bool windowHasFocus();
 		void scroll();

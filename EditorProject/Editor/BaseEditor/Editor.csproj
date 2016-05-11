@@ -184,6 +184,12 @@
     <Compile Include="RenderAreaControls.Designer.cs">
       <DependentUpon>RenderAreaControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Skill\SkillCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Skill\SkillCreator.Designer.cs">
+      <DependentUpon>SkillCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="SpriterScene\SpriterScene.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RenderAreaControls.resx">
       <DependentUpon>RenderAreaControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Skill\SkillCreator.resx">
+      <DependentUpon>SkillCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SpriterScene\SpriterScene.resx">
       <DependentUpon>SpriterScene.cs</DependentUpon>

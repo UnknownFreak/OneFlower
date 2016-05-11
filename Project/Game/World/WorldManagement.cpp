@@ -31,13 +31,15 @@ WorldManagement::~WorldManagement()
 	}
 	//remove loaded zones
 	for (std::map<std::pair<std::string, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
-		// if a zone have been unloaded/deleted already
+	{	// if a zone have been unloaded/deleted already
 		for (size_t j = 0; j < it->second->objects.size(); j++)
 		{
 			// request removal of GameObjects /to fix
 			Engine::game.requestRemoveal(it->second->objects[j].second);
 			it->second->objects[j].second = nullptr;
 		}
+		delete it->second;
+	}
 }
 
 // load zone with ID

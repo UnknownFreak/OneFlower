@@ -114,14 +114,11 @@ void Game::update()
 	//}
 	//*/
 	#pragma endregion
-	for (size_t i = 0; i < timedObjectPointers.size(); i++)
+	for (size_t i = 0; i < timedObject.size(); i++)
 	{
-		Component::Timer* timed = timedObjectPointers[i]->GetComponent<Component::Timer>();
-		{
-			timed->update();
-			if (timed->canRemove())
-				erase.push_back(timedObjectPointers[i]);
-		}
+		timedObject[i]->update();
+		if (timedObject[i]->canRemove())
+			erase.push_back(timedObject[i]->attachedOn);
 	}
 	for( size_t i = 0; i < erase.size(); i++)
 	{
@@ -131,10 +128,9 @@ void Game::update()
 	if (player)
 	{
 		Component::Combat* combat = player->GetComponent<Component::Combat>();
-		if (combat->executingSkill)
-		{
-			combat->update();
-		}
+		if (combat)
+			if (combat->executingSkill)
+				combat->update();
 	}
 	//LOW: Make my own Custom Focus
 	if(Engine::Graphic.view.render.hasFocus())//Engine::Window.focus)

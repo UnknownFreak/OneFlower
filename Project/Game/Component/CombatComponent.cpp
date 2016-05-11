@@ -12,19 +12,13 @@ namespace Component
 	{
 		testSkill.name = "TestAttack";
 		testSkill.attacks.push_back(Attack());
-		testSkill.attacks.push_back(Attack());
 		testSkill.attacks[0].damage = 1337;
-		testSkill.attacks[0].timeframe = .2;
+		testSkill.attacks[0].timeframe = .35;
 		testSkill.attacks[0].duration = .2;
-		testSkill.attacks[0].hitbox.position.x = 32+8;
-		testSkill.attacks[0].hitbox.position.y = 32-8;
-		testSkill.attacks[1].damage = 9001;
-		testSkill.attacks[1].timeframe = .2;
-		testSkill.attacks[1].duration = .2;
-		testSkill.attacks[1].hitbox.position.x = 64;
-		testSkill.attacks[1].hitbox.position.y = 0;
-		testSkill.attacks[1].hitbox.size.x = 32;
-		testSkill.attacks[1].hitbox.size.y = 32;
+		testSkill.attacks[0].hitbox.position.x = 35;
+		testSkill.attacks[0].hitbox.position.y = -35; 
+		testSkill.attacks[0].hitbox.size.x = 128;
+		testSkill.attacks[0].hitbox.size.y = 32; 
 		testSkill.castTime = .5;
 	}
 	void Combat::attachOn(GameObject* attachTo)
@@ -35,6 +29,14 @@ namespace Component
 	{
 		if (executingSkill == false)
 		{
+			RenderComponent* render = attachedOn->GetComponent<RenderComponent>();
+			if (render)
+			{
+				BaseMessage msg;
+				//to replace with skill.animation
+				msg.msg = "attack";
+				attachedOn->sendMessage(msg, render);
+			}
 			testSkill.execute();
 			executingSkill = true;
 		}

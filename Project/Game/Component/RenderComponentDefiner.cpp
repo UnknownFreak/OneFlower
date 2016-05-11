@@ -63,7 +63,10 @@ void RenderComponent::setAnimation(std::string animationName)
 		case RenderComponent::Armature:
 		{
 			if (instance.MyEntityInstance)
-				instance.MyEntityInstance->setCurrentAnimation(animationName, 1);
+			{
+				instance.MyEntityInstance->setCurrentTime(0);
+				instance.MyEntityInstance->setCurrentAnimation(animationName);
+			}
 		}
 		break;
 	}
@@ -115,18 +118,32 @@ void RenderComponent::updateFrame()
 		break;
 	case RenderComponent::Armature:
 		if (instance.MyEntityInstance)
-			instance.MyEntityInstance->setTimeElapsed(Engine::time.deltaTime()*90);
+		{
+			instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds() * 90);
+			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "jump_start")
+				setAnimation("jump_loop");
+			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "crouch_down")
+				setAnimation("crouch_idle");
+			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "stand_up")
+				setAnimation("idle");
+		}
 		break;
 	default:
 		break;
-
 	}
 }
 void RenderComponent::getMessage(const BaseMessage message)
 {
-	if (message.msg == "SET_ANIMATION")
-	{
-		if (message.value == 0)
-			setAnimation("walk");
-	}
+	if (message.msg == "walk")
+		setAnimation("walk");
+	else if (message.msg == "idle")
+		setAnimation("idle");
+	else if (message.msg == "crouch")
+		setAnimation("crouch_down");
+	else if (message.msg == "stand_up")
+		setAnimation("stand_up");
+	else if (message.msg == "jump")
+		setAnimation("jump_start");
+	else if (message.msg == "attack")
+		setAnimation("sword_swing_0");
 }

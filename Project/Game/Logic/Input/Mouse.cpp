@@ -65,7 +65,9 @@ void Mouse::update()
 		{
 			if (Engine::event.mouseButton.button == sf::Mouse::Button::Left)
 			{
-				//Engine::game.player->GetComponent<Component::Combat>()->execute();
+				if (Engine::game.player)
+					if (Engine::game.player->GetComponent<Component::Combat>())
+						Engine::game.player->GetComponent<Component::Combat>()->execute();
 			}
 		}
 		if(Engine::event.type == Engine::event.MouseButtonReleased)

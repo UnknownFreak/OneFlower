@@ -30,11 +30,14 @@ namespace GUI {
 		//showHideTradeWindow();
 		//showHideInventory();
 	}
-	/*
 	GraphicalUserInterface::~GraphicalUserInterface()
 	{
+		delete ActionSlot[0];
+		delete ActionSlot[1];
+		delete ActionSlot[2];
+		delete ActionSlot[3];
 	}
-	*/
+	
 	void GraphicalUserInterface::updateMouseIcon()
 	{
 		mouseAim.setPosition((float)(Engine::Input.mouse.pos.x), (float)(Engine::Input.mouse.pos.y));

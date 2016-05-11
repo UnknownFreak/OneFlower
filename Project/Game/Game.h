@@ -11,6 +11,7 @@ class Gfx;
 class Message;
 class RigidComponent;
 class HitboxComponent;
+namespace Component{class Timer;}
 class Game
 {
 public:
@@ -36,7 +37,10 @@ public:
 	void addPhysics(RigidComponent* obj);
 	void removePhysics(RigidComponent* obj);
 	void removePhysics(HitboxComponent* obj);
-		
+	
+	void addTimedObject(Component::Timer* go);
+	void removeTimedObject(Component::Timer* go);
+
 	void addGameObject(GameObject entity);
 	//This one doesnt work
 	void addGameObject(std::string);
@@ -68,7 +72,7 @@ private:
 	//Why do I have two of this? (rigidPointers and Rigid)
 	//std::vector<RigidComponent*> rigidPointers;
 	std::vector<GameObject*> allGameObjectPointers;
-	std::vector<GameObject*> timedObjectPointers;
+	std::vector<Component::Timer*> timedObject;
 	std::vector<GameObject> objects;
 	//std::map<GameObject*,int> mapOfGameObjects;
 

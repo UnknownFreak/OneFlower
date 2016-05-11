@@ -76,7 +76,9 @@ namespace ManagedGame
 	}
 	void ManagedGame::showHideHitboxes()
 	{
+		mc->lock();
 		mc->showHideHitboxes();
+		mc->unlock();
 	}
 #pragma endregion
 #pragma region Prefabs
@@ -111,12 +113,17 @@ namespace ManagedGame
 	}
 	void ManagedGame::removeSpriterModel(String^ sceneFile)
 	{
+		mc->lock();
 		Engine::ModelContainer.removeModel(toString(sceneFile));
+		mc->unlock();
 	}
 	Dictionary<String^, TextureMapPointStruct^>^ ManagedGame::getTextureMapPoints(String^ model, String^ modName, String^ textureMap)
 	{
 		Dictionary<String^, TextureMapPointStruct^>^ points = gcnew Dictionary<String^, TextureMapPointStruct^>();
-		for each (auto var in Engine::ModelContainer.getTextureMapPoints(toString(model),toString(modName), toString(textureMap)))
+		mc->lock();
+		auto textureMapPoints = Engine::ModelContainer.getTextureMapPoints(toString(model), toString(modName), toString(textureMap));
+		mc->unlock();
+		for each (auto var in textureMapPoints)
 		{
 			TextureMapPointStruct^ tmp = gcnew TextureMapPointStruct();
 			tmp->pos = gcnew Tuple<int, int>(var.second.pos.x, var.second.pos.y);

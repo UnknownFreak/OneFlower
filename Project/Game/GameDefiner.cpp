@@ -6,10 +6,11 @@
 #include "GUI/Text/Message.hpp"
 #include "Component\RenderComponent.h"
 #include "Component/HitboxComponent.hpp"
-
+#include "Component\PlayerComponent.hpp"
 #include "../Engine.hpp"//std::vector<GameObject> allGameObject;
 Game::Game()
 {
+
 	for(size_t j = 0; j < height; j++)
 	{
 		for(size_t i = 0; i < width; i++)
@@ -201,3 +202,19 @@ void Game::removePhysics(HitboxComponent* obj)
 			}
 }
 //*/
+
+void Game::addTimedObject(Component::Timer* obj)
+{
+	if (obj)
+		timedObject.push_back(obj);
+}
+void Game::removeTimedObject(Component::Timer* obj)
+{
+	if (obj)
+		for (size_t i = 0; i < timedObject.size(); i++)
+			if (obj == timedObject[i])
+			{
+				timedObject.erase(timedObject.begin() + i);
+				break;
+			}
+}

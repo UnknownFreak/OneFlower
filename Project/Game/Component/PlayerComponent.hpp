@@ -21,6 +21,7 @@ private:
 
 	//HIGH: Fix the double movementspeed bug by holdind down two buttons
 	void manoeuvre(Vector2 direction);
+	void setAnimation(std::string animation);
 };
 
 #endif

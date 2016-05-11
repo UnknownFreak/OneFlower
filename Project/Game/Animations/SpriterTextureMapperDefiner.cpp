@@ -14,7 +14,7 @@ void SpriterTextureMapper::setTextureMap(std::pair<std::string,std::string> newT
 		if (textureMaps.find(newTextureMap) != textureMaps.end())
 		{
 			currentTextureMapString = newTextureMap;
-			currentTextureMap = &textureMaps.at(newTextureMap);
+			currentTextureMap = &textureMaps[newTextureMap];
 		}
 }
 void SpriterTextureMapper::setSpritePointer(sf::Sprite* sprite)

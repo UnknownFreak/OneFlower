@@ -6,8 +6,8 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 {
 	if (modelFiles.find(sceneFile) != modelFiles.end())
 	{
-		SpriterEngine::EntityInstance* instance = modelFiles.at(sceneFile)->getNewEntityInstance(entityName);
-		SpriterEntityInstance sinstance(instance,requestTextureMapper(sceneFile));
+		SpriterEngine::EntityInstance* instance = modelFiles[sceneFile]->getNewEntityInstance(entityName);
+		SpriterEntityInstance sinstance(instance, requestTextureMapper(sceneFile));
 		sinstance.entityName = entityName;
 		sinstance.sceneFile = sceneFile;
 		return sinstance;
@@ -21,7 +21,7 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 			new SpriterEngine::SFMLFileFactory(requestTextureMapper(sceneFile)),
 			new SpriterEngine::SFMLObjectFactory(requestTextureMapper(sceneFile)))));
 	}
-	SpriterEngine::EntityInstance* instance = modelFiles.at(sceneFile)->getNewEntityInstance(entityName);
+	SpriterEngine::EntityInstance* instance = modelFiles[sceneFile]->getNewEntityInstance(entityName);
 	SpriterEntityInstance sinstance(instance, requestTextureMapper(sceneFile));
 	sinstance.entityName = entityName;
 	sinstance.sceneFile = sceneFile;
@@ -31,13 +31,13 @@ SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sc
 {
 	if (modelTextureMapper.find(sceneFile) != modelTextureMapper.end())
 	{
-		return modelTextureMapper.at(sceneFile);
+		return modelTextureMapper[sceneFile];
 	}
 	else
 	{
 		modelTextureMapper.insert(std::pair<std::string, SpriterTextureMapper*>(sceneFile, new SpriterTextureMapper()));
 	}
-	return modelTextureMapper.at(sceneFile);
+	return modelTextureMapper[sceneFile];
 }
 
 SpriterModelContainer::~SpriterModelContainer()
@@ -61,7 +61,7 @@ SpriterEngine::SpriterModel& SpriterModelContainer::getModel(std::string fileNam
 {
 	if (modelFiles.find(fileName) != modelFiles.end())
 	{
-		return *modelFiles.at(fileName);
+		return *modelFiles[fileName];
 	}
 	else
 	{
@@ -72,7 +72,7 @@ SpriterEngine::SpriterModel& SpriterModelContainer::getModel(std::string fileNam
 			new SpriterEngine::SFMLFileFactory(requestTextureMapper(fileName)),
 			new SpriterEngine::SFMLObjectFactory(requestTextureMapper(fileName)))));
 	}
-	return *modelFiles.at(fileName);
+	return *modelFiles[fileName];
 }
 
 void SpriterModelContainer::removeModel(std::string modelName)
@@ -95,43 +95,43 @@ void SpriterModelContainer::removeTextureMapper(std::string modelName)
 		modelTextureMapper.erase(it);
 	}
 }
-std::map<std::pair<std::string,std::string>, TextureMap> SpriterModelContainer::getTextureMaps(std::string modelName)
+std::map<std::pair<std::string, std::string>, TextureMap> SpriterModelContainer::getTextureMaps(std::string modelName)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
-		return modelTextureMapper.at(modelName)->textureMaps;
+		return modelTextureMapper[modelName]->textureMaps;
 	else
 		getModel(modelName);
-	return modelTextureMapper.at(modelName)->textureMaps;
+	return modelTextureMapper[modelName]->textureMaps;
 }
 std::map<std::string, TextureMapPoint> SpriterModelContainer::getTextureMapPoints(std::string modelName, std::string modOrigin, std::string textureMap)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
 	{
-		if (modelTextureMapper.at(modelName)->textureMaps.find({ modOrigin, textureMap }) != modelTextureMapper.at(modelName)->textureMaps.end())
-			return modelTextureMapper.at(modelName)->textureMaps.at({ modOrigin, textureMap }).TexturePoints;
+		if (modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMap }) != modelTextureMapper[modelName]->textureMaps.end())
+			return modelTextureMapper[modelName]->textureMaps[{ modOrigin, textureMap }].TexturePoints;
 	}
 	return std::map<std::string, TextureMapPoint>();
 }
 void SpriterModelContainer::addTextureMap(std::string modelName, std::string modOrigin, std::string newTextureMap)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
-		if (modelTextureMapper.at(modelName)->textureMaps.find(std::pair<std::string, std::string>(modOrigin, newTextureMap)) == modelTextureMapper.at(modelName)->textureMaps.end())
+		if (modelTextureMapper[modelName]->textureMaps.find(std::pair<std::string, std::string>(modOrigin, newTextureMap)) == modelTextureMapper[modelName]->textureMaps.end())
 		{
-			modelTextureMapper.at(modelName)->textureMaps.insert(std::pair<std::pair<std::string, std::string>, TextureMap>({ modOrigin, newTextureMap }, TextureMap(modelTextureMapper.at(modelName)->textureMaps.at({ "DEFAULT", "Default" }))));
-			modelTextureMapper.at(modelName)->textureMaps.at({ modOrigin, newTextureMap }).modName = modOrigin;
+			modelTextureMapper[modelName]->textureMaps.insert(std::pair<std::pair<std::string, std::string>, TextureMap>({ modOrigin, newTextureMap }, TextureMap(modelTextureMapper[modelName]->textureMaps[{ "DEFAULT", "Default" }])));
+			modelTextureMapper[modelName]->textureMaps[{ modOrigin, newTextureMap }].modName = modOrigin;
 		}
 }
 void SpriterModelContainer::removeTextureMap(std::string modelName, std::string modOrigin, std::string textureMapToRemove)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
-		if (modelTextureMapper.at(modelName)->textureMaps.find({ modOrigin, textureMapToRemove }) != modelTextureMapper.at(modelName)->textureMaps.end())
-			modelTextureMapper.at(modelName)->textureMaps.find({ modOrigin, textureMapToRemove })->second.mode = EditorObjectSaveMode::REMOVE;
+		if (modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMapToRemove }) != modelTextureMapper[modelName]->textureMaps.end())
+			modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMapToRemove })->second.mode = EditorObjectSaveMode::REMOVE;
 }
 
 void SpriterModelContainer::setTextureMapPoint(std::string modelName,std::string modOrigin, std::string textureMap, std::string pointName, TextureMapPoint point)
 {
-	modelTextureMapper.at(modelName)->textureMaps.at({modOrigin, textureMap}).TexturePoints.at(pointName) = point;
-	modelTextureMapper.at(modelName)->textureMaps.at({modOrigin, textureMap}).mode = EditorObjectSaveMode::EDIT;
+	modelTextureMapper[modelName]->textureMaps.at({modOrigin, textureMap}).TexturePoints[pointName] = point;
+	modelTextureMapper[modelName]->textureMaps.at({modOrigin, textureMap}).mode = EditorObjectSaveMode::EDIT;
 }
 std::vector<std::string> SpriterModelContainer::getAnimationNames(std::string modelName, std::string entityName)
 {

@@ -344,7 +344,6 @@
     <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
     <ClCompile Include="Project\Game\World\Zone.cpp" />
     <ClCompile Include="Project\NativeContainer.cpp" />
-    <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\WindowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

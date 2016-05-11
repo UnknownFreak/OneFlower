@@ -770,7 +770,6 @@
     <ClCompile Include="Project\Game\GameViewDefiner.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Project\VectorDefiner.cpp" />
     <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp">
       <Filter>Game\World</Filter>
     </ClCompile>

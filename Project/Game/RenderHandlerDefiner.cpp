@@ -133,7 +133,7 @@ void Gfx::draw()
 
 	drawBG();
 	drawObject();
-	drawGrid();
+	//drawGrid();
 #ifdef _DEBUG
 	drawGizmo();
 #endif

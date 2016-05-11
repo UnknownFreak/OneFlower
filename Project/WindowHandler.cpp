@@ -24,7 +24,6 @@
 #include "Game\Animations\SpriterEntityInstance.hpp"
 #include "Game\Animations\SpriterModelContainer.hpp"
 
-
 int windowMessage();
 void RunMain();
 int test();
@@ -48,14 +47,25 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	Engine::World.loadMod("Demo.main");
-	Engine::World.EditorAddNewZone("test", "test.png", "test.png", "testing", 0, 500, 500);
 	Engine::World.loadZone("Demo.main", 1);
-	// test
-	sf::Sprite sprite(*Engine::Graphic.requestTexture("PlayerDemo.png"));
-	SpriterEntityInstance inst = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
-	inst.myTextureMap.first = "Demo.main";
-	inst.myTextureMap.second = "DemoTest";
-	inst.MyEntityInstance->setPosition(SpriterEngine::point(400, 400));
+
+	GameObject* go = new GameObject("player");
+	//go->AddComponent<ProjectilePatternComponent>();
+	go->AddComponent<RenderComponent>("PlayerDemo.png");
+	go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
+	RenderComponent* render = go->GetComponent<RenderComponent>();
+	go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
+	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
+	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
+	go->AddComponent<RigidComponent>();
+	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
+	go->GetComponent<TransformComponent>()->position.x = 300;
+	go->GetComponent<TransformComponent>()->position.y = 300;
+	go->AddComponent<EquipmentComponent>();
+	go->AddComponent<PlayerComponent>();
+	go->AddComponent<Component::Combat>();
+	Engine::game.addGameObject(go);
+	Engine::game.player = go;
 	//testSave();
 	//Loads the mods required for the "editor", not required for release mode.
 	//Engine::World.loadMod("OneFlower.main");

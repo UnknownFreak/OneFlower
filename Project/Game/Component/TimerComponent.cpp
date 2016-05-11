@@ -7,7 +7,7 @@ namespace Component
 {
 	Timer::~Timer()
 	{
-		//Engine::game.removealTimed(attachedOn);
+		Engine::game.removeTimedObject(this);
 	}
 	Timer::Timer(double lifeTime) : timedLife(lifeTime), currentTime(0)
 	{
@@ -26,6 +26,6 @@ namespace Component
 	void Timer::attachOn(GameObject* attachTo)
 	{
 		Timer::BaseComponent::attachOn(attachTo);
-		//Engine::game.addTimedObject(attachTo);
+		Engine::game.addTimedObject(this);
 	}
 }
