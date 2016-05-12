@@ -2387,6 +2387,8 @@ void save(Archive& ar, const SpriterTextureMapper &stm)
 template<class Archive>
 void load(Archive& ar, SpriterTextureMapper &stm)
 {
+	std::string modName, mapName;
+	ar(modName, mapName);
 	size_t size;
 	ar(size);
 	for (size_t i = 0; i < size; i++)
@@ -2417,6 +2419,7 @@ void load(Archive& ar, SpriterTextureMapper &stm)
 				stm.textureMaps.insert(std::pair<std::pair<std::string, std::string>, TextureMap>({ name, name2 }, tex));
 		}
 	}
+	stm.setTextureMap({ modName, mapName });
 }
 
 template <class Archive>
