@@ -54,6 +54,7 @@ namespace BaseEditor
 
             main = new MainEditorWindow();
             main.loadMod("Demo.main");
+            mainDrawThread.Start();
             Application.Run(main);
         }
     }

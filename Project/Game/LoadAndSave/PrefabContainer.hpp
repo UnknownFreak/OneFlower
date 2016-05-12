@@ -13,7 +13,7 @@ private:
 public:
 	PrefabContainer() = default;
 
-	void addPrefab(const Prefab pref);
+	void addPrefab(const Prefab& pref);
 	void addPrefab(const GameObject* go);
 	void addPrefab(const size_t prefabID, const GameObject* go);
 	void removePrefab(size_t prefabID);

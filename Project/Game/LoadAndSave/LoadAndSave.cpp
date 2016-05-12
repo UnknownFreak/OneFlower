@@ -2387,7 +2387,6 @@ void save(Archive& ar, const SpriterTextureMapper &stm)
 template<class Archive>
 void load(Archive& ar, SpriterTextureMapper &stm)
 {
-	ar(stm.currentTextureMapString.first, stm.currentTextureMapString.second);
 	size_t size;
 	ar(size);
 	for (size_t i = 0; i < size; i++)
@@ -2483,8 +2482,6 @@ void load(Archive& ar, SpriterEntityInstance& inst)
 	ar(inst.sceneFile);
 	ar(inst.myTextureMap.first);
 	ar(inst.myTextureMap.second);
-
-	inst.MyEntityInstance = Engine::ModelContainer.requestEntityInstance(inst.sceneFile, inst.entityName).MyEntityInstance;
 }
 
 #pragma endregion

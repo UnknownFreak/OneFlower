@@ -44,10 +44,16 @@ namespace GUI
 			{
 				if (!isVertical)
 				{
-					temporaryBar[0].position = sf::Vector2f(position.x, position.y+1);
-					temporaryBar[1].position = sf::Vector2f(value == 0 ? position.x : position.x + (size.x * (value / (double)(max - min))) - 1, position.y + 1);
-					temporaryBar[2].position = sf::Vector2f(value == 0 ? position.x : position.x + (size.x * (value / (double)(max - min))) - 1, position.y + size.y);
-					temporaryBar[3].position = sf::Vector2f(position.x, position.y + size.y);
+					temporaryBar[0].position = sf::Vector2f(position.x, position.y);
+					temporaryBar[1].position = sf::Vector2f(value == 0 ? position.x : position.x  + (size.x * Engine::GUI.scale.x * (value / (double)(max - min))) , position.y);
+					temporaryBar[2].position = sf::Vector2f(value == 0 ? position.x : position.x  + (size.x * Engine::GUI.scale.x * (value / (double)(max - min))) , position.y + (size.y * Engine::GUI.scale.y));
+					temporaryBar[3].position = sf::Vector2f(position.x, position.y + (size.y * Engine::GUI.scale.y));
+
+					temporaryOutline[0].position = sf::Vector2f(position.x , position.y);
+					temporaryOutline[1].position = sf::Vector2f(position.x + size.x * Engine::GUI.scale.x, position.y);
+					temporaryOutline[2].position = sf::Vector2f(position.x + size.x * Engine::GUI.scale.x, position.y + (size.y * Engine::GUI.scale.y));
+					temporaryOutline[3].position = sf::Vector2f(position.x, position.y + (size.y * Engine::GUI.scale.y));
+					temporaryOutline[4].position = sf::Vector2f(position.x, position.y);
 				}
 				else
 				{
@@ -56,8 +62,8 @@ namespace GUI
 					temporaryBar[2].position = sf::Vector2f(position.x + size.x -1, position.y + size.y);
 					temporaryBar[3].position = sf::Vector2f(position.x, position.y + size.y);
 				}
-				Engine::Graphic.view.render.draw(temporaryOutline);
 				Engine::Graphic.view.render.draw(temporaryBar);
+				Engine::Graphic.view.render.draw(temporaryOutline);
 			}
 			void ProgressBar::setValue(int value)
 			{
@@ -70,6 +76,10 @@ namespace GUI
 			void ProgressBar::setMax(int max)
 			{
 				this->max = max;
+			}
+			void ProgressBar::setPosition(Vector2 pos)
+			{
+				position = pos;
 			}
 		}
 	}

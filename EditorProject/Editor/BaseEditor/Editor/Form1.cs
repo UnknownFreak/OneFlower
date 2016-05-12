@@ -119,7 +119,7 @@ namespace BaseEditor
             Program.objectViewWindow.Top = Top + 55;
 
             Program.mainDrawThread = new Thread(BaseEditor.Program.mg.ManagedWindowLoop);
-            Program.mainDrawThread.Start();
+            //Program.mainDrawThread.Start();
             Program.zoneView.init();
         }
 

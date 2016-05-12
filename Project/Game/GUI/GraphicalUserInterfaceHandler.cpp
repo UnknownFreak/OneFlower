@@ -12,33 +12,23 @@ namespace GUI
 			{
 				if (mouseOutsideOpenWindow())
 				{
-					if (mouseSlotLeft.onHover() && Engine::Input.mouse.leftClick())
-					{
-						//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);//mouseSlotLeft.onClick();
-					}
-					if (mouseSlotRight.onHover() && Engine::Input.mouse.leftClick())
-					{
-						;//MessageBox(Engine::Window.hWnd, "RightPressed", "happen", NULL);
-					}
 				}
 				else
 				{
-					mouseSlotLeft.icon.setColor(sf::Color(255, 255, 255));
-					mouseSlotRight.icon.setColor(sf::Color(255, 255, 255));
 				}
 				setIconLocation();
-				Engine::Graphic.view.render.draw(mouseSlotLeft.icon);
-				Engine::Graphic.view.render.draw(mouseSlotRight.icon);
-				float offsetX = Engine::Graphic.view.camera.getCenter().x - (800 * Engine::Graphic.view.camera.getViewport().width / 2);
-				float offsetY = Engine::Graphic.view.camera.getCenter().y - (600 * Engine::Graphic.view.camera.getViewport().height / 2);
+				float offsetX = Engine::Graphic.view.camera.getCenter().x - (Engine::Graphic.view.camera.getSize().x * Engine::Graphic.view.camera.getViewport().width / 2);
+				float offsetY = Engine::Graphic.view.camera.getCenter().y - (Engine::Graphic.view.camera.getSize().y * Engine::Graphic.view.camera.getViewport().height / 2);
 				for (size_t i = 0; i < ActionSlot.size(); i++)
 				{
-					ActionSlot[i]->setPosition(40 + 128 * i + offsetX, 500 + offsetY);
+					/*ActionSlot[i]->setPosition(40 + 128 * i + offsetX, 500 + offsetY);
 
 					Engine::Graphic.view.render.draw(ActionSlot[i]->icon);
 					if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
-						ActionSlot[i]->ActionSlotClick();
+						ActionSlot[i]->ActionSlotClick();*/
 				}
+				playerHealthBar.setPosition({(1*scale.x) + offsetX, Engine::Graphic.view.camera.getSize().y - (31 * scale.y) + offsetY });
+				playerHealthBar.draw();
 				if (showOverhead)
 					for (size_t i = 0; i < overhead.size(); ++i)
 					{

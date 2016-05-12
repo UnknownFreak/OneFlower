@@ -14,9 +14,9 @@ namespace GUI {
 
 	GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true),
 		showOverhead(true), isMouseVisible(false), showDialog(true),
-		mouseSlotRight("ButtonTest.png"), mouseSlotLeft("ButtonTest.png"),
 		dialogs(), inventory(50, 50, 300, 290), ActionSlot(), showToolTip(true),
-		stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50, 50, 350, 400)
+		stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50, 50, 350, 400),
+		playerHealthBar(0, 100, 50, { 0, 0 }, {250,30}, false)
 	{
 		// Mouse
 		setCursor("Cursor.png");
@@ -45,33 +45,11 @@ namespace GUI {
 
 	void GraphicalUserInterface::setIconLocation()
 	{
-		mouseSlotLeft.setPosition(
-			270 + Engine::Input.mouse.offset.x,
-			30 + Engine::Input.mouse.offset.y);
-		mouseSlotRight.setPosition(
-			400 + Engine::Input.mouse.offset.x,
-			30 + Engine::Input.mouse.offset.y);
 	}
 
 	void GraphicalUserInterface::setActiveSkill(std::string buttonName)
 	{
 		//Todo: check type of skill and set on left or right mouse
-		if (buttonName == "ActionBar0")
-		{
-			mouseSlotLeft.icon = ActionSlot[0]->icon;
-		}
-		else if (buttonName == "ActionBar1")
-		{
-			mouseSlotLeft.icon = ActionSlot[1]->icon;
-		}
-		else if (buttonName == "ActionBar2")
-		{
-			mouseSlotLeft.icon = ActionSlot[2]->icon;
-		}
-		else if (buttonName == "ActionBar3")
-		{
-			mouseSlotLeft.icon = ActionSlot[3]->icon;
-		}
 	}
 
 	void GraphicalUserInterface::addDialog(DialogComponent& dcp)
@@ -114,9 +92,6 @@ namespace GUI {
 
 	void GraphicalUserInterface::initialize()
 	{
-		mouseSlotRight.setPosition(270, 30);
-		mouseSlotLeft.setPosition(400, 30);
-
 		// buttons
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -176,6 +151,8 @@ namespace GUI {
 		dy = dy - 1;
 		dx = -dx;
 		dy = -dy;
+		scale.x = dx;
+		scale.y = dy;
 		Engine::GUI.mouseAim.sprite.setScale(dx, dx);
 	}
 	bool GraphicalUserInterface::windowHasFocus()

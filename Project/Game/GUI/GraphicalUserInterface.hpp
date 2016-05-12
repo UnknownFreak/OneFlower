@@ -7,6 +7,7 @@
 #include "..\Component\TransformComponent.hpp"
 #include "..\Component\OverheadComponent.hpp"
 #include "Window/Addon/Button.hpp"
+#include "Window/Addon/ProgressBar.hpp"
 #include "Window/InventoryWindow.hpp"
 #include "Window/StatsWindow.hpp"
 #include "Window/TradeWindow.hpp"
@@ -38,8 +39,7 @@ namespace GUI
 		bool drawOpenedWindowToolTip = false;
 		Tile mouseAim;
 
-		Window::Addon::Button mouseSlotRight;
-		Window::Addon::Button mouseSlotLeft;
+		Vector2 scale = Vector2(1,1);
 
 		sf::Text t;
 		std::vector<OverheadComponent*> overhead;
@@ -87,6 +87,7 @@ namespace GUI
 		void setIconLocation();
 
 		Vector2 offset;
+		GUI::Window::Addon::ProgressBar playerHealthBar;
 	};
 }
 #endif // ! GUI_HPP

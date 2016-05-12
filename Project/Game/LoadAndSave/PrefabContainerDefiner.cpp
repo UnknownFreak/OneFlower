@@ -4,7 +4,7 @@
 
 #include <string>
 
-void PrefabContainer::addPrefab(const Prefab prefab)
+void PrefabContainer::addPrefab(const Prefab& prefab)
 {
 	mapOfPrefabs2.insert(std::pair<size_t, Prefab>(prefab.ID, Prefab(prefab)));
 	mapOfPrefabs.insert(std::pair<std::pair<std::string, size_t>, Prefab>(std::pair<std::string, size_t>(prefab.fromMod, prefab.ID), Prefab(prefab)));

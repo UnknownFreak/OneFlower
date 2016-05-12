@@ -130,7 +130,7 @@ void NativeContainer::TestAdd()
 	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
-	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32,32);
+	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
 	go->GetComponent<TransformComponent>()->position.x = 300;
 	go->GetComponent<TransformComponent>()->position.y = 300;
 	go->AddComponent<EquipmentComponent>();

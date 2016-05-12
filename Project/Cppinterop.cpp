@@ -290,6 +290,7 @@ namespace ManagedGame
 				rig->bounding.position = Vector2(toInt(prefab->hitbox->posX), toInt(prefab->hitbox->posY));
 				rig->bounding.size = Vector2(toInt(prefab->hitbox->sizeX), toInt(prefab->hitbox->sizeY));
 				rig->mass = toInt(prefab->hitbox->mass);
+				p.base.push_back(rig);
 				//rig->material = material;
 			}
 		#pragma endregion
