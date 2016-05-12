@@ -238,9 +238,44 @@ namespace BaseEditor
             Program.spriterSceneWindow.Show();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void objectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Program.objectViewWindow.Show();
+        }
 
+        private void zonesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.zoneViewWindow.Show();
+        }
+
+        private void messagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.messageWindow.Show();
+        }
+
+        private void addPrefabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.prefabCreator.Show();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Demo","About");
+        }
+
+        private void gettingStartedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not yet implemented", "Info");
+        }
+
+        private void tutorialsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not yet implemented", "Info");
+        }
+
+        private void tipsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Right clicking in the PrefabView and ZoneView, will bring up a context menu strip, for adding objects.", "Info");
         }
     }
 }

@@ -152,12 +152,10 @@ namespace ManagedGame
 		p.pos.y = point->pos->Item2;
 		p.size.x = point->size->Item1;
 		p.size.y = point->size->Item2;
-		Console::WriteLine("ispointrotated - before " + point->rotated->ToString() );
 		if (point->rotated->ToString() == "True")
 			p.rotated = true;
 		else
 			p.rotated = false;
-		Console::WriteLine("ispointrotated - after " + p.rotated);
 		p.color.r = point->r;
 		p.color.g = point->g;
 		p.color.b = point->b;

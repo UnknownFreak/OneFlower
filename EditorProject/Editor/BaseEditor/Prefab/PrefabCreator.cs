@@ -25,6 +25,7 @@ namespace BaseEditor
             renderPanel.onEdit += renderPanel_onEdit;
             panelRigid.Enabled = false;
             rigidProperties.Enabled = false;
+            playerComponent.Enabled = false;
         }
 
         void renderPanel_onEdit(object sender, _RenderComponentStruct e)
@@ -115,6 +116,11 @@ namespace BaseEditor
         private void prefabID_ValueChanged(object sender, EventArgs e)
         {
             prefab.ID = prefabID.Value;
+        }
+
+        private void usePlayerComponent_CheckedChanged(object sender, EventArgs e)
+        {
+            playerComponent.Enabled = usePlayerComponent.Checked;
         }
     }
 }

@@ -118,6 +118,7 @@
             this.label31 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label29 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
             this.panel9.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -156,6 +157,7 @@
             // 
             this.panel9.AutoScroll = true;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.label40);
             this.panel9.Controls.Add(this.label9);
             this.panel9.Controls.Add(this.panel5);
             this.panel9.Controls.Add(this.label3);
@@ -778,9 +780,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(3, 199);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 13);
+            this.label13.Size = new System.Drawing.Size(75, 13);
             this.label13.TabIndex = 20;
-            this.label13.Text = "Skill Weapon Type";
+            this.label13.Text = "Weapon Type";
             // 
             // panel11
             // 
@@ -1019,6 +1021,15 @@
             this.label29.TabIndex = 36;
             this.label29.Text = "Skill Preview";
             // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(231, 7);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(159, 13);
+            this.label40.TabIndex = 41;
+            this.label40.Text = "<This button does not yet work>";
+            // 
             // SkillCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1172,5 +1183,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label40;
     }
 }

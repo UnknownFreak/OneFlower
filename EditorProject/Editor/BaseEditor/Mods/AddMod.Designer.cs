@@ -149,9 +149,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(6, 215);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(138, 17);
+            this.checkBox1.Size = new System.Drawing.Size(102, 17);
             this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "Create Main File <WIP>";
+            this.checkBox1.Text = "Create Main File";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // AddMod
