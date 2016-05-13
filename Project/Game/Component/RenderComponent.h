@@ -9,7 +9,11 @@
 class RenderComponent: public IBaseComponent < RenderComponent >
 {
 public:
-
+	enum Facing
+	{
+		Right,
+		Left
+	};
 	enum AnimationType
 	{
 		//Static means this sprite has no animation.
@@ -65,11 +69,14 @@ public:
 	bool updateFromEditor();
 
 	void getMessage(const BaseMessage message);
+
+	Facing facingDirection;
 protected:
 	void attachOn(GameObject* go);
 
 private:
 
+	void setFacing(Facing f);
 	std::string currentAnimation = "Default";
 	template < class Archive>//, GameObject& go>
 	friend void save(Archive& archive,const RenderComponent& rc);

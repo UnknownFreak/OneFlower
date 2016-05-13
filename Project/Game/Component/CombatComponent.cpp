@@ -15,7 +15,7 @@ namespace Component
 		testSkill.attacks[0].damage = 1337;
 		testSkill.attacks[0].timeframe = .35;
 		testSkill.attacks[0].duration = .2;
-		testSkill.attacks[0].hitbox.position.x = 35;
+		testSkill.attacks[0].hitbox.position.x = 25;
 		testSkill.attacks[0].hitbox.position.y = -35; 
 		testSkill.attacks[0].hitbox.size.x = 128;
 		testSkill.attacks[0].hitbox.size.y = 32; 
@@ -55,7 +55,18 @@ namespace Component
 			{
 				myHitbox->GetComponent<TransformComponent>()->position = this->attachedOn->GetComponent<TransformComponent>()->position;
 				//rework this to use the animation and get the point where attack is spawned from
-				myHitbox->GetComponent<TransformComponent>()->position += myHitbox->GetComponent<HitboxComponent>()->bounding.position;
+				RenderComponent::Facing f = RenderComponent::Facing::Right;
+				RenderComponent* render = attachedOn->GetComponent<RenderComponent>();
+				if (render)
+					f = render->facingDirection;
+				if (f == RenderComponent::Facing::Right)
+					myHitbox->GetComponent<TransformComponent>()->position += myHitbox->GetComponent<HitboxComponent>()->bounding.position;
+				else
+				{
+					myHitbox->GetComponent<TransformComponent>()->position.x -= myHitbox->GetComponent<HitboxComponent>()->bounding.position.x;
+					myHitbox->GetComponent<TransformComponent>()->position.y += myHitbox->GetComponent<HitboxComponent>()->bounding.position.y;
+					myHitbox->GetComponent<TransformComponent>()->position.x -= myHitbox->GetComponent<HitboxComponent>()->bounding.size.x;
+				}
 				Engine::game.addGameObject(myHitbox);
 			}
 		}

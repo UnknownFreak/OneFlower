@@ -90,11 +90,11 @@ Vector2t<T>& operator +=(Vector2t<T>& left,const Vector2t<T>& right)
 	return left;
 }
 template<typename T>
-Vector2t<T> operator-=(Vector2t<T>& left,const Vector2t<T> right)
+Vector2t<T>& operator-=(Vector2t<T>& left,const Vector2t<T>& right)
 {
 	left.x -= right.x;
 	left.y -= right.y;
-	return *this;
+	return left;
 
 }
 //*/

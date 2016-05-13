@@ -64,14 +64,30 @@ void RenderComponent::setAnimation(std::string animationName)
 		{
 			if (instance.MyEntityInstance)
 			{
-				instance.MyEntityInstance->setCurrentTime(0);
-				instance.MyEntityInstance->setCurrentAnimation(animationName);
+				if (instance.MyEntityInstance->currentAnimationName() != "sword_swing_0")
+				{
+					instance.MyEntityInstance->setCurrentTime(0);
+					instance.MyEntityInstance->setCurrentAnimation(animationName);
+				}
+				else if (instance.MyEntityInstance->currentAnimationName() == "sword_swing_0" && instance.MyEntityInstance->animationJustFinished(true))
+				{
+					instance.MyEntityInstance->setCurrentTime(0);
+					instance.MyEntityInstance->setCurrentAnimation(animationName);
+				}
 			}
 		}
 		break;
 	}
 }
-
+void RenderComponent::setFacing(Facing f)
+{
+	facingDirection = f;
+	if (instance.MyEntityInstance)
+		if (facingDirection == Facing::Left)
+			instance.MyEntityInstance->setScale(SpriterEngine::point(-1, 1));
+		else
+			instance.MyEntityInstance->setScale(SpriterEngine::point(1, 1));
+}
 bool RenderComponent::updateFromEditor()
 {
 	if(animation)
@@ -119,12 +135,14 @@ void RenderComponent::updateFrame()
 	case RenderComponent::Armature:
 		if (instance.MyEntityInstance)
 		{
-			instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds() * 90);
+			instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds() * 30);
 			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "jump_start")
 				setAnimation("jump_loop");
 			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "crouch_down")
 				setAnimation("crouch_idle");
 			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "stand_up")
+				setAnimation("idle");
+			if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "sword_swing_0")
 				setAnimation("idle");
 		}
 		break;
@@ -133,7 +151,7 @@ void RenderComponent::updateFrame()
 	}
 }
 void RenderComponent::getMessage(const BaseMessage message)
-{
+{ 
 	if (message.msg == "walk")
 		setAnimation("walk");
 	else if (message.msg == "idle")
@@ -146,4 +164,9 @@ void RenderComponent::getMessage(const BaseMessage message)
 		setAnimation("jump_start");
 	else if (message.msg == "attack")
 		setAnimation("sword_swing_0");
+	else if (message.msg == "right")
+		setFacing(Facing::Right);
+	else if (message.msg == "left")
+		setFacing(Facing::Left);
 }
+

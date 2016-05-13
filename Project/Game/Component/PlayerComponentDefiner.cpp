@@ -16,7 +16,16 @@ void PlayerComponent::setAnimation(std::string animation)
 	if (render)
 		attachedOn->sendMessage(msg, render);
 }
-
+void PlayerComponent::setFacing(std::string faceDirection)
+{
+	//TODO: Change when message strucure change
+	BaseMessage msg;
+	msg.msg = faceDirection;
+	msg.value = 1;
+	RenderComponent* render = attachedOn->GetComponent<RenderComponent>();
+	if (render)
+		attachedOn->sendMessage(msg, render);
+}
 void PlayerComponent::attachOn(GameObject* toAttach)
 {
 	BaseComponent::attachOn(toAttach);
@@ -32,10 +41,12 @@ void PlayerComponent::attachOn(GameObject* toAttach)
 	//Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre,this,Vector2(0,0)),sf::Keyboard::D,Input::Action::Release);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre, this, Vector2(1,0)),sf::Keyboard::D,Input::Action::Hold);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::setAnimation, this, "walk"), sf::Keyboard::D, Input::Action::Press);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::setFacing, this, "right"), sf::Keyboard::D, Input::Action::Press);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::setAnimation, this, "idle"), sf::Keyboard::D, Input::Action::Release);
 
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre, this, Vector2(-1,0)),sf::Keyboard::A,Input::Action::Hold);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::setAnimation, this, "walk"), sf::Keyboard::A, Input::Action::Press);
+	Engine::Input.registerCallback(std::bind(&PlayerComponent::setFacing, this, "left"), sf::Keyboard::A, Input::Action::Press);
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::setAnimation, this, "idle"), sf::Keyboard::A, Input::Action::Release);
 
 	Engine::Input.registerCallback(std::bind(&PlayerComponent::manoeuvre, this, Vector2(0,-1)),sf::Keyboard::W,Input::Action::Hold);

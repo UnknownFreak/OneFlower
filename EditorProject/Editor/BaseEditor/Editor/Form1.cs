@@ -277,5 +277,10 @@ namespace BaseEditor
         {
             MessageBox.Show("Right clicking in the PrefabView and ZoneView, will bring up a context menu strip, for adding objects.", "Info");
         }
+
+        private void skillsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //;
+        }
     }
 }

@@ -142,15 +142,11 @@ void NativeContainer::TestAdd()
 //temp test
 void NativeContainer::lock()
 {
-	std::cout << "locking" << std::endl;
 	mutex.lock();
-	std::cout << "locking Done" << std::endl;
 }
 void NativeContainer::unlock()
 {
-	std::cout << "unlocking" << std::endl;
 	mutex.unlock();
-	std::cout << "unlocking Done" << std::endl;
 }
 void NativeContainer::setAnimation(std::string animation)
 {
@@ -204,14 +200,21 @@ int NativeContainer::windowMessage()
 	{
 		mutex.lock();
 		Engine::Graphic.view.render.setActive(true);
-		while (Engine::Graphic.view.render.pollEvent(Engine::event))
+		try
 		{
-			if (Engine::event.type == sf::Event::Closed)
+			while (Engine::Graphic.view.render.pollEvent(Engine::event))
 			{
-				Engine::Graphic.view.render.close();
+				if (Engine::event.type == sf::Event::Closed)
+				{
+					Engine::Graphic.view.render.close();
+				}
+				if (Engine::event.type == Engine::event.MouseWheelMoved)
+					Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			}
-			if (Engine::event.type == Engine::event.MouseWheelMoved)
-				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+		}
+		catch (...)
+		{
+			std::cout << "error while polling event" << std::endl;
 		}
 
 		if (Engine::World.getIsLoading())
