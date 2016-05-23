@@ -36,9 +36,9 @@ namespace ManagedGame
 	}
 	void ManagedGame::TestAdd()
 	{
-		mc->lock();
+		//mc->lock();
 		mc->TestAdd();
-		mc->unlock();
+		//mc->unlock();
 	}
 	void ManagedGame::ManagedWindowLoop()
 	{
@@ -54,7 +54,7 @@ namespace ManagedGame
 	}
 	bool ManagedGame::getRightClickedObject()
 	{
-		mc->lock();
+		//mc->lock();
 		GameObject* mine = Engine::Input.mouse.mySelected;
 		if (mine != nullptr)
 		{
@@ -71,14 +71,14 @@ namespace ManagedGame
 					return true;
 				}
 		}
-		mc->unlock();
+		//mc->unlock();
 		return false;
 	}
 	void ManagedGame::showHideHitboxes()
 	{
-		mc->lock();
+		//mc->lock();
 		mc->showHideHitboxes();
-		mc->unlock();
+		//mc->unlock();
 	}
 #pragma endregion
 #pragma region Prefabs
@@ -86,9 +86,9 @@ namespace ManagedGame
 	{
 		List<String^>^ list = gcnew List<String^>();
 		std::string str = toString(string);
-		mc->lock();
+		//mc->lock();
 		auto entities = Engine::ModelContainer.getEntities(Engine::ModelContainer.getModel(str));
-		mc->unlock();
+		//mc->unlock();
 		for each (std::string var in entities)
 		{
 			list->Add(gcnew String(var.c_str()));
@@ -98,9 +98,9 @@ namespace ManagedGame
 	List<String^>^ ManagedGame::getSceneFiles()
 	{
 		List<String^>^ list = gcnew List<String^>();
-		mc->lock();
+		//mc->lock();
 		auto texturemapper = Engine::ModelContainer.modelTextureMapper;
-		mc->unlock();
+		//mc->unlock();
 		for each (std::pair<std::string ,SpriterTextureMapper*> var in texturemapper)
 		{
 			list->Add(gcnew String(var.first.c_str()));
@@ -110,9 +110,9 @@ namespace ManagedGame
 	List<String^>^ ManagedGame::getTextureMaps(String^ str)
 	{
 		List<String^>^ list = gcnew List<String^>();
-		mc->lock();
+		//mc->lock();
 		auto textureMaps = Engine::ModelContainer.getTextureMaps(toString(str));
-		mc->unlock();
+		//mc->unlock();
 		for each (auto var in textureMaps)
 		{
 			std::string str = var.first.first + ", " + var.first.second;
@@ -122,16 +122,16 @@ namespace ManagedGame
 	}
 	void ManagedGame::removeSpriterModel(String^ sceneFile)
 	{
-		mc->lock();
+		//mc->lock();
 		Engine::ModelContainer.removeModel(toString(sceneFile));
-		mc->unlock();
+		//mc->unlock();
 	}
 	Dictionary<String^, TextureMapPointStruct^>^ ManagedGame::getTextureMapPoints(String^ model, String^ modName, String^ textureMap)
 	{
 		Dictionary<String^, TextureMapPointStruct^>^ points = gcnew Dictionary<String^, TextureMapPointStruct^>();
-		mc->lock();
+		//mc->lock();
 		auto textureMapPoints = Engine::ModelContainer.getTextureMapPoints(toString(model), toString(modName), toString(textureMap));
-		mc->unlock();
+		//mc->unlock();
 		for each (auto var in textureMapPoints)
 		{
 			TextureMapPointStruct^ tmp = gcnew TextureMapPointStruct();
@@ -148,15 +148,15 @@ namespace ManagedGame
 	}
 	void ManagedGame::addTextureMap(String^ model, String^ textureMap)
 	{
-		mc->lock();
+		//mc->lock();
 		Engine::ModelContainer.addTextureMap(toString(model), Engine::World.openedMod, toString(textureMap));
-		mc->unlock();
+		//mc->unlock();
 	}
 	void ManagedGame::removeTextureMap(String^ model, String^ modName, String^ textureMap)
 	{
-		mc->lock();
+		//mc->lock();
 		Engine::ModelContainer.removeTextureMap(toString(model), toString(modName), toString(textureMap));
-		mc->unlock();
+		//mc->unlock();
 	}
 	void ManagedGame::setPointPosition(String^ model, String^ modName, String^ TextureMap, String^ pointName, TextureMapPointStruct^ point)
 	{
@@ -172,9 +172,9 @@ namespace ManagedGame
 		p.color.r = point->r;
 		p.color.g = point->g;
 		p.color.b = point->b;
-		mc->lock();
+		//mc->lock();
 		Engine::ModelContainer.setTextureMapPoint(toString(model), toString(modName), toString(TextureMap), toString(pointName), p);
-		mc->unlock();
+		//mc->unlock();
 	}
 	void ManagedGame::setPrefabPreview(IntPtr^ handle)
 	{
@@ -185,9 +185,9 @@ namespace ManagedGame
 #pragma region Render
 		if (toBoolean(prefab->rc->isUsed))
 		{
-			mc->lock();
+			//mc->lock();
 			RenderComponent* render = new RenderComponent();
-			mc->unlock();
+			//mc->unlock();
 			int a = toInt(prefab->rc->animationType);
 			if (a == 0)
 				render->animation = RenderComponent::AnimationType::Static;
@@ -227,9 +227,9 @@ namespace ManagedGame
 #pragma region Hitboxes
 		if (toBoolean(prefab->hitbox->isUsed))
 		{
-			mc->lock();
+			//mc->lock();
 			HitboxComponent* hitbox = new HitboxComponent();
-			mc->unlock();
+			//mc->unlock();
 			int x = toInt(prefab->hitbox->posX);
 			int y = toInt(prefab->hitbox->posY);
 			int sx = toInt(prefab->hitbox->sizeX);
@@ -296,18 +296,18 @@ namespace ManagedGame
 		#pragma region hitbox/Rigid
 			if (toBoolean(prefab->hitbox->isHitbox))
 			{
-				mc->lock();
+				//mc->lock();
 				HitboxComponent* hitbox = new HitboxComponent();
-				mc->unlock();
+				//mc->unlock();
 				hitbox->bounding.position = Vector2(toInt(prefab->hitbox->posX), toInt(prefab->hitbox->posY));
 				hitbox->bounding.size = Vector2(toInt(prefab->hitbox->sizeX), toInt(prefab->hitbox->sizeY));
 				p.base.push_back(hitbox);
 			}
 			else
 			{
-				mc->lock();
+				//mc->lock();
 				RigidComponent* rig = new RigidComponent();
-				mc->unlock();
+				//mc->unlock();
 				rig->bounding.position = Vector2(toInt(prefab->hitbox->posX), toInt(prefab->hitbox->posY));
 				rig->bounding.size = Vector2(toInt(prefab->hitbox->sizeX), toInt(prefab->hitbox->sizeY));
 				rig->mass = toInt(prefab->hitbox->mass);
@@ -322,16 +322,16 @@ namespace ManagedGame
 			player->setMovementSpeed(toInt(prefab->player->movementSpeed));
 			p.base.push_back(player);
 		}
-		mc->lock();
+		//mc->lock();
 		Engine::World.editorPrefabContainer.addPrefab(p);
-		mc->unlock();
+		//mc->unlock();
 	}
 	List<String^>^ ManagedGame::getAnimations(String^model, String^entity)
 	{
 		List <String^>^ lst = gcnew List < String ^ >();
-		mc->lock();
+		//mc->lock();
 		std::vector<std::string> animations = Engine::ModelContainer.getAnimationNames(toString(model), toString(entity));
-		mc->unlock();
+		//mc->unlock();
 		for each (std::string var in animations)
 		{
 			lst->Add(gcnew String(var.c_str()));
@@ -340,9 +340,9 @@ namespace ManagedGame
 	}
 	void ManagedGame::setPrefabAnimation(String^ animation)
 	{
-		mc->lock();
+		//mc->lock();
 		mc->setAnimation(toString(animation));
-		mc->unlock();
+		//mc->unlock();
 	}
 #pragma endregion
 #pragma region Quests
@@ -415,19 +415,19 @@ namespace ManagedGame
 			q.objectives = obj;
 			q.ItemRewards = rwd;
 
-			mc->lock();
+			//mc->lock();
 			Engine::World.AddQuest(q);
-			mc->unlock();
+			//mc->unlock();
 		}
 	}
 	ListViewItem^ ManagedGame::addQuest(String^Name, UInt32^ ID)
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		unsigned int id = std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)));
-		mc->lock();
+		//mc->lock();
 		auto var = Engine::World.EditorAllQuests.find(std::pair<std::string, unsigned int>(Engine::World.openedMod, id));
 		auto end = Engine::World.EditorAllQuests.end();
-		mc->unlock();
+		//mc->unlock();
 		if (var != end )
 		{
 			List<String^>^ list = gcnew List<String^>();
@@ -446,10 +446,10 @@ namespace ManagedGame
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		unsigned int id = std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)));
-		mc->lock();
+		//mc->lock();
 		auto it = Engine::World.EditorAllQuests.find(std::pair<std::string, unsigned int>(_mc->marshal_as<std::string>(ModName), id));
 		auto end = Engine::World.EditorAllQuests.end();
-		mc->unlock();
+		//mc->unlock();
 		if (it != end)
 		{
 			if (it->second.mode == EditorObjectSaveMode::REMOVE)
@@ -499,7 +499,7 @@ namespace ManagedGame
 				int _y = std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(var.Value.X)));
 				attachPoints.insert(std::pair<std::string, Vector2>(_n, Vector2(_x, _y)));
 			}
-			mc->lock();
+			//mc->lock();
 			if (item->type == "Ammo")
 				if (secondType == "Arrow")
 					i = new Items::Ammo(ID, name, icon, weight, price, description, texture, damage, Items::Ammo::Arrow);
@@ -531,17 +531,17 @@ namespace ManagedGame
 			else
 				;// i = new Weapon(ID, true, name, icon, Item::undefined, weight, price, description);
 			Engine::World.AddItem(i);
-			mc->unlock();
+			//mc->unlock();
 		}
 	}
 	ListViewItem^ ManagedGame::addItem(String^Name, UInt32^ ID)
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		unsigned int id = std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)));
-		mc->lock();
+		//mc->lock();
 		auto var = Engine::World.EditorAllItems.find(std::pair<std::string, unsigned int>(Engine::World.openedMod, id));
 		auto end = Engine::World.EditorAllItems.end();
-		mc->unlock();
+		//mc->unlock();
 		if (var != end)
 		{
 			List<String^>^ list = gcnew List<String^>();
@@ -560,10 +560,10 @@ namespace ManagedGame
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 		unsigned int id = std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)));
-		mc->lock();
+		//mc->lock();
 		auto it = Engine::World.EditorAllItems.find(std::pair<std::string, unsigned int>(_mc->marshal_as<std::string>(ModName), id));
 		auto end = Engine::World.EditorAllItems.end();
-		mc->unlock();
+		//mc->unlock();
 		if (it != end)
 		{
 			if (it->second->mode == EditorObjectSaveMode::REMOVE)
@@ -611,9 +611,9 @@ namespace ManagedGame
 	AddZoneStruct^ ManagedGame::getZone()
 	{
 		AddZoneStruct^ get = gcnew AddZoneStruct();
-		mc->lock();
+		//mc->lock();
 		auto var = Engine::World.EditorAllZones.find(Engine::World.lastLoadedZone);
-		mc->unlock();
+		//mc->unlock();
 		get->name = gcnew String(var->second.name.c_str());
 		get->background = gcnew String(var->second.background.name.c_str());
 		get->loadingScreen = gcnew String(var->second.loadingScreen.name.c_str());
@@ -634,10 +634,10 @@ namespace ManagedGame
 		double x = std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(myNewZone->X)));
 		double y = std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(myNewZone->Y)));
 
-		mc->lock();
+		//mc->lock();
 		Engine::World.EditorEditZone(name, bg, ls, desc, id, x, y);
 		auto var = Engine::World.EditorAllZones.find(std::pair<std::string, size_t>(Engine::World.openedMod, id));
-		mc->unlock();
+		//mc->unlock();
 		List<String^>^ list = gcnew List<String^>();
 		list->Add(gcnew String(var->first.first.c_str()));
 		list->Add(gcnew String(std::to_string(var->first.second).c_str()));
@@ -655,13 +655,13 @@ namespace ManagedGame
 		double x = std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(myNewZone->X)));
 		double y = std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(myNewZone->Y)));
 
-		mc->lock();
+		//mc->lock();
 		Engine::World.EditorAddNewZone(name, bg, ls, desc, id, x, y);
 		Console::WriteLine("All zones Size: {0}", Engine::World.EditorAllZones.size());
 
 		String^str = gcnew String(Engine::World.openedMod.c_str());
 		auto var = Engine::World.EditorAllZones.find(std::pair<std::string, size_t>(Engine::World.openedMod, id));
-		mc->unlock();
+		//mc->unlock();
 		List<String^>^ list = gcnew List<String^>();
 		list->Add(gcnew String(var->first.first.c_str()));
 		list->Add(gcnew String(std::to_string(var->first.second).c_str()));
@@ -688,9 +688,9 @@ namespace ManagedGame
 	{
 		lv->Items->Clear();
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-		mc->lock();
+		//mc->lock();
 		Engine::World.loadZone(_mc->marshal_as<std::string>(name), size_t(std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)))));
-		mc->unlock();
+		//mc->unlock();
 		Console::WriteLine("size of the zone: ({0},{1})", name, ID);
 		auto currentZone = Engine::World.EditorAllZones[std::pair<std::string, size_t>(_mc->marshal_as<std::string>(name), size_t(std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(ID)))))].prefabList;
 		for each (auto var in currentZone)
@@ -717,21 +717,21 @@ namespace ManagedGame
 		{
 			dep.push_back(_mc->marshal_as<std::string>(var));
 		}
-		mc->lock();
+		//mc->lock();
 		if (toBoolean(isMain))
 			Engine::World.newMod(name + ".main", dep);
 		else
 			Engine::World.newMod(name + ".mod", dep);
-		mc->unlock();
+		//mc->unlock();
 		addInfoMessage("Successfully created new mod");
 		return gcnew String(Engine::World.openedMod.c_str());
 	}
 	String^ ManagedGame::loadMod(String^ modToLoad)
 	{
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-		mc->lock();
+		//mc->lock();
 		std::vector<std::string> loadErrors = Engine::World.loadMod(_mc->marshal_as<std::string>(modToLoad));
-		mc->unlock();
+		//mc->unlock();
 		if (loadErrors.size() != 0)
 			for each (std::string var in loadErrors)
 			{
@@ -747,9 +747,9 @@ namespace ManagedGame
 	}
 	void ManagedGame::save()
 	{
-		mc->lock();
+		//mc->lock();
 		std::string myReturn = Engine::World.EditorSave();
-		mc->unlock();
+		//mc->unlock();
 		if (myReturn == "<Not Set>")
 		{
 			addErrorMessage("Cannot save a non loaded Mod");
@@ -759,9 +759,9 @@ namespace ManagedGame
 	{
 		dependencies->Items->Clear();
 		msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-		mc->lock();
+		//mc->lock();
 		auto modDep = Engine::World.getModDependencies(_mc->marshal_as<std::string>(myMod));
-		mc->unlock();
+		//mc->unlock();
 		for each(std::string v in modDep)
 		{
 			dependencies->Items->Add(gcnew String(v.c_str()));
@@ -780,7 +780,7 @@ namespace ManagedGame
 				Items::Ammo* _item;
 				msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
 
-				mc->lock();
+				//mc->lock();
 				_item = new Items::Ammo(0,
 					_mc->marshal_as<std::string>(item->name),
 					"test.png", std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(item->weight))),
@@ -789,14 +789,14 @@ namespace ManagedGame
 					"test.png", std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->damage))),
 					Items::Ammo::Arrow);
 				mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-				mc->unlock();
+				//mc->unlock();
 				delete _item;
 			}
 			else
 			{
 				Items::Ammo* _item;
 				msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-				mc->lock();
+				//mc->lock();
 
 				_item = new Items::Ammo(0,
 					_mc->marshal_as<std::string>(item->name),
@@ -806,7 +806,7 @@ namespace ManagedGame
 					"test.png", std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->damage))),
 					Items::Ammo::Bolt);
 				mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-				mc->unlock();
+				//mc->unlock();
 				delete _item;
 			}
 
@@ -815,7 +815,7 @@ namespace ManagedGame
 		{
 			Items::Consumable* _item;
 			msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-			mc->lock();
+			//mc->lock();
 
 			_item = new Items::Consumable(0,
 				_mc->marshal_as<std::string>(item->name),
@@ -823,7 +823,7 @@ namespace ManagedGame
 				std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->price))),
 				_mc->marshal_as<std::string>(item->Description));
 			mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-			mc->unlock();
+			//mc->unlock();
 			delete _item;
 		}
 		else if (item->type == "Crafting Material" || item->type == "Trophy" || item->type == "Junk" || item->type == "Undefined")
@@ -839,21 +839,21 @@ namespace ManagedGame
 				myTag = Items::Item::junk;
 			else
 				myTag = Items::Item::undefined;
-			mc->lock();
+			//mc->lock();
 			_item = new Items::Item(0, false,
 				_mc->marshal_as<std::string>(item->name),
 				"test.png", myTag, std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(item->weight))),
 				std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->price))),
 				_mc->marshal_as<std::string>(item->Description));
 			mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-			mc->unlock();
+			//mc->unlock();
 			delete _item;
 		}
 		else if (item->type == "Bag")
 		{
 			Items::Bag* _item;
 			msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-			mc->lock();
+			//mc->lock();
 			_item = new Items::Bag(0,
 				_mc->marshal_as<std::string>(item->name),
 				"test.png", std::stod(_mc->marshal_as<std::string>(System::Convert::ToString(item->weight))),
@@ -861,14 +861,14 @@ namespace ManagedGame
 				_mc->marshal_as<std::string>(item->Description),
 				std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->slots))));
 			mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-			mc->unlock();
+			//mc->unlock();
 			delete _item;
 		}
 		else if (item->type == "Armor")
 		{
 			Items::Armor* _item;
 			msclr::interop::marshal_context^ _mc = gcnew msclr::interop::marshal_context();
-			mc->lock();
+			//mc->lock();
 			_item = new Items::Armor(0,
 				std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->defense))),
 				_mc->marshal_as<std::string>(item->name),
@@ -876,20 +876,20 @@ namespace ManagedGame
 				std::stoi(_mc->marshal_as<std::string>(System::Convert::ToString(item->price))),
 				_mc->marshal_as<std::string>(item->Description), _mc->marshal_as<std::string>(item->secondType), "test.png", {});
 			mc->setTooltipPreview(_item->getName(), _item->toToolTipString());
-			mc->unlock();
+			//mc->unlock();
 			delete _item;
 		}
 		else if (item->type == "Weapon")
 		{
-			mc->lock();
+			//mc->lock();
 			mc->setTooltipPreview("<TODO>", "This itemtype have not yet been added to the game");
-			mc->unlock();
+			//mc->unlock();
 		}
 		else
 		{
-			mc->lock();
+			//mc->lock();
 			mc->setTooltipPreview("<ERR>", "This is awkward...");
-			mc->unlock();
+			//mc->unlock();
 		}
 
 	}
@@ -901,9 +901,9 @@ namespace ManagedGame
 #pragma region DragDrop
 	void ManagedGame::addObjectToGame(ListViewItem^itm, ListView^lv)
 	{
-		mc->lock();
+		//mc->lock();
 		unsigned int var = Engine::World.lastLoadedZone.second;
-		mc->unlock();
+		//mc->unlock();
 		if (var == 0)
 		{
 			addErrorMessage("Cannot add object to non loaded zone");
@@ -916,9 +916,9 @@ namespace ManagedGame
 				std::string name = _mc->marshal_as<std::string>(itm->SubItems[3]->Text);
 				std::string i = _mc->marshal_as<std::string>(itm->SubItems[1]->Text);
 				size_t ii = std::stoi(i);
-				mc->lock();
+				//mc->lock();
 				auto var = mc->addGameObjectToZone(name, ii);
-				mc->unlock();
+				//mc->unlock();
 				List<String^>^ list = gcnew List<String^>();
 				list->Add(gcnew String(var.first.first.c_str()));
 				list->Add(gcnew String(std::to_string(var.first.second).c_str()));
@@ -936,10 +936,10 @@ namespace ManagedGame
 #pragma region ListView
 	void ManagedGame::setUpList(TreeView^ tv)
 	{
-		mc->lock();
+		//mc->lock();
 		auto prefabContainer = Engine::World.editorPrefabContainer;
 		auto items = Engine::World.EditorAllItems;
-		mc->unlock();
+		//mc->unlock();
 		for each (auto var in prefabContainer)
 		{
 			String ^tag = gcnew String(var.second.tag.c_str());
@@ -985,9 +985,9 @@ namespace ManagedGame
 	void ManagedGame::setUpDetailedListZone(ListView^ myList)
 	{
 		myList->Items->Clear();
-		mc->lock();
+		//mc->lock();
 		auto allzones = Engine::World.EditorAllZones;
-		mc->unlock();
+		//mc->unlock();
 		for each (auto var in allzones )
 		{
 			List<String^>^ list = gcnew List<String^>();
@@ -1003,11 +1003,11 @@ namespace ManagedGame
 	void ManagedGame::setUpDetailedList(String^ tag, String^ path, ListView^ myList)
 	{
 		myList->Items->Clear();
-		mc->lock();
+		//mc->lock();
 		auto prefabContainer = Engine::World.editorPrefabContainer;
 		auto allItems = Engine::World.EditorAllItems;
 		auto allQuests = Engine::World.EditorAllQuests;
-		mc->unlock();
+		//mc->unlock();
 		if (path->Contains("Prefabs"))
 		{
 			for each (auto var in prefabContainer)
