@@ -1,5 +1,6 @@
 #ifdef _EDITOR_
 #include "NativeContainer.hpp"
+#include "Game\Component\InventoryComponent.hpp"
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
@@ -128,6 +129,7 @@ void NativeContainer::TestAdd()
 	RenderComponent* render = go->GetComponent<RenderComponent>();
 	go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
+	go->AddComponent<InventoryComponent>();
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
@@ -185,6 +187,7 @@ int NativeContainer::windowMessage()
 	shape.setOutlineColor(sf::Color(0, 220, 0));
 	shape.setSize(sf::Vector2f(0, 0));
 	TestAdd();
+	Engine::GUI.showHideGUI();
 	////testSave();
 	//sf::Color c(1, 0, 0, 1);
 	////else

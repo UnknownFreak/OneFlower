@@ -14,7 +14,7 @@ namespace GUI
 	namespace Window
 	{
 
-		InventoryWindow::InventoryWindow(float x1, float y1, int x2, int y2) : BaseWindow(x1, y1, x2, y2, false, "CTRL+F: PANEL 2186321963"),
+		InventoryWindow::InventoryWindow(float x1, float y1, int x2, int y2) : BaseWindow(x1, y1, x2, y2, false, "Inventory"),
 			emptyInventorySlot(*Engine::Graphic.requestTexture("InventoryEmptyIcon.png"), sf::IntRect(0, 0, 32, 32)),
 			scroll(x1, y1 + 24, 0, 4, Vector2(32, 32), Vector2(5, 5), this, true), stats(x1, y1 + 32, 0, 4, Vector2(16, 16), Vector2(64, 5), this, false, false),
 			toolTip("None"), item(NULL), gold("coins.png", *Engine::Graphic.font.requestFont("Arial.ttf"), false, 0, 0, -16, 0),
@@ -67,14 +67,13 @@ namespace GUI
 				*it = NULL;
 			}
 			scroll.sprites.clear();
-			//TODO: REWORK THIS
-			GameObject* go = NULL;// Engine::Window.focus.gameObject;
-			if (go)
+			if (Engine::game.player)
 			{
-				if (go->GetComponent<InventoryComponent>())
+				InventoryComponent* inv = Engine::game.player->GetComponent<InventoryComponent>();
+				if (inv)
 				{
-					int max = go->GetComponent<InventoryComponent>()->maxBags;
-					std::vector<Items::Bag*>& b = go->GetComponent<InventoryComponent>()->bags;
+					int max = inv->maxBags;
+					std::vector<Items::Bag*>& b = inv->bags;
 					for (int it = 0; it < max; ++it)
 					{
 						int i = 0;
@@ -120,11 +119,9 @@ namespace GUI
 		}
 		void InventoryWindow::IconDrawHandle()
 		{
-			//TODO: REWORK THIS
-			GameObject* go = NULL;// Engine::Window.focus.gameObject;
-			if (go)
+			if (Engine::game.player)
 			{
-				InventoryComponent* inv = go->GetComponent<InventoryComponent>();
+				InventoryComponent* inv = Engine::game.player->GetComponent<InventoryComponent>();
 				if (inv)
 				{
 					drawGold();
@@ -195,8 +192,7 @@ namespace GUI
 				{
 					Addon::WindowIcon* selected = (Addon::WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 					Addon::WindowIcon* swap = (Addon::WindowIcon*)(scroll.sprites[scroll.swapBag]);
-					//TODO: REWORK THIS
-					InventoryComponent* icp = NULL;// Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+					InventoryComponent* icp = Engine::game.player->GetComponent<InventoryComponent>();
 
 					if (scroll.requestSwap && !bagSlotSelected && scroll.mouseInside() && !scroll.equipItem)
 					{
@@ -281,8 +277,7 @@ namespace GUI
 			emptyInventorySlot.setPosition(off.x, off.y);
 			if (scroll.getIfMovingItem() && mouseInsideIcon(emptyInventorySlot))
 			{
-				//TODO: REWORK THIS
-				InventoryComponent* icp = NULL;// Engine::Window.focus.gameObject->GetComponent<InventoryComponent>();
+				InventoryComponent* icp =Engine::game.player->GetComponent<InventoryComponent>();
 				Addon::WindowIcon* swap = (Addon::WindowIcon*)(scroll.sprites[scroll.selectedBag]);
 
 				if (icp->bags[swap->index.first]->items[swap->index.second].first)
@@ -361,11 +356,9 @@ namespace GUI
 
 		void InventoryWindow::drawGearIcons()
 		{
-			//TODO: REWORK THIS
-			GameObject* go = NULL;// Engine::Window.focus.gameObject;
-			if (go)
+			if (Engine::game.player)
 			{
-				EquipmentComponent* equip = go->GetComponent<EquipmentComponent>();
+				EquipmentComponent* equip = Engine::game.player->GetComponent<EquipmentComponent>();
 				if (equip)
 				{
 					for (int i = 0; i < 5; i++)
@@ -377,7 +370,7 @@ namespace GUI
 							if (equip->helm)
 							{
 								equip->helm->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(equip->helm->icon, go, equip, "Helm");
+								swap(equip->helm->icon, Engine::game.player, equip, "Helm");
 								if (mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == (BaseWindow*)this ||
 									mouseInsideIcon(equip->helm->icon) && !scroll.movingItem && !Engine::GUI.focusedWindow->checkMouseInside())
 								{
@@ -388,7 +381,7 @@ namespace GUI
 							else
 							{
 								emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(emptyInventorySlot, go, equip, "Helm");
+								swap(emptyInventorySlot, Engine::game.player, equip, "Helm");
 							}
 #pragma endregion
 							break;
@@ -397,7 +390,7 @@ namespace GUI
 							if (equip->chest)
 							{
 								equip->chest->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(equip->chest->icon, go, equip, "Chest");
+								swap(equip->chest->icon, Engine::game.player, equip, "Chest");
 								if (mouseInsideIcon(equip->chest->icon) && !scroll.movingItem)
 								{
 									Engine::GUI.openedWindowToolTip.setToolTipText(equip->chest->getName(), equip->chest->toToolTipString());
@@ -407,7 +400,7 @@ namespace GUI
 							else
 							{
 								emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(emptyInventorySlot, go, equip, "Chest");
+								swap(emptyInventorySlot, Engine::game.player, equip, "Chest");
 							}
 #pragma endregion
 							break;
@@ -416,7 +409,7 @@ namespace GUI
 							if (equip->gloves)
 							{
 								equip->gloves->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(equip->gloves->icon, go, equip, "Gloves");
+								swap(equip->gloves->icon, Engine::game.player, equip, "Gloves");
 								if (mouseInsideIcon(equip->gloves->icon) && !scroll.movingItem)
 								{
 									Engine::GUI.openedWindowToolTip.setToolTipText(equip->gloves->getName(), equip->gloves->toToolTipString());
@@ -426,7 +419,7 @@ namespace GUI
 							else
 							{
 								emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(emptyInventorySlot, go, equip, "Gloves");
+								swap(emptyInventorySlot, Engine::game.player, equip, "Gloves");
 							}
 #pragma endregion
 							break;
@@ -435,7 +428,7 @@ namespace GUI
 							if (equip->leggings)
 							{
 								equip->leggings->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(equip->leggings->icon, go, equip, "Leggings");
+								swap(equip->leggings->icon, Engine::game.player, equip, "Leggings");
 								if (mouseInsideIcon(equip->leggings->icon) && !scroll.movingItem)
 								{
 									Engine::GUI.openedWindowToolTip.setToolTipText(equip->leggings->getName(), equip->leggings->toToolTipString());
@@ -445,7 +438,7 @@ namespace GUI
 							else
 							{
 								emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(emptyInventorySlot, go, equip, "Leggings");
+								swap(emptyInventorySlot, Engine::game.player, equip, "Leggings");
 							}
 #pragma endregion
 							break;
@@ -454,7 +447,7 @@ namespace GUI
 							if (equip->boots)
 							{
 								equip->boots->icon.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(equip->boots->icon, go, equip, "Boots");
+								swap(equip->boots->icon, Engine::game.player, equip, "Boots");
 								if (mouseInsideIcon(equip->boots->icon) && !scroll.movingItem)
 								{
 									Engine::GUI.openedWindowToolTip.setToolTipText(equip->boots->getName(), equip->boots->toToolTipString());
@@ -464,7 +457,7 @@ namespace GUI
 							else
 							{
 								emptyInventorySlot.setPosition(position.x + 10 + offsetX, position.y + offsetY + 46.f + 37 * i);
-								swap(emptyInventorySlot, go, equip, "Boots");
+								swap(emptyInventorySlot, Engine::game.player, equip, "Boots");
 							}
 #pragma endregion
 							break;
@@ -550,11 +543,9 @@ namespace GUI
 				*it = NULL;
 			}
 			stats.sprites.clear();
-			//TODO: REWORK THIS
-			GameObject* go = NULL;// Engine::Window.focus.gameObject;
-			if (go)
+			if (Engine::game.player)
 			{
-				StatsComponent* stat = go->GetComponent<StatsComponent>();
+				StatsComponent* stat = Engine::game.player->GetComponent<StatsComponent>();
 				if (stat)
 				{
 					stats.sprites.push_back(new Addon::WindowIcon(sf::Sprite(*Engine::Graphic.requestTexture("GUIIcons.png"), sf::IntRect(0, 0, 16, 16)), "Health", "Maximum health.", std::to_string(stat->maxHealth), Vector2(18, 0), std::pair<int, int>(0, 0), sf::Color(255, 255, 255)));

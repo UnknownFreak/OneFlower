@@ -14,8 +14,8 @@ InventoryComponent::InventoryComponent() : maxWeight(150), currentWeight(0), bag
 {
 #ifdef _DEBUG
 	usedBags = bags.size();
-	Items::Item itm(0, true, "Boo", "ArrowTest.Png", Items::Item::undefined, 0.1, 12, "Arrows <Debug>");
-	addItem(itm,1);
+	Items::Item* itm = new Items::Item(0, true, "Boo", "ArrowTest.Png", Items::Item::undefined, 0.1, 12, "Arrows <Debug>");
+	addItem(*itm,1);
 	Items::Armor Arm;
 	//Arm.ID = 1;
 	Arm.armorType = "Helm";

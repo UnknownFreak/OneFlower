@@ -8,7 +8,7 @@ namespace Items
 	Item::Item(unsigned int ID, bool stackable, std::string name, std::string iconName, ItemType tag, double weight, int price, std::string description) : ID(ID), stackable(stackable), name(name), iconName(iconName), icon(*Engine::Graphic.requestTexture(iconName)), tag(tag), weight(weight), price(price), description(description), attachmentPoints({ { "Default", Vector2(0, 0) } })
 	{
 	}
-	Item::Item(const Item& item) : ID(item.ID), stackable(item.stackable), name(item.name), iconName(item.iconName), price(item.price), icon(*Engine::Graphic.requestTexture(iconName)), weight(item.weight), tag(item.tag), description(item.description), attachmentPoints({ { "Default", Vector2(0, 0) } })
+	Item::Item(const Item& item) : ID(item.ID), stackable(item.stackable), name(item.name), iconName(item.iconName), price(item.price), icon(*Engine::Graphic.requestTexture(item.iconName)), weight(item.weight), tag(item.tag), description(item.description), attachmentPoints({ { "Default", Vector2(0, 0) } })
 	{
 	}
 	Vector2& Item::getAttachmentPoint(std::string& name)
