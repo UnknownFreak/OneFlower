@@ -51,7 +51,7 @@ namespace Component
 		else
 		{
 			GameObject* myHitbox = testSkill.updateSkill();
-			if (myHitbox != NULL)
+			if (myHitbox)
 			{
 				myHitbox->GetComponent<TransformComponent>()->position = this->attachedOn->GetComponent<TransformComponent>()->position;
 				//rework this to use the animation and get the point where attack is spawned from
@@ -67,7 +67,7 @@ namespace Component
 					myHitbox->GetComponent<TransformComponent>()->position.y += myHitbox->GetComponent<HitboxComponent>()->bounding.position.y;
 					myHitbox->GetComponent<TransformComponent>()->position.x -= myHitbox->GetComponent<HitboxComponent>()->bounding.size.x;
 				}
-				Engine::game.addGameObject(myHitbox);
+				//Engine::game.addGameObject(myHitbox);
 			}
 		}
 	}

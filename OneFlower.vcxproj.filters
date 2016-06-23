@@ -623,6 +623,9 @@
     <ClInclude Include="Project\Game\BaseMessage.hpp">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Skills\Attack.hpp">
+      <Filter>Game\Skills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">

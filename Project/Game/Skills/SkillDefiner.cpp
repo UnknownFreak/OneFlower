@@ -32,14 +32,14 @@ GameObject* Skill::updateSkill()
 		{
 			std::cout << "Executing attack <" << currentAttack + 1 << "> of <" << attacks.size() << ">, with damage <" << attacks[currentAttack].damage << ">"
 				<< " at timestamp <" << currentExecuteTime << ">" << " Where execute time was supposed to be <" << attacks[currentAttack].timeframe << ">" << std::endl;
-			GameObject* myHitbox = new GameObject();
-			myHitbox->AddComponent<HitboxComponent>(attacks[currentAttack].hitbox.position.x,
+			GameObject& myHitbox = Engine::game.addGameObject();
+			myHitbox.AddComponent<HitboxComponent>(attacks[currentAttack].hitbox.position.x,
 				attacks[currentAttack].hitbox.position.y,
 				attacks[currentAttack].hitbox.size.x,
 				attacks[currentAttack].hitbox.size.y);
-			myHitbox->AddComponent<Component::Timer>(attacks[currentAttack].duration);
+			myHitbox.AddComponent<Component::Timer>(attacks[currentAttack].duration);
 			currentAttack++;
-			return myHitbox;
+			return &myHitbox;
 		}
 	return NULL;
 }
