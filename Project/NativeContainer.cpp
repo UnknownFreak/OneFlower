@@ -1,6 +1,8 @@
 #ifdef _EDITOR_
 #include "NativeContainer.hpp"
 #include "Game\Component\InventoryComponent.hpp"
+#include "Game\World\Zone.hpp"
+#include "Game\GUI\MainMenu\MainMenu.hpp"
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
@@ -10,6 +12,7 @@ InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
+Menu::MainMenu::MainMenu mm;
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
 	Engine::Graphic.view.create(handle);
@@ -20,6 +23,22 @@ NativeContainer::NativeContainer(HWND handle) : t("default")
 	gameObjectPreview = CreateWindowEx(0, "STATIC", "", WS_POPUP | WS_VISIBLE | WS_SYSMENU, 0, 0, 512, 512, NULL, NULL, NULL, NULL);
 	gameObjectPreviewRender.create(gameObjectPreview);
 	gameObjectPreviewRender.setActive(false);
+}
+void mainMenuUpdate()
+{
+	Engine::time.elapsed += Engine::time.clock.restart();
+
+	while (Engine::time.elapsed >= Engine::time.update_ms)
+	{
+		Engine::Input.mouse.update();
+		Engine::GUI.updateMouseIcon();
+		Engine::time.elapsed -= Engine::time.update_ms;
+	}
+
+	Engine::Graphic.drawBG();
+	mm.draw();
+	Engine::Graphic.view.render.display();
+
 }
 void NativeContainer::quit()
 {
@@ -182,6 +201,9 @@ void NativeContainer::showHideHitboxes()
 }
 int NativeContainer::windowMessage()
 {
+	Engine::World.loadZone("MainMenu", 0);
+	mm = Menu::MainMenu::MainMenu();
+
 	shape.setFillColor(sf::Color(0, 150, 0, 100));
 	shape.setOutlineThickness(2.f);
 	shape.setOutlineColor(sf::Color(0, 220, 0));
@@ -227,7 +249,10 @@ int NativeContainer::windowMessage()
 		}
 		else
 		{
-			update();
+			if (Engine::World.getCurrentZone()->ID == 0 && Engine::World.getCurrentZone()->modOrigin == "MainMenu")
+				mainMenuUpdate();
+			else
+				update();
 		}
 		Engine::Graphic.view.render.setActive(false);
 		tooltipPreviewRender.setActive(true);

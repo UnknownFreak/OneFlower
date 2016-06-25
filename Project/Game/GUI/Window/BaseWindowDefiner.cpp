@@ -80,15 +80,20 @@ namespace GUI
 		void BaseWindow::WindowHandle()
 		{
 			// check if user clicked inside a window that does not have focus - then request focus for that window
-			if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && checkMouseInside() && !Engine::GUI.focusedWindow->moving && !Engine::GUI.focusedWindow->resizeing
-				&& !Engine::GUI.focusedWindow->windowLClick)
-			{
-				if (Engine::Input.mouse.leftClick() || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (Engine::GUI.focusedWindow)
+				if (!focus && !Engine::GUI.focusedWindow->checkMouseInside() && checkMouseInside() && !Engine::GUI.focusedWindow->moving && !Engine::GUI.focusedWindow->resizeing
+					&& !Engine::GUI.focusedWindow->windowLClick)
 				{
-					requestFocus = true;
-					Engine::GUI.updateFocus = true;
+					if (Engine::Input.mouse.leftClick() || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						requestFocus = true;
+						Engine::GUI.updateFocus = true;
+					}
 				}
-			}
+				else
+				{
+					//DoNothing
+				}
 			// check if the user clicked inside a window with focus.
 			if (checkMouseInside() && (focus || requestFocus))
 			{
@@ -110,21 +115,24 @@ namespace GUI
 				if (windowLClick || requestFocus)
 					requestClose = true;
 			}
-			// User hovers over the resize button (if it is drawn), same as above description
-			if (resize.onHover() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this && !moving ||
-				resize.onHover() && drawResizeIcon && !Engine::GUI.focusedWindow->checkMouseInside() && !moving)
-				if (windowLClick || requestFocus)
-					resizeing = true;
-
-			if (MouseInsideTitleBar() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
-				MouseInsideTitleBar() && !Engine::GUI.focusedWindow->checkMouseInside() ||
-				MouseInsideTitleBar() && requestFocus)
+			if (Engine::GUI.focusedWindow)
 			{
-				if (windowLClick || requestFocus)
+				// User hovers over the resize button (if it is drawn), same as above description
+				if (resize.onHover() && drawResizeIcon && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this && !moving ||
+					resize.onHover() && drawResizeIcon && !Engine::GUI.focusedWindow->checkMouseInside() && !moving)
+					if (windowLClick || requestFocus)
+						resizeing = true;
+
+				if (MouseInsideTitleBar() && Engine::GUI.focusedWindow->checkMouseInside() && Engine::GUI.focusedWindow == this ||
+					MouseInsideTitleBar() && !Engine::GUI.focusedWindow->checkMouseInside() ||
+					MouseInsideTitleBar() && requestFocus)
 				{
-					moving = true;
-					clickOffset.x = Engine::Input.mouse.pos.x - window.getPosition().x;
-					clickOffset.y = Engine::Input.mouse.pos.y - window.getPosition().y;
+					if (windowLClick || requestFocus)
+					{
+						moving = true;
+						clickOffset.x = Engine::Input.mouse.pos.x - window.getPosition().x;
+						clickOffset.y = Engine::Input.mouse.pos.y - window.getPosition().y;
+					}
 				}
 			}
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && resizeing)

@@ -201,6 +201,7 @@ namespace GUI {
 		{
 			inventory.open = true;
 			inventory.focus = true;
+			inventory.requestClose = false;
 			if (focusedWindow)
 				focusedWindow->focus = false;
 			focusedWindow = &inventory;
@@ -231,6 +232,7 @@ namespace GUI {
 		{
 			stats.open = true;
 			stats.focus = true;
+			stats.requestClose = false;
 			if (focusedWindow)
 				focusedWindow->focus = false;
 			focusedWindow = &stats;
@@ -262,6 +264,7 @@ namespace GUI {
 		{
 			tradingWindow.open = true;
 			tradingWindow.focus = true;
+			tradingWindow.requestFocus = false;
 			if (focusedWindow)
 				focusedWindow->focus = false;
 			focusedWindow = &tradingWindow;

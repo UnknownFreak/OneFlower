@@ -24,10 +24,13 @@
 #include "Game\Animations\SpriterEntityInstance.hpp"
 #include "Game\Animations\SpriterModelContainer.hpp"
 
+#include "Game\World\Zone.hpp"
+
 int windowMessage();
 void RunMain();
 int test();
 void update();
+void mainMenuUpdate();
 Gfx Engine::Graphic;
 sf::Event Engine::event;
 Game Engine::game;
@@ -37,6 +40,8 @@ InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
+Menu::MainMenu::MainMenu Engine::mainMenu;
+
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	//Engine::Window.hInstance = hInstance;
@@ -47,7 +52,8 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	Engine::World.loadMod("Demo.main");
-	Engine::World.loadZone("Demo.main", 1);
+	//Engine::World.loadZone("Demo.main", 1);
+	Engine::World.loadZone("MainMenu", 0);
 
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
@@ -97,21 +103,19 @@ int windowMessage()
 	//*/
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
-	//Engine::GUI.showHideGUI();
+	Engine::GUI.showHideGUI();
 	//Engine::game.addGameObject(go);
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	Engine::Graphic.rex.create(800, 600);
-	bool running = true;
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
-	while (running)
+	while (Engine::Graphic.view.render.isOpen())
 	{
 		while (Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
 			if (Engine::event.type == sf::Event::Closed)
 			{
 				Engine::Graphic.view.render.close();
-				running = false;
 			}
 			if (Engine::event.type == Engine::event.MouseWheelMoved)
 				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
@@ -128,10 +132,29 @@ int windowMessage()
 		}
 		else
 		{
-			update();
+			if (Engine::mainMenu.isOpen())
+				mainMenuUpdate();
+			else
+				update();
 		}
 	}
 	return 1;
+}
+void mainMenuUpdate()
+{
+	Engine::time.elapsed += Engine::time.clock.restart();
+
+	while (Engine::time.elapsed >= Engine::time.update_ms)
+	{
+		Engine::Input.update();
+		Engine::GUI.updateMouseIcon();
+		Engine::time.elapsed -= Engine::time.update_ms;
+	}
+
+	Engine::Graphic.drawBG();
+	Engine::mainMenu.draw();
+	Engine::Graphic.view.render.display();
+
 }
 void update()
 {

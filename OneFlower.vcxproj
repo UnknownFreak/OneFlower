@@ -138,6 +138,8 @@
     <ClInclude Include="Project\Game\GameView.hpp" />
     <ClInclude Include="Project\Game\Gfx.h" />
     <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp" />
+    <ClInclude Include="Project\Game\GUI\MainMenu\MainMenu.hpp" />
+    <ClInclude Include="Project\Game\GUI\MainMenu\OptionsPanel.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
@@ -306,6 +308,8 @@
     <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
+    <ClCompile Include="Project\Game\GUI\MainMenu\MainMenuDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\MainMenu\OptionsPanelDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />

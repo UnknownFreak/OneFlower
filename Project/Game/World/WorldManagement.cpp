@@ -11,10 +11,14 @@
 // default constructor
 WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
 {
+	worldmap.insert({ { "MainMenu", 0 }, new Zone("MainMenu", 0, Tile("TestBackground.png",0,0), {}, {}) });
+	worldmap[{"MainMenu", 0}]->modOrigin = "MainMenu";
+	worldmap[{"MainMenu", 0}]->background.size.x = 256;
+	worldmap[{"MainMenu", 0}]->background.setRepeated(true);
+	worldmap[{"MainMenu", 0}]->loadScreen = worldmap[{"MainMenu", 0}]->background;
 	//testSave();
 	if (loadModOrderFile(modLoadOrder) == false)
 	{
-		
 		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
 		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
 	}
