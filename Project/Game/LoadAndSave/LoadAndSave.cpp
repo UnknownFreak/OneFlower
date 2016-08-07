@@ -1469,11 +1469,9 @@ void load(Archive &ar,Tile & t)
 
 namespace GUI
 {
-	namespace Text
-	{
 #pragma region Message
 		template <class Archive>
-		void save(Archive& ar, const GUI::Text::Message& msg)
+		void save(Archive& ar, const GUI::Message& msg)
 		{
 			std::string txt = msg.entireString.getString();
 			ar(msg.marginWidth);
@@ -1489,7 +1487,7 @@ namespace GUI
 			ar(msg.duration);
 		}
 		template <class Archive>
-		void load(Archive& ar, GUI::Text::Message& msg)
+		void load(Archive& ar, GUI::Message& msg)
 		{
 			std::string text;
 			int x = 0;
@@ -1512,7 +1510,7 @@ namespace GUI
 
 #pragma region FloatingText
 		template <class Archive>
-		void save(Archive& ar, const GUI::Text::FloatingText& msg)
+		void save(Archive& ar, const GUI::FloatingText& msg)
 		{
 			/*REWORK
 			std::string txt = msg.entireString.getString();
@@ -1534,7 +1532,7 @@ namespace GUI
 			//*/
 		}
 		template <class Archive>
-		void load(Archive& ar, GUI::Text::FloatingText& msg)
+		void load(Archive& ar, GUI::FloatingText& msg)
 		{
 			/*REWORK
 			std::string iconName;
@@ -1576,7 +1574,6 @@ namespace GUI
 			ar(msg.drawIcon);
 			*/
 		}
-	}
 #pragma endregion
 }
 

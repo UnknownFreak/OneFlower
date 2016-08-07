@@ -1,13 +1,10 @@
 #ifndef Font_HPP
 #define Font_HPP
-#include "Message.hpp"
 #include "SFML\Graphics\Font.hpp"
 #include <string>
 #include <map>
 #include <exception>
-namespace GUI
-{
-	namespace Text
+	namespace GUI
 	{
 		class Font
 		{
@@ -26,5 +23,4 @@ namespace GUI
 			sf::Font* what();
 		};
 	}
-}
 #endif Font_HPP

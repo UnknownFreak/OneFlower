@@ -12,7 +12,7 @@ DialogComponent::DialogComponent():
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0,0),
-open(false),dCreated(false),msg(new GUI::Text::FloatingText())
+open(false),dCreated(false),msg(new GUI::FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -23,7 +23,7 @@ DialogComponent::DialogComponent(double dur):
 fontName("arial.ttf"),
 dialogMessage("NotSet"),
 position(0,0),
-open(false), dCreated(false), msg(new GUI::Text::FloatingText())
+open(false), dCreated(false), msg(new GUI::FloatingText())
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -34,7 +34,7 @@ DialogComponent::DialogComponent(const DialogComponent &diag):
 fontName("arial.ttf"),
 dialogMessage(diag.dialogMessage),
 position(diag.position),
-open(false), dCreated(false), msg(new GUI::Text::FloatingText(*diag.msg))
+open(false), dCreated(false), msg(new GUI::FloatingText(*diag.msg))
 {
 	//rex = new sf::RenderTexture();
 	//rex->create(128, 64);
@@ -128,13 +128,13 @@ void DialogComponent::tryLoadTextureAndFont()
 
 #ifdef _DEBUG
 	}
-	catch (GUI::Text::MissingIconException ex)
+	catch (GUI::MissingIconException ex)
 	{
 		//MessageBox(Engine::Window.hWnd,"Missing Dialog Texture","Error:MissingDialogTexture",NULL);
 
 		msg->iconSprite.setTexture(*ex.what());
 	}
-	catch (GUI::Text::MissingFontException ex)
+	catch (GUI::MissingFontException ex)
 	{
 		//MessageBox(Engine::Window.hWnd,"Missing Dialog Font","Error:MissingDialogFont",NULL);
 

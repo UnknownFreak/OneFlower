@@ -39,8 +39,8 @@ namespace GUI
 			sf::Sprite emptyInventorySlot;
 			Items::Item* item;
 			ToolTip toolTip;
-			Text::FloatingText gold;
-			Text::Message weight;
+			FloatingText gold;
+			Message weight;
 
 			bool mouseInsideIcon(sf::Sprite&);
 

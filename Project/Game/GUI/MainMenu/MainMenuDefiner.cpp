@@ -35,11 +35,13 @@ namespace Menu
 				m_options.draw();
 				m_exit.draw();
 
-				if (m_newGame.onHover())
+				if (m_newGame.onHover() && Engine::Input.mouse.leftClick())
 				{
+					m_newGame.onClick();
 				}
-				if (m_continue.onHover())
+				if (m_continue.onHover() && Engine::Input.mouse.leftClick())
 				{
+					m_continue.onClick();
 				}
 				if (m_load.onHover())
 				{
@@ -87,11 +89,15 @@ namespace Menu
 		}
 		void MainMenu::continueGame()
 		{
+			if (Engine::settings.continueGameFile != "")
+			{
+
+			}
 		}
 		void MainMenu::newGame()
 		{
+			Engine::World.loadZone("Tutorial", 0);
 		}
-
 		bool MainMenu::isOpen()
 		{
 			return open;

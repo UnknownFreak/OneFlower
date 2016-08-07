@@ -47,7 +47,7 @@ namespace GUI
 			std::vector<std::pair<Items::Item*, int>> itemsBuy;
 			std::vector<std::pair<Items::Item*, int>> history;
 
-			Text::FloatingText currentGold;
+			FloatingText currentGold;
 
 			sf::Sprite selectedButton;
 			sf::Sprite tradingItemBackground;

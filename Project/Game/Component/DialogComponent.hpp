@@ -18,7 +18,7 @@ public:
 
 	//sf::RenderTexture *rex;
 
-	GUI::Text::FloatingText *msg;
+	GUI::FloatingText *msg;
 	Vector2 position;
 	DialogComponent();
 	DialogComponent(double duration);

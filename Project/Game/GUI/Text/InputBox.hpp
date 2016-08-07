@@ -5,8 +5,6 @@
 
 namespace GUI
 {
-	namespace Text
-	{
 		class InputBox :public Message
 		{
 			sf::VertexArray box;
@@ -22,6 +20,5 @@ namespace GUI
 
 		private:
 		};
-	}
 }
 #endif

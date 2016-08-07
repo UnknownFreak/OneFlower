@@ -23,7 +23,7 @@ namespace GUI
 				//used for inventory slots
 				std::pair<int, int> index;
 				sf::Sprite icon;
-				Text::FloatingText messageText;
+				GUI::FloatingText messageText;
 				std::string toolTipTitle;
 				std::string toolTipBody;
 				void draw();

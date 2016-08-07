@@ -3,6 +3,7 @@
 
 #include "../Window/BaseWindow.hpp"
 #include "../Text/Message.hpp"
+#include "../Window/Addon/ComboBox.hpp"
 namespace Menu
 {
 	namespace Options
@@ -13,13 +14,15 @@ namespace Menu
 			GUI::Window::Addon::Button m_general;
 			GUI::Window::Addon::Button m_keybinds;
 			GUI::Window::Addon::Button m_close;
-			
+			//GUI::Window::Addon::ComboBox m_res;
 			bool open;
 
 			sf::Sprite window;
 			Vector2 position;
 			sf::VertexArray outline;
-			GUI::Text::Message title;
+			GUI::Message title;
+
+			std::vector<std::string> getResolutions();
 		public:
 			OptionsPanel();
 

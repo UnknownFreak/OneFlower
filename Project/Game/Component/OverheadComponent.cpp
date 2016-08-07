@@ -6,7 +6,7 @@
 #include <string>
 const unsigned int IBaseComponent<OverheadComponent>::typeID = 1005;
 std::string IBaseComponent<OverheadComponent>::componentName = "OverheadComponent";
-OverheadComponent::OverheadComponent(): msg(GUI::Text::Message(*Engine::Graphic.font.requestFont("Arial.ttf"))),offset(0,0),spriteSize(0,0)
+OverheadComponent::OverheadComponent(): msg(GUI::Message(*Engine::Graphic.font.requestFont("Arial.ttf"))),offset(0,0),spriteSize(0,0)
 {
 	msg.setSize(25);
 }

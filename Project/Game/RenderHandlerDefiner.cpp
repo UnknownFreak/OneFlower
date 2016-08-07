@@ -448,7 +448,7 @@ void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
 
 		Engine::Graphic.view.render.draw(loadingScreen.sprite);
 
-		GUI::Text::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
+		GUI::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
 
 		msg = message;
 		msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));

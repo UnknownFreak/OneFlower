@@ -25,15 +25,6 @@
     <Filter Include="Game\Logic\Time">
       <UniqueIdentifier>{463e74af-509f-4f86-b5f4-d3972115dc36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI">
-      <UniqueIdentifier>{8ca9e112-3aa6-4f3e-868e-ab85fb5a397f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GUI\Text">
-      <UniqueIdentifier>{d88decec-9f71-41a5-9d46-62cc01a09ea9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GUI\Window">
-      <UniqueIdentifier>{631d2440-0ed3-47e2-8d71-a01649a61566}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Item">
       <UniqueIdentifier>{b92c913b-d22b-462e-9e82-72cd667d6f61}</UniqueIdentifier>
     </Filter>
@@ -121,17 +112,44 @@
     <Filter Include="Game\Animations\Armature">
       <UniqueIdentifier>{f49d0b54-5661-4f05-981a-de12b5f54ac8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI\Window\Engine">
+    <Filter Include="Game\Settings">
+      <UniqueIdentifier>{3b41491c-6c02-442b-845a-f620966f45d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI &lt;REWORK&gt;">
+      <UniqueIdentifier>{8ca9e112-3aa6-4f3e-868e-ab85fb5a397f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Text">
+      <UniqueIdentifier>{d88decec-9f71-41a5-9d46-62cc01a09ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Window">
+      <UniqueIdentifier>{631d2440-0ed3-47e2-8d71-a01649a61566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Window\Engine">
       <UniqueIdentifier>{640757df-14cc-4613-b955-5d4bdcbe9b5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI\Window\Engine\Addon">
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Window\Engine\Addon">
       <UniqueIdentifier>{fd116e0a-e879-4e19-be2f-e7cf9be0b513}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI\Window\Game">
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Window\Game">
       <UniqueIdentifier>{24fe3b2d-5cc2-4df9-a221-7f3e5526a926}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GUI\Menu">
+    <Filter Include="Game\GUI &lt;REWORK&gt;\Menu">
       <UniqueIdentifier>{7fb62eaf-6fb7-472c-84a9-8dfda2b85ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{941687a2-5fbb-4ff6-97ab-7ae88848ac21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI">
+      <UniqueIdentifier>{086f24eb-9be4-4550-9b3a-cf6f25fe29cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Text">
+      <UniqueIdentifier>{81c36389-6538-4616-b806-a8d7299ad9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser">
+      <UniqueIdentifier>{39f3ec7d-0974-4578-b6d1-08e9d8d37ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser\ParseArguments">
+      <UniqueIdentifier>{04c7500a-b5e7-47f9-a119-8ccf62e0ed6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -187,25 +205,22 @@
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp">
-      <Filter>Game\GUI\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Game\GUI\Text\Font.hpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Item\Armor.hpp">
       <Filter>Game\Item</Filter>
@@ -248,10 +263,10 @@
     </ClInclude>
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp">
-      <Filter>Game\GUI</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp">
-      <Filter>Game\GUI</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GameView.hpp">
       <Filter>Game</Filter>
@@ -261,7 +276,7 @@
       <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\Message.hpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\World\RespawnContainer.hpp">
       <Filter>Game\World</Filter>
@@ -273,7 +288,7 @@
       <Filter>Game\Logic\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\Item\Ammo.hpp">
       <Filter>Game\Item</Filter>
@@ -621,25 +636,55 @@
       <Filter>Game\Skills</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp">
-      <Filter>Game\GUI\Window\Engine</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\BaseWindowObject.hpp">
-      <Filter>Game\GUI\Window\Engine</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\MainMenu\MainMenu.hpp">
-      <Filter>Game\GUI\Menu</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Project\Game\GUI\MainMenu\OptionsPanel.hpp">
-      <Filter>Game\GUI\Menu</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\Settings\Settings.hpp">
+      <Filter>Game\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\Text.hpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Game\GUI\Text\Font.hpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp">
+      <Filter>Engine\GUI\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -695,25 +740,22 @@
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp">
-      <Filter>Game\GUI\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp">
       <Filter>Game\Item</Filter>
@@ -762,13 +804,13 @@
     </ClCompile>
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp">
-      <Filter>Game\GUI</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp">
-      <Filter>Game\GUI</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp">
-      <Filter>Game\GUI</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GameViewDefiner.cpp">
       <Filter>Game</Filter>
@@ -777,13 +819,13 @@
       <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp">
-      <Filter>Game\GUI\Text</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Text</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp">
       <Filter>Game\Logic\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp">
-      <Filter>Game\GUI\Window\Engine\Addon</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp">
       <Filter>Game\Effect</Filter>
@@ -1100,25 +1142,49 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp">
-      <Filter>Game\GUI\Window\Engine</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\BaseWindowObjectDefiner.cpp">
-      <Filter>Game\GUI\Window\Engine</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp">
-      <Filter>Game\GUI\Window\Game</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Game</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\MainMenu\MainMenuDefiner.cpp">
-      <Filter>Game\GUI\Menu</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Project\Game\GUI\MainMenu\OptionsPanelDefiner.cpp">
-      <Filter>Game\GUI\Menu</Filter>
+      <Filter>Game\GUI &lt;REWORK&gt;\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ComboBoxDefiner.cpp">
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\Text.cpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp">
+      <Filter>Engine\GUI\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1128,5 +1194,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Vector.inl" />
+    <None Include="Project\Game\GUI\Window\Addon\ComboBox.hpp">
+      <Filter>Game\GUI &lt;REWORK&gt;\Window\Engine\Addon</Filter>
+    </None>
   </ItemGroup>
 </Project>

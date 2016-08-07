@@ -17,6 +17,8 @@
 
 #include "Game\GUI\MainMenu\MainMenu.hpp"
 
+#include "Game\Settings\Settings.hpp"
+
 //LOW: Seperate each object into each header and have this work as a combine header to lessen the compile time
 //Game Engine
 namespace Engine
@@ -48,6 +50,8 @@ namespace Engine
 	extern SpriterModelContainer ModelContainer;
 
 	extern Menu::MainMenu::MainMenu mainMenu;
+
+	extern Settings settings;
 }
 /*
 namespace Engine = AsianVikingMotor;

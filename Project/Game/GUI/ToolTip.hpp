@@ -27,8 +27,8 @@ namespace GUI
 		const std::string getToolTipBody();
 		ToolTip& operator=(const ToolTip&copy);
 	private:
-		Text::FloatingText toolTipText;
-		Text::FloatingText toolTipBody;
+		FloatingText toolTipText;
+		FloatingText toolTipBody;
 
 		sf::Sprite toolTipIcon;
 	};

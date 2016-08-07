@@ -8,8 +8,6 @@
 #include <sstream>
 namespace GUI
 {
-	namespace Text
-	{
 		Message::Message(const Message& msg) :text(msg.text), color(msg.color), size(msg.size), duration(msg.duration), maxLength(msg.maxLength), font(msg.font), entireString("", font, size)
 		{
 			for (size_t it = 0; it < text.size(); it++)
@@ -291,5 +289,4 @@ namespace GUI
 		{
 			return iterpos;
 		}
-	}
 }

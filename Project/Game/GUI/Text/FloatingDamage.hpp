@@ -5,8 +5,6 @@
 #include "FloatingText.hpp"
 namespace GUI
 {
-	namespace Text
-	{
 		class FloatingDamage : public FloatingText
 		{
 		private:
@@ -18,6 +16,5 @@ namespace GUI
 
 			FloatingDamage& operator=(int damageDone);
 		};
-	}
 }
 #endif

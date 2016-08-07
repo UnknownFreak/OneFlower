@@ -6,8 +6,10 @@ namespace Menu
 	namespace Options
 	{
 
+
 		OptionsPanel::OptionsPanel() : outline(sf::LinesStrip, 5), open(false), window(*Engine::Graphic.requestTexture("DefaultWindow.png"), sf::IntRect(0, 0, 400, 500)),
 			title(*Engine::Graphic.font.requestFont("arial.ttf")), m_close("ToolTipIcon.png", "x", sf::IntRect(0, 0, 26, 26), 0, 0, GUI::Window::Addon::Button::Center)
+			//m_res(Vector2(0, 0), Vector2(250, 30), std::string("640x800"), getResolutions())
 		{
 			m_close.setPosition(600-26, 50);
 			this->title = " Options";
@@ -55,6 +57,15 @@ namespace Menu
 		bool OptionsPanel::isOpen()
 		{
 			return open;
+		}
+		std::vector<std::string> OptionsPanel::getResolutions()
+		{
+			std::vector<std::string> tmp;
+			for each (sf::VideoMode vm in sf::VideoMode::getFullscreenModes())
+			{
+				tmp.push_back(std::string(std::to_string(vm.width) + "x" + std::to_string(vm.height)));
+			}
+			return tmp;
 		}
 	}
 }

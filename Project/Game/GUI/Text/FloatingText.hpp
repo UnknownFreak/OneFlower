@@ -9,8 +9,6 @@
 #include "../../../Vector.h"
 namespace GUI
 {
-	namespace Text
-	{
 		class FloatingText : public Message
 		{
 		public:
@@ -49,9 +47,9 @@ namespace GUI
 
 		private:
 			template<class Archive>
-			friend void save(Archive& ar, const GUI::Text::FloatingText& ft);
+			friend void save(Archive& ar, const GUI::FloatingText& ft);
 			template<class Archive>
-			friend void load(Archive& ar, GUI::Text::FloatingText& ft);
+			friend void load(Archive& ar, GUI::FloatingText& ft);
 		};
 
 		class MissingIconException : public std::exception
@@ -62,6 +60,5 @@ namespace GUI
 			//	~MissingIconException(void);
 			const sf::Texture* what();
 		};
-	}
 }
 #endif

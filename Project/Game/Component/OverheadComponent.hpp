@@ -7,7 +7,7 @@ class OverheadComponent: public IBaseComponent < OverheadComponent >
 {
 public:
 
-	GUI::Text::Message msg;
+	GUI::Message msg;
 	Vector2* pos;
 	OverheadComponent();
 	//~OverheadComponent();

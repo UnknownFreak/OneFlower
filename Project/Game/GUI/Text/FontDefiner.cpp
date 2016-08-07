@@ -4,9 +4,7 @@
 
 #include "../../Gfx.h"
 
-namespace GUI
-{
-	namespace Text
+	namespace GUI
 	{
 		Font::Font()
 		{
@@ -42,5 +40,4 @@ namespace GUI
 		{
 			return Engine::Graphic.font.requestFont("arial.ttf");
 		}
-	}
 }

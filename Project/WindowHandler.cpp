@@ -25,7 +25,7 @@
 #include "Game\Animations\SpriterModelContainer.hpp"
 
 #include "Game\World\Zone.hpp"
-
+#include "Engine\GUI\Text\Text.hpp"
 int windowMessage();
 void RunMain();
 int test();
@@ -41,7 +41,10 @@ GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 Menu::MainMenu::MainMenu Engine::mainMenu;
-
+Settings Engine::settings;
+int a = 24;
+int b = 42;
+GUI::Text t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b)+ "(new): {3}", { GUI::Parser::ParseArgument::BaseParseArgument::startList(), GUI::Parser::ParseArgument::BaseParseArgument::newListLine(), GUI::Parser::ParseArgument::BaseParseArgument::endList(), GUI::Parser::ParseArgument::BaseParseArgument::IntCompareArgument(a, b) });
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	//Engine::Window.hInstance = hInstance;
@@ -51,6 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
+	t.setCharacterSize(18, true);
 	Engine::World.loadMod("Demo.main");
 	//Engine::World.loadZone("Demo.main", 1);
 	Engine::World.loadZone("MainMenu", 0);
@@ -60,8 +64,8 @@ int windowMessage()
 	go->AddComponent<RenderComponent>("PlayerDemo.png");
 	go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
 	RenderComponent* render = go->GetComponent<RenderComponent>();
-	go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
-	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
+	//go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
+	//go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
 	go->AddComponent<RigidComponent>();
 	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
@@ -72,6 +76,7 @@ int windowMessage()
 	go->AddComponent<Component::Combat>();
 	Engine::game.addGameObject(go);
 	Engine::game.player = go;
+
 	//testSave();
 	//Loads the mods required for the "editor", not required for release mode.
 	//Engine::World.loadMod("OneFlower.main");
@@ -153,6 +158,7 @@ void mainMenuUpdate()
 
 	Engine::Graphic.drawBG();
 	Engine::mainMenu.draw();
+	Engine::Graphic.view.render.draw(t);
 	Engine::Graphic.view.render.display();
 
 }

@@ -13,14 +13,14 @@
 #include "GUI\Text\Message.hpp"
 class Tile;
 class GameObject;
-//class GUI::Text::Message;
+//class GUI::::Message;
 class Gfx
 {
 public:
 	GameView view;
 	Gfx();
-	GUI::Text::Font font;
-	std::vector<GUI::Text::Message *> msg;
+	GUI::Font font;
+	std::vector<GUI::Message *> msg;
 
 #pragma region Texture Related Functions
 	//Load a picture file into a Texture and not a sprite

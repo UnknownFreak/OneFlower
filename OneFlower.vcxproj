@@ -17,6 +17,14 @@
   <ItemGroup>
     <ClInclude Include="Project\CppInterop.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\Text.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterModelContainer.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animation.h" />
     <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.h" />
@@ -176,6 +184,7 @@
     <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
     <ClInclude Include="Project\Game\Quest\Quest.hpp" />
     <ClInclude Include="Project\Game\Quest\QuestObjective.hpp" />
+    <ClInclude Include="Project\Game\Settings\Settings.hpp" />
     <ClInclude Include="Project\Game\Skills\Attack.hpp" />
     <ClInclude Include="Project\Game\Skills\Skill.hpp" />
     <ClInclude Include="Project\Game\Tile.h" />
@@ -190,6 +199,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Cppinterop.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\Text.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animation.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\mainlinekey.cpp" />
@@ -317,6 +332,7 @@
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
+    <ClCompile Include="Project\Game\GUI\Window\Addon\ComboBoxDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
@@ -355,6 +371,7 @@
     <ResourceCompile Include="Project\Other\MenuBar.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Project\Game\GUI\Window\Addon\ComboBox.hpp" />
     <None Include="Project\Vector.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -426,6 +443,7 @@
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
  %(AdditionalOptions)</AdditionalOptions>
+      <Profile>true</Profile>
     </Link>
     <Manifest>
       <InputResourceManifests>

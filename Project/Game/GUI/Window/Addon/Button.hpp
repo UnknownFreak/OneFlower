@@ -33,7 +33,7 @@ namespace GUI
 				ToolTip toolTip;
 				Vector2 position;
 
-				Text::Message text;
+				Message text;
 			public:
 
 				sf::Sprite icon;

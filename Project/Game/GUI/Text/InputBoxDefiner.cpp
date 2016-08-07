@@ -2,8 +2,6 @@
 #include "../../../Engine.hpp"
 namespace GUI
 {
-	namespace Text
-	{
 		InputBox::InputBox()
 		{
 		}
@@ -52,5 +50,4 @@ namespace GUI
 			box[3].position.x += x;
 			box[3].position.y += y;
 		}
-	}
 }

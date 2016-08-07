@@ -45,7 +45,7 @@ namespace GUI
 
 			Vector2 clickOffset;
 
-			Text::Message title;
+			Message title;
 
 			double offsetX = 0;
 			double offsetY = 0;

@@ -27,7 +27,7 @@ namespace GUI
 				Vector2 position;
 				Vector2 size;
 
-				Text::Message text;
+				Message text;
 				sf::Sprite progressbar;
 			public:
 

@@ -2,8 +2,6 @@
 #include <iostream>
 namespace GUI
 {
-	namespace Text
-	{
 		FloatingDamage::FloatingDamage(std::string iconName, sf::Font& font, double duration, int len, double offsetX, double offsetY) : FloatingText(iconName, font, true, duration, len, offsetX, offsetY)
 		{
 		}
@@ -22,5 +20,4 @@ namespace GUI
 
 			return *this;
 		}
-	}
 }

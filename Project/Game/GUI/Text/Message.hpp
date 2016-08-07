@@ -7,8 +7,6 @@
 #include <cereal\access.hpp>
 namespace GUI
 {
-	namespace Text
-	{
 		class Message
 		{
 		public:
@@ -62,11 +60,10 @@ namespace GUI
 		private:
 			
 			template <class Archive>//, GameObject& go>
-			friend void save(Archive& archive, const GUI::Text::Message& msg);
+			friend void save(Archive& archive, const GUI::Message& msg);
 			template <class Archive>//, GameObject& go>
-			friend void load(Archive& archive, GUI::Text::Message& msg);
+			friend void load(Archive& archive, GUI::Message& msg);
 			
 		};
 	}
-}
 #endif Message_HPP

@@ -16,13 +16,17 @@ WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modL
 	worldmap[{"MainMenu", 0}]->background.size.x = 256;
 	worldmap[{"MainMenu", 0}]->background.setRepeated(true);
 	worldmap[{"MainMenu", 0}]->loadScreen = worldmap[{"MainMenu", 0}]->background;
+
+#ifdef _DEBUG
+	EditorAddNewZone("Tutorial", "test.png", "test.png", "Tutorial Zone", 1, 1000, 800);
+#endif
+
 	//testSave();
 	if (loadModOrderFile(modLoadOrder) == false)
 	{
 		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
-		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 0));
+		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 1));
 	}
-
 }
 // deconstructor
 WorldManagement::~WorldManagement()
@@ -265,20 +269,26 @@ void WorldManagement::EditorAddNewZone(std::string zoneName, std::string backgro
 	myDbZone.name = zoneName;
 	myDbZone.fromMod = openedMod;
 	myDbZone.ID = ID;
-	myDbZone.background = Tile(background,0,0);
+	myDbZone.background = Tile(background, 0, 0);
 	myDbZone.background.size.x = x;
 	myDbZone.background.size.y = y;
 
-	myDbZone.loadingScreen = Tile(loadingScreen,0,0);
+	myDbZone.loadingScreen = Tile(loadingScreen, 0, 0);
 	myDbZone.loadingScreenMessage = loadingScreenMessage;
 
-	EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(openedMod, ID), myDbZone));
+	if (zoneName == "Tutorial" && ID == 1)
+	{
+		myDbZone.fromMod = "Tutorial";
+		EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>("Tutorial", ID), myDbZone));
+	}
+	else
+		EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(openedMod, ID), myDbZone));
+
 }
 void WorldManagement::EditorEditZone(std::string zoneName, std::string background, std::string loadingScreen, std::string loadingScreenMessage, size_t ID, double x, double y)
 {
 	EditorAllZones[lastLoadedZone].mode = EditorObjectSaveMode::EDIT;
 	EditorAllZones[lastLoadedZone].name = zoneName;
-	EditorAllZones[lastLoadedZone].fromMod = openedMod;
 	EditorAllZones[lastLoadedZone].ID = ID;
 	EditorAllZones[lastLoadedZone].background = Tile(background, 0, 0);
 	EditorAllZones[lastLoadedZone].background.size.x = x;
