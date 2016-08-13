@@ -13,6 +13,7 @@ GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 Menu::MainMenu::MainMenu mm;
+Settings Engine::settings;
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
 	Engine::Graphic.view.create(handle);

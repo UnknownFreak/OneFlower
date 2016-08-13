@@ -73,6 +73,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditorStartup.xaml.cs">
+      <DependentUpon>EditorStartup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editor\Attchments\AddAttachmentPoint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +305,12 @@
       <Project>{f58779da-3de9-4daa-8457-9f0556580466}</Project>
       <Name>OneFlower</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="EditorStartup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
