@@ -38,6 +38,10 @@ namespace GUI
 
 			int listIndex = -1;
 
+			std::string doCompareArgument(Parser::ParseArgument::BaseParseArgument* argument);
+
+			// does this need to return anything?
+			void doReferenceArgument(Parser::ParseArgument::BaseParseArgument* argument);
 
 		public:
 			TextParser(ParserSettings settings);

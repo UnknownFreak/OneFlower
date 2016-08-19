@@ -48,29 +48,7 @@ namespace GUI
 							{
 							case Parser::ParseArgument::BaseParseArgument::Compare:
 							{
-								Parser::ParseArgument::BaseCompareArgument* bca = ((Parser::ParseArgument::BaseCompareArgument*)bpa);
-								std::string text;
-								switch (bca->comparingType)
-								{
-								case Parser::ParseArgument::BaseCompareArgument::CompareType::Int:
-								{
-									Parser::ParseArgument::IntCompareResult* tmp = ((Parser::ParseArgument::IntCompareResult*)bpa);
-									text = std::to_string(tmp->first);
-									Parser::ParseArgument::CompareResult<int> t = tmp->getCompared();
-									if (t.result == t.Bad)
-									{
-										text.append(" -");
-										text += std::to_string(t.value);
-									}
-									else if (t.result == t.Good)
-									{
-										text.append(" +");
-										text += std::to_string(t.value);
-									}
-									break;
-								}
-								};
-								for each (char ch in text)
+								for each (char ch in doCompareArgument(bpa))
 								{
 									glyph = settings.font.getGlyph(ch, settings.charSize, false);
 									advance += (glyph.advance + settings.characterSpacing);
@@ -146,7 +124,7 @@ namespace GUI
 			size_t i = 0;
 			size_t size = m_text.getSize();
 			sf::String argPos;
-			size_t currentArgument =0;
+			size_t currentArgument = 0;
 			for (i = 0; i < size; i++)
 			{
 				glyph = settings.font.getGlyph(m_text[i], settings.charSize, false);
@@ -180,29 +158,7 @@ namespace GUI
 							{
 							case Parser::ParseArgument::BaseParseArgument::Compare:
 							{
-								std::string text;
-								Parser::ParseArgument::BaseCompareArgument* bca = ((Parser::ParseArgument::BaseCompareArgument*)bpa);
-								switch (bca->comparingType)
-								{
-								case Parser::ParseArgument::BaseCompareArgument::CompareType::Int:
-								{
-									Parser::ParseArgument::IntCompareResult* tmp = ((Parser::ParseArgument::IntCompareResult*)bpa);
-									text = std::to_string(tmp->first);
-									Parser::ParseArgument::CompareResult<int> t = tmp->getCompared();
-									if (t.result == t.Bad)
-									{
-										text.append(" -");
-										text += std::to_string(t.value);
-									}
-									else if (t.result == t.Good)
-									{
-										text.append(" +");
-										text += std::to_string(t.value);
-									}
-									break;
-								}
-								};
-								for each (char ch in text)
+								for each (char ch in doCompareArgument(bpa))
 								{
 									if (ch == '-')
 										sprite.setColor(sf::Color::Red);
@@ -219,11 +175,11 @@ namespace GUI
 							}
 							case Parser::ParseArgument::BaseParseArgument::Reference:
 							{
+								doReferenceArgument(bpa);
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::BeginList:
 							{
-				
 								listIndex++;
 								if (advance > 0)
 									NewLine();
@@ -289,6 +245,35 @@ namespace GUI
 				glyph = settings.font.getGlyph(LIST_DOT, settings.charSize, false);
 				advance += (glyph.advance + settings.characterSpacing + kerning);
 			}
+		}
+		std::string TextParser::doCompareArgument(Parser::ParseArgument::BaseParseArgument * argument)
+		{
+			std::string text;
+			Parser::ParseArgument::BaseCompareArgument* bca = ((Parser::ParseArgument::BaseCompareArgument*)argument);
+			switch (bca->comparingType)
+			{
+			case Parser::ParseArgument::BaseCompareArgument::CompareType::Int:
+			{
+				Parser::ParseArgument::IntCompareResult* tmp = ((Parser::ParseArgument::IntCompareResult*)argument);
+				text = std::to_string(tmp->first);
+				Parser::ParseArgument::CompareResult<int> t = tmp->getCompared();
+				if (t.result == t.Bad)
+				{
+					text.append(" -");
+					text += std::to_string(t.value);
+				}
+				else if (t.result == t.Good)
+				{
+					text.append(" +");
+					text += std::to_string(t.value);
+				}
+				break;
+			}
+			};
+			return text;
+		}
+		void TextParser::doReferenceArgument(Parser::ParseArgument::BaseParseArgument * argument)
+		{
 		}
 		TextParser::TextParser(ParserSettings _settings) : settings(_settings)
 		{
