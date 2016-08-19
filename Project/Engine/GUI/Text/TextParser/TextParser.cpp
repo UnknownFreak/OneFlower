@@ -248,29 +248,17 @@ namespace GUI
 		}
 		std::string TextParser::doCompareArgument(Parser::ParseArgument::BaseParseArgument * argument)
 		{
-			std::string text;
 			Parser::ParseArgument::BaseCompareArgument* bca = ((Parser::ParseArgument::BaseCompareArgument*)argument);
 			switch (bca->comparingType)
 			{
 			case Parser::ParseArgument::BaseCompareArgument::CompareType::Int:
 			{
-				Parser::ParseArgument::IntCompareResult* tmp = ((Parser::ParseArgument::IntCompareResult*)argument);
-				text = std::to_string(tmp->first);
-				Parser::ParseArgument::CompareResult<int> t = tmp->getCompared();
-				if (t.result == t.Bad)
-				{
-					text.append(" -");
-					text += std::to_string(t.value);
-				}
-				else if (t.result == t.Good)
-				{
-					text.append(" +");
-					text += std::to_string(t.value);
-				}
-				break;
+				return doCompareResult<Parser::ParseArgument::IntCompareResult,int>(argument);
 			}
+			case Parser::ParseArgument::BaseCompareArgument::CompareType::Double:
+				return doCompareResult<Parser::ParseArgument::DoubleCompareResult, double>(argument);
 			};
-			return text;
+			return "<CompareTypeInvalid>";
 		}
 		void TextParser::doReferenceArgument(Parser::ParseArgument::BaseParseArgument * argument)
 		{

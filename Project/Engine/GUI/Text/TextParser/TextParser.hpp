@@ -40,6 +40,39 @@ namespace GUI
 
 			std::string doCompareArgument(Parser::ParseArgument::BaseParseArgument* argument);
 
+
+			/*
+			T has to be of type BaseParseArgument
+			Valid types are
+			IntCompareResult,
+			DoubleCompareResult,
+			FloatCompareResult,
+			UintCompareResult,
+			tY has to be of type depending on the type of T,
+			IntCompare need to have int as tY,
+			DoubleCompare need to have double as tY, etc.
+			*param* the argument to cast to T
+			*return* the formatted string from the argument passed*/
+			template<class T, typename tY>
+			std::string doCompareResult(Parser::ParseArgument::BaseParseArgument* argument)
+			{
+				std::string text;
+				T* tType = (T*)argument;
+				text = std::to_string(tType->first);
+				typename Parser::ParseArgument::CompareResult<tY> tResult = tType->getCompared();
+				if (tResult.result == tResult.Bad)
+				{
+					text.append(" -");
+					text += std::to_string(tResult.value);
+				}
+				else if (tResult.result == tResult.Good)
+				{
+					text.append(" +");
+					text += std::to_string(tResult.value);
+				}
+				return text;
+			}
+
 			// does this need to return anything?
 			void doReferenceArgument(Parser::ParseArgument::BaseParseArgument* argument);
 
