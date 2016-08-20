@@ -1,5 +1,7 @@
 #include "BaseParseArgument.hpp"
 #include "CompareResultTypes.hpp"
+#include "ReferenceArgumentTypes.hpp"
+#include "../Color/ColorArgument.hpp"
 namespace GUI
 {
 	namespace Parser
@@ -23,16 +25,22 @@ namespace GUI
 			}
 			BaseParseArgument* BaseParseArgument::colorArgument(sf::Color color)
 			{
-				return new BaseParseArgument(ArgumentType::Color);
+				return new ColorArgument(color);
 			}
 			BaseParseArgument* BaseParseArgument::colorArgument(short r, short g, short b, short a)
 			{
-				return new BaseParseArgument(ArgumentType::Color);
+				return new ColorArgument(sf::Color(r,g,b,a));
 			}
 			BaseParseArgument* BaseParseArgument::IntCompareArgument(int & first, int & second)
 			{
 				return new IntCompareResult(first, second);
 			}
+
+			BaseParseArgument * BaseParseArgument::IntReferenceArgument(int & reference)
+			{
+				return new IntReference(reference);
+			}
+			
 		}
 	}
 }

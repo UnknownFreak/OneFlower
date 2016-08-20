@@ -74,7 +74,7 @@ namespace GUI
 			}
 
 			// does this need to return anything?
-			void doReferenceArgument(Parser::ParseArgument::BaseParseArgument* argument);
+			std::string doReferenceArgument(Parser::ParseArgument::BaseParseArgument* argument);
 
 		public:
 			TextParser(ParserSettings settings);

@@ -2,7 +2,6 @@
 #define BASEPARSEARGUMENT_HPP
 
 #include <SFML\Graphics\Color.hpp>
-
 namespace GUI
 {
 	namespace Parser
@@ -35,11 +34,13 @@ namespace GUI
 				static BaseParseArgument* colorArgument(sf::Color color);
 				static BaseParseArgument* colorArgument(short r, short g, short b, short a);
 				static BaseParseArgument* IntCompareArgument(int& first, int& second);
+				static BaseParseArgument* IntReferenceArgument(int& reference);
 
-				//template<class T>
-				//static ArgumentType compareArgument(T& first, T& second)
-				//{
-				//};
+				template<class T>
+				static BaseParseArgument* compareArgument(T& first, T& second)
+				{
+					return new ICompareResult<T>(first, second);
+				};
 
 			};
 			

@@ -48,7 +48,7 @@ namespace GUI
 				}
 				IntCompareResult(const IntCompareResult& copy) : ICompareResult(copy)
 				{
-
+					comparingType = CompareType::Int;
 				}
 				IntCompareResult& operator= (const IntCompareResult& right)
 				{
@@ -66,6 +66,18 @@ namespace GUI
 				DoubleCompareResult(double& first, double& second) : ICompareResult(first, second)
 				{
 					comparingType = CompareType::Double;
+				}
+				DoubleCompareResult(const DoubleCompareResult& copy) : ICompareResult(copy)
+				{
+					comparingType = CompareType::Double;
+				}
+				DoubleCompareResult& operator= (const DoubleCompareResult& right)
+				{
+					first = right.first;
+					second = right.second;
+					type = right.type;
+					comparingType = right.comparingType;
+					return *this;
 				}
 			};
 		}

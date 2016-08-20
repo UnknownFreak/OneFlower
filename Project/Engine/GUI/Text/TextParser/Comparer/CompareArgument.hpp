@@ -38,7 +38,6 @@ namespace GUI
 					return CompareResult<T>(first, CompareResult<T>::CompareResultColor::Neutral);
 				}
 			};
-
 		}
 	}
 }

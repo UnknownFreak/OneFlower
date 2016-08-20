@@ -151,6 +151,15 @@
     <Filter Include="Engine\GUI\Text\TextParser\ParseArguments">
       <UniqueIdentifier>{04c7500a-b5e7-47f9-a119-8ccf62e0ed6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument">
+      <UniqueIdentifier>{f13410e5-1f13-4a74-b02b-7e81fad645ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\CompareArgument">
+      <UniqueIdentifier>{037c0e58-2a04-4fcd-8cb9-844883e88fdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\ColorArgument">
+      <UniqueIdentifier>{5b51702a-56a3-47a1-88b1-8c7a4ebacfbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -671,20 +680,29 @@
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.hpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp">
       <Filter>Engine\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ColorArgument</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1180,11 +1198,17 @@
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.cpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp">
       <Filter>Engine\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ColorArgument</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

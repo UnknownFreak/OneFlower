@@ -2,7 +2,8 @@
 #include "../../../../Vector.h"
 #include "Comparer\CompareArgument.hpp"
 #include "Comparer\CompareResultTypes.hpp"
-
+#include "Comparer\ReferenceArgumentTypes.hpp"
+#include "Color\ColorArgument.hpp"
 #define LIST_DOT 0x25CF
 
 namespace GUI
@@ -59,6 +60,13 @@ namespace GUI
 							}
 							case Parser::ParseArgument::BaseParseArgument::Reference:
 							{
+								for each (char ch in doReferenceArgument(bpa))
+								{
+									glyph = settings.font.getGlyph(ch, settings.charSize, false);
+									advance += (glyph.advance + settings.characterSpacing);
+									if (texSize.x <= advance)
+										texSize.x = advance;
+								}
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::BeginList:
@@ -170,13 +178,25 @@ namespace GUI
 									advance += (glyph.advance + settings.characterSpacing + kerning);
 									m_parsedTextTexture.draw(sprite);
 								}
-								sprite.setColor(settings.color);
+								sprite.setColor(settings.currentColor);
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::Reference:
 							{
-								doReferenceArgument(bpa);
+								for each (char ch in doReferenceArgument(bpa))
+								{
+									glyph = settings.font.getGlyph(ch, settings.charSize, false);
+									sprite.setTextureRect(glyph.textureRect);
+									sprite.setPosition(advance + glyph.bounds.left, newLine + glyph.bounds.top + settings.font.getLineSpacing(settings.charSize));
+									advance += (glyph.advance + settings.characterSpacing + kerning);
+									m_parsedTextTexture.draw(sprite);
+								}
 								break;
+							}
+							case Parser::ParseArgument::BaseParseArgument::Color:
+							{
+								settings.currentColor = ((Parser::ParseArgument::ColorArgument*)bpa)->myColor;
+								sprite.setColor(settings.currentColor);
 							}
 							case Parser::ParseArgument::BaseParseArgument::BeginList:
 							{
@@ -248,7 +268,7 @@ namespace GUI
 		}
 		std::string TextParser::doCompareArgument(Parser::ParseArgument::BaseParseArgument * argument)
 		{
-			Parser::ParseArgument::BaseCompareArgument* bca = ((Parser::ParseArgument::BaseCompareArgument*)argument);
+			Parser::ParseArgument::BaseCompareArgument* bca = (Parser::ParseArgument::BaseCompareArgument*)argument;
 			switch (bca->comparingType)
 			{
 			case Parser::ParseArgument::BaseCompareArgument::CompareType::Int:
@@ -260,8 +280,17 @@ namespace GUI
 			};
 			return "<CompareTypeInvalid>";
 		}
-		void TextParser::doReferenceArgument(Parser::ParseArgument::BaseParseArgument * argument)
+		std::string TextParser::doReferenceArgument(Parser::ParseArgument::BaseParseArgument * argument)
 		{
+			Parser::ParseArgument::BaseReferenceArgument* bref = (Parser::ParseArgument::BaseReferenceArgument*)argument;
+			switch (bref->refType)
+			{
+			case Parser::ParseArgument::BaseReferenceArgument::ReferenceType::Int:
+				return std::to_string(((ParseArgument::IntReference*)bref)->myReference);
+			default:
+				break;
+			}
+			return "<ReferenceInvalid>";
 		}
 		TextParser::TextParser(ParserSettings _settings) : settings(_settings)
 		{
@@ -275,7 +304,8 @@ namespace GUI
 		{
 			const sf::Texture& tex = settings.font.getTexture(settings.charSize);
 			sprite.setTexture(tex, true);
-			sprite.setColor(settings.color);
+			settings.currentColor = settings.color;
+			sprite.setColor(settings.currentColor);
 			
 			texSize.x = texSize.y = 0;
 			advance = 0;

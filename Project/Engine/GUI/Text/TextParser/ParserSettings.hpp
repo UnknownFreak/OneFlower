@@ -12,6 +12,7 @@ namespace GUI
 		{
 			sf::Font& font;
 			sf::Color& color;
+			sf::Color& currentColor;
 			double& characterSpacing;
 			unsigned int& charSize;
 			Vector2 trimPosition;

@@ -19,10 +19,13 @@
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\Text.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgument.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterModelContainer.hpp" />
@@ -201,8 +204,10 @@
     <ClCompile Include="Project\Cppinterop.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\Text.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animation.cpp" />
