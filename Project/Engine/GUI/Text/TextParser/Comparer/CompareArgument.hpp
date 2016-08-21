@@ -20,7 +20,6 @@ namespace GUI
 					Float,
 					Double,
 					UInt,
-					String,
 				};
 
 				CompareType comparingType;
