@@ -160,6 +160,9 @@
     <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\ColorArgument">
       <UniqueIdentifier>{5b51702a-56a3-47a1-88b1-8c7a4ebacfbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\IconArgument">
+      <UniqueIdentifier>{f56e42ea-e22f-4779-8c23-5d9e5bab8396}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -703,6 +706,9 @@
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.hpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\IconArgument</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

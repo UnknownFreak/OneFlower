@@ -40,9 +40,8 @@ namespace GUI
 
 			std::string doCompareArgument(Parser::ParseArgument::BaseParseArgument* argument);
 
-
 			/*
-			T has to be of type BaseParseArgument
+			T has to be of type ICompareResult
 			Valid types are
 			IntCompareResult,
 			DoubleCompareResult,

@@ -24,6 +24,7 @@
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.hpp" />
