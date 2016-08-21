@@ -13,7 +13,7 @@ namespace GUI
 	{
 		class TextParser
 		{
-
+			Vector2i iconOffsetting;
 			Vector2i texSize;
 			sf::Sprite sprite;
 			sf::Glyph glyph;

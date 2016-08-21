@@ -4,6 +4,8 @@
 #include "Comparer\CompareResultTypes.hpp"
 #include "Reference\ReferenceArgumentTypes.hpp"
 #include "Color\ColorArgument.hpp"
+#include "Icon\IconArgument.hpp"
+
 #define LIST_DOT 0x25CF
 
 namespace GUI
@@ -103,7 +105,12 @@ namespace GUI
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::Icon:
+							{
+								Parser::ParseArgument::IconArgument* ico = (Parser::ParseArgument::IconArgument*)bpa;
+								advance += ico->size.x;
+								iconOffsetting = ico->size;
 								break;
+							}
 							case Parser::ParseArgument::BaseParseArgument::None:
 								break;
 							}
@@ -235,7 +242,12 @@ namespace GUI
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::Icon:
+							{
+								Parser::ParseArgument::IconArgument* ico = (Parser::ParseArgument::IconArgument*)bpa;
+								advance += ico->size.x;
+								iconOffsetting = ico->size;
 								break;
+							}
 							case Parser::ParseArgument::BaseParseArgument::None:
 								break;
 							}
@@ -258,12 +270,18 @@ namespace GUI
 		void TextParser::NewLine()
 		{
 			advance = 0;
-			newLine += (settings.font.getLineSpacing(settings.charSize));
+			newLine += settings.font.getLineSpacing(settings.charSize);
 			if (listIndex > -1)
 			{
 				advance += listIndex * 4;
 				glyph = settings.font.getGlyph(LIST_DOT, settings.charSize, false);
 				advance += (glyph.advance + settings.characterSpacing + kerning);
+			}
+			if (iconOffsetting.y > 0)
+			{
+				advance += iconOffsetting.x;
+				iconOffsetting.y -= settings.font.getLineSpacing(settings.charSize);
+				iconOffsetting.y < 1 ? iconOffsetting = Vector2i(0, 0) : iconOffsetting;
 			}
 		}
 		std::string TextParser::doCompareArgument(Parser::ParseArgument::BaseParseArgument * argument)

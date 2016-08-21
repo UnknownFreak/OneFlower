@@ -17,6 +17,7 @@ namespace GUI
 				public:
 					sf::Sprite mySprite;
 					Vector2 pos;
+					Vector2i size;
 					IconArgument(sf::Texture& texture, Vector2 pos, Vector2i size);
 					IconArgument(IconArgument& copy);
 					IconArgument& operator=(IconArgument& right);

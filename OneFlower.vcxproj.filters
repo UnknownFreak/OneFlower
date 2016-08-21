@@ -1216,6 +1216,9 @@
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.cpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\IconArgument</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project\Other\MenuBar.rc">

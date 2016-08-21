@@ -208,6 +208,7 @@
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp" />
