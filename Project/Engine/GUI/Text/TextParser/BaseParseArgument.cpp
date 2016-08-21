@@ -1,7 +1,7 @@
 #include "BaseParseArgument.hpp"
-#include "CompareResultTypes.hpp"
-#include "ReferenceArgumentTypes.hpp"
-#include "../Color/ColorArgument.hpp"
+#include "../TextParser/Comparer/CompareResultTypes.hpp"
+#include "../TextParser/Reference/ReferenceArgumentTypes.hpp"
+#include "../TextParser/Color/ColorArgument.hpp"
 namespace GUI
 {
 	namespace Parser

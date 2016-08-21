@@ -2,7 +2,7 @@
 #include "../../../../Vector.h"
 #include "Comparer\CompareArgument.hpp"
 #include "Comparer\CompareResultTypes.hpp"
-#include "Comparer\ReferenceArgumentTypes.hpp"
+#include "Reference\ReferenceArgumentTypes.hpp"
 #include "Color\ColorArgument.hpp"
 #define LIST_DOT 0x25CF
 

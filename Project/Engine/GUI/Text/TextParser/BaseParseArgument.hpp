@@ -36,7 +36,6 @@ namespace GUI
 				static BaseParseArgument* IntCompareArgument(int& first, int& second);
 				static BaseParseArgument* IntReferenceArgument(int& reference);
 			};
-			
 		}
 	}
 }

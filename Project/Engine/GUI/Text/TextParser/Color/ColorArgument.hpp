@@ -1,7 +1,7 @@
 #ifndef COLORARGUMENT_HPP
 #define	COLORARGUMENT_HPP
 
-#include "../Comparer/BaseParseArgument.hpp"
+#include "../BaseParseArgument.hpp"
 
 
 namespace GUI

@@ -1,6 +1,6 @@
 #ifndef COMPAREARGUMENT_HPP 
 #define	COMPAREARGUMENT_HPP
-#include "BaseParseArgument.hpp"
+#include "../BaseParseArgument.hpp"
 #include "CompareResult.hpp"
 
 namespace GUI
@@ -9,7 +9,6 @@ namespace GUI
 	{
 		namespace ParseArgument
 		{
-			
 			class BaseCompareArgument : public BaseParseArgument
 			{
 

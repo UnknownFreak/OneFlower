@@ -5,7 +5,7 @@
 #include <SFML\System\String.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 
-#include "Comparer\BaseParseArgument.hpp"
+#include "BaseParseArgument.hpp"
 #include "ParserSettings.hpp"
 namespace GUI
 {

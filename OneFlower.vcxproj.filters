@@ -677,20 +677,11 @@
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp">
       <Filter>Engine\GUI\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgument.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.hpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
@@ -703,6 +694,15 @@
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.hpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\ColorArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.hpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.hpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1195,20 +1195,20 @@
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\BaseParseArgument.cpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp">
       <Filter>Engine\GUI\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\ReferenceArgumentTypes.cpp">
-      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
     </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\CompareArgument</Filter>
     </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\ColorArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.cpp">
+      <Filter>Engine\GUI\Text\TextParser\ParseArguments\ReferenceArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.cpp">
+      <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
