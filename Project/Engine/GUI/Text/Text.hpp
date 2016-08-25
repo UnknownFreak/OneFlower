@@ -9,6 +9,8 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include "../../../Vector.h"
 #include "TextParser\TextParser.hpp"
+
+namespace ParseArg = GUI::Parser::ParseArgument;
 namespace GUI
 {
 	class Text : public sf::Drawable

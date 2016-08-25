@@ -44,7 +44,10 @@ Menu::MainMenu::MainMenu Engine::mainMenu;
 Settings Engine::settings;
 int a = 24;
 int b = 42;
-GUI::Text t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b)+ "(new): {3}", { GUI::Parser::ParseArgument::BaseParseArgument::startList(), GUI::Parser::ParseArgument::BaseParseArgument::newListLine(), GUI::Parser::ParseArgument::BaseParseArgument::endList(), GUI::Parser::ParseArgument::BaseParseArgument::IntCompareArgument(a, b) });
+GUI::Text t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b)+ "(new): {3}", { ParseArg::BaseParseArgument::startList(), ParseArg::BaseParseArgument::newListLine(), ParseArg::BaseParseArgument::endList(), ParseArg::BaseParseArgument::IntCompareArgument(a, b) });
+GUI::Text tt(*Engine::Graphic.font.requestFont("arial.ttf"), "{0}My Icon Test\ncharsize 25", { ParseArg::BaseParseArgument::newIconArgument(*Engine::Graphic.requestTexture("ArrowTest.png"),Vector2i(32,32)) });
+GUI::Text ttt(*Engine::Graphic.font.requestFont("arial.ttf"), "{0}My Icon Test\ncharsize 30", { ParseArg::BaseParseArgument::newIconArgument(*Engine::Graphic.requestTexture("ArrowTest.png"),Vector2i(32,32)) });
+GUI::Text tttt(*Engine::Graphic.font.requestFont("arial.ttf"), "{0}My Icon Test\ncharsize 15", {ParseArg::BaseParseArgument::newIconArgument(*Engine::Graphic.requestTexture("ArrowTest.png"),Vector2i(32,32))});
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
 {
 	//Engine::Window.hInstance = hInstance;
@@ -55,6 +58,11 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 int windowMessage()
 {
 	t.setCharacterSize(18, true);
+	tt.setCharacterSize(25, true);
+	tttt.setCharacterSize(15, true);
+	tt.setPosition(Vector2(70, 200));
+	ttt.setPosition(Vector2(70, 300));
+	tttt.setPosition(Vector2(70, 400));
 	Engine::World.loadMod("Demo.main");
 	//Engine::World.loadZone("Demo.main", 1);
 	Engine::World.loadZone("MainMenu", 0);
@@ -159,6 +167,9 @@ void mainMenuUpdate()
 	Engine::Graphic.drawBG();
 	Engine::mainMenu.draw();
 	Engine::Graphic.view.render.draw(t);
+	Engine::Graphic.view.render.draw(tt);
+	Engine::Graphic.view.render.draw(ttt);
+	Engine::Graphic.view.render.draw(tttt);
 	Engine::Graphic.view.render.display();
 
 }

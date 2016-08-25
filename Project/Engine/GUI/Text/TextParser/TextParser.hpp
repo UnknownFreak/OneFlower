@@ -14,6 +14,7 @@ namespace GUI
 		class TextParser
 		{
 			Vector2i iconOffsetting;
+			unsigned int iconmargin = 2;
 			Vector2i texSize;
 			sf::Sprite sprite;
 			sf::Glyph glyph;

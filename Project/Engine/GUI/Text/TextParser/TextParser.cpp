@@ -18,6 +18,7 @@ namespace GUI
 			size_t size = m_text.getSize();
 			sf::String argPos;
 			size_t currentArgument = 0;
+			iconOffsetting = Vector2i(0, 0);
 			for (i = 0; i < size; i++)
 			{
 				glyph = settings.font.getGlyph(m_text[i], settings.charSize, false);
@@ -107,8 +108,17 @@ namespace GUI
 							case Parser::ParseArgument::BaseParseArgument::Icon:
 							{
 								Parser::ParseArgument::IconArgument* ico = (Parser::ParseArgument::IconArgument*)bpa;
-								advance += ico->size.x;
-								iconOffsetting = ico->size;
+								advance += ico->size.x + iconmargin;
+								if (iconOffsetting.y > 0)
+								{
+									iconOffsetting.y += ico->size.y;
+									iconOffsetting.x += ico->size.x + iconmargin;
+								}
+								else
+								{
+									iconOffsetting = ico->size;
+									iconOffsetting.x += iconmargin;
+								}
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::None:
@@ -140,6 +150,7 @@ namespace GUI
 			size_t size = m_text.getSize();
 			sf::String argPos;
 			size_t currentArgument = 0;
+			iconOffsetting = Vector2i(0, 0);
 			for (i = 0; i < size; i++)
 			{
 				glyph = settings.font.getGlyph(m_text[i], settings.charSize, false);
@@ -244,8 +255,19 @@ namespace GUI
 							case Parser::ParseArgument::BaseParseArgument::Icon:
 							{
 								Parser::ParseArgument::IconArgument* ico = (Parser::ParseArgument::IconArgument*)bpa;
+								ico->mySprite.setPosition(advance, newLine + 2);
 								advance += ico->size.x;
-								iconOffsetting = ico->size;
+								if (iconOffsetting.y > 0)
+								{
+									iconOffsetting.y += ico->size.y;
+									iconOffsetting.x += ico->size.x + iconmargin;
+								}
+								else
+								{
+									iconOffsetting = ico->size;
+									iconOffsetting.x += iconmargin;
+								}
+								m_parsedTextTexture.draw(ico->mySprite);
 								break;
 							}
 							case Parser::ParseArgument::BaseParseArgument::None:
@@ -279,9 +301,10 @@ namespace GUI
 			}
 			if (iconOffsetting.y > 0)
 			{
-				advance += iconOffsetting.x;
 				iconOffsetting.y -= settings.font.getLineSpacing(settings.charSize);
-				iconOffsetting.y < 1 ? iconOffsetting = Vector2i(0, 0) : iconOffsetting;
+				iconOffsetting.y < 4 ? iconOffsetting = Vector2i(0, 0) : iconOffsetting;
+				if(iconOffsetting.y > 0)
+					advance += iconOffsetting.x;
 			}
 		}
 		std::string TextParser::doCompareArgument(Parser::ParseArgument::BaseParseArgument * argument)

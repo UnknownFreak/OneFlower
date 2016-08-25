@@ -1,7 +1,8 @@
 #include "BaseParseArgument.hpp"
-#include "../TextParser/Comparer/CompareResultTypes.hpp"
-#include "../TextParser/Reference/ReferenceArgumentTypes.hpp"
-#include "../TextParser/Color/ColorArgument.hpp"
+#include "Comparer/CompareResultTypes.hpp"
+#include "Reference/ReferenceArgumentTypes.hpp"
+#include "Color/ColorArgument.hpp"
+#include "Icon\IconArgument.hpp"
 namespace GUI
 {
 	namespace Parser
@@ -40,7 +41,11 @@ namespace GUI
 			{
 				return new IntReference(reference);
 			}
-			
+
+			BaseParseArgument * BaseParseArgument::newIconArgument(sf::Texture& texture, Vector2i size)
+			{
+				return new IconArgument(texture,Vector2(0,0),size);
+			}
 		}
 	}
 }
