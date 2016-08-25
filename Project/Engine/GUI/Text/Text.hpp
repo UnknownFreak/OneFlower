@@ -71,7 +71,7 @@ namespace GUI
 		*/
 		Text(sf::Font& font, sf::String text, std::vector<Parser::ParseArgument::BaseParseArgument*> arguments);
 		/*
-		*Virtual destructor. Remove this unless there is inheritance somewhere.
+		Destructor to release the parse arguments on scope end.
 		*/
 		virtual ~Text();
 	};
