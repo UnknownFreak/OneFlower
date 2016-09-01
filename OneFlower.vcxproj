@@ -180,6 +180,7 @@
     <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
     <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
+    <ClInclude Include="Project\Game\Logic\Input\InputEnum.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
     <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp" />
     <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp" />

@@ -5,13 +5,52 @@
 #include "../../Component/TransformComponent.hpp"
 #include "../../Component/DialogComponent.hpp"
 #include "../../Component/CombatComponenet.hpp"
+
+#include "../../../Engine/GUI/Text/BasicText.hpp"
+
 void scrollupdate();
 Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
 {
+	// called when mouse is released
+	registerCallback(std::bind(&Mouse::test, this), sf::Mouse::Button::Left, Input::Action::Release);
 }
 
 void Mouse::update()
 {
+
+	for (auto it = bindsOnPress.begin(); it != bindsOnPress.end(); ++it)
+		if (std::find(callbackRelease.begin(), callbackRelease.end(), it->first) == callbackRelease.end())
+			if (sf::Mouse::isButtonPressed(it->first))
+			{
+				for (size_t i = 0; i < it->second.size(); ++i)
+					it->second[i]();
+				callbackRelease.push_back(it->first);
+			}
+	for (auto it = bindsOnHold.begin(); it != bindsOnHold.end(); ++it)
+		if (sf::Mouse::isButtonPressed(it->first))
+			for (size_t i = 0; i < it->second.size(); ++i)
+				it->second[i]();
+
+
+	for (auto it = bindsOnRelease.begin(); it != bindsOnRelease.end(); ++it)
+		if (std::find(callbackRelease.begin(), callbackRelease.end(), it->first) == callbackRelease.end())
+			if (sf::Mouse::isButtonPressed(it->first))
+				callbackRelease.push_back(it->first);
+
+	for (auto i = 0; i < callbackRelease.size(); /* no increment */)
+		if (!sf::Mouse::isButtonPressed(callbackRelease[i]))
+		{
+			std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>>::iterator jit = bindsOnRelease.find(callbackRelease[i]);
+			if (jit != bindsOnRelease.end())
+				for (size_t i = 0; i < jit->second.size(); ++i)
+					jit->second.at(i)();
+			callbackRelease.erase(callbackRelease.begin() + i++);
+		}
+		else
+			++i;
+
+
+
 #ifdef _DEBUG
 	sf::Vector2i pixelPos = sf::Mouse::getPosition(Engine::Graphic.view.render);
 	sf::Vector2f worldPos = Engine::Graphic.view.render.mapPixelToCoords(pixelPos);
@@ -195,4 +234,53 @@ bool Mouse::rightClick()
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && !RMBPressed && Engine::time.time("RMBPress",25))
 		return (RMBPressed = true);
 	return false;
+}
+
+void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Button key, Input::Action actionType)
+{
+	if (actionType & Input::Action::Press)
+	{
+		auto it = bindsOnPress.find(key);
+		if (it == bindsOnPress.end())
+		{
+			std::vector<std::function<void(void)>> tempVector;
+			tempVector.push_back(callback);
+			bindsOnPress.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+		}
+		else
+			it->second.push_back(callback);
+	}
+
+	if (actionType & Input::Action::Release)
+	{
+		auto it = bindsOnRelease.find(key);
+		if (it == bindsOnRelease.end())
+		{
+			std::vector<std::function<void(void)>> tempVector;
+			tempVector.push_back(callback);
+			bindsOnRelease.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+		}
+		else
+			it->second.push_back(callback);
+	}
+
+	if (actionType & Input::Action::Hold)
+	{
+		auto it = bindsOnHold.find(key);
+
+		if (it == bindsOnHold.end())
+		{
+			std::vector<std::function<void(void)>> tempVector;
+			tempVector.push_back(callback);
+			bindsOnHold.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+		}
+		else
+			it->second.push_back(callback);
+
+	}
+}
+
+void Mouse::test()
+{
+	//MessageBeep(213);
 }

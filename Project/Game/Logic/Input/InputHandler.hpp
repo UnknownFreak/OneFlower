@@ -7,6 +7,7 @@
 #include <SFML\Window\Keyboard.hpp>
 #include "../Input/Mouse.hpp"
 #include <functional>
+#include "InputEnum.hpp"
 /*
 template<typename returnType,typename parameterType>
 class EventType : EventTypeBase
@@ -38,15 +39,7 @@ private:
 //*/
 typedef void(*CallBack)(void);
 
-namespace Input
-{
-	enum Action
-	{
-		Press = 1 << 0,
-		Hold = 1 << 1,
-		Release = 1 << 2
-	};
-};
+
 class InputHandler
 {
 public:

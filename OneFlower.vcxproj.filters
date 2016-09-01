@@ -713,6 +713,9 @@
     <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp">
       <Filter>Engine\GUI\Text</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Game\Logic\Input\InputEnum.hpp">
+      <Filter>Game\Logic\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
