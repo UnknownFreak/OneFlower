@@ -30,6 +30,12 @@ private:
 	bool resetDxDy = true;
 	bool moving = false;
 	Vector2 dxDy;
+
+	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnPress;
+	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnRelease;
+	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnHold;
+	std::vector<sf::Mouse::Button> callbackRelease;
+
 };
 
 #endif //Mouse_HPP
