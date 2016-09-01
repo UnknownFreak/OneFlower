@@ -16,12 +16,6 @@ class Mouse
 {
 public:
 
-	enum MouseAction
-	{
-		Press = 1 << 0,
-		Hold = 1 << 1,
-		Release = 1 << 2
-	};
 
 	bool RMBPressed;
 	bool LMBPressed;
