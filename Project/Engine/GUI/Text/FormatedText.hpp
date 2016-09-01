@@ -1,5 +1,5 @@
-#ifndef TEXT_HPP
-#define TEXT_HPP
+#ifndef FORMATEDTEXT_HPP
+#define FORMATEDTEXT_HPP
 
 #include <SFML\Graphics\Glyph.hpp>
 #include <SFML\Graphics\Font.hpp>
@@ -13,7 +13,10 @@
 namespace ParseArg = GUI::Parser::ParseArgument;
 namespace GUI
 {
-	class Text : public sf::Drawable
+	/*
+	* Warning: This class can be slow, use at your own risk.
+	*/
+	class FormatedText : public sf::Drawable
 	{
 
 	private:
@@ -46,6 +49,7 @@ namespace GUI
 		*Sets a new character spacing value, default value is 0.
 		*Negative values will make the text less spaced.
 		*Positive values will make the text more spaced.
+		*Decimal values tend to make the text blurry.
 		*/
 		void setCharacterSpacing(double newCharacterSpacing, bool reparseText = false);
 
@@ -69,11 +73,11 @@ namespace GUI
 		*@Param font, the font to use.
 		*@param text, the initial value of the text.
 		*/
-		Text(sf::Font& font, sf::String text, std::vector<Parser::ParseArgument::BaseParseArgument*> arguments);
+		FormatedText(sf::Font& font, sf::String text, std::vector<Parser::ParseArgument::BaseParseArgument*> arguments);
 		/*
 		Destructor to release the parse arguments on scope end.
 		*/
-		virtual ~Text();
+		virtual ~FormatedText();
 	};
 }
 #endif

@@ -1,4 +1,4 @@
-#include "Text.hpp"
+#include "FormatedText.hpp"
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\RenderTarget.hpp>
@@ -11,16 +11,16 @@
 
 namespace GUI
 {
-	Text::Text(sf::Font& font, sf::String text,std::vector<Parser::ParseArgument::BaseParseArgument*> arguments ) : 
+	FormatedText::FormatedText(sf::Font& font, sf::String text,std::vector<Parser::ParseArgument::BaseParseArgument*> arguments ) : 
 		m_font(font), m_text(text), parser(Parser::ParserSettings(m_font,m_charSpacing,m_charsize, m_color)), m_parseArguments(arguments)
 	{
 		m_textSprite.setTexture(parser.parse(text,m_parseArguments), true);
 	}
-	Text::~Text()
+	FormatedText::~FormatedText()
 	{
 		clearParseArguments();
 	}
-	void Text::setText(sf::String text, std::vector<Parser::ParseArgument::BaseParseArgument*> arguments)
+	void FormatedText::setText(sf::String text, std::vector<Parser::ParseArgument::BaseParseArgument*> arguments)
 	{
 		if (m_text != text)
 		{
@@ -30,7 +30,7 @@ namespace GUI
 			m_textSprite.setTexture(parser.parse(m_text, m_parseArguments), true);
 		}
 	}
-	void Text::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void FormatedText::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 #if defined (_EDITOR_) || defined(_DEBUG)
 		sf::VertexArray outline(sf::LinesStrip, 5);
@@ -49,28 +49,28 @@ namespace GUI
 		target.draw(m_textSprite,states);
 	}
 
-	void Text::setPosition(Vector2 position)
+	void FormatedText::setPosition(Vector2 position)
 	{
 		m_position = position;
 		m_textSprite.setPosition(m_position.x,m_position.y);
 	}
 
-	void Text::crop(Vector2i pos, Vector2i size)
+	void FormatedText::crop(Vector2i pos, Vector2i size)
 	{
 		m_textSprite.setTextureRect(sf::IntRect(pos.x,pos.y, size.x,size.y));
 	}
-	void Text::clearParseArguments()
+	void FormatedText::clearParseArguments()
 	{
 		for each (Parser::ParseArgument::BaseParseArgument* var in m_parseArguments)
 			delete var;
 	}
-	void Text::setCharacterSize(unsigned int characterSize, bool reparseText)
+	void FormatedText::setCharacterSize(unsigned int characterSize, bool reparseText)
 	{
 		m_charsize = characterSize;
 		if (reparseText)
 			m_textSprite.setTexture(parser.parse(m_text, m_parseArguments), true);
 	}
-	void Text::setCharacterSpacing(double characterSpacing, bool reparseText)
+	void FormatedText::setCharacterSpacing(double characterSpacing, bool reparseText)
 	{
 		m_charSpacing = characterSpacing;
 		if (reparseText)

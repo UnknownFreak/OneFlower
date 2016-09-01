@@ -671,9 +671,6 @@
     <ClInclude Include="Project\Game\Settings\Settings.hpp">
       <Filter>Game\Settings</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\Text\Text.hpp">
-      <Filter>Engine\GUI\Text</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Game\GUI\Text\Font.hpp">
       <Filter>Engine\GUI\Text</Filter>
     </ClInclude>
@@ -709,6 +706,12 @@
     </ClInclude>
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.hpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\IconArgument</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp">
+      <Filter>Engine\GUI\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1192,9 +1195,6 @@
     <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp">
       <Filter>Engine\GUI\Text</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\GUI\Text\Text.cpp">
-      <Filter>Engine\GUI\Text</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp">
       <Filter>Engine\GUI\Text\TextParser</Filter>
     </ClCompile>
@@ -1218,6 +1218,12 @@
     </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.cpp">
       <Filter>Engine\GUI\Text\TextParser\ParseArguments\IconArgument</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp">
+      <Filter>Engine\GUI\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp">
+      <Filter>Engine\GUI\Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

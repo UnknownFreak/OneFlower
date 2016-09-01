@@ -17,8 +17,9 @@
   <ItemGroup>
     <ClInclude Include="Project\CppInterop.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\Text.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp" />
@@ -203,8 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Cppinterop.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\Text.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp" />
