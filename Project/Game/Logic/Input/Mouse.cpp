@@ -236,16 +236,16 @@ bool Mouse::rightClick()
 	return false;
 }
 
-void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Button key, Input::Action actionType)
+void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Button button, Input::Action actionType)
 {
 	if (actionType & Input::Action::Press)
 	{
-		auto it = bindsOnPress.find(key);
+		auto it = bindsOnPress.find(button);
 		if (it == bindsOnPress.end())
 		{
 			std::vector<std::function<void(void)>> tempVector;
 			tempVector.push_back(callback);
-			bindsOnPress.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+			bindsOnPress.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(button, tempVector));
 		}
 		else
 			it->second.push_back(callback);
@@ -253,12 +253,12 @@ void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Butt
 
 	if (actionType & Input::Action::Release)
 	{
-		auto it = bindsOnRelease.find(key);
+		auto it = bindsOnRelease.find(button);
 		if (it == bindsOnRelease.end())
 		{
 			std::vector<std::function<void(void)>> tempVector;
 			tempVector.push_back(callback);
-			bindsOnRelease.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+			bindsOnRelease.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(button, tempVector));
 		}
 		else
 			it->second.push_back(callback);
@@ -266,13 +266,13 @@ void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Butt
 
 	if (actionType & Input::Action::Hold)
 	{
-		auto it = bindsOnHold.find(key);
+		auto it = bindsOnHold.find(button);
 
 		if (it == bindsOnHold.end())
 		{
 			std::vector<std::function<void(void)>> tempVector;
 			tempVector.push_back(callback);
-			bindsOnHold.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(key, tempVector));
+			bindsOnHold.insert(std::pair<sf::Mouse::Button, std::vector < std::function < void(void)>>>(button, tempVector));
 		}
 		else
 			it->second.push_back(callback);

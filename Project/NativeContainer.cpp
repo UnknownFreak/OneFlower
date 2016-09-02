@@ -12,7 +12,6 @@ InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
-Menu::MainMenu::MainMenu mm;
 Settings Engine::settings;
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
@@ -37,7 +36,6 @@ void mainMenuUpdate()
 	}
 
 	Engine::Graphic.drawBG();
-	mm.draw();
 	Engine::Graphic.view.render.display();
 
 }
@@ -203,7 +201,6 @@ void NativeContainer::showHideHitboxes()
 int NativeContainer::windowMessage()
 {
 	Engine::World.loadZone("MainMenu", 0);
-	mm = Menu::MainMenu::MainMenu();
 
 	shape.setFillColor(sf::Color(0, 150, 0, 100));
 	shape.setOutlineThickness(2.f);

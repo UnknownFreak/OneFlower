@@ -25,9 +25,9 @@ namespace GUI
 	{
 	public:
 
-		Window::InventoryWindow inventory;
-		Window::StatsWindow stats;
-		Window::TradeWindow tradingWindow;
+		//Windows::InventoryWindow inventory;
+		//Windows::StatsWindow stats;
+		//Windows::TradeWindow tradingWindow;
 		bool hideGUI;
 		bool isMouseVisible;
 		bool showOverhead;
@@ -45,13 +45,13 @@ namespace GUI
 		std::vector<OverheadComponent*> overhead;
 		std::vector<DialogComponent*> dialogs;
 
-		std::vector<Window::Addon::Button*> ActionSlot;
-
-		Window::BaseWindow* focusedWindow;
-		std::vector<Window::BaseWindow*> openWindows;
-		//std::vector<Message*> messages;
-
-		ToolTip openedWindowToolTip;
+		//std::vector<Windows::Addon::Button*> ActionSlot;
+		//
+		//Windows::BaseWindow* focusedWindow;
+		//std::vector<Windows::BaseWindow*> openWindows;
+		////std::vector<Message*> messages;
+		//
+		//ToolTip openedWindowToolTip;
 
 		GraphicalUserInterface();
 		~GraphicalUserInterface();
@@ -87,7 +87,7 @@ namespace GUI
 		void setIconLocation();
 
 		Vector2 offset;
-		GUI::Window::Addon::ProgressBar playerHealthBar;
+		//GUI::Windows::Addon::ProgressBar playerHealthBar;
 	};
 }
 #endif // ! GUI_HPP

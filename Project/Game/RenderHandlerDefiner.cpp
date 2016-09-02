@@ -454,6 +454,6 @@ void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
 		msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
 		msg.setColor(sf::Color(255, 255, 255));
 		msg.draw();
-		Engine::World.getLoadingScreenProgressBar().draw();
+//		Engine::World.getLoadingScreenProgressBar().draw();
 		Engine::Graphic.view.render.display();
 }

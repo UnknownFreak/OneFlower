@@ -9,7 +9,7 @@
 #include "../Item/Item.hpp"
 
 // default constructor
-WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modLoadOrder(), loadingScreenProgress(0, 100, 0, Vector2(200, 520), Vector2(400, 20), false)
+WorldManagement::WorldManagement() : lastLoadedZone("", 0), currentZone(0), modLoadOrder()
 {
 	worldmap.insert({ { "MainMenu", 0 }, new Zone("MainMenu", 0, Tile("TestBackground.png",0,0), {}, {}) });
 	worldmap[{"MainMenu", 0}]->modOrigin = "MainMenu";
@@ -105,10 +105,10 @@ Zone* WorldManagement::getCurrentZone()
 {
 	return currentZone;
 }
-GUI::Window::Addon::ProgressBar& WorldManagement::getLoadingScreenProgressBar()
-{
-	return loadingScreenProgress;
-}
+//GUI::Window::Addon::ProgressBar& WorldManagement::getLoadingScreenProgressBar()
+//{
+//	return loadingScreenProgress;
+//}
 bool WorldManagement::getIsLoading()
 {
 	return isLoading;
@@ -146,7 +146,7 @@ void WorldManagement::loadSome()
 #endif
 		Engine::game.addSprite(worldmap[zoneToLoadID]->getBackground(), true);
 		currentZone = worldmap[zoneToLoadID];
-		loadingScreenProgress.setMax(totalToLoad);
+		//loadingScreenProgress.setMax(totalToLoad);
 		totalLoaded = 0;
 		currentObj = 0;
 		loadState = STATE_UNLOAD_OBJECTS;
@@ -174,7 +174,7 @@ void WorldManagement::loadSome()
 			currentObj++;
 			totalLoaded++;
 			currentObjIteratorUnload++;
-			loadingScreenProgress.setValue(totalLoaded);
+			//loadingScreenProgress.setValue(totalLoaded);
 		}
 		else
 		{
@@ -237,7 +237,7 @@ void WorldManagement::loadSome()
 			totalLoaded++;
 			currentObjIterator++;
 #endif
-			loadingScreenProgress.setValue(totalLoaded);
+			//loadingScreenProgress.setValue(totalLoaded);
 		}
 		break;
 	case STATE_DONE:
@@ -246,9 +246,9 @@ void WorldManagement::loadSome()
 		break;
 #ifdef _DEBUG
 	case 1337:
-		loadingScreenProgress.setMax(1337);
+		//loadingScreenProgress.setMax(1337);
 		totalLoaded++;
-		loadingScreenProgress.setValue(totalLoaded);
+		//loadingScreenProgress.setValue(totalLoaded);
 		if (totalLoaded == 1337)
 			loadState = STATE_DONE;
 #endif

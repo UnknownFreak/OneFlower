@@ -40,7 +40,6 @@ public:
 	
 	std::map <std::pair<std::string,unsigned int>,Zone*> worldmap;
 	Zone* getCurrentZone();
-	GUI::Window::Addon::ProgressBar& getLoadingScreenProgressBar();
 
 
 	WorldManagement();
@@ -92,7 +91,6 @@ private:
 
 	void LoadAllEditorVariables();
 
-	GUI::Window::Addon::ProgressBar loadingScreenProgress;
 
 	void startLoad();
 

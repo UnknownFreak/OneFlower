@@ -61,16 +61,16 @@ bool InventoryComponent::addItem(Items::Item& item, int numberOfItems)
 				numberOfItems = pair->second - STACKSIZE;
 				pair->second = STACKSIZE;
 				currentWeight += pair->first->getWeight()*STACKSIZE;
-				if(Engine::GUI.inventory.createdInventory)
-					((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+				//if(Engine::GUI.inventory.createdInventory)
+				//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 				break;
 			}
 			else
 			{
 				currentWeight += pair->first->getWeight()*numberOfItems;
 			}
-			if(Engine::GUI.inventory.createdInventory)
-				((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
+			//if(Engine::GUI.inventory.createdInventory)
+			//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(pair->second);
 
 			exists = false;
 		}
@@ -87,15 +87,15 @@ bool InventoryComponent::addItem(Items::Item& item, int numberOfItems)
 				if(tmp != -1)
 				{
 					currentWeight += item.getWeight()*numberOfItems;
-					if(Engine::GUI.inventory.createdInventory)
-					{
-						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
-						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.getName();
-						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
-						((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
-						if (item.getTag() == Items::Item::armor || item.getTag() == Items::Item::weapon && !Engine::GUI.stats.updateEquipment)
-							Engine::GUI.stats.updateEquipment = true;
-					}
+					//if(Engine::GUI.inventory.createdInventory)
+					//{
+					//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->icon = item.icon;
+					//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipTitle = item.getName();
+					//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->toolTipBody = item.toToolTipString();
+					//	((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[i + tmp]))->messageText = std::to_string(numberOfItems);
+					//	if (item.getTag() == Items::Item::armor || item.getTag() == Items::Item::weapon && !Engine::GUI.stats.updateEquipment)
+					//		Engine::GUI.stats.updateEquipment = true;
+					//}
 					return true;
 				}
 			}
@@ -126,21 +126,21 @@ Items::Item* InventoryComponent::removeItem(int bag, int index, int numberOfItem
 		item = bags[bag]->items[index].first;
 		bags[bag]->items[index].first = NULL;
 	}
-	if(Engine::GUI.inventory.createdInventory)
-	{
-		if(bags[bag]->items[index].second == 0)
-		{
-			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = "";
-			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
-			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
-			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
-			if ((item->getTag() == Items::Item::armor || item->getTag() == Items::Item::weapon) && !Engine::GUI.stats.updateEquipment)
-				Engine::GUI.stats.updateEquipment = true;
-			Engine::GUI.tradingWindow.setScrollbarUpdate(true);
-		}
-		else
-			((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = std::to_string(bags[bag]->items[index].second);
-	}
+	//if(Engine::GUI.inventory.createdInventory)
+	//{
+	//	if(bags[bag]->items[index].second == 0)
+	//	{
+	//		((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = "";
+	//		((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->icon = Engine::GUI.inventory.getEmptyInventorySlotIcon();
+	//		((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipTitle = "";
+	//		((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->toolTipBody = "";
+	//		if ((item->getTag() == Items::Item::armor || item->getTag() == Items::Item::weapon) && !Engine::GUI.stats.updateEquipment)
+	//			Engine::GUI.stats.updateEquipment = true;
+	//		Engine::GUI.tradingWindow.setScrollbarUpdate(true);
+	//	}
+	//	else
+	//		((GUI::Window::Addon::WindowIcon*)(Engine::GUI.inventory.scroll.sprites[j + index]))->messageText = std::to_string(bags[bag]->items[index].second);
+	//}
 	return item;
 }
 

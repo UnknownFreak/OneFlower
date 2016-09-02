@@ -40,7 +40,6 @@ InputHandler Engine::Input;
 GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
-Menu::MainMenu::MainMenu Engine::mainMenu;
 Settings Engine::settings;
 // temp test stuff
 int a = 24;
@@ -138,10 +137,7 @@ int windowMessage()
 		}
 		else
 		{
-			if (Engine::mainMenu.isOpen())
-				mainMenuUpdate();
-			else
-				update();
+			update();
 		}
 	}
 	return 1;
@@ -158,7 +154,6 @@ void mainMenuUpdate()
 	}
 
 	Engine::Graphic.drawBG();
-	Engine::mainMenu.draw();
 	Engine::Graphic.view.render.draw(t);
 	Engine::Graphic.view.render.display();
 

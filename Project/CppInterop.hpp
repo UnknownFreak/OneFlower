@@ -16,7 +16,7 @@
 #include "Game\GUI\ToolTip.hpp"
 #include "Game\LoadAndSave\DatabaseIndex.hpp"
 #include <msclr\marshal_cppstd.h>
-
+#include <vector>
 #using <mscorlib.dll>
 #using <System.dll>
 #using <System.Windows.Forms.dll>

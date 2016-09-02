@@ -19,16 +19,16 @@ namespace GUI
 				setIconLocation();
 				float offsetX = Engine::Graphic.view.camera.getCenter().x - (Engine::Graphic.view.camera.getSize().x * Engine::Graphic.view.camera.getViewport().width / 2);
 				float offsetY = Engine::Graphic.view.camera.getCenter().y - (Engine::Graphic.view.camera.getSize().y * Engine::Graphic.view.camera.getViewport().height / 2);
-				for (size_t i = 0; i < ActionSlot.size(); i++)
-				{
-					/*ActionSlot[i]->setPosition(40 + 128 * i + offsetX, 500 + offsetY);
-
-					Engine::Graphic.view.render.draw(ActionSlot[i]->icon);
-					if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
-						ActionSlot[i]->ActionSlotClick();*/
-				}
-				playerHealthBar.setPosition({(1*scale.x) + offsetX, Engine::Graphic.view.camera.getSize().y - (31 * scale.y) + offsetY });
-				playerHealthBar.draw();
+				//for (size_t i = 0; i < ActionSlot.size(); i++)
+				//{
+				//	/*ActionSlot[i]->setPosition(40 + 128 * i + offsetX, 500 + offsetY);
+				//
+				//	Engine::Graphic.view.render.draw(ActionSlot[i]->icon);
+				//	if (ActionSlot[i]->onHover() && Engine::event.mouseButton.button == sf::Mouse::Button::Left)
+				//		ActionSlot[i]->ActionSlotClick();*/
+				//}
+				//playerHealthBar.setPosition({(1*scale.x) + offsetX, Engine::Graphic.view.camera.getSize().y - (31 * scale.y) + offsetY });
+				//playerHealthBar.draw();
 				if (showOverhead)
 					for (size_t i = 0; i < overhead.size(); ++i)
 					{
@@ -50,64 +50,64 @@ namespace GUI
 							}
 						}
 					}
-				for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); ++it)
-				{
-					if (*it == &inventory)
-					{
-						inventory.draw();
-						if (inventory.requestClose)
-						{
-							showHideInventory();
-							break;
-						}
-					}
-					else if (*it == &stats)
-					{
-						stats.draw();
-						if (stats.requestClose)
-						{
-							showHideStats();
-							break;
-						}
-					}
-					else if (*it == &tradingWindow)
-					{
-						tradingWindow.draw();
-						if (tradingWindow.requestClose)
-						{
-							showHideTradeWindow();
-							break;
-						}
-					}
-				}
-				if (updateFocus)
-				{
-					updateFocus = false;
-					bool done = false;
-					int size = openWindows.size() - 1;
-					for (int i = size; i > -1; --i)
-					{
-						if (openWindows[i]->requestFocus && !done)
-						{
-							openWindows[i]->focus = true;
-							openWindows[i]->requestFocus = false;
-							focusedWindow->focus = false;
-							openWindows.push_back(openWindows[i]);
-							focusedWindow = openWindows[i];
-							openWindows.erase(openWindows.begin() + i);
-							done = true;
-						}
-						else if (openWindows[i]->requestFocus)
-							openWindows[i]->requestFocus = false;
-						else
-							continue;
-					}
-				}
-				if (drawOpenedWindowToolTip)
-				{
-					openedWindowToolTip.draw();
-					drawOpenedWindowToolTip = false;
-				}
+				//for (std::vector<Windows::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); ++it)
+				//{
+				//	if (*it == &inventory)
+				//	{
+				//		inventory.draw();
+				//		if (inventory.requestClose)
+				//		{
+				//			showHideInventory();
+				//			break;
+				//		}
+				//	}
+				//	else if (*it == &stats)
+				//	{
+				//		stats.draw();
+				//		if (stats.requestClose)
+				//		{
+				//			showHideStats();
+				//			break;
+				//		}
+				//	}
+				//	else if (*it == &tradingWindow)
+				//	{
+				//		tradingWindow.draw();
+				//		if (tradingWindow.requestClose)
+				//		{
+				//			showHideTradeWindow();
+				//			break;
+				//		}
+				//	}
+				//}
+				//if (updateFocus)
+				//{
+				//	updateFocus = false;
+				//	bool done = false;
+				//	int size = openWindows.size() - 1;
+				//	for (int i = size; i > -1; --i)
+				//	{
+				//		if (openWindows[i]->requestFocus && !done)
+				//		{
+				//			openWindows[i]->focus = true;
+				//			openWindows[i]->requestFocus = false;
+				//			focusedWindow->focus = false;
+				//			openWindows.push_back(openWindows[i]);
+				//			focusedWindow = openWindows[i];
+				//			openWindows.erase(openWindows.begin() + i);
+				//			done = true;
+				//		}
+				//		else if (openWindows[i]->requestFocus)
+				//			openWindows[i]->requestFocus = false;
+				//		else
+				//			continue;
+				//	}
+				//}
+				//if (drawOpenedWindowToolTip)
+				//{
+				//	openedWindowToolTip.draw();
+				//	drawOpenedWindowToolTip = false;
+				//}
 				if (isMouseVisible)
 				{
 					while (ShowCursor(FALSE) > 0);

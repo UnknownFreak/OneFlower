@@ -14,9 +14,9 @@ namespace GUI {
 
 	GraphicalUserInterface::GraphicalUserInterface() : offset(0, 0), hideGUI(true),
 		showOverhead(true), isMouseVisible(false), showDialog(true),
-		dialogs(), inventory(50, 50, 300, 290), ActionSlot(), showToolTip(true),
-		stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50, 50, 350, 400),
-		playerHealthBar(0, 100, 50, { 0, 0 }, {250,30}, false)
+		dialogs(),/* inventory(50, 50, 300, 290), ActionSlot(),*/ showToolTip(true)
+		//stats(50, 50, 500, 400), focusedWindow(NULL), openedWindowToolTip(), tradingWindow(50, 50, 350, 400),
+		//playerHealthBar(0, 100, 50, { 0, 0 }, {250,30}, false)
 	{
 		// Mouse
 		setCursor("Cursor.png");
@@ -32,10 +32,10 @@ namespace GUI {
 	}
 	GraphicalUserInterface::~GraphicalUserInterface()
 	{
-		delete ActionSlot[0];
-		delete ActionSlot[1];
-		delete ActionSlot[2];
-		delete ActionSlot[3];
+		//delete ActionSlot[0];
+		//delete ActionSlot[1];
+		//delete ActionSlot[2];
+		//delete ActionSlot[3];
 	}
 	
 	void GraphicalUserInterface::updateMouseIcon()
@@ -93,15 +93,15 @@ namespace GUI {
 	void GraphicalUserInterface::initialize()
 	{
 		// buttons
-		for (size_t i = 0; i < 4; i++)
-		{
-			Window::Addon::Button* tmp = new Window::Addon::Button();
-			tmp->setName("ActionBar" + std::to_string(i));
-			tmp->setIcon("buttonTest.png");
-			tmp->setPosition(40 + 128 * i, 500);
-			ActionSlot.push_back(tmp);
-		}
-		ActionSlot[0]->setIcon("testTarget.png");
+		//for (size_t i = 0; i < 4; i++)
+		//{
+		//	Window::Addon::Button* tmp = new Window::Addon::Button();
+		//	tmp->setName("ActionBar" + std::to_string(i));
+		//	tmp->setIcon("buttonTest.png");
+		//	tmp->setPosition(40 + 128 * i, 500);
+		//	ActionSlot.push_back(tmp);
+		//}
+		//ActionSlot[0]->setIcon("testTarget.png");
 	}
 
 	void GraphicalUserInterface::showHideMouse()
@@ -157,126 +157,126 @@ namespace GUI {
 	}
 	bool GraphicalUserInterface::windowHasFocus()
 	{
-		if (inventory.checkMouseInside() && inventory.focus && !hideGUI)
-			return true;
-		else if (stats.checkMouseInside() && stats.focus && !hideGUI)
-			return true;
-		else if (tradingWindow.checkMouseInside() && tradingWindow.focus && !hideGUI)
-			return true;
+		//if (inventory.checkMouseInside() && inventory.focus && !hideGUI)
+		//	return true;
+		//else if (stats.checkMouseInside() && stats.focus && !hideGUI)
+		//	return true;
+		//else if (tradingWindow.checkMouseInside() && tradingWindow.focus && !hideGUI)
+		//	return true;
 		return false;
 	}
 
 	void GraphicalUserInterface::scroll()
 	{
-		if (inventory.checkMouseInside() && inventory.focus)
-			inventory.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
-		else if (stats.checkMouseInside() && stats.focus)
-			stats.items.setScroll(Engine::Input.mouse.deltaScrolls);
-		else if (tradingWindow.checkMouseInside() && tradingWindow.focus)
-			tradingWindow.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
+		//if (inventory.checkMouseInside() && inventory.focus)
+		//	inventory.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
+		//else if (stats.checkMouseInside() && stats.focus)
+		//	stats.items.setScroll(Engine::Input.mouse.deltaScrolls);
+		//else if (tradingWindow.checkMouseInside() && tradingWindow.focus)
+		//	tradingWindow.scroll.setScroll(Engine::Input.mouse.deltaScrolls);
 		Engine::Input.mouse.deltaScrolls = 0;
 	}
 
 	void GraphicalUserInterface::showHideInventory()
 	{
-		if (inventory.open)
-		{
-			inventory.open = false;
-			inventory.focus = false;
-			for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-				if (*it == &inventory)
-				{
-					openWindows.erase(it);
-					break;
-				}
-			if (openWindows.size() != 0)
-			{
-				focusedWindow = openWindows.back();
-				focusedWindow->focus = true;
-			}
-			else
-				focusedWindow = NULL;
-		}
-		else
-		{
-			inventory.open = true;
-			inventory.focus = true;
-			inventory.requestClose = false;
-			if (focusedWindow)
-				focusedWindow->focus = false;
-			focusedWindow = &inventory;
-			openWindows.push_back(&inventory);
-		}
+		//if (inventory.open)
+		//{
+		//	inventory.open = false;
+		//	inventory.focus = false;
+		//	for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+		//		if (*it == &inventory)
+		//		{
+		//			openWindows.erase(it);
+		//			break;
+		//		}
+		//	if (openWindows.size() != 0)
+		//	{
+		//		focusedWindow = openWindows.back();
+		//		focusedWindow->focus = true;
+		//	}
+		//	else
+		//		focusedWindow = NULL;
+		//}
+		//else
+		//{
+		//	inventory.open = true;
+		//	inventory.focus = true;
+		//	inventory.requestClose = false;
+		//	if (focusedWindow)
+		//		focusedWindow->focus = false;
+		//	focusedWindow = &inventory;
+		//	openWindows.push_back(&inventory);
+		//}
 	}
 	void GraphicalUserInterface::showHideStats()
 	{
-		if (stats.open)
-		{
-			stats.open = false;
-			stats.focus = false;
-			for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-				if (*it == &stats)
-				{
-					openWindows.erase(it);
-					break;
-				}
-			if (openWindows.size() != 0)
-			{
-				focusedWindow = openWindows.back();
-				focusedWindow->focus = true;
-			}
-			else
-				focusedWindow = NULL;
-		}
-		else
-		{
-			stats.open = true;
-			stats.focus = true;
-			stats.requestClose = false;
-			if (focusedWindow)
-				focusedWindow->focus = false;
-			focusedWindow = &stats;
-			openWindows.push_back(&stats);
-		}
+		//if (stats.open)
+		//{
+		//	stats.open = false;
+		//	stats.focus = false;
+		//	for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+		//		if (*it == &stats)
+		//		{
+		//			openWindows.erase(it);
+		//			break;
+		//		}
+		//	if (openWindows.size() != 0)
+		//	{
+		//		focusedWindow = openWindows.back();
+		//		focusedWindow->focus = true;
+		//	}
+		//	else
+		//		focusedWindow = NULL;
+		//}
+		//else
+		//{
+		//	stats.open = true;
+		//	stats.focus = true;
+		//	stats.requestClose = false;
+		//	if (focusedWindow)
+		//		focusedWindow->focus = false;
+		//	focusedWindow = &stats;
+		//	openWindows.push_back(&stats);
+		//}
 	}
 
 	void GraphicalUserInterface::showHideTradeWindow()
 	{
-		if (tradingWindow.open)
-		{
-			tradingWindow.open = false;
-			tradingWindow.focus = false;
-			for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-				if (*it == &tradingWindow)
-				{
-					openWindows.erase(it);
-					break;
-				}
-			if (openWindows.size() != 0)
-			{
-				focusedWindow = openWindows.back();
-				focusedWindow->focus = true;
-			}
-			else
-				focusedWindow = NULL;
-		}
-		else
-		{
-			tradingWindow.open = true;
-			tradingWindow.focus = true;
-			tradingWindow.requestFocus = false;
-			if (focusedWindow)
-				focusedWindow->focus = false;
-			focusedWindow = &tradingWindow;
-			openWindows.push_back(&tradingWindow);
-		}
+		//if (tradingWindow.open)
+		//{
+		//	tradingWindow.open = false;
+		//	tradingWindow.focus = false;
+		//	for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+		//		if (*it == &tradingWindow)
+		//		{
+		//			openWindows.erase(it);
+		//			break;
+		//		}
+		//	if (openWindows.size() != 0)
+		//	{
+		//		focusedWindow = openWindows.back();
+		//		focusedWindow->focus = true;
+		//	}
+		//	else
+		//		focusedWindow = NULL;
+		//}
+		//else
+		//{
+		//	tradingWindow.open = true;
+		//	tradingWindow.focus = true;
+		//	tradingWindow.requestFocus = false;
+		//	if (focusedWindow)
+		//		focusedWindow->focus = false;
+		//	focusedWindow = &tradingWindow;
+		//	openWindows.push_back(&tradingWindow);
+		//}
 	}
 
 	bool GraphicalUserInterface::mouseOutsideOpenWindow()
 	{
-		for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
-			if (((Window::BaseWindow*)*it)->checkMouseInside() && !hideGUI)
-				return false;
+		//for (std::vector<Window::BaseWindow*>::iterator it = openWindows.begin(); it != openWindows.end(); it++)
+		//	if (((Window::BaseWindow*)*it)->checkMouseInside() && !hideGUI)
+		//		return false;
 		return true;
 	}
 }

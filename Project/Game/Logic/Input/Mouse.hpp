@@ -31,7 +31,7 @@ public:
 	int deltaScrolls = 0;
 	float scrollSpeed = 0.05f;
 
-	void registerCallback(std::function<void(void)> callback, sf::Mouse::Button key, Input::Action actionType);
+	void registerCallback(std::function<void(void)> callback, sf::Mouse::Button button, Input::Action actionType);
 
 private:
 	bool resetDxDy = true;

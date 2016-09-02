@@ -23,6 +23,6 @@ void StatsComponent::attachOn(GameObject* attachTo)
 bool StatsComponent::updateFromEditor()
 {
 	//tmp - remove this later.
-	Engine::GUI.stats.updateStats = true;
+	//Engine::GUI.stats.updateStats = true;
 	return true;
 }

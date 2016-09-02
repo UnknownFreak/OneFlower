@@ -17,6 +17,7 @@
   <ItemGroup>
     <ClInclude Include="Project\CppInterop.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
+    <ClInclude Include="Project\Engine\GUI\GUIElement\ElementBase.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp" />
@@ -30,6 +31,7 @@
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Window\Window.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterModelContainer.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animation.h" />
     <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.h" />
@@ -151,23 +153,12 @@
     <ClInclude Include="Project\Game\GameView.hpp" />
     <ClInclude Include="Project\Game\Gfx.h" />
     <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp" />
-    <ClInclude Include="Project\Game\GUI\MainMenu\MainMenu.hpp" />
-    <ClInclude Include="Project\Game\GUI\MainMenu\OptionsPanel.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp" />
     <ClInclude Include="Project\Game\GUI\Text\Message.hpp" />
     <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\Button.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\ProgressBar.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\ScrollBar.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\Addon\WindowIcon.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\BaseWindow.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\BaseWindowObject.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\InventoryWindow.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\StatsWindow.hpp" />
-    <ClInclude Include="Project\Game\GUI\Window\TradeWindow.hpp" />
     <ClInclude Include="Project\Game\Item\Ammo.hpp" />
     <ClInclude Include="Project\Game\Item\Armor.hpp" />
     <ClInclude Include="Project\Game\Item\Bag.hpp" />
@@ -205,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Cppinterop.cpp" />
+    <ClCompile Include="Project\Engine\GUI\GUIElement\ElementBase.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp" />
@@ -215,6 +207,7 @@
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Window\Window.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animation.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.cpp" />
     <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\mainlinekey.cpp" />
@@ -333,24 +326,12 @@
     <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
     <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\Game\GUI\MainMenu\MainMenuDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\MainMenu\OptionsPanelDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
     <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\ButtonDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\ComboBoxDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\ProgressBar.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\ScrollBarDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\Addon\WindowIconDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\BaseWindowDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\BaseWindowObjectDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\InventoryWindowDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\StatsWindow.cpp" />
-    <ClCompile Include="Project\Game\GUI\Window\TradeWindow.cpp" />
     <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
     <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
@@ -381,7 +362,6 @@
     <ResourceCompile Include="Project\Other\MenuBar.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Project\Game\GUI\Window\Addon\ComboBox.hpp" />
     <None Include="Project\Vector.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

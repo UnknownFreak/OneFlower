@@ -49,8 +49,6 @@ namespace Engine
 
 	extern SpriterModelContainer ModelContainer;
 
-	extern Menu::MainMenu::MainMenu mainMenu;
-
 	extern Settings settings;
 }
 /*
