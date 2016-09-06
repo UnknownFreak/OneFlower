@@ -25,7 +25,7 @@ void OverheadComponent::attachOn(GameObject* attachTo)
 }
 bool OverheadComponent::updateFromEditor()
 {
-	msg.setColor(msg.color);
+	msg.setFillColor(msg.color);
 
 	return true;
 }

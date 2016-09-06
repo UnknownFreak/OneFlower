@@ -13,6 +13,11 @@ GUI::GraphicalUserInterface Engine::GUI;
 WorldManagement Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 Settings Engine::settings;
+
+#include "Engine\GUI\Window\Window.hpp"
+
+GUI::Window wndTest;
+
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
 	Engine::Graphic.view.create(handle);
@@ -27,15 +32,16 @@ NativeContainer::NativeContainer(HWND handle) : t("default")
 void mainMenuUpdate()
 {
 	Engine::time.elapsed += Engine::time.clock.restart();
-
+	
 	while (Engine::time.elapsed >= Engine::time.update_ms)
 	{
 		Engine::Input.mouse.update();
 		Engine::GUI.updateMouseIcon();
 		Engine::time.elapsed -= Engine::time.update_ms;
 	}
-
+	
 	Engine::Graphic.drawBG();
+	Engine::Graphic.view.render.draw(wndTest);
 	Engine::Graphic.view.render.display();
 
 }
@@ -140,24 +146,24 @@ void NativeContainer::loadZone(unsigned int myZoneID)
 }
 void NativeContainer::TestAdd()
 {
-	GameObject* go = new GameObject("player");
+	GameObject& go = Engine::game.addGameObject();
 	//go->AddComponent<ProjectilePatternComponent>();
-	go->AddComponent<RenderComponent>("PlayerDemo.png");
-	go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
-	RenderComponent* render = go->GetComponent<RenderComponent>();
-	go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
-	go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
-	go->AddComponent<InventoryComponent>();
+	go.AddComponent<RenderComponent>("PlayerDemo.png");
+	go.GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
+	RenderComponent* render = go.GetComponent<RenderComponent>();
+	go.GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
+	go.GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
+	go.AddComponent<InventoryComponent>();
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
-	go->AddComponent<RigidComponent>();
-	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
-	go->GetComponent<TransformComponent>()->position.x = 300;
-	go->GetComponent<TransformComponent>()->position.y = 300;
-	go->AddComponent<EquipmentComponent>();
-	go->AddComponent<PlayerComponent>();
-	go->AddComponent<Component::Combat>();
-	Engine::game.addGameObject(go);
-	Engine::game.player = go;
+	go.AddComponent<RigidComponent>();
+	go.GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
+	go.GetComponent<TransformComponent>()->position.x = 300;
+	go.GetComponent<TransformComponent>()->position.y = 300;
+	go.AddComponent<EquipmentComponent>();
+	go.AddComponent<PlayerComponent>();
+	go.AddComponent<Component::Combat>();
+	
+	//Engine::game.player = &go;
 }
 //temp test
 void NativeContainer::lock()
@@ -191,6 +197,7 @@ void update()
 
 	Engine::Graphic.draw();
 	Engine::GUI.draw();
+	Engine::Graphic.view.render.draw(wndTest);
 	Engine::Graphic.view.render.display();
 
 }
@@ -200,28 +207,29 @@ void NativeContainer::showHideHitboxes()
 }
 int NativeContainer::windowMessage()
 {
-	Engine::World.loadZone("MainMenu", 0);
+	Engine::World.loadZone("Demo.main", 1);
 
 	shape.setFillColor(sf::Color(0, 150, 0, 100));
 	shape.setOutlineThickness(2.f);
 	shape.setOutlineColor(sf::Color(0, 220, 0));
 	shape.setSize(sf::Vector2f(0, 0));
-	TestAdd();
-	Engine::GUI.showHideGUI();
+	//TestAdd();
+	//Engine::GUI.showHideGUI();
 	////testSave();
 	//sf::Color c(1, 0, 0, 1);
 	////else
 	////Engine::Graphic.insertShader(shader,"test.glsl");
 	//Engine::GUI.showHideGUI();
 	//Time time;
-	//Engine::Graphic.view.render.setFramerateLimit(200);
+	Engine::Graphic.view.render.setFramerateLimit(200);
 	//Engine::Graphic.rex.create(800, 600);
 
 	Engine::Input.mouse.pos;
 
 	while (running)
 	{
-		mutex.lock();
+		//Sleep(5);
+		//mutex.lock();
 		Engine::Graphic.view.render.setActive(true);
 		try
 		{
@@ -247,101 +255,101 @@ int NativeContainer::windowMessage()
 		}
 		else
 		{
-			if (Engine::World.getCurrentZone()->ID == 0 && Engine::World.getCurrentZone()->modOrigin == "MainMenu")
-				mainMenuUpdate();
-			else
+			//if (Engine::World.getCurrentZone()->ID == 0 && Engine::World.getCurrentZone()->modOrigin == "MainMenu")
+			//	mainMenuUpdate();
+			//else
 				update();
 		}
-		Engine::Graphic.view.render.setActive(false);
-		tooltipPreviewRender.setActive(true);
-		while (tooltipPreviewRender.pollEvent(Engine::event))
-		{
-		}
-		tooltipPreviewRender.clear();
-		t.draw(tooltipPreviewRender);
-		tooltipPreviewRender.display();
-		tooltipPreviewRender.setActive(false);
+		//Engine::Graphic.view.render.setActive(false);
+		//tooltipPreviewRender.setActive(true);
+		//while (tooltipPreviewRender.pollEvent(Engine::event))
+		//{
+		//}
+		//tooltipPreviewRender.clear();
+		//t.draw(tooltipPreviewRender);
+		//tooltipPreviewRender.display();
+		//tooltipPreviewRender.setActive(false);
+		//
+		//gameObjectPreviewRender.setActive(true);
+		//while (gameObjectPreviewRender.pollEvent(Engine::event))
+		//{
+		//}
+		//gameObjectPreviewRender.clear();
+		//if (previewObject)
+		//{
+		//	RenderComponent* render = previewObject->GetComponent<RenderComponent>();
+		//	HitboxComponent* hitbox = previewObject->GetComponent<HitboxComponent>();
+		//	Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
+		//	if (render && drawPreviewRender)
+		//	{
+		//	#pragma region render
+		//		if (tmprender)
+		//		{
+		//			render->animation = tmprender->animation;
+		//			render->sprite.setTexture(*Engine::Graphic.requestTexture(tmprender->textureName),true);
+		//			render->textureName = tmprender->textureName;
+		//			render->animations = tmprender->animations;
+		//			render->instance = tmprender->instance;
+		//			if (tmprender->instance.entityName != "")
+		//			{
+		//				if (render->instance.MyEntityInstance)
+		//					delete render->instance.MyEntityInstance;
+		//				render->instance = Engine::ModelContainer.requestEntityInstance(tmprender->instance.sceneFile, tmprender->instance.entityName);
+		//				render->instance.myTextureMap = tmprender->instance.myTextureMap;
+		//				previewEntityInstance = render->instance.MyEntityInstance;
+		//			}
+		//			else
+		//				previewEntityInstance = NULL;
+		//			render->outline = tmprender->outline;
+		//			delete tmprender;
+		//			tmprender = 0;
+		//		}
+		//		switch (render->animation)
+		//		{
+		//			case RenderComponent::AnimationType::SpriteSheet:
+		//				render->updateFrame();
+		//			case RenderComponent::AnimationType::Static:
+		//				render->sprite.setPosition(pos.x,pos.y);
+		//				gameObjectPreviewRender.draw(render->sprite);
+		//				break;
+		//			case RenderComponent::AnimationType::Armature:
+		//			{
+		//				if (render->instance.MyEntityInstance && render->instance.textureMaps)
+		//				{
+		//					render->instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds()*500);
+		//					render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
+		//					render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
+		//					render->instance.render(&render->sprite);
+		//					if(previewEntityInstance->animationJustFinished())
+		//					{
+		//						previewEntityInstance->setCurrentTime(0);
+		//					}
+		//				}
+		//				break;
+		//			}
+		//			default:
+		//				break;
+		//		}
+		//	#pragma endregion
+		//	}
+		//	if (hitbox && drawPreviewHitbox)
+		//	{
+		//		if (tmpHitbox)
+		//		{
+		//			hitbox->bounding = tmpHitbox->bounding;
+		//			delete tmpHitbox;
+		//			tmpHitbox = 0;
+		//		}
+		//
+		//		shape.setSize(sf::Vector2f(hitbox->bounding.size.x,hitbox->bounding.size.y));
+		//		shape.setPosition(pos.x + hitbox->bounding.position.x, pos.y + hitbox->bounding.position.y);
+		//		gameObjectPreviewRender.draw(shape);
+		//	}
+		//}
+		//gameObjectPreviewRender.display();
+		//gameObjectPreviewRender.setActive(false);
 
-		gameObjectPreviewRender.setActive(true);
-		while (gameObjectPreviewRender.pollEvent(Engine::event))
-		{
-		}
-		gameObjectPreviewRender.clear();
-		if (previewObject)
-		{
-			RenderComponent* render = previewObject->GetComponent<RenderComponent>();
-			HitboxComponent* hitbox = previewObject->GetComponent<HitboxComponent>();
-			Vector2 pos(previewObject->GetComponent<TransformComponent>()->position);
-			if (render && drawPreviewRender)
-			{
-			#pragma region render
-				if (tmprender)
-				{
-					render->animation = tmprender->animation;
-					render->sprite.setTexture(*Engine::Graphic.requestTexture(tmprender->textureName),true);
-					render->textureName = tmprender->textureName;
-					render->animations = tmprender->animations;
-					render->instance = tmprender->instance;
-					if (tmprender->instance.entityName != "")
-					{
-						if (render->instance.MyEntityInstance)
-							delete render->instance.MyEntityInstance;
-						render->instance = Engine::ModelContainer.requestEntityInstance(tmprender->instance.sceneFile, tmprender->instance.entityName);
-						render->instance.myTextureMap = tmprender->instance.myTextureMap;
-						previewEntityInstance = render->instance.MyEntityInstance;
-					}
-					else
-						previewEntityInstance = NULL;
-					render->outline = tmprender->outline;
-					delete tmprender;
-					tmprender = 0;
-				}
-				switch (render->animation)
-				{
-					case RenderComponent::AnimationType::SpriteSheet:
-						render->updateFrame();
-					case RenderComponent::AnimationType::Static:
-						render->sprite.setPosition(pos.x,pos.y);
-						gameObjectPreviewRender.draw(render->sprite);
-						break;
-					case RenderComponent::AnimationType::Armature:
-					{
-						if (render->instance.MyEntityInstance && render->instance.textureMaps)
-						{
-							render->instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds()*500);
-							render->instance.MyEntityInstance->setPosition(SpriterEngine::point(pos.x, pos.y));
-							render->instance.textureMaps->renderWindow = &gameObjectPreviewRender;
-							render->instance.render(&render->sprite);
-							if(previewEntityInstance->animationJustFinished())
-							{
-								previewEntityInstance->setCurrentTime(0);
-							}
-						}
-						break;
-					}
-					default:
-						break;
-				}
-			#pragma endregion
-			}
-			if (hitbox && drawPreviewHitbox)
-			{
-				if (tmpHitbox)
-				{
-					hitbox->bounding = tmpHitbox->bounding;
-					delete tmpHitbox;
-					tmpHitbox = 0;
-				}
-
-				shape.setSize(sf::Vector2f(hitbox->bounding.size.x,hitbox->bounding.size.y));
-				shape.setPosition(pos.x + hitbox->bounding.position.x, pos.y + hitbox->bounding.position.y);
-				gameObjectPreviewRender.draw(shape);
-			}
-		}
-		gameObjectPreviewRender.display();
-		gameObjectPreviewRender.setActive(false);
-
-		mutex.unlock();
+		//mutex.unlock();
 	}
 	DestroyWindow(Engine::Graphic.view.hWnd);
 	DestroyWindow(tooltipPreview);

@@ -382,7 +382,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
@@ -411,8 +411,8 @@
     <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.4.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.0\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Debug\</OutDir>
     <IntDir>Debug\</IntDir>
   </PropertyGroup>
@@ -450,7 +450,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.3.1\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.0\lib\Debug;$(SolutionDir)Lib\SFML-2.4.0\lib\Release;$(SolutionDir)Lib\SFML-2.4.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
  %(AdditionalOptions)</AdditionalOptions>

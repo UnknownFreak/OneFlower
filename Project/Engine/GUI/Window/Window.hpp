@@ -1,14 +1,14 @@
 #ifndef WINDOW_HPP 
 #define WINDOW_HPP
 #include "../GUIElement/ElementBase.hpp"
-#include <SFML\Graphics\RenderTarget.hpp>
 
 namespace GUI
 {
-	class Window : public ElementBase, public sf::Drawable
+	class Window : public ElementBase
 	{
+		bool moving = false;
 
-		sf::Sprite backgroundSprite;
+		bool isPointInsideTitle(Vector2& pos);
 
 	protected:
 		// Inherited via ElementBase
@@ -16,10 +16,7 @@ namespace GUI
 	public:
 		Window();
 
-
-		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
-		unsigned int handle(ElementBase& guiRef, ElementMessage msg);
+		unsigned int handle(MessageType msg) override;
 	};
 }
 

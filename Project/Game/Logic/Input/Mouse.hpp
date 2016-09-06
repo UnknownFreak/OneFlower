@@ -38,7 +38,9 @@ private:
 	bool moving = false;
 	Vector2 dxDy;
 
-	void test();
+	void testClick();
+	void testHold();
+	void testRelease();
 
 	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnPress;
 	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnRelease;

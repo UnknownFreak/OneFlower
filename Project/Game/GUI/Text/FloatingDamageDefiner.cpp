@@ -7,7 +7,7 @@ namespace GUI
 		}
 		FloatingDamage::FloatingDamage(FloatingDamage& fdmg) : FloatingText(fdmg.iconName, fdmg.font, fdmg.drawIcon, fdmg.duration, fdmg.maxLength, fdmg.offset.x, fdmg.offset.y)
 		{
-			setColor(fdmg.color);
+			setFillColor(fdmg.color);
 		}
 
 		FloatingDamage& FloatingDamage::operator=(int damageDone)

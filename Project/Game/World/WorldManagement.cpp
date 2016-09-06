@@ -51,7 +51,7 @@ WorldManagement::~WorldManagement()
 }
 
 // load zone with ID
-void WorldManagement::loadZone(std::string addedFromMod,unsigned int zoneID)
+void WorldManagement::loadZone(std::string addedFromMod , unsigned int zoneID)
 {
 	if (worldmap.find(std::pair<std::string,size_t>(addedFromMod,zoneID)) != worldmap.end())
 	{

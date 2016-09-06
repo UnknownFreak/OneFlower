@@ -39,7 +39,7 @@ namespace GUI
 			virtual void drawCrop(sf::IntRect area);
 
 			void setFont(sf::Font* font);
-			void setColor(sf::Color c);
+			void setFillColor(sf::Color c);
 			void setSize(int s);
 			void setMarginWidth(int w);
 			void setLength(int l);
@@ -66,4 +66,4 @@ namespace GUI
 			
 		};
 	}
-#endif Message_HPP
+#endif

@@ -80,7 +80,6 @@ namespace GUI
 			TextParser(ParserSettings settings);
 			/*
 			*Parses the string and returns a texture containing the parsed text to be drawn.
-			*va_list of parse arguments.
 			*use {0}, etc. to tell where in the string the parse argument is supposed to be.
 			*/
 			const sf::Texture& parse(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);

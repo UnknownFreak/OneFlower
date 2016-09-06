@@ -196,11 +196,11 @@ void Gfx::drawObject()
 							outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x, (rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
 							outlineTemp.setOrigin(rc->outline / 2, rc->outline / 2);
 							outlineTemp.setPosition(tc->position.x, tc->position.y);
-							test.setParameter("color", 1, 0, 1, 1);
-							test.setParameter("tex", *rc->sprite.getTexture());
+							//test.setParameter("color", 1, 0, 1, 1);
+							//test.setParameter("tex", *rc->sprite.getTexture());
 
 							Engine::Graphic.view.render.draw(outlineTemp, sf::RenderStates(&test));
-							//outlineTemp.setColor(sf::Color(255,128,128));
+							//outlineTemp.setFillColor(sf::Color(255,128,128));
 							//	rex.draw(outlineTemp,sf::RenderStates(&test));
 						}
 						Engine::Graphic.view.render.draw(rc->sprite);
@@ -452,7 +452,7 @@ void Gfx::DrawLoadingScreen(Tile& loadingScreen, std::string& message)
 
 		msg = message;
 		msg.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
-		msg.setColor(sf::Color(255, 255, 255));
+		msg.setFillColor(sf::Color(255, 255, 255));
 		msg.draw();
 //		Engine::World.getLoadingScreenProgressBar().draw();
 		Engine::Graphic.view.render.display();

@@ -65,7 +65,7 @@ void DialogComponent::createDialog(bool b)
 	msg->setFont(Engine::Graphic.font.requestFont(fontName));
 	//msg->setPosition(this->attachedOn->GetComponent<TransformComponent>()->position.x - position.x, this->attachedOn->GetComponent<TransformComponent>()->position.y - position.y);
 	updateLocation();
-	msg->setColor(msg->color);
+	msg->setFillColor(msg->color);
 	msg->setSize(12);
 	*msg = dialogMessage;
 	//rex->draw(msg->text);
@@ -77,7 +77,7 @@ void DialogComponent::createDialog()
 {
 	tryLoadTextureAndFont();
 
-	msg->setColor(msg->color);
+	msg->setFillColor(msg->color);
 	msg->setSize(12);
 	*msg = dialogMessage;
 

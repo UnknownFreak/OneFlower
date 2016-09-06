@@ -12,7 +12,9 @@ void scrollupdate();
 Mouse::Mouse() : pos(0, 0), offset(0, 0), LMBPressed(false), RMBPressed(true)
 {
 	// called when mouse is released
-	//registerCallback(std::bind(&Mouse::test, this), sf::Mouse::Button::Left, Input::Action::Release);
+	//registerCallback(std::bind(&Mouse::testClick, this), sf::Mouse::Button::Left, Input::Action::Press);
+	//registerCallback(std::bind(&Mouse::testHold, this), sf::Mouse::Button::Left, Input::Action::Hold);
+	//registerCallback(std::bind(&Mouse::testRelease, this), sf::Mouse::Button::Left, Input::Action::Release);
 }
 
 void Mouse::update()
@@ -280,7 +282,15 @@ void Mouse::registerCallback(std::function<void(void)> callback, sf::Mouse::Butt
 	}
 }
 
-void Mouse::test()
+void Mouse::testClick()
 {
-	//MessageBeep(213);
+	std::cout << "clicked\n";
+}
+void Mouse::testHold()
+{
+	std::cout << "held\n";
+}
+void Mouse::testRelease()
+{
+	std::cout << "Released\n";
 }

@@ -154,6 +154,9 @@
     <Filter Include="Engine\GUI\Window">
       <UniqueIdentifier>{d4320ebe-c4fb-4625-aee8-4c0aa6ded287}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GUI\Button">
+      <UniqueIdentifier>{87ce5b3e-4f5b-42ab-854b-db06bdd994da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">

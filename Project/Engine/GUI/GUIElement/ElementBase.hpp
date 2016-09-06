@@ -1,35 +1,39 @@
 #ifndef GUIELEMENTBASE_HPP
 #define GUIELEMENTBASE_HPP
 
+#include "../../../Engine.hpp"
 #include "../../../Vector.h"
 #include <SFML\Window\Keyboard.hpp>
 #include <vector>
 #include <map>
+#include <SFML\Graphics\Drawable.hpp>
+#include <SFML\Graphics\Sprite.hpp>
 
 namespace GUI
 {
-	enum Element
+	enum Type
 	{
-		Text,
-		FormatedText,
-		Button,
-		Window,
-		Panel,
-		ScrollBar,
-		Image,
-		TextField,
-		Menu,
-		MenuItem,
-		ContextMenu,
+		e_Text,
+		e_FormatedText,
+		e_Button,
+		e_Window,
+		e_Panel,
+		e_ScrollBar,
+		e_Image,
+		e_TextField,
+		e_Menu,
+		e_MenuItem,
+		e_ContextMenu,
+		e_ProgressBar,
 	};
 	enum MouseState
 	{
-		Down,
-		Hold,
-		Up,
-		None
+		None = 0,
+		Down = 1 << 0,
+		Hold = 1 << 1,
+		Up = 1 << 2,
 	};
-	enum ElementMessage
+	enum MessageType
 	{
 		RequestFocus,
 		Close,
@@ -42,11 +46,14 @@ namespace GUI
 		Disable,
 	};
 
-	class ElementBase
+	class ElementBase : public sf::Drawable
 	{
 
 		static std::vector<ElementBase*> elements;
-		static std::map<const ElementBase*, std::vector<ElementMessage>> messages;
+		// swap the vector to a deque
+		static std::map<const ElementBase*, std::vector<MessageType>> messages;
+
+		std::vector<ElementBase*> zOrder;
 
 	protected:
 		
@@ -54,58 +61,65 @@ namespace GUI
 
 		//Does this have focus.
 		bool focus = false;
-		unsigned int zBuffer=0;
-		//Static variable to check element requesting focus, has to be of type window else this will be set to null.
-		//static ElementBase* const requestingFocus = NULL;
+		//unsigned int zOrder = 0;
 
 		//Is the element visible (true by default)
 		bool visible = true;
 		//Can the element be interacted with (true by default)
 		bool enabled = true;
 
+		//Can the element be resized, using the reszie message
+		bool resizeAble = true;
+		//Can the element be moved, using the move message
+		bool moveAble = true;
+
 		//Position of the element.
 		Vector2 pos;
 		//Size of the element.
-		Vector2 size;
-		//LastMousePos;
-		Vector2 lastMousePos;
+		Vector2i size;
+		//static reference towards the mouse position;
+		static Vector2& mousePos;
 		//Parent element, can be something.
 		ElementBase* parent;
 		//Added elements;
 		std::vector<ElementBase*> components;
 		
 		//Element type.
-		Element guiType;
+		Type guiType;
 		//Mouse state for the gui element
 		MouseState mouseState = None;
 
+		//sprite for the element.
+		sf::Sprite sprite;
 
-		//Handle function.
-		virtual unsigned int handle(ElementBase& guiRef, ElementMessage msg);
+		Vector2i minResizeSize = Vector2i(0, 0);
+
+		//Handle function. Can be overriden to add custom user functions.
+		virtual unsigned int handle(MessageType msg);
 		//Mouse function for element, to handle the mouse events.
 		virtual void mouseHandle() = 0;
 
-		inline ElementBase(Element type) : guiType(type)
-		{
-			messages.insert({ this, {} });
-			elements.push_back(this);
-		};
+		ElementBase(Type type);
+		virtual ~ElementBase();
 
-		inline virtual ~ElementBase()
-		{ 
-			elements.erase(std::find(elements.begin(), elements.end(),this)); 
-			messages.erase(this);
-		};
 	public:
 
-		inline void sendMessage(const ElementBase& base, ElementMessage msg)
-		{
-			messages[&base].push_back(msg);
-		};
+		void sendMessage(const ElementBase& base, MessageType msg);
 		
-		bool isPointInside(Vector2 point);
+		bool isPointInside(Vector2& point);
 
 		void addElement(ElementBase* base);
+
+		// same as using sendMessage(const ElementBase& base, GUI::Enable);
+		// enabled controls can recieve input and focus when clicked
+		void enable();
+		// same as using sendMessage(const ElementBase& base, GUI::Disable);
+		// disabled controls can not recieve input and focus when clicked
+		// controls can still recieve messages trough the sendMessage function.
+		void disable();
+
+		// Inherited via Drawable
+		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 	};
 }

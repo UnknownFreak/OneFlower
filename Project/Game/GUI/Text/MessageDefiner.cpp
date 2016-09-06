@@ -35,11 +35,11 @@ namespace GUI
 				createBody(s);
 			return *this;
 		}
-		void Message::setColor(sf::Color c)
+		void Message::setFillColor(sf::Color c)
 		{
 			color = c;
 			for (std::vector<std::pair<sf::Text, bool>>::iterator it = text.begin(); it != text.end(); ++it)
-				it->first.setColor(c);
+				it->first.setFillColor(c);
 		}
 		void Message::setSize(int s)
 		{
@@ -154,7 +154,7 @@ namespace GUI
 					}
 				}
 				sf::Text msg("", *Engine::Graphic.font.requestFont("Arial.ttf"), size);
-				msg.setColor(color);
+				msg.setFillColor(color);
 				std::pair<sf::Text, bool> pair(msg, false);
 				for (std::vector<std::string>::iterator it = elems.begin(); it != elems.end(); ++it)
 				{
@@ -178,9 +178,9 @@ namespace GUI
 									int g = std::stoi(substr[iit + 2]);
 									int b = std::stoi(substr[iit + 3]);
 									pair.first.setString(substr[iit + 4]);
-									pair.first.setColor(sf::Color(r, g, b));
+									pair.first.setFillColor(sf::Color(r, g, b));
 									text.push_back(pair);
-									pair.first.setColor(color);
+									pair.first.setFillColor(color);
 									iit += 4;
 								}
 							}
@@ -193,9 +193,9 @@ namespace GUI
 									int b = std::stoi(substr[iit + 3]);
 									pair.first.setString(substr[iit + 4]);
 									pair.second = true;
-									pair.first.setColor(sf::Color(r, g, b));
+									pair.first.setFillColor(sf::Color(r, g, b));
 									text.push_back(pair);
-									pair.first.setColor(color);
+									pair.first.setFillColor(color);
 									pair.second = false;
 									iit += 4;
 								}
@@ -241,17 +241,17 @@ namespace GUI
 										if (split < 0)
 										{
 											plusMinus = " ";
-											pair.first.setColor(sf::Color(150, 25, 25));
+											pair.first.setFillColor(sf::Color(150, 25, 25));
 										}
 										else if (split > 0)
 										{
 											plusMinus = " +";
-											pair.first.setColor(sf::Color(25, 150, 25));
+											pair.first.setFillColor(sf::Color(25, 150, 25));
 										}
 										else
 										{
 											plusMinus = " ";
-											pair.first.setColor(sf::Color(color));
+											pair.first.setFillColor(sf::Color(color));
 										}
 										if (split != 0)
 											pair.first.setString(plusMinus + std::to_string(split));
@@ -278,7 +278,7 @@ namespace GUI
 					}
 					else
 					{
-						pair.first.setColor(sf::Color(color));
+						pair.first.setFillColor(sf::Color(color));
 						pair.first.setString(*it);
 						text.push_back(pair);
 					}

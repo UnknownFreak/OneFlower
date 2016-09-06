@@ -15,7 +15,7 @@ namespace GUI
 		}
 		FloatingText::FloatingText(const FloatingText& ft) : Message(ft.font, ft.duration, ft.maxLength), offset(ft.offset), iconName(ft.iconName), drawIcon(ft.drawIcon)
 		{
-			setColor(ft.color);
+			setFillColor(ft.color);
 			createBody(ft.entireString.getString());
 			if (ft.text.size() != 0)
 				setPosition(ft.text[0].first.getPosition().x, ft.text[0].first.getPosition().y);
@@ -169,7 +169,7 @@ namespace GUI
 					icons.insert(std::pair<int, std::pair<sf::Sprite, Vector2>>(text.size(),
 						std::pair<sf::Sprite, Vector2>(tmp, Vector2(std::stoi(iit[iterpos + 2]), std::stoi(iit[iterpos + 3])))));
 
-					pair.first.setColor(sf::Color(109, 43, 5));
+					pair.first.setFillColor(sf::Color(109, 43, 5));
 					if (third[0] != '0')
 						pair.first.setString(third);
 					else if (third[0] == '0' && third[1] == '0')
@@ -181,7 +181,7 @@ namespace GUI
 					}
 					text.push_back(pair);
 
-					pair.first.setColor(sf::Color(206, 199, 178));
+					pair.first.setFillColor(sf::Color(206, 199, 178));
 					pair.second = true;
 
 					if (second[0] != '0')
@@ -198,7 +198,7 @@ namespace GUI
 						std::pair<sf::Sprite, Vector2>(tmp, Vector2(std::stoi(iit[iterpos + 2]) - 32, std::stoi(iit[iterpos + 3])))));
 					text.push_back(pair);
 
-					pair.first.setColor(sf::Color(237, 200, 0));
+					pair.first.setFillColor(sf::Color(237, 200, 0));
 					pair.first.setString(first);
 
 					tmp.setTextureRect(sf::IntRect(0, 0, 16, 16));
@@ -210,7 +210,7 @@ namespace GUI
 				}
 				else if (str.size() > 2)
 				{
-					pair.first.setColor(sf::Color(109, 43, 5));
+					pair.first.setFillColor(sf::Color(109, 43, 5));
 					if (str[str.size() - 2] != '0')
 						pair.first.setString(str.substr(str.size() - 2));
 					else
@@ -223,7 +223,7 @@ namespace GUI
 					text.push_back(pair);
 					pair.second = true;
 
-					pair.first.setColor(sf::Color(206, 199, 178));
+					pair.first.setFillColor(sf::Color(206, 199, 178));
 					tmp.setTextureRect(sf::IntRect(16, 0, 16, 16));
 					icons.insert(std::pair<int, std::pair<sf::Sprite, Vector2>>(text.size(),
 						std::pair<sf::Sprite, Vector2>(tmp, Vector2(std::stoi(iit[iterpos + 2]) - 32, std::stoi(iit[iterpos + 3])))));
@@ -238,7 +238,7 @@ namespace GUI
 				}
 				else
 				{
-					pair.first.setColor(sf::Color(109, 43, 5));
+					pair.first.setFillColor(sf::Color(109, 43, 5));
 					pair.first.setString(str);
 					tmp.setTextureRect(sf::IntRect(32, 0, 16, 16));
 					icons.insert(std::pair<int, std::pair<sf::Sprite, Vector2>>(text.size(),
