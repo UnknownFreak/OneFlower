@@ -130,7 +130,7 @@ void Gfx::removeFromdrawList(GameObject* entityToRemove)
 void Gfx::draw()
 {
 	Engine::Graphic.view.render.clear();
-
+	//
 	drawBG();
 	drawObject();
 	//drawGrid();
@@ -146,7 +146,7 @@ void Gfx::drawBG()
 	if (backgroundSprite)
 	{
 		backgroundSprite->sprite.setPosition(Engine::Graphic.view.camera.getCenter().x*1.5f, Engine::Graphic.view.camera.getCenter().y*1.5f);
-
+	
 		Engine::Graphic.view.render.draw(backgroundSprite->sprite);
 		for (std::vector<Tile>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 			Engine::Graphic.view.render.draw(it->sprite);
@@ -159,7 +159,7 @@ void Gfx::drawObject()
 	TransformComponent* tc;
 	DialogComponent* dc;
 	//HIGH Fix draw batches to reduce draw calls
-	rex.clear();
+	//rex.clear();
 	for(std::map<int,std::vector<GameObject*>>::iterator it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
 	{
 		for(size_t j = 0; j < it->second.size(); j++)
@@ -191,15 +191,15 @@ void Gfx::drawObject()
 						rc->updateFrame();
 						if (rc->outline)
 						{
-							sf::Sprite outlineTemp(rc->sprite);
-
-							outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x, (rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
-							outlineTemp.setOrigin(rc->outline / 2, rc->outline / 2);
-							outlineTemp.setPosition(tc->position.x, tc->position.y);
-							//test.setParameter("color", 1, 0, 1, 1);
-							//test.setParameter("tex", *rc->sprite.getTexture());
-
-							Engine::Graphic.view.render.draw(outlineTemp, sf::RenderStates(&test));
+							//sf::Sprite outlineTemp(rc->sprite);
+							//
+							//outlineTemp.setScale((rc->sprite.getTextureRect().width * rc->sprite.getScale().x + rc->outline) / rc->sprite.getTextureRect().width * rc->sprite.getScale().x, (rc->sprite.getTextureRect().height * rc->sprite.getScale().y + rc->outline) / rc->sprite.getTextureRect().height * rc->sprite.getScale().y);
+							//outlineTemp.setOrigin(rc->outline / 2, rc->outline / 2);
+							//outlineTemp.setPosition(tc->position.x, tc->position.y);
+							////test.setParameter("color", 1, 0, 1, 1);
+							////test.setParameter("tex", *rc->sprite.getTexture());
+							//
+							//Engine::Graphic.view.render.draw(outlineTemp, sf::RenderStates(&test));
 							//outlineTemp.setFillColor(sf::Color(255,128,128));
 							//	rex.draw(outlineTemp,sf::RenderStates(&test));
 						}

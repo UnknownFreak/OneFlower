@@ -224,15 +224,14 @@ int NativeContainer::windowMessage()
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	//Engine::Graphic.rex.create(800, 600);
 
-	Engine::Input.mouse.pos;
+	Engine::Graphic.view.render.setActive(true);
 
 	while (running)
 	{
-		//Sleep(5);
 		//mutex.lock();
-		Engine::Graphic.view.render.setActive(true);
 		try
 		{
+			// if exception thrown here, have yet to find fix for deque error (Editor Only)
 			while (Engine::Graphic.view.render.pollEvent(Engine::event))
 			{
 				if (Engine::event.type == sf::Event::Closed)

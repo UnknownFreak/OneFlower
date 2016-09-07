@@ -61,9 +61,9 @@ int windowMessage()
 
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
-	go->AddComponent<RenderComponent>("PlayerDemo.png");
-	go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
-	RenderComponent* render = go->GetComponent<RenderComponent>();
+	//go->AddComponent<RenderComponent>("PlayerDemo.png");
+	//go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
+	//RenderComponent* render = go->GetComponent<RenderComponent>();
 	//go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	//go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
