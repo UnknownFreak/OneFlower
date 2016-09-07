@@ -148,14 +148,14 @@
     <Filter Include="Engine\GUI\Text\TextParser\ParseArguments\IconArgument">
       <UniqueIdentifier>{f56e42ea-e22f-4779-8c23-5d9e5bab8396}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GUI\Element">
-      <UniqueIdentifier>{02fa954a-86e2-403c-b399-38f728bf14b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GUI\Window">
       <UniqueIdentifier>{d4320ebe-c4fb-4625-aee8-4c0aa6ded287}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GUI\Button">
       <UniqueIdentifier>{87ce5b3e-4f5b-42ab-854b-db06bdd994da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Base">
+      <UniqueIdentifier>{02fa954a-86e2-403c-b399-38f728bf14b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -680,8 +680,8 @@
     <ClInclude Include="Project\Engine\GUI\Window\Window.hpp">
       <Filter>Engine\GUI\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Engine\GUI\GUIElement\ElementBase.hpp">
-      <Filter>Engine\GUI\Element</Filter>
+    <ClInclude Include="Project\Engine\GUI\GUIElement\BaseHandler.hpp">
+      <Filter>Engine\GUI\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1159,11 +1159,11 @@
     <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp">
       <Filter>Engine\GUI\Text</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Engine\GUI\GUIElement\ElementBase.cpp">
-      <Filter>Engine\GUI\Element</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Window\Window.cpp">
       <Filter>Engine\GUI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\GUIElement\BaseHandler.cpp">
+      <Filter>Engine\GUI\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

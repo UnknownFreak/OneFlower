@@ -10,6 +10,8 @@ namespace GUI
 
 		bool isPointInsideTitle(Vector2& pos);
 
+		unsigned int titleHeight = 20;
+
 	protected:
 		// Inherited via BaseHandler
 		virtual void mouseHandle() override;

@@ -17,7 +17,7 @@
   <ItemGroup>
     <ClInclude Include="Project\CppInterop.hpp" />
     <ClInclude Include="Project\Engine.hpp" />
-    <ClInclude Include="Project\Engine\GUI\GUIElement\ElementBase.hpp" />
+    <ClInclude Include="Project\Engine\GUI\GUIElement\BaseHandler.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp" />
@@ -196,7 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Cppinterop.cpp" />
-    <ClCompile Include="Project\Engine\GUI\GUIElement\ElementBase.cpp" />
+    <ClCompile Include="Project\Engine\GUI\GUIElement\BaseHandler.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp" />

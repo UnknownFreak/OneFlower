@@ -63,11 +63,7 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 
 bool GUI::BaseHandler::isPointInside(Vector2& point)
 {
-	if (visible)
-		if (point.x >= pos.x && point.x <= size.x + pos.x)
-			if (point.y >= pos.y && point.y <= size.y + pos.y)
-				return true;
-	return false;
+	return visible && point.x >= pos.x && point.x <= size.x + pos.x && point.y >= pos.y && point.y <= size.y + pos.y;
 }
 
 void GUI::BaseHandler::addElement(BaseHandler * base)

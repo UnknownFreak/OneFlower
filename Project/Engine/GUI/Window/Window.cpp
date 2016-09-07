@@ -1,8 +1,8 @@
 #include "Window.hpp"
 
-bool GUI::Window::isPointInsideTitle(Vector2 & pos)
+bool GUI::Window::isPointInsideTitle(Vector2 & point)
 {
-	return true;
+	return visible && point.x >= pos.x && point.x <= size.x + pos.x && point.y >= pos.y && point.y <= pos.y + titleHeight;
 }
 
 //has to remove old gui stuff before cause namespace conflicts with name
@@ -22,6 +22,8 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
 
 	pos.x = 200;
 	pos.y = 200;
+
+	minResizeSize.x = 200;
 
 	sprite.setTexture(*Engine::Graphic.requestTexture("test.png"));
 	sendMessage(*this, Move);
