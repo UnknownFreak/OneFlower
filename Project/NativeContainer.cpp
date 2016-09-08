@@ -17,6 +17,7 @@ Settings Engine::settings;
 #include "Engine\GUI\Window\Window.hpp"
 
 GUI::Window wndTest;
+GUI::Window wndTest2;
 
 NativeContainer::NativeContainer(HWND handle) : t("default")
 {
@@ -41,7 +42,8 @@ void mainMenuUpdate()
 	}
 	
 	Engine::Graphic.drawBG();
-	Engine::Graphic.view.render.draw(wndTest);
+	//GUI::BaseHandler::draw();
+	//Engine::Graphic.view.render.draw(wndTest);
 	Engine::Graphic.view.render.display();
 
 }
@@ -197,7 +199,8 @@ void update()
 
 	Engine::Graphic.draw();
 	Engine::GUI.draw();
-	Engine::Graphic.view.render.draw(wndTest);
+	GUI::BaseHandler::draw();
+	//Engine::Graphic.view.render.draw(wndTest);
 	Engine::Graphic.view.render.display();
 
 }

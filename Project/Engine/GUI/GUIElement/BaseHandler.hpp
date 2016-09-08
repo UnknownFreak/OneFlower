@@ -52,12 +52,17 @@ namespace GUI
 
 		static std::vector<BaseHandler*> elements;
 		// swap the vector to a deque
-		static std::map<const BaseHandler*, std::vector<MessageType>> messages;
+		static std::map<const BaseHandler*, std::deque<MessageType>> messages;
 
-		//not used at the moment.
-		std::vector<BaseHandler*> zOrder;
+		//first element is the back, last element is the front
+		//parse elements from last to first
+		//draw elements from first to last
+		static std::vector<BaseHandler*> zOrder;
+
+		static BaseHandler* focused;
 
 	protected:
+		static bool mouseUsed;
 		
 		sf::Keyboard::Key shorcutKey;
 
@@ -113,7 +118,7 @@ namespace GUI
 		
 		bool isPointInside(Vector2& point);
 
-		void addElement(BaseHandler* base);
+		void addComponent(BaseHandler* base);
 
 		// same as using sendMessage(const BaseHandler& base, GUI::Enable);
 		// enabled controls can recieve input and focus when clicked
@@ -125,6 +130,10 @@ namespace GUI
 
 		// Inherited via Drawable
 		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+
+
+		// static function that will draw the windows in correct order.
+		static void draw();
 
 	};
 }

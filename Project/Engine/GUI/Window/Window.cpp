@@ -15,7 +15,6 @@ void GUI::Window::mouseHandle()
 
 GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
 {
-	focus = true;
 	// hardcoded values, create a real constructor instead that takes size and pos as arguments.
 	size.x = 200;
 	size.y = 200;
@@ -24,10 +23,12 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
 	pos.y = 200;
 
 	minResizeSize.x = 200;
+	minResizeSize.y = 200;
 
 	sprite.setTexture(*Engine::Graphic.requestTexture("test.png"));
 	sendMessage(*this, Move);
 	sendMessage(*this, Resize);
+	sendMessage(*this, RequestFocus);
 
 	parent = NULL;
 	Engine::Input.mouse.registerCallback([this]()
@@ -46,13 +47,12 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
 		if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
 		{ 
 			sendMessage(*this, Click);
-			// add the GUI::UP state to the current mouseState;
 			mouseState = (MouseState)(mouseState | GUI::Up);
 		}
 		else mouseState = GUI::None;
 
-		// clear moving and offsetFlag on every mouse Up Event.
 		moving = false;
+		mouseUsed = false;
 		Offset = Vector2(0, 0);
 	}, sf::Mouse::Button::Left, Input::Release);
 }
@@ -65,14 +65,29 @@ unsigned int GUI::Window::handle(MessageType msg)
 	{
 		if (mouseState & GUI::Down)
 		{
-			mouseState =(MouseState)(mouseState &~GUI::Down);
-			if (isPointInsideTitle(BaseHandler::mousePos) && focus)
+			mouseState =(MouseState)(mouseState & ~GUI::Down);
+			if (!focus && !mouseUsed)
 			{
+				sendMessage(*this, GUI::RequestFocus);
+				// we requested focus in the title area, enable moving flag.
+				if (isPointInsideTitle(mousePos))
+				{
+					std::cout << "This requesed move: " << this << std::endl;
+					moving = true;
+					// set an offset depending on where the mouse was clicked
+					Offset = mousePos - pos;
+					sendMessage(*this, GUI::SetMoveCoord);
+				}
+			}
+			else if (isPointInsideTitle(mousePos) && focus && !mouseUsed)
+			{
+				std::cout << "This requesed move: " << this << std::endl;
 				moving = true;
 				// set an offset depending on where the mouse was clicked
 				Offset = mousePos - pos;
 				sendMessage(*this, GUI::SetMoveCoord);
 			}
+			mouseUsed = true;
 		}
 		if (mouseState & GUI::Hold)
 		{
@@ -80,7 +95,7 @@ unsigned int GUI::Window::handle(MessageType msg)
 				sendMessage(*this, GUI::SetMoveCoord);
 			// remove the hold flag if the cursor moves outide the window area, ignore this check 
 			//if we are moving the window as the cursor may pop outside the title frame.
-			if (!isPointInside(BaseHandler::mousePos) && !moving)
+			if (!isPointInside(mousePos) && !moving)
 			{
 				mouseState = (MouseState)(mouseState & ~GUI::Hold);
 			}
@@ -90,7 +105,6 @@ unsigned int GUI::Window::handle(MessageType msg)
 			mouseState = GUI::None;
 		}
 		// else the click message is invalid, ignore it.
-		// clear moving and resize variables
 
 	}
 		break;
@@ -99,8 +113,8 @@ unsigned int GUI::Window::handle(MessageType msg)
 		{
 			if (pos.x == 0)
 			{
-				int x1 = (int) BaseHandler::mousePos.x - pos.x;
-				int y1 = (int) BaseHandler::mousePos.y - pos.y;
+				int x1 = (int) mousePos.x - pos.x;
+				int y1 = (int) mousePos.y - pos.y;
 				if (x1 < minResizeSize.x)
 					x1 = minResizeSize.x;
 				if (y1 < minResizeSize.y)
@@ -113,5 +127,6 @@ unsigned int GUI::Window::handle(MessageType msg)
 	default:
 		break;
 	}
+	// call the default handle function
 	return BaseHandler::handle(msg);
 }

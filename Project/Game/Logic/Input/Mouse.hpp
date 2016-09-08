@@ -34,6 +34,7 @@ public:
 	void registerCallback(std::function<void(void)> callback, sf::Mouse::Button button, Input::Action actionType);
 
 private:
+
 	bool resetDxDy = true;
 	bool moving = false;
 	Vector2 dxDy;
