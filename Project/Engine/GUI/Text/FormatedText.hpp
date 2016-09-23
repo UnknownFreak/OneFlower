@@ -14,13 +14,22 @@ namespace ParseArg = GUI::Parser::ParseArgument;
 namespace GUI
 {
 	/*
-	* Warning: This class can be slow, use at your own risk.
+	* this class have been changed a bit to improve performance, check the performance gain.
 	*/
 	class FormatedText : public sf::Drawable
 	{
-
+		typedef Parser::ParseArgument::BaseParseArgument* BPA;
 	private:
+
+		enum class ParseState
+		{
+			PreParse,
+			Parse,
+			Done
+		};
+
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates renderstates) const;
+		void clearParseArguments();
 
 		sf::RenderTexture m_texture;
 		sf::Sprite m_textSprite;
@@ -33,10 +42,15 @@ namespace GUI
 
 		unsigned int m_charsize = 30;
 		double m_charSpacing = 0;
+		
+		ParseState m_state = ParseState::PreParse;
+		
 		Vector2 m_position = Vector2(2,2);
 
-		std::vector<Parser::ParseArgument::BaseParseArgument*> m_parseArguments;
-		void clearParseArguments();
+		std::vector<BPA> m_parseArguments;
+
+		void parseSize();
+		void parseTexture();
 
 	public:
 

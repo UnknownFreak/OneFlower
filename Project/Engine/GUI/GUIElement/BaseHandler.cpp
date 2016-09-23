@@ -86,11 +86,11 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 		break;
 	case GUI::Move:
 	{	
-		Vector2 actualpos;
+		actualPos = Vector2(0, 0);
 		if (parent)
-			actualpos = parent->pos;
-		actualpos += pos;
-		sprite.setPosition(actualpos.x, actualpos.y);
+			actualPos = parent->pos;
+		actualPos += pos;
+		sprite.setPosition(actualPos.x, actualPos.y);
 		for each (BaseHandler* child in components)
 			sendMessage(*child, GUI::Move);
 	}
@@ -105,6 +105,12 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 	case GUI::Disable:
 		enabled = false;
 		break;
+	case GUI::Hide:
+		visible = false;
+		break;
+	case GUI::Show:
+		visible = true;
+		break;
 	default:
 		break;
 	}
@@ -113,7 +119,7 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 
 bool GUI::BaseHandler::isPointInside(Vector2& point)
 {
-	return visible && point.x >= pos.x && point.x <= size.x + pos.x && point.y >= pos.y && point.y <= size.y + pos.y;
+	return visible && point.x >= actualPos.x && point.x <= size.x + actualPos.x && point.y >= actualPos.y && point.y <= size.y + actualPos.y;
 }
 
 void GUI::BaseHandler::addComponent(BaseHandler * base)
@@ -170,19 +176,52 @@ void GUI::BaseHandler::draw()
 		Engine::Graphic.view.render.draw(*zOrder[it]);
 }
 
+GUI::Type GUI::BaseHandler::getType()
+{
+	return guiType;
+}
+
+bool GUI::BaseHandler::hasFocus()
+{
+	return focus;
+}
+
 GUI::BaseHandler::BaseHandler(Type type) : guiType(type)
 {
 	messages.insert({ this,{} });
 	elements.push_back(this);
 	if (guiType == Type::e_Window)
 		zOrder.push_back(this);
-};
+}
+GUI::BaseHandler::BaseHandler(const BaseHandler & copy) : guiType(copy.guiType), focus(copy.focus), visible(copy.visible),
+enabled(copy.enabled), resizeAble(copy.resizeAble), moveAble(copy.moveAble), pos(copy.pos), Offset(copy.pos), parent(copy.parent),
+components(copy.components), sprite(copy.sprite), minResizeSize(copy.minResizeSize), size(copy.size)
+{
+	messages.insert({ this , {} });
+	elements.push_back(this);
+	if (guiType == Type::e_Window)
+		zOrder.push_back(this);
+}
 
 GUI::BaseHandler::~BaseHandler()
 {
 	elements.erase(std::find(elements.begin(), elements.end(), this));
 	messages.erase(this);
-};
+}
+void GUI::BaseHandler::setPosition(Vector2 newPos)
+{
+	pos = newPos;
+}
+
+const Vector2i GUI::BaseHandler::getSize()
+{
+	return size;
+}
+
+GUI::BaseHandler * GUI::BaseHandler::getBaseHandler()
+{
+	return this;
+}
 
 void GUI::BaseHandler::sendMessage(const BaseHandler& base, MessageType msg)
 {

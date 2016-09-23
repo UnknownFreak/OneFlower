@@ -5,6 +5,11 @@ bool GUI::Window::isPointInsideTitle(Vector2 & point)
 	return visible && point.x >= pos.x && point.x <= size.x + pos.x && point.y >= pos.y && point.y <= pos.y + titleHeight;
 }
 
+void GUI::Window::closeClick()
+{
+	sendMessage(*this, MessageType::Close);
+}
+
 //has to remove old gui stuff before cause namespace conflicts with name
 void GUI::Window::mouseHandle()
 {
@@ -13,8 +18,10 @@ void GUI::Window::mouseHandle()
 		sendMessage(*this, Click);
 }
 
-GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
+GUI::Window::Window() : BaseHandler(GUI::Type::e_Window), close("X", { 30, 20 }, { 170, 0 }, this), resizeGrip("", { 20,20 }, {180,180},this)
 {
+
+
 	// hardcoded values, create a real constructor instead that takes size and pos as arguments.
 	size.x = 200;
 	size.y = 200;
@@ -31,6 +38,10 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window)
 	sendMessage(*this, RequestFocus);
 
 	parent = NULL;
+	components.push_back(&close);
+	components.push_back(&resizeGrip);
+	// check why this button click crashes if the window is not focused. May be a requestfocus thing.
+	close.click = std::bind(&Window::closeClick,this);
 	Engine::Input.mouse.registerCallback([this]()
 	{
 		if (isPointInside(BaseHandler::mousePos) && enabled)
@@ -72,7 +83,6 @@ unsigned int GUI::Window::handle(MessageType msg)
 				// we requested focus in the title area, enable moving flag.
 				if (isPointInsideTitle(mousePos))
 				{
-					std::cout << "This requesed move: " << this << std::endl;
 					moving = true;
 					// set an offset depending on where the mouse was clicked
 					Offset = mousePos - pos;
@@ -81,7 +91,6 @@ unsigned int GUI::Window::handle(MessageType msg)
 			}
 			else if (isPointInsideTitle(mousePos) && focus && !mouseUsed)
 			{
-				std::cout << "This requesed move: " << this << std::endl;
 				moving = true;
 				// set an offset depending on where the mouse was clicked
 				Offset = mousePos - pos;
@@ -111,6 +120,7 @@ unsigned int GUI::Window::handle(MessageType msg)
 	case GUI::Resize:
 		if (resizeAble)
 		{
+			// change this as it should not be needed anymore
 			if (pos.x == 0)
 			{
 				int x1 = (int) mousePos.x - pos.x;
@@ -121,12 +131,30 @@ unsigned int GUI::Window::handle(MessageType msg)
 					y1 = minResizeSize.y;
 				size = Vector2i(x1, y1);
 			}
+			// set the new pos of the resize grip and the close button.
+			close.setPosition({ size.x - (double) close.getSize().x,0 });
+			resizeGrip.setPosition({ size.x - (double)resizeGrip.getSize().x, size.y - (double)resizeGrip.getSize().y });
 			sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 		}
 		return 0;
+	case GUI::ForceStopMove:
+	{
+		moving = false;
+		return 0;
+	}
 	default:
 		break;
 	}
 	// call the default handle function
 	return BaseHandler::handle(msg);
+}
+
+void GUI::Window::enableResizeMode()
+{
+	sendMessage(resizeGrip, GUI::Show);
+}
+
+void GUI::Window::disableResizeMode()
+{
+	sendMessage(resizeGrip, GUI::Hide);
 }

@@ -14,7 +14,7 @@ namespace GUI
 	FormatedText::FormatedText(sf::Font& font, sf::String text,std::vector<Parser::ParseArgument::BaseParseArgument*> arguments ) : 
 		m_font(font), m_text(text), parser(Parser::ParserSettings(m_font,m_charSpacing,m_charsize, m_color)), m_parseArguments(arguments)
 	{
-		m_textSprite.setTexture(parser.parse(text,m_parseArguments), true);
+		m_state = ParseState::PreParse;
 	}
 	FormatedText::~FormatedText()
 	{
@@ -27,7 +27,7 @@ namespace GUI
 			m_text = text;
 			clearParseArguments();
 			m_parseArguments = arguments;
-			m_textSprite.setTexture(parser.parse(m_text, m_parseArguments), true);
+			m_state = ParseState::PreParse;
 		}
 	}
 	void FormatedText::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -46,7 +46,27 @@ namespace GUI
 		outline[4].position = sf::Vector2f(m_position.x, m_position.y);
 		target.draw(outline, states);
 #endif
-		target.draw(m_textSprite,states);
+
+		switch (m_state)
+		{
+		case GUI::FormatedText::ParseState::PreParse:
+			((FormatedText*)this)->parser.setup();
+			((FormatedText*)this)->parseSize();
+			target.draw(m_textSprite, states);
+			((FormatedText*)this)->m_state = ParseState::Parse;
+			break;
+		case GUI::FormatedText::ParseState::Parse:
+			((FormatedText*)this)->parseTexture();
+			((FormatedText*)this)->m_textSprite.setTexture(((FormatedText*)this)->parser.getTexture());
+			((FormatedText*)this)->m_state = ParseState::Done;
+			//fall trough and draw the newly parsed text
+		case GUI::FormatedText::ParseState::Done:
+			target.draw(m_textSprite,states);
+			break;
+		default:
+			break;
+		}
+
 	}
 
 	void FormatedText::setPosition(Vector2 position)
@@ -64,16 +84,25 @@ namespace GUI
 		for each (Parser::ParseArgument::BaseParseArgument* var in m_parseArguments)
 			delete var;
 	}
+	void FormatedText::parseSize()
+	{
+		parser.calculateTextureSize(m_text, m_parseArguments);
+		
+	}
+	void FormatedText::parseTexture()
+	{
+		parser.createTexture(m_text, m_parseArguments);
+	}
 	void FormatedText::setCharacterSize(unsigned int characterSize, bool reparseText)
 	{
 		m_charsize = characterSize;
 		if (reparseText)
-			m_textSprite.setTexture(parser.parse(m_text, m_parseArguments), true);
+			m_state = ParseState::PreParse;
 	}
 	void FormatedText::setCharacterSpacing(double characterSpacing, bool reparseText)
 	{
 		m_charSpacing = characterSpacing;
 		if (reparseText)
-			m_textSprite.setTexture(parser.parse(m_text, m_parseArguments), true);
+			m_state = ParseState::PreParse;
 	}
 }

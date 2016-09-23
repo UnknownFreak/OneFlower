@@ -154,7 +154,6 @@ void mainMenuUpdate()
 	}
 
 	Engine::Graphic.drawBG();
-	Engine::Graphic.view.render.draw(t);
 	Engine::Graphic.view.render.display();
 
 }
@@ -172,6 +171,7 @@ void update()
 	}
 
 	Engine::Graphic.draw();
+	Engine::Graphic.view.render.draw(t);
 	Engine::GUI.draw();
 	Engine::Graphic.view.render.display();
 

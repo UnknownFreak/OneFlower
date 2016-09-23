@@ -29,10 +29,6 @@ namespace GUI
 
 			ParserSettings settings;
 
-			void calculateTextureSize(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);
-			void createTexture(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);
-
-
 			void NewLine();
 
 			bool parseArgument = false;
@@ -84,6 +80,12 @@ namespace GUI
 			*/
 			const sf::Texture& parse(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);
 			void setParserSettings(ParserSettings settings);
+			
+			void calculateTextureSize(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);
+			void createTexture(sf::String& text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args);
+
+			const sf::Texture& getTexture();
+			void setup();
 		};
 	}
 }

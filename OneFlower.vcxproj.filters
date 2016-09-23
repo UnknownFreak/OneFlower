@@ -683,6 +683,9 @@
     <ClInclude Include="Project\Engine\GUI\GUIElement\BaseHandler.hpp">
       <Filter>Engine\GUI\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Button\Button.hpp">
+      <Filter>Engine\GUI\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -1164,6 +1167,9 @@
     </ClCompile>
     <ClCompile Include="Project\Engine\GUI\GUIElement\BaseHandler.cpp">
       <Filter>Engine\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Button\Button.cpp">
+      <Filter>Engine\GUI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

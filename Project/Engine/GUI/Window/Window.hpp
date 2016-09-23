@@ -1,7 +1,7 @@
 #ifndef WINDOW_HPP 
 #define WINDOW_HPP
 #include "../GUIElement/BaseHandler.hpp"
-
+#include "../Button/Button.hpp"
 namespace GUI
 {
 	class Window : public BaseHandler
@@ -12,6 +12,9 @@ namespace GUI
 
 		unsigned int titleHeight = 20;
 
+		Button close;
+		Button resizeGrip;
+		void closeClick();
 	protected:
 		// Inherited via BaseHandler
 		virtual void mouseHandle() override;
@@ -19,6 +22,8 @@ namespace GUI
 		Window();
 
 		unsigned int handle(MessageType msg) override;
+		void enableResizeMode();
+		void disableResizeMode();
 	};
 }
 

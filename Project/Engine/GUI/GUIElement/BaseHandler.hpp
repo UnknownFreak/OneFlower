@@ -36,15 +36,20 @@ namespace GUI
 	enum MessageType
 	{
 		RequestFocus,
+		SetFocus,
+		RemoveFocus,
 		Close,
 		Open,
 		Click,
 		Move,
 		SetMoveCoord,
+		ForceStopMove,
 		Resize,
 		NotifyParent,
 		Enable,
 		Disable,
+		Hide,
+		Show
 	};
 
 	class BaseHandler : public sf::Drawable
@@ -68,6 +73,7 @@ namespace GUI
 
 		//Does this have focus.
 		bool focus = false;
+		BaseHandler* parentWindow = NULL;
 		//unsigned int zOrder = 0;
 
 		//Is the element visible (true by default)
@@ -84,7 +90,8 @@ namespace GUI
 		Vector2 pos;
 		//OffsetPos for click and drag (default (0,0))
 		Vector2 Offset;
-
+		//ActualPosition of element
+		Vector2 actualPos;
 		//Size of the element.
 		Vector2i size;
 		//static reference towards the mouse position;
@@ -110,9 +117,16 @@ namespace GUI
 		virtual void mouseHandle() = 0;
 
 		BaseHandler(Type type);
+		BaseHandler(const BaseHandler& copy);
 		virtual ~BaseHandler();
 
 	public:
+		
+		void setPosition(Vector2 newPos);
+
+		const Vector2i getSize();
+
+		BaseHandler* getBaseHandler();
 
 		void sendMessage(const BaseHandler& base, MessageType msg);
 		
@@ -123,6 +137,7 @@ namespace GUI
 		// same as using sendMessage(const BaseHandler& base, GUI::Enable);
 		// enabled controls can recieve input and focus when clicked
 		void enable();
+
 		// same as using sendMessage(const BaseHandler& base, GUI::Disable);
 		// disabled controls can not recieve input and focus when clicked
 		// controls can still recieve messages trough the sendMessage function.
@@ -131,9 +146,13 @@ namespace GUI
 		// Inherited via Drawable
 		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
-
 		// static function that will draw the windows in correct order.
 		static void draw();
+
+		// returns the type of the handler
+		Type getType();
+		// gets a value that indicates if the handler has focus or not.
+		bool hasFocus();
 
 	};
 }

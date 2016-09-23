@@ -289,6 +289,24 @@ namespace GUI
 				}
 			}
 		}
+		const sf::Texture & TextParser::getTexture()
+		{
+			m_parsedTextTexture.display();
+			return m_parsedTextTexture.getTexture();
+		}
+		void TextParser::setup()
+		{
+			const sf::Texture& tex = settings.font.getTexture(settings.charSize);
+			sprite.setTexture(tex, true);
+			settings.currentColor = settings.color;
+			sprite.setColor(settings.currentColor);
+
+			texSize.x = texSize.y = 0;
+			advance = 0;
+			kerning = 0;
+			newLine = 0;
+			lineSpacing = settings.font.getLineSpacing(settings.charSize);
+		}
 		void TextParser::NewLine()
 		{
 			advance = 0;
@@ -340,7 +358,7 @@ namespace GUI
 		{
 			settings = _settings;
 		}
-
+		
 		const sf::Texture& TextParser::parse(sf::String& m_text, std::vector<Parser::ParseArgument::BaseParseArgument*>& args)
 		{
 			const sf::Texture& tex = settings.font.getTexture(settings.charSize);

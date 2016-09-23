@@ -5,7 +5,7 @@
 #include <SFML\Graphics.hpp>
 struct Settings
 {
-	enum Difficulty
+	enum class Difficulty
 	{
 		easy,
 		normal,
@@ -22,7 +22,7 @@ struct Settings
 	bool showTooltips;
 
 	__int8 volume;
-	__int8 volumeEffects;
+	char volumeEffects;
 
 	template <class archive>
 	void load(archive & ar, Settings& settings);
