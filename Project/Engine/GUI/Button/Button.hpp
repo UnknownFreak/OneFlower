@@ -25,7 +25,12 @@ namespace GUI
 
 		unsigned int handle(MessageType msg) override;
 
+		//function that runs when the button is clicked (up)
 		std::function<void(void)> click;
+		//function that runs when the button is held
+		std::function<void(void)> hold;
+		//function that runs when the button is preClicked
+		std::function<void(void)> preClickfn;
 
 
 	};

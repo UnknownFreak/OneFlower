@@ -78,13 +78,28 @@ unsigned int GUI::Button::handle(MessageType msg)
 			{
 				sendMessage(*this, GUI::ForceStopMove);
 				preClick = true;
+				if (preClickfn.operator bool())
+					preClickfn();
 			}
 			mouseUsed = true;
 		}
+		//To make sure the button up event gets fired, since we return on every hold message.
+		//The mouse up check is before the mouse hold check.
+		if (mouseState & GUI::Up)
+		{
+			mouseState = GUI::None;
+			//remove highlight
+			//if mouse inside commit the click function
+			if (isPointInside(mousePos) && preClick && click.operator bool())
+				click();
+			//force color reset
+			sprite.setColor(sf::Color::White);
+			preClick = false;
+		}
 		if (mouseState & GUI::Hold)
 		{
-			// remove the hold flag if the cursor moves outide the window area, ignore this check 
-			//if we are moving the window as the cursor may pop outside the title frame.
+			//Remove the hold flag if the cursor moves outide the window area, ignore this check 
+			//If we are moving the window as the cursor may pop outside the title frame.
 			if (isPointInside(mousePos) && preClick)
 			{
 				// highlight the color when the button has been preClicked.
@@ -92,25 +107,20 @@ unsigned int GUI::Button::handle(MessageType msg)
 			}
 			else if (isPointInside(mousePos))
 			{
-				//Highlight the button here 
-				sprite.setColor(sf::Color(125,125,125));
+				// highlight the color when the button has been pressed but not inside this control.
+				sprite.setColor(sf::Color(125, 125, 125));
 			}
 			else
 			{
 				// do not highlight the button.
 				sprite.setColor(sf::Color(255,255,255));
 			}
-		}
-		if (mouseState & GUI::Up)
-		{
-			mouseState = GUI::None;
-			//remove highlight
-			//if mouse inside commit the click function
-			if (isPointInside(mousePos) && preClick )
-				click();
-			//force color reset
-			sprite.setColor(sf::Color::White);
-			preClick = false;
+			// run the hold function.
+			if (hold.operator bool() && parentWindow && parentWindow->hasFocus())
+			{
+				hold();
+			}
+			return 0;
 		}
 		// else the click message is invalid, ignore it.
 	}

@@ -10,6 +10,16 @@ void GUI::Window::closeClick()
 	sendMessage(*this, MessageType::Close);
 }
 
+void GUI::Window::resizeDrag()
+{
+	sendMessage(*this, GUI::Resize);
+}
+
+void GUI::Window::resizPreClick()
+{
+	sendMessage(*this, GUI::MessageType::SetResizeCoord);
+}
+
 //has to remove old gui stuff before cause namespace conflicts with name
 void GUI::Window::mouseHandle()
 {
@@ -42,6 +52,8 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window), close("X", { 30, 20 },
 	components.push_back(&resizeGrip);
 	// check why this button click crashes if the window is not focused. May be a requestfocus thing.
 	close.click = std::bind(&Window::closeClick,this);
+	resizeGrip.hold = std::bind(&Window::resizeDrag, this);
+	resizeGrip.preClickfn = std::bind(&Window::resizPreClick, this);
 	Engine::Input.mouse.registerCallback([this]()
 	{
 		if (isPointInside(BaseHandler::mousePos) && enabled)
@@ -97,6 +109,7 @@ unsigned int GUI::Window::handle(MessageType msg)
 				sendMessage(*this, GUI::SetMoveCoord);
 			}
 			mouseUsed = true;
+			return 1;
 		}
 		if (mouseState & GUI::Hold)
 		{
@@ -120,19 +133,15 @@ unsigned int GUI::Window::handle(MessageType msg)
 	case GUI::Resize:
 		if (resizeAble)
 		{
-			// change this as it should not be needed anymore
-			if (pos.x == 0)
-			{
-				int x1 = (int) mousePos.x - pos.x;
-				int y1 = (int) mousePos.y - pos.y;
-				if (x1 < minResizeSize.x)
-					x1 = minResizeSize.x;
-				if (y1 < minResizeSize.y)
-					y1 = minResizeSize.y;
-				size = Vector2i(x1, y1);
-			}
+			int x1 = (int) mousePos.x - Offset.x;
+			int y1 = (int) mousePos.y - Offset.y;
+			if (x1 < minResizeSize.x)
+				x1 = minResizeSize.x;
+			if (y1 < minResizeSize.y)
+				y1 = minResizeSize.y;
+			size = Vector2i(x1, y1);
 			// set the new pos of the resize grip and the close button.
-			close.setPosition({ size.x - (double) close.getSize().x,0 });
+			close.setPosition({ size.x - (double) close.getSize().x, 0 });
 			resizeGrip.setPosition({ size.x - (double)resizeGrip.getSize().x, size.y - (double)resizeGrip.getSize().y });
 			sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 		}

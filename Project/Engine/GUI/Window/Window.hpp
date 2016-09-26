@@ -15,6 +15,8 @@ namespace GUI
 		Button close;
 		Button resizeGrip;
 		void closeClick();
+		void resizeDrag();
+		void resizPreClick();
 	protected:
 		// Inherited via BaseHandler
 		virtual void mouseHandle() override;

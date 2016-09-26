@@ -11,6 +11,15 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 {
 	switch (msg)
 	{
+	case GUI::Click:
+	{
+		if (mouseState & GUI::Down)
+		{
+			mouseState = (MouseState)(mouseState & ~GUI::Down);
+			Offset = mousePos - pos;
+		}
+		break;
+	}
 	case GUI::RequestFocus:
 	{
 		if (guiType == GUI::e_Window)
@@ -76,12 +85,15 @@ unsigned int GUI::BaseHandler::handle(MessageType msg)
 		visible = true;
 	}
 		break;
-	case GUI::Click:
-		break;
 	case GUI::SetMoveCoord:
 	{
 		pos = mousePos - Offset;// - screenOffset
 		sendMessage(*this, GUI::Move);
+	}
+	case GUI::SetResizeCoord:
+	{
+		Offset = mousePos - pos;
+		sendMessage(*this, GUI::Resize);
 	}
 		break;
 	case GUI::Move:
@@ -211,6 +223,7 @@ GUI::BaseHandler::~BaseHandler()
 void GUI::BaseHandler::setPosition(Vector2 newPos)
 {
 	pos = newPos;
+	sendMessage(*this, GUI::Move);
 }
 
 const Vector2i GUI::BaseHandler::getSize()

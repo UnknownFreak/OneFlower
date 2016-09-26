@@ -45,6 +45,7 @@ namespace GUI
 		SetMoveCoord,
 		ForceStopMove,
 		Resize,
+		SetResizeCoord,
 		NotifyParent,
 		Enable,
 		Disable,
