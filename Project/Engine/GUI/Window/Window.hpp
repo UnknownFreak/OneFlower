@@ -19,13 +19,17 @@ namespace GUI
 		void resizPreClick();
 	protected:
 		// Inherited via BaseHandler
-		virtual void mouseHandle() override;
+		virtual bool mouseDown() override;
+		virtual void mouseHold() override;
+		virtual void mouseUp() override;
 	public:
 		Window();
 
 		unsigned int handle(MessageType msg) override;
 		void enableResizeMode();
 		void disableResizeMode();
+
+		// Inherited via BaseHandler
 	};
 }
 

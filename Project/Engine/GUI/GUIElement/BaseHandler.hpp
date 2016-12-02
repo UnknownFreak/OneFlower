@@ -56,10 +56,10 @@ namespace GUI
 	class BaseHandler : public sf::Drawable
 	{
 
-		static std::vector<BaseHandler*> elements;
-		// swap the vector to a deque
-		static std::map<const BaseHandler*, std::deque<MessageType>> messages;
+	protected:
 
+		static std::vector<BaseHandler*> elements;
+		static std::map<const BaseHandler*, std::deque<MessageType>> messages;
 		//first element is the back, last element is the front
 		//parse elements from last to first
 		//draw elements from first to last
@@ -67,7 +67,8 @@ namespace GUI
 
 		static BaseHandler* focused;
 
-	protected:
+		static std::pair<BaseHandler*, BaseHandler*> swapped;
+
 		static bool mouseUsed;
 		
 		sf::Keyboard::Key shorcutKey;
@@ -75,7 +76,8 @@ namespace GUI
 		//Does this have focus.
 		bool focus = false;
 		BaseHandler* parentWindow = NULL;
-		//unsigned int zOrder = 0;
+
+		bool tookMouse = false;
 
 		//Is the element visible (true by default)
 		bool visible = true;
@@ -114,16 +116,22 @@ namespace GUI
 
 		//Handle function. Can be overriden to add custom user functions.
 		virtual unsigned int handle(MessageType msg);
-		//Mouse function for element, to handle the mouse events.
-		virtual void mouseHandle() = 0;
+
+		//Mouse function for elements, to handle the mouse events.
+		virtual bool mouseDown();
+		virtual void mouseHold();
+		virtual void mouseUp();
+
 
 		BaseHandler(Type type);
 		BaseHandler(const BaseHandler& copy);
 		virtual ~BaseHandler();
 
+
 	public:
 		
 		void setPosition(Vector2 newPos);
+		Vector2 getPosition();
 
 		const Vector2i getSize();
 
@@ -144,16 +152,20 @@ namespace GUI
 		// controls can still recieve messages trough the sendMessage function.
 		void disable();
 
+		void draw(sf::RenderTarget& target, sf::RenderStates states, sf::IntRect bounding);
+		
 		// Inherited via Drawable
 		virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 		// static function that will draw the windows in correct order.
 		static void draw();
-
 		// returns the type of the handler
 		Type getType();
 		// gets a value that indicates if the handler has focus or not.
 		bool hasFocus();
+
+		//Should be initialized from the GUI
+		static void registerCallbacks();
 
 	};
 }

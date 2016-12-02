@@ -157,6 +157,15 @@
     <Filter Include="Engine\GUI\Base">
       <UniqueIdentifier>{02fa954a-86e2-403c-b399-38f728bf14b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GUI\Scrollbar">
+      <UniqueIdentifier>{1efda96b-cd3f-437b-b46b-5d6e087c2dc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Tooltip">
+      <UniqueIdentifier>{d1bae4d5-a5f9-4756-9768-8debf9ee9b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GUI\Popup">
+      <UniqueIdentifier>{ceb36b51-1b88-4e6d-bebe-cba8862f2bb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Game\Component\BaseComponent.hpp">
@@ -686,6 +695,15 @@
     <ClInclude Include="Project\Engine\GUI\Button\Button.hpp">
       <Filter>Engine\GUI\Button</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Scrollbar\Scrollbar.hpp">
+      <Filter>Engine\GUI\Scrollbar</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Tooltip\Tooltip.hpp">
+      <Filter>Engine\GUI\Tooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Engine\GUI\Popup\Popup.hpp">
+      <Filter>Engine\GUI\Popup</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp">
@@ -1170,6 +1188,9 @@
     </ClCompile>
     <ClCompile Include="Project\Engine\GUI\Button\Button.cpp">
       <Filter>Engine\GUI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Engine\GUI\Scrollbar\Scrollbar.cpp">
+      <Filter>Engine\GUI\Scrollbar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

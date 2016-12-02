@@ -19,6 +19,8 @@
     <ClInclude Include="Project\Engine.hpp" />
     <ClInclude Include="Project\Engine\GUI\Button\Button.hpp" />
     <ClInclude Include="Project\Engine\GUI\GUIElement\BaseHandler.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Popup\Popup.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Scrollbar\Scrollbar.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp" />
@@ -32,6 +34,7 @@
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgument.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.hpp" />
     <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp" />
+    <ClInclude Include="Project\Engine\GUI\Tooltip\Tooltip.hpp" />
     <ClInclude Include="Project\Engine\GUI\Window\Window.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterModelContainer.hpp" />
     <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animation.h" />
@@ -199,6 +202,7 @@
     <ClCompile Include="Project\Cppinterop.cpp" />
     <ClCompile Include="Project\Engine\GUI\Button\Button.cpp" />
     <ClCompile Include="Project\Engine\GUI\GUIElement\BaseHandler.cpp" />
+    <ClCompile Include="Project\Engine\GUI\Scrollbar\Scrollbar.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
     <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp" />

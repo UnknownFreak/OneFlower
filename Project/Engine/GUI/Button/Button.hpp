@@ -10,13 +10,13 @@ namespace GUI
 	{
 	private:
 
-		void mouseDown();
 		bool preClick = false;
 
 	protected:
 		// Inherited via BaseHandler
-		virtual void mouseHandle() override;
-
+		virtual bool mouseDown() override;
+		virtual void mouseHold() override;
+		virtual void mouseUp() override;
 	public:
 
 		Button();

@@ -199,6 +199,8 @@ void update()
 
 	Engine::Graphic.draw();
 	Engine::GUI.draw();
+	//wndTest.handleMessages();
+	//wndTest2.handleMessages();
 	GUI::BaseHandler::draw();
 	//Engine::Graphic.view.render.draw(wndTest);
 	Engine::Graphic.view.render.display();
@@ -210,6 +212,7 @@ void NativeContainer::showHideHitboxes()
 }
 int NativeContainer::windowMessage()
 {
+	GUI::BaseHandler::registerCallbacks();
 	Engine::World.loadZone("Demo.main", 1);
 
 	shape.setFillColor(sf::Color(0, 150, 0, 100));
@@ -232,22 +235,16 @@ int NativeContainer::windowMessage()
 	while (running)
 	{
 		//mutex.lock();
-		try
+
+		// if exception thrown here, have yet to find fix for deque error (Editor Only)
+		while (Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
-			// if exception thrown here, have yet to find fix for deque error (Editor Only)
-			while (Engine::Graphic.view.render.pollEvent(Engine::event))
+			if (Engine::event.type == sf::Event::Closed)
 			{
-				if (Engine::event.type == sf::Event::Closed)
-				{
-					Engine::Graphic.view.render.close();
-				}
-				if (Engine::event.type == Engine::event.MouseWheelMoved)
-					Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+				Engine::Graphic.view.render.close();
 			}
-		}
-		catch (...)
-		{
-			std::cout << "error while polling event" << std::endl;
+			if (Engine::event.type == Engine::event.MouseWheelMoved)
+				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 		}
 
 		if (Engine::World.getIsLoading())

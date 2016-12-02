@@ -12,20 +12,51 @@ void GUI::Window::closeClick()
 
 void GUI::Window::resizeDrag()
 {
-	sendMessage(*this, GUI::Resize);
+	sendMessage(*this, GUI::SetResizeCoord);
 }
 
 void GUI::Window::resizPreClick()
 {
+	Offset = mousePos - resizeGrip.getPosition();
 	sendMessage(*this, GUI::MessageType::SetResizeCoord);
 }
 
 //has to remove old gui stuff before cause namespace conflicts with name
-void GUI::Window::mouseHandle()
+void GUI::Window::mouseHold()
 {
+	BaseHandler::mouseHold();
 	// returns true if the mouse is inside this window, and the window is open and enabled, it sends a click event;
-	if(isPointInside(BaseHandler::mousePos) && enabled)
+	if (tookMouse && isPointInside(BaseHandler::mousePos) && enabled)
 		sendMessage(*this, Click);
+}
+bool GUI::Window::mouseDown()
+{
+	BaseHandler::mouseDown();
+	if (!mouseUsed && isPointInside(BaseHandler::mousePos) && enabled)
+	{
+		sendMessage(*this, Click);
+		mouseState = (MouseState)(GUI::Down | GUI::Hold);
+	}
+	//else
+	//; Do nothing
+	return mouseUsed;
+}
+
+
+void GUI::Window::mouseUp()
+{
+	BaseHandler::mouseUp();
+	if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
+	{
+		sendMessage(*this, Click);
+		mouseState = (MouseState)(mouseState | GUI::Up);
+	}
+	else mouseState = GUI::None;
+
+	moving = false;
+	mouseUsed = false;
+	tookMouse = false;
+	Offset = Vector2(0, 0);
 }
 
 GUI::Window::Window() : BaseHandler(GUI::Type::e_Window), close("X", { 30, 20 }, { 170, 0 }, this), resizeGrip("", { 20,20 }, {180,180},this)
@@ -54,30 +85,16 @@ GUI::Window::Window() : BaseHandler(GUI::Type::e_Window), close("X", { 30, 20 },
 	close.click = std::bind(&Window::closeClick,this);
 	resizeGrip.hold = std::bind(&Window::resizeDrag, this);
 	resizeGrip.preClickfn = std::bind(&Window::resizPreClick, this);
-	Engine::Input.mouse.registerCallback([this]()
-	{
-		if (isPointInside(BaseHandler::mousePos) && enabled)
-		{
-			sendMessage(*this, Click);
-			mouseState = (MouseState)(GUI::Down | GUI::Hold);
-		}
-		//else
-			//; Do nothing
-	}, sf::Mouse::Button::Left, Input::Press);
-	Engine::Input.mouse.registerCallback([this]() { mouseHandle(); }, sf::Mouse::Button::Left, Input::Hold);
-	Engine::Input.mouse.registerCallback([this]()
-	{ 
-		if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
-		{ 
-			sendMessage(*this, Click);
-			mouseState = (MouseState)(mouseState | GUI::Up);
-		}
-		else mouseState = GUI::None;
 
-		moving = false;
-		mouseUsed = false;
-		Offset = Vector2(0, 0);
-	}, sf::Mouse::Button::Left, Input::Release);
+	//Engine::Input.mouse.registerCallback([this]()
+	//{
+	//	mouseDown();
+	//}, sf::Mouse::Button::Left, Input::Press);
+	//Engine::Input.mouse.registerCallback([this]() { mouseHold(); }, sf::Mouse::Button::Left, Input::Hold);
+	//Engine::Input.mouse.registerCallback([this]()
+	//{ 
+	//	
+	//}, sf::Mouse::Button::Left, Input::Release);
 }
 
 unsigned int GUI::Window::handle(MessageType msg)
@@ -109,6 +126,7 @@ unsigned int GUI::Window::handle(MessageType msg)
 				sendMessage(*this, GUI::SetMoveCoord);
 			}
 			mouseUsed = true;
+			tookMouse = true;
 			return 1;
 		}
 		if (mouseState & GUI::Hold)
@@ -167,3 +185,5 @@ void GUI::Window::disableResizeMode()
 {
 	sendMessage(resizeGrip, GUI::Hide);
 }
+
+

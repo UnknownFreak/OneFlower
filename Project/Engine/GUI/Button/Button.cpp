@@ -1,18 +1,38 @@
 #include "Button.hpp"
 
-void GUI::Button::mouseDown()
+bool GUI::Button::mouseDown()
 {
-	if (isPointInside(BaseHandler::mousePos) && enabled)
+	if (!mouseUsed && isPointInside(BaseHandler::mousePos) && enabled)
 	{
 		sendMessage(*this, Click);
 		mouseState = (MouseState)(GUI::Down | GUI::Hold);
 	}
+	return mouseUsed;
 }
 
-void GUI::Button::mouseHandle()
+void GUI::Button::mouseHold()
 {
+	BaseHandler::mouseHold();
+	sendMessage(*this, GUI::Click);
 	//Do nada
 }
+
+
+void GUI::Button::mouseUp()
+{
+	BaseHandler::mouseUp();
+	if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
+	{
+		sendMessage(*this, Click);
+		mouseState = (MouseState)(mouseState | GUI::Up);
+	}
+	else mouseState = GUI::None;
+
+	tookMouse = false;
+	mouseUsed = false;
+	Offset = Vector2(0, 0);
+}
+
 
 GUI::Button::Button() : BaseHandler(GUI::Type::e_Button)
 {
@@ -20,20 +40,12 @@ GUI::Button::Button() : BaseHandler(GUI::Type::e_Button)
 
 GUI::Button::Button(const Button & copy) : BaseHandler(copy)
 {
-	Engine::Input.mouse.registerCallback(std::bind(&Button::mouseDown, this), sf::Mouse::Button::Left, Input::Press);
-	//Engine::Input.mouse.registerCallback([this]() { mouseHandle(); }, sf::Mouse::Button::Left, Input::Hold);
-	Engine::Input.mouse.registerCallback([this]()
-	{
-		if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
-		{
-			sendMessage(*this, Click);
-			mouseState = (MouseState)(mouseState | GUI::Up);
-		}
-		else mouseState = GUI::None;
-
-		mouseUsed = false;
-		Offset = Vector2(0, 0);
-	}, sf::Mouse::Button::Left, Input::Release);
+	//Engine::Input.mouse.registerCallback(std::bind(&Button::mouseDown, this), sf::Mouse::Button::Left, Input::Press);
+	//Engine::Input.mouse.registerCallback([this]() { mouseHold(); }, sf::Mouse::Button::Left, Input::Hold);
+	//Engine::Input.mouse.registerCallback([this]()
+	//{
+	//	
+	//}, sf::Mouse::Button::Left, Input::Release);
 }
 
 GUI::Button::Button(std::string buttonText, Vector2i size, Vector2 position, BaseHandler* parent) : BaseHandler(GUI::Type::e_Button)
@@ -47,20 +59,20 @@ GUI::Button::Button(std::string buttonText, Vector2i size, Vector2 position, Bas
 	sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 
 
-	Engine::Input.mouse.registerCallback( std::bind(&Button::mouseDown, this), sf::Mouse::Button::Left, Input::Press);
-	Engine::Input.mouse.registerCallback([this]() { sendMessage(*this, Click); }, sf::Mouse::Button::Left, Input::Hold);
-	Engine::Input.mouse.registerCallback([this]()
-	{
-		if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
-		{
-			sendMessage(*this, Click);
-			mouseState = (MouseState)(mouseState | GUI::Up);
-		}
-		else mouseState = GUI::None;
-
-		mouseUsed = false;
-		Offset = Vector2(0, 0);
-	}, sf::Mouse::Button::Left, Input::Release);
+	//Engine::Input.mouse.registerCallback( std::bind(&Button::mouseDown, this), sf::Mouse::Button::Left, Input::Press);
+	//Engine::Input.mouse.registerCallback([this]() { sendMessage(*this, Click); }, sf::Mouse::Button::Left, Input::Hold);
+	//Engine::Input.mouse.registerCallback([this]()
+	//{
+	//	if (isPointInside(BaseHandler::mousePos) && enabled && (mouseState & GUI::Hold))
+	//	{
+	//		sendMessage(*this, Click);
+	//		mouseState = (MouseState)(mouseState | GUI::Up);
+	//	}
+	//	else mouseState = GUI::None;
+	//
+	//	mouseUsed = false;
+	//	Offset = Vector2(0, 0);
+	//}, sf::Mouse::Button::Left, Input::Release);
 
 }
 
@@ -74,7 +86,7 @@ unsigned int GUI::Button::handle(MessageType msg)
 		{
 			mouseState = (MouseState)(mouseState & ~GUI::Down);
 			//send message to parent that if it want to move we deny it
-			if (isPointInside(BaseHandler::mousePos) && parentWindow->hasFocus())
+			if (isPointInside(BaseHandler::mousePos) && parentWindow && parentWindow->hasFocus())
 			{
 				sendMessage(*this, GUI::ForceStopMove);
 				preClick = true;
@@ -82,6 +94,7 @@ unsigned int GUI::Button::handle(MessageType msg)
 					preClickfn();
 			}
 			mouseUsed = true;
+			tookMouse = true;
 		}
 		//To make sure the button up event gets fired, since we return on every hold message.
 		//The mouse up check is before the mouse hold check.
@@ -117,10 +130,8 @@ unsigned int GUI::Button::handle(MessageType msg)
 			}
 			// run the hold function.
 			if (hold.operator bool() && parentWindow && parentWindow->hasFocus())
-			{
 				hold();
-			}
-			return 0;
+			return 1;
 		}
 		// else the click message is invalid, ignore it.
 	}
