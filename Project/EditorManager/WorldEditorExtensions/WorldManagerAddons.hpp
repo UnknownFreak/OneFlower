@@ -18,7 +18,7 @@ class WorldManagerAddon
 	void EditorLoadZone(std::string zoneName, unsigned int ID);
 	void EditorRemoveZone();
 	std::string EditorSave();
-	void EditorSetBackground(std::string textureName);
+	//void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x, int y);
 	std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> EditorAddGameObjectToZone(Prefab& prefab, GameObject* go);
 	void RemoveGameObjectFromZone(GameObject* go);

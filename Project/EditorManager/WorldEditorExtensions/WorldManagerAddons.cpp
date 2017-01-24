@@ -43,7 +43,7 @@ void WorldManagerAddon::EditorEditZone(std::string zoneName, std::string backgro
 	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreen.position.x = 0;
 	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreen.position.y = 0;
 	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreenMessage = loadingScreenMessage;
-	EditorSetBackground(background);
+	//EditorSetBackground(background);
 }
 //void WorldManager::EditorFlagGameObjectForEdit(GameObject* go)
 //{
