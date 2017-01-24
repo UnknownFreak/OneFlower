@@ -264,6 +264,8 @@
     <ClInclude Include="Project\Core\Core.hpp" />
     <ClInclude Include="Project\Core\EngineSettings.hpp" />
     <ClInclude Include="Project\Core\Vector.h" />
+    <ClInclude Include="Project\EditorManager\EditorCore.hpp" />
+    <ClInclude Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp" />
     <ClInclude Include="Project\Graphic\BackgroundSprite\BackgroundSprite.hpp" />
     <ClInclude Include="Project\Graphic\Component\DialogComponent.hpp" />
     <ClInclude Include="Project\Graphic\Component\RenderComponent.h" />
@@ -393,6 +395,7 @@
     <ClCompile Include="Project\Core\Component\Message\BaseMessageDefiner.cpp" />
     <ClCompile Include="Project\Core\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Core\Component\TransformComponentHandler.cpp" />
+    <ClCompile Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.cpp" />
     <ClCompile Include="Project\Graphic\BackgroundSprite\BackgroundSpriteDefiner.cpp" />
     <ClCompile Include="Project\Graphic\Component\DialogComponentDefiner.cpp" />
     <ClCompile Include="Project\Graphic\Component\RenderComponentDefiner.cpp" />

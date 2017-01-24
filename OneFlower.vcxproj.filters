@@ -139,6 +139,12 @@
     <Filter Include="Physics\GameObject">
       <UniqueIdentifier>{1fc9a7be-21c4-4756-9655-27b30b31044a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EditorManager">
+      <UniqueIdentifier>{0d14e960-794f-4719-9452-f73ca2ce5003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorManager\World">
+      <UniqueIdentifier>{10433cb7-a62b-4409-8a5e-d5df3269a0f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Animations\AnimationCore.hpp">
@@ -553,6 +559,12 @@
       <Filter>Physics\PhysEngine</Filter>
     </ClInclude>
     <ClInclude Include="Project\Core\EngineSettings.hpp" />
+    <ClInclude Include="Project\EditorManager\EditorCore.hpp">
+      <Filter>EditorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp">
+      <Filter>EditorManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Animations\SpriterTextureMapperDefiner.cpp">
@@ -922,6 +934,7 @@
       <Filter>Physics\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Project\WindowHandler.cpp" />
+    <ClCompile Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
