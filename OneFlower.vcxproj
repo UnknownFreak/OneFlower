@@ -561,7 +561,7 @@
     <None Include="Project\Core\Vector.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="EditorResources\EditorResources\EditorResources.csproj">
+    <ProjectReference Include="EditorResources\EditorResources.csproj">
       <Project>{258982f6-92f2-4d9a-b8d2-58774d0fd26b}</Project>
     </ProjectReference>
   </ItemGroup>
