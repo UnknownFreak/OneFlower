@@ -28,10 +28,13 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 	return sinstance;
 }
 
+#ifdef _EDITOR_
+#else
 std::future<SpriterEntityInstance> SpriterModelContainer::requestEntityInstanceAsync(std::string SpriterSceneFile, std::string SptiterEntityName)
 {
 	return std::async(std::launch::async, [this](std::string scenefile, std::string entityName) -> SpriterEntityInstance {return requestEntityInstance(scenefile, entityName); },SpriterSceneFile, SptiterEntityName);
 }
+#endif
 
 SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sceneFile)
 {

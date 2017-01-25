@@ -6,7 +6,9 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <string>
 #include <map>
+#ifndef _EDITOR_
 #include <future>
+#endif
 //#include "../Settings/EngineSettings.hpp"
 
 class TextureLoader
@@ -19,8 +21,11 @@ class TextureLoader
 
 public:
 	// used by TextureRef
+#ifdef _EDITOR_
+	sf::Texture loadTextureAsync(std::string name);
+#else
 	std::shared_future<sf::Texture> loadTextureAsync(std::string name);
-	
+#endif
 	TextureRef* requestTexture(std::string name);
 
 	//request removal of texture if its not in use

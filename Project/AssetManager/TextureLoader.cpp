@@ -24,12 +24,21 @@ sf::Texture TextureLoader::loadTexture_internal(std::string name)
 	}
 	return tempTexture;
 }
+
+#ifdef _EDITOR_
+sf::Texture TextureLoader::loadTextureAsync(std::string name)
+{
+	return loadTexture_internal(name);
+}
+#else
+
 std::shared_future<sf::Texture> TextureLoader::loadTextureAsync(std::string name)
 {
 	
 	std::shared_future<sf::Texture>tp = std::async(std::launch::async, [this](std::string name) -> sf::Texture {return loadTexture_internal(name); }, name);
 	return tp;
 }
+#endif
 TextureRef* TextureLoader::requestTexture(std::string name)
 {
 	if (!name.empty())

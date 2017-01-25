@@ -1,19 +1,32 @@
 #include "TextureRef.hpp"
 #include "AssetManagerCore.hpp"
 #include "TextureLoader.hpp"
+
+
 const sf::Texture * TextureRef::getTexture()
 {
+#ifdef _EDITOR_
+	return &myTexture;
+#else
 	return &myTexture.get();
+#endif
 }
 
 bool TextureRef::isReady()
 {
+#ifdef _EDITOR_
+	return true;
+#else
 	return myTexture.valid();
+#endif
 }
-
-void TextureRef::setNewFuture(std::shared_future<sf::Texture> fut)
+#ifdef _EDITOR_
+void TextureRef::setNewFuture(sf::Texture texture)
+#else
+void TextureRef::setNewFuture(std::shared_future<sf::Texture> texture)
+#endif
 {
-	myTexture = fut;
+	myTexture = texture;
 }
 
 void TextureRef::reloadTexture()

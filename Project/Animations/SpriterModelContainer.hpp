@@ -5,7 +5,9 @@
 #include "SpriterEngine\spriterengine.h"
 #include "SpriterTextureMapper.hpp"
 #include "SpriterEntityInstance.hpp"
+#ifndef _EDITOR_
 #include <future>
+#endif
 class GameObject;
 class SpriterModelContainer
 {
@@ -13,7 +15,11 @@ public:
 	SpriterModelContainer(sf::RenderWindow& renderWindow);
 	~SpriterModelContainer();
 	SpriterEntityInstance requestEntityInstance(std::string SpriterSceneFile, std::string SptiterEntityName);
+#ifdef _EDITOR_
+
+#else
 	std::future<SpriterEntityInstance> requestEntityInstanceAsync(std::string SpriterSceneFile, std::string SptiterEntityName);
+#endif
 	SpriterTextureMapper* requestTextureMapper(std::string textureMapper);
 	std::map<std::string, SpriterEngine::SpriterModel*> modelFiles;
 	std::map<std::string, SpriterTextureMapper*> modelTextureMapper;

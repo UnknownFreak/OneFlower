@@ -10,5 +10,6 @@
 *.db
 Lib/
 Debug/
-EditorProject/Editor/BaseEditor/bin/*
+EditorResources/obj/*
+EditorResources/bin/*
 OneFlower.VC.VC.opendb
