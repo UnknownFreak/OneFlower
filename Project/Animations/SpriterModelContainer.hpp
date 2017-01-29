@@ -12,7 +12,10 @@ class GameObject;
 class SpriterModelContainer
 {
 public:
-	SpriterModelContainer(sf::RenderWindow& renderWindow);
+
+	void setRenderWindow(sf::RenderWindow& renderWindow);
+
+	SpriterModelContainer();
 	~SpriterModelContainer();
 	SpriterEntityInstance requestEntityInstance(std::string SpriterSceneFile, std::string SptiterEntityName);
 #ifdef _EDITOR_
@@ -39,7 +42,7 @@ public:
 
 	std::vector<std::string> getAnimationNames(std::string modelName, std::string entityName);
 private:
-	sf::RenderWindow& render;
+	sf::RenderWindow* render;
 	template<class Archive>
 	friend void load(Archive&ar, SpriterModelContainer &SMC);
 	template<class Archive>

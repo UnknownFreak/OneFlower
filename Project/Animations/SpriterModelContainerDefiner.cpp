@@ -44,13 +44,18 @@ SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sc
 	}
 	else
 	{
-		modelTextureMapper.insert(std::pair<std::string, SpriterTextureMapper*>(sceneFile, new SpriterTextureMapper(render)));
+		modelTextureMapper.insert(std::pair<std::string, SpriterTextureMapper*>(sceneFile, new SpriterTextureMapper(*render)));
 	}
 	return modelTextureMapper[sceneFile];
 }
 
-SpriterModelContainer::SpriterModelContainer(sf::RenderWindow & renderWindow) :render(renderWindow)
+SpriterModelContainer::SpriterModelContainer()
 {
+}
+
+void SpriterModelContainer::setRenderWindow(sf::RenderWindow & renderWindow)
+{
+	render = &renderWindow;
 }
 
 SpriterModelContainer::~SpriterModelContainer()

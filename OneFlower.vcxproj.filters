@@ -154,6 +154,12 @@
     <Filter Include="C++Interop\WindowWrapper">
       <UniqueIdentifier>{ca1d6794-11c3-493c-91a6-fdb2553b0139}</UniqueIdentifier>
     </Filter>
+    <Filter Include="C++Interop\WindowWrapper\MainWindow">
+      <UniqueIdentifier>{39f619fc-2c7b-4c55-b991-ec91d1b5b037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="C++Interop\WindowWrapper\SplashScreen">
+      <UniqueIdentifier>{9d864d00-5cae-43f2-8f90-23b33281820d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Animations\AnimationCore.hpp">
@@ -577,8 +583,14 @@
     <ClInclude Include="Project\EditorManager\ParentWindowWrapper.hpp">
       <Filter>C++Interop\WindowWrapper</Filter>
     </ClInclude>
+    <ClInclude Include="Project\EditorManager\MainEditorWindow.hpp">
+      <Filter>C++Interop\WindowWrapper\MainWindow</Filter>
+    </ClInclude>
     <ClInclude Include="Project\EditorManager\SplashScreen.hpp">
-      <Filter>C++Interop\WindowWrapper</Filter>
+      <Filter>C++Interop\WindowWrapper\SplashScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorManager\InteropHelper.hpp">
+      <Filter>C++Interop\EditorManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -952,11 +964,14 @@
       <Filter>C++Interop\EditorManager\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\WindowHandler.cpp" />
-    <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp">
-      <Filter>C++Interop\WindowWrapper</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EditorManager\EditorMain.cpp">
       <Filter>C++Interop</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp">
+      <Filter>C++Interop\WindowWrapper\SplashScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorManager\MainEditorWindowDefiner.cpp">
+      <Filter>C++Interop\WindowWrapper\MainWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

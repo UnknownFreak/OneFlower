@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace EditorResources.MainEditorWindow
 {
@@ -19,9 +10,72 @@ namespace EditorResources.MainEditorWindow
     /// </summary>
     public partial class EditorWindow : Window
     {
+        bool closed = false;
         public EditorWindow()
         {
             InitializeComponent();
+            createEditorWindow();
+            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Info, message = "TEST" });
+            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Warning, message = "TEST" });
+            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Error, message = "TEST" });
+        }
+        void createEditorWindow()
+        {
+            formhost.Child = new BorderLessForm();
+        }
+        public IntPtr getGameHost()
+        {
+            return formhost.Child.Handle;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            closed = true;
+            Environment.Exit(0);
+        }
+        public bool isClosed()
+        {
+            return closed;
+        }
+
+        private void TabItem_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            var tabItem = e.Source as TabItem;
+
+            if (tabItem == null)
+                return;
+
+            if (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(tabItem, tabItem, DragDropEffects.All);
+            }
+        }
+
+
+        private void TabItem_Drop(object sender, DragEventArgs e)
+        {
+            var tabItemTarget = e.Source as TabItem;
+            if (tabItemTarget == null)
+                return;
+            var tabItemSource = e.Data.GetData(typeof(TabItem)) as TabItem;
+
+            if (!tabItemTarget.Equals(tabItemSource))
+            {
+                var tabControl = tabItemTarget.Parent as TabControl;
+                int sourceIndex = tabControl.Items.IndexOf(tabItemSource);
+                int targetIndex = tabControl.Items.IndexOf(tabItemTarget);
+
+                tabControl.Items.Remove(tabItemSource);
+                tabControl.Items.Insert(targetIndex, tabItemSource);
+
+                tabControl.Items.Remove(tabItemTarget);
+                tabControl.Items.Insert(sourceIndex, tabItemTarget);
+            }
+        }
+
+        private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            new Window().Show();
         }
     }
 }

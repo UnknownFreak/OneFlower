@@ -2,8 +2,8 @@
 #define RenderView_HPP
 #include <SFML\Graphics\View.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
-//#include <Windows.h>
 #include <Core/Vector.h>
+#include <Windows.h>
 class RenderView
 {
 public:
@@ -13,6 +13,11 @@ public:
 	//HWND hWnd;
 	//HWND viewport;
 	bool docked = false;
+#ifdef _EDITOR_
+	void init(HWND parent);
+#else
+	void init();
+#endif
 private:
 	Vector2i size;
 };

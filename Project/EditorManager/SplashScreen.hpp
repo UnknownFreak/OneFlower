@@ -3,23 +3,21 @@
 #ifdef _EDITOR_
 
 #include <Windows.h>
-#using <WindowsBase.dll>
-#using <PresentationCore.dll>
-#using <PresentationFramework.dll>
 #include "ParentWindowWrapper.hpp"
+#include "MainEditorWindow.hpp"
+
 ref class SplashScreen
 {
 	EditorResources::SplashScreen::SplashScreen^ splsh;
 
 	IntPtr^ splashScreenHandle;
 
-	ParentWndWrapper^ wrapper;
-
 public:
 
-	SplashScreen(HWND parent);
+	SplashScreen();
 	~SplashScreen();
-	void InitializeEditor();
+	MainEditorWindow^ InitializeEditor();
+
 };
 #endif
 #endif

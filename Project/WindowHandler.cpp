@@ -44,7 +44,7 @@ Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
-SpriterModelContainer Engine::ModelContainer = SpriterModelContainer(Engine::Graphic.view.render);
+SpriterModelContainer Engine::ModelContainer;
 // temp test stuff
 //int a = 24;
 //int b = 42;
@@ -58,7 +58,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 
 int windowMessage()
 {
+	Engine::Graphic.view.init();
 	Engine::Graphic.initDebugTextures();
+	Engine::ModelContainer.setRenderView(Engine::Graphic.view.render);
 	//testSave();
 	//testLoad();
 	//Engine::World.loadMod("Oneflower.main.test");

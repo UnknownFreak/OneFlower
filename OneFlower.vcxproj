@@ -402,6 +402,8 @@
     <ClInclude Include="Project\Core\EngineSettings.hpp" />
     <ClInclude Include="Project\Core\Vector.h" />
     <ClInclude Include="Project\EditorManager\EditorCore.hpp" />
+    <ClInclude Include="Project\EditorManager\InteropHelper.hpp" />
+    <ClInclude Include="Project\EditorManager\MainEditorWindow.hpp" />
     <ClInclude Include="Project\EditorManager\ParentWindowWrapper.hpp" />
     <ClInclude Include="Project\EditorManager\SplashScreen.hpp" />
     <ClInclude Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp" />
@@ -535,6 +537,7 @@
     <ClCompile Include="Project\Core\Component\TransformComponentDefiner.cpp" />
     <ClCompile Include="Project\Core\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="Project\EditorManager\EditorMain.cpp" />
+    <ClCompile Include="Project\EditorManager\MainEditorWindowDefiner.cpp" />
     <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp" />
     <ClCompile Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.cpp" />
     <ClCompile Include="Project\Graphic\BackgroundSprite\BackgroundSpriteDefiner.cpp" />

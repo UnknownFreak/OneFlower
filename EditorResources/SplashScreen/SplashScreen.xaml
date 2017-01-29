@@ -7,24 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Background="#FF8C8E91" Width="600" Height="600"
              WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
-    <Grid>
-        <Path Margin="59,172,106,266" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Stroke="Black" StrokeThickness="2">
-            <Path.Data>
-                <PathGeometry>
-                    <PathGeometry.Figures>
-                        <PathFigureCollection>
-                            <PathFigure StartPoint="0,0">
-                                <PathFigure.Segments>
-                                    <PathSegmentCollection>
-                                        <BezierSegment Point1 ="0,0" Point2="10,-40" Point3="30,20" IsSmoothJoin="True"/>
-                                    </PathSegmentCollection>
-                                </PathFigure.Segments>
-                            </PathFigure>
-                        </PathFigureCollection>
-                    </PathGeometry.Figures>
-                </PathGeometry>
-            </Path.Data>
-        </Path>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="119,91,0,0" VerticalAlignment="Top" Width="100"/>
+    <Grid HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="600">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="600" Source="pack://siteoforigin:,,,/Flower.png" Margin="0,0,-500,-500"/>
+        <ProgressBar x:Name="InitBar" Height="15" Margin="0,585,-500,-500" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" Background="{x:Null}" BorderBrush="Black"/>
     </Grid>
 </Window>

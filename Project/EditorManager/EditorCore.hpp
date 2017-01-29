@@ -3,6 +3,7 @@
 
 #include "WorldEditorExtensions\WorldManagerAddons.hpp"
 #include "SplashScreen.hpp"
+#include "MainEditorWindow.hpp"
 namespace Editor
 {
 

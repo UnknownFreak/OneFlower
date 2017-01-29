@@ -1,4 +1,5 @@
 #ifdef _EDITOR_
+
 #include <Windows.h>
 #include <string>
 
@@ -16,6 +17,9 @@
 #include <Graphic\Component\RenderComponent.h>
 
 #include <EditorManager\EditorCore.hpp>
+
+#include <SFML\System\Thread.hpp>
+
 //#include "Engine\Core\Components.hpp"
 //#include "Engine\Logic\Time\Time.hpp"
 //#include "Game\World\WorldManagement.hpp"
@@ -36,6 +40,7 @@ void RunMain();
 int test();
 void update();
 void mainMenuUpdate();
+void renderThread();
 
 Settings::EngineSettings Engine::Settings;
 Gfx Engine::Graphic;
@@ -46,7 +51,7 @@ Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
-SpriterModelContainer Engine::ModelContainer = SpriterModelContainer(Engine::Graphic.view.render);
+SpriterModelContainer Engine::ModelContainer;
 // temp test stuff
 //int a = 24;
 //int b = 42;
@@ -61,20 +66,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 
 int windowMessage()
 {
-	SplashScreen splash(Engine::Graphic.view.render.getSystemHandle());
-	splash.InitializeEditor();
-	Engine::Graphic.initDebugTextures();
+	SplashScreen^ splash = gcnew SplashScreen();
+	MainEditorWindow^ window = splash->InitializeEditor();
+	Engine::Graphic.view.render.setActive(false);
+
+	sf::Thread thread(&renderThread);
+	thread.launch();
+
+	//Engine::Graphic.view.render.setVisible(true);
 	//testSave();
 	//testLoad();
 	//Engine::World.loadMod("Oneflower.main.test");
 	//Engine::World.loadZone("Demo.main", 1);
 	//Engine::World.loadZone("Tutorial", 0);
 
-	//GameObject* go = new GameObject("player");
+	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
-	//go->AddComponent<Component::RenderComponent>("PlayerDemo.png");
+	go->AddComponent<Component::RenderComponent>("PlayerDemo.png");
 	//go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
-	//RenderComponent* render = go->GetComponent<RenderComponent>();
+	//Component::RenderComponent* render = go->GetComponent<Component::RenderComponent>();
 	//go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	//go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
@@ -124,8 +134,14 @@ int windowMessage()
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
-	while (Engine::Graphic.view.render.isOpen())
+	MSG message;
+	while (GetMessage(&message, NULL, 0, 0) && !window->isClosed())
 	{
+	//while (Engine::Graphic.view.render.isOpen())
+	//{
+		
+		TranslateMessage(&message);
+		DispatchMessage(&message);
 		while (Engine::Graphic.view.render.pollEvent(Engine::event))
 		{
 			if (Engine::event.type == sf::Event::Closed)
@@ -140,6 +156,26 @@ int windowMessage()
 			std::cout << "system:" << event.key.system << std::endl;
 			//*/
 		}
+		//if (Engine::World.getIsLoading())
+		//{
+		//	Engine::World.loadSome();
+		//	Engine::World.drawLoadingScreen();
+		//}
+		//else
+		//{
+		//	update();
+		//}
+	}
+	thread.terminate();
+	delete go;
+	return 1;
+}
+
+void renderThread()
+{
+	Engine::Graphic.view.render.setActive(true);
+	while (Engine::Graphic.view.render.isOpen())
+	{
 		if (Engine::World.getIsLoading())
 		{
 			Engine::World.loadSome();
@@ -150,9 +186,8 @@ int windowMessage()
 			update();
 		}
 	}
-	//delete go;
-	return 1;
 }
+
 void mainMenuUpdate()
 {
 	Engine::time.elapsed += Engine::time.clock.restart();

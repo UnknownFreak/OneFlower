@@ -3,12 +3,7 @@
 
 #ifdef _EDITOR_
 
-#using <mscorlib.dll>
-#using <System.dll>
-#using <System.Windows.Forms.dll>
-
-using namespace System;
-using namespace System::Windows::Forms;
+#include "InteropHelper.hpp"
 
 public ref class ParentWndWrapper : IWin32Window
 {
