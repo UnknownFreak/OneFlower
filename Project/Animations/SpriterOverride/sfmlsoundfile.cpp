@@ -6,7 +6,7 @@
 
 namespace SpriterEngine
 {
-	SfmlSoundFile::SfmlSoundFile(std::string initialFilePath) :
+	SfmlSoundFile::SfmlSoundFile(Core::String initialFilePath) :
 		SoundFile(initialFilePath)
 	{
 		initializeFile();

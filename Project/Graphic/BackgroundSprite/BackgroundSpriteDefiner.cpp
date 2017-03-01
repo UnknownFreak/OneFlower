@@ -1,5 +1,5 @@
 #include "BackgroundSprite.hpp"
-#include <string>
+#include <Core/String.hpp>
 #include <SFML\Graphics.hpp>
 #include <AssetManager\AssetManagerCore.hpp>
 
@@ -13,12 +13,12 @@ sizeX = 0;
 sizeY = 0;
 }
 //*/
-BackgroundSprite::BackgroundSprite(std::string n, Vector2 pos) : name(n), position(pos), size(0, 0)
+BackgroundSprite::BackgroundSprite(Core::String n, Core::Vector2 pos) : name(n), position(pos), size(0, 0)
 {
 	sprite.setTexture(Engine::Textureloader.requestTexture(n));
 	setPosition(position.x, position.y);
 }
-BackgroundSprite::BackgroundSprite(std::string n, float x, float y) : name(n), position(x, y), size(0, 0)
+BackgroundSprite::BackgroundSprite(Core::String n, float x, float y) : name(n), position(x, y), size(0, 0)
 {
 	sprite.setTexture(Engine::Textureloader.requestTexture(n));
 	sprite.setPosition(x, y);
@@ -62,7 +62,7 @@ void BackgroundSprite::setPosition(float x, float y)
 	sprite.setPosition(x, y);
 }
 
-void BackgroundSprite::setSize(Vector2i size)
+void BackgroundSprite::setSize(Core::Vector2i size)
 {
 	// size is not zero
 	if (this->size.x && this->size.y)

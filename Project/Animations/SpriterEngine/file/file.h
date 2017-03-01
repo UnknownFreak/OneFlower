@@ -1,7 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include <string>
+#include <Core/String.hpp>
 
 namespace SpriterEngine
 {
@@ -11,17 +11,17 @@ namespace SpriterEngine
 	class File
 	{
 	public:
-		File(std::string initialFilePath);
+		File(Core::String initialFilePath);
 		virtual ~File() {}
 
 		virtual ImageFile *imageFile();
 		virtual SoundFile *soundFile();
 
 	protected:
-		std::string path();
+		Core::String path();
 
 	private:
-		std::string filePath;
+		Core::String filePath;
 	};
 }
 

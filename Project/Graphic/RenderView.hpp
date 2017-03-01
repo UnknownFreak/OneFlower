@@ -19,7 +19,7 @@ public:
 	void init();
 #endif
 private:
-	Vector2i size;
+	Core::Vector2i size;
 };
 
 #endif

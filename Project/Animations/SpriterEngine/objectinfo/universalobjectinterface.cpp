@@ -95,7 +95,7 @@ namespace SpriterEngine
 		return 0;
 	}
 
-	std::string UniversalObjectInterface::getStringValue()
+	Core::String UniversalObjectInterface::getStringValue()
 	{
 		Settings::error("UniversalObjectInterface::getStringValue - object does not contain this component - return empty string");
 		return "";
@@ -131,7 +131,7 @@ namespace SpriterEngine
 		return 0;
 	}
 
-	bool UniversalObjectInterface::tagIsActive(const std::string &tagToCheck) const
+	bool UniversalObjectInterface::tagIsActive(const Core::String &tagToCheck) const
 	{
 		Settings::error("UniversalObjectInterface::tagIsActive - object does not contain this component - falling back on default value");
 		return false;
@@ -207,12 +207,12 @@ namespace SpriterEngine
 		Settings::error("UniversalObjectInterface::setIntValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setStringValue(const std::string &newValue)
+	void UniversalObjectInterface::setStringValue(const Core::String &newValue)
 	{
 		Settings::error("UniversalObjectInterface::setStringValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setStringValue(std::string *newValue)
+	void UniversalObjectInterface::setStringValue(Core::String *newValue)
 	{
 		Settings::error("UniversalObjectInterface::setStringValue - object does not contain this component - no action taken");
 	}

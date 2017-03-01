@@ -11,13 +11,13 @@ namespace Component
 
 		TransformComponent(const TransformComponent &tc);
 		//Relative to the Window
-		Vector2 position;
+		Core::Vector2 position;
 
 		//Multiply and not Pixelcount
-		Vector2 size;//Dont make this pixel count fuck up to much with rect size
+		Core::Vector2 size;//Dont make this pixel count fuck up to much with rect size
 
 		//Yet TBD
-		Vector2 rotation;
+		Core::Vector2 rotation;
 
 		//Get the angle towards target
 		double angle(TransformComponent* target);
@@ -25,7 +25,7 @@ namespace Component
 		//Get distance towards target in Pixels
 		double distance(TransformComponent* target);
 
-		Vector2 DirectionTowards(TransformComponent* target);
+		Core::Vector2 DirectionTowards(TransformComponent* target);
 
 		//TODO move move() to protect or remove entirly
 		//Move relative

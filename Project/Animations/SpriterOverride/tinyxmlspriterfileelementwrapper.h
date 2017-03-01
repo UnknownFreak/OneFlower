@@ -1,6 +1,8 @@
 #ifndef TINYXMLSPRITERFILEELEMENTWRAPPER_H
 #define TINYXMLSPRITERFILEELEMENTWRAPPER_H
 
+#include <Core\String.hpp>
+
 #include "../tinyxml2/tinyxml2.h"
 
 #include "../spriterengine/override/spriterfileelementwrapper.h"
@@ -12,7 +14,7 @@ namespace SpriterEngine
 	public:
 		TinyXmlSpriterFileElementWrapper(tinyxml2::XMLElement *initialElement);
 
-		std::string getName() override;
+		Core::String getName() override;
 
 		bool isValid() override;
 
@@ -21,16 +23,16 @@ namespace SpriterEngine
 
 	private:
 		SpriterFileAttributeWrapper *newAttributeWrapperFromFirstAttribute() override;
-		SpriterFileAttributeWrapper *newAttributeWrapperFromFirstAttribute(const std::string & attributeName) override;
+		SpriterFileAttributeWrapper *newAttributeWrapperFromFirstAttribute(const Core::String & attributeName) override;
 
 		SpriterFileElementWrapper *newElementWrapperFromFirstElement() override;
-		SpriterFileElementWrapper *newElementWrapperFromFirstElement(const std::string & elementName) override;
+		SpriterFileElementWrapper *newElementWrapperFromFirstElement(const Core::String & elementName) override;
 
 		SpriterFileElementWrapper *newElementWrapperFromNextSiblingElement() override;
 
 		SpriterFileElementWrapper *newElementClone() override;
 
-		const tinyxml2::XMLAttribute * findAttributeInElement(const std::string & name);
+		const tinyxml2::XMLAttribute * findAttributeInElement(const Core::String & name);
 
 		tinyxml2::XMLElement *element;
 	};

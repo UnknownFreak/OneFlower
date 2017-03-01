@@ -5,22 +5,24 @@
 #include <AssetManager\SpriteRef.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
 #include <map>
+//included via TextureMap
+//#include <Core\String.hpp>
 class SpriterTextureMapper
 {
 public:
 
 	SpriterTextureMapper(sf::RenderWindow& renderWindow);
 
-	void setTextureMap(std::pair<std::string, std::string> newTextureMap);
+	void setTextureMap(std::pair<Core::String, Core::String> newTextureMap);
 	void setSpritePointer(SpriteRef* sprite);
-	void setTextureMapAndSprite(std::pair<std::string, std::string> newTextureMap, SpriteRef* sprite);
+	void setTextureMapAndSprite(std::pair<Core::String, Core::String> newTextureMap, SpriteRef* sprite);
 
 	void setRenderWindow(sf::RenderWindow* newRenderWindow);
 
 	sf::RenderWindow* renderWindow;
-	std::pair<std::string, std::string> currentTextureMapString;
+	std::pair<Core::String, Core::String> currentTextureMapString;
 	TextureMap* currentTextureMap;
-	std::map<std::pair<std::string, std::string>, TextureMap> textureMaps;
+	std::map<std::pair<Core::String, Core::String>, TextureMap> textureMaps;
 
 	SpriteRef* currentSprite;
 private:

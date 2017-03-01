@@ -2,6 +2,7 @@
 #define TextureRef_HPP
 
 #include<SFML\Graphics\Texture.hpp>
+#include <Core/String.hpp>
 #ifndef _EDITOR_
 #include<future>
 #endif
@@ -14,14 +15,14 @@ class TextureRef
 	std::shared_future<sf::Texture> myTexture;
 #endif
 public:
-	TextureRef(std::string name);
+	TextureRef(Core::String name);
 	TextureRef(const TextureRef& copy);
 
 	const sf::Texture* getTexture();
 	bool isReady();
 	
 	size_t useCount = 0;
-	std::string name;
+	Core::String name;
 #ifdef _EDITOR_
 	void setNewFuture(sf::Texture future);
 #else

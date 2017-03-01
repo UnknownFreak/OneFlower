@@ -13,7 +13,7 @@
 
 namespace SpriterEngine
 {
-	SpriterModel::SpriterModel(const std::string & fileName, FileFactory * newFileFactory, ObjectFactory * newObjectFactory) :
+	SpriterModel::SpriterModel(const Core::String & fileName, FileFactory * newFileFactory, ObjectFactory * newObjectFactory) :
 		SpriterModel(newFileFactory, newObjectFactory)
 	{
 		loadFile(fileName);
@@ -79,7 +79,7 @@ namespace SpriterEngine
 		return newEntityInstance;
 	}
 
-	void SpriterModel::appendEntityToInstanceByName(EntityInstance *entityInstance, std::string entityName)
+	void SpriterModel::appendEntityToInstanceByName(EntityInstance *entityInstance, Core::String entityName)
 	{
 		if (entityInstance)
 		{
@@ -99,7 +99,7 @@ namespace SpriterEngine
 		}
 	}
 
-	EntityInstance * SpriterModel::getNewEntityInstance(std::string entityName)
+	EntityInstance * SpriterModel::getNewEntityInstance(Core::String entityName)
 	{
 		for (auto& it : entities)
 		{
@@ -120,26 +120,26 @@ namespace SpriterEngine
 		}
 	}
 
-	Entity *SpriterModel::pushBackEntity(std::string entityName)
+	Entity *SpriterModel::pushBackEntity(Core::String entityName)
 	{
 		entities.push_back(new Entity(entityName, entities.size(), &files));
 		return entities.back();
 	}
 
-	void SpriterModel::pushBackImageFile(std::string initialFilePath, point initialDefaultPivot)
+	void SpriterModel::pushBackImageFile(Core::String initialFilePath, point initialDefaultPivot)
 	{
 		files.push_back(fileFactory->newImageFile(initialFilePath, initialDefaultPivot));
 	}
-	void SpriterModel::pushBackImageFile(std::string initialFilePath, point initialDefaultPivot, point size)
+	void SpriterModel::pushBackImageFile(Core::String initialFilePath, point initialDefaultPivot, point size)
 	{
 		files.push_back(fileFactory->newImageFile(initialFilePath, initialDefaultPivot, size));
 	}
-	void SpriterModel::pushBackSoundFile(std::string initialFilePath)
+	void SpriterModel::pushBackSoundFile(Core::String initialFilePath)
 	{
 		files.push_back(fileFactory->newSoundFile(initialFilePath));
 	}
 
-	void SpriterModel::pushBackTag(std::string newTag)
+	void SpriterModel::pushBackTag(Core::String newTag)
 	{
 		tags.push_back(newTag);
 	}
@@ -161,7 +161,7 @@ namespace SpriterEngine
 		}
 	}
 
-	const std::string * SpriterModel::getTag(s_int tagIndex)
+	const Core::String * SpriterModel::getTag(s_int tagIndex)
 	{
 		if (tagIndex < tags.size())
 		{
@@ -174,7 +174,7 @@ namespace SpriterEngine
 		}
 	}
 
-	void SpriterModel::loadFile(const std::string & fileName)
+	void SpriterModel::loadFile(const Core::String & fileName)
 	{
 		loader.loadFile(this, fileName);
 	}
@@ -192,7 +192,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Entity * SpriterModel::getEntity(std::string entityName)
+	Entity * SpriterModel::getEntity(Core::String entityName)
 	{
 		for (auto& it : entities)
 		{

@@ -1,7 +1,7 @@
 #ifndef TAGOBJECTINFOREFERENCE_H
 #define TAGOBJECTINFOREFERENCE_H
 
-#include <string>
+#include <Core/String.hpp>
 
 #include "universalobjectinterface.h"
 
@@ -13,7 +13,7 @@ namespace SpriterEngine
 	public:
 		TagObjectInfoReference();
 
-		bool tagIsActive(const std::string &tagToCheck) const override;
+		bool tagIsActive(const Core::String &tagToCheck) const override;
 
 		void setTagList(TagList *newTagList) override;
 

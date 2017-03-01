@@ -7,10 +7,10 @@ namespace Physics
 	{
 	public:
 		BoundingBox(float x, float y, int w, int h);
-		BoundingBox(Vector2 position, Vector2i size);
+		BoundingBox(Core::Vector2 position, Core::Vector2i size);
 
-		Vector2 position;
-		Vector2i size;
+		Core::Vector2 position;
+		Core::Vector2i size;
 		bool intersect(BoundingBox other);
 	};
 }

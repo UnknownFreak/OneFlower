@@ -10,13 +10,13 @@ namespace SpriterEngine
 	public:
 		StringVariableInfo();
 
-		std::string getStringValue() override;
-		void setStringValue(const std::string &newValue) override;
+		Core::String getStringValue() override;
+		void setStringValue(const Core::String &newValue) override;
 
 		void setObjectToLinear(UniversalObjectInterface *bObject, real t, UniversalObjectInterface *resultObject) override;
 
 	private:
-		std::string value;
+		Core::String value;
 	};
 }
 

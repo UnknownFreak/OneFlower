@@ -10,13 +10,13 @@ namespace SpriterEngine
 	public:
 		StringVariableInfoReference();
 
-		std::string getStringValue() override;
-		void setStringValue(std::string *newValue) override;
+		Core::String getStringValue() override;
+		void setStringValue(Core::String *newValue) override;
 
 		void setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance = 0) override;
 
 	private:
-		std::string *value;
+		Core::String *value;
 	};
 }
 

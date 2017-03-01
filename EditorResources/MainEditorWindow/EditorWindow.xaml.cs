@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -31,7 +32,7 @@ namespace EditorResources.MainEditorWindow
         private void Window_Closed(object sender, EventArgs e)
         {
             closed = true;
-            Environment.Exit(0);
+            //Environment.Exit(0);
         }
         public bool isClosed()
         {
@@ -75,7 +76,23 @@ namespace EditorResources.MainEditorWindow
 
         private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            new Window().Show();
+            new ModWindow.NewMod().Show();
+        }
+
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".mod";
+            dlg.Filter = "Mod files (.mod)|*.mod|Master file (.main)|*.main";
+            // Show open file dialog box
+            bool? result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                Functionality.EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.FileName });
+            }
         }
     }
 }

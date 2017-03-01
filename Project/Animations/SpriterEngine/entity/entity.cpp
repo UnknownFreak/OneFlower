@@ -13,7 +13,7 @@
 
 namespace SpriterEngine
 {
-	Entity::Entity(std::string initialName, s_int initialId, FileVector *initialFileVector) :
+	Entity::Entity(Core::String initialName, s_int initialId, FileVector *initialFileVector) :
 		entityId(initialId),
 		name(initialName),
 		files(initialFileVector)
@@ -33,7 +33,7 @@ namespace SpriterEngine
 		return entityId;
 	}
 
-	std::string Entity::getName()
+	Core::String Entity::getName()
 	{
 		return name;
 	}
@@ -51,7 +51,7 @@ namespace SpriterEngine
 		setupAnimationInstances(entityInstance, entityInstanceData);
 	}
 
-	Object *Entity::setObject(std::string objectName, Object::ObjectType objectType)
+	Object *Entity::setObject(Core::String objectName, Object::ObjectType objectType)
 	{
 		switch (objectType)
 		{
@@ -104,7 +104,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Object * Entity::setSpatialObject(std::string objectName, Object::ObjectType objectType)
+	Object * Entity::setSpatialObject(Core::String objectName, Object::ObjectType objectType)
 	{
 		auto it = objectNameMap.find(objectName);
 		if (it != objectNameMap.end())
@@ -118,7 +118,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Object * Entity::setSoundObject(std::string objectName)
+	Object * Entity::setSoundObject(Core::String objectName)
 	{
 		auto it = objectNameMap.find(objectName);
 		if (it != objectNameMap.end())
@@ -132,7 +132,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Object * Entity::setTriggerObject(std::string objectName)
+	Object * Entity::setTriggerObject(Core::String objectName)
 	{
 		auto it = objectNameMap.find(objectName);
 		if (it != objectNameMap.end())
@@ -146,7 +146,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Object * Entity::setSubEntityObject(std::string objectName)
+	Object * Entity::setSubEntityObject(Core::String objectName)
 	{
 		auto it = objectNameMap.find(objectName);
 		if (it != objectNameMap.end())
@@ -160,12 +160,12 @@ namespace SpriterEngine
 		}
 	}
 
-	CharacterMap *Entity::addCharacterMap(std::string name)
+	CharacterMap *Entity::addCharacterMap(Core::String name)
 	{
 		return &characterMaps[name];
 	}
 
-	void Entity::applyCharacterMap(std::string mapName, FileReferenceVector *mappedFiles)
+	void Entity::applyCharacterMap(Core::String mapName, FileReferenceVector *mappedFiles)
 	{
 		auto it = characterMaps.find(mapName);
 		if (it != characterMaps.end())
@@ -187,7 +187,7 @@ namespace SpriterEngine
 		}
 	}
 
-	Animation *Entity::pushBackAnimation(std::string animationName, real length, bool looping)
+	Animation *Entity::pushBackAnimation(Core::String animationName, real length, bool looping)
 	{
 		animations.push_back(new Animation(animationName, length, looping));
 		return animations.back();

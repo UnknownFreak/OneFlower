@@ -1,7 +1,7 @@
 #ifndef UNIVERSALOBJECTINTERFACE_H
 #define UNIVERSALOBJECTINTERFACE_H
 
-#include <string>
+#include <Core/String.hpp>
 #include <vector>
 
 #include "../global/global.h"
@@ -47,7 +47,7 @@ namespace SpriterEngine
 
 		virtual real getRealValue();
 		virtual s_int getIntValue();
-		virtual std::string getStringValue();
+		virtual Core::String getStringValue();
 
 		virtual s_int getTriggerCount();
 
@@ -57,7 +57,7 @@ namespace SpriterEngine
 		virtual VariableInstanceNameAndIdMap *getVariables();
 		virtual UniversalObjectInterface *getTags() const;
 
-		virtual bool tagIsActive(const std::string &tagToCheck) const;
+		virtual bool tagIsActive(const Core::String &tagToCheck) const;
 
 		virtual void setPosition(const point &newPosition);
 		virtual void setAngle(real newAngle);
@@ -76,8 +76,8 @@ namespace SpriterEngine
 
 		virtual void setRealValue(real newValue);
 		virtual void setIntValue(s_int newValue);
-		virtual void setStringValue(const std::string &newValue);
-		virtual void setStringValue(std::string *newValue);
+		virtual void setStringValue(const Core::String &newValue);
+		virtual void setStringValue(Core::String *newValue);
 
 		virtual void setTriggerCount(s_int newTriggerCount);
 

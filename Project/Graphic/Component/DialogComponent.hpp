@@ -5,7 +5,7 @@
 #include <Core\Vector.h>
 //#include "../GUI/Text/FloatingText.hpp"
 //#include "../GUI/Text/Message.hpp"
-#include <string>
+#include <Core/String.hpp>
 #include <SFML\System\Time.hpp>
 #include <SFML\Graphics.hpp>
 
@@ -15,13 +15,13 @@ namespace Component
 	{
 	public:
 		//sf::Sprite sprt;
-		std::string fontName;
-		std::string dialogMessage;
+		Core::String fontName;
+		Core::String dialogMessage;
 
 		//sf::RenderTexture *rex;
 
 		//GUI::FloatingText *msg;
-		Vector2 position;
+		Core::Vector2 position;
 		DialogComponent();
 		DialogComponent(double duration);
 		DialogComponent(const DialogComponent &diag);
@@ -31,7 +31,7 @@ namespace Component
 
 		void show();
 		void close();
-		void setMessage(std::string text, double duration = -1, int length = -1);
+		void setMessage(Core::String text, double duration = -1, int length = -1);
 		void updateLocation();
 		bool open;
 		bool dCreated;

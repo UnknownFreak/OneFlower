@@ -21,34 +21,34 @@ namespace SpriterEngine
 	typedef std::vector<s_int> EntityIdVector;
 
 	typedef std::vector<FileReference*> FileReferenceVector;
-	typedef std::vector<std::string> StringVector;
+	typedef std::vector<Core::String> StringVector;
 
 	class SpriterModel
 	{
 	public:
-		SpriterModel(const std::string &fileName, FileFactory *newFileFactory, ObjectFactory *newObjectFactory = 0);
+		SpriterModel(const Core::String &fileName, FileFactory *newFileFactory, ObjectFactory *newObjectFactory = 0);
 		SpriterModel(FileFactory *newFileFactory, ObjectFactory *newObjectFactory = 0);
 		~SpriterModel();
 
 		EntityInstance *getNewEntityInstance(s_int entityId);
 		EntityInstance *getNewEntityInstance(EntityIdVector *entityIds);
-		EntityInstance *getNewEntityInstance(std::string entityName);
-		void appendEntityToInstanceByName(EntityInstance * entityInstance, std::string entityName);
+		EntityInstance *getNewEntityInstance(Core::String entityName);
+		void appendEntityToInstanceByName(EntityInstance * entityInstance, Core::String entityName);
 		void setupFileReferences(FileReferenceVector *fileReferences);
 
-		Entity *pushBackEntity(std::string entityName);
-		void pushBackImageFile(std::string initialFilePath, point initialDefaultPivot);
-		void pushBackImageFile(std::string initialFilePath, point initialDefaultPivot, point size);
-		void pushBackSoundFile(std::string initialFilePath);
-		void pushBackTag(std::string newTag);
+		Entity *pushBackEntity(Core::String entityName);
+		void pushBackImageFile(Core::String initialFilePath, point initialDefaultPivot);
+		void pushBackImageFile(Core::String initialFilePath, point initialDefaultPivot, point size);
+		void pushBackSoundFile(Core::String initialFilePath);
+		void pushBackTag(Core::String newTag);
 
 		int fileCount();
 
 		File * getFileAtIndex(s_int fileIndex);
 
-		const std::string *getTag(s_int tagIndex);
+		const Core::String *getTag(s_int tagIndex);
 
-		void loadFile(const std::string &fileName);
+		void loadFile(const Core::String &fileName);
 
 		StringVector getEntityNames();
 
@@ -63,7 +63,7 @@ namespace SpriterEngine
 		ObjectFactory *objectFactory;
 
 		Entity *getEntity(s_int entityId);
-		Entity *getEntity(std::string entityName);
+		Entity *getEntity(Core::String entityName);
 	};
 }
 

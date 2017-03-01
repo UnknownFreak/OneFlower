@@ -16,7 +16,7 @@ namespace SpriterEngine
 	{
 	}
 
-	void Loader::loadFile(SpriterModel * model, const std::string &fileName)
+	void Loader::loadFile(SpriterModel * model, const Core::String &fileName)
 	{
 		SpriterDocumentLoader spriterDocumentLoader;
 		SpriterFileDocumentWrapper * wrapper = nullptr;
@@ -55,12 +55,12 @@ namespace SpriterEngine
 		delete wrapper;
 	}
 
-	Loader::SpriterFileType Loader::extractFileTypeFromFileName(const std::string &fileName)
+	Loader::SpriterFileType Loader::extractFileTypeFromFileName(const Core::String &fileName)
 	{
 		size_t lastDot = fileName.find_last_of(".");
 		if (lastDot != std::string::npos)
 		{
-			std::string extension = fileName.substr(lastDot + 1, std::string::npos);
+			Core::String extension = fileName.substr(lastDot + 1, std::string::npos);
 
 			if (extension == "scml")
 			{

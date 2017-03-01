@@ -1,6 +1,6 @@
 #include "TextureMap.hpp"
 
-TextureMapPoint& TextureMap::getTextureMapPoint(std::string myPoint)
+TextureMapPoint& TextureMap::getTextureMapPoint(Core::String myPoint)
 {
 	//std::map<std::string, TextureMapPoint>::iterator it = TexturePoints.find(myPoint);
 	//if (it != TexturePoints.end())

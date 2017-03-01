@@ -27,7 +27,7 @@ namespace SpriterEngine
 		void findCurrentKeys(real newTime, bool forward);
 		void processCurrentKeys(real newTime, ObjectInterfaceVector **instanceZOrder);
 
-		std::string getName();
+		Core::String getName();
 
 		bool looping();
 
@@ -70,7 +70,7 @@ namespace SpriterEngine
 
 		TimelineInstanceVector timelines;
 
-		std::string name;
+		Core::String name;
 
 		real animationLength;
 		bool isLooping;

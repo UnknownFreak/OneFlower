@@ -14,7 +14,7 @@
 
 namespace SpriterEngine
 {
-	Variable::Variable(std::string initialName, VariableType initialVariableType) :
+	Variable::Variable(Core::String initialName, VariableType initialVariableType) :
 		name(initialName),
 		variableType(initialVariableType),
 		defaultValue(getNewObjectInfoInstance())
@@ -26,7 +26,7 @@ namespace SpriterEngine
 		delete defaultValue;
 	}
 
-	std::string Variable::getName() const
+	Core::String Variable::getName() const
 	{
 		return name;
 	}

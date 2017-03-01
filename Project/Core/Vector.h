@@ -26,6 +26,17 @@ struct Vector2t
 
 	//The Direction between this and target
 	Vector2t<T> direction(Vector2t<T> & target);
+
+	template <class Archive>
+	void save(Archive& ar) const
+	{
+		ar(x, y);
+	}
+	template <class Archive>
+	void load(Archive& ar)
+	{
+		ar(x, y);
+	}
 };
 #pragma region Operator
 template <typename T>
@@ -55,9 +66,12 @@ Vector2t<T>  operator * (const Vector2t<T>& left, T right);
 #pragma endregion
 
 #include "Vector.inl"
-typedef Vector2t<float> Vector2;
-typedef Vector2t<int> Vector2i;
-typedef Vector2t<float> Vector2f;
-typedef Vector2t<double> Vector2d;
+namespace Core
+{
+	typedef Vector2t<float> Vector2;
+	typedef Vector2t<int> Vector2i;
+	typedef Vector2t<float> Vector2f;
+	typedef Vector2t<double> Vector2d;
+}
 
 #endif

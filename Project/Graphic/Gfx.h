@@ -24,7 +24,7 @@ public:
 	std::vector<std::vector<BackgroundSprite*>> tileList;
 
 	//Draw all Game object with RenderComponent attached to it
-	void DrawLoadingScreen(BackgroundSprite& loadingscreen, std::string& info);
+	void DrawLoadingScreen(BackgroundSprite& loadingscreen, Core::String& info);
 	//draw all Game object with RenderComponent attached to it
 	void draw();
 	void drawBG();

@@ -1,7 +1,7 @@
 #ifndef IMAGEFILE_H
 #define IMAGEFILE_H
 
-#include <string>
+#include <Core/String.hpp>
 
 #include "../file/file.h"
 
@@ -14,8 +14,8 @@ namespace SpriterEngine
 	class ImageFile : public File
 	{
 	public:
-		ImageFile(std::string initialFilePath, point initialDefaultPivot);
-		ImageFile(std::string initialFilePath, point initialDefaultPivot, point size);
+		ImageFile(Core::String initialFilePath, point initialDefaultPivot);
+		ImageFile(Core::String initialFilePath, point initialDefaultPivot, point size);
 
 		ImageFile *imageFile() override;
 

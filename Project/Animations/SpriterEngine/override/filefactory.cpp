@@ -15,15 +15,15 @@ namespace SpriterEngine
 	{
 	}
 
-	ImageFile * FileFactory::newImageFile(const std::string &initialFilePath, point initialDefaultPivot)
+	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot)
 	{
 		return new ImageFile(initialFilePath, initialDefaultPivot);
 	}
-	ImageFile * FileFactory::newImageFile(const std::string &initialFilePath, point initialDefaultPivot, point size)
+	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size)
 	{
 		return new ImageFile(initialFilePath, initialDefaultPivot, size);
 	}
-	SoundFile * FileFactory::newSoundFile(const std::string &initialFilePath)
+	SoundFile * FileFactory::newSoundFile(const Core::String &initialFilePath)
 	{
 		return new SoundFile(initialFilePath);
 	}

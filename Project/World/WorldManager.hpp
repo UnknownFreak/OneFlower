@@ -26,23 +26,23 @@ public:
 #ifdef _DEBUG
 	//Probably move this to editor
 	//PrefabContainer editorPrefabContainer;
-	std::map<std::pair<std::string, unsigned int>, DBZone> EditorAllZones;
+	std::map<std::pair<Core::String, unsigned int>, DBZone> EditorAllZones;
 	//std::map<std::pair<std::string, size_t>, Items::Item*> EditorAllItems;
 	//std::map<std::pair<std::string, unsigned int>, Quests::Quest> EditorAllQuests;
 #endif
 	//to be able to remove gameobjects when unloading;
-	std::map<std::pair<std::string, size_t>, GameObject*> listOfZoneObjects;
+	std::map<std::pair<Core::String, size_t>, GameObject*> listOfZoneObjects;
 	ModLoader modLoadOrder;
 
-	std::pair<std::string, unsigned int> lastLoadedZone;
+	std::pair<Core::String, unsigned int> lastLoadedZone;
 
-	std::map <std::pair<std::string, unsigned int>, Zone*> worldmap;
+	std::map <std::pair<Core::String, unsigned int>, Zone*> worldmap;
 	Zone* getCurrentZone();
 
 	WorldManager();
 	~WorldManager();
 
-	void loadZone(std::string addedFromMod, unsigned int zoneID);
+	void loadZone(Core::String addedFromMod, unsigned int zoneID);
 	bool getIsLoading();
 
 	loadstate getCurrentLoadingState();
@@ -90,13 +90,13 @@ private:
 
 	loadstate loadState = STATE_NOT_SET;
 	bool isLoading = false;
-	std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
-	std::map<std::pair<std::string, size_t>, GameObject*>::iterator currentObjIteratorUnload;
+	std::map<std::pair<Core::String, size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
+	std::map<std::pair<Core::String, size_t>, GameObject*>::iterator currentObjIteratorUnload;
 
 	size_t currentObj = 0;
 	size_t totalLoaded = 0;
 	size_t totalToLoad = 0;
-	std::pair<std::string, size_t> zoneToLoadID;
+	std::pair<Core::String, size_t> zoneToLoadID;
 
 	//friend bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID);
 	//friend void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);

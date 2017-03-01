@@ -3,13 +3,14 @@
 
 #include "TextureMapPoint.hpp"
 #include <AssetManager/ObjectSaveMode.hpp>
+#include <Core\String.hpp>
 #include <map>
 struct TextureMap
 {
-	TextureMapPoint& getTextureMapPoint(std::string pointName);
-	std::map<std::string, TextureMapPoint> TexturePoints;
+	TextureMapPoint& getTextureMapPoint(Core::String pointName);
+	std::map<Core::String, TextureMapPoint> TexturePoints;
 
-	std::string modName;
+	Core::String modName;
 	ObjectSaveMode mode = ObjectSaveMode::ADD;
 
 private:

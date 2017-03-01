@@ -1,7 +1,8 @@
 #include "TextureLoader.hpp"
 //#include "../../Engine.hpp"
-
-bool TextureLoader::loadTexture(std::string name)
+#include <fstream>
+#include <cassert>
+bool TextureLoader::loadTexture(const Core::String& name)
 {
 	//sf::Texture tempTexture;
 	//if (!tempTexture.loadFromFile("Texture/" + name))
@@ -15,10 +16,22 @@ bool TextureLoader::loadTexture(std::string name)
 
 	return true;
 }
-sf::Texture TextureLoader::loadTexture_internal(std::string name)
+sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 {
 	sf::Texture tempTexture;
-	if (!tempTexture.loadFromFile("Texture/" + name))
+
+	Core::String path = "Texture/" + name;
+
+	std::ifstream i(Core::Converter.toUtf16(path), std::ios::in | std::ifstream::binary);
+	char* data;
+	i.seekg(0, i.end);
+	std::streamoff len = i.tellg();
+	i.seekg(0, i.beg);
+	data = new char[len];
+	i.read(data, len);
+	bool ok = tempTexture.loadFromMemory(data, len);
+	delete data;
+	if (! ok)
 	{
 		return sf::Texture();
 	}
@@ -26,24 +39,24 @@ sf::Texture TextureLoader::loadTexture_internal(std::string name)
 }
 
 #ifdef _EDITOR_
-sf::Texture TextureLoader::loadTextureAsync(std::string name)
+sf::Texture TextureLoader::loadTextureAsync(const Core::String& name)
 {
 	return loadTexture_internal(name);
 }
 #else
 
-std::shared_future<sf::Texture> TextureLoader::loadTextureAsync(std::string name)
+std::shared_future<sf::Texture> TextureLoader::loadTextureAsync(const Core::String& name)
 {
 	
 	std::shared_future<sf::Texture>tp = std::async(std::launch::async, [this](std::string name) -> sf::Texture {return loadTexture_internal(name); }, name);
 	return tp;
 }
 #endif
-TextureRef* TextureLoader::requestTexture(std::string name)
+TextureRef* TextureLoader::requestTexture(const Core::String& name)
 {
 	if (!name.empty())
 	{
-		std::map<std::string, TextureRef>::iterator it;
+		std::map<Core::String, TextureRef>::iterator it;
 		it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(name);
 
 		if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
@@ -62,7 +75,7 @@ TextureRef* TextureLoader::requestTexture(std::string name)
 	return nullptr;
 }
 
-void TextureLoader::requestRemovalOfTexture(std::string name)
+void TextureLoader::requestRemovalOfTexture(const Core::String& name)
 {
 	//TODO
 }

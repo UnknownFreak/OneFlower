@@ -2,7 +2,7 @@
 
 namespace SpriterEngine
 {
-	File::File(std::string initialFilePath) :
+	File::File(Core::String initialFilePath) :
 		filePath(initialFilePath)
 	{
 	}
@@ -17,7 +17,7 @@ namespace SpriterEngine
 		return 0;
 	}
 
-	std::string File::path()
+	Core::String File::path()
 	{
 		return filePath;
 	}

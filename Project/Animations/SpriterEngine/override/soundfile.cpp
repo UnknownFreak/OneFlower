@@ -4,7 +4,7 @@
 
 namespace SpriterEngine
 {
-	SoundFile::SoundFile(std::string initialFilePath) :
+	SoundFile::SoundFile(Core::String initialFilePath) :
 		File(initialFilePath)
 	{
 	}

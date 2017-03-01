@@ -1,5 +1,5 @@
 #include "BaseMessage.hpp"
-bool BaseMessage::permission(std::string str)
+bool BaseMessage::permission(Core::String str)
 {
 	for (size_t i = 0; i < keys.size(); i++)
 	{
@@ -8,7 +8,7 @@ bool BaseMessage::permission(std::string str)
 	}
 	return false;
 }
-void BaseMessage::encode(std::string str)
+void BaseMessage::encode(Core::String str)
 {
 	keys.push_back(str);
 }

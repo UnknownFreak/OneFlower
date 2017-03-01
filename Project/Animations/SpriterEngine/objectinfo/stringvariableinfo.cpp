@@ -6,12 +6,12 @@ namespace SpriterEngine
 	{
 	}
 
-	std::string StringVariableInfo::getStringValue()
+	Core::String StringVariableInfo::getStringValue()
 	{
 		return value;
 	}
 
-	void StringVariableInfo::setStringValue(const std::string &newValue)
+	void StringVariableInfo::setStringValue(const Core::String &newValue)
 	{
 		value = newValue;
 	}

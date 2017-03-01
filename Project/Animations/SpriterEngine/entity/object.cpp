@@ -24,14 +24,14 @@
 
 namespace SpriterEngine
 {
-	Object::Object(std::string initialName, s_int initialId, ObjectType initialObjectType) :
+	Object::Object(Core::String initialName, s_int initialId, ObjectType initialObjectType) :
 		name(initialName),
 		objectId(initialId),
 		objectType(initialObjectType)
 	{
 	}
 
-	std::string Object::getName()
+	Core::String Object::getName()
 	{
 		return name;
 	}

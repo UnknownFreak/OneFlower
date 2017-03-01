@@ -33,19 +33,19 @@ namespace SpriterEngine
 		}
 	}
 
-	void VariableContainer::addStringVariable(std::string variableName, std::string defaultValue)
+	void VariableContainer::addStringVariable(Core::String variableName, Core::String defaultValue)
 	{
 		variables.push_back(new Variable(variableName, Variable::VARIABLETYPE_STRING));
 		variables.back()->getDefaultValue()->setStringValue(defaultValue);
 	}
 
-	void VariableContainer::addIntVariable(std::string variableName, s_int defaultValue)
+	void VariableContainer::addIntVariable(Core::String variableName, s_int defaultValue)
 	{
 		variables.push_back(new Variable(variableName, Variable::VARIABLETYPE_INT));
 		variables.back()->getDefaultValue()->setIntValue(defaultValue);
 	}
 
-	void VariableContainer::addRealVariable(std::string variableName, real defaultValue)
+	void VariableContainer::addRealVariable(Core::String variableName, real defaultValue)
 	{
 		variables.push_back(new Variable(variableName, Variable::VARIABLETYPE_REAL));
 		variables.back()->getDefaultValue()->setRealValue(defaultValue);

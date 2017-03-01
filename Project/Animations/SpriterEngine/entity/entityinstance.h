@@ -21,7 +21,7 @@ namespace SpriterEngine
 
 	typedef std::map<s_int, EntityInstanceData*> EntityInstanceDataMap;
 	typedef std::vector<FileReference*> FileReferenceVector;
-	typedef std::list<std::string> StringList;
+	typedef std::list<Core::String> StringList;
 
 	class EntityInstance : public UniversalObjectInterface
 	{
@@ -40,7 +40,7 @@ namespace SpriterEngine
 		void reprocessCurrentTime() override;
 
 		UniversalObjectInterface *getObjectInstance(s_int objectId);
-		UniversalObjectInterface * getObjectInstance(const std::string &objectName);
+		UniversalObjectInterface * getObjectInstance(const Core::String &objectName);
 		FileReference *getFile(s_int fileId);
 
 		point getPosition() override;
@@ -51,8 +51,8 @@ namespace SpriterEngine
 		real getCurrentTime() override;
 		real getTimeRatio() override;
 
-		std::string currentEntityName();
-		std::string currentAnimationName();
+		Core::String currentEntityName();
+		Core::String currentAnimationName();
 
 		s_int animationCount();
 
@@ -66,31 +66,31 @@ namespace SpriterEngine
 		VariableInstanceNameAndIdMap *getVariables(s_int objectId);
 		UniversalObjectInterface *getVariable(s_int objectId, s_int variableId);
 
-		UniversalObjectInterface *getVariable(const std::string &variableName);
-		VariableInstanceNameAndIdMap *getVariables(const std::string &objectName);
-		UniversalObjectInterface *getVariable(const std::string &objectName, const std::string &variableName);
+		UniversalObjectInterface *getVariable(const Core::String &variableName);
+		VariableInstanceNameAndIdMap *getVariables(const Core::String &objectName);
+		UniversalObjectInterface *getVariable(const Core::String &objectName, const Core::String &variableName);
 
-		virtual real getRealValue(const std::string &variableName);
-		virtual s_int getIntValue(const std::string &variableName);
-		virtual std::string getStringValue(const std::string &variableName);
+		virtual real getRealValue(const Core::String &variableName);
+		virtual s_int getIntValue(const Core::String &variableName);
+		virtual Core::String getStringValue(const Core::String &variableName);
 
-		virtual real getRealValue(const std::string &objectName, const std::string &variableName);
-		virtual s_int getIntValue(const std::string &objectName, const std::string &variableName);
-		virtual std::string getStringValue(const std::string &objectName, const std::string &variableName);
+		virtual real getRealValue(const Core::String &objectName, const Core::String &variableName);
+		virtual s_int getIntValue(const Core::String &objectName, const Core::String &variableName);
+		virtual Core::String getStringValue(const Core::String &objectName, const Core::String &variableName);
 
 		UniversalObjectInterface *getTags() const override;
 		UniversalObjectInterface *getTags(s_int objectId) const;
-		bool tagIsActive(s_int objectId, const std::string &tagToCheck) const;
+		bool tagIsActive(s_int objectId, const Core::String &tagToCheck) const;
 
-		bool tagIsActive(const std::string &tagToCheck) const override;
-		UniversalObjectInterface *getTags(const std::string &objectName) const;
-		bool tagIsActive(const std::string &objectName, const std::string &tagToCheck) const;
+		bool tagIsActive(const Core::String &tagToCheck) const override;
+		UniversalObjectInterface *getTags(const Core::String &objectName) const;
+		bool tagIsActive(const Core::String &objectName, const Core::String &tagToCheck) const;
 
 		UniversalObjectInterface *getTriggerObject(s_int triggerId);
-		UniversalObjectInterface *getTriggerObject(const std::string &triggerName);
+		UniversalObjectInterface *getTriggerObject(const Core::String &triggerName);
 
 		UniversalObjectInterface *getSoundObject(s_int soundId);
-		UniversalObjectInterface *getSoundObject(const std::string &soundName);
+		UniversalObjectInterface *getSoundObject(const Core::String &soundName);
 
 		void setPosition(const point &newPosition) override;
 		void setAngle(real newAngle) override;
@@ -100,10 +100,10 @@ namespace SpriterEngine
 
 		void setCurrentEntity(s_int newEntityIndex) override;
 		void setCurrentEntity(EntityInstanceData *newCurrentEntity) override;
-		void setCurrentEntity(const std::string & newEntityName, const std::string & newAnimationName = "", SpriterModel * modelForAutoAppend = 0);
+		void setCurrentEntity(const Core::String & newEntityName, const Core::String & newAnimationName = "", SpriterModel * modelForAutoAppend = 0);
 		void setCurrentAnimation(s_int newAnimationIndex) override;
-		void setCurrentAnimation(const std::string &animationName);
-		void setCurrentAnimation(const std::string &animationName, real blendTime);
+		void setCurrentAnimation(const Core::String &animationName);
+		void setCurrentAnimation(const Core::String &animationName, real blendTime);
 		void setCurrentAnimation(AnimationInstance *newCurrentAnimation) override;
 		void setCurrentTime(real newCurrentTime);
 		void setTimeRatio(real newCurrentTimeRatio) override;
@@ -114,10 +114,10 @@ namespace SpriterEngine
 		void setCurrentTimeToNextKeyFrame();
 		void setCurrentTimeToKeyAtIndex(s_int newKeyIndex);
 
-		UniversalObjectInterface *objectIfExistsOnCurrentFrame(const std::string & objectName);
+		UniversalObjectInterface *objectIfExistsOnCurrentFrame(const Core::String & objectName);
 
-		void applyCharacterMap(const std::string &mapName);
-		void removeCharacterMap(const std::string &mapName);
+		void applyCharacterMap(const Core::String &mapName);
+		void removeCharacterMap(const Core::String &mapName);
 		void removeAllCharacterMaps();
 
 		void render() override;
@@ -129,7 +129,7 @@ namespace SpriterEngine
 		ObjectInterfaceVector *getZOrder() override;
 
 		void appendEntity(SpriterModel *model, Entity *entity, ObjectFactory *objectFactory);
-		void appendEntity(SpriterModel * model, std::string entityName);
+		void appendEntity(SpriterModel * model, Core::String entityName);
 
 		EntityInstanceData *getEntity(s_int entityId) override;
 

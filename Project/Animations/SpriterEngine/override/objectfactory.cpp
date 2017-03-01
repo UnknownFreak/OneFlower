@@ -27,7 +27,7 @@ namespace SpriterEngine
 		return new BoxInstanceInfo(size);
 	}
 
-	TriggerObjectInfo * ObjectFactory::newTriggerObjectInfo(std::string newTriggerName)
+	TriggerObjectInfo * ObjectFactory::newTriggerObjectInfo(Core::String newTriggerName)
 	{
 		return new TriggerObjectInfo();
 	}

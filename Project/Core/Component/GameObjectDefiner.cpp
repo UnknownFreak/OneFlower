@@ -41,7 +41,7 @@ GameObject::GameObject(const GameObject & go)
 	}
 }
 
-GameObject::GameObject(std::string _name)
+GameObject::GameObject(Core::String _name)
 {
 	name = _name;
 	id = RequestID();

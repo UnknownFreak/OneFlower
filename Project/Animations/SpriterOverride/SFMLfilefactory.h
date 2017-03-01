@@ -11,11 +11,11 @@ namespace SpriterEngine
 	public:
 		SFMLFileFactory(SpriterTextureMapper *validTextureMapper);
 
-		ImageFile *newImageFile(const std::string &initialFilePath, point initialDefaultPivot) override;
+		ImageFile *newImageFile(const Core::String &initialFilePath, point initialDefaultPivot) override;
 
-		ImageFile *newImageFile(const std::string &initialFilePath, point initialDefaultPivot, point size) override;
+		ImageFile *newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size) override;
 
-		SoundFile *newSoundFile(const std::string &initialFilePath) override;
+		SoundFile *newSoundFile(const Core::String &initialFilePath) override;
 
 		SpriterFileDocumentWrapper *newScmlDocumentWrapper() override;
 

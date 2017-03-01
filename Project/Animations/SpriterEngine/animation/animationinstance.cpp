@@ -46,7 +46,7 @@ namespace SpriterEngine
 		processCurrentTimelineKeys(newTime);
 	}
 
-	std::string AnimationInstance::getName()
+	Core::String AnimationInstance::getName()
 	{
 		return name;
 	}

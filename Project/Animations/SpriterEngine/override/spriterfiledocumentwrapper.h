@@ -1,7 +1,7 @@
 #ifndef SPRITERFILEDOCUMENTWRAPPER_H
 #define SPRITERFILEDOCUMENTWRAPPER_H
 
-#include <string>
+#include <Core/String.hpp>
 #include <vector>
 
 namespace SpriterEngine
@@ -17,14 +17,14 @@ namespace SpriterEngine
 
 		virtual ~SpriterFileDocumentWrapper();
 
-		virtual void loadFile(std::string fileName) = 0;
+		virtual void loadFile(Core::String fileName) = 0;
 
 		SpriterFileElementWrapper *getFirstChildElement();
-		SpriterFileElementWrapper *getFirstChildElement(std::string elementName);
+		SpriterFileElementWrapper *getFirstChildElement(Core::String elementName);
 
 	private:
 		virtual SpriterFileElementWrapper *newElementWrapperFromFirstElement() = 0;
-		virtual SpriterFileElementWrapper *newElementWrapperFromFirstElement(const std::string & elementName) = 0;
+		virtual SpriterFileElementWrapper *newElementWrapperFromFirstElement(const Core::String & elementName) = 0;
 
 		ElementVector childElements;
 	};

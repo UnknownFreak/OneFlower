@@ -35,7 +35,7 @@ void TextureRef::reloadTexture()
 }
 
 
-TextureRef::TextureRef(std::string name) : name(name)
+TextureRef::TextureRef(Core::String name) : name(name)
 {
 	reloadTexture();
 }

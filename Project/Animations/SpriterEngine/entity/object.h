@@ -34,9 +34,9 @@ namespace SpriterEngine
 			OBJECTTYPE_TRIGGER
 		};
 
-		Object(std::string initialName, s_int initialId, ObjectType initialObjectType);
+		Object(Core::String initialName, s_int initialId, ObjectType initialObjectType);
 
-		std::string getName();
+		Core::String getName();
 		int getId();
 		ObjectType getType();
 
@@ -48,7 +48,7 @@ namespace SpriterEngine
 		virtual void addObjectInstanceToEntityInstanceData(SpriterModel * model, EntityInstance * entityInstance, EntityInstanceData * entityInstanceData, ObjectFactory * objectFactory);
 
 	private:
-		std::string name;
+		Core::String name;
 		ObjectType objectType;
 		int objectId;
 

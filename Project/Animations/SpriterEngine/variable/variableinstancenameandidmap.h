@@ -3,14 +3,14 @@
 
 #include <vector>
 #include <map>
-
+#include <Core/String.hpp>
 namespace SpriterEngine
 {
 	class UniversalObjectInterface;
 	class Variable;
 
 	typedef std::vector<UniversalObjectInterface*> VariableInstanceVector;
-	typedef std::map<std::string, UniversalObjectInterface*> VariableInstanceNameMap;
+	typedef std::map<Core::String, UniversalObjectInterface*> VariableInstanceNameMap;
 
 	class VariableInstanceNameAndIdMap
 	{
@@ -19,7 +19,7 @@ namespace SpriterEngine
 		~VariableInstanceNameAndIdMap();
 
 		UniversalObjectInterface *getVariable(size_t variableIndex);
-		UniversalObjectInterface *getVariable(std::string variableName);
+		UniversalObjectInterface *getVariable(Core::String variableName);
 
 		void pushBackVariable(Variable * variable);
 

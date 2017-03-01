@@ -31,17 +31,17 @@ namespace SpriterEngine
 
 	// end of program initial settings
 
-	void Settings::simpleError(const std::string &errorMessage)
+	void Settings::simpleError(const Core::String &errorMessage)
 	{
 		std::cerr << "SpriterEngine Error: " << errorMessage.c_str() << std::endl;
 	}
 
-	void Settings::nullError(const std::string &errorMessage)
+	void Settings::nullError(const Core::String &errorMessage)
 	{
 		// do nothing
 	}
 
-	void Settings::error(const std::string & errorMessage)
+	void Settings::error(const Core::String & errorMessage)
 	{
 		errFunction(errorMessage);
 	}

@@ -2,7 +2,7 @@
 #include "../PhysicsCore.hpp"
 
 const unsigned int IBaseComponent<Component::RigidComponent>::typeID = 10905;
-std::string IBaseComponent<Component::RigidComponent>::componentName = "RigidComponent";
+Core::String IBaseComponent<Component::RigidComponent>::componentName = "RigidComponent";
 
 namespace Component
 {

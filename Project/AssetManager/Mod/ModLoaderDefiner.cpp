@@ -1,8 +1,8 @@
 #include "ModLoader.hpp"
 
-size_t ModLoader::getModPosition(std::string modName)
+size_t ModLoader::getModPosition(Core::String modName)
 {
-	std::map<std::string, size_t>::iterator it = loadOrder.find(modName);
+	std::map<Core::String, size_t>::iterator it = loadOrder.find(modName);
 	if (it != loadOrder.end())
 	{
 		return it->second;

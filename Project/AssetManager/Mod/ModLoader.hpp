@@ -1,14 +1,14 @@
 #ifndef MODLOADER_HPP
 #define MODLOADER_HPP
 #include <map>
-#include <string>
+#include <Core/String.hpp>
 class ModLoader
 {
 public:
 	ModLoader() = default;
-	std::map <std::string, size_t> loadOrder;
+	std::map <Core::String, size_t> loadOrder;
 
-	size_t getModPosition(std::string mod);
+	size_t getModPosition(Core::String mod);
 
 	template <class Archive>
 	void load(Archive& ar)
@@ -19,7 +19,7 @@ public:
 		for (size_t i = 0; i < size; i++)
 		{
 			ar(tmp);
-			loadOrder.insert(std::pair<std::string, size_t>(tmp, i));
+			loadOrder.insert(std::pair<Core::String, size_t>(tmp, i));
 		}
 	}
 	template <class Archive>
@@ -27,8 +27,8 @@ public:
 	{
 		size_t size = loadOrder.size();
 		ar(size);
-		std::map<std::string, size_t>::const_iterator it = loadOrder.begin();
-		std::map<std::string, size_t>::const_iterator eit = loadOrder.end();
+		std::map<Core::String, size_t>::const_iterator it = loadOrder.begin();
+		std::map<Core::String, size_t>::const_iterator eit = loadOrder.end();
 
 		for (it; it != eit; it++ )
 		{

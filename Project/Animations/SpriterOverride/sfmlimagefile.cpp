@@ -5,7 +5,7 @@
 #include "../spriterengine/objectinfo/universalobjectinterface.h"
 namespace SpriterEngine
 {
-	SfmlImageFile::SfmlImageFile(std::string initialFilePath, point initialDefaultPivot, point size,
+	SfmlImageFile::SfmlImageFile(Core::String initialFilePath, point initialDefaultPivot, point size,
 		SpriterTextureMapper *validTextureMapper) :
 		ImageFile(initialFilePath, initialDefaultPivot, size),
 		TextureMapper(validTextureMapper)
@@ -20,7 +20,7 @@ namespace SpriterEngine
 		refName.erase(refName.begin(), refName.begin() + tmp);
 
 		if (TextureMapper->currentTextureMap->TexturePoints.find(refName) == TextureMapper->currentTextureMap->TexturePoints.end())
-			TextureMapper->currentTextureMap->TexturePoints.insert(std::pair<std::string, TextureMapPoint>(refName, TextureMapPoint()));
+			TextureMapper->currentTextureMap->TexturePoints.insert(std::pair<Core::String, TextureMapPoint>(refName, TextureMapPoint()));
 		if (!sprite)
 			sprite = TextureMapper->currentSprite;
 		sprite->setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));

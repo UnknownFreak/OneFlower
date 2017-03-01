@@ -9,7 +9,7 @@ namespace SpriterEngine
 	class SoundFile : public File
 	{
 	public:
-		SoundFile(std::string initialFilePath);
+		SoundFile(Core::String initialFilePath);
 
 		SoundFile *soundFile();
 

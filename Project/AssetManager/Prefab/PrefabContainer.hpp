@@ -9,7 +9,7 @@ class PrefabContainer
 {
 private:
 	std::map<size_t, Prefab> mapOfPrefabs2;
-	std::map<std::pair<std::string, size_t>, Prefab> mapOfPrefabs;
+	std::map<std::pair<Core::String, size_t>, Prefab> mapOfPrefabs;
 public:
 	PrefabContainer() = default;
 
@@ -18,10 +18,10 @@ public:
 	void addPrefab(const size_t prefabID, const GameObject* go);
 	void removePrefab(size_t prefabID);
 
-	std::map<std::pair<std::string, size_t>, Prefab>::iterator find(std::string name, size_t prefabID);
-	std::map<std::pair<std::string, size_t>, Prefab>::iterator end();
-	std::map<std::pair<std::string, size_t>, Prefab>::iterator begin();
-	std::map<std::pair<std::string, size_t>, Prefab>& getMap();
+	std::map<std::pair<Core::String, size_t>, Prefab>::iterator find(Core::String name, size_t prefabID);
+	std::map<std::pair<Core::String, size_t>, Prefab>::iterator end();
+	std::map<std::pair<Core::String, size_t>, Prefab>::iterator begin();
+	std::map<std::pair<Core::String, size_t>, Prefab>& getMap();
 	size_t size();
 };
 

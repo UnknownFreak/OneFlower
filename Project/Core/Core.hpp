@@ -7,5 +7,7 @@
 #include "Component\TransformComponent.hpp"
 #include "Component\GameObject.h"
 #include "EngineSettings.hpp"
+#include "String.hpp"
+
 
 #endif

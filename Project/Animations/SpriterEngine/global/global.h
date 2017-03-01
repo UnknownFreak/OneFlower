@@ -1,6 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 #include <Core/Vector.h>
+#include <Core/String.hpp>
 //With Android NDK & gnustl, std::to_string is not defined so fill it in here
 #if defined(ANDROID) && defined(__GXX_EXPERIMENTAL_CXX0X__) && !defined(_GLIBCXX_USE_C99)
 #include <sstream>
@@ -18,7 +19,7 @@ namespace std {
 namespace SpriterEngine
 {
 	typedef float real;
-	typedef Vector2 point;
+	typedef Core::Vector2 point;
 	typedef size_t s_int;
 
 	const s_int THIS_ENTITY = -1;

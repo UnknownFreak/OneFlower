@@ -1,4 +1,5 @@
 #include "Time.hpp"
+#include <string>
 //#include <SFML\System\Time.hpp>
 /*
 HWND hWnd;
@@ -9,10 +10,10 @@ double Time::deltaTime()
 {
 	return update_ms.asSeconds();
 }
-bool Time::time(std::string name, double msec)
+bool Time::time(Core::String name, double msec)
 
 {
-	std::map<std::string, sf::Clock>::iterator it = timers.find(name);
+	std::map<Core::String, sf::Clock>::iterator it = timers.find(name);
 	if (it == timers.end())
 	{
 		it = timers.insert(std::make_pair(name, sf::Clock())).first;
@@ -32,7 +33,7 @@ bool Time::time(std::string name, double msec)
 	}
 	return 0;
 }
-void Time::remove(std::string name)
+void Time::remove(Core::String name)
 {
 	timers.erase(name);
 }

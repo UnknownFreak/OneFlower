@@ -4,22 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.MainEditorWindow"
-             xmlns:Primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon" xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" xmlns:Message="clr-namespace:EditorResources.Message" xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" x:Class="EditorResources.MainEditorWindow.EditorWindow"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" xmlns:Message="clr-namespace:EditorResources.Message" xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" xmlns:ZoneView="clr-namespace:EditorResources.ZoneView" x:Class="EditorResources.MainEditorWindow.EditorWindow"
              mc:Ignorable="d" 
              d:DesignHeight="446.953" d:DesignWidth="794.357" Width="1920" Height="1080" Icon="pack://siteoforigin:,,,/Flower.png" Closed="Window_Closed" Title="One Editor">
 
     <Window.CommandBindings>
         <CommandBinding x:Name="NewCommand" Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
+        <CommandBinding x:Name="OpenCommand" Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="ApplicationCommands.New"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Open"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="600"/>
-            <RowDefinition Height="398*"/>
-            <RowDefinition Height="30*"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="49*"/>
@@ -31,22 +33,47 @@
             <Label x:Name="label1" Content="Label" Width="238"/>
             <ProgressBar Width="240" Height="24" IsIndeterminate="True"/>
         </StatusBar>
-        <Menu Background="#FF9E9E9E" Grid.ColumnSpan="3">
+        <Menu x:Name="menu" Background="#FF838383" Grid.ColumnSpan="3">
             <MenuItem Header="File">
                 <MenuItem Header="New" InputGestureText="Ctrl+N" Command="ApplicationCommands.New"/>
-                <MenuItem Header="Open" InputGestureText="Ctrl+O"/>
+                <MenuItem Header="Open" InputGestureText="Ctrl+O" Command="ApplicationCommands.Open"/>
                 <MenuItem Header="Save" InputGestureText="Ctrl+S"/>
                 <Separator/>
                 <MenuItem Header="Exit" InputGestureText="Alt+F4"/>
             </MenuItem>
-            <MenuItem Header="Object"/>
-            <MenuItem Header="Item"/>
-            <MenuItem Header="Quest"/>
-            <MenuItem Header="Zone"/>
+            <MenuItem Header="Object">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Duplicate"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Edit"/>
+            </MenuItem>
+            <MenuItem Header="Item">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Duplicate"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Edit"/>
+            </MenuItem>
+            <MenuItem Header="Quest">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Duplicate"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Edit"/>
+            </MenuItem>
+            <MenuItem Header="Zone">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Duplicate"/>
+                <MenuItem Header="Delete"/>
+                <Separator/>
+                <MenuItem Header="Edit"/>
+            </MenuItem>
             <Separator/>
+            <MenuItem Header="GUI Design"/>
+            <MenuItem Header="Resources"/>
             <MenuItem Header="Scripts"/>
             <MenuItem Header="Spriter"/>
-            <MenuItem Header="Resources"/>
             <Separator/>
             <MenuItem Header="Window"/>
             <MenuItem Header="Options"/>
@@ -96,5 +123,6 @@
             <Message:Message message="TestMessage" type="Warning"/>
         </ListView>
         <ObjectView:ObjectTreeView Grid.Row="1"/>
+        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" Height="399"/>
     </Grid>
 </Window>

@@ -21,9 +21,9 @@ namespace SpriterEngine
 
 		Variable *getVariable(size_t variableIndex);
 
-		void addStringVariable(std::string variableName, std::string defaultValue);
-		void addIntVariable(std::string variableName, s_int defaultValue);
-		void addRealVariable(std::string variableName, real defaultValue);
+		void addStringVariable(Core::String variableName, Core::String defaultValue);
+		void addIntVariable(Core::String variableName, s_int defaultValue);
+		void addRealVariable(Core::String variableName, real defaultValue);
 
 		void setupVariableInstances(VariableInstanceNameAndIdMap *variableMap);
 

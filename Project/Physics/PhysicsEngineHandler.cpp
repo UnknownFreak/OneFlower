@@ -60,7 +60,7 @@ void PhysicsEngine::simulation()
 }
 
 //LOW: Change owner
-Physics::Collider PhysicsEngine::collision(Component::TransformComponent* motion, Physics::BoundingBox bbox, Vector2 speed)
+Physics::Collider PhysicsEngine::collision(Component::TransformComponent* motion, Physics::BoundingBox bbox, Core::Vector2 speed)
 {
 	//When two object travel in the same direction, The one who "Update" first will decide the outcome. If its the chaser than it catches, if its the runner than it flee. Thats the simpliest way todo it
 	Physics::Collider collider;

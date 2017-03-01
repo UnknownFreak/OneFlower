@@ -2,6 +2,7 @@
 #define Prefab_HPP
 
 #include <vector>
+#include <Core/String.hpp>
 #include <Core/Component/BaseComponent.hpp>
 #include "../ObjectSaveMode.hpp"
 class GameObject;
@@ -24,9 +25,9 @@ public:
 
 	std::vector<BaseComponent*> base;
 	size_t ID;
-	std::string name;
-	std::string tag;
-	std::string fromMod = "OneFlower.main";
+	Core::String name;
+	Core::String tag;
+	Core::String fromMod = "OneFlower.main";
 	ObjectSaveMode mode = ObjectSaveMode::ADD;
 	const unsigned int getTypeID(size_t index);
 

@@ -2,15 +2,15 @@
 #define Time_HPP
 #include <SFML\System\Clock.hpp>
 #include <map>
-#include <string>
+#include <Core/String.hpp>
 class Time
 {
 public:
 
 	double deltaTime();
 
-	bool time(std::string, double msec);
-	void remove(std::string);
+	bool time(Core::String, double msec);
+	void remove(Core::String);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -21,7 +21,7 @@ private:
 	sf::Clock timer;
 
 	//LOW: Put this in Definer to avoid include of Map:String?
-	std::map<std::string, sf::Clock> timers;
+	std::map<Core::String, sf::Clock> timers;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 #include "../global/global.h"
-#include <string>
+#include <Core/String.hpp>
 
 namespace SpriterEngine
 {
@@ -17,10 +17,10 @@ namespace SpriterEngine
 			VARIABLETYPE_REAL
 		};
 
-		Variable(std::string initialName, VariableType initialVariableType);
+		Variable(Core::String initialName, VariableType initialVariableType);
 		~Variable();
 
-		std::string getName() const;
+		Core::String getName() const;
 
 		UniversalObjectInterface *getNewObjectInfoInstance(bool forEntityInstance = false) const;
 
@@ -31,7 +31,7 @@ namespace SpriterEngine
 		void setupDefaultInAnimation(Animation *animation, s_int objectId, s_int variableId);
 
 	private:
-		std::string name;
+		Core::String name;
 
 		VariableType variableType;
 

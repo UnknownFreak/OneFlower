@@ -7,7 +7,7 @@
 //#include "GameObject.h"
 
 const unsigned int IBaseComponent<Component::DialogComponent>::typeID = 1004;
-std::string IBaseComponent<Component::DialogComponent>::componentName = "DialogComponent";
+Core::String IBaseComponent<Component::DialogComponent>::componentName = "DialogComponent";
 
 namespace Component
 {

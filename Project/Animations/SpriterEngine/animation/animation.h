@@ -24,10 +24,10 @@ namespace SpriterEngine
 	class Animation
 	{
 	public:
-		Animation(std::string initialName, real initialAnimationLength, bool initialLooping);
+		Animation(Core::String initialName, real initialAnimationLength, bool initialLooping);
 		~Animation();
 
-		std::string getName();
+		Core::String getName();
 		real getLength();
 		bool getIsLooping();
 
@@ -46,7 +46,7 @@ namespace SpriterEngine
 		TimelineKey *getObjectTimelineKey(s_int timelineIndex, s_int keyIndex);
 
 	private:
-		std::string name;
+		Core::String name;
 
 		MainlineKeyVector mainlineKeys;
 

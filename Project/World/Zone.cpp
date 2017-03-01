@@ -1,10 +1,9 @@
 #include "Zone.hpp"
-#include <string>
 #include <AssetManager\AssetManagerCore.hpp>
 #include <AssetManager\Database\DBZone.hpp>
 #include <Core\Component\GameObject.h>
 
-Zone::Zone(std::string n, size_t id, BackgroundSprite bg, std::vector<BackgroundSprite> tiles, std::vector<GameObject*> ob) : name(n), ID(id), background(bg)
+Zone::Zone(Core::String n, size_t id, BackgroundSprite bg, std::vector<BackgroundSprite> tiles, std::vector<GameObject*> ob) : name(n), ID(id), background(bg)
 {
 	//add the foregrounds from tiles vector
 	for (size_t i = 0; i < tiles.size(); i++)
@@ -68,7 +67,7 @@ int Zone::getID()
 {
 	return ID;
 }
-std::string Zone::getName()
+Core::String Zone::getName()
 {
 	return name;
 }
@@ -82,7 +81,7 @@ BackgroundSprite* Zone::getLoadingScreen()
 	return &loadScreen;
 }
 
-std::string& Zone::getLoadingScreenMessage()
+Core::String& Zone::getLoadingScreenMessage()
 {
 	return loadingScreenMessage;
 }
@@ -94,7 +93,7 @@ void Zone::addForeground(BackgroundSprite fg)
 
 #ifdef _DEBUG
 
-void Zone::setBackground(std::string name)
+void Zone::setBackground(Core::String name)
 {
 	background.name = name;
 	background.sprite.setTexture(Engine::Textureloader.requestTexture(name));

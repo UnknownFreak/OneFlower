@@ -14,7 +14,7 @@ namespace SpriterEngine
 	public:
 		virtual ~CharacterMapInterface() {}
 
-		virtual void applyCharacterMap(std::string mapName, FileReferenceVector *mappedFiles) = 0;
+		virtual void applyCharacterMap(Core::String mapName, FileReferenceVector *mappedFiles) = 0;
 		virtual void removeAllCharacterMaps(FileReferenceVector *mappedFiles) = 0;
 	};
 }

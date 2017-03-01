@@ -1,6 +1,6 @@
 #include "Movement.hpp"
 
-void Physics::Movement::addTranslation(Vector2 dir, double force)
+void Physics::Movement::addTranslation(Core::Vector2 dir, double force)
 {
 	direction += dir;
 	speed += force;

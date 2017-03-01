@@ -33,10 +33,10 @@ namespace Component
 
 		RenderComponent();
 		RenderComponent(const RenderComponent & rc);
-		RenderComponent(std::string texture);
+		RenderComponent(Core::String texture);
 
 		//Name of spritesheet and rect position
-		RenderComponent(std::string texture, int x, int y);
+		RenderComponent(Core::String texture, int x, int y);
 
 		virtual RenderComponent* copy();
 
@@ -44,18 +44,18 @@ namespace Component
 		int renderlayer = 1;
 		AnimationType animation = AnimationType::Static;
 
-		Vector2i size;
+		Core::Vector2i size;
 
-		Vector2 position;
+		Core::Vector2 position;
 
 		int outline = 0;
 
 		//Name of texture;
-		std::string textureName = "test.png";
+		Core::String textureName = "test.png";
 
 		SpriteRef sprite;
 
-		std::map<std::string, SpriteSheetAnimation> animations;
+		std::map<Core::String, SpriteSheetAnimation> animations;
 
 		SpriterEntityInstance instance;
 
@@ -63,13 +63,13 @@ namespace Component
 		void setTexture();
 
 		//Set texture with name of Texture
-		void setTexture(std::string texture);
+		void setTexture(Core::String texture);
 
 		//Set texture with name of Texture and the size of rect for spritesheet and its location
-		void setTexture(std::string texture, double x, double y, int width, int height);
+		void setTexture(Core::String texture, double x, double y, int width, int height);
 
 		//Set current animation, For animations only
-		void setAnimation(std::string animationName);
+		void setAnimation(Core::String animationName);
 
 		void updateFrame();
 
@@ -107,7 +107,7 @@ namespace Component
 	private:
 
 		void setFacing(Facing f);
-		std::string currentAnimation = "Default";
+		Core::String currentAnimation = "Default";
 		//template < class Archive>//, GameObject& go>
 		//friend void save(Archive& archive, const RenderComponent& rc);
 		//template < class Archive>//, GameObject& go>

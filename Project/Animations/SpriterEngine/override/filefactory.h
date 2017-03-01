@@ -1,7 +1,7 @@
 #ifndef FILEFACTORY_H
 #define FILEFACTORY_H
 
-#include <string>
+#include <Core/String.hpp>
 
 #include "../global/global.h"
 
@@ -17,9 +17,9 @@ namespace SpriterEngine
 		FileFactory();
 		virtual ~FileFactory();
 
-		virtual ImageFile *newImageFile(const std::string &initialFilePath, point initialDefaultPivot);
-		virtual ImageFile *newImageFile(const std::string &initialFilePath, point initialDefaultPivot, point size);
-		virtual SoundFile *newSoundFile(const std::string &initialFilePath);
+		virtual ImageFile *newImageFile(const Core::String &initialFilePath, point initialDefaultPivot);
+		virtual ImageFile *newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size);
+		virtual SoundFile *newSoundFile(const Core::String &initialFilePath);
 
 		virtual SpriterFileDocumentWrapper *newScmlDocumentWrapper();
 		virtual SpriterFileDocumentWrapper *newSconDocumentWrapper();

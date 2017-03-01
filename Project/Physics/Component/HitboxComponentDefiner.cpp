@@ -4,7 +4,7 @@
 #include <Graphic\Component\RenderComponent.h>
 #include "../PhysicsCore.hpp"
 const unsigned int IBaseComponent<Component::HitboxComponent>::typeID = 1003;
-std::string IBaseComponent<Component::HitboxComponent>::componentName = "HitBoxComponent";
+Core::String IBaseComponent<Component::HitboxComponent>::componentName = "HitBoxComponent";
 
 namespace Component
 {

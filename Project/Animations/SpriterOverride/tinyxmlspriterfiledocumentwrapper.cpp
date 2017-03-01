@@ -8,7 +8,7 @@ namespace SpriterEngine
 	{
 	}
 
-	void TinyXmlSpriterFileDocumentWrapper::loadFile(std::string fileName)
+	void TinyXmlSpriterFileDocumentWrapper::loadFile(Core::String fileName)
 	{
 		doc.LoadFile(fileName.c_str());
 	}
@@ -18,7 +18,7 @@ namespace SpriterEngine
 		return new TinyXmlSpriterFileElementWrapper(doc.FirstChildElement());
 	}
 
-	SpriterFileElementWrapper * TinyXmlSpriterFileDocumentWrapper::newElementWrapperFromFirstElement(const std::string & elementName)
+	SpriterFileElementWrapper * TinyXmlSpriterFileDocumentWrapper::newElementWrapperFromFirstElement(const Core::String & elementName)
 	{
 		return new TinyXmlSpriterFileElementWrapper(doc.FirstChildElement(elementName.c_str()));
 	}

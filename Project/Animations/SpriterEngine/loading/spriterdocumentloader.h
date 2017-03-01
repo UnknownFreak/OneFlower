@@ -28,10 +28,10 @@ namespace SpriterEngine
 	class SpriterDocumentLoader
 	{
 	public:
-		void loadFile(SpriterModel *model, SpriterFileDocumentWrapper *documentWrapper, const std::string &fileName);
+		void loadFile(SpriterModel *model, SpriterFileDocumentWrapper *documentWrapper, const Core::String &fileName);
 
 	private:
-		void getFolderFileStructureFromElement(SpriterFileElementWrapper * spriterDataElement, SpriterModel * model, std::string scmlFileName, FileFlattener * fileFlattener);
+		void getFolderFileStructureFromElement(SpriterFileElementWrapper * spriterDataElement, SpriterModel * model, Core::String scmlFileName, FileFlattener * fileFlattener);
 		void getTagListFromElement(SpriterFileElementWrapper * spriterDataElement, SpriterModel * model);
 
 		void getEntitiesFromElement(SpriterFileElementWrapper * spriterDataElement, SpriterModel * model, FileFlattener * fileFlattener);

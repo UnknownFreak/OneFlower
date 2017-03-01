@@ -6,7 +6,11 @@
 #include <Core\Component\GameObject.h>
 #include <World\Zone.hpp>
 #ifdef _DEBUG
-void WorldManagerAddon::EditorAddNewZone(std::string zoneName, std::string background, std::string loadingScreen, std::string loadingScreenMessage, size_t ID, float x, float y)
+// this always works cause the worldmanageraddon is always initialized after the world manager
+WorldManagerAddon::WorldManagerAddon() : myActualManager(Engine::World)
+{
+}
+void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y)
 {
 
 	DBZone myDbZone;
@@ -14,7 +18,7 @@ void WorldManagerAddon::EditorAddNewZone(std::string zoneName, std::string backg
 	myDbZone.fromMod = AssetManagerCore::openedMod;
 	myDbZone.ID = ID;
 	myDbZone.background.name = background;
-	myDbZone.background.position = Vector2(0, 0);
+	myDbZone.background.position = Core::Vector2(0, 0);
 	myDbZone.background.size.x = x;
 	myDbZone.background.size.y = y;
 	//myDbZone.background = DBBackgroundSprite(background, 0, 0);
@@ -25,24 +29,24 @@ void WorldManagerAddon::EditorAddNewZone(std::string zoneName, std::string backg
 	if (zoneName == "Tutorial" && ID == 1)
 	{
 		myDbZone.fromMod = "Tutorial";
-		Engine::World.EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>("Tutorial", ID), myDbZone));
+		Engine::World.EditorAllZones.insert(std::pair<std::pair<Core::String, size_t>, DBZone>(std::pair<Core::String, size_t>("Tutorial", ID), myDbZone));
 	}
 	else
-		Engine::World.EditorAllZones.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ID), myDbZone));
+		Engine::World.EditorAllZones.insert(std::pair<std::pair<Core::String, size_t>, DBZone>(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ID), myDbZone));
 }
-void WorldManagerAddon::EditorEditZone(std::string zoneName, std::string background, std::string loadingScreen, std::string loadingScreenMessage, size_t ID, float x, float y)
+void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y)
 {
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].mode = ObjectSaveMode::EDIT;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].name = zoneName;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].ID = ID;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].background.name = background;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].background.size.x = x;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].background.size.y = y;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].mode = ObjectSaveMode::EDIT;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].name = zoneName;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].ID = ID;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].background.name = background;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].background.size.x = x;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].background.size.y = y;
 
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreen.name = loadingScreen;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreen.position.x = 0;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreen.position.y = 0;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].loadingScreenMessage = loadingScreenMessage;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].loadingScreen.name = loadingScreen;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].loadingScreen.position.x = 0;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].loadingScreen.position.y = 0;
+	myActualManager.EditorAllZones[myActualManager.lastLoadedZone].loadingScreenMessage = loadingScreenMessage;
 	//EditorSetBackground(background);
 }
 //void WorldManager::EditorFlagGameObjectForEdit(GameObject* go)
@@ -58,10 +62,10 @@ void WorldManagerAddon::EditorEditZone(std::string zoneName, std::string backgro
 //	}
 //}
 //
-void WorldManagerAddon::EditorLoadZone(std::string name, unsigned int ID)
+void WorldManagerAddon::EditorLoadZone(Core::String name, unsigned int ID)
 {
 	//*change this with listview instead?//*/
-	if (Engine::World.EditorAllZones.find(std::pair<std::string, size_t>(name, ID)) != Engine::World.EditorAllZones.end())
+	if (Engine::World.EditorAllZones.find(std::pair<Core::String, size_t>(name, ID)) != Engine::World.EditorAllZones.end())
 		Engine::World.loadZone(name, ID);
 	else
 	{
@@ -86,11 +90,11 @@ void WorldManagerAddon::EditorRemoveZone()
 	else
 		Engine::World.EditorAllZones[Engine::World.lastLoadedZone].mode = ObjectSaveMode::REMOVE;
 }
-std::string WorldManagerAddon::EditorSave()
+Core::String WorldManagerAddon::EditorSave()
 {
 	if (AssetManagerCore::openedMod != "<Not Set>")
 	{
-		for (std::map<std::pair<std::string, size_t>, DBZonePrefabStruct>::iterator
+		for (std::map<std::pair<Core::String, size_t>, DBZonePrefabStruct>::iterator
 			i = Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.begin(); i != Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.end(); i++)
 		{
 			i->second.position = Engine::World.listOfZoneObjects[i->first]->GetComponent<Component::TransformComponent>()->position;
@@ -99,7 +103,7 @@ std::string WorldManagerAddon::EditorSave()
 	}
 	return AssetManagerCore::openedMod;
 }
-std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> WorldManagerAddon::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
+std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct> WorldManagerAddon::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
 {
 	DBZonePrefabStruct dbzps;
 	dbzps.ID = prefab.ID;
@@ -109,15 +113,15 @@ std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct> WorldManagerAddon:
 	dbzps.prefabName = prefab.name;
 	size_t ValidID = EditorGetValidID();
 	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].mode = ObjectSaveMode::EDIT;
-	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.insert(std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ValidID), dbzps));
-	Engine::World.getCurrentZone()->objects.push_back(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ValidID), go));
-	Engine::World.listOfZoneObjects.insert(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ValidID), go));
+	Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.insert(std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct>(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ValidID), dbzps));
+	Engine::World.getCurrentZone()->objects.push_back(std::pair<std::pair<Core::String, size_t>, GameObject*>(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ValidID), go));
+	Engine::World.listOfZoneObjects.insert(std::pair<std::pair<Core::String, size_t>, GameObject*>(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ValidID), go));
 
-	return std::pair<std::pair<std::string, size_t>, DBZonePrefabStruct>(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ValidID), dbzps);
+	return std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct>(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ValidID), dbzps);
 }
 size_t WorldManagerAddon::EditorGetValidID()
 {
-	while (Engine::World.listOfZoneObjects.find(std::pair<std::string, size_t>(AssetManagerCore::openedMod, ID)) != Engine::World.listOfZoneObjects.end())
+	while (Engine::World.listOfZoneObjects.find(std::pair<Core::String, size_t>(AssetManagerCore::openedMod, ID)) != Engine::World.listOfZoneObjects.end())
 	{
 		ID++;
 	}
@@ -166,45 +170,50 @@ size_t WorldManagerAddon::EditorGetValidID()
 //{
 //	return openedMod;
 //}
-//void WorldManager::newMod(std::string modName, std::vector<std::string> dependencies)
-//{
-//	modLoadOrder.loadOrder.clear();
-//	myModHeader.name = modName;
-//	myModHeader.dependencies = dependencies;
-//	for each (std::string var in myModHeader.dependencies)
-//	{
-//		loadMods(var);
-//	}
-//	openedMod = modName;
-//	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, modLoadOrder.loadOrder.size()));
-//	LoadAllEditorVariables();
-//}
-//std::vector<std::string> WorldManager::loadMod(std::string myMod)
-//{
-//	std::vector<std::string> myFailed;
-//	openedMod = myMod;
-//	modLoadOrder.loadOrder.clear();
-//	if (!loadModHeader(myMod, myModHeader))
-//	{
-//		myFailed.push_back("Error loading Mod!");
-//		openedMod = "<Not Set>";
-//	}
-//	else
-//	{
-//		for each (std::string var in myModHeader.dependencies)
-//		{
-//			std::string myReturn = loadMods(var);
-//			if (myReturn != "<Fine>")
-//				myFailed.push_back(myReturn);
-//		}
-//	}
-//	modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
-//	std::cout << "Mod loaded in this order\n";
-//	for each (auto it in modLoadOrder.loadOrder)
-//		std::cout << it.first << " - " << it.second << "\n";
-//	LoadAllEditorVariables();
-//	return myFailed;
-//}
+std::vector<Core::String> WorldManagerAddon::newMod(std::string modName, std::vector<std::string> dependencies, bool createMaster)
+{
+	std::vector<Core::String> errors;
+	myActualManager.modLoadOrder.loadOrder.clear();
+	if (createMaster)
+		modName.append(".main");
+	else
+		modName.append(".mod");
+
+	myActualManager.myModHeader.name = modName;
+	myActualManager.myModHeader.dependencies = dependencies;
+	for each (std::string var in myActualManager.myModHeader.dependencies)
+	{
+		Core::String val = loadMods(var);
+		if (val != "<Fine>")
+			errors.push_back(val);
+	}
+	AssetManagerCore::openedMod = modName;
+	myActualManager.modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(modName, myActualManager.modLoadOrder.loadOrder.size()));
+	//LoadAllEditorVariables();
+}
+std::vector<std::string> WorldManagerAddon::loadMod(std::string myMod)
+{
+	std::vector<std::string> myFailed;
+	AssetManagerCore::openedMod = myMod;
+	myActualManager.modLoadOrder.loadOrder.clear();
+	if (!AssetManagerCore::loadModHeader(myMod, myActualManager.myModHeader))
+	{
+		myFailed.push_back("Error loading Mod!");
+		AssetManagerCore::openedMod = "<Not Set>";
+	}
+	else
+	{
+		for each (std::string var in myActualManager.myModHeader.dependencies)
+		{
+			std::string myReturn = loadMods(var);
+			if (myReturn != "<Fine>")
+				myFailed.push_back(myReturn);
+		}
+	}
+	myActualManager.modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
+	//LoadAllEditorVariables();
+	return myFailed;
+}
 //void WorldManager::LoadAllEditorVariables()
 //{
 //	//LoadAllTextureMaps(Engine::ModelContainer);
@@ -225,26 +234,26 @@ size_t WorldManagerAddon::EditorGetValidID()
 //		return modHdr.dependencies;
 //	}
 //}
-//std::string WorldManager::loadMods(std::string myMod)
-//{
-//	ModHeader modHdr;
-//	if (!AssetManagerCore::loadModHeader(myMod, modHdr))
-//	{
-//		return "Failed to load dependency mod: " + myMod;
-//	}
-//	else
-//	{
-//		//std::cout << "checking: " + myMod + "dependencies" << std::endl;
-//		for each (std::string var in modHdr.dependencies)
-//		{
-//			loadMods(var);
-//		}
-//		if (modLoadOrder.loadOrder.find(myMod) == modLoadOrder.loadOrder.end())
-//		{
-//			//std::cout << "adding: " + myMod + "to the modLoadOrder" << std::endl;
-//			modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, modLoadOrder.loadOrder.size()));
-//		}
-//	}
-//	return "<Fine>";
-//}
+std::string WorldManagerAddon::loadMods(std::string myMod)
+{
+	ModHeader modHdr;
+	if (!AssetManagerCore::loadModHeader(myMod, modHdr))
+	{
+		return "Failed to load dependency mod: " + myMod;
+	}
+	else
+	{
+		//std::cout << "checking: " + myMod + "dependencies" << std::endl;
+		for each (std::string var in modHdr.dependencies)
+		{
+			loadMods(var);
+		}
+		if (myActualManager.modLoadOrder.loadOrder.find(myMod) == myActualManager.modLoadOrder.loadOrder.end())
+		{
+			//std::cout << "adding: " + myMod + "to the modLoadOrder" << std::endl;
+			myActualManager.modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
+		}
+	}
+	return "<Fine>";
+}
 #endif

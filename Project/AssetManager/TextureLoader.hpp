@@ -4,7 +4,7 @@
 
 #include "TextureRef.hpp"
 #include <SFML\Graphics\Texture.hpp>
-#include <string>
+#include <Core/String.hpp>
 #include <map>
 #ifndef _EDITOR_
 #include <future>
@@ -14,22 +14,22 @@
 class TextureLoader
 {
 	/*std::map<Settings::EngineSettings::TextureRes,*/
-	std::map<std::string, TextureRef>/*> */loadedTextureMap;
-	bool loadTexture(std::string name);
-	sf::Texture loadTexture_internal(std::string name);
+	std::map<Core::String, TextureRef>/*> */loadedTextureMap;
+	bool loadTexture(const Core::String& name);
+	sf::Texture loadTexture_internal(const Core::String& name);
 
 
 public:
 	// used by TextureRef
 #ifdef _EDITOR_
-	sf::Texture loadTextureAsync(std::string name);
+	sf::Texture loadTextureAsync(const Core::String& name);
 #else
-	std::shared_future<sf::Texture> loadTextureAsync(std::string name);
+	std::shared_future<sf::Texture> loadTextureAsync(Core::String& name);
 #endif
-	TextureRef* requestTexture(std::string name);
+	TextureRef* requestTexture(const Core::String& name);
 
 	//request removal of texture if its not in use
-	void requestRemovalOfTexture(std::string name);
+	void requestRemovalOfTexture(const Core::String& name);
 
 };
 

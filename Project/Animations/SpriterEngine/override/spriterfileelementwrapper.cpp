@@ -27,7 +27,7 @@ namespace SpriterEngine
 		return childAttributes.back();
 	}
 
-	SpriterFileAttributeWrapper * SpriterFileElementWrapper::getFirstAttribute(const std::string & attributeName)
+	SpriterFileAttributeWrapper * SpriterFileElementWrapper::getFirstAttribute(const Core::String & attributeName)
 	{
 		childAttributes.push_back(newAttributeWrapperFromFirstAttribute(attributeName));
 		return childAttributes.back();
@@ -39,7 +39,7 @@ namespace SpriterEngine
 		return childElements.back();
 	}
 
-	SpriterFileElementWrapper * SpriterFileElementWrapper::getFirstChildElement(const std::string & elementName)
+	SpriterFileElementWrapper * SpriterFileElementWrapper::getFirstChildElement(const Core::String & elementName)
 	{
 		childElements.push_back(newElementWrapperFromFirstElement(elementName));
 		return childElements.back();

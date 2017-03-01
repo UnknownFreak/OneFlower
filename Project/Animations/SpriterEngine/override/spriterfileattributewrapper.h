@@ -3,8 +3,6 @@
 
 #include "../global/global.h"
 
-#include <string>
-
 namespace SpriterEngine
 {
 	class SpriterFileAttributeWrapper
@@ -13,13 +11,13 @@ namespace SpriterEngine
 		SpriterFileAttributeWrapper();
 		virtual ~SpriterFileAttributeWrapper();
 
-		virtual std::string getName() = 0;
+		virtual Core::String getName() = 0;
 
 		virtual bool isValid() = 0;
 
 		virtual real getRealValue() = 0;
 		virtual s_int getIntValue() = 0;
-		virtual std::string getStringValue() = 0;
+		virtual Core::String getStringValue() = 0;
 
 		virtual void advanceToNextAttribute() = 0;
 	};

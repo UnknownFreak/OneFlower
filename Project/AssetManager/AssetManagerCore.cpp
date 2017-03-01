@@ -52,14 +52,14 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::TransformComponen
 
 AssetManagerCore::AssetMode AssetManagerCore::assetMode = AssetManagerCore::AssetMode::FINE;
 AssetManagerCore::Mode AssetManagerCore::state = AssetManagerCore::Mode::UNDEFINED;
-std::string AssetManagerCore::openedMod = "<Not Set>";
+Core::String AssetManagerCore::openedMod = "<Not Set>";
 
 AssetManagerCore::Mode AssetManagerCore::getMode()
 {
 	return state;
 }
 
-bool AssetManagerCore::loadModHeader(std::string modName, ModHeader & myheader)
+bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 {
 	bool eof = false;
 	DatabaseIndex ind;
@@ -109,13 +109,11 @@ void AssetManagerCore::saveModOrderFile(ModLoader & mod)
 	}
 }
 
-
-
-bool AssetManagerCore::loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID)
+bool AssetManagerCore::loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID)
 {
 	saveFile.append(".avfile");
 	GameObject trash;
-	std::ifstream file(saveFile, std::ios::binary);
+	std::ifstream file(saveFile.c_str(), std::ios::binary);
 	{
 		if (file.is_open())
 		{
@@ -144,11 +142,11 @@ bool AssetManagerCore::loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLo
 }
 void AssetManagerCore::loadZoneFromDB(DBZone & zoneToLoad, size_t zoneID)
 {
-	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	for each (std::pair<Core::String, size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
 		bool eof = false;
 		DatabaseIndex ind;
-		std::ifstream index("Data\\"+var.first + ".index", std::ios::binary);
+		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
 		std::ifstream database("Data\\" + var.first, std::ios::binary);
 		if (index.is_open())
 		{

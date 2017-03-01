@@ -7,7 +7,7 @@ namespace SpriterEngine
 	{
 	}
 
-	std::string StringVariableInfoReference::getStringValue()
+	Core::String StringVariableInfoReference::getStringValue()
 	{
 		if (value)
 		{
@@ -19,7 +19,7 @@ namespace SpriterEngine
 		}
 	}
 
-	void StringVariableInfoReference::setStringValue(std::string *newValue)
+	void StringVariableInfoReference::setStringValue(Core::String *newValue)
 	{
 		value = newValue;
 	}

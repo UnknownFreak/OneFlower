@@ -26,7 +26,7 @@
 
 namespace SpriterEngine
 {
-	void SpriterDocumentLoader::loadFile(SpriterModel *model, SpriterFileDocumentWrapper *documentWrapper, const std::string &fileName)
+	void SpriterDocumentLoader::loadFile(SpriterModel *model, SpriterFileDocumentWrapper *documentWrapper, const Core::String &fileName)
 	{
 		documentWrapper->loadFile(fileName);
 
@@ -45,9 +45,9 @@ namespace SpriterEngine
 		}
 	}
 
-	void SpriterDocumentLoader::getFolderFileStructureFromElement(SpriterFileElementWrapper *spriterDataElement, SpriterModel *model, std::string scmlFileName, FileFlattener *fileFlattener)
+	void SpriterDocumentLoader::getFolderFileStructureFromElement(SpriterFileElementWrapper *spriterDataElement, SpriterModel *model, Core::String scmlFileName, FileFlattener *fileFlattener)
 	{
-		std::string filePath = extractFilePath(scmlFileName);
+		Core::String filePath = extractFilePath(scmlFileName);
 		SpriterFileElementWrapper *folderElement = spriterDataElement->getFirstChildElement("folder");
 		while (folderElement->isValid())
 		{
@@ -58,7 +58,7 @@ namespace SpriterEngine
 				fileFlattener->appendFile();
 
 				SpriterFileAttributeWrapper *att = fileElement->getFirstAttribute("name");
-				std::string fileName;
+				Core::String fileName;
 				if (att->isValid())
 				{
 					fileName = att->getStringValue();
@@ -192,7 +192,7 @@ namespace SpriterEngine
 			SpriterFileAttributeWrapper *att = objInfoElement->getFirstAttribute("name");
 			if (att->isValid())
 			{
-				std::string objectName = att->getStringValue();
+				Core::String objectName = att->getStringValue();
 				att = objInfoElement->getFirstAttribute("type");
 
 				Object::ObjectType objectType = Object::OBJECTTYPE_SPRITE;
@@ -259,9 +259,9 @@ namespace SpriterEngine
 				SpriterFileAttributeWrapper *att = varDefElement->getFirstAttribute("name");
 				if (att->isValid())
 				{
-					std::string varName = att->getStringValue();
+					Core::String varName = att->getStringValue();
 
-					std::string varType = "";
+					Core::String varType = "";
 					att = varDefElement->getFirstAttribute("type");
 					if (att->isValid())
 					{
@@ -409,7 +409,7 @@ namespace SpriterEngine
 		SpriterFileAttributeWrapper *att = animationElement->getFirstAttribute("name");
 		if (att->isValid())
 		{
-			std::string animationName = att->getStringValue();
+			Core::String animationName = att->getStringValue();
 
 			att = animationElement->getFirstAttribute("length");
 			if (att->isValid())
@@ -740,7 +740,7 @@ namespace SpriterEngine
 				return tagInfo;
 			}
 
-			const std::string *tag = model->getTag(tagIdAtt->getIntValue());
+			const Core::String *tag = model->getTag(tagIdAtt->getIntValue());
 			if (!tag)
 			{
 				Settings::error("SpriterDocumentLoader::getObjectInfoFromTagKeyElement - tag id " + std::to_string(tagIdAtt->getIntValue()) + " not found in model");
@@ -756,7 +756,7 @@ namespace SpriterEngine
 
 	Object *SpriterDocumentLoader::getObjectFromTimelineElement(SpriterFileElementWrapper *timelineElement, Entity *entity)
 	{
-		std::string timelineName;
+		Core::String timelineName;
 		Object::ObjectType timelineType = Object::OBJECTTYPE_SPRITE;
 		SpriterFileAttributeWrapper *att = timelineElement->getFirstAttribute("name");
 		Object *object = 0;
@@ -1169,7 +1169,7 @@ namespace SpriterEngine
 		SpriterFileElementWrapper *eventlineElement = animationElement->getFirstChildElement("eventline");
 		while (eventlineElement->isValid())
 		{
-			std::string timelineName;
+			Core::String timelineName;
 			SpriterFileAttributeWrapper *att = eventlineElement->getFirstAttribute("name");
 
 			if (att->isValid())
@@ -1213,7 +1213,7 @@ namespace SpriterEngine
 		SpriterFileElementWrapper *soundlineElement = animationElement->getFirstChildElement("soundline");
 		while (soundlineElement->isValid())
 		{
-			std::string timelineName;
+			Core::String timelineName;
 			SpriterFileAttributeWrapper *att = soundlineElement->getFirstAttribute("name");
 			if (att->isValid())
 			{

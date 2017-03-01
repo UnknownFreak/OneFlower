@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,10 +76,14 @@
     <Compile Include="BorderLessForm.Designer.cs">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functionality\Events.cs" />
     <Compile Include="MainEditorWindow\EditorWindow.xaml.cs">
       <DependentUpon>EditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Message\Message.cs" />
+    <Compile Include="ModWindow\NewMod.xaml.cs">
+      <DependentUpon>NewMod.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ObjectView\ObjectTreeView.xaml.cs">
       <DependentUpon>ObjectTreeView.xaml</DependentUpon>
     </Compile>
@@ -86,9 +91,16 @@
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ZoneView\ZoneView.xaml.cs">
+      <DependentUpon>ZoneView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainEditorWindow\EditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModWindow\NewMod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -97,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SplashScreen\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ZoneView\ZoneView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,6 +127,7 @@
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

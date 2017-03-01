@@ -12,7 +12,7 @@
 
 namespace SpriterEngine
 {
-	Object::ObjectType objectTypeNameToType(std::string typeName)
+	Object::ObjectType objectTypeNameToType(Core::String typeName)
 	{
 		if (typeName == "sprite")
 		{
@@ -49,7 +49,7 @@ namespace SpriterEngine
 		}
 	}
 
-	CurveType curveTypeNameToType(std::string typeName)
+	CurveType curveTypeNameToType(Core::String typeName)
 	{
 		if (typeName == "instant")
 		{
@@ -117,7 +117,7 @@ namespace SpriterEngine
 		}
 	}
 
-	std::string extractFilePath(std::string fileName)
+	Core::String extractFilePath(Core::String fileName)
 	{
 		size_t lastSlash = fileName.find_last_of("\\/");
 		if (lastSlash != std::string::npos)

@@ -65,7 +65,7 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getObjectInstance(const std::string &objectName)
+	UniversalObjectInterface *EntityInstanceData::getObjectInstance(const Core::String &objectName)
 	{
 		auto it = objectNameMap.find(objectName);
 		if (it != objectNameMap.end())
@@ -139,12 +139,12 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getVariable(const std::string &variableName)
+	UniversalObjectInterface *EntityInstanceData::getVariable(const Core::String &variableName)
 	{
 		return getVariable("", variableName);
 	}
 
-	VariableInstanceNameAndIdMap *EntityInstanceData::getVariables(const std::string &objectName)
+	VariableInstanceNameAndIdMap *EntityInstanceData::getVariables(const Core::String &objectName)
 	{
 		auto it = variableObjectNameMap.find(objectName);
 		if (it != variableObjectNameMap.end())
@@ -158,7 +158,7 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getVariable(const std::string &objectName, const std::string &variableName)
+	UniversalObjectInterface *EntityInstanceData::getVariable(const Core::String &objectName, const Core::String &variableName)
 	{
 		VariableInstanceNameAndIdMap *variableMap = getVariables(objectName);
 		if (variableMap)
@@ -191,7 +191,7 @@ namespace SpriterEngine
 		}
 	}
 
-	bool EntityInstanceData::tagIsActive(s_int objectId, const std::string &tagToCheck) const
+	bool EntityInstanceData::tagIsActive(s_int objectId, const Core::String &tagToCheck) const
 	{
 		UniversalObjectInterface *tagList = getTags(objectId);
 		if (tagList)
@@ -205,12 +205,12 @@ namespace SpriterEngine
 		}
 	}
 
-	bool EntityInstanceData::tagIsActive(const std::string &tagToCheck) const
+	bool EntityInstanceData::tagIsActive(const Core::String &tagToCheck) const
 	{
 		return tagIsActive("", tagToCheck);
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getTags(const std::string &objectName) const
+	UniversalObjectInterface *EntityInstanceData::getTags(const Core::String &objectName) const
 	{
 		auto it = tagObjectNameMap.find(objectName);
 		if (it != tagObjectNameMap.end())
@@ -224,7 +224,7 @@ namespace SpriterEngine
 		}
 	}
 
-	bool EntityInstanceData::tagIsActive(const std::string &objectName, const std::string &tagToCheck) const
+	bool EntityInstanceData::tagIsActive(const Core::String &objectName, const Core::String &tagToCheck) const
 	{
 		UniversalObjectInterface *tagList = getTags(objectName);
 		if (tagList)
@@ -252,7 +252,7 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getTriggerObject(const std::string &triggerName)
+	UniversalObjectInterface *EntityInstanceData::getTriggerObject(const Core::String &triggerName)
 	{
 		auto it = triggerNameMap.find(triggerName);
 		if (it != triggerNameMap.end())
@@ -280,7 +280,7 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *EntityInstanceData::getSoundObject(const std::string &soundName)
+	UniversalObjectInterface *EntityInstanceData::getSoundObject(const Core::String &soundName)
 	{
 		auto it = soundNameMap.find(soundName);
 		if (it != soundNameMap.end())
@@ -306,7 +306,7 @@ namespace SpriterEngine
 		}
 	}
 
-	void EntityInstanceData::setCurrentAnimation(const std::string & animationName, AnimationInstance **currentAnimation)
+	void EntityInstanceData::setCurrentAnimation(const Core::String & animationName, AnimationInstance **currentAnimation)
 	{
 		auto it = animationNameMap.find(animationName);
 		if (it != animationNameMap.end())
@@ -319,13 +319,13 @@ namespace SpriterEngine
 		}
 	}
 
-	void EntityInstanceData::pushBackAnimationInstance(const std::string &name, AnimationInstance * newAnimationInstance)
+	void EntityInstanceData::pushBackAnimationInstance(const Core::String &name, AnimationInstance * newAnimationInstance)
 	{
 		animations.push_back(newAnimationInstance);
 		animationNameMap[name] = animations.back();
 	}
 
-	void EntityInstanceData::setObjectInstance(s_int id, const std::string &name, UniversalObjectInterface * newObjectInstance)
+	void EntityInstanceData::setObjectInstance(s_int id, const Core::String &name, UniversalObjectInterface * newObjectInstance)
 	{
 		if (objects.count(id)) {
 			//TODO: what to do here?
@@ -338,12 +338,12 @@ namespace SpriterEngine
 		objectNameMap[name] = (*objects.insert(std::make_pair(id, newObjectInstance)).first).second;
 	}
 
-	VariableInstanceNameAndIdMap *EntityInstanceData::getVariableInstanceMap(s_int objectId, const std::string &objectName)
+	VariableInstanceNameAndIdMap *EntityInstanceData::getVariableInstanceMap(s_int objectId, const Core::String &objectName)
 	{
 		return variableObjectNameMap[objectName] = &variables[objectId];
 	}
 
-	void EntityInstanceData::setTagInstance(s_int objectId, const std::string &objectName)
+	void EntityInstanceData::setTagInstance(s_int objectId, const Core::String &objectName)
 	{
 		if (tags.count(objectId)) {
 			Settings::error("EntityInstanceData::setTagInstance - tag with id \"" + std::to_string(objectId) + "\" already exists");
@@ -352,7 +352,7 @@ namespace SpriterEngine
 		tagObjectNameMap[objectName] = (*tags.insert(std::make_pair(objectId, new TagObjectInfoReference())).first).second;
 	}
 
-	void EntityInstanceData::setSoundInstance(s_int id, const std::string &name, FileReference * soundRef)
+	void EntityInstanceData::setSoundInstance(s_int id, const Core::String &name, FileReference * soundRef)
 	{
 		SoundFile *soundFile = soundRef->sound();
 		if (soundFile)
@@ -365,7 +365,7 @@ namespace SpriterEngine
 		}
 	}
 
-	void EntityInstanceData::setTriggerInstance(s_int id, const std::string &name, TriggerObjectInfo *newCustomTriggerObject)
+	void EntityInstanceData::setTriggerInstance(s_int id, const Core::String &name, TriggerObjectInfo *newCustomTriggerObject)
 	{
 		if (triggers.count(id)) {
 			Settings::error("EntityInstanceData::setTriggerInstance - sounds with id \"" + std::to_string(id) + "\" already exists");
@@ -392,7 +392,7 @@ namespace SpriterEngine
 		}
 	}
 
-	AnimationInstance * EntityInstanceData::getAnimation(const std::string &animationName)
+	AnimationInstance * EntityInstanceData::getAnimation(const Core::String &animationName)
 	{
 		auto it = animationNameMap.find(animationName);
 		if (it != animationNameMap.end())
@@ -427,7 +427,7 @@ namespace SpriterEngine
 		transformProcessor->setTrigFunctions();
 	}
 
-	std::string EntityInstanceData::getName()
+	Core::String EntityInstanceData::getName()
 	{
 		return entityName;
 	}

@@ -13,7 +13,7 @@
 
 namespace SpriterEngine
 {
-	Animation::Animation(std::string initialName, real initialAnimationLength, bool initialLooping) :
+	Animation::Animation(Core::String initialName, real initialAnimationLength, bool initialLooping) :
 		name(initialName),
 		animationLength(initialAnimationLength),
 		isLooping(initialLooping)
@@ -56,7 +56,7 @@ namespace SpriterEngine
 		}
 	}
 
-	std::string Animation::getName()
+	Core::String Animation::getName()
 	{
 		return name;
 	}

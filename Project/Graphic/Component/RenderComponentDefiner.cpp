@@ -3,7 +3,7 @@
 #include "../GraphicsCore.hpp"
 
 const unsigned int IBaseComponent<Component::RenderComponent>::typeID = 1002;
-std::string IBaseComponent<Component::RenderComponent>::componentName = "RenderComponent";
+Core::String IBaseComponent<Component::RenderComponent>::componentName = "RenderComponent";
 
 namespace Component
 {
@@ -22,11 +22,11 @@ namespace Component
 		//sprite.setOrigin(sprite.getScale().x / 2,sprite.getScale().y / 2);
 		sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
 	}
-	RenderComponent::RenderComponent(std::string texture) : textureName(texture), size(0, 0)
+	RenderComponent::RenderComponent(Core::String texture) : textureName(texture), size(0, 0)
 	{
 		setTexture(texture);
 	}
-	RenderComponent::RenderComponent(std::string texture, int x, int y) : textureName(texture), size(x, y)
+	RenderComponent::RenderComponent(Core::String texture, int x, int y) : textureName(texture), size(x, y)
 	{
 		TextureRef* tf = Engine::Textureloader.requestTexture(texture);
 		tf->useCount++;
@@ -42,7 +42,7 @@ namespace Component
 	{
 		sprite.setTexture(Engine::Textureloader.requestTexture(textureName), true);
 	}
-	void RenderComponent::setTexture(std::string texture)
+	void RenderComponent::setTexture(Core::String texture)
 	{
 		sprite.setTexture(Engine::Textureloader.requestTexture(texture), true);
 
@@ -51,7 +51,7 @@ namespace Component
 		size.x = sprite.getTexture()->getSize().x;
 		size.y = sprite.getTexture()->getSize().y;
 	}
-	void RenderComponent::setTexture(std::string texture, double x, double y, int width, int height)
+	void RenderComponent::setTexture(Core::String texture, double x, double y, int width, int height)
 	{
 		//fix this
 		sprite.setTexture(Engine::Textureloader.requestTexture(texture), false);
@@ -61,7 +61,7 @@ namespace Component
 		size.y = height;
 	}
 
-	void RenderComponent::setAnimation(std::string animationName)
+	void RenderComponent::setAnimation(Core::String animationName)
 	{
 		switch (animation)
 		{

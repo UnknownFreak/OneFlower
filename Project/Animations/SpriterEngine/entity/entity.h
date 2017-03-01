@@ -21,33 +21,33 @@ namespace SpriterEngine
 	class ObjectFactory;
 
 	typedef std::vector<Animation*> AnimationVector;
-	typedef std::map<std::string, Object> ObjectNameMap;
+	typedef std::map<Core::String, Object> ObjectNameMap;
 	typedef std::map<s_int, Object*> ObjectIdMap;
-	typedef std::map<std::string, CharacterMap> CharacterMapMap;
+	typedef std::map<Core::String, CharacterMap> CharacterMapMap;
 
 	class Entity : public VariableContainer, private CharacterMapInterface
 	{
 	public:
-		Entity(std::string initialName, s_int initialId, FileVector *initialFileVector);
+		Entity(Core::String initialName, s_int initialId, FileVector *initialFileVector);
 		~Entity();
 
 		int getId();
 
-		std::string getName();
+		Core::String getName();
 
 		EntityInstance *getNewEntityInstance(SpriterModel *model, ObjectFactory *objectFactory);
 		void setupInstance(SpriterModel *model, EntityInstance *entityInstance, EntityInstanceData *entityInstanceData, ObjectFactory *objectFactory);
 
-		Animation *pushBackAnimation(std::string animationName, real length, bool looping);
+		Animation *pushBackAnimation(Core::String animationName, real length, bool looping);
 
-		Object *setObject(std::string objectName, Object::ObjectType objectType);
+		Object *setObject(Core::String objectName, Object::ObjectType objectType);
 		Object *getObject(s_int objectId);
 
 		Variable *getVariable(s_int objectId, s_int variableId);
 
-		CharacterMap *addCharacterMap(std::string name);
+		CharacterMap *addCharacterMap(Core::String name);
 
-		void applyCharacterMap(std::string mapName, FileReferenceVector *mappedFiles) override;
+		void applyCharacterMap(Core::String mapName, FileReferenceVector *mappedFiles) override;
 		void removeAllCharacterMaps(FileReferenceVector *mappedFiles) override;
 
 		UniversalObjectInterface *getNewObjectInfoInstance(s_int objectId);
@@ -57,12 +57,12 @@ namespace SpriterEngine
 	private:
 		s_int entityId;
 
-		std::string name;
+		Core::String name;
 
-		Object *setSpatialObject(std::string objectName, Object::ObjectType objectType);
-		Object *setTriggerObject(std::string objectName);
-		Object *setSubEntityObject(std::string objectName);
-		Object *setSoundObject(std::string objectName);
+		Object *setSpatialObject(Core::String objectName, Object::ObjectType objectType);
+		Object *setTriggerObject(Core::String objectName);
+		Object *setSubEntityObject(Core::String objectName);
+		Object *setSoundObject(Core::String objectName);
 
 		void setupAnimationInstances(EntityInstance *entityInstance, EntityInstanceData *entityInstanceData);
 		void setupObjectInstance(Object * object, SpriterModel * model, EntityInstance * entityInstance, EntityInstanceData * entityInstanceData, ObjectFactory * objectFactory);

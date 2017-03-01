@@ -2,20 +2,20 @@
 #define	MODHEADER_HPP
 
 #include <vector>
-
+#include <Core\String.hpp>
 class ModHeader
 {
 public:
 
-	std::string name = "OneFlower.main";
-	std::vector<std::string> dependencies;
+	Core::String name = "OneFlower.main";
+	std::vector<Core::String> dependencies;
 
 	template <class Archive>
 	void save(Archive& ar) const
 	{
 		ar(name);
 		ar(dependencies.size());
-		for each (std::string var in dependencies)
+		for each (Core::String var in dependencies)
 		{
 			ar(var);
 		}

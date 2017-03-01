@@ -11,7 +11,7 @@ namespace SpriterEngine
 		resultObject->setTagList(&tagList);
 	}
 
-	void TagObjectInfo::pushBackTag(const std::string * tag)
+	void TagObjectInfo::pushBackTag(const Core::String * tag)
 	{
 		tagList.pushBackTag(tag);
 	}

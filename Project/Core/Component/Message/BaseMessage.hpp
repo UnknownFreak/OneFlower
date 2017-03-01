@@ -1,16 +1,17 @@
 #pragma once
-#include <string>
+#include <Core/String.hpp>
 #include <vector>
+class GameObject;
 class BaseMessage
 {
 public:
 	//BaseMessage();
 	//void add();
-	bool permission(std::string key);
-	void encode(std::string key);
+	bool permission(Core::String key);
+	void encode(Core::String key);
 	//std::string& process();
-	std::string msg;
+	Core::String msg;
 	double value;
 private:
-	std::vector<std::string> keys;
+	std::vector<Core::String> keys;
 };

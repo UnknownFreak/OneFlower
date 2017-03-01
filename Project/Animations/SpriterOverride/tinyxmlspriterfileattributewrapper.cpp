@@ -7,7 +7,7 @@ namespace SpriterEngine
 	{
 	}
 
-	std::string TinyXmlSpriterFileAttributeWrapper::getName()
+	Core::String TinyXmlSpriterFileAttributeWrapper::getName()
 	{
 		return attribute->Name();
 	}
@@ -27,7 +27,7 @@ namespace SpriterEngine
 		return attribute->IntValue();
 	}
 
-	std::string TinyXmlSpriterFileAttributeWrapper::getStringValue()
+	Core::String TinyXmlSpriterFileAttributeWrapper::getStringValue()
 	{
 		return attribute->Value();
 	}

@@ -2,7 +2,7 @@
 #include "SpriterOverride\SFMLObjectFactory.h"
 #include "SpriterOverride\SFMLFileFactory.h"
 
-SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string sceneFile, std::string entityName)
+SpriterEntityInstance SpriterModelContainer::requestEntityInstance(Core::String sceneFile, Core::String entityName)
 {
 	if (modelFiles.find(sceneFile) != modelFiles.end())
 	{
@@ -14,7 +14,7 @@ SpriterEntityInstance SpriterModelContainer::requestEntityInstance(std::string s
 	}
 	else
 	{
-		modelFiles.insert(std::pair<std::string, SpriterEngine::SpriterModel*>(
+		modelFiles.insert(std::pair<Core::String, SpriterEngine::SpriterModel*>(
 			sceneFile,
 			new SpriterEngine::SpriterModel(
 				sceneFile,
@@ -36,7 +36,7 @@ std::future<SpriterEntityInstance> SpriterModelContainer::requestEntityInstanceA
 }
 #endif
 
-SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sceneFile)
+SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(Core::String sceneFile)
 {
 	if (modelTextureMapper.find(sceneFile) != modelTextureMapper.end())
 	{
@@ -44,7 +44,7 @@ SpriterTextureMapper* SpriterModelContainer::requestTextureMapper(std::string sc
 	}
 	else
 	{
-		modelTextureMapper.insert(std::pair<std::string, SpriterTextureMapper*>(sceneFile, new SpriterTextureMapper(*render)));
+		modelTextureMapper.insert(std::pair<Core::String, SpriterTextureMapper*>(sceneFile, new SpriterTextureMapper(*render)));
 	}
 	return modelTextureMapper[sceneFile];
 }
@@ -60,22 +60,22 @@ void SpriterModelContainer::setRenderWindow(sf::RenderWindow & renderWindow)
 
 SpriterModelContainer::~SpriterModelContainer()
 {
-	for each (std::pair<std::string, SpriterEngine::SpriterModel*> var in modelFiles)
+	for each (std::pair<Core::String, SpriterEngine::SpriterModel*> var in modelFiles)
 	{
 		delete var.second;
 	}
 	modelFiles.clear();
-	for each (std::pair<std::string, SpriterTextureMapper*> var in modelTextureMapper)
+	for each (std::pair<Core::String, SpriterTextureMapper*> var in modelTextureMapper)
 	{
 		delete var.second;
 	}
 	modelTextureMapper.clear();
 }
-std::vector<std::string> SpriterModelContainer::getEntities(SpriterEngine::SpriterModel& model)
+std::vector<Core::String> SpriterModelContainer::getEntities(SpriterEngine::SpriterModel& model)
 {
 	return model.getEntityNames();
 }
-SpriterEngine::SpriterModel& SpriterModelContainer::getModel(std::string fileName)
+SpriterEngine::SpriterModel& SpriterModelContainer::getModel(Core::String fileName)
 {
 	if (modelFiles.find(fileName) != modelFiles.end())
 	{
@@ -83,7 +83,7 @@ SpriterEngine::SpriterModel& SpriterModelContainer::getModel(std::string fileNam
 	}
 	else
 	{
-		modelFiles.insert(std::pair<std::string, SpriterEngine::SpriterModel*>(
+		modelFiles.insert(std::pair<Core::String, SpriterEngine::SpriterModel*>(
 			fileName,
 			new SpriterEngine::SpriterModel(
 				fileName,
@@ -93,9 +93,9 @@ SpriterEngine::SpriterModel& SpriterModelContainer::getModel(std::string fileNam
 	return *modelFiles[fileName];
 }
 
-void SpriterModelContainer::removeModel(std::string modelName)
+void SpriterModelContainer::removeModel(Core::String modelName)
 {
-	std::map<std::string, SpriterEngine::SpriterModel*>::iterator it = modelFiles.find(modelName);
+	std::map<Core::String, SpriterEngine::SpriterModel*>::iterator it = modelFiles.find(modelName);
 	if (it != modelFiles.end())
 	{
 		delete it->second;
@@ -103,17 +103,17 @@ void SpriterModelContainer::removeModel(std::string modelName)
 	}
 	removeTextureMapper(modelName);
 }
-void SpriterModelContainer::removeTextureMapper(std::string modelName)
+void SpriterModelContainer::removeTextureMapper(Core::String modelName)
 {
 	//AddField with editorsavemode instead of remove, and flag it for delete (so that it can be undo)
-	std::map<std::string, SpriterTextureMapper*>::iterator it = modelTextureMapper.find(modelName);
+	std::map<Core::String, SpriterTextureMapper*>::iterator it = modelTextureMapper.find(modelName);
 	if (it != modelTextureMapper.end())
 	{
 		delete it->second;
 		modelTextureMapper.erase(it);
 	}
 }
-std::map<std::pair<std::string, std::string>, TextureMap> SpriterModelContainer::getTextureMaps(std::string modelName)
+std::map<std::pair<Core::String, Core::String>, TextureMap> SpriterModelContainer::getTextureMaps(Core::String modelName)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
 		return modelTextureMapper[modelName]->textureMaps;
@@ -121,39 +121,39 @@ std::map<std::pair<std::string, std::string>, TextureMap> SpriterModelContainer:
 		getModel(modelName);
 	return modelTextureMapper[modelName]->textureMaps;
 }
-std::map<std::string, TextureMapPoint> SpriterModelContainer::getTextureMapPoints(std::string modelName, std::string modOrigin, std::string textureMap)
+std::map<Core::String, TextureMapPoint> SpriterModelContainer::getTextureMapPoints(Core::String modelName, Core::String modOrigin, Core::String textureMap)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
 	{
 		if (modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMap }) != modelTextureMapper[modelName]->textureMaps.end())
 			return modelTextureMapper[modelName]->textureMaps[{ modOrigin, textureMap }].TexturePoints;
 	}
-	return std::map<std::string, TextureMapPoint>();
+	return std::map<Core::String, TextureMapPoint>();
 }
-void SpriterModelContainer::addTextureMap(std::string modelName, std::string modOrigin, std::string newTextureMap)
+void SpriterModelContainer::addTextureMap(Core::String modelName, Core::String modOrigin, Core::String newTextureMap)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
-		if (modelTextureMapper[modelName]->textureMaps.find(std::pair<std::string, std::string>(modOrigin, newTextureMap)) == modelTextureMapper[modelName]->textureMaps.end())
+		if (modelTextureMapper[modelName]->textureMaps.find(std::pair<Core::String, Core::String>(modOrigin, newTextureMap)) == modelTextureMapper[modelName]->textureMaps.end())
 		{
-			modelTextureMapper[modelName]->textureMaps.insert(std::pair<std::pair<std::string, std::string>, TextureMap>({ modOrigin, newTextureMap }, TextureMap(modelTextureMapper[modelName]->textureMaps[{ "DEFAULT", "Default" }])));
+			modelTextureMapper[modelName]->textureMaps.insert(std::pair<std::pair<Core::String, Core::String>, TextureMap>({ modOrigin, newTextureMap }, TextureMap(modelTextureMapper[modelName]->textureMaps[{ "DEFAULT", "Default" }])));
 			modelTextureMapper[modelName]->textureMaps[{ modOrigin, newTextureMap }].modName = modOrigin;
 		}
 }
-void SpriterModelContainer::removeTextureMap(std::string modelName, std::string modOrigin, std::string textureMapToRemove)
+void SpriterModelContainer::removeTextureMap(Core::String modelName, Core::String modOrigin, Core::String textureMapToRemove)
 {
 	if (modelTextureMapper.find(modelName) != modelTextureMapper.end())
 		if (modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMapToRemove }) != modelTextureMapper[modelName]->textureMaps.end())
 			modelTextureMapper[modelName]->textureMaps.find({ modOrigin, textureMapToRemove })->second.mode = ObjectSaveMode::REMOVE;
 }
 
-void SpriterModelContainer::setTextureMapPoint(std::string modelName, std::string modOrigin, std::string textureMap, std::string pointName, TextureMapPoint point)
+void SpriterModelContainer::setTextureMapPoint(Core::String modelName, Core::String modOrigin, Core::String textureMap, Core::String pointName, TextureMapPoint point)
 {
 	modelTextureMapper[modelName]->textureMaps.at({ modOrigin, textureMap }).TexturePoints[pointName] = point;
 	modelTextureMapper[modelName]->textureMaps.at({ modOrigin, textureMap }).mode = ObjectSaveMode::EDIT;
 }
-std::vector<std::string> SpriterModelContainer::getAnimationNames(std::string modelName, std::string entityName)
+std::vector<Core::String> SpriterModelContainer::getAnimationNames(Core::String modelName, Core::String entityName)
 {
-	std::vector<std::string> animations;
+	std::vector<Core::String> animations;
 
 	SpriterEntityInstance inst = requestEntityInstance(modelName, entityName);
 	int animationCount = inst.MyEntityInstance->animationCount();

@@ -17,8 +17,8 @@ public:
 	std::vector<GameObject*> list;
 	GameObject* mySelected;
 	//World pos;
-	Vector2 pos;
-	Vector2 offset;
+	Core::Vector2 pos;
+	Core::Vector2 offset;
 	void update();
 	int deltaScrolls = 0;
 	float scrollSpeed = 0.05f;
@@ -29,7 +29,7 @@ private:
 
 	bool resetDxDy = true;
 	bool moving = false;
-	Vector2 dxDy;
+	Core::Vector2 dxDy;
 
 	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnPress;
 	std::map<sf::Mouse::Button, std::vector<std::function<void(void)>>> bindsOnRelease;

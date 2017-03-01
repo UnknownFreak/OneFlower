@@ -1,6 +1,6 @@
 #ifndef ZONE_HPP
 #define ZONE_HPP
-#include <string>
+#include <Core/String.hpp>
 #include <vector>
 #include <Graphic\BackgroundSprite\BackgroundSprite.hpp>
 //#include "../../Game/LoadAndSave/Prefab.hpp"
@@ -16,34 +16,34 @@ public:
 	// Background image for the zone
 	BackgroundSprite background;
 	// Name of the zone
-	std::string name;
+	Core::String name;
 	// Unique id for each zone
 	size_t ID;
 
 	BackgroundSprite loadScreen;
-	std::string loadingScreenMessage = "";
+	Core::String loadingScreenMessage = "";
 
 
 public:
 
 	RespawnContainer rc;
 
-	std::string modOrigin;
+	Core::String modOrigin;
 
 	//std::vector<std::pair<size_t,Vector2>> prefabList;
 	// Vector containing tiles (backgrounds)
 	std::vector<BackgroundSprite> foregrounds;
 
 	// Vector containing pair <prefabid (name and id), object(gameobjects)>
-	std::vector<std::pair<std::pair<std::string, size_t>, GameObject*>> objects;
+	std::vector<std::pair<std::pair<Core::String, size_t>, GameObject*>> objects;
 	// Gets the background image
 	BackgroundSprite* getBackground();
 
 	BackgroundSprite* getLoadingScreen();
-	std::string& getLoadingScreenMessage();
+	Core::String& getLoadingScreenMessage();
 
 	// Gets the name of the zone
-	std::string getName();
+	Core::String getName();
 
 	// Add a foreground image
 	void addForeground(BackgroundSprite sprite);
@@ -54,7 +54,7 @@ public:
 	std::vector<BackgroundSprite> getForegrounds();
 
 	//constructor
-	Zone(std::string name, size_t ID, BackgroundSprite background, std::vector<BackgroundSprite>tiles, std::vector<GameObject*>objects);
+	Zone(Core::String name, size_t ID, BackgroundSprite background, std::vector<BackgroundSprite>tiles, std::vector<GameObject*>objects);
 	Zone();
 	Zone(DBZone& zone);
 	Zone(Zone &zone);
@@ -62,7 +62,7 @@ public:
 	Zone& operator=(const Zone &z);
 
 #ifdef _DEBUG
-	void setBackground(std::string name);
+	void setBackground(Core::String name);
 #endif
 
 public:
@@ -75,7 +75,7 @@ public:
 		ar(loadScreen);
 		ar(loadingScreenMessage);
 		ar(objects.size());
-		for (std::vector<std::pair<std::pair<std::string, size_t>, GameObject*>>::const_iterator i = objects.begin(); i != objects.end(); i++)
+		for (std::vector<std::pair<std::pair<Core::String, size_t>, GameObject*>>::const_iterator i = objects.begin(); i != objects.end(); i++)
 		{
 			ar(i->first.first);
 			ar(i->first.second);
@@ -98,13 +98,13 @@ public:
 		ar(size);
 		for (size_t i = 0; i < size; i++)
 		{
-			std::string name;
+			Core::String name;
 			size_t ID;
 			GameObject* obj = new GameObject();
 			ar(name);
 			ar(ID);
 			ar(*obj);
-			objects.push_back(std::pair<std::pair<std::string, size_t>, GameObject*>(std::pair<std::string, size_t>(name, ID), obj));
+			objects.push_back(std::pair<std::pair<Core::String, size_t>, GameObject*>(std::pair<Core::String, size_t>(name, ID), obj));
 		}
 		ar(modOrigin);
 	}

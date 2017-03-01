@@ -13,9 +13,9 @@ struct SpriterEntityInstance
 	SpriterEngine::EntityInstance* MyEntityInstance = NULL;
 	SpriterTextureMapper* textureMaps = NULL;
 
-	std::pair<std::string, std::string> myTextureMap;
-	std::string sceneFile;
-	std::string entityName;
+	std::pair<Core::String, std::string> myTextureMap;
+	Core::String sceneFile;
+	Core::String entityName;
 
 	void render(SpriteRef* sprite);
 

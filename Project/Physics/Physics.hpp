@@ -33,7 +33,7 @@ public:
 	void physics();
 
 	//Fix the collision or remake the flow so that sending gameobject is unnecceray
-	Physics::Collider collision(Component::TransformComponent* motion, Physics::BoundingBox box, Vector2 speed);
+	Physics::Collider collision(Component::TransformComponent* motion, Physics::BoundingBox box, Core::Vector2 speed);
 
 	const double Gravity = 2;
 

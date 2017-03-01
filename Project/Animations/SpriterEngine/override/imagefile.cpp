@@ -4,13 +4,13 @@
 
 namespace SpriterEngine
 {
-	ImageFile::ImageFile(std::string initialFilePath, point initialDefaultPivot) :
+	ImageFile::ImageFile(Core::String initialFilePath, point initialDefaultPivot) :
 		File(initialFilePath),
 		defaultPivot(initialDefaultPivot)
 	{
 	}
 
-	ImageFile::ImageFile(std::string initialFilePath, point initialDefaultPivot, point size) :
+	ImageFile::ImageFile(Core::String initialFilePath, point initialDefaultPivot, point size) :
 		File(initialFilePath),
 		defaultPivot(initialDefaultPivot),
 		size(size)

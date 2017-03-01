@@ -3,7 +3,7 @@
 #include "TextureLoader.hpp"
 #include "Mod\ModHeader.hpp"
 #include "Mod\ModLoader.hpp"
-
+#include <Core/String.hpp>
 class Zone;
 class DBZone;
 class AssetManagerCore
@@ -24,7 +24,7 @@ public:
 		INVALIDVERSION
 	};
 
-	static std::string openedMod;
+	static Core::String openedMod;
 
 private:
 	
@@ -37,19 +37,18 @@ private:
 	//ItemLoader
 	//QuestLoader
 	//
-	// DLL_LOADER? - with new save load, custom component can be defined in custom DLLS?, requires engine to be as DLL
 
 
 public:
 
 	static Mode getMode();
 
-	static bool loadModHeader(std::string modName, ModHeader& myheader);
+	static bool loadModHeader(Core::String modName, ModHeader& myheader);
 
 	static bool loadModOrderFile(ModLoader & mod);
 	static void saveModOrderFile(ModLoader & mod);
 
-	static bool loadZoneFromSaveFile(std::string saveFile, Zone& zoneToLoad, size_t zoneID);
+	static bool loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID);
 	static void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);
 
 

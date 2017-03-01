@@ -14,7 +14,7 @@ namespace SpriterEngine
 
 		void setObjectToLinear(UniversalObjectInterface *bObject, real t, UniversalObjectInterface *resultObject) override;
 
-		void pushBackTag(const std::string *tag);
+		void pushBackTag(const Core::String *tag);
 
 	private:
 		TagList tagList;

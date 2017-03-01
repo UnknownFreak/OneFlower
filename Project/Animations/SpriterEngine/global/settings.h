@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-#include <string>
+#include <Core/String.hpp>
 
 namespace SpriterEngine
 {
-	typedef void(*ErrorFunctionPointer)(const std::string &errorMessage);
+	typedef void(*ErrorFunctionPointer)(const Core::String &errorMessage);
 
 	class Settings
 	{
@@ -18,11 +18,11 @@ namespace SpriterEngine
 
 		static bool enableDebugBones;
 
-		static void simpleError(const std::string &errorMessage);
+		static void simpleError(const Core::String &errorMessage);
 
-		static void nullError(const std::string &errorMessage);
+		static void nullError(const Core::String &errorMessage);
 
-		static void error(const std::string &errorMessage);
+		static void error(const Core::String &errorMessage);
 
 		static void setErrorFunction(ErrorFunctionPointer errorFunction);
 

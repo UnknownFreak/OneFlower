@@ -1,7 +1,7 @@
 #ifndef LOADINGHELPERS_H
 #define LOADINGHELPERS_H
 
-#include <string>
+#include <Core/String.hpp>
 #include <map>
 
 #include "../entity/object.h"
@@ -53,13 +53,13 @@ namespace SpriterEngine
 		CURVETYPE_BEZIER
 	};
 
-	Object::ObjectType objectTypeNameToType(std::string typeName);
+	Object::ObjectType objectTypeNameToType(Core::String typeName);
 
-	CurveType curveTypeNameToType(std::string typeName);
+	CurveType curveTypeNameToType(Core::String typeName);
 
 	EasingCurveInterface *getNewEasingCurve(CurveType curveType, ControlPointArray *controlPoints);
 
-	std::string extractFilePath(std::string fileName);
+	Core::String extractFilePath(Core::String fileName);
 
 	class FileFlattener
 	{

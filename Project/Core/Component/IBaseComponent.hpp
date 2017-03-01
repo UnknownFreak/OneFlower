@@ -15,7 +15,7 @@ public:
 	{
 		return typeID;
 	}
-	std::string getTypeName()
+	Core::String getTypeName()
 	{
 		return componentName;
 	}
@@ -24,7 +24,7 @@ public:
 		return nullptr;
 	}
 
-	static std::string componentName;
+	static Core::String componentName;
 	static const unsigned int typeID;
 
 protected:

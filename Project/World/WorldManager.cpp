@@ -1,6 +1,6 @@
 #include "WorldManager.hpp"
 #include "Zone.hpp"
-#include <string>
+#include <Core/String.hpp>
 #include <Graphic\GraphicsCore.hpp>
 #include <Core/Component/GameObject.h>
 #include <Core/Component/TransformComponent.hpp>
@@ -22,14 +22,14 @@ WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), modLoadOrd
 	if (AssetManagerCore::loadModOrderFile(modLoadOrder) == false)
 	{
 		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
-		modLoadOrder.loadOrder.insert(std::pair<std::string, size_t>("OneFlower", 1));
+		modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>("OneFlower", 1));
 	}
 }
 // deconstructor
 WorldManager::~WorldManager()
 {
 	//remove loaded zones
-	for (std::map<std::pair<std::string, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
+	for (std::map<std::pair<Core::String, size_t>, Zone*>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
 	{	// if a zone have been unloaded/deleted already
 		for (size_t j = 0; j < it->second->objects.size(); j++)
 		{
@@ -42,15 +42,15 @@ WorldManager::~WorldManager()
 }
 
 // load zone with ID
-void WorldManager::loadZone(std::string addedFromMod, unsigned int zoneID)
+void WorldManager::loadZone(Core::String addedFromMod, unsigned int zoneID)
 {
-	if (worldmap.find(std::pair<std::string, size_t>(addedFromMod, zoneID)) != worldmap.end())
+	if (worldmap.find(std::pair<Core::String, size_t>(addedFromMod, zoneID)) != worldmap.end())
 	{
-		std::string info = "Zone structure with ID: [" + addedFromMod + ", " + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
+		Core::String info = "Zone structure with ID: [" + addedFromMod + ", " + std::to_string(zoneID) + "] is already loaded into memory.\nContinues to load zone...";
 		// load the Zone with the zone id
 		// loadZoneFromMap(zoneID);
 		//std::cout << info;
-		zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
+		zoneToLoadID = std::pair<Core::String, size_t>(addedFromMod, zoneID);
 		startLoad();
 	}
 	else
@@ -72,7 +72,7 @@ void WorldManager::loadZone(std::string addedFromMod, unsigned int zoneID)
 		{
 			if (zoneToLoad.prefabList.size() == zoneToAdd->objects.size() + zoneToAdd->rc.respawnTable.size())
 			{
-				worldmap.insert(std::pair<std::pair<std::string, size_t>, Zone*>(std::pair<std::string, size_t>(addedFromMod, zoneID), zoneToAdd));
+				worldmap.insert(std::pair<std::pair<Core::String, size_t>, Zone*>(std::pair<Core::String, size_t>(addedFromMod, zoneID), zoneToAdd));
 			}
 			else
 			{
@@ -82,8 +82,8 @@ void WorldManager::loadZone(std::string addedFromMod, unsigned int zoneID)
 		else
 		{
 			delete zoneToAdd;
-			worldmap.insert(std::pair<std::pair<std::string, size_t>, Zone*>(std::pair<std::string, size_t>(addedFromMod, zoneID), new Zone(zoneToLoad)));
-			zoneToLoadID = std::pair<std::string, size_t>(addedFromMod, zoneID);
+			worldmap.insert(std::pair<std::pair<Core::String, size_t>, Zone*>(std::pair<Core::String, size_t>(addedFromMod, zoneID), new Zone(zoneToLoad)));
+			zoneToLoadID = std::pair<Core::String, size_t>(addedFromMod, zoneID);
 			startLoad();
 		}
 #endif
@@ -217,8 +217,8 @@ void WorldManager::loadSome()
 					GameObject* go = toLoad.createFromPrefab();
 					go->GetComponent<Component::TransformComponent>()->position = prefabID.position;
 
-					worldmap[zoneToLoadID]->objects.push_back(std::pair<std::pair<std::string, size_t>, GameObject*>(currentObjIterator->first, go));
-					listOfZoneObjects.insert(std::pair<std::pair<std::string, size_t>, GameObject*>(currentObjIterator->first, go));
+					worldmap[zoneToLoadID]->objects.push_back(std::pair<std::pair<Core::String, size_t>, GameObject*>(currentObjIterator->first, go));
+					listOfZoneObjects.insert(std::pair<std::pair<Core::String, size_t>, GameObject*>(currentObjIterator->first, go));
 					//Engine::game.addGameObject(go);
 				}
 			}

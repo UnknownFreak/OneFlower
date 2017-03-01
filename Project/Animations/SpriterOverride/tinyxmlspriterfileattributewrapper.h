@@ -12,13 +12,13 @@ namespace SpriterEngine
 	public:
 		TinyXmlSpriterFileAttributeWrapper(const tinyxml2::XMLAttribute *initialAttribute);
 
-		std::string getName() override;
+		Core::String getName() override;
 
 		bool isValid() override;
 
 		real getRealValue() override;
 		s_int getIntValue() override;
-		std::string getStringValue() override;
+		Core::String getStringValue() override;
 
 		void advanceToNextAttribute() override;
 

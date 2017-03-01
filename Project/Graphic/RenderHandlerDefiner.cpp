@@ -285,7 +285,7 @@ void Gfx::removeFromForegroundList(BackgroundSprite& fgToRemove)
 		}
 	}
 }
-void Gfx::DrawLoadingScreen(BackgroundSprite& loadingScreen, std::string& message)
+void Gfx::DrawLoadingScreen(BackgroundSprite& loadingScreen, Core::String& message)
 {
 	float centerX = view.camera.getCenter().x;
 	float centerY = view.camera.getCenter().y;

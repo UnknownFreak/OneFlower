@@ -12,11 +12,11 @@ namespace SpriterEngine
 	public:
 		TinyXmlSpriterFileDocumentWrapper();
 
-		void loadFile(std::string fileName) override;
+		void loadFile(Core::String fileName) override;
 
 	private:
 		SpriterFileElementWrapper *newElementWrapperFromFirstElement() override;
-		SpriterFileElementWrapper *newElementWrapperFromFirstElement(const std::string & elementName) override;
+		SpriterFileElementWrapper *newElementWrapperFromFirstElement(const Core::String & elementName) override;
 
 		tinyxml2::XMLDocument doc;
 	};

@@ -22,7 +22,7 @@ namespace SpriterEngine
 		return childElements.back();
 	}
 
-	SpriterFileElementWrapper * SpriterFileDocumentWrapper::getFirstChildElement(std::string elementName)
+	SpriterFileElementWrapper * SpriterFileDocumentWrapper::getFirstChildElement(Core::String elementName)
 	{
 		childElements.push_back(newElementWrapperFromFirstElement(elementName));
 		return childElements.back();

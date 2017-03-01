@@ -14,17 +14,17 @@ namespace SpriterEngine
 	{
 	}
 
-	ImageFile * SFMLFileFactory::newImageFile(const std::string &initialFilePath, point initialDefaultPivot)
+	ImageFile * SFMLFileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot)
 	{
 		return new SfmlImageFile(initialFilePath, initialDefaultPivot, point(0, 0), textureMapper);
 	}
 
-	ImageFile * SFMLFileFactory::newImageFile(const std::string &initialFilePath, point initialDefaultPivot, point size)
+	ImageFile * SFMLFileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size)
 	{
 		return new SfmlImageFile(initialFilePath, initialDefaultPivot, size, textureMapper);
 	}
 
-	SoundFile * SFMLFileFactory::newSoundFile(const std::string & initialFilePath)
+	SoundFile * SFMLFileFactory::newSoundFile(const Core::String & initialFilePath)
 	{
 		return new SfmlSoundFile(initialFilePath);
 	}

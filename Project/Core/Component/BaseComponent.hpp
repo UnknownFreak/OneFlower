@@ -33,7 +33,7 @@ protected:
 	virtual const unsigned int getType() = 0;// = 0;
 
 	//Return the type name
-	virtual	std::string getTypeName() = 0;
+	virtual	Core::String getTypeName() = 0;
 
 	//HIGH: remove?
 	virtual void update();

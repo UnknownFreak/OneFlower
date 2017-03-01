@@ -21,7 +21,7 @@ namespace Physics
 		};
 		GameObject* contact = NULL;
 		//Hit::Edge
-		Vector2	direction;
+		Core::Vector2 direction;
 		//Hit::None;
 		double newton = 0;
 		double timeEnter = 1;

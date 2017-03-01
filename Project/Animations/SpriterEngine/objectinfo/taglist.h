@@ -2,20 +2,20 @@
 #define TAGLIST_H
 
 #include <vector>
-#include <string>
+#include <Core/String.hpp>
 
 namespace SpriterEngine
 {
-	typedef std::vector<const std::string*> StringRefVector;
+	typedef std::vector<const Core::String*> StringRefVector;
 
 	class TagList
 	{
 	public:
 		TagList();
 
-		bool tagIsActive(std::string tag) const;
+		bool tagIsActive(Core::String tag) const;
 
-		void pushBackTag(const std::string *tag);
+		void pushBackTag(const Core::String *tag);
 
 	private:
 		StringRefVector tags;

@@ -2,7 +2,7 @@
 #define EngineSettings_HPP
 
 #include <SFML\Window\VideoMode.hpp>
-#include <string>
+#include <Core/String.hpp>
 namespace Settings
 {
 
@@ -36,7 +36,7 @@ namespace Settings
 #pragma endregion
 #pragma region System
 
-		std::string Language;
+		Core::String Language;
 		// PrimaryDisplay
 
 #pragma endregion 

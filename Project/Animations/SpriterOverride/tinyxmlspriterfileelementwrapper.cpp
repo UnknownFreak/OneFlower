@@ -9,7 +9,7 @@ namespace SpriterEngine
 	{
 	}
 
-	std::string TinyXmlSpriterFileElementWrapper::getName()
+	Core::String TinyXmlSpriterFileElementWrapper::getName()
 	{
 		return element->Value();
 	}
@@ -34,7 +34,7 @@ namespace SpriterEngine
 		return new TinyXmlSpriterFileAttributeWrapper(element->FirstAttribute());
 	}
 
-	SpriterFileAttributeWrapper * TinyXmlSpriterFileElementWrapper::newAttributeWrapperFromFirstAttribute(const std::string & attributeName)
+	SpriterFileAttributeWrapper * TinyXmlSpriterFileElementWrapper::newAttributeWrapperFromFirstAttribute(const Core::String & attributeName)
 	{
 		return new TinyXmlSpriterFileAttributeWrapper(findAttributeInElement(attributeName));
 	}
@@ -44,7 +44,7 @@ namespace SpriterEngine
 		return new TinyXmlSpriterFileElementWrapper(element->FirstChildElement());
 	}
 
-	SpriterFileElementWrapper * TinyXmlSpriterFileElementWrapper::newElementWrapperFromFirstElement(const std::string & elementName)
+	SpriterFileElementWrapper * TinyXmlSpriterFileElementWrapper::newElementWrapperFromFirstElement(const Core::String & elementName)
 	{
 		return new TinyXmlSpriterFileElementWrapper(element->FirstChildElement(elementName.c_str()));
 	}
@@ -59,7 +59,7 @@ namespace SpriterEngine
 		return new TinyXmlSpriterFileElementWrapper(element);
 	}
 
-	const tinyxml2::XMLAttribute * TinyXmlSpriterFileElementWrapper::findAttributeInElement(const std::string & name)
+	const tinyxml2::XMLAttribute * TinyXmlSpriterFileElementWrapper::findAttributeInElement(const Core::String & name)
 	{
 		const tinyxml2::XMLAttribute *attribute = element->FirstAttribute();
 

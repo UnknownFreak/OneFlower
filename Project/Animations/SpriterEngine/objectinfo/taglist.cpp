@@ -6,7 +6,7 @@ namespace SpriterEngine
 	{
 	}
 
-	bool TagList::tagIsActive(std::string tag) const
+	bool TagList::tagIsActive(Core::String tag) const
 	{
 		for (auto& it : tags)
 		{
@@ -18,7 +18,7 @@ namespace SpriterEngine
 		return false;
 	}
 
-	void TagList::pushBackTag(const std::string * tag)
+	void TagList::pushBackTag(const Core::String * tag)
 	{
 		tags.push_back(tag);
 	}

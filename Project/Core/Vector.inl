@@ -65,7 +65,7 @@ bool Vector2t<T>::normalize()
 	//LOW: Fix this someday and be sure to check some math site this time to. 15/02/13
 }
 
-#include <ostream>
+//#include <ostream>
 template<typename T>
 std::ostream & operator<< (std::ostream &out, Vector2t<T> const &t)
 {

@@ -2,6 +2,7 @@
 #define SPRITERMODELCONTAINER_HPP
 
 #include <map>
+#include <Core\String.hpp>
 #include "SpriterEngine\spriterengine.h"
 #include "SpriterTextureMapper.hpp"
 #include "SpriterEntityInstance.hpp"
@@ -17,30 +18,30 @@ public:
 
 	SpriterModelContainer();
 	~SpriterModelContainer();
-	SpriterEntityInstance requestEntityInstance(std::string SpriterSceneFile, std::string SptiterEntityName);
+	SpriterEntityInstance requestEntityInstance(Core::String SpriterSceneFile, Core::String SptiterEntityName);
 #ifdef _EDITOR_
 
 #else
 	std::future<SpriterEntityInstance> requestEntityInstanceAsync(std::string SpriterSceneFile, std::string SptiterEntityName);
 #endif
-	SpriterTextureMapper* requestTextureMapper(std::string textureMapper);
-	std::map<std::string, SpriterEngine::SpriterModel*> modelFiles;
-	std::map<std::string, SpriterTextureMapper*> modelTextureMapper;
+	SpriterTextureMapper* requestTextureMapper(Core::String textureMapper);
+	std::map<Core::String, SpriterEngine::SpriterModel*> modelFiles;
+	std::map<Core::String, SpriterTextureMapper*> modelTextureMapper;
 
-	SpriterEngine::SpriterModel& getModel(std::string modelName);
-	std::vector<std::string> getEntities(SpriterEngine::SpriterModel& model);
-	std::map<std::pair<std::string, std::string>, TextureMap> getTextureMaps(std::string modelFiles);
+	SpriterEngine::SpriterModel& getModel(Core::String modelName);
+	std::vector<Core::String> getEntities(SpriterEngine::SpriterModel& model);
+	std::map<std::pair<Core::String, Core::String>, TextureMap> getTextureMaps(Core::String modelFiles);
 
-	std::map<std::string, TextureMapPoint> getTextureMapPoints(std::string modelname, std::string modOrigin, std::string textureMap);
-	void addTextureMap(std::string modelName, std::string modOrigin, std::string newTextureMap);
-	void removeTextureMap(std::string modelName, std::string modOrigin, std::string textureMapToRemove);
+	std::map<Core::String, TextureMapPoint> getTextureMapPoints(Core::String modelname, Core::String modOrigin, Core::String textureMap);
+	void addTextureMap(Core::String modelName, Core::String modOrigin, Core::String newTextureMap);
+	void removeTextureMap(Core::String modelName, Core::String modOrigin, Core::String textureMapToRemove);
 
-	void setTextureMapPoint(std::string modelName, std::string modOrigin, std::string textureMap, std::string pointName, TextureMapPoint point);
+	void setTextureMapPoint(Core::String modelName, Core::String modOrigin, Core::String textureMap, Core::String pointName, TextureMapPoint point);
 
-	void removeModel(std::string modelName);
-	void removeTextureMapper(std::string modelName);
+	void removeModel(Core::String modelName);
+	void removeTextureMapper(Core::String modelName);
 
-	std::vector<std::string> getAnimationNames(std::string modelName, std::string entityName);
+	std::vector<Core::String> getAnimationNames(Core::String modelName, Core::String entityName);
 private:
 	sf::RenderWindow* render;
 	template<class Archive>

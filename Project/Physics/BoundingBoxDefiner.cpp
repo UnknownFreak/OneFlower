@@ -3,7 +3,7 @@
 Physics::BoundingBox::BoundingBox(float x, float y, int w, int h) : position(x, y), size(w, h)
 {
 }
-Physics::BoundingBox::BoundingBox(Vector2 pos, Vector2i siz) : position(pos), size(siz)
+Physics::BoundingBox::BoundingBox(Core::Vector2 pos, Core::Vector2i siz) : position(pos), size(siz)
 {}
 
 bool Physics::BoundingBox::intersect(Physics::BoundingBox other)

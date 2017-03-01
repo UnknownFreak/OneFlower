@@ -1,7 +1,7 @@
 #ifndef GameObject_H
 #define GameObject_H
 #include <map>
-#include <string>
+#include <Core/String.hpp>
 #include "BaseComponent.hpp" //Remove this and use class basecomponent; 2014-04-17
 //#include "../../Physics/Collider.hpp"
 //#include "../../../Game/BaseMessage.hpp" // <- included via BaseComponent
@@ -18,10 +18,10 @@ public:
 	GameObject();
 	GameObject(const GameObject & go);
 	//GameObject(GameObject & go);
-	GameObject(std::string _name);
+	GameObject(Core::String _name);
 	~GameObject();
-	std::string name = "New GameObject";
-	std::string tag = "";
+	Core::String name = "New GameObject";
+	Core::String tag = "";
 	unsigned int id;
 
 	//HIGH: Make this return the adress pointer towards the newly created component

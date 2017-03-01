@@ -6,9 +6,8 @@
 #include "MainEditorWindow.hpp"
 namespace Editor
 {
-
 	extern WorldManagerAddon addons;
-
+	//extern ItemManagerAddon;  
 }
 
 #endif

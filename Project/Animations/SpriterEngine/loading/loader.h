@@ -1,7 +1,7 @@
 #ifndef LOADER_H
 #define LOADER_H
 
-#include <string>
+#include <Core/String.hpp>
 
 #include "spriterdocumentloader.h"
 
@@ -17,7 +17,7 @@ namespace SpriterEngine
 		Loader(FileFactory *newFileFactory);
 		~Loader();
 
-		void loadFile(SpriterModel *model, const std::string &fileName);
+		void loadFile(SpriterModel *model, const Core::String &fileName);
 
 	private:
 		enum SpriterFileType
@@ -29,7 +29,7 @@ namespace SpriterEngine
 
 		FileFactory *fileFactory;
 
-		SpriterFileType extractFileTypeFromFileName(const std::string &fileName);
+		SpriterFileType extractFileTypeFromFileName(const Core::String &fileName);
 	};
 }
 

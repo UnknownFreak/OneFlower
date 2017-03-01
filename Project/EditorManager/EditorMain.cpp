@@ -19,7 +19,9 @@
 #include <EditorManager\EditorCore.hpp>
 
 #include <SFML\System\Thread.hpp>
-
+#include <SFML\System\String.hpp>
+#include <SFML\Graphics\Text.hpp>
+#include <SFML\Graphics\Font.hpp>
 //#include "Engine\Core\Components.hpp"
 //#include "Engine\Logic\Time\Time.hpp"
 //#include "Game\World\WorldManagement.hpp"
@@ -42,6 +44,7 @@ void update();
 void mainMenuUpdate();
 void renderThread();
 
+Core::StringConverter Core::Converter;
 Settings::EngineSettings Engine::Settings;
 Gfx Engine::Graphic;
 TextureLoader Engine::Textureloader;
@@ -52,6 +55,7 @@ PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
+
 // temp test stuff
 //int a = 24;
 //int b = 42;
@@ -61,9 +65,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 {
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
-	return 0;
+	//return 0;
+	exit(0);
 }
-
 int windowMessage()
 {
 	SplashScreen^ splash = gcnew SplashScreen();
@@ -167,6 +171,10 @@ int windowMessage()
 		//}
 	}
 	thread.terminate();
+	thread.wait();
+	Core::Converter.free();
+	delete splash;
+	delete window;
 	delete go;
 	return 1;
 }

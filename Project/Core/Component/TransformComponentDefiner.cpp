@@ -1,7 +1,7 @@
 #include "TransformComponent.hpp"
 //#include <SFML\Graphics.hpp>
 const unsigned int IBaseComponent<Component::TransformComponent>::typeID = 1001;
-std::string IBaseComponent<Component::TransformComponent>::componentName = "TransformComponent";
+Core::String IBaseComponent<Component::TransformComponent>::componentName = "TransformComponent";
 
 namespace Component
 {
