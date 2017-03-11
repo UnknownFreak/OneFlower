@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media;
 
 namespace EditorResources.Message
@@ -14,23 +11,40 @@ namespace EditorResources.Message
             get { return m_type; }
             set {
                 m_type = value;
-                if (value == MsgType.Info)
-                    brush = Brushes.Gray;
-                else if (value == MsgType.Warning)
+                switch (m_type)
                 {
-                    brush = Brushes.Goldenrod;
+                    case MsgType.Info:
+                        brush = Brushes.Gray;
+                        break;
+                    case MsgType.Debug:
+                        brush = Brushes.Khaki;
+                        break;
+                    case MsgType.Fine:
+                        brush = Brushes.DarkGreen;
+                        break;
+                    case MsgType.Warning:
+                       brush = Brushes.Goldenrod;
+                        break;
+                    case MsgType.Error:
+                        brush = Brushes.Tomato;
+                        break;
+                    case MsgType.Severe:
+                        brush = Brushes.DarkRed;
+                        break;
                 }
-                else
-                    brush = Brushes.DarkRed;
             }
         }
         public Brush brush {get; set;}
 
         public enum MsgType
         {
+            None,
+            Debug,
             Info,
+            Fine,
             Warning,
-            Error
+            Error,
+            Severe
         }
     }
 }

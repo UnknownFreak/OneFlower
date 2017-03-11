@@ -13,7 +13,9 @@ class GameObject;
 class SpriterModelContainer
 {
 public:
-
+#ifdef _EDITOR_
+	friend class WorldManagerAddon;
+#endif 
 	void setRenderWindow(sf::RenderWindow& renderWindow);
 
 	SpriterModelContainer();
@@ -42,12 +44,36 @@ public:
 	void removeTextureMapper(Core::String modelName);
 
 	std::vector<Core::String> getAnimationNames(Core::String modelName, Core::String entityName);
+
+	template<class Archive>
+	void load(Archive&ar)
+	{
+		size_t size;
+		ar(size);
+		for (size_t i = 0; i < size; i++)
+		{
+			std::string a;
+			ar(a);
+			SpriterTextureMapper* stm = new SpriterTextureMapper(*render);
+			ar(*stm);
+			modelTextureMapper.insert(std::pair<std::string, SpriterTextureMapper*>(a, stm));
+		}
+	}
+	template<class Archive>
+	void save(Archive&ar) const
+	{
+		ar(modelTextureMapper.size());
+		for each (auto var in modelTextureMapper)
+		{
+			ar(var.first);
+			ar(*var.second);
+		}
+	}
+
 private:
+	void clearLists();
 	sf::RenderWindow* render;
-	template<class Archive>
-	friend void load(Archive&ar, SpriterModelContainer &SMC);
-	template<class Archive>
-	friend void save(Archive&ar, const SpriterModelContainer &SMC);
+
 };
 
 #endif

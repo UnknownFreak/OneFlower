@@ -23,11 +23,12 @@ namespace EditorResources.ZoneView
         public ZoneView()
         {
             InitializeComponent();
-            Functionality.EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
+            EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
         }
 
         private void ZoneViewOnModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
         {
+            ZoneSelector.Items.Clear();
             foreach(var t in e.zoneFiles)
             {
                 ZoneSelector.Items.Add(new ZoneItem(t.Item1, t.Item2, t.Item3));

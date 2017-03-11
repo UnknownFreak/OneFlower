@@ -122,7 +122,7 @@ public:
 				DBZonePrefabStruct dbzps = i->second;
 				if (fromMod == AssetManagerCore::openedMod || AssetManagerCore::openedMod == i->second.fromMod)
 				{
-					dbzps.mode = EditorObjectSaveMode::DEFAULT;
+					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;
 					dbzps.oldPosition.y = dbzps.position.y;
 				}
@@ -133,7 +133,7 @@ public:
 				DBZonePrefabStruct dbzps = i->second;
 				if (fromMod == AssetManagerCore::openedMod)
 				{
-					dbzps.mode = EditorObjectSaveMode::DEFAULT;
+					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;
 					dbzps.oldPosition.y = dbzps.position.y;
 				}

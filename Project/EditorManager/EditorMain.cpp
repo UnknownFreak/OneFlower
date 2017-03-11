@@ -1,3 +1,4 @@
+
 #ifdef _EDITOR_
 
 #include <Windows.h>
@@ -55,6 +56,7 @@ PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
+WorldManagerAddon Editor::addons;
 
 // temp test stuff
 //int a = 24;
@@ -82,7 +84,7 @@ int windowMessage()
 	//testLoad();
 	//Engine::World.loadMod("Oneflower.main.test");
 	//Engine::World.loadZone("Demo.main", 1);
-	//Engine::World.loadZone("Tutorial", 0);
+	//Engine::World.loadZone("<__CORE__>", 1);
 
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();

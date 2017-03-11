@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using EditorResources.Functionality;
 
 namespace EditorResources.MainEditorWindow
 {
@@ -16,10 +17,23 @@ namespace EditorResources.MainEditorWindow
         {
             InitializeComponent();
             createEditorWindow();
-            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Info, message = "TEST" });
-            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Warning, message = "TEST" });
-            messageView.Items.Add(new Message.Message { type = Message.Message.MsgType.Error, message = "TEST" });
+            EditorEvents.onLogEvent += LogViewAddEvent;
+            EditorEvents.onModFinishedLoading += onModFinishedLoading;
         }
+
+        private void onModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
+        {
+            foreach (Message.Message msg in e.errorsAndWarnings)
+            {
+                messageView.Items.Add(msg);
+            }
+        }
+
+        private void LogViewAddEvent(object sender, EditorLogEventArgs e)
+        {
+            messageView.Items.Add(e.logMessage);
+        }
+
         void createEditorWindow()
         {
             formhost.Child = new BorderLessForm();
@@ -82,8 +96,7 @@ namespace EditorResources.MainEditorWindow
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".mod";
-            dlg.Filter = "Mod files (.mod)|*.mod|Master file (.main)|*.main";
+            dlg.Filter = "All Data Files |*.mod;*.main|Mod files |*.mod|Master file |*.main";
             // Show open file dialog box
             bool? result = dlg.ShowDialog();
 

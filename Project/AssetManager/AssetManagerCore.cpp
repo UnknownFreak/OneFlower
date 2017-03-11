@@ -21,6 +21,13 @@
 #include <World\WorldCore.hpp>
 #include <World\Zone.hpp>
 
+#include <Animations\TextureMap.hpp>
+#include <Animations\SpriterEntityInstance.hpp>
+#include <Animations\SpriterModelContainer.hpp>
+#include <Animations\SpriteSheetAnimation.hpp>
+#include <Animations\SpriterTextureMapper.hpp>
+
+
 CEREAL_REGISTER_TYPE(BaseComponent);
 
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::DialogComponent>)
@@ -59,46 +66,151 @@ AssetManagerCore::Mode AssetManagerCore::getMode()
 	return state;
 }
 
-bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
+
+void AssetManagerCore::saveGameDatabase(
+	std::string filename,
+	ModHeader& modhdr,
+	PrefabContainer& prefabs,
+	std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones)
+	//,
+	//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
+	//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 {
-	bool eof = false;
-	DatabaseIndex ind;
-	std::ifstream index(modName + ".index", std::ios::binary);
-	std::ifstream database(modName, std::ios::binary);
-	if (index.is_open())
+	std::ofstream file(filename, std::ios::binary);
+	filename.append(".index");
+	std::ofstream index(filename, std::ios::binary);
 	{
-		cereal::BinaryInputArchive ar(index);
+		DatabaseIndex ind;
+		cereal::BinaryOutputArchive mainAr(file);
+		cereal::BinaryOutputArchive indexAr(index);
+		ind.flags = "-";
+		ind.ID = 0;
+		ind.type = "Header";
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(modhdr);
+
+		ind.flags = "-";
+		ind.ID = 0;
+		ind.type = "ModelContainer";
+		ind.modFile = "NULL";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(Engine::ModelContainer);
+
+		
+		saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
+		savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
+		
+		//for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
+		//{
+		//	ind.flags = "-";
+		//	ind.ID = it->first.second;
+		//	ind.type = "Item";
+		//	ind.modFile = it->second->fromMod;
+		//	ind.row = file.tellp();
+		//	if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
+		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+		//	else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
+		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+		//	indexAr(ind);
+		//	saveItem(mainAr, it->second);
+		//}
+		//for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
+		//{
+		//	ind.flags = "-";
+		//	ind.ID = it->first.second;
+		//	ind.type = "Quest";
+		//	ind.modFile = it->second.fromMod;
+		//	ind.row = file.tellp();
+		//	if (it->second.mode != EditorObjectSaveMode::REMOVE)
+		//	{
+		//		bool b = true;
+		//		if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+		//		{
+		//			b = false;
+		//		}
+		//		else if (it->second.mode > EditorObjectSaveMode::ADD)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		if (b)
+		//		{
+		//			indexAr(ind);
+		//			mainAr(it->second);
+		//		}
+		//	}
+		//}
+		ind.ID = 0xFFFFFFFF;
+		ind.type = "EoF";
+		ind.row = file.tellp();
+		ind.flags = "EoF";
+		indexAr(ind);
+	}
+}
+
+void AssetManagerCore::savePrefabs(DatabaseIndex & ind, PrefabContainer& prefabs, std::ostream& file, std::ostream& index, cereal::BinaryOutputArchive& indexAr, cereal::BinaryOutputArchive& mainAr)
+{
+	for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
+	{
+		ind.flags = "-";
+		ind.ID = it->first.second;
+		ind.type = "Prefab";
+		ind.modFile = it->second.fromMod;
+		ind.row = file.tellp();
+		if (it->second.mode != ObjectSaveMode::REMOVE)
 		{
-			while (!eof)
+			bool b = true;
+			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
+				it->second.mode = ObjectSaveMode::DEFAULT;
+			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
+				it->second.mode = ObjectSaveMode::DEFAULT;
+			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
+				b = false;
+			else if (it->second.mode > ObjectSaveMode::ADD)
+				it->second.mode = ObjectSaveMode::DEFAULT;
+			if (b)
 			{
-				ar(ind);
-				if (ind.type == "Header")
-				{
-					database.seekg(ind.row);
-					cereal::BinaryInputArchive headerLoad(database);
-					headerLoad(myheader);
-					index.close();
-					database.close();
-					return true;
-				}
-				else if (ind.flags == "EoF")
-					eof = true;
+				indexAr(ind);
+				mainAr(it->second);
 			}
 		}
 	}
-	return false;
 }
-bool AssetManagerCore::loadModOrderFile(ModLoader& mod)
+
+void AssetManagerCore::saveZones(DatabaseIndex & ind, std::map<std::pair<std::string, size_t>, DBZone>& allzones, std::ostream & file, std::ostream & index, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
 {
-	std::ifstream file("Data\\ModLoadOrder.xml");
-	if (file.is_open())
+	for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = allzones.begin(); it != allzones.end(); it++)
 	{
-		cereal::XMLInputArchive ar(file);
-		ar(mod);
-		return true;
+		ind.flags = "-";
+		ind.ID = it->first.second;
+		ind.type = "Zone";
+		ind.modFile = it->second.fromMod;
+		ind.row = file.tellp();
+		if (it->second.mode != ObjectSaveMode::REMOVE)
+		{
+			bool b = true;
+			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
+				it->second.mode = ObjectSaveMode::DEFAULT;
+			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
+				it->second.mode = ObjectSaveMode::DEFAULT;
+			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
+				b = false;
+			if (ind.ID == 0)
+				b = false;
+			if (b)
+			{
+				indexAr(ind);
+				mainAr(it->second);
+			}
+		}
 	}
-	return false;
 }
+
+
 
 void AssetManagerCore::saveModOrderFile(ModLoader & mod)
 {
@@ -109,67 +221,7 @@ void AssetManagerCore::saveModOrderFile(ModLoader & mod)
 	}
 }
 
-bool AssetManagerCore::loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID)
-{
-	saveFile.append(".avfile");
-	GameObject trash;
-	std::ifstream file(saveFile.c_str(), std::ios::binary);
-	{
-		if (file.is_open())
-		{
-			cereal::BinaryInputArchive ar(file);
-			ar(trash);
-			size_t iter;
-			ar(iter);
-			for (size_t i = 0; i < iter; i++)
-			{
-				size_t _zoneToLoad;
-				ar(_zoneToLoad);
-				if (_zoneToLoad == zoneID)
-				{
-					ar(zoneToLoad);
-					return true;
-				}
-				else
-				{
-					Zone trashZone;
-					ar(trashZone);
-				}
-			}
-		}
-	}
-	return false;
-}
-void AssetManagerCore::loadZoneFromDB(DBZone & zoneToLoad, size_t zoneID)
-{
-	for each (std::pair<Core::String, size_t> var in Engine::World.modLoadOrder.loadOrder)
-	{
-		bool eof = false;
-		DatabaseIndex ind;
-		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
-		std::ifstream database("Data\\" + var.first, std::ios::binary);
-		if (index.is_open())
-		{
-			cereal::BinaryInputArchive ar(index);
-			{
-				while (!eof)
-				{
-					ar(ind);
-					if (ind.type == "Zone")
-					{
-						database.seekg(ind.row);
-						cereal::BinaryInputArchive zoneLoad(database);
-						zoneLoad(zoneToLoad);
-						if (zoneToLoad.ID == zoneID)
-							eof = true;
-					}
-					else if (ind.flags == "EoF")
-						eof = true;
-				}
-			}
-		}
-	}
-}
+
 
 
 

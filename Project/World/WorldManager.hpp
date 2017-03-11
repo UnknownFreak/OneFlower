@@ -6,6 +6,7 @@
 #include <AssetManager\Mod\ModHeader.hpp>
 #include <AssetManager\Database\DatabaseIndex.hpp>
 #include <AssetManager\Prefab\Prefab.hpp>
+#include <AssetManager\Prefab\PrefabContainer.hpp>
 
 //#include "../../Game/LoadAndSave/PrefabContainer.hpp"
 //#include "../../Game/GUI/Window/Addon/ProgressBar.hpp"
@@ -14,7 +15,8 @@ class Zone;
 class GameObject;
 class WorldManager
 {
-	enum loadstate {
+	friend class WorldManagerAddon;
+	enum Loadstate {
 		STATE_NOT_SET,
 		STATE_PREPARE_LOAD,
 		STATE_UNLOAD_OBJECTS,
@@ -25,7 +27,7 @@ public:
 
 #ifdef _DEBUG
 	//Probably move this to editor
-	//PrefabContainer editorPrefabContainer;
+	PrefabContainer editorPrefabContainer;
 	std::map<std::pair<Core::String, unsigned int>, DBZone> EditorAllZones;
 	//std::map<std::pair<std::string, size_t>, Items::Item*> EditorAllItems;
 	//std::map<std::pair<std::string, unsigned int>, Quests::Quest> EditorAllQuests;
@@ -45,7 +47,7 @@ public:
 	void loadZone(Core::String addedFromMod, unsigned int zoneID);
 	bool getIsLoading();
 
-	loadstate getCurrentLoadingState();
+	Loadstate getCurrentLoadingState();
 
 	ModHeader myModHeader;
 #ifdef _DEBUG
@@ -84,11 +86,19 @@ public:
 	void loadSome();
 private:
 
+	void addMainMenu();
+
+	void unload();
+
+	void prepareLoad();
+	void unloadObjects();
+	void reloadObjects();
+
 	//void LoadAllEditorVariables();
 
 	void startLoad();
 
-	loadstate loadState = STATE_NOT_SET;
+	Loadstate loadState = STATE_NOT_SET;
 	bool isLoading = false;
 	std::map<std::pair<Core::String, size_t>, DBZonePrefabStruct>::iterator currentObjIterator;
 	std::map<std::pair<Core::String, size_t>, GameObject*>::iterator currentObjIteratorUnload;

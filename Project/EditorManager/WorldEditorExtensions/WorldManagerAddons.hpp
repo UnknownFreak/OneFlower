@@ -2,27 +2,34 @@
 #define WorldManagerAddons_HPP
 
 #include <World\WorldManager.hpp>
+#include <Animations\SpriterModelContainer.hpp>
 class WorldManagerAddon
 {
 public:
 	friend class WorldManager;
 
 	WorldManager& myActualManager;
+	SpriterModelContainer& myModelContainer;
 
 	WorldManagerAddon();
 
 	Core::String getLoadedMod();
 	
+	void unloadEditorVariables();
+
 	std::vector<Core::String> getModDependencies(Core::String mod);
 	std::vector<Core::String> newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster);
 	std::vector<Core::String> loadMod(Core::String modName);
+	
 	Core::String loadMods(Core::String modName);
+	
 	void EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
 	void EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
 	void EditorLoadZone(Core::String zoneName, unsigned int ID);
 	void EditorRemoveZone();
+	
 	Core::String EditorSave();
-	//void EditorSetBackground(std::string textureName);
+	void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x, int y);
 	std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct> EditorAddGameObjectToZone(Prefab& prefab, GameObject* go);
 	void RemoveGameObjectFromZone(GameObject* go);

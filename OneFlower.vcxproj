@@ -134,8 +134,6 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Debug\</OutDir>
-    <IntDir>Debug\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -532,6 +530,7 @@
     <ClCompile Include="Project\Animations\TextureMapPointDefiner.cpp" />
     <ClCompile Include="Project\Animations\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp" />
+    <ClCompile Include="Project\AssetManager\AssetManagerCoreLoad.cpp" />
     <ClCompile Include="Project\AssetManager\Mod\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\AssetManager\Prefab\PrefabContainerDefiner.cpp" />
     <ClCompile Include="Project\AssetManager\Prefab\PrefabDefiner.cpp" />

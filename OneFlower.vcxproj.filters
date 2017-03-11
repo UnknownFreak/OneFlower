@@ -169,6 +169,9 @@
     <Filter Include="Engine\World\Component">
       <UniqueIdentifier>{d62c6ec7-f079-408f-b11e-438492551dd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Logger">
+      <UniqueIdentifier>{40296bc4-13a7-49e4-bebe-22a4b0216c81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Animations\AnimationCore.hpp">
@@ -999,6 +1002,9 @@
     </ClCompile>
     <ClCompile Include="Project\World\Component\LoadZoneComponent.cpp">
       <Filter>Engine\World\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AssetManager\AssetManagerCoreLoad.cpp">
+      <Filter>Engine\AssetManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

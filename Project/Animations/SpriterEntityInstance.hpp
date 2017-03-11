@@ -19,12 +19,22 @@ struct SpriterEntityInstance
 
 	void render(SpriteRef* sprite);
 
-private:
-
 	template<class Archive>
-	friend void save(Archive& ar, const SpriterEntityInstance& inst);
+	void save(Archive& ar) const
+	{
+		ar(entityName);
+		ar(sceneFile);
+		ar(myTextureMap.first);
+		ar(myTextureMap.second);
+	}
 	template<class Archive>
-	friend void load(Archive& ar, SpriterEntityInstance& inst);
+	void load(Archive& ar)
+	{
+		ar(entityName);
+		ar(sceneFile);
+		ar(myTextureMap.first);
+		ar(myTextureMap.second);
+	}
 };
 
 #endif

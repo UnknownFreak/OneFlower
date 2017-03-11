@@ -50,6 +50,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -81,6 +84,7 @@
       <DependentUpon>EditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Message\Message.cs" />
+    <Compile Include="ModWindow\ModDependencyList.cs" />
     <Compile Include="ModWindow\NewMod.xaml.cs">
       <DependentUpon>NewMod.xaml</DependentUpon>
     </Compile>

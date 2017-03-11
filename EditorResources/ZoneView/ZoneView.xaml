@@ -8,8 +8,8 @@
              mc:Ignorable="d" Width="820" Height="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="280*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>

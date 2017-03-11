@@ -60,16 +60,7 @@ void SpriterModelContainer::setRenderWindow(sf::RenderWindow & renderWindow)
 
 SpriterModelContainer::~SpriterModelContainer()
 {
-	for each (std::pair<Core::String, SpriterEngine::SpriterModel*> var in modelFiles)
-	{
-		delete var.second;
-	}
-	modelFiles.clear();
-	for each (std::pair<Core::String, SpriterTextureMapper*> var in modelTextureMapper)
-	{
-		delete var.second;
-	}
-	modelTextureMapper.clear();
+	clearLists();
 }
 std::vector<Core::String> SpriterModelContainer::getEntities(SpriterEngine::SpriterModel& model)
 {
@@ -163,4 +154,18 @@ std::vector<Core::String> SpriterModelContainer::getAnimationNames(Core::String 
 		animations.push_back(inst.MyEntityInstance->currentAnimationName());
 	}
 	return animations;
+}
+
+void SpriterModelContainer::clearLists()
+{
+	for each (std::pair<Core::String, SpriterEngine::SpriterModel*> var in modelFiles)
+	{
+		delete var.second;
+	}
+	modelFiles.clear();
+	for each (std::pair<Core::String, SpriterTextureMapper*> var in modelTextureMapper)
+	{
+		delete var.second;
+	}
+	modelTextureMapper.clear();
 }

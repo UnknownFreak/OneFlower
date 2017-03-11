@@ -20,18 +20,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="600"/>
-            <RowDefinition Height="400"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="384"/>
+            <RowDefinition Height="46"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="49*"/>
-            <ColumnDefinition Width="229*"/>
+            <ColumnDefinition Width="307*"/>
+            <ColumnDefinition Width="805*"/>
             <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
         <WindowsFormsHost x:Name="formhost" Background="#FFB28F8F" Grid.Column="2" Grid.Row="1"/>
         <StatusBar Margin="0" Grid.ColumnSpan="3" Grid.Row="3">
-            <Label x:Name="label1" Content="Label" Width="238"/>
-            <ProgressBar Width="240" Height="24" IsIndeterminate="True"/>
+            <Label x:Name="InfoLabel" Content="Label" Width="238"/>
+            <ProgressBar Width="240" Height="24" IsIndeterminate="True" Background="{x:Null}"/>
         </StatusBar>
         <Menu x:Name="menu" Background="#FF838383" Grid.ColumnSpan="3">
             <MenuItem Header="File">
@@ -97,15 +97,7 @@
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                        <GridViewColumnHeader Content="Type" IsHitTestVisible="False">
-                            <GridViewColumnHeader.Background>
-                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                    <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="White" Offset="0.4091"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </GridViewColumnHeader.Background>
-                        </GridViewColumnHeader>
+                        <GridViewColumnHeader Content="Type" IsHitTestVisible="False"/>
                     </GridViewColumn>
                     <GridViewColumn Width="1043">
                         <GridViewColumn.CellTemplate>
@@ -119,10 +111,8 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-            <Message:Message message="TestMessage" type="Warning"/>
-            <Message:Message message="TestMessage" type="Warning"/>
         </ListView>
         <ObjectView:ObjectTreeView Grid.Row="1"/>
-        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" Height="399"/>
+        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="384" Width="800"/>
     </Grid>
 </Window>

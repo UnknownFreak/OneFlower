@@ -4,6 +4,15 @@
 #include "Mod\ModHeader.hpp"
 #include "Mod\ModLoader.hpp"
 #include <Core/String.hpp>
+
+#include "Prefab\PrefabContainer.hpp"
+#include <Animations\AnimationCore.hpp>
+#include "ObjectSaveMode.hpp"
+#include "Database\DatabaseIndex.hpp"
+#include "Database\DBZone.hpp"
+
+#include <cereal\archives\binary.hpp>
+
 class Zone;
 class DBZone;
 class AssetManagerCore
@@ -51,6 +60,32 @@ public:
 	static bool loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID);
 	static void loadZoneFromDB(DBZone& zoneToLoad, size_t zoneID);
 
+	static void saveGameDatabase(
+		std::string filename,
+		ModHeader& modhdr,
+		PrefabContainer& prefabs,
+		std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones);
+
+
+	static void savePrefabs(DatabaseIndex & ind, 
+		PrefabContainer& prefabs,
+		std::ostream& file, 
+		std::ostream& index, 
+		cereal::BinaryOutputArchive& indexAr, 
+		cereal::BinaryOutputArchive& mainAr);
+
+	static void saveZones(DatabaseIndex & ind,
+		std::map<std::pair<std::string, size_t>, DBZone>& allzones,
+		std::ostream& file,
+		std::ostream& index,
+		cereal::BinaryOutputArchive& indexAr,
+		cereal::BinaryOutputArchive& mainAr);
+
+	static void loadAllEditorVariables();
+
+	static void LoadAllZones(std::map<std::pair<std::string, unsigned int>, DBZone>& nameOfAllZones);
+	static void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
+	static void LoadAllTextureMaps(SpriterModelContainer& container);
 
 	//
 	//const ComponentLoader& getComponentLoader()
