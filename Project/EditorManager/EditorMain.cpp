@@ -23,6 +23,9 @@
 #include <SFML\System\String.hpp>
 #include <SFML\Graphics\Text.hpp>
 #include <SFML\Graphics\Font.hpp>
+
+#include <Logger\Logger.hpp>
+
 //#include "Engine\Core\Components.hpp"
 //#include "Engine\Logic\Time\Time.hpp"
 //#include "Game\World\WorldManagement.hpp"
@@ -68,7 +71,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	//return 0;
-	exit(0);
+	Logger::free();
+	exit(0); 
 }
 int windowMessage()
 {
@@ -78,6 +82,8 @@ int windowMessage()
 
 	sf::Thread thread(&renderThread);
 	thread.launch();
+
+	Logger::Info("test",  __FILE__, __LINE__);
 
 	//Engine::Graphic.view.render.setVisible(true);
 	//testSave();

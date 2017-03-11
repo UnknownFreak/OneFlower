@@ -613,6 +613,9 @@
     <ClInclude Include="Project\World\Component\LoadZoneComponent.hpp">
       <Filter>Engine\World\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Logger\Logger.hpp">
+      <Filter>Engine\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Animations\SpriterTextureMapperDefiner.cpp">
@@ -1005,6 +1008,9 @@
     </ClCompile>
     <ClCompile Include="Project\AssetManager\AssetManagerCoreLoad.cpp">
       <Filter>Engine\AssetManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Logger\Logger.cpp">
+      <Filter>Engine\Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
