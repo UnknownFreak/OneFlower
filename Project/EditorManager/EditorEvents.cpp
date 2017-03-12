@@ -47,24 +47,10 @@ void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functio
 void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functionality::ModLoadEventArgs ^ args)
 {
 	Core::String s = toString(args->modName->ToCharArray());
-	std::vector<Core::String> errorWarningList = Editor::addons.loadMod(s);
+	Editor::addons.loadMod(s);
 
 	auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
 
-	for each (Core::String str in errorWarningList)
-	{
-		auto message = gcnew EditorResources::Message::Message();
-		message->type = EditorResources::Message::Message::MsgType::Error;
-		message->message = gcnew String(str.c_str());
-		modfinishedloaded->errorsAndWarnings->Add(message);
-	}
-	if (modfinishedloaded->errorsAndWarnings->Count == 0)
-	{
-		auto message = gcnew EditorResources::Message::Message();
-		message->type = EditorResources::Message::Message::MsgType::Fine;
-		message->message = gcnew String(Core::String("Mod "+ s +" successfully loaded").c_str());
-		modfinishedloaded->errorsAndWarnings->Add(message);
-	}
 	for each (auto v in Editor::addons.myActualManager.EditorAllZones)
 	{
 		v.second.fromMod;

@@ -15,7 +15,6 @@ namespace EditorResources.Functionality
 
         public static EventHandler<EngineOnModSelectedLoadedEventArgs> engineOnModSelectedLoaded;
 
-
         public static void OnModCreate(NewModCreateEventArgs args)
         {
             onModCreate?.Invoke(null,args);
@@ -81,6 +80,5 @@ namespace EditorResources.Functionality
     public class ModFinishedLoadedEventArgs : EventArgs
     {
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
-        public List<Message.Message> errorsAndWarnings = new List<Message.Message>();
     }
 }

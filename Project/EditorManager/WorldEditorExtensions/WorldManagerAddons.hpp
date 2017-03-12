@@ -18,10 +18,10 @@ public:
 	void unloadEditorVariables();
 
 	std::vector<Core::String> getModDependencies(Core::String mod);
-	std::vector<Core::String> newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster);
-	std::vector<Core::String> loadMod(Core::String modName);
+	void newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster);
 	
-	Core::String loadMods(Core::String modName);
+	void loadMod(Core::String modName);
+	void loadMods(Core::String modName);
 	
 	void EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
 	void EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
@@ -32,14 +32,14 @@ public:
 	void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x, int y);
 	std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct> EditorAddGameObjectToZone(Prefab& prefab, GameObject* go);
-	void RemoveGameObjectFromZone(GameObject* go);
 	
+	void RemoveGameObjectFromZone(GameObject* go);
 	void EditorFlagGameObjectForEdit(GameObject* go);
 	
 	//void AddQuest(Quests::Quest quest);
 	//void AddItem(Items::Item* item);
 	
-	friend void LoadAllZones(std::map<std::pair<Core::String, unsigned int>, DBZone>& nameOfAllZones);
+	//friend void LoadAllZones(std::map<std::pair<Core::String, unsigned int>, DBZone>& nameOfAllZones);
 	//friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	//friend void LoadAllTextureMaps(SpriterModelContainer& container);
 	size_t EditorGetValidID();

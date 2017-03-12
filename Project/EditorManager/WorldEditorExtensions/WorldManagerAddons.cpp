@@ -5,6 +5,9 @@
 #include <Core\Component\TransformComponent.hpp>
 #include <Core\Component\GameObject.h>
 #include <World\Zone.hpp>
+
+#include <Logger\Logger.hpp>
+
 #ifdef _DEBUG
 // this always works cause the worldmanageraddon is always initialized after the world manager
 WorldManagerAddon::WorldManagerAddon() : myActualManager(Engine::World), myModelContainer(Engine::ModelContainer)
@@ -95,7 +98,8 @@ Core::String WorldManagerAddon::EditorSave()
 	if (AssetManagerCore::openedMod != "<Not Set>")
 	{
 		for (std::map<std::pair<Core::String, size_t>, DBZonePrefabStruct>::iterator
-			i = Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.begin(); i != Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.end(); i++)
+			i = Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.begin();
+			i != Engine::World.EditorAllZones[Engine::World.lastLoadedZone].prefabList.end(); i++)
 		{
 			i->second.position = Engine::World.listOfZoneObjects[i->first]->GetComponent<Component::TransformComponent>()->position;
 		}
@@ -179,7 +183,7 @@ void WorldManagerAddon::unloadEditorVariables()
 	myActualManager.editorPrefabContainer.getMap().clear();
 	myModelContainer.clearLists();
 }
-std::vector<Core::String> WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster)
+void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster)
 {
 	WorldManagerAddon::EditorAddNewZone("Tutorial", "test.png", "test.png", "Tutorial Zone", 1, 1000, 800);
 	std::vector<Core::String> errors;
@@ -193,18 +197,15 @@ std::vector<Core::String> WorldManagerAddon::newMod(Core::String modName, std::v
 	myActualManager.myModHeader.dependencies = dependencies;
 	for each (std::string var in myActualManager.myModHeader.dependencies)
 	{
-		Core::String val = loadMods(var);
-		if (val != "<Fine>")
-			errors.push_back(val);
+		loadMods(var);
 	}
 	AssetManagerCore::openedMod = modName;
 	myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(modName, myActualManager.modLoadOrder.loadOrder.size()));
 	AssetManagerCore::saveGameDatabase("Data\\" + modName, myActualManager.myModHeader, myActualManager.editorPrefabContainer, myActualManager.EditorAllZones);
 	unloadEditorVariables();
 	AssetManagerCore::loadAllEditorVariables();
-	return errors;
 }
-std::vector<Core::String> WorldManagerAddon::loadMod(Core::String myMod)
+void WorldManagerAddon::loadMod(Core::String myMod)
 {
 	unloadEditorVariables();
 	std::vector<std::string> myFailed;
@@ -212,21 +213,19 @@ std::vector<Core::String> WorldManagerAddon::loadMod(Core::String myMod)
 	myActualManager.modLoadOrder.loadOrder.clear();
 	if (!AssetManagerCore::loadModHeader(myMod, myActualManager.myModHeader))
 	{
-		myFailed.push_back("Error loading Mod!");
+		Logger::Error("Failed to load mod header for mod [" + myMod +"]");
 		AssetManagerCore::openedMod = "<Not Set>";
 	}
 	else
 	{
 		for each (Core::String var in myActualManager.myModHeader.dependencies)
 		{
-			Core::String myReturn = loadMods(var);
-			if (myReturn != "<Fine>")
-				myFailed.push_back(myReturn);
+			loadMods(var);
 		}
 	}
+	Logger::Fine("Successfully loaded mod dependencies for mod[" + myMod + "]", __FILE__, __LINE__);
 	myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
 	AssetManagerCore::loadAllEditorVariables();
-	return myFailed;
 }
 //void WorldManagerAddon::LoadAllEditorVariables()
 //{
@@ -240,27 +239,26 @@ std::vector<Core::String> WorldManagerAddon::getModDependencies(Core::String mod
 {
 	ModHeader modHdr;
 	if (!AssetManagerCore::loadModHeader(mod, modHdr))
-	{
 		return{};
-	}
 	else
-	{
 		return modHdr.dependencies;
-	}
 }
-Core::String WorldManagerAddon::loadMods(Core::String myMod)
+void WorldManagerAddon::loadMods(Core::String myMod)
 {
 	ModHeader modHdr;
 	if (!AssetManagerCore::loadModHeader(myMod, modHdr))
 	{
-		return "Failed to load dependency mod: " + myMod;
+		Logger::Error("Failed to load [" + myMod + "] as dependency mod", __FILE__, __LINE__);
 	}
 	else
 	{
 		//std::cout << "checking: " + myMod + "dependencies" << std::endl;
 		for each (Core::String var in modHdr.dependencies)
 		{
-			loadMods(var);
+			if (myActualManager.modLoadOrder.loadOrder.find(var) == myActualManager.modLoadOrder.loadOrder.end())
+				loadMods(var);
+			else
+				Logger::Info("[" + var + "] already loaded, skipping", __FILE__, __LINE__);
 		}
 		if (myActualManager.modLoadOrder.loadOrder.find(myMod) == myActualManager.modLoadOrder.loadOrder.end())
 		{
@@ -268,6 +266,6 @@ Core::String WorldManagerAddon::loadMods(Core::String myMod)
 			myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
 		}
 	}
-	return "<Fine>";
+	Logger::Fine("[" + myMod + "] successfully loaded" , __FILE__, __LINE__);
 }
 #endif

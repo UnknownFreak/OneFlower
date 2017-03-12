@@ -11,10 +11,13 @@
     <Window.CommandBindings>
         <CommandBinding x:Name="NewCommand" Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
         <CommandBinding x:Name="OpenCommand" Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"/>
+        <CommandBinding x:Name="SaveCommand" Command="ApplicationCommands.Save" Executed="SaveCommand_Executed"/>
+        <CommandBinding x:Name="ExitCommand" Command="ApplicationCommands.Close" Executed="ExitCommand_Executed"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="ApplicationCommands.New"/>
         <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Open"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Close"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -37,9 +40,9 @@
             <MenuItem Header="File">
                 <MenuItem Header="New" InputGestureText="Ctrl+N" Command="ApplicationCommands.New"/>
                 <MenuItem Header="Open" InputGestureText="Ctrl+O" Command="ApplicationCommands.Open"/>
-                <MenuItem Header="Save" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="Save" InputGestureText="Ctrl+S" Command="ApplicationCommands.Save"/>
                 <Separator/>
-                <MenuItem Header="Exit" InputGestureText="Alt+F4"/>
+                <MenuItem Header="Exit" InputGestureText="Alt+F4" Command="ApplicationCommands.Close"/>
             </MenuItem>
             <MenuItem Header="Object">
                 <MenuItem Header="New"/>
@@ -88,7 +91,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
+                <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="75">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -99,7 +102,7 @@
                         </GridViewColumn.CellTemplate>
                         <GridViewColumnHeader Content="Type" IsHitTestVisible="False"/>
                     </GridViewColumn>
-                    <GridViewColumn Width="1043">
+                    <GridViewColumn Width="{Binding ActualWidth, ElementName=messageView, Mode=OneWay}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Background="{Binding brush}" Margin="-6,-2,-7,-3">

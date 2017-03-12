@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace EditorResources.Message
@@ -46,5 +47,6 @@ namespace EditorResources.Message
             Error,
             Severe
         }
+
     }
 }

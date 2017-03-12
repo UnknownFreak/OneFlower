@@ -95,6 +95,9 @@
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ZoneView\ZoneEditView.xaml.cs">
+      <DependentUpon>ZoneEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZoneView\ZoneView.xaml.cs">
       <DependentUpon>ZoneView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SplashScreen\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ZoneView\ZoneEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,6 +23,7 @@ public:
 	template<class Archive>
 	void load(Archive& ar)
 	{
+		dependencies.clear();
 		size_t mysize;
 		ar(name);
 		ar(mysize);

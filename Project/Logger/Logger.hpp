@@ -16,6 +16,7 @@ class Logger
 public:
 
 	static void free();
+	static void initialize();
 
 	static void Debug(Core::String message, Core::String filename , size_t line);
 	static void Info(Core::String message, Core::String filename, size_t line);
@@ -23,6 +24,13 @@ public:
 	static void Warning(Core::String message, Core::String filename, size_t line);
 	static void Error(Core::String message, Core::String filename, size_t line);
 	static void Severe(Core::String message, Core::String filename, size_t line);
+
+	static void Debug(Core::String message);
+	static void Info(Core::String message);
+	static void Fine(Core::String message);
+	static void Warning(Core::String message);
+	static void Error(Core::String message);
+	static void Severe(Core::String message);
 
 };
 

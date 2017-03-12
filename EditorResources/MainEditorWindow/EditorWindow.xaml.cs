@@ -18,15 +18,6 @@ namespace EditorResources.MainEditorWindow
             InitializeComponent();
             createEditorWindow();
             EditorEvents.onLogEvent += LogViewAddEvent;
-            EditorEvents.onModFinishedLoading += onModFinishedLoading;
-        }
-
-        private void onModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
-        {
-            foreach (Message.Message msg in e.errorsAndWarnings)
-            {
-                messageView.Items.Add(msg);
-            }
         }
 
         private void LogViewAddEvent(object sender, EditorLogEventArgs e)
@@ -106,6 +97,15 @@ namespace EditorResources.MainEditorWindow
                 // Open document
                 Functionality.EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.FileName });
             }
+        }
+
+        private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
         }
     }
 }

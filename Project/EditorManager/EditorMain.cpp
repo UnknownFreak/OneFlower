@@ -68,6 +68,7 @@ WorldManagerAddon Editor::addons;
 [System::STAThread]
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {
+	Logger::initialize();
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	//return 0;
@@ -82,8 +83,6 @@ int windowMessage()
 
 	sf::Thread thread(&renderThread);
 	thread.launch();
-
-	Logger::Info("test",  __FILE__, __LINE__);
 
 	//Engine::Graphic.view.render.setVisible(true);
 	//testSave();
