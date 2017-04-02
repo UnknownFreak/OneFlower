@@ -21,7 +21,7 @@ public:
 	void newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster);
 	
 	void loadMod(Core::String modName);
-	void loadMods(Core::String modName);
+	bool loadMods(Core::String modName, bool _internal_error = false);
 	
 	void EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
 	void EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);

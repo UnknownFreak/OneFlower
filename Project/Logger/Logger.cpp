@@ -53,12 +53,12 @@ void Logger::Error(Core::String message, Core::String filename, size_t line)
 
 void Logger::Severe(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Debug(message + " - " + filename + " (" + std::to_string(line) + ")");
+	Logger::Severe(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
 void Logger::Debug(Core::String message)
 {
-	getLogger().log << "[DEBUG] " << message << std::endl;
+	getLogger().log << "[DEBUG]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
@@ -71,7 +71,7 @@ void Logger::Debug(Core::String message)
 
 void Logger::Info(Core::String message)
 {
-	getLogger().log << "[INFO] " << message << std::endl;
+	getLogger().log << "[INFO]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
@@ -84,7 +84,7 @@ void Logger::Info(Core::String message)
 
 void Logger::Fine(Core::String message)
 {
-	getLogger().log << "[FINE] " << message << std::endl;
+	getLogger().log << "[FINE]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
@@ -97,7 +97,7 @@ void Logger::Fine(Core::String message)
 
 void Logger::Warning(Core::String message)
 {
-	getLogger().log << "[WARNING] " << message << std::endl;
+	getLogger().log << "[WARNING]\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
@@ -110,7 +110,7 @@ void Logger::Warning(Core::String message)
 
 void Logger::Error(Core::String message)
 {
-	getLogger().log << "[ERROR] " << message << std::endl;
+	getLogger().log << "[ERROR]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
@@ -123,7 +123,7 @@ void Logger::Error(Core::String message)
 
 void Logger::Severe(Core::String message)
 {
-	getLogger().log << "[SEVERE] " << message << std::endl;
+	getLogger().log << "[SEVERE]\t" << message << std::endl;
 #ifdef _EDITOR_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());

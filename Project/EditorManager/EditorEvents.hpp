@@ -16,6 +16,9 @@ namespace Editor
 		void OnEditorLoadMod(Object^ sender, EditorResources::Functionality::ModLoadEventArgs^ args);
 		void OnEditorModLoaded(Object^ sender, EditorResources::Functionality::ModFinishedLoadedEventArgs^ args);
 		void OnEditorModFileSelected(Object^ sender, EditorResources::Functionality::ModFileSelectedEventArgs^ args);
+
+		void OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args);
+
 	};
 }
 

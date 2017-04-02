@@ -17,13 +17,13 @@
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="ApplicationCommands.New"/>
         <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Open"/>
-        <KeyBinding Key="O" Modifiers="Ctrl" Command="ApplicationCommands.Close"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="ApplicationCommands.Close"/>
     </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="600"/>
-            <RowDefinition Height="384"/>
+            <RowDefinition Height="600*"/>
+            <RowDefinition Height="383*"/>
             <RowDefinition Height="46"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>

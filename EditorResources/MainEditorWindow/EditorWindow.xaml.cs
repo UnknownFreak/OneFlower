@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -56,7 +55,6 @@ namespace EditorResources.MainEditorWindow
                 DragDrop.DoDragDrop(tabItem, tabItem, DragDropEffects.All);
             }
         }
-
 
         private void TabItem_Drop(object sender, DragEventArgs e)
         {

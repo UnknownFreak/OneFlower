@@ -34,6 +34,15 @@ namespace EditorResources.ZoneView
                 ZoneSelector.Items.Add(new ZoneItem(t.Item1, t.Item2, t.Item3));
             }
         }
+
+        private void ZoneSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            ZoneItem zi = ZoneSelector.SelectedItem as ZoneItem;
+            if (zi is null)
+                return;
+            EditorEvents.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = zi.Name, ModOrigin = zi.Origin, ZoneID = zi.Id });
+        }
     }
 
     internal class ZoneItem
@@ -52,5 +61,23 @@ namespace EditorResources.ZoneView
         {
             Name = newName;
         }
+    }
+    internal class ZoneObjectItem
+    {
+        public string Origin { get; private set; }
+        public uint Id { get; private set; }
+        public string Dependency { get; private set; }
+        public uint PrefabId { get; private set; }
+        public string Name { get; private set; }
+
+        public ZoneObjectItem(string origin, uint id, string dependency, uint prefabid, string name)
+        {
+            Origin = origin;
+            Id = id;
+            Dependency = dependency;
+            PrefabId = prefabid;
+            Name = name;
+        }
+
     }
 }

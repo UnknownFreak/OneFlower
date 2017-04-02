@@ -16,7 +16,7 @@
             <ColumnDefinition Width="60*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="searchBox" TextWrapping="Wrap" Text="Search Tree..." Margin="0" Grid.ColumnSpan="2"/>
-        <ListView x:Name="ZoneSelector" Margin="0" Grid.Row="1">
+        <ListView x:Name="ZoneSelector" Margin="0" Grid.Row="1" SelectionChanged="ZoneSelector_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto">

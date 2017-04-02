@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace EditorResources.Functionality
 {
@@ -17,7 +15,7 @@ namespace EditorResources.Functionality
 
         public static void OnModCreate(NewModCreateEventArgs args)
         {
-            onModCreate?.Invoke(null,args);
+            onModCreate?.Invoke(null, args);
         }
 
         public static void OnModSelected(ModFileSelectedEventArgs args)
@@ -42,12 +40,47 @@ namespace EditorResources.Functionality
 
         #endregion
 
+        #region log
         public static EventHandler<EditorLogEventArgs> onLogEvent;
 
         public static void OnLogEvent(EditorLogEventArgs args)
         {
             onLogEvent?.Invoke(null, args);
         }
+        #endregion
+
+
+        #region ZoneView
+
+        public static EventHandler<EditorZoneSelectedEventArgs> onZoneSelectedEvent;
+
+        public static void OnZoneSelectedEvent(EditorZoneSelectedEventArgs args)
+        {
+            onZoneSelectedEvent?.Invoke(null, args);
+        }
+
+        public static EventHandler<EditorZoneSelectedFinishedLoadingEventArgs> onZoneSelectedFinishedLoadingEvent;
+
+        public static void OnZoneSelectedFinishedLoadingEvent(EditorZoneSelectedFinishedLoadingEventArgs args)
+        {
+            onZoneSelectedFinishedLoadingEvent?.Invoke(null, args);
+        }
+
+        #endregion
+    }
+
+    #region EventArgs
+
+    public class EditorZoneSelectedFinishedLoadingEventArgs : EventArgs
+    {
+        public List<Tuple<string, uint, string, uint, string>> objectsLoaded = new List<Tuple<string, uint, string, uint, string>>();
+    }
+
+    public class EditorZoneSelectedEventArgs : EventArgs
+    {
+        public string ModOrigin;
+        public string ZoneName;
+        public UInt32 ZoneID;
     }
 
     public class EngineOnModSelectedLoadedEventArgs : EventArgs
@@ -81,4 +114,6 @@ namespace EditorResources.Functionality
     {
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
     }
+
+    #endregion
 }

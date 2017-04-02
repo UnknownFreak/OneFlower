@@ -93,7 +93,7 @@ int windowMessage()
 
 	GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
-	go->AddComponent<Component::RenderComponent>("PlayerDemo.png");
+	//go->AddComponent<Component::RenderComponent>("PlayerDemo.png");
 	//go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
 	//Component::RenderComponent* render = go->GetComponent<Component::RenderComponent>();
 	//go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");

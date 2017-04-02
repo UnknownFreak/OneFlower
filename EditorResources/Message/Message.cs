@@ -27,10 +27,10 @@ namespace EditorResources.Message
                        brush = Brushes.Goldenrod;
                         break;
                     case MsgType.Error:
-                        brush = Brushes.Tomato;
+                        brush = new BrushConverter().ConvertFromString("#ad0000") as Brush;
                         break;
                     case MsgType.Severe:
-                        brush = Brushes.DarkRed;
+                        brush = new BrushConverter().ConvertFromString("#990000") as Brush;
                         break;
                 }
             }

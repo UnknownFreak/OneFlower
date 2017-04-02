@@ -13,11 +13,13 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="searchBox" TextWrapping="Wrap" Text="Search Tree..." Margin="0"/>
         <TreeView x:Name="treeView" Margin="0" Grid.Row="1">
-            <TreeViewItem Header="ABC">
-                <TreeViewItem Header="Hdr"/>
-                <TreeViewItem Header="hdr"/>
+            <TreeViewItem Header="Objects">
+                <TreeViewItem Header="Go1"/>
+                <TreeViewItem Header="Go2"/>
             </TreeViewItem>
-            <TreeViewItem Header="DEF"/>
+            <TreeViewItem Header="Effects"/>
+            <TreeViewItem Header="Sound"/>
+            <TreeViewItem Header="Sound"/>
         </TreeView>
 
     </Grid>

@@ -30,7 +30,7 @@ sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 	data = new char[len];
 	i.read(data, len);
 	bool ok = tempTexture.loadFromMemory(data, len);
-	delete data;
+	delete[] data;
 	if (! ok)
 	{
 		return sf::Texture();

@@ -32,6 +32,8 @@ void Editor::Events::registerEvents()
 	EditorResources::Functionality::EditorEvents::onModCreate += gcnew EventHandler<EditorResources::Functionality::NewModCreateEventArgs^>(this, &Editor::Events::OnEditorCreateMod);
 	EditorResources::Functionality::EditorEvents::onModLoad += gcnew EventHandler<EditorResources::Functionality::ModLoadEventArgs^>(this, &Editor::Events::OnEditorLoadMod);
 	EditorResources::Functionality::EditorEvents::onModSelected += gcnew EventHandler<EditorResources::Functionality::ModFileSelectedEventArgs^>(this, &Editor::Events::OnEditorModFileSelected);
+	EditorResources::Functionality::EditorEvents::onZoneSelectedEvent += gcnew EventHandler<EditorResources::Functionality::EditorZoneSelectedEventArgs^>(this, &Editor::Events::OnEditorZoneSelected);
+
 }
 
 void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functionality::NewModCreateEventArgs ^ args)
@@ -73,4 +75,14 @@ void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Fu
 	EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs ^evt = gcnew EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs();
 	evt->Dependencies = depList;
 	EditorResources::Functionality::EditorEvents::EngineOnModSelectedLoaded(evt);
+}
+
+void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args)
+{
+	Editor::addons.EditorLoadZone(toString(args->ModOrigin->ToCharArray()), args->ZoneID);
+	while (Editor::addons.myActualManager.getIsLoading())
+	{
+		//;Wait
+	}
+
 }

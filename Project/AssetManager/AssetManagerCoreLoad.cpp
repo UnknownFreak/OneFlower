@@ -29,6 +29,8 @@
 
 #include <EditorManager\EditorCore.hpp>
 
+#include <Logger\Logger.hpp>
+
 bool AssetManagerCore::loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID)
 {
 	saveFile.append(".avfile");
@@ -105,7 +107,12 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 	DatabaseIndex ind;
 	std::ifstream index(modName + ".index", std::ios::binary);
 	std::ifstream database(modName, std::ios::binary);
-	if (index.is_open())
+
+	if (!index.is_open())
+		Logger::Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
+	else if (!database.is_open())
+		Logger::Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+	else
 	{
 		cereal::BinaryInputArchive ar(index);
 		{
@@ -126,6 +133,7 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 			}
 		}
 	}
+	Logger::Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
 	return false;
 }
 bool AssetManagerCore::loadModOrderFile(ModLoader& mod)
@@ -137,6 +145,7 @@ bool AssetManagerCore::loadModOrderFile(ModLoader& mod)
 		ar(mod);
 		return true;
 	}
+	Logger::Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
 	return false;
 }
 
