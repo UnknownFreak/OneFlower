@@ -1,7 +1,7 @@
+#ifdef _EDITOR_
 #include "SplashScreen.hpp"
 #include <Graphic\GraphicsCore.hpp>
-#include <Animations\AnimationCore.hpp>
-#ifdef _EDITOR_
+#include <Model\AnimationCore.hpp>
 
 SplashScreen::SplashScreen()
 {

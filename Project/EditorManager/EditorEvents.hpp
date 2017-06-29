@@ -1,5 +1,6 @@
 #ifndef EditorEvents_HPP
 #define EditorEvents_HPP
+#ifdef _EDITOR_
 #include <Core/String.hpp>
 
 namespace Editor
@@ -19,7 +20,10 @@ namespace Editor
 
 		void OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args);
 
+		void OnEditorSave(Object ^ sender, EditorResources::Functionality::ModSaveEventArgs^ args);
+
 	};
 }
 
+#endif
 #endif

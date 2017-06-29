@@ -1,8 +1,9 @@
 #ifndef WorldManagerAddons_HPP
 #define WorldManagerAddons_HPP
 
+#ifdef _EDITOR_
 #include <World\WorldManager.hpp>
-#include <Animations\SpriterModelContainer.hpp>
+#include <Model\SpriterModelContainer.hpp>
 class WorldManagerAddon
 {
 public:
@@ -50,4 +51,5 @@ public:
 
 
 
+#endif
 #endif

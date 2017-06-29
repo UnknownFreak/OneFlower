@@ -1,4 +1,3 @@
-
 #ifdef _EDITOR_
 
 #include <Windows.h>
@@ -8,7 +7,7 @@
 
 #include <Core\Core.hpp>
 #include <AssetManager\AssetManagerCore.hpp>
-#include <Animations\AnimationCore.hpp>
+#include <Model\AnimationCore.hpp>
 #include <Graphic\GraphicsCore.hpp>
 #include <Input\InputCore.hpp>
 #include <Physics\PhysicsCore.hpp>

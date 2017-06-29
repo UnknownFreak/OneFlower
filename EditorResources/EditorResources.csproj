@@ -95,6 +95,15 @@
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SpriterScene\SpriterScene.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpriterScene\SpriterScene.Designer.cs">
+      <DependentUpon>SpriterScene.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpriterScene\SpriterScene.xaml.cs">
+      <DependentUpon>SpriterScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZoneView\ZoneEditView.xaml.cs">
       <DependentUpon>ZoneEditView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +128,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SpriterScene\SpriterScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ZoneView\ZoneEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +149,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BorderLessForm.resx">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpriterScene\SpriterScene.resx">
+      <DependentUpon>SpriterScene.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

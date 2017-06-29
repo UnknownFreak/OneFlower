@@ -1,3 +1,4 @@
+#ifdef _EDITOR_
 #include "EditorEvents.hpp"
 #include <EditorManager\EditorCore.hpp>
 #include <EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp>
@@ -33,7 +34,7 @@ void Editor::Events::registerEvents()
 	EditorResources::Functionality::EditorEvents::onModLoad += gcnew EventHandler<EditorResources::Functionality::ModLoadEventArgs^>(this, &Editor::Events::OnEditorLoadMod);
 	EditorResources::Functionality::EditorEvents::onModSelected += gcnew EventHandler<EditorResources::Functionality::ModFileSelectedEventArgs^>(this, &Editor::Events::OnEditorModFileSelected);
 	EditorResources::Functionality::EditorEvents::onZoneSelectedEvent += gcnew EventHandler<EditorResources::Functionality::EditorZoneSelectedEventArgs^>(this, &Editor::Events::OnEditorZoneSelected);
-
+	EditorResources::Functionality::EditorEvents::onModSave += gcnew EventHandler<EditorResources::Functionality::ModSaveEventArgs^>(this, &Editor::Events::OnEditorSave);
 }
 
 void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functionality::NewModCreateEventArgs ^ args)
@@ -82,7 +83,17 @@ void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Funct
 	Editor::addons.EditorLoadZone(toString(args->ModOrigin->ToCharArray()), args->ZoneID);
 	while (Editor::addons.myActualManager.getIsLoading())
 	{
+		// change this to some kind of indicator in the editor that we are loading, even though the editor game view shows it.
+		_sleep(20);
 		//;Wait
 	}
 
 }
+
+void Editor::Events::OnEditorSave(Object^ sender, EditorResources::Functionality::ModSaveEventArgs^ args)
+{
+
+	Editor::addons.EditorSave();
+
+}
+#endif

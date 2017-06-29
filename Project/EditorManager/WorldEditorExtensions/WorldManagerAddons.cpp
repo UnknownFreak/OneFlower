@@ -1,3 +1,4 @@
+#ifdef _EDITOR_
 #include "WorldManagerAddons.hpp"
 #include <AssetManager\AssetManagerCore.hpp>
 #include <AssetManager\Database\DBZone.hpp>
@@ -8,7 +9,6 @@
 
 #include <Logger\Logger.hpp>
 
-#ifdef _DEBUG
 // this always works cause the worldmanageraddon is always initialized after the world manager
 WorldManagerAddon::WorldManagerAddon() : myActualManager(Engine::World), myModelContainer(Engine::ModelContainer)
 {
@@ -105,6 +105,8 @@ Core::String WorldManagerAddon::EditorSave()
 		}
 		AssetManagerCore::saveGameDatabase(getLoadedMod(), myActualManager.myModHeader, myActualManager.editorPrefabContainer, myActualManager.EditorAllZones);
 	}
+	else
+		Logger::Info("Cannot save mod. No mod loaded!");
 	return AssetManagerCore::openedMod;
 }
 std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct> WorldManagerAddon::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)

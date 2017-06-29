@@ -6,19 +6,22 @@
 #include <Core/String.hpp>
 
 #include "Prefab\PrefabContainer.hpp"
-#include <Animations\AnimationCore.hpp>
+#include <Model\AnimationCore.hpp>
 #include "ObjectSaveMode.hpp"
 #include "Database\DatabaseIndex.hpp"
 #include "Database\DBZone.hpp"
 
 #include <cereal\archives\binary.hpp>
-
+#include "Version\Version.hpp"
 class Zone;
 class DBZone;
 class AssetManagerCore
 {
 	
 public:
+	
+	static OneVersion assetManagerVersion;
+
 	friend class Zone;
 	enum class Mode
 	{

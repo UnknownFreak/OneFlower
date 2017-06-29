@@ -176,7 +176,7 @@ void Gfx::drawObject()
 				case Component::RenderComponent::AnimationType::Armature:
 				{
 					rc->updateFrame();
-					rc->instance.MyEntityInstance->setPosition(SpriterEngine::point(tc->position.x, tc->position.y));
+					rc->instance.MyEntityInstance->setPosition(tc->position);
 #ifdef _EDITOR_
 					rc->instance.textureMaps->renderWindow = &Engine::Graphic.view.render;
 #endif

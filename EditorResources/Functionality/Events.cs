@@ -13,6 +13,13 @@ namespace EditorResources.Functionality
 
         public static EventHandler<EngineOnModSelectedLoadedEventArgs> engineOnModSelectedLoaded;
 
+        public static EventHandler<ModSaveEventArgs> onModSave;
+
+        public static void OnModSave(ModSaveEventArgs args)
+        {
+            onModSave?.Invoke(null, args);
+        }
+
         public static void OnModCreate(NewModCreateEventArgs args)
         {
             onModCreate?.Invoke(null, args);
@@ -67,6 +74,29 @@ namespace EditorResources.Functionality
         }
 
         #endregion
+
+        #region ObjectTreeView
+
+        public static EventHandler<OnObjectLoadEventArgs> onObjectLoadEvent;
+
+        public static void OnObjectLoadEvent(OnObjectLoadEventArgs args)
+        {
+            onObjectLoadEvent?.Invoke(null, args);
+        }
+
+        #endregion
+
+        #region TextureMap
+
+        public static EventHandler<OnTextureMapLoadedFromFileEventArgs> onTextureMapLoadedFromFile;
+
+        public static void OnTextureMapLoadedFromFileEvent(OnTextureMapLoadedFromFileEventArgs args)
+        {
+            onTextureMapLoadedFromFile?.Invoke(null, args);
+        }
+
+        #endregion
+
     }
 
     #region EventArgs
@@ -110,9 +140,36 @@ namespace EditorResources.Functionality
         public bool? createMaster;
     }
 
+    public class ModSaveEventArgs : EventArgs
+    {
+        /**Empty**/
+    }
+
     public class ModFinishedLoadedEventArgs : EventArgs
     {
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
+    }
+
+    public class OnObjectLoadEventArgs : EventArgs
+    {
+        public string ModOrigin { get; set; }
+        public string ObjectType { get; set; }
+    }
+
+    public class OnTextureMapLoadedFromFileEventArgs : EventArgs
+    {
+        public class Point
+        {
+            public int X { get; set; } = 0;
+            public int Y { get; set; } = 0;
+            public int H { get; set; } = 0;
+            public int W { get; set; } = 0;
+            public bool Rotated { get; set; } = false;
+            public short R { get; set; } = 255;
+            public short G { get; set; } = 255;
+            public short B { get; set; } = 255;
+        }
+        public Dictionary<string, Point> MapPoints { get; set; }
     }
 
     #endregion

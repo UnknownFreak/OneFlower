@@ -1,6 +1,6 @@
+#ifdef _EDITOR_
 #ifndef SPLASHSCREEN_HPP
 #define SPLASHSCREEN_HPP
-#ifdef _EDITOR_
 
 #include <Windows.h>
 #include "ParentWindowWrapper.hpp"

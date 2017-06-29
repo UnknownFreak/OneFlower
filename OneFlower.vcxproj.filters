@@ -82,69 +82,6 @@
     <Filter Include="Engine\AssetManager\Prefab">
       <UniqueIdentifier>{14388c84-66e5-4f56-9f56-96713230c180}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\AssetManager\TextureLoader">
-      <UniqueIdentifier>{f89ec83b-cbf5-443c-ab1d-4a5ab10d263a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations">
-      <UniqueIdentifier>{4cba74fc-9d9f-4df0-8c9a-eb5ba1be7141}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\TextureMap">
-      <UniqueIdentifier>{479a845b-c53a-4c4e-a7c7-8f3ae9fbea6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriteSheet">
-      <UniqueIdentifier>{fdcfe467-3b1a-42fb-b680-30d2bb6c0b31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEntity">
-      <UniqueIdentifier>{a1e5b277-cced-4821-9399-e9418ac703c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine">
-      <UniqueIdentifier>{1d7cd051-869e-4dec-9b49-6b5838598b29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\timeline">
-      <UniqueIdentifier>{a2718187-8f7d-4672-b7fa-b4b3dca0f3eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\timeinfo">
-      <UniqueIdentifier>{747ad972-9f12-4c28-8bd1-4cfdf4a6f4fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\override">
-      <UniqueIdentifier>{1756c8c4-5749-4204-8e26-8b35a9107d2e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\variable">
-      <UniqueIdentifier>{5faa33ee-ac3c-4478-bb9b-915e39b73de1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\objectref">
-      <UniqueIdentifier>{21cf3e2b-ed0d-45c1-835a-56a57addc5b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\objectinfo">
-      <UniqueIdentifier>{1b24dbaf-71ab-4460-9330-90122d056287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\animation">
-      <UniqueIdentifier>{9bec0197-5587-4857-8f26-f4bc86b43400}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\charactermap">
-      <UniqueIdentifier>{55cb7d53-7779-489c-8569-503ff84bcefc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\entity">
-      <UniqueIdentifier>{a7ddd6b6-e90d-4cc6-8161-b58d4f0a9b06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\file">
-      <UniqueIdentifier>{a5851592-43ee-4f58-a59f-09d6bc4ca5ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\loading">
-      <UniqueIdentifier>{5d06f8f2-c1f3-401e-8a01-d37ba059db20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\model">
-      <UniqueIdentifier>{e9cf8df0-2872-44d5-a677-c1e783983328}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterEngine\global">
-      <UniqueIdentifier>{d02d54a3-4df0-439d-b30e-8555f998777a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\SpriterOverride">
-      <UniqueIdentifier>{f6d0da28-8f6e-4167-8815-0faf0b9e26d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Animations\tinyXml2">
-      <UniqueIdentifier>{24bc92cb-ea85-4e4b-a58b-4c73d65e2176}</UniqueIdentifier>
-    </Filter>
     <Filter Include="C++Interop\EditorManager">
       <UniqueIdentifier>{0d14e960-794f-4719-9452-f73ca2ce5003}</UniqueIdentifier>
     </Filter>
@@ -172,296 +109,83 @@
     <Filter Include="Engine\Logger">
       <UniqueIdentifier>{40296bc4-13a7-49e4-bebe-22a4b0216c81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\AssetManager\Version">
+      <UniqueIdentifier>{9d7d8798-f59f-4e91-b34f-068b0c165022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="C++Interop\EditorManager\TextureMap">
+      <UniqueIdentifier>{c014285e-b545-4a20-9c04-0f530bf7b562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input\Controller">
+      <UniqueIdentifier>{8ca72426-6f8d-4648-bb19-3279fed18a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\AssetManager\Texture">
+      <UniqueIdentifier>{f89ec83b-cbf5-443c-ab1d-4a5ab10d263a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model">
+      <UniqueIdentifier>{4cba74fc-9d9f-4df0-8c9a-eb5ba1be7141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\TextureMap">
+      <UniqueIdentifier>{479a845b-c53a-4c4e-a7c7-8f3ae9fbea6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriteSheet">
+      <UniqueIdentifier>{fdcfe467-3b1a-42fb-b680-30d2bb6c0b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEntity">
+      <UniqueIdentifier>{a1e5b277-cced-4821-9399-e9418ac703c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine">
+      <UniqueIdentifier>{1d7cd051-869e-4dec-9b49-6b5838598b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\timeline">
+      <UniqueIdentifier>{a2718187-8f7d-4672-b7fa-b4b3dca0f3eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\timeinfo">
+      <UniqueIdentifier>{747ad972-9f12-4c28-8bd1-4cfdf4a6f4fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\override">
+      <UniqueIdentifier>{1756c8c4-5749-4204-8e26-8b35a9107d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\variable">
+      <UniqueIdentifier>{5faa33ee-ac3c-4478-bb9b-915e39b73de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\objectref">
+      <UniqueIdentifier>{21cf3e2b-ed0d-45c1-835a-56a57addc5b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\objectinfo">
+      <UniqueIdentifier>{1b24dbaf-71ab-4460-9330-90122d056287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\animation">
+      <UniqueIdentifier>{9bec0197-5587-4857-8f26-f4bc86b43400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\charactermap">
+      <UniqueIdentifier>{55cb7d53-7779-489c-8569-503ff84bcefc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\entity">
+      <UniqueIdentifier>{a7ddd6b6-e90d-4cc6-8161-b58d4f0a9b06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\file">
+      <UniqueIdentifier>{a5851592-43ee-4f58-a59f-09d6bc4ca5ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\loading">
+      <UniqueIdentifier>{5d06f8f2-c1f3-401e-8a01-d37ba059db20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\model">
+      <UniqueIdentifier>{e9cf8df0-2872-44d5-a677-c1e783983328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterEngine\global">
+      <UniqueIdentifier>{d02d54a3-4df0-439d-b30e-8555f998777a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\SpriterOverride">
+      <UniqueIdentifier>{f6d0da28-8f6e-4167-8815-0faf0b9e26d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\tinyXml2">
+      <UniqueIdentifier>{24bc92cb-ea85-4e4b-a58b-4c73d65e2176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Model\Models">
+      <UniqueIdentifier>{ab4ab336-673b-4ad4-9b1f-2955d325658c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\Animations\AnimationCore.hpp">
-      <Filter>Engine\Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterTextureMapper.hpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\TextureMap.hpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\TextureMapPoint.hpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriteSheetAnimation.hpp">
-      <Filter>Engine\Animations\SpriteSheet</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEntityInstance.hpp">
-      <Filter>Engine\Animations\SpriterEntity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterModelContainer.hpp">
-      <Filter>Engine\Animations\SpriterEntity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\spriterengine.h">
-      <Filter>Engine\Animations\SpriterEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\proxytimelinekey.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\soundtimelineinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\tagtimelineinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\timeline.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\timelineinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\timelinekey.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\triggertimelineinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeline\variabletimelineinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\beziereasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\cubiceasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\easingcurveinterface.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\instanteasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\lineareasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\quadraticeasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\quarticeasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\quinticeasingcurve.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\timeinfo\timeinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\filefactory.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\imagefile.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\objectfactory.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\soundfile.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\soundobjectinforeference.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\spriterfileattributewrapper.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\spriterfiledocumentwrapper.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\override\spriterfileelementwrapper.h">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\variable\variable.h">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\variable\variablecontainer.h">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\variable\variableinstancenameandidmap.h">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\boneref.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\bonerefinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\entityref.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\entityrefinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\objectref.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\objectrefinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\spriteref.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\spriterefinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectref\transformprocessor.h">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\angleinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\boneinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\boneobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\boxinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\boxobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\entityobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\eventobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\intvariableinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\pointinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\pointobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\realvariableinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\soundobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\spriteobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\stringvariableinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\stringvariableinforeference.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\taglist.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\tagobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\tagobjectinforeference.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\triggerobjectinfo.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\objectinfo\universalobjectinterface.h">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\animation\animation.h">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\animation\animationinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\animation\mainlinekey.h">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\animation\mainlinekeyinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\charactermap\charactermap.h">
-      <Filter>Engine\Animations\SpriterEngine\charactermap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\charactermap\charactermapinstruction.h">
-      <Filter>Engine\Animations\SpriterEngine\charactermap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\charactermap\charactermapinterface.h">
-      <Filter>Engine\Animations\SpriterEngine\charactermap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\entity\entity.h">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\entity\entityinstance.h">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\entity\entityinstancedata.h">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\entity\object.h">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\file\file.h">
-      <Filter>Engine\Animations\SpriterEngine\file</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\file\filereference.h">
-      <Filter>Engine\Animations\SpriterEngine\file</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\loading\loader.h">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\loading\loadinghelpers.h">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\loading\spriterdocumentloader.h">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\model\spritermodel.h">
-      <Filter>Engine\Animations\SpriterEngine\model</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\global\global.h">
-      <Filter>Engine\Animations\SpriterEngine\global</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterEngine\global\settings.h">
-      <Filter>Engine\Animations\SpriterEngine\global</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlboneinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlboxinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\SFMLfilefactory.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlimagefile.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\SFMLobjectfactory.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlpointinstanceinfo.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlsoundfile.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\sfmlsoundobjectinforeference.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\tinyxmlspriterfileattributewrapper.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\tinyxmlspriterfiledocumentwrapper.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\SpriterOverride\tinyxmlspriterfileelementwrapper.h">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Animations\tinyxml2\tinyxml2.h">
-      <Filter>Engine\Animations\tinyXml2</Filter>
-    </ClInclude>
     <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp">
       <Filter>Engine\AssetManager</Filter>
     </ClInclude>
@@ -487,13 +211,13 @@
       <Filter>Engine\AssetManager\Prefab</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\SpriteRef.hpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\TextureLoader.hpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\TextureRef.hpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\Core\Core.hpp">
       <Filter>Engine\Core</Filter>
@@ -616,284 +340,317 @@
     <ClInclude Include="Project\Logger\Logger.hpp">
       <Filter>Engine\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="Project\AssetManager\Version\Version.hpp">
+      <Filter>Engine\AssetManager\Version</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.hpp">
+      <Filter>C++Interop\EditorManager\TextureMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\ModelContainer.hpp">
+      <Filter>Engine\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriteSheetAnimation.hpp">
+      <Filter>Engine\Model\SpriteSheet</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEntityInstance.hpp">
+      <Filter>Engine\Model\SpriterEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterModelContainer.hpp">
+      <Filter>Engine\Model\SpriterEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\tinyxml2\tinyxml2.h">
+      <Filter>Engine\Model\tinyXml2</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\AnimationCore.hpp">
+      <Filter>Engine\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\TextureMapPoint.hpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\TextureMap.hpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterTextureMapper.hpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlboneinstanceinfo.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlboxinstanceinfo.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\SFMLfilefactory.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlimagefile.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\SFMLobjectfactory.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlpointinstanceinfo.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlsoundfile.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlsoundobjectinforeference.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfileattributewrapper.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfiledocumentwrapper.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfileelementwrapper.h">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\spriterengine.h">
+      <Filter>Engine\Model\SpriterEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variableinstancenameandidmap.h">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variablecontainer.h">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variable.h">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\variabletimelineinstance.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\triggertimelineinstance.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timelinekey.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timelineinstance.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timeline.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\tagtimelineinstance.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\soundtimelineinstance.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\proxytimelinekey.h">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\timeinfo.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quinticeasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quarticeasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quadraticeasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\lineareasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\instanteasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\easingcurveinterface.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\cubiceasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\beziereasingcurve.h">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\filefactory.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\imagefile.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\objectfactory.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\soundfile.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\soundobjectinforeference.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfileattributewrapper.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfiledocumentwrapper.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfileelementwrapper.h">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\boneref.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\bonerefinstance.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\entityref.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\entityrefinstance.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\objectref.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\objectrefinstance.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\spriteref.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\spriterefinstance.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\transformprocessor.h">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\angleinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boneinstanceinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boneobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boxinstanceinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boxobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\entityobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\eventobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\intvariableinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\pointinstanceinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\pointobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\realvariableinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\soundobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\spriteobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\stringvariableinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\stringvariableinforeference.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\taglist.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\tagobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\tagobjectinforeference.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\triggerobjectinfo.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\universalobjectinterface.h">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\model\spritermodel.h">
+      <Filter>Engine\Model\SpriterEngine\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\loading\loader.h">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\loading\loadinghelpers.h">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\loading\spriterdocumentloader.h">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\global\global.h">
+      <Filter>Engine\Model\SpriterEngine\global</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\global\settings.h">
+      <Filter>Engine\Model\SpriterEngine\global</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\file\file.h">
+      <Filter>Engine\Model\SpriterEngine\file</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\file\filereference.h">
+      <Filter>Engine\Model\SpriterEngine\file</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entity.h">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entityinstance.h">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entityinstancedata.h">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\entity\object.h">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermap.h">
+      <Filter>Engine\Model\SpriterEngine\charactermap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermapinstruction.h">
+      <Filter>Engine\Model\SpriterEngine\charactermap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermapinterface.h">
+      <Filter>Engine\Model\SpriterEngine\charactermap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\animation\animation.h">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\animation\animationinstance.h">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\animation\mainlinekey.h">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterEngine\animation\mainlinekeyinstance.h">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\StaticModel.hpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\IModel.hpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriteSheetModel.hpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Model\SpriterModel_.hpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\Animations\SpriterTextureMapperDefiner.cpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\TextureMapDefiner.cpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\TextureMapPointDefiner.cpp">
-      <Filter>Engine\Animations\TextureMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriteSheetAnimationDefiner.cpp">
-      <Filter>Engine\Animations\SpriteSheet</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEntityInstanceDefiner.cpp">
-      <Filter>Engine\Animations\SpriterEntity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterModelContainerDefiner.cpp">
-      <Filter>Engine\Animations\SpriterEntity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\proxytimelinekey.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\soundtimelineinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\tagtimelineinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\timeline.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\timelineinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\timelinekey.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\triggertimelineinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeline\variabletimelineinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeline</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\beziereasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\cubiceasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\easingcurveinterface.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\instanteasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\lineareasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\quadraticeasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\quarticeasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\quinticeasingcurve.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\timeinfo\timeinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\timeinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\filefactory.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\imagefile.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\objectfactory.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\soundfile.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\soundobjectinforeference.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\spriterfileattributewrapper.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\spriterfiledocumentwrapper.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\override\spriterfileelementwrapper.cpp">
-      <Filter>Engine\Animations\SpriterEngine\override</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\variable\variable.cpp">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\variable\variablecontainer.cpp">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\variable\variableinstancenameandidmap.cpp">
-      <Filter>Engine\Animations\SpriterEngine\variable</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\boneref.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\bonerefinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\entityref.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\entityrefinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\objectref.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\objectrefinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\spriteref.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\spriterefinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectref\transformprocessor.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectref</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\angleinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\boneinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\boneobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\boxinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\boxobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\entityobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\eventobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\intvariableinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\pointinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\pointobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\realvariableinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\soundobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\spriteobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\stringvariableinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\stringvariableinforeference.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\taglist.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\tagobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\tagobjectinforeference.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\triggerobjectinfo.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\objectinfo\universalobjectinterface.cpp">
-      <Filter>Engine\Animations\SpriterEngine\objectinfo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\animation\animation.cpp">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\animation\animationinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\animation\mainlinekey.cpp">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\animation\mainlinekeyinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\charactermap\charactermap.cpp">
-      <Filter>Engine\Animations\SpriterEngine\charactermap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\charactermap\charactermapinstruction.cpp">
-      <Filter>Engine\Animations\SpriterEngine\charactermap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\entity\entity.cpp">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\entity\entityinstance.cpp">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\entity\entityinstancedata.cpp">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\entity\object.cpp">
-      <Filter>Engine\Animations\SpriterEngine\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\file\file.cpp">
-      <Filter>Engine\Animations\SpriterEngine\file</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\file\filereference.cpp">
-      <Filter>Engine\Animations\SpriterEngine\file</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\loading\loader.cpp">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\loading\loadinghelpers.cpp">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\loading\spriterdocumentloader.cpp">
-      <Filter>Engine\Animations\SpriterEngine\loading</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\model\spritermodel.cpp">
-      <Filter>Engine\Animations\SpriterEngine\model</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterEngine\global\settings.cpp">
-      <Filter>Engine\Animations\SpriterEngine\global</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlboneinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlboxinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\SFMLfilefactory.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlimagefile.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\SFMLobjectfactory.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlpointinstanceinfo.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlsoundfile.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\sfmlsoundobjectinforeference.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\tinyxmlspriterfileattributewrapper.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\tinyxmlspriterfiledocumentwrapper.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\SpriterOverride\tinyxmlspriterfileelementwrapper.cpp">
-      <Filter>Engine\Animations\SpriterOverride</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Animations\tinyxml2\tinyxml2.cpp">
-      <Filter>Engine\Animations\tinyXml2</Filter>
-    </ClCompile>
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp">
       <Filter>Engine\AssetManager</Filter>
     </ClCompile>
@@ -907,13 +664,13 @@
       <Filter>Engine\AssetManager\Prefab</Filter>
     </ClCompile>
     <ClCompile Include="Project\AssetManager\SpriteRefDefiner.cpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\AssetManager\TextureLoader.cpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\AssetManager\TextureRef.cpp">
-      <Filter>Engine\AssetManager\TextureLoader</Filter>
+      <Filter>Engine\AssetManager\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\Core\Component\Message\BaseMessageDefiner.cpp">
       <Filter>Engine\Core\Component\Message</Filter>
@@ -1011,6 +768,303 @@
     </ClCompile>
     <ClCompile Include="Project\Logger\Logger.cpp">
       <Filter>Engine\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\AssetManager\Version\Version.cpp">
+      <Filter>Engine\AssetManager\Version</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.cpp">
+      <Filter>C++Interop\EditorManager\TextureMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriteSheetAnimationDefiner.cpp">
+      <Filter>Engine\Model\SpriteSheet</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEntityInstanceDefiner.cpp">
+      <Filter>Engine\Model\SpriterEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterModelContainerDefiner.cpp">
+      <Filter>Engine\Model\SpriterEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\tinyxml2\tinyxml2.cpp">
+      <Filter>Engine\Model\tinyXml2</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\TextureMapPointDefiner.cpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\TextureMapDefiner.cpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterTextureMapperDefiner.cpp">
+      <Filter>Engine\Model\TextureMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlboneinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlboxinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\SFMLfilefactory.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlimagefile.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\SFMLobjectfactory.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlpointinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlsoundfile.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlsoundobjectinforeference.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfileattributewrapper.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfiledocumentwrapper.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfileelementwrapper.cpp">
+      <Filter>Engine\Model\SpriterOverride</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variableinstancenameandidmap.cpp">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variablecontainer.cpp">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variable.cpp">
+      <Filter>Engine\Model\SpriterEngine\variable</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\variabletimelineinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\triggertimelineinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timelinekey.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timelineinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timeline.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\tagtimelineinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\soundtimelineinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\proxytimelinekey.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\timeinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quinticeasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quarticeasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quadraticeasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\lineareasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\instanteasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\easingcurveinterface.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\cubiceasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\beziereasingcurve.cpp">
+      <Filter>Engine\Model\SpriterEngine\timeinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\filefactory.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\imagefile.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\objectfactory.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\soundfile.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\soundobjectinforeference.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfileattributewrapper.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfiledocumentwrapper.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfileelementwrapper.cpp">
+      <Filter>Engine\Model\SpriterEngine\override</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\boneref.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\bonerefinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\entityref.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\entityrefinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\objectref.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\objectrefinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\spriteref.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\spriterefinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\transformprocessor.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectref</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\angleinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boneinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boneobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boxinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boxobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\entityobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\eventobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\intvariableinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\pointinstanceinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\pointobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\realvariableinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\soundobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\spriteobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\stringvariableinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\stringvariableinforeference.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\taglist.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\tagobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\tagobjectinforeference.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\triggerobjectinfo.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\universalobjectinterface.cpp">
+      <Filter>Engine\Model\SpriterEngine\objectinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\model\spritermodel.cpp">
+      <Filter>Engine\Model\SpriterEngine\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\loading\loader.cpp">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\loading\loadinghelpers.cpp">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\loading\spriterdocumentloader.cpp">
+      <Filter>Engine\Model\SpriterEngine\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\global\settings.cpp">
+      <Filter>Engine\Model\SpriterEngine\global</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\file\file.cpp">
+      <Filter>Engine\Model\SpriterEngine\file</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\file\filereference.cpp">
+      <Filter>Engine\Model\SpriterEngine\file</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entity.cpp">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entityinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entityinstancedata.cpp">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\entity\object.cpp">
+      <Filter>Engine\Model\SpriterEngine\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\charactermap\charactermap.cpp">
+      <Filter>Engine\Model\SpriterEngine\charactermap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\charactermap\charactermapinstruction.cpp">
+      <Filter>Engine\Model\SpriterEngine\charactermap</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\animation\animation.cpp">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\animation\animationinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\animation\mainlinekey.cpp">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterEngine\animation\mainlinekeyinstance.cpp">
+      <Filter>Engine\Model\SpriterEngine\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\StaticModel.cpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\ModelContainer.cpp">
+      <Filter>Engine\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriteSheetModel.cpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\IModel.cpp">
+      <Filter>Engine\Model\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Model\SpriterModel_.cpp">
+      <Filter>Engine\Model\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

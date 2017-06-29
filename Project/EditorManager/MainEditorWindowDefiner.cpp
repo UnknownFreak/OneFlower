@@ -1,7 +1,7 @@
+#ifdef _EDITOR_
 #include "MainEditorWindow.hpp"
 #include "ParentWindowWrapper.hpp"
 #include <Graphic\GraphicsCore.hpp>
-#ifdef _EDITOR_
 
 MainEditorWindow::MainEditorWindow()
 {

@@ -33,8 +33,8 @@
         </Grid.ColumnDefinitions>
         <WindowsFormsHost x:Name="formhost" Background="#FFB28F8F" Grid.Column="2" Grid.Row="1"/>
         <StatusBar Margin="0" Grid.ColumnSpan="3" Grid.Row="3">
-            <Label x:Name="InfoLabel" Content="Label" Width="238"/>
-            <ProgressBar Width="240" Height="24" IsIndeterminate="True" Background="{x:Null}"/>
+            <Label x:Name="InfoLabel" Content="Label" Width="238" Height="26" Margin="0,17,0,0"/>
+            <ProgressBar Width="240" Height="15" IsIndeterminate="True" Background="{x:Null}" Margin="0,17,0,0"/>
         </StatusBar>
         <Menu x:Name="menu" Background="#FF838383" Grid.ColumnSpan="3">
             <MenuItem Header="File">
@@ -82,7 +82,7 @@
             <MenuItem Header="Options"/>
             <MenuItem Header="Help"/>
         </Menu>
-        <ListView x:Name="messageView" Grid.Row="2" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#FFC7C7C7" Margin="0,0,0,0" Grid.ColumnSpan="2" >
+        <ListView x:Name="messageView" Grid.Row="2" Foreground="Black" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#FFC7C7C7" Margin="0,0,0,28" Grid.ColumnSpan="2" Grid.RowSpan="2" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Focusable" Value="False"/>

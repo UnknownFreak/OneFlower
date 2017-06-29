@@ -21,11 +21,11 @@
 #include <World\WorldCore.hpp>
 #include <World\Zone.hpp>
 
-#include <Animations\TextureMap.hpp>
-#include <Animations\SpriterEntityInstance.hpp>
-#include <Animations\SpriterModelContainer.hpp>
-#include <Animations\SpriteSheetAnimation.hpp>
-#include <Animations\SpriterTextureMapper.hpp>
+#include <Model\TextureMap.hpp>
+#include <Model\SpriterEntityInstance.hpp>
+#include <Model\SpriterModelContainer.hpp>
+#include <Model\SpriteSheetAnimation.hpp>
+#include <Model\SpriterTextureMapper.hpp>
 
 #include <EditorManager\EditorCore.hpp>
 

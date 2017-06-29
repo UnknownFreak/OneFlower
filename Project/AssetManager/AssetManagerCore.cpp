@@ -21,11 +21,11 @@
 #include <World\WorldCore.hpp>
 #include <World\Zone.hpp>
 
-#include <Animations\TextureMap.hpp>
-#include <Animations\SpriterEntityInstance.hpp>
-#include <Animations\SpriterModelContainer.hpp>
-#include <Animations\SpriteSheetAnimation.hpp>
-#include <Animations\SpriterTextureMapper.hpp>
+#include <Model\TextureMap.hpp>
+#include <Model\SpriterEntityInstance.hpp>
+#include <Model\SpriterModelContainer.hpp>
+#include <Model\SpriteSheetAnimation.hpp>
+#include <Model\SpriterTextureMapper.hpp>
 
 
 CEREAL_REGISTER_TYPE(BaseComponent);
@@ -60,6 +60,8 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::TransformComponen
 AssetManagerCore::AssetMode AssetManagerCore::assetMode = AssetManagerCore::AssetMode::FINE;
 AssetManagerCore::Mode AssetManagerCore::state = AssetManagerCore::Mode::UNDEFINED;
 Core::String AssetManagerCore::openedMod = "<Not Set>";
+
+OneVersion AssetManagerCore::assetManagerVersion = OneVersion(0, 0, 1);
 
 AssetManagerCore::Mode AssetManagerCore::getMode()
 {

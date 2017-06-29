@@ -104,6 +104,7 @@ namespace EditorResources.MainEditorWindow
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            EditorEvents.OnModSave(new ModSaveEventArgs());
         }
     }
 }

@@ -4,8 +4,8 @@
 #include <Core/Vector.h>
 #include <AssetManager/SpriteRef.hpp>
 //#include "../../Vector.h"
-#include <Animations\SpriteSheetAnimation.hpp>
-#include <Animations\SpriterEntityInstance.hpp>
+#include <Model\SpriteSheetAnimation.hpp>
+#include <Model\SpriterEntityInstance.hpp>
 
 namespace Component
 {
@@ -17,6 +17,8 @@ namespace Component
 			Right,
 			Left
 		};
+
+		// should be removed and replaced by IModel
 		enum class AnimationType
 		{
 			//Static means this sprite has no animation.
@@ -42,8 +44,11 @@ namespace Component
 
 		//Closer the bigger the number, Farther away less the number
 		int renderlayer = 1;
+		
+		// replace by IModel
 		AnimationType animation = AnimationType::Static;
 
+		// replace by IModel
 		Core::Vector2i size;
 
 		Core::Vector2 position;
@@ -55,8 +60,9 @@ namespace Component
 
 		SpriteRef sprite;
 
+		// should be removed and replaced by IModel
 		std::map<Core::String, SpriteSheetAnimation> animations;
-
+		// should be removed and replaced by IModel
 		SpriterEntityInstance instance;
 
 		//Reload texture with textureName
@@ -71,6 +77,7 @@ namespace Component
 		//Set current animation, For animations only
 		void setAnimation(Core::String animationName);
 
+		// should be removed and replaced by IModel
 		void updateFrame();
 
 		bool updateFromEditor();
