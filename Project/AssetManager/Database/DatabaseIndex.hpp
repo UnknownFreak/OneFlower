@@ -1,11 +1,43 @@
 #ifndef DATABASE_INDEX_HPP
 #define DATABASE_INDEX_HPP
 #include <Core/String.hpp>
+
+#include "../Version/Version.hpp"
+
 class DatabaseIndex
 {
+	OneVersion fileVersion = OneVersion(1, 0, 0);
+
 public:
 	long long row = 0;
 	unsigned int ID = 0;
+
+
+	enum class ObjectTypeEnum
+	{
+		Header,
+		Zone,
+		Prefab,
+		GameObject,
+		Quest,
+		Item,
+		ModelContainer,
+		SpriteSheetMap,
+		EoF,
+		Undefined
+	};
+
+	enum class ObjectFlag
+	{
+		EoF,
+		Override,
+		AddTo,
+		RemoveFrom,
+		Modify,
+		NoFlag,
+		Undefined
+	};
+
 	/*
 	Type of object to load:
 	Zone - load a zonefile
@@ -14,7 +46,7 @@ public:
 	Quest - load a quest
 	Item - load a item
 	//*/
-	Core::String type = "";
+	ObjectTypeEnum type = ObjectTypeEnum::Undefined;
 	/*
 	Flag types:
 	EoF - says it is the endof the file - Do not use, it is automatic.
@@ -24,23 +56,20 @@ public:
 	Modify - SourceID - Modify flag tells to modifiy that object
 	"-" - No flag
 	//*/
-	Core::String flags = "";
+	ObjectFlag flags = ObjectFlag::NoFlag;
 	/*
 	ModFile tells from what mod that object comes from
 	//*/
 	Core::String modFile = "";
-
-protected:
-	//template<class Archive>
-	//friend void save(Archive & ar, const DatabaseIndex &index);
-	//template<class Archive>
-	//friend void load(Archive & ar, DatabaseIndex &index);
-
+	
 public:
 #pragma region DatabaseIndex
 	template<class Archive>
 	void load(Archive& ar)
 	{
+		OneVersion myVersion(0,0,32);
+		ar(myVersion);
+
 		ar(row);
 		ar(ID);
 		ar(type);
@@ -50,6 +79,7 @@ public:
 	template<class Archive>
 	void save(Archive& ar) const
 	{
+		ar(fileVersion);
 		ar(row);
 		ar(ID);
 		ar(type);

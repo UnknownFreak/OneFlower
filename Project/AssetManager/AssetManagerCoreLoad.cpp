@@ -78,7 +78,7 @@ void AssetManagerCore::loadZoneFromDB(DBZone & zoneToLoad, size_t zoneID)
 				while (!eof)
 				{
 					ar(ind);
-					if (ind.type == "Zone")
+					if (ind.type == DatabaseIndex::ObjectTypeEnum::Zone)
 					{
 						database.seekg(ind.row);
 						cereal::BinaryInputArchive zoneLoad(database);
@@ -86,7 +86,7 @@ void AssetManagerCore::loadZoneFromDB(DBZone & zoneToLoad, size_t zoneID)
 						if (zoneToLoad.ID == zoneID)
 							eof = true;
 					}
-					else if (ind.flags == "EoF")
+					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 						eof = true;
 				}
 			}
@@ -119,7 +119,7 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 			while (!eof)
 			{
 				ar(ind);
-				if (ind.type == "Header")
+				if (ind.type == DatabaseIndex::ObjectTypeEnum::Header)
 				{
 					database.seekg(ind.row);
 					cereal::BinaryInputArchive headerLoad(database);
@@ -128,7 +128,7 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 					database.close();
 					return true;
 				}
-				else if (ind.flags == "EoF")
+				else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 					eof = true;
 			}
 		}
@@ -164,7 +164,7 @@ void AssetManagerCore::LoadAllZones(std::map<std::pair<std::string, size_t>, DBZ
 				while (!eof)
 				{
 					ar(ind);
-					if (ind.type == "Zone")
+					if (ind.type == DatabaseIndex::ObjectTypeEnum::Zone)
 					{
 						std::map<std::pair<std::string, size_t>, DBZone>::iterator it = worldmap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
 						if (it != worldmap.end())
@@ -183,11 +183,13 @@ void AssetManagerCore::LoadAllZones(std::map<std::pair<std::string, size_t>, DBZ
 							worldmap.insert(std::pair<std::pair<std::string, size_t>, DBZone>(std::pair<std::string, size_t>(ind.modFile, ind.ID), tmp));
 						}
 					}
-					else if (ind.flags == "EoF")
+					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 						eof = true;
 				}
 			}
 		}
+		else
+			Logger::Error("Unable To Open Index file in LoadAllZones" + var.first + ".index");
 	}
 }
 void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
@@ -205,7 +207,7 @@ void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
 				while (!eof)
 				{
 					ar(ind);
-					if (ind.type == "Prefab")
+					if (ind.type == DatabaseIndex::ObjectTypeEnum::Prefab)
 					{
 						std::map<std::pair<std::string, size_t>, Prefab>::iterator it = pre.find(ind.modFile, ind.ID);
 						if (it != pre.end())
@@ -221,11 +223,13 @@ void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
 							pre.addPrefab(tmp);
 						}
 					}
-					else if (ind.flags == "EoF")
+					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 						eof = true;
 				}
 			}
 		}
+		else
+			Logger::Error("Unable To Open Index file in LoadAllPrefabs" + var.first + ".index");
 	}
 }
 //void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& item)
@@ -310,10 +314,12 @@ void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
 //}
 void AssetManagerCore::LoadAllTextureMaps(SpriterModelContainer & container)
 {
+	auto v = Engine::World.modLoadOrder.loadOrder;
 	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
 	{
 		bool eof = false;
 		DatabaseIndex ind;
+
 		std::ifstream index(var.first + ".index", std::ios::binary);
 		std::ifstream database(var.first, std::ios::binary);
 		if (index.is_open())
@@ -323,17 +329,19 @@ void AssetManagerCore::LoadAllTextureMaps(SpriterModelContainer & container)
 				while (!eof)
 				{
 					ar(ind);
-					if (ind.type == "ModelContainer")
+					if (ind.type == DatabaseIndex::ObjectTypeEnum::ModelContainer)
 					{
 						database.seekg(ind.row);
 						std::cout << "loading textureMaps" << std::endl;
 						cereal::BinaryInputArchive ModelLoad(database);
 						ModelLoad(container);
 					}
-					else if (ind.flags == "EoF")
+					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 						eof = true;
 				}
 			}
 		}
+		else
+			Logger::Error("Unable To Open Index file in LoadAllTextureMaps" + var.first + ".index");
 	}
 }

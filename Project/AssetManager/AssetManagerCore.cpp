@@ -85,17 +85,17 @@ void AssetManagerCore::saveGameDatabase(
 		DatabaseIndex ind;
 		cereal::BinaryOutputArchive mainAr(file);
 		cereal::BinaryOutputArchive indexAr(index);
-		ind.flags = "-";
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 		ind.ID = 0;
-		ind.type = "Header";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
 		ind.modFile = modhdr.name;
 		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(modhdr);
 
-		ind.flags = "-";
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 		ind.ID = 0;
-		ind.type = "ModelContainer";
+		ind.type = DatabaseIndex::ObjectTypeEnum::ModelContainer;
 		ind.modFile = "NULL";
 		ind.row = file.tellp();
 		indexAr(ind);
@@ -147,20 +147,22 @@ void AssetManagerCore::saveGameDatabase(
 		//	}
 		//}
 		ind.ID = 0xFFFFFFFF;
-		ind.type = "EoF";
+		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 		ind.row = file.tellp();
-		ind.flags = "EoF";
+		ind.flags = DatabaseIndex::ObjectFlag::EoF;
 		indexAr(ind);
 	}
+	file.close();
+	index.close();
 }
 
 void AssetManagerCore::savePrefabs(DatabaseIndex & ind, PrefabContainer& prefabs, std::ostream& file, std::ostream& index, cereal::BinaryOutputArchive& indexAr, cereal::BinaryOutputArchive& mainAr)
 {
 	for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
 	{
-		ind.flags = "-";
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 		ind.ID = it->first.second;
-		ind.type = "Prefab";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
 		ind.modFile = it->second.fromMod;
 		ind.row = file.tellp();
 		if (it->second.mode != ObjectSaveMode::REMOVE)
@@ -187,9 +189,9 @@ void AssetManagerCore::saveZones(DatabaseIndex & ind, std::map<std::pair<std::st
 {
 	for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = allzones.begin(); it != allzones.end(); it++)
 	{
-		ind.flags = "-";
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 		ind.ID = it->first.second;
-		ind.type = "Zone";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Zone;
 		ind.modFile = it->second.fromMod;
 		ind.row = file.tellp();
 		if (it->second.mode != ObjectSaveMode::REMOVE)
@@ -222,9 +224,6 @@ void AssetManagerCore::saveModOrderFile(ModLoader & mod)
 		ar(mod);
 	}
 }
-
-
-
 
 
 #ifdef _DEBUG
@@ -289,27 +288,27 @@ void testSave()
 		//mainAr(zone);
 
 		ind.ID = pref.ID;
-		ind.type = "Prefab";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
 		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref);
 
 		ind.ID = pref2.ID;
-		ind.type = "Prefab";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
 		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref2);
 
 		ind.ID = pref3.ID;
-		ind.type = "Prefab";
+		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
 		ind.row = file.tellp();
 		indexAr(ind);
 		mainAr(pref3);
 
 		ind.ID = 0xffffffff;
-		ind.type = "";
+		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 		ind.row = file.tellp();
-		ind.flags = "EoF";
+		ind.flags = DatabaseIndex::ObjectFlag::EoF;
 		indexAr(ind);
 	}
 	delete test;
