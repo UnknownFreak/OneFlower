@@ -186,7 +186,6 @@ void WorldManagerAddon::unloadEditorVariables()
 void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> dependencies, bool createMaster)
 {
 	WorldManagerAddon::EditorAddNewZone("Tutorial", "test.png", "test.png", "Tutorial Zone", 1, 1000, 800);
-	std::vector<Core::String> errors;
 	myActualManager.modLoadOrder.loadOrder.clear();
 	if (createMaster)
 		modName.append(".main");
@@ -195,20 +194,20 @@ void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> d
 
 	myActualManager.myModHeader.name = modName;
 	myActualManager.myModHeader.dependencies = dependencies;
-	for each (std::string var in myActualManager.myModHeader.dependencies)
-	{
-		loadMods(var);
-	}
+	//for each (std::string var in myActualManager.myModHeader.dependencies)
+	//{
+	//	loadMods(var);
+	//}
 	AssetManagerCore::openedMod = modName;
 	myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(modName, myActualManager.modLoadOrder.loadOrder.size()));
 	AssetManagerCore::saveGameDatabase("Data\\" + modName, myActualManager.myModHeader, myActualManager.editorPrefabContainer, myActualManager.EditorAllZones);
-	unloadEditorVariables();
-	AssetManagerCore::loadAllEditorVariables();
+	//unloadEditorVariables();
+	//AssetManagerCore::loadAllEditorVariables();
+	Logger::Info("Successfully created mod [" + modName + "]");
 }
 void WorldManagerAddon::loadMod(Core::String myMod)
 {
 	unloadEditorVariables();
-	std::vector<std::string> myFailed;
 	AssetManagerCore::openedMod = myMod;
 	myActualManager.modLoadOrder.loadOrder.clear();
 	bool fail = false;
