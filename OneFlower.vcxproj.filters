@@ -76,9 +76,6 @@
     <Filter Include="Engine\AssetManager\Mod">
       <UniqueIdentifier>{d351608a-4925-435a-b6cf-64ad593e766a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\AssetManager\ObjectSaveMode">
-      <UniqueIdentifier>{a4d91a83-f827-4f51-b3d4-f93fcc84f01d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\AssetManager\Prefab">
       <UniqueIdentifier>{14388c84-66e5-4f56-9f56-96713230c180}</UniqueIdentifier>
     </Filter>
@@ -184,6 +181,12 @@
     <Filter Include="Engine\Model\Models">
       <UniqueIdentifier>{ab4ab336-673b-4ad4-9b1f-2955d325658c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\AssetManager\SpritesheetMap">
+      <UniqueIdentifier>{ba14465d-e7a7-4711-9374-7c3dc4a5af4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\AssetManager\TempletedRequestor">
+      <UniqueIdentifier>{a6c24d69-3511-4f13-a876-4a7544762144}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp">
@@ -200,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="Project\AssetManager\Mod\ModLoader.hpp">
       <Filter>Engine\AssetManager\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp">
-      <Filter>Engine\AssetManager\ObjectSaveMode</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\Prefab\Prefab.hpp">
       <Filter>Engine\AssetManager\Prefab</Filter>
@@ -649,6 +649,24 @@
     <ClInclude Include="Project\Model\SpriterModel_.hpp">
       <Filter>Engine\Model\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp">
+      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp">
+      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp">
+      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRequestor.hpp">
+      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.hpp">
+      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp">
+      <Filter>Engine\AssetManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp">
@@ -1066,10 +1084,16 @@
     <ClCompile Include="Project\Model\SpriterModel_.cpp">
       <Filter>Engine\Model\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp">
+      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
       <Filter>Engine\Core</Filter>
+    </None>
+    <None Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.inl">
+      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
     </None>
   </ItemGroup>
 </Project>

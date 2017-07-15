@@ -288,6 +288,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp" />
+    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.hpp" />
+    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRequestor.hpp" />
     <ClInclude Include="Project\Model\AnimationCore.hpp" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animation.h" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animationinstance.h" />
@@ -445,6 +450,7 @@
     <ClInclude Include="Project\World\Zone.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp" />
     <ClCompile Include="Project\Model\IModel.cpp" />
     <ClCompile Include="Project\Model\ModelContainer.cpp" />
     <ClCompile Include="Project\Model\SpriterEngine\animation\animation.cpp" />
@@ -586,6 +592,7 @@
     <ClCompile Include="Project\World\Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.inl" />
     <None Include="Project\Core\Vector.inl" />
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,10 @@
 #include "Database\DatabaseIndex.hpp"
 #include "Database\DBZone.hpp"
 
+#include "SpriteSheetMap\SpriteSheetMapRef.hpp"
+
+#include "TemplatedRequestor\TemplatedRequestor.hpp"
+
 #include <cereal\archives\binary.hpp>
 #include "Version\Version.hpp"
 class Zone;
@@ -84,11 +88,19 @@ public:
 		cereal::BinaryOutputArchive& indexAr,
 		cereal::BinaryOutputArchive& mainAr);
 
+	static void saveSpriteSheetMaps(DatabaseIndex& ind,
+		std::map < std::pair<std::string, size_t>, SpriteSheetMapRef>& allspriteSheetMaps,
+		std::ostream& file,
+		std::ostream& index,
+		cereal::BinaryOutputArchive& indexAr,
+		cereal::BinaryOutputArchive& mainAr);
+
 	static void loadAllEditorVariables();
 
 	static void LoadAllZones(std::map<std::pair<std::string, unsigned int>, DBZone>& nameOfAllZones);
 	static void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	static void LoadAllTextureMaps(SpriterModelContainer& container);
+	static void LoadAllSpriteSheetMaps();
 
 	//
 	//const ComponentLoader& getComponentLoader()
@@ -104,6 +116,8 @@ void testLoad();
 #endif
 namespace Engine {
 	extern TextureLoader Textureloader;
+	extern Requester<SpriteSheetMap> SpriteSheetMapRequester;
+	extern Requester<Prefab> PrefabRequester;
+	//extern Requester<Quest> QuestRequester;
 }
-
 #endif
