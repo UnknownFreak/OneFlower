@@ -11,7 +11,7 @@ namespace SpriterEngine
 {
 	class EasingCurveInterface;
 
-	static const s_int NO_FILE = -1;
+	static const s_int NO_FILE = 0xffffffff;
 
 	struct SpriteKeyFileInfo
 	{

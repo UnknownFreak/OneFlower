@@ -26,6 +26,7 @@ class OneVersion
 	unsigned int* revision;
 
 public:
+	static OneVersion getCurrentVersion();
 
 	OneVersion();
 	OneVersion(unsigned short major, unsigned short minor, unsigned int revision);

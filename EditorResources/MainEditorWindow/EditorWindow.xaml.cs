@@ -93,7 +93,7 @@ namespace EditorResources.MainEditorWindow
             if (result == true)
             {
                 // Open document
-                Functionality.EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.FileName });
+                EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.FileName });
             }
         }
 

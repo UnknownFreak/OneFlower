@@ -1,10 +1,16 @@
 #include "Version.hpp"
 
-OneVersion::OneVersion() :
-	major(0), minor(0), revision(0),
-	version(major, minor, revision)
+OneVersion OneVersion::getCurrentVersion()
 {
+	return OneVersion(1,0,1);
+}
 
+OneVersion::OneVersion() :
+	version(this->major, this->minor, this->revision)
+{
+	*this->major = 0;
+	*this->minor = 0;
+	*this->revision = 0;
 }
 
 OneVersion::OneVersion(unsigned short major, unsigned short minor, unsigned int revision) :

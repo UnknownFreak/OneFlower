@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TEXTURELOADER_HPP
 #define TEXTURELOADER_HPP
 

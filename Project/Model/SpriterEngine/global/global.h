@@ -22,8 +22,8 @@ namespace SpriterEngine
 	typedef Core::Vector2 point;
 	typedef size_t s_int;
 
-	const s_int THIS_ENTITY = -1;
-	const s_int OUT_OF_RANGE = -1;
+	const s_int THIS_ENTITY = 0xffffffff;
+	const s_int OUT_OF_RANGE = 0xffffffff;
 
 	const real ONEEIGHTY_OVER_PI = 57.295779513082320876798154814105f;
 
