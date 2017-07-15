@@ -8,14 +8,14 @@
 class ModHeader
 {
 	// This is changed when anything is added or removed
-	OneVersion fileVersion = OneVersion(1, 0, 1);
+	OneVersion fileVersion = OneVersion::getCurrentVersion();
 
 public:
 
 	Core::String name = "OneFlower.main";
 	std::vector<Core::String> dependencies;
 
-	OneVersion ver = OneVersion(1,0,0);
+	OneVersion modVersion = OneVersion(1, 0, 0);
 
 	template <class Archive>
 	void save(Archive& ar) const
@@ -24,7 +24,7 @@ public:
 		
 		ar(name);
 		if (fileVersion >= OneVersion(1, 0, 1))
-			ar(ver);
+			ar(modVersion);
 		ar(dependencies.size());
 		for each (Core::String var in dependencies)
 		{
@@ -35,7 +35,7 @@ public:
 	template<class Archive>
 	void load(Archive& ar)
 	{
-		OneVersion myVersion = OneVersion(1,0,0);
+		OneVersion myVersion;
 		ar(myVersion);
 
 		dependencies.clear();
@@ -44,8 +44,8 @@ public:
 		ar(name);
 		if (myVersion >= OneVersion(1, 0, 1))
 		{
-			ar(ver);
-			Logger::Info("Mod [" + name + "] version is: " + ver.c_str());
+			ar(modVersion);
+			Logger::Info("Mod [" + name + "] version is: " + modVersion.c_str());
 		}
 		else
 			Logger::Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
