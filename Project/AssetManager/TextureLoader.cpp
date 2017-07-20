@@ -1,7 +1,6 @@
 #include "TextureLoader.hpp"
 //#include "../../Engine.hpp"
 #include <fstream>
-#include <cassert>
 bool TextureLoader::loadTexture(const Core::String& name)
 {
 	//sf::Texture tempTexture;
@@ -21,8 +20,8 @@ sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 	sf::Texture tempTexture;
 
 	Core::String path = "Texture/" + name;
-
-	std::ifstream i(Core::Converter.toUtf16(path), std::ios::in | std::ifstream::binary);
+	std::wstring wstr = Core::Converter.toUtf16(path);
+	std::ifstream i(wstr , std::ios::in | std::ifstream::binary);
 	char* data;
 	i.seekg(0, i.end);
 	std::streamoff len = i.tellg();

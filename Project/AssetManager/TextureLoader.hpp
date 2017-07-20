@@ -23,7 +23,7 @@ public:
 #ifdef _EDITOR_
 	sf::Texture loadTextureAsync(const Core::String& name);
 #else
-	std::shared_future<sf::Texture> loadTextureAsync(Core::String& name);
+	std::shared_future<sf::Texture> loadTextureAsync(const Core::String& name);
 #endif
 	TextureRef* requestTexture(const Core::String& name);
 
