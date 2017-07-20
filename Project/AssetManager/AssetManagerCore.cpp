@@ -29,7 +29,6 @@
 
 
 CEREAL_REGISTER_TYPE(BaseComponent);
-
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::DialogComponent>)
 CEREAL_REGISTER_TYPE(Component::HitboxComponent)
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::OverheadComponent>)
@@ -68,7 +67,53 @@ AssetManagerCore::Mode AssetManagerCore::getMode()
 	return state;
 }
 
+void AssetManagerCore::testRequestor()
+{
 
+	Prefab p;
+	p.name = "test.pref";
+	p.tag = "TESTING";
+	p.fromMod = "test";
+	p.ID = 0;
+	p.base.push_back(new Component::TransformComponent());
+	p.base.push_back(new Component::HitboxComponent(0, 0, 50, 50));
+	Requester<Prefab>* req = &Engine::PrefabRequester;
+#ifdef _EDITOR_
+	Engine::PrefabRequester.add("test", 0, p);
+
+	ModHeader modhdr;
+	modhdr.name = "test";
+	std::ofstream file("test", std::ios::binary);
+	std::ofstream index("test.index", std::ios::binary);
+	{
+		DatabaseIndex ind;
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+		cereal::BinaryOutputArchive mainAr(file);
+		cereal::BinaryOutputArchive indexAr(index);
+
+
+
+		Engine::PrefabRequester.save(ind, file, indexAr, mainAr);
+		ind.flags = DatabaseIndex::ObjectFlag::EoF;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+	}
+	file.close();
+	index.close();
+#endif _EDITOR_
+	Engine::World.modLoadOrder.loadOrder.clear();
+	Engine::World.modLoadOrder.loadOrder.insert(std::make_pair("test", 0));
+	Engine::PrefabRequester.clear();
+	const Reference<Prefab>* pr = Engine::PrefabRequester.request("test", 0);
+
+	pr->getReferenced();
+}
 void AssetManagerCore::saveGameDatabase(
 	std::string filename,
 	ModHeader& modhdr,

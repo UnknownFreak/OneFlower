@@ -6,7 +6,7 @@
 
 #include <Core\Core.hpp>
 #include <AssetManager\AssetManagerCore.hpp>
-#include <Animations\AnimationCore.hpp>
+//#include <Animations\AnimationCore.hpp>
 #include <Graphic\GraphicsCore.hpp>
 #include <Input\InputCore.hpp>
 #include <Physics\PhysicsCore.hpp>
@@ -45,6 +45,10 @@ PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
+
+Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
+
+
 // temp test stuff
 //int a = 24;
 //int b = 42;
@@ -60,7 +64,10 @@ int windowMessage()
 {
 	Engine::Graphic.view.init();
 	Engine::Graphic.initDebugTextures();
-	Engine::ModelContainer.setRenderView(Engine::Graphic.view.render);
+
+	AssetManagerCore::testRequestor();
+
+	//Engine::ModelContainer.setRenderView(Engine::Graphic.view.render);
 	//testSave();
 	//testLoad();
 	//Engine::World.loadMod("Oneflower.main.test");

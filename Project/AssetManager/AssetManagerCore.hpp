@@ -17,6 +17,18 @@
 
 #include <cereal\archives\binary.hpp>
 #include "Version\Version.hpp"
+
+#include <Model\IModel.hpp>
+#include <Model\StaticModel.hpp>
+
+
+namespace Engine {
+	extern TextureLoader Textureloader;
+	extern Requester<SpriteSheetMap> SpriteSheetMapRequester;
+	extern Requester<Prefab> PrefabRequester;
+	extern Requester<IModel*> ModelRequester;
+	//extern Requester<Quest> QuestRequester;
+}
 class Zone;
 class DBZone;
 class AssetManagerCore
@@ -108,16 +120,13 @@ public:
 	//const QuestLoader& getQuestLoader()
 	//const ZoneLoader() getZoneLoader()
 	//
-
+	static void testRequestor();
+	
 };
 #ifdef _DEBUG
 void testSave();
 void testLoad();
 #endif
-namespace Engine {
-	extern TextureLoader Textureloader;
-	extern Requester<SpriteSheetMap> SpriteSheetMapRequester;
-	extern Requester<Prefab> PrefabRequester;
-	//extern Requester<Quest> QuestRequester;
-}
+
 #endif
+

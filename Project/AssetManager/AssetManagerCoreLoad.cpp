@@ -97,8 +97,10 @@ void AssetManagerCore::loadZoneFromDB(DBZone & zoneToLoad, size_t zoneID)
 void AssetManagerCore::loadAllEditorVariables()
 {
 	LoadAllTextureMaps(Engine::ModelContainer);
+#ifdef _EDITOR_
 	LoadAllPrefabs(Editor::addons.myActualManager.editorPrefabContainer);
 	LoadAllZones(Editor::addons.myActualManager.EditorAllZones);
+#endif 
 }
 
 bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)

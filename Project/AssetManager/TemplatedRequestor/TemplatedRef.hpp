@@ -6,8 +6,6 @@
 #include<future>
 #endif
 
-//#include "TemplatedRequestor.hpp"
-
 template<class T>
 class Requester;
 
@@ -26,25 +24,26 @@ class Reference
 
 	friend class Requester<T>;
 
-	Requester<T> & requester;
+	Requester<T>* requester;
 
-	Reference(Core::String name, size_t Id, Requester<T>& requester);
+	Reference(const Core::String name, const size_t Id, Requester<T>* const requester);
 
 public:
 
 #ifdef _EDITOR_
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
-	Reference(Core::String name, size_t Id, Requester<T>& requester, T objectToSet);
+	Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet);
 #endif
 
 	Reference(const Reference& copy);
 
-	T& getReferenced() const;
+	const T& getReferenced() const;
+
 	const bool isReady() const;
 #ifdef _EDITOR_
-	void setNewFuture(T future);
+	void setNewFuture(const T future);
 #else
-	void setNewFuture(std::shared_future<T> future);
+	void setNewFuture(const std::shared_future<T> future);
 #endif
 
 	void reload();
@@ -54,14 +53,3 @@ public:
 #include "TemplatedRef.inl"
 
 #endif
-
-
-
-
-
-//void TextureRef::reloadTexture()
-//{
-//	myTexture = Engine::Textureloader.loadTextureAsync(name);
-//}
-//
-//

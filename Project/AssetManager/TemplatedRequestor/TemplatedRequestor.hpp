@@ -1,19 +1,28 @@
 #ifndef TEMPLATEDREQUESTOR_HPP
 #define TEMPLATEDREQUESTOR_HPP
 
+#include <fstream>
+
+#include <cereal\archives\binary.hpp>
+#include <cereal\types\memory.hpp>
+#include <cereal\access.hpp>
+
+#include <memory>
 #include <map>
 #include <Core\String.hpp>
 #include "../Database/DatabaseIndex.hpp"
 
 #include "TemplatedRef.hpp"
 
-#include <cereal\archives\binary.hpp>
-
-
 // Any requestable T must have these attributes:
-//Core::String modName;
-//ObjectSaveMode mode;
+// Core::String modName;
+// ObjectSaveMode mode;
 // without these, the object will not be save/load - able
+// Undefined behaviour if the object does not have
+// Default Ctor
+// Copy Ctor
+// Assignment Operator
+
 template<class T>
 class Requester
 {
@@ -22,7 +31,7 @@ class Requester
 	typedef std::map<std::pair<Core::String, size_t>, Reference<T>> _requestedMap;
 	_requestedMap requestedMap;
 
-	DatabaseIndex::ObjectTypeEnum objectType;
+	const DatabaseIndex::ObjectTypeEnum objectType;
 
 	bool requestFromDatabase(T& _t, Core::String modName, size_t uuid)
 	{
@@ -59,7 +68,7 @@ class Requester
 		return found;
 	}
 
-	Core::String getObjectTypeAsString()
+	const Core::String getObjectTypeAsString() const
 	{
 		switch (objectType)
 		{
@@ -84,46 +93,48 @@ class Requester
 		case DatabaseIndex::ObjectTypeEnum::Undefined:
 			return "Undefined";
 		default:
-			return "Unknown"
+			return "Unknown";
 		}
 	}
 
-	void unload(Core::String modName, size_t uuid)
+	void unload(Core::String modName, size_t uuid) const
 	{
 		_requestedMap::iterator it = requestedMap.find({ modName, uuid });
 		if (it != requestedMap.end())
 			requestedMap.erase(it);
 	}
 
-	bool load(const Core::String& name, size_t uuid)
+	const bool load(const Core::String& name, size_t uuid)
 	{
-		requestedMap.insert(requestedMap.end(), std::make_pair({ name, uuid }, Reference<T>(name, uuid, this)));
+		std::pair<Core::String, size_t> key(name, uuid);
+		requestedMap.insert(std::make_pair(key, Reference<T>(name, uuid, this)));
 		return true;
 	}
 
 	T load_internal(const Core::String& name, size_t uuid)
 	{
-		T t();
+		T t;
 		if (name == "EMPTY" && uuid == 0)
 			return t;
 		if (!requestFromDatabase(t, name, uuid))
-			Logger::Error("Requestor<" + getObjectTypeAsString() + "> - Unable to request [" + name ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+			Logger::Error("Requestor<" + getObjectTypeAsString() + "> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
 		return t;
 	}
 
 public:
 
 #ifdef _EDITOR_
-	void add(Core::String name, size_t uuid, T obj)
+	void add(Core::String name, size_t uuid, T& obj)
 	{
-		requestedMap.insert(requestedMap.end(), std::make_pair({ name, uuid }, Reference<T>(name, uuid, this, obj)));
+		requestedMap.insert(requestedMap.end(), std::make_pair(std::pair<Core::String,size_t>(name,uuid), Reference<T>(name, uuid, this, obj)));
 	}
 #endif
 
 #ifdef _EDITOR_
-	T loadAsync(const Core::String& name, size_t uuid)
+	T loadAsync(const Core::String& name, const size_t& uuid)
 	{
-		return load_internal(name, uuid);
+		T t = load_internal(name, uuid);
+		return t;
 	}
 #else
 	std::shared_future<T> loadAsync(Core::String& name, size_t uuid)
@@ -132,24 +143,24 @@ public:
 		return tp;
 	}
 #endif
-	const Reference<T>& request(const Core::String& name, size_t uuid)
+	const Reference<T>* request(const Core::String& name, size_t uuid)
 	{
 		if (!name.empty())
 		{
 			std::map<std::pair<Core::String, size_t>, Reference<T>>::iterator it;
 			it = requestedMap.find({ name, uuid });
 
-			if (it != loadedTextureMap.end())
+			if (it != requestedMap.end())
 				return &it->second;
 
-			if (load({ name, uuid }))
-				return &loadedTextureMap.find({ name, uuid })->second;
+			if (load( name, uuid ))
+				return &requestedMap.find({ name, uuid })->second;
 
 
 			it = requestedMap.find({ "EMPTY", 0});
 			if (it != requestedMap.end())
 				return &it->second;
-			load("EMPTY",0);
+			load("EMPTY", 0);
 			return &requestedMap.find({"EMPTY", 0})->second;
 		}
 		return nullptr;
@@ -157,12 +168,19 @@ public:
 
 public:
 
+	void clear()
+	{
+		requestedMap.clear();
+	}
+
 	Requester(DatabaseIndex::ObjectTypeEnum objectType) : objectType(objectType)
 	{
 
 	}
 
 	Requester(const Requester& copy) = delete;
+
+#ifdef _EDITOR_
 
 	void editorLoadAll()
 	{
@@ -208,6 +226,8 @@ public:
 		}
 	}
 
+#endif
+
 	void save(DatabaseIndex& ind,
 		std::ostream& file,
 		cereal::BinaryOutputArchive& indexAr,
@@ -217,13 +237,13 @@ public:
 		_requestedMap::iterator eit = requestedMap.end();
 		for (it; it != eit; it++)
 		{
-			Prefab& pref = it->second.getReferenced();
+			T& pref = (T&)it->second.getReferenced();
 			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 			ind.ID = it->first.second;
 			ind.type = objectType;
 			ind.modFile = pref.fromMod;
 			ind.row = file.tellp();
-			if (it->second.mode != ObjectSaveMode::REMOVE)
+			if (pref.mode != ObjectSaveMode::REMOVE)
 			{
 				bool b = true;
 				if (pref.fromMod == AssetManagerCore::openedMod && pref.mode == ObjectSaveMode::EDIT)

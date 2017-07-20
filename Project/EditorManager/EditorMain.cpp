@@ -60,6 +60,8 @@ WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 WorldManagerAddon Editor::addons;
 
+Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
+
 // temp test stuff
 //int a = 24;
 //int b = 42;
@@ -76,6 +78,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 }
 int windowMessage()
 {
+
+	AssetManagerCore::testRequestor();
+
 	SplashScreen^ splash = gcnew SplashScreen();
 	MainEditorWindow^ window = splash->InitializeEditor();
 	Engine::Graphic.view.render.setActive(false);
