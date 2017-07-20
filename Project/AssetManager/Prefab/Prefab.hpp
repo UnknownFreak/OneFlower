@@ -11,9 +11,12 @@ class Prefab
 	friend class BaseComponent;
 public:
 
-	Prefab() = default;
+	Prefab();
 	Prefab(const GameObject* go);
 	Prefab(const Prefab& pre);
+
+	Prefab& operator=(const Prefab& left);
+
 	~Prefab();
 
 	GameObject* createFromPrefab();
@@ -56,6 +59,7 @@ public:
 		ar(fromMod);
 		ar(mode);
 	}
+
 	template <class Archive>
 	void save(Archive& ar) const
 	{

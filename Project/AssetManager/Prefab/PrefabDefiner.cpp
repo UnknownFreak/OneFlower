@@ -11,11 +11,29 @@ Prefab::~Prefab()
 	}
 	base.clear();
 }
+
+Prefab::Prefab() : name(""), tag(""), ID(0), fromMod(""), mode(ObjectSaveMode::ADD), base()
+{
+
+}
+
 // Copy-c-tor
+
 Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ID(pre.ID), fromMod(pre.fromMod), mode(pre.mode)
 {
 	for (size_t i = 0; i < pre.base.size(); ++i)
 		base.push_back(pre.base[i]->copy());
+}
+Prefab & Prefab::operator=(const Prefab & left)
+{
+	name = left.name;
+	tag = left.tag;
+	ID = left.ID;
+	fromMod = left.fromMod;
+	mode = left.mode;
+	for (size_t i = 0; i < left.base.size(); ++i)
+		base.push_back(left.base[i]->copy());
+	return *this;
 }
 // Ctor with Gameobject ptr
 Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), ID(0)
