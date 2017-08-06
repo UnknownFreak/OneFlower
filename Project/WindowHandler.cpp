@@ -35,6 +35,7 @@ int test();
 void update();
 void mainMenuUpdate();
 
+Core::StringConverter Core::Converter;
 Settings::EngineSettings Engine::Settings;
 Gfx Engine::Graphic;
 TextureLoader Engine::Textureloader;
