@@ -62,6 +62,10 @@ Vector2t<T>  operator + (const Vector2t<T>& left, const Vector2t<T>  right);
 
 template <typename T>
 Vector2t<T>  operator * (const Vector2t<T>& left, T right);
+
+template <typename T>
+bool		operator == (const Vector2t<T>& left, const Vector2t<T>& right);
+
 //*/
 #pragma endregion
 

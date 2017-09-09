@@ -114,5 +114,12 @@ Vector2t<T> operator*(const Vector2t<T>& left, T right)
 {
 	return Vector2t<T>(left.x * right, left.y * right);
 }
+
+template<typename T>
+bool operator==(const Vector2t<T>& left, const Vector2t<T>& right)
+{
+	return left.x == right.x && left.y == right.y;
+}
+
 //*/
 #pragma endregion
