@@ -15,7 +15,7 @@ public:
 
 	enum class ObjectTypeEnum
 	{
-		Header,
+		Header = 0,
 		Zone,
 		Prefab,
 		GameObject,
@@ -23,7 +23,8 @@ public:
 		Item,
 		ModelContainer,
 		SpriteSheetMap,
-		EoF,
+		Model,
+		EoF = 254,
 		Undefined
 	};
 
