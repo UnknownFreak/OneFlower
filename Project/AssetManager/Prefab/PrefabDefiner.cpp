@@ -12,18 +12,30 @@ Prefab::~Prefab()
 	base.clear();
 }
 
-Prefab::Prefab() : name(""), tag(""), ID(0), fromMod(""), mode(ObjectSaveMode::ADD), base()
+Prefab::Prefab() : ISaveable("", 0), name(""), tag(""), base()
 {
 
 }
 
 // Copy-c-tor
 
-Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ID(pre.ID), fromMod(pre.fromMod), mode(pre.mode)
+Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ISaveable(pre)
 {
 	for (size_t i = 0; i < pre.base.size(); ++i)
 		base.push_back(pre.base[i]->copy());
 }
+// Ctor with Gameobject ptr
+Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), ISaveable("", 0)
+{
+	for (std::map<int, BaseComponent*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
+		base.push_back(it->second->copy());
+	for (std::vector<BaseComponent*>::iterator it = base.begin(); it != base.end(); ++it)
+	{
+		BaseComponent* tmp = *it;
+		tmp->attachedOn = NULL;
+	}
+}
+
 Prefab & Prefab::operator=(const Prefab & left)
 {
 	name = left.name;
@@ -34,17 +46,6 @@ Prefab & Prefab::operator=(const Prefab & left)
 	for (size_t i = 0; i < left.base.size(); ++i)
 		base.push_back(left.base[i]->copy());
 	return *this;
-}
-// Ctor with Gameobject ptr
-Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), ID(0)
-{
-	for (std::map<int, BaseComponent*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
-		base.push_back(it->second->copy());
-	for (std::vector<BaseComponent*>::iterator it = base.begin(); it != base.end(); ++it)
-	{
-		BaseComponent* tmp = *it;
-		tmp->attachedOn = NULL;
-	}
 }
 
 GameObject* Prefab::createFromPrefab()

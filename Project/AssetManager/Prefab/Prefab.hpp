@@ -1,12 +1,14 @@
 #ifndef Prefab_HPP
 #define Prefab_HPP
-
 #include <vector>
 #include <Core/String.hpp>
 #include <Core/Component/BaseComponent.hpp>
+
+#include "../ISaveable.hpp"
 #include "../ObjectSaveMode.hpp"
+
 class GameObject;
-class Prefab
+class Prefab : public ISaveable
 {
 	friend class BaseComponent;
 public:
@@ -27,25 +29,15 @@ public:
 #endif
 
 	std::vector<BaseComponent*> base;
-	size_t ID;
 	Core::String name;
 	Core::String tag;
-	Core::String fromMod = "OneFlower.main";
-	ObjectSaveMode mode = ObjectSaveMode::ADD;
 	const unsigned int getTypeID(size_t index);
-
-//protected:
-	//template<class Archive>
-	//friend void save(Archive &ar, const Prefab &pre);
-	//template<class Archive>
-	//friend void load(Archive &ar, Prefab &pre);
-
 
 #pragma region Prefab
 	template <class Archive>
 	void load(Archive& ar)
 	{
-		ar(ID);
+		ar(cereal::base_class<ISaveable>(this));
 		size_t size;
 		ar(size);
 		for (size_t i = 0; i < size; ++i)
@@ -56,14 +48,12 @@ public:
 		}
 		ar(name);
 		ar(tag);
-		ar(fromMod);
-		ar(mode);
 	}
 
 	template <class Archive>
 	void save(Archive& ar) const
 	{
-		ar(ID);
+		ar(cereal::base_class<ISaveable>(this));
 		ar(base.size());
 		size_t size = base.size();
 		for (size_t i = 0; i < size; ++i)
@@ -76,8 +66,6 @@ public:
 		}
 		ar(name);
 		ar(tag);
-		ar(fromMod);
-		ar(mode);
 	}
 #pragma endregion
 
