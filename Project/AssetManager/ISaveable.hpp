@@ -12,10 +12,8 @@ struct ISaveable
 	ObjectSaveMode mode = ObjectSaveMode::ADD;
 
 	inline ISaveable() : fromMod(""), ID(0) {}
-	inline ISaveable(ISaveable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode) {}
 	inline ISaveable(const ISaveable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode) {}
 	
-	inline ISaveable(ISaveable&& rvalreference) noexcept : fromMod(std::move(rvalreference.fromMod)), ID(std::move(rvalreference.ID)), mode(std::move(rvalreference.mode)) {}
 	inline ISaveable(const ISaveable&& rvalreference) noexcept : fromMod(std::move(rvalreference.fromMod)), ID(std::move(rvalreference.ID)), mode(std::move(rvalreference.mode)) {}
 	
 	inline ISaveable& operator=(const ISaveable& left) {
@@ -26,13 +24,7 @@ struct ISaveable
 		return *this;
 	}
 
-	inline ISaveable& operator=(ISaveable&& left) {
-		fromMod = std::move(left.fromMod);
-		ID = std::move(left.ID);
-		mode = std::move(left.mode);
-
-		return *this;
-	}
+	
 
 	virtual ~ISaveable() = default;
 
