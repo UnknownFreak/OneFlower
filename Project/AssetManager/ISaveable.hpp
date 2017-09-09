@@ -12,6 +12,7 @@ struct ISaveable
 	ObjectSaveMode mode = ObjectSaveMode::ADD;
 
 	inline ISaveable() : fromMod(""), ID(0) {}
+	inline ISaveable(const Core::String fromMod, const size_t ID) : fromMod(fromMod), ID(ID) {}
 	inline ISaveable(const ISaveable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode) {}
 	
 	inline ISaveable(const ISaveable&& rvalreference) noexcept : fromMod(std::move(rvalreference.fromMod)), ID(std::move(rvalreference.ID)), mode(std::move(rvalreference.mode)) {}
