@@ -21,7 +21,7 @@ sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 
 	Core::String path = "Texture/" + name;
 	std::wstring wstr = Core::Converter.toUtf16(path);
-	std::ifstream i(wstr , std::ios::in | std::ifstream::binary);
+	std::ifstream i(path , std::ios::in | std::ifstream::binary);
 	char* data;
 	i.seekg(0, i.end);
 	std::streamoff len = i.tellg();
