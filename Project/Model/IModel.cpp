@@ -1,9 +1,23 @@
 #include "IModel.hpp"
 
-IModel::IModel() : m_render_sprite(NULL)
+IModel::IModel() : IRequestable("OneFlower.main",0), m_render_sprite(NULL)
 {
 
 }
+
+IModel::IModel(const IModel& copy) : IRequestable(copy), m_render_sprite(copy.m_render_sprite)
+{
+
+}
+
+IModel& IModel::operator=(const IModel& left)
+{
+	m_render_sprite = left.m_render_sprite;
+	ID = left.ID;
+	fromMod = left.fromMod;
+	mode = left.mode;
+}
+
 
 void IModel::setRenderSprite(SpriteRef & texture)
 {

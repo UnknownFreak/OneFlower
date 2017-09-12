@@ -4,9 +4,11 @@
 #include <SFML\Graphics\RenderTarget.hpp>
 
 #include <Core\String.hpp>
+#include <AssetManager\ObjectSaveMode.hpp>
 #include <AssetManager\SpriteRef.hpp>
+#include <AssetManager\IRequestable.hpp>
 
-class IModel : sf::Drawable
+class IModel : public sf::Drawable, public IRequestable
 {
 protected:
 
@@ -19,6 +21,10 @@ public:
 
 	IModel();
 	
+	IModel(const IModel& copy);
+
+	IModel& operator=(const IModel& left);
+
 	virtual ~IModel() = default;
 
 	void setRenderSprite(SpriteRef& texture);
