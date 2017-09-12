@@ -4,11 +4,11 @@
 #include <Core/String.hpp>
 #include <Core/Component/BaseComponent.hpp>
 
-#include "../ISaveable.hpp"
+#include "../IRequestable.hpp"
 #include "../ObjectSaveMode.hpp"
 
 class GameObject;
-class Prefab : public ISaveable
+class Prefab : public IRequestable
 {
 	friend class BaseComponent;
 public:
@@ -37,7 +37,7 @@ public:
 	template <class Archive>
 	void load(Archive& ar)
 	{
-		ar(cereal::base_class<ISaveable>(this));
+		ar(cereal::base_class<IRequestable>(this));
 		size_t size;
 		ar(size);
 		for (size_t i = 0; i < size; ++i)
@@ -53,7 +53,7 @@ public:
 	template <class Archive>
 	void save(Archive& ar) const
 	{
-		ar(cereal::base_class<ISaveable>(this));
+		ar(cereal::base_class<IRequestable>(this));
 		ar(base.size());
 		size_t size = base.size();
 		for (size_t i = 0; i < size; ++i)

@@ -12,20 +12,20 @@ Prefab::~Prefab()
 	base.clear();
 }
 
-Prefab::Prefab() : ISaveable("", 0), name(""), tag(""), base()
+Prefab::Prefab() : IRequestable("", 0), name(""), tag(""), base()
 {
 
 }
 
 // Copy-c-tor
 
-Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), ISaveable(pre)
+Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), IRequestable(pre)
 {
 	for (size_t i = 0; i < pre.base.size(); ++i)
 		base.push_back(pre.base[i]->copy());
 }
 // Ctor with Gameobject ptr
-Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), ISaveable("", 0)
+Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), IRequestable("", 0)
 {
 	for (std::map<int, BaseComponent*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
 		base.push_back(it->second->copy());
