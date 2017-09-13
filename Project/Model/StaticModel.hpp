@@ -5,6 +5,8 @@
 
 class StaticModel : public IModel
 {
+public:
+
 	Core::Vector2i m_TopLeft;
 	Core::Vector2i m_BottomRight;
 public:
@@ -19,15 +21,17 @@ public:
 	template<class Archive>
 	void save(Archive& _save) const
 	{
-		ar(m_TopLeft);
-		ar(m_BottomRight);
+		_save(cereal::base_class<IModel>(this));
+		_save(m_TopLeft);
+		_save(m_BottomRight);
 	}
 
 	template<class Archive>
 	void load(Archive& _load)
 	{
-		ar(m_TopLeft);
-		ar(m_BottomRight);
+		_load(cereal::base_class<IModel>(this));
+		_load(m_TopLeft);
+		_load(m_BottomRight);
 	}
 
 protected:

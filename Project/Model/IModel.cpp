@@ -5,7 +5,7 @@ IModel::IModel() : IRequestable("OneFlower.main",0), m_render_sprite(NULL)
 
 }
 
-IModel::IModel(const IModel& copy) : IRequestable(copy), m_render_sprite(copy.m_render_sprite)
+IModel::IModel(const IModel& copy) : IRequestable(copy), m_render_sprite(copy.m_render_sprite), updateRequired(copy.updateRequired)
 {
 
 }
@@ -16,8 +16,9 @@ IModel& IModel::operator=(const IModel& left)
 	ID = left.ID;
 	fromMod = left.fromMod;
 	mode = left.mode;
+	updateRequired = left.updateRequired;
+	return *this;
 }
-
 
 void IModel::setRenderSprite(SpriteRef & texture)
 {

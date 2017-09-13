@@ -38,6 +38,18 @@ public:
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
+	template <class Archive>
+	void save(Archive & ar) const
+	{
+		ar(cereal::base_class<IRequestable>(this));
+	}
+
+	template <class Archive>
+	void load(Archive & ar)
+	{
+		ar(cereal::base_class <IRequestable>(this));
+	}
+
 };
 
 #endif
