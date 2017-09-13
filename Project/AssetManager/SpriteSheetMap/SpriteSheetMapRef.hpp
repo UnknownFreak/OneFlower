@@ -19,7 +19,7 @@ public:
 	SpriteSheetMapRef(const SpriteSheetMapRef& copy);
 
 	const SpriteSheetMap* getSpriteSheetMap();
-	bool isReady();
+	bool isValid();
 
 	size_t useCount = 0;
 	Core::String name;

@@ -12,7 +12,7 @@ const SpriteSheetMap * SpriteSheetMapRef::getSpriteSheetMap()
 #endif
 }
 
-bool SpriteSheetMapRef::isReady()
+bool SpriteSheetMapRef::isValid()
 {
 #ifdef _EDITOR_
 	return true;

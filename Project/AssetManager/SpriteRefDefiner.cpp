@@ -61,7 +61,7 @@ void SpriteRef::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void SpriteRef::reload(bool resize)
 {
-	textureLoaded = textureReference->isReady();
+	textureLoaded = textureReference->isValid();
 	if (textureLoaded)
 	{
 		privRef->setTexture(*textureReference->getTexture(), resize);
