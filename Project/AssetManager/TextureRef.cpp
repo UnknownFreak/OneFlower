@@ -12,7 +12,7 @@ const sf::Texture * TextureRef::getTexture()
 #endif
 }
 
-bool TextureRef::isReady()
+bool TextureRef::isValid()
 {
 #ifdef _EDITOR_
 	return true;

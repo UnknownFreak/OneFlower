@@ -19,7 +19,7 @@ public:
 	TextureRef(const TextureRef& copy);
 
 	const sf::Texture* getTexture();
-	bool isReady();
+	bool isValid();
 	
 	size_t useCount = 0;
 	Core::String name;
