@@ -1,51 +1,60 @@
 #ifndef _EDITOR_
 #include <Windows.h>
 #include <string>
-#include "Engine.hpp"
-#include "Game\Component\GameObject.h"
-#include "Game\Component\HitboxComponent.hpp"
-#include "Game\Component\RenderComponent.h"
-#include "Game\Component\TransformComponent.hpp"
-#include "Game\Component\DialogComponent.hpp"
-#include "Game\Component\ProjectilePatternComponent.hpp"
-#include "Game\Component\EquipmentComponent.hpp"
-#include "Game\Component\PlayerComponent.hpp"
-#include "Game\Component\CombatComponenet.hpp"
-#include "Game\Component\RigidComponent.hpp"
-#include "Game\Logic\Time\Time.hpp"
-#include "Game\World\WorldManagement.hpp"
-#include "Game\LoadAndSave\LoadAndSave.hpp"
 
-#include "Game\Animations\SpriterOverride\SFMLObjectFactory.h"
-#include "Game\Animations\SpriterOverride\SFMLFileFactory.h"
+#include <SFML\Window\Event.hpp>
 
-#include "Game\Animations\SpriterEngine\spriterengine.h"
+#include <Core\Core.hpp>
+#include <AssetManager\AssetManagerCore.hpp>
+//#include <Animations\AnimationCore.hpp>
+#include <Graphic\GraphicsCore.hpp>
+#include <Input\InputCore.hpp>
+#include <Physics\PhysicsCore.hpp>
+#include <World\WorldCore.hpp>
 
-#include "Game\Animations\SpriterEntityInstance.hpp"
-#include "Game\Animations\SpriterModelContainer.hpp"
+#include <Core\Component\GameObject.h>
+#include <Graphic\Component\RenderComponent.h>
+//#include "Engine\Core\Components.hpp"
+//#include "Engine\Logic\Time\Time.hpp"
+//#include "Game\World\WorldManagement.hpp"
+//#include "Game\LoadAndSave\LoadAndSave.hpp"
+//
+//#include "Game\Animations\SpriterOverride\SFMLObjectFactory.h"
+//#include "Game\Animations\SpriterOverride\SFMLFileFactory.h"
+//
+//#include "Game\Animations\SpriterEngine\spriterengine.h"
+//
+//#include "Game\Animations\SpriterEntityInstance.hpp"
+//#include "Game\Animations\SpriterModelContainer.hpp"
 
-#include "Game\World\Zone.hpp"
-#include "Engine\GUI\Text\FormatedText.hpp"
+//#include "Game\World\Zone.hpp"
+//#include "Engine\GUI\Text\FormatedText.hpp"
 int windowMessage();
 void RunMain();
 int test();
 void update();
 void mainMenuUpdate();
+
+Core::StringConverter Core::Converter;
+Settings::EngineSettings Engine::Settings;
 Gfx Engine::Graphic;
+TextureLoader Engine::Textureloader;
 sf::Event Engine::event;
-Game Engine::game;
+//Game Engine::game;
 Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
-GUI::GraphicalUserInterface Engine::GUI;
-WorldManagement Engine::World;
+WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
-Settings Engine::settings;
+
+Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
+
+
 // temp test stuff
-int a = 24;
-int b = 42;
-GUI::FormatedText t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b)+ "(new): {3}", { ParseArg::BaseParseArgument::startList(), ParseArg::BaseParseArgument::newListLine(), ParseArg::BaseParseArgument::endList(), ParseArg::BaseParseArgument::IntCompareArgument(a, b) });
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,int nShowCmd)
+//int a = 24;
+//int b = 42;
+//GUI::FormatedText t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b) + "(new): {3}", { ParseArg::BaseParseArgument::startList(), ParseArg::BaseParseArgument::newListLine(), ParseArg::BaseParseArgument::endList(), ParseArg::BaseParseArgument::IntCompareArgument(a, b) });
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
@@ -54,28 +63,35 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE prevInstance,LPSTR lpCmnLine,in
 
 int windowMessage()
 {
-	t.setCharacterSize(18, true);
-	Engine::World.loadMod("Demo.main");
-	//Engine::World.loadZone("Demo.main", 1);
-	Engine::World.loadZone("MainMenu", 0);
+	Engine::Graphic.view.init();
+	Engine::Graphic.initDebugTextures();
 
-	GameObject* go = new GameObject("player");
+	AssetManagerCore::testRequestor();
+
+	//Engine::ModelContainer.setRenderView(Engine::Graphic.view.render);
+	//testSave();
+	//testLoad();
+	//Engine::World.loadMod("Oneflower.main.test");
+	//Engine::World.loadZone("Demo.main", 1);
+	//Engine::World.loadZone("<__CORE__>", 1);
+
+	//GameObject* go = new GameObject("player");
 	//go->AddComponent<ProjectilePatternComponent>();
-	//go->AddComponent<RenderComponent>("PlayerDemo.png");
+	//go->AddComponent<Component::RenderComponent>("PlayerDemo.png");
 	//go->GetComponent<RenderComponent>()->animation = RenderComponent::Armature;
 	//RenderComponent* render = go->GetComponent<RenderComponent>();
 	//go->GetComponent<RenderComponent>()->instance = Engine::ModelContainer.requestEntityInstance("Spriter\\player.scml", "Player");
 	//go->GetComponent<RenderComponent>()->instance.myTextureMap = { "Demo.main", "DemoTest" };
 	//go->GetComponent<RenderComponent>()->setAnimation("anime2.png", 32, 32);
-	go->AddComponent<RigidComponent>();
-	go->GetComponent<RigidComponent>()->bounding.size = Vector2(32, 32);
-	go->GetComponent<TransformComponent>()->position.x = 300;
-	go->GetComponent<TransformComponent>()->position.y = 300;
-	go->AddComponent<EquipmentComponent>();
-	go->AddComponent<PlayerComponent>();
-	go->AddComponent<Component::Combat>();
-	Engine::game.addGameObject(go);
-	Engine::game.player = go;
+	//go->AddComponent<Component::RigidComponent>();
+	//go->GetComponent<Component::RigidComponent>()->bounding.size = Vector2i(32, 32);
+	//go->GetComponent<Component::TransformComponent>()->position.x = 300;
+	//go->GetComponent<Component::TransformComponent>()->position.y = 300;
+	//go->AddComponent<Component::EquipmentComponent>();
+	//go->AddComponent<Component::PlayerComponent>();
+	//go->AddComponent<Component::Combat>();
+	//Engine::game.addGameObject(go);
+	//Engine::game.player = go;
 
 	//testSave();
 	//Loads the mods required for the "editor", not required for release mode.
@@ -108,11 +124,10 @@ int windowMessage()
 	//*/
 	//else
 	//Engine::Graphic.insertShader(shader,"test.glsl");
-	Engine::GUI.showHideGUI();
+	//Engine::GUI.showHideGUI();
 	//Engine::game.addGameObject(go);
 	Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
-	Engine::Graphic.rex.create(800, 600);
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	while (Engine::Graphic.view.render.isOpen())
 	{
@@ -140,6 +155,7 @@ int windowMessage()
 			update();
 		}
 	}
+	//delete go;
 	return 1;
 }
 void mainMenuUpdate()
@@ -149,13 +165,12 @@ void mainMenuUpdate()
 	while (Engine::time.elapsed >= Engine::time.update_ms)
 	{
 		Engine::Input.update();
-		Engine::GUI.updateMouseIcon();
+		//Engine::GUI.updateMouseIcon();
 		Engine::time.elapsed -= Engine::time.update_ms;
 	}
 
 	Engine::Graphic.drawBG();
 	Engine::Graphic.view.render.display();
-
 }
 void update()
 {
@@ -165,41 +180,41 @@ void update()
 	{
 		Engine::Input.update();
 		//Engine::Physics.update();
-		Engine::game.update();
+		//Engine::game.update();
 
 		Engine::time.elapsed -= Engine::time.update_ms;
 	}
 
 	Engine::Graphic.draw();
-	Engine::Graphic.view.render.draw(t);
-	Engine::GUI.draw();
+	//Engine::GUI.draw();
 	Engine::Graphic.view.render.display();
-
 }
+#include <SFML\Graphics\Font.hpp>
+#include <SFML\Graphics\Text.hpp>
 int test()
 {
 	// Create the main window
-	sf::RenderWindow window(sf::VideoMode(800,600),"SFML window");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 	// Load a sprite to display
 	sf::Texture texture;
-	if(!texture.loadFromFile("test.png"))
+	if (!texture.loadFromFile("test.png"))
 		return EXIT_FAILURE;
 	sf::Sprite sprite(texture);
 	// Create a graphical text to display
 	sf::Font font;
-	if(!font.loadFromFile("arial.ttf"))
+	if (!font.loadFromFile("arial.ttf"))
 		return EXIT_FAILURE;
-	sf::Text text("Hello SFML",font,50);
-	sf::Text text2("HellNoFucs",font,50);
+	sf::Text text("Hello SFML", font, 50);
+	sf::Text text2("HellNoFucs", font, 50);
 	// Start the game loop
-	while(window.isOpen())
+	while (window.isOpen())
 	{
 		// Process events
 		sf::Event event;
-		while(window.pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			// Close window: exit
-			if(event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 		// Clear screen

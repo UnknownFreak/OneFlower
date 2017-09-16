@@ -8,7 +8,10 @@
 *.suo
 *.opensdf
 *.db
+.vs/
 Lib/
 Debug/
-EditorProject/Editor/BaseEditor/bin/*
+DebugEditor/
+EditorResources/obj/*
+EditorResources/bin/*
 OneFlower.VC.VC.opendb

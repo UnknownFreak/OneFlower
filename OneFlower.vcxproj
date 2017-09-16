@@ -1,491 +1,608 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug Lib Engine|Win32">
-      <Configuration>Debug Lib Engine</Configuration>
+    <ProjectConfiguration Include="DebugEditor|Win32">
+      <Configuration>DebugEditor</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugEditor|x64">
+      <Configuration>DebugEditor</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEditor|Win32">
+      <Configuration>ReleaseEditor</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseEditor|x64">
+      <Configuration>ReleaseEditor</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Project\CppInterop.hpp" />
-    <ClInclude Include="Project\Engine.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Button\Button.hpp" />
-    <ClInclude Include="Project\Engine\GUI\GUIElement\BaseHandler.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Popup\Popup.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Scrollbar\Scrollbar.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\BasicText.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\OnTheFlyText.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\FormatedText.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResult.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareResultTypes.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\ParserSettings.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgument.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Text\TextParser\TextParser.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Tooltip\Tooltip.hpp" />
-    <ClInclude Include="Project\Engine\GUI\Window\Window.hpp" />
-    <ClInclude Include="Project\Game\Animations\SpriterModelContainer.hpp" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animation.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\mainlinekey.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\animation\mainlinekeyinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\charactermap\charactermap.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\charactermap\charactermapinstruction.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\charactermap\charactermapinterface.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\entity\entity.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\entity\entityinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\entity\entityinstancedata.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\entity\object.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\file\file.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\file\filereference.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\global\global.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\global\settings.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\loading\loader.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\loading\loadinghelpers.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\loading\spriterdocumentloader.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\model\spritermodel.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\angleinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\boneinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\boneobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\boxinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\boxobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\entityobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\eventobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\intvariableinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\pointinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\pointobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\realvariableinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\soundobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\spriteobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\stringvariableinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\stringvariableinforeference.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\taglist.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\tagobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\tagobjectinforeference.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\triggerobjectinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectinfo\universalobjectinterface.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\boneref.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\bonerefinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\entityref.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\entityrefinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\objectref.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\objectrefinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\spriteref.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\spriterefinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\objectref\transformprocessor.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\filefactory.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\imagefile.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\objectfactory.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\soundfile.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\soundobjectinforeference.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\spriterfileattributewrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\spriterfiledocumentwrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\override\spriterfileelementwrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\spriterengine.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\beziereasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\cubiceasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\easingcurveinterface.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\instanteasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\lineareasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\quadraticeasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\quarticeasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\quinticeasingcurve.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeinfo\timeinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\proxytimelinekey.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\soundtimelineinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\tagtimelineinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\timeline.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\timelineinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\timelinekey.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\triggertimelineinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\timeline\variabletimelineinstance.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\variable\variable.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\variable\variablecontainer.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEngine\variable\variableinstancenameandidmap.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterEntityInstance.hpp" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\SFMLfilefactory.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\SFMLobjectfactory.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlboneinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlboxinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlimagefile.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlpointinstanceinfo.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlsoundfile.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\sfmlsoundobjectinforeference.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfileattributewrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfiledocumentwrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfileelementwrapper.h" />
-    <ClInclude Include="Project\Game\Animations\SpriterTextureMapper.hpp" />
-    <ClInclude Include="Project\Game\Animations\SpriteSheetAnimation.hpp" />
-    <ClInclude Include="Project\Game\Animations\TextureMap.hpp" />
-    <ClInclude Include="Project\Game\Animations\TextureMapPoint.hpp" />
-    <ClInclude Include="Project\Game\Animations\tinyxml2\tinyxml2.h" />
-    <ClInclude Include="Project\Game\BaseMessage.hpp" />
-    <ClInclude Include="Project\Game\Component\BaseComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\CombatComponenet.hpp" />
-    <ClInclude Include="Project\Game\Component\DialogComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\EquipmentComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\GameObject.h" />
-    <ClInclude Include="Project\Game\Component\HealthComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\HitboxComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\IBaseComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\InventoryComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\OverheadComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\PickupComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\PlayerComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\ProjectilePatternComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\RenderComponent.h" />
-    <ClInclude Include="Project\Game\Component\ReputationComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\RigidComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\StatsComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\TimerComponent.hpp" />
-    <ClInclude Include="Project\Game\Component\TransformComponent.hpp" />
-    <ClInclude Include="Project\Game\Effect\Effect.hpp" />
-    <ClInclude Include="Project\Game\Effect\Enchantment.hpp" />
-    <ClInclude Include="Project\Game\Game.h" />
-    <ClInclude Include="Project\Game\GameView.hpp" />
-    <ClInclude Include="Project\Game\Gfx.h" />
-    <ClInclude Include="Project\Game\GUI\GraphicalUserInterface.hpp" />
-    <ClInclude Include="Project\Game\GUI\Text\FloatingDamage.hpp" />
-    <ClInclude Include="Project\Game\GUI\Text\FloatingText.hpp" />
-    <ClInclude Include="Project\Game\GUI\Text\Font.hpp" />
-    <ClInclude Include="Project\Game\GUI\Text\InputBox.hpp" />
-    <ClInclude Include="Project\Game\GUI\Text\Message.hpp" />
-    <ClInclude Include="Project\Game\GUI\ToolTip.hpp" />
-    <ClInclude Include="Project\Game\Item\Ammo.hpp" />
-    <ClInclude Include="Project\Game\Item\Armor.hpp" />
-    <ClInclude Include="Project\Game\Item\Bag.hpp" />
-    <ClInclude Include="Project\Game\Item\Consumable.hpp" />
-    <ClInclude Include="Project\Game\Item\Item.hpp" />
-    <ClInclude Include="Project\Game\Item\Weapon.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\DatabaseIndex.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\EditorObjectSaveMode.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\LoadAndSave.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\ModHeader.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\Prefab.hpp" />
-    <ClInclude Include="Project\Game\LoadAndSave\PrefabContainer.hpp" />
-    <ClInclude Include="Project\Game\Logic\Input\InputEnum.hpp" />
-    <ClInclude Include="Project\Game\Logic\Input\InputHandler.hpp" />
-    <ClInclude Include="Project\Game\Logic\Input\Mouse.hpp" />
-    <ClInclude Include="Project\Game\Logic\Physics\BoundingBox.hpp" />
-    <ClInclude Include="Project\Game\Logic\Physics\Collider.hpp" />
-    <ClInclude Include="Project\Game\Logic\Physics\Movement.hpp" />
-    <ClInclude Include="Project\Game\Logic\Physics\Physics.hpp" />
-    <ClInclude Include="Project\Game\Logic\Time\Time.hpp" />
-    <ClInclude Include="Project\Game\Quest\Quest.hpp" />
-    <ClInclude Include="Project\Game\Quest\QuestObjective.hpp" />
-    <ClInclude Include="Project\Game\Settings\Settings.hpp" />
-    <ClInclude Include="Project\Game\Skills\Attack.hpp" />
-    <ClInclude Include="Project\Game\Skills\Skill.hpp" />
-    <ClInclude Include="Project\Game\Tile.h" />
-    <ClInclude Include="Project\Game\World\GridTile.h" />
-    <ClInclude Include="Project\Game\World\DBZone.hpp" />
-    <ClInclude Include="Project\Game\World\ModLoader.hpp" />
-    <ClInclude Include="Project\Game\World\RespawnContainer.hpp" />
-    <ClInclude Include="Project\Game\World\WorldManagement.hpp" />
-    <ClInclude Include="Project\Game\World\Zone.hpp" />
-    <ClInclude Include="Project\NativeContainer.hpp" />
-    <ClInclude Include="Project\Vector.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Project\Cppinterop.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Button\Button.cpp" />
-    <ClCompile Include="Project\Engine\GUI\GUIElement\BaseHandler.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Scrollbar\Scrollbar.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\BasicText.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\OnTheFlyText.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\FormatedText.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\BaseParseArgument.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Color\ColorArgument.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Comparer\CompareArgument.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Icon\IconArgument.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\ParserSettings.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\Reference\ReferenceArgumentTypes.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Text\TextParser\TextParser.cpp" />
-    <ClCompile Include="Project\Engine\GUI\Window\Window.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animation.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\animationinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\mainlinekey.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\animation\mainlinekeyinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\charactermap\charactermap.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\charactermap\charactermapinstruction.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\entity\entity.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\entity\entityinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\entity\entityinstancedata.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\entity\object.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\file\file.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\file\filereference.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\global\settings.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\loading\loader.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\loading\loadinghelpers.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\loading\spriterdocumentloader.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\model\spritermodel.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\angleinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\boneinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\boneobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\boxinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\boxobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\entityobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\eventobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\intvariableinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\pointinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\pointobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\realvariableinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\soundobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\spriteobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\stringvariableinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\stringvariableinforeference.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\taglist.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\tagobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\tagobjectinforeference.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\triggerobjectinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectinfo\universalobjectinterface.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\boneref.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\bonerefinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\entityref.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\entityrefinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\objectref.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\objectrefinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\spriteref.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\spriterefinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\objectref\transformprocessor.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\filefactory.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\imagefile.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\objectfactory.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\soundfile.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\soundobjectinforeference.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\spriterfileattributewrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\spriterfiledocumentwrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\override\spriterfileelementwrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\beziereasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\cubiceasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\easingcurveinterface.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\instanteasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\lineareasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\quadraticeasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\quarticeasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\quinticeasingcurve.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeinfo\timeinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\proxytimelinekey.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\soundtimelineinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\tagtimelineinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\timeline.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\timelineinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\timelinekey.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\triggertimelineinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\timeline\variabletimelineinstance.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\variable\variable.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\variable\variablecontainer.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEngine\variable\variableinstancenameandidmap.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterEntityInstanceDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterModelContainerDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\SFMLfilefactory.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\SFMLobjectfactory.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlboneinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlboxinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlimagefile.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlpointinstanceinfo.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlsoundfile.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\sfmlsoundobjectinforeference.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfileattributewrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfiledocumentwrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterOverride\tinyxmlspriterfileelementwrapper.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriterTextureMapperDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\SpriteSheetAnimationDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\TextureMapDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\TextureMapPointDefiner.cpp" />
-    <ClCompile Include="Project\Game\Animations\tinyxml2\tinyxml2.cpp" />
-    <ClCompile Include="Project\Game\BaseMessageDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\BaseComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\CombatComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\DialogComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\EquipmentComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\GameObjectDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\HealthComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\HitboxComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\InventoryComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\OverheadComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\PickupComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\PlayerComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\ProjectilePatternComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\RenderComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\ReputationComponentDefiners.cpp" />
-    <ClCompile Include="Project\Game\Component\RigidComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\StatsComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\TimerComponent.cpp" />
-    <ClCompile Include="Project\Game\Component\TransformComponentDefiner.cpp" />
-    <ClCompile Include="Project\Game\Component\TransformComponentHandler.cpp" />
-    <ClCompile Include="Project\Game\Effect\EffectDefiner.cpp" />
-    <ClCompile Include="Project\Game\GameDefiner.cpp" />
-    <ClCompile Include="Project\Game\GameHandler.cpp" />
-    <ClCompile Include="Project\Game\GameViewDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\GraphicalUserInterface.cpp" />
-    <ClCompile Include="Project\Game\GUI\GraphicalUserInterfaceHandler.cpp" />
-    <ClCompile Include="Project\Game\GUI\Text\FloatingDamageDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Text\FloatingTextDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Text\FontDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Text\InputBoxDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\Text\MessageDefiner.cpp" />
-    <ClCompile Include="Project\Game\GUI\ToolTipDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\AmmoDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\ArmorDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\BagDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\ConsumableDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\ItemDefiner.cpp" />
-    <ClCompile Include="Project\Game\Item\WeaponDefiner.cpp" />
-    <ClCompile Include="Project\Game\LoadAndSave\LoadAndSave.cpp" />
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabContainerDefiner.cpp" />
-    <ClCompile Include="Project\Game\LoadAndSave\PrefabDefiner.cpp" />
-    <ClCompile Include="Project\Game\Logic\Input\InputHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Game\Logic\Input\Mouse.cpp" />
-    <ClCompile Include="Project\Game\Logic\Physics\BoundingBoxDefiner.cpp" />
-    <ClCompile Include="Project\Game\Logic\Physics\Movement.cpp" />
-    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineDefiner.cpp" />
-    <ClCompile Include="Project\Game\Logic\Physics\PhysicsEngineHandler.cpp" />
-    <ClCompile Include="Project\Game\Logic\Time\TimeDefiner.cpp" />
-    <ClCompile Include="Project\Game\RenderHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Game\Skills\SkillDefiner.cpp" />
-    <ClCompile Include="Project\Game\TileDefiner.cpp" />
-    <ClCompile Include="Project\Game\World\GridTileDefiner.cpp" />
-    <ClCompile Include="Project\Game\World\ModLoaderDefiner.cpp" />
-    <ClCompile Include="Project\Game\World\WorldManagement.cpp" />
-    <ClCompile Include="Project\Game\World\Zone.cpp" />
-    <ClCompile Include="Project\NativeContainer.cpp" />
-    <ClCompile Include="Project\WindowHandler.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Project\Other\MenuBar.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Project\Vector.inl" />
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F58779DA-3DE9-4DAA-8457-9F0556580466}</ProjectGuid>
+    <ProjectGuid>{7018A509-38BF-4391-B188-948A7FEE55AA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>OneFlower</RootNamespace>
-    <SccProjectName>SAK</SccProjectName>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccProvider>SAK</SccProvider>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.4.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.0\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.4.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.0\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)Debug\</OutDir>
-    <IntDir>Debug\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'">
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Lib\cereal-1.1.2\include;$(SolutionDir)Lib\SFML-2.3.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\SFML-2.3.1\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|x64'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.0\lib\Debug;$(SolutionDir)Lib\SFML-2.4.0\lib\Release;$(SolutionDir)Lib\SFML-2.4.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
- %(AdditionalOptions)</AdditionalOptions>
-      <Profile>true</Profile>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Manifest>
-      <InputResourceManifests>
-      </InputResourceManifests>
-    </Manifest>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Lib Engine|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_EDITOR_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_EDITOR_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.0\lib\Debug;$(SolutionDir)Lib\SFML-2.4.0\lib\Release;$(SolutionDir)Lib\SFML-2.4.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/SUBSYSTEM:WINDOWS,6.0
- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Manifest>
-      <InputResourceManifests>
-      </InputResourceManifests>
-    </Manifest>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.3.1\lib\Debug;$(SolutionDir)Lib\SFML-2.2\lib\Release;$(SolutionDir)Lib\SFML-2.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_EDITOR_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Project\AssetManager\IRequestable.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp" />
+    <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp" />
+    <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp" />
+    <ClInclude Include="Project\Model\AnimationCore.hpp" />
+    <ClInclude Include="Project\Model\SpriterEngine\animation\animation.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\animation\animationinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\animation\mainlinekey.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\animation\mainlinekeyinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermap.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermapinstruction.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\charactermap\charactermapinterface.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entity.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entityinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\entity\entityinstancedata.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\entity\object.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\file\file.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\file\filereference.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\global\global.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\global\settings.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\loading\loader.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\loading\loadinghelpers.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\loading\spriterdocumentloader.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\model\spritermodel.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\angleinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boneinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boneobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boxinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\boxobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\entityobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\eventobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\intvariableinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\pointinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\pointobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\realvariableinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\soundobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\spriteobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\stringvariableinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\stringvariableinforeference.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\taglist.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\tagobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\tagobjectinforeference.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\triggerobjectinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectinfo\universalobjectinterface.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\boneref.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\bonerefinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\entityref.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\entityrefinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\objectref.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\objectrefinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\spriteref.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\spriterefinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\objectref\transformprocessor.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\filefactory.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\imagefile.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\objectfactory.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\soundfile.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\soundobjectinforeference.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfileattributewrapper.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfiledocumentwrapper.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\override\spriterfileelementwrapper.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\spriterengine.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\beziereasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\cubiceasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\easingcurveinterface.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\instanteasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\lineareasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quadraticeasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quarticeasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\quinticeasingcurve.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeinfo\timeinfo.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\proxytimelinekey.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\soundtimelineinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\tagtimelineinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timeline.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timelineinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\timelinekey.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\triggertimelineinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\timeline\variabletimelineinstance.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variable.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variablecontainer.h" />
+    <ClInclude Include="Project\Model\SpriterEngine\variable\variableinstancenameandidmap.h" />
+    <ClInclude Include="Project\Model\SpriterModel_.hpp" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlboneinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlboxinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\SFMLfilefactory.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlimagefile.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\SFMLobjectfactory.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlpointinstanceinfo.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlsoundfile.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\sfmlsoundobjectinforeference.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfileattributewrapper.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfiledocumentwrapper.h" />
+    <ClInclude Include="Project\Model\SpriterOverride\tinyxmlspriterfileelementwrapper.h" />
+    <ClInclude Include="Project\Model\SpriterTextureMapper.hpp" />
+    <ClInclude Include="Project\Model\SpriteSheetModel.hpp" />
+    <ClInclude Include="Project\Model\StaticModel.hpp" />
+    <ClInclude Include="Project\Model\TextureMap.hpp" />
+    <ClInclude Include="Project\Model\TextureMapPoint.hpp" />
+    <ClInclude Include="Project\Model\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp" />
+    <ClInclude Include="Project\AssetManager\Database\DatabaseIndex.hpp" />
+    <ClInclude Include="Project\AssetManager\Database\DBZone.hpp" />
+    <ClInclude Include="Project\AssetManager\Mod\ModHeader.hpp" />
+    <ClInclude Include="Project\AssetManager\Mod\ModLoader.hpp" />
+    <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp" />
+    <ClInclude Include="Project\AssetManager\Prefab\Prefab.hpp" />
+    <ClInclude Include="Project\AssetManager\Prefab\PrefabContainer.hpp" />
+    <ClInclude Include="Project\AssetManager\SpriteRef.hpp" />
+    <ClInclude Include="Project\AssetManager\TextureLoader.hpp" />
+    <ClInclude Include="Project\AssetManager\TextureRef.hpp" />
+    <ClInclude Include="Project\AssetManager\Version\Version.hpp" />
+    <ClInclude Include="Project\Core\Component\BaseComponent.hpp" />
+    <ClInclude Include="Project\Core\Component\GameObject.h" />
+    <ClInclude Include="Project\Core\Component\IBaseComponent.hpp" />
+    <ClInclude Include="Project\Core\Component\Message\BaseMessage.hpp" />
+    <ClInclude Include="Project\Core\Component\TransformComponent.hpp" />
+    <ClInclude Include="Project\Core\Core.hpp" />
+    <ClInclude Include="Project\Core\EngineSettings.hpp" />
+    <ClInclude Include="Project\Core\String.hpp" />
+    <ClInclude Include="Project\Core\Vector.h" />
+    <ClInclude Include="Project\EditorManager\EditorCore.hpp" />
+    <ClInclude Include="Project\EditorManager\EditorEvents.hpp" />
+    <ClInclude Include="Project\EditorManager\InteropHelper.hpp" />
+    <ClInclude Include="Project\EditorManager\MainEditorWindow.hpp" />
+    <ClInclude Include="Project\EditorManager\ParentWindowWrapper.hpp" />
+    <ClInclude Include="Project\EditorManager\SplashScreen.hpp" />
+    <ClInclude Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.hpp" />
+    <ClInclude Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp" />
+    <ClInclude Include="Project\Graphic\BackgroundSprite\BackgroundSprite.hpp" />
+    <ClInclude Include="Project\Graphic\Component\DialogComponent.hpp" />
+    <ClInclude Include="Project\Graphic\Component\RenderComponent.h" />
+    <ClInclude Include="Project\Graphic\Gfx.h" />
+    <ClInclude Include="Project\Graphic\GraphicsCore.hpp" />
+    <ClInclude Include="Project\Graphic\RenderView.hpp" />
+    <ClInclude Include="Project\Graphic\Tile\GridTile.h" />
+    <ClInclude Include="Project\Graphic\Time\Time.hpp" />
+    <ClInclude Include="Project\Input\InputCore.hpp" />
+    <ClInclude Include="Project\Input\InputEnum.hpp" />
+    <ClInclude Include="Project\Input\InputHandler.hpp" />
+    <ClInclude Include="Project\Input\Mouse.hpp" />
+    <ClInclude Include="Project\Logger\Logger.hpp" />
+    <ClInclude Include="Project\Model\IModel.hpp" />
+    <ClInclude Include="Project\Model\ModelContainer.hpp" />
+    <ClInclude Include="Project\Model\SpriterEntityInstance.hpp" />
+    <ClInclude Include="Project\Model\SpriterModelContainer.hpp" />
+    <ClInclude Include="Project\Model\SpriteSheetAnimation.hpp" />
+    <ClInclude Include="Project\Physics\BoundingBox.hpp" />
+    <ClInclude Include="Project\Physics\Collider.hpp" />
+    <ClInclude Include="Project\Physics\Component\HitboxComponent.hpp" />
+    <ClInclude Include="Project\Physics\Component\RigidComponent.hpp" />
+    <ClInclude Include="Project\Physics\Movement.hpp" />
+    <ClInclude Include="Project\Physics\Physics.hpp" />
+    <ClInclude Include="Project\Physics\PhysicsCore.hpp" />
+    <ClInclude Include="Project\World\Component\LoadZoneComponent.hpp" />
+    <ClInclude Include="Project\World\RespawnContainer.hpp" />
+    <ClInclude Include="Project\World\WorldCore.hpp" />
+    <ClInclude Include="Project\World\WorldManager.hpp" />
+    <ClInclude Include="Project\World\Zone.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp" />
+    <ClCompile Include="Project\Model\IModel.cpp" />
+    <ClCompile Include="Project\Model\ModelContainer.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\animation\animation.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\animation\animationinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\animation\mainlinekey.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\animation\mainlinekeyinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\charactermap\charactermap.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\charactermap\charactermapinstruction.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entity.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entityinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\entity\entityinstancedata.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\entity\object.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\file\file.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\file\filereference.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\global\settings.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\loading\loader.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\loading\loadinghelpers.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\loading\spriterdocumentloader.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\model\spritermodel.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\angleinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boneinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boneobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boxinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\boxobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\entityobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\eventobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\intvariableinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\pointinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\pointobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\realvariableinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\soundobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\spriteobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\stringvariableinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\stringvariableinforeference.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\taglist.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\tagobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\tagobjectinforeference.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\triggerobjectinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectinfo\universalobjectinterface.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\boneref.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\bonerefinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\entityref.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\entityrefinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\objectref.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\objectrefinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\spriteref.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\spriterefinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\objectref\transformprocessor.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\filefactory.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\imagefile.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\objectfactory.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\soundfile.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\soundobjectinforeference.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfileattributewrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfiledocumentwrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\override\spriterfileelementwrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\beziereasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\cubiceasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\easingcurveinterface.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\instanteasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\lineareasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quadraticeasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quarticeasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\quinticeasingcurve.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeinfo\timeinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\proxytimelinekey.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\soundtimelineinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\tagtimelineinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timeline.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timelineinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\timelinekey.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\triggertimelineinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\timeline\variabletimelineinstance.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variable.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variablecontainer.cpp" />
+    <ClCompile Include="Project\Model\SpriterEngine\variable\variableinstancenameandidmap.cpp" />
+    <ClCompile Include="Project\Model\SpriterModel_.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlboneinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlboxinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\SFMLfilefactory.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlimagefile.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\SFMLobjectfactory.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlpointinstanceinfo.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlsoundfile.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\sfmlsoundobjectinforeference.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfileattributewrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfiledocumentwrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterOverride\tinyxmlspriterfileelementwrapper.cpp" />
+    <ClCompile Include="Project\Model\SpriterTextureMapperDefiner.cpp" />
+    <ClCompile Include="Project\Model\SpriteSheetModel.cpp" />
+    <ClCompile Include="Project\Model\StaticModel.cpp" />
+    <ClCompile Include="Project\Model\TextureMapDefiner.cpp" />
+    <ClCompile Include="Project\Model\TextureMapPointDefiner.cpp" />
+    <ClCompile Include="Project\Model\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp" />
+    <ClCompile Include="Project\AssetManager\AssetManagerCoreLoad.cpp" />
+    <ClCompile Include="Project\AssetManager\Mod\ModLoaderDefiner.cpp" />
+    <ClCompile Include="Project\AssetManager\Prefab\PrefabContainerDefiner.cpp" />
+    <ClCompile Include="Project\AssetManager\Prefab\PrefabDefiner.cpp" />
+    <ClCompile Include="Project\AssetManager\SpriteRefDefiner.cpp" />
+    <ClCompile Include="Project\AssetManager\TextureLoader.cpp" />
+    <ClCompile Include="Project\AssetManager\TextureRef.cpp" />
+    <ClCompile Include="Project\AssetManager\Version\Version.cpp" />
+    <ClCompile Include="Project\Core\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="Project\Core\Component\GameObjectDefiner.cpp" />
+    <ClCompile Include="Project\Core\Component\Message\BaseMessageDefiner.cpp" />
+    <ClCompile Include="Project\Core\Component\TransformComponentDefiner.cpp" />
+    <ClCompile Include="Project\Core\Component\TransformComponentHandler.cpp" />
+    <ClCompile Include="Project\Core\String.cpp" />
+    <ClCompile Include="Project\EditorManager\EditorEvents.cpp" />
+    <ClCompile Include="Project\EditorManager\EditorMain.cpp" />
+    <ClCompile Include="Project\EditorManager\MainEditorWindowDefiner.cpp" />
+    <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp" />
+    <ClCompile Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.cpp" />
+    <ClCompile Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.cpp" />
+    <ClCompile Include="Project\Graphic\BackgroundSprite\BackgroundSpriteDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\Component\DialogComponentDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\Component\RenderComponentDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\RenderHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\RenderViewDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\Tile\GridTileDefiner.cpp" />
+    <ClCompile Include="Project\Graphic\Time\TimeDefiner.cpp" />
+    <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Input\Mouse.cpp" />
+    <ClCompile Include="Project\Logger\Logger.cpp" />
+    <ClCompile Include="Project\Model\SpriterEntityInstanceDefiner.cpp" />
+    <ClCompile Include="Project\Model\SpriterModelContainerDefiner.cpp" />
+    <ClCompile Include="Project\Model\SpriteSheetAnimationDefiner.cpp" />
+    <ClCompile Include="Project\Physics\BoundingBoxDefiner.cpp" />
+    <ClCompile Include="Project\Physics\Component\GameObjectAddon.cpp" />
+    <ClCompile Include="Project\Physics\Component\HitboxComponentDefiner.cpp" />
+    <ClCompile Include="Project\Physics\Component\RigidComponentDefiner.cpp" />
+    <ClCompile Include="Project\Physics\Movement.cpp" />
+    <ClCompile Include="Project\Physics\PhysicsEngineDefiner.cpp" />
+    <ClCompile Include="Project\Physics\PhysicsEngineHandler.cpp" />
+    <ClCompile Include="Project\WindowHandler.cpp" />
+    <ClCompile Include="Project\World\Component\LoadZoneComponent.cpp" />
+    <ClCompile Include="Project\World\WorldManager.cpp" />
+    <ClCompile Include="Project\World\Zone.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Project\AssetManager\Requestor\Reference.inl" />
+    <None Include="Project\AssetManager\Requestor\Requestor.inl" />
+    <None Include="Project\AssetManager\Requestor\Requestor_ptr.inl" />
+    <None Include="Project\Core\Vector.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="EditorResources\EditorResources.csproj">
+      <Project>{258982f6-92f2-4d9a-b8d2-58774d0fd26b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

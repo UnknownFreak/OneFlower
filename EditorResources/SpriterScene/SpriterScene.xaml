@@ -1,0 +1,58 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EditorResources.SpriterScene"
+             xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" x:Class="EditorResources.SpriterScene.SpriterScene"
+             mc:Ignorable="d" Width="426.404" Height="750.296" Background="White">
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+        </Grid.Effect>
+        <Label Content="Scene Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Margin="10,0,0,0"/>
+        <ListView x:Name="sceneFilesList" HorizontalAlignment="Left" Height="137" Margin="10,27,0,0" VerticalAlignment="Top" Width="376">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="addSpriterSceneFile" Content="+" HorizontalAlignment="Left" Margin="391,27,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="addSpriterSceneFile_Click"/>
+        <Button x:Name="removeSpriterSceneFile" Content="-" HorizontalAlignment="Left" Margin="391,52,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="removeSpriterSceneFile_Click"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="571" Margin="10,169,0,0" VerticalAlignment="Top" Width="376" BorderBrush="#FF828790">
+            <Grid Margin="0" Width="376">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Content="Texture Maps" Margin="10,2,0,0"/>
+                <ListBox x:Name="TextureMap" HorizontalAlignment="Left" Height="100" Margin="10,29,0,0" VerticalAlignment="Top" Width="335"/>
+                <Button x:Name="addTextureMap" Content="+" HorizontalAlignment="Left" Margin="350,29,0,0" VerticalAlignment="Top" Width="20" Height="20"/>
+                <Button x:Name="removeTextureMap" Content="-" HorizontalAlignment="Left" Margin="350,54,0,0" VerticalAlignment="Top" Width="20" Height="20"/>
+                <Button x:Name="setPointsFromFile" Content="Set Texture Map Points From File" HorizontalAlignment="Left" Margin="147,134,0,0" VerticalAlignment="Top" Width="198" Click="setPointsFromFile_Click"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Content="Edit Point" Margin="10,341,0,0"/>
+                <Border BorderBrush="#FF828790" BorderThickness="1" HorizontalAlignment="Left" Height="178" Margin="10,373,0,0" VerticalAlignment="Top" Width="335">
+                    <Grid>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Height="27" Content="Name" Margin="10,10,0,0"/>
+                        <TextBox x:Name="pointName" HorizontalAlignment="Left" Height="23" Margin="10,42,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="161"/>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Height="27" Content="X" Margin="10,70,0,0"/>
+                        <TextBox x:Name="xPos" HorizontalAlignment="Left" Height="23" Margin="10,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Height="27" Content="Y" Margin="90,70,0,0"/>
+                        <TextBox x:Name="yPos" HorizontalAlignment="Left" Height="23" Margin="90,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="45" Height="27" Content="Width" Margin="170,70,0,0" RenderTransformOrigin="0.652,0.481"/>
+                        <TextBox x:Name="pointWidth" HorizontalAlignment="Left" Height="23" Margin="170,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="46" Height="27" Content="Height" Margin="250,70,0,0"/>
+                        <TextBox x:Name="pointHeight" HorizontalAlignment="Left" Height="23" Margin="250,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="73"/>
+                        <CheckBox x:Name="rotated" Content="Rotated" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </Border>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Content="Points" Margin="10,171,0,0"/>
+                <ListView x:Name="sceneFilesList_Copy" HorizontalAlignment="Left" Height="137" Margin="10,198,0,0" VerticalAlignment="Top" Width="335">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>
