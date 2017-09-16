@@ -27,16 +27,21 @@
 #include <Model\SpriteSheetAnimation.hpp>
 #include <Model\SpriterTextureMapper.hpp>
 
+#include <Model\IModel.hpp>
+#include <Model\StaticModel.hpp>
+#include <Model\SpriteSheetModel.hpp>
 
 CEREAL_REGISTER_TYPE(BaseComponent);
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::DialogComponent>)
 CEREAL_REGISTER_TYPE(Component::HitboxComponent)
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::OverheadComponent>)
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::PlayerComponent> )
-CEREAL_REGISTER_TYPE(Component::RenderComponent )
+CEREAL_REGISTER_TYPE(Component::RenderComponent)
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::RigidComponent> )
 //CEREAL_REGISTER_TYPE(IBaseComponent<Component::Timer>)
 CEREAL_REGISTER_TYPE(Component::TransformComponent)
+
+CEREAL_REGISTER_TYPE(StaticModel);
 
 //CEREAL_REGISTER_TYPE_WITH_NAME(Component::DialogComponent, "Dialog")
 //CEREAL_REGISTER_TYPE_WITH_NAME(Component::HitboxComponent, "Hitbox")
@@ -55,6 +60,9 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::RenderComponent)
 //CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::RigidComponent)
 //CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::Timer)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::TransformComponent)
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, StaticModel);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
 
 AssetManagerCore::AssetMode AssetManagerCore::assetMode = AssetManagerCore::AssetMode::FINE;
 AssetManagerCore::Mode AssetManagerCore::state = AssetManagerCore::Mode::UNDEFINED;
@@ -96,7 +104,6 @@ void AssetManagerCore::testRequestor()
 		cereal::BinaryOutputArchive indexAr(index);
 
 
-
 		Engine::PrefabRequester.save(ind, file, indexAr, mainAr);
 		ind.flags = DatabaseIndex::ObjectFlag::EoF;
 		ind.ID = 0;
@@ -110,10 +117,79 @@ void AssetManagerCore::testRequestor()
 	Engine::World.modLoadOrder.loadOrder.clear();
 	Engine::World.modLoadOrder.loadOrder.insert(std::make_pair("test", 0));
 	Engine::PrefabRequester.clear();
-	const Reference<Prefab>* pr = Engine::PrefabRequester.request("test", 0);
 
-	pr->getReferenced();
+	{
+
+		Reference<Prefab>*& pr = Engine::PrefabRequester.request("test", 0);
+
+		pr->getReferenced();
+	}
+
+	StaticModel* m = new StaticModel();
+	m->m_TopLeft = Core::Vector2i(50, 50);
+	m->m_BottomRight = Core::Vector2i(50, 50);
+	m->fromMod = "test";
+	IModel* mpr = m;
+
+	Requester<IModel*>* reqq = &Engine::ModelRequester;
+#ifdef _EDITOR_
+	Engine::ModelRequester.add("test", 0, mpr);
+
+	modhdr.name = "testIModel";
+	std::ofstream file2("testIModel", std::ios::binary);
+	std::ofstream index2("testIModel.index", std::ios::binary);
+	{
+		DatabaseIndex ind;
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+		cereal::BinaryOutputArchive mainAr(file2);
+		cereal::BinaryOutputArchive indexAr(index2);
+
+
+
+		Engine::ModelRequester.save(ind, file2, indexAr, mainAr);
+		ind.flags = DatabaseIndex::ObjectFlag::EoF;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+	}
+	file2.close();
+	index2.close();
+#endif _EDITOR_
+	Engine::World.modLoadOrder.loadOrder.clear();
+	Engine::World.modLoadOrder.loadOrder.insert(std::make_pair("testIModel", 0));
+	Engine::ModelRequester.clear();
+
+	Reference<IModel*>*& mr = Engine::ModelRequester.request("test", 0);
+
+	{
+		IModel*& mdl = mr->getReferenced();
+		Engine::ModelRequester.requestRemoval("test", 0);
+		bool b = mdl == nullptr;
+		if (b)
+			Logger::Info("Success: mdl is nullpointer, as requested");
+		else
+		{
+			Core::String s;
+
+			std::stringstream ss;
+			ss << "Failed: mdl is not nullpointer: mdl=" << mdl << " nullptr:" << NULL << " is true:" << (mdl == nullptr) << std::endl;
+			ss >> s;
+			s = ss.str();
+			Logger::Error(s);
+		}
+	}
+
+	//Engine::ModelRequester.clear();
+
+	//IModel*& mdl = mr->getReferenced();
+
 }
+
 void AssetManagerCore::saveGameDatabase(
 	std::string filename,
 	ModHeader& modhdr,

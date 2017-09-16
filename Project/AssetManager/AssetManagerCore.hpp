@@ -13,7 +13,7 @@
 
 #include "SpriteSheetMap\SpriteSheetMapRef.hpp"
 
-#include "TemplatedRequestor\TemplatedRequestor.hpp"
+#include "Requestor\Requestor.hpp"
 
 #include <cereal\archives\binary.hpp>
 #include "Version\Version.hpp"
