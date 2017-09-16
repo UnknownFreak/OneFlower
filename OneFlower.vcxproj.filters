@@ -184,7 +184,7 @@
     <Filter Include="Engine\AssetManager\SpritesheetMap">
       <UniqueIdentifier>{ba14465d-e7a7-4711-9374-7c3dc4a5af4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\AssetManager\TempletedRequestor">
+    <Filter Include="Engine\AssetManager\Requestor">
       <UniqueIdentifier>{a6c24d69-3511-4f13-a876-4a7544762144}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -658,13 +658,16 @@
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp">
       <Filter>Engine\AssetManager\SpritesheetMap</Filter>
     </ClInclude>
-    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRequestor.hpp">
-      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.hpp">
-      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
-    </ClInclude>
     <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp">
+      <Filter>Engine\AssetManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp">
+      <Filter>Engine\AssetManager\Requestor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp">
+      <Filter>Engine\AssetManager\Requestor</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\IRequestable.hpp">
       <Filter>Engine\AssetManager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1092,8 +1095,14 @@
     <None Include="Project\Core\Vector.inl">
       <Filter>Engine\Core</Filter>
     </None>
-    <None Include="Project\AssetManager\TemplatedRequestor\TemplatedRef.inl">
-      <Filter>Engine\AssetManager\TempletedRequestor</Filter>
+    <None Include="Project\AssetManager\Requestor\Reference.inl">
+      <Filter>Engine\AssetManager\Requestor</Filter>
+    </None>
+    <None Include="Project\AssetManager\Requestor\Requestor.inl">
+      <Filter>Engine\AssetManager\Requestor</Filter>
+    </None>
+    <None Include="Project\AssetManager\Requestor\Requestor_ptr.inl">
+      <Filter>Engine\AssetManager\Requestor</Filter>
     </None>
   </ItemGroup>
 </Project>
