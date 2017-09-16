@@ -61,6 +61,8 @@ SpriterModelContainer Engine::ModelContainer;
 WorldManagerAddon Editor::addons;
 
 Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
+Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
+
 
 // temp test stuff
 //int a = 24;

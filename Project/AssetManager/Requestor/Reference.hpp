@@ -18,7 +18,6 @@ class Reference
 	std::shared_future<T> myRef;
 #endif
 
-	size_t useCount;
 	Core::String name;
 	size_t ID;
 
@@ -28,7 +27,28 @@ class Reference
 
 	Reference(const Core::String name, const size_t Id, Requester<T>* const requester);
 
+	size_t useCount;
+
+	void unload();
+
+	template <class I = T>
+	typename std::enable_if<std::is_pointer<I>::value>::type
+		delete_if_pointer();
+
+	template <class I = T>
+	typename std::enable_if<!std::is_pointer<I>::value>::type
+		delete_if_pointer();
+
+	template <class I = T>
+	typename std::enable_if<std::is_pointer<I>::value>::type
+		set_to_null_if_pointer();
+
+	template <class I = T>
+	typename std::enable_if<!std::is_pointer<I>::value>::type
+		set_to_null_if_pointer();
+
 public:
+	~Reference();
 
 #ifdef _EDITOR_
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
@@ -37,9 +57,9 @@ public:
 
 	Reference(const Reference& copy);
 
-	const T& getReferenced() const;
+	T& getReferenced();
 
-	const bool isReady() const;
+	const bool isValid() const;
 #ifdef _EDITOR_
 	void setNewFuture(const T future);
 #else
@@ -50,6 +70,6 @@ public:
 
 };
 
-#include "TemplatedRef.inl"
+#include "Reference.inl"
 
 #endif
