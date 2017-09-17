@@ -4,6 +4,8 @@
 #include <Core/String.hpp>
 class ModLoader
 {
+	static ModLoader* _loader;
+
 public:
 	ModLoader() = default;
 	std::map <Core::String, size_t> loadOrder;

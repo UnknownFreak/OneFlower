@@ -34,7 +34,7 @@ template<class T>
 template<typename I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
 {
-	Logger::Info("Delete if pointer with non pointer type. Doing nothing");
+	OneLogger::Info("Delete if pointer with non pointer type. Doing nothing");
 }
 
 template<class T>
@@ -50,7 +50,7 @@ template<class T>
 template<class I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
 {
-	Logger::Info("set to null if pointer with non pointer type. Doing nothing");
+	OneLogger::Info("set to null if pointer with non pointer type. Doing nothing");
 }
 
 template<class T>

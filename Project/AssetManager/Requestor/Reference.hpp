@@ -53,6 +53,10 @@ public:
 #ifdef _EDITOR_
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
 	Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet);
+	const size_t getUseCount()
+	{
+		return useCount;
+	}
 #endif
 
 	Reference(const Reference& copy);

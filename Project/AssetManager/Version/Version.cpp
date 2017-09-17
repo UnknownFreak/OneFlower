@@ -58,7 +58,7 @@ void OneVersion::incRev() const
 	(*revision)++;
 }
 
-Core::String OneVersion::c_str()
+Core::String OneVersion::str()
 {
 	return std::to_string(*major) + "." + std::to_string(*minor) + "." + std::to_string(*revision);
 }

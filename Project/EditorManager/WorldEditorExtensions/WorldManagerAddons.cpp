@@ -106,7 +106,7 @@ Core::String WorldManagerAddon::EditorSave()
 		AssetManagerCore::saveGameDatabase(getLoadedMod(), myActualManager.myModHeader, myActualManager.editorPrefabContainer, myActualManager.EditorAllZones);
 	}
 	else
-		Logger::Info("Cannot save mod. No mod loaded!");
+		OneLogger::Info("Cannot save mod. No mod loaded!");
 	return AssetManagerCore::openedMod;
 }
 std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct> WorldManagerAddon::EditorAddGameObjectToZone(Prefab& prefab, GameObject* go)
@@ -203,7 +203,7 @@ void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> d
 	AssetManagerCore::saveGameDatabase("Data\\" + modName, myActualManager.myModHeader, myActualManager.editorPrefabContainer, myActualManager.EditorAllZones);
 	//unloadEditorVariables();
 	//AssetManagerCore::loadAllEditorVariables();
-	Logger::Info("Successfully created mod [" + modName + "]");
+	OneLogger::Info("Successfully created mod [" + modName + "]");
 }
 void WorldManagerAddon::loadMod(Core::String myMod)
 {
@@ -213,7 +213,7 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 	bool fail = false;
 	if (!AssetManagerCore::loadModHeader(myMod, myActualManager.myModHeader))
 	{
-		Logger::Severe("Failed to load mod header for mod [" + myMod +"]");
+		OneLogger::Severe("Failed to load mod header for mod [" + myMod +"]");
 		AssetManagerCore::openedMod = "<Not Set>";
 	}
 	else
@@ -225,9 +225,9 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 		}
 	}
 	if (fail)
-		Logger::Warning("One or more dependency mods failed to load for mod [" + myMod + "]", __FILE__, __LINE__);
+		OneLogger::Warning("One or more dependency mods failed to load for mod [" + myMod + "]", __FILE__, __LINE__);
 	else
-		Logger::Fine("Successfully loaded mod dependencies for mod [" + myMod + "]", __FILE__, __LINE__);
+		OneLogger::Fine("Successfully loaded mod dependencies for mod [" + myMod + "]", __FILE__, __LINE__);
 	myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
 	AssetManagerCore::loadAllEditorVariables();
 }
@@ -253,7 +253,7 @@ bool WorldManagerAddon::loadMods(Core::String myMod, bool internal_error)
 	ModHeader modHdr;
 	if (!AssetManagerCore::loadModHeader(myMod, modHdr))
 	{
-		Logger::Warning("Failed to load [" + myMod + "] as dependency mod", __FILE__, __LINE__);
+		OneLogger::Warning("Failed to load [" + myMod + "] as dependency mod", __FILE__, __LINE__);
 		internal_error = true;
 	}
 	else
@@ -264,14 +264,14 @@ bool WorldManagerAddon::loadMods(Core::String myMod, bool internal_error)
 			if (myActualManager.modLoadOrder.loadOrder.find(var) == myActualManager.modLoadOrder.loadOrder.end())
 				internal_error = loadMods(var, internal_error);
 			else
-				Logger::Info("[" + var + "] already loaded, skipping", __FILE__, __LINE__);
+				OneLogger::Info("[" + var + "] already loaded, skipping", __FILE__, __LINE__);
 		}
 		if (myActualManager.modLoadOrder.loadOrder.find(myMod) == myActualManager.modLoadOrder.loadOrder.end())
 		{
 			//std::cout << "adding: " + myMod + "to the modLoadOrder" << std::endl;
 			myActualManager.modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(myMod, myActualManager.modLoadOrder.loadOrder.size()));
 		}
-		Logger::Fine("[" + myMod + "] successfully loaded" , __FILE__, __LINE__);
+		OneLogger::Fine("[" + myMod + "] successfully loaded" , __FILE__, __LINE__);
 	}
 	return internal_error;
 }

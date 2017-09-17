@@ -45,10 +45,10 @@ public:
 		if (myVersion >= OneVersion(1, 0, 1))
 		{
 			ar(modVersion);
-			Logger::Info("Mod [" + name + "] version is: " + modVersion.c_str());
+			OneLogger::Info("Mod [" + name + "] version is: " + modVersion.str());
 		}
 		else
-			Logger::Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
+			OneLogger::Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
 		ar(mysize);
 		for (size_t i = 0; i < mysize; i++)
 		{

@@ -4,59 +4,59 @@
 #include <EditorManager\EditorCore.hpp>
 #endif
 
-Logger* Logger::logger;
-Logger::Logger() : log("Log.log")
+OneLogger* OneLogger::logger;
+OneLogger::OneLogger() : log("Log.log")
 {
 }
 
-Logger& Logger::getLogger()
+OneLogger& OneLogger::getLogger()
 {
 	if (!logger)
-		logger = new Logger();
+		logger = new OneLogger();
 	return *logger;
 }
 
-void Logger::free()
+void OneLogger::free()
 {
 	delete logger;
 }
 
-void Logger::initialize()
+void OneLogger::initialize()
 {
 	getLogger();
 }
 
-void Logger::Debug(Core::String message, Core::String filename, size_t line)
+void OneLogger::Debug(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Debug(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Debug(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Info(Core::String message, Core::String filename, size_t line)
+void OneLogger::Info(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Info(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Info(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Fine(Core::String message, Core::String filename, size_t line)
+void OneLogger::Fine(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Fine(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Fine(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Warning(Core::String message, Core::String filename, size_t line)
+void OneLogger::Warning(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Warning(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Warning(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Error(Core::String message, Core::String filename, size_t line)
+void OneLogger::Error(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Error(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Error(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Severe(Core::String message, Core::String filename, size_t line)
+void OneLogger::Severe(Core::String message, Core::String filename, size_t line)
 {
-	Logger::Severe(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Severe(message + " - " + filename + " (" + std::to_string(line) + ")");
 }
 
-void Logger::Debug(Core::String message)
+void OneLogger::Debug(Core::String message)
 {
 	getLogger().log << "[DEBUG]\t\t" << message << std::endl;
 #ifdef _EDITOR_
@@ -69,7 +69,7 @@ void Logger::Debug(Core::String message)
 #endif
 }
 
-void Logger::Info(Core::String message)
+void OneLogger::Info(Core::String message)
 {
 	getLogger().log << "[INFO]\t\t" << message << std::endl;
 #ifdef _EDITOR_
@@ -82,7 +82,7 @@ void Logger::Info(Core::String message)
 #endif
 }
 
-void Logger::Fine(Core::String message)
+void OneLogger::Fine(Core::String message)
 {
 	getLogger().log << "[FINE]\t\t" << message << std::endl;
 #ifdef _EDITOR_
@@ -95,7 +95,7 @@ void Logger::Fine(Core::String message)
 #endif
 }
 
-void Logger::Warning(Core::String message)
+void OneLogger::Warning(Core::String message)
 {
 	getLogger().log << "[WARNING]\t" << message << std::endl;
 #ifdef _EDITOR_
@@ -108,7 +108,7 @@ void Logger::Warning(Core::String message)
 #endif
 }
 
-void Logger::Error(Core::String message)
+void OneLogger::Error(Core::String message)
 {
 	getLogger().log << "[ERROR]\t\t" << message << std::endl;
 #ifdef _EDITOR_
@@ -121,7 +121,7 @@ void Logger::Error(Core::String message)
 #endif
 }
 
-void Logger::Severe(Core::String message)
+void OneLogger::Severe(Core::String message)
 {
 	getLogger().log << "[SEVERE]\t" << message << std::endl;
 #ifdef _EDITOR_

@@ -111,9 +111,9 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 	std::ifstream database(modName, std::ios::binary);
 
 	if (!index.is_open())
-		Logger::Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
+		OneLogger::Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
 	else if (!database.is_open())
-		Logger::Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+		OneLogger::Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
 	else
 	{
 		cereal::BinaryInputArchive ar(index);
@@ -135,7 +135,7 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 			}
 		}
 	}
-	Logger::Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
+	OneLogger::Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
 	return false;
 }
 bool AssetManagerCore::loadModOrderFile(ModLoader& mod)
@@ -147,7 +147,7 @@ bool AssetManagerCore::loadModOrderFile(ModLoader& mod)
 		ar(mod);
 		return true;
 	}
-	Logger::Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
+	OneLogger::Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
 	return false;
 }
 
@@ -191,7 +191,7 @@ void AssetManagerCore::LoadAllZones(std::map<std::pair<std::string, size_t>, DBZ
 			}
 		}
 		else
-			Logger::Error("Unable To Open Index file in LoadAllZones" + var.first + ".index");
+			OneLogger::Error("Unable To Open Index file in LoadAllZones" + var.first + ".index");
 	}
 }
 void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
@@ -231,7 +231,7 @@ void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
 			}
 		}
 		else
-			Logger::Error("Unable To Open Index file in LoadAllPrefabs" + var.first + ".index");
+			OneLogger::Error("Unable To Open Index file in LoadAllPrefabs" + var.first + ".index");
 	}
 }
 //void LoadAllItems(std::map<std::pair<std::string, size_t>, Items::Item*>& item)
@@ -344,6 +344,6 @@ void AssetManagerCore::LoadAllTextureMaps(SpriterModelContainer & container)
 			}
 		}
 		else
-			Logger::Error("Unable To Open Index file in LoadAllTextureMaps" + var.first + ".index");
+			OneLogger::Error("Unable To Open Index file in LoadAllTextureMaps" + var.first + ".index");
 	}
 }

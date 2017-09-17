@@ -58,7 +58,7 @@ InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 WorldManagerAddon Editor::addons;
-
+ModLoader Engine::modLoadOrder;
 Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
 Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
 
@@ -70,18 +70,16 @@ Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
 [System::STAThread]
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {
-	Logger::initialize();
+	OneLogger::initialize();
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	//return 0;
 	Engine::time().deconstruct();
-	Logger::free();
+	OneLogger::free();
 	exit(0); 
 }
 int windowMessage()
 {
-	AssetManagerCore::testRequestor();
-
 	SplashScreen^ splash = gcnew SplashScreen();
 	MainEditorWindow^ window = splash->InitializeEditor();
 	Engine::Graphic.view.render.setActive(false);

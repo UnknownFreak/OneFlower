@@ -49,7 +49,7 @@ public:
 	
 	void incRev() const;
 
-	Core::String c_str();
+	Core::String str();
 
 };
 

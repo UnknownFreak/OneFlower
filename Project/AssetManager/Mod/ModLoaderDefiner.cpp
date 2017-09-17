@@ -7,7 +7,7 @@ size_t ModLoader::getModPosition(Core::String modName)
 		return it->second;
 	else
 	{
-		Logger::Error("Failed to get mod position", __FILE__, __LINE__);
+		OneLogger::Error("Failed to get mod position", __FILE__, __LINE__);
 		return 0xFFFFFFFF;
 	}
 }

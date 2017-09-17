@@ -10,10 +10,10 @@
 #include <memory>
 #include <map>
 #include <Core\String.hpp>
+#include <Logger\Logger.hpp>
+
 #include "../Database/DatabaseIndex.hpp"
-
 #include "../IRequestable.hpp"
-
 #include "Reference.hpp"
 
 // Any requestable T must have these attributes:
@@ -48,7 +48,7 @@ class Requester
 	template <class In = T>
 	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value, void>::type check()
 	{
-		Logger::Info("Requester with class T was a base class of IRequestable - OK!");
+		OneLogger::Info("Requester with class T was a base class of IRequestable - OK!");
 	}
 
 	template <class In = T>
@@ -60,7 +60,7 @@ class Requester
 public:
 
 #ifdef _EDITOR_
-	void add(Core::String name, size_t uuid, T& obj);
+	bool add(T& obj);
 	
 #endif
 
@@ -142,7 +142,7 @@ public:
 
 #ifdef _EDITOR_
 	// Added object must be allocated via new, otherwise clear fails
-	void add(Core::String name, size_t uuid, T*& obj);
+	bool add(T*& obj);
 
 #endif
 

@@ -3,13 +3,13 @@
 
 #include <Core\String.hpp>
 #include <fstream>
-class Logger
+class OneLogger
 {
-	static Logger* logger;
+	static OneLogger* logger;
 
-	Logger();
+	OneLogger();
 
-	static Logger& getLogger();
+	static OneLogger& getLogger();
 	
 	std::ofstream log;
 

@@ -8,7 +8,7 @@ template<class T>
 inline bool Requester<T*>::requestFromDatabase(T *& _t, Core::String modName, size_t uuid)
 {
 	bool found = false;
-	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	for each (std::pair<std::string, size_t> var in Engine::modLoadOrder.loadOrder)
 	{
 		bool eof = false;
 		DatabaseIndex ind;
@@ -99,15 +99,27 @@ inline T* Requester<T*>::load_internal(const Core::String & name, size_t uuid)
 	if (name == "EMPTY" && uuid == 0)
 		return t;
 	if (!requestFromDatabase(t, name, uuid))
-		Logger::Error("Requestor<" + getObjectTypeAsString() + "*> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+		OneLogger::Error("Requestor<" + getObjectTypeAsString() + "*> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
 	return t;
 }
 
 #ifdef _EDITOR_
 template<class T>
-inline void Requester<T*>::add(Core::String name, size_t uuid, T*& obj)
+inline bool Requester<T*>::add(T*& obj)
 {
-	requestedMap.insert(std::make_pair(td_key(name,uuid), new Reference<T*>(name, uuid, this, obj)));
+	const Core::String name = obj->fromMod;
+	const size_t uuid = obj->ID;
+
+	td_key key(name, uuid);
+
+	if (requestedMap.find(key) != requestedMap.end())
+	{
+		OneLogger::Error("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " already exists", __FILE__, __LINE__);
+		return false;
+	}
+	Reference<T>* ref = new Reference<T>(name, uuid, this, obj);
+	requestedMap.insert(std::make_pair(key, ref));
+	return true;
 }
 #endif
 
@@ -205,7 +217,7 @@ inline void Requester<T*>::clear()
 	for (; it != eit; it++)
 	{
 		if (it->second->useCount > 0)
-			Logger::Warning("Unloading object from Requestor<"+getObjectTypeAsString()+"*> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
+			OneLogger::Warning("Unloading object from Requestor<"+getObjectTypeAsString()+"*> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
 		Reference<T*>*& pr = it->second;
 		delete pr;
 		pr = nullptr;
@@ -266,7 +278,7 @@ inline Requester<T*>::~Requester()
 //			}
 //		}
 //		else
-//			Logger::Error("Unable to open Index file [" + var.first +
+//			OneLogger::Error("Unable to open Index file [" + var.first +
 //				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
 //	}
 //}
