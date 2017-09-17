@@ -8,9 +8,6 @@
     <Filter Include="Existing">
       <UniqueIdentifier>{7f84ac0e-cc0c-4674-b044-1bb86c45e14a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TimeTest">
-      <UniqueIdentifier>{abe92343-654f-402c-b5fa-8bc06ced6ae2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RequestorUnitTest.cpp">
@@ -23,10 +20,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimeUnitTest.cpp">
-      <Filter>TimeTest</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Project\Graphic\Time\TimeDefiner.cpp">
-      <Filter>TimeTest</Filter>
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Logger\Logger.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\AssetManager\Version\Version.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="TestVersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Core\String.cpp">
+      <Filter>Existing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
