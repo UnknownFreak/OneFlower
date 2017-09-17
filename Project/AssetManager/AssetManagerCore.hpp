@@ -27,6 +27,7 @@ namespace Engine {
 	extern Requester<SpriteSheetMap> SpriteSheetMapRequester;
 	extern Requester<Prefab> PrefabRequester;
 	extern Requester<IModel*> ModelRequester;
+	extern ModLoader modLoadOrder;
 	//extern Requester<Quest> QuestRequester;
 }
 class Zone;
@@ -120,7 +121,6 @@ public:
 	//const QuestLoader& getQuestLoader()
 	//const ZoneLoader() getZoneLoader()
 	//
-	static void testRequestor();
 	
 };
 #ifdef _DEBUG
