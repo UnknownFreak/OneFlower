@@ -80,7 +80,6 @@ namespace Tests
 	GameObject GameObjectUnitTest::go("test");
 	Core::StringConverter GameObjectUnitTest::con;
 
-
 }
 
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<GameObject>(const GameObject& q) {
