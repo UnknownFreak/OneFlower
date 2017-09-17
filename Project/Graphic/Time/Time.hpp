@@ -3,9 +3,17 @@
 #include <SFML\System\Clock.hpp>
 #include <map>
 #include <Core/String.hpp>
+
 class Time
 {
+	static Time* _time;
+	Time();
+
 public:
+
+	static Time& getTime();
+
+	static void deconstruct();
 
 	double deltaTime();
 
@@ -23,5 +31,4 @@ private:
 	//LOW: Put this in Definer to avoid include of Map:String?
 	std::map<Core::String, sf::Clock> timers;
 };
-
 #endif

@@ -136,7 +136,7 @@ namespace Component
 						animations[currentAnimation].CurrentTime -= animations[currentAnimation].AnimationTime;
 				}
 				else
-					animations[currentAnimation].CurrentTime += Engine::time.deltaTime();
+					animations[currentAnimation].CurrentTime += Engine::time().deltaTime();
 				{
 					sf::IntRect r = animations[currentAnimation].getCurrentAnimationFrame();
 					if (!(r.width == r.height == 0))
@@ -148,7 +148,7 @@ namespace Component
 		case RenderComponent::AnimationType::Armature:
 			if (instance.MyEntityInstance)
 			{
-				instance.MyEntityInstance->setTimeElapsed(Engine::time.update_ms.asSeconds() * 30);
+				instance.MyEntityInstance->setTimeElapsed(Engine::time().update_ms.asSeconds() * 30);
 				if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "jump_start")
 					setAnimation("jump_loop");
 				if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "crouch_down")

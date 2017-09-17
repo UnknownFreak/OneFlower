@@ -41,7 +41,7 @@ Gfx Engine::Graphic;
 TextureLoader Engine::Textureloader;
 sf::Event Engine::event;
 //Game Engine::game;
-Time Engine::time;
+//Time Engine::time;
 PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
@@ -58,6 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 {
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
+	Engine::time().deconstruct()
 	return 0;
 }
 
@@ -126,7 +127,7 @@ int windowMessage()
 	//Engine::Graphic.insertShader(shader,"test.glsl");
 	//Engine::GUI.showHideGUI();
 	//Engine::game.addGameObject(go);
-	Time time;
+	//Time time;
 	Engine::Graphic.view.render.setFramerateLimit(200);
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	while (Engine::Graphic.view.render.isOpen())
@@ -160,13 +161,13 @@ int windowMessage()
 }
 void mainMenuUpdate()
 {
-	Engine::time.elapsed += Engine::time.clock.restart();
+	Engine::time().elapsed += Engine::time().clock.restart();
 
-	while (Engine::time.elapsed >= Engine::time.update_ms)
+	while (Engine::time().elapsed >= Engine::time().update_ms)
 	{
 		Engine::Input.update();
 		//Engine::GUI.updateMouseIcon();
-		Engine::time.elapsed -= Engine::time.update_ms;
+		Engine::time().elapsed -= Engine::time().update_ms;
 	}
 
 	Engine::Graphic.drawBG();
@@ -174,15 +175,15 @@ void mainMenuUpdate()
 }
 void update()
 {
-	Engine::time.elapsed += Engine::time.clock.restart();
+	Engine::time().elapsed += Engine::time().clock.restart();
 
-	while (Engine::time.elapsed >= Engine::time.update_ms)
+	while (Engine::time().elapsed >= Engine::time().update_ms)
 	{
 		Engine::Input.update();
 		//Engine::Physics.update();
 		//Engine::game.update();
 
-		Engine::time.elapsed -= Engine::time.update_ms;
+		Engine::time().elapsed -= Engine::time().update_ms;
 	}
 
 	Engine::Graphic.draw();

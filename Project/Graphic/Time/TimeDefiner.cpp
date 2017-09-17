@@ -6,6 +6,30 @@ HWND hWnd;
 HWND wnd;
 HWND awnd;
 //*/
+Time* Time::_time = nullptr;
+
+
+Time::Time() : timer(), clock(), elapsed()
+{
+	timer.restart();
+	clock.restart();
+}
+
+Time & Time::getTime()
+{
+	if (!_time)
+		_time = new Time();
+	return *_time;
+}
+
+void Time::deconstruct()
+{
+	if (_time) {
+		delete _time;
+		_time = nullptr;
+	}
+}
+
 double Time::deltaTime()
 {
 	return update_ms.asSeconds();

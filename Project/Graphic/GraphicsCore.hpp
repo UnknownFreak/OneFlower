@@ -6,9 +6,13 @@
 #include "Time\Time.hpp"
 namespace Engine
 {
+	inline Time& time()
+	{
+		return Time::getTime();
+	}
 	extern sf::Event event;
 	extern Gfx Graphic;
-	extern Time time;
+	//extern Time time;
 }
 
 
