@@ -4,8 +4,6 @@
 
 #include <Core\Component\GameObject.h>
 #include <Core\Component\TransformComponent.hpp>
-#include <Physics\PhysicsCore.hpp>
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
@@ -21,6 +19,19 @@ public:
 
 const unsigned int IBaseComponent<MockedComponent>::typeID = 9999;
 Core::String IBaseComponent<MockedComponent>::componentName = "MockedComponent";
+
+class NullComponent : public IBaseComponent<NullComponent>
+{
+public:
+	NullComponent* copy()
+	{
+		return nullptr;
+	}
+};
+
+const unsigned int IBaseComponent<NullComponent>::typeID = 123456;
+Core::String IBaseComponent<NullComponent>::componentName = "NullComponent";
+
 
 namespace Tests
 {
@@ -59,6 +70,11 @@ namespace Tests
 			Assert::AreEqual(mocked->attachedOn, goptr);
 			Assert::AreEqual(mocked->typeID, unsigned(9999), L"Component TypeID is not the same");
 
+		}
+		TEST_METHOD(TestGetComponentNotAdded)
+		{
+			NullComponent* nc = go.GetComponent<NullComponent>();
+			Assert::IsNull(nc);
 		}
 	};
 	GameObject GameObjectUnitTest::go("test");
