@@ -6,15 +6,15 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #define TestFramework Microsoft::VisualStudio::CppUnitTestFramework;
 
-//template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(const Core::Vector2i& q) {
-//	return std::wstring(std::to_wstring(q.x) + L", " + std::to_wstring(q.y));
-//}
-//template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(const Core::Vector2i* q) {
-//	return std::wstring(std::to_wstring(q->x) + L", " + std::to_wstring(q->y));
-//}
-//template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(Core::Vector2i* q) { 
-//	return std::wstring(std::to_wstring(q->x) + L", " + std::to_wstring(q->y));
-//}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(const Core::Vector2i& q) {
+	return std::wstring(std::to_wstring(q.x) + L", " + std::to_wstring(q.y));
+}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(const Core::Vector2i* q) {
+	return std::wstring(std::to_wstring(q->x) + L", " + std::to_wstring(q->y));
+}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<Core::Vector2i>(Core::Vector2i* q) { 
+	return std::wstring(std::to_wstring(q->x) + L", " + std::to_wstring(q->y));
+}
 
 namespace Tests
 {

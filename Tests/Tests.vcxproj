@@ -79,6 +79,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SolutionDir)Project\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -156,8 +157,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Project\Graphic\Time\TimeDefiner.cpp" />
     <ClCompile Include="GameObjectUnitTest.cpp" />
     <ClCompile Include="RequestorUnitTest.cpp" />
+    <ClCompile Include="TimeUnitTest.cpp" />
     <ClCompile Include="VectorUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
