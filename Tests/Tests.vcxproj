@@ -158,14 +158,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Project\AssetManager\Version\Version.cpp" />
+    <ClCompile Include="..\Project\Core\Component\BaseComponentDefiner.cpp" />
+    <ClCompile Include="..\Project\Core\Component\GameObjectDefiner.cpp" />
+    <ClCompile Include="..\Project\Core\Component\TransformComponentDefiner.cpp" />
+    <ClCompile Include="..\Project\Core\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="..\Project\Core\String.cpp" />
     <ClCompile Include="..\Project\Graphic\Time\TimeDefiner.cpp" />
     <ClCompile Include="..\Project\Logger\Logger.cpp" />
     <ClCompile Include="GameObjectUnitTest.cpp" />
     <ClCompile Include="RequestorUnitTest.cpp" />
-    <ClCompile Include="TestVersion.cpp" />
     <ClCompile Include="TimeUnitTest.cpp" />
     <ClCompile Include="VectorUnitTest.cpp" />
+    <ClCompile Include="VersionUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OneFlower.vcxproj">

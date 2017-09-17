@@ -3,29 +3,22 @@
 
 #include <AssetManager\Version\Version.hpp>
 
-Core::StringConverter con;
 
-template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion& q) {
-	return con.toUtf16(((OneVersion&)q).str());
-}
-template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion* q) {
-	return con.toUtf16(((OneVersion&)q).str());
-}
-template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(OneVersion* q) {
-	return con.toUtf16(((OneVersion&)q).str());
-}
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
 {
 
-	TEST_MODULE_CLEANUP(ModuleCleanup)
-	{
-		con.free();
-	}
-
 	TEST_CLASS(VersionTest)
 	{
 	public:
+		static Core::StringConverter con;
+
+		TEST_CLASS_CLEANUP(VersionTestModuleCleanup)
+		{
+			con.free();
+		}
+
 		TEST_METHOD(TestVersion)
 		{
 			OneVersion o(0, 0, 0);
@@ -75,4 +68,14 @@ namespace Tests
 			Assert::IsTrue(o <= c);
 		}
 	};
+	Core::StringConverter VersionTest::con;
+}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion& q) {
+	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
+}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion* q) {
+	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
+}
+template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(OneVersion* q) {
+	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
 }

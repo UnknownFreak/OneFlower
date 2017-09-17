@@ -31,10 +31,22 @@
     <ClCompile Include="..\Project\AssetManager\Version\Version.cpp">
       <Filter>Existing</Filter>
     </ClCompile>
-    <ClCompile Include="TestVersion.cpp">
+    <ClCompile Include="..\Project\Core\String.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="VersionUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Project\Core\String.cpp">
+    <ClCompile Include="..\Project\Core\Component\BaseComponentDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Core\Component\GameObjectDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Core\Component\TransformComponentDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Core\Component\TransformComponentHandler.cpp">
       <Filter>Existing</Filter>
     </ClCompile>
   </ItemGroup>

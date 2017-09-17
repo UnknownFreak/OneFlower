@@ -19,9 +19,6 @@
 #include <AssetManager\AssetManagerCore.hpp>
 
 ModLoader Engine::modLoadOrder;
-//TextureLoader Engine::Textureloader;
-//Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
-//Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
 Core::String AssetManagerCore::openedMod = "test";
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
