@@ -182,7 +182,7 @@ int windowMessage()
 	}
 	thread.terminate();
 	thread.wait();
-	Core::Converter.free();
+	Core::Converter.deconstruct();
 	delete splash;
 	delete window;
 	delete go;

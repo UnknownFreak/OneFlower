@@ -44,7 +44,7 @@ namespace Tests
 
 		TEST_CLASS_CLEANUP(Cleanup)
 		{
-			con.free();
+			con.deconstruct();
 		}
 
 		TEST_METHOD(TestGameObjectName)

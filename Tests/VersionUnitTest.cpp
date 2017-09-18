@@ -16,7 +16,7 @@ namespace Tests
 
 		TEST_CLASS_CLEANUP(VersionTestModuleCleanup)
 		{
-			con.free();
+			con.deconstruct();
 		}
 
 		TEST_METHOD(TestVersion)
