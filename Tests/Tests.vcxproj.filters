@@ -49,5 +49,8 @@
     <ClCompile Include="..\Project\Core\Component\TransformComponentHandler.cpp">
       <Filter>Existing</Filter>
     </ClCompile>
+    <ClCompile Include="StringConverterUnitTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

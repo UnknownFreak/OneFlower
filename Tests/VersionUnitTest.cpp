@@ -3,8 +3,6 @@
 
 #include <AssetManager\Version\Version.hpp>
 
-
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
 {
