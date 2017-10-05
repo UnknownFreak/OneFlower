@@ -6,9 +6,6 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-
-
 namespace Tests
 {
 
