@@ -11,7 +11,7 @@ namespace Physics
 
 		Core::Vector2 position;
 		Core::Vector2i size;
-		bool intersect(BoundingBox other);
+		const bool intersect(const BoundingBox& other) const;
 	};
 }
 #endif

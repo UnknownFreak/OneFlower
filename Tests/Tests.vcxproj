@@ -166,6 +166,8 @@
     <ClCompile Include="..\Project\Core\String.cpp" />
     <ClCompile Include="..\Project\Graphic\Time\TimeDefiner.cpp" />
     <ClCompile Include="..\Project\Logger\Logger.cpp" />
+    <ClCompile Include="..\Project\Physics\BoundingBoxDefiner.cpp" />
+    <ClCompile Include="BoundingBoxUnitTest.cpp" />
     <ClCompile Include="GameObjectUnitTest.cpp" />
     <ClCompile Include="RequestorUnitTest.cpp" />
     <ClCompile Include="StringConverterUnitTest.cpp" />

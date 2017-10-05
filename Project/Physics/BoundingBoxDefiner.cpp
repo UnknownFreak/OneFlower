@@ -6,7 +6,7 @@ Physics::BoundingBox::BoundingBox(float x, float y, int w, int h) : position(x, 
 Physics::BoundingBox::BoundingBox(Core::Vector2 pos, Core::Vector2i siz) : position(pos), size(siz)
 {}
 
-bool Physics::BoundingBox::intersect(Physics::BoundingBox other)
+const bool Physics::BoundingBox::intersect(const Physics::BoundingBox& other) const
 {
 	if (position.y + size.y < other.position.y)
 		return false;

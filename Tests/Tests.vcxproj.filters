@@ -52,5 +52,11 @@
     <ClCompile Include="StringConverterUnitTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingBoxUnitTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Physics\BoundingBoxDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
