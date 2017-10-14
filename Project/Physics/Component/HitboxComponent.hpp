@@ -22,7 +22,7 @@ namespace Component
 
 		std::vector<BaseComponent*> collisionCall;
 
-		virtual HitboxComponent* copy();
+		virtual HitboxComponent* copy() const;
 	
 		template <class Archive>
 		void serialize(Archive &ar)

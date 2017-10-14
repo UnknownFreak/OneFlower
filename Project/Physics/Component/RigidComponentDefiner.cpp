@@ -15,7 +15,7 @@ namespace Component
 		//Engine::Physics.removePhysics(this);
 		Engine::Physics.removePhysics(this);
 	}
-	RigidComponent * RigidComponent::copy()
+	RigidComponent * RigidComponent::copy() const
 	{
 		return new RigidComponent(*this);
 	}

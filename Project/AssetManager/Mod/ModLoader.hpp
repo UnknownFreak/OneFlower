@@ -9,7 +9,7 @@ public:
 	ModLoader() = default;
 	std::map <Core::String, size_t> loadOrder;
 
-	size_t getModPosition(Core::String mod);
+	size_t getModPosition(Core::String mod) const;
 
 	template <class Archive>
 	void load(Archive& ar)

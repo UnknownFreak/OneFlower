@@ -20,7 +20,7 @@ public:
 		return componentName;
 	}
 
-	BaseComponent* copy() {
+	BaseComponent* copy() const {
 		return nullptr;
 	}
 

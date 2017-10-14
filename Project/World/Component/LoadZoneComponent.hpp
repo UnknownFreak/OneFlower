@@ -24,7 +24,7 @@ namespace Component
 		void onCollision(Physics::Collider&);
 		void getMessage(const BaseMessage message);
 
-		virtual Portal* copy();
+		virtual Portal* copy() const;
 
 		template<class Archive>
 		void save(Archive & ar) const

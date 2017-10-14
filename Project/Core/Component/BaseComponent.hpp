@@ -22,7 +22,7 @@ public:
 	//Gameobject this component currently attached to;
 	GameObject* attachedOn = NULL;
 
-	virtual BaseComponent* copy() = 0;
+	virtual BaseComponent* copy() const = 0;
 
 protected:
 

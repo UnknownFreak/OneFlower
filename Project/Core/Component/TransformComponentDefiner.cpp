@@ -16,7 +16,7 @@ namespace Component
 	{
 		TransformComponent::BaseComponent::attachOn(go);
 	}	
-	TransformComponent * TransformComponent::copy()
+	TransformComponent * TransformComponent::copy() const
 	{
 		return new TransformComponent(*this);
 	}

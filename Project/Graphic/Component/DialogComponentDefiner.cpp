@@ -51,7 +51,7 @@ namespace Component
 		//delete rex;
 	}
 
-	DialogComponent * DialogComponent::copy()
+	DialogComponent * DialogComponent::copy() const
 	{
 		return new DialogComponent(*this);
 	}

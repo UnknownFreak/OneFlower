@@ -33,7 +33,7 @@ namespace Component
 		sprite.setTexture(tf, true);
 	}
 
-	RenderComponent * RenderComponent::copy()
+	RenderComponent * RenderComponent::copy() const
 	{
 		return new RenderComponent(*this);
 	}

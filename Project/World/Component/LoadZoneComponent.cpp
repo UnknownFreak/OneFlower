@@ -48,7 +48,7 @@ void Component::Portal::getMessage(const BaseMessage message)
 	attachedOn->destroy();
 }
 
-Component::Portal* Component::Portal::copy()
+Component::Portal* Component::Portal::copy() const
 {
 	return new Portal(*this);
 }

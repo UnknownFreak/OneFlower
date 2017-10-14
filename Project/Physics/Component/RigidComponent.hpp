@@ -49,7 +49,7 @@ namespace Component
 
 		Material material = Material::Standard;
 
-		virtual RigidComponent* copy();
+		virtual RigidComponent* copy() const;
 
 		template <class Archive>
 		void serialize(Archive& ar)

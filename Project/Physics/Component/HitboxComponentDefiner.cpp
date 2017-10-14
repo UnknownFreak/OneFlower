@@ -27,7 +27,7 @@ namespace Component
 		collisionCall.push_back(component);
 	}
 
-	HitboxComponent * HitboxComponent::copy()
+	HitboxComponent * HitboxComponent::copy() const
 	{
 		return new HitboxComponent(*this);
 	}

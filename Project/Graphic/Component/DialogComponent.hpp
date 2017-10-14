@@ -27,7 +27,7 @@ namespace Component
 		DialogComponent(const DialogComponent &diag);
 		~DialogComponent();
 
-		virtual DialogComponent* copy();
+		virtual DialogComponent* copy() const;
 
 		void show();
 		void close();

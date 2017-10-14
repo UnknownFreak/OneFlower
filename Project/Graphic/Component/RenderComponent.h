@@ -40,7 +40,7 @@ namespace Component
 		//Name of spritesheet and rect position
 		RenderComponent(Core::String texture, int x, int y);
 
-		virtual RenderComponent* copy();
+		virtual RenderComponent* copy() const;
 
 		//Closer the bigger the number, Farther away less the number
 		int renderlayer = 1;
