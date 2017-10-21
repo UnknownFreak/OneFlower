@@ -24,6 +24,7 @@ public:
 		ModelContainer,
 		SpriteSheetMap,
 		Model,
+		DBZone,
 		EoF = 254,
 		Undefined
 	};
