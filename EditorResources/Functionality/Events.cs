@@ -73,6 +73,18 @@ namespace EditorResources.Functionality
             onZoneSelectedFinishedLoadingEvent?.Invoke(null, args);
         }
 
+        public static EventHandler<EditorZoneEditViewAddZoneEventArgs> onZoneEditViewAddZoneEvent;
+        public static void OnZoneEditViewAddZoneEvent(EditorZoneEditViewAddZoneEventArgs args)
+        {
+            onZoneEditViewAddZoneEvent?.Invoke(null, args);
+        }
+
+        public static EventHandler<EditorGetZoneInfoEvent> onGetZoneInfoEvent;
+        public static void OnGetZoneInfoEvent(EditorGetZoneInfoEvent args)
+        {
+            onGetZoneInfoEvent?.Invoke(null, args);
+        }
+
         #endregion
 
         #region ObjectTreeView
@@ -170,6 +182,28 @@ namespace EditorResources.Functionality
             public short B { get; set; } = 255;
         }
         public Dictionary<string, Point> MapPoints { get; set; }
+    }
+
+    public class EditorZoneEditViewAddZoneEventArgs : EventArgs
+    {
+        public string Origin { get; set; } = "";
+        public string ZoneName { get; set; } = "";
+        public string BackgroundPath { get; set; } = "";
+        public string LoadingScreenPath { get; set; } = "";
+        public string LoadingScreenMessage { get; set; } = "";
+        public uint Id { get; set; } = 0;
+
+        public bool isEdit { get; set; } = false;
+    }
+
+    public class EditorGetZoneInfoEvent : EventArgs
+    {
+        public string Origin { get; set; } = "";
+        public string ZoneName { get; set; } = "";
+        public string BackgroundPath { get; set; } = "";
+        public string LoadingScreenPath { get; set; } = "";
+        public string LoadingScreenMessage { get; set; } = "";
+        public uint Id { get; set; } = 0;
     }
 
     #endregion

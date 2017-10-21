@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EditorResources.MainEditorWindow"
              xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" xmlns:Message="clr-namespace:EditorResources.Message" xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" xmlns:ZoneView="clr-namespace:EditorResources.ZoneView" x:Class="EditorResources.MainEditorWindow.EditorWindow"
              mc:Ignorable="d" 
-             d:DesignHeight="446.953" d:DesignWidth="794.357" Width="1920" Height="1080" Icon="pack://siteoforigin:,,,/Flower.png" Closed="Window_Closed" Title="One Editor">
+             d:DesignHeight="446.953" d:DesignWidth="794.357" Width="1920" Height="1080" Icon="pack://siteoforigin:,,,/Flower.png" Closed="Window_Closed" Title="One Editor" WindowStartupLocation="CenterScreen">
 
     <Window.CommandBindings>
         <CommandBinding x:Name="NewCommand" Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
@@ -116,6 +116,6 @@
             </ListView.View>
         </ListView>
         <ObjectView:ObjectTreeView Grid.Row="1"/>
-        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="384" Width="800"/>
+        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Height="Auto" Width="800" Margin="0,0,0,28" Grid.RowSpan="2"/>
     </Grid>
 </Window>

@@ -16,7 +16,7 @@
             <ColumnDefinition Width="60*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="searchBox" TextWrapping="Wrap" Text="Search Tree..." Margin="0" Grid.ColumnSpan="2"/>
-        <ListView x:Name="ZoneSelector" Margin="0" Grid.Row="1" SelectionChanged="ZoneSelector_SelectionChanged">
+        <ListView x:Name="ZoneSelector" Margin="0" Grid.Row="1" SelectionChanged="ZoneSelector_SelectionChanged" ContextMenuOpening="ZoneSelector_ContextMenuOpening">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="Auto">
@@ -52,6 +52,13 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="addZoneContextMenu" Header="Add Zone" Click="AddZoneClick"/>
+                    <MenuItem x:Name="editZoneContextMenu" Header="Edit Zone" Click="EditZoneClick"/>
+                    <MenuItem x:Name="deleteZoneContextMenu" Header="Delete Zone" Click="DeleteZoneClick"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
         <ListView x:Name="ObjectList" Margin="0" Grid.Row="1" Grid.Column="1">
             <ListView.View>

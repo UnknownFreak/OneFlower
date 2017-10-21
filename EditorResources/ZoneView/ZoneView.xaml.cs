@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EditorResources.Functionality;
 
 namespace EditorResources.ZoneView
@@ -20,10 +9,19 @@ namespace EditorResources.ZoneView
     /// </summary>
     public partial class ZoneView : UserControl
     {
+        ZoneItem lastSelected;
+        EditorGetZoneInfoEvent info;
         public ZoneView()
         {
+            lastSelected = null;
             InitializeComponent();
             EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
+            EditorEvents.onGetZoneInfoEvent += GetZoneInfoEvent;
+        }
+
+        private void GetZoneInfoEvent(object sender, EditorGetZoneInfoEvent e)
+        {
+            info = e;
         }
 
         private void ZoneViewOnModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
@@ -38,10 +36,37 @@ namespace EditorResources.ZoneView
         private void ZoneSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            ZoneItem zi = ZoneSelector.SelectedItem as ZoneItem;
-            if (zi is null)
+            lastSelected = ZoneSelector.SelectedItem as ZoneItem;
+            if (lastSelected is null)
                 return;
-            EditorEvents.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = zi.Name, ModOrigin = zi.Origin, ZoneID = zi.Id });
+            EditorEvents.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = lastSelected.Name, ModOrigin = lastSelected.Origin, ZoneID = lastSelected.Id });
+        }
+
+        private void AddZoneClick(object sender, RoutedEventArgs e)
+        {
+            new ZoneEditView().Show();
+        }
+
+        private void ZoneSelector_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if (lastSelected is null)
+                editZoneContextMenu.IsEnabled = false;
+            else
+                editZoneContextMenu.IsEnabled = true;
+        }
+
+        private void DeleteZoneClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void EditZoneClick(object sender, RoutedEventArgs e)
+        {
+            if (info is null)
+                return;
+            ZoneEditView v = new ZoneEditView(true);
+            v.setEditFields(info.ZoneName, info.Origin, info.Id.ToString(), info.BackgroundPath, info.LoadingScreenPath, info.LoadingScreenMessage);
+            v.Show();
         }
     }
 
