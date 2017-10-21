@@ -70,6 +70,19 @@ public:
 			return NULL;
 	}
 
+	template<class T_S>
+	bool RemoveComponent()
+	{
+		std::map<int, BaseComponent*>::iterator it;
+		it = componentMap.find(IBaseComponent<T_S>::typeID);
+
+		if (it == componentMap.end())
+			return false;
+		delete componentMap[IBaseComponent<T_S>::typeID];
+		componentMap.erase(it);
+		return true;
+	}
+
 	void destroy();
 
 	void sendMessage(const BaseMessage msg, BaseComponent* c);
