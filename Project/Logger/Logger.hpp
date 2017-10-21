@@ -12,7 +12,9 @@ class OneLogger
 	static OneLogger& getLogger();
 	
 	std::ofstream log;
-
+#ifdef _EDITOR_
+	static void LogToEditor(Core::String message, EditorResources::Message::Message::MsgType msgType);
+#endif
 public:
 
 	static void free();
@@ -33,6 +35,5 @@ public:
 	static void Severe(Core::String message);
 
 };
-
 
 #endif
