@@ -187,6 +187,9 @@
     <Filter Include="Engine\AssetManager\Requestor">
       <UniqueIdentifier>{a6c24d69-3511-4f13-a876-4a7544762144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Quest">
+      <UniqueIdentifier>{352f0f36-497f-4f66-bb33-3bb3e492755a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp">
@@ -205,9 +208,6 @@
       <Filter>Engine\AssetManager\Mod</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\Prefab\Prefab.hpp">
-      <Filter>Engine\AssetManager\Prefab</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\Prefab\PrefabContainer.hpp">
       <Filter>Engine\AssetManager\Prefab</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\SpriteRef.hpp">
@@ -670,6 +670,9 @@
     <ClInclude Include="Project\AssetManager\IRequestable.hpp">
       <Filter>Engine\AssetManager</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterTree.hpp">
+      <Filter>Engine\Quest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp">
@@ -677,9 +680,6 @@
     </ClCompile>
     <ClCompile Include="Project\AssetManager\Mod\ModLoaderDefiner.cpp">
       <Filter>Engine\AssetManager\Mod</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\AssetManager\Prefab\PrefabContainerDefiner.cpp">
-      <Filter>Engine\AssetManager\Prefab</Filter>
     </ClCompile>
     <ClCompile Include="Project\AssetManager\Prefab\PrefabDefiner.cpp">
       <Filter>Engine\AssetManager\Prefab</Filter>

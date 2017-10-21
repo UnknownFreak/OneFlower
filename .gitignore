@@ -10,8 +10,11 @@
 *.db
 .vs/
 Lib/
+Tests/Debug/
+Tests/DebugEditorTests/
 Debug/
 DebugEditor/
+DebugEditorTests/*
 EditorResources/obj/*
 EditorResources/bin/*
 OneFlower.VC.VC.opendb

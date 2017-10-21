@@ -38,7 +38,7 @@
     <ProjectGuid>{7018A509-38BF-4391-B188-948A7FEE55AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OneFlower</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -284,6 +284,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterTree.hpp" />
     <ClInclude Include="Project\AssetManager\IRequestable.hpp" />
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp" />
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp" />
@@ -393,7 +394,6 @@
     <ClInclude Include="Project\AssetManager\Mod\ModLoader.hpp" />
     <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp" />
     <ClInclude Include="Project\AssetManager\Prefab\Prefab.hpp" />
-    <ClInclude Include="Project\AssetManager\Prefab\PrefabContainer.hpp" />
     <ClInclude Include="Project\AssetManager\SpriteRef.hpp" />
     <ClInclude Include="Project\AssetManager\TextureLoader.hpp" />
     <ClInclude Include="Project\AssetManager\TextureRef.hpp" />
@@ -545,7 +545,6 @@
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp" />
     <ClCompile Include="Project\AssetManager\AssetManagerCoreLoad.cpp" />
     <ClCompile Include="Project\AssetManager\Mod\ModLoaderDefiner.cpp" />
-    <ClCompile Include="Project\AssetManager\Prefab\PrefabContainerDefiner.cpp" />
     <ClCompile Include="Project\AssetManager\Prefab\PrefabDefiner.cpp" />
     <ClCompile Include="Project\AssetManager\SpriteRefDefiner.cpp" />
     <ClCompile Include="Project\AssetManager\TextureLoader.cpp" />

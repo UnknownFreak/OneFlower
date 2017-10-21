@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OneFlower", "OneFlower.vcxproj", "{7018A509-38BF-4391-B188-948A7FEE55AA}"
 EndProject
@@ -17,6 +17,9 @@ Global
 		DebugEditor|Any CPU = DebugEditor|Any CPU
 		DebugEditor|x64 = DebugEditor|x64
 		DebugEditor|x86 = DebugEditor|x86
+		DebugEditorTests|Any CPU = DebugEditorTests|Any CPU
+		DebugEditorTests|x64 = DebugEditorTests|x64
+		DebugEditorTests|x86 = DebugEditorTests|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
@@ -36,6 +39,12 @@ Global
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditor|x64.Build.0 = DebugEditor|x64
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditor|x86.ActiveCfg = Debug|Win32
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditor|x86.Build.0 = Debug|Win32
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|Any CPU.ActiveCfg = ReleaseEditor|x64
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|Any CPU.Build.0 = ReleaseEditor|x64
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|x64.ActiveCfg = DebugEditor|x64
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|x64.Build.0 = DebugEditor|x64
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|x86.ActiveCfg = DebugEditor|Win32
+		{7018A509-38BF-4391-B188-948A7FEE55AA}.DebugEditorTests|x86.Build.0 = DebugEditor|Win32
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.Release|Any CPU.ActiveCfg = Release|Win32
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.Release|x64.ActiveCfg = Release|x64
 		{7018A509-38BF-4391-B188-948A7FEE55AA}.Release|x64.Build.0 = Release|x64
@@ -58,6 +67,12 @@ Global
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditor|x64.Build.0 = DebugEditor|Any CPU
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditor|x86.ActiveCfg = DebugEditor|Any CPU
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditor|x86.Build.0 = DebugEditor|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|Any CPU.ActiveCfg = DebugEditor|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|Any CPU.Build.0 = DebugEditor|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|x64.ActiveCfg = DebugEditor|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|x64.Build.0 = DebugEditor|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|x86.ActiveCfg = Debug|Any CPU
+		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.DebugEditorTests|x86.Build.0 = Debug|Any CPU
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{258982F6-92F2-4D9A-B8D2-58774D0FD26B}.Release|x64.ActiveCfg = Release|Any CPU
@@ -81,6 +96,11 @@ Global
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditor|x64.Build.0 = Debug|x64
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditor|x86.ActiveCfg = Debug|Win32
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditor|x86.Build.0 = Debug|Win32
+		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditorTests|Any CPU.ActiveCfg = DebugEditorTests|Win32
+		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditorTests|x64.ActiveCfg = DebugEditorTests|x64
+		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditorTests|x64.Build.0 = DebugEditorTests|x64
+		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditorTests|x86.ActiveCfg = DebugEditorTests|Win32
+		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.DebugEditorTests|x86.Build.0 = DebugEditorTests|Win32
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.Release|Any CPU.ActiveCfg = Release|Win32
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.Release|x64.ActiveCfg = Release|x64
 		{B33CB43E-CE49-4375-ABA8-C1DD1363567A}.Release|x64.Build.0 = Release|x64
