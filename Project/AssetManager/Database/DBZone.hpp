@@ -3,7 +3,9 @@
 #include <map>
 #include <Core\String.hpp>
 #include <Core\Vector.h>
+
 #include "..\ObjectSaveMode.hpp"
+#include "../IRequestable.hpp"
 class DBZonePrefabStruct
 {
 public:
@@ -74,24 +76,21 @@ public:
 
 };
 
-class DBZone
+class DBZone : public IRequestable
 {
 public:
-	unsigned int ID;
-	Core::String fromMod = "OneFlower.main";
 	Core::String name;
 	DBBackgroundSprite background;
 	DBBackgroundSprite loadingScreen;
 	Core::String loadingScreenMessage;
 	std::map<std::pair<Core::String, size_t>, DBZonePrefabStruct> prefabList;
-	ObjectSaveMode mode = ObjectSaveMode::ADD;
 
 
 	template<class Archive>
 	void save(Archive &ar) const
 	{
+		ar(cereal::base_class<IRequestable>(this));
 		ar(name);
-		ar(ID);
 		ar(background);
 		ar(loadingScreen);
 		ar(loadingScreenMessage);
@@ -147,16 +146,14 @@ public:
 			ar(i->first.second);
 			ar(i->second);
 		}
-		ar(mode);
-		ar(fromMod);
 	}
 	template<class Archive>
 	void load(Archive &ar)
 	{
 		size_t size = 0;
 		DBBackgroundSprite t;
+		ar(cereal::base_class<IRequestable>(this));
 		ar(name);
-		ar(ID);
 		ar(t);
 		background = t;
 		ar(t);
@@ -184,8 +181,6 @@ public:
 			else
 				prefabList.insert(std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct>(std::pair<Core::String, size_t>(name, ID), dbzps));
 		}
-		ar(mode);
-		ar(fromMod);
 	}
 };
 
