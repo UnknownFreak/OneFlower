@@ -96,6 +96,8 @@ void Gfx::draw()
 {
 	view.render.clear();
 	//
+	if (bSkipDrawing)
+		return;
 	drawBG();
 	drawObject();
 	//drawGrid();
@@ -224,6 +226,11 @@ void Gfx::drawGrid()
 	//}
 }
 
+
+void Gfx::clearBackground()
+{
+	backgroundSprite = nullptr;
+}
 
 /*
 void Gfx::drawTxt()

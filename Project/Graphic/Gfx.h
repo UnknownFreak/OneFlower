@@ -30,6 +30,9 @@ public:
 	void drawBG();
 	void drawObject();
 	void drawGrid();
+
+	bool bSkipDrawing = false;
+
 #ifdef _DEBUG
 	void drawGizmo();
 	bool drawHitboxes = true;
@@ -37,6 +40,7 @@ public:
 	std::vector<GameObject*> selectedDrawList;
 	std::vector<BackgroundSprite> foregroundSpriteList;
 	sf::Sprite tex;
+	void clearBackground();
 	void setBackground(BackgroundSprite& bg);
 	void removeFromForegroundList(BackgroundSprite& fgToRemove);
 	/*

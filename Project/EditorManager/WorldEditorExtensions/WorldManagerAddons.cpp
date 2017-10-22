@@ -232,10 +232,11 @@ void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> d
 }
 void WorldManagerAddon::loadMod(Core::String myMod)
 {
+	Engine::Graphic.bSkipDrawing = true;
+	Engine::Graphic.clearBackground();
 	ModLoader& modLoadOrder = Engine::getAssetManager().getModLoader();
 	unloadEditorVariables();
 	Engine::getAssetManager().openedMod = myMod;
-	Engine::Graphic.setBackground(unloadingbg);
 	modLoadOrder.loadOrder.clear();
 	bool fail = false;
 	if (!Engine::getAssetManager().loadModHeader(myMod, myModHeader))
@@ -257,6 +258,7 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 		OneLogger::Fine("Successfully loaded mod dependencies for mod [" + myMod + "].", __FILE__, __LINE__);
 	modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(myMod, modLoadOrder.loadOrder.size()));
 	Engine::getAssetManager().loadAllEditorVariables();
+	Engine::Graphic.bSkipDrawing = false;
 }
 //void WorldManagerAddon::LoadAllEditorVariables()
 //{
