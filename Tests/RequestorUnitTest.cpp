@@ -1,5 +1,4 @@
 #include "CppUnitTest.h"
-#define _EDITOR_
 
 #include <cereal\archives\binary.hpp>
 #include <cereal\archives\xml.hpp>
@@ -18,8 +17,8 @@
 
 #include <AssetManager\AssetManagerCore.hpp>
 
-ModLoader Engine::modLoadOrder;
-Core::String AssetManagerCore::openedMod = "test";
+//ModLoader Engine::modLoadOrder;
+//Core::String AssetManagerCore::openedMod = "test";
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
@@ -98,8 +97,8 @@ namespace Tests
 			file.close();
 			index.close();
 
-			Engine::modLoadOrder.loadOrder.clear();
-			Engine::modLoadOrder.loadOrder.insert(std::make_pair("test", 0));
+			Engine::getAssetManager().getModLoader().loadOrder.clear();
+			Engine::getAssetManager().getModLoader().loadOrder.insert(std::make_pair("test", 0));
 			req.clear();
 
 		}

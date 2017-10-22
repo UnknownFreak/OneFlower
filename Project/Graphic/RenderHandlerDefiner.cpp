@@ -35,7 +35,7 @@ Gfx::Gfx()
 }
 void Gfx::initDebugTextures()
 {
-	hitbox.setTexture(Engine::Textureloader.requestTexture("HitBox.png"));
+	hitbox.setTexture(Engine::getTextureLoader().requestTexture("HitBox.png"));
 }
 //*/
 void Gfx::insertDrawableObject(GameObject* entityTodraw)

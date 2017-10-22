@@ -15,23 +15,23 @@ sizeY = 0;
 //*/
 BackgroundSprite::BackgroundSprite(Core::String n, Core::Vector2 pos) : name(n), position(pos), size(0, 0)
 {
-	sprite.setTexture(Engine::Textureloader.requestTexture(n));
+	sprite.setTexture(Engine::getTextureLoader().requestTexture(n));
 	setPosition(position.x, position.y);
 }
 BackgroundSprite::BackgroundSprite(Core::String n, float x, float y) : name(n), position(x, y), size(0, 0)
 {
-	sprite.setTexture(Engine::Textureloader.requestTexture(n));
+	sprite.setTexture(Engine::getTextureLoader().requestTexture(n));
 	sprite.setPosition(x, y);
 }
 BackgroundSprite::BackgroundSprite(const DBBackgroundSprite & DbBackground) :  name(DbBackground.name) , position(DbBackground.position), size(DbBackground.size)
 {
-	sprite.setTexture(Engine::Textureloader.requestTexture(name));
+	sprite.setTexture(Engine::getTextureLoader().requestTexture(name));
 	setPosition(position.x, position.y);
 	setSize(size);
 }
 BackgroundSprite::BackgroundSprite(const BackgroundSprite &BackgroundSprite) : name(BackgroundSprite.name), position(BackgroundSprite.position), size(BackgroundSprite.size)
 {
-	sprite.setTexture(Engine::Textureloader.requestTexture(name));
+	sprite.setTexture(Engine::getTextureLoader().requestTexture(name));
 	setPosition(position.x, position.y);
 	setSize(size);
 }
@@ -40,7 +40,7 @@ BackgroundSprite& BackgroundSprite::operator=(const BackgroundSprite &Background
 	name = BackgroundSprite.name;
 	position = BackgroundSprite.position;
 	size = BackgroundSprite.size;
-	sprite.setTexture(Engine::Textureloader.requestTexture(name));
+	sprite.setTexture(Engine::getTextureLoader().requestTexture(name));
 	setPosition(position.x, position.y);
 	return *this;
 }

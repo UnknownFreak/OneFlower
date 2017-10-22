@@ -58,5 +58,29 @@
     <ClCompile Include="..\Project\Physics\BoundingBoxDefiner.cpp">
       <Filter>Existing</Filter>
     </ClCompile>
+    <ClCompile Include="..\Project\AssetManager\AssetManagerCore.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\AssetManager\AssetManagerCoreLoad.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Graphic\Component\RenderComponentDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Model\ModelContainer.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Model\StaticModel.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Physics\Component\HitboxComponentDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\AssetManager\Prefab\PrefabDefiner.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Model\IModel.cpp">
+      <Filter>Existing</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -21,7 +21,9 @@ namespace EditorResources.MainEditorWindow
 
         private void LogViewAddEvent(object sender, EditorLogEventArgs e)
         {
-            messageView.Items.Add(e.logMessage);
+            Dispatcher.Invoke(new Action(() => {
+                messageView.Items.Add(e.logMessage);
+            })); 
         }
 
         void createEditorWindow()
@@ -93,7 +95,7 @@ namespace EditorResources.MainEditorWindow
             if (result == true)
             {
                 // Open document
-                EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.FileName });
+                EditorEvents.OnModLoad(new Functionality.ModLoadEventArgs() { modName = dlg.SafeFileName});
             }
         }
 

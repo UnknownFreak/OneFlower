@@ -30,7 +30,7 @@ namespace Component
 		//TODO move move() to protect or remove entirly
 		//Move relative
 		//void move(Vector2 dir,double s);
-		virtual TransformComponent* copy();
+		virtual TransformComponent* copy() const;
 	
 		template<class Archive>
 		void serialize(Archive &ar)

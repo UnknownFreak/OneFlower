@@ -101,7 +101,7 @@ public:
 		{
 			if (i->second.mode == ObjectSaveMode::DEFAULT)
 			{
-				if (fromMod == AssetManagerCore::openedMod)
+				if (fromMod == Engine::getAssetManager().openedMod)
 				{
 					DBZonePrefabStruct dbzps = i->second;
 					dbzps.oldPosition.x = dbzps.position.x;
@@ -111,7 +111,7 @@ public:
 			}
 			else if (i->second.mode == ObjectSaveMode::REMOVE)
 			{
-				if (fromMod != AssetManagerCore::openedMod)
+				if (fromMod != Engine::getAssetManager().openedMod)
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct>(i->first, i->second));
 				}
@@ -119,7 +119,7 @@ public:
 			else if (i->second.mode == ObjectSaveMode::EDIT)
 			{
 				DBZonePrefabStruct dbzps = i->second;
-				if (fromMod == AssetManagerCore::openedMod || AssetManagerCore::openedMod == i->second.fromMod)
+				if (fromMod == Engine::getAssetManager().openedMod || Engine::getAssetManager().openedMod == i->second.fromMod)
 				{
 					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;
@@ -130,7 +130,7 @@ public:
 			else if (i->second.mode == ObjectSaveMode::ADD)
 			{
 				DBZonePrefabStruct dbzps = i->second;
-				if (fromMod == AssetManagerCore::openedMod)
+				if (fromMod == Engine::getAssetManager().openedMod)
 				{
 					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;

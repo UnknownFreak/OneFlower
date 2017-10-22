@@ -1,4 +1,3 @@
-#define _EDITOR_
 
 #include "CppUnitTest.h"
 

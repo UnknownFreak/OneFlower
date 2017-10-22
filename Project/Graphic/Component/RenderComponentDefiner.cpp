@@ -28,7 +28,7 @@ namespace Component
 	}
 	RenderComponent::RenderComponent(Core::String texture, int x, int y) : textureName(texture), size(x, y)
 	{
-		TextureRef* tf = Engine::Textureloader.requestTexture(texture);
+		TextureRef* tf = Engine::getAssetManager().textureloader.requestTexture(texture);
 		tf->useCount++;
 		sprite.setTexture(tf, true);
 	}
@@ -40,11 +40,11 @@ namespace Component
 
 	void RenderComponent::setTexture()
 	{
-		sprite.setTexture(Engine::Textureloader.requestTexture(textureName), true);
+		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(textureName), true);
 	}
 	void RenderComponent::setTexture(Core::String texture)
 	{
-		sprite.setTexture(Engine::Textureloader.requestTexture(texture), true);
+		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(texture), true);
 
 		textureName = texture;
 		sprite.waitForTextureLoaded();
@@ -54,7 +54,7 @@ namespace Component
 	void RenderComponent::setTexture(Core::String texture, double x, double y, int width, int height)
 	{
 		//fix this
-		sprite.setTexture(Engine::Textureloader.requestTexture(texture), false);
+		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(texture), false);
 		sprite.setTextureRect(sf::IntRect((int)x, (int)y, width, height));
 		textureName = texture;
 		size.x = width;

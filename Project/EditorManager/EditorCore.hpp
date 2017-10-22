@@ -2,7 +2,7 @@
 #define EditorCore_HPP
 
 #ifdef _EDITOR_
-
+#ifndef _UNITTESTS_
 #include "WorldEditorExtensions\WorldManagerAddons.hpp"
 #include "TextureMapExtensions\TextureMapAddon.hpp"
 #include "SplashScreen.hpp"
@@ -13,6 +13,6 @@ namespace Editor
 	//extern TextureMapAddon textureMapAddons;
 	//extern ItemManagerAddon;  
 }
-
+#endif
 #endif
 #endif

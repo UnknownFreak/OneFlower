@@ -84,6 +84,9 @@ public:
 
 #ifdef _EDITOR_
 	void editorLoadAll();
+
+	std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects();
+
 #endif
 
 	void save(DatabaseIndex& ind,
@@ -170,6 +173,8 @@ public:
 
 #ifdef _EDITOR_
 	void editorLoadAll();
+	std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects();
+
 #endif
 
 	void save(DatabaseIndex& ind,

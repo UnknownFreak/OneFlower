@@ -2,14 +2,18 @@
 #define WorldManagerAddons_HPP
 
 #ifdef _EDITOR_
+#ifndef _UNITTESTS_
 #include <World\WorldManager.hpp>
 #include <Model\SpriterModelContainer.hpp>
+#include <Graphic\BackgroundSprite\BackgroundSprite.hpp>
 class WorldManagerAddon
 {
 public:
+	ModHeader myModHeader;
+
 	friend class WorldManager;
 
-	WorldManager& myActualManager;
+	WorldManager& myWorldManager;
 	SpriterModelContainer& myModelContainer;
 
 	WorldManagerAddon();
@@ -43,13 +47,23 @@ public:
 	//friend void LoadAllZones(std::map<std::pair<Core::String, unsigned int>, DBZone>& nameOfAllZones);
 	//friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
 	//friend void LoadAllTextureMaps(SpriterModelContainer& container);
+
+	//Item1 - BackgroundPath
+	//Item2 - LoadingScreenPath
+	//Item3 - LoadingScreenMessage
+	std::vector<Core::String> getExtraZoneInfo(Core::String modName, size_t id);
+
+	std::vector<DBZone> getAllDbZones();
+
 	size_t EditorGetValidID();
 	size_t ID = 1;
 
-
+	Reference<DBZone>* currentDBZone;
+	BackgroundSprite unloadingbg;
 };
 
 
 
+#endif
 #endif
 #endif

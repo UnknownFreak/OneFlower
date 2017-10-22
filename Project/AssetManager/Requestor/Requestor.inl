@@ -5,12 +5,12 @@ template<class T>
 inline bool Requester<T>::requestFromDatabase(T & _t, Core::String modName, size_t uuid)
 {
 	bool found = false;
-	for each (std::pair<std::string, size_t> var in Engine::modLoadOrder.loadOrder)
+	for each (std::pair<std::string, size_t> var in Engine::getAssetManager().getModLoader().loadOrder)
 	{
 		bool eof = false;
 		DatabaseIndex ind;
-		std::ifstream index(var.first + ".index", std::ios::binary);
-		std::ifstream database(var.first, std::ios::binary);
+		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
+		std::ifstream database("Data\\" + var.first, std::ios::binary);
 		if (index.is_open())
 		{
 			cereal::BinaryInputArchive ar(index);
@@ -46,6 +46,8 @@ inline const Core::String Requester<T>::getObjectTypeAsString() const
 		return "Header";
 	case DatabaseIndex::ObjectTypeEnum::Zone:
 		return "Zone";
+	case DatabaseIndex::ObjectTypeEnum::DBZone:
+		return "DBZone";
 	case DatabaseIndex::ObjectTypeEnum::Prefab:
 		return "Prefab";
 	case DatabaseIndex::ObjectTypeEnum::GameObject:
@@ -109,9 +111,10 @@ inline bool Requester<T>::add(T & obj)
 
 	if (requestedMap.find(key) != requestedMap.end())
 	{
-		OneLogger::Error("Object with fromMod " + name + " and ID "+ std::to_string(uuid) +" already exists", __FILE__, __LINE__);
+		OneLogger::Warning("Object with fromMod " + name + " and ID "+ std::to_string(uuid) +" already exists!", __FILE__, __LINE__);
 		return false;
 	}
+	OneLogger::Info("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
 
 	Reference<T>* ref = new Reference<T>(name, uuid, this, obj);
 	requestedMap.insert(std::make_pair(key, ref));
@@ -213,7 +216,7 @@ inline void Requester<T>::clear()
 	for (; it != eit; it++)
 	{
 		if (it->second->useCount > 0)
-			OneLogger::Warning("Unloading object from Requestor<" + getObjectTypeAsString() + "*> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
+			OneLogger::Warning("Unloading object from Requestor<" + getObjectTypeAsString() + "> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
 		delete it->second;
 		it->second = nullptr;
 	}
@@ -230,12 +233,13 @@ inline Requester<T>::Requester(DatabaseIndex::ObjectTypeEnum objectType) : objec
 template<class T>
 inline void Requester<T>::editorLoadAll()
 {
-	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
+	clear();
+	for each (std::pair<std::string, size_t> var in Engine::getAssetManager().getModLoader().loadOrder)
 	{
 		bool eof = false;
 		DatabaseIndex ind;
-		std::ifstream index(var.first + ".index", std::ios::binary);
-		std::ifstream database(var.first, std::ios::binary);
+		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
+		std::ifstream database("Data\\" + var.first, std::ios::binary);
 		if (index.is_open())
 		{
 			cereal::BinaryInputArchive ar(index);
@@ -251,23 +255,28 @@ inline void Requester<T>::editorLoadAll()
 						if (it != requestedMap.end())
 						{
 							// stuff exist add extra things to object.
-							loader(it->second.getReferenced());
+							loader(it->second->getReferenced());
 						}
 						else
 						{
 							T tmp;
 							loader(tmp);
-							requestedMap.emplace(std::make_pair(td_key(ind.modfile, ind.ID), new Reference<T>(ind.modFile, ind.ID, this, tmp)));
+							requestedMap.emplace(std::make_pair(td_key(ind.modFile, ind.ID), new Reference<T>(ind.modFile, ind.ID, this, tmp)));
 						}
 					}
 					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+					{
 						eof = true;
+						OneLogger::Info("Loaded " + std::to_string(requestedMap.size()) + " objects for Requestor<" + getObjectTypeAsString() + ">");
+					}
 				}
 			}
 		}
 		else
 			OneLogger::Error("Unable to open Index file [" + var.first +
 				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
+		index.close();
+		database.close();
 	}
 }
 #endif
@@ -288,11 +297,11 @@ inline void Requester<T>::save(DatabaseIndex & ind, std::ostream & file, cereal:
 		if (pref.mode != ObjectSaveMode::REMOVE)
 		{
 			bool b = true;
-			if (pref.fromMod == AssetManagerCore::openedMod && pref.mode == ObjectSaveMode::EDIT)
+			if (pref.fromMod == Engine::getAssetManager().openedMod && pref.mode == ObjectSaveMode::EDIT)
 				pref.mode = ObjectSaveMode::DEFAULT;
-			else if (pref.fromMod == AssetManagerCore::openedMod && pref.mode == ObjectSaveMode::ADD)
+			else if (pref.fromMod == Engine::getAssetManager().openedMod && pref.mode == ObjectSaveMode::ADD)
 				pref.mode = ObjectSaveMode::DEFAULT;
-			else if (pref.fromMod != AssetManagerCore::openedMod && pref.mode == ObjectSaveMode::DEFAULT)
+			else if (pref.fromMod != Engine::getAssetManager().openedMod && pref.mode == ObjectSaveMode::DEFAULT)
 				b = false;
 			else if (pref.mode > ObjectSaveMode::ADD)
 				pref.mode = ObjectSaveMode::DEFAULT;
@@ -303,4 +312,17 @@ inline void Requester<T>::save(DatabaseIndex & ind, std::ostream & file, cereal:
 			}
 		}
 	}
+}
+
+template<class T>
+inline std::vector<std::pair<Core::String, size_t>> Requester<T>::listAllCurrentLoadedObjects()
+{
+	std::vector<std::pair<Core::String, size_t>> listofall;
+	td_map::iterator it = requestedMap.begin();
+	td_map::iterator eit = requestedMap.end();
+	for (it; it != eit; it++)
+	{
+		listofall.push_back(it->first);
+	}
+	return listofall;
 }

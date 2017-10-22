@@ -1,9 +1,7 @@
-#define _EDITOR_
 
 #include "CppUnitTest.h"
 
 #include <Physics\BoundingBox.hpp>
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Tests

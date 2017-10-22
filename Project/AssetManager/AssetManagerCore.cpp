@@ -64,170 +64,170 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseComponent, Component::TransformComponen
 CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, StaticModel);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
 
-AssetManagerCore::AssetMode AssetManagerCore::assetMode = AssetManagerCore::AssetMode::FINE;
-AssetManagerCore::Mode AssetManagerCore::state = AssetManagerCore::Mode::UNDEFINED;
-Core::String AssetManagerCore::openedMod = "<Not Set>";
+//AssetManagerCore::AssetMode AssetManagerCore::assetMode = AssetManagerCore::AssetMode::FINE;
+//AssetManagerCore::Mode AssetManagerCore::state = AssetManagerCore::Mode::UNDEFINED;
+//Core::String AssetManagerCore::openedMod = "<Not Set>";
 
-OneVersion AssetManagerCore::assetManagerVersion = OneVersion(0, 0, 1);
+//OneVersion AssetManagerCore::assetManagerVersion = OneVersion(0, 0, 1);
 
-AssetManagerCore::Mode AssetManagerCore::getMode()
-{
-	return state;
-}
+//AssetManagerCore::Mode AssetManagerCore::getMode()
+//{
+//	return state;
+//}
 
-void AssetManagerCore::saveGameDatabase(
-	std::string filename,
-	ModHeader& modhdr,
-	PrefabContainer& prefabs,
-	std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones)
-	//,
-	//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
-	//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
-{
-	std::ofstream file(filename, std::ios::binary);
-	filename.append(".index");
-	std::ofstream index(filename, std::ios::binary);
-	{
-		DatabaseIndex ind;
-		cereal::BinaryOutputArchive mainAr(file);
-		cereal::BinaryOutputArchive indexAr(index);
-		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-		ind.ID = 0;
-		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
-		ind.modFile = modhdr.name;
-		ind.row = file.tellp();
-		indexAr(ind);
-		mainAr(modhdr);
+//void AssetManagerCore::saveGameDatabase(
+//	std::string filename,
+//	ModHeader& modhdr,
+//	PrefabContainer& prefabs,
+//	std::map<std::pair<std::string, size_t>, DBZone>& EditorAllZones)
+//	//,
+//	//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
+//	//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
+//{
+//	std::ofstream file(filename, std::ios::binary);
+//	filename.append(".index");
+//	std::ofstream index(filename, std::ios::binary);
+//	{
+//		DatabaseIndex ind;
+//		cereal::BinaryOutputArchive mainAr(file);
+//		cereal::BinaryOutputArchive indexAr(index);
+//		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+//		ind.ID = 0;
+//		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+//		ind.modFile = modhdr.name;
+//		ind.row = file.tellp();
+//		indexAr(ind);
+//		mainAr(modhdr);
+//
+//		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+//		ind.ID = 0;
+//		ind.type = DatabaseIndex::ObjectTypeEnum::ModelContainer;
+//		ind.modFile = "NULL";
+//		ind.row = file.tellp();
+//		indexAr(ind);
+//		mainAr(Engine::ModelContainer);
+//
+//		
+//		saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
+//		savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
+//		
+//		//for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
+//		//{
+//		//	ind.flags = "-";
+//		//	ind.ID = it->first.second;
+//		//	ind.type = "Item";
+//		//	ind.modFile = it->second->fromMod;
+//		//	ind.row = file.tellp();
+//		//	if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
+//		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+//		//	else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
+//		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+//		//	indexAr(ind);
+//		//	saveItem(mainAr, it->second);
+//		//}
+//		//for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
+//		//{
+//		//	ind.flags = "-";
+//		//	ind.ID = it->first.second;
+//		//	ind.type = "Quest";
+//		//	ind.modFile = it->second.fromMod;
+//		//	ind.row = file.tellp();
+//		//	if (it->second.mode != EditorObjectSaveMode::REMOVE)
+//		//	{
+//		//		bool b = true;
+//		//		if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+//		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+//		//		else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+//		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+//		//		else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+//		//		{
+//		//			b = false;
+//		//		}
+//		//		else if (it->second.mode > EditorObjectSaveMode::ADD)
+//		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+//		//		if (b)
+//		//		{
+//		//			indexAr(ind);
+//		//			mainAr(it->second);
+//		//		}
+//		//	}
+//		//}
+//		ind.ID = 0xFFFFFFFF;
+//		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+//		ind.row = file.tellp();
+//		ind.flags = DatabaseIndex::ObjectFlag::EoF;
+//		indexAr(ind);
+//	}
+//	file.close();
+//	index.close();
+//}
 
-		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-		ind.ID = 0;
-		ind.type = DatabaseIndex::ObjectTypeEnum::ModelContainer;
-		ind.modFile = "NULL";
-		ind.row = file.tellp();
-		indexAr(ind);
-		mainAr(Engine::ModelContainer);
+//void AssetManagerCore::savePrefabs(DatabaseIndex & ind, PrefabContainer& prefabs, std::ostream& file, std::ostream& index, cereal::BinaryOutputArchive& indexAr, cereal::BinaryOutputArchive& mainAr)
+//{
+//	for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
+//	{
+//		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+//		ind.ID = it->first.second;
+//		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
+//		ind.modFile = it->second.fromMod;
+//		ind.row = file.tellp();
+//		if (it->second.mode != ObjectSaveMode::REMOVE)
+//		{
+//			bool b = true;
+//			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
+//				it->second.mode = ObjectSaveMode::DEFAULT;
+//			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
+//				it->second.mode = ObjectSaveMode::DEFAULT;
+//			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
+//				b = false;
+//			else if (it->second.mode > ObjectSaveMode::ADD)
+//				it->second.mode = ObjectSaveMode::DEFAULT;
+//			if (b)
+//			{
+//				indexAr(ind);
+//				mainAr(it->second);
+//			}
+//		}
+//	}
+//}
 
-		
-		saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
-		savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
-		
-		//for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
-		//{
-		//	ind.flags = "-";
-		//	ind.ID = it->first.second;
-		//	ind.type = "Item";
-		//	ind.modFile = it->second->fromMod;
-		//	ind.row = file.tellp();
-		//	if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
-		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
-		//	else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
-		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
-		//	indexAr(ind);
-		//	saveItem(mainAr, it->second);
-		//}
-		//for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
-		//{
-		//	ind.flags = "-";
-		//	ind.ID = it->first.second;
-		//	ind.type = "Quest";
-		//	ind.modFile = it->second.fromMod;
-		//	ind.row = file.tellp();
-		//	if (it->second.mode != EditorObjectSaveMode::REMOVE)
-		//	{
-		//		bool b = true;
-		//		if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
-		//		{
-		//			b = false;
-		//		}
-		//		else if (it->second.mode > EditorObjectSaveMode::ADD)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		if (b)
-		//		{
-		//			indexAr(ind);
-		//			mainAr(it->second);
-		//		}
-		//	}
-		//}
-		ind.ID = 0xFFFFFFFF;
-		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
-		ind.row = file.tellp();
-		ind.flags = DatabaseIndex::ObjectFlag::EoF;
-		indexAr(ind);
-	}
-	file.close();
-	index.close();
-}
+//void AssetManagerCore::saveZones(DatabaseIndex & ind, std::map<std::pair<std::string, size_t>, DBZone>& allzones, std::ostream & file, std::ostream & index, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
+//{
+//	for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = allzones.begin(); it != allzones.end(); it++)
+//	{
+//		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+//		ind.ID = it->first.second;
+//		ind.type = DatabaseIndex::ObjectTypeEnum::Zone;
+//		ind.modFile = it->second.fromMod;
+//		ind.row = file.tellp();
+//		if (it->second.mode != ObjectSaveMode::REMOVE)
+//		{
+//			bool b = true;
+//			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
+//				it->second.mode = ObjectSaveMode::DEFAULT;
+//			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
+//				it->second.mode = ObjectSaveMode::DEFAULT;
+//			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
+//				b = false;
+//			if (ind.ID == 0)
+//				b = false;
+//			if (b)
+//			{
+//				indexAr(ind);
+//				mainAr(it->second);
+//			}
+//		}
+//	}
+//}
 
-void AssetManagerCore::savePrefabs(DatabaseIndex & ind, PrefabContainer& prefabs, std::ostream& file, std::ostream& index, cereal::BinaryOutputArchive& indexAr, cereal::BinaryOutputArchive& mainAr)
-{
-	for (std::map<std::pair<std::string, size_t>, Prefab>::iterator it = prefabs.begin(); it != prefabs.end(); it++)
-	{
-		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-		ind.ID = it->first.second;
-		ind.type = DatabaseIndex::ObjectTypeEnum::Prefab;
-		ind.modFile = it->second.fromMod;
-		ind.row = file.tellp();
-		if (it->second.mode != ObjectSaveMode::REMOVE)
-		{
-			bool b = true;
-			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
-				it->second.mode = ObjectSaveMode::DEFAULT;
-			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
-				it->second.mode = ObjectSaveMode::DEFAULT;
-			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
-				b = false;
-			else if (it->second.mode > ObjectSaveMode::ADD)
-				it->second.mode = ObjectSaveMode::DEFAULT;
-			if (b)
-			{
-				indexAr(ind);
-				mainAr(it->second);
-			}
-		}
-	}
-}
+AssetManagerCore* AssetManagerCore::m_assetManager = nullptr;
 
-void AssetManagerCore::saveZones(DatabaseIndex & ind, std::map<std::pair<std::string, size_t>, DBZone>& allzones, std::ostream & file, std::ostream & index, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
-{
-	for (std::map<std::pair<std::string, size_t>, DBZone>::iterator it = allzones.begin(); it != allzones.end(); it++)
-	{
-		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-		ind.ID = it->first.second;
-		ind.type = DatabaseIndex::ObjectTypeEnum::Zone;
-		ind.modFile = it->second.fromMod;
-		ind.row = file.tellp();
-		if (it->second.mode != ObjectSaveMode::REMOVE)
-		{
-			bool b = true;
-			if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::EDIT)
-				it->second.mode = ObjectSaveMode::DEFAULT;
-			else if (it->second.fromMod == AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::ADD)
-				it->second.mode = ObjectSaveMode::DEFAULT;
-			else if (it->second.fromMod != AssetManagerCore::openedMod && it->second.mode == ObjectSaveMode::DEFAULT)
-				b = false;
-			if (ind.ID == 0)
-				b = false;
-			if (b)
-			{
-				indexAr(ind);
-				mainAr(it->second);
-			}
-		}
-	}
-}
-
-
-
-void AssetManagerCore::saveModOrderFile(ModLoader & mod)
+void AssetManagerCore::saveModOrderFile()
 {
 	std::ofstream file("Data\\ModLoadOrder.xml");
 	{
 		cereal::XMLOutputArchive ar(file);
-		ar(mod);
+		ar(modLoader);
 	}
 }
 
@@ -342,3 +342,133 @@ void testLoad()
 	}
 }
 #endif
+
+
+AssetManagerCore::AssetManagerCore() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
+modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone)
+{
+
+}
+
+AssetManagerCore & AssetManagerCore::_getAssetManager()
+{
+	if (m_assetManager == nullptr)
+		m_assetManager = new AssetManagerCore();
+	return *m_assetManager;
+}
+
+Requester<Prefab>& AssetManagerCore::getPrefabRequester()
+{
+	return _getAssetManager().prefabRequestor;
+}
+
+Requester<IModel*>& AssetManagerCore::getModelRequester()
+{
+	return _getAssetManager().modelRequestor;
+}
+
+Requester<DBZone>& AssetManagerCore::getDBZoneRequester()
+{
+	return _getAssetManager().dbZoneRequestor;
+}
+
+void AssetManagerCore::deconstruct()
+{
+	if (m_assetManager)
+		delete m_assetManager;
+	m_assetManager = nullptr;
+}
+
+ModLoader & AssetManagerCore::getModLoader()
+{
+	return modLoader;
+}
+
+void AssetManagerCore::saveGameDatabase(
+	std::string filename,
+	ModHeader& modhdr)
+	//,
+	//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
+	//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
+{
+	std::ofstream file(filename, std::ios::binary);
+	filename.append(".index");
+	std::ofstream index(filename, std::ios::binary);
+	{
+		DatabaseIndex ind;
+		cereal::BinaryOutputArchive mainAr(file);
+		cereal::BinaryOutputArchive indexAr(index);
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+		ind.modFile = modhdr.name;
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(modhdr);
+
+		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+		ind.ID = 0;
+		ind.type = DatabaseIndex::ObjectTypeEnum::ModelContainer;
+		ind.modFile = "NULL";
+		ind.row = file.tellp();
+		indexAr(ind);
+		mainAr(Engine::ModelContainer);
+
+
+		prefabRequestor.save(ind, file, indexAr, mainAr);
+		modelRequestor.save(ind, file, indexAr, mainAr);
+		dbZoneRequestor.save(ind, file, indexAr, mainAr);
+
+		//saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
+		//savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
+
+		//for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
+		//{
+		//	ind.flags = "-";
+		//	ind.ID = it->first.second;
+		//	ind.type = "Item";
+		//	ind.modFile = it->second->fromMod;
+		//	ind.row = file.tellp();
+		//	if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
+		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+		//	else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
+		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
+		//	indexAr(ind);
+		//	saveItem(mainAr, it->second);
+		//}
+		//for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
+		//{
+		//	ind.flags = "-";
+		//	ind.ID = it->first.second;
+		//	ind.type = "Quest";
+		//	ind.modFile = it->second.fromMod;
+		//	ind.row = file.tellp();
+		//	if (it->second.mode != EditorObjectSaveMode::REMOVE)
+		//	{
+		//		bool b = true;
+		//		if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
+		//		{
+		//			b = false;
+		//		}
+		//		else if (it->second.mode > EditorObjectSaveMode::ADD)
+		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
+		//		if (b)
+		//		{
+		//			indexAr(ind);
+		//			mainAr(it->second);
+		//		}
+		//	}
+		//}
+		ind.ID = 0xFFFFFFFF;
+		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+		ind.row = file.tellp();
+		ind.flags = DatabaseIndex::ObjectFlag::EoF;
+		indexAr(ind);
+	}
+	file.close();
+	index.close();
+}

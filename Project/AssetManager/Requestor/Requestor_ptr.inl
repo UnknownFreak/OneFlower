@@ -50,7 +50,9 @@ inline const Core::String Requester<T*>::getObjectTypeAsString() const
 	case DatabaseIndex::ObjectTypeEnum::Header:
 		return "Header";
 	case DatabaseIndex::ObjectTypeEnum::Zone:
-		return "Zone";
+		return "Zone";	
+	case DatabaseIndex::ObjectTypeEnum::DBZone:
+		return "DBZone";
 	case DatabaseIndex::ObjectTypeEnum::Prefab:
 		return "Prefab";
 	case DatabaseIndex::ObjectTypeEnum::GameObject:
@@ -114,9 +116,11 @@ inline bool Requester<T*>::add(T*& obj)
 
 	if (requestedMap.find(key) != requestedMap.end())
 	{
-		OneLogger::Error("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " already exists", __FILE__, __LINE__);
+		OneLogger::Warning("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " already exists", __FILE__, __LINE__);
 		return false;
 	}
+	OneLogger::Info("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
+	
 	Reference<T>* ref = new Reference<T>(name, uuid, this, obj);
 	requestedMap.insert(std::make_pair(key, ref));
 	return true;
@@ -237,10 +241,13 @@ inline Requester<T*>::~Requester()
 	clear();
 }
 
+#ifdef _EDITOR_
 
-//template<class T>
-//inline void Requester<T>::editorLoadAll()
-//{
+template<class T>
+inline void Requester<T*>::editorLoadAll()
+{
+
+}
 //	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
 //	{
 //		bool eof = false;
@@ -282,6 +289,7 @@ inline Requester<T*>::~Requester()
 //				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
 //	}
 //}
+#endif _EDITOR_
 
 template<class T>
 inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
@@ -299,11 +307,11 @@ inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal
 		if (pref->mode != ObjectSaveMode::REMOVE)
 		{
 			bool b = true;
-			if (pref->fromMod == AssetManagerCore::openedMod && pref->mode == ObjectSaveMode::EDIT)
+			if (pref->fromMod == Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::EDIT)
 				pref->mode = ObjectSaveMode::DEFAULT;
-			else if (pref->fromMod == AssetManagerCore::openedMod && pref->mode == ObjectSaveMode::ADD)
+			else if (pref->fromMod == Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::ADD)
 				pref->mode = ObjectSaveMode::DEFAULT;
-			else if (pref->fromMod != AssetManagerCore::openedMod && pref->mode == ObjectSaveMode::DEFAULT)
+			else if (pref->fromMod != Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::DEFAULT)
 				b = false;
 			else if (pref->mode > ObjectSaveMode::ADD)
 				pref->mode = ObjectSaveMode::DEFAULT;
@@ -320,29 +328,15 @@ inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+template<class T>
+inline std::vector<std::pair<Core::String, size_t>> Requester<T*>::listAllCurrentLoadedObjects()
+{
+	std::vector<std::pair<Core::String, size_t>> listofall;
+	td_map::iterator it = requestedMap.begin();
+	td_map::iterator eit = requestedMap.end();
+	for (it; it != eit; it++)
+	{
+		listofall.push_back(it->first);
+	}
+	return listofall;
+}

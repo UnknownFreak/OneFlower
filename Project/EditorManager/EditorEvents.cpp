@@ -1,8 +1,9 @@
 #ifdef _EDITOR_
+#ifndef _UNITTESTS_
 #include "EditorEvents.hpp"
 #include <EditorManager\EditorCore.hpp>
 #include <EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp>
-#include <iostream>
+#include <vector>
 
 Core::String Editor::Events::toString(array<wchar_t>^ arr)
 {
@@ -54,19 +55,13 @@ void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functiona
 
 	auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
 
-	for each (auto v in Editor::addons.myActualManager.EditorAllZones)
+	for each (auto v in Editor::addons.getAllDbZones())
 	{
-		v.second.fromMod;
-		auto zinfo = gcnew System::Tuple<System::String^, size_t, System::String^>(gcnew String(v.second.fromMod.c_str()), v.second.ID, gcnew String(v.second.name.c_str()));
+		auto zinfo = gcnew System::Tuple<System::String^, size_t, System::String^>(gcnew String(v.fromMod.c_str()), v.ID, gcnew String(v.name.c_str()));
 		modfinishedloaded->zoneFiles->Add(zinfo);
 	}
 
 	EditorResources::Functionality::EditorEvents::onModFinishedLoading(nullptr, modfinishedloaded);
-}
-
-void Editor::Events::OnEditorModLoaded(Object ^ sender, EditorResources::Functionality::ModFinishedLoadedEventArgs ^ args)
-{
-	throw gcnew System::NotImplementedException();
 }
 
 void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Functionality::ModFileSelectedEventArgs^ args)
@@ -81,7 +76,19 @@ void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Fu
 void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args)
 {
 	Editor::addons.EditorLoadZone(toString(args->ModOrigin->ToCharArray()), args->ZoneID);
-	while (Editor::addons.myActualManager.getIsLoading())
+	EditorResources::Functionality::EditorGetZoneInfoEvent ^evt = gcnew EditorResources::Functionality::EditorGetZoneInfoEvent();
+	evt->Origin = args->ModOrigin;
+	evt->Id = args->ZoneID;
+	evt->ZoneName = args->ZoneName;
+
+	std::vector<Core::String> v = Editor::addons.getExtraZoneInfo(toString(args->ModOrigin->ToCharArray()), args->ZoneID);
+	
+	evt->BackgroundPath = gcnew System::String(v[0].c_str());
+	evt->LoadingScreenPath = gcnew System::String(v[1].c_str());
+	evt->LoadingScreenMessage = gcnew System::String(v[2].c_str());
+	
+	EditorResources::Functionality::EditorEvents::onGetZoneInfoEvent(nullptr, evt);
+	while (Editor::addons.myWorldManager.getIsLoading())
 	{
 		// change this to some kind of indicator in the editor that we are loading, even though the editor game view shows it.
 		_sleep(20);
@@ -96,4 +103,5 @@ void Editor::Events::OnEditorSave(Object^ sender, EditorResources::Functionality
 	Editor::addons.EditorSave();
 
 }
+#endif
 #endif

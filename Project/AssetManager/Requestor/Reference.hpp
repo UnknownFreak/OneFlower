@@ -47,17 +47,20 @@ class Reference
 	typename std::enable_if<!std::is_pointer<I>::value>::type
 		set_to_null_if_pointer();
 
+	bool skipUnload = false;
+
 public:
 	~Reference();
 
 #ifdef _EDITOR_
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
 	Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet);
+#endif
+
 	const size_t getUseCount()
 	{
 		return useCount;
 	}
-#endif
 
 	Reference(const Reference& copy);
 

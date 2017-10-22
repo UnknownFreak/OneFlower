@@ -7,7 +7,7 @@ void SpriteRef::unloadTexture()
 	{
 		textureReference->useCount--;
 		if (textureReference->useCount == 0)
-			Engine::Textureloader.requestRemovalOfTexture(textureReference->name);
+			Engine::getTextureLoader().requestRemovalOfTexture(textureReference->name);
 	}
 }
 

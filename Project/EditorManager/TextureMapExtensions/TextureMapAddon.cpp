@@ -1,4 +1,5 @@
 #ifdef _EDITOR_
+#ifndef _UNITTESTS_
 #include "TextureMapAddon.hpp"
 
 SpriterModelContainerAddon::SpriterModelContainerAddon() : myActualContainer(Engine::ModelContainer)
@@ -25,4 +26,4 @@ void SpriterModelContainerAddon::removeTextureMap(Core::String modelName, Core::
 }
 
 #endif
-	
+#endif

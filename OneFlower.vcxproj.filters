@@ -1090,6 +1090,9 @@
     <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp">
       <Filter>Engine\AssetManager\SpritesheetMap</Filter>
     </ClCompile>
+    <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp">
+      <Filter>Engine\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">

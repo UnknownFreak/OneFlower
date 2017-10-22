@@ -109,7 +109,6 @@ void OneLogger::Severe(Core::String message)
 void OneLogger::LogToEditor(Core::String message, EditorResources::Message::Message::MsgType MsgType)
 {
 #ifndef _UNITTESTS_
-
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());
 	logmsg->type = MsgType;

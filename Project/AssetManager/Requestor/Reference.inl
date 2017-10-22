@@ -34,7 +34,7 @@ template<class T>
 template<typename I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
 {
-	OneLogger::Info("Delete if pointer with non pointer type. Doing nothing");
+	OneLogger::Info("Delete if pointer with non pointer type. Doing nothing.");
 }
 
 template<class T>
@@ -50,24 +50,25 @@ template<class T>
 template<class I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
 {
-	OneLogger::Info("set to null if pointer with non pointer type. Doing nothing");
+	OneLogger::Info("Set to null if pointer with non pointer type. Doing nothing.");
 }
 
 template<class T>
 inline void Reference<T>::unload()
 {
-	requester->unload(name, ID);
+	if (skipUnload == false)
+		requester->unload(name, ID);
 }
 
 #ifdef _EDITOR_
 template<class T>
-inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester), myRef(T(objectToSet)), useCount(0)
+inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester), myRef(T(objectToSet)), useCount(0), skipUnload(true)
 {
 }
 #endif
 
 template<typename T>
-inline Reference<T>::Reference(const Reference& copy) : name(copy.name), ID(copy.ID), useCount(copy.useCount), requester(copy.requester), myRef(copy.myRef)
+inline Reference<T>::Reference(const Reference& copy) : name(copy.name), ID(copy.ID), useCount(copy.useCount), requester(copy.requester), myRef(copy.myRef), skipUnload(copy.skipUnload)
 {
 
 }

@@ -3,7 +3,7 @@
 #include <Model\AnimationCore.hpp>
 
 #ifdef _EDITOR_
-
+#ifndef _UNITTESTS_
 class SpriterModelContainerAddon
 {
 	friend class SpriterModelContainer;
@@ -21,5 +21,6 @@ public:
 
 };
 
+#endif
 #endif
 #endif

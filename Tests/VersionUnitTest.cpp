@@ -1,5 +1,4 @@
 #include "CppUnitTest.h"
-#define _EDITOR_
 
 #include <AssetManager\Version\Version.hpp>
 

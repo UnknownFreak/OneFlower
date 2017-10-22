@@ -37,14 +37,14 @@ public:
 
 			if (it->second.mode == ObjectSaveMode::DEFAULT)
 			{
-				if (it->second.modName == AssetManagerCore::openedMod || it->second.modName == "DEFAULT")
+				if (it->second.modName == Engine::getAssetManager().openedMod || it->second.modName == "DEFAULT")
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
 			}
 			else if (it->second.mode == ObjectSaveMode::REMOVE)
 			{
-				if (it->second.modName != AssetManagerCore::openedMod)
+				if (it->second.modName != Engine::getAssetManager().openedMod)
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
@@ -52,7 +52,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::EDIT)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == AssetManagerCore::openedMod || it->second.modName == "DEFAULT")
+				if (it->second.modName == Engine::getAssetManager().openedMod || it->second.modName == "DEFAULT")
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}
@@ -61,7 +61,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::ADD)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == AssetManagerCore::openedMod)
+				if (it->second.modName == Engine::getAssetManager().openedMod)
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}

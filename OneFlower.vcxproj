@@ -178,7 +178,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_EDITOR_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -585,6 +584,7 @@
     <ClCompile Include="Project\WindowHandler.cpp" />
     <ClCompile Include="Project\World\Component\LoadZoneComponent.cpp" />
     <ClCompile Include="Project\World\WorldManager.cpp" />
+    <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp" />
     <ClCompile Include="Project\World\Zone.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #ifndef EditorEvents_HPP
 #define EditorEvents_HPP
 #ifdef _EDITOR_
+#ifndef _UNITTESTS_
 #include <Core/String.hpp>
 
 namespace Editor
@@ -15,7 +16,6 @@ namespace Editor
 
 		void OnEditorCreateMod(Object^ sender, EditorResources::Functionality::NewModCreateEventArgs^ args);
 		void OnEditorLoadMod(Object^ sender, EditorResources::Functionality::ModLoadEventArgs^ args);
-		void OnEditorModLoaded(Object^ sender, EditorResources::Functionality::ModFinishedLoadedEventArgs^ args);
 		void OnEditorModFileSelected(Object^ sender, EditorResources::Functionality::ModFileSelectedEventArgs^ args);
 
 		void OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args);
@@ -24,6 +24,6 @@ namespace Editor
 
 	};
 }
-
+#endif
 #endif
 #endif

@@ -2,7 +2,7 @@
 #define PARENT_WINDOW_WRAPPER_HPP
 
 #ifdef _EDITOR_
-
+#ifndef _UNITTESTS_
 #include "InteropHelper.hpp"
 
 public ref class ParentWndWrapper : IWin32Window
@@ -23,6 +23,6 @@ public:
 		}
 	}
 };
-
+#endif
 #endif
 #endif

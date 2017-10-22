@@ -49,7 +49,7 @@ void renderThread();
 Core::StringConverter Core::Converter;
 Settings::EngineSettings Engine::Settings;
 Gfx Engine::Graphic;
-TextureLoader Engine::Textureloader;
+//TextureLoader Engine::Textureloader;
 sf::Event Engine::event;
 //Game Engine::game;
 //Time Engine::time;
@@ -58,9 +58,9 @@ InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
 WorldManagerAddon Editor::addons;
-ModLoader Engine::modLoadOrder;
-Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
-Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
+//ModLoader Engine::modLoadOrder;
+//Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
+//Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
 
 
 // temp test stuff
@@ -80,12 +80,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine,
 }
 int windowMessage()
 {
+#ifndef _NO_EDITOR_GUI_
 	SplashScreen^ splash = gcnew SplashScreen();
 	MainEditorWindow^ window = splash->InitializeEditor();
 	Engine::Graphic.view.render.setActive(false);
 
 	sf::Thread thread(&renderThread);
 	thread.launch();
+#endif
 
 	//Engine::Graphic.view.render.setVisible(true);
 	//testSave();

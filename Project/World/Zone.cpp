@@ -96,7 +96,7 @@ void Zone::addForeground(BackgroundSprite fg)
 void Zone::setBackground(Core::String name)
 {
 	background.name = name;
-	background.sprite.setTexture(Engine::Textureloader.requestTexture(name));
+	background.sprite.setTexture(Engine::getTextureLoader().requestTexture(name));
 }
 
 #endif
