@@ -1,5 +1,10 @@
 #include "Logger.hpp"
-
+#ifdef _WIN32
+#include <direct.h>
+#define getcwd _wgetcwd // stupid MSFT "deprecation" warning
+#elif
+#include <unistd.h>
+#endif
 #ifdef _EDITOR_
 #include <EditorManager\EditorCore.hpp>
 #endif
@@ -7,6 +12,16 @@
 OneLogger* OneLogger::logger;
 OneLogger::OneLogger() : log("Log.log")
 {
+#ifdef _WIN32
+	wchar_t* c = getcwd(NULL, 0);
+	if (c) // sneaky string breaks on char* = NULL
+		cwd = Core::String(Core::Converter.toUtf8(std::wstring(c)));
+#else
+	char* c = getcwd(NULL, 0);
+	if (c)
+		cwd = Core::String(c);
+#endif
+	std::free(c);
 }
 
 OneLogger& OneLogger::getLogger()
@@ -28,32 +43,32 @@ void OneLogger::initialize()
 
 void OneLogger::Debug(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Debug(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Debug(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Info(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Info(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Info(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Fine(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Fine(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Fine(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Warning(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Warning(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Warning(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Error(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Error(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Error(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Severe(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Severe(message + " - " + filename + " (" + std::to_string(line) + ")");
+	OneLogger::Severe(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Debug(Core::String message)

@@ -12,6 +12,9 @@ class OneLogger
 	static OneLogger& getLogger();
 	
 	std::ofstream log;
+
+	Core::String cwd;
+
 #ifdef _EDITOR_
 	static void LogToEditor(Core::String message, EditorResources::Message::Message::MsgType msgType);
 #endif
