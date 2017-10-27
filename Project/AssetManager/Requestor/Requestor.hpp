@@ -152,7 +152,7 @@ public:
 #ifdef _EDITOR_
 	T* loadAsync(const Core::String& name, const size_t& uuid);
 #else
-	std::shared_future<T> loadAsync(Core::String& name, size_t uuid);
+	std::shared_future<T*> loadAsync(Core::String& name, size_t uuid);
 #endif
 
 	Reference<T*>*& request(const Core::String& name, const size_t uuid);

@@ -314,6 +314,8 @@ inline void Requester<T>::save(DatabaseIndex & ind, std::ostream & file, cereal:
 	}
 }
 
+#ifdef _EDITOR_
+
 template<class T>
 inline std::vector<std::pair<Core::String, size_t>> Requester<T>::listAllCurrentLoadedObjects()
 {
@@ -326,3 +328,4 @@ inline std::vector<std::pair<Core::String, size_t>> Requester<T>::listAllCurrent
 	}
 	return listofall;
 }
+#endif

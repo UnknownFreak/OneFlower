@@ -61,10 +61,12 @@ inline void Reference<T>::unload()
 }
 
 #ifdef _EDITOR_
+
 template<class T>
 inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester), myRef(T(objectToSet)), useCount(0), skipUnload(true)
 {
 }
+
 #endif
 
 template<typename T>
@@ -79,7 +81,7 @@ inline T& Reference<T>::getReferenced()
 #ifdef _EDITOR_
 	return myRef;
 #else
-	return myRef.get();
+	return (T&)myRef.get();
 #endif
 }
 
