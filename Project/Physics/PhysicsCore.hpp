@@ -11,7 +11,10 @@
 #include "Component\RigidComponent.hpp"
 namespace Engine
 {
-	extern PhysicsEngine Physics;
+	inline PhysicsEngine& Physics()
+	{
+		return PhysicsEngine::getPhysicsEngine();
+	}
 }
 
 #endif

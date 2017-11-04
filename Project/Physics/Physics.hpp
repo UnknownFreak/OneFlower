@@ -17,9 +17,16 @@ namespace Component
 //HIGH: Do non game related physics like weather water etc???
 class PhysicsEngine
 {
+
+	static PhysicsEngine* m_engine;
+
+	PhysicsEngine();
+
 	friend class Gfx;
 public:
-	PhysicsEngine();
+
+	static PhysicsEngine& getPhysicsEngine();
+	static void deconstruct();
 	void update();
 
 	/*

@@ -19,7 +19,7 @@ namespace Component
 	}
 	HitboxComponent::~HitboxComponent()
 	{
-		Engine::Physics.removePhysics(this);
+		Engine::Physics().removePhysics(this);
 	}
 
 	void HitboxComponent::registerCollisionCheck(BaseComponent* component)
@@ -50,6 +50,6 @@ namespace Component
 				bounding.size.y = 64;
 			}
 		}
-		Engine::Physics.addPhysics(this);
+		Engine::Physics().addPhysics(this);
 	}
 }

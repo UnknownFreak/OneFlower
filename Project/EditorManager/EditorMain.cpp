@@ -53,7 +53,7 @@ Gfx Engine::Graphic;
 sf::Event Engine::event;
 //Game Engine::game;
 //Time Engine::time;
-PhysicsEngine Engine::Physics;
+//PhysicsEngine Engine::Physics;
 InputHandler Engine::Input;
 WorldManager Engine::World;
 SpriterModelContainer Engine::ModelContainer;
