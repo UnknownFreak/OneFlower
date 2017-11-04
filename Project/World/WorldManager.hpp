@@ -55,10 +55,10 @@ public:
 	void drawLoadingScreen();
 	void loadSome();
 private:
-
+#ifdef _EDITOR_
 	void addMainMenu();
-
 	void unload();
+#endif
 
 	void prepareLoad();
 	void unloadObjects();

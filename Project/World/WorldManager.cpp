@@ -8,9 +8,9 @@
 
 WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToLoad(nullptr)
 {
-//#ifdef _EDITOR_
+#ifdef _EDITOR_
 	addMainMenu();
-//#endif
+#endif
 
 #ifdef _DEBUG
 	//EditorAddNewZone("Tutorial", "test.png", "test.png", "Tutorial Zone", 1, 1000, 800);
@@ -122,6 +122,7 @@ void WorldManager::drawLoadingScreen()
 		Engine::Graphic.DrawLoadingScreen(*currentZone->getLoadingScreen(), currentZone->getLoadingScreenMessage());
 	}
 }
+#ifdef _EDITOR_
 void WorldManager::addMainMenu()
 {
 
@@ -141,7 +142,7 @@ void WorldManager::addMainMenu()
 	//worldmap[{"MainMenu", 0}]->loadScreen = worldmap[{"MainMenu", 0}]->background;
 
 }
-
+#endif
 
 const WorldManager::Loadstate WorldManager::getCurrentLoadingState() const
 {

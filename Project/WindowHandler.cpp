@@ -1,4 +1,5 @@
 #ifndef _EDITOR_
+#ifndef _UNITTESTS_
 #include <Windows.h>
 #include <string>
 
@@ -229,4 +230,5 @@ int test()
 	}
 	return EXIT_SUCCESS;
 }
+#endif
 #endif

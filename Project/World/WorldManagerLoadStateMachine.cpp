@@ -45,7 +45,7 @@ void WorldManager::loadSome()
 		break;
 	}
 }
-
+#ifdef _EDITOR_
 void WorldManager::unload()
 {
 	switch (loadState)
@@ -73,6 +73,7 @@ void WorldManager::unload()
 		return;
 	}
 }
+#endif
 
 void WorldManager::requestZoneToLoad()
 {
