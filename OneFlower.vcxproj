@@ -33,6 +33,14 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTests|Win32">
+      <Configuration>UnitTests</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="UnitTests|x64">
+      <Configuration>UnitTests</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7018A509-38BF-4391-B188-948A7FEE55AA}</ProjectGuid>
@@ -43,6 +51,12 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -70,6 +84,12 @@
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
@@ -103,6 +123,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -113,6 +136,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'" Label="PropertySheets">
@@ -130,12 +156,20 @@
     <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)Lib\SFML-2.4.1\lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Project\;$(SolutionDir)Lib\SFML-2.4.1\include\;$(SolutionDir)Lib\cereal-1.2.1\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|x64'">
@@ -172,6 +206,22 @@
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_UNITTESTS_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Lib\SFML-2.4.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugEditor|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -187,6 +237,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -290,6 +353,10 @@
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp" />
+    <ClInclude Include="Project\Core\IEngineResource\BaseEngineResource.hpp" />
+    <ClInclude Include="Project\Core\IEngineResource\EngineResourceManager.hpp" />
+    <ClInclude Include="Project\Core\IEngineResource\IEngineResource.hpp" />
+    <ClInclude Include="Project\GameEntry.hpp" />
     <ClInclude Include="Project\Model\AnimationCore.hpp" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animation.h" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animationinstance.h" />
@@ -406,7 +473,6 @@
     <ClInclude Include="Project\Core\EngineSettings.hpp" />
     <ClInclude Include="Project\Core\String.hpp" />
     <ClInclude Include="Project\Core\Vector.h" />
-    <ClInclude Include="Project\EditorManager\EditorCore.hpp" />
     <ClInclude Include="Project\EditorManager\EditorEvents.hpp" />
     <ClInclude Include="Project\EditorManager\InteropHelper.hpp" />
     <ClInclude Include="Project\EditorManager\MainEditorWindow.hpp" />
@@ -422,7 +488,6 @@
     <ClInclude Include="Project\Graphic\RenderView.hpp" />
     <ClInclude Include="Project\Graphic\Tile\GridTile.h" />
     <ClInclude Include="Project\Graphic\Time\Time.hpp" />
-    <ClInclude Include="Project\Input\InputCore.hpp" />
     <ClInclude Include="Project\Input\InputEnum.hpp" />
     <ClInclude Include="Project\Input\InputHandler.hpp" />
     <ClInclude Include="Project\Input\Mouse.hpp" />
@@ -438,15 +503,16 @@
     <ClInclude Include="Project\Physics\Component\RigidComponent.hpp" />
     <ClInclude Include="Project\Physics\Movement.hpp" />
     <ClInclude Include="Project\Physics\Physics.hpp" />
-    <ClInclude Include="Project\Physics\PhysicsCore.hpp" />
     <ClInclude Include="Project\World\Component\LoadZoneComponent.hpp" />
     <ClInclude Include="Project\World\RespawnContainer.hpp" />
-    <ClInclude Include="Project\World\WorldCore.hpp" />
     <ClInclude Include="Project\World\WorldManager.hpp" />
     <ClInclude Include="Project\World\Zone.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp" />
+    <ClCompile Include="Project\Core\EngineSettingsDefiner.cpp" />
+    <ClCompile Include="Project\Core\IEngineResource\EngineResourceManager.cpp" />
+    <ClCompile Include="Project\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Model\IModel.cpp" />
     <ClCompile Include="Project\Model\ModelContainer.cpp" />
     <ClCompile Include="Project\Model\SpriterEngine\animation\animation.cpp" />
@@ -575,7 +641,7 @@
     <ClCompile Include="Project\Model\SpriterModelContainerDefiner.cpp" />
     <ClCompile Include="Project\Model\SpriteSheetAnimationDefiner.cpp" />
     <ClCompile Include="Project\Physics\BoundingBoxDefiner.cpp" />
-    <ClCompile Include="Project\Physics\Component\GameObjectAddon.cpp" />
+    <ClCompile Include="Project\Physics\Component\GameObjectPhysicsAddon.cpp" />
     <ClCompile Include="Project\Physics\Component\HitboxComponentDefiner.cpp" />
     <ClCompile Include="Project\Physics\Component\RigidComponentDefiner.cpp" />
     <ClCompile Include="Project\Physics\Movement.cpp" />
@@ -586,6 +652,14 @@
     <ClCompile Include="Project\World\WorldManager.cpp" />
     <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp" />
     <ClCompile Include="Project\World\Zone.cpp" />
+    <ClCompile Include="Tests\BoundingBoxUnitTest.cpp" />
+    <ClCompile Include="Tests\GameObjectUnitTest.cpp" />
+    <ClCompile Include="Tests\RequestorUnitTest.cpp" />
+    <ClCompile Include="Tests\StringConverterUnitTest.cpp" />
+    <ClCompile Include="Tests\TimeUnitTest.cpp" />
+    <ClCompile Include="Tests\UnitTestsSetUpAndTeardown.cpp" />
+    <ClCompile Include="Tests\VectorUnitTest.cpp" />
+    <ClCompile Include="Tests\VersionUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\AssetManager\Requestor\Reference.inl" />

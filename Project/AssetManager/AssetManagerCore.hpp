@@ -9,8 +9,6 @@
 #include "Prefab\Prefab.hpp"
 
 #include <Model\AnimationCore.hpp>
-#include "ObjectSaveMode.hpp"
-#include "Database\DatabaseIndex.hpp"
 #include "Database\DBZone.hpp"
 
 #include "SpriteSheetMap\SpriteSheetMapRef.hpp"
@@ -21,8 +19,8 @@
 #include "Version\Version.hpp"
 
 #include <Model\IModel.hpp>
-#include <Model\StaticModel.hpp>
 
+#include <Core\IEngineResource\IEngineResource.hpp>
 
 class Zone;
 class DBZone;
@@ -117,19 +115,17 @@ void testLoad();
 
 
 
-class AssetManagerCore
+class AssetManager : public IEngineResource<AssetManager>
 {
-	static AssetManagerCore* m_assetManager;
-
-	AssetManagerCore();
 
 public:
+	AssetManager();
 
-	static AssetManagerCore& _getAssetManager();
-	static Requester<Prefab>& getPrefabRequester();
-	static Requester<IModel*>& getModelRequester();
-	static Requester<DBZone>& getDBZoneRequester();
-	static void deconstruct();
+
+	Requester<Prefab>& getPrefabRequester();
+	Requester<IModel*>& getModelRequester();
+	Requester<DBZone>& getDBZoneRequester();
+
 
 	bool loadModHeader(Core::String modName, ModHeader& modHeader);
 
@@ -145,6 +141,11 @@ public:
 
 	ModLoader& getModLoader();
 
+	const ResourceType& getType()
+	{
+		return type;
+	}
+
 private:
 
 	Requester<Prefab> prefabRequestor;
@@ -154,20 +155,4 @@ private:
 
 };
 
-namespace Engine {
-	//extern TextureLoader Textureloader;
-	//extern Requester<SpriteSheetMap> SpriteSheetMapRequester;
-	//extern Requester<Prefab> PrefabRequester;
-	//extern Requester<IModel*> ModelRequester;
-	//extern ModLoader modLoadOrder;
-
-
-	inline AssetManagerCore& getAssetManager() { return AssetManagerCore::_getAssetManager(); }
-	inline Requester<Prefab>& getPrefabRequester() { return AssetManagerCore::getPrefabRequester(); }
-	inline Requester<IModel*>& getModelRequester() { return AssetManagerCore::getModelRequester(); }
-	inline Requester<DBZone>& getDBZoneRequester() { return AssetManagerCore::getDBZoneRequester(); }
-	inline TextureLoader& getTextureLoader() { return getAssetManager().textureloader; }
-
-	//extern Requester<Quest> QuestRequester;
-}
 #endif

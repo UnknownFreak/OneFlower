@@ -1,8 +1,11 @@
+#ifdef _UNITTESTS_
 
 #include "CppUnitTest.h"
 
 #include <Core\Component\GameObject.h>
 #include <Core\Component\TransformComponent.hpp>
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
@@ -38,13 +41,7 @@ namespace Tests
 	TEST_CLASS(GameObjectUnitTest)
 	{
 	public:
-		static Core::StringConverter con;
 		static GameObject go;
-
-		TEST_CLASS_CLEANUP(Cleanup)
-		{
-			con.deconstruct();
-		}
 
 		TEST_METHOD(TestGameObjectName)
 		{
@@ -85,16 +82,17 @@ namespace Tests
 		//}
 	};
 	GameObject GameObjectUnitTest::go("test");
-	Core::StringConverter GameObjectUnitTest::con;
 
 }
 
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<GameObject>(const GameObject& q) {
-	return Tests::GameObjectUnitTest::con.toUtf16(((GameObject&)q).name);
+	return Engine::Get<Core::StringConverter>().toUtf16(((GameObject&)q).name);
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<GameObject>(const GameObject* q) {
-	return Tests::GameObjectUnitTest::con.toUtf16(((GameObject*)q)->name);
+	return Engine::Get<Core::StringConverter>().toUtf16(((GameObject*)q)->name);
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<GameObject>(GameObject* q) {
-	return Tests::GameObjectUnitTest::con.toUtf16(((GameObject*)q)->name);
+	return Engine::Get<Core::StringConverter>().toUtf16(((GameObject*)q)->name);
 }
+
+#endif

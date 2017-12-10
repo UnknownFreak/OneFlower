@@ -1,3 +1,4 @@
+#ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
 #include <Core\String.hpp>
@@ -9,18 +10,6 @@ namespace Tests
 	TEST_CLASS(StringConverterUnitTest)
 	{
 	public:
-
-		static Core::StringConverter con;
-
-		TEST_CLASS_INITIALIZE(Init)
-		{
-		
-		}
-
-		TEST_CLASS_CLEANUP(Cleanup)
-		{
-			con.deconstruct();
-		}
 
 		TEST_METHOD(Utf8ToUtf16)
 		{
@@ -41,6 +30,7 @@ namespace Tests
 			Assert::Fail(L"Failed due to compiler failing to compile above characters");
 		}
 	};
-	Core::StringConverter StringConverterUnitTest::con;
 
 }
+
+#endif

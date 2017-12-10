@@ -1,8 +1,7 @@
 #include <Model\IModel.hpp>
 #include "Requestor.hpp"
 
-#include <SFML\System\Time.hpp>
-#include <SFML\System.hpp>
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 
 template<class T>
 inline bool Requester<T*>::requestFromDatabase(T *& _t, Core::String modName, size_t uuid)
@@ -61,8 +60,8 @@ inline const Core::String Requester<T*>::getObjectTypeAsString() const
 		return "Quest";
 	case DatabaseIndex::ObjectTypeEnum::Item:
 		return "Item";
-	case DatabaseIndex::ObjectTypeEnum::ModelContainer:
-		return "ModelContainer";
+	case DatabaseIndex::ObjectTypeEnum::Model:
+		return "IModel";
 	case DatabaseIndex::ObjectTypeEnum::SpriteSheetMap:
 		return "SpriteSheetMap";
 	case DatabaseIndex::ObjectTypeEnum::EoF:
@@ -101,7 +100,7 @@ inline T* Requester<T*>::load_internal(const Core::String & name, size_t uuid)
 	if (name == "EMPTY" && uuid == 0)
 		return t;
 	if (!requestFromDatabase(t, name, uuid))
-		OneLogger::Error("Requestor<" + getObjectTypeAsString() + "*> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "*> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
 	return t;
 }
 
@@ -116,10 +115,10 @@ inline bool Requester<T*>::add(T*& obj)
 
 	if (requestedMap.find(key) != requestedMap.end())
 	{
-		OneLogger::Warning("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " already exists", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Warning("Requestor<" + getObjectTypeAsString() + "*> - Object from mod " + name + " and ID " + std::to_string(uuid) + " already exists!", __FILE__, __LINE__);
 		return false;
 	}
-	OneLogger::Info("Object with fromMod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "*> - Object from mod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
 	
 	Reference<T>* ref = new Reference<T>(name, uuid, this, obj);
 	requestedMap.insert(std::make_pair(key, ref));
@@ -221,7 +220,7 @@ inline void Requester<T*>::clear()
 	for (; it != eit; it++)
 	{
 		if (it->second->useCount > 0)
-			OneLogger::Warning("Unloading object from Requestor<"+getObjectTypeAsString()+"*> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
+			Engine::Get<OneLogger>().Warning("Unloading object from Requestor<"+getObjectTypeAsString()+"*> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
 		Reference<T*>*& pr = it->second;
 		delete pr;
 		pr = nullptr;
@@ -285,7 +284,7 @@ inline void Requester<T*>::editorLoadAll()
 //			}
 //		}
 //		else
-//			OneLogger::Error("Unable to open Index file [" + var.first +
+//			Engine::Get<OneLogger>().Error("Unable to open Index file [" + var.first +
 //				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
 //	}
 //}
@@ -307,11 +306,11 @@ inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal
 		if (pref->mode != ObjectSaveMode::REMOVE)
 		{
 			bool b = true;
-			if (pref->fromMod == Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::EDIT)
+			if (pref->fromMod == Engine::Get<AssetManager>().openedMod && pref->mode == ObjectSaveMode::EDIT)
 				pref->mode = ObjectSaveMode::DEFAULT;
-			else if (pref->fromMod == Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::ADD)
+			else if (pref->fromMod == Engine::Get<AssetManager>().openedMod && pref->mode == ObjectSaveMode::ADD)
 				pref->mode = ObjectSaveMode::DEFAULT;
-			else if (pref->fromMod != Engine::getAssetManager().openedMod && pref->mode == ObjectSaveMode::DEFAULT)
+			else if (pref->fromMod != Engine::Get<AssetManager>().openedMod && pref->mode == ObjectSaveMode::DEFAULT)
 				b = false;
 			else if (pref->mode > ObjectSaveMode::ADD)
 				pref->mode = ObjectSaveMode::DEFAULT;

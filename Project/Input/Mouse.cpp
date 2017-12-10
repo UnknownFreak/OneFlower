@@ -1,6 +1,4 @@
 #include "Mouse.hpp"
-//#include "../../../Engine.hpp"
-//#include "../../../Engine/GUI/Text/BasicText.hpp"
 
 void scrollupdate();
 Mouse::Mouse() : pos(0, 0), offset(0, 0)

@@ -18,7 +18,7 @@
 #include <Graphic\Component\RenderComponent.h>
 #include <Physics\Component\HitboxComponent.hpp>
 
-#include <World\WorldCore.hpp>
+#include <World\WorldManager.hpp>
 #include <World\Zone.hpp>
 
 #include <Model\TextureMap.hpp>
@@ -92,7 +92,7 @@
 //	}
 //}
 //
-void AssetManagerCore::loadAllEditorVariables()
+void AssetManager::loadAllEditorVariables()
 {
 #ifdef _EDITOR_
 
@@ -105,7 +105,7 @@ void AssetManagerCore::loadAllEditorVariables()
 //	LoadAllZones(Editor::addons.myWorldManager.EditorAllZones);
 }
 
-bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
+bool AssetManager::loadModHeader(Core::String modName, ModHeader & myheader)
 {
 	bool eof = false;
 	DatabaseIndex ind;
@@ -113,9 +113,9 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 	std::ifstream database("Data//" + modName, std::ios::binary);
 
 	if (!index.is_open())
-		OneLogger::Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
 	else if (!database.is_open())
-		OneLogger::Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
 	else
 	{
 		cereal::BinaryInputArchive ar(index);
@@ -137,10 +137,10 @@ bool AssetManagerCore::loadModHeader(Core::String modName, ModHeader & myheader)
 			}
 		}
 	}
-	OneLogger::Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
 	return false;
 }
-bool AssetManagerCore::loadModOrderFile()
+bool AssetManager::loadModOrderFile()
 {
 	std::ifstream file("Data\\ModLoadOrder.xml");
 	if (file.is_open())
@@ -149,7 +149,7 @@ bool AssetManagerCore::loadModOrderFile()
 		ar(modLoader);
 		return true;
 	}
-	OneLogger::Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
 	return false;
 }
 
@@ -193,7 +193,7 @@ bool AssetManagerCore::loadModOrderFile()
 //			}
 //		}
 //		else
-//			OneLogger::Error("Unable To Open Index file in LoadAllZones" + var.first + ".index");
+//			Engine::Get<OneLogger>().Error("Unable To Open Index file in LoadAllZones" + var.first + ".index");
 //	}
 //}
 //void AssetManagerCore::LoadAllPrefabs(PrefabContainer& pre)
@@ -233,7 +233,7 @@ bool AssetManagerCore::loadModOrderFile()
 //			}
 //		}
 //		else
-//			OneLogger::Error("Unable To Open Index file in LoadAllPrefabs" + var.first + ".index");
+//			Engine::Get<OneLogger>().Error("Unable To Open Index file in LoadAllPrefabs" + var.first + ".index");
 //	}
 //}
 //
@@ -347,6 +347,6 @@ bool AssetManagerCore::loadModOrderFile()
 //			}
 //		}
 //		else
-//			OneLogger::Error("Unable To Open Index file in LoadAllTextureMaps" + var.first + ".index");
+//			Engine::Get<OneLogger>().Error("Unable To Open Index file in LoadAllTextureMaps" + var.first + ".index");
 //	}
 //}

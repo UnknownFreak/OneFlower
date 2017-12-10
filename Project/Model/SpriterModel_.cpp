@@ -1,5 +1,5 @@
 #include "SpriterModel_.hpp"
-
+#include <Graphic\Time\Time.hpp>
 namespace Model
 {
 	Model::SpriterModel::SpriterModel()

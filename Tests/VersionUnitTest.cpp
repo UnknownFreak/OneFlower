@@ -1,6 +1,8 @@
+#ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
 #include <AssetManager\Version\Version.hpp>
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
@@ -9,12 +11,6 @@ namespace Tests
 	TEST_CLASS(VersionTest)
 	{
 	public:
-		static Core::StringConverter con;
-
-		TEST_CLASS_CLEANUP(VersionTestModuleCleanup)
-		{
-			con.deconstruct();
-		}
 
 		TEST_METHOD(TestVersion)
 		{
@@ -65,14 +61,15 @@ namespace Tests
 			Assert::IsTrue(o <= c);
 		}
 	};
-	Core::StringConverter VersionTest::con;
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion& q) {
-	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
+	return Engine::Get<Core::StringConverter>().toUtf16(((OneVersion&)q).str());
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion* q) {
-	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
+	return Engine::Get<Core::StringConverter>().toUtf16(((OneVersion&)q).str());
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(OneVersion* q) {
-	return Tests::VersionTest::con.toUtf16(((OneVersion&)q).str());
+	return Engine::Get<Core::StringConverter>().toUtf16(((OneVersion&)q).str());
 }
+
+#endif

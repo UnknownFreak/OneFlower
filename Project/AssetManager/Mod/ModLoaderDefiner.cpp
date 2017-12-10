@@ -1,4 +1,5 @@
 #include "ModLoader.hpp"
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 #include <Logger\Logger.hpp>
 size_t ModLoader::getModPosition(Core::String modName) const
 {
@@ -7,7 +8,7 @@ size_t ModLoader::getModPosition(Core::String modName) const
 		return it->second;
 	else
 	{
-		OneLogger::Error("Failed to get mod position", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Error("Failed to get mod position", __FILE__, __LINE__);
 		return 0xFFFFFFFF;
 	}
 }

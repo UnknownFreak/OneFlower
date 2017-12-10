@@ -1,6 +1,6 @@
 #include "SpriterTextureMapper.hpp"
 #include <AssetManager\AssetManagerCore.hpp>
-SpriterTextureMapper::SpriterTextureMapper(sf::RenderWindow& renderWindow) : currentTextureMapString("DEFAULT", "Default"), DefaultSprite(Engine::getAssetManager().textureloader.requestTexture("Test.png")), currentSprite(&DefaultSprite)
+SpriterTextureMapper::SpriterTextureMapper(sf::RenderWindow& renderWindow) : currentTextureMapString("DEFAULT", "Default"), DefaultSprite(Engine::Get<AssetManager>().textureloader.requestTexture("Test.png")), currentSprite(&DefaultSprite)
 {
 	textureMaps.insert(std::pair<std::pair<Core::String, Core::String>, TextureMap>(currentTextureMapString, TextureMap()));
 	this->renderWindow = &renderWindow;

@@ -5,6 +5,7 @@
 #include <AssetManager\SpriteRef.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
 #include <map>
+
 //included via TextureMap
 //#include <Core\String.hpp>
 class SpriterTextureMapper
@@ -29,6 +30,8 @@ public:
 	template<class Archive>
 	void save(Archive& ar) const
 	{
+		const Core::String& openedMod = Engine::Get<AssetManager>().openedMod;
+
 		ar(currentTextureMapString.first, currentTextureMapString.second);
 		std::map < std::pair<std::string, std::string>, TextureMap> theStuffWeWillActuallySave;
 		for (std::map<std::pair<std::string, std::string>, TextureMap>::const_iterator it = textureMaps.begin();
@@ -37,14 +40,14 @@ public:
 
 			if (it->second.mode == ObjectSaveMode::DEFAULT)
 			{
-				if (it->second.modName == Engine::getAssetManager().openedMod || it->second.modName == "DEFAULT")
+				if (it->second.modName == openedMod || it->second.modName == "DEFAULT")
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
 			}
 			else if (it->second.mode == ObjectSaveMode::REMOVE)
 			{
-				if (it->second.modName != Engine::getAssetManager().openedMod)
+				if (it->second.modName != openedMod)
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
@@ -52,7 +55,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::EDIT)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == Engine::getAssetManager().openedMod || it->second.modName == "DEFAULT")
+				if (it->second.modName == openedMod || it->second.modName == "DEFAULT")
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}
@@ -61,7 +64,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::ADD)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == Engine::getAssetManager().openedMod)
+				if (it->second.modName == openedMod)
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}

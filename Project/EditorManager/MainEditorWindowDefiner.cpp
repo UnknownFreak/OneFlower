@@ -1,18 +1,19 @@
 #ifdef _EDITOR_
 #include "MainEditorWindow.hpp"
 #include "ParentWindowWrapper.hpp"
+
 #include <Graphic\GraphicsCore.hpp>
 
 MainEditorWindow::MainEditorWindow()
 {
 	window = gcnew EditorResources::MainEditorWindow::EditorWindow();
-	Engine::Graphic.view.init(getEditorGameWindowView());
+	Engine::Get<Gfx>().view.init(getEditorGameWindowView());
 }
 
 MainEditorWindow::MainEditorWindow(const MainEditorWindow% cpy)
 {
 	window = gcnew EditorResources::MainEditorWindow::EditorWindow();
-	Engine::Graphic.view.init(getEditorGameWindowView());
+	Engine::Get<Gfx>().view.init(getEditorGameWindowView());
 	window->Show();
 }
 

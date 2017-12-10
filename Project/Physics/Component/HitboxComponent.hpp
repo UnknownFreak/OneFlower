@@ -1,6 +1,5 @@
 #ifndef HitboxComponent_HPP
 #define HitboxComponent_HPP
-//#include <SFML\Graphics\Rect.hpp>
 #include <vector>
 #include "../BoundingBox.hpp"
 #include <Core\Component\IBaseComponent.hpp>

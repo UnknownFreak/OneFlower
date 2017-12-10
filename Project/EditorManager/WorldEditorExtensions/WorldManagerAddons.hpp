@@ -3,10 +3,17 @@
 
 #ifdef _EDITOR_
 #ifndef _UNITTESTS_
-#include <World\WorldManager.hpp>
-#include <Model\SpriterModelContainer.hpp>
+#include <AssetManager\Mod\ModHeader.hpp>
+
+#include <Core\Component\GameObject.h>
+#include <Core\IEngineResource\IEngineResource.hpp>
+
 #include <Graphic\BackgroundSprite\BackgroundSprite.hpp>
-class WorldManagerAddon
+#include <Model\SpriterModelContainer.hpp>
+#include <World\WorldManager.hpp>
+
+
+class WorldManagerAddon : public IEngineResource<WorldManagerAddon>
 {
 public:
 	ModHeader myModHeader;
@@ -40,13 +47,12 @@ public:
 	
 	void RemoveGameObjectFromZone(GameObject* go);
 	void EditorFlagGameObjectForEdit(GameObject* go);
-	
-	//void AddQuest(Quests::Quest quest);
-	//void AddItem(Items::Item* item);
-	
-	//friend void LoadAllZones(std::map<std::pair<Core::String, unsigned int>, DBZone>& nameOfAllZones);
-	//friend void LoadAllPrefabs(PrefabContainer& editorPrefabContainer);
-	//friend void LoadAllTextureMaps(SpriterModelContainer& container);
+
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
 
 	//Item1 - BackgroundPath
 	//Item2 - LoadingScreenPath

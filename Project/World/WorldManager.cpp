@@ -1,10 +1,17 @@
 #include "WorldManager.hpp"
 #include "Zone.hpp"
-#include <Core/String.hpp>
+
+//#include <Core/String.hpp>
+
 #include <Graphic\GraphicsCore.hpp>
-#include <Core/Component/GameObject.h>
-#include <Core/Component/TransformComponent.hpp>
+
+//#include <Core/Component/GameObject.h>
+//#include <Core/Component/TransformComponent.hpp>
+
 #include <AssetManager\AssetManagerCore.hpp>
+
+
+ResourceType IEngineResource<WorldManager>::type = ResourceType::WorldManager;
 
 WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToLoad(nullptr)
 {
@@ -17,11 +24,11 @@ WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToL
 #endif
 
 	//testSave();
-	if (Engine::getAssetManager().loadModOrderFile() == false)
+	if (Engine::Get<AssetManager>().loadModOrderFile() == false)
 	{
 		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
-		Engine::getAssetManager().getModLoader().loadOrder.insert(std::pair<Core::String, size_t>("OneFlower", 1));
-		Engine::getAssetManager().saveModOrderFile();
+		Engine::Get<AssetManager>().getModLoader().loadOrder.insert(std::pair<Core::String, size_t>("OneFlower", 1));
+		Engine::Get<AssetManager>().saveModOrderFile();
 	}
 }
 // deconstructor
@@ -119,7 +126,7 @@ void WorldManager::drawLoadingScreen()
 {
 	if (currentZone)
 	{
-		Engine::Graphic.DrawLoadingScreen(*currentZone->getLoadingScreen(), currentZone->getLoadingScreenMessage());
+		Engine::Get<Gfx>().DrawLoadingScreen(*currentZone->getLoadingScreen(), currentZone->getLoadingScreenMessage());
 	}
 }
 #ifdef _EDITOR_
@@ -133,7 +140,7 @@ void WorldManager::addMainMenu()
 	dbz.loadingScreen.name = "TestBackground.png";
 	dbz.ID = 0;
 	dbz.name = "MainMenu";
-	Engine::getDBZoneRequester().add(dbz);
+	Engine::Get<AssetManager>().getDBZoneRequester().add(dbz);
 
 	//worldmap.insert({ { "MainMenu", 0 }, new Zone("MainMenu", 0, BackgroundSprite("TestBackground.png",0,0),{},{}) });
 	//worldmap[{"MainMenu", 0}]->modOrigin = "MainMenu";

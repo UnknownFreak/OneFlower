@@ -1,13 +1,6 @@
 #include "Time.hpp"
-#include <string>
-//#include <SFML\System\Time.hpp>
-/*
-HWND hWnd;
-HWND wnd;
-HWND awnd;
-//*/
-Time* Time::_time = nullptr;
 
+ResourceType IEngineResource<Time>::type = ResourceType::Time;
 
 Time::Time() : timer(), clock(), elapsed()
 {
@@ -15,25 +8,11 @@ Time::Time() : timer(), clock(), elapsed()
 	clock.restart();
 }
 
-Time & Time::getTime()
-{
-	if (!_time)
-		_time = new Time();
-	return *_time;
-}
-
-void Time::deconstruct()
-{
-	if (_time) {
-		delete _time;
-		_time = nullptr;
-	}
-}
-
 double Time::deltaTime()
 {
 	return update_ms.asSeconds();
 }
+
 bool Time::time(Core::String name, double msec)
 
 {

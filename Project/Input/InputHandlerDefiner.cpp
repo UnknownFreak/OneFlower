@@ -1,8 +1,7 @@
 #include "InputHandler.hpp"
-#include <SFML\Window\Event.hpp>
-#include <functional>
-//LOW: Probably not needed, if re-designing the architect, For the vector find
-#include <algorithm>
+
+ResourceType IEngineResource<InputHandler>::type = ResourceType::Input;
+
 void InputHandler::update()
 {
 	mouse.update();

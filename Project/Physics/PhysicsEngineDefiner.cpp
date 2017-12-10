@@ -4,7 +4,8 @@
 //#include "../../../Vector.h"
 //#include "../../Component/RigidComponent.hpp"
 
-PhysicsEngine* PhysicsEngine::m_engine = NULL;
+ResourceType IEngineResource<PhysicsEngine>::type = ResourceType::Physics;
+
 
 void PhysicsEngine::addPhysics(Component::RigidComponent* obj)
 {
@@ -65,18 +66,4 @@ PhysicsEngine::PhysicsEngine()
 	//quad.position[0].y = 0;
 	//quad.position[1].x = x;
 	//quad.position[1].y = y;
-}
-
-PhysicsEngine& PhysicsEngine::getPhysicsEngine()
-{
-	if (!m_engine)
-		m_engine = new PhysicsEngine();
-	return *m_engine;
-}
-
-void PhysicsEngine::deconstruct()
-{
-	if (m_engine)
-		delete m_engine;
-	m_engine = nullptr;
 }

@@ -31,7 +31,7 @@ void TextureRef::setNewFuture(std::shared_future<sf::Texture> texture)
 
 void TextureRef::reloadTexture()
 {
-	myTexture = Engine::getTextureLoader().loadTextureAsync(name);
+	myTexture = Engine::Get<AssetManager>().textureloader.loadTextureAsync(name);
 }
 
 

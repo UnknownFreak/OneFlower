@@ -1,19 +1,19 @@
 #ifndef Time_HPP
 #define Time_HPP
-#include <SFML\System\Clock.hpp>
-#include <map>
-#include <Core/String.hpp>
 
-class Time
+#include <map>
+
+#include <SFML\System\Clock.hpp>
+
+#include <Core\String.hpp>
+#include <Core\IEngineResource\IEngineResource.hpp>
+
+class Time : public IEngineResource<Time>
 {
-	static Time* _time;
-	Time();
 
 public:
 
-	static Time& getTime();
-
-	static void deconstruct();
+	Time();
 
 	double deltaTime();
 
@@ -24,6 +24,14 @@ public:
 
 	sf::Time elapsed;
 	sf::Clock clock;
+
+	sf::Time physicsElapsed;
+	sf::Clock physicsClock;
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
 
 private:
 	sf::Clock timer;

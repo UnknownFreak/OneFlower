@@ -1,9 +1,11 @@
 #include "WorldManager.hpp"
+
 #include "Zone.hpp"
+
 #include <Core/Component/GameObject.h>
 #include <Core/Component/TransformComponent.hpp>
-#include <AssetManager\AssetManagerCore.hpp>
-#include <Graphic\GraphicsCore.hpp>
+
+#include <Graphic/GraphicsCore.hpp>
 
 
 void WorldManager::startLoad()
@@ -77,7 +79,7 @@ void WorldManager::unload()
 
 void WorldManager::requestZoneToLoad()
 {
-	refZoneToLoad = Engine::getDBZoneRequester().request(zoneToLoadID.first, zoneToLoadID.second);
+	refZoneToLoad = Engine::Get<AssetManager>().getDBZoneRequester().request(zoneToLoadID.first, zoneToLoadID.second);
 
 	if (worldmap.find(std::pair<Core::String, size_t>(zoneToLoadID.first, zoneToLoadID.second)) == worldmap.end())
 	{
@@ -93,9 +95,9 @@ void WorldManager::requestZoneToLoad()
 
 void WorldManager::unrequestZoneToLoad()
 {
-	Engine::getDBZoneRequester().requestRemoval(zoneToLoadID.first, zoneToLoadID.second);
+	Engine::Get<AssetManager>().getDBZoneRequester().requestRemoval(zoneToLoadID.first, zoneToLoadID.second);
 	refZoneToLoad = nullptr;
-	Engine::Graphic.setBackground(currentZone->background);
+	Engine::Get<Gfx>().setBackground(currentZone->background);
 	loadState = STATE_DONE;
 }
 
@@ -186,7 +188,7 @@ void WorldManager::reloadObjects()
 	else
 	{
 		{
-			Reference<Prefab>*& prefab = Engine::getPrefabRequester().request(currentObjIterator->second.fromMod, currentObjIterator->second.ID);
+			Reference<Prefab>*& prefab = Engine::Get<AssetManager>().getPrefabRequester().request(currentObjIterator->second.fromMod, currentObjIterator->second.ID);
 			//std::map<std::pair<std::string, size_t>, Prefab>::iterator it = editorPrefabContainer.find(currentObjIterator->second.fromMod, currentObjIterator->second.ID);
 			if (prefab->isValid())
 			{
@@ -198,7 +200,7 @@ void WorldManager::reloadObjects()
 				listOfZoneObjects.insert(std::pair<std::pair<std::string, size_t>, GameObject*>(currentObjIterator->first, go));
 				//Engine::game.addGameObject(go);
 			}
-			Engine::getPrefabRequester().requestRemoval(currentObjIterator->second.fromMod, currentObjIterator->second.ID);
+			Engine::Get<AssetManager>().getPrefabRequester().requestRemoval(currentObjIterator->second.fromMod, currentObjIterator->second.ID);
 		}
 		currentObj++;
 		currentObjIterator++;

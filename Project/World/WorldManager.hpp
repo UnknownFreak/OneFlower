@@ -1,20 +1,15 @@
 #ifndef WorldManager_HPP
 #define WorldManager_HPP
 #include <map>
+#include <Core\IEngineResource\IEngineResource.hpp>
+
 #include <AssetManager\Database\DBZone.hpp>
-#include <AssetManager\Mod\ModLoader.hpp>
-#include <AssetManager\Mod\ModHeader.hpp>
-#include <AssetManager\Database\DatabaseIndex.hpp>
-#include <AssetManager\Prefab\Prefab.hpp>
 #include <AssetManager\Requestor\Reference.hpp>
 
-//#include "../../Game/LoadAndSave/PrefabContainer.hpp"
-//#include "../../Game/GUI/Window/Addon/ProgressBar.hpp"
-//#include "../../Game/Animations/SpriterModelContainer.hpp"
 
 class Zone;
 class GameObject;
-class WorldManager
+class WorldManager : public IEngineResource<WorldManager>
 {
 #ifdef _EDITOR_
 	friend class WorldManagerAddon;
@@ -30,6 +25,12 @@ class WorldManager
 		STATE_ERR_LOADING,
 	};
 public:
+
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
 
 #ifdef _DEBUG
 	//Probably move this to editor

@@ -1,10 +1,11 @@
 #ifndef Physics_HPP
 #define Physics_HPP
 #include <vector>
+
 #include "BoundingBox.hpp"
 #include "Collider.hpp"
-//included via collider and Boundingbox
-//#include "../Core/Vector.h"
+
+#include <Core\IEngineResource\IEngineResource.hpp>
 
 #define PixelInOneMeter 128
 class GameObject;
@@ -15,19 +16,19 @@ namespace Component
 	class TransformComponent;
 }
 //HIGH: Do non game related physics like weather water etc???
-class PhysicsEngine
+class PhysicsEngine : public IEngineResource<PhysicsEngine>
 {
-
-	static PhysicsEngine* m_engine;
-
-	PhysicsEngine();
 
 	friend class Gfx;
 public:
+	PhysicsEngine();
 
-	static PhysicsEngine& getPhysicsEngine();
-	static void deconstruct();
 	void update();
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
 
 	/*
 	void addPhysics(GameObject* obj);

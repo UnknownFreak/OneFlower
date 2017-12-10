@@ -7,12 +7,17 @@
 #include "BackgroundSprite\BackgroundSprite.hpp"
 #include "RenderView.hpp"
 #include <AssetManager/SpriteRef.hpp>
+#include <Core\IEngineResource\IEngineResource.hpp>
+
 class GameObject;
 //class GUI::::Message;
-class Gfx
+class Gfx : public IEngineResource<Gfx>
 {
+
 public:
-	RenderView view;
+	
+	
+	mutable RenderView view;
 	Gfx();
 	void initDebugTextures();
 	/*
@@ -26,15 +31,15 @@ public:
 	//Draw all Game object with RenderComponent attached to it
 	void DrawLoadingScreen(BackgroundSprite& loadingscreen, Core::String& info);
 	//draw all Game object with RenderComponent attached to it
-	void draw();
-	void drawBG();
-	void drawObject();
+	void draw() const;
+	void drawBG() const;
+	void drawObject() const;
 	void drawGrid();
 
 	bool bSkipDrawing = false;
 
 #ifdef _DEBUG
-	void drawGizmo();
+	void drawGizmo() const;
 	bool drawHitboxes = true;
 #endif
 	std::vector<GameObject*> selectedDrawList;
@@ -49,7 +54,14 @@ public:
 	void drawTxt();
 	*/
 	sf::Shader test;
-	SpriteRef hitbox;
+
+	mutable SpriteRef hitbox;
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
+
 private:
 	//Map with all texture, key value is the name of the texture
 	std::map<int, std::vector<GameObject*>> gameObjectdrawList;

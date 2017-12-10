@@ -1,8 +1,8 @@
 #ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
-#include "Message\BaseMessage.hpp"
-#include <string>
 #include <map>
+#include "Message\BaseMessage.hpp"
+#include <Core\String.hpp>
 namespace Physics { class Collider; }
 
 namespace Component

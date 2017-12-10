@@ -3,42 +3,29 @@
 #include <string>
 
 #include <SFML\Window\Event.hpp>
-
-#include <Core\Core.hpp>
-#include <AssetManager\AssetManagerCore.hpp>
-#include <Model\AnimationCore.hpp>
-#include <Graphic\GraphicsCore.hpp>
-#include <Input\InputCore.hpp>
-#include <Physics\PhysicsCore.hpp>
-#include <World\WorldCore.hpp>
-
-#include <Core\Component\GameObject.h>
-#include <Graphic\Component\RenderComponent.h>
-
-#include <EditorManager\EditorCore.hpp>
-
 #include <SFML\System\Thread.hpp>
 #include <SFML\System\String.hpp>
 #include <SFML\Graphics\Text.hpp>
 #include <SFML\Graphics\Font.hpp>
 
+#include <Core\Core.hpp>
+#include <Core\Component\GameObject.h>
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+
+#include <AssetManager\AssetManagerCore.hpp>
+
+#include <Graphic\GraphicsCore.hpp>
+#include <Graphic\Component\RenderComponent.h>
+
+#include <Input\InputHandler.hpp>
+#include <Model\AnimationCore.hpp>
+#include <World\WorldManager.hpp>
+
 #include <Logger\Logger.hpp>
 
-//#include "Engine\Core\Components.hpp"
-//#include "Engine\Logic\Time\Time.hpp"
-//#include "Game\World\WorldManagement.hpp"
-//#include "Game\LoadAndSave\LoadAndSave.hpp"
-//
-//#include "Game\Animations\SpriterOverride\SFMLObjectFactory.h"
-//#include "Game\Animations\SpriterOverride\SFMLFileFactory.h"
-//
-//#include "Game\Animations\SpriterEngine\spriterengine.h"
-//
-//#include "Game\Animations\SpriterEntityInstance.hpp"
-//#include "Game\Animations\SpriterModelContainer.hpp"
+#include <EditorManager\MainEditorWindow.hpp>
+#include <EditorManager\SplashScreen.hpp>
 
-//#include "Game\World\Zone.hpp"
-//#include "Engine\GUI\Text\FormatedText.hpp"
 int windowMessage();
 void RunMain();
 int test();
@@ -46,44 +33,30 @@ void update();
 void mainMenuUpdate();
 void renderThread();
 
-Core::StringConverter Core::Converter;
-Settings::EngineSettings Engine::Settings;
-Gfx Engine::Graphic;
-//TextureLoader Engine::Textureloader;
 sf::Event Engine::event;
-//Game Engine::game;
-//Time Engine::time;
-//PhysicsEngine Engine::Physics;
-InputHandler Engine::Input;
-WorldManager Engine::World;
+
 SpriterModelContainer Engine::ModelContainer;
-WorldManagerAddon Editor::addons;
-//ModLoader Engine::modLoadOrder;
-//Requester<Prefab> Engine::PrefabRequester(DatabaseIndex::ObjectTypeEnum::Prefab);
-//Requester<IModel*> Engine::ModelRequester(DatabaseIndex::ObjectTypeEnum::Model);
 
-
-// temp test stuff
-//int a = 24;
-//int b = 42;
-//GUI::FormatedText t(*Engine::Graphic.font.requestFont("arial.ttf"), "752åäö {0}foobar\nwee blöblöblöb wee\nstuff{1}asddf{1}QQ {2}ListEnd\nCompare " + std::to_string(a) + "(old), " + std::to_string(b) + "(new): {3}", { ParseArg::BaseParseArgument::startList(), ParseArg::BaseParseArgument::newListLine(), ParseArg::BaseParseArgument::endList(), ParseArg::BaseParseArgument::IntCompareArgument(a, b) });
 [System::STAThread]
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {
-	OneLogger::initialize();
+	//Engine::Get<OneLogger>().initialize();
 	//Engine::Window.hInstance = hInstance;
 	!_DEBUG ? test() : windowMessage();
 	//return 0;
-	Engine::time().deconstruct();
-	OneLogger::free();
+	Engine::Dispose();
+	//Engine::Get<OneLogger>().free();
 	exit(0); 
 }
 int windowMessage()
 {
+
+	//EngineResourceManager::get().GetResource<OneLogger>().Debug("test");
+
 #ifndef _NO_EDITOR_GUI_
 	SplashScreen^ splash = gcnew SplashScreen();
 	MainEditorWindow^ window = splash->InitializeEditor();
-	Engine::Graphic.view.render.setActive(false);
+	Engine::Get<Gfx>().view.render.setActive(false);
 
 	sf::Thread thread(&renderThread);
 	thread.launch();
@@ -148,24 +121,25 @@ int windowMessage()
 	//Engine::GUI.showHideGUI();
 	//Engine::game.addGameObject(go);
 	//Time time;
-	Engine::Graphic.view.render.setFramerateLimit(200);
+	Engine::Get<Gfx>().view.render.setFramerateLimit(200);
+	InputHandler& input = Engine::Get<InputHandler>();
+
 	//Engine::Window.debug.print("Test",__LINE__,__FILE__);
 	MSG message;
 	while (GetMessage(&message, NULL, 0, 0) && !window->isClosed())
 	{
 	//while (Engine::Graphic.view.render.isOpen())
 	//{
-		
 		TranslateMessage(&message);
 		DispatchMessage(&message);
-		while (Engine::Graphic.view.render.pollEvent(Engine::event))
+		while (Engine::Get<Gfx>().view.render.pollEvent(Engine::event))
 		{
 			if (Engine::event.type == sf::Event::Closed)
 			{
-				Engine::Graphic.view.render.close();
+				Engine::Get<Gfx>().view.render.close();
 			}
 			if (Engine::event.type == Engine::event.MouseWheelMoved)
-				Engine::Input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+				input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
 			/*
 			std::cout << "alt:" << event.key.alt << std::endl;
 			std::cout << "shift:" << event.key.shift << std::endl;
@@ -184,7 +158,6 @@ int windowMessage()
 	}
 	thread.terminate();
 	thread.wait();
-	Core::Converter.deconstruct();
 	delete splash;
 	delete window;
 	delete go;
@@ -193,13 +166,16 @@ int windowMessage()
 
 void renderThread()
 {
-	Engine::Graphic.view.render.setActive(true);
-	while (Engine::Graphic.view.render.isOpen())
+
+	Gfx& gfx = Engine::Get<Gfx>();
+	WorldManager& world = Engine::Get<WorldManager>();
+	gfx.view.render.setActive(true);
+	while (gfx.view.render.isOpen())
 	{
-		if (Engine::World.getIsLoading())
+		if (world.getIsLoading())
 		{
-			Engine::World.loadSome();
-			Engine::World.drawLoadingScreen();
+			world.loadSome();
+			world.drawLoadingScreen();
 		}
 		else
 		{
@@ -210,34 +186,40 @@ void renderThread()
 
 void mainMenuUpdate()
 {
-	Engine::time().elapsed += Engine::time().clock.restart();
+	Time& time = Engine::Get<Time>();
+	time.elapsed += time.clock.restart();
+	InputHandler& input = Engine::Get<InputHandler>();
 
-	while (Engine::time().elapsed >= Engine::time().update_ms)
+	while (time.elapsed >= time.update_ms)
 	{
-		Engine::Input.update();
+		input.update();
 		//Engine::GUI.updateMouseIcon();
-		Engine::time().elapsed -= Engine::time().update_ms;
+		time.elapsed -= time.update_ms;
 	}
 
-	Engine::Graphic.drawBG();
-	Engine::Graphic.view.render.display();
+	Engine::Get<Gfx>().drawBG();
+	Engine::Get<Gfx>().view.render.display();
 }
 void update()
 {
-	Engine::time().elapsed += Engine::time().clock.restart();
+	Time& time = Engine::Get<Time>();
+	Gfx& gfx = Engine::Get<Gfx>();
+	InputHandler& input = Engine::Get<InputHandler>();
 
-	while (Engine::time().elapsed >= Engine::time().update_ms)
+	time.elapsed += time.clock.restart();
+
+	while (time.elapsed >= time.update_ms)
 	{
-		Engine::Input.update();
+		input.update();
 		//Engine::Physics.update();
 		//Engine::game.update();
 
-		Engine::time().elapsed -= Engine::time().update_ms;
+		time.elapsed -= time.update_ms;
 	}
 
-	Engine::Graphic.draw();
+	gfx.draw();
 	//Engine::GUI.draw();
-	Engine::Graphic.view.render.display();
+	gfx.view.render.display();
 }
 #include <SFML\Graphics\Font.hpp>
 #include <SFML\Graphics\Text.hpp>

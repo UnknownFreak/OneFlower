@@ -1,8 +1,13 @@
 #include "HitboxComponent.hpp"
 #include <Core\Component\GameObject.h>
 #include <Core\Component\TransformComponent.hpp>
+
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+
 #include <Graphic\Component\RenderComponent.h>
-#include "../PhysicsCore.hpp"
+
+#include <Physics\Physics.hpp>
+
 const unsigned int IBaseComponent<Component::HitboxComponent>::typeID = 1003;
 Core::String IBaseComponent<Component::HitboxComponent>::componentName = "HitBoxComponent";
 
@@ -19,7 +24,7 @@ namespace Component
 	}
 	HitboxComponent::~HitboxComponent()
 	{
-		Engine::Physics().removePhysics(this);
+		Engine::Get<PhysicsEngine>().removePhysics(this);
 	}
 
 	void HitboxComponent::registerCollisionCheck(BaseComponent* component)
@@ -50,6 +55,6 @@ namespace Component
 				bounding.size.y = 64;
 			}
 		}
-		Engine::Physics().addPhysics(this);
+		Engine::Get<PhysicsEngine>().addPhysics(this);
 	}
 }

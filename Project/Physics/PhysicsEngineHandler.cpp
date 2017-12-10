@@ -1,15 +1,18 @@
 #include "Physics.hpp"
-#include <Core\Component\GameObject.h>
-#include <Core\Component\TransformComponent.hpp>
+
+#include <SFML\Graphics\Rect.hpp>
+
 #include "Component\RigidComponent.hpp"
 #include "Component\HitboxComponent.hpp"
-#include <SFML\Graphics\Rect.hpp>
-//#include "../../../Engine.hpp"
-//#include "ColliderBasic.hpp"
+
 #include "Movement.hpp"
 
+#include <Core\Component\GameObject.h>
+#include <Core\Component\TransformComponent.hpp>
+
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+
 #include <Graphic\Gfx.h>
-#include "PhysicsCore.hpp"
 
 void PhysicsEngine::update()
 {
@@ -120,92 +123,93 @@ Physics::Collider PhysicsEngine::collision(Component::TransformComponent* motion
 }
 
 #ifdef _DEBUG
-void Gfx::drawGizmo()
+void Gfx::drawGizmo() const
 {
 	if (drawHitboxes)
 	{
-		for (size_t i = 0; i < Engine::Physics().hitboxes.size(); i++)
+		PhysicsEngine& phys = Engine::Get<PhysicsEngine>();
+		for (size_t i = 0; i < phys.hitboxes.size(); i++)
 		{
-			Component::TransformComponent* tc = Engine::Physics().hitboxes[i]->attachedOn->GetComponent<Component::TransformComponent>();
+			Component::TransformComponent* tc = phys.hitboxes[i]->attachedOn->GetComponent<Component::TransformComponent>();
 			hitbox.setPosition(tc->position.x, tc->position.y);
 
 			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics().hitboxes[i]->bounding.size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, phys.hitboxes[i]->bounding.size.x, 2));
 			view.render.draw(hitbox);
 
 			double hypno = std::sqrt((
-				Engine::Physics().hitboxes[i]->bounding.size.x*Engine::Physics().hitboxes[i]->bounding.size.x +
-				Engine::Physics().hitboxes[i]->bounding.size.y*Engine::Physics().hitboxes[i]->bounding.size.y
+				phys.hitboxes[i]->bounding.size.x*phys.hitboxes[i]->bounding.size.x +
+				phys.hitboxes[i]->bounding.size.y*phys.hitboxes[i]->bounding.size.y
 				));
 			hitbox.setTextureRect(sf::IntRect(0, 0, (int)hypno, 2));
 
-			float degree = (float)(std::asin(Engine::Physics().hitboxes[i]->bounding.size.y / hypno) * 180) / 3.14159265f;
+			float degree = (float)(std::asin(phys.hitboxes[i]->bounding.size.y / hypno) * 180) / 3.14159265f;
 
 			hitbox.setRotation(degree);
 			view.render.draw(hitbox);
 
-			hitbox.setPosition(tc->position.x, tc->position.y + Engine::Physics().hitboxes[i]->bounding.size.y);
+			hitbox.setPosition(tc->position.x, tc->position.y + phys.hitboxes[i]->bounding.size.y);
 
 			hitbox.setRotation(-degree);
 			view.render.draw(hitbox);
 			hitbox.setRotation(0);
 
 			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics().hitboxes[i]->bounding.size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, phys.hitboxes[i]->bounding.size.x, 2));
 			view.render.draw(hitbox);
 
 			//LeftBar
 			hitbox.setPosition(tc->position.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics().hitboxes[i]->bounding.size.y));
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, phys.hitboxes[i]->bounding.size.y));
 			view.render.draw(hitbox);
 
 			//RightVBar
 
 			//Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics().hitboxes[i]->bounding.size.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics().hitboxes[i]->bounding.size.y));
+			hitbox.setPosition(tc->position.x + phys.hitboxes[i]->bounding.size.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, phys.hitboxes[i]->bounding.size.y));
 			view.render.draw(hitbox);
 		}
-		for (size_t i = 0; i < Engine::Physics().rigids.size(); i++)
+		for (size_t i = 0; i < phys.rigids.size(); i++)
 		{
-			Component::TransformComponent* tc = Engine::Physics().rigids[i]->attachedOn->GetComponent<Component::TransformComponent>();
+			Component::TransformComponent* tc = phys.rigids[i]->attachedOn->GetComponent<Component::TransformComponent>();
 			hitbox.setPosition(tc->position.x, tc->position.y);
 
 			//TopBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics().rigids[i]->bounding.size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, phys.rigids[i]->bounding.size.x, 2));
 			view.render.draw(hitbox);
 
 			double hypno = std::sqrt((
-				Engine::Physics().rigids[i]->bounding.size.x*Engine::Physics().rigids[i]->bounding.size.x +
-				Engine::Physics().rigids[i]->bounding.size.y*Engine::Physics().rigids[i]->bounding.size.y
+				phys.rigids[i]->bounding.size.x*phys.rigids[i]->bounding.size.x +
+				phys.rigids[i]->bounding.size.y*phys.rigids[i]->bounding.size.y
 				));
 			hitbox.setTextureRect(sf::IntRect(0, 0, (int)hypno, 2));
 
-			float degree = (float)(std::asin(Engine::Physics().rigids[i]->bounding.size.y / hypno) * 180) / 3.14159265f;
+			float degree = (float)(std::asin(phys.rigids[i]->bounding.size.y / hypno) * 180) / 3.14159265f;
 
 			hitbox.setRotation(degree);
 			view.render.draw(hitbox);
 
-			hitbox.setPosition(tc->position.x, tc->position.y + Engine::Physics().rigids[i]->bounding.size.y);
+			hitbox.setPosition(tc->position.x, tc->position.y + phys.rigids[i]->bounding.size.y);
 
 			hitbox.setRotation(-degree);
 			view.render.draw(hitbox);
 			hitbox.setRotation(0);
 
 			//BottomBar
-			hitbox.setTextureRect(sf::IntRect(0, 0, Engine::Physics().rigids[i]->bounding.size.x, 2));
+			hitbox.setTextureRect(sf::IntRect(0, 0, phys.rigids[i]->bounding.size.x, 2));
 			view.render.draw(hitbox);
 
 			//LeftBar
 			hitbox.setPosition(tc->position.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics().rigids[i]->bounding.size.y));
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, phys.rigids[i]->bounding.size.y));
 			view.render.draw(hitbox);
 
 			//RightVBar
 
 			//Engine::Graphic.view.render.draw(hitbox);
-			hitbox.setPosition(tc->position.x + Engine::Physics().rigids[i]->bounding.size.x, tc->position.y);
-			hitbox.setTextureRect(sf::IntRect(0, 0, 2, Engine::Physics().rigids[i]->bounding.size.y));
+			hitbox.setPosition(tc->position.x + phys.rigids[i]->bounding.size.x, tc->position.y);
+			hitbox.setTextureRect(sf::IntRect(0, 0, 2, phys.rigids[i]->bounding.size.y));
 			view.render.draw(hitbox);
 		}
 	}

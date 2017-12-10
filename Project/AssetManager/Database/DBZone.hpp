@@ -89,6 +89,9 @@ public:
 	template<class Archive>
 	void save(Archive &ar) const
 	{
+
+		const Core::String& openedMod = Engine::Get<AssetManager>().openedMod;
+
 		ar(cereal::base_class<IRequestable>(this));
 		ar(name);
 		ar(background);
@@ -101,7 +104,7 @@ public:
 		{
 			if (i->second.mode == ObjectSaveMode::DEFAULT)
 			{
-				if (fromMod == Engine::getAssetManager().openedMod)
+				if (fromMod == openedMod)
 				{
 					DBZonePrefabStruct dbzps = i->second;
 					dbzps.oldPosition.x = dbzps.position.x;
@@ -111,7 +114,7 @@ public:
 			}
 			else if (i->second.mode == ObjectSaveMode::REMOVE)
 			{
-				if (fromMod != Engine::getAssetManager().openedMod)
+				if (fromMod != openedMod)
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<Core::String, size_t>, DBZonePrefabStruct>(i->first, i->second));
 				}
@@ -119,7 +122,7 @@ public:
 			else if (i->second.mode == ObjectSaveMode::EDIT)
 			{
 				DBZonePrefabStruct dbzps = i->second;
-				if (fromMod == Engine::getAssetManager().openedMod || Engine::getAssetManager().openedMod == i->second.fromMod)
+				if (fromMod == openedMod || openedMod == i->second.fromMod)
 				{
 					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;
@@ -130,7 +133,7 @@ public:
 			else if (i->second.mode == ObjectSaveMode::ADD)
 			{
 				DBZonePrefabStruct dbzps = i->second;
-				if (fromMod == Engine::getAssetManager().openedMod)
+				if (fromMod == openedMod)
 				{
 					dbzps.mode = ObjectSaveMode::DEFAULT;
 					dbzps.oldPosition.x = dbzps.position.x;

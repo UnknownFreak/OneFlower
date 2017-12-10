@@ -1,8 +1,6 @@
 #ifndef RigidComponent_HPP
 #define RigidComponent_HPP
 #include <Core\Component\IBaseComponent.hpp>
-//#include <vector>
-//#include "../../Vector.h"
 #include "../BoundingBox.hpp"
 #include "../Movement.hpp"
 

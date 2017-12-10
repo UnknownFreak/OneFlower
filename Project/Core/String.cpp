@@ -1,13 +1,14 @@
 #include "String.hpp"
-#include <string>
-#include <ostream>
 
+
+ResourceType IEngineResource < Core::StringConverter >::type = ResourceType::StringConverter;
 
 Core::StringConverter::StringConverter() : con(new std::wstring_convert<utf8_16converter, wchar_t>())
 {
 }
 
-void Core::StringConverter::deconstruct()
+
+Core::StringConverter::~StringConverter()
 {
 	delete con;
 }

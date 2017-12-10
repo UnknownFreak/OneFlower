@@ -6,74 +6,60 @@
 #include <unistd.h>
 #endif
 #ifdef _EDITOR_
-#include <EditorManager\EditorCore.hpp>
+#include <EditorManager\InteropHelper.hpp>
 #endif
 
-OneLogger* OneLogger::logger;
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+
+ResourceType IEngineResource<OneLogger>::type = ResourceType::Logger;
+
 OneLogger::OneLogger() : log("Log.log")
 {
 #ifdef _WIN32
 	wchar_t* c = getcwd(NULL, 0);
-	if (c) // sneaky string breaks on char* = NULL
-		cwd = Core::String(Core::Converter.toUtf8(std::wstring(c)));
+	if (c) // sneaky string breaks on wchar_t* = NULL
+		cwd = Core::String(Engine::Get<Core::StringConverter>().toUtf8(std::wstring(c)));
 #else
-	char* c = getcwd(NULL, 0);
+	char* c = getcwd(NULL, 0); // unix use utf-8 on their path encoding. So char* is fine.
 	if (c)
 		cwd = Core::String(c);
 #endif
 	std::free(c);
 }
 
-OneLogger& OneLogger::getLogger()
-{
-	if (!logger)
-		logger = new OneLogger();
-	return *logger;
-}
-
-void OneLogger::free()
-{
-	delete logger;
-}
-
-void OneLogger::initialize()
-{
-	getLogger();
-}
-
 void OneLogger::Debug(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Debug(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Debug(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Info(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Info(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Info(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Fine(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Fine(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Fine(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Warning(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Warning(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Warning(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Error(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Error(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Error(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Severe(Core::String message, Core::String filename, size_t line)
 {
-	OneLogger::Severe(message + " - " + filename.replace(0, getLogger().cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Severe(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
 }
 
 void OneLogger::Debug(Core::String message)
 {
-	getLogger().log << "[DEBUG]\t\t" << message << std::endl;
+	log << "[DEBUG]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Debug);
 #endif
@@ -81,7 +67,7 @@ void OneLogger::Debug(Core::String message)
 
 void OneLogger::Info(Core::String message)
 {
-	getLogger().log << "[INFO]\t\t" << message << std::endl;
+	log << "[INFO]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Info);
 #endif
@@ -89,7 +75,7 @@ void OneLogger::Info(Core::String message)
 
 void OneLogger::Fine(Core::String message)
 {
-	getLogger().log << "[FINE]\t\t" << message << std::endl;
+	log << "[FINE]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Fine);
 #endif
@@ -97,7 +83,7 @@ void OneLogger::Fine(Core::String message)
 
 void OneLogger::Warning(Core::String message)
 {
-	getLogger().log << "[WARNING]\t" << message << std::endl;
+	log << "[WARNING]\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Warning);
 #endif
@@ -105,7 +91,7 @@ void OneLogger::Warning(Core::String message)
 
 void OneLogger::Error(Core::String message)
 {
-	getLogger().log << "[ERROR]\t\t" << message << std::endl;
+	log << "[ERROR]\t\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Error);
 #endif
@@ -113,7 +99,7 @@ void OneLogger::Error(Core::String message)
 
 void OneLogger::Severe(Core::String message)
 {
-	getLogger().log << "[SEVERE]\t" << message << std::endl;
+	log << "[SEVERE]\t" << message << std::endl;
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Severe);
 #endif

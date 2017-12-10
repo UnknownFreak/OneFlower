@@ -2,11 +2,12 @@
 #define EngineSettings_HPP
 
 #include <SFML\Window\VideoMode.hpp>
+#include <Core\IEngineResource\IEngineResource.hpp>
 #include <Core/String.hpp>
 namespace Settings
 {
 
-	class EngineSettings
+	class EngineSettings : public IEngineResource<EngineSettings>
 	{
 	public:
 		// Video and sound
@@ -25,15 +26,21 @@ namespace Settings
 			LOW = 4,
 		};
 
+		const ResourceType& getType()
+		{
+			return type;
+		}
 
 		sf::VideoMode res;
 		__int8 volume;
 		__int8 effects;
 		VSYNC vsync = VSYNC::DEFAULT;
 #pragma endregion
+
 #pragma region TextureQuality
 		TextureRes textureQuality = TextureRes::HIGH;
 #pragma endregion
+
 #pragma region System
 
 		Core::String Language;
@@ -53,10 +60,5 @@ namespace Settings
 
 	};
 };
-
-namespace Engine
-{
-	extern Settings::EngineSettings Settings;
-}
 
 #endif

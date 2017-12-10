@@ -181,14 +181,20 @@
     <Filter Include="Engine\Model\Models">
       <UniqueIdentifier>{ab4ab336-673b-4ad4-9b1f-2955d325658c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\AssetManager\SpritesheetMap">
-      <UniqueIdentifier>{ba14465d-e7a7-4711-9374-7c3dc4a5af4a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\AssetManager\Requestor">
       <UniqueIdentifier>{a6c24d69-3511-4f13-a876-4a7544762144}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Quest">
       <UniqueIdentifier>{352f0f36-497f-4f66-bb33-3bb3e492755a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\EngineResource">
+      <UniqueIdentifier>{30cf0ab4-3dd1-4ee0-b350-443551bff0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Tests">
+      <UniqueIdentifier>{4a703e74-4882-45dc-b4e1-609b8869f8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\AssetManager\SpritesheetMap &lt;Dep&gt;">
+      <UniqueIdentifier>{ba14465d-e7a7-4711-9374-7c3dc4a5af4a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -264,9 +270,6 @@
     <ClInclude Include="Project\Graphic\RenderView.hpp">
       <Filter>Engine\Graphic\RenderView</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Input\InputCore.hpp">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Input\InputEnum.hpp">
       <Filter>Engine\Input</Filter>
     </ClInclude>
@@ -279,17 +282,11 @@
     <ClInclude Include="Project\World\RespawnContainer.hpp">
       <Filter>Engine\World</Filter>
     </ClInclude>
-    <ClInclude Include="Project\World\WorldCore.hpp">
-      <Filter>Engine\World</Filter>
-    </ClInclude>
     <ClInclude Include="Project\World\WorldManager.hpp">
       <Filter>Engine\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\World\Zone.hpp">
       <Filter>Engine\World\Zone</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics\PhysicsCore.hpp">
-      <Filter>Engine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Project\Physics\Component\HitboxComponent.hpp">
       <Filter>Engine\Physics\Component</Filter>
@@ -308,10 +305,6 @@
     </ClInclude>
     <ClInclude Include="Project\Physics\Physics.hpp">
       <Filter>Engine\Physics\PhysEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Core\EngineSettings.hpp" />
-    <ClInclude Include="Project\EditorManager\EditorCore.hpp">
-      <Filter>C++Interop\EditorManager</Filter>
     </ClInclude>
     <ClInclude Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp">
       <Filter>C++Interop\EditorManager\World</Filter>
@@ -650,13 +643,13 @@
       <Filter>Engine\Model\Models</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp">
       <Filter>Engine\AssetManager</Filter>
@@ -672,6 +665,21 @@
     </ClInclude>
     <ClInclude Include="CharacterTree.hpp">
       <Filter>Engine\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Core\IEngineResource\IEngineResource.hpp">
+      <Filter>Engine\Core\EngineResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Core\IEngineResource\BaseEngineResource.hpp">
+      <Filter>Engine\Core\EngineResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Core\IEngineResource\EngineResourceManager.hpp">
+      <Filter>Engine\Core\EngineResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Core\EngineSettings.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameEntry.hpp">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -758,9 +766,6 @@
     </ClCompile>
     <ClCompile Include="Project\Physics\PhysicsEngineHandler.cpp">
       <Filter>Engine\Physics\PhysEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Physics\Component\GameObjectAddon.cpp">
-      <Filter>Engine\Physics\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Project\EditorManager\WorldEditorExtensions\WorldManagerAddons.cpp">
       <Filter>C++Interop\EditorManager\World</Filter>
@@ -1088,10 +1093,46 @@
       <Filter>Engine\Model\Models</Filter>
     </ClCompile>
     <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp">
-      <Filter>Engine\AssetManager\SpritesheetMap</Filter>
+      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp">
       <Filter>Engine\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\IEngineResource\EngineResourceManager.cpp">
+      <Filter>Engine\Core\EngineResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\EngineSettingsDefiner.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameEntryDefiner.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\BoundingBoxUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\GameObjectUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\RequestorUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\StringConverterUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\TimeUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\VectorUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\VersionUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\UnitTestsSetUpAndTeardown.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Physics\Component\GameObjectPhysicsAddon.cpp">
+      <Filter>Engine\Physics\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

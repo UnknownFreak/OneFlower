@@ -1,10 +1,5 @@
 #include "DialogComponent.hpp"
-//#include "../Gfx.h"
-//#include "../../Engine.hpp"
-//#include "../Game.h"
 #include "RenderComponent.h"
-//#include "TransformComponent.hpp"
-//#include "GameObject.h"
 
 const unsigned int IBaseComponent<Component::DialogComponent>::typeID = 1004;
 Core::String IBaseComponent<Component::DialogComponent>::componentName = "DialogComponent";

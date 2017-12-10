@@ -1,6 +1,4 @@
 #include "GameObject.h"
-#include <vector>
-#include <map>
 #include "IBaseComponent.hpp"
 #include "TransformComponent.hpp"
 //#include <iostream>

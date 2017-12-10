@@ -1,13 +1,16 @@
 #ifndef InputHandler_HPP_A
 #define InputHandler_HPP_A
 
+#include <functional>
 #include <map>
-#include <string>
 #include <vector>
+
 #include <SFML\Window\Keyboard.hpp>
 #include "Mouse.hpp"
-#include <functional>
 #include "InputEnum.hpp"
+
+#include <Core\IEngineResource\IEngineResource.hpp>
+
 /*
 template<typename returnType,typename parameterType>
 class EventType : EventTypeBase
@@ -39,13 +42,19 @@ private:
 //*/
 typedef void(*CallBack)(void);
 
-class InputHandler
+class InputHandler : public IEngineResource<InputHandler>
 {
 public:
 	void update();
 	void registerCallback(std::function<void(void)> callbk, sf::Keyboard::Key key, Input::Action);
 
 	Mouse mouse;
+
+	const ResourceType& getType()
+	{
+		return type;
+	}
+
 private:
 	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnPress;
 	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnRelease;

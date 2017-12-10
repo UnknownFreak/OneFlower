@@ -48,7 +48,7 @@ class Requester
 	template <class In = T>
 	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value, void>::type check()
 	{
-		OneLogger::Info("Requester with class T was a base class of IRequestable - OK!");
+		Engine::Get<OneLogger>().Info("Requester with class "+ getObjectTypeAsString() +" was a base class of IRequestable - OK!");
 	}
 
 	template <class In = T>
@@ -133,6 +133,7 @@ class Requester<T*>
 	template <class In = T>
 	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value>::type check()
 	{
+		Engine::Get<OneLogger>().Info("Requester with class " + getObjectTypeAsString() + "* was a base class of IRequestable - OK!");
 	}
 
 	template <class In = T>

@@ -1,3 +1,4 @@
+#ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
 #include <Core\Vector.h>
@@ -36,3 +37,5 @@ namespace Tests
 		}
 	};
 }
+
+#endif

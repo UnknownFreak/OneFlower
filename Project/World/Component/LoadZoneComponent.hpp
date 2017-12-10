@@ -2,8 +2,9 @@
 #define LoadZoneComponent_HPP
 
 #include <Core\Component\IBaseComponent.hpp>
+//#include <Core\String.hpp>
 #include <Core\Vector.h>
-#include <Core\String.hpp>
+
 namespace Component
 {
 	class Portal : public IBaseComponent<Portal>

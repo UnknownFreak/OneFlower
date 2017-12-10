@@ -1,3 +1,4 @@
+#ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
 #include <cereal\archives\binary.hpp>
@@ -97,15 +98,14 @@ namespace Tests
 			file.close();
 			index.close();
 
-			Engine::getAssetManager().getModLoader().loadOrder.clear();
-			Engine::getAssetManager().getModLoader().loadOrder.insert(std::make_pair("test", 0));
+			Engine::Get<AssetManager>().getModLoader().loadOrder.clear();
+			Engine::Get<AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
 			req.clear();
 
 		}
 
 		TEST_CLASS_INITIALIZE(Initialize)
 		{
-			OneLogger::initialize();
 			add_objects();
 			setup_file();
 		}
@@ -179,3 +179,5 @@ namespace Tests
 	};
 	Requester<MockedSaveable> RequestorTest::req(DatabaseIndex::ObjectTypeEnum::Undefined);
 }
+
+#endif

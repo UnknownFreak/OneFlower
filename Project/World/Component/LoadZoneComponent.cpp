@@ -1,14 +1,16 @@
 #include "LoadZoneComponent.hpp"
-#include "../WorldCore.hpp"
+#include "../WorldManager.hpp"
 #include <Core\Component\GameObject.h>
+
 #include <Physics\Collider.hpp>
+
 const unsigned int IBaseComponent<Component::Portal>::typeID = 1032;
 Core::String IBaseComponent<Component::Portal>::componentName = "PortalComponent";
 
 
 void Component::Portal::loadZone()
 {
-	Engine::World.loadZone(zoneToLoadID.first, zoneToLoadID.second);
+	Engine::Get<WorldManager>().loadZone(zoneToLoadID.first, zoneToLoadID.second);
 }
 
 void Component::Portal::attachOn(GameObject * go)

@@ -1,5 +1,6 @@
 #include "RigidComponent.hpp"
-#include "../PhysicsCore.hpp"
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+#include <Physics\Physics.hpp>
 
 const unsigned int IBaseComponent<Component::RigidComponent>::typeID = 10905;
 Core::String IBaseComponent<Component::RigidComponent>::componentName = "RigidComponent";
@@ -13,7 +14,7 @@ namespace Component
 	RigidComponent::~RigidComponent()
 	{
 		//Engine::Physics.removePhysics(this);
-		Engine::Physics().removePhysics(this);
+		Engine::Get<PhysicsEngine>().removePhysics(this);
 	}
 	RigidComponent * RigidComponent::copy() const
 	{
@@ -25,7 +26,7 @@ namespace Component
 		//Dont put this in constructors, Cause rigidcomponent will call this twice from constructor hierarchy calls
 
 		BaseComponent::attachOn(go);
-		Engine::Physics().addPhysics(this);
+		Engine::Get<PhysicsEngine>().addPhysics(this);
 	}
 	/*
 	bool RigidComponent::inMotion()

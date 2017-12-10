@@ -1,12 +1,15 @@
 #ifndef Mouse_HPP
 #define Mouse_HPP
 
+#include <functional>
+#include <map>
+#include <vector>
+
 #include <SFML\Window\Mouse.hpp>
 #include <Core/Vector.h>
-#include <vector>
-#include <map>
-#include <functional>
 #include "InputEnum.hpp"
+
+//TODO: Refactor and see if duplicated code can be removed - see Update method for InputHandler and Mouse
 
 class GameObject;
 class Mouse

@@ -68,7 +68,7 @@ int windowMessage()
 	Engine::Graphic.view.init();
 	Engine::Graphic.initDebugTextures();
 
-	AssetManagerCore::testRequestor();
+	AssetManager::testRequestor();
 
 	//Engine::ModelContainer.setRenderView(Engine::Graphic.view.render);
 	//testSave();

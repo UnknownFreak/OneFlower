@@ -7,6 +7,7 @@
 //#include <SFML\Graphics\Sprite.hpp>
 #include "GraphicsCore.hpp"
 #include <SFML\Graphics\RectangleShape.hpp>
+
 /*
 void Gfx::insertShader(sf::Shader sf,std::string t)
 {
@@ -26,8 +27,11 @@ return 0;
 }
 //*/
 
+ResourceType IEngineResource<Gfx>::type = ResourceType::Graphics;
+
 Gfx::Gfx()
 {
+	backgroundSprite = nullptr;
 	/*sf::Shader& shader = Engine::Graphic.test;
 	//shader.setParameter("texCord",);
 	if(!shader.loadFromFile("test.frag",sf::Shader::Fragment))
@@ -35,7 +39,7 @@ Gfx::Gfx()
 }
 void Gfx::initDebugTextures()
 {
-	hitbox.setTexture(Engine::getTextureLoader().requestTexture("HitBox.png"));
+	hitbox.setTexture(Engine::Get<AssetManager>().textureloader.requestTexture("HitBox.png"));
 }
 //*/
 void Gfx::insertDrawableObject(GameObject* entityTodraw)
@@ -73,6 +77,7 @@ void Gfx::insertDrawableObject(GameObject* entityTodraw)
 			gameObjectdrawList.at(renderID).push_back(entityTodraw);
 	}
 }
+
 void Gfx::removeFromdrawList(GameObject* entityToRemove)
 {
 	if (entityToRemove->GetComponent<Component::RenderComponent>())
@@ -92,7 +97,7 @@ void Gfx::removeFromdrawList(GameObject* entityToRemove)
 	}
 }
 
-void Gfx::draw()
+void Gfx::draw() const
 {
 	view.render.clear();
 	//
@@ -108,25 +113,26 @@ void Gfx::draw()
 	//*/
 	//drawTxt();
 }
-void Gfx::drawBG()
+void Gfx::drawBG() const
 {
 	if (backgroundSprite)
 	{
 		backgroundSprite->sprite.setPosition(view.camera.getCenter().x*1.5f, view.camera.getCenter().y*1.5f);
 
 		view.render.draw(backgroundSprite->sprite);
-		for (std::vector<BackgroundSprite>::iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
+		for (std::vector<BackgroundSprite>::const_iterator it = foregroundSpriteList.begin(); it != foregroundSpriteList.end(); it++)
 			view.render.draw(it->sprite);
 	}
 }
-void Gfx::drawObject()
+
+void Gfx::drawObject() const
 {
 	Component::RenderComponent* rc;
 	Component::TransformComponent* tc;
 	Component::DialogComponent* dc;
 	//HIGH Fix draw batches to reduce draw calls
 	//rex.clear();
-	for (std::map<int, std::vector<GameObject*>>::iterator it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
+	for (std::map<int, std::vector<GameObject*>>::const_iterator it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
 	{
 		for (size_t j = 0; j < it->second.size(); j++)
 		{
@@ -180,7 +186,7 @@ void Gfx::drawObject()
 					rc->updateFrame();
 					rc->instance.MyEntityInstance->setPosition(tc->position);
 #ifdef _EDITOR_
-					rc->instance.textureMaps->renderWindow = &Engine::Graphic.view.render;
+					rc->instance.textureMaps->renderWindow = &view.render;
 #endif
 					rc->instance.render(&rc->sprite);
 					break;

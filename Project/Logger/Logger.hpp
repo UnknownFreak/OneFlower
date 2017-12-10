@@ -1,16 +1,13 @@
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 
+#include <fstream> 
+#include <Core\IEngineResource\IEngineResource.hpp>
 #include <Core\String.hpp>
-#include <fstream>
-class OneLogger
+
+class OneLogger : public IEngineResource<OneLogger> 
 {
-	static OneLogger* logger;
 
-	OneLogger();
-
-	static OneLogger& getLogger();
-	
 	std::ofstream log;
 
 	Core::String cwd;
@@ -19,24 +16,30 @@ class OneLogger
 	static void LogToEditor(Core::String message, EditorResources::Message::Message::MsgType msgType);
 #endif
 public:
+	OneLogger();
 
-	static void free();
-	static void initialize();
+	const ResourceType& getType()
+	{
+		return type;
+	}
 
-	static void Debug(Core::String message, Core::String filename , size_t line);
-	static void Info(Core::String message, Core::String filename, size_t line);
-	static void Fine(Core::String message, Core::String filename, size_t line);
-	static void Warning(Core::String message, Core::String filename, size_t line);
-	static void Error(Core::String message, Core::String filename, size_t line);
-	static void Severe(Core::String message, Core::String filename, size_t line);
 
-	static void Debug(Core::String message);
-	static void Info(Core::String message);
-	static void Fine(Core::String message);
-	static void Warning(Core::String message);
-	static void Error(Core::String message);
-	static void Severe(Core::String message);
+	void Debug(Core::String message, Core::String filename , size_t line);
+	void Info(Core::String message, Core::String filename, size_t line);
+	void Fine(Core::String message, Core::String filename, size_t line);
+	void Warning(Core::String message, Core::String filename, size_t line);
+	void Error(Core::String message, Core::String filename, size_t line);
+	void Severe(Core::String message, Core::String filename, size_t line);
+
+	void Debug(Core::String message);
+	void Info(Core::String message);
+	void Fine(Core::String message);
+	void Warning(Core::String message);
+	void Error(Core::String message);
+	void Severe(Core::String message);
 
 };
+
+
 
 #endif

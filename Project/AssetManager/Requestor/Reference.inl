@@ -1,5 +1,6 @@
 #include "Requestor.hpp"
 #include "Reference.hpp"
+#include <Logger\Logger.hpp>
 
 template<typename T>
 inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester) : name(name), ID(Id), useCount(0), requester(requester)
@@ -34,7 +35,7 @@ template<class T>
 template<typename I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
 {
-	OneLogger::Info("Delete if pointer with non pointer type. Doing nothing.");
+	Engine::Get<OneLogger>().Info("Delete if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
 }
 
 template<class T>
@@ -50,7 +51,7 @@ template<class T>
 template<class I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
 {
-	OneLogger::Info("Set to null if pointer with non pointer type. Doing nothing.");
+	Engine::Get<OneLogger>().Info("Set to null if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
 }
 
 template<class T>

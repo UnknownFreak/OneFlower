@@ -18,7 +18,7 @@
 #include <Graphic\Component\RenderComponent.h>
 #include <Physics\Component\HitboxComponent.hpp>
 
-#include <World\WorldCore.hpp>
+#include <World\WorldManager.hpp>
 #include <World\Zone.hpp>
 
 #include <Model\TextureMap.hpp>
@@ -220,9 +220,9 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
 //	}
 //}
 
-AssetManagerCore* AssetManagerCore::m_assetManager = nullptr;
+ResourceType IEngineResource<AssetManager>::type = ResourceType::AssetManager;
 
-void AssetManagerCore::saveModOrderFile()
+void AssetManager::saveModOrderFile()
 {
 	std::ofstream file("Data\\ModLoadOrder.xml");
 	{
@@ -344,47 +344,34 @@ void testLoad()
 #endif
 
 
-AssetManagerCore::AssetManagerCore() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
+AssetManager::AssetManager() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
 modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone)
 {
 
 }
 
-AssetManagerCore & AssetManagerCore::_getAssetManager()
+
+Requester<Prefab>& AssetManager::getPrefabRequester()
 {
-	if (m_assetManager == nullptr)
-		m_assetManager = new AssetManagerCore();
-	return *m_assetManager;
+	return prefabRequestor;
 }
 
-Requester<Prefab>& AssetManagerCore::getPrefabRequester()
+Requester<IModel*>& AssetManager::getModelRequester()
 {
-	return _getAssetManager().prefabRequestor;
+	return modelRequestor;
 }
 
-Requester<IModel*>& AssetManagerCore::getModelRequester()
+Requester<DBZone>& AssetManager::getDBZoneRequester()
 {
-	return _getAssetManager().modelRequestor;
+	return dbZoneRequestor;
 }
 
-Requester<DBZone>& AssetManagerCore::getDBZoneRequester()
-{
-	return _getAssetManager().dbZoneRequestor;
-}
-
-void AssetManagerCore::deconstruct()
-{
-	if (m_assetManager)
-		delete m_assetManager;
-	m_assetManager = nullptr;
-}
-
-ModLoader & AssetManagerCore::getModLoader()
+ModLoader & AssetManager::getModLoader()
 {
 	return modLoader;
 }
 
-void AssetManagerCore::saveGameDatabase(
+void AssetManager::saveGameDatabase(
 	std::string filename,
 	ModHeader& modhdr)
 	//,

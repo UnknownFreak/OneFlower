@@ -9,5 +9,4 @@
 #include "EngineSettings.hpp"
 #include "String.hpp"
 
-
 #endif

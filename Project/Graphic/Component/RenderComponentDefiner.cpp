@@ -10,7 +10,7 @@ namespace Component
 	RenderComponent::~RenderComponent()
 	{
 		if(attachedOn)
-			Engine::Graphic.removeFromdrawList(attachedOn);
+			Engine::Get<Gfx>().removeFromdrawList(attachedOn);
 	}
 	RenderComponent::RenderComponent()
 	{
@@ -28,7 +28,7 @@ namespace Component
 	}
 	RenderComponent::RenderComponent(Core::String texture, int x, int y) : textureName(texture), size(x, y)
 	{
-		TextureRef* tf = Engine::getAssetManager().textureloader.requestTexture(texture);
+		TextureRef* tf = Engine::Get<AssetManager>().textureloader.requestTexture(texture);
 		tf->useCount++;
 		sprite.setTexture(tf, true);
 	}
@@ -40,11 +40,11 @@ namespace Component
 
 	void RenderComponent::setTexture()
 	{
-		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(textureName), true);
+		sprite.setTexture(Engine::Get<AssetManager>().textureloader.requestTexture(textureName), true);
 	}
 	void RenderComponent::setTexture(Core::String texture)
 	{
-		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(texture), true);
+		sprite.setTexture(Engine::Get<AssetManager>().textureloader.requestTexture(texture), true);
 
 		textureName = texture;
 		sprite.waitForTextureLoaded();
@@ -54,7 +54,7 @@ namespace Component
 	void RenderComponent::setTexture(Core::String texture, double x, double y, int width, int height)
 	{
 		//fix this
-		sprite.setTexture(Engine::getAssetManager().textureloader.requestTexture(texture), false);
+		sprite.setTexture(Engine::Get<AssetManager>().textureloader.requestTexture(texture), false);
 		sprite.setTextureRect(sf::IntRect((int)x, (int)y, width, height));
 		textureName = texture;
 		size.x = width;
@@ -108,8 +108,8 @@ namespace Component
 		else
 			setTexture(textureName, position.x, position.y, size.x, size.y);
 
-		Engine::Graphic.removeFromdrawList(attachedOn);
-		Engine::Graphic.insertDrawableObject(attachedOn);
+		Engine::Get<Gfx>().removeFromdrawList(attachedOn);
+		Engine::Get<Gfx>().insertDrawableObject(attachedOn);
 
 		return true;
 	}
@@ -117,8 +117,8 @@ namespace Component
 	{
 		RenderComponent::BaseComponent::attachOn(attachTo);
 
-		Engine::Graphic.removeFromdrawList(attachedOn);
-		Engine::Graphic.insertDrawableObject(attachedOn);
+		Engine::Get<Gfx>().removeFromdrawList(attachedOn);
+		Engine::Get<Gfx>().insertDrawableObject(attachedOn);
 	}
 	void RenderComponent::updateFrame()
 	{
@@ -136,7 +136,7 @@ namespace Component
 						animations[currentAnimation].CurrentTime -= animations[currentAnimation].AnimationTime;
 				}
 				else
-					animations[currentAnimation].CurrentTime += Engine::time().deltaTime();
+					animations[currentAnimation].CurrentTime += Engine::Get<Time>().deltaTime();
 				{
 					sf::IntRect r = animations[currentAnimation].getCurrentAnimationFrame();
 					if (!(r.width == r.height == 0))
@@ -148,7 +148,7 @@ namespace Component
 		case RenderComponent::AnimationType::Armature:
 			if (instance.MyEntityInstance)
 			{
-				instance.MyEntityInstance->setTimeElapsed(Engine::time().update_ms.asSeconds() * 30);
+				instance.MyEntityInstance->setTimeElapsed(Engine::Get<Time>().update_ms.asSeconds() * 30);
 				if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "jump_start")
 					setAnimation("jump_loop");
 				if (instance.MyEntityInstance->animationJustFinished(true) && instance.MyEntityInstance->currentAnimationName() == "crouch_down")

@@ -1,9 +1,11 @@
 #ifndef BackgroundSprite_HPP
 #define BackgroundSprite_HPP
-#include <Core/Vector.h>
-#include <AssetManager/SpriteRef.hpp>
+
 #include <AssetManager/Database/DBZone.hpp>
+#include <AssetManager/SpriteRef.hpp>
 #include <Core/String.hpp>
+#include <Core/Vector.h>
+
 class BackgroundSprite
 {
 public:
@@ -30,6 +32,7 @@ public:
 	void setRepeated(bool b);
 	void setPosition(int x, int y);
 	void setPosition(float x, float y);
+
 private:
 
 	void setSize(Core::Vector2i size);

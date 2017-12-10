@@ -1,4 +1,4 @@
-
+#ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
 #include <Physics\BoundingBox.hpp>
@@ -77,3 +77,4 @@ namespace Tests
 
 }
 
+#endif // _UNITTESTS_
