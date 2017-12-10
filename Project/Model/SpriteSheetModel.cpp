@@ -1,11 +1,15 @@
 #include "SpriteSheetModel.hpp"
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+#include <Logger\Logger.hpp>
 
 SpriteSheetModel::SpriteSheetModel() : totalAnimationSteps(0)
 {
 }
 
-void SpriteSheetModel::setAnimation(Core::String)
+void SpriteSheetModel::setAnimation(Core::String _animationName)
 {
+	Engine::Get<OneLogger>().Warning("Trying to set animation <" + _animationName + "> on a Sprite Sheet Model.", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Warning("Currently Sprite Sheet Model only supports one looping animation.", __FILE__, __LINE__);
 }
 
 void SpriteSheetModel::setTextureMap(Core::String, Core::String)

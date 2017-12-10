@@ -10,13 +10,13 @@ IModel::IModel(const IModel& copy) : IRequestable(copy), m_render_sprite(copy.m_
 
 }
 
-IModel& IModel::operator=(const IModel& left)
+IModel& IModel::operator=(const IModel& right)
 {
-	m_render_sprite = left.m_render_sprite;
-	ID = left.ID;
-	fromMod = left.fromMod;
-	mode = left.mode;
-	updateRequired = left.updateRequired;
+	m_render_sprite = right.m_render_sprite;
+	ID = right.ID;
+	fromMod = right.fromMod;
+	mode = right.mode;
+	updateRequired = right.updateRequired;
 	return *this;
 }
 
@@ -27,11 +27,7 @@ void IModel::setRenderSprite(SpriteRef & texture)
 
 void IModel::preRender(const double& update_ms)
 {
-	if (updateRequired)
-	{
-		updateFrame(update_ms);
-		updateRequired = false;
-	}
+	updateFrame(update_ms);
 }
 
 void IModel::draw(sf::RenderTarget & target, sf::RenderStates states) const

@@ -1,5 +1,6 @@
 #include "StaticModel.hpp"
-
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+#include <Logger\Logger.hpp>
 StaticModel::StaticModel() : IModel(), m_TopLeft(-1,-1), m_BottomRight(-1,-1)
 {
 
@@ -7,12 +8,12 @@ StaticModel::StaticModel() : IModel(), m_TopLeft(-1,-1), m_BottomRight(-1,-1)
 
 void StaticModel::setAnimation(Core::String _animationName)
 {
-
+	Engine::Get<OneLogger>().Warning("Trying to set animation <"+ _animationName +"> on a static model.", __FILE__, __LINE__);
 }
 
 void StaticModel::setTextureMap(Core::String _modOrigin, Core::String _textureMapName)
 {
-
+	Engine::Get<OneLogger>().Warning("Trying to set texture map <" + _modOrigin +", "+ _textureMapName+ "> on a static model.", __FILE__, __LINE__);
 }
 
 void StaticModel::updateFrame(const double& update_ms)

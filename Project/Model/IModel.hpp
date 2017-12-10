@@ -23,7 +23,7 @@ public:
 	
 	IModel(const IModel& copy);
 
-	IModel& operator=(const IModel& left);
+	IModel& operator=(const IModel& right);
 
 	virtual ~IModel() = default;
 
