@@ -17,7 +17,7 @@ protected:
 	
 public:
 	
-	virtual void updateFrame(const double& update_ms) = 0;
+	virtual void updateFrame(const size_t& update_ms) = 0;
 
 	IModel();
 	

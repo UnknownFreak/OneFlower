@@ -16,7 +16,7 @@ void SpriteSheetModel::setTextureMap(Core::String, Core::String)
 {
 }
 
-void SpriteSheetModel::updateFrame(const double& update_ms)
+void SpriteSheetModel::updateFrame(const size_t& update_ms)
 {
 	// cycle time between animationframes
 	// 0 < x < totalTime, can use modulo, but conditional is faster
