@@ -307,12 +307,17 @@ void Gfx::DrawLoadingScreen(BackgroundSprite& loadingScreen, Core::String& messa
 	float width = view.camera.getViewport().width;
 	float height = view.camera.getViewport().height;
 
-	loadingScreen.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
+	const sf::Texture* ptr = loadingScreen.sprite.getTexture();
+	if (ptr)
+	{
 
-	loadingScreen.sprite.setScale(sizeX / (float)loadingScreen.sprite.getTexture()->getSize().x,
-		sizeY / (float)loadingScreen.sprite.getTexture()->getSize().y);
+		loadingScreen.setPosition(centerX - (sizeX*width / 2.f), centerY - (sizeY*height / 2.f));
 
-	view.render.draw(loadingScreen.sprite);
+		loadingScreen.sprite.setScale(sizeX / (float)loadingScreen.sprite.getTexture()->getSize().x,
+			sizeY / (float)loadingScreen.sprite.getTexture()->getSize().y);
+
+		view.render.draw(loadingScreen.sprite);
+	}
 
 	//GUI::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
 
