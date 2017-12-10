@@ -25,11 +25,11 @@ void IModel::setRenderSprite(SpriteRef & texture)
 	m_render_sprite = &texture;
 };
 
-void IModel::preRender()
+void IModel::preRender(const double& update_ms)
 {
 	if (updateRequired)
 	{
-		updateFrame();
+		updateFrame(update_ms);
 		updateRequired = false;
 	}
 }

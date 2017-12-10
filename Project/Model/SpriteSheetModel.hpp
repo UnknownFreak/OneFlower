@@ -10,15 +10,15 @@ class SpriteSheetModel : public IModel
 	// how many frames in animation
 	size_t totalAnimationSteps = 0;
 	// total animation time
-	size_t totalAnimationTime = 0;
+	double totalAnimationTime = 0;
 	
 	// which frame we at
 	size_t currentFrame = 0;
 	size_t lastFrame = 0;
 	// length of each frame (total / steps)
-	size_t frameLength = 0;
+	double frameLength = 0;
 
-	size_t _time = 0;
+	double _time = 0;
 
 public:
 
@@ -65,7 +65,7 @@ public:
 protected:
 
 	// Inherited via IModel
-	virtual void updateFrame() override;
+	virtual void updateFrame(const double& update_ms) override;
 };
 
 #endif

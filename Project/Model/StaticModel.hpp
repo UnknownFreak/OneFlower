@@ -37,7 +37,7 @@ public:
 protected:
 
 	// Inherited via IModel
-	virtual void updateFrame() override;
+	virtual void updateFrame(const double& update_ms) override;
 };
 
 

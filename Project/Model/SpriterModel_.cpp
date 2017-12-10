@@ -5,7 +5,7 @@ namespace Model
 	Model::SpriterModel::SpriterModel()
 	{
 	}
-	void SpriterModel::updateFrame()
+	void SpriterModel::updateFrame(const double& update_ms)
 	{
 	}
 	void SpriterModel::setAnimation(Core::String _animation)

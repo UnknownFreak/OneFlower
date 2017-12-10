@@ -16,7 +16,7 @@ namespace Model
 
 
 		// Inherited via IModel
-		virtual void updateFrame() override;
+		virtual void updateFrame(const double& update_ms) override;
 
 		virtual void setAnimation(Core::String _animation) override;
 

@@ -15,7 +15,7 @@ void StaticModel::setTextureMap(Core::String _modOrigin, Core::String _textureMa
 
 }
 
-void StaticModel::updateFrame()
+void StaticModel::updateFrame(const double& update_ms)
 {
 	if (updateRequired)
 	{

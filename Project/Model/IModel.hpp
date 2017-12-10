@@ -17,7 +17,7 @@ protected:
 	
 public:
 	
-	virtual void updateFrame() = 0;
+	virtual void updateFrame(const double& update_ms) = 0;
 
 	IModel();
 	
@@ -33,7 +33,7 @@ public:
 
 	virtual void setTextureMap(Core::String _modOrigin, Core::String _textureMapName) = 0;
 
-	virtual void preRender();
+	virtual void preRender(const double& update_ms);
 
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
