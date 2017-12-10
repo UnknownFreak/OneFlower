@@ -318,6 +318,8 @@ void Gfx::DrawLoadingScreen(BackgroundSprite& loadingScreen, Core::String& messa
 
 		view.render.draw(loadingScreen.sprite);
 	}
+	else
+		Engine::Get<OneLogger>().Error("Loading screen texture pointer was NULL", __FILE__, __LINE__);
 
 	//GUI::Message msg(*Engine::Graphic.font.requestFont("arial.ttf"));
 
