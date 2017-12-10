@@ -108,5 +108,9 @@ namespace EditorResources.MainEditorWindow
         {
             EditorEvents.OnModSave(new ModSaveEventArgs());
         }
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new SpriterScene.SpriterScene().Show();
+        }
     }
 }

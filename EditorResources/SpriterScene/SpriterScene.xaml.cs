@@ -12,7 +12,7 @@ namespace EditorResources.SpriterScene
     /// </summary>
 
     using _PointDef = Functionality.OnTextureMapLoadedFromFileEventArgs.Point;
-    public partial class SpriterScene : UserControl
+    public partial class SpriterScene : Window
     {
         private OpenFileDialog opf;
         public SpriterScene()
@@ -37,6 +37,30 @@ namespace EditorResources.SpriterScene
             rotated.IsEnabled = false;
             setPointsFromFile.IsEnabled = false;
 
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = Directory.GetCurrentDirectory() + "/Spriter";
+            watcher.Created += Watcher_Created;
+            watcher.Deleted += Watcher_Deleted;
+            watcher.Renamed += Watcher_Renamed;
+
+            watcher.Filter = "*.scml";
+            watcher.NotifyFilter = NotifyFilters.FileName;
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.OldName} renamed to {e.Name}" } });
+        }
+
+        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.Name} deleted" } });
+        }
+
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.Name} created" } });
         }
 
         private void Opf_FileOk(object sender, System.ComponentModel.CancelEventArgs e)

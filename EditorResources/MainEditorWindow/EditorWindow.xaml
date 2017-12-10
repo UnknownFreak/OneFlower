@@ -76,7 +76,7 @@
             <MenuItem Header="GUI Design"/>
             <MenuItem Header="Resources"/>
             <MenuItem Header="Scripts"/>
-            <MenuItem Header="Spriter"/>
+            <MenuItem Header="Spriter" Click="MenuItem_Click"/>
             <Separator/>
             <MenuItem Header="Window"/>
             <MenuItem Header="Options"/>
