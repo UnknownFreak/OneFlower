@@ -348,9 +348,6 @@
   <ItemGroup>
     <ClInclude Include="CharacterTree.hpp" />
     <ClInclude Include="Project\AssetManager\IRequestable.hpp" />
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp" />
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp" />
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\BaseEngineResource.hpp" />
@@ -493,7 +490,6 @@
     <ClInclude Include="Project\Input\Mouse.hpp" />
     <ClInclude Include="Project\Logger\Logger.hpp" />
     <ClInclude Include="Project\Model\IModel.hpp" />
-    <ClInclude Include="Project\Model\ModelContainer.hpp" />
     <ClInclude Include="Project\Model\SpriterEntityInstance.hpp" />
     <ClInclude Include="Project\Model\SpriterModelContainer.hpp" />
     <ClInclude Include="Project\Model\SpriteSheetAnimation.hpp" />
@@ -509,12 +505,10 @@
     <ClInclude Include="Project\World\Zone.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp" />
     <ClCompile Include="Project\Core\EngineSettingsDefiner.cpp" />
     <ClCompile Include="Project\Core\IEngineResource\EngineResourceManager.cpp" />
     <ClCompile Include="Project\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Model\IModel.cpp" />
-    <ClCompile Include="Project\Model\ModelContainer.cpp" />
     <ClCompile Include="Project\Model\SpriterEngine\animation\animation.cpp" />
     <ClCompile Include="Project\Model\SpriterEngine\animation\animationinstance.cpp" />
     <ClCompile Include="Project\Model\SpriterEngine\animation\mainlinekey.cpp" />

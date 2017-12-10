@@ -193,9 +193,6 @@
     <Filter Include="Unit Tests">
       <UniqueIdentifier>{4a703e74-4882-45dc-b4e1-609b8869f8e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\AssetManager\SpritesheetMap &lt;Dep&gt;">
-      <UniqueIdentifier>{ba14465d-e7a7-4711-9374-7c3dc4a5af4a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp">
@@ -338,9 +335,6 @@
     </ClInclude>
     <ClInclude Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.hpp">
       <Filter>C++Interop\EditorManager\TextureMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Model\ModelContainer.hpp">
-      <Filter>Engine\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Model\SpriteSheetAnimation.hpp">
       <Filter>Engine\Model\SpriteSheet</Filter>
@@ -641,15 +635,6 @@
     </ClInclude>
     <ClInclude Include="Project\Model\SpriterModel_.hpp">
       <Filter>Engine\Model\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMap.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapRef.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapLoader.hpp">
-      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClInclude>
     <ClInclude Include="Project\AssetManager\ObjectSaveMode.hpp">
       <Filter>Engine\AssetManager</Filter>
@@ -1080,9 +1065,6 @@
     <ClCompile Include="Project\Model\StaticModel.cpp">
       <Filter>Engine\Model\Models</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Model\ModelContainer.cpp">
-      <Filter>Engine\Model</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Model\SpriteSheetModel.cpp">
       <Filter>Engine\Model\Models</Filter>
     </ClCompile>
@@ -1091,9 +1073,6 @@
     </ClCompile>
     <ClCompile Include="Project\Model\SpriterModel_.cpp">
       <Filter>Engine\Model\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\AssetManager\SpriteSheetMap\SpriteSheetMapDefiner.cpp">
-      <Filter>Engine\AssetManager\SpritesheetMap &lt;Dep&gt;</Filter>
     </ClCompile>
     <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp">
       <Filter>Engine\World</Filter>

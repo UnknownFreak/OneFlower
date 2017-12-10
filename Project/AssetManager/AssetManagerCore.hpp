@@ -11,8 +11,6 @@
 #include <Model\AnimationCore.hpp>
 #include "Database\DBZone.hpp"
 
-#include "SpriteSheetMap\SpriteSheetMapRef.hpp"
-
 #include "Requestor\Requestor.hpp"
 
 #include <cereal\archives\binary.hpp>
