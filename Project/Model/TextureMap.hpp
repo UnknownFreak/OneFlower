@@ -7,7 +7,11 @@
 #include <map>
 struct TextureMap
 {
-	TextureMapPoint& getTextureMapPoint(Core::String pointName);
+	inline TextureMapPoint& getTextureMapPoint(Core::String pointName)
+	{
+		return TexturePoints[pointName];
+	}
+
 	std::map<Core::String, TextureMapPoint> TexturePoints;
 
 	Core::String modName;
@@ -20,14 +24,7 @@ struct TextureMap
 		for each (std::pair<std::string, TextureMapPoint> var in TexturePoints)
 		{
 			ar(var.first);
-			ar(var.second.pos.x);
-			ar(var.second.pos.y);
-			ar(var.second.size.x);
-			ar(var.second.size.y);
-			ar(var.second.rotated);
-			ar(var.second.color.r);
-			ar(var.second.color.g);
-			ar(var.second.color.b);
+			ar(var.second);
 		}
 		ar(mode);
 		ar(modName);
@@ -42,14 +39,7 @@ struct TextureMap
 			std::string a;
 			TextureMapPoint b;
 			ar(a);
-			ar(b.pos.x);
-			ar(b.pos.y);
-			ar(b.size.x);
-			ar(b.size.y);
-			ar(b.rotated);
-			ar(b.color.r);
-			ar(b.color.g);
-			ar(b.color.b);
+			ar(b);
 			TexturePoints.insert(std::pair<std::string, TextureMapPoint>(a, b));
 		}
 		ar(mode);

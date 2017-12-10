@@ -9,6 +9,7 @@
 #ifndef _EDITOR_
 #include <future>
 #endif
+
 class GameObject;
 class SpriterModelContainer
 {

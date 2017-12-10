@@ -798,12 +798,6 @@
     <ClCompile Include="Project\Model\tinyxml2\tinyxml2.cpp">
       <Filter>Engine\Model\tinyXml2</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Model\TextureMapPointDefiner.cpp">
-      <Filter>Engine\Model\TextureMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Model\TextureMapDefiner.cpp">
-      <Filter>Engine\Model\TextureMap</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Model\SpriterTextureMapperDefiner.cpp">
       <Filter>Engine\Model\TextureMap</Filter>
     </ClCompile>
