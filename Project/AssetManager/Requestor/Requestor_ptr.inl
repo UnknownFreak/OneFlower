@@ -245,50 +245,57 @@ inline Requester<T*>::~Requester()
 template<class T>
 inline void Requester<T*>::editorLoadAll()
 {
-
+	clear();
+	for each (std::pair<std::string, size_t> var in Engine::Get<AssetManager>().getModLoader().loadOrder)
+	{
+		bool eof = false;
+		DatabaseIndex ind;
+		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
+		std::ifstream database("Data\\" + var.first, std::ios::binary);
+		if (index.is_open())
+		{
+			cereal::BinaryInputArchive ar(index);
+			{
+				while (!eof)
+				{
+					ar(ind);
+					if (ind.type == objectType)
+					{
+						database.seekg(ind.row);
+						cereal::BinaryInputArchive loader(database);
+						td_map::iterator it = requestedMap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+						
+						
+						if (it != requestedMap.end())
+						{
+							// stuff exist add extra things to object.
+							std::unique_ptr<T> tmp(it->second->getReferenced());
+							loader(tmp);
+							tmp.release();
+						}
+						else
+						{
+							std::unique_ptr<T> tmp;
+							loader(tmp);
+							requestedMap.emplace(std::make_pair(td_key(ind.modFile, ind.ID), new Reference<T*>(ind.modFile, ind.ID, this, tmp.release())));
+						}
+					}
+					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+					{
+						eof = true;
+						Engine::Get<OneLogger>().Info("Loaded " + std::to_string(requestedMap.size()) + " objects for Requestor<" + getObjectTypeAsString() + ">");
+					}
+				}
+			}
+		}
+		else
+			Engine::Get<OneLogger>().Error("Unable to open Index file [" + var.first +
+				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
+		index.close();
+		database.close();
+	}
 }
-//	for each (std::pair<std::string, size_t> var in Engine::World.modLoadOrder.loadOrder)
-//	{
-//		bool eof = false;
-//		DatabaseIndex ind;
-//		std::ifstream index(var.first + ".index", std::ios::binary);
-//		std::ifstream database(var.first, std::ios::binary);
-//		if (index.is_open())
-//		{
-//			cereal::BinaryInputArchive ar(index);
-//			{
-//				while (!eof)
-//				{
-//					ar(ind);
-//					if (ind.type == objectType)
-//					{
-//						database.seekg(ind.row);
-//						cereal::BinaryInputArchive loader(database);
-//						std::map<std::pair<std::string, size_t>, Reference<T>>::iterator it = requestedMap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
-//						if (it != requestedMap.end())
-//						{
-//							// stuff exist add extra things to object.
-//							loader(it->second.getReferenced());
-//						}
-//						else
-//						{
-//							T tmp;
-//							loader(tmp);
-//							worldmap.insert(std::pair<std::pair<std::string, size_t>, Reference<T>>
-//								(std::pair<std::string, size_t>(ind.modFile, ind.ID), Reference<T>(ind.modFile, ind.ID, this, tmp)));
-//						}
-//					}
-//					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
-//						eof = true;
-//				}
-//			}
-//		}
-//		else
-//			Engine::Get<OneLogger>().Error("Unable to open Index file [" + var.first +
-//				".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
-//	}
-//}
-#endif _EDITOR_
+#endif // _EDITOR_
 
 template<class T>
 inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
@@ -319,7 +326,6 @@ inline void Requester<T*>::save(DatabaseIndex & ind, std::ostream & file, cereal
 				indexAr(ind);
 				std::unique_ptr<T> _ptr(pref);
 				mainAr(_ptr);
-				// release object as we do not want to de-allocate it
 				_ptr.release();
 			}
 		}
