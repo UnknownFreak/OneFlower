@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,10 +16,38 @@ namespace EditorResources.SpriterScene
     using _PointDef = Functionality.OnTextureMapLoadedFromFileEventArgs.Point;
     public partial class SpriterScene : Window
     {
+        private class NameField
+        {
+            // This is a filename string it will be unique.
+            public string FileName { get; set; }
+
+            public override bool Equals(Object obj)
+            {
+                // Check for null values and compare run-time types.
+                if (obj == null || GetType() != obj.GetType())
+                    return false;
+
+                NameField p = (NameField)obj;
+                return (FileName == p.FileName);
+            }
+            public override int GetHashCode()
+            {
+                return FileName.GetHashCode();
+            }
+        }
+        private const string spriterFolder = "/Spriter";
+        private string cwd;
         private OpenFileDialog opf;
+        private FileSystemWatcher watcher;
+        private ObservableCollection<NameField> spriterFiles;
         public SpriterScene()
         {
             InitializeComponent();
+
+            cwd = Directory.GetCurrentDirectory();
+
+            spriterFiles = new ObservableCollection<NameField>();
+
             opf = new OpenFileDialog()
             {
                 InitialDirectory = Directory.GetCurrentDirectory(),
@@ -37,8 +67,19 @@ namespace EditorResources.SpriterScene
             rotated.IsEnabled = false;
             setPointsFromFile.IsEnabled = false;
 
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = Directory.GetCurrentDirectory() + "/Spriter";
+            InitializeWatcher();
+            PopulateView();
+
+            sceneFilesList.ItemsSource = spriterFiles;
+            sceneFilesList.IsSynchronizedWithCurrentItem = true;
+        }
+
+        private void InitializeWatcher()
+        {
+            watcher = new FileSystemWatcher();
+
+            watcher.IncludeSubdirectories = true;
+            watcher.Path = cwd + spriterFolder;
             watcher.Created += Watcher_Created;
             watcher.Deleted += Watcher_Deleted;
             watcher.Renamed += Watcher_Renamed;
@@ -47,20 +88,42 @@ namespace EditorResources.SpriterScene
             watcher.NotifyFilter = NotifyFilters.FileName;
             watcher.EnableRaisingEvents = true;
         }
+        private void PopulateView()
+        {
+            string path = cwd + spriterFolder;
+            foreach (string s in Directory.GetFiles(path, "*.scml", SearchOption.AllDirectories))
+                spriterFiles.Add( new NameField() { FileName = s.Remove(0, path.Length + 1) } );
+        }
 
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.OldName} renamed to {e.Name}" } });
+            Dispatcher.Invoke(new Action(() =>
+            {
+                string path = cwd + spriterFolder;
+                NameField oldField = new NameField() { FileName = e.OldFullPath.Remove(0, path.Length) };
+                if (spriterFiles.Contains(oldField))
+                    spriterFiles.Remove(oldField);
+                spriterFiles.Add(new NameField() { FileName = e.FullPath.Remove(0, path.Length) });
+
+            }));
         }
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.Name} deleted" } });
+            Dispatcher.Invoke( new Action(() =>
+            {
+                string path = cwd + spriterFolder;
+                spriterFiles.Remove(new NameField() { FileName = e.FullPath.Remove(0, path.Length) });
+            }));
         }
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { type = Message.Message.MsgType.Info, message = $"{e.Name} created" } });
+            Dispatcher.Invoke(new Action(() =>
+            {
+                string path = cwd + spriterFolder;
+                spriterFiles.Add(new NameField() { FileName = e.FullPath.Remove(0, path.Length) });
+            }));
         }
 
         private void Opf_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
@@ -292,6 +355,16 @@ namespace EditorResources.SpriterScene
                 //    textureMapPoints.Items.Add(new ListViewItem(itms, 0));
                 //}
             }
+        }
+
+        private void sceneFilesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            watcher.Dispose();
         }
     }
     class TexturePoints

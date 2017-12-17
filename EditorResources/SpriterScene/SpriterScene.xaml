@@ -5,21 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.SpriterScene"
              xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" x:Class="EditorResources.SpriterScene.SpriterScene"
-             mc:Ignorable="d" Width="1001.404" Height="756.296" Background="White">
+             mc:Ignorable="d" Width="1031.404" Height="799.296" Background="White" Closing="Window_Closing">
     <Grid>
         <Grid.Effect>
             <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
         </Grid.Effect>
-        <Label Content="Scene Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Margin="10,0,0,0"/>
-        <ListView x:Name="sceneFilesList" HorizontalAlignment="Left" Height="719" Margin="10,27,0,0" VerticalAlignment="Top" Width="376">
+        <ListView x:Name="sceneFilesList" HorizontalAlignment="Left" Height="736" Margin="10,10,0,0" VerticalAlignment="Top" Width="376" SelectionChanged="sceneFilesList_SelectionChanged"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FileName}" Width="{Binding ActualWidth, ElementName=sceneFilesList}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="addSpriterSceneFile" Content="+" HorizontalAlignment="Left" Margin="391,27,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="addSpriterSceneFile_Click"/>
-        <Button x:Name="removeSpriterSceneFile" Content="-" HorizontalAlignment="Left" Margin="391,52,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="removeSpriterSceneFile_Click"/>
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="719" Margin="472,27,0,0" VerticalAlignment="Top" Width="519" BorderBrush="#FF828790">
             <Grid>
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Content="Texture Maps" Margin="10,2,0,0"/>
