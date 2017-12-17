@@ -37,7 +37,6 @@ namespace EditorResources.SpriterScene
         }
         private const string spriterFolder = "/Spriter";
         private string cwd;
-        private OpenFileDialog opf;
         private FileSystemWatcher watcher;
         private ObservableCollection<NameField> spriterFiles;
         public SpriterScene()
@@ -48,15 +47,6 @@ namespace EditorResources.SpriterScene
 
             spriterFiles = new ObservableCollection<NameField>();
 
-            opf = new OpenFileDialog()
-            {
-                InitialDirectory = Directory.GetCurrentDirectory(),
-
-                Title = "Add File",
-                Filter = "Spriter XML files|*.scml"
-            };
-            opf.FileOk += Opf_FileOk;
-
             addTextureMap.IsEnabled = false;
             removeTextureMap.IsEnabled = false;
 
@@ -64,6 +54,7 @@ namespace EditorResources.SpriterScene
             yPos.IsEnabled = false;
             pointWidth.IsEnabled = false;
             pointHeight.IsEnabled = false;
+            pointName.IsEnabled = false;
             rotated.IsEnabled = false;
             setPointsFromFile.IsEnabled = false;
 
@@ -124,27 +115,6 @@ namespace EditorResources.SpriterScene
                 string path = cwd + spriterFolder;
                 spriterFiles.Add(new NameField() { FileName = e.FullPath.Remove(0, path.Length) });
             }));
-        }
-
-        private void Opf_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (!e.Cancel)
-            {
-                String str = opf.FileName.Remove(0, Directory.GetCurrentDirectory().Length + 1);
-                if (!sceneFilesList.Items.Contains(str))
-                {
-                    sceneFilesList.Items.Add(str);
-                    // Add to events file -> SpriterModelUpdatedArgs(name, removed);
-                    //if (onListChange != null)
-                    //    onListChange(this, new AddSpriterModel() { Name = str, Remove = false });
-                }
-                else
-                    Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() {
-                        logMessage = new Message.Message()
-                        { message = "Spriter Scene file already added", type = Message.Message.MsgType.Info
-                        }
-                    });
-            }
         }
 
         private TexturePoints ParseJson(Queue<String> jsonQueue)
@@ -291,14 +261,6 @@ namespace EditorResources.SpriterScene
 
                 //         Program.mg.removeSpriterModel(sceneFilesList.SelectedItems[0].Text);
                 sceneFilesList.Items.Remove(sceneFilesList.SelectedItem);
-            }
-        }
-
-        private void addSpriterSceneFile_Click(object sender, RoutedEventArgs e)
-        {
-            if(opf.ShowDialog() == true)
-            {
-
             }
         }
 
