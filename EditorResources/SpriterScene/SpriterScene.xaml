@@ -21,8 +21,14 @@
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="719" Margin="472,27,0,0" VerticalAlignment="Top" Width="519" BorderBrush="#FF828790">
             <Grid>
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Height="27" Content="Texture Maps" Margin="10,2,0,0"/>
-                <ListBox x:Name="TextureMap" HorizontalAlignment="Left" Height="209" Margin="10,29,0,0" VerticalAlignment="Top" Width="472"/>
-                <Button x:Name="addTextureMap" Content="+" HorizontalAlignment="Left" Margin="487,29,0,0" VerticalAlignment="Top" Width="20" Height="20"/>
+                <ListView x:Name="TextureMap" HorizontalAlignment="Left" Height="209" Margin="10,29,0,0" VerticalAlignment="Top" Width="472">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=FileName}" Width="460"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button x:Name="addTextureMap" Content="+" HorizontalAlignment="Left" Margin="487,29,0,0" VerticalAlignment="Top" Width="20" Height="20" Click="addTextureMap_Click"/>
                 <Button x:Name="removeTextureMap" Content="-" HorizontalAlignment="Left" Margin="487,54,0,0" VerticalAlignment="Top" Width="20" Height="20"/>
                 <Button x:Name="setPointsFromFile" Content="Set Texture Map Points From File" HorizontalAlignment="Left" Margin="284,243,0,0" VerticalAlignment="Top" Width="198" Click="setPointsFromFile_Click"/>
                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" Width="497" Height="27" Content="Edit Point" Margin="10,494,0,0"/>

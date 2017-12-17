@@ -18,8 +18,11 @@ namespace EditorResources.SpriterScene
     {
         private class NameField
         {
+            private ObservableCollection<NameField> _textureMaps = new ObservableCollection<NameField>();
             // This is a filename string it will be unique.
             public string FileName { get; set; }
+
+            public ObservableCollection<NameField> textureMaps { get { return _textureMaps; } set { _textureMaps = value; } }
 
             public override bool Equals(Object obj)
             {
@@ -63,6 +66,8 @@ namespace EditorResources.SpriterScene
 
             sceneFilesList.ItemsSource = spriterFiles;
             sceneFilesList.IsSynchronizedWithCurrentItem = true;
+            TextureMap.IsSynchronizedWithCurrentItem = true;
+
         }
 
         private void InitializeWatcher()
@@ -83,7 +88,7 @@ namespace EditorResources.SpriterScene
         {
             string path = cwd + spriterFolder;
             foreach (string s in Directory.GetFiles(path, "*.scml", SearchOption.AllDirectories))
-                spriterFiles.Add( new NameField() { FileName = s.Remove(0, path.Length + 1) } );
+                spriterFiles.Add(new NameField() { FileName = s.Remove(0, path.Length + 1) });
         }
 
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
@@ -101,7 +106,7 @@ namespace EditorResources.SpriterScene
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            Dispatcher.Invoke( new Action(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 string path = cwd + spriterFolder;
                 spriterFiles.Remove(new NameField() { FileName = e.FullPath.Remove(0, path.Length) });
@@ -252,18 +257,6 @@ namespace EditorResources.SpriterScene
             return framesize;
         }
 
-        private void removeSpriterSceneFile_Click(object sender, RoutedEventArgs e)
-        {
-            if (sceneFilesList.SelectedItems.Count != 0)
-            {
-                //if (onListChange != null)
-                //    onListChange(this, new AddSpriterModel() { Name = sceneFilesList.SelectedItems[0].Text, Remove = true });
-
-                //         Program.mg.removeSpriterModel(sceneFilesList.SelectedItems[0].Text);
-                sceneFilesList.Items.Remove(sceneFilesList.SelectedItem);
-            }
-        }
-
         private void setPointsFromFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog()
@@ -300,7 +293,7 @@ namespace EditorResources.SpriterScene
                         H = iter.Value.frame.h,
                         Rotated = iter.Value.rotated
                     };
-                    texturemappoints.Add("\\"+iter.Key, p);
+                    texturemappoints.Add("\\" + iter.Key, p);
                     //Program.mg.setPointPosition(sceneFilesList.SelectedItems[0].Text,
                     //splitted[0], splitted[1],
                     //"\\"+iter.Key,
@@ -321,12 +314,31 @@ namespace EditorResources.SpriterScene
 
         private void sceneFilesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count != 0)
+            {
+                NameField nf = e.AddedItems[0] as NameField;
 
+                Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { message = nf.FileName,
+                    type = Message.Message.MsgType.Info } });
+                addTextureMap.IsEnabled = true;
+                TextureMap.ItemsSource = nf.textureMaps;
+            }
+            else
+            {
+                TextureMap.ItemsSource = null;
+                addTextureMap.IsEnabled = false;
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             watcher.Dispose();
+        }
+
+        private void addTextureMap_Click(object sender, RoutedEventArgs e)
+        {
+            NameField nf = sceneFilesList.SelectedItem as NameField;
+            nf.textureMaps.Add(new NameField() { FileName = "New Item" });
         }
     }
     class TexturePoints
