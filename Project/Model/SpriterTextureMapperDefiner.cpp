@@ -21,9 +21,9 @@ void SpriterTextureMapper::setSpritePointer(SpriteRef* sprite)
 {
 	currentSprite = sprite;
 }
-void SpriterTextureMapper::setRenderWindow(sf::RenderWindow* newRenderWindow)
+void SpriterTextureMapper::setRenderWindow(sf::RenderWindow& newRenderWindow)
 {
-	renderWindow = newRenderWindow;
+	renderWindow = &newRenderWindow;
 }
 void SpriterTextureMapper::setTextureMapAndSprite(std::pair<Core::String, Core::String> texMap, SpriteRef* sprite)
 {

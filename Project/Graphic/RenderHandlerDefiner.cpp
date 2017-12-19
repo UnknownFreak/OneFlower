@@ -186,7 +186,7 @@ void Gfx::drawObject() const
 					rc->updateFrame();
 					rc->instance.MyEntityInstance->setPosition(tc->position);
 #ifdef _EDITOR_
-					rc->instance.textureMaps->renderWindow = &view.render;
+					rc->instance.textureMaps->setRenderWindow(view.render);
 #endif
 					rc->instance.render(&rc->sprite);
 					break;

@@ -18,7 +18,7 @@ public:
 	void setSpritePointer(SpriteRef* sprite);
 	void setTextureMapAndSprite(std::pair<Core::String, Core::String> newTextureMap, SpriteRef* sprite);
 
-	void setRenderWindow(sf::RenderWindow* newRenderWindow);
+	void setRenderWindow(sf::RenderWindow& newRenderWindow);
 
 	sf::RenderWindow* renderWindow;
 	std::pair<Core::String, Core::String> currentTextureMapString;
