@@ -28,7 +28,7 @@ namespace EditorResources.Message
                     case MsgType.Error:
                         brush = new BrushConverter().ConvertFromString("#ad0000") as Brush;
                         break;
-                    case MsgType.Severe:
+                    case MsgType.Critical:
                         brush = new BrushConverter().ConvertFromString("#990000") as Brush;
                         break;
                 }
@@ -44,7 +44,7 @@ namespace EditorResources.Message
             Fine,
             Warning,
             Error,
-            Severe
+            Critical
         }
 
     }

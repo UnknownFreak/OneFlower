@@ -13,6 +13,16 @@
 
 ResourceType IEngineResource<OneLogger>::type = ResourceType::Logger;
 
+Core::String OneLogger::DEBUG = "DEBUG\t\t";
+Core::String OneLogger::INFO = "INFO\t\t";
+Core::String OneLogger::FINE = "FINE\t\t";
+Core::String OneLogger::WARNING = "WARNING\t";
+Core::String OneLogger::ERROR = "ERROR\t\t";
+Core::String OneLogger::CRITICAL = "CRITICAL\t";
+Core::String OneLogger::SEPARATOR = " - ";
+Core::String OneLogger::LINE_BEGIN = " (";
+Core::String OneLogger::LINE_END = ")";
+
 OneLogger::OneLogger() : log("Log.log")
 {
 #ifdef _WIN32
@@ -29,37 +39,37 @@ OneLogger::OneLogger() : log("Log.log")
 
 void OneLogger::Debug(Core::String message, Core::String filename, size_t line)
 {
-	Debug(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Debug(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
 void OneLogger::Info(Core::String message, Core::String filename, size_t line)
 {
-	Info(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Info(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
 void OneLogger::Fine(Core::String message, Core::String filename, size_t line)
 {
-	Fine(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Fine(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
 void OneLogger::Warning(Core::String message, Core::String filename, size_t line)
 {
-	Warning(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Warning(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
 void OneLogger::Error(Core::String message, Core::String filename, size_t line)
 {
-	Error(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Error(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
-void OneLogger::Severe(Core::String message, Core::String filename, size_t line)
+void OneLogger::Critical(Core::String message, Core::String filename, size_t line)
 {
-	Severe(message + " - " + filename.replace(0, cwd.size(), "") + " (" + std::to_string(line) + ")");
+	Critical(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
 }
 
 void OneLogger::Debug(Core::String message)
 {
-	log << "[DEBUG]\t\t" << message << std::endl;
+	logMessage(DEBUG, message);
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Debug);
 #endif
@@ -67,7 +77,7 @@ void OneLogger::Debug(Core::String message)
 
 void OneLogger::Info(Core::String message)
 {
-	log << "[INFO]\t\t" << message << std::endl;
+	logMessage(INFO, message);
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Info);
 #endif
@@ -75,7 +85,7 @@ void OneLogger::Info(Core::String message)
 
 void OneLogger::Fine(Core::String message)
 {
-	log << "[FINE]\t\t" << message << std::endl;
+	logMessage(FINE, message);
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Fine);
 #endif
@@ -83,7 +93,7 @@ void OneLogger::Fine(Core::String message)
 
 void OneLogger::Warning(Core::String message)
 {
-	log << "[WARNING]\t" << message << std::endl;
+	logMessage(WARNING, message);
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Warning);
 #endif
@@ -91,23 +101,23 @@ void OneLogger::Warning(Core::String message)
 
 void OneLogger::Error(Core::String message)
 {
-	log << "[ERROR]\t\t" << message << std::endl;
+	logMessage(ERROR, message);
 #ifdef _EDITOR_
 	LogToEditor(message, EditorResources::Message::Message::MsgType::Error);
 #endif
 }
 
-void OneLogger::Severe(Core::String message)
+void OneLogger::Critical(Core::String message)
 {
-	log << "[SEVERE]\t" << message << std::endl;
+	logMessage(CRITICAL, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Severe);
+	LogToEditor(message, EditorResources::Message::Message::MsgType::Critical);
 #endif
 }
 
 
 #ifdef _EDITOR_
-void OneLogger::LogToEditor(Core::String message, EditorResources::Message::Message::MsgType MsgType)
+void OneLogger::LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType MsgType)
 {
 #ifndef _UNITTESTS_
 	auto logmsg = gcnew EditorResources::Message::Message();
@@ -117,6 +127,11 @@ void OneLogger::LogToEditor(Core::String message, EditorResources::Message::Mess
 	msgargs->logMessage = logmsg;
 	EditorResources::Functionality::EditorEvents::OnLogEvent(msgargs);
 #endif
+}
+
+void OneLogger::logMessage(Core::String & type, Core::String & message)
+{
+	log << type << message;
 }
 
 #endif

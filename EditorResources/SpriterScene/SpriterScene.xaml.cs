@@ -16,7 +16,7 @@ namespace EditorResources.SpriterScene
     using _PointDef = Functionality.OnTextureMapLoadedFromFileEventArgs.Point;
     public partial class SpriterScene : Window
     {
-        private class NameField
+        public class NameField
         {
             private ObservableCollection<NameField> _textureMaps = new ObservableCollection<NameField>();
             // This is a filename string it will be unique.
