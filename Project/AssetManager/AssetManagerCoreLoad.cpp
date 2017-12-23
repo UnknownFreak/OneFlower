@@ -113,9 +113,9 @@ bool AssetManager::loadModHeader(Core::String modName, ModHeader & myheader)
 	std::ifstream database("Data//" + modName, std::ios::binary);
 
 	if (!index.is_open())
-		Engine::Get<OneLogger>().Severe("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Critical("Unable to open mod index file [" + modName+ ".index]", __FILE__, __LINE__);
 	else if (!database.is_open())
-		Engine::Get<OneLogger>().Severe("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Critical("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
 	else
 	{
 		cereal::BinaryInputArchive ar(index);
@@ -137,7 +137,7 @@ bool AssetManager::loadModHeader(Core::String modName, ModHeader & myheader)
 			}
 		}
 	}
-	Engine::Get<OneLogger>().Severe("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Critical("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
 	return false;
 }
 bool AssetManager::loadModOrderFile()
@@ -149,7 +149,7 @@ bool AssetManager::loadModOrderFile()
 		ar(modLoader);
 		return true;
 	}
-	Engine::Get<OneLogger>().Severe("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
+	Engine::Get<OneLogger>().Critical("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
 	return false;
 }
 

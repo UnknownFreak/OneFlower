@@ -244,7 +244,7 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 	bool fail = false;
 	if (!Engine::Get<AssetManager>().loadModHeader(myMod, myModHeader))
 	{
-		Engine::Get<OneLogger>().Severe("Failed to load mod header for mod [" + myMod +"]!", __FILE__, __LINE__);
+		Engine::Get<OneLogger>().Critical("Failed to load mod header for mod [" + myMod +"]!", __FILE__, __LINE__);
 		Engine::Get<AssetManager>().openedMod = "<Not Set>";
 	}
 	else
