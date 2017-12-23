@@ -11,9 +11,10 @@
 #endif
 
 class GameObject;
-class SpriterModelContainer
+class SpriterModelContainer : public IEngineResource<SpriterModelContainer>
 {
 public:
+
 #ifdef _EDITOR_
 	friend class WorldManagerAddon;
 #endif 
@@ -74,6 +75,10 @@ public:
 private:
 	void clearLists();
 	sf::RenderWindow* render;
+
+
+	// Inherited via IEngineResource
+	virtual const ResourceType & getType() override;
 
 };
 

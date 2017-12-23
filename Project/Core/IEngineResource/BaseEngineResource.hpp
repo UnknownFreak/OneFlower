@@ -15,7 +15,9 @@ enum class ResourceType
 	Time,
 	Settings,
 	Input,
+	SpriterContainer,
 };
+
 class EngineResourceManager;
 
 class BaseEngineResource

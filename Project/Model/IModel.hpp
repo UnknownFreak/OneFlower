@@ -47,7 +47,7 @@ public:
 	template <class Archive>
 	void load(Archive & ar)
 	{
-		ar(cereal::base_class <IRequestable>(this));
+		ar(cereal::base_class<IRequestable>(this));
 	}
 
 };

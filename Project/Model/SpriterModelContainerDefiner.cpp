@@ -2,6 +2,9 @@
 #include "SpriterOverride\SFMLObjectFactory.h"
 #include "SpriterOverride\SFMLFileFactory.h"
 
+
+ResourceType IEngineResource<SpriterModelContainer>::type = ResourceType::SpriterContainer;
+
 SpriterEntityInstance SpriterModelContainer::requestEntityInstance(Core::String sceneFile, Core::String entityName)
 {
 	if (modelFiles.find(sceneFile) != modelFiles.end())
@@ -168,4 +171,9 @@ void SpriterModelContainer::clearLists()
 		delete var.second;
 	}
 	modelTextureMapper.clear();
+}
+
+const ResourceType & SpriterModelContainer::getType()
+{
+	return type;
 }
