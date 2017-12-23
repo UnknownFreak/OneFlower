@@ -12,7 +12,8 @@ public:
 public:
 
 	StaticModel();
-
+	StaticModel(const StaticModel& copy);
+	StaticModel& operator=(const StaticModel& right);
 
 	// Inherited via IModel
 	virtual void setAnimation(Core::String _animationName) override;

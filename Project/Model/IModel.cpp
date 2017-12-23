@@ -12,11 +12,13 @@ IModel::IModel(const IModel& copy) : IRequestable(copy), m_render_sprite(copy.m_
 
 IModel& IModel::operator=(const IModel& right)
 {
-	m_render_sprite = right.m_render_sprite;
 	ID = right.ID;
 	fromMod = right.fromMod;
 	mode = right.mode;
+
+	m_render_sprite = right.m_render_sprite;
 	updateRequired = right.updateRequired;
+	
 	return *this;
 }
 

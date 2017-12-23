@@ -5,7 +5,8 @@
 class SpriteSheetModel : public IModel
 {
 
-	std::vector<sf::IntRect> const * spriteSheetFrames;
+	sf::IntRect * spriteSheetFrames; // not null
+	size_t spriteSheetSize = 1;
 
 	// how many frames in animation
 	size_t totalAnimationSteps = 0;
@@ -20,9 +21,15 @@ class SpriteSheetModel : public IModel
 
 	size_t _time = 0;
 
+	void del();
+	void createSpriteSheetFrames(const size_t& size);
 public:
 
 	SpriteSheetModel();
+	SpriteSheetModel(const SpriteSheetModel& copy);
+	SpriteSheetModel& operator=(const SpriteSheetModel& right);
+
+	~SpriteSheetModel();
 
 	// Inherited via IModel
 	virtual void setAnimation(Core::String) override;
@@ -31,35 +38,38 @@ public:
 	template<class Archive>
 	void save(Archive& _save) const
 	{
-		//ar(spriteSheetFrames.size());
-		//std::vector<sf::IntRect>::const_iterator it = spriteSheetFrames.begin();
-		//std::vector<sf::IntRect>::const_iterator eit = spriteSheetFrames.end();
-		//
-		//for (it; it != eit; it++)
-		//{
-		//	ar(it->left, it->top, it->width, it->height);
-		//}
-		//
-		//ar(totalAnimationTime);
-		//ar(_time)
+		ar(spriteSheetSize);
+		size_t it = 0;
+		for (it; it != spriteSheetSize; it++)
+		{
+			ar((spriteSheetFrame + it)->left, (spriteSheetFrame + it)->top, (spriteSheetFrame + it)->width, (spriteSheetFrame + it)->height);
+		}
+		ar(totalAnimationSteps);
+		ar(totalAnimationTime);
+		ar(_time);
 	}
 
 	template<class Archive>
 	void load(Archive& _load)
 	{
-		//ar(totalAnimationSteps);
-		//size_t it = 0;
-		//
-		//size_t l, t, w, h;
-		//for (it; it < totalAnimationSteps; it++)
-		//{
-		//	ar(l, t, w, h);
-		//	spriteSheetFrames.push_back(sf::IntRect(l, t, w, h));
-		//}
-		//
-		//ar(totalAnimationTime);
-		//ar(_time);
-		//frameLength = totalAnimationTime / totalAnimationSteps;
+		del();
+		ar(spriteSheetSize);
+		createSpriteSheetFrames(spriteSheetSize);
+		
+		size_t it = 0;
+		size_t l, t, w, h;
+		for (it; it < spriteSheetSize; it++)
+		{
+			ar(l, t, w, h);
+			(spriteSheetFrames + it)->left = l;
+			(spriteSheetFrames + it)->top= t;
+			(spriteSheetFrames + it)->width = w;
+			(spriteSheetFrames + it)->height = h;
+		}
+		ar(totalAnimationSteps);
+		ar(totalAnimationTime);
+		ar(_time);
+		frameLength = totalAnimationTime / totalAnimationSteps;
 	}
 
 protected:

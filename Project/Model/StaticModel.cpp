@@ -6,6 +6,25 @@ StaticModel::StaticModel() : IModel(), m_TopLeft(-1,-1), m_BottomRight(-1,-1)
 
 }
 
+StaticModel::StaticModel(const StaticModel & copy) : IModel(copy), m_TopLeft(copy.m_TopLeft), m_BottomRight(copy.m_BottomRight)
+{
+}
+
+StaticModel & StaticModel::operator=(const StaticModel & right)
+{
+	ID = right.ID;
+	mode = right.mode;
+	fromMod = right.fromMod;
+
+	updateRequired = right.updateRequired;
+	m_render_sprite = right.m_render_sprite;
+	
+	m_BottomRight = right.m_BottomRight;
+	m_TopLeft = right.m_TopLeft;
+	
+	return *this;
+}
+
 void StaticModel::setAnimation(Core::String _animationName)
 {
 	Engine::Get<OneLogger>().Warning("Trying to set animation <"+ _animationName +"> on a static model.", __FILE__, __LINE__);
