@@ -66,6 +66,16 @@ public:
 
 	T& getReferenced();
 
+	//Get a unique T not managed by the Reference.
+	template <class I = T>
+	typename std::enable_if<std::is_pointer<I>::value>::type
+		getUnique();
+
+	//Get a unique T not managed by the Reference.
+	template <class I = T>
+	typename std::enable_if<!std::is_pointer<I>::value>::type
+		getUnique();
+
 	const bool isValid() const;
 #ifdef _EDITOR_
 	void setNewFuture(const T future);

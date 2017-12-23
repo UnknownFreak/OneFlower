@@ -55,6 +55,32 @@ inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::s
 }
 
 template<class T>
+template<class I>
+inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::getUnique()
+{
+#ifdef _EDITOR_
+	return T(*myRef);
+#else
+	if(myRef.valid())
+		return T(*myRef.get());
+#endif
+
+}
+
+template<class T>
+template<class I>
+inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::getUnique()
+{
+#ifdef _EDITOR_
+	return T(myRef);
+#else
+	if (myRef.valid())
+		return T(myRef.get());
+#endif
+
+}
+
+template<class T>
 inline void Reference<T>::unload()
 {
 	if (skipUnload == false)
