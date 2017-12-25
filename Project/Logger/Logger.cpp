@@ -9,6 +9,11 @@
 #include <EditorManager\InteropHelper.hpp>
 #endif
 
+#ifdef ERROR // wingdi.h can have ERROR defined undef if it exists to prevent compile error and set flag to re-enable it afterwards
+#undef ERROR
+#define ERROR_UNDEF
+#endif
+
 #include <Core\IEngineResource\EngineResourceManager.hpp>
 
 ResourceType IEngineResource<OneLogger>::type = ResourceType::Logger;
@@ -133,5 +138,8 @@ void OneLogger::logMessage(Core::String & type, Core::String & message)
 {
 	log << type << message;
 }
+#ifdef ERROR_UNDEF // re-enable ERROR 0 define for wingdi.h if it was defined
+#define ERROR 0
+#endif
 
 #endif

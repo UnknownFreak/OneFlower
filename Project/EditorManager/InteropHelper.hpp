@@ -3,6 +3,7 @@
 
 #ifdef _EDITOR_
 #ifndef _UNITTESTS_
+#include <Windows.h>
 #using <WindowsBase.dll>
 #using <PresentationCore.dll>
 #using <PresentationFramework.dll>
