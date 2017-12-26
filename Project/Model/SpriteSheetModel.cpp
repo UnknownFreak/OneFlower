@@ -11,7 +11,7 @@ void SpriteSheetModel::createSpriteSheetFrames(const size_t& size)
 {
 	spriteSheetSize = size;
 	spriteSheetFrames = new sf::IntRect[size];
-	//memset is nice but we do not need it.
+	//memset is nice but we do not need it and it takes extra time.
 	//memset(spriteSheetFrames, 0, sizeof(sf::IntRect)*spriteSheetSize);
 }
 
