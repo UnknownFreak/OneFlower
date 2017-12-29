@@ -27,11 +27,11 @@
             <RowDefinition Height="46"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="307*"/>
-            <ColumnDefinition Width="805*"/>
+            <ColumnDefinition Width="309*"/>
             <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="803*"/>
         </Grid.ColumnDefinitions>
-        <WindowsFormsHost x:Name="formhost" Background="#FFB28F8F" Grid.Column="2" Grid.Row="1"/>
+        <WindowsFormsHost x:Name="formhost" Background="#FFB28F8F" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0"/>
         <StatusBar Margin="0" Grid.ColumnSpan="3" Grid.Row="3">
             <Label x:Name="InfoLabel" Content="Label" Width="238" Height="26" Margin="0,17,0,0"/>
             <ProgressBar Width="240" Height="15" IsIndeterminate="True" Background="{x:Null}" Margin="0,17,0,0"/>

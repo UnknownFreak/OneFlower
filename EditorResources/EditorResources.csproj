@@ -97,7 +97,7 @@
     <Compile Include="ModWindow\NewMod.xaml.cs">
       <DependentUpon>NewMod.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ObjectView\ObjectTreeView.xaml.cs">
+    <Compile Include="ObjectTreeView\ObjectTreeView.xaml.cs">
       <DependentUpon>ObjectTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,7 +129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ObjectView\ObjectTreeView.xaml">
+    <Page Include="ObjectTreeView\ObjectTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
