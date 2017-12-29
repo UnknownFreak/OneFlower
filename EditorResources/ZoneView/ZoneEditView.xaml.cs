@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EditorResources.Functionality;
+using System;
 using System.Windows;
 
 namespace EditorResources.ZoneView
@@ -8,13 +9,11 @@ namespace EditorResources.ZoneView
     /// </summary>
     public partial class ZoneEditView : Window
     {
-        bool editInstead;
         string origin = "";
         public ZoneEditView(bool edit = false)
         {
             InitializeComponent();
-            editInstead = edit;
-            if (editInstead)
+            if (edit)
             {
                 add_edit_button.Click -= add_click;
                 add_edit_button.Click += edit_click;
@@ -35,25 +34,16 @@ namespace EditorResources.ZoneView
 
         private void add_click(object sender, RoutedEventArgs e)
         {
-            Functionality.EditorZoneEditViewAddZoneEventArgs evt = new Functionality.EditorZoneEditViewAddZoneEventArgs();
-            evt.ZoneName = zoneName.Text;
-            evt.BackgroundPath = backgroundPath.Text;
-            evt.LoadingScreenPath = loadingScreenPath.Text;
-            evt.LoadingScreenMessage = loadingScreenMessage.Text;
-            Functionality.EditorEvents.OnZoneEditViewAddZoneEvent(evt);
+            EditorEvents.OnZoneEditViewAddZoneEvent(createBaseZoneEventArgs());
             Close();
         }
 
         private void edit_click(object sender, RoutedEventArgs e)
         {
-            Functionality.EditorZoneEditViewAddZoneEventArgs evt = new Functionality.EditorZoneEditViewAddZoneEventArgs();
-            evt.ZoneName = zoneName.Text;
-            evt.BackgroundPath = backgroundPath.Text;
-            evt.LoadingScreenPath = loadingScreenPath.Text;
-            evt.LoadingScreenMessage = loadingScreenMessage.Text;
-            evt.Origin = origin;
-            evt.Id = Convert.ToUInt32(zoneId.Text);
-            Functionality.EditorEvents.OnZoneEditViewAddZoneEvent(evt);
+
+            EditorZoneEditViewAddZoneEventArgs evt = createBaseZoneEventArgs();
+            evt.isEdit = true;
+            EditorEvents.OnZoneEditViewAddZoneEvent(evt);
             Close();
         }
 
@@ -61,5 +51,19 @@ namespace EditorResources.ZoneView
         {
             Close();
         }
+
+        private EditorZoneEditViewAddZoneEventArgs createBaseZoneEventArgs()
+        {
+            return new EditorZoneEditViewAddZoneEventArgs()
+            {
+                ZoneName = zoneName.Text,
+                BackgroundPath = backgroundPath.Text,
+                LoadingScreenPath = loadingScreenPath.Text,
+                LoadingScreenMessage = loadingScreenMessage.Text,
+                Origin = origin,
+                Id = Convert.ToUInt32(zoneId.Text)
+            };
+        }
+
     }
 }
