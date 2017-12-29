@@ -57,7 +57,7 @@ GameObject* Prefab::createFromPrefab()
 		go->AddComponent(var->copy());
 	return go;
 }
-const unsigned int Prefab::getTypeID(size_t index)
+const size_t Prefab::getTypeID(size_t index)
 {
 	return base[index]->getType();
 }

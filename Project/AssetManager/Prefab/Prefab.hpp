@@ -31,7 +31,7 @@ public:
 	std::vector<BaseComponent*> base;
 	Core::String name;
 	Core::String tag;
-	const unsigned int getTypeID(size_t index);
+	const size_t getTypeID(size_t index);
 
 #pragma region Prefab
 	template <class Archive>
