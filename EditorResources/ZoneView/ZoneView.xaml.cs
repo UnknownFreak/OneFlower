@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using EditorResources.Functionality;
 
@@ -11,13 +13,15 @@ namespace EditorResources.ZoneView
     {
         ZoneItem lastSelected;
         EditorGetZoneInfoEvent info;
-
+        ObservableCollection<ZoneItem> zoneItems = new ObservableCollection<ZoneItem>();
         public ZoneView()
         {
             lastSelected = null;
             InitializeComponent();
             EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
             EditorEvents.onGetZoneInfoEvent += GetZoneInfoEvent;
+            ZoneSelector.ItemsSource = zoneItems;
+            ZoneSelector.IsSynchronizedWithCurrentItem = true;
             ZoneSelector.ContextMenu.IsEnabled = false;
         }
 
@@ -28,10 +32,10 @@ namespace EditorResources.ZoneView
 
         private void ZoneViewOnModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
         {
-            ZoneSelector.Items.Clear();
+            zoneItems.Clear();
             foreach(var t in e.zoneFiles)
             {
-                ZoneSelector.Items.Add(new ZoneItem(t.Item1, t.Item2, t.Item3));
+                zoneItems.Add(new ZoneItem(t.Item1, t.Item2, t.Item3, ZoneFlags.None));
             }
             ZoneSelector.ContextMenu.IsEnabled = true;
         }
@@ -67,7 +71,16 @@ namespace EditorResources.ZoneView
 
         private void DeleteZoneClick(object sender, RoutedEventArgs e)
         {
-            
+            if (lastSelected.Flag == ZoneFlags.Deleted)
+            {
+                lastSelected.Flag = ZoneFlags.Edited;
+                // TODO: Send event to apply this in the actual data as well.
+            }
+            else
+            {
+                lastSelected.Flag = ZoneFlags.Deleted;
+                // TODO: Send event to apply this in the actual data as well.
+            }
         }
 
         private void EditZoneClick(object sender, RoutedEventArgs e)
@@ -81,23 +94,69 @@ namespace EditorResources.ZoneView
         }
     }
 
-    internal class ZoneItem
+    internal class ZoneItem : INotifyPropertyChanged
     {
-        public string Origin { get; private set; }
-        public uint Id { get; private set; }
-        public string Name { get; private set; }
+        private ZoneFlags _flag;
+        private string _origin;
+        private uint _id;
+        private string _name;
 
-        public ZoneItem(string origin, uint id, string name)
+        public string Origin {
+            get { return _origin; }
+            private set
+            {
+                _origin = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Origin"));
+            }
+        }
+        public uint Id {
+            get { return _id; }
+            private set {
+                _id = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Id"));
+            }
+        }
+        public string Name
+        {
+            get { return _name; }
+            private set
+            {
+                _name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+            }
+        }
+        public ZoneFlags Flag {
+            get { return _flag; }
+            set {
+                _flag = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Flag"));
+            }
+        }
+
+        public ZoneItem(string origin, uint id, string name, ZoneFlags flag)
         {
             Origin = origin;
             Id = id;
             Name = name;
+            Flag = flag;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         void Rename(string newName)
         {
             Name = newName;
         }
     }
+
+    internal enum ZoneFlags
+    {
+        Added,
+        Deleted,
+        Edited,
+        None
+    }
+
     internal class ZoneObjectItem
     {
         public string Origin { get; private set; }

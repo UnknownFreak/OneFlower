@@ -50,6 +50,16 @@
                         </GridViewColumn.CellTemplate>
                         <GridViewColumnHeader Content=" Name" HorizontalContentAlignment="Left"/>
                     </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Flag}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" Flag" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
