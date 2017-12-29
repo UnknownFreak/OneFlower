@@ -11,12 +11,14 @@ namespace EditorResources.ZoneView
     {
         ZoneItem lastSelected;
         EditorGetZoneInfoEvent info;
+
         public ZoneView()
         {
             lastSelected = null;
             InitializeComponent();
             EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
             EditorEvents.onGetZoneInfoEvent += GetZoneInfoEvent;
+            ZoneSelector.ContextMenu.IsEnabled = false;
         }
 
         private void GetZoneInfoEvent(object sender, EditorGetZoneInfoEvent e)
@@ -31,6 +33,7 @@ namespace EditorResources.ZoneView
             {
                 ZoneSelector.Items.Add(new ZoneItem(t.Item1, t.Item2, t.Item3));
             }
+            ZoneSelector.ContextMenu.IsEnabled = true;
         }
 
         private void ZoneSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

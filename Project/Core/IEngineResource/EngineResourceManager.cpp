@@ -9,6 +9,7 @@ EngineResourceManager::~EngineResourceManager()
 	for (it; it != eit; it++)
 	{
 		delete it->second;
+		it->second = nullptr;
 	}
 	componentMap.clear();
 }
