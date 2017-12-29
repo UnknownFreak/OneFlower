@@ -7,10 +7,9 @@
 
 Core::String Editor::Events::toString(array<wchar_t>^ arr)
 {
-	array<wchar_t>^ wstr = arr;
 	std::wstring w;
 	
-	for each(wchar_t wc in wstr)
+	for each(wchar_t wc in arr)
 		w.push_back(wc);
 	
 	return Engine::Get<Core::StringConverter>().toUtf8(w);
@@ -20,8 +19,7 @@ EditorResources::ModWindow::ModDependencyList ^ Editor::Events::loadDependencies
 {
 	EditorResources::ModWindow::ModDependencyList^ depList = gcnew EditorResources::ModWindow::ModDependencyList();
 	depList->Mod = gcnew System::String(mod.c_str());
-	std::vector<Core::String> dep;
-	dep = Engine::Get<WorldManagerAddon>().getModDependencies(mod);
+	std::vector<Core::String> dep = Engine::Get<WorldManagerAddon>().getModDependencies(mod);
 	
 	for each (Core::String str in dep)
 		depList->dependencies->Add(loadDependenciesInternal(str));
