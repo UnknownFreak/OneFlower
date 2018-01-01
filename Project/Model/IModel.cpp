@@ -27,7 +27,7 @@ void IModel::setRenderSprite(SpriteRef & texture)
 	m_render_sprite = &texture;
 };
 
-void IModel::preRender(const double& update_ms)
+void IModel::preRender(const size_t& update_ms)
 {
 	updateFrame(update_ms);
 }

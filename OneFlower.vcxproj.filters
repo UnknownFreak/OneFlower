@@ -193,6 +193,9 @@
     <Filter Include="Unit Tests">
       <UniqueIdentifier>{4a703e74-4882-45dc-b4e1-609b8869f8e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input\BaseInputHandler">
+      <UniqueIdentifier>{e48ab5c4-f440-4bdd-bb61-b523e2b49f02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\AssetManager\AssetManagerCore.hpp">
@@ -665,6 +668,9 @@
     </ClInclude>
     <ClInclude Include="Project\GameEntry.hpp">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Input\BaseInputHandler.hpp">
+      <Filter>Engine\Input\BaseInputHandler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
