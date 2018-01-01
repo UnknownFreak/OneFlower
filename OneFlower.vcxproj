@@ -354,6 +354,7 @@
     <ClInclude Include="Project\Core\IEngineResource\EngineResourceManager.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\IEngineResource.hpp" />
     <ClInclude Include="Project\GameEntry.hpp" />
+    <ClInclude Include="Project\Input\BaseInputHandler.hpp" />
     <ClInclude Include="Project\Model\AnimationCore.hpp" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animation.h" />
     <ClInclude Include="Project\Model\SpriterEngine\animation\animationinstance.h" />
