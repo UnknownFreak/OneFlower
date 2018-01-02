@@ -27,9 +27,9 @@
             <RowDefinition Height="46"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="309*"/>
+            <ColumnDefinition Width="300*"/>
             <ColumnDefinition Width="800"/>
-            <ColumnDefinition Width="803*"/>
+            <ColumnDefinition Width="800*"/>
         </Grid.ColumnDefinitions>
         <WindowsFormsHost x:Name="formhost" Background="#FFB28F8F" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0"/>
         <StatusBar Margin="0" Grid.ColumnSpan="3" Grid.Row="3">
@@ -116,6 +116,6 @@
             </ListView.View>
         </ListView>
         <ObjectView:ObjectTreeView Grid.Row="1"/>
-        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Height="Auto" Width="800" Margin="0,0,0,28" Grid.RowSpan="2"/>
+        <ZoneView:ZoneView Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Height="Auto" Width="800" Grid.RowSpan="2"/>
     </Grid>
 </Window>
