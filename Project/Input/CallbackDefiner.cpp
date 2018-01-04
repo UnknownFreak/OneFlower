@@ -40,3 +40,8 @@ bool Callback::operator<(const Callback & right)
 {
 	return callbackName < right.callbackName;
 }
+
+void Callback::operator()() const
+{
+	callbackMethod();
+}

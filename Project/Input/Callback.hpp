@@ -19,6 +19,8 @@ struct Callback
 	bool operator>(const Callback& right);
 	bool operator<(const Callback& right);
 
+	void operator()() const;
+
 };
 
 
