@@ -490,7 +490,6 @@
     <ClInclude Include="Project\Graphic\Time\Time.hpp" />
     <ClInclude Include="Project\Input\InputEnum.hpp" />
     <ClInclude Include="Project\Input\InputHandler.hpp" />
-    <ClInclude Include="Project\Input\Mouse.hpp" />
     <ClInclude Include="Project\Logger\Logger.hpp" />
     <ClInclude Include="Project\Model\IModel.hpp" />
     <ClInclude Include="Project\Model\SpriterEntityInstance.hpp" />
@@ -631,7 +630,6 @@
     <ClCompile Include="Project\Graphic\Tile\GridTileDefiner.cpp" />
     <ClCompile Include="Project\Graphic\Time\TimeDefiner.cpp" />
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
-    <ClCompile Include="Project\Input\Mouse.cpp" />
     <ClCompile Include="Project\Logger\Logger.cpp" />
     <ClCompile Include="Project\Model\SpriterEntityInstanceDefiner.cpp" />
     <ClCompile Include="Project\Model\SpriterModelContainerDefiner.cpp" />

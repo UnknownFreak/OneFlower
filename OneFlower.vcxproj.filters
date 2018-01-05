@@ -46,9 +46,6 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{8c627920-84a9-4616-88f9-3fd3cdc45b85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Input\Mouse">
-      <UniqueIdentifier>{9d9b295b-0147-4242-954b-093459f4f189}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{413d4a8e-3d14-4dd6-900f-f04a93e6e672}</UniqueIdentifier>
     </Filter>
@@ -275,9 +272,6 @@
     </ClInclude>
     <ClInclude Include="Project\Input\InputHandler.hpp">
       <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\Mouse.hpp">
-      <Filter>Engine\Input\Mouse</Filter>
     </ClInclude>
     <ClInclude Include="Project\World\RespawnContainer.hpp">
       <Filter>Engine\World</Filter>
@@ -733,9 +727,6 @@
     </ClCompile>
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp">
       <Filter>Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Input\Mouse.cpp">
-      <Filter>Engine\Input\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="Project\World\WorldManager.cpp">
       <Filter>Engine\World</Filter>
