@@ -8,9 +8,4 @@
 #include "TextureMap.hpp"
 #include "TextureMapPoint.hpp"
 
-
-namespace Engine
-{
-	//extern SpriterModelContainer ModelContainer;
-}
 #endif
