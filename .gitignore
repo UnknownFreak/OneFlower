@@ -18,3 +18,5 @@ DebugEditorTests/*
 EditorResources/obj/*
 EditorResources/bin/*
 OneFlower.VC.VC.opendb
+*.idb
+UnitTests/*

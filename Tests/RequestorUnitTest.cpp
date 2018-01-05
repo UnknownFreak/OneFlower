@@ -54,7 +54,6 @@ namespace Tests
 		{
 			archive(cereal::base_class<IRequestable>(this));
 			archive(test_string);
-
 		}
 	};
 
@@ -120,12 +119,6 @@ namespace Tests
 			size_t expected = 1;
 			Reference<MockedSaveable>*& ref = req.request("test", 1);
 			Assert::AreEqual(ref->getUseCount(), expected);
-			
-			expected = 3;
-
-			req.request("test", 1);
-			req.request("test", 1);
-			Assert::AreEqual(ref->getUseCount(), expected);
 		}
 		TEST_METHOD(TestRequestor_ThreeRequest)
 		{
@@ -135,7 +128,6 @@ namespace Tests
 			req.request("test", 1);
 			
 			Assert::AreEqual(ref->getUseCount(), expected);
-			req.clear();
 		}
 		TEST_METHOD(TestRequestor_Unrequest)
 		{
@@ -177,7 +169,7 @@ namespace Tests
 			Assert::AreEqual(m.ID, size_t(1));
 		}
 	};
-	Requester<MockedSaveable> RequestorTest::req(DatabaseIndex::ObjectTypeEnum::Undefined);
+	Requester<MockedSaveable> RequestorTest::req(DatabaseIndex::ObjectTypeEnum::Undefined, "");
 }
 
 #endif
