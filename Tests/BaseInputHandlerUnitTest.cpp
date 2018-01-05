@@ -141,7 +141,7 @@ namespace Tests
 			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "hold", Input::Action::Hold);
 			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "released", Input::Action::Release);
 
-			Assert::AreEqual(pressCount, 0); //But why zero...
+			Assert::AreEqual(pressCount, 1);
 			Assert::AreEqual(holdCount, 5);
 			Assert::AreEqual(releasedCount, 1);
 

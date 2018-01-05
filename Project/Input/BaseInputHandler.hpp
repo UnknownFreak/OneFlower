@@ -36,7 +36,7 @@ class BaseCallbackholder
 			it->second.push_back(callback);
 	}
 
-	void removeFromHolder(const Core::String& callbackToRemove, std::map<T, callbackVector>& holder, const T& input)
+	bool removeFromHolder(const Core::String& callbackToRemove, std::map<T, callbackVector>& holder, const T& input)
 	{
 		std::map<T, callbackVector>::iterator it = holder.find(input);
 		if (it == holder.end())
@@ -60,6 +60,9 @@ class BaseCallbackholder
 					c();
 				}
 				it->second.erase(iit);
+				if (it->second.size() == 0)
+					holder.erase(it);
+					return true;
 			}
 		}
 	}
@@ -132,7 +135,12 @@ public:
 	inline void removeCallback(T input, Core::String callbackToRemove, const Input::Action actionType)
 	{
 		if (actionType & Input::Action::Press)
-			removeFromHolder(callbackToRemove, bindsOnPress, input);
+			if(removeFromHolder(callbackToRemove, bindsOnPress, input))
+			{
+				std::vector<T>::iterator it = std::find(callbackRelease.begin(), callbackRelease.end(), input);
+				if (it != callbackRelease.end())
+					callbackRelease.erase(it);
+			}
 		if (actionType & Input::Action::Release)
 			removeFromHolder(callbackToRemove, bindsOnRelease, input);
 		if (actionType & Input::Action::Hold)
