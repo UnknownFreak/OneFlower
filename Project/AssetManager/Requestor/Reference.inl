@@ -87,10 +87,15 @@ inline void Reference<T>::unload()
 		requester->unload(name, ID);
 }
 
-#ifdef _EDITOR_
-
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
 template<class T>
-inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester), myRef(T(objectToSet)), useCount(0), skipUnload(true)
+inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester),
+#ifdef _EDITOR_
+myRef(T(objectToSet))
+#else
+myRef(std::async(std::launch::async, [this](T object) -> T {return object; }, objectToSet))
+#endif
+, useCount(0), skipUnload(true)
 {
 }
 

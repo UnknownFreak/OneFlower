@@ -52,7 +52,7 @@ class Reference
 public:
 	~Reference();
 
-#ifdef _EDITOR_
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
 	Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet);
 #endif
