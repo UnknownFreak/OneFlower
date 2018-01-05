@@ -133,13 +133,14 @@ void OneLogger::LogToEditor(Core::String& message, EditorResources::Message::Mes
 	EditorResources::Functionality::EditorEvents::OnLogEvent(msgargs);
 #endif
 }
+#endif
 
 void OneLogger::logMessage(Core::String & type, Core::String & message)
 {
 	log << type << message;
 }
+
 #ifdef ERROR_UNDEF // re-enable ERROR 0 define for wingdi.h if it was defined
 #define ERROR 0
 #endif
 
-#endif
