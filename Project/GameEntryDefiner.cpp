@@ -24,7 +24,7 @@ int GameEntry::main()
 	sf::Thread physics_thread(&GameEntry::physicsUpdate, this);
 	physics_thread.launch();
 
-
+#ifndef _UNITTESTS_
 	while (gfx.view.render.isOpen())
 	{
 		while (gfx.view.render.pollEvent(Engine::event))
@@ -37,7 +37,7 @@ int GameEntry::main()
 				input.deltaScrolls += Engine::event.mouseWheel.delta;
 		}
 	}
-
+#endif
 	render_thread.terminate();
 	physics_thread.terminate();
 	render_thread.wait();
