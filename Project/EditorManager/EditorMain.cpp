@@ -139,7 +139,7 @@ int windowMessage()
 				Engine::Get<Gfx>().view.render.close();
 			}
 			if (Engine::event.type == Engine::event.MouseWheelMoved)
-				input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+				input.deltaScrolls += Engine::event.mouseWheel.delta;
 			/*
 			std::cout << "alt:" << event.key.alt << std::endl;
 			std::cout << "shift:" << event.key.shift << std::endl;

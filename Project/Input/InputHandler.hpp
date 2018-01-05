@@ -6,10 +6,12 @@
 #include <vector>
 
 #include <SFML\Window\Keyboard.hpp>
-#include "Mouse.hpp"
+#include <SFML\Window\Mouse.hpp>
 #include "InputEnum.hpp"
 
 #include <Core\IEngineResource\IEngineResource.hpp>
+
+#include "BaseInputHandler.hpp"
 
 /*
 template<typename returnType,typename parameterType>
@@ -46,21 +48,20 @@ class InputHandler : public IEngineResource<InputHandler>
 {
 public:
 	void update();
-	void registerCallback(std::function<void(void)> callbk, sf::Keyboard::Key key, Input::Action);
 
-	Mouse mouse;
+	BaseCallbackholder<sf::Keyboard::Key> keyboard;
+	BaseCallbackholder<sf::Mouse::Button> mouse;
 
 	const ResourceType& getType()
 	{
 		return type;
 	}
 
+	InputHandler();
+
+	int deltaScrolls = 0;
+
 private:
-	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnPress;
-	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnRelease;
-	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnHold;
-	std::map<sf::Keyboard::Key, std::vector<std::function<void(void)>>> bindsOnControl;
-	std::vector<sf::Keyboard::Key> callbackRelease;
 
 	/*
 	void onKeyPress(CallBack type,sf::Keyboard::Key key);

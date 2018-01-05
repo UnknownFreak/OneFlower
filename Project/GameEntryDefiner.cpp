@@ -34,7 +34,7 @@ int GameEntry::main()
 				gfx.view.render.close();
 			}
 			if (Engine::event.type == Engine::event.MouseWheelMoved)
-				input.mouse.deltaScrolls += Engine::event.mouseWheel.delta;
+				input.deltaScrolls += Engine::event.mouseWheel.delta;
 		}
 	}
 
