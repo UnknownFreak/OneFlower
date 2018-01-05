@@ -166,6 +166,38 @@ namespace Tests
 
 		}
 
+		TEST_METHOD(TestRemoveCallbackAndAddAgainGeneratesMorePressCounts)
+		{
+			inputHandlerTest.RegisterCallback(Callback("pressed", pressedCallback), FakeInputHandler::AlwaysPressed, Input::Action::Press);
+			inputHandlerTest.RegisterCallback(Callback("hold", holdCallback), FakeInputHandler::AlwaysPressed, Input::Action::Hold);
+			inputHandlerTest.RegisterCallback(Callback("released", releaseCallback), FakeInputHandler::AlwaysPressed, Input::Action::Release);
+
+			update(5);
+
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "pressed", Input::Action::Press);
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "hold", Input::Action::Hold);
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "released", Input::Action::Release);
+
+			Assert::AreEqual(pressCount, 1);
+			Assert::AreEqual(holdCount, 5);
+			Assert::AreEqual(releasedCount, 0);
+
+			inputHandlerTest.RegisterCallback(Callback("pressed", pressedCallback), FakeInputHandler::AlwaysPressed, Input::Action::Press);
+			inputHandlerTest.RegisterCallback(Callback("hold", holdCallback), FakeInputHandler::AlwaysPressed, Input::Action::Hold);
+			inputHandlerTest.RegisterCallback(Callback("released", releaseCallback, true), FakeInputHandler::AlwaysPressed, Input::Action::Release);
+
+			update(5);
+
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "pressed", Input::Action::Press);
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "hold", Input::Action::Hold);
+			inputHandlerTest.removeCallback(FakeInputHandler::AlwaysPressed, "released", Input::Action::Release);
+
+			Assert::AreEqual(pressCount, 2);
+			Assert::AreEqual(holdCount, 10);
+			Assert::AreEqual(releasedCount, 1);
+
+		}
+
 
 	};
 	BaseCallbackholder<FakeInputHandler> BaseInputHandlerTestClass::inputHandlerTest(checkInput);
