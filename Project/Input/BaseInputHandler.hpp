@@ -53,7 +53,11 @@ class BaseCallbackholder
 					<< input << "] but it was not found in the vector for that input value.")
 			}
 			else
+			{
+				if (iit->callIfRemoved && checkInput(input))
+					*iit();
 				it->second.remove(iit);
+			}
 		}
 	}
 
