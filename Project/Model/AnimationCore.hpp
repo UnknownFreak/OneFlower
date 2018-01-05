@@ -11,6 +11,6 @@
 
 namespace Engine
 {
-	extern SpriterModelContainer ModelContainer;
+	//extern SpriterModelContainer ModelContainer;
 }
 #endif

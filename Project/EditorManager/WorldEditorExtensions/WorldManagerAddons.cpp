@@ -12,7 +12,7 @@
 // this always works cause the worldmanageraddon is always initialized after the world manager
 ResourceType IEngineResource<WorldManagerAddon>::type = ResourceType::WorldManagerAddon;
 
-WorldManagerAddon::WorldManagerAddon() : myWorldManager(Engine::Get<WorldManager>()), myModelContainer(Engine::ModelContainer), currentDBZone(nullptr), unloadingbg()
+WorldManagerAddon::WorldManagerAddon() : myWorldManager(Engine::Get<WorldManager>()), currentDBZone(nullptr), unloadingbg()
 {
 }
 

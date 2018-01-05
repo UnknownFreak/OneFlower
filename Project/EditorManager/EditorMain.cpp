@@ -35,8 +35,6 @@ void renderThread();
 
 sf::Event Engine::event;
 
-SpriterModelContainer Engine::ModelContainer;
-
 [System::STAThread]
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
 {

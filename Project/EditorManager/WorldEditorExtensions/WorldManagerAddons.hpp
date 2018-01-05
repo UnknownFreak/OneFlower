@@ -21,7 +21,6 @@ public:
 	friend class WorldManager;
 
 	WorldManager& myWorldManager;
-	SpriterModelContainer& myModelContainer;
 
 	WorldManagerAddon();
 

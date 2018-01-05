@@ -27,7 +27,7 @@ MainEditorWindow^ SplashScreen::InitializeEditor()
 	splsh->setProgressValue(1);
 	MainEditorWindow^ mainWindow = gcnew MainEditorWindow();
 	splsh->setProgressValue(10);
-	Engine::ModelContainer.setRenderWindow(Engine::Get<Gfx>().view.render);
+	Engine::Get<SpriterModelContainer>().setRenderWindow(Engine::Get<Gfx>().view.render);
 	splsh->setProgressValue(20);
 
 	editorEvents->registerEvents();

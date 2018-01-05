@@ -399,7 +399,7 @@ void AssetManager::saveGameDatabase(
 		ind.modFile = "NULL";
 		ind.row = file.tellp();
 		indexAr(ind);
-		mainAr(Engine::ModelContainer);
+		mainAr(Engine::Get<SpriterModelContainer>());
 
 
 		prefabRequestor.save(ind, file, indexAr, mainAr);

@@ -1,5 +1,6 @@
 #include "SpriterEntityInstance.hpp"
 #include "AnimationCore.hpp"
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 SpriterEntityInstance::SpriterEntityInstance(SpriterEngine::EntityInstance* myEntity, SpriterTextureMapper* textureMap) :
 	MyEntityInstance(myEntity), textureMaps(textureMap)
 {
@@ -18,16 +19,16 @@ SpriterEntityInstance::SpriterEntityInstance(const SpriterEntityInstance &copy) 
 	myTextureMap(copy.myTextureMap), entityName(copy.entityName), sceneFile(copy.sceneFile),
 	textureMaps(copy.textureMaps)
 {
-	MyEntityInstance = Engine::ModelContainer.getModel(sceneFile).getNewEntityInstance(entityName);
-	textureMaps = Engine::ModelContainer.requestTextureMapper(sceneFile);
+	MyEntityInstance = Engine::Get<SpriterModelContainer>().getModel(sceneFile).getNewEntityInstance(entityName);
+	textureMaps = Engine::Get<SpriterModelContainer>().requestTextureMapper(sceneFile);
 }
 SpriterEntityInstance& SpriterEntityInstance::operator = (const SpriterEntityInstance& right)
 {
 	entityName = right.entityName;
 	myTextureMap = right.myTextureMap;
 	sceneFile = right.sceneFile;
-	textureMaps = Engine::ModelContainer.requestTextureMapper(sceneFile);
-	MyEntityInstance = Engine::ModelContainer.getModel(sceneFile).getNewEntityInstance(entityName);
+	textureMaps = Engine::Get<SpriterModelContainer>().requestTextureMapper(sceneFile);
+	MyEntityInstance = Engine::Get<SpriterModelContainer>().getModel(sceneFile).getNewEntityInstance(entityName);
 	return *this;
 }
 void SpriterEntityInstance::render(SpriteRef* sprite)

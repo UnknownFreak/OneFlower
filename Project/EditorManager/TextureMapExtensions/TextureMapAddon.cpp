@@ -1,8 +1,9 @@
 #ifdef _EDITOR_
 #ifndef _UNITTESTS_
 #include "TextureMapAddon.hpp"
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 
-SpriterModelContainerAddon::SpriterModelContainerAddon() : myActualContainer(Engine::ModelContainer)
+SpriterModelContainerAddon::SpriterModelContainerAddon() : myActualContainer(Engine::Get<SpriterModelContainer>())
 {
 }
 
