@@ -36,27 +36,30 @@ class BaseCallbackholder
 			it->second.push_back(callback);
 	}
 
-	void removeFromHolder(const Callback& callback, std::map<T, callbackVector>& holder, const T& input)
+	void removeFromHolder(const Core::String& callbackToRemove, std::map<T, callbackVector>& holder, const T& input)
 	{
 		std::map<T, callbackVector>::iterator it = holder.find(input);
 		if (it == holder.end())
 		{
-			Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callback.callbackName << "] from holder [" << holderToStringMap[*holder] <<
-				"] when input type is not even registered.");
+			//Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from holder [" << *holderToStringMap.at(holder)<<
+			//	"] when input type is not even registered.");
 		}
 		else
 		{
-			std::vector<Callback>::iterator iit = it->second.find(callback);
+			std::vector<Callback>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback(callbackToRemove, [] {}));
 			if (iit == it->second.end())
 			{
-				Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callback.callbackName << "] from [" << holderToStringMap[*holder] << "] with input value ["
-					<< input << "] but it was not found in the vector for that input value.")
+				//Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from [" << *holderToStringMap.at(holder) << "] with input value ["
+				//	<< input << "] but it was not found in the vector for that input value.")
 			}
 			else
 			{
 				if (iit->callIfRemoved && checkInput(input))
-					*iit();
-				it->second.remove(iit);
+				{
+					Callback& c = *iit;
+					c();
+				}
+				it->second.erase(iit);
 			}
 		}
 	}
@@ -108,14 +111,15 @@ public:
 				++ii;
 	}
 	
-	BaseCallbackholder(std::function<bool(T)> functionToCheckIfInputIsPressed) : bindsOnRelease(), bindsOnPress(), bindsOnHold(), callbackRelease()
+	BaseCallbackholder(std::function<bool(T)> functionToCheckIfInputIsPressed) : bindsOnRelease(), bindsOnPress(), bindsOnHold(), callbackRelease(),
+		checkInput(functionToCheckIfInputIsPressed)
 	{
 		holderToStringMap.insert(holderToStringPair(&bindsOnRelease, "BindsOnRelease"));
 		holderToStringMap.insert(holderToStringPair(&bindsOnPress, "BindsOnPress"));
 		holderToStringMap.insert(holderToStringPair(&bindsOnHold, "BindsOnHold"));
 	}
 
-	inline void RegisterCallback(std::function<void(void)> callback, T input, const Input::Action actionType)
+	inline void RegisterCallback(Callback callback, T input, const Input::Action actionType)
 	{
 		if (actionType & Input::Action::Press)
 			insertIntoHolder(callback, bindsOnPress, input);
@@ -125,16 +129,16 @@ public:
 			insertIntoHolder(callback, bindsOnHold, input);
 	}
 
-	inline void removeCallback(T input, Callback callbackToRemove, const Input::Action actionType)
+	inline void removeCallback(T input, Core::String callbackToRemove, const Input::Action actionType)
 	{
 		if (actionType & Input::Action::Press)
-			removeFromHolder(callback, bindsOnPress, input);
+			removeFromHolder(callbackToRemove, bindsOnPress, input);
 		if (actionType & Input::Action::Release)
-			removeFromHolder(callback, bindsOnRelease, input);
+			removeFromHolder(callbackToRemove, bindsOnRelease, input);
 		if (actionType & Input::Action::Hold)
-			removeFromHolder(callback, bindsOnHold, input);
+			removeFromHolder(callbackToRemove, bindsOnHold, input);
 	}
-
+	
 	std::map<T, callbackVector> bindsOnRelease;
 	std::map<T, callbackVector> bindsOnPress;
 	std::map<T, callbackVector> bindsOnHold;

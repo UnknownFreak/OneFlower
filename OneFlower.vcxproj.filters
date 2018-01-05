@@ -1110,6 +1110,9 @@
     <ClCompile Include="Project\Input\CallbackDefiner.cpp">
       <Filter>Engine\Input\BaseInputHandler</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\BaseInputHandlerUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">

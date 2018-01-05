@@ -645,6 +645,7 @@
     <ClCompile Include="Project\World\WorldManager.cpp" />
     <ClCompile Include="Project\World\WorldManagerLoadStateMachine.cpp" />
     <ClCompile Include="Project\World\Zone.cpp" />
+    <ClCompile Include="Tests\BaseInputHandlerUnitTest.cpp" />
     <ClCompile Include="Tests\BoundingBoxUnitTest.cpp" />
     <ClCompile Include="Tests\GameObjectUnitTest.cpp" />
     <ClCompile Include="Tests\RequestorUnitTest.cpp" />

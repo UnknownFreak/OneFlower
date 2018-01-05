@@ -1,6 +1,6 @@
 #include "Callback.hpp"
 
-Callback::Callback(Core::String callbacName, std::function<void(void)> callbackMethod, bool callIfRemoved) : callbackName(callbackName), callbackMethod(callbackMethod),
+Callback::Callback(Core::String callbackName, std::function<void()> callbackMethod, bool callIfRemoved) : callbackName(callbackName), callbackMethod(callbackMethod),
 callIfRemoved(callIfRemoved)
 {
 }
