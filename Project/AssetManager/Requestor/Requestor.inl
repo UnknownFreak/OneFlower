@@ -9,8 +9,8 @@ inline bool Requester<T>::requestFromDatabase(T & _t, Core::String modName, size
 	{
 		bool eof = false;
 		DatabaseIndex ind;
-		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
-		std::ifstream database("Data\\" + var.first, std::ios::binary);
+		std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+		std::ifstream database(loadDirectory + var.first, std::ios::binary);
 		if (index.is_open())
 		{
 			cereal::BinaryInputArchive ar(index);
@@ -31,6 +31,8 @@ inline bool Requester<T>::requestFromDatabase(T & _t, Core::String modName, size
 				}
 			}
 		}
+		else
+			Engine::Get<OneLogger>().Error("Unable to open archive [" + modName + "]!", __FILE__, __LINE__);
 		if (found)
 			return found;
 	}
@@ -100,7 +102,7 @@ inline T Requester<T>::load_internal(const Core::String & name, size_t uuid)
 	return t;
 }
 
-#ifdef _EDITOR_
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
 template<class T>
 inline bool Requester<T>::add(T & obj)
 {
@@ -224,7 +226,7 @@ inline void Requester<T>::clear()
 }
 
 template<class T>
-inline Requester<T>::Requester(DatabaseIndex::ObjectTypeEnum objectType) : objectType(objectType)
+inline Requester<T>::Requester(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory) : objectType(objectType), loadDirectory(loadDirectory)
 {
 	check();
 }
@@ -238,8 +240,8 @@ inline void Requester<T>::editorLoadAll()
 	{
 		bool eof = false;
 		DatabaseIndex ind;
-		std::ifstream index("Data\\" + var.first + ".index", std::ios::binary);
-		std::ifstream database("Data\\" + var.first, std::ios::binary);
+		std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+		std::ifstream database(loadDirectory + var.first, std::ios::binary);
 		if (index.is_open())
 		{
 			cereal::BinaryInputArchive ar(index);

@@ -57,11 +57,12 @@ class Requester
 		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable");
 	}
 
+	Core::String loadDirectory;
+
 public:
 
-#ifdef _EDITOR_
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
 	bool add(T& obj);
-	
 #endif
 
 #ifdef _EDITOR_
@@ -78,7 +79,7 @@ public:
 
 	void clear();
 
-	Requester(DatabaseIndex::ObjectTypeEnum objectType);
+	Requester(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory="Data\\");
 
 	Requester(const Requester& copy) = delete;
 
@@ -142,9 +143,11 @@ class Requester<T*>
 		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable");
 	}
 
+	Core::String loadDirectory;
+
 public:
 
-#ifdef _EDITOR_
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
 	// Added object must be allocated via new, otherwise clear fails
 	bool add(T*& obj);
 
@@ -166,7 +169,7 @@ public:
 
 	void clear();
 
-	Requester(DatabaseIndex::ObjectTypeEnum objectType);
+	Requester(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory = "Data\\");
 
 	Requester(const Requester& copy) = delete;
 
