@@ -198,10 +198,7 @@ namespace Tests
 
 		}
 
-
 	};
 	BaseCallbackholder<FakeInputHandler> BaseInputHandlerTestClass::inputHandlerTest(checkInput);
 }
-
-
 #endif
