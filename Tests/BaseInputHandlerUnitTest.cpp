@@ -1,6 +1,9 @@
 #ifdef _UNITTESTS_
-#include <CppUnitTest.h>
+
 #include <functional>
+
+#include <CppUnitTest.h>
+
 #include <Input\BaseInputHandler.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -28,8 +31,9 @@ namespace Tests
 		case Tests::FakeInputHandler::AlterningPressed:
 			return alternating;
 		default:
-			false;
+			break;
 		}
+		return false;
 	}
 
 	void pressedCallback()
