@@ -17,10 +17,6 @@ class BaseCallbackholder
 {
 	typedef std::vector<Callback> callbackVector;
 
-	typedef std::pair<std::map<T, callbackVector>*, Core::String> holderToStringPair;
-
-	std::map<std::map<T, callbackVector>*, Core::String> holderToStringMap;
-
 	std::function<bool(T)> checkInput;
 
 	void insertIntoHolder(const Callback callback, std::map<T ,callbackVector>& holder, const T input)
@@ -41,16 +37,16 @@ class BaseCallbackholder
 		std::map<T, callbackVector>::iterator it = holder.find(input);
 		if (it == holder.end())
 		{
-			//Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from holder [" << *holderToStringMap.at(holder)<<
-			//	"] when input type is not even registered.");
+			Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from holder [" << holder <<
+				"] when input type is not even registered.");
 		}
 		else
 		{
 			std::vector<Callback>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback(callbackToRemove, [] {}));
 			if (iit == it->second.end())
 			{
-				//Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from [" << *holderToStringMap.at(holder) << "] with input value ["
-				//	<< input << "] but it was not found in the vector for that input value.")
+				Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from [" << holder << "] with input value ["
+					<< input << "] but it was not found in the vector for that input value.")
 			}
 			else
 			{
@@ -65,6 +61,7 @@ class BaseCallbackholder
 					return true;
 			}
 		}
+		return false;
 	}
 
 
@@ -117,9 +114,6 @@ public:
 	BaseCallbackholder(std::function<bool(T)> functionToCheckIfInputIsPressed) : bindsOnRelease(), bindsOnPress(), bindsOnHold(), callbackRelease(),
 		checkInput(functionToCheckIfInputIsPressed)
 	{
-		holderToStringMap.insert(holderToStringPair(&bindsOnRelease, "BindsOnRelease"));
-		holderToStringMap.insert(holderToStringPair(&bindsOnPress, "BindsOnPress"));
-		holderToStringMap.insert(holderToStringPair(&bindsOnHold, "BindsOnHold"));
 	}
 
 	inline void RegisterCallback(Callback callback, T input, const Input::Action actionType)
