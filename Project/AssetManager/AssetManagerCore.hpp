@@ -19,7 +19,6 @@
 #include <Model\IModel.hpp>
 
 #include <Core\IEngineResource\IEngineResource.hpp>
-
 class Zone;
 class DBZone;
 //class AssetManagerCore

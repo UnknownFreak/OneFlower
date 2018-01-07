@@ -1,9 +1,13 @@
 #ifdef _EDITOR_
 #ifndef _UNITTESTS_
+#include <vector>
+
+#include <Core\IEngineResource\EngineResourceManager.hpp>
+#include <EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp>
+
 #include "EditorEvents.hpp"
 #include "InteropHelper.hpp"
-#include <EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp>
-#include <vector>
+
 
 Core::String Editor::Events::toString(array<wchar_t>^ arr)
 {

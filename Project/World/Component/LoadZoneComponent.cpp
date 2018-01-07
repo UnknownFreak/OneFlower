@@ -1,6 +1,7 @@
 #include "LoadZoneComponent.hpp"
 #include "../WorldManager.hpp"
 #include <Core\Component\GameObject.h>
+#include <Core\IEngineResource\EngineResourceManager.hpp>
 
 #include <Physics\Collider.hpp>
 
