@@ -329,7 +329,7 @@ std::vector<Core::String> WorldManagerAddon::getExtraZoneInfo(Core::String modNa
 
 std::vector<DBZone> WorldManagerAddon::getAllDbZones()
 {
-	Requester<DBZone>& requester = Engine::Get<AssetManager>().getDBZoneRequester();
+	Requestor<DBZone>& requester = Engine::Get<AssetManager>().getDBZoneRequester();
 	std::vector<DBZone> dbzones;
 	std::vector<std::pair<Core::String, size_t>> dbzoneIds = requester.listAllCurrentLoadedObjects();
 	for each(const std::pair<Core::String, size_t>& p in dbzoneIds)
