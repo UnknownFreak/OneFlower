@@ -37,16 +37,16 @@ class BaseCallbackholder
 		std::map<T, callbackVector>::iterator it = holder.find(input);
 		if (it == holder.end())
 		{
-			Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from holder [" << holder <<
-				"] when input type is not even registered.");
+			//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from holder [" + "TMP" +
+			//	"] when input type is not even registered.");
 		}
 		else
 		{
 			std::vector<Callback>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback(callbackToRemove, [] {}));
 			if (iit == it->second.end())
 			{
-				Engine::Get<OneLogger>().Warning("Trying to remove callback [" << callbackToRemove << "] from [" << holder << "] with input value ["
-					<< input << "] but it was not found in the vector for that input value.")
+				//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from [" + "TMP" + "] with input value["
+				//+ input + "] but it was not found in the vector for that input value.");
 			}
 			else
 			{
