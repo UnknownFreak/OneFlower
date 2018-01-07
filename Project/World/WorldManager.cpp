@@ -1,15 +1,9 @@
 #include "WorldManager.hpp"
 #include "Zone.hpp"
 
-//#include <Core/String.hpp>
-
-#include <Graphic\GraphicsCore.hpp>
-
-//#include <Core/Component/GameObject.h>
-//#include <Core/Component/TransformComponent.hpp>
-
 #include <AssetManager\AssetManagerCore.hpp>
 
+#include <Graphic\GraphicsCore.hpp>
 
 ResourceType IEngineResource<WorldManager>::type = ResourceType::WorldManager;
 
