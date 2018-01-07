@@ -1,192 +1,484 @@
-#ifndef TEMPLATEDREQUESTOR_HPP
-#define TEMPLATEDREQUESTOR_HPP
+#ifndef REQUESTOR_HPP
+#define REQUESTOR_HPP
 
 #include <fstream>
 
+#ifndef _EDITOR_
+#include <future>
+#endif
+
+#include <map>
+
+#include <cereal\access.hpp>
 #include <cereal\archives\binary.hpp>
 #include <cereal\types\memory.hpp>
-#include <cereal\access.hpp>
 
-#include <memory>
-#include <map>
 #include <Core\String.hpp>
 #include <Logger\Logger.hpp>
 
 #include "../Database/DatabaseIndex.hpp"
 #include "../IRequestable.hpp"
+
 #include "Reference.hpp"
 
-// Any requestable T must have these attributes:
-// Default Ctor
-// Copy Ctor
-// Assignment Operator
-
-template<class T>
-class Requester
+template <class T>
+class Requestor
 {
-	friend class Reference<T>;
 
+	// ##################################################
+	// # VARIABLE SECTION								#
+	// ##################################################
+
+protected:
 	typedef std::map<std::pair<Core::String, size_t>, Reference<T>*> td_map;
-	td_map requestedMap;
 	typedef std::pair<Core::String, size_t> td_key;
-	const DatabaseIndex::ObjectTypeEnum objectType;
 
-	bool requestFromDatabase(T& _t, Core::String modName, size_t uuid);
-	
-
-	const Core::String getObjectTypeAsString() const;
-	
-
-	void unload(Core::String modName, size_t uuid);
-	
-
-	const bool load(const Core::String& name, size_t uuid);
-
-
-	T load_internal(const Core::String& name, size_t uuid);
-	
-	template <class In = T>
-	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value, void>::type check()
-	{
-		Engine::Get<OneLogger>().Info("Requester with class "+ getObjectTypeAsString() +" was a base class of IRequestable - OK!");
-	}
-
-	template <class In = T>
-	inline typename std::enable_if <!std::is_base_of<IRequestable, In>::value, void>::type check()
-	{
-		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable");
-	}
+	td_map requestedMap;
 
 	Core::String loadDirectory;
-
-public:
-
-#if defined(_EDITOR_) || defined(_UNITTESTS_)
-	bool add(T& obj);
-#endif
-
-#ifdef _EDITOR_
-	T loadAsync(const Core::String& name, const size_t& uuid);
-#else
-	std::shared_future<T> loadAsync(Core::String& name, size_t uuid);
-#endif
-
-	Reference<T>*& request(const Core::String& name, const size_t uuid);
-
-	bool requestRemoval(const Core::String& name, const size_t uuid);
-
-public:
-
-	void clear();
-
-	Requester(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory="Data\\");
-
-	Requester(const Requester& copy) = delete;
-
-#ifdef _EDITOR_
-	void editorLoadAll();
-
-	std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects();
-
-#endif
-
-	void save(DatabaseIndex& ind,
-		std::ostream& file,
-		cereal::BinaryOutputArchive& indexAr,
-		cereal::BinaryOutputArchive& mainAr);
-};
-#include "Requestor.inl"
-
-
-// Any requestable T must have these attributes:
-// Default Ctor
-// Copy Ctor
-// Assignment Operator
-// when added, use the operator new to allocate object on heap as this will use pointer map. Only to use with object that require inheritence. 
-// Allocated objects will automatically be decunstructed when object exist scope
-template<class T>
-class Requester<T*>
-{
-	friend class Reference<T*>;
-
-	typedef std::map<std::pair<Core::String, size_t>, Reference<T*>*> td_map;
-	td_map requestedMap;
-	typedef std::pair<Core::String, size_t> td_key;
-	//#define _kvp(modfile, id, this, tmp) std::pair<std::pair<std::string, size_t>, Reference<T>*>\
-	//(std::pair<std::string, size_t>(modFile, id), new Reference<T>(modFile, id, this, tmp))
-
 	const DatabaseIndex::ObjectTypeEnum objectType;
+	Core::String pointerPrefixString;
 
-	bool requestFromDatabase(T*& _t, Core::String modName, size_t uuid);
+private:
+	
+	friend class Reference<T>;
+	
+	// ##################################################
+	// # ENABLE IF SECTION PRIVATE						#
+	// # Enables different functions for pointer type	#
+	// # and non pointer type.							#
+	// # These functions should be as short as possible.#
+	// ##################################################
 
-
-	const Core::String getObjectTypeAsString() const;
-
-
-	void unload(Core::String modName, size_t uuid);
-
-
-	const bool load(const Core::String& name, size_t uuid);
-
-
-	T* load_internal(const Core::String& name, size_t uuid);
-
-	template <class In = T>
-	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value>::type check()
+	template <class In = std::remove_pointer<T>::type>
+	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value>::type check() const
 	{
-		Engine::Get<OneLogger>().Info("Requester with class " + getObjectTypeAsString() + "* was a base class of IRequestable - OK!");
+		Engine::Get<OneLogger>().Info("Requester <" + getObjectTypeAsString() + "> had all requirements to be created - OK!");
+	}
+
+	template <class In = std::remove_pointer<T>::type>
+	inline typename std::enable_if < !std::is_base_of<IRequestable, In>::value>::type check() const
+	{
+		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable!");
 	}
 
 	template <class In = T>
-	inline typename std::enable_if < ! std::is_base_of<IRequestable, In>::value>::type check()
+	inline typename std::enable_if<!std::is_pointer<In>::value, T>::type
+		defaultValue() const
 	{
-		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable");
+		return T();
 	}
 
-	Core::String loadDirectory;
+	template <class In = T>
+	inline typename std::enable_if<std::is_pointer<In>::value, T>::type
+		defaultValue() const
+	{
+		return nullptr;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<!std::is_pointer<In>::value, Core::String>::type
+		getFromMod(const T& _t) const
+	{
+		return _t.fromMod;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<std::is_pointer<In>::value, Core::String>::type
+		getFromMod(const T& _t) const
+	{
+		return _t->fromMod;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<!std::is_pointer<In>::value, size_t>::type
+		getId(const T& _t) const
+	{
+		return _t.ID;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<std::is_pointer<In>::value, size_t>::type
+		getId(const T& _t) const
+	{
+		return _t->ID;
+	}
+
+	template <class In = T>
+	inline typename std::enable_if < std::is_pointer<In>::value, void>::type pointerStr()
+	{
+		pointerPrefixString = "*";
+	}
+
+	template <class In = T>
+	inline typename std::enable_if < !std::is_pointer<In>::value, void>::type pointerStr()
+	{
+		pointerPrefixString = "";
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<!std::is_pointer<In>::value, bool>::type
+		saveIfMode(T& pref) const
+	{
+		const AssetManager& manager = Engine::Get<AssetManager>();
+
+		if (pref.mode != ObjectSaveMode::REMOVE)
+		{
+			bool b = true;
+			if (pref.fromMod == manager.openedMod && pref.mode == ObjectSaveMode::EDIT)
+				pref.mode = ObjectSaveMode::DEFAULT;
+			else if (pref.fromMod == manager.openedMod && pref.mode == ObjectSaveMode::ADD)
+				pref.mode = ObjectSaveMode::DEFAULT;
+			else if (pref.fromMod != manager.openedMod && pref.mode == ObjectSaveMode::DEFAULT)
+				b = false;
+			else if (pref.mode > ObjectSaveMode::ADD)
+				pref.mode = ObjectSaveMode::DEFAULT;
+			return b;
+		}
+		return false;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<std::is_pointer<In>::value, bool >::type
+		saveIfMode(T& pref) const
+	{
+		const AssetManager& manager = Engine::Get<AssetManager>();
+
+		if (pref->mode != ObjectSaveMode::REMOVE)
+		{
+			bool b = true;
+			if (pref->fromMod == manager.openedMod && pref->mode == ObjectSaveMode::EDIT)
+				pref->mode = ObjectSaveMode::DEFAULT;
+			else if (pref->fromMod == manager.openedMod && pref->mode == ObjectSaveMode::ADD)
+				pref->mode = ObjectSaveMode::DEFAULT;
+			else if (pref->fromMod != manager.openedMod && pref->mode == ObjectSaveMode::DEFAULT)
+				b = false;
+			else if (pref->mode > ObjectSaveMode::ADD)
+				pref->mode = ObjectSaveMode::DEFAULT;
+			return b;
+		}
+		return false;
+	}
+
+	template <class Archive, class In = T>
+	inline typename std::enable_if<!std::is_pointer<In>::value, void>::type
+		serialize(Archive& archive, In& _t) const
+	{
+		archive(_t);
+	}
+
+	template <class Archive, class In = T>
+	inline typename std::enable_if<std::is_pointer<In>::value, void>::type
+		serialize(Archive& archive, In& _t) const
+	{
+		std::unique_ptr<std::remove_pointer<In>::type> _ptr(_t);
+		archive(_ptr);
+		_t = _ptr.release();
+	}
+
+	// ##################################################
+	// # METHOD NOT IN NEED OF ENABLE IF				#
+	// # Methods that can be used for both pointer		#
+	// # and non pointer type.							#
+	// ##################################################
+
+	const Core::String getObjectTypeAsString() const
+	{
+		switch (objectType)
+		{
+		case DatabaseIndex::ObjectTypeEnum::Header:
+			return "Header" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Zone:
+			return "Zone" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::DBZone:
+			return "DBZone" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Prefab:
+			return "Prefab" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::GameObject:
+			return "GameObject" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Quest:
+			return "Quest" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Item:
+			return "Item" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Model:
+			return "IModel" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::SpriteSheetMap:
+			return "SpriteSheetMap" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::EoF:
+			return "EoF" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Undefined:
+			return "Undefined" + pointerPrefixString;
+		default:
+			return "Unknown" + pointerPrefixString;
+		}
+	}
+
+	const bool load(const Core::String & name, const size_t uuid)
+	{
+		td_key key(name, uuid);
+		requestedMap.insert(std::make_pair(key, new Reference<T>(name, uuid, this)));
+		return true;
+	}
+
+#ifdef _EDITOR_
+	inline T loadAsync(const Core::String& name, const size_t& uuid)
+	{
+		T t = loadInternal(name, uuid);
+		return t;
+	}
+#else
+	std::shared_future<T> loadAsync(const Core::String& name, const size_t uuid)
+	{
+		std::shared_future<T> tp = std::async(std::launch::async, [this](const std::string name, const size_t uuid) -> T {return loadInternal(name, uuid); }, name, uuid);
+		return tp;
+	}
+#endif
+
+	T loadInternal(const Core::String & name, const size_t uuid)
+	{
+		T t = defaultValue();
+		if (name == "EMPTY" && uuid == 0)
+			return t;
+		if (!requestFromDatabase(t, name, uuid))
+			Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+		return t;
+	}
+
+	inline bool requestFromDatabase(T& _t, const Core::String& modName, const size_t & uuid) const
+	{
+		bool found = false;
+		for each (std::pair<std::string, size_t> var in Engine::Get<AssetManager>().getModLoader().loadOrder)
+		{
+			bool eof = false;
+			DatabaseIndex ind;
+			std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+			std::ifstream database(loadDirectory + var.first, std::ios::binary);
+			if (index.is_open())
+			{
+				cereal::BinaryInputArchive ar(index);
+				{
+					while (!eof)
+					{
+						ar(ind);
+						if (ind.type == objectType && ind.modFile == modName && ind.ID == uuid)
+						{
+							database.seekg(ind.row);
+							cereal::BinaryInputArchive loadArchive(database);
+							serialize(loadArchive, _t);
+							eof = true;
+							found = true;
+						}
+						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+							eof = true;
+					}
+				}
+			}
+			else
+				Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> unable to open archive [" + modName + "]!", __FILE__, __LINE__);
+			if (found)
+				return found;
+		}
+		return found;
+	}
+
+	inline void unload(const Core::String & modName, const size_t& uuid)
+	{
+		td_map::iterator it = requestedMap.find({ modName, uuid });
+		if (it != requestedMap.end())
+		{
+			delete it->second;
+			it->second = nullptr;
+			requestedMap.erase(it);
+		}
+	}
 
 public:
+
+	// ##################################################
+	// # INITIALIZERS									#
+	// ##################################################
+
+	Requestor(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory = "Data\\") : objectType(objectType), loadDirectory(loadDirectory)
+	{
+		pointerStr();
+		check();
+	}
+	~Requestor()
+	{
+		clear();
+	}
+
+	// ##################################################
+	// # PUBLIC METHODS									#
+	// ##################################################
 
 #if defined(_EDITOR_) || defined(_UNITTESTS_)
-	// Added object must be allocated via new, otherwise clear fails
-	bool add(T*& obj);
+	inline bool add(T obj)
+	{
+		const Core::String name = getFromMod(obj);
+		const size_t uuid = getId(obj);
+		td_key key(name, uuid);
+
+		if (requestedMap.find(key) != requestedMap.end())
+		{
+			Engine::Get<OneLogger>().Warning("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + std::to_string(uuid) + " already exists!", __FILE__, __LINE__);
+			return false;
+		}
+		Engine::Get<OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
+
+		Reference<T>* ref = new Reference<T>(name, uuid, this, obj);
+		requestedMap.insert(std::make_pair(key, ref));
+		return true;
+	}
 
 #endif
+
+	inline void clear()
+	{
+		td_map::iterator it = requestedMap.begin();
+		td_map::iterator eit = requestedMap.end();
+
+		for (; it != eit; it++)
+		{
+			if (it->second->useCount > 0)
+				Engine::Get<OneLogger>().Warning("Unloading object from Requestor<" + getObjectTypeAsString() + "> while it still has uses, this is dangerous and can lead to undefined behaviour", __FILE__, __LINE__);
+			delete it->second;
+			it->second = nullptr;
+		}
+		requestedMap.clear();
+	}
 
 #ifdef _EDITOR_
-	T* loadAsync(const Core::String& name, const size_t& uuid);
-#else
-	std::shared_future<T*> loadAsync(Core::String& name, size_t uuid);
+
+	inline void editorLoadAll()
+	{
+		clear();
+		for each (std::pair<std::string, size_t> var in Engine::Get<AssetManager>().getModLoader().loadOrder)
+		{
+			bool eof = false;
+			DatabaseIndex ind;
+			std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+			std::ifstream database(loadDirectory + var.first, std::ios::binary);
+			if (index.is_open())
+			{
+				cereal::BinaryInputArchive ar(index);
+				{
+					while (!eof)
+					{
+						ar(ind);
+						if (ind.type == objectType)
+						{
+							database.seekg(ind.row);
+							cereal::BinaryInputArchive loader(database);
+							td_map::iterator it = requestedMap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+
+
+							if (it != requestedMap.end())
+							{
+								// stuff exist add extra things to object.
+								serialize(loader, it->second->getReferenced());
+							}
+							else
+							{
+								T tmp = defaultValue();
+								serialize(loader, tmp);
+								requestedMap.emplace(std::make_pair(td_key(ind.modFile, ind.ID), new Reference<T>(ind.modFile, ind.ID, this, tmp)));
+							}
+						}
+						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+						{
+							eof = true;
+							Engine::Get<OneLogger>().Info("Loaded " + std::to_string(requestedMap.size()) + " objects for Requestor<" + getObjectTypeAsString() + ">");
+						}
+					}
+				}
+			}
+			else
+				Engine::Get<OneLogger>().Error("Unable to open Index file [" + var.first +
+					".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
+			index.close();
+			database.close();
+		}
+	}
+
+	inline std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects() const
+	{
+		std::vector<std::pair<Core::String, size_t>> listofall;
+		td_map::const_iterator it = requestedMap.begin();
+		td_map::const_iterator eit = requestedMap.end();
+		for (it; it != eit; it++)
+		{
+			listofall.push_back(it->first);
+		}
+		return listofall;
+	}
 #endif
 
-	Reference<T*>*& request(const Core::String& name, const size_t uuid);
+	inline Reference<T>*& request(const Core::String & name, const size_t uuid)
+	{
+		td_map::iterator it;
+		bool found = false;
+		if (!name.empty())
+		{
+			it = requestedMap.find({ name, uuid });
 
-	// requests removal of a object with name and id, reduces it's use count by 1, if it is 0 the object get removed
-	// returns true when object is removed/deleted.
-	bool requestRemoval(const Core::String& name, const size_t uuid);
+			if (it != requestedMap.end())
+				found = true;
+			else if (!found && load(name, uuid))
+			{
+				it = requestedMap.find({ name, uuid });
+				found = true;
+			}
+		}
 
-public:
+		if (!found)
+		{
+			it = requestedMap.find({ "EMPTY", 0 });
+			if (it != requestedMap.end())
+				found = true;
+			{
+				load("EMPTY", 0);
+				it = requestedMap.find({ "EMPTY", 0 });
+			}
+		}
 
-	void clear();
+		it->second->useCount++;
+		return requestedMap.at({ name, uuid });
+	}
 
-	Requester(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory = "Data\\");
+	inline bool requestRemoval(const Core::String & name, const size_t uuid)
+	{
+		td_map::iterator it = requestedMap.find({ name, uuid });
+		if (it == requestedMap.end())
+			return true;
 
-	Requester(const Requester& copy) = delete;
+		bool rv = --it->second->useCount == 0;
+		if (rv)
+			it->second->unload();
+		return rv;
+	}
 
-	~Requester();
+	inline void save(DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr) const
+	{
+		td_map::const_iterator it = requestedMap.begin();
+		td_map::const_iterator eit = requestedMap.end();
+		for (it; it != eit; it++)
+		{
+			T& pref = (T&)it->second->getReferenced();
+			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+			ind.ID = it->first.second;
+			ind.type = objectType;
+			ind.modFile = getFromMod(pref);
+			ind.row = file.tellp();
 
-#ifdef _EDITOR_
-	void editorLoadAll();
-	std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects();
+			if (saveIfMode(pref))
+			{
+				indexAr(ind);
+				serialize(mainAr, pref);
+			}
+		}
+	}
 
-#endif
-
-	void save(DatabaseIndex& ind,
-		std::ostream& file,
-		cereal::BinaryOutputArchive& indexAr,
-		cereal::BinaryOutputArchive& mainAr);
 };
-
-#include "Requestor_ptr.inl"
 
 #endif

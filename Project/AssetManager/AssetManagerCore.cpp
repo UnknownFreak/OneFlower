@@ -351,17 +351,17 @@ modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZ
 }
 
 
-Requester<Prefab>& AssetManager::getPrefabRequester()
+Requestor<Prefab>& AssetManager::getPrefabRequester()
 {
 	return prefabRequestor;
 }
 
-Requester<IModel*>& AssetManager::getModelRequester()
+Requestor<IModel*>& AssetManager::getModelRequester()
 {
 	return modelRequestor;
 }
 
-Requester<DBZone>& AssetManager::getDBZoneRequester()
+Requestor<DBZone>& AssetManager::getDBZoneRequester()
 {
 	return dbZoneRequestor;
 }

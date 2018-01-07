@@ -2,10 +2,34 @@
 #include "Reference.hpp"
 #include <Logger\Logger.hpp>
 
+
+// ##############################################
+// # INITIALIZERS								#
+// ##############################################
+
 template<typename T>
-inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester) : name(name), ID(Id), useCount(0), requester(requester)
+inline Reference<T>::Reference(const Core::String name, const size_t Id, Requestor<T>* const requester) : name(name), ID(Id), useCount(0), requester(requester)
 {
 	reload();
+}
+
+#if defined(_EDITOR_) || defined(_UNITTESTS_)
+template<class T>
+inline Reference<T>::Reference(const Core::String name, const size_t Id, Requestor<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester),
+#ifdef _EDITOR_
+myRef(T(objectToSet))
+#else
+myRef(std::async(std::launch::async, [this](T object) -> T {return object; }, objectToSet))
+#endif
+, useCount(0), skipUnload(true)
+{
+}
+
+#endif
+
+template<typename T>
+inline Reference<T>::Reference(const Reference& copy) : name(copy.name), ID(copy.ID), useCount(copy.useCount), requester(copy.requester), myRef(copy.myRef), skipUnload(copy.skipUnload)
+{
 }
 
 template<class T>
@@ -14,8 +38,12 @@ inline Reference<T>::~Reference()
 	delete_if_pointer();
 }
 
-template<class T>
-template<typename I>
+// ##############################################
+// # ENABLE IF METHODS							#
+// ##############################################
+
+
+template<class T> template<typename I>
 inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
 {
 #ifdef _EDITOR_
@@ -31,15 +59,13 @@ inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::de
 
 }
 
-template<class T>
-template<typename I>
+template<class T> template<typename I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
 {
 	Engine::Get<OneLogger>().Info("Delete if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
 }
 
-template<class T>
-template<class I>
+template<class T> template<class I>
 inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
 {
 #ifdef _EDITOR_
@@ -47,15 +73,13 @@ inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::se
 #endif
 }
 
-template<class T>
-template<class I>
+template<class T> template<class I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
 {
 	Engine::Get<OneLogger>().Info("Set to null if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
 }
 
-template<class T>
-template<class I>
+template<class T> template<class I>
 inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::getUnique()
 {
 #ifdef _EDITOR_
@@ -67,8 +91,7 @@ inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::ge
 
 }
 
-template<class T>
-template<class I>
+template<class T> template<class I>
 inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::getUnique()
 {
 #ifdef _EDITOR_
@@ -80,31 +103,15 @@ inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::g
 
 }
 
+// ##############################################
+// # REGULAR METHODS							#
+// ##############################################
+
 template<class T>
 inline void Reference<T>::unload()
 {
 	if (skipUnload == false)
 		requester->unload(name, ID);
-}
-
-#if defined(_EDITOR_) || defined(_UNITTESTS_)
-template<class T>
-inline Reference<T>::Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet) : name(name), ID(Id), requester(requester),
-#ifdef _EDITOR_
-myRef(T(objectToSet))
-#else
-myRef(std::async(std::launch::async, [this](T object) -> T {return object; }, objectToSet))
-#endif
-, useCount(0), skipUnload(true)
-{
-}
-
-#endif
-
-template<typename T>
-inline Reference<T>::Reference(const Reference& copy) : name(copy.name), ID(copy.ID), useCount(copy.useCount), requester(copy.requester), myRef(copy.myRef), skipUnload(copy.skipUnload)
-{
-
 }
 
 template<typename T>
@@ -138,6 +145,7 @@ inline void Reference<T>::setNewFuture(const T future)
 template<typename T>
 inline void Reference<T>::setNewFuture(const std::shared_future<T> future)
 {
+	delete_if_pointer();
 	myRef = future;
 }
 #endif

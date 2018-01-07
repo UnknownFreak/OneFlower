@@ -657,8 +657,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\AssetManager\Requestor\Reference.inl" />
-    <None Include="Project\AssetManager\Requestor\Requestor.inl" />
-    <None Include="Project\AssetManager\Requestor\Requestor_ptr.inl" />
     <None Include="Project\Core\Vector.inl" />
   </ItemGroup>
   <ItemGroup>

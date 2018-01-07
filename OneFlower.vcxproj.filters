@@ -1121,11 +1121,5 @@
     <None Include="Project\AssetManager\Requestor\Reference.inl">
       <Filter>Engine\AssetManager\Requestor</Filter>
     </None>
-    <None Include="Project\AssetManager\Requestor\Requestor.inl">
-      <Filter>Engine\AssetManager\Requestor</Filter>
-    </None>
-    <None Include="Project\AssetManager\Requestor\Requestor_ptr.inl">
-      <Filter>Engine\AssetManager\Requestor</Filter>
-    </None>
   </ItemGroup>
 </Project>

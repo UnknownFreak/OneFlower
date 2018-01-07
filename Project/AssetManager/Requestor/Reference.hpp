@@ -1,17 +1,22 @@
-#ifndef TEMPLATEDREF_HPP
-#define TEMPLATEDREF_HPP
+#ifndef REFERENCE_HPP
+#define REFERENCE_HPP
 
-#include <Core/String.hpp>
 #ifndef _EDITOR_
 #include<future>
 #endif
 
+#include <Core/String.hpp>
+
 template<class T>
-class Requester;
+class Requestor;
 
 template<class T>
 class Reference
 {
+	// ##############################################
+	// # PRIVATE VARIABLES							#
+	// ##############################################
+
 #ifdef _EDITOR_
 	T myRef;
 #else
@@ -19,50 +24,64 @@ class Reference
 #endif
 
 	Core::String name;
+
+	Requestor<T>* requester;
+
+	bool skipUnload = false;
 	size_t ID;
 
-	friend class Requester<T>;
+	// ##############################################
+	// # ENABLE IF METHODS 							#
+	// ##############################################
 
-	Requester<T>* requester;
+	template <class I = T>
+	typename std::enable_if<std::is_pointer<I>::value>::type
+		delete_if_pointer();
 
-	Reference(const Core::String name, const size_t Id, Requester<T>* const requester);
+	template <class I = T>
+	typename std::enable_if<!std::is_pointer<I>::value>::type
+		delete_if_pointer();
+
+	template <class I = T>
+	typename std::enable_if<std::is_pointer<I>::value>::type
+		set_to_null_if_pointer();
+
+	template <class I = T>
+	typename std::enable_if<!std::is_pointer<I>::value>::type
+		set_to_null_if_pointer();
+
+public:
+
+	// ##############################################
+	// # PUBLIC VARIABLES							#
+	// ##############################################
 
 	size_t useCount;
 
-	void unload();
+	// ##############################################
+	// # INITIALIZERS								#
+	// ##############################################
 
-	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value>::type
-		delete_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<!std::is_pointer<I>::value>::type
-		delete_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value>::type
-		set_to_null_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<!std::is_pointer<I>::value>::type
-		set_to_null_if_pointer();
-
-	bool skipUnload = false;
-
-public:
-	~Reference();
 
 #if defined(_EDITOR_) || defined(_UNITTESTS_)
 	// This should only be used by the editor as this will force create the referenced object without requesting it from file.
-	Reference(const Core::String name, const size_t Id, Requester<T>* const requester, const T& objectToSet);
+	Reference(const Core::String name, const size_t Id, Requestor<T>* const requester, const T& objectToSet);
 #endif
+
+	Reference(const Core::String name, const size_t Id, Requestor<T>* const requester);
+
+	Reference(const Reference& copy);
+
+	~Reference();
+	
+	// ##############################################
+	// # METHODS									#
+	// ##############################################
 
 	const size_t getUseCount()
 	{
 		return useCount;
 	}
-
-	Reference(const Reference& copy);
 
 	T& getReferenced();
 
@@ -77,6 +96,7 @@ public:
 		getUnique();
 
 	const bool isValid() const;
+
 #ifdef _EDITOR_
 	void setNewFuture(const T future);
 #else
@@ -84,6 +104,8 @@ public:
 #endif
 
 	void reload();
+
+	void unload();
 
 };
 
