@@ -32,10 +32,6 @@ public:
 		return type;
 	}
 
-#ifdef _DEBUG
-	//Probably move this to editor
-	// std::map<std::pair<Core::String, size_t>, DBZone> EditorAllZones;
-#endif
 	//to be able to remove gameobjects when unloading;
 	std::map<std::pair<Core::String, size_t>, GameObject*> listOfZoneObjects;
 

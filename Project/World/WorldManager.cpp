@@ -13,14 +13,8 @@ WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToL
 	addMainMenu();
 #endif
 
-#ifdef _DEBUG
-	//EditorAddNewZone("Tutorial", "test.png", "test.png", "Tutorial Zone", 1, 1000, 800);
-#endif
-
-	//testSave();
 	if (Engine::Get<AssetManager>().loadModOrderFile() == false)
 	{
-		//MessageBox(Engine::Window.hWnd, "Error loading ModLoadOrder, Using default", "Error", NULL);
 		Engine::Get<AssetManager>().getModLoader().loadOrder.insert(std::pair<Core::String, size_t>("OneFlower", 1));
 		Engine::Get<AssetManager>().saveModOrderFile();
 	}
@@ -135,12 +129,6 @@ void WorldManager::addMainMenu()
 	dbz.ID = 0;
 	dbz.name = "MainMenu";
 	Engine::Get<AssetManager>().getDBZoneRequester().add(dbz);
-
-	//worldmap.insert({ { "MainMenu", 0 }, new Zone("MainMenu", 0, BackgroundSprite("TestBackground.png",0,0),{},{}) });
-	//worldmap[{"MainMenu", 0}]->modOrigin = "MainMenu";
-	//worldmap[{"MainMenu", 0}]->background.size.x = 256;
-	//worldmap[{"MainMenu", 0}]->background.setRepeated(true);
-	//worldmap[{"MainMenu", 0}]->loadScreen = worldmap[{"MainMenu", 0}]->background;
 
 }
 #endif
