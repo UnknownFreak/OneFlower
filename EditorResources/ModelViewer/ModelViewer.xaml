@@ -1,0 +1,34 @@
+﻿<Window
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EditorResources.ModelViewer"
+             xmlns:EditorResources="clr-namespace:EditorResources" xmlns:ModelTypes="clr-namespace:EditorResources.ModelViewer.ModelTypes" x:Class="EditorResources.ModelViewer.ModelViewer"
+             mc:Ignorable="d" Height="640.157" Width="953.388" Title="Model Viewer">
+    <Grid>
+        <ComboBox x:Name="ModelSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="158" Margin="500,33,0,0" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="Model Type"/>
+            <ComboBoxItem Content="Static"/>
+            <ComboBoxItem Content="Spite Sheet"/>
+            <ComboBoxItem Content="Spriter Model"/>
+        </ComboBox>
+        <ScrollViewer HorizontalAlignment="Left" Height="344" Margin="500,72,0,0" VerticalAlignment="Top" Width="435" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <ModelTypes:StaticModel x:Name="StaticModel" d:IsHidden="True"/>
+                <ModelTypes:SpriteSheetModel x:Name="SpriteSheetModel" Height="Auto" d:IsHidden="True"/>
+                <ModelTypes:SpriterModelData x:Name="SpriterModel" Height="Auto" d:IsHidden="True"/>
+            </Grid>
+        </ScrollViewer>
+        <ListView HorizontalAlignment="Left" Height="100" Margin="596,494,0,0" VerticalAlignment="Top" Width="219">
+            <TextBlock TextWrapping="Wrap" Text="List view to add animation sequences."/>
+            <TextBlock TextWrapping="Wrap" Text="Preview animations working together."/>
+        </ListView>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
+        <Label Content="Model Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,7,0,0"/>
+        <EditorResources:PreviewWindow HorizontalAlignment="Left" Height="458" Margin="10,72,0,0" VerticalAlignment="Top" Width="480"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="268" Margin="20,530,0,0" SelectedIndex="0" IsEnabled="False">
+            <ComboBoxItem Content="Display mesh"/>
+        </ComboBox>
+    </Grid>
+</Window>

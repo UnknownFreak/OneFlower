@@ -111,6 +111,7 @@ namespace EditorResources.MainEditorWindow
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             new SpriterScene.SpriterScene().Show();
+            new ModelViewer.ModelViewer().Show();
         }
     }
 }

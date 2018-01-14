@@ -93,12 +93,27 @@
       <DependentUpon>EditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Message\Message.cs" />
+    <Compile Include="ModelViewer\ModelTypes\SpriterModelData.xaml.cs">
+      <DependentUpon>SpriterModelData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViewer\ModelTypes\SpriteSheetModelData.xaml.cs">
+      <DependentUpon>SpriteSheetModelData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViewer\ModelTypes\StaticModelData.xaml.cs">
+      <DependentUpon>StaticModelData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModelViewer\ModelViewer.xaml.cs">
+      <DependentUpon>ModelViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModWindow\ModDependencyList.cs" />
     <Compile Include="ModWindow\NewMod.xaml.cs">
       <DependentUpon>NewMod.xaml</DependentUpon>
     </Compile>
     <Compile Include="ObjectTreeView\ObjectTreeView.xaml.cs">
       <DependentUpon>ObjectTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewWindow.xaml.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
@@ -125,11 +140,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ModelViewer\ModelTypes\SpriterModelData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViewer\ModelTypes\SpriteSheetModelData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViewer\ModelTypes\StaticModelData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelViewer\ModelViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModWindow\NewMod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ObjectTreeView\ObjectTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PreviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
