@@ -20,7 +20,7 @@
                 <ModelTypes:SpriterModelData x:Name="SpriterModel" Height="Auto" d:IsHidden="True"/>
             </Grid>
         </ScrollViewer>
-        <ListView HorizontalAlignment="Left" Height="100" Margin="596,494,0,0" VerticalAlignment="Top" Width="219">
+        <ListView HorizontalAlignment="Left" Height="100" Margin="288,499,0,0" VerticalAlignment="Top" Width="219">
             <TextBlock TextWrapping="Wrap" Text="List view to add animation sequences."/>
             <TextBlock TextWrapping="Wrap" Text="Preview animations working together."/>
         </ListView>
@@ -30,5 +30,6 @@
         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="268" Margin="20,530,0,0" SelectedIndex="0" IsEnabled="False">
             <ComboBoxItem Content="Display mesh"/>
         </ComboBox>
+        <Button x:Name="createModelButton" Content="Create" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="860,579,0,0" IsEnabled="False"/>
     </Grid>
 </Window>

@@ -52,6 +52,9 @@ namespace EditorResources.ModelViewer
                 SpriteSheetModel.Visibility = Visibility.Visible;
             else if (e.AddedItems[0] == ModelSelector.Items[3])
                 SpriterModel.Visibility = Visibility.Visible;
+
+            createModelButton.IsEnabled = (e.AddedItems[0] != ModelSelector.Items[0]);
+
         }
 
         private void HideAllModelDataViews()

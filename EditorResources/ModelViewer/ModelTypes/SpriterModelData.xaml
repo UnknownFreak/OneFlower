@@ -13,7 +13,7 @@
         <ListBox Height="100" VerticalAlignment="Top" Margin="0,71,40,0"/>
         <Button Content="+" VerticalAlignment="Top" Margin="0,71,10,0" HorizontalAlignment="Right" Width="25"/>
         <Button Content="-" VerticalAlignment="Top" Margin="0,96,10,0" HorizontalAlignment="Right" Width="25"/>
-        <Button Content="+" VerticalAlignment="Top" Margin="0,25,10,0" HorizontalAlignment="Right" Width="25"/>
+        <Button Content="..." VerticalAlignment="Top" Margin="0,25,10,0" HorizontalAlignment="Right" Width="25"/>
         <ComboBox VerticalAlignment="Top" Margin="0,176,40,0" SelectedIndex="0">
             <ComboBoxItem Content="TextureMap"/>
         </ComboBox>
