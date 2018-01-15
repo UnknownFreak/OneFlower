@@ -14,7 +14,7 @@ void SpriterModelContainerAddon::addTextureMap(Core::String modelName, Core::Str
 		if (modelTextureMapper[modelName]->textureMaps.find(std::pair<Core::String, Core::String>(modOrigin, newTextureMap)) == modelTextureMapper[modelName]->textureMaps.end())
 		{
 			modelTextureMapper[modelName]->textureMaps.insert(std::pair<std::pair<Core::String, Core::String>, TextureMap>({ modOrigin, newTextureMap }, TextureMap(modelTextureMapper[modelName]->textureMaps[{ "DEFAULT", "Default" }])));
-			modelTextureMapper[modelName]->textureMaps[{ modOrigin, newTextureMap }].modName = modOrigin;
+			modelTextureMapper[modelName]->textureMaps[{ modOrigin, newTextureMap }].fromMod = modOrigin;
 		}
 }
 

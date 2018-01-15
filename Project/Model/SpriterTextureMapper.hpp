@@ -3,15 +3,19 @@
 
 #include "TextureMap.hpp"
 #include <AssetManager\SpriteRef.hpp>
-#include <SFML\Graphics\RenderWindow.hpp>
+//#include <SFML\Graphics\RenderWindow.hpp>
 #include <map>
+
+#include <Graphic\Gfx.h>
 
 //included via TextureMap
 //#include <Core\String.hpp>
 class SpriterTextureMapper
 {
+	void initialize();
 public:
 
+	//SpriterTextureMapper();
 	SpriterTextureMapper(sf::RenderWindow& renderWindow);
 
 	void setTextureMap(std::pair<Core::String, Core::String> newTextureMap);
@@ -40,14 +44,14 @@ public:
 
 			if (it->second.mode == ObjectSaveMode::DEFAULT)
 			{
-				if (it->second.modName == openedMod || it->second.modName == "DEFAULT")
+				if (it->second.fromMod == openedMod || it->second.fromMod == "DEFAULT")
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
 			}
 			else if (it->second.mode == ObjectSaveMode::REMOVE)
 			{
-				if (it->second.modName != openedMod)
+				if (it->second.fromMod != openedMod)
 				{
 					theStuffWeWillActuallySave.insert(std::pair<std::pair<std::string, std::string >, TextureMap>(it->first, it->second));
 				}
@@ -55,7 +59,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::EDIT)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == openedMod || it->second.modName == "DEFAULT")
+				if (it->second.fromMod == openedMod || it->second.fromMod == "DEFAULT")
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}
@@ -64,7 +68,7 @@ public:
 			else if (it->second.mode == ObjectSaveMode::ADD)
 			{
 				TextureMap tex = it->second;
-				if (it->second.modName == openedMod)
+				if (it->second.fromMod == openedMod)
 				{
 					tex.mode = ObjectSaveMode::DEFAULT;
 				}
@@ -114,6 +118,8 @@ public:
 			}
 		}
 		setTextureMap({ modName, mapName });
+		if (!renderWindow)
+			renderWindow = &Engine::Get<Gfx>().view;
 	}
 private:
 	SpriteRef DefaultSprite;

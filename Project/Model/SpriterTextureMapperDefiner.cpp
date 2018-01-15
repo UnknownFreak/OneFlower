@@ -1,11 +1,26 @@
 #include "SpriterTextureMapper.hpp"
 #include <AssetManager\AssetManagerCore.hpp>
-SpriterTextureMapper::SpriterTextureMapper(sf::RenderWindow& renderWindow) : currentTextureMapString("DEFAULT", "Default"), DefaultSprite(Engine::Get<AssetManager>().textureloader.requestTexture("Test.png")), currentSprite(&DefaultSprite)
+
+void SpriterTextureMapper::initialize()
 {
 	textureMaps.insert(std::pair<std::pair<Core::String, Core::String>, TextureMap>(currentTextureMapString, TextureMap()));
-	this->renderWindow = &renderWindow;
 	currentTextureMap = &textureMaps.at(currentTextureMapString);
-	currentTextureMap->modName = "DEFAULT";
+	currentTextureMap->fromMod = "DEFAULT";
+}
+
+
+//SpriterTextureMapper::SpriterTextureMapper() : currentTextureMapString("DEFAULT", "Default"),
+//DefaultSprite(Engine::Get<AssetManager>().textureloader.requestTexture("Test.png")), currentSprite(&DefaultSprite),
+//renderWindow(nullptr)
+//{
+//	initialize();
+//}
+
+SpriterTextureMapper::SpriterTextureMapper(sf::RenderWindow& renderWindow) : currentTextureMapString("DEFAULT", "Default"),
+DefaultSprite(Engine::Get<AssetManager>().textureloader.requestTexture("Test.png")), currentSprite(&DefaultSprite)
+{
+	this->renderWindow = &renderWindow;
+	initialize();
 }
 
 void SpriterTextureMapper::setTextureMap(std::pair<Core::String, Core::String> newTextureMap)
