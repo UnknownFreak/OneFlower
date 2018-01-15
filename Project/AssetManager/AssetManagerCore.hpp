@@ -37,6 +37,7 @@ class AssetManager : public IEngineResource<AssetManager>
 	Requestor<Prefab> prefabRequestor;
 	Requestor<IModel*> modelRequestor;
 	Requestor<DBZone> dbZoneRequestor;
+	Requestor<TextureMap> textureMapRequestor;
 	ModLoader modLoader;
 
 public:
@@ -46,6 +47,7 @@ public:
 	Requestor<Prefab>& getPrefabRequester();
 	Requestor<IModel*>& getModelRequester();
 	Requestor<DBZone>& getDBZoneRequester();
+	Requestor<TextureMap>& getTextureMapRequester();
 
 	bool loadModHeader(Core::String modName, ModHeader& modHeader);
 

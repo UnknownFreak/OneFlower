@@ -25,6 +25,7 @@ public:
 		SpriteSheetMap,
 		Model,
 		DBZone,
+		TextureMap,
 		EoF = 254,
 		Undefined
 	};

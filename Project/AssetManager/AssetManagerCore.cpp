@@ -345,7 +345,7 @@ void testLoad()
 
 
 AssetManager::AssetManager() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
-modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone)
+modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone), textureMapRequestor(DatabaseIndex::ObjectTypeEnum::TextureMap)
 {
 
 }
@@ -364,6 +364,11 @@ Requestor<IModel*>& AssetManager::getModelRequester()
 Requestor<DBZone>& AssetManager::getDBZoneRequester()
 {
 	return dbZoneRequestor;
+}
+
+Requestor<TextureMap>& AssetManager::getTextureMapRequester()
+{
+	return textureMapRequestor;
 }
 
 ModLoader & AssetManager::getModLoader()
