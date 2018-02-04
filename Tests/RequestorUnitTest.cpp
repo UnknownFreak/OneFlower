@@ -11,7 +11,7 @@ namespace Tests
 	{
 	public:
 		Core::String test_string;
-		MockedSaveable(size_t id=1, Core::String test_string = "") : IRequestable("test", id), test_string(test_string)
+		MockedSaveable(size_t id=1, Core::String test_string = "") : IRequestable("test", id, OneVersion(0,0,0)), test_string(test_string)
 		{
 		}
 		MockedSaveable(const MockedSaveable& c) : IRequestable(c), test_string(c.test_string)
