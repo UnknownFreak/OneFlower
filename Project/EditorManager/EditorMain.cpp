@@ -56,6 +56,7 @@ int windowMessage()
 	MainEditorWindow^ window = splash->InitializeEditor();
 	Engine::Get<Gfx>().view.render.setActive(false);
 
+	Engine::Get<WorldManager>();
 	sf::Thread thread(&renderThread);
 	thread.launch();
 #endif
