@@ -7,7 +7,6 @@ Core::StringConverter::StringConverter() : con(new std::wstring_convert<utf8_16c
 {
 }
 
-
 Core::StringConverter::~StringConverter()
 {
 	delete con;

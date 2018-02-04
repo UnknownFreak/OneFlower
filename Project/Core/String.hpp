@@ -26,8 +26,6 @@ namespace Core
 		std::wstring toUtf16(std::string& str);
 	};
 
-	//extern StringConverter Converter;
-	
 	typedef std::string String;
 	//typedef std::basic_string<char32_t> WString;
 
