@@ -42,6 +42,11 @@ OneLogger::OneLogger() : log("Log.log")
 	std::free(c);
 }
 
+void OneLogger::DisableEditorLogging()
+{
+	logToEditor = false;
+}
+
 void OneLogger::Debug(Core::String message, Core::String filename, size_t line)
 {
 	Debug(message + SEPARATOR + filename.replace(0, cwd.size(), "") + LINE_BEGIN + std::to_string(line) + LINE_END);
@@ -124,6 +129,8 @@ void OneLogger::Critical(Core::String message)
 #ifdef _EDITOR_
 void OneLogger::LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType MsgType)
 {
+	if (!logToEditor)
+		return;
 #ifndef _UNITTESTS_
 	auto logmsg = gcnew EditorResources::Message::Message();
 	logmsg->message = gcnew String(message.c_str());

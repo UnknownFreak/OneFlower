@@ -27,10 +27,12 @@ class OneLogger : public IEngineResource<OneLogger>
 	Core::String cwd;
 
 #ifdef _EDITOR_
-	static void LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType msgType);
+	void LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType msgType);
 #endif
 
 	void logMessage(Core::String& type, Core::String& message);
+
+	bool logToEditor = true;
 
 public:
 	OneLogger();
@@ -40,6 +42,7 @@ public:
 		return type;
 	}
 
+	void DisableEditorLogging();
 
 	void Debug(Core::String message, Core::String filename , size_t line);
 	void Info(Core::String message, Core::String filename, size_t line);
