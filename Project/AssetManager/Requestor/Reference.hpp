@@ -87,12 +87,12 @@ public:
 
 	//Get a unique T not managed by the Reference.
 	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value>::type
+	typename std::enable_if<std::is_pointer<I>::value, I>::type
 		getUnique();
 
 	//Get a unique T not managed by the Reference.
 	template <class I = T>
-	typename std::enable_if<!std::is_pointer<I>::value>::type
+	typename std::enable_if<!std::is_pointer<I>::value, I>::type
 		getUnique();
 
 	const bool isValid() const;

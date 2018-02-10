@@ -80,7 +80,7 @@ inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::s
 }
 
 template<class T> template<class I>
-inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::getUnique()
+inline typename std::enable_if<std::is_pointer<I>::value, I>::type Reference<T>::getUnique()
 {
 #ifdef _EDITOR_
 	return T(*myRef);
@@ -92,7 +92,7 @@ inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::ge
 }
 
 template<class T> template<class I>
-inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::getUnique()
+inline typename std::enable_if<!std::is_pointer<I>::value, I>::type Reference<T>::getUnique()
 {
 #ifdef _EDITOR_
 	return T(myRef);
