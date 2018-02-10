@@ -34,21 +34,8 @@ class Reference
 	// # ENABLE IF METHODS 							#
 	// ##############################################
 
-	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value>::type
-		delete_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<!std::is_pointer<I>::value>::type
-		delete_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value>::type
-		set_to_null_if_pointer();
-
-	template <class I = T>
-	typename std::enable_if<!std::is_pointer<I>::value>::type
-		set_to_null_if_pointer();
+	void delete_if_pointer(std::true_type);
+	void delete_if_pointer(std::false_type);
 
 public:
 
@@ -87,7 +74,7 @@ public:
 
 	//Get a unique T not managed by the Reference.
 	template <class I = T>
-	typename std::enable_if<std::is_pointer<I>::value, I>::type
+	typename std::enable_if<std::is_pointer<I>::value, typename std::remove_pointer<I>::type>::type
 		getUnique();
 
 	//Get a unique T not managed by the Reference.

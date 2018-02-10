@@ -648,6 +648,7 @@
     <ClCompile Include="Tests\BaseInputHandlerUnitTest.cpp" />
     <ClCompile Include="Tests\BoundingBoxUnitTest.cpp" />
     <ClCompile Include="Tests\GameObjectUnitTest.cpp" />
+    <ClCompile Include="Tests\ReferenceUnitTest.cpp" />
     <ClCompile Include="Tests\RequestorUnitTest.cpp" />
     <ClCompile Include="Tests\StringConverterUnitTest.cpp" />
     <ClCompile Include="Tests\TimeUnitTest.cpp" />

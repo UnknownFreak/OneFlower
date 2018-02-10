@@ -1113,6 +1113,9 @@
     <ClCompile Include="Tests\BaseInputHandlerUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\ReferenceUnitTest.cpp">
+      <Filter>Unit Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
