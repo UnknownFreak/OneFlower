@@ -89,6 +89,9 @@
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Functionality\Events.cs" />
+    <Compile Include="GlobalVariableView\GlobalVariableView.xaml.cs">
+      <DependentUpon>GlobalVariableView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainEditorWindow\EditorWindow.xaml.cs">
       <DependentUpon>EditorWindow.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <DependentUpon>PreviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ValidatedTextBox.xaml.cs">
+      <DependentUpon>ValidatedTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\WindowHelpers.cs" />
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -136,6 +143,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GlobalVariableView\GlobalVariableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainEditorWindow\EditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +176,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ValidatedTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,7 +217,9 @@
       <DependentUpon>SpriterScene.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="WindowClasses\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

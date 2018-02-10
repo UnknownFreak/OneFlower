@@ -12,26 +12,45 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox x:Name="searchBox" TextWrapping="Wrap" Text="Search Tree..." Margin="0"/>
-        <TreeView x:Name="treeView" Margin="0" Grid.Row="1">
-                <TreeViewItem Header="GameObject">
-                    <TreeViewItem Header="Actor">
+        <TreeView x:Name="treeView" Margin="0" Grid.Row="1" Background="White">
+            <TreeViewItem Header="GameObject">
+                <TreeViewItem Header="Actor">
+                    <TreeViewItem Header="Go1"/>
+                    <TreeViewItem Header="Go2"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Item">
+                    <TreeViewItem Header="Armor">
+                        <TreeViewItem Header="Go3"/>
+                        <TreeViewItem Header="Go4"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="...">
                         <TreeViewItem Header="Go1"/>
                         <TreeViewItem Header="Go2"/>
                     </TreeViewItem>
-                    <TreeViewItem Header="Item">
-                        <TreeViewItem Header="Armor">
-                            <TreeViewItem Header="Go3"/>
-                            <TreeViewItem Header="Go4"/>
-                        </TreeViewItem>
-                        <TreeViewItem Header="...">
-                            <TreeViewItem Header="Go1"/>
-                            <TreeViewItem Header="Go2"/>
-                        </TreeViewItem>
-                    </TreeViewItem>
                 </TreeViewItem>
-                <TreeViewItem Header="Effects"/>
-                <TreeViewItem Header="Sound"/>
+            </TreeViewItem>
+            <TreeViewItem Header="Effects"/>
+            <TreeViewItem Header="Sound"/>
+            <TreeViewItem Header="Variables">
+                <TreeViewItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="New Integer Variable" Click="NewIntegerVariable_Click"></MenuItem>
+                        <MenuItem Header="New Floating Point Variable" Click="NewFoatingPointVariable_Click"></MenuItem>
+                        <MenuItem Header="New String Variable" Click="NewStringVariable_Click"></MenuItem>
+                        <MenuItem Header="New List Variable"></MenuItem>
+                    </ContextMenu>
+                </TreeViewItem.ContextMenu>
+                <TreeViewItem Header="Integer Variables">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="New Integer Variable"></MenuItem>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+                <TreeViewItem Header="Floating Point Variables"/>
+                <TreeViewItem Header="String variables"/>
+                <TreeViewItem Header="List Variables"/>
+            </TreeViewItem>
         </TreeView>
-
     </Grid>
 </UserControl>

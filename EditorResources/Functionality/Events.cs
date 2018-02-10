@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static EditorResources.Resources.NameValidator;
 
 namespace EditorResources.Functionality
 {
@@ -90,10 +91,16 @@ namespace EditorResources.Functionality
         #region ObjectTreeView
 
         public static EventHandler<OnObjectLoadEventArgs> onObjectLoadEvent;
+        public static EventHandler<OnVariableCreatedEventArgs> onOVariableCreatedEvent;
 
         public static void OnObjectLoadEvent(OnObjectLoadEventArgs args)
         {
             onObjectLoadEvent?.Invoke(null, args);
+        }
+        
+        public static void OnVariableCreatedEvent(OnVariableCreatedEventArgs args)
+        {
+            onOVariableCreatedEvent?.Invoke(null, args);
         }
 
         #endregion
@@ -166,6 +173,13 @@ namespace EditorResources.Functionality
     {
         public string ModOrigin { get; set; }
         public string ObjectType { get; set; }
+    }
+
+    public class OnVariableCreatedEventArgs : EventArgs
+    {
+        public string Name { get; set; }
+        public ValidationType VariableType { get; set;}
+        public string Value { get; set; }
     }
 
     public class OnTextureMapLoadedFromFileEventArgs : EventArgs
