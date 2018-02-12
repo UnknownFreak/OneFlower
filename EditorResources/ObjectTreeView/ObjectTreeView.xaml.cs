@@ -12,11 +12,18 @@ namespace EditorResources.ObjectView
         public ObjectTreeView()
         {
             InitializeComponent();
+            EditorEvents.onModFinishedLoading += OnModLoaded;
+            treeView.IsEnabled = false;
         }
 
         public void OnObjectLoaded(OnObjectLoadEventArgs arg)
         {
 
+        }
+
+        private void OnModLoaded(object sender, ModFinishedLoadedEventArgs args)
+        {
+            treeView.IsEnabled = true;
         }
 
         private void NewIntegerVariable_Click(object sender, RoutedEventArgs e)
