@@ -35,7 +35,7 @@ inline Reference<T>::Reference(const Reference& copy) : name(copy.name), ID(copy
 template<class T>
 inline Reference<T>::~Reference()
 {
-	delete_if_pointer();
+	delete_if_pointer(std::is_pointer<T>());
 }
 
 // ##############################################
@@ -43,8 +43,8 @@ inline Reference<T>::~Reference()
 // ##############################################
 
 
-template<class T> template<typename I>
-inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
+template<class T> 
+inline void Reference<T>::delete_if_pointer(std::true_type)
 {
 #ifdef _EDITOR_
 	if (myRef)
@@ -53,42 +53,27 @@ inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::de
 		myRef = nullptr;
 	}
 #else
-	if(myRef.valid())
+	if (myRef.valid())
 		delete myRef.get();
 #endif
-
 }
 
-template<class T> template<typename I>
-inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::delete_if_pointer()
+template<class T>
+inline void Reference<T>::delete_if_pointer(std::false_type)
 {
 	Engine::Get<OneLogger>().Info("Delete if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
 }
 
 template<class T> template<class I>
-inline typename std::enable_if<std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
+inline typename std::enable_if<std::is_pointer<I>::value, typename std::remove_pointer<I>::type>::type Reference<T>::getUnique()
 {
 #ifdef _EDITOR_
-	myRef = nullptr;
-#endif
-}
-
-template<class T> template<class I>
-inline typename std::enable_if<!std::is_pointer<I>::value>::type Reference<T>::set_to_null_if_pointer()
-{
-	Engine::Get<OneLogger>().Info("Set to null if pointer with non pointer type. Doing nothing.", __FILE__, __LINE__);
-}
-
-template<class T> template<class I>
-inline typename std::enable_if<std::is_pointer<I>::value, I>::type Reference<T>::getUnique()
-{
-#ifdef _EDITOR_
-	return T(*myRef);
+	return std::remove_pointer<I>::type(*myRef);
 #else
 	if(myRef.valid())
-		return T(*myRef.get());
+		return std::remove_pointer<I>::type(*myRef.get());
 #endif
-
+	throw std::runtime_error("Unable to get unique!");
 }
 
 template<class T> template<class I>
@@ -100,7 +85,7 @@ inline typename std::enable_if<!std::is_pointer<I>::value, I>::type Reference<T>
 	if (myRef.valid())
 		return T(myRef.get());
 #endif
-
+	throw std::runtime_error("Unable to get unique!");
 }
 
 // ##############################################
@@ -145,7 +130,7 @@ inline void Reference<T>::setNewFuture(const T future)
 template<typename T>
 inline void Reference<T>::setNewFuture(const std::shared_future<T> future)
 {
-	delete_if_pointer();
+	delete_if_pointer(std::is_pointer<T>());
 	myRef = future;
 }
 #endif
