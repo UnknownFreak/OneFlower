@@ -4,18 +4,19 @@
 
 enum class ResourceType
 {
-	AssetManager,
+	Input,
+	Time,
+	Settings,
 	Graphics,
-	StringConverter,
-	Logger,
 	Physics,
 	Event,
 	WorldManager,
 	WorldManagerAddon,
-	Time,
-	Settings,
-	Input,
 	SpriterContainer,
+	AssetManager,
+	Logger,
+	StringConverter,
+	Globals
 };
 
 class EngineResourceManager;
