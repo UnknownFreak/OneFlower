@@ -3,7 +3,8 @@
 #include <Logger\Logger.hpp>
 StaticModel::StaticModel() : IModel(), m_TopLeft(-1,-1), m_BottomRight(-1,-1)
 {
-
+	// Use this to set current object version
+	objectVersion = OneVersion(1, 0, 0);
 }
 
 StaticModel::StaticModel(const StaticModel & copy) : IModel(copy), m_TopLeft(copy.m_TopLeft), m_BottomRight(copy.m_BottomRight)
@@ -15,6 +16,7 @@ StaticModel & StaticModel::operator=(const StaticModel & right)
 	ID = right.ID;
 	mode = right.mode;
 	fromMod = right.fromMod;
+	objectVersion = right.objectVersion;
 
 	updateRequired = right.updateRequired;
 	m_render_sprite = right.m_render_sprite;

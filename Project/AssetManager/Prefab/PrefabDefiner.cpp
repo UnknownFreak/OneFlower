@@ -1,6 +1,9 @@
 #include "prefab.hpp"
 
 #include <Core/Component/GameObject.h>
+
+#define prefab_current_version OneVersion(1,0,0)
+
 // D-tor
 Prefab::~Prefab()
 {
@@ -12,7 +15,7 @@ Prefab::~Prefab()
 	base.clear();
 }
 
-Prefab::Prefab() : IRequestable("", 0), name(""), tag(""), base()
+Prefab::Prefab() : IRequestable("", 0, prefab_current_version), name(""), tag(""), base()
 {
 
 }
@@ -25,7 +28,7 @@ Prefab::Prefab(const Prefab& pre) : name(pre.name), tag(pre.tag), IRequestable(p
 		base.push_back(pre.base[i]->copy());
 }
 // Ctor with Gameobject ptr
-Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), IRequestable("", 0)
+Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), IRequestable("", 0, prefab_current_version)
 {
 	for (std::map<int, BaseComponent*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
 		base.push_back(it->second->copy());
@@ -36,15 +39,16 @@ Prefab::Prefab(const GameObject* go) : name(go->name), tag(go->tag), IRequestabl
 	}
 }
 
-Prefab & Prefab::operator=(const Prefab & left)
+Prefab & Prefab::operator=(const Prefab & right)
 {
-	name = left.name;
-	tag = left.tag;
-	ID = left.ID;
-	fromMod = left.fromMod;
-	mode = left.mode;
-	for (size_t i = 0; i < left.base.size(); ++i)
-		base.push_back(left.base[i]->copy());
+	name = right.name;
+	tag = right.tag;
+	ID = right.ID;
+	fromMod = right.fromMod;
+	mode = right.mode;
+	objectVersion = right.objectVersion;
+	for (size_t i = 0; i < right.base.size(); ++i)
+		base.push_back(right.base[i]->copy());
 	return *this;
 }
 

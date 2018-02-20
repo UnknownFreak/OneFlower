@@ -15,8 +15,11 @@ void SpriteSheetModel::createSpriteSheetFrames(const size_t& size)
 	//memset(spriteSheetFrames, 0, sizeof(sf::IntRect)*spriteSheetSize);
 }
 
-SpriteSheetModel::SpriteSheetModel()
+SpriteSheetModel::SpriteSheetModel() : IModel()
 {
+	// Use this to set current object version
+	objectVersion = OneVersion(1, 0, 0);
+
 	createSpriteSheetFrames(0);
 }
 
@@ -34,6 +37,7 @@ SpriteSheetModel & SpriteSheetModel::operator=(const SpriteSheetModel & right)
 	ID = right.ID;
 	mode = right.mode;
 	fromMod = right.fromMod;
+	objectVersion = right.objectVersion;
 
 	updateRequired = right.updateRequired;
 	m_render_sprite = right.m_render_sprite;
