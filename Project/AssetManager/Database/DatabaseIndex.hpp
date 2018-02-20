@@ -26,6 +26,9 @@ public:
 		Model,
 		DBZone,
 		TextureMap,
+		PrimitiveInt,
+		PrimitiveDouble,
+		PrimitiveString,
 		EoF = 254,
 		Undefined
 	};

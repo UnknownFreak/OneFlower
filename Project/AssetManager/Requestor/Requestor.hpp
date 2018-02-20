@@ -53,7 +53,7 @@ private:
 	template <class In = std::remove_pointer<T>::type>
 	inline typename std::enable_if < std::is_base_of<IRequestable, In>::value>::type check() const
 	{
-		Engine::Get<OneLogger>().Info("Requester <" + getObjectTypeAsString() + "> had all requirements to be created - OK!");
+		Engine::Get<OneLogger>().Info("Requestor <" + getObjectTypeAsString() + "> had all requirements to be created - OK!");
 	}
 
 	template <class In = std::remove_pointer<T>::type>
@@ -208,6 +208,14 @@ private:
 			return "EoF" + pointerPrefixString;
 		case DatabaseIndex::ObjectTypeEnum::Undefined:
 			return "Undefined" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::TextureMap:
+			return "TextureMap" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::PrimitiveInt:
+			return "Primitive<int>" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::PrimitiveDouble:
+			return "Primitive<double>" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::PrimitiveString:
+			return "Primitive<string>" + pointerPrefixString;
 		default:
 			return "Unknown" + pointerPrefixString;
 		}
@@ -240,7 +248,7 @@ private:
 		if (name == "EMPTY" && uuid == 0)
 			return t;
 		if (!requestFromDatabase(t, name, uuid))
-			Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> - Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+			Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
 		return t;
 	}
 
@@ -274,7 +282,7 @@ private:
 				}
 			}
 			else
-				Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> unable to open archive [" + modName + "]!", __FILE__, __LINE__);
+				Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to open archive [" + modName + "]!", __FILE__, __LINE__);
 			if (found)
 				return found;
 		}
@@ -388,14 +396,13 @@ public:
 						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
 						{
 							eof = true;
-							Engine::Get<OneLogger>().Info("Loaded " + std::to_string(requestedMap.size()) + " objects for Requestor<" + getObjectTypeAsString() + ">");
+							Engine::Get<OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "> Loaded " + std::to_string(requestedMap.size()) + " objects", __FILE__, __LINE__);
 						}
 					}
 				}
 			}
 			else
-				Engine::Get<OneLogger>().Error("Unable to open Index file [" + var.first +
-					".index] in Requestor <" + getObjectTypeAsString() + ">", __FILE__, __LINE__);
+				Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to open index file [" + var.first + ".index]!", __FILE__, __LINE__);
 			index.close();
 			database.close();
 		}
@@ -413,6 +420,37 @@ public:
 		return listofall;
 	}
 #endif
+
+	inline std::vector<std::pair<Core::String, size_t>> listAllObjectKeys() const
+	{
+		std::vector<std::pair<Core::String, size_t>> listofall;
+
+		for each (std::pair<std::string, size_t> var in Engine::Get<AssetManager>().getModLoader().loadOrder)
+		{
+			bool eof = false;
+			DatabaseIndex ind;
+			std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+			if (index.is_open())
+			{
+				cereal::BinaryInputArchive ar(index);
+				{
+					while (!eof)
+					{
+						ar(ind);
+						if (ind.type == objectType)
+						{
+							listofall.push_back({ ind.modFile, ind.ID });
+						}
+						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+							eof = true;
+					}
+				}
+			}
+			else
+				Engine::Get<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to open index file [" + var.first + ".index]!", __FILE__, __LINE__);
+		}
+		return listofall;
+	}
 
 	inline Reference<T>*& request(const Core::String & name, const size_t uuid)
 	{
