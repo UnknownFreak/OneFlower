@@ -13,6 +13,10 @@ namespace Model
 
 	public:
 		SpriterModel();
+		~SpriterModel();
+
+		SpriterModel(const SpriterModel& spriterModel);
+		SpriterModel& operator=(const SpriterModel& right);
 
 
 		// Inherited via IModel
