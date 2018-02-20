@@ -45,8 +45,12 @@ namespace EditorResources.ZoneView
 
             lastSelected = ZoneSelector.SelectedItem as ZoneItem;
             //ListView can return null on selected item.
-            if (lastSelected is null)
-                return;
+            if (lastSelected == null)
+                EditorEvents.OnLogEvent(new EditorLogEventArgs() {
+                    logMessage = new Message.Message() {
+                        message = "Unselected last selected item.", type = Message.Message.MsgType.Info
+                    }
+                });
             EditorEvents.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = lastSelected.Name, ModOrigin = lastSelected.Origin, ZoneID = lastSelected.Id });
         }
 
@@ -57,7 +61,7 @@ namespace EditorResources.ZoneView
 
         private void ZoneSelector_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (lastSelected is null)
+            if (lastSelected == null)
             {
                 editZoneContextMenu.IsEnabled = false;
                 deleteZoneContextMenu.IsEnabled = false;
@@ -85,9 +89,6 @@ namespace EditorResources.ZoneView
 
         private void EditZoneClick(object sender, RoutedEventArgs e)
         {
-            //Nullcheck that can shadow problems...
-            //if (info is null)
-            //    return;
             ZoneEditView v = new ZoneEditView(true);
             v.setEditFields(info.ZoneName, info.Origin, info.Id.ToString(), info.BackgroundPath, info.LoadingScreenPath, info.LoadingScreenMessage);
             v.Show();
