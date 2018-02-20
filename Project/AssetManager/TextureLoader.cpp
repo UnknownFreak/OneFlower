@@ -18,19 +18,19 @@ bool TextureLoader::loadTexture(const Core::String& name)
 }
 sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 {
-	sf::Texture tempTexture;
-
 	Core::String path = "Texture/" + name;
 	std::wstring wstr = Engine::Get<Core::StringConverter>().toUtf16(path);
 	std::ifstream i(path , std::ios::in | std::ifstream::binary);
-	char* data;
 	i.seekg(0, i.end);
 	size_t len = (size_t)i.tellg();
 	i.seekg(0, i.beg);
-	data = new char[len];
+	char* data = new char[len];
 	i.read(data, len);
+	
+	sf::Texture tempTexture;
 	bool ok = tempTexture.loadFromMemory(data, len);
-	delete data;
+	
+	delete[] data;
 	if (! ok)
 	{
 		return sf::Texture();
