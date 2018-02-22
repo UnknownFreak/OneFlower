@@ -2,6 +2,7 @@
 #define PrimitiveSaveable_HPP
 
 #include "IRequestable.hpp"
+#include <cereal\types\vector.hpp>
 
 template <class T>
 class PrimitiveSaveable : public IRequestable

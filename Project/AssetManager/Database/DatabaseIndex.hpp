@@ -29,6 +29,7 @@ public:
 		PrimitiveInt,
 		PrimitiveDouble,
 		PrimitiveString,
+		StringList,
 		EoF = 254,
 		Undefined
 	};

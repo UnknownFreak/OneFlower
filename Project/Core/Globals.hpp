@@ -5,12 +5,29 @@
 #include <map>
 #include <vector>
 
+#include <AssetManager\Requestor\Requestor.hpp>
 #include <AssetManager\IRequestable.hpp>
 
 #include "String.hpp"
 
 class Globals : public IEngineResource<Globals>
 {
+
+
+	template<class T, class U> 
+	void putVariableInto(Requestor<T>& container, U& containerToPut)
+	{
+		std::vector<std::pair<Core::String, size_t>> idVector = container.listAllObjectKeys();
+		for each (std::pair<Core::String, size_t> it in idVector)
+		{
+			{
+				Reference<T>*& ref = container.request(it.first, it.second);
+				T ps = ref->getUnique();
+				containerToPut.insert({ ps.name, ps.value });
+			}
+			container.requestRemoval(it.first, it.second);
+		}
+	}
 
 public:
 	Globals();
