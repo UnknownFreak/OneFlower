@@ -57,7 +57,6 @@ namespace EditorResources.Functionality
         }
         #endregion
 
-
         #region ZoneView
 
         public static EventHandler<EditorZoneSelectedEventArgs> onZoneSelectedEvent;
@@ -166,6 +165,7 @@ namespace EditorResources.Functionality
 
     public class ModFinishedLoadedEventArgs : EventArgs
     {
+        public string modName { get; set; }
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
     }
 
@@ -175,7 +175,30 @@ namespace EditorResources.Functionality
         public string ObjectType { get; set; }
     }
 
-    public class OnVariableCreatedEventArgs : EventArgs
+    public class BaseObjectEventArgs : EventArgs
+    {
+        public string Origin { get; set; }
+        public uint ID { get; set; }
+        public ObjectType Type {get ;set;}
+
+        public enum ObjectType
+        {
+            IntVariable,
+            DoubleVariable,
+            StringVariable,
+            BoolVariable,
+            ListVariable,
+            GameObject,
+            Quest,
+            Sound,
+            Item,
+            Achievement,
+            Model,
+            Trigger,
+        }
+    }
+
+    public class OnVariableCreatedEventArgs : BaseObjectEventArgs
     {
         public string Name { get; set; }
         public ValidationType VariableType { get; set;}
