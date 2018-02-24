@@ -40,7 +40,7 @@ namespace EditorResources.ObjectView
 
         private void OnModLoaded(object sender, ModFinishedLoadedEventArgs args)
         {
-            loadedMod = args.modName;
+            loadedMod = args.ModName;
             treeView.IsEnabled = true;
         }
 

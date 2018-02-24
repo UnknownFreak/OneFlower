@@ -165,7 +165,7 @@ namespace EditorResources.Functionality
 
     public class ModFinishedLoadedEventArgs : EventArgs
     {
-        public string modName { get; set; }
+        public string ModName { get; set; }
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
     }
 
@@ -230,7 +230,7 @@ namespace EditorResources.Functionality
         public string LoadingScreenMessage { get; set; } = "";
         public uint Id { get; set; } = 0;
 
-        public bool isEdit { get; set; } = false;
+        public bool IsEdit { get; set; } = false;
     }
 
     public class EditorGetZoneInfoEvent : EventArgs

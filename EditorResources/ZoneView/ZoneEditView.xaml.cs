@@ -42,7 +42,7 @@ namespace EditorResources.ZoneView
         {
 
             EditorZoneEditViewAddZoneEventArgs evt = createBaseZoneEventArgs();
-            evt.isEdit = true;
+            evt.IsEdit = true;
             EditorEvents.OnZoneEditViewAddZoneEvent(evt);
             Close();
         }

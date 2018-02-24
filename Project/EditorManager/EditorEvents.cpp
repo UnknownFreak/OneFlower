@@ -63,7 +63,7 @@ void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functiona
 
 	auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
 
-	modfinishedloaded->modName = args->modName;
+	modfinishedloaded->ModName = args->modName;
 
 	for each (auto v in addon.getAllDbZones())
 	{
