@@ -30,8 +30,31 @@ namespace EditorResources.GlobalVariableView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Functionality.BaseObjectEventArgs.ObjectType type;
+            switch (value.ValidateAs)
+            {
+                case ValidationType.Double:
+                    type = Functionality.BaseObjectEventArgs.ObjectType.DoubleVariable;
+                    break;
+                case ValidationType.Int:
+                    type = Functionality.BaseObjectEventArgs.ObjectType.IntVariable;
+                    break;
+                case ValidationType.String:
+                    type = Functionality.BaseObjectEventArgs.ObjectType.StringVariable;
+                    break;
+                default:
+                    Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() {
+                        logMessage = new Message.Message() {
+                            type = Message.Message.MsgType.Error, message =$"Invalid value for enum {value.ValidateAs}" }
+                    });
+                    throw new ValueUnavailableException();
+            }
             Functionality.EditorEvents.OnVariableCreatedEvent(new Functionality.OnVariableCreatedEventArgs()
-            { Name = name.Text, VariableType = value.ValidateAs, Value = value.Text });
+            {
+                Name = name.Text,
+                VariableType = value.ValidateAs,
+                Value = value.Text,
+                Type = type });
             Close();
         }
 

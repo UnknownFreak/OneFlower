@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.ObjectView"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
@@ -40,17 +44,96 @@
                         <MenuItem Header="New List Variable"></MenuItem>
                     </ContextMenu>
                 </TreeViewItem.ContextMenu>
-                <TreeViewItem Header="Integer Variables">
+                <TreeViewItem x:Name="intVariableTree" Header="Integer Variables">
                     <TreeViewItem.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="New Integer Variable"></MenuItem>
+                            <MenuItem Header="New Integer Variable" Click="NewIntegerVariable_Click"></MenuItem>
                         </ContextMenu>
                     </TreeViewItem.ContextMenu>
                 </TreeViewItem>
-                <TreeViewItem Header="Floating Point Variables"/>
-                <TreeViewItem Header="String variables"/>
+                <TreeViewItem Header="Floating Point Variables">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="New Floating Point Variable" Click="NewFoatingPointVariable_Click"></MenuItem>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+                <TreeViewItem Header="String variables">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="New String Variable" Click="NewStringVariable_Click"></MenuItem>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
                 <TreeViewItem Header="List Variables"/>
             </TreeViewItem>
         </TreeView>
+        <ListView x:Name="ObjectList" Grid.Column="1" Margin="0" Grid.RowSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Origin}" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content="Origin">
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Id}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" ID" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" Name" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Flag}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" Flag" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Type}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" Type" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Value}" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content=" Value" HorizontalContentAlignment="Left"/>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
