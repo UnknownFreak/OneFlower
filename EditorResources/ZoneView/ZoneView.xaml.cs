@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using EditorResources.Functionality;
 
 namespace EditorResources.ZoneView
@@ -141,6 +142,7 @@ namespace EditorResources.ZoneView
             Name = name;
             Flag = flag;
         }
+        public Brush brush { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
