@@ -22,6 +22,8 @@ namespace Editor
 
 		void OnEditorSave(Object ^ sender, EditorResources::Functionality::ModSaveEventArgs^ args);
 
+		void OnGlobalVaraibleCreated(Object ^ sender, EditorResources::Functionality::OnVariableCreatedEventArgs^ args);
+
 	};
 }
 #endif

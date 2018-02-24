@@ -669,6 +669,12 @@
     <ClInclude Include="Project\Input\Callback.hpp">
       <Filter>Engine\Input\BaseInputHandler</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Core\Globals.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\AssetManager\PrimitiveSaveable.hpp">
+      <Filter>Engine\AssetManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp">
@@ -1112,6 +1118,9 @@
     </ClCompile>
     <ClCompile Include="Tests\BaseInputHandlerUnitTest.cpp">
       <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\Globals.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="Tests\ReferenceUnitTest.cpp">
       <Filter>Unit Tests</Filter>

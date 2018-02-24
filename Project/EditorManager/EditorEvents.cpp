@@ -4,6 +4,9 @@
 
 #include <Core\IEngineResource\EngineResourceManager.hpp>
 #include <EditorManager\WorldEditorExtensions\WorldManagerAddons.hpp>
+#include <AssetManager\AssetManagerCore.hpp>
+
+#include <Core\Globals.hpp>
 
 #include "EditorEvents.hpp"
 #include "InteropHelper.hpp"
@@ -38,6 +41,7 @@ void Editor::Events::registerEvents()
 	EditorResources::Functionality::EditorEvents::onModSelected += gcnew EventHandler<EditorResources::Functionality::ModFileSelectedEventArgs^>(this, &Editor::Events::OnEditorModFileSelected);
 	EditorResources::Functionality::EditorEvents::onZoneSelectedEvent += gcnew EventHandler<EditorResources::Functionality::EditorZoneSelectedEventArgs^>(this, &Editor::Events::OnEditorZoneSelected);
 	EditorResources::Functionality::EditorEvents::onModSave += gcnew EventHandler<EditorResources::Functionality::ModSaveEventArgs^>(this, &Editor::Events::OnEditorSave);
+	EditorResources::Functionality::EditorEvents::onOVariableCreatedEvent += gcnew EventHandler<EditorResources::Functionality::OnVariableCreatedEventArgs^>(this, &Editor::Events::OnGlobalVaraibleCreated);
 }
 
 void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functionality::NewModCreateEventArgs ^ args)
@@ -58,6 +62,8 @@ void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functiona
 	addon.loadMod(s);
 
 	auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
+
+	modfinishedloaded->modName = args->modName;
 
 	for each (auto v in addon.getAllDbZones())
 	{
@@ -107,6 +113,35 @@ void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Funct
 void Editor::Events::OnEditorSave(Object^ sender, EditorResources::Functionality::ModSaveEventArgs^ args)
 {
 	Engine::Get<WorldManagerAddon>().EditorSave();
+}
+void Editor::Events::OnGlobalVaraibleCreated(Object ^ sender, EditorResources::Functionality::OnVariableCreatedEventArgs ^ args)
+{
+	AssetManager& am = Engine::Get<AssetManager>();
+
+	if (args->VariableType == EditorResources::Resources::NameValidator::ValidationType::Int)
+	{
+		PrimitiveSaveable<int> var(System::Convert::ToInt32(args->Value), toString(args->Name->ToCharArray()));
+		var.fromMod = toString(args->Origin->ToCharArray());
+		var.ID = args->ID;
+		am.getIntRequestor().add(var);
+		Engine::Get<Globals>().longGlobals.insert({ toString(args->Name->ToCharArray()), System::Convert::ToInt32(args->Value) });
+	}
+	else if (args->VariableType == EditorResources::Resources::NameValidator::ValidationType::Double)
+	{
+		PrimitiveSaveable<double> var(System::Convert::ToDouble(args->Value), toString(args->Name->ToCharArray()));
+		var.fromMod = toString(args->Origin->ToCharArray());
+		var.ID = args->ID;
+		am.getDoubleRequestor().add(var);
+		Engine::Get<Globals>().doubleGlobals.insert({ toString(args->Name->ToCharArray()), System::Convert::ToDouble(args->Value) });
+	}
+	else if (args->VariableType == EditorResources::Resources::NameValidator::ValidationType::String)
+	{
+		PrimitiveSaveable<Core::String> var(toString(args->Value->ToCharArray()), toString(args->Name->ToCharArray()));
+		var.fromMod = toString(args->Origin->ToCharArray());
+		var.ID = args->ID;
+		am.getStringRequestor().add(var);
+		Engine::Get<Globals>().stringGlobals.insert({ toString(args->Name->ToCharArray()), toString(args->Value->ToCharArray()) });
+	}
 }
 #endif
 #endif

@@ -348,8 +348,10 @@
   <ItemGroup>
     <ClInclude Include="CharacterTree.hpp" />
     <ClInclude Include="Project\AssetManager\IRequestable.hpp" />
+    <ClInclude Include="Project\AssetManager\PrimitiveSaveable.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp" />
+    <ClInclude Include="Project\Core\Globals.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\BaseEngineResource.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\EngineResourceManager.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\IEngineResource.hpp" />
@@ -507,6 +509,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Core\EngineSettingsDefiner.cpp" />
+    <ClCompile Include="Project\Core\Globals.cpp" />
     <ClCompile Include="Project\Core\IEngineResource\EngineResourceManager.cpp" />
     <ClCompile Include="Project\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Input\CallbackDefiner.cpp" />
