@@ -18,6 +18,7 @@
 #include "Prefab\Prefab.hpp"
 
 #include "Requestor\Requestor.hpp"
+#include "PrimitiveSaveable.hpp"
 
 #include "TextureLoader.hpp"
 
@@ -38,6 +39,10 @@ class AssetManager : public IEngineResource<AssetManager>
 	Requestor<IModel*> modelRequestor;
 	Requestor<DBZone> dbZoneRequestor;
 	Requestor<TextureMap> textureMapRequestor;
+	Requestor<PrimitiveSaveable<int>> intRequestor;
+	Requestor<PrimitiveSaveable<double>> doubleRequestor;
+	Requestor<PrimitiveSaveable<Core::String>> stringRequestor;
+	Requestor < PrimitiveSaveable<std::vector<Core::String>>> stringVectorRequestor;
 	ModLoader modLoader;
 
 public:
@@ -48,6 +53,10 @@ public:
 	Requestor<IModel*>& getModelRequester();
 	Requestor<DBZone>& getDBZoneRequester();
 	Requestor<TextureMap>& getTextureMapRequester();
+	Requestor<PrimitiveSaveable<int>>& getIntRequestor();
+	Requestor<PrimitiveSaveable<double>>& getDoubleRequestor();
+	Requestor<PrimitiveSaveable<Core::String>>& getStringRequestor();
+	Requestor<PrimitiveSaveable<std::vector<Core::String>>>& getStringVectorRequestor();
 
 	bool loadModHeader(Core::String modName, ModHeader& modHeader);
 

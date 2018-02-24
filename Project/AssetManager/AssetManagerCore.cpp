@@ -345,9 +345,10 @@ void testLoad()
 
 
 AssetManager::AssetManager() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
-modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone), textureMapRequestor(DatabaseIndex::ObjectTypeEnum::TextureMap)
+modLoader(), textureloader(), dbZoneRequestor(DatabaseIndex::ObjectTypeEnum::DBZone), textureMapRequestor(DatabaseIndex::ObjectTypeEnum::TextureMap),
+intRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveInt), doubleRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveDouble), stringRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveString),
+stringVectorRequestor(DatabaseIndex::ObjectTypeEnum::StringList)
 {
-
 }
 
 
@@ -369,6 +370,26 @@ Requestor<DBZone>& AssetManager::getDBZoneRequester()
 Requestor<TextureMap>& AssetManager::getTextureMapRequester()
 {
 	return textureMapRequestor;
+}
+
+Requestor<PrimitiveSaveable<int>>& AssetManager::getIntRequestor()
+{
+	return intRequestor;
+}
+
+Requestor<PrimitiveSaveable<double>>& AssetManager::getDoubleRequestor()
+{
+	return doubleRequestor;
+}
+
+Requestor<PrimitiveSaveable<Core::String>>& AssetManager::getStringRequestor()
+{
+	return stringRequestor;
+}
+
+Requestor<PrimitiveSaveable<std::vector<Core::String>>>& AssetManager::getStringVectorRequestor()
+{
+	return stringVectorRequestor;
 }
 
 ModLoader & AssetManager::getModLoader()
@@ -404,12 +425,13 @@ void AssetManager::saveGameDatabase(
 		ind.modFile = "NULL";
 		ind.row = file.tellp();
 		indexAr(ind);
-		mainAr(Engine::Get<SpriterModelContainer>());
-
 
 		prefabRequestor.save(ind, file, indexAr, mainAr);
 		modelRequestor.save(ind, file, indexAr, mainAr);
 		dbZoneRequestor.save(ind, file, indexAr, mainAr);
+		intRequestor.save(ind, file, indexAr, mainAr);
+		doubleRequestor.save(ind, file, indexAr, mainAr);
+		stringRequestor.save(ind, file, indexAr, mainAr);
 
 		//saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
 		//savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
