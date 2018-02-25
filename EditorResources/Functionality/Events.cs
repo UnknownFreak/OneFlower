@@ -169,15 +169,16 @@ namespace EditorResources.Functionality
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
     }
 
-    public class OnObjectLoadEventArgs : EventArgs
+    public class OnObjectLoadEventArgs : BaseObjectEventArgs
     {
-        public string ModOrigin { get; set; }
-        public string ObjectType { get; set; }
+
     }
 
     public class BaseObjectEventArgs : EventArgs
     {
+        public string Name { get; set; }
         public string Origin { get; set; }
+        public string Value { get; set; }
         public uint ID { get; set; }
         public ObjectType Type {get ;set;}
 
@@ -200,9 +201,7 @@ namespace EditorResources.Functionality
 
     public class OnVariableCreatedEventArgs : BaseObjectEventArgs
     {
-        public string Name { get; set; }
         public ValidationType VariableType { get; set;}
-        public string Value { get; set; }
     }
 
     public class OnTextureMapLoadedFromFileEventArgs : EventArgs
