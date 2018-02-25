@@ -31,6 +31,9 @@ public:
 	OneVersion();
 	OneVersion(unsigned short major, unsigned short minor, unsigned int revision);
 
+	OneVersion& operator=(const OneVersion& right);
+
+
 	template<class T>
 	void serialize(T& archive)
 	{

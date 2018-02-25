@@ -22,6 +22,17 @@ OneVersion::OneVersion(unsigned short major, unsigned short minor, unsigned int 
 	*this->revision = revision;
 }
 
+OneVersion & OneVersion::operator=(const OneVersion & right)
+{
+	version = UVersion(major, minor, revision);
+
+	*this->major = *right.major;
+	*this->minor = *right.minor;
+	*this->revision = *right.revision;
+
+	return *this;
+}
+
 // all compare functions compare against our union,
 bool OneVersion::operator<(const OneVersion & right) const
 {
