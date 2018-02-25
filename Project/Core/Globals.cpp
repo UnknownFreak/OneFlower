@@ -10,15 +10,10 @@ Globals::Globals()
 {
 	AssetManager& am = Engine::Get <AssetManager>();
 
-	Requestor<PrimitiveSaveable<int>>& intRequestor = am.getIntRequestor();
-	Requestor<PrimitiveSaveable<double>>& doubleRequestor = am.getDoubleRequestor();
-	Requestor<PrimitiveSaveable<Core::String>>& stringRequestor = am.getStringRequestor();
-	Requestor<PrimitiveSaveable<std::vector<Core::String>>>& stringVectorRequestor = am.getStringVectorRequestor();
-
-	putVariableInto(intRequestor, longGlobals);
-	putVariableInto(doubleRequestor, doubleGlobals);
-	putVariableInto(stringRequestor, stringGlobals);
-	putVariableInto(stringVectorRequestor, stringList);
+	putVariableInto(am.getIntRequestor(), longGlobals);
+	putVariableInto(am.getDoubleRequestor(), doubleGlobals);
+	putVariableInto(am.getStringRequestor(), stringGlobals);
+	putVariableInto(am.getStringVectorRequestor(), stringList);
 }
 
 const ResourceType & Globals::getType()
