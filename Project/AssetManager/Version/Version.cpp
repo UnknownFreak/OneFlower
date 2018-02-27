@@ -22,6 +22,13 @@ OneVersion::OneVersion(unsigned short major, unsigned short minor, unsigned int 
 	*this->revision = revision;
 }
 
+OneVersion::OneVersion(const OneVersion & copy) : version(this->major, this->minor, this->revision)
+{
+	*major = *copy.major;
+	*minor = *copy.minor;
+	*revision = *copy.revision;
+}
+
 OneVersion & OneVersion::operator=(const OneVersion & right)
 {
 	version = UVersion(major, minor, revision);

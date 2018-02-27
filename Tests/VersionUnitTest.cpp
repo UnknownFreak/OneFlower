@@ -60,6 +60,18 @@ namespace Tests
 			OneVersion c(1, 2, 3);
 			Assert::IsTrue(o <= c);
 		}
+		TEST_METHOD(TestVersion_Assignment)
+		{
+			OneVersion o(1, 2, 34);
+			OneVersion c = o;
+			Assert::IsTrue(c == o);
+		}
+		TEST_METHOD(TestVersion_CopyCtor)
+		{
+			OneVersion o(1, 2, 3);
+			OneVersion c(o);
+			Assert::IsTrue(c == o);
+		}
 	};
 }
 template<> inline std::wstring Microsoft::VisualStudio::CppUnitTestFramework::ToString<OneVersion>(const OneVersion& q) {
