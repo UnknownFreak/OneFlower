@@ -675,6 +675,9 @@
     <ClInclude Include="Project\AssetManager\PrimitiveSaveable.hpp">
       <Filter>Engine\AssetManager</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Core\GameVariableMapping.hpp">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\AssetManager\AssetManagerCore.cpp">
@@ -1124,6 +1127,9 @@
     </ClCompile>
     <ClCompile Include="Tests\ReferenceUnitTest.cpp">
       <Filter>Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\GameVariableMapping.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

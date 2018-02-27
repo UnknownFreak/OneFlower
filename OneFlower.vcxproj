@@ -351,6 +351,7 @@
     <ClInclude Include="Project\AssetManager\PrimitiveSaveable.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Reference.hpp" />
     <ClInclude Include="Project\AssetManager\Requestor\Requestor.hpp" />
+    <ClInclude Include="Project\Core\GameVariableMapping.hpp" />
     <ClInclude Include="Project\Core\Globals.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\BaseEngineResource.hpp" />
     <ClInclude Include="Project\Core\IEngineResource\EngineResourceManager.hpp" />
@@ -509,6 +510,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Core\EngineSettingsDefiner.cpp" />
+    <ClCompile Include="Project\Core\GameVariableMapping.cpp" />
     <ClCompile Include="Project\Core\Globals.cpp" />
     <ClCompile Include="Project\Core\IEngineResource\EngineResourceManager.cpp" />
     <ClCompile Include="Project\GameEntryDefiner.cpp" />
