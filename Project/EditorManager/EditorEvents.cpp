@@ -114,6 +114,7 @@ void Editor::Events::OnEditorSave(Object^ sender, EditorResources::Functionality
 {
 	Engine::Get<WorldManagerAddon>().EditorSave();
 }
+
 void Editor::Events::OnGlobalVaraibleCreated(Object ^ sender, EditorResources::Functionality::OnVariableCreatedEventArgs ^ args)
 {
 	AssetManager& am = Engine::Get<AssetManager>();

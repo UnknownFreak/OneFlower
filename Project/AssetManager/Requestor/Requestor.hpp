@@ -382,7 +382,6 @@ public:
 							cereal::BinaryInputArchive loader(database);
 							td_map::iterator it = requestedMap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
 
-
 							if (it != requestedMap.end())
 							{
 								// stuff exist add extra things to object.

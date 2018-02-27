@@ -16,7 +16,8 @@ enum class ResourceType
 	AssetManager,
 	Logger,
 	StringConverter,
-	Globals
+	Globals,
+	GameVariableMapping
 };
 
 class EngineResourceManager;

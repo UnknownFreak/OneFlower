@@ -119,6 +119,7 @@ Core::String WorldManagerAddon::EditorSave()
 				i->second.position = Engine::Get<WorldManager>().listOfZoneObjects[i->first]->GetComponent<Component::TransformComponent>()->position;
 			}
 		Engine::Get<AssetManager>().saveGameDatabase(getLoadedMod(), myModHeader);
+		Engine::Get<OneLogger>().Info("Successfully saved " + Engine::Get<AssetManager>().openedMod + ".");
 	}
 	else
 		Engine::Get<OneLogger>().Info("Cannot save mod. No mod loaded!", __FILE__, __LINE__);
@@ -228,7 +229,7 @@ void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> d
 
 	Engine::Get<AssetManager>().openedMod = modName;
 	modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(modName, modLoadOrder.loadOrder.size()));
-	Engine::Get<AssetManager>().saveGameDatabase("Data\\" + modName, myModHeader);
+	Engine::Get<AssetManager>().saveGameDatabase(modName, myModHeader);
 	//unloadEditorVariables();
 	Engine::Get<AssetManager>().loadAllEditorVariables();
 	Engine::Get<OneLogger>().Info("Successfully created mod [" + modName + "].", __FILE__, __LINE__);

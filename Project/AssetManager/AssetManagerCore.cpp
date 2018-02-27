@@ -404,9 +404,9 @@ void AssetManager::saveGameDatabase(
 	//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
 	//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 {
-	std::ofstream file(filename, std::ios::binary);
+	std::ofstream file("Data//" + filename, std::ios::binary);
 	filename.append(".index");
-	std::ofstream index(filename, std::ios::binary);
+	std::ofstream index("Data//" + filename, std::ios::binary);
 	{
 		DatabaseIndex ind;
 		cereal::BinaryOutputArchive mainAr(file);
