@@ -48,15 +48,6 @@ namespace EditorResources.Functionality
 
         #endregion
 
-        #region log
-        public static EventHandler<EditorLogEventArgs> onLogEvent;
-
-        public static void OnLogEvent(EditorLogEventArgs args)
-        {
-            onLogEvent?.Invoke(null, args);
-        }
-        #endregion
-
         #region ZoneView
 
         public static EventHandler<EditorZoneSelectedEventArgs> onZoneSelectedEvent;
@@ -139,11 +130,6 @@ namespace EditorResources.Functionality
     public class ModFileSelectedEventArgs : EventArgs
     {
         public String fileName;
-    }
-
-    public class EditorLogEventArgs : EventArgs
-    {
-        public Message.Message logMessage;
     }
 
     public class ModLoadEventArgs : EventArgs

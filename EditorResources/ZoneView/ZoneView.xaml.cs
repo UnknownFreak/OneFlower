@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using EditorResources.Functionality;
+using static EditorResources.Functionality.RequestEvents;
 
 namespace EditorResources.ZoneView
 {
@@ -47,7 +48,7 @@ namespace EditorResources.ZoneView
             lastSelected = ZoneSelector.SelectedItem as ZoneItem;
             //ListView can return null on selected item.
             if (lastSelected == null)
-                EditorEvents.OnLogEvent(new EditorLogEventArgs() {
+                OnLogEvent(new EditorLogEventArgs() {
                     logMessage = new Message.Message() {
                         message = "Unselected last selected item.", type = Message.Message.MsgType.Info
                     }

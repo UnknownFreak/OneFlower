@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using static EditorResources.Functionality.RequestEvents;
 
 namespace EditorResources.SpriterScene
 {
@@ -318,7 +319,7 @@ namespace EditorResources.SpriterScene
             {
                 NameField nf = e.AddedItems[0] as NameField;
 
-                Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() { logMessage = new Message.Message() { message = nf.FileName,
+                OnLogEvent(new EditorLogEventArgs() { logMessage = new Message.Message() { message = nf.FileName,
                     type = Message.Message.MsgType.Info } });
                 addTextureMap.IsEnabled = true;
                 TextureMap.ItemsSource = nf.textureMaps;

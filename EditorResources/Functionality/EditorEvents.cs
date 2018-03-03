@@ -7,6 +7,14 @@ namespace EditorResources.Functionality
 {
     public static class RequestEvents
     {
+        #region log
+        public static EventHandler<EditorLogEventArgs> onLogEvent;
+
+        public static void OnLogEvent(EditorLogEventArgs args)
+        {
+            onLogEvent?.Invoke(null, args);
+        }
+        #endregion
 
         public static EventHandler<GameVariableMappingEventArgs> onRequestGameVariableMapping;
 
@@ -14,6 +22,8 @@ namespace EditorResources.Functionality
         {
             onRequestGameVariableMapping?.Invoke(null, args);
         }
+
+        #region EventClasses
         public class GameVariableMappingEventArgs : EventArgs
         {
             public enum Variable
@@ -24,5 +34,11 @@ namespace EditorResources.Functionality
             }
             public Variable VariableToRequest { get; set; }
         }
+
+        public class EditorLogEventArgs : EventArgs
+        {
+            public Message.Message logMessage;
+        }
+        #endregion
     }
 }

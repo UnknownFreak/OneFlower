@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using static EditorResources.Functionality.RequestEvents;
 using static EditorResources.Resources.NameValidator;
 
 namespace EditorResources.GlobalVariableView
@@ -43,7 +44,7 @@ namespace EditorResources.GlobalVariableView
                     type = Functionality.BaseObjectEventArgs.ObjectType.StringVariable;
                     break;
                 default:
-                    Functionality.EditorEvents.OnLogEvent(new Functionality.EditorLogEventArgs() {
+                    OnLogEvent(new EditorLogEventArgs() {
                         logMessage = new Message.Message() {
                             type = Message.Message.MsgType.Error, message =$"Invalid value for enum {value.ValidateAs}" }
                     });

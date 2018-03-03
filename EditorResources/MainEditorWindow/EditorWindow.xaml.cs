@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using EditorResources.Functionality;
+using static EditorResources.Functionality.RequestEvents;
 
 namespace EditorResources.MainEditorWindow
 {
@@ -16,7 +17,7 @@ namespace EditorResources.MainEditorWindow
         {
             InitializeComponent();
             createEditorWindow();
-            EditorEvents.onLogEvent += LogViewAddEvent;
+            onLogEvent += LogViewAddEvent;
         }
 
         private void LogViewAddEvent(object sender, EditorLogEventArgs e)
