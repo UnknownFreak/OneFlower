@@ -61,9 +61,6 @@ public:
 	template <class Archive>
 	void load(Archive& ar)
 	{
-		// For some reason without this line this causes a crash...
-		// TODO: Figure out why that happens.
-		objectVersion = OneVersion(1,2,3);
 		ar(cereal::base_class<IRequestable>(this));
 		ar(value);
 		ar(name);
