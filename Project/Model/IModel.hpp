@@ -16,7 +16,7 @@ protected:
 
 	SpriteRef* m_render_sprite;
 	bool updateRequired = true;
-	
+	Core::String name;
 public:
 	
 	SpriteRef *& getSpriteRef() { return m_render_sprite; }
@@ -49,6 +49,10 @@ public:
 
 	// Inherited via Drawable
 	virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
+
+	Core::String getName() const override;
+
+	Core::String getValue() const override;
 
 	template <class Archive>
 	void save(Archive & ar) const

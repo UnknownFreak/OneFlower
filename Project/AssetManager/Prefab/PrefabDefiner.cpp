@@ -65,3 +65,13 @@ const size_t Prefab::getTypeID(size_t index)
 {
 	return base[index]->getType();
 }
+
+Core::String Prefab::getName() const
+{
+	return name;
+}
+
+Core::String Prefab::getValue() const
+{
+	return "<Prefab Data>";
+}

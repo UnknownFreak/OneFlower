@@ -29,6 +29,16 @@ struct IRequestable
 		return *this;
 	}
 
+	inline virtual Core::String getName() const
+	{
+		return "";
+	}
+
+	inline virtual Core::String getValue() const
+	{
+		return "";
+	}
+
 	virtual ~IRequestable() = default;
 
 	template<class Archive>

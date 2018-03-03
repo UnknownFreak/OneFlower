@@ -58,3 +58,13 @@ void IModel::draw(sf::RenderTarget & target, sf::RenderStates states) const
 	if (m_render_sprite)
 		m_render_sprite->draw(target, states);
 }
+
+Core::String IModel::getName() const
+{
+	return name;
+}
+
+Core::String IModel::getValue() const
+{
+	return "<Model Data>";
+}

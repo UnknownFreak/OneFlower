@@ -7,6 +7,7 @@
 template <class T>
 class PrimitiveSaveable : public IRequestable
 {
+
 public:
 	T value;
 	Core::String name;
@@ -26,6 +27,17 @@ public:
 	inline PrimitiveSaveable(const PrimitiveSaveable& copy) : IRequestable(copy), value(copy.value), name(copy.name)
 	{
 	}
+
+	inline Core::String getName() const override
+	{
+		return name;
+	}
+
+	inline Core::String getValue() const override
+	{
+		return "";
+	}
+
 
 	inline PrimitiveSaveable& operator=(const PrimitiveSaveable& right)
 	{

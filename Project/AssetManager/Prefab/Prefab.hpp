@@ -33,6 +33,9 @@ public:
 	Core::String tag;
 	const size_t getTypeID(size_t index);
 
+	Core::String getName() const override;
+	Core::String getValue() const override;
+
 #pragma region Prefab
 	template <class Archive>
 	void load(Archive& ar)
