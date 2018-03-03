@@ -89,6 +89,9 @@
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Functionality\Events.cs" />
+    <Compile Include="GameVariableMappingView\GameVariableMapping.xaml.cs">
+      <DependentUpon>GameVariableMapping.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariableView\GlobalVariableView.xaml.cs">
       <DependentUpon>GlobalVariableView.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GameVariableMappingView\GameVariableMapping.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GlobalVariableView\GlobalVariableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
