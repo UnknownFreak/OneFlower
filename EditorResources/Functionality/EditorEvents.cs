@@ -14,16 +14,15 @@ namespace EditorResources.Functionality
         {
             onRequestGameVariableMapping?.Invoke(null, args);
         }
-    }
-
-    public class GameVariableMappingEventArgs : EventArgs
-    {
-        public enum Variable
+        public class GameVariableMappingEventArgs : EventArgs
         {
-            Animation,
-            MainMenu,
-            StartingZone,
+            public enum Variable
+            {
+                Animation,
+                MainMenu,
+                StartingZone,
+            }
+            public Variable VariableToRequest { get; set; }
         }
-        public Variable VariableToRequest{ get; set; }
     }
 }
