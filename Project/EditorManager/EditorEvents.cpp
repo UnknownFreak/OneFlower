@@ -186,6 +186,7 @@ void Editor::onObjectLoaded(const Core::String Origin, const size_t ID, const Co
 	default:
 		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Default;
 	}
+
 	switch (type)
 	{
 	case DatabaseIndex::ObjectTypeEnum::Zone:
@@ -231,6 +232,7 @@ void Editor::onObjectLoaded(const Core::String Origin, const size_t ID, const Co
 		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Unknown;
 		break;
 	}
+
 	args->Value = toString(value);
 	EditorEvents::OnObjectLoadEvent(args);
 }
