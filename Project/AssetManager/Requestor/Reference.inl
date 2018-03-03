@@ -123,7 +123,7 @@ inline const bool Reference<T>::isValid() const
 template<typename T>
 inline void Reference<T>::setNewFuture(const T future)
 {
-	delete_if_pointer();
+	delete_if_pointer(std::is_pointer<T>());
 	myRef = future;
 }
 #else
