@@ -1,93 +1,73 @@
 #include "Version.hpp"
 
+const unsigned long long OneVersion::version() const
+{
+	return (unsigned __int64(major) << 48) + (unsigned __int64(minor)  << 32) + revision;
+}
+
 OneVersion OneVersion::getCurrentVersion()
 {
 	return OneVersion(1,0,1);
 }
 
-OneVersion::OneVersion() :
-	version(this->major, this->minor, this->revision)
+OneVersion::OneVersion() :major(0), minor(0), revision(0)
 {
-	*this->major = 0;
-	*this->minor = 0;
-	*this->revision = 0;
 }
 
 OneVersion::OneVersion(unsigned short major, unsigned short minor, unsigned int revision) :
-	//We shall reference our own members here
-	version(this->major, this->minor, this->revision)
+	major(major), minor(minor), revision(revision)
 {
-	*this->major = major;
-	*this->minor = minor;
-	*this->revision = revision;
 }
 
-OneVersion::OneVersion(const OneVersion & copy) : version(this->major, this->minor, this->revision)
+OneVersion::OneVersion(const OneVersion & copy) : major(copy.major), minor(copy.minor), revision(copy.revision)
 {
-	*major = *copy.major;
-	*minor = *copy.minor;
-	*revision = *copy.revision;
 }
 
 OneVersion & OneVersion::operator=(const OneVersion & right)
 {
-	version = UVersion(major, minor, revision);
-
-	*this->major = *right.major;
-	*this->minor = *right.minor;
-	*this->revision = *right.revision;
+	major = right.major;
+	minor = right.minor;
+	revision = right.revision;
 
 	return *this;
 }
 
-// all compare functions compare against our union,
 bool OneVersion::operator<(const OneVersion & right) const
 {
-	return version.version < right.version.version;
+	return version() < right.version();
 }
 
 bool OneVersion::operator>(const OneVersion & right) const
 {
-	return version.version > right.version.version;
+	return version() > right.version();
 }
 
 bool OneVersion::operator<=(const OneVersion & right) const
 {
-	return version.version <= right.version.version;
+	return version() <= right.version();
 }
 
 bool OneVersion::operator>=(const OneVersion & right) const
 {
-	return version.version >= right.version.version;
+	return version() >= right.version();
 }
 
 bool OneVersion::operator!=(const OneVersion & right) const
 {
-	return version.version != right.version.version;
+	return version() != right.version();
 }
 
 bool OneVersion::operator==(const OneVersion & right) const
 {
-	return version.version == right.version.version;
+	return version() == right.version();
 }
 
-void OneVersion::incRev() const
+void OneVersion::incRev()
 {
-	(*revision)++;
+	revision++;
 }
 
 Core::String OneVersion::str()
 {
-	return std::to_string(*major) + "." + std::to_string(*minor) + "." + std::to_string(*revision);
-}
-
-UVersion::UVersion(unsigned short*&  major, unsigned short*& minor, unsigned int*& revision) : _version(major, minor, revision)  
-{
-}
-
-o_Version::o_Version(unsigned short*& major, unsigned short*&  minor, unsigned int*& revision)
-{
-	major = &this->major;
-	minor = &this->minor;
-	revision = &this->revision;
+	return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(revision);
 }

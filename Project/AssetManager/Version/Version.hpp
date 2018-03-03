@@ -2,28 +2,12 @@
 #define VERSION_HPP
 #include <Core\String.hpp>
 
-struct o_Version
-{
-	o_Version(unsigned short*& major, unsigned short*& minor, unsigned int*& revision);
-	unsigned int revision;
-	unsigned short minor;
-	unsigned short major;
-};
-
-//takes size of ulonglong (64bit)
-union UVersion
-{
-	UVersion(unsigned short*& major, unsigned short*& minor, unsigned int*& revision);
-	o_Version _version;
-	unsigned long long version;
-};
-
 class OneVersion
 {
-	UVersion version;
-	unsigned short* major;
-	unsigned short* minor;
-	unsigned int* revision;
+	const unsigned long long version() const;
+	unsigned short major;
+	unsigned short minor;
+	unsigned int revision;
 
 public:
 	static OneVersion getCurrentVersion();
@@ -37,9 +21,9 @@ public:
 	template<class T>
 	void serialize(T& archive)
 	{
-		archive(*major);
-		archive(*minor);
-		archive(*revision);
+		archive(major);
+		archive(minor);
+		archive(revision);
 	}
 
 	//compare
@@ -50,7 +34,7 @@ public:
 	bool operator !=(const OneVersion& right) const;
 	bool operator == (const OneVersion& right) const;
 	
-	void incRev() const;
+	void incRev();
 
 	Core::String str();
 
