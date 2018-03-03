@@ -122,18 +122,14 @@ inline const bool Reference<T>::isValid() const
 #ifdef _EDITOR_
 template<typename T>
 inline void Reference<T>::setNewFuture(const T future)
-{
-	delete_if_pointer(std::is_pointer<T>());
-	myRef = future;
-}
 #else
 template<typename T>
 inline void Reference<T>::setNewFuture(const std::shared_future<T> future)
+#endif
 {
 	delete_if_pointer(std::is_pointer<T>());
 	myRef = future;
 }
-#endif
 
 template<typename T>
 inline void Reference<T>::reload()
