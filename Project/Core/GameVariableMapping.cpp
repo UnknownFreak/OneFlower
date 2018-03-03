@@ -11,7 +11,7 @@ std::vector<Core::String>& GameVariableMapping::getAnimationList()
 	{
 		return it->second;
 	}
-	return std::vector<Core::String>();
+	return empty;
 }
 
 #ifdef _EDITOR_

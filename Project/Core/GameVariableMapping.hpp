@@ -10,6 +10,7 @@
 class GameVariableMapping : public IEngineResource<GameVariableMapping>
 {
 
+	std::vector<Core::String> empty;
 	Core::String animationVariableId;
 	std::pair<Core::String, size_t> mainMenuId;
 	std::pair<Core::String, size_t> startingZoneId;
