@@ -12,12 +12,12 @@ Core::StringConverter::~StringConverter()
 	delete con;
 }
 
-std::string Core::StringConverter::toUtf8(std::wstring & wstr)
+std::string Core::StringConverter::toUtf8(const std::wstring & wstr)
 {
 	return con->to_bytes(wstr);
 }
 
-std::wstring Core::StringConverter::toUtf16(std::string & str)
+std::wstring Core::StringConverter::toUtf16(const std::string & str)
 {
 	return con->from_bytes(str);
 }

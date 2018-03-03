@@ -22,8 +22,8 @@ namespace Core
 			return type;
 		}
 
-		std::string toUtf8(std::wstring& wstr);
-		std::wstring toUtf16(std::string& str);
+		std::string toUtf8(const std::wstring& wstr);
+		std::wstring toUtf16(const std::string& str);
 	};
 
 	typedef std::string String;
