@@ -2,6 +2,7 @@
 #include <Graphic\Time\Time.hpp>
 namespace Model
 {
+	void SpriterModel::setModel()
 	{
 	}
 

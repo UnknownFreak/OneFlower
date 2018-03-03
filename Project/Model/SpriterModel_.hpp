@@ -10,6 +10,7 @@ namespace Model
 	{
 		SpriterEngine::EntityInstance* myEntity;
 
+		void setModel();
 
 	public:
 		SpriterModel();
