@@ -3,7 +3,6 @@
 #include <Core\Core.hpp>
 #include "Prefab\Prefab.hpp"
 #include "Database\DatabaseIndex.hpp"
-#include <iostream>
 #include <fstream>
 
 #include <cereal\archives\binary.hpp>
@@ -22,8 +21,6 @@
 #include <World\Zone.hpp>
 
 #include <Model\TextureMap.hpp>
-#include <Model\SpriterEntityInstance.hpp>
-#include <Model\SpriterModelContainer.hpp>
 #include <Model\SpriteSheetAnimation.hpp>
 #include <Model\SpriterTextureMapper.hpp>
 
@@ -408,6 +405,7 @@ void AssetManager::saveGameDatabase(
 	filename.append(".index");
 	std::ofstream index("Data//" + filename, std::ios::binary);
 	{
+
 		DatabaseIndex ind;
 		cereal::BinaryOutputArchive mainAr(file);
 		cereal::BinaryOutputArchive indexAr(index);
@@ -419,64 +417,15 @@ void AssetManager::saveGameDatabase(
 		indexAr(ind);
 		mainAr(modhdr);
 
-		ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-		ind.ID = 0;
-		ind.type = DatabaseIndex::ObjectTypeEnum::ModelContainer;
-		ind.modFile = "NULL";
-		ind.row = file.tellp();
-		indexAr(ind);
-
 		prefabRequestor.save(ind, file, indexAr, mainAr);
 		modelRequestor.save(ind, file, indexAr, mainAr);
 		dbZoneRequestor.save(ind, file, indexAr, mainAr);
+		textureMapRequestor.save(ind, file, indexAr, mainAr);
 		intRequestor.save(ind, file, indexAr, mainAr);
 		doubleRequestor.save(ind, file, indexAr, mainAr);
 		stringRequestor.save(ind, file, indexAr, mainAr);
+		stringVectorRequestor.save(ind, file, indexAr, mainAr);
 
-		//saveZones(ind, EditorAllZones, file, index, indexAr, mainAr);
-		//savePrefabs(ind, prefabs, file, index, indexAr, mainAr);
-
-		//for (std::map<std::pair<std::string, size_t>, Items::Item*>::iterator it = editorAllItems.begin(); it != editorAllItems.end(); it++)
-		//{
-		//	ind.flags = "-";
-		//	ind.ID = it->first.second;
-		//	ind.type = "Item";
-		//	ind.modFile = it->second->fromMod;
-		//	ind.row = file.tellp();
-		//	if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::EDIT)
-		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
-		//	else if (it->second->fromMod == Engine::World.openedMod && it->second->mode == EditorObjectSaveMode::ADD)
-		//		it->second->mode = EditorObjectSaveMode::DEFAULT;
-		//	indexAr(ind);
-		//	saveItem(mainAr, it->second);
-		//}
-		//for (std::map<std::pair<std::string, size_t>, Quests::Quest>::iterator it = EditorAllQuests.begin(); it != EditorAllQuests.end(); it++)
-		//{
-		//	ind.flags = "-";
-		//	ind.ID = it->first.second;
-		//	ind.type = "Quest";
-		//	ind.modFile = it->second.fromMod;
-		//	ind.row = file.tellp();
-		//	if (it->second.mode != EditorObjectSaveMode::REMOVE)
-		//	{
-		//		bool b = true;
-		//		if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::EDIT)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		else if (it->second.fromMod == Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::ADD)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		else if (it->second.fromMod != Engine::World.openedMod && it->second.mode == EditorObjectSaveMode::DEFAULT)
-		//		{
-		//			b = false;
-		//		}
-		//		else if (it->second.mode > EditorObjectSaveMode::ADD)
-		//			it->second.mode = EditorObjectSaveMode::DEFAULT;
-		//		if (b)
-		//		{
-		//			indexAr(ind);
-		//			mainAr(it->second);
-		//		}
-		//	}
-		//}
 		ind.ID = 0xFFFFFFFF;
 		ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 		ind.row = file.tellp();

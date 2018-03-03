@@ -22,12 +22,12 @@
 #include <World\Zone.hpp>
 
 #include <Model\TextureMap.hpp>
-#include <Model\SpriterEntityInstance.hpp>
-#include <Model\SpriterModelContainer.hpp>
 #include <Model\SpriteSheetAnimation.hpp>
 #include <Model\SpriterTextureMapper.hpp>
 
 #include <Logger\Logger.hpp>
+
+#include <EditorManager\EditorEvents.hpp>
 
 //bool AssetManagerCore::loadZoneFromSaveFile(Core::String saveFile, Zone& zoneToLoad, size_t zoneID)
 //{
@@ -92,13 +92,20 @@
 //	}
 //}
 //
+
+
+
 void AssetManager::loadAllEditorVariables()
 {
 #ifdef _EDITOR_
-
-	prefabRequestor.editorLoadAll();
-	modelRequestor.editorLoadAll();
-	dbZoneRequestor.editorLoadAll();
+	prefabRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	modelRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	dbZoneRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	textureMapRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	intRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	doubleRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	stringRequestor.editorLoadAll(&Editor::onObjectLoaded);
+	stringVectorRequestor.editorLoadAll(&Editor::onObjectLoaded);
 #endif	
 //	LoadAllTextureMaps(Engine::ModelContainer);
 //	LoadAllPrefabs(Editor::addons.myWorldManager.editorPrefabContainer);

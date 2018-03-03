@@ -24,7 +24,6 @@
 template <class T>
 class Requestor
 {
-
 	// ##################################################
 	// # VARIABLE SECTION								#
 	// ##################################################
@@ -77,6 +76,18 @@ private:
 	}
 
 	template <class In = T>
+	inline const typename std::enable_if<!std::is_pointer<In>::value, typename std::remove_pointer<In>::type*>::type getAsPtr(T& _t)
+	{
+		return &_t;
+	}
+
+	template <class In = T>
+	inline const typename std::enable_if<std::is_pointer<In>::value, typename std::remove_pointer<In>::type*>::type getAsPtr(T& _t)
+	{
+		return _t;
+	}
+
+	template <class In = T>
 	inline const typename std::enable_if<!std::is_pointer<In>::value, Core::String>::type
 		getFromMod(const T& _t) const
 	{
@@ -88,20 +99,6 @@ private:
 		getFromMod(const T& _t) const
 	{
 		return _t->fromMod;
-	}
-
-	template <class In = T>
-	inline const typename std::enable_if<!std::is_pointer<In>::value, size_t>::type
-		getId(const T& _t) const
-	{
-		return _t.ID;
-	}
-
-	template <class In = T>
-	inline const typename std::enable_if<std::is_pointer<In>::value, size_t>::type
-		getId(const T& _t) const
-	{
-		return _t->ID;
 	}
 
 	template <class In = T>
@@ -325,8 +322,10 @@ public:
 #if defined(_EDITOR_) || defined(_UNITTESTS_)
 	inline bool add(T obj)
 	{
-		const Core::String name = getFromMod(obj);
-		const size_t uuid = getId(obj);
+		auto ptr = getAsPtr(obj);
+
+		const Core::String name = ptr->fromMod;
+		const size_t uuid = ptr->ID;
 		td_key key(name, uuid);
 
 		if (requestedMap.find(key) != requestedMap.end())
@@ -360,7 +359,8 @@ public:
 
 #ifdef _EDITOR_
 
-	inline void editorLoadAll()
+	inline void editorLoadAll(void(*onObjectLoaded)(const Core::String, const size_t, const Core::String, const ObjectSaveMode,
+		const DatabaseIndex::ObjectTypeEnum, const Core::String))
 	{
 		clear();
 		for each (std::pair<std::string, size_t> var in Engine::Get<AssetManager>().getModLoader().loadOrder)
@@ -392,6 +392,8 @@ public:
 								T tmp = defaultValue();
 								serialize(loader, tmp);
 								requestedMap.emplace(std::make_pair(td_key(ind.modFile, ind.ID), new Reference<T>(ind.modFile, ind.ID, this, tmp)));
+								auto ref = getAsPtr(tmp);
+								onObjectLoaded(ind.modFile, ind.ID, ref->getName(), ref->mode, objectType, ref->getValue());
 							}
 						}
 						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
