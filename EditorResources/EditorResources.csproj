@@ -88,7 +88,9 @@
     <Compile Include="BorderLessForm.Designer.cs">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functionality\EngineEvents.cs" />
     <Compile Include="Functionality\Events.cs" />
+    <Compile Include="Functionality\EditorEvents.cs" />
     <Compile Include="GameVariableMappingView\GameVariableMapping.xaml.cs">
       <DependentUpon>GameVariableMapping.xaml</DependentUpon>
     </Compile>
@@ -124,6 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ValidatedTextBox.xaml.cs">
       <DependentUpon>ValidatedTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\VariableSelectorBox.xaml.cs">
+      <DependentUpon>VariableSelectorBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\WindowHelpers.cs" />
     <Compile Include="SplashScreen\SplashScreen.xaml.cs">
@@ -191,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ValidatedTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VariableSelectorBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
