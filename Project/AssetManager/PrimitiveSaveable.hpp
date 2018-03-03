@@ -7,6 +7,22 @@
 template <class T>
 class PrimitiveSaveable : public IRequestable
 {
+	template <class In = T>
+	inline typename std::enable_if<std::is_same<std::vector<Core::String>, In>::value, 
+	Core::String>::type str() const
+	{
+
+		return "<List Data>";
+	}
+
+	template <class In = T>
+	inline typename std::enable_if<!std::is_same<std::vector<Core::String>, In>::value,
+	Core::String>::type str() const
+	{
+		std::stringstream s;
+		s << value;
+		return s.str();
+	}
 
 public:
 	T value;
@@ -35,7 +51,7 @@ public:
 
 	inline Core::String getValue() const override
 	{
-		return "";
+		return str();
 	}
 
 
