@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static EditorResources.Enums.EnumCollection;
 using static EditorResources.Resources.NameValidator;
 
 namespace EditorResources.Functionality
@@ -165,24 +166,10 @@ namespace EditorResources.Functionality
         public string Name { get; set; }
         public string Origin { get; set; }
         public string Value { get; set; }
+        public ObjectFlag Flag { get; set; }
         public uint ID { get; set; }
         public ObjectType Type {get ;set;}
-
-        public enum ObjectType
-        {
-            IntVariable,
-            DoubleVariable,
-            StringVariable,
-            BoolVariable,
-            ListVariable,
-            GameObject,
-            Quest,
-            Sound,
-            Item,
-            Achievement,
-            Model,
-            Trigger,
-        }
+ 
     }
 
     public class OnVariableCreatedEventArgs : BaseObjectEventArgs

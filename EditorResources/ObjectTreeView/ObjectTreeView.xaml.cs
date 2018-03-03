@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
+using static EditorResources.Enums.EnumCollection;
 
 namespace EditorResources.ObjectView
 {
@@ -21,6 +22,7 @@ namespace EditorResources.ObjectView
             InitializeComponent();
             EditorEvents.onModFinishedLoading += OnModLoaded;
             EditorEvents.onOVariableCreatedEvent += OnVariableCreated;
+            EditorEvents.onObjectLoadEvent += OnObjectLoaded;
             treeView.IsEnabled = false;
             ObjectList.ItemsSource = objectItems;
         }
@@ -30,12 +32,14 @@ namespace EditorResources.ObjectView
             // This method is registered before any other event so we can set the mod origin here.
             e.Origin = loadedMod;
             e.ID = getId(e.Type);
-            objectItems.Add(new ObjectDataViewModel(e.Origin, e.ID, e.Name, 
-                ObjectDataViewModel.ObjectFlag.Added, e.Type, e.Value));
+            objectItems.Add(new ObjectDataViewModel(e.Origin, e.ID, e.Name, ObjectFlag.Added, e.Type, e.Value));
         }
 
-        public void OnObjectLoaded(OnObjectLoadEventArgs arg)
+        public void OnObjectLoaded(object sender, OnObjectLoadEventArgs arg)
         {
+            if (arg.Type == ObjectType.Zone)
+                return;
+            objectItems.Add(new ObjectDataViewModel(arg.Origin, arg.ID, arg.Name, ObjectFlag.Default, arg.Type, arg.Value));
         }
 
         private void OnModLoaded(object sender, ModFinishedLoadedEventArgs args)
@@ -65,7 +69,7 @@ namespace EditorResources.ObjectView
             window.Show();
         }
 
-        private uint getId(BaseObjectEventArgs.ObjectType type)
+        private uint getId(ObjectType type)
         {
             uint lastId = 0;
             try
@@ -87,7 +91,7 @@ namespace EditorResources.ObjectView
         private uint _id;
         private string _name;
         private ObjectFlag _flag;
-        private BaseObjectEventArgs.ObjectType _type;
+        private ObjectType _type;
         private string _value;
 
         public Brush brush { get; set; }
@@ -129,7 +133,7 @@ namespace EditorResources.ObjectView
             }
         }
 
-        public BaseObjectEventArgs.ObjectType Type
+        public ObjectType Type
         {
             get { return _type; }
             set
@@ -149,7 +153,7 @@ namespace EditorResources.ObjectView
             }
         }
 
-        public ObjectDataViewModel(string origin, uint id, string name, ObjectFlag flag, BaseObjectEventArgs.ObjectType type, string value)
+        public ObjectDataViewModel(string origin, uint id, string name, ObjectFlag flag, ObjectType type, string value)
         {
             Origin = origin;
             Id = id;
@@ -161,12 +165,5 @@ namespace EditorResources.ObjectView
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        internal enum ObjectFlag
-        {
-            Added,
-            Deleted,
-            Edited,
-            None
-        }
     }
 }

@@ -2,6 +2,10 @@
 #define EditorEvents_HPP
 #ifdef _EDITOR_
 #ifndef _UNITTESTS_
+
+#include <AssetManager\Database\DatabaseIndex.hpp>
+#include <AssetManager\ObjectSaveMode.hpp>
+
 #include <Core/String.hpp>
 
 #define EditorEvents EditorResources::Functionality::EditorEvents
@@ -12,9 +16,6 @@ namespace Editor
 {
 	ref class Events
 	{
-		Core::String toString(System::String^ str);
-		Core::String toString(array<wchar_t>^ arr);
-		System::String^ toString(Core::String& str);
 
 		EditorResources::ModWindow::ModDependencyList^ loadDependenciesInternal(Core::String mod);
 	public:
@@ -32,8 +33,13 @@ namespace Editor
 		void OnGlobalVaraibleCreated(Object ^ sender, EditorResources::Functionality::OnVariableCreatedEventArgs^ args);
 
 		void OnVariableMappingRecieved(Object^ sender, RequestEvents::GameVariableMappingEventArgs^ args);
-
 	};
+
+	Core::String toString(System::String^ str);
+	Core::String toString(array<wchar_t>^ arr);
+	System::String^ toString(const Core::String& str);
+
+	void onObjectLoaded(const Core::String Origin, const size_t ID, const Core::String Name, const ObjectSaveMode mode, const DatabaseIndex::ObjectTypeEnum type, const Core::String value);
 }
 #endif
 #endif

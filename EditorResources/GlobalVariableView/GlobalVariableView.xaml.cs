@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using static EditorResources.Enums.EnumCollection;
 using static EditorResources.Functionality.RequestEvents;
 using static EditorResources.Resources.NameValidator;
 
@@ -31,17 +30,17 @@ namespace EditorResources.GlobalVariableView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Functionality.BaseObjectEventArgs.ObjectType type;
+            ObjectType type;
             switch (value.ValidateAs)
             {
                 case ValidationType.Double:
-                    type = Functionality.BaseObjectEventArgs.ObjectType.DoubleVariable;
+                    type = ObjectType.DoubleVariable;
                     break;
                 case ValidationType.Int:
-                    type = Functionality.BaseObjectEventArgs.ObjectType.IntVariable;
+                    type = ObjectType.IntVariable;
                     break;
                 case ValidationType.String:
-                    type = Functionality.BaseObjectEventArgs.ObjectType.StringVariable;
+                    type = ObjectType.StringVariable;
                     break;
                 default:
                     OnLogEvent(new EditorLogEventArgs() {

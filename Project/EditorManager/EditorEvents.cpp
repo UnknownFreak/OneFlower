@@ -12,12 +12,12 @@
 #include "EditorEvents.hpp"
 #include "InteropHelper.hpp"
 
-Core::String Editor::Events::toString(System::String ^ str)
+Core::String Editor::toString(System::String ^ str)
 {
 	return toString(str->ToCharArray());
 }
 
-Core::String Editor::Events::toString(array<wchar_t>^ arr)
+Core::String Editor::toString(array<wchar_t>^ arr)
 {
 	std::wstring w;
 	
@@ -27,7 +27,7 @@ Core::String Editor::Events::toString(array<wchar_t>^ arr)
 	return Engine::Get<Core::StringConverter>().toUtf8(w);
 }
 
-System::String^ Editor::Events::toString(Core::String & str)
+System::String^ Editor::toString(const Core::String & str)
 {
 	return gcnew System::String(Engine::Get<Core::StringConverter>().toUtf16(str).c_str());
 }
@@ -163,6 +163,76 @@ void Editor::Events::OnVariableMappingRecieved(Object ^ sender, RequestEvents::G
 		arg->AnimationVariable = toString(Engine::Get<GameVariableMapping>().getAnimationVariableName());
 		EngineEvents::EngineOnSendVariableMapping(arg);
 	}
+}
+
+void Editor::onObjectLoaded(const Core::String Origin, const size_t ID, const Core::String Name, const ObjectSaveMode mode, const DatabaseIndex::ObjectTypeEnum type, const Core::String value)
+{
+	EditorResources::Functionality::OnObjectLoadEventArgs^args = gcnew EditorResources::Functionality::OnObjectLoadEventArgs();
+
+	args->Origin = toString(Origin);
+	args->ID = ID;
+	args->Name = toString(Name);
+	switch (mode)
+	{
+	case ObjectSaveMode::ADD:
+		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Added;
+		break;
+	case ObjectSaveMode::EDIT:
+		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Edited;
+		break;
+	case ObjectSaveMode::REMOVE:
+		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Deleted;
+		break;
+	default:
+		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Default;
+	}
+	switch (type)
+	{
+	case DatabaseIndex::ObjectTypeEnum::Zone:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Zone;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::DBZone:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Zone;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::Prefab:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::GameObject;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::GameObject:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::GameObject;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::Quest:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Quest;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::Item:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Item;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::Model:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Model;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::Undefined:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Unknown;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::TextureMap:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::TextureMap;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::PrimitiveInt:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::IntVariable;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::PrimitiveDouble:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::DoubleVariable;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::PrimitiveString:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::StringVariable;
+		break;
+	case DatabaseIndex::ObjectTypeEnum::StringList:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::ListVariable;
+		break;
+	default:
+		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Unknown;
+		break;
+	}
+	args->Value = toString(value);
+	EditorEvents::OnObjectLoadEvent(args);
 }
 #endif
 #endif

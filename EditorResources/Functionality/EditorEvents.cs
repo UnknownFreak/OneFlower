@@ -16,12 +16,15 @@ namespace EditorResources.Functionality
         }
         #endregion
 
+
+        #region GameVariableMapping
         public static EventHandler<GameVariableMappingEventArgs> onRequestGameVariableMapping;
 
         public static void OnRequestGameVariableMappingVariable(GameVariableMappingEventArgs args)
         {
             onRequestGameVariableMapping?.Invoke(null, args);
         }
+        #endregion
 
         #region EventClasses
         public class GameVariableMappingEventArgs : EventArgs
