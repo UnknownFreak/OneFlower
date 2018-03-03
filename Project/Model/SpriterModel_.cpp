@@ -15,10 +15,11 @@ namespace Model
 	{
 	}
 
-	SpriterModel::SpriterModel(const SpriterModel & copy) : IModel(copy), fileName(copy.fileName), modelNames(copy.modelNames), selectedModelName(copy.selectedModelName),
-		textureMapId(textureMapId)
-	{
-	}
+	//SpriterModel::SpriterModel(const SpriterModel & copy) : IModel(copy), fileName(copy.fileName), modelNames(copy.modelNames), selectedModelName(copy.selectedModelName),
+	//	textureMapId(textureMapId)
+	//{
+	//	setModel();
+	//}
 
 	SpriterModel & SpriterModel::operator=(const SpriterModel & right)
 	{
