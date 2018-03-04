@@ -19,6 +19,10 @@ Core::String GameVariableMapping::getAnimationVariableName()
 {
 	return animationVariableId;
 }
+void GameVariableMapping::setAnimationVariableName(Core::String str)
+{
+	animationVariableId = str;
+}
 #endif
 
 const ResourceType & GameVariableMapping::getType()

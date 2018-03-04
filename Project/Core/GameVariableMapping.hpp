@@ -22,6 +22,7 @@ public:
 
 #ifdef _EDITOR_
 	Core::String getAnimationVariableName();
+	void setAnimationVariableName(Core::String str);
 #endif
 
 	// Inherited via IEngineResource
