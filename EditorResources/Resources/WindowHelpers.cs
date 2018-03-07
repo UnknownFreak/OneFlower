@@ -32,11 +32,11 @@ namespace EditorResources.Resources
                         return new ValidationResult(false, "Floating point value required!");
                     break;
                 case ValidationType.String:
-                    if ((value as string) == "")
-                        return new ValidationResult(false, "Blank field not allowed.");
+                    if ((value as string) == string.Empty)
+                        return new ValidationResult(false, "Empty field not allowed.");
                     break;
             }
-            return new ValidationResult(true, "");
+            return new ValidationResult(true, string.Empty);
         }
     }
     public class NameValidatorWrapper : DependencyObject
@@ -68,19 +68,5 @@ namespace EditorResources.Resources
         public static readonly DependencyProperty DataProperty =
             DependencyProperty.Register("Data", typeof(object), typeof(BindingProxy), new PropertyMetadata(null));
 
-    }
-
-    public class LeftMarginConverter : IValueConverter
-    {
-
-        public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return new Thickness(System.Convert.ToDouble(value), 0, 0, 0);
-        }
-
-        public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return null;
-        }
     }
 }
