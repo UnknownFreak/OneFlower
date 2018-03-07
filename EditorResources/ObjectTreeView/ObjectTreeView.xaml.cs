@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
 using static EditorResources.Enums.EnumCollection;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace EditorResources.ObjectView
 {
@@ -16,15 +19,21 @@ namespace EditorResources.ObjectView
     {
 
         ObservableCollection<ObjectDataViewModel> objectItems = new ObservableCollection<ObjectDataViewModel>();
-        string loadedMod = "";
+        string loadedMod = string.Empty;
         public ObjectTreeView()
         {
             InitializeComponent();
             EditorEvents.onModFinishedLoading += OnModLoaded;
             EditorEvents.onOVariableCreatedEvent += OnVariableCreated;
             EditorEvents.onObjectLoadEvent += OnObjectLoaded;
+            InternalEditorEvents.requestObjectData += OnDataObjectRequested;
             treeView.IsEnabled = false;
             ObjectList.ItemsSource = objectItems;
+        }
+
+        private void OnDataObjectRequested(object sender, EventArgs e)
+        {
+            InternalEditorEvents.OnRequsetObjectDataListEvent(new InternalEditorEvents.RequestObjectDataListEventArgs() { Observable = objectItems });
         }
 
         private void OnVariableCreated(object sender, OnVariableCreatedEventArgs e)
@@ -50,23 +59,25 @@ namespace EditorResources.ObjectView
 
         private void NewIntegerVariable_Click(object sender, RoutedEventArgs e)
         {
-            var window = new GlobalVariableView.GlobalVariableView(EditorResources.Resources.NameValidator.ValidationType.Int);
-            window.Owner = Window.GetWindow(this);
-            window.Show();
+            CreateVariableView(EditorResources.Resources.NameValidator.ValidationType.Int).Show();
         }
 
         private void NewFoatingPointVariable_Click(object sender, RoutedEventArgs e)
         {
-            var window = new GlobalVariableView.GlobalVariableView(EditorResources.Resources.NameValidator.ValidationType.Double);
-            window.Owner = Window.GetWindow(this);
-            window.Show();
+            CreateVariableView(EditorResources.Resources.NameValidator.ValidationType.Double).Show();
         }
 
         private void NewStringVariable_Click(object sender, RoutedEventArgs e)
         {
-            var window = new GlobalVariableView.GlobalVariableView(EditorResources.Resources.NameValidator.ValidationType.String);
-            window.Owner = Window.GetWindow(this);
-            window.Show();
+            CreateVariableView(EditorResources.Resources.NameValidator.ValidationType.String).Show();
+        }
+
+        private GlobalVariableView.GlobalVariableView CreateVariableView(Resources.NameValidator.ValidationType validation)
+        {
+            return new GlobalVariableView.GlobalVariableView(validation)
+            {
+                Owner = Window.GetWindow(this)
+            };
         }
 
         private uint getId(ObjectType type)
@@ -76,9 +87,9 @@ namespace EditorResources.ObjectView
             {
                 lastId = objectItems.Where(x => x.Type == type).Select(x => x.Id).Max();
             }
-            catch (System.ArgumentNullException)
+            catch (ArgumentNullException)
             { }
-            catch (System.InvalidOperationException)
+            catch (InvalidOperationException)
             { }
             finally
             { lastId++; }
@@ -102,7 +113,7 @@ namespace EditorResources.ObjectView
             private set
             {
                 _origin = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Origin"));
+                NotifyPropertyChanged();
             }
         }
         public uint Id
@@ -111,7 +122,7 @@ namespace EditorResources.ObjectView
             private set
             {
                 _id = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Id"));
+                NotifyPropertyChanged();
             }
         }
         public string Name
@@ -120,7 +131,7 @@ namespace EditorResources.ObjectView
             private set
             {
                 _name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+                NotifyPropertyChanged();
             }
         }
         public ObjectFlag Flag
@@ -129,7 +140,7 @@ namespace EditorResources.ObjectView
             set
             {
                 _flag = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Flag"));
+                NotifyPropertyChanged();
             }
         }
 
@@ -139,7 +150,7 @@ namespace EditorResources.ObjectView
             set
             {
                 _type = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Type"));
+                NotifyPropertyChanged();
             }
         }
 
@@ -149,7 +160,7 @@ namespace EditorResources.ObjectView
             set
             {
                 _value = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
+                NotifyPropertyChanged();
             }
         }
 
@@ -165,5 +176,9 @@ namespace EditorResources.ObjectView
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
