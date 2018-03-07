@@ -16,16 +16,13 @@ namespace EditorResources.GlobalVariableView
         public GlobalVariableView()
         {
             InitializeComponent();
-            name.Text = "";
-            value.Text = "";
+            name.Text = string.Empty;
+            value.Text = string.Empty;
         }
 
-        public GlobalVariableView(ValidationType type)
+        public GlobalVariableView(ValidationType type) : this()
         {
-            InitializeComponent();
             value.ValidateAs = type;
-            name.Text = "";
-            value.Text = "";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,7 +42,7 @@ namespace EditorResources.GlobalVariableView
                 default:
                     OnLogEvent(new EditorLogEventArgs() {
                         logMessage = new Message.Message() {
-                            type = Message.Message.MsgType.Error, message =$"Invalid value for enum {value.ValidateAs}" }
+                            type = Message.Message.MsgType.Error, message =$"Invalid value for enum: '{value.ValidateAs}'" }
                     });
                     throw new ValueUnavailableException();
             }
