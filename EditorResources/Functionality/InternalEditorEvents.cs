@@ -1,4 +1,4 @@
-﻿using EditorResources.ObjectView;
+﻿using EditorResources.UserControls;
 using System;
 using System.Collections.ObjectModel;
 
@@ -25,9 +25,9 @@ namespace EditorResources.Functionality
             requestObjectData?.Invoke(null, EventArgs.Empty);
         }
 
-        public static void Log(String message, Message.Message.MsgType logAs)
+        public static void Log(String message, Utils.Message.MsgType logAs)
         {
-            RequestEvents.OnLogEvent(new RequestEvents.EditorLogEventArgs() { logMessage = new Message.Message() { message = message, type = logAs}});
+            RequestEvents.OnLogEvent(new RequestEvents.EditorLogEventArgs() { logMessage = new Utils.Message() { message = message, type = logAs}});
         }
     }
 }

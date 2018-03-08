@@ -32,9 +32,9 @@ System::String^ Editor::toString(const Core::String & str)
 	return gcnew System::String(Engine::Get<Core::StringConverter>().toUtf16(str).c_str());
 }
 
-EditorResources::ModWindow::ModDependencyList ^ Editor::Events::loadDependenciesInternal(Core::String mod)
+EditorResources::Utils::ModDependencyList ^ Editor::Events::loadDependenciesInternal(Core::String mod)
 {
-	EditorResources::ModWindow::ModDependencyList^ depList = gcnew EditorResources::ModWindow::ModDependencyList();
+	EditorResources::Utils::ModDependencyList^ depList = gcnew EditorResources::Utils::ModDependencyList();
 	depList->Mod = gcnew System::String(mod.c_str());
 	std::vector<Core::String> dep = Engine::Get<WorldManagerAddon>().getModDependencies(mod);
 	
@@ -88,7 +88,7 @@ void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functiona
 void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Functionality::ModFileSelectedEventArgs^ args)
 {
 	Core::String mod = toString(args->fileName);
-	EditorResources::ModWindow::ModDependencyList^ depList = loadDependenciesInternal(mod);
+	EditorResources::Utils::ModDependencyList^ depList = loadDependenciesInternal(mod);
 	EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs ^evt = gcnew EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs();
 	evt->Dependencies = depList;
 	EditorEvents::EngineOnModSelectedLoaded(evt);

@@ -17,7 +17,7 @@ namespace Editor
 	ref class Events
 	{
 
-		EditorResources::ModWindow::ModDependencyList^ loadDependenciesInternal(Core::String mod);
+		EditorResources::Utils::ModDependencyList^ loadDependenciesInternal(Core::String mod);
 	public:
 
 		void registerEvents();

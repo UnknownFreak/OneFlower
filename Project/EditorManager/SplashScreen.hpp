@@ -9,7 +9,7 @@
 ref class SplashScreen
 {
 	Editor::Events^ editorEvents;
-	EditorResources::SplashScreen::SplashScreen^ splsh;
+	EditorResources::Windows::SplashScreen^ splsh;
 
 	IntPtr^ splashScreenHandle;
 	// should be held in an own class called ManagedEvents

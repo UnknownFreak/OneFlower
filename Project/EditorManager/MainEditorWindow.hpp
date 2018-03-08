@@ -5,7 +5,7 @@
 #include <Windows.h>
 ref class MainEditorWindow
 {
-	EditorResources::MainEditorWindow::EditorWindow^ window;
+	EditorResources::Windows::EditorWindow^ window;
 
 	System::IntPtr^ windowhandle;
 

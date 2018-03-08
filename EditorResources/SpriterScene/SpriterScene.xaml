@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.SpriterScene"
-             xmlns:ObjectView="clr-namespace:EditorResources.ObjectView" x:Class="EditorResources.SpriterScene.SpriterScene"
+             xmlns:ObjectView="clr-namespace:EditorResources.UserControls" x:Class="EditorResources.SpriterScene.SpriterScene"
              mc:Ignorable="d" Width="1031.404" Height="799.296" Background="White" Closing="Window_Closing" Icon="pack://siteoforigin:,,,/Flower.png" Title="Spriter Manager">
     <Grid>
         <Grid.Effect>

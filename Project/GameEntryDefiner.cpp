@@ -3,6 +3,7 @@
 #include <SFML\System\Thread.hpp>
 #include <SFML\Window\Event.hpp>
 
+#include <Core\Core.hpp>
 #include <Core\IEngineResource\EngineResourceManager.hpp>
 
 #include <Graphic\GraphicsCore.hpp>

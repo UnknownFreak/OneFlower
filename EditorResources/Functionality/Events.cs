@@ -125,7 +125,7 @@ namespace EditorResources.Functionality
 
     public class EngineOnModSelectedLoadedEventArgs : EventArgs
     {
-        public ModWindow.ModDependencyList Dependencies;
+        public Utils.ModDependencyList Dependencies;
     }
 
     public class ModFileSelectedEventArgs : EventArgs

@@ -81,7 +81,7 @@ void OneLogger::Debug(Core::String message)
 {
 	logMessage(DEBUG, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Debug);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Debug);
 #endif
 }
 
@@ -89,7 +89,7 @@ void OneLogger::Info(Core::String message)
 {
 	logMessage(INFO, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Info);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Info);
 #endif
 }
 
@@ -97,7 +97,7 @@ void OneLogger::Fine(Core::String message)
 {
 	logMessage(FINE, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Fine);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Fine);
 #endif
 }
 
@@ -105,7 +105,7 @@ void OneLogger::Warning(Core::String message)
 {
 	logMessage(WARNING, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Warning);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Warning);
 #endif
 }
 
@@ -113,7 +113,7 @@ void OneLogger::Error(Core::String message)
 {
 	logMessage(ERROR, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Error);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Error);
 #endif
 }
 
@@ -121,18 +121,18 @@ void OneLogger::Critical(Core::String message)
 {
 	logMessage(CRITICAL, message);
 #ifdef _EDITOR_
-	LogToEditor(message, EditorResources::Message::Message::MsgType::Critical);
+	LogToEditor(message, EditorResources::Utils::Message::MsgType::Critical);
 #endif
 }
 
 
 #ifdef _EDITOR_
-void OneLogger::LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType MsgType)
+void OneLogger::LogToEditor(Core::String& message, EditorResources::Utils::Message::MsgType MsgType)
 {
 	if (!logToEditor)
 		return;
 #ifndef _UNITTESTS_
-	auto logmsg = gcnew EditorResources::Message::Message();
+	auto logmsg = gcnew EditorResources::Utils::Message();
 	logmsg->message = gcnew String(message.c_str());
 	logmsg->type = MsgType;
 	auto msgargs = gcnew EditorResources::Functionality::RequestEvents::EditorLogEventArgs();

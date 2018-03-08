@@ -27,7 +27,7 @@ class OneLogger : public IEngineResource<OneLogger>
 	Core::String cwd;
 
 #ifdef _EDITOR_
-	void LogToEditor(Core::String& message, EditorResources::Message::Message::MsgType msgType);
+	void LogToEditor(Core::String& message, EditorResources::Utils::Message::MsgType msgType);
 #endif
 
 	void logMessage(Core::String& type, Core::String& message);

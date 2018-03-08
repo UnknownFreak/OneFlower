@@ -6,13 +6,13 @@
 
 MainEditorWindow::MainEditorWindow()
 {
-	window = gcnew EditorResources::MainEditorWindow::EditorWindow();
+	window = gcnew EditorResources::Windows::EditorWindow();
 	Engine::Get<Gfx>().view.init(getEditorGameWindowView());
 }
 
 MainEditorWindow::MainEditorWindow(const MainEditorWindow% cpy)
 {
-	window = gcnew EditorResources::MainEditorWindow::EditorWindow();
+	window = gcnew EditorResources::Windows::EditorWindow();
 	Engine::Get<Gfx>().view.init(getEditorGameWindowView());
 	window->Show();
 }

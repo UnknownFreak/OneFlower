@@ -319,8 +319,8 @@ namespace EditorResources.SpriterScene
             {
                 NameField nf = e.AddedItems[0] as NameField;
 
-                OnLogEvent(new EditorLogEventArgs() { logMessage = new Message.Message() { message = nf.FileName,
-                    type = Message.Message.MsgType.Info } });
+                OnLogEvent(new EditorLogEventArgs() { logMessage = new Utils.Message() { message = nf.FileName,
+                    type = Utils.Message.MsgType.Info } });
                 addTextureMap.IsEnabled = true;
                 TextureMap.ItemsSource = nf.textureMaps;
             }

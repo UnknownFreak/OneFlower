@@ -40,7 +40,7 @@ namespace EditorResources.Functionality
 
         public class EditorLogEventArgs : EventArgs
         {
-            public Message.Message logMessage;
+            public Utils.Message logMessage;
         }
         #endregion
     }
