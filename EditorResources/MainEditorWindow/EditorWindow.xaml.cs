@@ -114,5 +114,10 @@ namespace EditorResources.MainEditorWindow
             new SpriterScene.SpriterScene().Show();
             new ModelViewer.ModelViewer().Show();
         }
+
+        private void GameVariableMappingClick(object sender, RoutedEventArgs e)
+        {
+            new GameVariableMappingView.GameVariableMapping().Show();
+        }
     }
 }

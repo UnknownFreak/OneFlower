@@ -1,12 +1,18 @@
-﻿<UserControl x:Class="EditorResources.Resources.VariableSelectorBox"
+﻿<ComboBox x:Class="EditorResources.Resources.VariableSelectorBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.Resources"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
-</UserControl>
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="ComboBox_Loaded" DropDownOpened="ComboBox_DropDownOpened">
+    <ComboBox.Resources>
+        <local:BindingProxy Data="{Binding}" x:Key="proxy"/>
+    </ComboBox.Resources>
+    <ComboBox.DataContext>
+        <local:ObjectTypeNotifier/>
+    </ComboBox.DataContext>
+    <ComboBox.Text>
+        <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" Path="Text" NotifyOnValidationError="True" NotifyOnTargetUpdated="True" NotifyOnSourceUpdated="True" ValidatesOnExceptions="True"/>
+    </ComboBox.Text>
+</ComboBox>

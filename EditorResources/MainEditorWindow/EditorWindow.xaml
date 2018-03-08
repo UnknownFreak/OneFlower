@@ -78,7 +78,7 @@
             <MenuItem Header="Scripts"/>
             <MenuItem Header="Spriter" Click="MenuItem_Click"/>
             <Separator/>
-            <MenuItem Header="Game Variable Mapping"/>
+            <MenuItem Header="Game Variable Mapping" Click="GameVariableMappingClick"/>
             <MenuItem Header="Window"/>
             <MenuItem Header="Options"/>
             <MenuItem Header="Help"/>

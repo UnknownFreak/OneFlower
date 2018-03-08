@@ -13,22 +13,23 @@ namespace EditorResources.GameVariableMappingView
         public GameVariableMapping()
         {
             InitializeComponent();
-            RequestEvents.OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.Animation});
-            RequestEvents.OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.MainMenu});
-            RequestEvents.OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.StartingZone});
+            engineOnSendVariableMapping += EnigineOnSendAnimationVariableSubscriber;
 
-            EngineEvents.engineOnSendVariableMapping += enigineOnSendAnimationVariableSubscriber;
+            OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.Animation});
+            OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.MainMenu});
+            OnRequestGameVariableMappingVariable(new GameVariableMappingEventArgs() {VariableToRequest = GameVariableMappingEventArgs.Variable.StartingZone});
+
         }
 
-        private void enigineOnSendAnimationVariableSubscriber(object sender, VariableMappingEventArgs e)
+        private void EnigineOnSendAnimationVariableSubscriber(object sender, VariableMappingEventArgs e)
         {
             if (e.GetType() == typeof(AnimationVariableMappingEventArgs))
-                assignAnimationVariable(e as AnimationVariableMappingEventArgs);
+                AssignAnimationVariable(e as AnimationVariableMappingEventArgs);
         }
 
-        private void assignAnimationVariable(AnimationVariableMappingEventArgs args)
+        private void AssignAnimationVariable(AnimationVariableMappingEventArgs args)
         {
-            AnimationVariableName.Text = args.AnimationVariable;
+            AnimationVariableName.TrySelect(args.AnimationVariable);
         }
     }
 }
