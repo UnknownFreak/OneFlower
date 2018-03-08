@@ -30,7 +30,6 @@ public:
 
 	void mainMenuUpdater();
 
-
 	void physicsUpdate();
 
 };

@@ -46,7 +46,8 @@
     <ProjectGuid>{7018A509-38BF-4391-B188-948A7FEE55AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OneFlower</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -621,7 +622,6 @@
     <ClCompile Include="Project\Core\Component\TransformComponentHandler.cpp" />
     <ClCompile Include="Project\Core\String.cpp" />
     <ClCompile Include="Project\EditorManager\EditorEvents.cpp" />
-    <ClCompile Include="Project\EditorManager\EditorMain.cpp" />
     <ClCompile Include="Project\EditorManager\MainEditorWindowDefiner.cpp" />
     <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp" />
     <ClCompile Include="Project\EditorManager\TextureMapExtensions\TextureMapAddon.cpp" />

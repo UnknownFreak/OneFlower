@@ -7,6 +7,11 @@
 
 #include <Graphic\GraphicsCore.hpp>
 
+#ifdef _EDITOR_
+#include <EditorManager\MainEditorWindow.hpp>
+#include <EditorManager\SplashScreen.hpp>
+#endif
+
 GameEntry::GameEntry() : gfx(Engine::Get<Gfx>()), time(Engine::Get<Time>()), input(Engine::Get<InputHandler>()),
 world(Engine::Get<WorldManager>()), physics(Engine::Get<PhysicsEngine>())
 {
@@ -15,33 +20,45 @@ world(Engine::Get<WorldManager>()), physics(Engine::Get<PhysicsEngine>())
 
 int GameEntry::main()
 {
+#ifdef _EDITOR_
+	SplashScreen^ splash = gcnew SplashScreen();
+	MainEditorWindow^ window = splash->InitializeEditor();
+#endif
+
 
 	gfx.view.render.setFramerateLimit(200);
 	gfx.view.render.setActive(false);
 	sf::Thread render_thread(&GameEntry::render, this);
 	render_thread.launch();
-
 	sf::Thread physics_thread(&GameEntry::physicsUpdate, this);
 	physics_thread.launch();
 
 #ifndef _UNITTESTS_
-	while (gfx.view.render.isOpen())
-	{
-		while (gfx.view.render.pollEvent(Engine::event))
+#ifdef _EDITOR_
+	MSG message;
+	while(!window->isClosed())
+		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
 		{
-			if (Engine::event.type == sf::Event::Closed)
+			TranslateMessage(&message);
+			DispatchMessage(&message);
+#else
+		while (gfx.view.render.isOpen())
+		{
+#endif
+			while (gfx.view.render.pollEvent(Engine::event))
 			{
-				gfx.view.render.close();
+				if (Engine::event.type == sf::Event::Closed)
+				{
+					gfx.view.render.close();
+				}
+				if (Engine::event.type == Engine::event.MouseWheelMoved)
+					input.deltaScrolls += Engine::event.mouseWheel.delta;
 			}
-			if (Engine::event.type == Engine::event.MouseWheelMoved)
-				input.deltaScrolls += Engine::event.mouseWheel.delta;
 		}
-	}
 #endif
 	render_thread.terminate();
 	physics_thread.terminate();
 	render_thread.wait();
-	physics_thread.wait();
 
 	return EXIT_SUCCESS;
 }
@@ -113,3 +130,4 @@ void GameEntry::physicsUpdate()
 		}
 	}
 }
+

@@ -765,9 +765,6 @@
       <Filter>C++Interop\EditorManager\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\WindowHandler.cpp" />
-    <ClCompile Include="Project\EditorManager\EditorMain.cpp">
-      <Filter>C++Interop</Filter>
-    </ClCompile>
     <ClCompile Include="Project\EditorManager\SplashScreenDefiner.cpp">
       <Filter>C++Interop\WindowWrapper\SplashScreen</Filter>
     </ClCompile>
