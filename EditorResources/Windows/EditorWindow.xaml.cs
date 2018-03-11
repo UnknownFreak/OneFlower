@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using EditorResources.Functionality;
-using static EditorResources.Functionality.RequestEvents;
+using static EditorResources.Functionality.EditorEvents;
 
 namespace EditorResources.Windows
 {
@@ -39,7 +39,6 @@ namespace EditorResources.Windows
         private void Window_Closed(object sender, EventArgs e)
         {
             closed = true;
-            //Environment.Exit(0);
         }
         public bool isClosed()
         {
@@ -98,7 +97,7 @@ namespace EditorResources.Windows
             if (result == true)
             {
                 // Open document
-                EditorEvents.OnModLoad(new ModLoadEventArgs() { modName = dlg.SafeFileName});
+                EditorEvents_old.OnModLoad(new ModLoadEventArgs() { modName = dlg.SafeFileName});
             }
         }
 
@@ -109,7 +108,7 @@ namespace EditorResources.Windows
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            EditorEvents.OnModSave(new ModSaveEventArgs());
+            EditorEvents_old.OnModSave(new ModSaveEventArgs());
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {

@@ -5,10 +5,11 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
-using static EditorResources.Enums.EnumCollection;
+using static EditorResources.Utils.EnumCollection;
 using System;
 using System.Runtime.CompilerServices;
 using EditorResources.Utils;
+using static EditorResources.Functionality.EditorEvents;
 
 namespace EditorResources.UserControls
 {
@@ -23,10 +24,11 @@ namespace EditorResources.UserControls
         public ObjectTreeView()
         {
             InitializeComponent();
-            EditorEvents.onModFinishedLoading += OnModLoaded;
-            EditorEvents.onOVariableCreatedEvent += OnVariableCreated;
+            EditorEvents_old.onModFinishedLoading += OnModLoaded;
+            EditorEvents_old.onOVariableCreatedEvent += OnVariableCreated;
             EditorEvents.onObjectLoadEvent += OnObjectLoaded;
             InternalEditorEvents.requestObjectData += OnDataObjectRequested;
+            EditorEvents.onModLoaded += ClearListOnLoad;
             treeView.IsEnabled = false;
             ObjectList.ItemsSource = objectItems;
         }
@@ -36,19 +38,24 @@ namespace EditorResources.UserControls
             InternalEditorEvents.OnRequsetObjectDataListEvent(new InternalEditorEvents.RequestObjectDataListEventArgs() { Observable = objectItems });
         }
 
+        private void ClearListOnLoad(object sender, EventArgs e)
+        {
+            objectItems.Clear();
+        }
+
         private void OnVariableCreated(object sender, OnVariableCreatedEventArgs e)
         {
             // This method is registered before any other event so we can set the mod origin here.
             e.Origin = loadedMod;
             e.ID = getId(e.Type);
-            objectItems.Add(new ObjectDataViewModel(e.Origin, e.ID, e.Name, ObjectFlag.Added, e.Type, e.Value));
+            objectItems.Add(new ObjectDataViewModel(e.Origin, e.ID, e.Name, ObjectFlag.Added, e.Type, e.Value.ToString()));
         }
 
         public void OnObjectLoaded(object sender, OnObjectLoadEventArgs arg)
         {
             if (arg.Type == ObjectType.Zone)
                 return;
-            objectItems.Add(new ObjectDataViewModel(arg.Origin, arg.ID, arg.Name, ObjectFlag.Default, arg.Type, arg.Value));
+            objectItems.Add(new ObjectDataViewModel(arg.Origin, arg.ID, arg.Name, ObjectFlag.Default, arg.Type, arg.Value.ToString()));
         }
 
         private void OnModLoaded(object sender, ModFinishedLoadedEventArgs args)

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using static EditorResources.Enums.EnumCollection;
-using static EditorResources.Functionality.RequestEvents;
+using static EditorResources.Utils.EnumCollection;
+using static EditorResources.Functionality.EditorEvents;
 using static EditorResources.Resources.NameValidator;
 
 namespace EditorResources.Windows
@@ -46,7 +46,7 @@ namespace EditorResources.Windows
                     });
                     throw new ValueUnavailableException();
             }
-            Functionality.EditorEvents.OnVariableCreatedEvent(new Functionality.OnVariableCreatedEventArgs()
+            Functionality.EditorEvents_old.OnVariableCreatedEvent(new Functionality.OnVariableCreatedEventArgs()
             {
                 Name = name.Text,
                 VariableType = value.ValidateAs,

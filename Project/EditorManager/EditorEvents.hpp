@@ -8,9 +8,9 @@
 
 #include <Core/String.hpp>
 
-#define EditorEvents EditorResources::Functionality::EditorEvents
+#define EditorEvents_old EditorResources::Functionality::EditorEvents_old
 #define EngineEvents EditorResources::Functionality::EngineEvents
-#define RequestEvents EditorResources::Functionality::RequestEvents
+#define EditorEvents EditorResources::Functionality::EditorEvents
 
 namespace Editor
 {
@@ -32,7 +32,7 @@ namespace Editor
 
 		void OnGlobalVaraibleCreated(Object ^ sender, EditorResources::Functionality::OnVariableCreatedEventArgs^ args);
 
-		void OnVariableMappingRecieved(Object^ sender, RequestEvents::GameVariableMappingEventArgs^ args);
+		void OnVariableMappingRecieved(Object^ sender, EditorEvents::GameVariableMappingEventArgs^ args);
 	};
 
 	Core::String toString(System::String^ str);

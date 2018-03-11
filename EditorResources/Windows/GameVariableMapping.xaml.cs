@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using static EditorResources.Functionality.EngineEvents;
-using static EditorResources.Functionality.RequestEvents;
+using static EditorResources.Functionality.EditorEvents;
 
 namespace EditorResources.Windows
 {

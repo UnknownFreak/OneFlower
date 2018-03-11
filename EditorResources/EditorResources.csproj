@@ -93,7 +93,7 @@
     <Compile Include="Windows\BorderLessForm.Designer.cs">
       <DependentUpon>BorderLessForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Enums\EnumCollection.cs" />
+    <Compile Include="Utils\EnumCollection.cs" />
     <Compile Include="Functionality\EngineEvents.cs" />
     <Compile Include="Functionality\Events.cs" />
     <Compile Include="Functionality\EditorEvents.cs" />

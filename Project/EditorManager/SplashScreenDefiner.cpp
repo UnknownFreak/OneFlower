@@ -5,7 +5,7 @@
 
 SplashScreen::SplashScreen()
 {
-	splsh = gcnew EditorResources::SplashScreen::SplashScreen();
+	splsh = gcnew EditorResources::Windows::SplashScreen();
 	editorEvents = gcnew Editor::Events();
 	auto gc = gcnew System::Windows::Interop::WindowInteropHelper(splsh);
 	splashScreenHandle = gc->Handle;
@@ -27,7 +27,6 @@ MainEditorWindow^ SplashScreen::InitializeEditor()
 	splsh->setProgressValue(1);
 	MainEditorWindow^ mainWindow = gcnew MainEditorWindow();
 	splsh->setProgressValue(10);
-	Engine::Get<SpriterModelContainer>().setRenderWindow(Engine::Get<Gfx>().view.render);
 	splsh->setProgressValue(20);
 
 	editorEvents->registerEvents();

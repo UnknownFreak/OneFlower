@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using EditorResources.Functionality;
 using EditorResources.Utils;
 using EditorResources.Windows;
-using static EditorResources.Enums.EnumCollection;
-using static EditorResources.Functionality.RequestEvents;
+using static EditorResources.Functionality.EditorEvents;
+using static EditorResources.Utils.EnumCollection;
 
 namespace EditorResources.UserControls
 {
@@ -23,11 +23,19 @@ namespace EditorResources.UserControls
         {
             lastSelected = null;
             InitializeComponent();
-            EditorEvents.onModFinishedLoading += ZoneViewOnModFinishedLoading;
-            EditorEvents.onGetZoneInfoEvent += GetZoneInfoEvent;
+            EditorEvents_old.onModFinishedLoading += ZoneViewOnModFinishedLoading;
+            EditorEvents_old.onGetZoneInfoEvent += GetZoneInfoEvent;
+            EditorEvents.onObjectLoadEvent += OnObjectLoaded;
+            EditorEvents.onModLoaded += ClearListOnLoad;
             ZoneSelector.ItemsSource = zoneItems;
             ZoneSelector.IsSynchronizedWithCurrentItem = true;
             ZoneSelector.ContextMenu.IsEnabled = false;
+        }
+
+        private void ClearListOnLoad(object sender, EventArgs e)
+        {
+            zoneItems.Clear();
+            ZoneSelector.ContextMenu.IsEnabled = true;
         }
 
         private void GetZoneInfoEvent(object sender, EditorGetZoneInfoEvent e)
@@ -35,14 +43,21 @@ namespace EditorResources.UserControls
             info = e;
         }
 
+        public void OnObjectLoaded(object sender, OnObjectLoadEventArgs arg)
+        {
+            if (arg.Type != ObjectType.Zone)
+                return;
+            zoneItems.Add(new ZoneItem(arg.Origin, arg.ID, arg.Name, ObjectFlag.Default));
+        }
+
         private void ZoneViewOnModFinishedLoading(object sender, ModFinishedLoadedEventArgs e)
         {
-            zoneItems.Clear();
-            foreach(var t in e.zoneFiles)
-            {
-                zoneItems.Add(new ZoneItem(t.Item1, t.Item2, t.Item3, ObjectFlag.Default));
-            }
-            ZoneSelector.ContextMenu.IsEnabled = true;
+            //zoneItems.Clear();
+            //foreach(var t in e.zoneFiles)
+            //{
+            //    zoneItems.Add(new ZoneItem(t.Item1, t.Item2, t.Item3, ObjectFlag.Default));
+            //}
+            //ZoneSelector.ContextMenu.IsEnabled = true;
         }
 
         private void ZoneSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,12 +66,8 @@ namespace EditorResources.UserControls
             lastSelected = ZoneSelector.SelectedItem as ZoneItem;
             //ListView can return null on selected item.
             if (lastSelected == null)
-                OnLogEvent(new EditorLogEventArgs() {
-                    logMessage = new Utils.Message() {
-                        message = "Unselected last selected item.", type = Utils.Message.MsgType.Info
-                    }
-                });
-            EditorEvents.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = lastSelected.Name, ModOrigin = lastSelected.Origin, ZoneID = lastSelected.Id });
+                InternalEditorEvents.Log("Unselected last selected item.", Message.MsgType.Info);
+            EditorEvents_old.OnZoneSelectedEvent(new EditorZoneSelectedEventArgs() { ZoneName = lastSelected.Name, ModOrigin = lastSelected.Origin, ZoneID = lastSelected.Id });
         }
 
         private void AddZoneClick(object sender, RoutedEventArgs e)

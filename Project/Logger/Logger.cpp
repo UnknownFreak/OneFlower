@@ -135,9 +135,9 @@ void OneLogger::LogToEditor(Core::String& message, EditorResources::Utils::Messa
 	auto logmsg = gcnew EditorResources::Utils::Message();
 	logmsg->message = gcnew String(message.c_str());
 	logmsg->type = MsgType;
-	auto msgargs = gcnew EditorResources::Functionality::RequestEvents::EditorLogEventArgs();
+	auto msgargs = gcnew EditorResources::Functionality::EditorEvents::EditorLogEventArgs();
 	msgargs->logMessage = logmsg;
-	EditorResources::Functionality::RequestEvents::OnLogEvent(msgargs);
+	EditorResources::Functionality::EditorEvents::OnLogEvent(msgargs);
 #endif
 }
 #endif

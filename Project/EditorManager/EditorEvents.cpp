@@ -46,13 +46,13 @@ EditorResources::Utils::ModDependencyList ^ Editor::Events::loadDependenciesInte
 
 void Editor::Events::registerEvents()
 {
-	EditorEvents::onModCreate += gcnew EventHandler<EditorResources::Functionality::NewModCreateEventArgs^>(this, &Editor::Events::OnEditorCreateMod);
-	EditorEvents::onModLoad += gcnew EventHandler<EditorResources::Functionality::ModLoadEventArgs^>(this, &Editor::Events::OnEditorLoadMod);
-	EditorEvents::onModSelected += gcnew EventHandler<EditorResources::Functionality::ModFileSelectedEventArgs^>(this, &Editor::Events::OnEditorModFileSelected);
-	EditorEvents::onZoneSelectedEvent += gcnew EventHandler<EditorResources::Functionality::EditorZoneSelectedEventArgs^>(this, &Editor::Events::OnEditorZoneSelected);
-	EditorEvents::onModSave += gcnew EventHandler<EditorResources::Functionality::ModSaveEventArgs^>(this, &Editor::Events::OnEditorSave);
-	EditorEvents::onOVariableCreatedEvent += gcnew EventHandler<EditorResources::Functionality::OnVariableCreatedEventArgs^>(this, &Editor::Events::OnGlobalVaraibleCreated);
-	RequestEvents::onRequestGameVariableMapping += gcnew EventHandler<RequestEvents::GameVariableMappingEventArgs^>(this, &Editor::Events::OnVariableMappingRecieved);
+	EditorEvents_old::onModCreate += gcnew EventHandler<EditorResources::Functionality::NewModCreateEventArgs^>(this, &Editor::Events::OnEditorCreateMod);
+	EditorEvents_old::onModLoad += gcnew EventHandler<EditorResources::Functionality::ModLoadEventArgs^>(this, &Editor::Events::OnEditorLoadMod);
+	EditorEvents_old::onModSelected += gcnew EventHandler<EditorResources::Functionality::ModFileSelectedEventArgs^>(this, &Editor::Events::OnEditorModFileSelected);
+	EditorEvents_old::onZoneSelectedEvent += gcnew EventHandler<EditorResources::Functionality::EditorZoneSelectedEventArgs^>(this, &Editor::Events::OnEditorZoneSelected);
+	EditorEvents_old::onModSave += gcnew EventHandler<EditorResources::Functionality::ModSaveEventArgs^>(this, &Editor::Events::OnEditorSave);
+	EditorEvents_old::onOVariableCreatedEvent += gcnew EventHandler<EditorResources::Functionality::OnVariableCreatedEventArgs^>(this, &Editor::Events::OnGlobalVaraibleCreated);
+	EditorEvents::onRequestGameVariableMapping += gcnew EventHandler<EditorEvents::GameVariableMappingEventArgs^>(this, &Editor::Events::OnVariableMappingRecieved);
 }
 
 void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functionality::NewModCreateEventArgs ^ args)
@@ -68,21 +68,22 @@ void Editor::Events::OnEditorCreateMod(Object ^ sender, EditorResources::Functio
 
 void Editor::Events::OnEditorLoadMod(Object ^ sender, EditorResources::Functionality::ModLoadEventArgs ^ args)
 {
+	EditorEvents::OnModLoaded();
 	Core::String s = toString(args->modName);
 	WorldManagerAddon& addon = Engine::Get<WorldManagerAddon>();
 	addon.loadMod(s);
 
-	auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
-
-	modfinishedloaded->ModName = args->modName;
-
-	for each (auto v in addon.getAllDbZones())
-	{
-		auto zinfo = gcnew System::Tuple<System::String^, size_t, System::String^>(toString(v.fromMod), v.ID, toString(v.name));
-		modfinishedloaded->zoneFiles->Add(zinfo);
-	}
-
-	EditorEvents::onModFinishedLoading(nullptr, modfinishedloaded);
+	//auto modfinishedloaded = gcnew EditorResources::Functionality::ModFinishedLoadedEventArgs();
+	//
+	//modfinishedloaded->ModName = args->modName;
+	//
+	//for each (auto v in addon.getAllDbZones())
+	//{
+	//	auto zinfo = gcnew System::Tuple<System::String^, size_t, System::String^>(toString(v.fromMod), v.ID, toString(v.name));
+	//	modfinishedloaded->zoneFiles->Add(zinfo);
+	//}
+	//
+	//EditorEvents::onModFinishedLoading(nullptr, modfinishedloaded);
 }
 
 void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Functionality::ModFileSelectedEventArgs^ args)
@@ -91,7 +92,7 @@ void Editor::Events::OnEditorModFileSelected(Object^ sender, EditorResources::Fu
 	EditorResources::Utils::ModDependencyList^ depList = loadDependenciesInternal(mod);
 	EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs ^evt = gcnew EditorResources::Functionality::EngineOnModSelectedLoadedEventArgs();
 	evt->Dependencies = depList;
-	EditorEvents::EngineOnModSelectedLoaded(evt);
+	EditorEvents_old::EngineOnModSelectedLoaded(evt);
 }
 
 void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Functionality::EditorZoneSelectedEventArgs^ args)
@@ -111,7 +112,7 @@ void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorResources::Funct
 	evt->LoadingScreenPath = toString(v[1]);
 	evt->LoadingScreenMessage = toString(v[2]);
 	
-	EditorEvents::onGetZoneInfoEvent(nullptr, evt);
+	EditorEvents_old::onGetZoneInfoEvent(nullptr, evt);
 	while (addon.myWorldManager.getIsLoading())
 	{
 		// change this to some kind of indicator in the editor that we are loading, even though the editor game view shows it.
@@ -148,16 +149,16 @@ void Editor::Events::OnGlobalVaraibleCreated(Object ^ sender, EditorResources::F
 	}
 	else if (args->VariableType == EditorResources::Resources::NameValidator::ValidationType::String)
 	{
-		PrimitiveSaveable<Core::String> var(toString(args->Value->ToCharArray()), toString(args->Name));
+		PrimitiveSaveable<Core::String> var(toString(args->Value->ToString()), toString(args->Name));
 		var.fromMod = toString(args->Origin);
 		var.ID = args->ID;
 		am.getStringRequestor().add(var);
-		Engine::Get<Globals>().stringGlobals.insert({ toString(args->Name), toString(args->Value) });
+		Engine::Get<Globals>().stringGlobals.insert({ toString(args->Name), toString(args->Value->ToString()) });
 	}
 }
-void Editor::Events::OnVariableMappingRecieved(Object ^ sender, RequestEvents::GameVariableMappingEventArgs ^ args)
+void Editor::Events::OnVariableMappingRecieved(Object ^ sender, EditorEvents::GameVariableMappingEventArgs ^ args)
 {
-	if (args->VariableToRequest == RequestEvents::GameVariableMappingEventArgs::Variable::Animation)
+	if (args->VariableToRequest == EditorEvents::GameVariableMappingEventArgs::Variable::Animation)
 	{
 		EngineEvents::AnimationVariableMappingEventArgs^ arg = gcnew EngineEvents::AnimationVariableMappingEventArgs();
 		arg->AnimationVariable = toString(Engine::Get<GameVariableMapping>().getAnimationVariableName());
@@ -167,7 +168,7 @@ void Editor::Events::OnVariableMappingRecieved(Object ^ sender, RequestEvents::G
 
 void Editor::onObjectLoaded(const Core::String Origin, const size_t ID, const Core::String Name, const ObjectSaveMode mode, const DatabaseIndex::ObjectTypeEnum type, const Core::String value)
 {
-	EditorResources::Functionality::OnObjectLoadEventArgs^args = gcnew EditorResources::Functionality::OnObjectLoadEventArgs();
+	EditorEvents::OnObjectLoadEventArgs^args = gcnew EditorEvents::OnObjectLoadEventArgs();
 
 	args->Origin = toString(Origin);
 	args->ID = ID;
@@ -175,61 +176,55 @@ void Editor::onObjectLoaded(const Core::String Origin, const size_t ID, const Co
 	switch (mode)
 	{
 	case ObjectSaveMode::ADD:
-		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Added;
+		args->Flag = EditorResources::Utils::EnumCollection::ObjectFlag::Added;
 		break;
 	case ObjectSaveMode::EDIT:
-		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Edited;
+		args->Flag = EditorResources::Utils::EnumCollection::ObjectFlag::Edited;
 		break;
 	case ObjectSaveMode::REMOVE:
-		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Deleted;
+		args->Flag = EditorResources::Utils::EnumCollection::ObjectFlag::Deleted;
 		break;
 	default:
-		args->Flag = EditorResources::Enums::EnumCollection::ObjectFlag::Default;
+		args->Flag = EditorResources::Utils::EnumCollection::ObjectFlag::Default;
 	}
 
 	switch (type)
 	{
 	case DatabaseIndex::ObjectTypeEnum::Zone:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Zone;
-		break;
 	case DatabaseIndex::ObjectTypeEnum::DBZone:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Zone;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::Zone;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::Prefab:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::GameObject;
-		break;
-	case DatabaseIndex::ObjectTypeEnum::GameObject:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::GameObject;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::GameObject;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::GameObject;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::Quest:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Quest;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::Quest;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::Item:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Item;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::Item;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::Model:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Model;
-		break;
-	case DatabaseIndex::ObjectTypeEnum::Undefined:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Unknown;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::Model;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::TextureMap:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::TextureMap;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::TextureMap;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::PrimitiveInt:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::IntVariable;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::IntVariable;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::PrimitiveDouble:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::DoubleVariable;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::DoubleVariable;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::PrimitiveString:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::StringVariable;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::StringVariable;
 		break;
 	case DatabaseIndex::ObjectTypeEnum::StringList:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::ListVariable;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::ListVariable;
 		break;
+	case DatabaseIndex::ObjectTypeEnum::Undefined:
 	default:
-		args->Type = EditorResources::Enums::EnumCollection::ObjectType::Unknown;
+		args->Type = EditorResources::Utils::EnumCollection::ObjectType::Unknown;
 		break;
 	}
 

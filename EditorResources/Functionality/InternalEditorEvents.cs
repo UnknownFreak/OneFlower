@@ -19,7 +19,7 @@ namespace EditorResources.Functionality
         }
 
         public static EventHandler requestObjectData;
-        
+
         public static void RequestObjectData()
         {
             requestObjectData?.Invoke(null, EventArgs.Empty);
@@ -27,7 +27,9 @@ namespace EditorResources.Functionality
 
         public static void Log(String message, Utils.Message.MsgType logAs)
         {
-            RequestEvents.OnLogEvent(new RequestEvents.EditorLogEventArgs() { logMessage = new Utils.Message() { message = message, type = logAs}});
+            EditorEvents.OnLogEvent(new EditorEvents.EditorLogEventArgs() { logMessage = new Utils.Message() { message = message, type = logAs } });
         }
+
+
     }
 }

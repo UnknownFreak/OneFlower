@@ -22,7 +22,7 @@ namespace EditorResources.Windows
             createList();
             
             modName.Focus();
-            EditorEvents.engineOnModSelectedLoaded += PopulateDepencenycyList;
+            EditorEvents_old.engineOnModSelectedLoaded += PopulateDepencenycyList;
         }
 
         private void createList()
@@ -69,7 +69,7 @@ namespace EditorResources.Windows
             args.createMaster = createMaster.IsChecked;
             args.dependencies = (from x in listBox.Items.Cast<BoolString>() where x.IsSelected == true select x.TheText).ToList();
            
-            EditorEvents.OnModCreate(args);
+            EditorEvents_old.OnModCreate(args);
             Close();
         }
 
@@ -91,9 +91,9 @@ namespace EditorResources.Windows
         {
             string s = (e.AddedItems[0] as BoolString).TheText;
             if (keyedMods.ContainsKey(s))
-                EditorEvents.EngineOnModSelectedLoaded(new EngineOnModSelectedLoadedEventArgs() { Dependencies = keyedMods[s] });
+                EditorEvents_old.EngineOnModSelectedLoaded(new EngineOnModSelectedLoadedEventArgs() { Dependencies = keyedMods[s] });
             else
-                EditorEvents.OnModSelected(new ModFileSelectedEventArgs() { fileName = s });
+                EditorEvents_old.OnModSelected(new ModFileSelectedEventArgs() { fileName = s });
         }
 
         private class BoolString

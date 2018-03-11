@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EditorResources.Enums
+﻿namespace EditorResources.Utils
 {
     public static class EnumCollection
     {

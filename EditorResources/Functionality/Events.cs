@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using static EditorResources.Enums.EnumCollection;
+using static EditorResources.Utils.EnumCollection;
+using static EditorResources.Functionality.EditorEvents;
 using static EditorResources.Resources.NameValidator;
 
 namespace EditorResources.Functionality
 {
-    public static class EditorEvents
+    public static class EditorEvents_old
     {
         #region ModLoadSave
         public static EventHandler<NewModCreateEventArgs> onModCreate;
@@ -81,13 +82,7 @@ namespace EditorResources.Functionality
 
         #region ObjectTreeView
 
-        public static EventHandler<OnObjectLoadEventArgs> onObjectLoadEvent;
         public static EventHandler<OnVariableCreatedEventArgs> onOVariableCreatedEvent;
-
-        public static void OnObjectLoadEvent(OnObjectLoadEventArgs args)
-        {
-            onObjectLoadEvent?.Invoke(null, args);
-        }
         
         public static void OnVariableCreatedEvent(OnVariableCreatedEventArgs args)
         {
@@ -156,21 +151,7 @@ namespace EditorResources.Functionality
         public List<Tuple<String, UInt32, String>> zoneFiles = new List<Tuple<string, uint, string>>();
     }
 
-    public class OnObjectLoadEventArgs : BaseObjectEventArgs
-    {
-
-    }
-
-    public class BaseObjectEventArgs : EventArgs
-    {
-        public string Name { get; set; }
-        public string Origin { get; set; }
-        public string Value { get; set; }
-        public ObjectFlag Flag { get; set; }
-        public uint ID { get; set; }
-        public ObjectType Type {get ;set;}
- 
-    }
+    
 
     public class OnVariableCreatedEventArgs : BaseObjectEventArgs
     {

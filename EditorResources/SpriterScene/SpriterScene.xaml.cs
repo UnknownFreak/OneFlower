@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using static EditorResources.Functionality.RequestEvents;
+using static EditorResources.Functionality.EditorEvents;
 
 namespace EditorResources.SpriterScene
 {

@@ -34,7 +34,7 @@ namespace EditorResources.Windows
 
         private void Add_click(object sender, RoutedEventArgs e)
         {
-            EditorEvents.OnZoneEditViewAddZoneEvent(createBaseZoneEventArgs());
+            EditorEvents_old.OnZoneEditViewAddZoneEvent(createBaseZoneEventArgs());
             Close();
         }
 
@@ -43,7 +43,7 @@ namespace EditorResources.Windows
 
             EditorZoneEditViewAddZoneEventArgs evt = createBaseZoneEventArgs();
             evt.IsEdit = true;
-            EditorEvents.OnZoneEditViewAddZoneEvent(evt);
+            EditorEvents_old.OnZoneEditViewAddZoneEvent(evt);
             Close();
         }
 
