@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="EditorResources.UserControls.GridPainter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EditorResources.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="#FFD8D8D8">
+    <UserControl.Resources>
+        <local:StringFormatConverter x:Key="StringFormatConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ListBox x:Name="BrushSelector" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,0,285,0" SelectionChanged="BrushSelector_SelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" Width="{Binding ActualWidth, ElementName=BrushSelector, Mode=OneWay}">
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <Label Content="Tile Type" HorizontalAlignment="Right" Margin="0,10,224,0" Height="26" VerticalAlignment="Top"/>
+        <ComboBox x:Name="TileDrawType" Margin="0,14,10,0" HorizontalAlignment="Right" Width="209" Height="22" VerticalAlignment="Top" SelectionChanged="TileDrawType_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource StringFormatConverter}, Mode=OneWay}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListBox x:Name="PaintType" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="0,41,10,0" Background="{x:Null}" BorderBrush="{x:Null}" Height="319" VerticalAlignment="Top" HorizontalAlignment="Right" Width="270" SelectedIndex="2" SelectionChanged="PaintType_SelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" Width="{Binding ActualWidth, ElementName=PaintType, Mode=OneWay}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <Image x:Name="Paint" Source="pack://siteoforigin:,,,/PaintIcon.png" Stretch="Fill" ToolTip="Paint" Height="50" Width="50" />
+            <Image x:Name="Move" Source="pack://siteoforigin:,,,/MoveIcon.png" Stretch="Fill" ToolTip="Move" Height="50" Width="50"/>
+            <Image x:Name="GameObjectInteract" Source="pack://siteoforigin:,,,/GameObjectInteractMode.png" Stretch="Fill" ToolTip="Edit Game Objects" Height="50" Width="50"/>
+        </ListBox>
+    </Grid>
+</UserControl>

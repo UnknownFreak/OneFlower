@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="EditorResources.Windows.PreviewWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EditorResources"
+             mc:Ignorable="d" Height="467" Width="481">
+    <Grid>
+        <Label Content="Preview frame" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Left" Height="319" Margin="0,26,0,0" VerticalAlignment="Top" Width="481" Background="Black"/>
+        <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,386,0,0" Width="268"/>
+        <Label Content="TimeFrame" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,355,0,0"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="268" Margin="10,423,0,0" SelectedIndex="0">
+            <ComboBoxItem Content="Animation"/>
+        </ComboBox>
+        <Grid HorizontalAlignment="Left" Height="19" Margin="48,404,0,-123" VerticalAlignment="Top" Width="169"/>
+        <Label Content="Buttons for playback" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="283,378,0,0"/>
+
+    </Grid>
+</UserControl>
