@@ -15,7 +15,7 @@ Turned universalObjectInterface methods getPosition, getAngle, getScale, getPivo
 
 
 
-Added sf::Drawable to universalObjectInterface be able to use sf::renderwindow::draw method instead.
+Added sf::Drawable to universalObjectInterface to be able to use sf::renderwindow::draw method instead.
 Impleted overrides for EntityInstance and SpriteObjectInfo
 
 Added sf::Drawable to ImageFile to be able to use sf::renderwindow::draw method instead.

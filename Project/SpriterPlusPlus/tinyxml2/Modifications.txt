@@ -1,0 +1,1 @@
+Addded pragma warning push 0 to disable warnings with tinyxml.
