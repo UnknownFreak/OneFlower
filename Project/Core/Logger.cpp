@@ -143,9 +143,9 @@ void OneLogger::LogToEditor(Core::String& message, EditorResources::Utils::Messa
 }
 #endif
 
-void OneLogger::logMessage(Core::String & type, Core::String & message)
+void OneLogger::logMessage(Core::String & _type, Core::String & message)
 {
-	log << type << message << std::endl;
+	log << _type << message << std::endl;
 }
 
 #ifdef ERROR_UNDEF // re-enable ERROR 0 define for wingdi.h if it was defined

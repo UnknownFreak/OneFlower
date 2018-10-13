@@ -12,7 +12,7 @@ sf::Event Game::event;
 #ifdef _EDITOR_
 [System::STAThread]
 #endif
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLine, int nShowCmd)
+int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR /*lpCmnLine*/, int /*nShowCmd*/)
 {
 
 	GameEntry g;
@@ -21,8 +21,9 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPSTR lpCmnLi
 	Engine::Dispose();
 #ifdef _EDITOR_
 	exit(return_value);
-#endif
+#else
 	return return_value;
+#endif
 }
 
 #endif

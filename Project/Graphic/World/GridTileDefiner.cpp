@@ -32,7 +32,7 @@ World::Grid::Tile & World::Grid::Tile::operator=(const World::Grid::Tile & copy)
 
 void World::Grid::Tile::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(s);
+	target.draw(s, states);
 }
 
 World::Grid::Tile::Tile(float _x, float _y) : Tile(_x, _y, Grid::Tile::Blank)

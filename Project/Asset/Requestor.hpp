@@ -71,7 +71,7 @@ private:
 
 	template <class In = T>
 	inline const typename std::enable_if<!std::is_pointer<In>::value>::type
-		deleteIfNeeded(const T& _t) const
+		deleteIfNeeded(const T&) const
 	{
 	}
 
@@ -483,7 +483,6 @@ public:
 		td_map::iterator eit = requestedMap.end();
 		for (it; it != eit; it++)
 		{
-			T& pref = (T&)it->second;
 			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
 			ind.ID = it->first.second;
 			ind.type = objectType;

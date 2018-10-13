@@ -77,5 +77,6 @@ TextureRef* TextureLoader::requestTexture(const Core::String& name, const Core::
 
 void TextureLoader::requestRemovalOfTexture(const Core::String& name)
 {
-	//TODO
+	if (loadedTextureMap.find(name) != loadedTextureMap.end())
+		loadedTextureMap.erase(name);
 }

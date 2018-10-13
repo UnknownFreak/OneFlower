@@ -98,11 +98,11 @@ void GameEntry::mainMenuUpdater()
 {
 
 	time.elapsed += time.clock.restart();
-	InputHandler& input = Engine::GetModule<InputHandler>();
+	InputHandler& input_handler = Engine::GetModule<InputHandler>();
 
 	while (time.elapsed >= time.update_ms)
 	{
-		input.update();
+		input_handler.update();
 		//Engine::GUI.updateMouseIcon();
 		time.elapsed -= time.update_ms;
 	}

@@ -53,7 +53,7 @@ void Editor::Events::registerEvents()
 	EditorEvents::onRequestGameVariableMapping += gcnew System::EventHandler<EditorEvents::GameVariableMappingEventArgs^>(this, &Editor::Events::OnVariableMappingRecieved);
 }
 
-void Editor::Events::OnEditorEvent(Object^sender, EditorEvents::ModEventArgs^ args)
+void Editor::Events::OnEditorEvent(Object^, EditorEvents::ModEventArgs^ args)
 {
 	if (args->Type == EditorEvents::ModEventArgs::EventType::Saved)
 		Engine::GetModule<WorldManagerAddon>().EditorSave();
@@ -84,7 +84,7 @@ void Editor::Events::OnEditorEvent(Object^sender, EditorEvents::ModEventArgs^ ar
 	}
 }
 
-void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorEvents::OnObjectSelectedEventArgs ^ args)
+void Editor::Events::OnEditorZoneSelected(Object^ , EditorEvents::OnObjectSelectedEventArgs ^ args)
 {
 	if (args->SelectedType == EditorResources::Utils::EnumCollection::ObjectType::Zone)
 	{
@@ -103,7 +103,7 @@ void Editor::Events::OnEditorZoneSelected(Object^ sender, EditorEvents::OnObject
 	}
 }
 
-void Editor::Events::OnGlobalVaraibleCreated(Object ^ sender, EditorEvents::ObjectEventArgs^ args)
+void Editor::Events::OnGlobalVaraibleCreated(Object ^ , EditorEvents::ObjectEventArgs^ args)
 {
 	if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Added)
 	{
@@ -136,7 +136,7 @@ void Editor::Events::OnGlobalVaraibleCreated(Object ^ sender, EditorEvents::Obje
 	}
 }
 
-void Editor::Events::OnVariableMappingRecieved(Object ^ sender, EditorEvents::GameVariableMappingEventArgs ^ args)
+void Editor::Events::OnVariableMappingRecieved(Object ^ , EditorEvents::GameVariableMappingEventArgs ^ args)
 {
 	if (args->VariableToRequest == EditorEvents::GameVariableMappingEventArgs::Variable::Animation)
 	{
@@ -146,7 +146,7 @@ void Editor::Events::OnVariableMappingRecieved(Object ^ sender, EditorEvents::Ga
 	}
 }
 
-void Editor::Events::OnElementEvent(Object ^ sender, EditorEvents::ObjectEventArgs ^ args)
+void Editor::Events::OnElementEvent(Object ^ , EditorEvents::ObjectEventArgs ^ args)
 {
 	if (args->Type == EditorResources::Utils::EnumCollection::ObjectType::Element)
 	{

@@ -112,7 +112,7 @@ namespace Database
 		void load(A& ar)
 		{
 			Core::String name;
-			size_t ID;
+			size_t _ID;
 			size_t size;
 			Prefab prefab;
 			cereal::base_class<IRequestable>(this);
@@ -121,16 +121,16 @@ namespace Database
 			for (size_t i = 0; i < size; i++)
 			{
 				ar(name);
-				ar(ID);
+				ar(_ID);
 				ar(prefab);
 				if (prefab.mode == ObjectSaveMode::REMOVE)
-					if (prefabs.find(std::pair<Core::String, size_t>(name, ID)) != prefabs.end())
-						prefabs.erase(prefabs.find(std::pair<Core::String, size_t>(name, ID)));
+					if (prefabs.find(std::pair<Core::String, size_t>(name, _ID)) != prefabs.end())
+						prefabs.erase(prefabs.find(std::pair<Core::String, size_t>(name, _ID)));
 					else if (prefab.mode == ObjectSaveMode::EDIT)
-						if (prefabs.find(std::pair<Core::String, size_t>(name, ID)) != prefabs.end())
-							prefabs[std::pair<Core::String, size_t>(name, ID)].pos = prefab.pos;
+						if (prefabs.find(std::pair<Core::String, size_t>(name, _ID)) != prefabs.end())
+							prefabs[std::pair<Core::String, size_t>(name, _ID)].pos = prefab.pos;
 						else
-							prefabs.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(std::pair<Core::String, size_t>(name, ID), prefab));
+							prefabs.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(std::pair<Core::String, size_t>(name, _ID), prefab));
 			}
 			ar(tiles);
 		}

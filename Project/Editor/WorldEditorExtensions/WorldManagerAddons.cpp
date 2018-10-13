@@ -15,13 +15,13 @@ WorldManagerAddon::WorldManagerAddon() : myWorldManager(Engine::GetModule<WorldM
 {
 }
 
-void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y)
+void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t id_to_add, float x, float y)
 {
 
 	Database::Zone myDbZone;
 	myDbZone.name = zoneName;
 	myDbZone.fromMod = Engine::GetModule<Asset::AssetManager>().openedMod;
-	myDbZone.ID = ID;
+	myDbZone.ID = id_to_add;
 	myDbZone.background = background;
 	//myDbZone.background = DBBackgroundSprite(background, 0, 0);
 
@@ -31,14 +31,14 @@ void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String bac
 	Engine::GetModule<Asset::AssetManager>().getZoneRequester().add(myDbZone);
 
 }
-void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y)
+void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t id_to_edit, float x, float y)
 {
 	Database::Zone& refDbZone = Engine::GetModule<Asset::AssetManager>().getZoneRequester().request(myWorldManager.lastLoadedZone.first, myWorldManager.lastLoadedZone.second);
 
 	{
 		refDbZone.mode = ObjectSaveMode::EDIT;
 		refDbZone.name = zoneName;
-		refDbZone.ID = ID;
+		refDbZone.ID = id_to_edit;
 		refDbZone.background = background;
 		//refDbZone.background.size.x = x;
 		//refDbZone.background.size.y = y;
@@ -64,9 +64,9 @@ void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String backg
 //	}
 //}
 //
-void WorldManagerAddon::EditorLoadZone(Core::String name, unsigned int ID)
+void WorldManagerAddon::EditorLoadZone(Core::String name, unsigned int id_to_load)
 {
-	myWorldManager.loadZone(name, ID);
+	myWorldManager.loadZone(name, id_to_load);
 
 	myWorldManager.loadSome();
 

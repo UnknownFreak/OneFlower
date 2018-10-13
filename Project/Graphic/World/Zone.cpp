@@ -82,16 +82,16 @@ const Core::String& Zone::getLoadingScreenMessage() const
 
 #ifdef _DEBUG
 
-void Zone::setBackground(Core::String name)
+void Zone::setBackground(Core::String _name)
 {
-	background.name = name;
-	background.sprite.setTexture(Engine::GetModule<Asset::AssetManager>().textureloader.requestTexture(name));
+	background.name = _name;
+	background.sprite.setTexture(Engine::GetModule<Asset::AssetManager>().textureloader.requestTexture(_name));
 }
 
 void Zone::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(background.sprite);
-	target.draw(chunks);
+	target.draw(background.sprite, states);
+	target.draw(chunks, states);
 }
 
 #endif

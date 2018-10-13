@@ -82,7 +82,7 @@ void Gfx::removeFromdrawList(GameObject* entityToRemove)
 {
 	if (entityToRemove->GetComponent<Component::RenderComponent>())
 	{
-		int renderID = entityToRemove->GetComponent<Component::RenderComponent>()->renderlayer;
+		//int renderID = entityToRemove->GetComponent<Component::RenderComponent>()->renderlayer;
 		for (auto it = gameObjectdrawList.begin(); it != gameObjectdrawList.end(); it++)
 		{
 			for (size_t i = 0; i < it->second.size(); i++)

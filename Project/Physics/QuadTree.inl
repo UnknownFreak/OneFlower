@@ -123,9 +123,9 @@ inline bool QuadTreeNode::childCollides(const Physics::ICollider * object) const
 	return false;
 }
 
-inline bool QuadTreeNode::childCollides(const Core::Rect<const float&> & rect) const
+inline bool QuadTreeNode::childCollides(const Core::Rect<const float&> & _rect) const
 {
-	const Core::FloatRect rtmp(rect.x, rect.y, rect.w, rect.h);
+	const Core::FloatRect rtmp(_rect.x, _rect.y, _rect.w, _rect.h);
 	if (!hasChildren()) return false;
 	for (size_t i = 0; i < SPLIT_SIZE; i++)
 		if (rtmp.intersects(children[i]->rect))
@@ -165,10 +165,6 @@ inline bool QuadTreeNode::isFull() const
 inline bool QuadTreeNode::canSplitNode(const size_t max_size) const
 {
 	return depth < max_size;;
-}
-
-inline void QuadTreeNode::setMaxNodes(const size_t max_size)
-{
 }
 
 inline std::vector<Physics::ICollider*>& QuadTreeNode::get()

@@ -37,7 +37,6 @@ public:
 	inline bool isFull() const;
 
 	inline bool canSplitNode(const size_t max_size) const;
-	inline void setMaxNodes(const size_t max_size);
 
 	Core::Rect<float> rect;
 
@@ -63,11 +62,11 @@ public:
 		if (isFull())
 			for each (QuadTreeNode* tn in children)
 			{
-				target.draw(*tn);
+				target.draw(*tn, states);
 			}
 		else
 			for each (Physics::ICollider* t in nodeObjects)
-				target.draw(*t);
+				target.draw(*t, states);
 	}
 };
 

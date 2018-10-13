@@ -21,7 +21,6 @@ MainEditorWindow^ SplashScreen::InitializeEditor()
 {
 	
 	splsh->Show();
-	auto gc = gcnew System::Windows::Interop::WindowInteropHelper(splsh);
 	splsh->setProgressValue(1);
 	MainEditorWindow^ mainWindow = gcnew MainEditorWindow();
 	splsh->setProgressValue(10);

@@ -11,7 +11,7 @@ MainEditorWindow::MainEditorWindow()
 	Engine::GetModule<Gfx>().view.init(getEditorGameWindowView());
 }
 
-MainEditorWindow::MainEditorWindow(const MainEditorWindow% cpy)
+MainEditorWindow::MainEditorWindow(MainEditorWindow%)
 {
 	window = gcnew EditorResources::Windows::EditorWindow();
 	Engine::GetModule<Gfx>().view.init(getEditorGameWindowView());

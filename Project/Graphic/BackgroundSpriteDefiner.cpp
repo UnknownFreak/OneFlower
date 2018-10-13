@@ -44,9 +44,8 @@ void BackgroundSprite::setPosition(float x, float y)
 	sprite.setPosition(x, y);
 }
 
-void BackgroundSprite::setSize(Core::Vector2i size)
+void BackgroundSprite::setSize(Core::Vector2i _size)
 {
-	// size is not zero
 	if (this->size.x && this->size.y)
-		sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+		sprite.setTextureRect(sf::IntRect(0, 0, _size.x, _size.y));
 }

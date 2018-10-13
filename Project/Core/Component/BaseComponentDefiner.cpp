@@ -15,7 +15,7 @@ namespace Component
 	void Base::update()
 	{
 	}
-	void Base::onCollision(Physics::Collider& c)
+	void Base::onCollision(Physics::Collider&)
 	{
 	}
 

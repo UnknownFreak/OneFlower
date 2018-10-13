@@ -16,7 +16,7 @@ public:
 	void show();
 	bool isClosed();
 	MainEditorWindow();
-	MainEditorWindow(const MainEditorWindow% window);
+	MainEditorWindow(MainEditorWindow%);
 	~MainEditorWindow();
 
 };

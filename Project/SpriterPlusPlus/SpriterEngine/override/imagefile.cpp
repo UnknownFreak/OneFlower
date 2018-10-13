@@ -37,7 +37,7 @@ namespace SpriterEngine
 	{
 	}
 
-	void ImageFile::draw(sf::RenderTarget & target, sf::RenderStates states) const
+	void ImageFile::draw(sf::RenderTarget &, sf::RenderStates) const
 	{
 	}
 }

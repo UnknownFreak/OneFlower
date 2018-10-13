@@ -37,7 +37,7 @@ void StaticModel::setTextureMap(Core::String _modOrigin, Core::String _textureMa
 	Engine::GetModule<OneLogger>().Warning("Trying to set texture map <" + _modOrigin +", "+ _textureMapName+ "> on a static model.", __FILE__, __LINE__);
 }
 
-void StaticModel::updateFrame(const size_t& update_ms)
+void StaticModel::updateFrame(const size_t& )
 {
 	if (updateRequired)
 	{

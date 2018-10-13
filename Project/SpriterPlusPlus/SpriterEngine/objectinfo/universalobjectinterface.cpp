@@ -54,7 +54,7 @@ namespace SpriterEngine
 		return 0;
 	}
 
-	EntityInstanceData * UniversalObjectInterface::getEntity(s_int entityId)
+	EntityInstanceData * UniversalObjectInterface::getEntity(s_int)
 	{
 		Settings::error("UniversalObjectInterface::getEntity - object does not contain this component - returning null pointer");
 		return 0;
@@ -131,123 +131,123 @@ namespace SpriterEngine
 		return 0;
 	}
 
-	bool UniversalObjectInterface::tagIsActive(const Core::String &tagToCheck) const
+	bool UniversalObjectInterface::tagIsActive(const Core::String &) const
 	{
 		Settings::error("UniversalObjectInterface::tagIsActive - object does not contain this component - falling back on default value");
 		return false;
 	}
 
-	void UniversalObjectInterface::setPosition(const point &newPosition)
+	void UniversalObjectInterface::setPosition(const point &)
 	{
 		Settings::error("UniversalObjectInterface::setPosition - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setAngle(real newAngle)
+	void UniversalObjectInterface::setAngle(real )
 	{
 		Settings::error("UniversalObjectInterface::setAngle - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setScale(const point &newScale)
+	void UniversalObjectInterface::setScale(const point &)
 	{
 		Settings::error("UniversalObjectInterface::setScale - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setPivot(const point &newPivot)
+	void UniversalObjectInterface::setPivot(const point &)
 	{
 		Settings::error("UniversalObjectInterface::setPivot - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setAlpha(real newAlpha)
+	void UniversalObjectInterface::setAlpha(real )
 	{
 		Settings::error("UniversalObjectInterface::setAlpha - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setSpin(s_int newSpin)
+	void UniversalObjectInterface::setSpin(s_int )
 	{
 		Settings::error("UniversalObjectInterface::setSpin - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setImage(ImageFile *newImageFile)
+	void UniversalObjectInterface::setImage(ImageFile *)
 	{
 		Settings::error("UniversalObjectInterface::setImage - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setCurrentEntity(s_int newEntityId)
+	void UniversalObjectInterface::setCurrentEntity(s_int )
 	{
 		Settings::error("UniversalObjectInterface::setCurrentEntity - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setCurrentEntity(EntityInstanceData * newCurrentEntity)
+	void UniversalObjectInterface::setCurrentEntity(EntityInstanceData * )
 	{
 		Settings::error("UniversalObjectInterface::setCurrentEntity - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setCurrentAnimation(s_int newAnimationIndex)
+	void UniversalObjectInterface::setCurrentAnimation(s_int )
 	{
 		Settings::error("UniversalObjectInterface::setCurrentAnimation - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setCurrentAnimation(AnimationInstance * newCurrentAnimation)
+	void UniversalObjectInterface::setCurrentAnimation(AnimationInstance * )
 	{
 		Settings::error("UniversalObjectInterface::setCurrentAnimation - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setTimeRatio(real newCurrentTimeRatio)
+	void UniversalObjectInterface::setTimeRatio(real )
 	{
 		Settings::error("UniversalObjectInterface::setTimeRatio - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setRealValue(real newValue)
+	void UniversalObjectInterface::setRealValue(real )
 	{
 		Settings::error("UniversalObjectInterface::setRealValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setIntValue(s_int newValue)
+	void UniversalObjectInterface::setIntValue(s_int )
 	{
 		Settings::error("UniversalObjectInterface::setIntValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setStringValue(const Core::String &newValue)
+	void UniversalObjectInterface::setStringValue(const Core::String &)
 	{
 		Settings::error("UniversalObjectInterface::setStringValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setStringValue(Core::String *newValue)
+	void UniversalObjectInterface::setStringValue(Core::String *)
 	{
 		Settings::error("UniversalObjectInterface::setStringValue - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setTriggerCount(s_int newTriggerCount)
+	void UniversalObjectInterface::setTriggerCount(s_int )
 	{
 		Settings::error("UniversalObjectInterface::setTriggerCount - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setVolume(real newVolume)
+	void UniversalObjectInterface::setVolume(real )
 	{
 		Settings::error("UniversalObjectInterface::setVolume - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setPanning(real newPanning)
+	void UniversalObjectInterface::setPanning(real )
 	{
 		Settings::error("UniversalObjectInterface::setPanning - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setSound(SoundFile *newSoundFile)
+	void UniversalObjectInterface::setSound(SoundFile *)
 	{
 		Settings::error("UniversalObjectInterface::setSound - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setTagList(TagList *newTagList)
+	void UniversalObjectInterface::setTagList(TagList *)
 	{
 		Settings::error("UniversalObjectInterface::setTagList - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setObjectToLinear(UniversalObjectInterface *bObject, real t, UniversalObjectInterface *resultObject)
+	void UniversalObjectInterface::setObjectToLinear(UniversalObjectInterface *, real , UniversalObjectInterface *)
 	{
 		Settings::error("UniversalObjectInterface::setObjectToLinear - object does not contain this component - no action taken");
 	}
 
-	void UniversalObjectInterface::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void UniversalObjectInterface::setToBlendedLinear(UniversalObjectInterface *, UniversalObjectInterface *, real , real , ObjectRefInstance *)
 	{
 		Settings::error("UniversalObjectInterface::setObjectToBlendedLinear - object does not contain this component - no action taken");
 	}
@@ -261,7 +261,7 @@ namespace SpriterEngine
 	{
 		Settings::error("UniversalObjectInterface::playTrigger - object does not contain this component - no action taken");
 	}
-	void UniversalObjectInterface::draw(sf::RenderTarget & target, sf::RenderStates states) const
+	void UniversalObjectInterface::draw(sf::RenderTarget &, sf::RenderStates) const
 	{
 		Settings::error("UniversalObjectInterface::sf::Drawable::draw - object does not contain this component - no action taken");
 	}
