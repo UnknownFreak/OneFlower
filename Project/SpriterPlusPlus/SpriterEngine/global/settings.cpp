@@ -36,7 +36,7 @@ namespace SpriterEngine
 		std::cerr << "SpriterEngine Error: " << errorMessage.c_str() << std::endl;
 	}
 
-	void Settings::nullError(const Core::String &errorMessage)
+	void Settings::nullError(const Core::String &/*errorMessage*/)
 	{
 		// do nothing
 	}

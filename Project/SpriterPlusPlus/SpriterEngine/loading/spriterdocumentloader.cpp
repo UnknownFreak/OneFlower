@@ -759,7 +759,6 @@ namespace SpriterEngine
 		Core::String timelineName;
 		Object::ObjectType timelineType = Object::OBJECTTYPE_SPRITE;
 		SpriterFileAttributeWrapper *att = timelineElement->getFirstAttribute("name");
-		Object *object = 0;
 		if (att->isValid())
 		{
 			timelineName = att->getStringValue();
@@ -1041,7 +1040,7 @@ namespace SpriterEngine
 		std::vector<size_t> refObjectIds;
 		while (refElement->isValid())
 		{
-			const size_t NOT_FOUND = -1;
+			const size_t NOT_FOUND = 0xffffffff;
 			size_t keyIndex = NOT_FOUND;
 			size_t adjustedKeyIndex = NOT_FOUND;
 			size_t timelineIndex = NOT_FOUND;
@@ -1138,10 +1137,10 @@ namespace SpriterEngine
 				}
 				else
 				{
-					SubEntityKeyInfoMap::iterator it = subEntityKeyInfoMap->find(objectId);
-					if (it != subEntityKeyInfoMap->end())
+					SubEntityKeyInfoMap::iterator iit = subEntityKeyInfoMap->find(objectId);
+					if (iit != subEntityKeyInfoMap->end())
 					{
-						SubEntityKeyInfoVector *subEntityKeyInfoVector = &(*it).second;
+						SubEntityKeyInfoVector *subEntityKeyInfoVector = &(*iit).second;
 						if (keyIndex < subEntityKeyInfoVector->size())
 						{
 							SubEntityKeyInfo *subEntityKeyInfo = &subEntityKeyInfoVector->at(keyIndex);

@@ -15,11 +15,11 @@ namespace SpriterEngine
 	{
 	}
 
-	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, SpriteRef*& sprite)
+	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, SpriteRef*& /*sprite*/)
 	{
 		return new ImageFile(initialFilePath, initialDefaultPivot);
 	}
-	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size, SpriteRef*& sprite)
+	ImageFile * FileFactory::newImageFile(const Core::String &initialFilePath, point initialDefaultPivot, point size, SpriteRef*& /*sprite*/)
 	{
 		return new ImageFile(initialFilePath, initialDefaultPivot, size);
 	}
