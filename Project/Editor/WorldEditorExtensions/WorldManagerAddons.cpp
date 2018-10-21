@@ -220,6 +220,7 @@ void WorldManagerAddon::newMod(Core::String modName, std::vector<Core::String> d
 
 	Engine::GetModule<Asset::AssetManager>().openedMod = modName;
 	modLoadOrder.loadOrder.insert(std::pair<Core::String, size_t>(modName, modLoadOrder.loadOrder.size()));
+	Engine::GetModule<Asset::AssetManager>().getLanguage();
 	Engine::GetModule<Asset::AssetManager>().saveGameDatabase(modName, myModHeader);
 	//unloadEditorVariables();
 	Engine::GetModule<Asset::AssetManager>().loadAllEditorVariables();

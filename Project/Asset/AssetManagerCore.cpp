@@ -195,7 +195,7 @@ namespace Asset
 	AssetManager::AssetManager() : openedMod("<Not Set>"), prefabRequestor(DatabaseIndex::ObjectTypeEnum::Prefab), modelRequestor(DatabaseIndex::ObjectTypeEnum::Model),
 		modLoader(), textureloader(), zoneRequestor(DatabaseIndex::ObjectTypeEnum::Zone), textureMapRequestor(DatabaseIndex::ObjectTypeEnum::TextureMap),
 		intRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveInt), doubleRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveDouble), stringRequestor(DatabaseIndex::ObjectTypeEnum::PrimitiveString),
-		stringVectorRequestor(DatabaseIndex::ObjectTypeEnum::StringList), elementRequestor(DatabaseIndex::ObjectTypeEnum::Element)
+		stringVectorRequestor(DatabaseIndex::ObjectTypeEnum::StringList), elementRequestor(DatabaseIndex::ObjectTypeEnum::Element), lang(DatabaseIndex::ObjectTypeEnum::Language)
 	{
 	}
 
@@ -245,6 +245,11 @@ namespace Asset
 		return elementRequestor;
 	}
 
+	Language & AssetManager::getLanguage()
+	{
+		return lang.request("BUILTIN", 0);
+	}
+
 	ModLoader & AssetManager::getModLoader()
 	{
 		return modLoader;
@@ -282,6 +287,7 @@ namespace Asset
 			stringRequestor.save(ind, file, indexAr, mainAr);
 			stringVectorRequestor.save(ind, file, indexAr, mainAr);
 			elementRequestor.save(ind, file, indexAr, mainAr);
+			lang.save(ind, file, indexAr, mainAr);
 
 			ind.ID = 0xFFFFFFFF;
 			ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
@@ -304,6 +310,7 @@ namespace Asset
 		doubleRequestor.editorLoadAll(&Editor::onObjectLoaded);
 		stringRequestor.editorLoadAll(&Editor::onObjectLoaded);
 		stringVectorRequestor.editorLoadAll(&Editor::onObjectLoaded);
+		lang.editorLoadAll(&Editor::onObjectLoaded);
 #endif	
 		//	LoadAllTextureMaps(Engine::ModelContainer);
 		//	LoadAllPrefabs(Editor::addons.myWorldManager.editorPrefabContainer);

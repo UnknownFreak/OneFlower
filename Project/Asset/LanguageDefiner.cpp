@@ -5,7 +5,7 @@
 
 void Language::loadFont(const Core::String & name)
 {
-	Core::String path = "Data/Font" + name;
+	Core::String path = "Data\\Font\\" + name;
 	std::wstring wstr = Engine::GetModule<Core::StringConverter>().toUtf16(path);
 	std::ifstream i(path, std::ios::in | std::ifstream::binary);
 	i.seekg(0, i.end);
@@ -18,9 +18,43 @@ void Language::loadFont(const Core::String & name)
 	delete[] data;
 }
 
-Language::Language(Core::String fontName) : m_font(), stringList(DatabaseIndex::ObjectTypeEnum::PrimitiveString, "Data\\Lang\\")
+Language::Language() : Language("Arial.ttf")
+{
+}
+
+Language::Language(Core::String fontName) : fontName(fontName), m_font(), stringList(DatabaseIndex::ObjectTypeEnum::PrimitiveString, "Data\\Lang\\"), IRequestable("BUILTIN", 0, OneVersion(1,0,0))
 {
 	loadFont(fontName);
+}
+
+Language::Language(const Language & copy) : IRequestable(copy), stringList(DatabaseIndex::ObjectTypeEnum::PrimitiveString, "Data\\Lang\\")
+{
+	fallbackLanguage = copy.fallbackLanguage;
+	selectedLanguage = copy.selectedLanguage;
+	availableLanguages = copy.availableLanguages;
+	languageFiles = copy.languageFiles;
+	fontName = copy.fontName;
+	m_font = copy.m_font;
+}
+
+Language & Language::operator=(const Language & right)
+{
+	if (this == &right)
+		return *this;
+
+	ID = right.ID;
+	fromMod = right.fromMod;
+	mode = right.mode;
+	objectVersion = right.objectVersion;
+
+	fallbackLanguage = right.fallbackLanguage;
+	selectedLanguage = right.selectedLanguage;
+	availableLanguages = right.availableLanguages;
+	languageFiles = right.languageFiles;
+	m_font = right.m_font;
+	fontName = right.fontName;
+
+	return *this;
 }
 
 sf::Font & Language::getFont()
@@ -34,7 +68,7 @@ Core::String Language::getString(size_t id)
 	if (langStr.getValue() == "")
 	{
 		Engine::GetModule<OneLogger>().Warning("Failed to load string from selectedLanguage <" + selectedLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
-		PrimitiveSaveable<Core::String>& strR = stringList.request(fallbackLanguage, id);
+		langStr = stringList.request(fallbackLanguage, id);
 	}
 	if (langStr.getValue() == "")
 	{

@@ -10,7 +10,12 @@
 #include <Asset\PrimitiveSaveable.hpp>
 
 #include <Core/String.hpp>
+
+#include <Core/EngineModule/EngineModuleManager.hpp>
+#include <Core/Logger.hpp>
+
 #include <Asset/Element.hpp>
+#include <Asset/Language.hpp>
 
 #define EditorEvents_old EditorResources::Functionality::EditorEvents_old
 #define EngineEvents EditorResources::Functionality::EngineEvents
@@ -121,6 +126,10 @@ namespace Editor
 				((EditorResources::Dto::ElementTypeDto^)args->Value)->ElementAttribute->Add(attr);
 			}
 			break;
+		case DatabaseIndex::ObjectTypeEnum::Language:
+			Engine::GetModule<OneLogger>().Info("Loaded language module.");
+			Engine::GetModule<OneLogger>().Info(((Language*)value)->fromMod);
+			return;
 		case DatabaseIndex::ObjectTypeEnum::Undefined:
 		default:
 			args->Type = EditorResources::Utils::EnumCollection::ObjectType::Unknown;

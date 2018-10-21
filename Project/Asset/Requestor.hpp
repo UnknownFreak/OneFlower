@@ -239,6 +239,8 @@ private:
 			return "Primitive<string>" + pointerPrefixString;
 		case DatabaseIndex::ObjectTypeEnum::StringList:
 			return "Primitive<vector<string>>" + pointerPrefixString;
+		case DatabaseIndex::ObjectTypeEnum::Language:
+			return "Language>" + pointerPrefixString;
 		default:
 			return "Unknown" + pointerPrefixString;
 		}

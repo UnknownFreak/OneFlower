@@ -31,6 +31,7 @@ public:
 		StringList,
 		Element,
 		Rank,
+		Language,
 		EoF = 254,
 		Undefined
 	};

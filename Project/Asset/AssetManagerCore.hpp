@@ -16,6 +16,8 @@
 #include <Model\TextureMap.hpp>
 #include <Model\IModel.hpp>
 
+#include "Language.hpp"
+
 #include "Database/DatabaseObjects.hpp"
 
 #include "Element.hpp"
@@ -51,6 +53,7 @@ namespace Asset
 		Requestor<PrimitiveSaveable<Core::String>> stringRequestor;
 		Requestor<PrimitiveSaveable<std::vector<Core::String>>> stringVectorRequestor;
 		Requestor<Element> elementRequestor;
+		Requestor<Language> lang;
 		ModLoader modLoader;
 
 	public:
@@ -66,6 +69,8 @@ namespace Asset
 		Requestor<PrimitiveSaveable<Core::String>>& getStringRequestor();
 		Requestor<PrimitiveSaveable<std::vector<Core::String>>>& getStringVectorRequestor();
 		Requestor<Element>& getElementRequestor();
+
+		Language& getLanguage();
 
 		bool loadModHeader(Core::String modName, ModHeader& modHeader);
 
