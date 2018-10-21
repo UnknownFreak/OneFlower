@@ -58,14 +58,14 @@ private:
 	}
 
 	template <class In = std::remove_pointer<T>::type>
-	inline typename std::enable_if < std::is_base_of<IPatch, In>::value>::type patch(T& toPatch, T& patchObject)
+	inline typename std::enable_if < std::is_base_of<IPatch, In>::value>::type patch(T& toPatch, const T& patchObject) const
 	{
 		toPatch.Patch(patchObject);
 		deleteIfNeeded(patchObject);
 	}
 
 	template <class In = std::remove_pointer<T>::type>
-	inline typename std::enable_if < !std::is_base_of<IPatch, In>::value>::type patch(T& toPatch, T& patchObject)
+	inline typename std::enable_if < !std::is_base_of<IPatch, In>::value>::type patch(T& , T& ) const
 	{
 		Engine::GetModule<OneLogger>().Info("Requestor <" + getObjectTypeAsString() + "> is not patchable, skipping patching when loading!");
 	}
