@@ -14,6 +14,7 @@ class Language : public IRequestable, public IPatch
 
 	Core::String selectedLanguage;
 
+	std::vector<Core::String> availableLanguages;
 	std::map<Core::String, size_t> languageFiles;
 
 	sf::Font m_font;

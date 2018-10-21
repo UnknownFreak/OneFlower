@@ -53,8 +53,13 @@ void Language::Patch(const IPatch & other)
 {
 	const Language& patcher = (Language&)other;
 	for each (std::pair<std::string, size_t> var in patcher.languageFiles)
-		if (languageFiles.find(var.first) != languageFiles.end())
+		if (languageFiles.find(var.first) == languageFiles.end())
 			languageFiles.insert({ var.first, 0 });
+
+	for each (Core::String var in patcher.availableLanguages)
+		if (std::find(availableLanguages.begin(), availableLanguages.end(), var) == availableLanguages.end())
+			availableLanguages.push_back(var);
 
 	stringList.fileLoadOrder = languageFiles;
 }
+
