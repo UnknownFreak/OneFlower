@@ -372,6 +372,7 @@
     <ClInclude Include="Project\Asset\Database\DatabaseObjects.hpp" />
     <ClInclude Include="Project\Asset\Element.hpp" />
     <ClInclude Include="Project\Asset\IObject.hpp" />
+    <ClInclude Include="Project\Asset\IPatch.hpp" />
     <ClInclude Include="Project\Asset\IRequestable.hpp" />
     <ClInclude Include="Project\Asset\ISimulatable.hpp" />
     <ClInclude Include="Project\Asset\IToolTip.hpp" />

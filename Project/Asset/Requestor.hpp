@@ -11,6 +11,8 @@
 
 #include <cereal\archives\binary.hpp>
 
+#include <Asset/IPatch.hpp>
+
 #include <Core\String.hpp>
 #include <Core\Logger.hpp>
 
@@ -53,6 +55,19 @@ private:
 	inline typename std::enable_if < !std::is_base_of<IRequestable, In>::value>::type check() const
 	{
 		static_assert(false, "Class T is not a base class of IRequestable - this object will not be requestable!");
+	}
+
+	template <class In = std::remove_pointer<T>::type>
+	inline typename std::enable_if < std::is_base_of<IPatch, In>::value>::type patch(T& toPatch, T& patchObject)
+	{
+		toPatch.Patch(patchObject);
+		deleteIfNeeded(patchObject);
+	}
+
+	template <class In = std::remove_pointer<T>::type>
+	inline typename std::enable_if < !std::is_base_of<IPatch, In>::value>::type patch(T& toPatch, T& patchObject)
+	{
+		Engine::GetModule<OneLogger>().Info("Requestor <" + getObjectTypeAsString() + "> is not patchable, skipping patching when loading!");
 	}
 
 	template <class In = T>
@@ -249,6 +264,8 @@ private:
 	inline bool requestFromDatabase(T& _t, const Core::String& modName, const size_t & uuid) const
 	{
 		bool found = false;
+		bool first_loaded = false;
+		bool patching = false;
 		for each (std::pair<std::string, size_t> var in Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder)
 		{
 			bool eof = false;
@@ -266,7 +283,17 @@ private:
 						{
 							database.seekg(ind.row);
 							cereal::BinaryInputArchive loadArchive(database);
-							serialize(loadArchive, _t);
+							
+							if (std::is_base_of<IPatch, T>::value)
+								patching = true;
+							if (patching && !first_loaded)
+							{
+								T _tmp = defaultValue();
+								serialize(loadArchive, _tmp);
+								patch(_t, _tmp);
+							}
+							else
+								serialize(loadArchive, _t);
 							eof = true;
 							found = true;
 						}
@@ -277,7 +304,7 @@ private:
 			}
 			else
 				Engine::GetModule<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to open archive [" + modName + "]!", __FILE__, __LINE__);
-			if (found)
+			if (found && !patching)
 				return found;
 		}
 		return found;

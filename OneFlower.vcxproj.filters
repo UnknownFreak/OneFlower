@@ -684,6 +684,9 @@
     <ClInclude Include="Project\Asset\Language.hpp">
       <Filter>Engine\Asset\Lang</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Asset\IPatch.hpp">
+      <Filter>Engine\Asset\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
