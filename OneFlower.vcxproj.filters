@@ -187,6 +187,9 @@
     <Filter Include="Engine\Asset\Element">
       <UniqueIdentifier>{07a94c78-1811-4683-9f51-fe6123b49008}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Asset\Lang">
+      <UniqueIdentifier>{95e2dedb-ab0d-488c-90b5-513d335b8a43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Core\Vector.h">
@@ -678,6 +681,12 @@
     <ClInclude Include="Project\Asset\Element.hpp">
       <Filter>Engine\Asset\Element</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Asset\LanguageString.hpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Asset\Language.hpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
@@ -1132,5 +1141,9 @@
     <ClCompile Include="Project\Asset\Element.cpp">
       <Filter>Engine\Asset\Element</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Asset\LanguageDefiner.cpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Asset\Language.cpp" />
   </ItemGroup>
 </Project>
