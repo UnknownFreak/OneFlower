@@ -30,16 +30,16 @@ sf::Font & Language::getFont()
 
 Core::String Language::getString(size_t id)
 {
-	PrimitiveSaveable<Core::String>& langStr = stringList.request(language, id);
+	PrimitiveSaveable<Core::String>& langStr = stringList.request(selectedLanguage, id);
 	if (langStr.getValue() == "")
 	{
-		Engine::GetModule<OneLogger>().Warning("Failed to load string from language <" + language + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
+		Engine::GetModule<OneLogger>().Warning("Failed to load string from selectedLanguage <" + selectedLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
 		PrimitiveSaveable<Core::String>& strR = stringList.request(fallbackLanguage, id);
 	}
 	if (langStr.getValue() == "")
 	{
-		Engine::GetModule<OneLogger>().Error("Failed to load string from language fallback <" + fallbackLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
-		return "### Err Loading String ###" + language + "###" + fallbackLanguage + "###" + std::to_string(id) + "###";
+		Engine::GetModule<OneLogger>().Error("Failed to load string from selectedLanguage fallback <" + fallbackLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
+		return "### Err Loading String ###" + selectedLanguage + "###" + fallbackLanguage + "###" + std::to_string(id) + "###";
 	}
 	return langStr.getValue();
 }
