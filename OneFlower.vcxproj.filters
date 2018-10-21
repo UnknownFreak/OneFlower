@@ -681,9 +681,6 @@
     <ClInclude Include="Project\Asset\Element.hpp">
       <Filter>Engine\Asset\Element</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Asset\LanguageString.hpp">
-      <Filter>Engine\Asset\Lang</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Asset\Language.hpp">
       <Filter>Engine\Asset\Lang</Filter>
     </ClInclude>
@@ -1144,6 +1141,5 @@
     <ClCompile Include="Project\Asset\LanguageDefiner.cpp">
       <Filter>Engine\Asset\Lang</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Asset\Language.cpp" />
   </ItemGroup>
 </Project>

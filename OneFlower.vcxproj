@@ -377,7 +377,6 @@
     <ClInclude Include="Project\Asset\IToolTip.hpp" />
     <ClInclude Include="Project\Asset\IUpdateable.hpp" />
     <ClInclude Include="Project\Asset\Language.hpp" />
-    <ClInclude Include="Project\Asset\LanguageString.hpp" />
     <ClInclude Include="Project\Asset\ModHeader.hpp" />
     <ClInclude Include="Project\Asset\ModLoader.hpp" />
     <ClInclude Include="Project\Asset\ObjectSaveMode.hpp" />
@@ -539,7 +538,6 @@
   <ItemGroup>
     <ClCompile Include="Project\Asset\AssetManagerCore.cpp" />
     <ClCompile Include="Project\Asset\Element.cpp" />
-    <ClCompile Include="Project\Asset\Language.cpp" />
     <ClCompile Include="Project\Asset\LanguageDefiner.cpp" />
     <ClCompile Include="Project\Asset\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\Asset\PrefabDefiner.cpp" />

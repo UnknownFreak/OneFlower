@@ -10,8 +10,7 @@
 
 class Language : public IRequestable
 {
-	Core::String defaultLanguageIfNotExists;
-	Core::String stringIfFailsToLoad = "<Error Loading String>";
+	Core::String fallbackLanguage;
 
 	Core::String languageFile;
 	sf::Font m_font;

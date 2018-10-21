@@ -31,9 +31,15 @@ Core::String Language::getString(size_t id)
 {
 	PrimitiveSaveable<Core::String>& strR = stringList.request(languageFile, id);
 	if (strR.getValue() == "")
-		PrimitiveSaveable<Core::String>& strR = stringList.request(defaultLanguageIfNotExists, id);
+	{
+		Engine::GetModule<OneLogger>().Warning("Failed to load string from language <" + languageFile + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
+		PrimitiveSaveable<Core::String>& strR = stringList.request(fallbackLanguage, id);
+	}
 	if (strR.getValue() == "")
-		return stringIfFailsToLoad;
+	{
+		Engine::GetModule<OneLogger>().Error("Failed to load string from language fallback <" + fallbackLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
+		return "### Err Loading String ###" + languageFile + "###" + fallbackLanguage + "###" + std::to_string(id) + "###";
+	}
 	return strR.getValue();
 }
 
