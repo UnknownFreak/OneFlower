@@ -1,6 +1,7 @@
 #include "Language.hpp"
 #include <fstream>
 #include <Core\EngineModule\EngineModuleManager.hpp>
+#include <Asset/AssetManagerCore.hpp>
 
 void Language::loadFont(const Core::String & name)
 {
@@ -29,22 +30,31 @@ sf::Font & Language::getFont()
 
 Core::String Language::getString(size_t id)
 {
-	PrimitiveSaveable<Core::String>& strR = stringList.request(languageFile, id);
-	if (strR.getValue() == "")
+	PrimitiveSaveable<Core::String>& langStr = stringList.request(language, id);
+	if (langStr.getValue() == "")
 	{
-		Engine::GetModule<OneLogger>().Warning("Failed to load string from language <" + languageFile + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
+		Engine::GetModule<OneLogger>().Warning("Failed to load string from language <" + language + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
 		PrimitiveSaveable<Core::String>& strR = stringList.request(fallbackLanguage, id);
 	}
-	if (strR.getValue() == "")
+	if (langStr.getValue() == "")
 	{
 		Engine::GetModule<OneLogger>().Error("Failed to load string from language fallback <" + fallbackLanguage + ", " + std::to_string(id) + ">", __FILE__, __LINE__);
-		return "### Err Loading String ###" + languageFile + "###" + fallbackLanguage + "###" + std::to_string(id) + "###";
+		return "### Err Loading String ###" + language + "###" + fallbackLanguage + "###" + std::to_string(id) + "###";
 	}
-	return strR.getValue();
+	return langStr.getValue();
 }
 
 sf::Text Language::getText(size_t id, size_t charSize)
 {
-	Core::String s = getString(id);
-	return sf::Text(s, m_font, charSize);
+	return sf::Text(getString(id), m_font, charSize);
+}
+
+void Language::Patch(const IPatch & other)
+{
+	const Language& patcher = (Language&)other;
+	for each (std::pair<std::string, size_t> var in patcher.languageFiles)
+		if (languageFiles.find(var.first) != languageFiles.end())
+			languageFiles.insert({ var.first, 0 });
+
+	stringList.fileLoadOrder = languageFiles;
 }

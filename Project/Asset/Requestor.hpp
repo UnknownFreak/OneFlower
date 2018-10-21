@@ -65,7 +65,7 @@ private:
 	}
 
 	template <class In = std::remove_pointer<T>::type>
-	inline typename std::enable_if < !std::is_base_of<IPatch, In>::value>::type patch(T& , T& ) const
+	inline typename std::enable_if < !std::is_base_of<IPatch, In>::value>::type patch(T&, T&) const
 	{
 		Engine::GetModule<OneLogger>().Info("Requestor <" + getObjectTypeAsString() + "> is not patchable, skipping patching when loading!");
 	}
@@ -266,7 +266,7 @@ private:
 		bool found = false;
 		bool first_loaded = false;
 		bool patching = false;
-		for each (std::pair<std::string, size_t> var in Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder)
+		for each (std::pair<std::string, size_t> var in getLoadOrder())
 		{
 			bool eof = false;
 			DatabaseIndex ind;
@@ -310,13 +310,22 @@ private:
 		return found;
 	}
 
+	std::map<Core::String, size_t> getLoadOrder() const
+	{
+		if (fileLoadOrder.size() == 0)
+			return Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder;
+		return fileLoadOrder;
+	}
+
 public:
+	std::map<Core::String, size_t> fileLoadOrder;
 
 	// ##################################################
 	// # INITIALIZERS									#
 	// ##################################################
 
-	Requestor(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory = "Data\\") : objectType(objectType), loadDirectory(loadDirectory)
+	Requestor(DatabaseIndex::ObjectTypeEnum objectType, Core::String loadDirectory = "Data\\", std::map<Core::String, size_t> loadOrder = {}) :
+		objectType(objectType), loadDirectory(loadDirectory), fileLoadOrder(loadOrder)
 	{
 		pointerStr();
 		check();
@@ -374,7 +383,7 @@ public:
 		const DatabaseIndex::ObjectTypeEnum, void*))
 	{
 		clear();
-		for each (std::pair<std::string, size_t> var in Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder)
+		for each (std::pair<std::string, size_t> var in getLoadOrder())
 		{
 			bool eof = false;
 			DatabaseIndex ind;
@@ -438,8 +447,7 @@ public:
 	inline std::vector<std::pair<Core::String, size_t>> listAllObjectKeys() const
 	{
 		std::vector<std::pair<Core::String, size_t>> listofall;
-
-		for each (std::pair<std::string, size_t> var in Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder)
+		for each (std::pair<std::string, size_t> var in getLoadOrder())
 		{
 			bool eof = false;
 			DatabaseIndex ind;
