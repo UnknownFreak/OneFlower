@@ -53,7 +53,7 @@ namespace SpriterEngine
 		// TODO: override and add code to adjust current playback panning using getPanning() here
 	}
 
-	void SoundObjectInfoReference::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void SoundObjectInfoReference::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		real tempPanning = panning;
 		real tempVolume = volume;

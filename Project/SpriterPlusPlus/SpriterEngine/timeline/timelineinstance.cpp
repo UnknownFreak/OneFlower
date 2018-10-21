@@ -20,7 +20,7 @@ namespace SpriterEngine
 	{
 	}
 
-	void TimelineInstance::findCurrentTimelineKey(real newTime, bool forward, real animationLength)
+	void TimelineInstance::findCurrentTimelineKey(real newTime, bool forward, real )
 	{
 		if (forward)
 		{

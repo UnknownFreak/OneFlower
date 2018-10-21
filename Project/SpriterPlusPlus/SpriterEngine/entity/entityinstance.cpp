@@ -718,7 +718,7 @@ namespace SpriterEngine
 	void EntityInstance::appendEntity(SpriterModel * model, Entity * entity, ObjectFactory * objectFactory)
 	{
 		model->setupFileReferences(&files);
-		EntityInstanceData *newEntityData = (*entities.insert(std::make_pair(entity->getId(), new EntityInstanceData(model, this, entity, objectFactory))).first).second;
+		/*EntityInstanceData *newEntityData =*/ (*entities.insert(std::make_pair(entity->getId(), new EntityInstanceData(model, this, entity, objectFactory))).first).second;
 	}
 
 	void EntityInstance::appendEntity(SpriterModel * model, Core::String entityName)

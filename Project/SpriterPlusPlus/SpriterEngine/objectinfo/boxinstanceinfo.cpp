@@ -57,12 +57,12 @@ namespace SpriterEngine
 		pivot = newPivot;
 	}
 
-	void BoxInstanceInfo::setAlpha(real newAlpha)
+	void BoxInstanceInfo::setAlpha(real /*newAlpha*/)
 	{
 		// ignore setAlpha commands without throwing an error
 	}
 
-	void BoxInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void BoxInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		real tempAngle = angle.angle;
 		point tempPosition = position;

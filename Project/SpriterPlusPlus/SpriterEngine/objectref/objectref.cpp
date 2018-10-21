@@ -42,7 +42,7 @@ namespace SpriterEngine
 		return key;
 	}
 
-	ObjectRefInstance *ObjectRef::getNewSpecializedObjectRefInstance(EntityInstance *entityInstance, EntityInstanceData *entityInstanceData, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
+	ObjectRefInstance *ObjectRef::getNewSpecializedObjectRefInstance(EntityInstance *, EntityInstanceData *, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
 	{
 		return new ObjectRefInstance(objectInstance, initialParentTransformer, getKey());
 	}

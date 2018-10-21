@@ -28,7 +28,7 @@ namespace Component
 	{
 		return position.angle(&target->position);
 	}
-	Core::Vector2 Transform::DirectionTowards(Transform* target)
+	Core::Vector2 Transform::DirectionTowards(Transform* /*target*/)
 	{
 		return Core::Vector2();
 	}

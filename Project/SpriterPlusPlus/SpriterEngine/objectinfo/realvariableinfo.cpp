@@ -22,7 +22,7 @@ namespace SpriterEngine
 		resultObject->setRealValue(linear(value, bObject->getRealValue(), t));
 	}
 
-	void RealVariableInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void RealVariableInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		real tempValue = value;
 

@@ -160,9 +160,9 @@ namespace SpriterEngine
 		}
 	}
 
-	CharacterMap *Entity::addCharacterMap(Core::String name)
+	CharacterMap *Entity::addCharacterMap(Core::String _name)
 	{
-		return &characterMaps[name];
+		return &characterMaps[_name];
 	}
 
 	void Entity::applyCharacterMap(Core::String mapName, FileReferenceVector *mappedFiles)

@@ -15,7 +15,7 @@ namespace SpriterEngine
 	{
 	}
 
-	ObjectRefInstance *EntityRef::getNewSpecializedObjectRefInstance(EntityInstance *entityInstance, EntityInstanceData *entityInstanceData, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
+	ObjectRefInstance *EntityRef::getNewSpecializedObjectRefInstance(EntityInstance *, EntityInstanceData *, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
 	{
 		EntityInstanceData *initialEntity = objectInstance->getEntity(entityId);
 		if (!initialEntity)

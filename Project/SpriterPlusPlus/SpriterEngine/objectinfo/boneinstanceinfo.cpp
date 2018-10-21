@@ -56,7 +56,7 @@ namespace SpriterEngine
 		alpha = newAlpha;
 	}
 
-	void BoneInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void BoneInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		real tempAngle = angle.angle;
 		point tempPosition = position;

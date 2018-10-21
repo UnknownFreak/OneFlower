@@ -25,7 +25,7 @@ namespace SpriterEngine
 			sprite->setTextureRect(sf::IntRect(0, 0, (int)size.x, (int)size.y));
 	}
 
-	void SfmlImageFile::renderSprite(UniversalObjectInterface * spriteInfo)
+	void SfmlImageFile::renderSprite(UniversalObjectInterface * /*spriteInfo*/)
 	{
 	}
 

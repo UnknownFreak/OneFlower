@@ -17,7 +17,7 @@ namespace SpriterEngine
 		triggerCount = newTriggerCount;
 	}
 
-	void TriggerObjectInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void TriggerObjectInfo::setToBlendedLinear(UniversalObjectInterface *, UniversalObjectInterface *, real , real , ObjectRefInstance *)
 	{
 	}
 }

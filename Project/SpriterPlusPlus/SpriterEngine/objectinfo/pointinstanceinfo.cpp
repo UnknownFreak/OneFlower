@@ -41,17 +41,17 @@ namespace SpriterEngine
 		angle.spinDirection = newSpin;
 	}
 
-	void PointInstanceInfo::setScale(const point & newScale)
+	void PointInstanceInfo::setScale(const point & /*newScale*/)
 	{
 		// ignore setScale commands without throwing an error
 	}
 
-	void PointInstanceInfo::setAlpha(real newAlpha)
+	void PointInstanceInfo::setAlpha(real /*newAlpha*/)
 	{
 		// ignore setAlpha commands without throwing an error
 	}
 
-	void PointInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void PointInstanceInfo::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		real tempAngle = angle.angle;
 		point tempPosition = position;

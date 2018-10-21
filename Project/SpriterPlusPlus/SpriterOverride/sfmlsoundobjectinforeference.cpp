@@ -2,7 +2,7 @@
 
 namespace SpriterEngine
 {
-	SfmlSoundObjectInfoReference::SfmlSoundObjectInfoReference(sf::SoundBuffer &buffer)
+	SfmlSoundObjectInfoReference::SfmlSoundObjectInfoReference(sf::SoundBuffer &/*buffer*/)
 	{
 		//sound.setBuffer(buffer);
 	}

@@ -18,7 +18,7 @@ namespace SpriterEngine
 		resultObject = entityInstanceData->getTriggerObject(objectId);
 	}
 
-	TriggerTimelineInstance::TriggerTimelineInstance(EntityInstanceData * entityInstanceData, Timeline * timeline) :
+	TriggerTimelineInstance::TriggerTimelineInstance(EntityInstanceData *, Timeline * timeline) :
 		TimelineInstance(timeline),
 		triggerCount(0),
 		previousTime(0)
@@ -40,7 +40,7 @@ namespace SpriterEngine
 		previousTime = newTime;
 	}
 
-	void TriggerTimelineInstance::processCurrentTimelineKey(real newTime)
+	void TriggerTimelineInstance::processCurrentTimelineKey(real /*newTime*/)
 	{
 		resultObject->setTriggerCount(triggerCount);
 	}

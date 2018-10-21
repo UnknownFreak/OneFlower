@@ -47,66 +47,66 @@ namespace SpriterEngine
 	// Given an x value, find a parametric value it came from.
 	real BezierEasingCurve::solveCurveX(real ax, real bx, real cx, real x, real epsilon) const
 	{
-		real t0;
-		real t1;
-		real t2;
-		real x2;
-		real d2;
+		real _t0;
+		real _t1;
+		real _t2;
+		real _x2;
+		real _d2;
 		int i;
 
 		// First try a few iterations of Newton's method -- normally very fast.
-		for (t2 = x, i = 0; i < 8; i++)
+		for (_t2 = x, i = 0; i < 8; i++)
 		{
-			x2 = sampleCurve(ax, bx, cx, t2) - x;
-			if (std::abs(x2) < epsilon)
+			_x2 = sampleCurve(ax, bx, cx, _t2) - x;
+			if (std::abs(_x2) < epsilon)
 			{
-				return t2;
+				return _t2;
 			}
 
-			d2 = sampleCurveDerivativeX(ax, bx, cx, t2);
+			_d2 = sampleCurveDerivativeX(ax, bx, cx, _t2);
 
-			if (std::abs(d2) < 1e-6)
+			if (std::abs(_d2) < 1e-6)
 			{
 				break;
 			}
 
-			t2 = t2 - x2 / d2;
+			_t2 = _t2 - _x2 / _d2;
 		}
 
 		// Fall back to the bisection method for reliability.
-		t0 = 0.0f;
-		t1 = 1.0f;
-		t2 = x;
+		_t0 = 0.0f;
+		_t1 = 1.0f;
+		_t2 = x;
 
-		if (t2 < t0)
+		if (_t2 < _t0)
 		{
-			return t0;
+			return _t0;
 		}
 
-		if (t2 > t1)
+		if (_t2 > _t1)
 		{
-			return t1;
+			return _t1;
 		}
 
-		while (t0 < t1)
+		while (_t0 < _t1)
 		{
-			x2 = sampleCurve(ax, bx, cx, t2);
-			if (std::abs(x2 - x) < epsilon)
+			_x2 = sampleCurve(ax, bx, cx, _t2);
+			if (std::abs(_x2 - x) < epsilon)
 			{
-				return t2;
+				return _t2;
 			}
-			if (x > x2)
+			if (x > _x2)
 			{
-				t0 = t2;
+				_t0 = _t2;
 			}
 			else
 			{
-				t1 = t2;
+				_t1 = _t2;
 			}
-			t2 = (t1 - t0)*.5f + t0;
+			_t2 = (_t1 - _t0)*.5f + _t0;
 		}
 
-		return t2; // Failure.
+		return _t2; // Failure.
 	}
 
 	real BezierEasingCurve::cubicBezierAtTime(real t) const

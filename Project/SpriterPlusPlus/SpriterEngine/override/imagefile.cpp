@@ -22,7 +22,7 @@ namespace SpriterEngine
 		return this;
 	}
 
-	void ImageFile::renderSprite(UniversalObjectInterface * spriteInfo)
+	void ImageFile::renderSprite(UniversalObjectInterface * /*spriteInfo*/)
 	{
 		// TODO: override and add custom rendering code here using:
 
@@ -33,7 +33,7 @@ namespace SpriterEngine
 		// spriteInfo->getPivot()
 	}
 
-	void ImageFile::preRenderSprite(const UniversalObjectInterface * spriteInfo)
+	void ImageFile::preRenderSprite(const UniversalObjectInterface * /*spriteInfo*/)
 	{
 	}
 

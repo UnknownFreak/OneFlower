@@ -14,7 +14,7 @@ namespace SpriterEngine
 	{
 	}
 
-	ObjectRefInstance *SpriteRef::getNewSpecializedObjectRefInstance(EntityInstance *entityInstance, EntityInstanceData *entityInstanceData, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
+	ObjectRefInstance *SpriteRef::getNewSpecializedObjectRefInstance(EntityInstance *entityInstance, EntityInstanceData *, TransformProcessor *initialParentTransformer, UniversalObjectInterface *objectInstance)
 	{
 		return new SpriteRefInstance(objectInstance, initialParentTransformer, getKey(), entityInstance->getFile(fileId), useDefaultPivot);
 	}

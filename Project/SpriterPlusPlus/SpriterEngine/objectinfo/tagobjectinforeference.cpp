@@ -26,7 +26,7 @@ namespace SpriterEngine
 		tagList = newTagList;
 	}
 
-	void TagObjectInfoReference::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *blendedRefInstance)
+	void TagObjectInfoReference::setToBlendedLinear(UniversalObjectInterface *aObject, UniversalObjectInterface *bObject, real t, real blendRatio, ObjectRefInstance *)
 	{
 		if (blendRatio >= 0.5)
 		{

@@ -172,7 +172,7 @@ namespace SpriterEngine
 	Entity *SpriterDocumentLoader::getNewEntityFromEntityElement(SpriterFileElementWrapper *entityElement, SpriterModel *model)
 	{
 		SpriterFileAttributeWrapper *nameAtt = entityElement->getFirstAttribute("name");
-		Entity *entity = 0;
+		//Entity *entity = 0;
 		if (nameAtt->isValid())
 		{
 			return model->pushBackEntity(nameAtt->getStringValue());
@@ -403,7 +403,7 @@ namespace SpriterEngine
 
 	Animation *SpriterDocumentLoader::getNewAnimationFromAnimationElement(SpriterFileElementWrapper *animationElement, Entity *entity)
 	{
-		Animation *newAnimation = 0;
+		//Animation *newAnimation = 0;
 		real animationLength = 0;
 		bool animationLooping = true;
 		SpriterFileAttributeWrapper *att = animationElement->getFirstAttribute("name");
@@ -860,7 +860,7 @@ namespace SpriterEngine
 		return getNewEasingCurve(curveType, &controlPoints);
 	}
 
-	UniversalObjectInterface *SpriterDocumentLoader::getObjectInfoFromTimelineKeyElement(SpriterFileElementWrapper *keyElement, Entity *entity, Object *object, Timeline *timeline, FileFlattener *fileFlattener, SpriteKeyFileInfo *spriteKeyFileInfo, SubEntityKeyInfo *subEntityKeyInfo, point *defaultBoxPivot)
+	UniversalObjectInterface *SpriterDocumentLoader::getObjectInfoFromTimelineKeyElement(SpriterFileElementWrapper *keyElement, Entity *entity, Object *object, Timeline *, FileFlattener *fileFlattener, SpriteKeyFileInfo *spriteKeyFileInfo, SubEntityKeyInfo *subEntityKeyInfo, point *defaultBoxPivot)
 	{
 		int spin = 1;
 		SpriterFileAttributeWrapper *spinAtt = keyElement->getFirstAttribute("spin");
@@ -1285,7 +1285,7 @@ namespace SpriterEngine
 		}
 	}
 
-	UniversalObjectInterface *SpriterDocumentLoader::getSoundObjectInfoFromSoundlineKey(SpriterFileElementWrapper *keyElement, Entity *entity, Object *object, FileFlattener *fileFlattener, bool *soundFileFound)
+	UniversalObjectInterface *SpriterDocumentLoader::getSoundObjectInfoFromSoundlineKey(SpriterFileElementWrapper *keyElement, Entity *, Object *object, FileFlattener *fileFlattener, bool *soundFileFound)
 	{
 		SpriterFileElementWrapper *objectInfoElement = keyElement->getFirstChildElement();
 		if (objectInfoElement->isValid())
