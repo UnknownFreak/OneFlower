@@ -129,6 +129,9 @@
       <DependentUpon>EditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Message.cs" />
+    <Compile Include="Windows\LanguageView.xaml.cs">
+      <DependentUpon>LanguageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ModelTypes\SpriterModelData.xaml.cs">
       <DependentUpon>SpriterModelData.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\EditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LanguageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
