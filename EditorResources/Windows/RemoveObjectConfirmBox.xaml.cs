@@ -8,7 +8,7 @@ namespace EditorResources.Windows
     public partial class RemoveObjectConfirmBox : Window
     {
         private bool Result { get; set; } = false;
-        private string deleteString = "Are you sure you want to delete {objectName}?";
+        private string deleteString = "Are you sure you want to delete ";
 
         private RemoveObjectConfirmBox() : this("")
         {
@@ -17,7 +17,7 @@ namespace EditorResources.Windows
         private RemoveObjectConfirmBox(string objectToDeleteName)
         {
             InitializeComponent();
-            box.Text = string.Format(deleteString, objectToDeleteName);
+            box.Text = deleteString + objectToDeleteName + "?";
         }
 
         public static bool ShowAndGetResult(string objectName)
