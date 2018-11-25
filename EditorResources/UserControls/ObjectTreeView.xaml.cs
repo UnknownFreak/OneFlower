@@ -30,9 +30,20 @@ namespace EditorResources.UserControls
             EditorEvents.onObjectEvent += OnObjectDeleted;
             InternalEditorEvents.requestObjectData += OnDataObjectRequested;
             EditorEvents.onModEvent += ClearListOnLoad;
+            EditorEvents.onModEvent += EnableOnNewMod;
 
             treeView.IsEnabled = false;
             ObjectList.ItemsSource = objectItems;
+        }
+
+        private void EnableOnNewMod(object sender, ModEventArgs e)
+        {
+            if (e.Type == ModEventArgs.EventType.Created)
+            {
+                loadedMod = e.ModName;
+                treeView.IsEnabled = true;
+                objectItems.Clear();
+            }
         }
 
         private void OnDataObjectRequested(object sender, EventArgs e)
