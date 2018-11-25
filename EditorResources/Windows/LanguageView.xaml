@@ -4,25 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.Windows"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Height="475" Width="1063">
     <Grid>
-        <ListBox HorizontalAlignment="Left" Height="393" VerticalAlignment="Top" Width="144" Margin="0,26,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="LanguageFileList" HorizontalAlignment="Left" Width="144" Margin="0,26,0,0">
             <ListBoxItem Content="SomeFile.lang"/>
         </ListBox>
-        <Button Content="" HorizontalAlignment="Left" Margin="149,48,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button x:Name="RemoveLanguageFile" Content="" HorizontalAlignment="Left" Margin="149,48,0,0" VerticalAlignment="Top" Width="16" Height="16" Click="RemoveLanguageFile_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/RemoveIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="149,26,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button x:Name="AddLanguageFile" Content="" HorizontalAlignment="Left" Margin="149,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Click="AddLanguageFile_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
         </Button>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="393" Margin="351,26,0,0" VerticalAlignment="Top" Width="413">
+        <ListView x:Name="listView" Margin="351,26,0,0">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Width="83">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content="Language file">
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                     <GridViewColumn Width="65">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -59,11 +73,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Language Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171"/>
-        <ListBox HorizontalAlignment="Left" Height="393" VerticalAlignment="Top" Width="144" Margin="183,26,0,0">
+        <Label Content="Language Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Height="26"/>
+        <ListBox HorizontalAlignment="Left" Width="144" Margin="183,26,0,0">
             <ListBoxItem Content="SomeLang"/>
         </ListBox>
-        <Label Content="Language" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="183,0,0,0"/>
+        <Label Content="Languages" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="183,0,0,0" Height="26"/>
         <Button Content="" HorizontalAlignment="Left" Margin="332,48,0,0" VerticalAlignment="Top" Width="16" Height="16">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/RemoveIcon.png"/>
@@ -74,12 +88,12 @@
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="769,48,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button Content="" HorizontalAlignment="Left" Margin="5,48,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/RemoveIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="769,26,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button Content="" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
