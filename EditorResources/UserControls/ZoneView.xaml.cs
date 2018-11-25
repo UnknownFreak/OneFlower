@@ -48,9 +48,12 @@ namespace EditorResources.UserControls
         {
             if (arg.Type == ObjectType.Zone && arg.Flag == ObjectFlag.Edited)
             {
-                IEnumerable<ZoneItem> enumerable = zoneItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID));
-                enumerable.ElementAt(0).Value = arg.Value as ZoneDto;
-                enumerable.ElementAt(0).Flag = ObjectFlag.Edited;
+                IEnumerable<ZoneItem> enumerable = zoneItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID && x.Flag == arg.Flag));
+                foreach (ZoneItem item in enumerable)
+                {
+                    item.Value = arg.Value as ZoneDto;
+                    item.Flag = ObjectFlag.Edited;
+                }
             }
         }
 
@@ -60,8 +63,9 @@ namespace EditorResources.UserControls
                 return;
             if (arg.Flag == ObjectFlag.Deleted)
             {
-                IEnumerable<ZoneItem> enumerable = zoneItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID));
-                enumerable.ElementAt(0).Flag = arg.Flag;
+                IEnumerable<ZoneItem> enumerable = zoneItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID && x.Flag == arg.Flag));
+                foreach (ZoneItem item in enumerable)
+                    item.Flag = arg.Flag;
             }
         }
 
