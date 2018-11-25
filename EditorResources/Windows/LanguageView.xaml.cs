@@ -37,7 +37,7 @@ namespace EditorResources.Windows
                 {
                     Flag = EnumCollection.ObjectFlag.Deleted,
                     Type = EnumCollection.ObjectType.TranslationFile,
-                    Value = LanguageFileList.SelectedItem as Dto.LanguageStringDto
+                    Value = LanguageFileList.SelectedItem as Dto.LanguageFileDto
                 });
                 LanguageFileList.Items.Remove(LanguageFileList.SelectedItem);
             }

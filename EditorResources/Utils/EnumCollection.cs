@@ -31,6 +31,7 @@ namespace EditorResources.Utils
             TextureMap,
             Trigger,
             TranslationString,
+            TranslationFile,
             Zone,
             Veterancy,
             Element,

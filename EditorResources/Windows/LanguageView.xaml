@@ -30,7 +30,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Background="{Binding brush}">
-                                    <TextBlock Text="{Binding FileName}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Filename}" HorizontalAlignment="Center"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

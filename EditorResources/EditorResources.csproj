@@ -103,6 +103,9 @@
       <DependentUpon>VariableListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Events\EditorEvents.cs" />
+    <Compile Include="Windows\AddObjectNameBox.xaml.cs">
+      <DependentUpon>AddObjectNameBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\BorderLessForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +165,9 @@
       <DependentUpon>VariableSelectorBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\WindowHelpers.cs" />
+    <Compile Include="Windows\RemoveObjectConfirmBox.xaml.cs">
+      <DependentUpon>RemoveObjectConfirmBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -196,6 +202,10 @@
     <Page Include="UserControls\VariableListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddObjectNameBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\ElementType.xaml">
       <SubType>Designer</SubType>
@@ -260,6 +270,10 @@
     <Page Include="UserControls\VariableSelectorBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RemoveObjectConfirmBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\SplashScreen.xaml">
       <SubType>Designer</SubType>
