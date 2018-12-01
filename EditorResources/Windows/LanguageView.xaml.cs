@@ -31,7 +31,8 @@ namespace EditorResources.Windows
 
         private void RemoveLanguageFile_Click(object sender, RoutedEventArgs e)
         {
-            if (LanguageFileList.SelectedItem != null && RemoveObjectConfirmBox.ShowAndGetResult(LanguageFileList.SelectedItem.ToString()))
+            if (LanguageFileList.SelectedItem != null && RemoveObjectConfirmBox.ShowAndGetResult(LanguageFileList.SelectedItem.ToString(),
+                "Info: Removing a language file will remove all strings associated with that file."))
             {
                 EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
                 {

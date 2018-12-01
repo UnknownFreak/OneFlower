@@ -14,15 +14,15 @@ namespace EditorResources.Windows
         {
         }
 
-        private RemoveObjectConfirmBox(string objectToDeleteName)
+        private RemoveObjectConfirmBox(string objectToDeleteName, string additionalInfoText="")
         {
             InitializeComponent();
-            box.Text = deleteString + objectToDeleteName + "?";
+            box.Text = deleteString + objectToDeleteName + "?\n" + additionalInfoText;
         }
 
-        public static bool ShowAndGetResult(string objectName)
+        public static bool ShowAndGetResult(string objectName, string additionalInfoText = "")
         {
-            RemoveObjectConfirmBox box = new RemoveObjectConfirmBox(objectName);
+            RemoveObjectConfirmBox box = new RemoveObjectConfirmBox(objectName, additionalInfoText);
             box.ShowDialog();
             return box.Result;
         }
