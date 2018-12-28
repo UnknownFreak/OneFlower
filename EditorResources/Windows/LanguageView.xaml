@@ -74,16 +74,16 @@
             </ListView.View>
         </ListView>
         <Label Content="Language Files" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Height="26"/>
-        <ListBox HorizontalAlignment="Left" Width="144" Margin="183,26,0,0">
+        <ListBox x:Name="LanguageList" HorizontalAlignment="Left" Width="144" Margin="183,26,0,0">
             <ListBoxItem Content="SomeLang"/>
         </ListBox>
         <Label Content="Languages" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="183,0,0,0" Height="26"/>
-        <Button Content="" HorizontalAlignment="Left" Margin="332,48,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button x:Name="RemoveLanguageButton" Content="" HorizontalAlignment="Left" Margin="332,48,0,0" VerticalAlignment="Top" Width="16" Height="16" Click="RemoveLanguageButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/RemoveIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="332,26,0,0" VerticalAlignment="Top" Width="16" Height="16">
+        <Button x:Name="AddLanguageButton" Content="" HorizontalAlignment="Left" Margin="332,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Click="AddLanguageButton_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
