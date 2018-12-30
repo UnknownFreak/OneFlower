@@ -1,6 +1,10 @@
 ﻿using EditorResources.Utils;
 using System;
 using System.Windows;
+using System.Linq;
+using static EditorResources.Utils.EnumCollection;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace EditorResources.Windows
 {
@@ -9,11 +13,90 @@ namespace EditorResources.Windows
     /// </summary>
     public partial class LanguageView : Window
     {
+        ObservableCollection<Dto.LanguageStringDto> objectList = new ObservableCollection<Dto.LanguageStringDto>();
+
         public LanguageView()
         {
             InitializeComponent();
             InternalEditorEvents.onRequestObjectDataList += ObjectDataRequested;
             InternalEditorEvents.RequestObjectData();
+            EditorEvents.onObjectEvent += OnObjectLoaded;
+            EditorEvents.onObjectEvent += OnObjectCreated;
+            EditorEvents.onObjectEvent += OnObjectEdited;
+            EditorEvents.onObjectEvent += OnObjectDeleted;
+            translationStringList.ItemsSource = objectList;
+        }
+
+        ~LanguageView()
+        {
+            InternalEditorEvents.onRequestObjectDataList -= ObjectDataRequested;
+            EditorEvents.onObjectEvent -= OnObjectLoaded;
+            EditorEvents.onObjectEvent -= OnObjectCreated;
+            EditorEvents.onObjectEvent -= OnObjectEdited;
+            EditorEvents.onObjectEvent -= OnObjectDeleted;
+        }
+
+        private void OnObjectDeleted(object sender, EditorEvents.ObjectEventArgs e)
+        {
+            if (e.Flag == ObjectFlag.Deleted)
+            {
+                if(e.Type == ObjectType.TranslationString)
+                {
+                    objectList.Remove(e.Value as Dto.LanguageStringDto);
+                }
+                else if (e.Type == ObjectType.LanguageString)
+                {
+                    Dto.BatchDto dto = e.Value as Dto.BatchDto;
+                    foreach (Dto.LanguageStringDto o in dto.DtoList)
+                    {
+                        objectList.Remove(o);
+                    }
+                }
+                else if (e.Type == ObjectType.TranslationFile)
+                {
+
+                }
+            }
+        }
+
+        private void OnObjectEdited(object sender, EditorEvents.ObjectEventArgs arg)
+        {
+            if (arg.Flag == ObjectFlag.Edited)
+            {
+                if (arg.Type == ObjectType.TranslationString)
+                {
+                    IEnumerable<Dto.LanguageStringDto> enumerable = objectList.Where(x => (x.Language == (arg.Value as Dto.LanguageStringDto).Language && x.ID == arg.Value.ID));
+                    foreach (Dto.LanguageStringDto o in enumerable)
+                    {
+                        o.Value = (arg.Value as Dto.LanguageStringDto).Value;
+                    }
+                }
+            }
+        }
+
+        private void OnObjectCreated(object sender, EditorEvents.ObjectEventArgs e)
+        {
+            if (e.Flag == ObjectFlag.Added)
+            {
+                if (e.Type == ObjectType.TranslationString)
+                {
+                    e.Value.ID = GetId((e.Value as Dto.LanguageStringDto).Language);
+                    objectList.Add(e.Value as Dto.LanguageStringDto);
+                }
+            }
+        }
+
+        private void OnObjectLoaded(object sender, EditorEvents.ObjectEventArgs arg)
+        {
+            if (arg.Flag == ObjectFlag.Default)
+            {
+                if (arg.Type == ObjectType.LanguageString)
+                    LanguageFileList.Items.Add(arg.Value);
+                if (arg.Type == ObjectType.TranslationString)
+                    LanguageFileList.Items.Add(arg.Value);
+                if (arg.Type == ObjectType.TranslationFile)
+                    LanguageFileList.Items.Add(arg.Value);
+            }
         }
 
         private void Clear()
@@ -21,6 +104,22 @@ namespace EditorResources.Windows
             LanguageFileList.Items.Clear();
             LanguageList.Items.Clear();
             translationStringList.Items.Clear();
+        }
+
+        private uint GetId(string language)
+        {
+            uint lastId = 0;
+            try
+            {
+                lastId = objectList.Where(x => x.Language == language).Select(x => x.ID).Max();
+            }
+            catch (ArgumentNullException)
+            { }
+            catch (InvalidOperationException)
+            { }
+            finally
+            { lastId++; }
+            return lastId;
         }
 
         private void ObjectDataRequested(object sender, InternalEditorEvents.RequestObjectDataListEventArgs e)
@@ -104,21 +203,20 @@ namespace EditorResources.Windows
                 "Info: Removing a language will remove all strings associated with that language."))
             {
                 Dto.BatchDto batch = new Dto.BatchDto();
-                foreach (Dto.LanguageStringDto dto in translationStringList.Items)
+                foreach (Dto.LanguageStringDto dto in objectList)
                 {
                     if (dto.Language == LanguageList.SelectedItem.ToString())
                     {
                         batch.DtoList.Add(dto as Dto.LanguageStringDto);
                     }
                 }
-
                 EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
                 {
                     Flag = EnumCollection.ObjectFlag.Deleted,
                     Type = EnumCollection.ObjectType.LanguageString,
                     Value = batch
                 });
-                LanguageList.Items.Remove(LanguageFileList.SelectedItem);
+                LanguageList.Items.Remove(LanguageList.SelectedItem);
             }
         }
         #endregion
@@ -133,7 +231,6 @@ namespace EditorResources.Windows
                     Type = EnumCollection.ObjectType.TranslationString,
                     Value = translationStringList.SelectedItem as Dto.LanguageStringDto
                 });
-                translationStringList.Items.Remove(translationStringList.SelectedItem);
             }
         }
 
@@ -152,7 +249,6 @@ namespace EditorResources.Windows
                     Type = EnumCollection.ObjectType.TranslationString,
                     Value = dto
                 });
-                translationStringList.Items.Add(dto);
             }
         }
         #endregion
