@@ -23,7 +23,7 @@
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
         </Button>
-        <ListView x:Name="listView" Margin="351,26,0,0">
+        <ListView x:Name="translationStringList" Margin="351,26,0,0">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="83">
@@ -59,7 +59,7 @@
                         <GridViewColumnHeader Content="Id">
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn Width="315">
+                    <GridViewColumn Width="350">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Background="{Binding brush}">
@@ -88,12 +88,12 @@
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="5,48,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1">
+        <Button x:Name="RemoveTranslationString" Content="" HorizontalAlignment="Left" Margin="5,48,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1" Click="RemoveTranslationString_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/RemoveIcon.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1">
+        <Button x:Name="AddTranslationString" Content="" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1" Click="AddTranslationString_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
             </Button.Background>

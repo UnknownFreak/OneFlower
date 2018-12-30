@@ -20,7 +20,7 @@ namespace EditorResources.Windows
         {
             LanguageFileList.Items.Clear();
             LanguageList.Items.Clear();
-            listView.Items.Clear();
+            translationStringList.Items.Clear();
         }
 
         private void ObjectDataRequested(object sender, InternalEditorEvents.RequestObjectDataListEventArgs e)
@@ -47,7 +47,7 @@ namespace EditorResources.Windows
             }
         }
 
-
+        #region Language File
         private void AddLanguageFile_Click(object sender, RoutedEventArgs e)
         {
             string s;
@@ -79,11 +79,22 @@ namespace EditorResources.Windows
             }
         }
 
+        #endregion
+        #region Language string
+
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LanguageFileList.SelectedItem != null)
+            string s;
+            if (LanguageFileList.SelectedItem != null && (s = AddObjectNameBox.ShowAndGetResult()) != string.Empty)
             {
-
+                Dto.LanguageFileDto dto = new Dto.LanguageFileDto() { Filename = s, Name = "", Origin = "NotUsed" };
+                EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
+                {
+                    Flag = EnumCollection.ObjectFlag.Added,
+                    Type = EnumCollection.ObjectType.LanguageString,
+                    Value = dto
+                });
+                LanguageList.Items.Add(dto);
             }
         }
 
@@ -93,7 +104,7 @@ namespace EditorResources.Windows
                 "Info: Removing a language will remove all strings associated with that language."))
             {
                 Dto.BatchDto batch = new Dto.BatchDto();
-                foreach (Dto.LanguageStringDto dto in listView.Items)
+                foreach (Dto.LanguageStringDto dto in translationStringList.Items)
                 {
                     if (dto.Language == LanguageList.SelectedItem.ToString())
                     {
@@ -104,11 +115,46 @@ namespace EditorResources.Windows
                 EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
                 {
                     Flag = EnumCollection.ObjectFlag.Deleted,
-                    Type = EnumCollection.ObjectType.TranslationString,
+                    Type = EnumCollection.ObjectType.LanguageString,
                     Value = batch
+                });
+                LanguageList.Items.Remove(LanguageFileList.SelectedItem);
+            }
+        }
+        #endregion
+        #region Translation string
+        private void RemoveTranslationString_Click(object sender, RoutedEventArgs e)
+        {
+            if(translationStringList.SelectedItem != null && RemoveObjectConfirmBox.ShowAndGetResult(translationStringList.SelectedItem.ToString()))
+            {
+                EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
+                {
+                    Flag = EnumCollection.ObjectFlag.Deleted,
+                    Type = EnumCollection.ObjectType.TranslationString,
+                    Value = translationStringList.SelectedItem as Dto.LanguageStringDto
                 });
                 LanguageFileList.Items.Remove(LanguageFileList.SelectedItem);
             }
         }
+
+        private void AddTranslationString_Click(object sender, RoutedEventArgs e)
+        {
+            string s;
+            if (LanguageFileList.SelectedItem != null && LanguageList.SelectedItem != null && (s = AddObjectNameBox.ShowAndGetResult()) != string.Empty)
+            {
+                Dto.LanguageStringDto dto = new Dto.LanguageStringDto() { Filename = LanguageFileList.SelectedItem.ToString(), Name = "", Origin = "NotUsed" };
+                dto.Value = s;
+                dto.Language = LanguageList.SelectedItem.ToString();
+
+                EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
+                {
+                    Flag = EnumCollection.ObjectFlag.Added,
+                    Type = EnumCollection.ObjectType.TranslationString,
+                    Value = dto
+                });
+                translationStringList.Items.Add(dto);
+            }
+        }
+        #endregion
     }
 }
