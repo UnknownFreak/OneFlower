@@ -63,7 +63,8 @@ namespace EditorResources.UserControls
 
         private void OnObjectCreated(object sender, ObjectEventArgs e)
         {
-            if (e.Flag != ObjectFlag.Added || e.Type == ObjectType.Zone)
+            if (e.Flag != ObjectFlag.Added || e.Type == ObjectType.Zone || e.Type == ObjectType.LanguageString
+                || e.Type == ObjectType.TranslationFile || e.Type == ObjectType.TranslationString)
                 return;
             // This method is registered before any engine event so we can set the mod origin here.
             e.Value.Origin = loadedMod;
@@ -73,7 +74,8 @@ namespace EditorResources.UserControls
 
         public void OnObjectLoaded(object sender, ObjectEventArgs arg)
         {
-            if (arg.Type == ObjectType.Zone)
+            if (arg.Type == ObjectType.Zone || arg.Type == ObjectType.LanguageString
+                || arg.Type == ObjectType.TranslationFile || arg.Type == ObjectType.TranslationString)
                 return;
             if (arg.Flag == ObjectFlag.Default)
                 objectItems.Add(new ObjectDataViewModel(arg.Value.Origin, arg.Value.ID, ObjectFlag.Default, arg.Type, arg.Value));
@@ -81,24 +83,43 @@ namespace EditorResources.UserControls
 
         private void OnObjectEdited(object sender, ObjectEventArgs arg)
         {
-            if (arg.Type == ObjectType.Zone)
+            if (arg.Type == ObjectType.Zone || arg.Type == ObjectType.LanguageString
+                || arg.Type == ObjectType.TranslationFile || arg.Type == ObjectType.TranslationString)
                 return;
             if (arg.Flag == ObjectFlag.Edited)
             {
                 IEnumerable<ObjectDataViewModel> enumerable = objectItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID));
-                enumerable.ElementAt(0).Value = arg.Value;
-                enumerable.ElementAt(0).Flag = ObjectFlag.Edited;
+                foreach(ObjectDataViewModel o in enumerable)
+                {
+                    o.Value = arg.Value;
+                    o.Flag = ObjectFlag.Edited;
+                }
             }
         }
 
         private void OnObjectDeleted(object sender, ObjectEventArgs arg)
         {
-            if (arg.Type == ObjectType.Zone)
+            void EnumList(BaseDto dto)
+            {
+                IEnumerable<ObjectDataViewModel> enumerable = objectItems.Where(x => (x.Origin == dto.Origin && x.Id == dto.ID));
+                foreach (ObjectDataViewModel odvm in enumerable)
+                    odvm.Flag = arg.Flag;
+            }
+
+            if (arg.Type == ObjectType.Zone || arg.Type == ObjectType.LanguageString
+                || arg.Type == ObjectType.TranslationFile || arg.Type == ObjectType.TranslationString)
                 return;
             if (arg.Flag == ObjectFlag.Deleted)
             {
-                IEnumerable<ObjectDataViewModel> enumerable = objectItems.Where(x => (x.Origin == arg.Value.Origin && x.Id == arg.Value.ID));
-                enumerable.ElementAt(0).Flag = arg.Flag;
+                if (arg.Value is BatchDto)
+                {
+                    foreach(BaseDto o in (arg.Value as BatchDto).DtoList)
+                        EnumList(o);
+                }
+                else
+                {
+                    EnumList(arg.Value);
+                }
             }
         }
 
