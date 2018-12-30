@@ -5,10 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EditorResources.Windows"
              xmlns:Resources="clr-namespace:EditorResources.Resources" x:Class="EditorResources.Windows.AddObjectNameBox"
-             mc:Ignorable="d" Width="268.182" Height="109.35" WindowStyle="ToolWindow" ResizeMode="NoResize" Title="Confirm deletion">
+             mc:Ignorable="d" Width="268.182" Height="128.6" WindowStyle="ToolWindow" ResizeMode="NoResize" Title="Confirm deletion">
     <Grid>
-        <Button Content="Yes" HorizontalAlignment="Left" Margin="9,51,0,0" VerticalAlignment="Top" Width="75" Click="Yes_click"/>
-        <Button Content="No" HorizontalAlignment="Left" Margin="89,51,0,0" VerticalAlignment="Top" Width="75" Click="No_click"/>
-        <Resources:ValidatedTextBox x:Name="box" HorizontalAlignment="Left" Height="23" Margin="9,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="234"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="59*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Yes" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="76" Click="Yes_click" Grid.Row="1"/>
+        <Button Content="No" HorizontalAlignment="Left" Margin="90,26,0,0" VerticalAlignment="Top" Width="76" Click="No_click" Grid.Row="1"/>
+        <Resources:ValidatedTextBox x:Name="box" HorizontalAlignment="Left" Height="22" Margin="10,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="234" Grid.RowSpan="2"/>
+        <Label Content="Enter the name of the object:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

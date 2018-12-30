@@ -2,13 +2,9 @@
 
 namespace EditorResources.Windows
 {
-    /// <summary>
-    /// Interaction logic for RemoveObjectConfirmBox.xaml
-    /// </summary>
     public partial class AddObjectNameBox : Window
     {
         private string Result { get; set; } = string.Empty;
-        private string deleteString = "Are you sure you want to delete {objectName}?";
 
         private AddObjectNameBox()
         {
