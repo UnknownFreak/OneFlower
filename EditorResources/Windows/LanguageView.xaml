@@ -52,11 +52,11 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Background="{Binding brush}">
-                                    <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding ID}" HorizontalAlignment="Center"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                        <GridViewColumnHeader Content="Id">
+                        <GridViewColumnHeader Content="ID">
                         </GridViewColumnHeader>
                     </GridViewColumn>
                     <GridViewColumn Width="350">
