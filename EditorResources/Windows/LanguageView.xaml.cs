@@ -133,7 +133,7 @@ namespace EditorResources.Windows
                     Type = EnumCollection.ObjectType.TranslationString,
                     Value = translationStringList.SelectedItem as Dto.LanguageStringDto
                 });
-                LanguageFileList.Items.Remove(LanguageFileList.SelectedItem);
+                translationStringList.Items.Remove(LanguageFileList.SelectedItem);
             }
         }
 
