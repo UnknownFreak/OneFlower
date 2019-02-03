@@ -48,6 +48,17 @@
                         <GridViewColumnHeader Content="Language">
                         </GridViewColumnHeader>
                     </GridViewColumn>
+                    <GridViewColumn Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding brush}">
+                                    <TextBlock Text="{Binding Font}" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                        <GridViewColumnHeader Content="Font">
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                     <GridViewColumn Width="20">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -96,6 +107,11 @@
         <Button x:Name="AddTranslationString" Content="" HorizontalAlignment="Left" Margin="5,26,0,0" VerticalAlignment="Top" Width="16" Height="16" Grid.Column="1" Click="AddTranslationString_Click">
             <Button.Background>
                 <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIcon.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="AddLanguageFilePatch" Content="" HorizontalAlignment="Left" Margin="149,69,0,0" VerticalAlignment="Top" Width="16" Height="16" Click="AddLanguageFilePatch_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="pack://siteoforigin:,,,/AddIconPatch.png"/>
             </Button.Background>
         </Button>
 

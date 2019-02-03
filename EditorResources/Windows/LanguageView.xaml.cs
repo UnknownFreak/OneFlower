@@ -80,8 +80,15 @@ namespace EditorResources.Windows
             {
                 if (e.Type == ObjectType.TranslationString)
                 {
-                    e.Value.ID = GetId((e.Value as Dto.LanguageStringDto).Language);
-                    objectList.Add(e.Value as Dto.LanguageStringDto);
+                    if (e.Value is Dto.BatchDto)
+                        foreach (Dto.LanguageStringDto dto in (e.Value as Dto.BatchDto).DtoList)
+                            objectList.Add(dto as Dto.LanguageStringDto);
+                    else
+                    {
+                        Dto.LanguageStringDto langstr = e.Value as Dto.LanguageStringDto;
+                        e.Value.ID = GetId(langstr.Language, langstr.Filename);
+                        objectList.Add(e.Value as Dto.LanguageStringDto);
+                    }
                 }
             }
         }
@@ -106,12 +113,57 @@ namespace EditorResources.Windows
             translationStringList.Items.Clear();
         }
 
-        private uint GetId(string language)
+        private IEnumerable<Dto.LanguageStringDto> CreateEmptyStringsFor(string language, string defaultLanguage, string filename)
+        {
+            List < Dto.LanguageStringDto > langDto = new List<Dto.LanguageStringDto>();
+            foreach (Dto.LanguageStringDto dto in objectList.Where(x => x.Filename == filename).Where(x => x.Language == defaultLanguage))
+            {
+                langDto.Add(new Dto.LanguageStringDto()
+                {
+                    Language =language,
+                    ID =dto.ID,
+                    Value =$"{LanguageFileList.SelectedItem.ToString()}:{dto.ID}:{language}:#ERR_INVALID_VALUE",
+                    Filename = LanguageFileList.SelectedItem.ToString()
+                });
+            }
+            return langDto;
+        }
+
+        private IEnumerable<Dto.LanguageStringDto> CreateEmptyStringsFor(uint id, string languageToIgnore)
+        {
+            List<Dto.LanguageStringDto> langDto = new List<Dto.LanguageStringDto>();
+
+            foreach (Dto.LanguageFileDto dto in LanguageList.Items)
+            {
+                if (dto.Filename!= languageToIgnore)
+                {
+
+                    langDto.Add(new Dto.LanguageStringDto()
+                    {
+                        Language = dto.Filename,
+                        ID = id,
+                        Value = $"{LanguageFileList.SelectedItem.ToString()}:{id}:{dto.Filename}:#ERR_INVALID_VALUE",
+                        Filename = LanguageFileList.SelectedItem.ToString()
+                    });
+                }
+            }
+            return langDto;
+        }
+
+        private string GetAnyDefaultLanguage(string languageToIgnore)
+        {
+            foreach (Dto.LanguageFileDto dto in LanguageList.Items)
+                if (dto.Filename != languageToIgnore)
+                    return dto.Filename;
+            return string.Empty;
+        }
+
+        private uint GetId(string language, string filename)
         {
             uint lastId = 0;
             try
             {
-                lastId = objectList.Where(x => x.Language == language).Select(x => x.ID).Max();
+                lastId = objectList.Where(x => x.Filename == filename).Where(x => x.Language == language).Select(x => x.ID).Max();
             }
             catch (ArgumentNullException)
             { }
@@ -152,7 +204,7 @@ namespace EditorResources.Windows
             string s;
             if ((s = AddObjectNameBox.ShowAndGetResult()) != string.Empty)
             {
-                Dto.LanguageFileDto dto = new Dto.LanguageFileDto() {Filename=s, Name="",Origin="NotUsed"};
+                Dto.LanguageFileDto dto = new Dto.LanguageFileDto() {Filename=s};
                 EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
                 {
                     Flag = EnumCollection.ObjectFlag.Added,
@@ -160,6 +212,7 @@ namespace EditorResources.Windows
                     Value = dto
                 });
                 LanguageFileList.Items.Add(dto);
+
             }
         }
 
@@ -178,6 +231,11 @@ namespace EditorResources.Windows
             }
         }
 
+        private void AddLanguageFilePatch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
         #region Language string
 
@@ -186,7 +244,7 @@ namespace EditorResources.Windows
             string s;
             if (LanguageFileList.SelectedItem != null && (s = AddObjectNameBox.ShowAndGetResult()) != string.Empty)
             {
-                Dto.LanguageFileDto dto = new Dto.LanguageFileDto() { Filename = s, Name = "", Origin = "NotUsed" };
+                Dto.LanguageFileDto dto = new Dto.LanguageFileDto() { Filename = s};
                 EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
                 {
                     Flag = EnumCollection.ObjectFlag.Added,
@@ -194,6 +252,20 @@ namespace EditorResources.Windows
                     Value = dto
                 });
                 LanguageList.Items.Add(dto);
+
+                IEnumerable<Dto.LanguageStringDto> dtoList = CreateEmptyStringsFor(s, GetAnyDefaultLanguage(languageToIgnore: s), LanguageFileList.SelectedItem.ToString());
+
+                Dto.BatchDto batch = new Dto.BatchDto
+                {
+                    DtoList = dtoList.ToList<Dto.BaseDto>()
+                };
+                EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
+                {
+                    Flag = EnumCollection.ObjectFlag.Added,
+                    Type = EnumCollection.ObjectType.TranslationString,
+                    Value = batch
+                });
+                InternalEditorEvents.Log($"Added [{batch.DtoList.Count}] strings for language [{s}]", Message.MsgType.Info);
             }
         }
 
@@ -239,7 +311,7 @@ namespace EditorResources.Windows
             string s;
             if (LanguageFileList.SelectedItem != null && LanguageList.SelectedItem != null && (s = AddObjectNameBox.ShowAndGetResult()) != string.Empty)
             {
-                Dto.LanguageStringDto dto = new Dto.LanguageStringDto() { Filename = LanguageFileList.SelectedItem.ToString(), Name = "", Origin = "NotUsed" };
+                Dto.LanguageStringDto dto = new Dto.LanguageStringDto() { Filename = LanguageFileList.SelectedItem.ToString()};
                 dto.Value = s;
                 dto.Language = LanguageList.SelectedItem.ToString();
 
@@ -249,6 +321,23 @@ namespace EditorResources.Windows
                     Type = EnumCollection.ObjectType.TranslationString,
                     Value = dto
                 });
+
+                System.Threading.Thread.Sleep(50);
+
+                IEnumerable<Dto.LanguageStringDto> dtoList = CreateEmptyStringsFor(dto.ID, LanguageList.SelectedItem.ToString());
+
+                Dto.BatchDto batch = new Dto.BatchDto
+                {
+                    DtoList = dtoList.ToList<Dto.BaseDto>()
+                };
+                EditorEvents.OnObjectEvent(new EditorEvents.ObjectEventArgs()
+                {
+                    Flag = EnumCollection.ObjectFlag.Added,
+                    Type = EnumCollection.ObjectType.TranslationString,
+                    Value = batch
+                });
+                InternalEditorEvents.Log($"Added [{batch.DtoList.Count}] strings for language [{LanguageList.SelectedItem.ToString()}]", Message.MsgType.Info);
+
             }
         }
         #endregion
