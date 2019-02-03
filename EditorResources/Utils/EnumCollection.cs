@@ -43,6 +43,7 @@ namespace EditorResources.Utils
         {
             Name,
             ModOriginAndID,
+            Both,
         }
 
         public enum BrushType
