@@ -20,3 +20,10 @@ EditorResources/bin/*
 OneFlower.VC.VC.opendb
 *.idb
 UnitTests/*
+Build/*
+Build/Win32/*
+Build/Win32/UnitTests/*
+Build/Win32/UnitTests/OneFlower.lib
+Build/Win32/UnitTests/OneFlower.ilk
+Build/Win32/UnitTests/OneFlower.exp
+Build/Win32/UnitTests/OneFlower.ilk
