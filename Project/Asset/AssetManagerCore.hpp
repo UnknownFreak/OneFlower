@@ -16,6 +16,8 @@
 #include <Model\TextureMap.hpp>
 #include <Model\IModel.hpp>
 
+#include "LanguageRequestor.hpp"
+#include "LanguageHeader.hpp"
 #include "Language.hpp"
 
 #include "Database/DatabaseObjects.hpp"
@@ -53,7 +55,7 @@ namespace Asset
 		Requestor<PrimitiveSaveable<Core::String>> stringRequestor;
 		Requestor<PrimitiveSaveable<std::vector<Core::String>>> stringVectorRequestor;
 		Requestor<Element> elementRequestor;
-		Requestor<Language> lang;
+		Requestor<Language::LanguageRequestor> lang;
 		ModLoader modLoader;
 
 	public:
@@ -70,9 +72,9 @@ namespace Asset
 		Requestor<PrimitiveSaveable<std::vector<Core::String>>>& getStringVectorRequestor();
 		Requestor<Element>& getElementRequestor();
 
-		Language& getLanguage();
+		Language::LanguageRequestor& getLanguage();
 
-		bool loadModHeader(Core::String modName, ModHeader& modHeader);
+		//bool loadModHeader(Core::String modName, ModHeader& modHeader);
 
 		bool loadModOrderFile();
 		void saveModOrderFile();
@@ -80,6 +82,11 @@ namespace Asset
 		void saveGameDatabase(std::string filename, ModHeader& modhdr);
 
 		void loadAllEditorVariables();
+
+
+		std::map<Core::String, Language::TranslationString> loadLanguages(const std::vector<Core::String>& languageFiles);
+		void saveLanguages(const Language::LanguageRequestor& languageRequestor);
+		void saveLanguageFile(Core::String& filename, Language::TranslationString& langHeader);
 
 		TextureLoader textureloader;
 		Core::String openedMod;
@@ -91,6 +98,42 @@ namespace Asset
 			return type;
 		}
 
+		template< typename T>
+		bool loadModHeader(Core::String modName, T & myheader)
+		{
+			bool eof = false;
+			DatabaseIndex ind;
+			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
+			std::ifstream database("Data//" + modName, std::ios::binary);
+
+			if (!index.is_open())
+				Engine::GetModule<OneLogger>().Critical("Unable to open mod index file [" + modName + ".index]", __FILE__, __LINE__);
+			else if (!database.is_open())
+				Engine::GetModule<OneLogger>().Critical("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+			else
+			{
+				cereal::BinaryInputArchive ar(index);
+				{
+					while (!eof)
+					{
+						ar(ind);
+						if (ind.type == DatabaseIndex::ObjectTypeEnum::Header)
+						{
+							database.seekg(ind.row);
+							cereal::BinaryInputArchive headerLoad(database);
+							headerLoad(myheader);
+							index.close();
+							database.close();
+							return true;
+						}
+						else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
+							eof = true;
+					}
+				}
+			}
+			Engine::GetModule<OneLogger>().Critical("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
+			return false;
+		}
 	};
 }
 

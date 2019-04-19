@@ -681,11 +681,17 @@
     <ClInclude Include="Project\Asset\Element.hpp">
       <Filter>Engine\Asset\Element</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Asset\IPatch.hpp">
+      <Filter>Engine\Asset\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Asset\LanguageRequestor.hpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClInclude>
     <ClInclude Include="Project\Asset\Language.hpp">
       <Filter>Engine\Asset\Lang</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Asset\IPatch.hpp">
-      <Filter>Engine\Asset\Interfaces</Filter>
+    <ClInclude Include="Project\Core\EngineModule\ListDir.hpp">
+      <Filter>Engine\Core\Engine Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1143,6 +1149,18 @@
     </ClCompile>
     <ClCompile Include="Project\Asset\LanguageDefiner.cpp">
       <Filter>Engine\Asset\Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Asset\LanguageHeader.hpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Asset\LanguageRequestorDefiner.cpp">
+      <Filter>Engine\Asset\Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Tests\LanguageRequestorUnitTest.cpp">
+      <Filter>Tests\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\EngineModule\ListDir.cpp">
+      <Filter>Engine\Core\Engine Module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

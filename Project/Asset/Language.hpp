@@ -11,59 +11,55 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-class Language : public IRequestable, public IPatch
+#include "LanguageHeader.hpp"
+
+namespace Language
 {
-	Core::String fallbackLanguage;
 
-	Core::String selectedLanguage;
-
-	std::vector<Core::String> availableLanguages;
-	std::map<Core::String, size_t> languageFiles;
-
-	sf::Font m_font;
-	std::string fontName;
-	void loadFont(const Core::String& name);
-	Requestor<PrimitiveSaveable<Core::String>> stringList;
-
-public:
-
-	Language();
-	Language(Core::String fontName);
-	Language(const Language& copy);
-
-	Language& operator=(const Language& right);
-
-	sf::Font& getFont();
-
-	Core::String getString(size_t id);
-	sf::Text getText(size_t id, size_t charSize);
-
-
-	// Inherited via IPatch
-	virtual void Patch(const IPatch & other) override;
-
-	template<class Archive>
-	void load(Archive& ar)
+	class TranslationString : public IRequestable
 	{
-		ar(cereal::base_class<IRequestable>(this));
-		ar(fallbackLanguage);
-		ar(selectedLanguage);
-		ar(availableLanguages);
-		ar(languageFiles);
-		ar(fontName);
-		if (fontName != "")
-			loadFont(fontName);
-	}
-	template<class Archive>
-	void save(Archive& ar) const
-	{
-		ar(cereal::base_class<IRequestable>(this));
-		ar(fallbackLanguage);
-		ar(selectedLanguage);
-		ar(availableLanguages);
-		ar(languageFiles);
-		ar(fontName);
-	}
-};
+		Core::String language;
+		LanguageHeader header;
+		Core::String fontName;
+	public:
 
+		Requestor<PrimitiveSaveable<Core::String>> stringList;
+
+
+	#if defined _EDITOR_ || _UNITTESTS_
+
+		void addString(const Core::String& language, const size_t& ID, const Core::String value, const bool& isPatch);
+
+	#endif
+
+		TranslationString();
+		TranslationString(const Core::String& language, Core::String fontName);
+		TranslationString(const TranslationString& copy);
+
+		TranslationString& operator=(const TranslationString& right);
+
+		const Core::String& getFontName() const;
+
+		PrimitiveSaveable<Core::String>& getPrimitive(const Core::String& language, const size_t& id);
+		LanguageHeader& getHeader();
+		void setAvailableLanguageFiles();
+
+		template<class Archive>
+		void load(Archive& ar)
+		{
+			ar(cereal::base_class<IRequestable>(this));
+			ar(language);
+			ar(header);
+			ar(fontName);
+		}
+		template<class Archive>
+		void save(Archive& ar) const
+		{
+			ar(cereal::base_class<IRequestable>(this));
+			ar(language);
+			ar(header);
+			ar(fontName);
+		}
+	};
+}
 #endif

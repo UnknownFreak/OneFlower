@@ -236,7 +236,7 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 	Engine::GetModule<Asset::AssetManager>().openedMod = myMod;
 	modLoadOrder.loadOrder.clear();
 	bool fail = false;
-	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader(myMod, myModHeader))
+	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader<ModHeader>(myMod, myModHeader))
 	{
 		Engine::GetModule<OneLogger>().Critical("Failed to load mod header for mod [" + myMod +"]!", __FILE__, __LINE__);
 		Engine::GetModule<Asset::AssetManager>().openedMod = "<Not Set>";
@@ -268,7 +268,7 @@ void WorldManagerAddon::loadMod(Core::String myMod)
 std::vector<Core::String> WorldManagerAddon::getModDependencies(Core::String mod)
 {
 	ModHeader modHdr;
-	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader(mod, modHdr))
+	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader<ModHeader>(mod, modHdr))
 		return {};
 	else
 		return modHdr.dependencies;
@@ -279,7 +279,7 @@ bool WorldManagerAddon::loadMods(Core::String myMod, bool internal_error)
 	ModLoader& modLoadOrder = Engine::GetModule<Asset::AssetManager>().getModLoader();
 
 	ModHeader modHdr;
-	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader(myMod, modHdr))
+	if (!Engine::GetModule<Asset::AssetManager>().loadModHeader<ModHeader>(myMod, modHdr))
 	{
 		Engine::GetModule<OneLogger>().Warning("Failed to load [" + myMod + "] as dependency mod.", __FILE__, __LINE__);
 		internal_error = true;

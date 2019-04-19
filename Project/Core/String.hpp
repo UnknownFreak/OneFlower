@@ -10,6 +10,15 @@ namespace Core
 {
 	typedef std::string String;
 
+	const String dataPath = "Data//";
+	const String fontPath = dataPath + "Font//";
+	const String langPath = dataPath + "Lang//";
+	const String texturePath = dataPath + "Textures//";
+	const String soundPath = dataPath + "Sound//";
+	const String modelPath = dataPath + "Model//";
+
+	const String Builtin = "BUILTIN";
+
 	class StringConverter : public IEngineResource<StringConverter>
 	{
 		typedef std::codecvt_utf8_utf16<wchar_t> utf8_16converter;

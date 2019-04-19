@@ -33,7 +33,7 @@ protected:
 	td_map requestedMap;
 
 	Core::String loadDirectory;
-	const DatabaseIndex::ObjectTypeEnum objectType;
+	DatabaseIndex::ObjectTypeEnum objectType;
 	Core::String pointerPrefixString;
 
 private:
@@ -240,7 +240,7 @@ private:
 		case DatabaseIndex::ObjectTypeEnum::StringList:
 			return "Primitive<vector<string>>" + pointerPrefixString;
 		case DatabaseIndex::ObjectTypeEnum::Language:
-			return "Language>" + pointerPrefixString;
+			return "TranslationString>" + pointerPrefixString;
 		default:
 			return "Unknown" + pointerPrefixString;
 		}
@@ -332,9 +332,26 @@ public:
 		pointerStr();
 		check();
 	}
+
 	~Requestor()
 	{
 		clear();
+	}
+
+	Requestor(const Requestor& copy) :  Requestor(copy.objectType, copy.loadDirectory,  copy.fileLoadOrder)
+	{
+		requestedMap = copy.requestedMap;
+	}
+
+	Requestor& Requestor::operator=(const Requestor& right)
+	{
+		if (this == &right)
+			return *this;
+		objectType = right.objectType;
+		loadDirectory = right.loadDirectory;
+		fileLoadOrder = right.fileLoadOrder;
+		requestedMap = right.requestedMap;
+		return *this;
 	}
 
 	// ##################################################

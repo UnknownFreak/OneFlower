@@ -22,6 +22,7 @@ namespace EditorResources.Windows
             onModEvent += OnModLoaded;
             AllowDrop = true;
             new Veterancy(modName).Show();
+            new LanguageView().Show();
         }
 
         private void OnModLoaded(object sender, ModEventArgs e)

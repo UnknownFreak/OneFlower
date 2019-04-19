@@ -245,9 +245,9 @@ namespace Asset
 		return elementRequestor;
 	}
 
-	Language & AssetManager::getLanguage()
+	Language::LanguageRequestor & AssetManager::getLanguage()
 	{
-		return lang.request("BUILTIN", 0);
+		return lang.request(Core::Builtin, 0);
 	}
 
 	ModLoader & AssetManager::getModLoader()
@@ -262,9 +262,9 @@ namespace Asset
 		//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
 		//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 	{
-		std::ofstream file("Data//" + filename, std::ios::binary);
+		std::ofstream file(Core::dataPath + filename, std::ios::binary);
 		filename.append(".index");
-		std::ofstream index("Data//" + filename, std::ios::binary);
+		std::ofstream index(Core::dataPath + filename, std::ios::binary);
 		{
 
 			DatabaseIndex ind;
@@ -317,41 +317,52 @@ namespace Asset
 		//	LoadAllZones(Editor::addons.myWorldManager.EditorAllZones);
 	}
 
-	bool AssetManager::loadModHeader(Core::String modName, ModHeader & myheader)
+	std::map<Core::String, Language::TranslationString> AssetManager::loadLanguages(const std::vector<Core::String>& languageFiles)
 	{
-		bool eof = false;
-		DatabaseIndex ind;
-		std::ifstream index("Data//" + modName + ".index", std::ios::binary);
-		std::ifstream database("Data//" + modName, std::ios::binary);
+		std::map<Core::String, Language::TranslationString> tmp;
 
-		if (!index.is_open())
-			Engine::GetModule<OneLogger>().Critical("Unable to open mod index file [" + modName + ".index]", __FILE__, __LINE__);
-		else if (!database.is_open())
-			Engine::GetModule<OneLogger>().Critical("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
-		else
+		Language::TranslationString translationStr;
+		for each (Core::String var in languageFiles)
 		{
-			cereal::BinaryInputArchive ar(index);
-			{
-				while (!eof)
-				{
-					ar(ind);
-					if (ind.type == DatabaseIndex::ObjectTypeEnum::Header)
-					{
-						database.seekg(ind.row);
-						cereal::BinaryInputArchive headerLoad(database);
-						headerLoad(myheader);
-						index.close();
-						database.close();
-						return true;
-					}
-					else if (ind.flags == DatabaseIndex::ObjectFlag::EoF)
-						eof = true;
-				}
-			}
+			loadModHeader("Lang//" + var, translationStr);
+			tmp.emplace(var, translationStr);
 		}
-		Engine::GetModule<OneLogger>().Critical("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
-		return false;
+		return tmp;
 	}
+
+	void AssetManager::saveLanguages(const Language::LanguageRequestor& languageRequestor)
+	{
+		for each(std::pair<Core::String, Language::TranslationString> x in languageRequestor.languages)
+			saveLanguageFile(x.first, x.second);
+	}
+
+	void AssetManager::saveLanguageFile(Core::String & filename, Language::TranslationString & langHeader)
+	{
+		std::ofstream file(Core::langPath + filename, std::ios::binary);
+		filename.append(".index");
+		std::ofstream index(Core::langPath + filename, std::ios::binary);
+		{
+			DatabaseIndex ind;
+			cereal::BinaryOutputArchive mainAr(file);
+			cereal::BinaryOutputArchive indexAr(index);
+			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
+			ind.ID = 0;
+			ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+			ind.modFile = "notUsed";
+			ind.row = file.tellp();
+			indexAr(ind);
+			mainAr(langHeader);
+			langHeader.stringList.save(ind, file, indexAr, mainAr);
+
+			ind.ID = 0xFFFFFFFF;
+			ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+			ind.row = file.tellp();
+			ind.flags = DatabaseIndex::ObjectFlag::EoF;
+			indexAr(ind);
+		}
+	}
+
+
 	bool AssetManager::loadModOrderFile()
 	{
 		std::ifstream file("Data\\ModLoadOrder.xml");

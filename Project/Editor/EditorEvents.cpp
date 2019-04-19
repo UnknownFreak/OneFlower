@@ -49,6 +49,7 @@ void Editor::Events::registerEvents()
 	EditorEvents::onModEvent += gcnew System::EventHandler<EditorEvents::ModEventArgs^>(this, &Editor::Events::OnEditorEvent);
 	EditorEvents::onObjectEvent += gcnew System::EventHandler<EditorEvents::ObjectEventArgs^>(this, &Editor::Events::OnGlobalVaraibleCreated);
 	EditorEvents::onObjectEvent += gcnew System::EventHandler<EditorEvents::ObjectEventArgs^>(this, &Editor::Events::OnElementEvent);
+	EditorEvents::onObjectEvent += gcnew System::EventHandler<EditorEvents::ObjectEventArgs^>(this, &Editor::Events::OnTranslationEvent);
 	EditorEvents::onObjectSelectedEvent += gcnew System::EventHandler < EditorEvents::OnObjectSelectedEventArgs^ >(this, &Editor::Events::OnEditorZoneSelected);
 	EditorEvents::onRequestGameVariableMapping += gcnew System::EventHandler<EditorEvents::GameVariableMappingEventArgs^>(this, &Editor::Events::OnVariableMappingRecieved);
 }
@@ -186,6 +187,58 @@ void Editor::Events::OnElementEvent(Object ^ , EditorEvents::ObjectEventArgs ^ a
 				elem.mode = ObjectSaveMode::EDIT;
 			else
 				elem.mode = ObjectSaveMode::REMOVE;
+		}
+	}
+}
+
+void Editor::Events::OnTranslationEvent(Object ^, EditorEvents::ObjectEventArgs ^ args)
+{
+	if (args->Type == EditorResources::Utils::EnumCollection::ObjectType::TranslationString)
+	{
+		Asset::AssetManager& am = Engine::GetModule<Asset::AssetManager>();
+		if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Added)
+		{
+			Language::LanguageRequestor& lang = am.getLanguage();
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Edited)
+		{
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Deleted)
+		{
+
+		}
+	}
+	else if(args->Type == EditorResources::Utils::EnumCollection::ObjectType::TranslationFile)
+	{
+		if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Added)
+		{
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Edited)
+		{
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Deleted)
+		{
+
+		}
+
+	}
+	else if(args->Type == EditorResources::Utils::EnumCollection::ObjectType::LanguageString)
+	{
+		if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Added)
+		{
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Edited)
+		{
+
+		}
+		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Deleted)
+		{
+
 		}
 	}
 }

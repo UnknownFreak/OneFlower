@@ -41,6 +41,8 @@ namespace Editor
 
 		void OnElementEvent(Object^ sender, EditorEvents::ObjectEventArgs ^args);
 
+		void OnTranslationEvent(Object^ sender, EditorEvents::ObjectEventArgs ^args);
+
 	};
 
 	Core::String toString(System::String^ str);
@@ -128,7 +130,7 @@ namespace Editor
 			break;
 		case DatabaseIndex::ObjectTypeEnum::Language:
 			Engine::GetModule<OneLogger>().Info("Loaded language module.");
-			Engine::GetModule<OneLogger>().Info(((Language*)value)->fromMod);
+			//Engine::GetModule<OneLogger>().Info(((Language*)value)->fromMod);
 			return;
 		case DatabaseIndex::ObjectTypeEnum::Undefined:
 		default:
