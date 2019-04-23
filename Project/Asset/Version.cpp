@@ -9,7 +9,7 @@ const unsigned long long OneVersion::version() const
 
 const OneVersion OneVersion::getCurrentVersion()
 {
-	return OneVersion(1, 0, 1);
+	return OneVersion(1, 0, 2);
 }
 
 OneVersion::OneVersion() :OneVersion(0, 0, 0)
