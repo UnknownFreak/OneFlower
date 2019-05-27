@@ -190,6 +190,9 @@
     <Filter Include="Engine\Asset\Lang">
       <UniqueIdentifier>{95e2dedb-ab0d-488c-90b5-513d335b8a43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core\UUID">
+      <UniqueIdentifier>{069d97b6-a85d-42ab-8c17-b0626c00b27b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Core\Vector.h">
@@ -687,6 +690,9 @@
     <ClInclude Include="Project\Asset\IPatch.hpp">
       <Filter>Engine\Asset\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Core\UuidHelper.hpp">
+      <Filter>Engine\Core\UUID</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Project\Core\Vector.inl">
@@ -1143,6 +1149,9 @@
     </ClCompile>
     <ClCompile Include="Project\Asset\LanguageDefiner.cpp">
       <Filter>Engine\Asset\Lang</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Core\UuidHelper.cpp">
+      <Filter>Engine\Core\UUID</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

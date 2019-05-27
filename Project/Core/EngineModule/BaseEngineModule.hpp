@@ -18,6 +18,7 @@ enum class ResourceType
 	StringConverter,
 	Globals,
 	GameVariableMapping,
+	UUIDHelper,
 	NOT_SET,
 };
 
