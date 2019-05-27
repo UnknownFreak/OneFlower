@@ -3,6 +3,9 @@
 #ifdef _EDITOR_
 #include <Windows.h>
 #endif
+#include <Core/uuid.hpp>
+#include <Core/String.hpp>
+#include <Asset/IRequestable.hpp>
 #include <SFML\Window\Event.hpp>
 
 #include <GameEntry.hpp>

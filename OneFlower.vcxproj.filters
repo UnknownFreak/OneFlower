@@ -690,7 +690,7 @@
     <ClInclude Include="Project\Asset\IPatch.hpp">
       <Filter>Engine\Asset\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Core\UuidHelper.hpp">
+    <ClInclude Include="Project\Core\uuid.hpp">
       <Filter>Engine\Core\UUID</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1149,9 +1149,6 @@
     </ClCompile>
     <ClCompile Include="Project\Asset\LanguageDefiner.cpp">
       <Filter>Engine\Asset\Lang</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Core\UuidHelper.cpp">
-      <Filter>Engine\Core\UUID</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

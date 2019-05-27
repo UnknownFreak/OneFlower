@@ -408,7 +408,7 @@
     <ClInclude Include="Project\Core\Rect.hpp" />
     <ClInclude Include="Project\Core\String.hpp" />
     <ClInclude Include="Project\Core\Time.hpp" />
-    <ClInclude Include="Project\Core\UuidHelper.hpp" />
+    <ClInclude Include="Project\Core\uuid.hpp" />
     <ClInclude Include="Project\Core\Vector.h" />
     <ClInclude Include="Project\Editor\EditorEvents.hpp" />
     <ClInclude Include="Project\Editor\InteropHelper.hpp" />
@@ -564,7 +564,6 @@
     <ClCompile Include="Project\Core\Logger.cpp" />
     <ClCompile Include="Project\Core\String.cpp" />
     <ClCompile Include="Project\Core\TimeDefiner.cpp" />
-    <ClCompile Include="Project\Core\UuidHelper.cpp" />
     <ClCompile Include="Project\Editor\EditorEvents.cpp" />
     <ClCompile Include="Project\Editor\MainEditorWindowDefiner.cpp" />
     <ClCompile Include="Project\Editor\SplashScreenDefiner.cpp" />
