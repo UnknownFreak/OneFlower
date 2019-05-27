@@ -3,7 +3,7 @@
 
 namespace Input
 {
-	enum Action
+	enum class Action
 	{
 		Press = 1 << 0,
 		Hold = 1 << 1,

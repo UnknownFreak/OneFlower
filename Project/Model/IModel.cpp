@@ -1,7 +1,7 @@
 #include "IModel.hpp"
 
 
-IModel::IModel() : IRequestable("OneFlower.main",0, OneVersion(1,0,0)), m_render_sprite(NULL)
+IModel::IModel() : IRequestable("OneFlower.main", Core::uuid(), OneVersion(1,0,0)), m_render_sprite(NULL)
 {
 
 }
