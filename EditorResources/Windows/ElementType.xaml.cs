@@ -1,5 +1,6 @@
 ﻿using EditorResources.UserControls;
 using EditorResources.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -75,7 +76,7 @@ namespace EditorResources.Windows
     public class ElementAttributeModifier : PropertyNotifier
     {
         private string _origin;
-        private uint _id;
+        private Guid _id;
         private string _name;
         private double _modifier;
         public Brush brush { get; set; }
@@ -89,7 +90,7 @@ namespace EditorResources.Windows
                 NotifyPropertyChanged();
             }
         }
-        public uint Id
+        public Guid Id
         {
             get { return _id; }
             private set
@@ -117,7 +118,7 @@ namespace EditorResources.Windows
             }
         }
 
-        public ElementAttributeModifier(string origin, uint id, string name, double modifier)
+        public ElementAttributeModifier(string origin, Guid id, string name, double modifier)
         {
             Origin = origin;
             Id = id;

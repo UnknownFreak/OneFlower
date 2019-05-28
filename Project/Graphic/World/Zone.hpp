@@ -42,7 +42,7 @@ public:
 
 public:
 
-	std::vector<std::pair<std::pair<Core::String, size_t>, GameObject*>> objects;
+	std::vector<std::pair<std::pair<Core::String, Core::uuid>, GameObject*>> objects;
 	BackgroundSprite* getBackground();
 
 	BackgroundSprite* getLoadingScreen();

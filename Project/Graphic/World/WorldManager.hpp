@@ -45,18 +45,18 @@ public:
 	}
 
 	//to be able to remove gameobjects when unloading;
-	std::map<std::pair<Core::String, size_t>, GameObject*> listOfZoneObjects;
+	std::map<std::pair<Core::String, Core::uuid>, GameObject*> listOfZoneObjects;
 
-	std::pair<Core::String, size_t> lastLoadedZone;
+	std::pair<Core::String, Core::uuid> lastLoadedZone;
 
-	std::map <std::pair<Core::String, size_t>, Zone> worldmap;
+	std::map <std::pair<Core::String, Core::uuid>, Zone> worldmap;
 
 	Zone& getCurrentZone();
 
 	WorldManager();
 	~WorldManager();
 
-	void loadZone(Core::String addedFromMod, size_t zoneID);
+	void loadZone(Core::String addedFromMod, Core::uuid zoneID);
 	const bool isLoading() const;
 
 	const Loadstate getCurrentLoadingState() const;
@@ -98,15 +98,15 @@ private:
 
 	size_t current_chunk = 0;
 
-	std::vector<std::pair<Core::String, size_t>>::iterator prefabIdIterator;
+	std::vector<std::pair<Core::String, Core::uuid>>::iterator prefabIdIterator;
 
-	std::map<std::pair<Core::String, size_t>, Asset::Prefab> loadedPrefabs;
-	std::map<std::pair<Core::String, size_t>, GameObject*>::iterator currentObjIteratorUnload;
+	std::map<std::pair<Core::String, Core::uuid>, Asset::Prefab> loadedPrefabs;
+	std::map<std::pair<Core::String, Core::uuid>, GameObject*>::iterator currentObjIteratorUnload;
 
 	size_t currentObj = 0;
 	size_t totalLoaded = 0;
 	size_t totalToLoad = 0;
-	std::pair<Core::String, size_t> zoneToLoadID;
+	std::pair<Core::String, Core::uuid> zoneToLoadID;
 
 	Zone* currentZone;
 	//DBZone zoneToLoad;

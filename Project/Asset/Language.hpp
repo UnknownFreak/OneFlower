@@ -18,7 +18,7 @@ class Language : public IRequestable, public IPatch
 	Core::String selectedLanguage;
 
 	std::vector<Core::String> availableLanguages;
-	std::map<Core::String, size_t> languageFiles;
+	std::map<Core::String, Core::uuid> languageFiles;
 
 	sf::Font m_font;
 	std::string fontName;
@@ -35,8 +35,8 @@ public:
 
 	sf::Font& getFont();
 
-	Core::String getString(size_t id);
-	sf::Text getText(size_t id, size_t charSize);
+	Core::String getString(const Core::uuid& id);
+	sf::Text getText(const Core::uuid& id, size_t charSize);
 
 
 	// Inherited via IPatch

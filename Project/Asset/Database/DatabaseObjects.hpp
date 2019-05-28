@@ -19,7 +19,7 @@ namespace Database
 {
 	struct Prefab : IObject
 	{
-		size_t ID;
+		Core::uuid ID;
 		Core::String fromMod;
 		Core::Vector2 pos;
 		Core::Vector2 oldPos;
@@ -49,7 +49,7 @@ namespace Database
 	struct Chunk : public IRequestable
 	{
 		Core::Vector2 pos;
-		std::map<std::pair<Core::String, size_t>, Prefab> prefabs;
+		std::map<std::pair<Core::String, Core::uuid>, Prefab> prefabs;
 		std::vector<World::Grid::Tile> tiles;
 
 		template<class A>
@@ -61,9 +61,9 @@ namespace Database
 			Engine::Dispose();
 
 			const Core::String& openedMod = Engine::GetModule<Asset::AssetManager>().openedMod;
-			std::map<std::pair<Core::String, size_t>, Prefab> objectsToSave;
+			std::map<std::pair<Core::String, Core::uuid>, Prefab> objectsToSave;
 
-			for (std::map<std::pair<Core::String, size_t>, Prefab>::const_iterator i = prefabs.begin(); i != prefabs.end(); i++)
+			for (std::map<std::pair<Core::String, Core::uuid>, Prefab>::const_iterator i = prefabs.begin(); i != prefabs.end(); i++)
 			{
 				if (i->second.mode == ObjectSaveMode::DEFAULT)
 				{
@@ -71,12 +71,12 @@ namespace Database
 					{
 						Prefab prefab = i->second;
 						prefab.oldPos = prefab.pos;
-						objectsToSave.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(i->first, prefab));
+						objectsToSave.insert(std::pair<std::pair<Core::String, Core::uuid>, Prefab>(i->first, prefab));
 					}
 				}
 				else if (i->second.mode == ObjectSaveMode::REMOVE)
 					if (fromMod != openedMod)
-						objectsToSave.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(i->first, i->second));
+						objectsToSave.insert(std::pair<std::pair<Core::String, Core::uuid>, Prefab>(i->first, i->second));
 					else if (i->second.mode == ObjectSaveMode::EDIT)
 					{
 						Prefab prefab = i->second;
@@ -85,7 +85,7 @@ namespace Database
 							prefab.mode = ObjectSaveMode::DEFAULT;
 							prefab.oldPos = prefab.pos;
 						}
-						objectsToSave.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(i->first, prefab));
+						objectsToSave.insert(std::pair<std::pair<Core::String, Core::uuid>, Prefab>(i->first, prefab));
 					}
 					else if (i->second.mode == ObjectSaveMode::ADD)
 					{
@@ -95,11 +95,11 @@ namespace Database
 							prefab.mode = ObjectSaveMode::DEFAULT;
 							prefab.oldPos = prefab.pos;
 						}
-						objectsToSave.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(i->first, prefab));
+						objectsToSave.insert(std::pair<std::pair<Core::String, Core::uuid>, Prefab>(i->first, prefab));
 					}
 			}
 			ar(objectsToSave.size());
-			for (std::map<std::pair<Core::String, size_t>, Prefab>::iterator i = objectsToSave.begin(); i != objectsToSave.end(); i++)
+			for (std::map<std::pair<Core::String, Core::uuid>, Prefab>::iterator i = objectsToSave.begin(); i != objectsToSave.end(); i++)
 			{
 				ar(i->first.first);
 				ar(i->first.second);
@@ -112,7 +112,7 @@ namespace Database
 		void load(A& ar)
 		{
 			Core::String name;
-			size_t _ID;
+			Core::uuid _ID;
 			size_t size;
 			Prefab prefab;
 			cereal::base_class<IRequestable>(this);
@@ -124,13 +124,13 @@ namespace Database
 				ar(_ID);
 				ar(prefab);
 				if (prefab.mode == ObjectSaveMode::REMOVE)
-					if (prefabs.find(std::pair<Core::String, size_t>(name, _ID)) != prefabs.end())
-						prefabs.erase(prefabs.find(std::pair<Core::String, size_t>(name, _ID)));
+					if (prefabs.find(std::pair<Core::String, Core::uuid>(name, _ID)) != prefabs.end())
+						prefabs.erase(prefabs.find(std::pair<Core::String, Core::uuid>(name, _ID)));
 					else if (prefab.mode == ObjectSaveMode::EDIT)
-						if (prefabs.find(std::pair<Core::String, size_t>(name, _ID)) != prefabs.end())
-							prefabs[std::pair<Core::String, size_t>(name, _ID)].pos = prefab.pos;
+						if (prefabs.find(std::pair<Core::String, Core::uuid>(name, _ID)) != prefabs.end())
+							prefabs[std::pair<Core::String, Core::uuid>(name, _ID)].pos = prefab.pos;
 						else
-							prefabs.insert(std::pair<std::pair<Core::String, size_t>, Prefab>(std::pair<Core::String, size_t>(name, _ID), prefab));
+							prefabs.insert(std::pair<std::pair<Core::String, Core::uuid>, Prefab>(std::pair<Core::String, Core::uuid>(name, _ID), prefab));
 			}
 			ar(tiles);
 		}
@@ -145,7 +145,7 @@ namespace Database
 		Core::String loadingScreenMessage;
 
 		std::vector<Chunk> chunks;
-		std::vector<std::pair<Core::String, size_t>> prefabs;
+		std::vector<std::pair<Core::String, Core::uuid>> prefabs;
 
 		template <class A>
 		void save(A& ar) const

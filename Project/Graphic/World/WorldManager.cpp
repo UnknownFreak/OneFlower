@@ -6,7 +6,7 @@
 
 ResourceType IEngineResource<WorldManager>::type = ResourceType::WorldManager;
 
-WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToLoad(nullptr)
+WorldManager::WorldManager() : lastLoadedZone("", Core::uuid::nil()), currentZone(0), refZoneToLoad(nullptr)
 {
 
 	if (Engine::GetModule<Asset::AssetManager>().loadModOrderFile() == false)
@@ -18,7 +18,7 @@ WorldManager::WorldManager() : lastLoadedZone("", 0), currentZone(0), refZoneToL
 // deconstructor
 WorldManager::~WorldManager()
 {
-	for (std::map<std::pair<Core::String, size_t>, Zone>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
+	for (std::map<std::pair<Core::String, Core::uuid>, Zone>::iterator it = worldmap.begin(); it != worldmap.end(); it++)
 	{
 		for (size_t j = 0; j < it->second.objects.size(); j++)
 		{
@@ -29,9 +29,9 @@ WorldManager::~WorldManager()
 	}
 }
 
-void WorldManager::loadZone(Core::String addedFromMod, size_t zoneID)
+void WorldManager::loadZone(Core::String addedFromMod, Core::uuid zoneID)
 {
-	zoneToLoadID = std::pair<Core::String, size_t>(addedFromMod, zoneID);
+	zoneToLoadID = std::pair<Core::String, Core::uuid>(addedFromMod, zoneID);
 	startLoad();
 }
 

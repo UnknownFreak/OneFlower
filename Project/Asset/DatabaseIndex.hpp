@@ -1,16 +1,22 @@
 #ifndef DATABASE_INDEX_HPP
 #define DATABASE_INDEX_HPP
+#include <Core/uuid.hpp>
 #include <Core/String.hpp>
 
 #include "Version.hpp"
 
 class DatabaseIndex
 {
-	OneVersion modFileVersion = OneVersion(1, 0, 0);
+	OneVersion modFileVersion;
 
 public:
-	long long row = 0;
-	size_t ID = 0;
+	long long row;
+	Core::uuid ID;
+
+	inline DatabaseIndex() noexcept : row(0), ID(), modFile(""), type(ObjectTypeEnum::Undefined), flags(ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
+	{
+	}
+
 
 	enum class ObjectTypeEnum
 	{
@@ -55,7 +61,7 @@ public:
 	Quest - load a quest
 	Item - load a item
 	//*/
-	ObjectTypeEnum type = ObjectTypeEnum::Undefined;
+	ObjectTypeEnum type;
 	/*
 	Flag types:
 	EoF - says it is the endof the file - Do not use, it is automatic.
@@ -65,11 +71,11 @@ public:
 	Modify - SourceID - Modify flag tells to modifiy that object
 	"-" - No flag
 	//*/
-	ObjectFlag flags = ObjectFlag::NoFlag;
+	ObjectFlag flags;
 	/*
 	ModFile tells from what mod that object comes from
 	//*/
-	Core::String modFile = "";
+	Core::String modFile;
 	
 public:
 #pragma region DatabaseIndex

@@ -30,11 +30,11 @@ public:
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name) : PrimitiveSaveable(value, name, "", 0, OneVersion::EMPTY)
+	inline PrimitiveSaveable(T value, Core::String name) : PrimitiveSaveable(value, name, "", Core::uuid::nil(), OneVersion::EMPTY)
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name, const Core::String fromMod, const size_t ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
+	inline PrimitiveSaveable(T value, Core::String name, const Core::String fromMod, const Core::uuid ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
 	{
 	}
 

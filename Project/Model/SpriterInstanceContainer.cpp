@@ -16,8 +16,8 @@ SpriterInstanceContainer::SpriterInstanceContainer() : modelFiles()
 SpriterInstanceContainer::~SpriterInstanceContainer()
 {
 	Requestor<TextureMap>& requestor = Engine::GetModule<Asset::AssetManager>().getTextureMapRequester();
-	std::map<std::pair<Core::String, std::pair<Core::String, size_t>>, SpriterEngine::SpriterModel*>::iterator it = modelFiles.begin();
-	std::map<std::pair<Core::String, std::pair<Core::String, size_t>>, SpriterEngine::SpriterModel*>::iterator eit = modelFiles.end();
+	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>::iterator it = modelFiles.begin();
+	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>::iterator eit = modelFiles.end();
 
 	for (; it != eit; it++)
 	{
@@ -26,12 +26,11 @@ SpriterInstanceContainer::~SpriterInstanceContainer()
 	}
 }
 
-SpriterEngine::EntityInstance* SpriterInstanceContainer::requestModel(Core::String _modelFile, Core::String _modelName, std::pair<Core::String, size_t> _textureMapId, SpriteRef*& sprite)
+SpriterEngine::EntityInstance* SpriterInstanceContainer::requestModel(Core::String _modelFile, Core::String _modelName, std::pair<Core::String, Core::uuid> _textureMapId, SpriteRef*& sprite)
 {
 	key _key = { _modelFile, _textureMapId };
 
-	std::map<std::pair<Core::String, std::pair<Core::String, size_t>>, SpriterEngine::SpriterModel*>::iterator it = modelFiles.find(_key);
-	
+	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>::iterator it = modelFiles.find(_key);
 
 	if (it != modelFiles.end())
 	{
@@ -41,7 +40,7 @@ SpriterEngine::EntityInstance* SpriterInstanceContainer::requestModel(Core::Stri
 	{
 		TextureMap& r = Engine::GetModule<Asset::AssetManager>().getTextureMapRequester().request(_textureMapId.first, _textureMapId.second);
 
-		modelFiles.insert(std::pair<std::pair<Core::String, std::pair<Core::String, size_t>>, SpriterEngine::SpriterModel*>(
+		modelFiles.insert(std::pair<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>(
 			_key,
 			new SpriterEngine::SpriterModel(
 				"Spriter/" + _modelFile,

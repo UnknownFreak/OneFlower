@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "EngineModule\IEngineModule.hpp"
+#include <Core/uuid.hpp>
 #include "String.hpp"
 
 class GameVariableMapping : public IEngineResource<GameVariableMapping>
@@ -12,9 +13,9 @@ class GameVariableMapping : public IEngineResource<GameVariableMapping>
 
 	std::vector<Core::String> empty;
 	Core::String animationVariableId;
-	std::pair<Core::String, size_t> mainMenuId;
-	std::pair<Core::String, size_t> startingZoneId;
-	std::pair<Core::String, size_t> startingPointId;
+	std::pair<Core::String, Core::uuid> mainMenuId;
+	std::pair<Core::String, Core::uuid> startingZoneId;
+	std::pair<Core::String, Core::uuid> startingPointId;
 
 public:
 

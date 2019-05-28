@@ -33,15 +33,15 @@ public:
 	void loadMod(Core::String modName);
 	bool loadMods(Core::String modName, bool _internal_error = false);
 	
-	void EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
-	void EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t ID, float x, float y);
-	void EditorLoadZone(Core::String zoneName, unsigned int ID);
+	void EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, Core::uuid ID, float x, float y);
+	void EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, Core::uuid ID, float x, float y);
+	void EditorLoadZone(Core::String zoneName, Core::uuid ID);
 	void EditorRemoveZone();
 	
 	Core::String EditorSave();
 	void EditorSetBackground(std::string textureName);
 	void EditorSetBackgroundSize(int x, int y);
-	std::pair<std::pair<Core::String, size_t>, Database::Prefab> EditorAddGameObjectToZone(Asset::Prefab& prefab, GameObject* go);
+	std::pair<std::pair<Core::String, Core::uuid>, Database::Prefab> EditorAddGameObjectToZone(Asset::Prefab& prefab, GameObject* go);
 	
 	void RemoveGameObjectFromZone(GameObject* go);
 	void EditorFlagGameObjectForEdit(GameObject* go);
@@ -55,12 +55,9 @@ public:
 	//Item1 - BackgroundPath
 	//Item2 - LoadingScreenPath
 	//Item3 - LoadingScreenMessage
-	std::vector<Core::String> getExtraZoneInfo(Core::String modName, size_t id);
+	std::vector<Core::String> getExtraZoneInfo(Core::String modName, Core::uuid id);
 
 	std::vector<Database::Zone> getAllDbZones();
-
-	size_t EditorGetValidID();
-	size_t ID = 1;
 
 	Database::Zone* currentDBZone;
 	BackgroundSprite unloadingbg;

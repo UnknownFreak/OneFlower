@@ -13,6 +13,7 @@
 
 #include <Asset/IPatch.hpp>
 
+#include<Core/uuid.hpp>
 #include <Core\String.hpp>
 #include <Core\Logger.hpp>
 
@@ -27,8 +28,8 @@ class Requestor
 	// ##################################################
 
 protected:
-	typedef std::map<std::pair<Core::String, size_t>, T> td_map;
-	typedef std::pair<Core::String, size_t> td_key;
+	typedef std::map<std::pair<Core::String, Core::uuid>, T> td_map;
+	typedef std::pair<Core::String, Core::uuid> td_key;
 
 	td_map requestedMap;
 
@@ -246,24 +247,24 @@ private:
 		}
 	}
 
-	const bool load(const Core::String & name, const size_t uuid)
+	const bool load(const Core::String & name, const Core::uuid uuid)
 	{
 		td_key key(name, uuid);
 		requestedMap.insert(std::make_pair(key, loadInternal(name, uuid)));
 		return true;
 	}
 
-	T loadInternal(const Core::String & name, const size_t uuid)
+	T loadInternal(const Core::String & name, const Core::uuid uuid)
 	{
 		T t = defaultValue();
-		if (name == "EMPTY" && uuid == 0)
+		if (name == "EMPTY" && uuid.is_nil())
 			return t;
 		if (!requestFromDatabase(t, name, uuid))
-			Engine::GetModule<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to request [" + name + ", " + std::to_string(uuid) + "] from database.", __FILE__, __LINE__);
+			Engine::GetModule<OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to request [" + name + ", " + uuid.to_string() + "] from database.", __FILE__, __LINE__);
 		return t;
 	}
 
-	inline bool requestFromDatabase(T& _t, const Core::String& modName, const size_t & uuid) const
+	inline bool requestFromDatabase(T& _t, const Core::String& modName, const Core::uuid & uuid) const
 	{
 		bool found = false;
 		bool first_loaded = false;
@@ -347,15 +348,15 @@ public:
 		auto ptr = getAsPtr(obj);
 
 		const Core::String name = ptr->fromMod;
-		const size_t uuid = ptr->ID;
+		const Core::uuid uuid = ptr->ID;
 		td_key key(name, uuid);
 
 		if (requestedMap.find(key) != requestedMap.end())
 		{
-			Engine::GetModule<OneLogger>().Warning("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + std::to_string(uuid) + " already exists!", __FILE__, __LINE__);
+			Engine::GetModule<OneLogger>().Warning("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", __FILE__, __LINE__);
 			return false;
 		}
-		Engine::GetModule<OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + std::to_string(uuid) + " added.", __FILE__, __LINE__);
+		Engine::GetModule<OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "> - Object from mod " + name + " and ID " + uuid.to_string() + " added.", __FILE__, __LINE__);
 
 		requestedMap.insert(std::make_pair(key, obj));
 		return true;
@@ -381,7 +382,7 @@ public:
 
 #ifdef _EDITOR_
 
-	inline void editorLoadAll(void(*onObjectLoaded)(const Core::String, const size_t, const Core::String, const ObjectSaveMode,
+	inline void editorLoadAll(void(*onObjectLoaded)(const Core::String, const Core::uuid&, const Core::String, const ObjectSaveMode,
 		const DatabaseIndex::ObjectTypeEnum, void*))
 	{
 		clear();
@@ -402,7 +403,7 @@ public:
 						{
 							database.seekg(ind.row);
 							cereal::BinaryInputArchive loader(database);
-							td_map::iterator it = requestedMap.find(std::pair<std::string, size_t>(ind.modFile, ind.ID));
+							td_map::iterator it = requestedMap.find(std::pair<std::string, Core::uuid>(ind.modFile, ind.ID));
 
 							if (it != requestedMap.end())
 							{
@@ -433,9 +434,9 @@ public:
 		}
 	}
 
-	inline std::vector<std::pair<Core::String, size_t>> listAllCurrentLoadedObjects() const
+	inline std::vector<std::pair<Core::String, Core::uuid>> listAllCurrentLoadedObjects() const
 	{
-		std::vector<std::pair<Core::String, size_t>> listofall;
+		std::vector<std::pair<Core::String, Core::uuid>> listofall;
 		td_map::const_iterator it = requestedMap.begin();
 		td_map::const_iterator eit = requestedMap.end();
 		for (it; it != eit; it++)
@@ -446,9 +447,9 @@ public:
 	}
 #endif
 
-	inline std::vector<std::pair<Core::String, size_t>> listAllObjectKeys() const
+	inline std::vector<std::pair<Core::String, Core::uuid>> listAllObjectKeys() const
 	{
-		std::vector<std::pair<Core::String, size_t>> listofall;
+		std::vector<std::pair<Core::String, Core::uuid>> listofall;
 		for each (std::pair<std::string, size_t> var in getLoadOrder())
 		{
 			bool eof = false;
@@ -475,10 +476,10 @@ public:
 		}
 		return listofall;
 	}
-
-	inline T& request(const Core::String & name, const size_t uuid)
+	
+	inline T& request(const Core::String & name, const Core::uuid& uuid)
 	{
-		td_key empty = { "EMPTY", 1 };
+		td_key empty = { "EMPTY", Core::uuid::nil() };
 		td_map::iterator it;
 		bool found = false;
 		if (!name.empty())
@@ -504,7 +505,7 @@ public:
 		return it->second;
 	}
 
-	inline void requestRemoval(const Core::String & name, const size_t uuid)
+	inline void requestRemoval(const Core::String & name, const Core::uuid& uuid)
 	{
 		td_map::iterator it = requestedMap.find({ name, uuid });
 		if (it != requestedMap.end())
