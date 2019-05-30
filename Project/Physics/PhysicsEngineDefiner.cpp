@@ -1,8 +1,4 @@
 #include "Physics.hpp"
-//#include "../../../Engine.hpp"
-//LOW Is this really needed?
-//#include "../../../Vector.h"
-//#include "../../Component/RigidComponent.hpp"
 
 #include "Component\HitboxComponent.hpp"
 #include "Component\RigidComponent.hpp"

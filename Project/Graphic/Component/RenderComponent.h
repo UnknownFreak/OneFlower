@@ -3,7 +3,6 @@
 #include <Core/Component/IBaseComponent.hpp>
 #include <Core/Vector.h>
 #include <Asset/SpriteRef.hpp>
-//#include "../../Vector.h"
 #include <Model\SpriteSheetAnimation.hpp>
 #include <Model\IModel.hpp>
 

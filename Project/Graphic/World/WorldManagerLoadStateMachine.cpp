@@ -184,9 +184,9 @@ void WorldManager::placeTiles()
 			if (tile.type != tile.NoCollide)
 				zoneChunkIterator->tiles.insert(&zoneChunkIterator->_tiles.rbegin().operator*());
 		}
-		databaseChunkIterator++;
-		zoneChunkIterator++;
 	}
+	databaseChunkIterator++;
+	zoneChunkIterator++;
 }
 
 

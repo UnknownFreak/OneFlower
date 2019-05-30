@@ -25,6 +25,20 @@ namespace Database
 		Core::Vector2 oldPos;
 		ObjectSaveMode mode = ObjectSaveMode::ADD;
 
+		Prefab() {}
+		Prefab(const Prefab& prefab): IObject(prefab), ID(prefab.ID), fromMod(prefab.fromMod), pos(prefab.pos), oldPos(prefab.oldPos), mode(prefab.mode) {}
+		Prefab& operator=(const Prefab& pref)
+		{
+			name = pref.name;
+			tag = pref.tag;
+			ID = pref.ID;
+			fromMod = pref.fromMod;
+			pos = pref.pos;
+			oldPos = pref.oldPos;
+			mode = pref.mode;
+			return *this;
+		}
+
 		template <class A>
 		void save(A& ar) const
 		{
@@ -52,13 +66,25 @@ namespace Database
 		std::map<std::pair<Core::String, Core::uuid>, Prefab> prefabs;
 		std::vector<World::Grid::Tile> tiles;
 
+		Chunk() {}
+		Chunk(const Chunk& chunk) : IRequestable(chunk), pos(chunk.pos), prefabs(chunk.prefabs), tiles(chunk.tiles) {}
+		Chunk& operator=(const Chunk& chunk)
+		{
+			fromMod = chunk.fromMod;
+			ID = chunk.ID;
+			mode = chunk.mode;
+			objectVersion = chunk.objectVersion;
+			pos = chunk.pos;
+			prefabs = chunk.prefabs;
+			tiles = chunk.tiles;
+			return *this;
+		}
+
 		template<class A>
 		void save(A& ar) const
 		{
-			cereal::base_class<IRequestable>(this);
+			ar(fromMod, ID, mode, objectVersion);
 			ar(pos);
-
-			Engine::Dispose();
 
 			const Core::String& openedMod = Engine::GetModule<Asset::AssetManager>().openedMod;
 			std::map<std::pair<Core::String, Core::uuid>, Prefab> objectsToSave;
@@ -115,7 +141,7 @@ namespace Database
 			Core::uuid _ID;
 			size_t size;
 			Prefab prefab;
-			cereal::base_class<IRequestable>(this);
+			ar(fromMod, ID, mode, objectVersion);
 			ar(pos);
 			ar(size);
 			for (size_t i = 0; i < size; i++)
@@ -146,6 +172,11 @@ namespace Database
 
 		std::vector<Chunk> chunks;
 		std::vector<std::pair<Core::String, Core::uuid>> prefabs;
+
+		Zone() {}
+		Zone(const Zone& zone) : IRequestable(zone), chunkCountX(zone.chunkCountX), chunkCountY(zone.chunkCountY),
+			name(zone.name), background(zone.background), loadingScreen(zone.loadingScreen), loadingScreenMessage(zone.loadingScreenMessage),
+			chunks(zone.chunks), prefabs(zone.prefabs) {}
 
 		template <class A>
 		void save(A& ar) const

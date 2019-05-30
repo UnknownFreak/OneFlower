@@ -2,6 +2,7 @@
 #include <fstream>
 #include <Core\EngineModule\EngineModuleManager.hpp>
 #include <Asset/AssetManagerCore.hpp>
+#include <Core/uuid.hpp>
 
 void Language::loadFont(const Core::String & name)
 {

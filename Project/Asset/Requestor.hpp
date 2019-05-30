@@ -13,7 +13,6 @@
 
 #include <Asset/IPatch.hpp>
 
-#include<Core/uuid.hpp>
 #include <Core\String.hpp>
 #include <Core\Logger.hpp>
 
@@ -526,7 +525,7 @@ public:
 			ind.type = objectType;
 			ind.modFile = getFromMod(it->second);
 			ind.row = file.tellp();
-
+	
 			if (saveIfMode(it->second))
 			{
 				indexAr(ind);

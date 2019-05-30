@@ -22,7 +22,7 @@ struct TextureMap : public IRequestable
 	template <class Archive>
 	void save(Archive& ar) const
 	{
-		ar(cereal::base_class<IRequestable>(this));
+		ar(fromMod, ID, mode, objectVersion);
 		ar(name);
 		ar(TexturePoints.size());
 		for each (std::pair<Core::String, TextureMapPoint> var in TexturePoints)
@@ -34,7 +34,7 @@ struct TextureMap : public IRequestable
 	template <class Archive>
 	void load(Archive& ar)
 	{
-		ar(cereal::base_class<IRequestable>(this));
+		ar(fromMod, ID, mode, objectVersion);
 		ar(name);
 		size_t size;
 		ar(size);
