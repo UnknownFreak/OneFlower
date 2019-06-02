@@ -8,11 +8,13 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
 {		
 
+
 	class MockedSaveable : public IRequestable
 	{
 	public:
 		Core::String test_string;
-		MockedSaveable(size_t id=1, Core::String test_string = "") : IRequestable("test", id, OneVersion(0,0,0)), test_string(test_string)
+		MockedSaveable() : MockedSaveable(Core::uuid::nil(), "") {}
+		MockedSaveable(Core::uuid id, Core::String test_string = "") : IRequestable("test", id, OneVersion(0,0,0)), test_string(test_string)
 		{
 		}
 		MockedSaveable(const MockedSaveable& c) : IRequestable(c), test_string(c.test_string)
@@ -40,7 +42,7 @@ namespace Tests
 		}
 	};
 
-	static void create_prefab(Requestor<Asset::Prefab>& pref, size_t id)
+	static void create_prefab(Requestor<Asset::Prefab>& pref, Core::uuid id)
 	{
 		Asset::Prefab p;
 		p.fromMod = "test";
@@ -54,24 +56,34 @@ namespace Tests
 	TEST_CLASS(RequestorTest)
 	{
 	public:
+		static Core::uuid id1;
+		static Core::uuid id2;
+		static Core::uuid id3;
+		static Core::uuid id4;
+		static Core::uuid id5;
+		static Core::uuid id6;
+		static Core::uuid id7;
+		static Core::uuid id8;
+		static Core::uuid id9;
+		static Core::uuid id10;
 		static Requestor<MockedSaveable> req;
 		static Requestor<MockedSaveable*> req_ptr;
 		static Requestor<Asset::Prefab> prefab;
 
 		static void add_objects()
 		{
-			req.add(MockedSaveable(1, "A"));
-			req.add(MockedSaveable(2, "B"));
-			req.add(MockedSaveable(3, "C"));
-			req.add(MockedSaveable(4, "DE"));
+			req.add(MockedSaveable(id1, "A"));
+			req.add(MockedSaveable(id2, "B"));
+			req.add(MockedSaveable(id3, "C"));
+			req.add(MockedSaveable(id4, "DE"));
 
-			req_ptr.add(new MockedSaveable(5, "A_PTR"));
-			req_ptr.add(new MockedSaveable(6, "B_PTR"));
-			req_ptr.add(new MockedSaveable(7, "C_PTR"));
-			req_ptr.add(new MockedSaveable(8, "DE_PTR"));
+			req_ptr.add(new MockedSaveable(id5, "A_PTR"));
+			req_ptr.add(new MockedSaveable(id6, "B_PTR"));
+			req_ptr.add(new MockedSaveable(id7, "C_PTR"));
+			req_ptr.add(new MockedSaveable(id8, "DE_PTR"));
 
-			create_prefab(prefab, 1);
-			create_prefab(prefab, 2);
+			create_prefab(prefab, id9);
+			create_prefab(prefab, id10);
 
 		}
 
@@ -84,7 +96,7 @@ namespace Tests
 			{
 				DatabaseIndex ind;
 				ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-				ind.ID = 0;
+				ind.ID = Core::uuid::nil();
 				ind.type = DatabaseIndex::ObjectTypeEnum::Header;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
@@ -97,7 +109,7 @@ namespace Tests
 				prefab.save(ind, file, indexAr, mainAr);
 				
 				ind.flags = DatabaseIndex::ObjectFlag::EoF;
-				ind.ID = 0;
+				ind.ID = Core::uuid::nil();
 				ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
@@ -130,50 +142,52 @@ namespace Tests
 
 		TEST_METHOD(TestRequetorNonPointer)
 		{
-			MockedSaveable& ref = req.request("test", 1);
+			MockedSaveable& ref = req.request("test", id1);
 			Assert::AreEqual("A", ref.test_string.c_str());
-			Assert::AreEqual((size_t)1, ref.ID);
+			Assert::AreEqual(id1.to_wstring(), ref.ID.to_wstring());
 		}
 		TEST_METHOD(TestRequestorPointer)
 		{
-			MockedSaveable*& ref = req_ptr.request("test", 5);
+			MockedSaveable*& ref = req_ptr.request("test", id5);
 			Assert::AreEqual("A_PTR", ref->test_string.c_str());
-			Assert::AreEqual((size_t)5, ref->ID);
+			Assert::AreEqual(id5.to_wstring(), ref->ID.to_wstring());
 		}
 		TEST_METHOD(TestRequestorEmpty)
 		{
-			MockedSaveable*& ref = req_ptr.request("test", 5555);
+			MockedSaveable*& ref = req_ptr.request("test", Core::uuid());
 			Assert::IsNull(ref);
 		}
 		TEST_METHOD(TestRequestor_AddToExistingDoesNotReplace)
 		{
-			Assert::IsTrue(req.add(MockedSaveable(1, "A")));
-			Assert::IsFalse(req.add(MockedSaveable(1, "CC")));
+			Assert::IsTrue(req.add(MockedSaveable(id1, "A")));
+			Assert::IsFalse(req.add(MockedSaveable(id1, "CC")));
 		
-			MockedSaveable& ref = req.request("test", 1);
+			MockedSaveable& ref = req.request("test", id1);
 			Assert::AreEqual(ref.test_string.c_str(), "A");
 		}
 		TEST_METHOD(TestRequestor_AddNew)
 		{
-			Assert::IsTrue(req.add(MockedSaveable(21, "CC")));
+			Core::uuid id21;
+			Assert::IsTrue(req.add(MockedSaveable(id21, "CC")));
 		
-			MockedSaveable& ref = req.request("test", 21);
+			MockedSaveable& ref = req.request("test", id21);
 			Assert::AreEqual(ref.test_string.c_str(), "CC");
 		}
 		TEST_METHOD(TestRequestorPtr_AddToExistingDoesNotReplace)
 		{
-			Assert::IsTrue(req_ptr.add(new MockedSaveable(1, "A_PTR")));
-			Assert::IsFalse(req_ptr.add(new MockedSaveable(1, "CC_PTR")));
+			Assert::IsTrue(req_ptr.add(new MockedSaveable(id5, "A_PTR")));
+			Assert::IsFalse(req_ptr.add(new MockedSaveable(id5, "CC_PTR")));
 		
-			MockedSaveable*& ref = req_ptr.request("test", 5);
+			MockedSaveable*& ref = req_ptr.request("test", id5);
 		
 			Assert::AreEqual(ref->test_string.c_str(), "A_PTR");
 		}
 		TEST_METHOD(TestRequestorPtr_AddNew)
 		{
-			Assert::IsTrue(req_ptr.add(new MockedSaveable(22, "CC_PTR")));
+			Core::uuid id;
+			Assert::IsTrue(req_ptr.add(new MockedSaveable(id, "CC_PTR")));
 		
-			MockedSaveable*& ref = req_ptr.request("test", 22);
+			MockedSaveable*& ref = req_ptr.request("test", id);
 		
 			Assert::AreEqual(ref->test_string.c_str(), "CC_PTR");
 		}
@@ -182,22 +196,32 @@ namespace Tests
 		{
 			// fails
 			{
-				prefab.request("test", 1);
-				 prefab.request("test", 2);
+				prefab.request("test", id9);
+				 prefab.request("test", id10);
 			}
 			// fails
 			{
 				//Asset::Prefab& p = prefab.request("test", 1);
-				prefab.request("test", 2);
+				prefab.request("test", id10);
 			}
 			// works
 			{
-				prefab.request("test", 1);
+				prefab.request("test", id9);
 				//Asset::Prefab& p2 = prefab.request("test", 2);
 			}
 		}
 
 	};
+	Core::uuid RequestorTest::id1 = Core::uuid();
+	Core::uuid RequestorTest::id2 = Core::uuid();
+	Core::uuid RequestorTest::id3 = Core::uuid();
+	Core::uuid RequestorTest::id4 = Core::uuid();
+	Core::uuid RequestorTest::id5 = Core::uuid();
+	Core::uuid RequestorTest::id6 = Core::uuid();
+	Core::uuid RequestorTest::id7 = Core::uuid();
+	Core::uuid RequestorTest::id8 = Core::uuid();
+	Core::uuid RequestorTest::id9 = Core::uuid();
+	Core::uuid RequestorTest::id10 = Core::uuid();
 	Requestor<MockedSaveable> RequestorTest::req(DatabaseIndex::ObjectTypeEnum::Undefined, "");
 	Requestor<MockedSaveable*> RequestorTest::req_ptr(DatabaseIndex::ObjectTypeEnum::Undefined, "");
 	Requestor<Asset::Prefab> RequestorTest::prefab(DatabaseIndex::ObjectTypeEnum::Prefab, "");

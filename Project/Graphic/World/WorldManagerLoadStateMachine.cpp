@@ -184,9 +184,9 @@ void WorldManager::placeTiles()
 			if (tile.type != tile.NoCollide)
 				zoneChunkIterator->tiles.insert(&zoneChunkIterator->_tiles.rbegin().operator*());
 		}
-		databaseChunkIterator++;
-		zoneChunkIterator++;
 	}
+	databaseChunkIterator++;
+	zoneChunkIterator++;
 }
 
 
@@ -239,7 +239,7 @@ void WorldManager::populateChunks()
 		return;
 	}
 
-	for (std::pair<const std::pair<Core::String, size_t>, Database::Prefab>& kvp : databaseChunkIterator->prefabs)
+	for (std::pair<const std::pair<Core::String, Core::uuid>, Database::Prefab>& kvp : databaseChunkIterator->prefabs)
 		zoneChunkIterator->addGameObject(loadedPrefabs[kvp.first], kvp.second);
 	databaseChunkIterator++;
 	zoneChunkIterator++;

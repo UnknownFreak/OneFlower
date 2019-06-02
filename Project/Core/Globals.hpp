@@ -15,8 +15,8 @@ class Globals : public IEngineResource<Globals>
 	template<class T, class U> 
 	void putVariableInto(Requestor<T>& container, U& containerToPut)
 	{
-		std::vector<std::pair<Core::String, size_t>> idVector = container.listAllObjectKeys();
-		for each (std::pair<Core::String, size_t> it in idVector)
+		std::vector<std::pair<Core::String, Core::uuid>> idVector = container.listAllObjectKeys();
+		for each (std::pair<Core::String, Core::uuid> it in idVector)
 		{
 			{
 				T ref = container.request(it.first, it.second);

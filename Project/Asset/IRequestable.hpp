@@ -1,5 +1,6 @@
 #ifndef IREQUESTABLE_HPP
 #define IREQUESTABLE_HPP
+#include <Core/uuid.hpp>
 #include <Core\String.hpp>
 #include "ObjectSaveMode.hpp"
 #include "Version.hpp"
@@ -8,14 +9,14 @@ struct IRequestable
 {
 
 	Core::String fromMod;
-	size_t ID;
+	Core::uuid ID;
 	ObjectSaveMode mode = ObjectSaveMode::ADD;
 
 	OneVersion objectVersion;
 
 
-	inline IRequestable() : fromMod(""), ID(0), objectVersion(0,0,0) {}
-	inline IRequestable(const Core::String fromMod, const size_t ID, const OneVersion version) : fromMod(fromMod), ID(ID), objectVersion(version) {}
+	inline IRequestable() : fromMod(""), ID(Core::uuid()), objectVersion(0, 0, 0) {}
+	inline IRequestable(const Core::String fromMod, const Core::uuid ID, const OneVersion version) : fromMod(fromMod), ID(ID), objectVersion(version) {}
 	inline IRequestable(const IRequestable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode), objectVersion(copy.objectVersion) {}
 	
 	inline IRequestable(const IRequestable&& rvalreference) noexcept : fromMod(std::move(rvalreference.fromMod)), ID(std::move(rvalreference.ID)),

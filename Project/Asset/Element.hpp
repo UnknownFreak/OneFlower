@@ -13,14 +13,14 @@ public:
 
 	double damageToUnknownType = 0.0;
 
-	std::map<std::pair<Core::String, size_t>, double> elementAttributes;
+	std::map<std::pair<Core::String, Core::uuid>, double> elementAttributes;
 
 	Element();
 	Element(Core::String elementName);
 	Element(const Element& copy);
 
 	double getElementModifier();
-	double getElementModifier(Core::String name, size_t ID);
+	double getElementModifier(Core::String name, Core::uuid ID);
 
 	template<class Archive>
 	void load(Archive& ar)

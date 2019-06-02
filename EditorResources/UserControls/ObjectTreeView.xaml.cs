@@ -67,7 +67,7 @@ namespace EditorResources.UserControls
                 return;
             // This method is registered before any engine event so we can set the mod origin here.
             e.Value.Origin = loadedMod;
-            e.Value.ID = GetId(e.Type);
+            //e.Value.ID = GetId(e.Type);
             objectItems.Add(new ObjectDataViewModel(e.Value.Origin, e.Value.ID, ObjectFlag.Added, e.Type, e.Value));
         }
 
@@ -116,21 +116,21 @@ namespace EditorResources.UserControls
             };
         }
 
-        private uint GetId(ObjectType type)
-        {
-            uint lastId = 0;
-            try
-            {
-                lastId = objectItems.Where(x => x.Type == type).Select(x => x.Id).Max();
-            }
-            catch (ArgumentNullException)
-            { }
-            catch (InvalidOperationException)
-            { }
-            finally
-            { lastId++; }
-            return lastId;
-        }
+        //private uint GetId(ObjectType type)
+        //{
+        //    uint lastId = 0;
+        //    try
+        //    {
+        //        lastId = objectItems.Where(x => x.Type == type).Select(x => x.Id).Max();
+        //    }
+        //    catch (ArgumentNullException)
+        //    { }
+        //    catch (InvalidOperationException)
+        //    { }
+        //    finally
+        //    { lastId++; }
+        //    return lastId;
+        //}
 
         private void ObjectList_MouseMove(object sender, MouseEventArgs e)
         {
@@ -159,7 +159,7 @@ namespace EditorResources.UserControls
     public class ObjectDataViewModel : PropertyNotifier
     {
         private string _origin;
-        private uint _id;
+        private Guid _id;
         private ObjectFlag _flag;
         private ObjectType _type;
         private BaseDto _value;
@@ -175,7 +175,7 @@ namespace EditorResources.UserControls
                 NotifyPropertyChanged();
             }
         }
-        public uint Id
+        public Guid Id
         {
             get { return _id; }
             private set
@@ -223,7 +223,7 @@ namespace EditorResources.UserControls
             }
         }
 
-        public ObjectDataViewModel(string origin, uint id, ObjectFlag flag, ObjectType type, BaseDto value)
+        public ObjectDataViewModel(string origin, Guid id, ObjectFlag flag, ObjectType type, BaseDto value)
         {
             Origin = origin;
             Id = id;

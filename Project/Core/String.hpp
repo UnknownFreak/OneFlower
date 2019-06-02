@@ -29,8 +29,6 @@ namespace Core
 		std::wstring toUtf16(const Core::String& str);
 	};
 
-	//typedef std::basic_string<char32_t> WString;
-
 	template<class T>
 	inline typename std::enable_if<std::is_same<Core::String, T>::value, Core::String>::type
 		toString(const T& value)

@@ -18,7 +18,7 @@ namespace Asset
 		base.clear();
 	}
 
-	Prefab::Prefab() : IRequestable("", 0, prefab_current_version), //IObject(),
+	Prefab::Prefab() : IRequestable("", Core::uuid::nil(), prefab_current_version), //IObject(),
 		base()
 	{
 
@@ -34,7 +34,7 @@ namespace Asset
 	}
 	// Ctor with Gameobject ptr
 	Prefab::Prefab(const GameObject* go) :// IObject(*go),
-		IRequestable("", 0, prefab_current_version)
+		IRequestable("", Core::uuid::nil(), prefab_current_version)
 	{
 		for (std::map<size_t, Component::Base*>::iterator it = ((GameObject*)go)->GetComponents()->begin(); it != ((GameObject*)go)->GetComponents()->end(); ++it)
 			base.push_back(it->second->copy());

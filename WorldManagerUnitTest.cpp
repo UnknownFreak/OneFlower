@@ -40,6 +40,10 @@ namespace Tests
 {
 	TEST_CLASS(WorldManagerTest)
 	{
+		const static Core::uuid id;
+		const static Core::uuid id1;
+		const static Core::uuid id2;
+		const static Core::uuid id3;
 
 		const static Core::String fromMod;
 		const static Core::String image;
@@ -55,20 +59,21 @@ namespace Tests
 			Database::Prefab prefab;
 
 			prefab.fromMod = fromMod;
-			prefab.ID = 1;
+			prefab.ID = id;
 			prefab.oldPos = Core::Vector2(20, 20);
 			prefab.pos = Core::Vector2(20, 20);
 
-			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, 1), prefab));
+			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, id), prefab));
 			prefab.oldPos = Core::Vector2(40, 40);
 			prefab.pos = Core::Vector2(40, 40);
-			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, 1), prefab));
+			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, id), prefab));
 			prefab.oldPos = Core::Vector2(60, 60);
 			prefab.pos = Core::Vector2(60, 60);
-			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, 1), prefab));
+			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, id), prefab));
 			prefab.oldPos = Core::Vector2(80, 20);
 			prefab.pos = Core::Vector2(80, 20);
-			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, 1), prefab));
+			c.prefabs.insert(std::make_pair(std::make_pair(fromMod, id), prefab));
+
 		}
 
 		static void add_chunk(Database::Zone & zone, float x, float y)
@@ -77,7 +82,8 @@ namespace Tests
 			Database::Chunk c;
 			c.fromMod = fromMod;
 			c.pos = Core::Vector2(x, y);
-			
+			c.tiles.push_back(World::Grid::Tile(0, 0));
+
 			add_objects(c);
 
 			zone.chunks.push_back(c);
@@ -91,15 +97,15 @@ namespace Tests
 			zone.chunkCountX = zone.chunkCountY = 3;
 
 			zone.fromMod = fromMod;
-			zone.ID = 1;
+			zone.ID = id;
 			zone.loadingScreen = image;
 			zone.loadingScreenMessage = "wm tests.";
 			zone.mode = ObjectSaveMode::ADD;
 			zone.name = "wmtestzone";
 
-			zone.prefabs.push_back(std::make_pair(fromMod, 2));
-			zone.prefabs.push_back(std::make_pair(fromMod, 1));
-			zone.prefabs.push_back(std::make_pair(fromMod, 3));
+			zone.prefabs.push_back(std::make_pair(fromMod, id2));
+			zone.prefabs.push_back(std::make_pair(fromMod, id1));
+			zone.prefabs.push_back(std::make_pair(fromMod, id3));
 
 			add_chunk(zone, 0, 0);
 			add_chunk(zone, 0, 1);
@@ -115,7 +121,7 @@ namespace Tests
 
 		}
 
-		static void add_prefab(Requestor<Asset::Prefab>& req, Core::String prefabName, size_t prefabId)
+		static void add_prefab(Requestor<Asset::Prefab>& req, Core::String prefabName, Core::uuid prefabId)
 		{
 			Asset::Prefab p;
 			p.fromMod = fromMod;
@@ -133,7 +139,7 @@ namespace Tests
 
 		static void verify_chunk_positions()
 		{
-			Zone& z = wm.worldmap[{fromMod, 1}];
+			Zone& z = wm.worldmap[{fromMod, id}];
 			
 			verify_neighbours(z.chunkList[0], Core::Vector2(0, 0));
 			verify_neighbours(z.chunkList[1], Core::Vector2(0, 1));
@@ -182,9 +188,9 @@ namespace Tests
 			Requestor<Database::Zone>& zoneReq = Engine::GetModule<Asset::AssetManager>().getZoneRequester();
 			Requestor<Asset::Prefab>& prefabReq = Engine::GetModule<Asset::AssetManager>().getPrefabRequester();
 
-			add_prefab(prefabReq, "wmLoadTestPrefab1", 1);
-			add_prefab(prefabReq, "wmLoadTestPrefab2", 2);
-			add_prefab(prefabReq, "wmLoadTestPrefab3", 3);
+			add_prefab(prefabReq, "wmLoadTestPrefab1", id1);
+			add_prefab(prefabReq, "wmLoadTestPrefab2", id2);
+			add_prefab(prefabReq, "wmLoadTestPrefab3", id3);
 
 			add_zone(zoneReq);
 
@@ -206,7 +212,7 @@ namespace Tests
 
 		TEST_METHOD(TestLoadZone)
 		{
-			wm.loadZone(fromMod, 1);
+			wm.loadZone(fromMod, id);
 			Assert::AreEqual(wm.CHECK_IF_LOADED, wm.getCurrentLoadingState(), L"Check loaded flag:");
 			wm.loadSome();
 			Assert::AreEqual(wm.LOAD_FROM_FILE, wm.getCurrentLoadingState(), L"Check load from file:");
@@ -239,6 +245,10 @@ namespace Tests
 		}
 
 	};
+	const Core::uuid WorldManagerTest::id = Core::uuid();
+	const Core::uuid WorldManagerTest::id1 = Core::uuid();
+	const Core::uuid WorldManagerTest::id2 = Core::uuid();
+	const Core::uuid WorldManagerTest::id3 = Core::uuid();
 	const Core::String WorldManagerTest::fromMod = "wmtest";
 	const Core::String WorldManagerTest::image = "test.png";
 

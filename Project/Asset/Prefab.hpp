@@ -45,7 +45,7 @@ namespace Asset
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(fromMod, ID, mode, objectVersion);
 			ar(cereal::base_class<IObject>(this));
 			size_t size;
 			ar(size);
@@ -58,7 +58,7 @@ namespace Asset
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(fromMod, ID, mode, objectVersion);
 			ar(cereal::base_class<IObject>(this));
 			ar(base.size());
 			size_t size = base.size();

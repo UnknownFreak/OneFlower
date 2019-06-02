@@ -2,8 +2,6 @@
 
 #include <Core\EngineModule\EngineModuleManager.hpp>
 
-#include <Core\Time.hpp>
-
 namespace Model
 {
 	void SpriterModel::setModel()

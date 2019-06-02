@@ -3,6 +3,7 @@
 #ifdef _EDITOR_
 #include <Windows.h>
 #endif
+
 #include <SFML\Window\Event.hpp>
 
 #include <GameEntry.hpp>

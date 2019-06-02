@@ -3,7 +3,6 @@
 #include <Core/Component/IBaseComponent.hpp>
 #include <Core/Vector.h>
 #include <Asset/SpriteRef.hpp>
-//#include "../../Vector.h"
 #include <Model\SpriteSheetAnimation.hpp>
 #include <Model\IModel.hpp>
 
@@ -31,7 +30,7 @@ namespace Component
 
 		IModel* model = nullptr;;
 
-		std::pair<Core::String, size_t> modelName;
+		std::pair<Core::String, Core::uuid> modelName;
 
 		//Closer the bigger the number, Farther away less the number
 		int renderlayer = 1;
