@@ -7,7 +7,6 @@ SpriterPlusPlus license can also be found under /Project/SpriterPlusPlus/Spriter
 Tinyxml license can also be found under /Project/SpriterPlusPlus/tinyxml2
 
 Modifications to SpriterPlusPlus can be found under /Project/SpriterPlusPlus/SpriterEngine/Modifications.txt
-
 Modifications to Tinyxml can be found under /Project/SpriterPlusPlus/tinyxml2/Modifications.txt
 
 stduuid licence can also be found under project/stduuid (note is submodule)
