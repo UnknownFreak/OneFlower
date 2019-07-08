@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
+﻿using System;
 
 namespace EditorResources.Dto
 {
     public class BaseDto
     {
         public string Origin { get; set; } = string.Empty;
-        public uint ID { get; set; } = 0;
+        public Guid ID { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
 
         public Brush brush { get; set; }

@@ -1,14 +1,14 @@
 #ifndef LoadZoneComponent_HPP
 #define LoadZoneComponent_HPP
-
 #include <Core\Component\IBaseComponent.hpp>
 #include <Core\Vector.h>
+#include <Core/uuid.hpp>
 
 namespace Component
 {
 	class Portal : public IBaseComponent<Portal>
 	{
-		std::pair<Core::String, size_t> zoneToLoadID;
+		std::pair<Core::String, Core::uuid> zoneToLoadID;
 		Core::Vector2 posToPlaceCharacter;
 
 		void loadZone();

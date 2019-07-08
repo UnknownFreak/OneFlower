@@ -14,15 +14,15 @@ namespace Language
 		}
 	}
 
-	void LanguageRequestor::resolvePatchedLanguages(const std::map<Core::String, std::vector<size_t>>& ref, const Core::String& fileName)
+	void LanguageRequestor::resolvePatchedLanguages(const std::map<Core::String, std::vector<Core::uuid>>& ref, const Core::String& fileName)
 	{
-		for each(std::pair<LanguageName, std::vector<size_t>> pair2 in ref)
+		for each(std::pair<LanguageName, std::vector<Core::uuid>> pair2 in ref)
 		{
 			if (std::find(languageNames.begin(), languageNames.end(), pair2.first) == languageNames.end())
 			{
 				languageNames.push_back(pair2.first);
 			}
-			for (size_t& i : pair2.second)
+			for (Core::uuid& i : pair2.second)
 			{
 				mappedLanguageIds[{pair2.first, i}] = fileName;
 			}
@@ -40,7 +40,7 @@ namespace Language
 		}
 	}
 
-	void LanguageRequestor::addString(const LanguageName & language, const size_t & id, const Core::String & value,
+	void LanguageRequestor::addString(const LanguageName & language, const Core::uuid & id, const Core::String & value,
 		const FileName& languageFile, const bool& isPatch)
 	{
 		if (std::find(languageNames.begin(), languageNames.end(), language) == languageNames.end())
@@ -66,7 +66,7 @@ namespace Language
 		return languageNames;
 	}
 
-	Core::String& LanguageRequestor::getString(const size_t & id)
+	Core::String& LanguageRequestor::getString(const Core::uuid & id)
 	{
 		if (requestedStrings.find(id) == requestedStrings.end()) 
 		{
@@ -93,7 +93,7 @@ namespace Language
 		Engine::GetModule<OneLogger>().Error("Unable to set language [" + language + "]");
 	}
 
-	LanguageRequestor::LanguageRequestor() : IRequestable(Core::Builtin, 0, OneVersion(1, 0, 0))
+	LanguageRequestor::LanguageRequestor() : IRequestable(Core::Builtin, Core::uuid::nil(), OneVersion(1, 0, 0))
 	{
 		load();
 	}

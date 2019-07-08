@@ -16,3 +16,14 @@ std::vector<Core::String> listDirectory(const Core::String& path, const Core::St
 	}
 	return l;
 }
+
+#ifdef _UNITTESTS_
+
+void clearDirectory(const Core::String& path)
+{
+	std::experimental::filesystem::remove_all(path);
+	std::experimental::filesystem::create_directory(path);
+}
+
+
+#endif

@@ -86,7 +86,6 @@ namespace EditorResources.Windows
                     else
                     {
                         Dto.LanguageStringDto langstr = e.Value as Dto.LanguageStringDto;
-                        e.Value.ID = GetId(langstr.Language, langstr.Filename);
                         objectList.Add(e.Value as Dto.LanguageStringDto);
                     }
                 }
@@ -129,7 +128,7 @@ namespace EditorResources.Windows
             return langDto;
         }
 
-        private IEnumerable<Dto.LanguageStringDto> CreateEmptyStringsFor(uint id, string languageToIgnore)
+        private IEnumerable<Dto.LanguageStringDto> CreateEmptyStringsFor(System.Guid id, string languageToIgnore)
         {
             List<Dto.LanguageStringDto> langDto = new List<Dto.LanguageStringDto>();
 
@@ -156,22 +155,6 @@ namespace EditorResources.Windows
                 if (dto.Filename != languageToIgnore)
                     return dto.Filename;
             return string.Empty;
-        }
-
-        private uint GetId(string language, string filename)
-        {
-            uint lastId = 0;
-            try
-            {
-                lastId = objectList.Where(x => x.Filename == filename).Where(x => x.Language == language).Select(x => x.ID).Max();
-            }
-            catch (ArgumentNullException)
-            { }
-            catch (InvalidOperationException)
-            { }
-            finally
-            { lastId++; }
-            return lastId;
         }
 
         private void ObjectDataRequested(object sender, InternalEditorEvents.RequestObjectDataListEventArgs e)
@@ -337,7 +320,6 @@ namespace EditorResources.Windows
                     Value = batch
                 });
                 InternalEditorEvents.Log($"Added [{batch.DtoList.Count}] strings for language [{LanguageList.SelectedItem.ToString()}]", Message.MsgType.Info);
-
             }
         }
         #endregion

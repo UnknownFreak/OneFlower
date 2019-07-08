@@ -30,11 +30,11 @@ public:
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name) : PrimitiveSaveable(value, name, "", 0, OneVersion::EMPTY)
+	inline PrimitiveSaveable(T value, Core::String name) : PrimitiveSaveable(value, name, "", Core::uuid::nil(), OneVersion::EMPTY)
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name, const Core::String fromMod, const size_t ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
+	inline PrimitiveSaveable(T value, Core::String name, const Core::String fromMod, const Core::uuid ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
 	{
 	}
 
@@ -68,7 +68,7 @@ public:
 	template <class Archive>
 	void save(Archive& ar) const
 	{
-		ar(cereal::base_class<IRequestable>(this));
+		ar(fromMod, ID, mode, objectVersion);
 		ar(cereal::base_class<IObject>(this));
 		ar(value);
 	}
@@ -76,7 +76,7 @@ public:
 	template <class Archive>
 	void load(Archive& ar)
 	{
-		ar(cereal::base_class<IRequestable>(this));
+		ar(fromMod, ID, mode, objectVersion);
 		ar(cereal::base_class<IObject>(this));
 		ar(value);
 	}

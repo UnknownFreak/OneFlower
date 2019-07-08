@@ -2,11 +2,12 @@
 #include <fstream>
 #include <Core\EngineModule\EngineModuleManager.hpp>
 #include <Asset/AssetManagerCore.hpp>
+#include <Core/uuid.hpp>
 
 namespace Language
 {
 #if defined _EDITOR_ || _UNITTESTS_
-	void TranslationString::addString(const Core::String & languageName, const size_t & stringId, const Core::String value, const bool& isPatch)
+	void TranslationString::addString(const Core::String & languageName, const Core::uuid & stringId, const Core::String value, const bool& isPatch)
 	{
 		if (isPatch)
 			header.moddedIds[languageName].push_back(stringId);
@@ -21,7 +22,7 @@ namespace Language
 	{
 	}
 
-	TranslationString::TranslationString(const Core::String& language, Core::String fontName) : language(language), fontName(fontName), stringList(DatabaseIndex::ObjectTypeEnum::PrimitiveString, Core::langPath), IRequestable(Core::Builtin, 0, OneVersion(1,0,0))
+	TranslationString::TranslationString(const Core::String& language, Core::String fontName) : language(language), fontName(fontName), stringList(DatabaseIndex::ObjectTypeEnum::PrimitiveString, Core::langPath), IRequestable(Core::Builtin, Core::uuid::nil(), OneVersion(1, 0, 0))
 	{
 		setAvailableLanguageFiles();
 	}
@@ -57,7 +58,7 @@ namespace Language
 		return fontName;
 	}
 
-	PrimitiveSaveable<Core::String>& TranslationString::getPrimitive(const Core::String & languageName, const size_t & id)
+	PrimitiveSaveable<Core::String>& TranslationString::getPrimitive(const Core::String & languageName, const Core::uuid & id)
 	{
 		return stringList.request(languageName, id);
 	}

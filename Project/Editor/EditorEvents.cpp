@@ -27,9 +27,21 @@ Core::String Editor::toString(array<wchar_t>^ arr)
 	return Engine::GetModule<Core::StringConverter>().toUtf8(w);
 }
 
+
 System::String^ Editor::toString(const Core::String & str)
 {
 	return gcnew System::String(Engine::GetModule<Core::StringConverter>().toUtf16(str).c_str());
+}
+
+Core::uuid Editor::to_uuid(System::Guid ^ guid)
+{
+	return Core::uuid(toString(guid->ToString()));
+}
+
+System::Guid ^ Editor::to_uuid(const Core::uuid & uuid)
+{
+	return System::Guid::Parse(toString(uuid.to_string()));
+	// TODO: insert return statement here
 }
 
 EditorResources::Utils::ModDependencyList ^ Editor::Events::loadDependenciesInternal(Core::String mod)
@@ -91,7 +103,7 @@ void Editor::Events::OnEditorZoneSelected(Object^ , EditorEvents::OnObjectSelect
 	{
 		WorldManagerAddon& addon = Engine::GetModule<WorldManagerAddon>();
 
-		addon.EditorLoadZone(toString(args->ModOrigin), args->ID);
+		addon.EditorLoadZone(toString(args->ModOrigin), Core::uuid(toString(args->ID.ToString())));
 
 		while (addon.myWorldManager.isLoading())
 		{
@@ -114,7 +126,7 @@ void Editor::Events::OnGlobalVaraibleCreated(Object ^ , EditorEvents::ObjectEven
 		{
 			PrimitiveSaveable<int> var(System::Convert::ToInt32(((EditorResources::Dto::VariableDto^)args->Value)->Value), toString(args->Value->Name));
 			var.fromMod = toString(args->Value->Origin);
-			var.ID = args->Value->ID;
+			var.ID = to_uuid(args->Value->ID);
 			am.getIntRequestor().add(var);
 			Engine::GetModule<Globals>().longGlobals.insert({ toString(args->Value->Name), var.value });
 		}
@@ -122,7 +134,7 @@ void Editor::Events::OnGlobalVaraibleCreated(Object ^ , EditorEvents::ObjectEven
 		{
 			PrimitiveSaveable<double> var(System::Convert::ToDouble(((EditorResources::Dto::VariableDto^)args->Value)->Value), toString(args->Value->Name));
 			var.fromMod = toString(args->Value->Origin);
-			var.ID = args->Value->ID;
+			var.ID = to_uuid(args->Value->ID);
 			am.getDoubleRequestor().add(var);
 			Engine::GetModule<Globals>().doubleGlobals.insert({ toString(args->Value->Name), var.value});
 		}
@@ -130,7 +142,7 @@ void Editor::Events::OnGlobalVaraibleCreated(Object ^ , EditorEvents::ObjectEven
 		{
 			PrimitiveSaveable<Core::String> var(toString(((EditorResources::Dto::VariableDto^)args->Value)->Value), toString(args->Value->Name));
 			var.fromMod = toString(args->Value->Origin);
-			var.ID = args->Value->ID;
+			var.ID = to_uuid(args->Value->ID);
 			am.getStringRequestor().add(var);
 			Engine::GetModule<Globals>().stringGlobals.insert({ toString(args->Value->Name), var.value });
 		}
@@ -156,18 +168,18 @@ void Editor::Events::OnElementEvent(Object ^ , EditorEvents::ObjectEventArgs ^ a
 		{
 			Element var(toString(args->Value->Name));
 			var.fromMod = toString(args->Value->Origin);
-			var.ID = args->Value->ID;
+			var.ID = to_uuid(args->Value->ID);
 
 			var.damageToUnknownType = ((EditorResources::Dto::ElementTypeDto^)args->Value)->DamageToUnknownType;
 			for each (EditorResources::Dto::ElementTypeDto::ElementAttributeDto^ it in ((EditorResources::Dto::ElementTypeDto^)args->Value)->ElementAttribute)
 			{
-				var.elementAttributes.insert({ { toString(it->Origin), it->ID }, it->Modifier});
+				var.elementAttributes.insert({ { toString(it->Origin), to_uuid(it->ID) }, it->Modifier});
 			}
 			am.getElementRequestor().add(var);
 		}
 		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Edited)
 		{
-			Element& elem = am.getElementRequestor().request(toString(args->Value->Origin), args->Value->ID);
+			Element& elem = am.getElementRequestor().request(toString(args->Value->Origin), to_uuid(args->Value->ID));
 
 			elem.name = toString(args->Value->Name);
 			elem.damageToUnknownType = ((EditorResources::Dto::ElementTypeDto^)args->Value)->DamageToUnknownType;
@@ -175,14 +187,14 @@ void Editor::Events::OnElementEvent(Object ^ , EditorEvents::ObjectEventArgs ^ a
 			elem.elementAttributes.clear();
 			for each (EditorResources::Dto::ElementTypeDto::ElementAttributeDto^ it in ((EditorResources::Dto::ElementTypeDto^)args->Value)->ElementAttribute)
 			{
-				elem.elementAttributes.insert({ { toString(it->Origin), it->ID }, it->Modifier });
+				elem.elementAttributes.insert({ { toString(it->Origin), to_uuid(it->ID) }, it->Modifier });
 			}
 			elem.mode = ObjectSaveMode::EDIT;
 
 		}
 		else if (args->Flag == EditorResources::Utils::EnumCollection::ObjectFlag::Deleted)
 		{
-			Element& elem = am.getElementRequestor().request(toString(args->Value->Origin), args->Value->ID);
+			Element& elem = am.getElementRequestor().request(toString(args->Value->Origin), to_uuid(args->Value->ID));
 			if (elem.mode == ObjectSaveMode::REMOVE)
 				elem.mode = ObjectSaveMode::EDIT;
 			else

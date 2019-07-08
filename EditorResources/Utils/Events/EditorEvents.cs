@@ -82,7 +82,7 @@ namespace EditorResources.Utils
         {
             public ObjectType SelectedType { get; set; }
             public string ModOrigin { get; set; }
-            public uint ID { get; set; }
+            public Guid ID { get; set; }
         }
 
         public class ObjectEventArgs : EventArgs

@@ -28,7 +28,7 @@ namespace Language
 
 	#if defined _EDITOR_ || _UNITTESTS_
 
-		void addString(const Core::String& language, const size_t& ID, const Core::String value, const bool& isPatch);
+		void addString(const Core::String& language, const Core::uuid& ID, const Core::String value, const bool& isPatch);
 
 	#endif
 
@@ -40,7 +40,7 @@ namespace Language
 
 		const Core::String& getFontName() const;
 
-		PrimitiveSaveable<Core::String>& getPrimitive(const Core::String& language, const size_t& id);
+		PrimitiveSaveable<Core::String>& getPrimitive(const Core::String& language, const Core::uuid& id);
 		LanguageHeader& getHeader();
 		void setAvailableLanguageFiles();
 

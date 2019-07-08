@@ -3,6 +3,7 @@
 
 #include <map>
 
+#include <Core/uuid.hpp>
 #include <Core\String.hpp>
 #include <Asset\SpriteRef.hpp>
 
@@ -10,9 +11,9 @@
 
 class SpriterInstanceContainer : public IEngineResource<SpriterInstanceContainer>
 {
-	std::map<std::pair<Core::String, std::pair<Core::String, size_t>>, SpriterEngine::SpriterModel*> modelFiles;
+	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*> modelFiles;
 	// Below does not need to be deleted, as they get deleted when the SpriterModel is deleted.
-	typedef std::pair<Core::String, std::pair<Core::String, size_t>> key;
+	typedef std::pair<Core::String, std::pair<Core::String, Core::uuid>> key;
 
 	SpriteRef* ref = nullptr;
 
@@ -21,7 +22,7 @@ public:
 	SpriterInstanceContainer();
 	~SpriterInstanceContainer();
 
-	SpriterEngine::EntityInstance* requestModel(Core::String _modelFile, Core::String _modelName, std::pair<Core::String, size_t> _textureMapId, SpriteRef*& sprite);
+	SpriterEngine::EntityInstance* requestModel(Core::String _modelFile, Core::String _modelName, std::pair<Core::String, Core::uuid> _textureMapId, SpriteRef*& sprite);
 
 	// Inherited via IEngineResource
 	virtual const ResourceType & getType() override;

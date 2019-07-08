@@ -11,14 +11,15 @@ namespace Tests
 	{
 	public:
 		static Requestor<Language::LanguageRequestor> req;
-
+		static Core::uuid id1, id2;
 		static Language::LanguageRequestor& r()
 		{
-			return req.request(Core::Builtin, 0);
+			return req.request(Core::Builtin, Core::uuid::nil());
 		}
 
 		static void add_objects()
 		{
+			
 			Core::String lang1 = "LangTest.lang";
 			Core::String lang2 = "LangTest2.lang";
 			Core::String lang3 = "LangTest3.lang";
@@ -27,15 +28,20 @@ namespace Tests
 			r().addLanguage(lang2, "Arial.ttf");
 			r().addLanguage(lang3, "Arial.ttf");
 			
-			r().addString("Test1", 1, "TestString", lang1);
-			r().addString("Test2", 1, "TestString2", lang2);
-			r().addString("Test3", 1, "TestString3", lang3);
+			r().addString("Test1", id1, "TestString", lang1);
+			r().addString("Test2", id1, "TestString2", lang2);
+			r().addString("Test3", id1, "TestString3", lang3);
 			
-			r().addString("Test1", 2, "Empty", lang1);
-			r().addString("Test1", 2, "Patched", lang2, true);
-			r().addString("Test2", 2, "Empty2", lang2);
-			r().addString("Test3", 2, "Empty3", lang3);
+			r().addString("Test1", id2, "Empty", lang1);
+			r().addString("Test1", id2, "Patched", lang2, true);
+			r().addString("Test2", id2, "Empty2", lang2);
+			r().addString("Test3", id2, "Empty3", lang3);
 
+		}
+
+		static void remove_old_files()
+		{
+			clearDirectory(Core::langPath);
 		}
 
 		static void setup_file()
@@ -47,7 +53,7 @@ namespace Tests
 			{
 				DatabaseIndex ind;
 				ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-				ind.ID = 0;
+				ind.ID = Core::uuid::nil();
 				ind.type = DatabaseIndex::ObjectTypeEnum::Header;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
@@ -57,7 +63,7 @@ namespace Tests
 				req.save(ind, file, indexAr, mainAr);
 
 				ind.flags = DatabaseIndex::ObjectFlag::EoF;
-				ind.ID = 0;
+				ind.ID = Core::uuid::nil();
 				ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
@@ -76,6 +82,7 @@ namespace Tests
 
 		TEST_CLASS_INITIALIZE(Initialize)
 		{
+			remove_old_files();
 			add_objects(); 
 			setup_file();
 		}
@@ -96,30 +103,32 @@ namespace Tests
 		TEST_METHOD(TestGetStringfirstLanguage)
 		{
 			r().setLanguage("Test1");
-			Core::String& s = r().getString(1);
+			Core::String& s = r().getString(id1);
 			Assert::AreEqual("TestString", s.c_str());
 		}
 	
 		TEST_METHOD(TestGetStringSecondLanguage)
 		{
 			r().setLanguage("Test2");
-			Core::String& s = r().getString(1);
+			Core::String& s = r().getString(id1);
 			Assert::AreEqual("TestString2", s.c_str());
 		}
 		TEST_METHOD(TestGetStringPatchedFirstLanguage)
 		{
 			r().setLanguage("Test1");
-			Core::String& s = r().getString(2);
+			Core::String& s = r().getString(id2);
 			Assert::AreEqual("Patched", s.c_str());
 		}
 		TEST_METHOD(TestGetStringPatchedSecondLanguage)
 		{
 			r().setLanguage("Test2");
-			Core::String& s = r().getString(2);
+			Core::String& s = r().getString(id2);
 			Assert::AreEqual("Empty2", s.c_str());
 		}
 	};
 	Requestor<Language::LanguageRequestor> LanguageRequestorTest::req(DatabaseIndex::ObjectTypeEnum::Language, "");
+	Core::uuid LanguageRequestorTest::id1;
+	Core::uuid LanguageRequestorTest::id2;
 }
 
 #endif

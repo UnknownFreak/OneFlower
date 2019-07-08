@@ -18,7 +18,7 @@ namespace Model
 		std::vector<Core::String> modelNames;
 		Core::String selectedModelName;
 
-		std::pair<Core::String, size_t> textureMapId;
+		std::pair<Core::String, Core::uuid> textureMapId;
 
 		void setModel();
 

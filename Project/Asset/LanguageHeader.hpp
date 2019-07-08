@@ -1,6 +1,7 @@
 #ifndef LanguageHeader_HPP
 #define LanguageHeader_HPP 
 #include <Core/String.hpp>
+#include <Core/uuid.hpp>
 
 #include <cereal/types/vector.hpp>
 #include <cereal/types/map.hpp>
@@ -14,8 +15,8 @@ namespace Language
 	{
 		LanguageHeader() = default;
 		typedef Core::String LanguageName;
-		std::map<LanguageName, std::vector<size_t>> addedIds;
-		std::map<LanguageName, std::vector<size_t>> moddedIds;
+		std::map<LanguageName, std::vector<Core::uuid>> addedIds;
+		std::map<LanguageName, std::vector<Core::uuid>> moddedIds;
 
 		template<class Archive>
 		void load(Archive& ar)

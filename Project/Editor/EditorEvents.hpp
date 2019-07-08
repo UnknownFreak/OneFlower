@@ -48,8 +48,10 @@ namespace Editor
 	Core::String toString(System::String^ str);
 	Core::String toString(array<wchar_t>^ arr);
 	System::String^ toString(const Core::String& str);
+	Core::uuid to_uuid(System::Guid^ guid);
+	System::Guid^ to_uuid(const Core::uuid& uuid);
 
-	inline void onObjectLoaded(const Core::String Origin, const size_t ID, const Core::String Name, const ObjectSaveMode mode, const DatabaseIndex::ObjectTypeEnum type, void* value)
+	inline void onObjectLoaded(const Core::String Origin, const Core::uuid& ID, const Core::String Name, const ObjectSaveMode mode, const DatabaseIndex::ObjectTypeEnum type, void* value)
 	{
 		EditorEvents::ObjectEventArgs^args = gcnew EditorEvents::ObjectEventArgs();
 
@@ -119,10 +121,10 @@ namespace Editor
 			args->Value = gcnew EditorResources::Dto::ElementTypeDto();
 			((EditorResources::Dto::ElementTypeDto^)args->Value)->Name = toString(((Element*)value)->name);
 			((EditorResources::Dto::ElementTypeDto^)args->Value)->DamageToUnknownType = ((Element*)value)->damageToUnknownType;
-			for (std::pair<const std::pair<Core::String, size_t>, double> it : ((Element*)value)->elementAttributes)
+			for (std::pair<const std::pair<Core::String, Core::uuid>, double> it : ((Element*)value)->elementAttributes)
 			{
 				EditorResources::Dto::ElementTypeDto::ElementAttributeDto^ attr = gcnew EditorResources::Dto::ElementTypeDto::ElementAttributeDto();
-				attr->ID = it.first.second;
+				attr->ID = System::Guid::Parse(toString(it.first.second.to_string()));
 				attr->Origin = toString(it.first.first);
 				attr->Modifier = it.second;
 				((EditorResources::Dto::ElementTypeDto^)args->Value)->ElementAttribute->Add(attr);
@@ -138,7 +140,7 @@ namespace Editor
 			break;
 		}
 		args->Value->Origin = toString(Origin);
-		args->Value->ID = ID;
+		args->Value->ID = System::Guid::Parse(toString(ID.to_string()));
 		args->Value->Name = toString(Name);
 
 		EditorEvents::OnObjectEvent(args);

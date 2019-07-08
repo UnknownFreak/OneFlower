@@ -247,7 +247,7 @@ namespace Asset
 
 	Language::LanguageRequestor & AssetManager::getLanguage()
 	{
-		return lang.request(Core::Builtin, 0);
+		return lang.request(Core::Builtin, Core::uuid::nil());
 	}
 
 	ModLoader & AssetManager::getModLoader()
@@ -271,7 +271,7 @@ namespace Asset
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-			ind.ID = 0;
+			ind.ID = Core::uuid::nil();
 			ind.type = DatabaseIndex::ObjectTypeEnum::Header;
 			ind.modFile = modhdr.name;
 			ind.row = file.tellp();
@@ -289,7 +289,7 @@ namespace Asset
 			elementRequestor.save(ind, file, indexAr, mainAr);
 			lang.save(ind, file, indexAr, mainAr);
 
-			ind.ID = 0xFFFFFFFF;
+			ind.ID = Core::uuid::nil();
 			ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 			ind.row = file.tellp();
 			ind.flags = DatabaseIndex::ObjectFlag::EoF;
@@ -346,7 +346,7 @@ namespace Asset
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-			ind.ID = 0;
+			ind.ID = Core::uuid::nil();
 			ind.type = DatabaseIndex::ObjectTypeEnum::Header;
 			ind.modFile = "notUsed";
 			ind.row = file.tellp();
@@ -354,7 +354,7 @@ namespace Asset
 			mainAr(langHeader);
 			langHeader.stringList.save(ind, file, indexAr, mainAr);
 
-			ind.ID = 0xFFFFFFFF;
+			ind.ID = Core::uuid::nil();
 			ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
 			ind.row = file.tellp();
 			ind.flags = DatabaseIndex::ObjectFlag::EoF;

@@ -28,9 +28,9 @@ namespace Language
 		std::vector<FileName> allLanguageFiles;
 		std::vector<LanguageName> languageNames;
 
-		std::map<std::tuple<LanguageName, size_t>, FileName> mappedLanguageIds;
+		std::map<std::tuple<LanguageName, Core::uuid>, FileName> mappedLanguageIds;
 
-		std::map<size_t, Core::String> requestedStrings;
+		std::map<Core::uuid, Core::String> requestedStrings;
 
 #if defined _EDITOR_ || _UNITTESTS_
 	public:
@@ -39,13 +39,13 @@ namespace Language
 	private:
 
 		void resolvePatchedLanguages();
-		void resolvePatchedLanguages(const std::map<Core::String, std::vector<size_t>>& ref, const Core::String& fileName);
+		void resolvePatchedLanguages(const std::map<Core::String, std::vector<Core::uuid>>& ref, const Core::String& fileName);
 
 #if defined _EDITOR_ || _UNITTESTS_
 	public:
 		void addLanguage(const FileName & language, const Core::String& fontName);
 
-		void addString(const LanguageName& language, const size_t& id, const Core::String& value, const FileName& languageFile, const bool& isPatch=false);
+		void addString(const LanguageName& language, const Core::uuid& id, const Core::String& value, const FileName& languageFile, const bool& isPatch=false);
 	private:
 #endif
 		void reloadStrings();
@@ -64,7 +64,7 @@ namespace Language
 
 		std::vector<Core::String>& getLanguages();
 
-		Core::String& getString(const size_t& id);
+		Core::String& getString(const Core::uuid& id);
 		
 		const sf::Font& getCurrentFont() const;
 

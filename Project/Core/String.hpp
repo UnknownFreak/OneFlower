@@ -6,16 +6,25 @@
 
 #include "EngineModule\IEngineModule.hpp"
 
+
+
 namespace Core
 {
+
 	typedef std::string String;
 
-	const String dataPath = "Data//";
-	const String fontPath = dataPath + "Font//";
-	const String langPath = dataPath + "Lang//";
-	const String texturePath = dataPath + "Textures//";
-	const String soundPath = dataPath + "Sound//";
-	const String modelPath = dataPath + "Model//";
+#ifdef _WIN32
+	const String SEP = "\\";
+#else
+	const String SEP = "/";
+#endif
+
+	const String dataPath = "Data" + SEP;
+	const String fontPath = dataPath + "Font" + SEP;
+	const String langPath = dataPath + "Lang" + SEP;
+	const String texturePath = dataPath + "Textures" + SEP;
+	const String soundPath = dataPath + "Sound" + SEP;
+	const String modelPath = dataPath + "Model" + SEP;
 
 	const String Builtin = "BUILTIN";
 
@@ -37,8 +46,6 @@ namespace Core
 		Core::String toUtf8(const std::wstring& wstr);
 		std::wstring toUtf16(const Core::String& str);
 	};
-
-	//typedef std::basic_string<char32_t> WString;
 
 	template<class T>
 	inline typename std::enable_if<std::is_same<Core::String, T>::value, Core::String>::type

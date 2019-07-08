@@ -74,7 +74,6 @@ namespace EditorResources.UserControls
             if (e.Flag == ObjectFlag.Added && e.Type == ObjectType.Zone && e.Value.Name != string.Empty)
             {
                 e.Value.Origin = loadedMod;
-                e.Value.ID = GetId(e.Type);
                 zoneItems.Add(new ZoneItem(e.Value as ZoneDto, ObjectFlag.Added));
             }
         }
@@ -145,22 +144,6 @@ namespace EditorResources.UserControls
             v.SetEditFields(lastSelected.Value, lastSelected.Name);
             v.Show();
         }
-
-        private uint GetId(ObjectType type)
-        {
-            uint lastId = 0;
-            try
-            {
-                lastId = zoneItems.Where(x => x.Origin == loadedMod).Select(x => x.Id).Max();
-            }
-            catch (ArgumentNullException)
-            { }
-            catch (InvalidOperationException)
-            { }
-            finally
-            { lastId++; }
-            return lastId;
-        }
     }
 
     internal class ZoneItem : PropertyNotifier
@@ -177,7 +160,7 @@ namespace EditorResources.UserControls
                 NotifyPropertyChanged();
             }
         }
-        public uint Id
+        public Guid Id
         {
             get => _value.ID;
             private set

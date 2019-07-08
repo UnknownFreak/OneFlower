@@ -15,7 +15,7 @@ WorldManagerAddon::WorldManagerAddon() : myWorldManager(Engine::GetModule<WorldM
 {
 }
 
-void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t id_to_add, float x, float y)
+void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, Core::uuid id_to_add, float x, float y)
 {
 
 	Database::Zone myDbZone;
@@ -31,7 +31,7 @@ void WorldManagerAddon::EditorAddNewZone(Core::String zoneName, Core::String bac
 	Engine::GetModule<Asset::AssetManager>().getZoneRequester().add(myDbZone);
 
 }
-void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, size_t id_to_edit, float x, float y)
+void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String background, Core::String loadingScreen, Core::String loadingScreenMessage, Core::uuid id_to_edit, float x, float y)
 {
 	Database::Zone& refDbZone = Engine::GetModule<Asset::AssetManager>().getZoneRequester().request(myWorldManager.lastLoadedZone.first, myWorldManager.lastLoadedZone.second);
 
@@ -64,7 +64,7 @@ void WorldManagerAddon::EditorEditZone(Core::String zoneName, Core::String backg
 //	}
 //}
 //
-void WorldManagerAddon::EditorLoadZone(Core::String name, unsigned int id_to_load)
+void WorldManagerAddon::EditorLoadZone(Core::String name, Core::uuid id_to_load)
 {
 	myWorldManager.loadZone(name, id_to_load);
 
@@ -117,7 +117,7 @@ Core::String WorldManagerAddon::EditorSave()
 		Engine::GetModule<OneLogger>().Info("Cannot save mod. No mod loaded!", __FILE__, __LINE__);
 	return Engine::GetModule<Asset::AssetManager>().openedMod;
 }
-std::pair<std::pair<Core::String, size_t>, Database::Prefab> WorldManagerAddon::EditorAddGameObjectToZone(Asset::Prefab& prefab, GameObject* go)
+std::pair<std::pair<Core::String, Core::uuid>, Database::Prefab> WorldManagerAddon::EditorAddGameObjectToZone(Asset::Prefab& prefab, GameObject* go)
 {
 	Core::String openedMod = Engine::GetModule<Asset::AssetManager>().openedMod;
 	Database::Prefab dbzps;
@@ -126,7 +126,7 @@ std::pair<std::pair<Core::String, size_t>, Database::Prefab> WorldManagerAddon::
 	dbzps.pos = go->GetComponent<Component::Transform>()->position;
 	dbzps.oldPos = dbzps.pos;
 	dbzps.name = prefab.name;
-	size_t ValidID = EditorGetValidID();
+	Core::uuid ValidID;
 
 	if (currentDBZone)
 	{
@@ -134,18 +134,12 @@ std::pair<std::pair<Core::String, size_t>, Database::Prefab> WorldManagerAddon::
 		//currentDBZone->prefabs.insert(std::pair<std::pair<Core::String, size_t>, Database::Prefab>(std::pair<Core::String, size_t>(openedMod, ValidID), dbzps));
 
 		//Engine::GetModule<WorldManager>().getCurrentZone().objects.push_back(std::pair<std::pair<Core::String, size_t>, GameObject*>(std::pair<Core::String, size_t>(openedMod, ValidID), go));
-		Engine::GetModule<WorldManager>().listOfZoneObjects.insert(std::pair<std::pair<Core::String, size_t>, GameObject*>(std::pair<Core::String, size_t>(openedMod, ValidID), go));
+		Engine::GetModule<WorldManager>().listOfZoneObjects.insert(std::pair<std::pair<Core::String, Core::uuid>, GameObject*>(std::pair<Core::String, Core::uuid>(openedMod, ValidID), go));
 	}
 
-	return std::pair<std::pair<Core::String, size_t>, Database::Prefab>(std::pair<Core::String, size_t>(openedMod, ValidID), dbzps);
+	return std::pair<std::pair<Core::String, Core::uuid>, Database::Prefab>(std::pair<Core::String, Core::uuid>(openedMod, ValidID), dbzps);
 }
-size_t WorldManagerAddon::EditorGetValidID()
-{
-	WorldManager& world = Engine::GetModule<WorldManager>();
-	while (world.listOfZoneObjects.find(std::pair<Core::String, size_t>(Engine::GetModule<Asset::AssetManager>().openedMod, ID)) != world.listOfZoneObjects.end())
-		ID++;
-	return ID;
-}
+
 void WorldManagerAddon::EditorSetBackground(std::string name)
 {
 	myWorldManager.currentZone->setBackground(name);
@@ -305,7 +299,7 @@ bool WorldManagerAddon::loadMods(Core::String myMod, bool internal_error)
 	return internal_error;
 }
 
-std::vector<Core::String> WorldManagerAddon::getExtraZoneInfo(Core::String modName, size_t id)
+std::vector<Core::String> WorldManagerAddon::getExtraZoneInfo(Core::String modName, Core::uuid id)
 {
 	std::vector<Core::String> t;
 	Database::Zone& dbzone = Engine::GetModule<Asset::AssetManager>().getZoneRequester().request(modName, id);
@@ -323,8 +317,8 @@ std::vector<Database::Zone> WorldManagerAddon::getAllDbZones()
 {
 	Requestor<Database::Zone>& requester = Engine::GetModule<Asset::AssetManager>().getZoneRequester();
 	std::vector<Database::Zone> dbzones;
-	std::vector<std::pair<Core::String, size_t>> dbzoneIds = requester.listAllCurrentLoadedObjects();
-	for each(const std::pair<Core::String, size_t>& p in dbzoneIds)
+	std::vector<std::pair<Core::String, Core::uuid>> dbzoneIds = requester.listAllCurrentLoadedObjects();
+	for each(const std::pair<Core::String, Core::uuid>& p in dbzoneIds)
 	{
 		Database::Zone& dbref = requester.request(p.first, p.second);
 		dbzones.push_back(dbref);
