@@ -246,14 +246,14 @@ private:
 		}
 	}
 
-	const bool load(const Core::String & name, const Core::uuid uuid)
+	const bool load(const Core::String & name, const Core::uuid& uuid)
 	{
 		td_key key(name, uuid);
 		requestedMap.insert(std::make_pair(key, loadInternal(name, uuid)));
 		return true;
 	}
 
-	T loadInternal(const Core::String & name, const Core::uuid uuid)
+	T loadInternal(const Core::String & name, const Core::uuid& uuid)
 	{
 		T t = defaultValue();
 		if (name == "EMPTY" && uuid.is_nil())
