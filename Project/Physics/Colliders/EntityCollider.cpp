@@ -195,7 +195,6 @@ void Collider::Simulate(const float& fElapsedTime)
 		return;
 
 	transform->pos.z -= (9.f * transform->jumpSpeed) * fElapsedTime;
-	// TODO: fix access violation on game load
 	if (floor)
 	{
 		if (position->z < floor->position->z)
