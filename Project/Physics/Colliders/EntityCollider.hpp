@@ -10,9 +10,9 @@ class Collider : public Interfaces::ICollider, public Component::IBase<Collider>
 {
 	 Component::Transform* transform;
 	 float fallTime = 0.f;
-	 ICollider* floor = nullptr;
 
 public:
+	ICollider* floor = nullptr;
 	Core::Vector2f hitboxOffset;
 
 	Collider();
