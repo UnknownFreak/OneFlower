@@ -112,7 +112,7 @@ void GameObject::Simulate(const float& fElapsedTime, const bool& bUpdate)
 	{
 		component.second->Simulate(fElapsedTime);
 		if (bUpdate)
-		 component.second->Update();
+			component.second->Update();
 	}
 }
 
