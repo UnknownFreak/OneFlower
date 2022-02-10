@@ -154,6 +154,7 @@ namespace File
 			mainAr(loadingScreen);
 			mainAr(point);
 		}
+		point.z += 0.1f;
 		file.close();
 		setPlayerInfo();
 	}
