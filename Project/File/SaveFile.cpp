@@ -140,6 +140,7 @@ namespace File
 
 	void SaveFile::load(const Core::String& fileName)
 	{
+		player.getComponent<Collider>()->floor = nullptr;
 		std::ifstream file(Core::savePath + fileName, std::ios::binary | std::ios::in);
 		{
 			cereal::BinaryInputArchive mainAr(file);
