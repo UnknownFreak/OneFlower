@@ -27,3 +27,10 @@ Build/Win32/UnitTests/OneFlower.lib
 Build/Win32/UnitTests/OneFlower.ilk
 Build/Win32/UnitTests/OneFlower.exp
 Build/Win32/UnitTests/OneFlower.ilk
+x64/Release/OneFlower.exp
+x64/Release/OneFlower.iobj
+x64/Release/OneFlower.ipdb
+x64/Release/OneFlower.lib
+x64/Release/OneFlower.vcxproj.FileListAbsolute.txt
+Data/Default
+Data/Default.index

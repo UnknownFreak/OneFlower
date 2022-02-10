@@ -1,6 +1,9 @@
 #ifndef UUID_HPP
 #define UUID_HPP
+#pragma warning(push)
+#pragma warning(disable: 4189)
 #include <uuid.h>
+#pragma warning(pop)
 #include <Helpers/String.hpp>
 #include <vector>
 
