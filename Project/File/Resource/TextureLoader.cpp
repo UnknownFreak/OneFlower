@@ -10,7 +10,8 @@ bool TextureLoader::loadTexture(const Core::String& name)
 	Core::String path = "Data/" + name;
 	if (!std::filesystem::exists(path))
 	{
-		Engine::GetModule <EngineModule::Logger::OneLogger>().Error("Unable to load texture [" + name + "]", __FILE__, __LINE__);
+		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("TextureLoader");
+		logger.Error("Unable to load texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		return false;
 	}
 #ifdef _DEBUG
@@ -38,7 +39,8 @@ sf::Texture TextureLoader::loadTexture_internal(const Core::String& name)
 	delete[] data;
 	if (! ok)
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Failed to load texture: " + name, __FILE__, __LINE__);
+		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("TextureLoader");
+		logger.Info("Failed to load texture: " + name, logger.fileInfo(__FILE__, __LINE__));
 		return sf::Texture();
 	}
 	return tempTexture;
@@ -71,7 +73,8 @@ void TextureLoader::requestRemovalOfTexture(const Core::String& name)
 {
 	if (loadedTextureMap.find(name) != loadedTextureMap.end())
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Unloading texture " + name, __FILE__, __LINE__);
+		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("TextureLoader");
+		logger.Info("Unloading texture " + name, logger.fileInfo(__FILE__, __LINE__));
 		loadedTextureMap.erase(name);
 	}
 }
