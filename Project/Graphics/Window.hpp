@@ -117,7 +117,7 @@ namespace Graphics
 		void setTileMapColor(const int& index, const Core::String& group, const sf::Color& color);
 		void setTileMapTransparencyHitbox(int index, Core::String group, Core::Rect<float> rect, float z);
 		void addRenderable(const int& index, const Core::String& group, const Core::Vector2& pos, const float& z,
-			const ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
+			const File::Mod::ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
 		void clearDrawList();
 
 		void Cull(std::vector<GameObject*>& colliders);

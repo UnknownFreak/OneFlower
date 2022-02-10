@@ -25,8 +25,8 @@ namespace Component
 		void loadEffects();
 
 	public:
-		std::vector<ModFileUUIDHelper> effectsIds;
-		ModFileUUIDHelper elementId;
+		std::vector<File::Mod::ModFileUUIDHelper> effectsIds;
+		File::Mod::ModFileUUIDHelper elementId;
 
 		bool attachToOwner;
 		// Buff/debuffs that get applied (includes DoTs)

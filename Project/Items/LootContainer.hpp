@@ -14,7 +14,7 @@ namespace Component
 		bool looted;
 		bool isStaticContainer;
 
-		std::unordered_map<ModFileUUIDHelper, size_t> lootDrops;
+		std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> lootDrops;
 
 
 		virtual LootContainer* copy() const override

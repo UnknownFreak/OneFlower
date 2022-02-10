@@ -25,16 +25,16 @@ namespace Combat
 	{
 		// prefab that applies damage and buff/debuffs to the enemy (yes you can buff enemies)
 	public:
-		ModFileUUIDHelper prefabId;
-		ModFileUUIDHelper skillEffectPrefabId;
+		File::Mod::ModFileUUIDHelper prefabId;
+		File::Mod::ModFileUUIDHelper skillEffectPrefabId;
 		// effects that apply to the player
 		std::vector<Combat::Effect> skillExecutionEffects;
-		std::vector<ModFileUUIDHelper> skillExecutionEffectIds;
+		std::vector<File::Mod::ModFileUUIDHelper> skillExecutionEffectIds;
 
 		Element getElement();
 		void preloadEffect();
 
-		std::unordered_map<Enums::CombatSkill, ModFileUUIDHelper> chainSkillsIds;
+		std::unordered_map<Enums::CombatSkill, File::Mod::ModFileUUIDHelper> chainSkillsIds;
 		std::unordered_map<Enums::CombatSkill, Skill> chainSkills;
 
 		void getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec);
@@ -43,7 +43,7 @@ namespace Combat
 
 		Skill();
 
-		ModFileUUIDHelper elementId;
+		File::Mod::ModFileUUIDHelper elementId;
 		Combat::Element element;
 		Core::TickTimer coolDown;
 		double cost;

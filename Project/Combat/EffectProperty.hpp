@@ -76,10 +76,10 @@ namespace Combat
 	{
 
 
-		ModFileUUIDHelper vfxPrefab;
+		File::Mod::ModFileUUIDHelper vfxPrefab;
 
 		VisualEffect() {}
-		VisualEffect(const ModFileUUIDHelper& vfx) : vfxPrefab(vfx) {}
+		VisualEffect(const File::Mod::ModFileUUIDHelper& vfx) : vfxPrefab(vfx) {}
 		VisualEffect(const VisualEffect& copy): vfxPrefab(copy.vfxPrefab) {}
 
 		template<class Ar>

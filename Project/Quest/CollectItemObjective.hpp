@@ -9,7 +9,7 @@ namespace Questing
 	{
 	public:
 		size_t itemCount;
-		ModFileUUIDHelper itemId;
+		File::Mod::ModFileUUIDHelper itemId;
 
 		template<class Archive>
 		void save(Archive& ar) const

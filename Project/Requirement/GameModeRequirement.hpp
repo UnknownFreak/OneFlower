@@ -10,7 +10,7 @@ namespace Requirement
 	{
 	public:
 
-		ModFileUUIDHelper gameModeId;
+		File::Mod::ModFileUUIDHelper gameModeId;
 
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

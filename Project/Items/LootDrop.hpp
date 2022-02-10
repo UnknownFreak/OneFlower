@@ -11,10 +11,10 @@ namespace Component
 
 	public:
 		bool looted;
-		ModFileUUIDHelper lootTableId;
+		File::Mod::ModFileUUIDHelper lootTableId;
 		Items::LootTable table;
 
-		std::unordered_map<ModFileUUIDHelper, size_t> lootDrops;
+		std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> lootDrops;
 
 
 		void loot(GameObject* object);

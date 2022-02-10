@@ -16,7 +16,7 @@ namespace Trigger
 
 	public:
 
-		ModFileUUIDHelper prefabId;
+		File::Mod::ModFileUUIDHelper prefabId;
 		Core::Vector3f position;
 
 		template<class Archive>

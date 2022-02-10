@@ -18,8 +18,8 @@ namespace Tests
 
 			static File::SaveFile* saveFile;
 			static Requirement::QuestStateRequirment r;
-			static ModFileUUIDHelper existing;
-			static ModFileUUIDHelper notExisting;
+			static File::Mod::ModFileUUIDHelper existing;
+			static File::Mod::ModFileUUIDHelper notExisting;
 
 			TEST_CLASS_INITIALIZE(Initialize)
 			{
@@ -95,8 +95,8 @@ namespace Tests
 		};
 		File::SaveFile* QuestStateRequirementTest::saveFile = nullptr;
 		Requirement::QuestStateRequirment QuestStateRequirementTest::r;
-		ModFileUUIDHelper QuestStateRequirementTest::existing;
-		ModFileUUIDHelper QuestStateRequirementTest::notExisting;
+		File::Mod::ModFileUUIDHelper QuestStateRequirementTest::existing;
+		File::Mod::ModFileUUIDHelper QuestStateRequirementTest::notExisting;
 
 	}
 }

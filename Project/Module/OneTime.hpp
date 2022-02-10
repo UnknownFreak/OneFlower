@@ -28,10 +28,10 @@ namespace EngineModule
 		bool time(const Core::String&, const double& msec);
 		void remove(const Core::String& name);
 
-		void addTicKTimer(const ModFileUUIDHelper& timerId, const Core::TickTimer& timer);
-		bool exists(const ModFileUUIDHelper& timerId) const;
-		Core::TickTimer& getTickTimer(const ModFileUUIDHelper& timerId);
-		void removeTimer(const ModFileUUIDHelper& timerId);
+		void addTicKTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimer& timer);
+		bool exists(const File::Mod::ModFileUUIDHelper& timerId) const;
+		Core::TickTimer& getTickTimer(const File::Mod::ModFileUUIDHelper& timerId);
+		void removeTimer(const File::Mod::ModFileUUIDHelper& timerId);
 
 		const sf::Time update_ms = sf::seconds(1.f / 60.f);
 
@@ -51,7 +51,7 @@ namespace EngineModule
 
 		//LOW: Put this in Definer to avoid include of Map:String?
 		std::unordered_map<Core::String, sf::Clock> timers;
-		std::unordered_map<ModFileUUIDHelper, Core::TickTimer> tickTimers;
+		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimer> tickTimers;
 
 	public:
 		// Inherited via ISimulatable

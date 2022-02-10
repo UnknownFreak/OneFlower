@@ -4,9 +4,9 @@
 
 Core::uuid Interfaces::Trait<Items::LootTable>::typeId = Core::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");
 
-std::unordered_map<ModFileUUIDHelper, size_t> Items::LootTable::generateDrops() const
+std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> Items::LootTable::generateDrops() const
 {
-    std::unordered_map<ModFileUUIDHelper, size_t> loot;
+    std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> loot;
     //auto& gen = Engine::GetModule<EngineModule::RandomGen>();
     //for (auto& x : lootTable)
     //{

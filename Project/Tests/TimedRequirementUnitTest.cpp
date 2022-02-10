@@ -17,7 +17,7 @@ namespace Tests
 
 			static File::SaveFile* saveFile;
 			static Requirement::TimedRequirement r;
-			static ModFileUUIDHelper existing;
+			static File::Mod::ModFileUUIDHelper existing;
 
 			TEST_CLASS_INITIALIZE(Initialize)
 			{
@@ -103,7 +103,7 @@ namespace Tests
 		};
 		File::SaveFile* TimedRequirementTest::saveFile = nullptr;
 		Requirement::TimedRequirement TimedRequirementTest::r;
-		ModFileUUIDHelper TimedRequirementTest::existing;
+		File::Mod::ModFileUUIDHelper TimedRequirementTest::existing;
 
 	}
 }

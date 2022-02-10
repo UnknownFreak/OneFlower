@@ -14,15 +14,15 @@ class LoadingStateMachine
 	Graphics::RenderWindow& gfx;
 	Enums::LoadingState loadstate;
 
-	ModFileUUIDHelper worldToLoad;
-	ModFileUUIDHelper loadingScreenToLoad;
+	File::Mod::ModFileUUIDHelper worldToLoad;
+	File::Mod::ModFileUUIDHelper loadingScreenToLoad;
 
 	WorldInstance instanceToLoad;
 
 public:
 
-	const ModFileUUIDHelper& getCurrentWorld() const;
-	const ModFileUUIDHelper& getCurrentLoadingScreen() const;
+	const File::Mod::ModFileUUIDHelper& getCurrentWorld() const;
+	const File::Mod::ModFileUUIDHelper& getCurrentLoadingScreen() const;
 
 	std::vector<ObjectInfo> buffer;
 	
@@ -30,7 +30,7 @@ public:
 
 	LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLoading);
 
-	void beginLoad(const ModFileUUIDHelper& world, const ModFileUUIDHelper& loadingScreen, const Core::Vector3f& position);
+	void beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& position);
 	void load();
 	
 };

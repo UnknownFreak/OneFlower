@@ -34,8 +34,8 @@ namespace Questing
 		Core::uuid questDescription;
 		Core::uuid questLine;
 
-		ModFileUUIDHelper nextQuest;
-		ModFileUUIDHelper nextQuestOnFailure;
+		File::Mod::ModFileUUIDHelper nextQuest;
+		File::Mod::ModFileUUIDHelper nextQuestOnFailure;
 
 		Core::String translatedQuestName;
 		Core::String translatedQuestDescription;

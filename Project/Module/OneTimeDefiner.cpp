@@ -52,21 +52,21 @@ namespace EngineModule
 	{
 		timers.erase(name);
 	}
-	void Time::addTicKTimer(const ModFileUUIDHelper& timerId, const Core::TickTimer& tickTimer)
+	void Time::addTicKTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimer& tickTimer)
 	{
 		mtx.lock();
 		tickTimers[timerId] = tickTimer;
 		mtx.unlock();
 	}
-	bool Time::exists(const ModFileUUIDHelper& timerId) const
+	bool Time::exists(const File::Mod::ModFileUUIDHelper& timerId) const
 	{
 		return tickTimers.find(timerId) != tickTimers.end();
 	}
-	Core::TickTimer& Time::getTickTimer(const ModFileUUIDHelper& timerId)
+	Core::TickTimer& Time::getTickTimer(const File::Mod::ModFileUUIDHelper& timerId)
 	{
 		return tickTimers.at(timerId);
 	}
-	void Time::removeTimer(const ModFileUUIDHelper& timerId)
+	void Time::removeTimer(const File::Mod::ModFileUUIDHelper& timerId)
 	{
 		mtx.lock();
 		tickTimers.erase(timerId);

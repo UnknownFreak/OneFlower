@@ -42,7 +42,7 @@ struct TransparencyInfo
 struct TileTemplate
 {
 	Core::Vector3f pos;
-	ModFileUUIDHelper atlas;
+	File::Mod::ModFileUUIDHelper atlas;
 	Core::String textureCoors;
 	Enums::TileTypes type;
 	bool hasShadow;
@@ -88,7 +88,7 @@ struct TileChunk : public Interfaces::IRequestable
 	TransparencyInfo chunkTransparency;
 	int layer;
 	Core::String group;
-	ModFileUUIDHelper atlas;
+	File::Mod::ModFileUUIDHelper atlas;
 
 	template<class Archive>
 	void save(Archive& ar) const

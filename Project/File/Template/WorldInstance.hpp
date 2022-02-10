@@ -13,7 +13,7 @@
 
 struct ObjectInfo
 {
-	ModFileUUIDHelper prefab;
+	File::Mod::ModFileUUIDHelper prefab;
 	Core::uuid objectId;
 	Core::Vector3f location;
 	template<class Archive>
@@ -33,7 +33,7 @@ struct ObjectInfo
 
 struct ObjectChunk : public Interfaces::IRequestable
 {
-	std::map<ModFileUUIDHelper, std::vector<ObjectInfo>> objectLocations;
+	std::map<File::Mod::ModFileUUIDHelper, std::vector<ObjectInfo>> objectLocations;
 
 	// Inherited via IRequestable
 	virtual Interfaces::TypeInfo getTrait() const override;
@@ -57,11 +57,11 @@ struct ObjectChunk : public Interfaces::IRequestable
 struct WorldInstance : public Interfaces::IRequestable
 {
 	Core::String name;
-	std::vector<ModFileUUIDHelper> tileAtlases;
-	std::vector<ModFileUUIDHelper> prefabs;
-	std::vector<ModFileUUIDHelper> tileInfo;
-	std::vector<ModFileUUIDHelper> colliderInfo;
-	std::vector<ModFileUUIDHelper> objectChunk;
+	std::vector<File::Mod::ModFileUUIDHelper> tileAtlases;
+	std::vector<File::Mod::ModFileUUIDHelper> prefabs;
+	std::vector<File::Mod::ModFileUUIDHelper> tileInfo;
+	std::vector<File::Mod::ModFileUUIDHelper> colliderInfo;
+	std::vector<File::Mod::ModFileUUIDHelper> objectChunk;
 
 	size_t getLoadingCount() const;
 

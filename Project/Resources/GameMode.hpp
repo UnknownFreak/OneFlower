@@ -19,8 +19,8 @@ namespace Resource
 
 		Core::String gameModeName;
 
-		ModFileUUIDHelper startingZone;
-		ModFileUUIDHelper loadingScreen;
+		File::Mod::ModFileUUIDHelper startingZone;
+		File::Mod::ModFileUUIDHelper loadingScreen;
 		Core::Vector3f startingPosition;
 
 		GameModeModifier playerModifiers;

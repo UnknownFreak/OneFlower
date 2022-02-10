@@ -42,37 +42,37 @@ namespace File
 		lootedContainers.insert(uuid);
 	}
 
-	void SaveFile::setQuestState(const ModFileUUIDHelper& questId, const Questing::QuestState& state)
+	void SaveFile::setQuestState(const File::Mod::ModFileUUIDHelper& questId, const Questing::QuestState& state)
 	{
 		questState[questId] = state;
 	}
 
-	bool SaveFile::isQuestStored(const ModFileUUIDHelper& questId) const
+	bool SaveFile::isQuestStored(const File::Mod::ModFileUUIDHelper& questId) const
 	{
 		return questState.find(questId) != questState.end();
 	}
 
-	Questing::QuestState& SaveFile::getQuestState(const ModFileUUIDHelper& quest)
+	Questing::QuestState& SaveFile::getQuestState(const File::Mod::ModFileUUIDHelper& quest)
 	{
 		return questState.at(quest);
 	}
 
-	void SaveFile::setTickTimer(const ModFileUUIDHelper& timerId, const Core::TickTimerInfo& timer)
+	void SaveFile::setTickTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimerInfo& timer)
 	{
 		tickTimers[timerId] = timer;
 	}
 
-	bool SaveFile::isTimerSaved(const ModFileUUIDHelper& timerId) const
+	bool SaveFile::isTimerSaved(const File::Mod::ModFileUUIDHelper& timerId) const
 	{
 		return tickTimers.find(timerId) != tickTimers.end();
 	}
 
-	Core::TickTimerInfo& SaveFile::getTickTimer(const ModFileUUIDHelper& timerId)
+	Core::TickTimerInfo& SaveFile::getTickTimer(const File::Mod::ModFileUUIDHelper& timerId)
 	{
 		return tickTimers.at(timerId);
 	}
 
-	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const Core::uuid& customDifficultyId, const ModFileUUIDHelper& gameModeId)
+	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const Core::uuid& customDifficultyId, const File::Mod::ModFileUUIDHelper& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;
@@ -108,7 +108,7 @@ namespace File
 		return customDiffId;
 	}
 
-	ModFileUUIDHelper SaveFile::getGameModeId() const
+	File::Mod::ModFileUUIDHelper SaveFile::getGameModeId() const
 	{
 		return gameMode.getModfile();
 	}

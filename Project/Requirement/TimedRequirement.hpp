@@ -14,7 +14,7 @@ namespace Requirement
 
 		~TimedRequirement();
 		bool fullfilledIftimeRanOut;
-		ModFileUUIDHelper timerId;
+		File::Mod::ModFileUUIDHelper timerId;
 		Core::TickTimerInfo timerInfo;
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

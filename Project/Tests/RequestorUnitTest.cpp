@@ -96,21 +96,21 @@ namespace Tests
 
 		TEST_METHOD(TestRequestorPointerSameType)
 		{
-			MockedSaveable* ref = req_ptr.request<MockedSaveable>(ModFileUUIDHelper("test", id1));
+			MockedSaveable* ref = req_ptr.request<MockedSaveable>(File::Mod::ModFileUUIDHelper("test", id1));
 			Assert::IsNotNull(ref);
 			Assert::AreEqual("A_PTR", ref->test_string.c_str());
 			Assert::AreEqual(id1.to_wstring(), ref->ID.to_wstring());
 		}
 		TEST_METHOD(TestRequestorPointerSameType2)
 		{
-			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(ModFileUUIDHelper("test", id2));
+			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(File::Mod::ModFileUUIDHelper("test", id2));
 			Assert::IsNotNull(ref);
 			Assert::AreEqual("B_PTR", ref->test_string.c_str());
 			Assert::AreEqual(id2.to_wstring(), ref->ID.to_wstring());
 		}
 		TEST_METHOD(TestRequestorPointerSameType3)
 		{
-			MockedSaveable3* ref = req_ptr.request<MockedSaveable3>(ModFileUUIDHelper("test", id5));
+			MockedSaveable3* ref = req_ptr.request<MockedSaveable3>(File::Mod::ModFileUUIDHelper("test", id5));
 			Assert::IsNotNull(ref);
 			Assert::AreEqual("FG_PTR", ref->test_string.c_str());
 			Assert::AreEqual("HI_PTR", ref->another_test_string.c_str());
@@ -119,7 +119,7 @@ namespace Tests
 
 		TEST_METHOD(TestRequestorPointerHigherBase)
 		{
-			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(ModFileUUIDHelper("test", id5));
+			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(File::Mod::ModFileUUIDHelper("test", id5));
 			Assert::IsNotNull(ref);
 			Assert::AreEqual("FG_PTR", ref->test_string.c_str());
 			Assert::AreEqual("HI_PTR", ((MockedSaveable3*)ref)->another_test_string.c_str());

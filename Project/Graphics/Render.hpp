@@ -21,7 +21,7 @@ class Render : public Renderable, public Component::IBase<Render>
 
 	Core::String textureName;
 
-	ModFileUUIDHelper modelId;
+	File::Mod::ModFileUUIDHelper modelId;
 
 	void loadAndSetModel();
 

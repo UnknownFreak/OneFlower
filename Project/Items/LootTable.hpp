@@ -12,7 +12,7 @@ struct DropConstraint
 struct ItemDrop
 {
 	int minDropCount, maxDropCount;
-	ModFileUUIDHelper itemId;
+	File::Mod::ModFileUUIDHelper itemId;
 	bool instantPickup;
 
 	bool operator==(const ItemDrop& other) const
@@ -28,7 +28,7 @@ namespace std
 	{
 		std::size_t operator()(ItemDrop const& drop) const
 		{
-			return std::hash<ModFileUUIDHelper>()(drop.itemId);
+			return std::hash<File::Mod::ModFileUUIDHelper>()(drop.itemId);
 		}
 	};
 }
@@ -43,7 +43,7 @@ namespace Items
 
 		std::unordered_map<ItemDrop, DropConstraint> lootTable;
 
-		std::unordered_map<ModFileUUIDHelper, size_t> generateDrops() const;
+		std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> generateDrops() const;
 
 		// Inherited via IRequestable
 		virtual Interfaces::TypeInfo getTrait() const override;

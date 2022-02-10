@@ -15,7 +15,7 @@
 class Dialog : public Component::IBase<Dialog>
 {
 public:
-	ModFileUUIDHelper dialogTreeuuid;
+	File::Mod::ModFileUUIDHelper dialogTreeuuid;
 
 	DialogTree dialogTree;
 

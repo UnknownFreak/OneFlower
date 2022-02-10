@@ -4,12 +4,12 @@
 #include <Module/OneTime.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
 
-const ModFileUUIDHelper& LoadingStateMachine::getCurrentWorld() const
+const File::Mod::ModFileUUIDHelper& LoadingStateMachine::getCurrentWorld() const
 {
 	return worldToLoad;
 }
 
-const ModFileUUIDHelper& LoadingStateMachine::getCurrentLoadingScreen() const
+const File::Mod::ModFileUUIDHelper& LoadingStateMachine::getCurrentLoadingScreen() const
 {
 	return loadingScreenToLoad;
 }
@@ -20,7 +20,7 @@ LoadingStateMachine::LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLo
 }
 
 
-void LoadingStateMachine::beginLoad(const ModFileUUIDHelper& world, const ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition)
+void LoadingStateMachine::beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition)
 {
 	loadstate = Enums::LoadingState::PREPARE_LOADINGSCREEN;
 	worldToLoad = world;

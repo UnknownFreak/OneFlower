@@ -382,7 +382,7 @@ namespace Graphics
 	}
 
 	void RenderWindow::addRenderable(const int& index, const Core::String& group, const Core::Vector2& pos, const float& z,
-		const ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& _type, bool addShadow)
+		const File::Mod::ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& _type, bool addShadow)
 	{
 		tileMap[index][group].AddTile(pos, z, textureAtlas, textureCoords, _type, addShadow);
 	}
@@ -473,7 +473,7 @@ void RenderWindow::centerCameraOnObjectPos(const Core::Vector3f& position)
 }
 
 void RenderWindow::addRenderable(const int& index, const Core::String& group, const Core::Vector2& pos, const float& z,
-	const ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& _type, bool addShadow)
+	const File::Mod::ModFileUUIDHelper& textureAtlas, const Core::String& textureCoords, const Enums::TileTypes& _type, bool addShadow)
 {
 	index, group, pos, z, textureAtlas, textureCoords, _type, addShadow;
 }

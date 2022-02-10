@@ -25,14 +25,14 @@ namespace Combat
 		Element(const Element& copy);
 
 		double damageToUnknownType = 0.0;
-		std::map<ModFileUUIDHelper, double> elementAttributes;
+		std::map<File::Mod::ModFileUUIDHelper, double> elementAttributes;
 
 		sf::Color elementUiColor;
 
 		double getElementModifier() const;
-		double getElementModifier(const ModFileUUIDHelper& element) const;
+		double getElementModifier(const File::Mod::ModFileUUIDHelper& element) const;
 
-		Core::String getElementAttributeName(const ModFileUUIDHelper& element) const;
+		Core::String getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const;
 
 		bool operator==(const Element& other) const;
 

@@ -32,7 +32,7 @@ struct TileImpl : Renderable
 	TileImpl() : Renderable({0,0,0,0}) {};
 	sf::Vertex mVertex[4];
 	Enums::TileTypes type = Enums::TileTypes::Void;
-	ModFileUUIDHelper theAtlas;
+	File::Mod::ModFileUUIDHelper theAtlas;
 	float z = 0.f;
 
 	virtual void draw(sf::RenderTarget& , sf::RenderStates ) const override
@@ -65,19 +65,19 @@ class TileMap : public Renderable
 	sf::VertexArray floorShadows;
 	sf::VertexArray shadows;
 	sf::VertexArray hitboxes;
-	std::map<ModFileUUIDHelper, std::shared_ptr<sf::Texture>> textures;
+	std::map<File::Mod::ModFileUUIDHelper, std::shared_ptr<sf::Texture>> textures;
 
 	std::vector<std::unique_ptr<TileCollider>> colliders;
 
-	std::map<ModFileUUIDHelper, sf::VertexArray> culledFloor;
-	std::map<ModFileUUIDHelper, sf::VertexArray> culledWalls;
+	std::map<File::Mod::ModFileUUIDHelper, sf::VertexArray> culledFloor;
+	std::map<File::Mod::ModFileUUIDHelper, sf::VertexArray> culledWalls;
 	sf::VertexArray culledFloorShadows;
 	sf::VertexArray culledShadows;
 	sf::VertexArray culledHitboxes;
 
 	Core::Rect<float> previousRect;
 
-	void setTransparency(std::map<ModFileUUIDHelper, sf::VertexArray>& buf, const sf::Color& color)
+	void setTransparency(std::map<File::Mod::ModFileUUIDHelper, sf::VertexArray>& buf, const sf::Color& color)
 	{
 		for (auto& x : buf)
 		{
@@ -88,7 +88,7 @@ class TileMap : public Renderable
 		}
 	}
 
-	void SetColor(std::map<ModFileUUIDHelper, sf::VertexArray>& buf, const sf::Color& color)
+	void SetColor(std::map<File::Mod::ModFileUUIDHelper, sf::VertexArray>& buf, const sf::Color& color)
 	{
 		for (auto& x : buf)
 		{
@@ -99,7 +99,7 @@ class TileMap : public Renderable
 		}
 	}
 
-	void addTexture(const ModFileUUIDHelper& helper)
+	void addTexture(const File::Mod::ModFileUUIDHelper& helper)
 	{
 		if (textures.find(helper) == textures.end())
 		{
@@ -108,7 +108,7 @@ class TileMap : public Renderable
 		}
 	}
 
-	void addLayer(const ModFileUUIDHelper& helper)
+	void addLayer(const File::Mod::ModFileUUIDHelper& helper)
 	{
 		if (culledWalls.find(helper) == culledWalls.end())
 		{
@@ -166,7 +166,7 @@ public:
 		drawBox.y += z * Globals::Z_OFFSET;
 	}
 
-	void AddTile(const Core::Vector2f& pos, const float& z, const ModFileUUIDHelper& textureAtlas, const Core::String& atlasPos,
+	void AddTile(const Core::Vector2f& pos, const float& z, const File::Mod::ModFileUUIDHelper& textureAtlas, const Core::String& atlasPos,
 		const Enums::TileTypes& type, bool addShadow = false)
 	{
 		allTiles++;

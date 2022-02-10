@@ -26,7 +26,7 @@ namespace Combat
 		Effect();
 		Core::String effectIcon = "EffectIconFrame.png";
 		Element effectElement;
-		ModFileUUIDHelper effectElememtId;
+		File::Mod::ModFileUUIDHelper effectElememtId;
 		Enums::EffectType effectType;
 		std::shared_ptr<EffectProperty> theEffect;
 

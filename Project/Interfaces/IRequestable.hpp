@@ -74,9 +74,9 @@ namespace Interfaces
 			return "";
 		}
 
-		inline virtual ModFileUUIDHelper getModfile() const
+		inline virtual File::Mod::ModFileUUIDHelper getModfile() const
 		{
-			return ModFileUUIDHelper(fromMod, ID);
+			return File::Mod::ModFileUUIDHelper(fromMod, ID);
 		}
 
 		inline virtual TypeInfo getTrait() const = 0;

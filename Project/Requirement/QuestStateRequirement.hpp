@@ -10,7 +10,7 @@ namespace Requirement
 	class QuestStateRequirment : public Requirement
 	{
 	public:
-		ModFileUUIDHelper questId;
+		File::Mod::ModFileUUIDHelper questId;
 		Enums::QuestState questState;
 		bool checkObjective = false;
 		size_t objectiveId = 0;

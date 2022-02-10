@@ -23,7 +23,7 @@ namespace Combat
 		return 1.0;
 	}
 
-	double Element::getElementModifier(const ModFileUUIDHelper& element) const
+	double Element::getElementModifier(const File::Mod::ModFileUUIDHelper& element) const
 	{
 		if (elementAttributes.find(element) != elementAttributes.end())
 			return elementAttributes.at(element);
@@ -35,7 +35,7 @@ namespace Combat
 		}
 	}
 	
-	Core::String Element::getElementAttributeName(const ModFileUUIDHelper& element) const
+	Core::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
 	{
 		return Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Element>(element).name;
 	}

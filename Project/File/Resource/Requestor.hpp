@@ -516,13 +516,13 @@ public:
 		return listofall;
 	}
 	
-	inline T requestUniqueInstance(const ModFileUUIDHelper& modFile)
+	inline T requestUniqueInstance(const File::Mod::ModFileUUIDHelper& modFile)
 	{
 		return loadInternal(modFile.name, modFile.uuid);
 	}
 
 	template<class Ty>
-	inline Ty* request(const ModFileUUIDHelper& modfile)
+	inline Ty* request(const File::Mod::ModFileUUIDHelper& modfile)
 	{
 		T& requested = request(modfile);
 		if (requested.objectType == IRequestable::Traits<Ty>::type)
@@ -530,7 +530,7 @@ public:
 		return nullptr;
 	}
 
-	inline T& request(const ModFileUUIDHelper& modfile)
+	inline T& request(const File::Mod::ModFileUUIDHelper& modfile)
 	{
 		return request(modfile.name, modfile.uuid);
 	}

@@ -3,58 +3,62 @@
 #include <Helpers/String.hpp>
 #include <Helpers/uuid.hpp>
 
-struct ModFileUUIDHelper
+namespace File::Mod
 {
 
-	ModFileUUIDHelper() : ModFileUUIDHelper("", Core::uuid::nil()) {};
-	ModFileUUIDHelper(const Core::String& name, const Core::uuid& uuid) : name(name), uuid(uuid) {};
-	ModFileUUIDHelper(const ModFileUUIDHelper& copy) : ModFileUUIDHelper(copy.name, copy.uuid) {};
-	ModFileUUIDHelper& operator=(const ModFileUUIDHelper& right) 
+	struct ModFileUUIDHelper
 	{
-		name = right.name;
-		uuid = right.uuid;
-		return *this;
+
+		ModFileUUIDHelper() : File::Mod::ModFileUUIDHelper("", Core::uuid::nil()) {};
+		ModFileUUIDHelper(const Core::String& name, const Core::uuid& uuid) : name(name), uuid(uuid) {};
+		ModFileUUIDHelper(const ModFileUUIDHelper& copy) : File::Mod::ModFileUUIDHelper(copy.name, copy.uuid) {};
+		ModFileUUIDHelper& operator=(const ModFileUUIDHelper& right)
+		{
+			name = right.name;
+			uuid = right.uuid;
+			return *this;
+		};
+
+		bool operator<(const ModFileUUIDHelper& other) const
+		{
+			return uuid < other.uuid;
+		}
+
+		bool operator==(const ModFileUUIDHelper& other) const
+		{
+			return uuid == other.uuid && name == other.name;
+		}
+
+		Core::String name;
+		Core::uuid uuid;
+
+		template <class Archive>
+		void save(Archive& saver) const
+		{
+			saver(name);
+			saver(uuid);
+		}
+
+		template <class Archive>
+		void load(Archive& loader)
+		{
+			loader(name);
+			loader(uuid);
+		}
+
+		Core::String operator()() const
+		{
+			return "{" + name + "," + uuid.to_string() + "}";
+		}
 	};
-
-	bool operator<(const ModFileUUIDHelper& other) const
-	{
-		return uuid < other.uuid;
-	}
-
-	bool operator==(const ModFileUUIDHelper& other) const
-	{
-		return uuid == other.uuid && name == other.name;
-	}
-
-	Core::String name;
-	Core::uuid uuid;
-	
-	template <class Archive>
-	void save(Archive& saver) const
-	{
-		saver(name);
-		saver(uuid);
-	}
-
-	template <class Archive>
-	void load(Archive& loader)
-	{
-		loader(name);
-		loader(uuid);
-	}
-
-	Core::String operator()() const
-	{
-		return "{" + name + "," + uuid.to_string() + "}";
-	}
 };
 
 namespace std
 {
 	template <>
-	struct hash<ModFileUUIDHelper>
+	struct hash<File::Mod::ModFileUUIDHelper>
 	{
-		std::size_t operator()(ModFileUUIDHelper const& helper) const
+		std::size_t operator()(File::Mod::ModFileUUIDHelper const& helper) const
 		{
 			return std::hash<Core::String>()(helper());
 		}

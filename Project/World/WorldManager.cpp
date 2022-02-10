@@ -40,7 +40,7 @@
 
 #include <Module/Globals.hpp>
 
-ModFileUUIDHelper dialogTest;
+File::Mod::ModFileUUIDHelper dialogTest;
 Core::uuid testObjectId;
 
 void WorldManager::doDayCycle(const float& fElapsedTime)
@@ -218,7 +218,7 @@ void WorldManager::createSimpleWorld()
 	//auto& atlasMgr = theManager.getTileAtlas();
 	//atlasMgr.add(ta);
 	theManager.requestor.add(t.release());
-	ModFileUUIDHelper atlas = ta.getModfile();
+	File::Mod::ModFileUUIDHelper atlas = ta.getModfile();
 
 	//theManager.test.add(t.get());
 
@@ -566,7 +566,7 @@ void WorldManager::load(const Core::String& fileName)
 	// TODO: start timers from questing module if needed
 }
 
-void WorldManager::loadWorldInstance(const ModFileUUIDHelper& world, const ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition)
+void WorldManager::loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition)
 {
 	isLoading = true;
 	EngineModule::Time& time = Engine::GetModule<EngineModule::Time>();

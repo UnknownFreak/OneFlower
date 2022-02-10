@@ -29,15 +29,15 @@ namespace File
 		Core::uuid customDiffId = Core::uuid::nil();
 		std::unordered_set<Core::uuid> lootedContainers;
 		std::unordered_set<Core::uuid> triggerState;
-		std::unordered_map<ModFileUUIDHelper, Questing::QuestState> questState;
-		std::unordered_map<ModFileUUIDHelper, Core::TickTimerInfo> tickTimers;
-		std::unordered_map<Core::uuid, std::vector<ModFileUUIDHelper>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
+		std::unordered_map<File::Mod::ModFileUUIDHelper, Questing::QuestState> questState;
+		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimerInfo> tickTimers;
+		std::unordered_map<Core::uuid, std::vector<File::Mod::ModFileUUIDHelper>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
 
 		void setPlayerInfo();
 
 	public:
-		ModFileUUIDHelper currentZone;
-		ModFileUUIDHelper loadingScreen;
+		File::Mod::ModFileUUIDHelper currentZone;
+		File::Mod::ModFileUUIDHelper loadingScreen;
 		Core::Vector3f point;
 		GameObject player;
 
@@ -47,19 +47,19 @@ namespace File
 		bool isLooted(const Core::uuid& uuid) const;
 		void setLooted(const Core::uuid& uuid);
 
-		void setQuestState(const ModFileUUIDHelper& quest, const Questing::QuestState& state);
-		bool isQuestStored(const ModFileUUIDHelper& questId) const;
-		Questing::QuestState& getQuestState(const ModFileUUIDHelper& quest);
+		void setQuestState(const File::Mod::ModFileUUIDHelper& quest, const Questing::QuestState& state);
+		bool isQuestStored(const File::Mod::ModFileUUIDHelper& questId) const;
+		Questing::QuestState& getQuestState(const File::Mod::ModFileUUIDHelper& quest);
 
-		void setTickTimer(const ModFileUUIDHelper& timerId, const Core::TickTimerInfo& timer);
-		bool isTimerSaved(const ModFileUUIDHelper& timerId) const;
-		Core::TickTimerInfo& getTickTimer(const ModFileUUIDHelper& timerId);
+		void setTickTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimerInfo& timer);
+		bool isTimerSaved(const File::Mod::ModFileUUIDHelper& timerId) const;
+		Core::TickTimerInfo& getTickTimer(const File::Mod::ModFileUUIDHelper& timerId);
 
-		void newGame(const Enums::DifficultyLevel& diff, const Core::uuid& customDiffId, const ModFileUUIDHelper& gameMode);
+		void newGame(const Enums::DifficultyLevel& diff, const Core::uuid& customDiffId, const File::Mod::ModFileUUIDHelper& gameMode);
 		Enums::DifficultyLevel getDifficulty() const;
 		Core::uuid getCustomDiffId() const;
 
-		ModFileUUIDHelper getGameModeId() const;
+		File::Mod::ModFileUUIDHelper getGameModeId() const;
 		const Resource::GameMode& getGameMode() const;
 
 		void save(const Core::String& fileName);

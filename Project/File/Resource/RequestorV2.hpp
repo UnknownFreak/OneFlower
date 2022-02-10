@@ -382,19 +382,19 @@ public:
 	}
 	
 	template<class T>
-	inline T* requestUniqueInstancePtr(const ModFileUUIDHelper& modFile)
+	inline T* requestUniqueInstancePtr(const File::Mod::ModFileUUIDHelper& modFile)
 	{
 		return (T*) loadInternal<T>(modFile.name, modFile.uuid).release();
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> requestShared(const ModFileUUIDHelper& modFile)
+	inline std::shared_ptr<T> requestShared(const File::Mod::ModFileUUIDHelper& modFile)
 	{
 		return std::shared_ptr<T>((T*)loadInternal<T>(modFile.name, modFile.uuid).release());
 	}
 
 	template<class T>
-	inline T requestUniqueInstance(const ModFileUUIDHelper& modFile)
+	inline T requestUniqueInstance(const File::Mod::ModFileUUIDHelper& modFile)
 	{
 		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		T* t = request<T>(modFile);
@@ -405,7 +405,7 @@ public:
 	}
 
 	template<class Ty>
-	inline Ty* request(const ModFileUUIDHelper& modfile)
+	inline Ty* request(const File::Mod::ModFileUUIDHelper& modfile)
 	{
 		Interfaces::IRequestable* requested = request<Ty>(modfile.name, modfile.uuid);
 		if (requested && requested->getTrait().hasTypeId(Interfaces::Trait<Ty>::typeId))

@@ -48,8 +48,8 @@ public:
 	std::map<Core::String, std::vector<double>> doubleList;
 
 
-	ModFileUUIDHelper newGameWorldInstance;
-	ModFileUUIDHelper newGameWorldInstanceLoadingScreen;
+	File::Mod::ModFileUUIDHelper newGameWorldInstance;
+	File::Mod::ModFileUUIDHelper newGameWorldInstanceLoadingScreen;
 	Core::Vector3f newGamePoint;
 
 	static sf::Font font;
