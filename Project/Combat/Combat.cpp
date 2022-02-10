@@ -34,7 +34,7 @@ void Component::CombatComponent::execute(const Enums::CombatSkill& skill)
 {
 	if (skills.find(skill) == skills.end())
 	{
-		Engine::GetModule < EngineModule::Logger::OneLogger>().Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
+		Engine::GetModule < EngineModule::Logger::OneLogger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
 		return;
 	}
 	skills[skill].onSkillExecution(attachedOn);

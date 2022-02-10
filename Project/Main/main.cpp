@@ -99,7 +99,6 @@ int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR
 
 	GameEntry g;
 	const int return_value = g.Run();
-	//Engine::GetModule<EngineModule::Logger::OneLogger>().DisableEditorLogging();
 	Engine::Dispose();
 #ifdef _EDITOR_
 	exit(return_value);

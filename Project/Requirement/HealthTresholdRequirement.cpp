@@ -23,7 +23,8 @@ namespace Requirement
 			}
 			else
 			{
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Checking requirement on an object that does not have any stats! - It will always return false.");
+				auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requirement::HealthTresholdRequirement");
+				logger.Warning("Checking requirement on an object that does not have any stats! - It will always return false.");
 			}
 		}
 		return false;

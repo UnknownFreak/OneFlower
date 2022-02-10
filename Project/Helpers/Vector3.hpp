@@ -38,7 +38,7 @@ struct Vector3t
 		}
 		else
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Normalize failed, vector length is 0.", __FILE__, __LINE__);
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Vector3t").Warning("Normalize failed, vector length is 0.", __FILE__, __LINE__);
 			return false;
 		}
 	}

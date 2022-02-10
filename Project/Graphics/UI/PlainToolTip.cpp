@@ -14,7 +14,11 @@ Graphics::UI::PlainToolTip::PlainToolTip(): buf(sf::PrimitiveType::Quads, sf::Ve
 	drawToolTip = false;
 	buf.create(4);
 	if (!font.loadFromFile(Core::SystemFonts + "arial.ttf"))
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Failed to load font for whatever reason...");
+	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::UI::PlainToolTip");
+		logger.Error("Failed to load font for whatever reason...");
+
+	}
 	toolTipText.setFont(font);
 	toolTipText.setCharacterSize(12);
 	toolTipFrame[0].color = sf::Color(0, 0, 0, 180);

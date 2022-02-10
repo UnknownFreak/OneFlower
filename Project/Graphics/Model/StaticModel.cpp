@@ -33,12 +33,14 @@ StaticModel & StaticModel::operator=(const StaticModel & right)
 
 void StaticModel::setAnimation(Core::String _animationName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Trying to set animation <" + _animationName + "> on a static model.", __FILE__, __LINE__);
+	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("StaticModel"); 
+	logger.Warning("Trying to set animation <" + _animationName + "> on a static model.", logger.fileInfo(__FILE__, __LINE__));
 }
 
 void StaticModel::setTextureMap(Core::String _modOrigin, Core::String _textureMapName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Trying to set texture map <" + _modOrigin +", "+ _textureMapName+ "> on a static model.", __FILE__, __LINE__);
+	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("StaticModel");
+	logger.Warning("Trying to set texture map <" + _modOrigin +", "+ _textureMapName+ "> on a static model.", logger.fileInfo(__FILE__, __LINE__));
 }
 
 void StaticModel::updateFrame(const float& )

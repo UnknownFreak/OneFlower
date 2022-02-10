@@ -45,10 +45,10 @@ public:
 		if (myVersion >= OneVersion(1, 0, 1))
 		{
 			ar(modVersion);
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Mod [" + name + "] version is: " + modVersion.str());
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModHeader").Info("Mod [" + name + "] version is: " + modVersion.str());
 		}
 		else
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModHeader").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
 		ar(mysize);
 		for (size_t i = 0; i < mysize; i++)
 		{
