@@ -103,13 +103,13 @@ void Component::Damage::onCollision(Interfaces::ICollider* the_collidee)
 				}
 				else
 				{
-					Engine::GetModule<EngineModule::Logger::OneLogger>().Error("An attack was performed without an equipped main weapon.");
+					Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
 				}
 			}
 			else
 			{
 				double theDamage = 15.0 * stats->getLevel();
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Attacking entity does not have any inventory and will use default 15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
+				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use default 15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
 				stats->doDamage(theDamage , damageCoef, damageElement, owner);
 			}
 

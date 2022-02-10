@@ -113,13 +113,10 @@ namespace Physics
 	}
 	void PhysicsEngine::addCollider(Interfaces::ICollider* collider)
 	{
-		/*
-		std::lock_guard lock(mtx);
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug("addCollider ", std::this_thread::get_id());
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug(Core::toHex((size_t)collider));
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug(
 		collider->getBox().x, ", ", collider->getBox().y, ", ", collider->getBox().w, ", ", collider->getBox().h);
-		//*/
 		qt.add(BoxInfo{size_t(collider), collider, collider->getBox(), collider->colliderType });
 	}
 	void PhysicsEngine::updateCollider(Interfaces::ICollider* collider, Interfaces::ICollider* newCollider, const Core::FloatRect& oldBox)
@@ -142,13 +139,11 @@ namespace Physics
 	}
 	void PhysicsEngine::removeCollider(Interfaces::ICollider* collider)
 	{
-		/*
 		std::lock_guard lock(mtx);
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug("removeCollider", std::this_thread::get_id());
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug(Core::toHex((size_t)collider));
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine").Debug(
 			collider->getBox().x, ", ", collider->getBox().y, ", ", collider->getBox().w, ", ", collider->getBox().h);
-		//*/
 		qt.remove({size_t(collider), nullptr, collider->getBox(), Enums::ColliderType::Void });
 	}
 }

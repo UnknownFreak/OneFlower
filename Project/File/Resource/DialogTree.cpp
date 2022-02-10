@@ -95,7 +95,7 @@ Enums::DialogStatus DialogTree::doSelection(const Enums::InteractionOption& opti
 	{
 		if (!incrementSelection())
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Error("DialogTree: " + this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 			return Enums::DialogStatus::Close;
 		}
 	}
@@ -103,7 +103,7 @@ Enums::DialogStatus DialogTree::doSelection(const Enums::InteractionOption& opti
 	{
 		if (!decrementSelection())
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Error("DialogTree: " + this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 			return Enums::DialogStatus::Close;
 		}
 	}

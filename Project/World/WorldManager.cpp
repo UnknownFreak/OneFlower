@@ -543,7 +543,7 @@ void WorldManager::setCurrentTime(const float& currentTime)
 
 void WorldManager::newGame()
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Info("New Game");
+	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("New Game");
 	saveFile.newGame(Enums::DifficultyLevel::Normal, Core::uuid::nil(), {});
 	auto& glob = Engine::GetModule<Globals>();
 	loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
@@ -551,7 +551,7 @@ void WorldManager::newGame()
 
 void WorldManager::save(const Core::String& fileName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Save Game");
+	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
 	saveFile.currentZone = loadHandler.getCurrentWorld();
 	saveFile.loadingScreen = loadHandler.getCurrentLoadingScreen();
 	saveFile.save(fileName);
@@ -559,7 +559,7 @@ void WorldManager::save(const Core::String& fileName)
 
 void WorldManager::load(const Core::String& fileName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Load Game");
+	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
 	isLoading = true;
 	saveFile.load(fileName);
 	loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point);

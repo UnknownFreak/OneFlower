@@ -65,7 +65,6 @@ private:
 	template <class In>
 	inline typename std::enable_if < !std::is_base_of<Interfaces::IPatch, In>::value>::type patch(In&, In&) const
 	{
-		//Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Requestor <" + getObjectTypeAsString(Interfaces::Trait<In>::type) + "> is not patchable, skipping patching when loading!");
 	}
 
 	bool saveIfMode(const std::unique_ptr<Interfaces::IRequestable>& ) const
@@ -114,7 +113,10 @@ private:
 		if (name == "EMPTY" && uuid.is_nil() || name == Core::Builtin && uuid.is_nil())
 			return t;
 		if (!requestFromDatabase<T>(t, name, uuid))
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Requestor was unable to request [" + name + ", " + uuid.to_string() + "] from database.", __FILE__, __LINE__);
+		{
+			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			logger.Error("Requestor was unable to request [" + name + ", " + uuid.to_string() + "] from database.", logger.fileInfo(__FILE__, __LINE__));
+		}
 		return t;
 	}
 
@@ -125,6 +127,7 @@ private:
 		bool init = true;
 		bool first_loaded = false;
 		bool patching = false;
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		for(std::pair<std::string, size_t> var : getLoadOrder())
 		{
 			bool eof = false;
@@ -143,9 +146,9 @@ private:
 
 						if (ind.typeId == Interfaces::Trait<T>::typeId && init && ind.ID != uuid)
 						{
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading first found object to initialize polymorphic type. file.tellp " + std::to_string(ind.row));
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading first found object to initialize polymorphic type. objectType " + getObjectTypeAsString(ind.type));
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading first found object to initialize polymorphic type. objectTypeId " + ind.typeId.to_string());
+							logger.Debug("Loading first found object to initialize polymorphic type. file.tellp " + std::to_string(ind.row));
+							logger.Debug("Loading first found object to initialize polymorphic type. objectType " + getObjectTypeAsString(ind.type));
+							logger.Debug("Loading first found object to initialize polymorphic type. objectTypeId " + ind.typeId.to_string());
 							database.seekg(ind.row);
 							loadArchive(_t);
 							_t.reset();
@@ -154,12 +157,12 @@ private:
 						}
 						else if (ind.modFile == modName && ind.ID == uuid)
 						{
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Fine("Loading object: fileidx: " + std::to_string(ind.row));
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object: type: " + getObjectTypeAsString(ind.type));
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object: derived typename: " + Core::String(typeid(T).name()));
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object: derived typehash: " + std::to_string(typeid(T).hash_code()));
+							logger.Fine("Loading object: fileidx: " + std::to_string(ind.row));
+							logger.Debug("Loading object: type: " + getObjectTypeAsString(ind.type));
+							logger.Debug("Loading object: derived typename: " + Core::String(typeid(T).name()));
+							logger.Debug("Loading object: derived typehash: " + std::to_string(typeid(T).hash_code()));
 
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object: before file.seekg(ind.row): file.tellg: " + std::to_string(database.tellg()));
+							logger.Debug("Loading object: before file.seekg(ind.row): file.tellg: " + std::to_string(database.tellg()));
 							database.seekg(ind.row);
 							
 							if (std::is_base_of<Interfaces::IPatch, T>::value)
@@ -177,15 +180,15 @@ private:
 									loadArchive(_t);
 									const auto& base = typeid(_t.get());
 									const auto& derived = typeid(*_t.get());
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Finished loading object: base typename: " + Core::String(base.name()));
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Finished loading object: base typehash: " + std::to_string(base.hash_code()));
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Finished loading object: derived typename: " + Core::String(derived.name()));
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Finished loading object: derived typehash: " + std::to_string(derived.hash_code()));
+									logger.Debug("Finished loading object: base typename: " + Core::String(base.name()));
+									logger.Debug("Finished loading object: base typehash: " + std::to_string(base.hash_code()));
+									logger.Debug("Finished loading object: derived typename: " + Core::String(derived.name()));
+									logger.Debug("Finished loading object: derived typehash: " + std::to_string(derived.hash_code()));
 								}
 								catch (std::exception x)
 								{
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
-									Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Loading object failed: " + Core::String(x.what()));
+									logger.Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
+									logger.Error("Loading object failed: " + Core::String(x.what()));
 								}
 							}
 							eof = true;
@@ -194,13 +197,13 @@ private:
 						else if (ind.flags == Enums::ObjectFlag::EoF)
 							eof = true;
 						else
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loading object ID didnt match the requssted ID: " + ind.ID.to_string() + " != " + uuid.to_string());
+							logger.Debug("Loading object ID didnt match the requssted ID: " + ind.ID.to_string() + " != " + uuid.to_string());
 
 					}
 				}
 			}
 			else
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Requestor was unable to open archive [" + modName + "]!", __FILE__, __LINE__);
+				logger.Error("Requestor was unable to open archive [" + modName + "]!", logger.fileInfo(__FILE__, __LINE__));
 			if (found && !patching)
 				return found;
 		}
@@ -258,13 +261,13 @@ public:
 		const Core::String name = ptr->fromMod;
 		const Core::uuid uuid = ptr->ID;
 		td_key key(name, uuid);
-
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		if (requestedMap.find(key) != requestedMap.end())
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Requestor<" + getObjectTypeAsString(ptr->objectType) + "> - Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", __FILE__, __LINE__);
+			logger.Warning(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Requestor<" + getObjectTypeAsString(ptr->objectType) + "> - Object from mod " + name + " and ID " + uuid.to_string() + " added.", __FILE__, __LINE__);
+		logger.Info(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " added.", logger.fileInfo(__FILE__, __LINE__));
 		requestedMap[key] = std::unique_ptr<Interfaces::IRequestable>(ptr);
 		return true;
 	}
@@ -273,8 +276,9 @@ public:
 
 	inline void clear()
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Unloading object using clear from Requestor it is still possible it has uses,"
-			"this is dangerous and can lead to undefined behaviour if any references or pointers are used.", __FILE__, __LINE__);
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+		logger.Warning("Unloading object using clear from Requestor it is still possible it has uses,"
+			"this is dangerous and can lead to undefined behaviour if any references or pointers are used.", logger.fileInfo(__FILE__, __LINE__));
 		requestedMap.clear();
 	}
 
@@ -283,6 +287,7 @@ public:
 	inline void editorLoadAll(void(*onObjectLoaded)(const Core::String, const Core::uuid&, const Core::String, const ObjectSaveMode,
 		const DatabaseIndex::ObjectTypeEnum, void*))
 	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		clear();
 		for(std::pair<std::string, size_t> var : getLoadOrder())
 		{
@@ -320,13 +325,13 @@ public:
 						else if (ind.flags == Enums::ObjectType::EoF)
 						{
 							eof = true;
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Requestor<" + getObjectTypeAsString() + "> Loaded from ["+ var.first +"]" + std::to_string(requestedMap.size()) + " objects", __FILE__, __LINE__);
+							logger.Info("Requestor<" + getObjectTypeAsString() + "> Loaded from ["+ var.first +"]" + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
 						}
 					}
 				}
 			}
 			else
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Requestor<" + getObjectTypeAsString() + "> Unable to open index file [" + var.first + ".index]!", __FILE__, __LINE__);
+				logger.Error("Requestor<" + getObjectTypeAsString() + "> Unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
 			index.close();
 			database.close();
 		}
@@ -347,6 +352,7 @@ public:
 
 	inline std::vector<std::pair<Core::String, Core::uuid>> listAllObjectKeys(const Enums::ObjectType& objectType) const
 	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		std::vector<std::pair<Core::String, Core::uuid>> listofall;
 		for(std::pair<std::string, size_t> var :getLoadOrder())
 		{
@@ -370,7 +376,7 @@ public:
 				}
 			}
 			else
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Requestor was unable to open index file [" + var.first + ".index]!", __FILE__, __LINE__);
+				logger.Error("Requestor was unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
 		}
 		return listofall;
 	}
@@ -390,10 +396,11 @@ public:
 	template<class T>
 	inline T requestUniqueInstance(const ModFileUUIDHelper& modFile)
 	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		T* t = request<T>(modFile);
 		if(t)
 			return T(*t);
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Unable to request object from data file: [" + modFile.name + ", " + modFile.uuid.to_string() + "], returning default", __FILE__, __LINE__);
+		logger.Warning("Unable to request object from data file: [" + modFile.name + ", " + modFile.uuid.to_string() + "], returning default", logger.fileInfo(__FILE__, __LINE__));
 		return T();
 	}
 
@@ -443,6 +450,7 @@ public:
 
 	inline void save(DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
 	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 		td_map::iterator it = requestedMap.begin();
 		td_map::iterator eit = requestedMap.end();
 		for (it; it != eit; it++)
@@ -456,19 +464,19 @@ public:
 	
 			if (saveIfMode(it->second))
 			{
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Saving object: uuid: " + ind.ID.to_string());
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Saving object: fileidx: " + std::to_string(ind.row));
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Saving object: type: " + getObjectTypeAsString(ind.type));
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Saving object: typeId: " + ind.typeId.to_string());
+				logger.Info("Saving object: uuid: " + ind.ID.to_string());
+				logger.Debug("Saving object: fileidx: " + std::to_string(ind.row));
+				logger.Debug("Saving object: type: " + getObjectTypeAsString(ind.type));
+				logger.Debug("Saving object: typeId: " + ind.typeId.to_string());
 				indexAr(ind);
 				try
 				{
 					mainAr(it->second);
-					Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Saving object finished: fileidx: " + std::to_string(file.tellp()));
+					logger.Debug("Saving object finished: fileidx: " + std::to_string(file.tellp()));
 				}
 				catch (std::exception x)
 				{
-					Engine::GetModule<EngineModule::Logger::OneLogger>().Error(x.what());
+					logger.Error(x.what());
 				}
 			}
 		}

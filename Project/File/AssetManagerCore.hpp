@@ -101,11 +101,11 @@ namespace Asset
 			DatabaseIndex ind;
 			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 			std::ifstream database("Data//" + modName, std::ios::binary);
-
+			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Asset::AssetManager");
 			if (!index.is_open())
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Critical("Unable to open mod index file [" + modName + ".index]", __FILE__, __LINE__);
+				logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
 			else if (!database.is_open())
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Critical("Unable to open database file [" + modName + "]", __FILE__, __LINE__);
+				logger.Critical("Unable to open database file [" + modName + "]", logger.fileInfo(__FILE__, __LINE__));
 			else
 			{
 				cereal::BinaryInputArchive ar(index);
@@ -127,7 +127,7 @@ namespace Asset
 					}
 				}
 			}
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Critical("Unable to load mod header for mod [" + modName + "]", __FILE__, __LINE__);
+			logger.Critical("Unable to load mod header for mod [" + modName + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
 	};

@@ -32,7 +32,7 @@ struct Vector2t
 		}
 		else
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Normalize failed, vector length is 0.", __FILE__, __LINE__);
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Vector2t").Warning("Normalize failed, vector length is 0.", __FILE__, __LINE__);
 			return false;
 		}
 	}

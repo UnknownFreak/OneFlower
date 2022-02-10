@@ -65,14 +65,16 @@ SpriteSheetModel::~SpriteSheetModel()
 
 void SpriteSheetModel::setAnimation(Core::String _animationName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Trying to set animation <" + _animationName + "> on a Sprite Sheet Model.", __FILE__, __LINE__);
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Currently Sprite Sheet Model only supports one looping animation.", __FILE__, __LINE__);
+	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("SpriteSheetModel");
+	logger.Warning("Trying to set animation <" + _animationName + "> on a Sprite Sheet Model.", logger.fileInfo(__FILE__, __LINE__));
+	logger.Warning("Currently Sprite Sheet Model only supports one looping animation.", logger.fileInfo(__FILE__, __LINE__));
 }
 
 void SpriteSheetModel::setTextureMap(Core::String modOrigin, Core::String textureMapName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Trying to set texure map <" + modOrigin + ", " + textureMapName + "> on a Sprite Sheet Model.", __FILE__, __LINE__);
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Sprite Sheet Model does not support texture maps.", __FILE__, __LINE__);
+	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("SpriteSheetModel");
+	logger.Warning("Trying to set texure map <" + modOrigin + ", " + textureMapName + "> on a Sprite Sheet Model.", logger.fileInfo(__FILE__, __LINE__));
+	logger.Warning("Sprite Sheet Model does not support texture maps.", logger.fileInfo(__FILE__, __LINE__));
 }
 
 void SpriteSheetModel::updateFrame(const float& update_ms)

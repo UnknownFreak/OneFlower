@@ -25,7 +25,7 @@ Console::Console() : currentText(), lines()
 	{
 		if (!consoleFont.loadFromFile(Core::SystemFonts + "consolas.ttf"))
 		{
-			Engine::GetModule < EngineModule::Logger::OneLogger >().Error("Unable to load font for Console!");
+			Engine::GetModule < EngineModule::Logger::OneLogger >().getLogger("Console").Error("Unable to load font for Console!");
 		}
 	}
 	textLine.setFont(consoleFont);

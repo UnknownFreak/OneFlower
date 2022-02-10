@@ -19,7 +19,8 @@ namespace Graphics::UI
 
 	void UIHandler::addUIContext(const Enums::UIContextNames& contextName, std::unique_ptr<UIContext> context)
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::UI").Debug("Adding UI Context ", context->uiName);
+		auto& logger =Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::UI::UIHandler");
+		logger.Debug("Adding UI Context ", context->uiName);
 		uiContext.emplace(contextName, std::move(context));
 	}
 

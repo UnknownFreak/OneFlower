@@ -305,6 +305,7 @@ namespace Asset
 #pragma warning(disable: 6262)
 	bool AssetManager::loadModOrderFile()
 	{
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Asset::AssetManager");
 		std::ifstream file("Data\\ModLoadOrder.xml");
 		if (file.is_open())
 		{
@@ -312,7 +313,7 @@ namespace Asset
 			ar(modLoader);
 			return true;
 		}
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Critical("Unable to load mod load order file [ModLoadOrder.xml]", __FILE__, __LINE__);
+		logger.Critical("Unable to load mod load order file [ModLoadOrder.xml]", logger.fileInfo(__FILE__, __LINE__));
 		return false;
 	}
 #pragma warning(default: 6262)

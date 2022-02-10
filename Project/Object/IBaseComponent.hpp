@@ -26,13 +26,14 @@ namespace Component
 		}
 
 		Base* copy() const {
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Component: " + getTypeName() + " is missing copy() override, it will always return nullptr");
+			
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing copy() override, it will always return nullptr");
 			return nullptr;
 		}
 
 		std::unique_ptr<Base> ucopy() const
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Component: " + getTypeName() + " is missing ucopy() override, it will always return empty unique_ptr");
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing ucopy() override, it will always return empty unique_ptr");
 			return nullptr;
 		}
 

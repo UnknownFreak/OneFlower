@@ -42,7 +42,8 @@ Core::Vector2f& TileAtlas::get(const Core::String& tileType)
 {
 	if (atlas.find(tileType) != atlas.end())
 		return atlas[tileType];
-	Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Unable to load tileType [" + tileType + "] for atlas [" + name + "]", __FILE__, __LINE__);
+	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("TileAtlas");
+	logger.Error("Unable to load tileType [" + tileType + "] for atlas [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 	return def;
 }
 
