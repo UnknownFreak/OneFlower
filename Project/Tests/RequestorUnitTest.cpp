@@ -1,78 +1,52 @@
 #ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
-#include <Asset\AssetManagerCore.hpp>
-#include <Core/Component/TransformComponent.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include "TestObjects.hpp"
+#include <File/Resource/RegisterRTTI.hpp>
+
+#include <Helpers/Enum/ObjectType.hpp>
+#include <Interfaces/IRequestable.hpp>
+#include <File/ModHeader.hpp>
+#include <File/Resource/RequestorV2.hpp>
+#include <File/AssetManagerCore.hpp>
+
+#include <Helpers/uuid.hpp>
+#include <Helpers/String.hpp>
+
+
+//Enums::ObjectType Interfaces::Trait<Tests::MockedSaveable>::type = Enums::ObjectType::ColliderChunk;
+//Enums::ObjectType Interfaces::Trait<Tests::MockedSaveable2>::type = Enums::ObjectType::DBZone;
+//Enums::ObjectType Interfaces::Trait<Tests::MockedSaveable3>::type = Enums::ObjectType::DBZone;
+
+#include <cereal/archives/binary.hpp>
+#include <cereal\access.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
 {		
-
-	class MockedSaveable : public IRequestable
-	{
-	public:
-		Core::String test_string;
-		MockedSaveable(size_t id=1, Core::String test_string = "") : IRequestable("test", id, OneVersion(0,0,0)), test_string(test_string)
-		{
-		}
-		MockedSaveable(const MockedSaveable& c) : IRequestable(c), test_string(c.test_string)
-		{
-		}
-		MockedSaveable& operator=(const MockedSaveable& r)
-		{
-			test_string = r.test_string;
-			mode = r.mode;
-			ID = r.ID;
-			fromMod = r.fromMod;
-			return *this;
-		}
-		template<class T>
-		void save(T& archive) const
-		{
-			archive(cereal::base_class<IRequestable>(this));
-			archive(test_string);
-		}
-		template<class T>
-		void load(T& archive)
-		{
-			archive(cereal::base_class<IRequestable>(this));
-			archive(test_string);
-		}
-	};
-
-	static void create_prefab(Requestor<Asset::Prefab>& pref, size_t id)
-	{
-		Asset::Prefab p;
-		p.fromMod = "test";
-		p.ID = id;
-		p.mode = ObjectSaveMode::ADD;
-		//p.name = "asdasfs";
-		p.base.push_back(new Component::Transform);
-		pref.add(p);
-	}
-
 	TEST_CLASS(RequestorTest)
 	{
 	public:
-		static Requestor<MockedSaveable> req;
-		static Requestor<MockedSaveable*> req_ptr;
-		static Requestor<Asset::Prefab> prefab;
+		static Core::uuid id1;
+		static Core::uuid id2;
+		static Core::uuid id3;
+		static Core::uuid id4;
+		static Core::uuid id5;
+		static Core::uuid id6;
+		static Core::uuid id7;
+		static Core::uuid id8;
+		static Core::uuid id9;
+		static Core::uuid id10;
+		static RequestorV2 req_ptr;
 
 		static void add_objects()
 		{
-			req.add(MockedSaveable(1, "A"));
-			req.add(MockedSaveable(2, "B"));
-			req.add(MockedSaveable(3, "C"));
-			req.add(MockedSaveable(4, "DE"));
-
-			req_ptr.add(new MockedSaveable(5, "A_PTR"));
-			req_ptr.add(new MockedSaveable(6, "B_PTR"));
-			req_ptr.add(new MockedSaveable(7, "C_PTR"));
-			req_ptr.add(new MockedSaveable(8, "DE_PTR"));
-
-			create_prefab(prefab, 1);
-			create_prefab(prefab, 2);
-
+			req_ptr.add<MockedSaveable>(new MockedSaveable(id1, "A_PTR"));
+			req_ptr.add<MockedSaveable2>(new MockedSaveable2(id2, "B_PTR"));
+			req_ptr.add<MockedSaveable>(new MockedSaveable(id3, "C_PTR"));
+			req_ptr.add<MockedSaveable2>(new MockedSaveable2(id4, "DE_PTR"));
+			req_ptr.add<MockedSaveable2>(new MockedSaveable3(id5, "FG_PTR", "HI_PTR"));
 		}
 
 		static void setup_file()
@@ -83,22 +57,19 @@ namespace Tests
 			std::ofstream index("test.index", std::ios::binary);
 			{
 				DatabaseIndex ind;
-				ind.flags = DatabaseIndex::ObjectFlag::NoFlag;
-				ind.ID = 0;
-				ind.type = DatabaseIndex::ObjectTypeEnum::Header;
+				ind.flags = Enums::ObjectFlag::NoFlag;
+				ind.ID = Core::uuid::nil();
+				ind.type = Enums::ObjectType::Header;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
 				cereal::BinaryOutputArchive mainAr(file);
 				cereal::BinaryOutputArchive indexAr(index);
 
-
-				req.save(ind, file, indexAr, mainAr);
 				req_ptr.save(ind, file, indexAr, mainAr);
-				prefab.save(ind, file, indexAr, mainAr);
 				
-				ind.flags = DatabaseIndex::ObjectFlag::EoF;
-				ind.ID = 0;
-				ind.type = DatabaseIndex::ObjectTypeEnum::EoF;
+				ind.flags = Enums::ObjectFlag::EoF;
+				ind.ID = Core::uuid::nil();
+				ind.type = Enums::ObjectType::EoF;
 				ind.modFile = modhdr.name;
 				ind.row = file.tellp();
 
@@ -110,10 +81,6 @@ namespace Tests
 
 			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.clear();
 			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
-			req.clear();
-			req_ptr.clear();
-			prefab.clear();
-
 		}
 
 		TEST_CLASS_INITIALIZE(Initialize)
@@ -124,83 +91,82 @@ namespace Tests
 
 		TEST_METHOD_CLEANUP(TestMethodCleanup)
 		{
-			req.clear();
 			req_ptr.clear();
 		}
 
-		TEST_METHOD(TestRequetorNonPointer)
+		TEST_METHOD(TestRequestorPointerSameType)
 		{
-			MockedSaveable& ref = req.request("test", 1);
-			Assert::AreEqual("A", ref.test_string.c_str());
-			Assert::AreEqual((size_t)1, ref.ID);
-		}
-		TEST_METHOD(TestRequestorPointer)
-		{
-			MockedSaveable*& ref = req_ptr.request("test", 5);
+			MockedSaveable* ref = req_ptr.request<MockedSaveable>(ModFileUUIDHelper("test", id1));
+			Assert::IsNotNull(ref);
 			Assert::AreEqual("A_PTR", ref->test_string.c_str());
-			Assert::AreEqual((size_t)5, ref->ID);
+			Assert::AreEqual(id1.to_wstring(), ref->ID.to_wstring());
 		}
+		TEST_METHOD(TestRequestorPointerSameType2)
+		{
+			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(ModFileUUIDHelper("test", id2));
+			Assert::IsNotNull(ref);
+			Assert::AreEqual("B_PTR", ref->test_string.c_str());
+			Assert::AreEqual(id2.to_wstring(), ref->ID.to_wstring());
+		}
+		TEST_METHOD(TestRequestorPointerSameType3)
+		{
+			MockedSaveable3* ref = req_ptr.request<MockedSaveable3>(ModFileUUIDHelper("test", id5));
+			Assert::IsNotNull(ref);
+			Assert::AreEqual("FG_PTR", ref->test_string.c_str());
+			Assert::AreEqual("HI_PTR", ref->another_test_string.c_str());
+			Assert::AreEqual(id5.to_wstring(), ref->ID.to_wstring());
+		}
+
+		TEST_METHOD(TestRequestorPointerHigherBase)
+		{
+			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>(ModFileUUIDHelper("test", id5));
+			Assert::IsNotNull(ref);
+			Assert::AreEqual("FG_PTR", ref->test_string.c_str());
+			Assert::AreEqual("HI_PTR", ((MockedSaveable3*)ref)->another_test_string.c_str());
+			Assert::AreEqual(id5.to_wstring(), ref->ID.to_wstring());
+		}
+
 		TEST_METHOD(TestRequestorEmpty)
 		{
-			MockedSaveable*& ref = req_ptr.request("test", 5555);
+			MockedSaveable* ref = req_ptr.request<MockedSaveable>({ "test", Core::uuid() });
 			Assert::IsNull(ref);
-		}
-		TEST_METHOD(TestRequestor_AddToExistingDoesNotReplace)
-		{
-			Assert::IsTrue(req.add(MockedSaveable(1, "A")));
-			Assert::IsFalse(req.add(MockedSaveable(1, "CC")));
-		
-			MockedSaveable& ref = req.request("test", 1);
-			Assert::AreEqual(ref.test_string.c_str(), "A");
-		}
-		TEST_METHOD(TestRequestor_AddNew)
-		{
-			Assert::IsTrue(req.add(MockedSaveable(21, "CC")));
-		
-			MockedSaveable& ref = req.request("test", 21);
-			Assert::AreEqual(ref.test_string.c_str(), "CC");
 		}
 		TEST_METHOD(TestRequestorPtr_AddToExistingDoesNotReplace)
 		{
-			Assert::IsTrue(req_ptr.add(new MockedSaveable(1, "A_PTR")));
-			Assert::IsFalse(req_ptr.add(new MockedSaveable(1, "CC_PTR")));
+			Assert::IsTrue(req_ptr.add(new MockedSaveable(id1, "A_PTR")));
+			Assert::IsFalse(req_ptr.add(new MockedSaveable(id1, "CC_PTR")));
 		
-			MockedSaveable*& ref = req_ptr.request("test", 5);
+			MockedSaveable* ref = req_ptr.request<MockedSaveable>({ "test", id1 });
 		
+			Assert::IsNotNull(ref);
 			Assert::AreEqual(ref->test_string.c_str(), "A_PTR");
 		}
 		TEST_METHOD(TestRequestorPtr_AddNew)
 		{
-			Assert::IsTrue(req_ptr.add(new MockedSaveable(22, "CC_PTR")));
+			Core::uuid id;
+			Assert::IsTrue(req_ptr.add(new MockedSaveable2(id, "CC_PTR")));
 		
-			MockedSaveable*& ref = req_ptr.request("test", 22);
+			MockedSaveable2* ref = req_ptr.request<MockedSaveable2>({ "test", id });
 		
+			Assert::IsNotNull(ref);
 			Assert::AreEqual(ref->test_string.c_str(), "CC_PTR");
 		}
 
-		TEST_METHOD(TestRequestPolymorphicDoesNotRaise)
-		{
-			// fails
-			{
-				prefab.request("test", 1);
-				 prefab.request("test", 2);
-			}
-			// fails
-			{
-				//Asset::Prefab& p = prefab.request("test", 1);
-				prefab.request("test", 2);
-			}
-			// works
-			{
-				prefab.request("test", 1);
-				//Asset::Prefab& p2 = prefab.request("test", 2);
-			}
-		}
-
 	};
-	Requestor<MockedSaveable> RequestorTest::req(DatabaseIndex::ObjectTypeEnum::Undefined, "");
-	Requestor<MockedSaveable*> RequestorTest::req_ptr(DatabaseIndex::ObjectTypeEnum::Undefined, "");
-	Requestor<Asset::Prefab> RequestorTest::prefab(DatabaseIndex::ObjectTypeEnum::Prefab, "");
+	Core::uuid RequestorTest::id1 = Core::uuid();
+	Core::uuid RequestorTest::id2 = Core::uuid();
+	Core::uuid RequestorTest::id3 = Core::uuid();
+	Core::uuid RequestorTest::id4 = Core::uuid();
+	Core::uuid RequestorTest::id5 = Core::uuid();
+	Core::uuid RequestorTest::id6 = Core::uuid();
+	Core::uuid RequestorTest::id7 = Core::uuid();
+	Core::uuid RequestorTest::id8 = Core::uuid();
+	Core::uuid RequestorTest::id9 = Core::uuid();
+	Core::uuid RequestorTest::id10 = Core::uuid();
+	//Requestor<MockedSaveable> RequestorTest::req(Enums::ObjectType::Undefined, "");
+	RequestorV2 RequestorTest::req_ptr("");
+
+	//Requestor<Asset::Prefab> RequestorTest::prefab(Enums::ObjectType::Prefab, "");
 }
 
 #endif

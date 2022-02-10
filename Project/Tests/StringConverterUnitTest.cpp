@@ -2,8 +2,9 @@
 
 #include "CppUnitTest.h"
 
-#include <Core\String.hpp>
-#include <Core\EngineModule\EngineModuleManager.hpp>
+#include <Helpers\String.hpp>
+#include <Module/EngineModuleManager.hpp>
+#pragma warning (disable: 4310)
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -19,7 +20,6 @@ namespace Tests
 			std::wstring expect = L"¥";
 			
 			Assert::AreEqual(Engine::GetModule<Core::StringConverter>().toUtf16(test), expect);
-
 		}
 
 		TEST_METHOD(Utf16ToUtf8)

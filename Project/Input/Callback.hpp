@@ -1,26 +1,79 @@
 #ifndef Callback_HPP
 #define Callback_HPP
 
-#include <Core\String.hpp>
+#include <SFML/Window/Joystick.hpp>
+#include <SFML\Window\Keyboard.hpp>
+#include <SFML\Window\Mouse.hpp>
+
+#include <Helpers\String.hpp>
 #include <functional>
 
-struct Callback
+namespace Input::Callback
 {
-	Callback(Core::String callbackName, std::function<void()> callbackMethod, bool callIfRemoved=false);
-	Callback(const Callback& copy);
-	Callback(const Callback&& rval_copy);
-	Callback& operator=(const Callback& right);
-	Callback& operator=(const Callback&& rval_right);
 
-	std::function<void(void)> callbackMethod;
-	Core::String callbackName;
-	bool callIfRemoved;
+	template<class Targ, class InputEnum>
+	struct Callback
+	{
+		std::function<void(Targ, InputEnum, const float&)> callbackMethod;
+		Core::String callbackName;
+		bool callIfRemoved;
 
-	bool operator==(const Callback& right);
-	bool operator>(const Callback& right);
-	bool operator<(const Callback& right);
+		Callback(const Core::String& callbackName, std::function<void(Targ, InputEnum, const float&)> callbackMethod, bool callIfRemoved=false) : callbackName(callbackName), callbackMethod(callbackMethod),
+			callIfRemoved(callIfRemoved)
+		{
+		}
+		Callback(const Callback & copy) : callbackName(copy.callbackName), callbackMethod(copy.callbackMethod),
+			callIfRemoved(copy.callIfRemoved)
+		{
+		}
+		Callback(const Callback && rval_copy) : callbackName(rval_copy.callbackName), callbackMethod(rval_copy.callbackMethod),
+			callIfRemoved(rval_copy.callIfRemoved)
+		{
+		}
+		Callback(const Core::String& callbackName) : callbackName(callbackName)
+		{
 
-	void operator()() const;
-};
+		}
+		Callback & operator=(const Callback & right)
+		{
+			callbackName = right.callbackName;
+			callbackMethod = right.callbackMethod;
+			callIfRemoved = right.callIfRemoved;
+			return *this;
+		}
+		Callback & operator=(const Callback && rval_right)
+		{
+			callbackName = std::move(rval_right.callbackName);
+			callbackMethod = std::move(rval_right.callbackMethod);
+			callIfRemoved = std::move(rval_right.callIfRemoved);
+			return *this;
+		}
+
+		bool operator==(const Callback & right)
+		{
+			return callbackName == right.callbackName;
+		}
+
+		bool operator>(const Callback & right)
+		{
+			return callbackName > right.callbackName;
+		}
+
+		bool operator<(const Callback & right)
+		{
+			return callbackName < right.callbackName;
+		}
+
+		void operator()(const Targ& value, const InputEnum & inputMode, const float& fElapsedTime) const
+		{
+			callbackMethod(value, inputMode, fElapsedTime);
+		}
+
+	};
+
+	typedef Callback<float, sf::Joystick::Axis> AxisCallback;
+	typedef Callback<bool, sf::Keyboard::Key> KeyboardCallback;
+	typedef Callback<bool, sf::Mouse::Button> MouseCallback;
+}
 
 #endif

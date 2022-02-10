@@ -7,67 +7,47 @@
 
 #include <SFML\Window\Keyboard.hpp>
 #include <SFML\Window\Mouse.hpp>
-#include "InputEnum.hpp"
+#include <SFML/Window/Joystick.hpp>
 
-#include <Core\EngineModule\IEngineModule.hpp>
+#include <Interfaces\IEngineModule.hpp>
 
-#include "BaseInputHandler.hpp"
+#include "BasicInputHandler.hpp"
+#include "AxisInputHandler.hpp"
 
-/*
-template<typename returnType,typename parameterType>
-class EventType : EventTypeBase
+namespace Input
 {
-public:
-returnType(*callback)(parameterType);
-private:
-};
-
-class EventTypeBase
-{
-public:
-EventTypeBase();
-
-CallBack callback;
-};
-
-class EventSystem
-{
-public:
-std::map<std::string,std::vector<CallBack>> events;
-void add(std::string,void(void));
-private:
-
-#ifdef _DEBUG
-
-#endif
-};
-//*/
-typedef void(*CallBack)(void);
-
-class InputHandler : public IEngineResource<InputHandler>
-{
-public:
-	void update();
-
-	BaseCallbackholder<sf::Keyboard::Key> keyboard;
-	BaseCallbackholder<sf::Mouse::Button> mouse;
-
-	const ResourceType& getType()
+	class InputHandler : public Interfaces::IEngineResource<InputHandler>
 	{
-		return type;
-	}
+		bool isPlayerKeyboardInputEnabled = true;
+	public:
+		static bool isMovementEnabled;
+		static bool skipCurrentFrame;
 
-	InputHandler();
+		void update(const float& fElapsedTime);
 
-	int deltaScrolls = 0;
+		BasicInputHandler<Enums::Input::ControllerButtons> controller;
+		AxisCallbackholder<sf::Joystick::Axis> controllerAxis;
+		BasicInputHandler<sf::Keyboard::Key> playerKeyboard;
+		BasicInputHandler<sf::Keyboard::Key> uiKeyboard;
+		BasicInputHandler<sf::Mouse::Button> mouse;
 
-private:
+		Enums::EngineResourceType& getType() const
+		{
+			return type;
+		}
 
-	/*
-	void onKeyPress(CallBack type,sf::Keyboard::Key key);
-	void onKeyRelease(CallBack type,sf::Keyboard::Key key);
-	void onControlPress(std::function<void(void)>,sf::Keyboard::Key key);
-	//*/
-};
+		InputHandler();
+		void togglePlayerInput();
+		void disablePlayerMovement();
+		void enablePlayerMovement();
+
+		bool isConsoleEnabled() const;
+
+		int deltaScrolls = 0;
+
+	private:
+
+	};
+}
 
 #endif

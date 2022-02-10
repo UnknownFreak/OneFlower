@@ -1,64 +1,63 @@
 #ifndef Physics_HPP
 #define Physics_HPP
-#include <vector>
 
-#include <Core\Rect.hpp>
-#include <Core\EngineModule\IEngineModule.hpp>
+#include <Interfaces/IEngineModule.hpp>
 
-#include "Collider.hpp"
+#include <Interfaces/ICollider.hpp>
+#include <unordered_set>
 #include "QuadTree.hpp"
+#include <mutex>
 
-#define PixelInOneMeter 128
 class GameObject;
-namespace Component
+
+namespace Physics
 {
-	class RigidComponent;
-	class HitboxComponent;
-	class Transform;
-}
-//HIGH: Do non game related physics like weather water etc???
-class PhysicsEngine : public IEngineResource<PhysicsEngine>
-{
-
-	friend class Gfx;
-public:
-	PhysicsEngine();
-
-	void update();
-
-	const ResourceType& getType()
+	struct BoxInfo
 	{
-		return type;
-	}
+		size_t id;
+		Interfaces::ICollider* ptr;
+		Core::FloatRect rect;
+		Enums::ColliderType colliderType;
+		bool operator==(const BoxInfo& b) const {
+			return id == b.id;
+		}
 
-	/*
-	void addPhysics(GameObject* obj);
-	void removePhysics(GameObject* obj);
-	//*/
-	void physics();
+		bool needUpdate()
+		{
+			if (ptr)
+				return ptr->needUpdate();
+			return false;
+		}
+	};
+	inline auto getBox = [](const BoxInfo& node)
+	{
+		return node.rect;
+	};
+	class PhysicsEngine : public Interfaces::IEngineResource<PhysicsEngine>
+	{
+		std::mutex mtx;
+		std::vector<GameObject*> renderables;
+		float elapsedTimeInternal;
+		void runQuery(const Core::FloatRect& box);
 
-	//Fix the collision or remake the flow so that sending gameobject is unnecceray
-	Physics::Collider collision(Component::Transform* motion, Core::FloatRect box, Core::Vector2 speed);
+		quadtree::Quadtree<BoxInfo, decltype(getBox)> qt;
+	public:
+		Core::Rect<float>& renderBox;
 
-	const double Gravity = 2;
+		PhysicsEngine();
+		PhysicsEngine(const PhysicsEngine& copy);
+		~PhysicsEngine() {}
 
-	//This is for what? (21/03/16)
-	//std::vector<RigidComponent*> checkList;
+		void update(const float& fElapsedTime);
+		void addCollider(Interfaces::ICollider* collider);
+		void updateCollider(Interfaces::ICollider* collider, Interfaces::ICollider* newCollider, const Core::FloatRect& oldBox);
+		void removeCollider(Interfaces::ICollider* collider);
 
-	void addPhysics(Component::HitboxComponent* obj);
-	void addPhysics(Component::RigidComponent* obj);
-	void removePhysics(Component::RigidComponent* obj);
-	void removePhysics(Component::HitboxComponent* obj);
+		Enums::EngineResourceType& getType() const
+		{
+			return type;
+		}
+	};
+}
 
-private:
-
-	QuadTree quadTree;
-	std::vector<Component::HitboxComponent*> hitboxes;
-	std::vector<Component::RigidComponent*> rigids;
-
-	void simulation();
-
-	void gravity();
-	//	float SweptAABB(RigidComponent* inMotion,HitboxComponent* b22,float& normalx,float& normaly,Vector2 speed);
-};
 #endif

@@ -1,136 +1,320 @@
-#ifndef QUADTREE_HPP
-#define QUADTREE_HPP
+#pragma once
 
+// Based out of https://github.com/pvigier/Quadtree/blob/master/examples/physics.cpp
+// but modified to be able to query the tree on collider types
+
+
+#include <cassert>
+#include <algorithm>
+#include <memory>
+#include <map>
 #include <vector>
+#include <Helpers/Rect.hpp>
 
-#include <Core\Rect.hpp>
-#include "ICollider.hpp"
-
-//#include <SFML\Graphics\Shape.hpp>
-//#include <SFML\Graphics\Drawable.hpp>
-//#include <SFML\Graphics\RenderTarget.hpp>
-
-class QuadTree;
-
-class QuadTreeNode : public sf::Drawable
+namespace quadtree
 {
+    
+    template<typename T, typename GetBox, typename Equal = std::equal_to<T>, typename Float = float>
+    class Quadtree
+    {
+        static_assert(std::is_convertible_v<std::invoke_result_t<GetBox, const T&>, Rect<Float>>,
+            "GetBox must be a callable of signature Rect<Float>(const T&)");
+        static_assert(std::is_convertible_v<std::invoke_result_t<Equal, const T&, const T&>, bool>,
+            "Equal must be a callable of signature bool(const T&, const T&)");
+        static_assert(std::is_arithmetic_v<Float>);
+    public:
 
-public:
-	inline QuadTreeNode(const size_t depth = 0);
-	inline ~QuadTreeNode();
+        Quadtree(const Rect<Float>& box, const GetBox& getBox = GetBox(),
+            const Equal& equal = Equal()) :
+            mBox(box), mRoot(std::make_unique<Node>()), mGetBox(getBox), mEqual(equal)
+        {
+        }
 
-	inline QuadTreeNode* operator[](size_t index);
-	inline const QuadTreeNode* operator[](size_t index) const;
+        Quadtree(const Quadtree& copy) : Quadtree(copy.mBox, copy.mGetBox, copy.mEqual)
+        {
 
-	inline bool add(Physics::ICollider* object, const bool forceAdd = false);
-	inline bool remove(Physics::ICollider* object);
-	inline void split();
+        }
 
-	inline bool nodeCollides(const Physics::ICollider* object) const;
-	inline bool childCollides(const Physics::ICollider* object) const;
-	inline bool childCollides(const Core::Rect<const float&>& rect) const;
+        void add(const T& value)
+        {
+            add(mRoot.get(), 0, mBox, value);
+        }
 
-	inline void destroyChildNodes();
-	inline void removeChildNodesIfPossible();
-	inline bool hasChildren() const;
-	inline bool isLeaf() const;
-	inline bool isFull() const;
+        void remove(const T& value)
+        {
+            remove(mRoot.get(), nullptr, mBox, value);
+        }
 
-	inline bool canSplitNode(const size_t max_size) const;
+        std::vector<T> query(const Rect<Float>& box) const
+        {
+            auto values = std::vector<T>();
+            query(mRoot.get(), mBox, box, values);
+            return values;
+        }
 
-	Core::Rect<float> rect;
+        std::vector<std::pair<T, T>> findAllIntersections() const
+        {
+            auto intersections = std::vector<std::pair<T, T>>();
+            findAllIntersections(mRoot.get(), intersections);
+            return intersections;
+        }
 
-	inline std::vector<Physics::ICollider*>& get();
-	inline const std::vector<Physics::ICollider*>& get() const;
+    private:
 
-	friend class QuadTree;
-	static const size_t SPLIT_SIZE = 4;
+        static constexpr auto Threshold = std::size_t(16);
+        static constexpr auto MaxDepth = std::size_t(8);
 
-private:
+        struct Node
+        {
+            std::array<std::unique_ptr<Node>, 4> children;
+            std::vector<T> values;
+        };
 
-	QuadTreeNode* parent;
-	std::vector<QuadTreeNode*> children;
-	std::vector<Physics::ICollider*> nodeObjects;
+        Rect<Float> mBox;
+        std::unique_ptr<Node> mRoot;
+        GetBox mGetBox;
+        Equal mEqual;
+        
+        bool isLeaf(const Node* node) const
+        {
+            return !static_cast<bool>(node->children[0]);
+        }
 
-	size_t depth;
-	bool full;
+        Rect<Float> computeBox(const Rect<Float>& box, int i) const
+        {
+            auto origin = box.getTopLeft();
+            auto childSize = box.getSize() / static_cast<Float>(2);
+            switch (i)
+            {
+                // North West
+            case 0:
+                return Rect<Float>{origin, childSize};
+                // Norst East
+            case 1:
+                return Rect<Float>{Vector2t<Float>{origin.x + childSize.x, origin.y}, childSize};
+                // South West
+            case 2:
+                return Rect<Float>{Vector2t<Float>{origin.x, origin.y + childSize.y}, childSize
+            };
+                // South East
+            case 3:
+                return Rect<Float>{origin + childSize, childSize};
+            default:
+                assert(false && "Invalid child index");
+                return { 0,0,0,0 };
+            }
+        }
 
-public:
-	// Inherited via Drawable
-	inline virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override
-	{
-		if (isFull())
-			for each (QuadTreeNode* tn in children)
-			{
-				target.draw(*tn, states);
-			}
-		else
-			for each (Physics::ICollider* t in nodeObjects)
-				target.draw(*t, states);
-	}
-};
+        int getQuadrant(const Rect<Float>& nodeBox, const Rect<Float>& valueBox) const
+        {
+            auto center = nodeBox.getCenter();
+            // West
+            if (valueBox.getRight() < center.x)
+            {
+                // North West
+                if (valueBox.getBottom() < center.y)
+                    return 0;
+                // South West
+                else if (valueBox.y >= center.y)
+                    return 2;
+                // Not contained in any quadrant
+                else
+                    return -1;
+            }
+            // East
+            else if (valueBox.x >= center.x)
+            {
+                // North East
+                if (valueBox.getBottom() < center.y)
+                    return 1;
+                // South East
+                else if (valueBox.y >= center.y)
+                    return 3;
+                // Not contained in any quadrant
+                else
+                    return -1;
+            }
+            // Not contained in any quadrant
+            else
+                return -1;
+        }
 
-class QuadTree : public sf::Drawable
-{
+        void add(Node* node, std::size_t depth, const Rect<Float>& box, const T& value)
+        {
+            assert(node != nullptr);
+            assert(box.contains(mGetBox(value)));
+            if (isLeaf(node))
+            {
+                // Insert the value in this node if possible
+                if (depth >= MaxDepth || node->values.size() < Threshold)
+                    node->values.push_back(value);
+                // Otherwise, we split and we try again
+                else
+                {
+                    split(node, box);
+                    add(node, depth, box, value);
+                }
+            }
+            else
+            {
+                auto i = getQuadrant(box, mGetBox(value));
+                // Add the value in a child if the value is entirely contained in it
+                if (i != -1)
+                    add(node->children[static_cast<std::size_t>(i)].get(), depth + 1, computeBox(box, i), value);
+                // Otherwise, we add the value in the current node
+                else
+                    node->values.push_back(value);
+            }
+        }
 
-public:
+        void split(Node* node, const Rect<Float>& box)
+        {
+            assert(node != nullptr);
+            assert(isLeaf(node) && "Only leaves can be split");
+            // Create children
+            for (auto& child : node->children)
+                child = std::make_unique<Node>();
+            // Assign values to children
+            auto newValues = std::vector<T>(); // New values for this node
+            for (const auto& value : node->values)
+            {
+                auto i = getQuadrant(box, mGetBox(value));
+                if (i != -1)
+                    node->children[static_cast<std::size_t>(i)]->values.push_back(value);
+                else
+                    newValues.push_back(value);
+            }
+            node->values = std::move(newValues);
+        }
 
-	inline QuadTree(const float width, const float height);
-	inline QuadTree(const float x, const float y, const float width, const float height);
-	inline bool insert(Physics::ICollider* object);
-	inline bool remove(Physics::ICollider* object);
+        void remove(Node* node, Node* parent, const Rect<Float>& box, const T& value)
+        {
+            assert(node != nullptr);
+            assert(box.contains(mGetBox(value)));
+            if (isLeaf(node))
+            {
+                // Remove the value from node
+                removeValue(node, value);
+                // Try to merge the parent
+                if (parent != nullptr)
+                    tryMerge(parent);
+            }
+            else
+            {
+                // Remove the value in a child if the value is entirely contained in it
+                auto i = getQuadrant(box, mGetBox(value));
+                if (i != -1)
+                    remove(node->children[static_cast<std::size_t>(i)].get(), node, computeBox(box, i), value);
+                // Otherwise, we remove the value from the current node
+                else
+                    removeValue(node, value);
+            }
+        }
 
-	inline std::vector<Physics::ICollider*> collidesWith(Physics::ICollider* object);
+        void removeValue(Node* node, const T& value)
+        {
+            // Find the value in node->values
+            auto it = std::find_if(std::begin(node->values), std::end(node->values),
+                [this, &value](const auto& rhs) { return mEqual(value, rhs); });
+            if (it == std::end(node->values))
+            {
+                Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Physics::PhysicsEngine::QuadTree").Error("Trying to remove a value that is not present in the node", __FILE__, __LINE__);
+                return;
+            }
+            auto eit = std::end(node->values);
+            assert(it != eit && "Trying to remove a value that is not present in the node");
+            // Swap with the last element and pop back
+            //std::swap(*it, node->values.back());
+            *it = std::move(node->values.back());
+            node->values.pop_back();
+        }
 
-	inline void update();
+        void tryMerge(Node* node)
+        {
+            assert(node != nullptr);
+            assert(!isLeaf(node) && "Only interior nodes can be merged");
+            auto nbValues = node->values.size();
+            for (const auto& child : node->children)
+            {
+                if (!isLeaf(child.get()))
+                    return;
+                nbValues += child->values.size();
+            }
+            if (nbValues <= Threshold)
+            {
+                node->values.reserve(nbValues);
+                // Merge the values of all the children
+                for (const auto& child : node->children)
+                {
+                    for (const auto& value : child->values)
+                        node->values.push_back(value);
+                }
+                // Remove the children
+                for (auto& child : node->children)
+                    child.reset();
+            }
+        }
 
-	static constexpr size_t MAX_OBJECTS = 32;
-	static constexpr size_t MAX_DEPTH = 6;
+        void query(Node* node, const Rect<Float>& box, const Rect<Float>& queryBox, std::vector<T>& values) const
+        {
+            assert(node != nullptr);
+            assert(queryBox.intersects(box));
+            for (const auto& value : node->values)
+            {
+                if (queryBox.intersects(mGetBox(value)))
+                    values.push_back(value);
+            }
+            if (!isLeaf(node))
+            {
+                for (auto i = std::size_t(0); i < node->children.size(); ++i)
+                {
+                    auto childBox = computeBox(box, static_cast<int>(i));
+                    if (queryBox.intersects(childBox))
+                        query(node->children[i].get(), childBox, queryBox, values);
+                }
+            }
+        }
 
-	inline const QuadTreeNode& getRootNode() const
-	{
-		return root;
-	}
+        void findAllIntersections(Node* node, std::vector<std::pair<T, T>>& intersections) const
+        {
+            // Find intersections between values stored in this node
+            // Make sure to not report the same intersection twice
+            for (auto i = std::size_t(0); i < node->values.size(); ++i)
+            {
+                for (auto j = std::size_t(0); j < i; ++j)
+                {
+                    if (mGetBox(node->values[i]).intersects(mGetBox(node->values[j])))
+                        intersections.emplace_back(node->values[i], node->values[j]);
+                }
+            }
+            if (!isLeaf(node))
+            {
+                // Values in this node can intersect values in descendants
+                for (const auto& child : node->children)
+                {
+                    for (const auto& value : node->values)
+                        findIntersectionsInDescendants(child.get(), value, intersections);
+                }
+                // Find intersections in children
+                for (const auto& child : node->children)
+                    findAllIntersections(child.get(), intersections);
+            }
+        }
 
-	inline bool resize(Core::Vector2& pos, Core::Vector2& size)
-	{
-		if (allObjects.empty())
-		{
-			root.rect = Core::FloatRect(pos, size);
-			return true;
-		}
-		return false;
-	}
-
-private:
-
-	inline bool rInsert(Physics::ICollider* object, QuadTreeNode* node);
-	inline bool rRemove(Physics::ICollider* object, QuadTreeNode* node);
-	inline void checkLeaf(const Physics::ICollider* object, const QuadTreeNode* node, std::vector<Physics::ICollider*>& collidesWith) const;
-
-	QuadTreeNode root;
-	std::vector<Physics::ICollider*> allObjects;
-
-public:
-	// Inherited via Drawable
-	inline virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override
-	{
-		target.draw(root, states);
-	}
-
-};
-
-template<typename T>
-T clamp(const T& val, const T&low, const T& high)
-{
-	if (val < low)
-		return low;
-	else if (val > high)
-		return high;
-	return val;
+        void findIntersectionsInDescendants(Node* node, const T& value, std::vector<std::pair<T, T>>& intersections) const
+        {
+            // Test against the values stored in this node
+            for (const auto& other : node->values)
+            {
+                if (mGetBox(value).intersects(mGetBox(other)))
+                    intersections.emplace_back(value, other);
+            }
+            // Test against values stored into descendants of this node
+            if (!isLeaf(node))
+            {
+                for (const auto& child : node->children)
+                    findIntersectionsInDescendants(child.get(), value, intersections);
+            }
+        }
+    };
 }
-
-#include "QuadTree.inl"
-
-
-#endif 

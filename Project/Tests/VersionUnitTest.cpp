@@ -1,8 +1,8 @@
 #ifdef _UNITTESTS_
 #include "CppUnitTest.h"
 
-#include <Asset\Version.hpp>
-#include <Core\EngineModule\EngineModuleManager.hpp>
+#include <Helpers\Version.hpp>
+#include <Module/EngineModuleManager.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace Tests
@@ -22,7 +22,7 @@ namespace Tests
 		{
 			OneVersion o(0, 0, 0);
 			o.incRev();
-			Assert::AreEqual(o.str().c_str(), "0.0.1");
+			Assert::AreEqual(o.str().c_str(), "0.0.0.1");
 		}
 		TEST_METHOD(TestVersion_Equality)
 		{
