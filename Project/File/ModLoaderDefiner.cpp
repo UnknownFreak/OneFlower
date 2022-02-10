@@ -12,7 +12,8 @@ const size_t ModLoader::getModPosition(const Core::String& modName) const
 		return it->second;
 	else
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Failed to get mod position", __FILE__, __LINE__);
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModLoader");
+		logger.Error("Failed to get mod position", logger.fileInfo(__FILE__, __LINE__));
 		return 0xFFFFFFFF;
 	}
 }
