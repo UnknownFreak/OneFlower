@@ -3,49 +3,53 @@
 Enums::ComponentType Component::IBase<Component::CombatComponent>::typeID = Enums::ComponentType::Combat;
 Core::String Component::IBase<Component::CombatComponent>::componentName = "Combat";
 
-std::unordered_map<Enums::CombatSkill, ::Combat::Skill >& Component::CombatComponent::getSkills()
+namespace Component
 {
-	return skills;
-}
 
-Component::CombatComponent::CombatComponent()
-{
-}
-
-void Component::CombatComponent::onCollision(Interfaces::ICollider* )
-{
-}
-
-void Component::CombatComponent::Update()
-{
-}
-
-void Component::CombatComponent::Simulate(const float& fElapsedTime)
-{
-	for (auto& skill : skills)
-		skill.second.update(fElapsedTime);
-}
-
-void Component::CombatComponent::onDeath()
-{
-}
-
-void Component::CombatComponent::execute(const Enums::CombatSkill& skill)
-{
-	if (skills.find(skill) == skills.end())
+	std::unordered_map<Enums::CombatSkill, ::Combat::Skill >& CombatComponent::getSkills()
 	{
-		Engine::GetModule < EngineModule::Logger::OneLogger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
-		return;
+		return skills;
 	}
-	skills[skill].onSkillExecution(attachedOn);
-}
 
-Component::CombatComponent* Component::CombatComponent::copy() const
-{
-	return new CombatComponent(*this);
-}
+	CombatComponent::CombatComponent()
+	{
+	}
 
-std::unique_ptr<Component::Base> Component::CombatComponent::ucopy() const
-{
-	return std::make_unique<CombatComponent>(*this);
-}
+	void CombatComponent::onCollision(Interfaces::ICollider*)
+	{
+	}
+
+	void CombatComponent::Update()
+	{
+	}
+
+	void CombatComponent::Simulate(const float& fElapsedTime)
+	{
+		for (auto& skill : skills)
+			skill.second.update(fElapsedTime);
+	}
+
+	void CombatComponent::onDeath()
+	{
+	}
+
+	void CombatComponent::execute(const Enums::CombatSkill& skill)
+	{
+		if (skills.find(skill) == skills.end())
+		{
+			Engine::GetModule < EngineModule::Logger::OneLogger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
+			return;
+		}
+		skills[skill].onSkillExecution(attachedOn);
+	}
+
+	CombatComponent* CombatComponent::copy() const
+	{
+		return new CombatComponent(*this);
+	}
+
+	std::unique_ptr<Component::Base> CombatComponent::ucopy() const
+	{
+		return std::make_unique<CombatComponent>(*this);
+	}
+};

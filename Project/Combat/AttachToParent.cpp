@@ -5,23 +5,27 @@
 Enums::ComponentType Component::IBase<Component::AttachToParent>::typeID = Enums::ComponentType::AttachToParent;
 Core::String Component::IBase<Component::AttachToParent>::componentName = "AttachToParent";
 
-Component::AttachToParent::AttachToParent(GameObject* objectToFollow) : objectToFollow(objectToFollow)
+namespace Component
 {
-}
 
-void Component::AttachToParent::Update()
-{
-	attachedOn->getComponent<Transform>()->pos = objectToFollow->getComponent<Transform>()->buffered;
-}
+	AttachToParent::AttachToParent(GameObject* objectToFollow) : objectToFollow(objectToFollow)
+	{
+	}
 
-void Component::AttachToParent::Simulate(const float& )
-{
-}
+	void AttachToParent::Update()
+	{
+		attachedOn->getComponent<Transform>()->pos = objectToFollow->getComponent<Transform>()->buffered;
+	}
 
-void Component::AttachToParent::onDeath()
-{
-}
+	void AttachToParent::Simulate(const float&)
+	{
+	}
 
-void Component::AttachToParent::onCollision(Interfaces::ICollider*)
-{
-}
+	void AttachToParent::onDeath()
+	{
+	}
+
+	void AttachToParent::onCollision(Interfaces::ICollider*)
+	{
+	}
+};
