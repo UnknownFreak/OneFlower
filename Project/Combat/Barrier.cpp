@@ -1,48 +1,53 @@
 #include "Barrier.hpp"
 
-void Combat::Barrier::add(const float& time, const double& strength)
+namespace Combat
 {
-	totalBarrier += strength;
-	barriers.push_back({ time, strength });
-}
 
-void Combat::Barrier::tick(const float& dt)
-{
-	auto it = barriers.begin();
-	while (it != barriers.end())
+
+	void Barrier::add(const float& time, const double& strength)
 	{
-		it->first -= dt;
-		if (it->first < 0)
-		{
-			totalBarrier -= it->second;
-			it = barriers.erase(it);
-		}
-		else
-			it++;
+		totalBarrier += strength;
+		barriers.push_back({ time, strength });
 	}
-}
 
-Combat::Barrier::remainingDamage Combat::Barrier::doDamage(double damage, const double& multiplier)
-{
-	auto it = barriers.begin();
-	while (it != barriers.end() && damage > 0)
+	void Barrier::tick(const float& dt)
 	{
-		auto remainingDamage = it->second - damage;
-		auto actualDamageDealt = it->second - (damage * multiplier);
-		if (actualDamageDealt < 0)
+		auto it = barriers.begin();
+		while (it != barriers.end())
 		{
-			totalBarrier -= it->second;
-			it->second = 0;
-			it = barriers.erase(it);
-			damage = abs(remainingDamage);
-		}
-		else
-		{
-			it->second -= damage * multiplier;
-			totalBarrier -= damage * multiplier;
-			damage = 0;
-			it++;
+			it->first -= dt;
+			if (it->first < 0)
+			{
+				totalBarrier -= it->second;
+				it = barriers.erase(it);
+			}
+			else
+				it++;
 		}
 	}
-	return damage;
-}
+
+	Barrier::remainingDamage Barrier::doDamage(double damage, const double& multiplier)
+	{
+		auto it = barriers.begin();
+		while (it != barriers.end() && damage > 0)
+		{
+			auto remainingDamage = it->second - damage;
+			auto actualDamageDealt = it->second - (damage * multiplier);
+			if (actualDamageDealt < 0)
+			{
+				totalBarrier -= it->second;
+				it->second = 0;
+				it = barriers.erase(it);
+				damage = abs(remainingDamage);
+			}
+			else
+			{
+				it->second -= damage * multiplier;
+				totalBarrier -= damage * multiplier;
+				damage = 0;
+				it++;
+			}
+		}
+		return damage;
+	}
+};

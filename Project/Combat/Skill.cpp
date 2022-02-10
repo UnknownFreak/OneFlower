@@ -13,89 +13,94 @@
 
 Core::uuid Interfaces::Trait<Combat::Skill>::typeId = Core::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
 
-Combat::Element Combat::Skill::getElement()
+namespace Combat
 {
-	return Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Element>(elementId);
-}
 
-void Combat::Skill::preloadEffect()
-{
-	auto& x = Engine::GetModule<Asset::AssetManager>().requestor;
-	x.request<Prefab>(prefabId);
-	x.request<Prefab>(skillEffectPrefabId);
-}
 
-void Combat::Skill::getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec)
-{
-	for (auto& chain : chainSkills)
+	Element Skill::getElement()
 	{
-		vec.push_back(Graphics::UI::SkillIcon(&chain.second));
-		chain.second.getChainedSkills(vec);
+		return Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Element>(elementId);
 	}
-}
 
-Combat::Skill::Skill() : IRequestable()
-{
-}
-
-void Combat::Skill::onSkillExecution(GameObject* owner)
-{
-	if (coolDown.ready())
+	void Skill::preloadEffect()
 	{
-		auto stats = owner->getSharedComponent<Component::Stats>();
-		if (stats && stats->mainStat[Enums::Attribute::Mana].current >= cost)
-		{
-			stats->mainStat[Enums::Attribute::Mana].current -= cost;
-			coolDown.reset(true);
-			owner->getComponent<Component::Stats>()->doEffects(skillExecutionEffects, stats);
-			auto& x = Engine::GetModule<Asset::AssetManager>().requestor;
-			Prefab* skillPrefab = x.request<Prefab>(prefabId);
-			Prefab* effectPrefab = x.request<Prefab>(skillEffectPrefabId);
-			GameObject* skillGo = nullptr;
-			GameObject* effectGo = nullptr;
-			if (summon)
-			{
-				skillGo = skillPrefab->createNewInstance(owner);
-				if(effectPrefab)
-					effectGo = effectPrefab->createNewInstance(owner);
-			}
-			else
-			{
-				auto* transform = owner->getComponent<Component::Transform>();
-				auto pos = transform->pos;
-				pos += Core::Vector2f::distanceWithAngle(summonPoint, transform->facingAngle);
-				skillGo = skillPrefab->createNewInstance(pos);
-				if (effectPrefab)
-					effectGo = effectPrefab->createNewInstance(pos);
-			}
+		auto& x = Engine::GetModule<Asset::AssetManager>().requestor;
+		x.request<Prefab>(prefabId);
+		x.request<Prefab>(skillEffectPrefabId);
+	}
 
-			if (onSelf)
-			{
-				skillGo->addComponent<Component::AttachToParent>(owner);
-				if (effectGo)
-					effectGo->addComponent<Component::AttachToParent>(owner);
-			}
-			auto damage = skillGo->getComponent<Component::Damage>();
-			skillGo->addComponent<Render>();
-			if (damage)
-				damage->owner = owner->getSharedComponent<Component::Stats>();
+	void Skill::getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec)
+	{
+		for (auto& chain : chainSkills)
+		{
+			vec.push_back(Graphics::UI::SkillIcon(&chain.second));
+			chain.second.getChainedSkills(vec);
 		}
 	}
-}
 
-void Combat::Skill::update(const float& dt)
-{
-	coolDown.tick(dt);
-}
+	Skill::Skill() : IRequestable()
+	{
+	}
 
-Graphics::UI::SkillIconChain Combat::Skill::getChain()
-{
-	std::vector<Graphics::UI::SkillIcon> v = { Graphics::UI::SkillIcon(this) };
-	getChainedSkills(v);
-	return Graphics::UI::SkillIconChain(v);
-}
+	void Skill::onSkillExecution(GameObject* owner)
+	{
+		if (coolDown.ready())
+		{
+			auto stats = owner->getSharedComponent<Component::Stats>();
+			if (stats && stats->mainStat[Enums::Attribute::Mana].current >= cost)
+			{
+				stats->mainStat[Enums::Attribute::Mana].current -= cost;
+				coolDown.reset(true);
+				owner->getComponent<Component::Stats>()->doEffects(skillExecutionEffects, stats);
+				auto& x = Engine::GetModule<Asset::AssetManager>().requestor;
+				Prefab* skillPrefab = x.request<Prefab>(prefabId);
+				Prefab* effectPrefab = x.request<Prefab>(skillEffectPrefabId);
+				GameObject* skillGo = nullptr;
+				GameObject* effectGo = nullptr;
+				if (summon)
+				{
+					skillGo = skillPrefab->createNewInstance(owner);
+					if (effectPrefab)
+						effectGo = effectPrefab->createNewInstance(owner);
+				}
+				else
+				{
+					auto* transform = owner->getComponent<Component::Transform>();
+					auto pos = transform->pos;
+					pos += Core::Vector2f::distanceWithAngle(summonPoint, transform->facingAngle);
+					skillGo = skillPrefab->createNewInstance(pos);
+					if (effectPrefab)
+						effectGo = effectPrefab->createNewInstance(pos);
+				}
 
-Interfaces::TypeInfo Combat::Skill::getTrait() const
-{
-	return { Interfaces::Trait<Skill>::typeId };
-}
+				if (onSelf)
+				{
+					skillGo->addComponent<Component::AttachToParent>(owner);
+					if (effectGo)
+						effectGo->addComponent<Component::AttachToParent>(owner);
+				}
+				auto damage = skillGo->getComponent<Component::Damage>();
+				skillGo->addComponent<Render>();
+				if (damage)
+					damage->owner = owner->getSharedComponent<Component::Stats>();
+			}
+		}
+	}
+
+	void Skill::update(const float& dt)
+	{
+		coolDown.tick(dt);
+	}
+
+	Graphics::UI::SkillIconChain Skill::getChain()
+	{
+		std::vector<Graphics::UI::SkillIcon> v = { Graphics::UI::SkillIcon(this) };
+		getChainedSkills(v);
+		return Graphics::UI::SkillIconChain(v);
+	}
+
+	Interfaces::TypeInfo Skill::getTrait() const
+	{
+		return { Interfaces::Trait<Skill>::typeId };
+	}
+};
