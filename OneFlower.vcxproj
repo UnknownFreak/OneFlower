@@ -495,7 +495,7 @@
     <ClCompile Include="Project\File\AssetManagerCore.cpp" />
     <ClCompile Include="Project\File\CfgParser.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
-    <ClCompile Include="Project\File\ModLoaderDefiner.cpp" />
+    <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\File\Resource\DialogTree.cpp" />
     <ClCompile Include="Project\File\Resource\Prefab.cpp" />
     <ClCompile Include="Project\File\Resource\TextureLoader.cpp" />
@@ -722,9 +722,9 @@
     <ClInclude Include="Project\File\CfgParser.hpp" />
     <ClInclude Include="Project\File\DatabaseIndex.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
-    <ClInclude Include="Project\File\ModFileUUIDHelper.hpp" />
-    <ClInclude Include="Project\File\ModHeader.hpp" />
-    <ClInclude Include="Project\File\ModLoader.hpp" />
+    <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp" />
+    <ClInclude Include="Project\File\Mod\ModHeader.hpp" />
+    <ClInclude Include="Project\File\Mod\ModLoader.hpp" />
     <ClInclude Include="Project\File\SaveFile.hpp" />
     <ClInclude Include="Project\File\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\Resource\Prefab.hpp" />

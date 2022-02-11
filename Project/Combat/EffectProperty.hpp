@@ -1,7 +1,7 @@
 #ifndef EffectProperty_HPP
 #define EffectProperty_HPP
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/Enum/Attribute.hpp>
 #include "Modifier.hpp"
 

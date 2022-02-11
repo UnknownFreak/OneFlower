@@ -15,8 +15,8 @@
 #include <Module/EngineModuleManager.hpp>
 
 #include <File/DatabaseIndex.hpp>
-#include <File/ModLoader.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModLoader.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 //#pragma warning(push)
 //#pragma warning(disable: 4003)

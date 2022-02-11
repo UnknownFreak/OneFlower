@@ -3,7 +3,7 @@
 #include <Helpers/uuid.hpp>
 #include <Helpers\String.hpp>
 #include <Helpers/Version.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/Enum/ObjectSaveMode.hpp>
 #include <Helpers/Enum/ObjectType.hpp>
 

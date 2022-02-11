@@ -1,7 +1,7 @@
 #ifndef LootTable_HPP
 #define LootTable_HPP
 #include <Interfaces/IRequestable.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 struct DropConstraint
 {

@@ -2,7 +2,7 @@
 #define SpawnObjectTrigger_HPP
 
 #include "Trigger.hpp"
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/Vector3.hpp>
 
 namespace Trigger

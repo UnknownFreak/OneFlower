@@ -7,7 +7,6 @@ Enums::EngineResourceType Interfaces::IEngineResource<File::Mod::ModLoader>::typ
 
 namespace File::Mod
 {
-
 	const size_t ModLoader::getModPosition(const Core::String& modName) const
 	{
 		std::map<Core::String, size_t>::const_iterator it = loadOrder.find(modName);

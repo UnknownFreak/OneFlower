@@ -1,7 +1,7 @@
 #ifndef QuestObjective_HPP
 #define QuestObjective_HPP
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Requirement/Requirement.hpp>
 
 #include <Helpers/Enum/QuestState.hpp>

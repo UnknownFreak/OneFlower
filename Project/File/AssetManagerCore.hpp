@@ -33,8 +33,8 @@
 //
 #include <Combat/Element.hpp>
 //
-#include "ModHeader.hpp"
-#include "ModLoader.hpp"
+#include <File/Mod/ModHeader.hpp>
+#include <File/Mod/ModLoader.hpp>
 
 //#include "Prefab.hpp"
 

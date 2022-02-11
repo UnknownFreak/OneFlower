@@ -11,7 +11,7 @@
 
 #include <Helpers/Enum/TileTypes.hpp>
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Interfaces/IRequestable.hpp>
 #include <vector>

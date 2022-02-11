@@ -5,7 +5,7 @@
 
 #include <Helpers/Enum/ColliderType.hpp>
 #include <Helpers/Enum/TileTypes.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <vector>
 #include <map>
 

@@ -2,7 +2,7 @@
 #define GameModeRequirement_HPP
 
 #include "Requirement.hpp"
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 namespace Requirement
 {

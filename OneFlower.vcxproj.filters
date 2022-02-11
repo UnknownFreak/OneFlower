@@ -235,9 +235,6 @@
     <Filter Include="Engine\Quest">
       <UniqueIdentifier>{9490bc08-9843-4e0f-bf6f-334ddae26c4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Resources">
-      <UniqueIdentifier>{6cfc005d-1287-4e24-8714-d6670353acfc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit Tests\Quest">
       <UniqueIdentifier>{a031310d-bb38-4a32-bb89-1a9861ef6a8b}</UniqueIdentifier>
     </Filter>
@@ -249,9 +246,6 @@
     </Filter>
     <Filter Include="Engine\File\SaveFile">
       <UniqueIdentifier>{a4a6783f-1dbc-4e80-8bcf-9adc7acd6fb1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resources\Config">
-      <UniqueIdentifier>{88b585d3-f166-41a8-ad36-d453bda2c77a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Unit Tests\File">
       <UniqueIdentifier>{26574018-f8ee-40e6-8732-110f7163f12a}</UniqueIdentifier>
@@ -270,9 +264,6 @@
     </Filter>
     <Filter Include="Engine\Input\Component">
       <UniqueIdentifier>{553e714f-775a-4530-a9c3-f83a214b42be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resources\Texture">
-      <UniqueIdentifier>{9c9bfd28-c295-4bbb-b21e-56e2c329221e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Quest\Module">
       <UniqueIdentifier>{51a4a286-e1c5-4d55-978f-cb7f0f1d6684}</UniqueIdentifier>
@@ -318,6 +309,15 @@
     </Filter>
     <Filter Include="NonCodeFiles">
       <UniqueIdentifier>{5b52cf0f-5d30-4a62-b9f2-2acf15bf93e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Resource">
+      <UniqueIdentifier>{6cfc005d-1287-4e24-8714-d6670353acfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Resource\Config">
+      <UniqueIdentifier>{88b585d3-f166-41a8-ad36-d453bda2c77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Resource\Texture">
+      <UniqueIdentifier>{9c9bfd28-c295-4bbb-b21e-56e2c329221e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -693,9 +693,6 @@
     <ClCompile Include="Project\File\AssetManagerCore.cpp">
       <Filter>Engine\File</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\ModLoaderDefiner.cpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
@@ -742,7 +739,7 @@
       <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\File\Resource\DialogTree.cpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\Element.cpp">
       <Filter>Engine\Combat</Filter>
@@ -790,7 +787,7 @@
       <Filter>Engine\Graphics\UI\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Project\File\Resource\Prefab.cpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Project\Module\Random.cpp">
       <Filter>Engine\Module\Random</Filter>
@@ -889,7 +886,7 @@
       <Filter>Unit Tests\File</Filter>
     </ClCompile>
     <ClCompile Include="Project\File\CfgParser.cpp">
-      <Filter>Engine\File\Resources\Config</Filter>
+      <Filter>Engine\File\Resource\Config</Filter>
     </ClCompile>
     <ClCompile Include="Project\Quest\AOrBObjective.cpp">
       <Filter>Engine\Quest\Objectives</Filter>
@@ -922,10 +919,10 @@
       <Filter>Engine\Input\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\File\Resource\TextureLoader.cpp">
-      <Filter>Engine\File\Resources\Texture</Filter>
+      <Filter>Engine\File\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\File\Resource\TileAtlas.cpp">
-      <Filter>Engine\File\Resources\Texture</Filter>
+      <Filter>Engine\File\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\Quest\QuestObjective.cpp">
       <Filter>Engine\Quest\Objectives\Base</Filter>
@@ -983,6 +980,9 @@
     </ClCompile>
     <ClCompile Include="Project\Tests\PhysicsQueryRegionUnitTest.cpp">
       <Filter>Unit Tests\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp">
+      <Filter>Engine\File\Mod</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1418,17 +1418,8 @@
     <ClInclude Include="Project\File\DatabaseIndex.hpp">
       <Filter>Engine\File</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\ModHeader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\ModLoader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\ModFileUUIDHelper.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
     <ClInclude Include="Project\File\Resource\Requestor.hpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -1506,7 +1497,7 @@
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\DialogTree.hpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\Combat\Element.hpp">
       <Filter>Engine\Combat</Filter>
@@ -1545,10 +1536,10 @@
       <Filter>Engine\Combat\Effects</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\RequestorV2.hpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\RegisterRTTI.hpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\ObjectInstanceHandler.hpp">
       <Filter>Engine\Object\ObjectInstanceHandler</Filter>
@@ -1560,7 +1551,7 @@
       <Filter>Engine\Graphics\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\Prefab.hpp">
-      <Filter>Engine\File\Resources</Filter>
+      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\Module\Random.hpp">
       <Filter>Engine\Module\Random</Filter>
@@ -1665,7 +1656,7 @@
       <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\CfgParser.hpp">
-      <Filter>Engine\File\Resources\Config</Filter>
+      <Filter>Engine\File\Resource\Config</Filter>
     </ClInclude>
     <ClInclude Include="Project\Quest\AOrBObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>
@@ -1707,10 +1698,10 @@
       <Filter>Engine\Input\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\TextureLoader.hpp">
-      <Filter>Engine\File\Resources\Texture</Filter>
+      <Filter>Engine\File\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Resource\TileAtlas.hpp">
-      <Filter>Engine\File\Resources\Texture</Filter>
+      <Filter>Engine\File\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\Quest\QuestState.hpp">
       <Filter>Engine\Quest</Filter>
@@ -1795,6 +1786,15 @@
     </ClInclude>
     <ClInclude Include="Project\Module\Logger\LoggerStreams\NullStream.hpp">
       <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp">
+      <Filter>Engine\File\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Mod\ModHeader.hpp">
+      <Filter>Engine\File\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Mod\ModLoader.hpp">
+      <Filter>Engine\File\Mod</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

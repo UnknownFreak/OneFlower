@@ -1,7 +1,7 @@
 #ifndef LootContainer_Hpp
 #define LootContainer_Hpp
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Object/IBaseComponent.hpp>
 

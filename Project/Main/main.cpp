@@ -16,7 +16,7 @@
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>
 #include <File/Resource/TextureLoader.hpp>
-#include <File/ModLoader.hpp>
+#include <File/Mod/ModLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <Graphics/Model/SpriterInstanceContainer.hpp>
 #include <Object/ObjectInstanceHandler.hpp>

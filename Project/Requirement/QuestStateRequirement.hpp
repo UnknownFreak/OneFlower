@@ -2,7 +2,7 @@
 #define QuestStateRequirement_HPP
 
 #include "Requirement.hpp"
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/Enum/QuestState.hpp>
 
 namespace Requirement

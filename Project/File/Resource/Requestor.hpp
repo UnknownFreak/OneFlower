@@ -24,8 +24,8 @@
 #include <Module/EngineModuleManager.hpp>
 
 #include <File/DatabaseIndex.hpp>
-#include <File/ModLoader.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModLoader.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 
 template <class T>

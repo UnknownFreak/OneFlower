@@ -1,7 +1,7 @@
 #ifndef TimedRequirement_HPP
 #define TimedRequirement_HPP
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/TickTimer.hpp>
 #include "Requirement.hpp"
 

@@ -5,7 +5,7 @@
 #include <mutex>
 
 #include <SFML\System\Clock.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Helpers/String.hpp>
 #include <Helpers/TickTimer.hpp>

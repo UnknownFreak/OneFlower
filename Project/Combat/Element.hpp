@@ -7,7 +7,7 @@
 #include <Interfaces/IObject.hpp>
 
 #include <map>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 namespace Combat
 {

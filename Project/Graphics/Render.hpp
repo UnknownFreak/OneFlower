@@ -5,7 +5,7 @@
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 #include "Model/IModel.hpp"
 
 class Render : public Renderable, public Component::IBase<Render>

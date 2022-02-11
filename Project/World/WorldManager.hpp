@@ -6,7 +6,7 @@
 #include <memory>
 
 #include <Helpers/uuid.hpp>
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Interfaces/IUpdateable.hpp>
 #include <Graphics/Window.hpp>

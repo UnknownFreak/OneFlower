@@ -10,7 +10,7 @@
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
-#include <File/ModFileUUIDHelper.hpp>
+#include <File/Mod/ModFileUUIDHelper.hpp>
 
 class Dialog : public Component::IBase<Dialog>
 {
