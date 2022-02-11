@@ -5,45 +5,49 @@
 
 #include <Interfaces/IEngineModule.hpp>
 
-class ModLoader : public Interfaces::IEngineResource<ModLoader>
+namespace File::Mod
 {
 
-public:
-	ModLoader() = default;
-	std::map <Core::String, size_t> loadOrder;
-
-	const size_t getModPosition(const Core::String& mod) const;
-
-	template <class Archive>
-	void load(Archive& ar)
+	class ModLoader : public Interfaces::IEngineResource<ModLoader>
 	{
-		std::string tmp;
-		size_t size;
-		ar(size);
-		for (size_t i = 0; i < size; i++)
+
+	public:
+		ModLoader() = default;
+		std::map <Core::String, size_t> loadOrder;
+
+		const size_t getModPosition(const Core::String& mod) const;
+
+		template <class Archive>
+		void load(Archive& ar)
 		{
-			ar(tmp);
-			loadOrder.insert(std::pair<Core::String, size_t>(tmp, i));
+			std::string tmp;
+			size_t size;
+			ar(size);
+			for (size_t i = 0; i < size; i++)
+			{
+				ar(tmp);
+				loadOrder.insert(std::pair<Core::String, size_t>(tmp, i));
+			}
 		}
-	}
-	template <class Archive>
-	void save(Archive& ar) const
-	{
-		size_t size = loadOrder.size();
-		ar(size);
-		std::map<Core::String, size_t>::const_iterator it = loadOrder.begin();
-		std::map<Core::String, size_t>::const_iterator eit = loadOrder.end();
-
-		for (it; it != eit; it++ )
+		template <class Archive>
+		void save(Archive& ar) const
 		{
-			ar(it->first);
-			ar(it->second);
-		}
-	}
+			size_t size = loadOrder.size();
+			ar(size);
+			std::map<Core::String, size_t>::const_iterator it = loadOrder.begin();
+			std::map<Core::String, size_t>::const_iterator eit = loadOrder.end();
 
-	Enums::EngineResourceType& getType() const
-	{
-		return type;
-	}
+			for (it; it != eit; it++)
+			{
+				ar(it->first);
+				ar(it->second);
+			}
+		}
+
+		Enums::EngineResourceType& getType() const
+		{
+			return type;
+		}
+	};
 };
 #endif 

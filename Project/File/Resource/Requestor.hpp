@@ -338,7 +338,7 @@ private:
 	std::map<Core::String, size_t> getLoadOrder() const
 	{
 		if (fileLoadOrder.size() == 0)
-			return Engine::GetModule<ModLoader>().loadOrder;
+			return Engine::GetModule<File::Mod::ModLoader>().loadOrder;
 		return fileLoadOrder;
 	}
 

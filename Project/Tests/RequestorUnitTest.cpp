@@ -51,7 +51,7 @@ namespace Tests
 
 		static void setup_file()
 		{
-			ModHeader modhdr;
+			File::Mod::ModHeader modhdr;
 			modhdr.name = "test";
 			std::ofstream file("test", std::ios::binary);
 			std::ofstream index("test.index", std::ios::binary);

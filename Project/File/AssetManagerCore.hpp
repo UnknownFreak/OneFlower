@@ -62,7 +62,7 @@ namespace Asset
 
 		Requestor<Language::LanguageRequestor> lang;
 
-		ModLoader& modLoader;
+		File::Mod::ModLoader& modLoader;
 
 	public:
 		RequestorV2 requestor;
@@ -76,7 +76,7 @@ namespace Asset
 		bool loadModOrderFile();
 		void saveModOrderFile();
 
-		void saveGameDatabase(std::string filename, ModHeader& modhdr);
+		void saveGameDatabase(std::string filename, File::Mod::ModHeader& modhdr);
 
 		void loadAllEditorVariables();
 
@@ -87,7 +87,7 @@ namespace Asset
 
 		Core::String openedMod;
 
-		ModLoader& getModLoader();
+		File::Mod::ModLoader& getModLoader();
 
 		Enums::EngineResourceType& getType() const
 		{

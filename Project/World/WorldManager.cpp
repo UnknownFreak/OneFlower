@@ -515,7 +515,7 @@ void WorldManager::createSimpleWorld()
 	setCurrentTime(12.f);
 	theManager.requestor.add(new WorldInstance(wi));
 
-	ModHeader mh;
+	File::Mod::ModHeader mh;
 	mh.name = "Default";
 	mh.modVersion = OneVersion(1, 0, 0);
 	theManager.saveGameDatabase(mh.name, mh);

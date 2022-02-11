@@ -7,55 +7,59 @@
 #include <Module/Logger/OneLogger.hpp>
 #include <Helpers\Version.hpp>
 
-class ModHeader
+namespace File::Mod
 {
-	OneVersion modFileVersion = OneVersion::getCurrentVersion();
 
-public:
-
-	Core::String name = "";
-	std::vector<Core::String> dependencies;
-
-	OneVersion modVersion = OneVersion(1, 0, 0);
-
-	template <class Archive>
-	void save(Archive& ar) const
+	class ModHeader
 	{
-		ar(modFileVersion);
-		ar(name);
-		if (modFileVersion >= OneVersion(1, 0, 1))
-			ar(modVersion);
-		ar(dependencies.size());
-		for(Core::String var : dependencies)
-		{
-			ar(var);
-		}
-	}
+		OneVersion modFileVersion = OneVersion::getCurrentVersion();
 
-	template<class Archive>
-	void load(Archive& ar)
-	{
-		OneVersion myVersion;
-		ar(myVersion);
+	public:
 
-		dependencies.clear();
-		size_t mysize;
-		std::string mydep;
-		ar(name);
-		if (myVersion >= OneVersion(1, 0, 1))
+		Core::String name = "";
+		std::vector<Core::String> dependencies;
+
+		OneVersion modVersion = OneVersion(1, 0, 0);
+
+		template <class Archive>
+		void save(Archive& ar) const
 		{
-			ar(modVersion);
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModHeader").Info("Mod [" + name + "] version is: " + modVersion.str());
+			ar(modFileVersion);
+			ar(name);
+			if (modFileVersion >= OneVersion(1, 0, 1))
+				ar(modVersion);
+			ar(dependencies.size());
+			for (Core::String var : dependencies)
+			{
+				ar(var);
+			}
 		}
-		else
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModHeader").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
-		ar(mysize);
-		for (size_t i = 0; i < mysize; i++)
+
+		template<class Archive>
+		void load(Archive& ar)
 		{
-			ar(mydep);
-			dependencies.push_back(mydep);
+			OneVersion myVersion;
+			ar(myVersion);
+
+			dependencies.clear();
+			size_t mysize;
+			std::string mydep;
+			ar(name);
+			if (myVersion >= OneVersion(1, 0, 1))
+			{
+				ar(modVersion);
+				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Mod [" + name + "] version is: " + modVersion.str());
+			}
+			else
+				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
+			ar(mysize);
+			for (size_t i = 0; i < mysize; i++)
+			{
+				ar(mydep);
+				dependencies.push_back(mydep);
+			}
 		}
-	}
+	};
 };
 
 #endif
