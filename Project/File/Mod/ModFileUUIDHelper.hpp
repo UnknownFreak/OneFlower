@@ -9,9 +9,9 @@ namespace File::Mod
 	struct ModFileUUIDHelper
 	{
 
-		ModFileUUIDHelper() : File::Mod::ModFileUUIDHelper("", Core::uuid::nil()) {};
+		ModFileUUIDHelper() : ModFileUUIDHelper("", Core::uuid::nil()) {};
 		ModFileUUIDHelper(const Core::String& name, const Core::uuid& uuid) : name(name), uuid(uuid) {};
-		ModFileUUIDHelper(const ModFileUUIDHelper& copy) : File::Mod::ModFileUUIDHelper(copy.name, copy.uuid) {};
+		ModFileUUIDHelper(const ModFileUUIDHelper& copy) : ModFileUUIDHelper(copy.name, copy.uuid) {};
 		ModFileUUIDHelper& operator=(const ModFileUUIDHelper& right)
 		{
 			name = right.name;

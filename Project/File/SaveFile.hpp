@@ -25,7 +25,7 @@ namespace File
 	{
 
 		Enums::DifficultyLevel diff = Enums::DifficultyLevel::NotSet;
-		Resource::GameMode gameMode;
+		::Resource::GameMode gameMode;
 		Core::uuid customDiffId = Core::uuid::nil();
 		std::unordered_set<Core::uuid> lootedContainers;
 		std::unordered_set<Core::uuid> triggerState;
@@ -60,7 +60,7 @@ namespace File
 		Core::uuid getCustomDiffId() const;
 
 		File::Mod::ModFileUUIDHelper getGameModeId() const;
-		const Resource::GameMode& getGameMode() const;
+		const ::Resource::GameMode& getGameMode() const;
 
 		void save(const Core::String& fileName);
 		void load(const Core::String& fileName);

@@ -113,7 +113,7 @@ namespace File
 		return gameMode.getModfile();
 	}
 
-	const Resource::GameMode& SaveFile::getGameMode() const
+	const ::Resource::GameMode& SaveFile::getGameMode() const
 	{
 		return gameMode;
 	}

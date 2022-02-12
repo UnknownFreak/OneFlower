@@ -13,7 +13,7 @@ namespace Tests
 		{
 		public:
 
-			static ::File::ConfigParser i;
+			static ::File::Resource::Config::ConfigParser i;
 
 			TEST_METHOD_INITIALIZE(Initialize)
 			{
@@ -99,7 +99,7 @@ namespace Tests
 				Assert::AreEqual(s6.c_str(), "test");
 			}
 		};
-		::File::ConfigParser ConfigFileTest::i;
+		::File::Resource::Config::ConfigParser ConfigFileTest::i;
 
 	}
 }

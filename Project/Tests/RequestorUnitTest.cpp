@@ -7,7 +7,7 @@
 
 #include <Helpers/Enum/ObjectType.hpp>
 #include <Interfaces/IRequestable.hpp>
-#include <File/ModHeader.hpp>
+#include <File/Mod/ModHeader.hpp>
 #include <File/Resource/RequestorV2.hpp>
 #include <File/AssetManagerCore.hpp>
 

@@ -16,7 +16,7 @@ namespace EngineModule
 	{
 		bool configLoaded = false;
 		const Core::String configName;
-		File::ConfigParser parser;
+		File::Resource::Config::ConfigParser parser;
 		sf::VideoMode defaultMode;
 		bool fullscreen;
 		sf::Uint32 windowStyle;

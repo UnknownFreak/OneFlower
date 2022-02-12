@@ -9,7 +9,7 @@
 #include <sstream>
 #include <fstream>
 
-namespace File
+namespace File::Resource::Config
 {
 	struct Section
 	{

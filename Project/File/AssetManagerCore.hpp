@@ -47,7 +47,6 @@
 #include <File/Template/TileTemplate.hpp>
 
 #include <Helpers/PrimitiveSaveable.hpp>
-//
 #include <Helpers/Version.hpp>
 
 #ifdef _DEBUG

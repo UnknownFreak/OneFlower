@@ -14,7 +14,7 @@ namespace File::Mod
 			return it->second;
 		else
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ModLoader");
+			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Mod::ModLoader");
 			logger.Error("Failed to get mod position", logger.fileInfo(__FILE__, __LINE__));
 			return 0xFFFFFFFF;
 		}
