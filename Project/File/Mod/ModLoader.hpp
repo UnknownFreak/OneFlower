@@ -8,11 +8,11 @@
 namespace File::Mod
 {
 
-	class ModLoader : public Interfaces::IEngineResource<ModLoader>
+	class Loader : public Interfaces::IEngineResource<Loader>
 	{
 
 	public:
-		ModLoader() = default;
+		Loader() = default;
 		std::map <Core::String, size_t> loadOrder;
 
 		const size_t getModPosition(const Core::String& mod) const;

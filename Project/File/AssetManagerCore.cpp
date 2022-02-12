@@ -195,14 +195,14 @@ namespace Asset
 
 	AssetManager::AssetManager() : 
 		openedMod("<Not Set>"),
-		modLoader(Engine::GetModule<File::Mod::ModLoader>()),
+		modLoader(Engine::GetModule<File::Mod::Loader>()),
 		lang(Enums::ObjectType::Language)
 	{
 	}
 
 	void AssetManager::saveGameDatabase(
 		std::string filename,
-		File::Mod::ModHeader& modhdr)
+		File::Mod::Header& modhdr)
 		//,
 		//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
 		//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
@@ -241,7 +241,7 @@ namespace Asset
 		return lang.request(Core::Builtin, Core::uuid::nil());
 	}
 
-	File::Mod::ModLoader & AssetManager::getModLoader()
+	File::Mod::Loader & AssetManager::getModLoader()
 	{
 		return modLoader;
 	}

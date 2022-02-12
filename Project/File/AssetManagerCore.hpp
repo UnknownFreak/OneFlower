@@ -61,7 +61,7 @@ namespace Asset
 
 		Requestor<Language::LanguageRequestor> lang;
 
-		File::Mod::ModLoader& modLoader;
+		File::Mod::Loader& modLoader;
 
 	public:
 		RequestorV2 requestor;
@@ -70,12 +70,12 @@ namespace Asset
 
 		Language::LanguageRequestor& getLanguage();
 
-		//bool loadModHeader(Core::String modName, ModHeader& modHeader);
+		//bool loadModHeader(Core::String modName, Header& modHeader);
 
 		bool loadModOrderFile();
 		void saveModOrderFile();
 
-		void saveGameDatabase(std::string filename, File::Mod::ModHeader& modhdr);
+		void saveGameDatabase(std::string filename, File::Mod::Header& modhdr);
 
 		void loadAllEditorVariables();
 
@@ -86,7 +86,7 @@ namespace Asset
 
 		Core::String openedMod;
 
-		File::Mod::ModLoader& getModLoader();
+		File::Mod::Loader& getModLoader();
 
 		Enums::EngineResourceType& getType() const
 		{

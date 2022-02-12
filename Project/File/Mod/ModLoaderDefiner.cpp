@@ -3,11 +3,11 @@
 #include <Module\Logger\OneLogger.hpp>
 
 
-Enums::EngineResourceType Interfaces::IEngineResource<File::Mod::ModLoader>::type = Enums::EngineResourceType::ModLoader;
+Enums::EngineResourceType Interfaces::IEngineResource<File::Mod::Loader>::type = Enums::EngineResourceType::ModLoader;
 
 namespace File::Mod
 {
-	const size_t ModLoader::getModPosition(const Core::String& modName) const
+	const size_t Loader::getModPosition(const Core::String& modName) const
 	{
 		std::map<Core::String, size_t>::const_iterator it = loadOrder.find(modName);
 		if (it != loadOrder.end())

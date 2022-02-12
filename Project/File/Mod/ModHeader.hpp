@@ -10,7 +10,7 @@
 namespace File::Mod
 {
 
-	class ModHeader
+	class Header
 	{
 		OneVersion modFileVersion = OneVersion::getCurrentVersion();
 
