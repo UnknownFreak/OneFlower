@@ -7,7 +7,7 @@
 Graphics::UI::LoadingScreen::LoadingScreen() : UIContext(sf::Keyboard::Key::Unknown, "LoadingScreen", true)
 {
 	loadingScreenName = "Flower.png";
-	texture = Engine::GetModule<TextureLoader>().requestTexture(loadingScreenName);
+	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(loadingScreenName);
 	loadingScreen.setTexture(*texture.get());
 }
 

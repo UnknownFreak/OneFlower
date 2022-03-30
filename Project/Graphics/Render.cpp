@@ -13,7 +13,7 @@ void Render::loadAndSetModel()
 {
 	textureName = "temporary.png";
 
-	texture = Engine::GetModule<TextureLoader>().requestTexture(textureName);
+	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
 	sprite = std::make_shared<sf::Sprite>(*texture.get());
 	if (!modelId.uuid.is_nil())
 	{

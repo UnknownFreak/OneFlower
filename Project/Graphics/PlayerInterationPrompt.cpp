@@ -21,7 +21,7 @@ void PlayerInteractionPrompt::updatePromptIcon(sf::VertexArray& va, const Core::
 
 PlayerInteractionPrompt::PlayerInteractionPrompt() : Renderable({ 0,0,16.f,16.f }), dialogInteractionPromptIcon(sf::PrimitiveType::Quads, 4)
 {
-	texture = Engine::GetModule<TextureLoader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
+	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
 	auto texSize = texture.get()->getSize();
 	dialogInteractionPromptIcon[0].texCoords = { 0,0 };
 	dialogInteractionPromptIcon[1].texCoords = { 0, float(texSize.y) };

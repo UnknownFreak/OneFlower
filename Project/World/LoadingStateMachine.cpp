@@ -98,7 +98,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			Engine::GetModule<Asset::AssetManager>().requestor.request<TileAtlas>(instanceToLoad.tileAtlases[loadingScreenInfoPtr->currentAtlasCount]);
+			Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(instanceToLoad.tileAtlases[loadingScreenInfoPtr->currentAtlasCount]);
 			loadingScreenInfoPtr->currentAtlasCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).getElapsedTime();

@@ -4,7 +4,7 @@
 
 Graphics::UI::EffectIcon::EffectIcon(const Core::String& icon, Combat::EffectStack& stack) : UIContext(sf::Keyboard::Key::Unknown, "EffectIcon", true),
 buf(sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Static), iconSize{32.f, 32.f}, stack(stack),
-iconTexture(Engine::GetModule<TextureLoader>().requestTexture(icon, Globals::uiTexturePath))
+iconTexture(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(icon, Globals::uiTexturePath))
 {
 	vertex[0].texCoords = { 0.f ,0.f };
 	vertex[1].texCoords = { 0.f, 64.f };

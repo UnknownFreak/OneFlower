@@ -74,7 +74,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::Time>().type));
 	
 	mainModule.Info("Initializing Modules group: Asset Management");
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<TextureLoader>().type));
+	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Texture::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Asset::AssetManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<SpriterInstanceContainer>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::ObjectInstanceHandler>().type));

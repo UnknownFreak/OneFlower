@@ -51,7 +51,7 @@
 #include <Items/Item.hpp>
 
 CEREAL_REGISTER_TYPE(Interfaces::IRequestable);
-CEREAL_REGISTER_TYPE(TileAtlas);
+CEREAL_REGISTER_TYPE(File::Resource::Texture::TileAtlas);
 CEREAL_REGISTER_TYPE(DialogTree);
 CEREAL_REGISTER_TYPE(Prefab);
 
@@ -89,7 +89,7 @@ CEREAL_REGISTER_TYPE(Questing::DefendObjective);
 CEREAL_REGISTER_TYPE(Questing::DuelObjective);
 CEREAL_REGISTER_TYPE(Questing::ListObjective);
 
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, TileAtlas);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Resource::Texture::TileAtlas);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, DialogTree);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Prefab);
 

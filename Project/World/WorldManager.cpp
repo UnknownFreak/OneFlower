@@ -195,7 +195,7 @@ void WorldManager::createSimpleWorld()
 {
 	const auto mod = "Default";
 	gfx.clearDrawList();
-	TileAtlas ta;
+	File::Resource::Texture::TileAtlas ta;
 	ta.fromMod = mod;
 	ta.name = "tilemap-superflat2-256.png";
 	ta.name = "Exterior.png";
@@ -211,7 +211,7 @@ void WorldManager::createSimpleWorld()
 	ta.addAtlasPos("WaterTopLeft", {128, 64});
 	ta.addAtlasPos("WaterTop", {192, 64});
 
-	std::unique_ptr<TileAtlas> t(new TileAtlas(ta));
+	std::unique_ptr<File::Resource::Texture::TileAtlas> t(new File::Resource::Texture::TileAtlas(ta));
 
 
 	auto& theManager = Engine::GetModule<Asset::AssetManager>();

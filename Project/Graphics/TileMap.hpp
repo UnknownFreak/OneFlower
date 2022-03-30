@@ -103,8 +103,8 @@ class TileMap : public Renderable
 	{
 		if (textures.find(helper) == textures.end())
 		{
-			TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<TileAtlas>(helper);
-			textures.insert({ helper, Engine::GetModule<TextureLoader>().requestTexture(ta->name, Globals::tileTexturePath) });
+			File::Resource::Texture::TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(helper);
+			textures.insert({ helper, Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(ta->name, Globals::tileTexturePath) });
 		}
 	}
 
@@ -171,7 +171,7 @@ public:
 	{
 		allTiles++;
 		addTexture(textureAtlas);
-		TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<TileAtlas>(textureAtlas);
+		File::Resource::Texture::TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(textureAtlas);
 		auto texCoord = ta->get(atlasPos);
 		addLayer(textureAtlas);
 

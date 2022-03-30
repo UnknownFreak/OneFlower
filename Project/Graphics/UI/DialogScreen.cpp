@@ -21,7 +21,7 @@ Graphics::UI::DialogScreen::DialogScreen() : UIContext(sf::Keyboard::Key::Unknow
 	//            |                        |
 
 
-	texture = Engine::GetModule<TextureLoader>().requestTexture("DialogFramedummy.png", Globals::uiTexturePath);
+	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogFramedummy.png", Globals::uiTexturePath);
 
 	float size = 256*4;
 	float height = 64;

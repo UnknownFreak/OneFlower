@@ -2,7 +2,7 @@
 #include <File/Resource/TextureLoader.hpp>
 
 Graphics::UI::SkillIcon::SkillIcon(Combat::Skill* skill) : UIContext(sf::Keyboard::Key::Unknown, "SkillIcon", false), buf(sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Dynamic), skill(skill),
-skillIcon(Engine::GetModule<TextureLoader>().requestTexture(skill->iconTextureName, Globals::uiTexturePath))
+skillIcon(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(skill->iconTextureName, Globals::uiTexturePath))
 {
 	buf.create(8);
 	setPosition({ 0,0 });

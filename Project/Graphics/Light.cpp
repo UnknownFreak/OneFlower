@@ -10,7 +10,7 @@ namespace Graphics
 		Renderable({ thePos, lightRadii, lightRadii }), light(sf::PrimitiveType::Quads, 4), pos(thePos), lightColor(lightColor),
 		lightShaderColor(lightShaderColor)
 	{
-		theTexture = Engine::GetModule<TextureLoader>().requestTexture(Globals::LIGHT);
+		theTexture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(Globals::LIGHT);
 		light[0] = sf::Vertex({ pos.x, (pos.y + z * Globals::Z_OFFSET) }, lightColor, { 0, 0 });
 		light[1] = sf::Vertex({ pos.x + lightRadii, (pos.y + z * Globals::Z_OFFSET) }, lightColor,
 			{ 512, 0 });

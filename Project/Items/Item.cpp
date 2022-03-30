@@ -5,7 +5,7 @@ Core::uuid Interfaces::Trait<Items::Base>::typeId = Core::uuid("d2ab3ecd-a468-41
 
 void Items::Base::loadIcon()
 {
-	iconTexture = Engine::GetModule<TextureLoader>().requestTexture(itemIconName, Globals::uiTexturePath);
+	iconTexture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(itemIconName, Globals::uiTexturePath);
 }
 
 Interfaces::TypeInfo Items::Base::getTrait() const
