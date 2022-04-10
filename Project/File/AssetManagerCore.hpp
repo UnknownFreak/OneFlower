@@ -1,7 +1,7 @@
 #ifndef AssetManagerCore_HPP
 #define AssetManagerCore_HPP
 
-#include "Resource/RegisterRTTI.hpp"
+#include <File/Archive/RegisterRTTI.hpp>
 
 #pragma warning(push)
 #pragma warning(disable: 4003)
@@ -38,8 +38,8 @@
 
 //#include "Prefab.hpp"
 
-#include <File/Resource/Requestor.hpp>
-#include <File/Resource/RequestorV2.hpp>
+#include <File/Archive/Requestor.hpp>
+#include <File/Archive/RequestorV2.hpp>
 
 #include <File/Resource/DialogTree.hpp>
 #include <File/Template/WorldInstance.hpp>
@@ -59,12 +59,12 @@ namespace Asset
 	class AssetManager : public Interfaces::IEngineResource<AssetManager>
 	{
 
-		Requestor<Language::LanguageRequestor> lang;
+		File::Archive::Requestor<Language::LanguageRequestor> lang;
 
 		File::Mod::Loader& modLoader;
 
 	public:
-		RequestorV2 requestor;
+		File::Archive::RequestorV2 requestor;
 		
 		AssetManager();
 
@@ -97,7 +97,7 @@ namespace Asset
 		bool loadModHeader(Core::String modName, T & myheader)
 		{
 			bool eof = false;
-			DatabaseIndex ind;
+			File::Archive::DatabaseIndex ind;
 			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 			std::ifstream database("Data//" + modName, std::ios::binary);
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Asset::AssetManager");

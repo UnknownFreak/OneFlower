@@ -56,7 +56,7 @@ namespace Tests
 			std::ofstream file("test", std::ios::binary);
 			std::ofstream index("test.index", std::ios::binary);
 			{
-				DatabaseIndex ind;
+				File::Archive::DatabaseIndex ind;
 				ind.flags = Enums::ObjectFlag::NoFlag;
 				ind.ID = Core::uuid::nil();
 				ind.type = Enums::ObjectType::Header;

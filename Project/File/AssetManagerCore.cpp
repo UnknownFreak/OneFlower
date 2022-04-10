@@ -6,7 +6,7 @@
 //#include <Graphic\Component\RenderComponent.h>
 //#include <Physics\Component\HitboxComponent.hpp>
 //
-#include "DatabaseIndex.hpp"
+#include <File/Archive/DatabaseIndex.hpp>
 #include <fstream>
 
 #include <cereal\archives\binary.hpp>
@@ -212,7 +212,7 @@ namespace Asset
 		std::ofstream index(Core::dataPath + filename, std::ios::binary | std::ios::out);
 		{
 
-			DatabaseIndex ind;
+			File::Archive::DatabaseIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = Enums::ObjectFlag::NoFlag;
@@ -282,7 +282,7 @@ namespace Asset
 		filename.append(".index");
 		std::ofstream index(Core::langPath + filename, std::ios::binary);
 		{
-			DatabaseIndex ind;
+			File::Archive::DatabaseIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = Enums::ObjectFlag::NoFlag;

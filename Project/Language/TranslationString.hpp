@@ -1,7 +1,7 @@
 #ifndef Language_HPP
 #define Language_HPP
 #include <Interfaces/IRequestable.hpp>
-#include <File/Resource/Requestor.hpp>
+#include <File/Archive/Requestor.hpp>
 #include <Helpers/PrimitiveSaveable.hpp>
 
 #include <cereal/types/vector.hpp>
@@ -23,7 +23,7 @@ namespace Language
 		Core::String fontName;
 	public:
 
-		Requestor<PrimitiveSaveable<Core::String>> stringList;
+		File::Archive::Requestor<PrimitiveSaveable<Core::String>> stringList;
 
 
 	#if defined _EDITOR_ || _UNITTESTS_

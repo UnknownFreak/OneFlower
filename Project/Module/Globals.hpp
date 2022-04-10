@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 
-#include <File/Resource/RequestorV2.hpp>
+#include <File/Archive/RequestorV2.hpp>
 #include <Interfaces/IRequestable.hpp>
 
 #include <Helpers/String.hpp>
@@ -16,7 +16,7 @@
 class Globals : public Interfaces::IEngineResource<Globals>
 {
 	template<class T, class U>
-	void putVariableInto(RequestorV2& container, U& containerToPut, const Enums::ObjectType& type)
+	void putVariableInto(File::Archive::RequestorV2& container, U& containerToPut, const Enums::ObjectType& type)
 	{
 		std::vector<std::pair<Core::String, Core::uuid>> idVector = container.listAllObjectKeys(type);
 		for (std::pair<Core::String, Core::uuid> it : idVector)
