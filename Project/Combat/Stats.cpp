@@ -1,5 +1,5 @@
 #include "Stats.hpp"
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 #include <Object/GameObject.hpp>
 #include "AttachToParent.hpp"
@@ -275,7 +275,7 @@ namespace Component
 					auto vfxs = it.second.tick<Combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
-						auto pref = Engine::GetModule<Asset::AssetManager>().requestor.request<Prefab>(vfx.first.vfxPrefab);
+						auto pref = Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = Core::Vector3f{ 0,0,0 };
 						auto go = pref->createNewInstance(x);
 						go->addComponent<AttachToParent>(attachedOn);

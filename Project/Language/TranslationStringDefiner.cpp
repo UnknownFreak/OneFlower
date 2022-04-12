@@ -2,7 +2,7 @@
 
 #include <fstream>
 //#include <Core\EngineModule\EngineModuleManager.hpp>
-//#include <Asset/AssetManagerCore.hpp>
+//#include <File/Asset/Manager.hpp>
 #include <Helpers/uuid.hpp>
 
 Core::uuid Interfaces::Trait<Language::TranslationString>::typeId = Core::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");

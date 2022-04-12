@@ -39,7 +39,7 @@ void LoadingStateMachine::load()
 	{
 	case Enums::LoadingState::PREPARE_LOADINGSCREEN:
 		// TODO
-		// Requestor<LoadingScreen>& instance = Engine::GetModule<Asset::AssetManager>().getLoadingScreenRequestor();
+		// Requestor<LoadingScreen>& instance = Engine::GetModule<File::Asset::Manager>().getLoadingScreenRequestor();
 		// loadingScreen = instance.request(loadingScreenToLoad);
 		// Below is temporary for testing Since the loadingscreen will be hardcoded to an ugly one
 		gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreen, std::make_unique<Graphics::UI::LoadingScreen>());
@@ -52,7 +52,7 @@ void LoadingStateMachine::load()
 	
 	case Enums::LoadingState::BEGIN_LOAD:
 	{
-		instanceToLoad = Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<WorldInstance>(worldToLoad);
+		instanceToLoad = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<File::Asset::Resource::Template::WorldInstance>(worldToLoad);
 		loadingScreenInfoPtr->totalLoadCount = instanceToLoad.getLoadingCount();
 		loadingScreenInfoPtr->totalAtlasCount = instanceToLoad.tileAtlases.size();
 		loadingScreenInfoPtr->totalPrefabCount = instanceToLoad.prefabs.size();
@@ -98,7 +98,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(instanceToLoad.tileAtlases[loadingScreenInfoPtr->currentAtlasCount]);
+			Engine::GetModule<File::Asset::Manager>().requestor.request<File::Resource::Texture::TileAtlas>(instanceToLoad.tileAtlases[loadingScreenInfoPtr->currentAtlasCount]);
 			loadingScreenInfoPtr->currentAtlasCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).getElapsedTime();
@@ -114,7 +114,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			Engine::GetModule<Asset::AssetManager>().requestor.request<Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
+			Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
 			loadingScreenInfoPtr->currentPrefabCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->prefabLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).getElapsedTime();
@@ -130,7 +130,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			Engine::GetModule<Asset::AssetManager>().requestor.request<TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileCount]);
+			Engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileCount]);
 			loadingScreenInfoPtr->currentTileCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->tileLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).getElapsedTime();
@@ -146,7 +146,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto chunk = Engine::GetModule<Asset::AssetManager>().requestor.request<TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileBuildingCount]);
+			auto chunk = Engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileBuildingCount]);
 			for (auto& x : chunk->tileInfo)
 				gfx.addRenderable(chunk->layer, chunk->group, x.pos.toVector2(), x.pos.z, chunk->atlas, x.textureCoors, x.type, x.hasShadow);
 			if (chunk->chunkTransparency.set)
@@ -169,7 +169,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			Engine::GetModule<Asset::AssetManager>().requestor.request<ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderCount]);
+			Engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderCount]);
 			loadingScreenInfoPtr->currentColliderCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->colliderLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).getElapsedTime();
@@ -185,7 +185,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto chunk = Engine::GetModule<Asset::AssetManager>().requestor.request<ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderBuildingCount]);
+			auto chunk = Engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderBuildingCount]);
 			for(auto & x : chunk->colliderInfo)
 				gfx.addHitbox(std::make_unique<TileCollider>(x.pos, x.size, x.type, x.isRoof), chunk->layer, chunk->group);
 			loadingScreenInfoPtr->currentColliderBuildingCount++;
@@ -204,13 +204,13 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto& requestor = Engine::GetModule<Asset::AssetManager>().requestor;
-			auto chunk = requestor.request<ObjectChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentObjectPartCount]);
+			auto& requestor = Engine::GetModule<File::Asset::Manager>().requestor;
+			auto chunk = requestor.request<File::Asset::Resource::Template::ObjectChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentObjectPartCount]);
 			for (auto& x : chunk->objectLocations)
 			{
 				loadingScreenInfoPtr->totalObjectCount += x.second.size();
 				loadingScreenInfoPtr->totalLoadCount += x.second.size();
-				auto pref = requestor.requestShared<Prefab>(x.first);
+				auto pref = requestor.requestShared<Asset::Resource::Prefab>(x.first);
 				for (auto& location : x.second)
 				{
 					location.prefab = x.first;
@@ -237,8 +237,8 @@ void LoadingStateMachine::load()
 		{
 			auto& location = buffer[loadingScreenInfoPtr->currentObjectCount];
 
-			auto& requestor = Engine::GetModule<Asset::AssetManager>().requestor;
-			auto prefab = requestor.request<Prefab>(location.prefab);
+			auto& requestor = Engine::GetModule<File::Asset::Manager>().requestor;
+			auto prefab = requestor.request<Asset::Resource::Prefab>(location.prefab);
 
 			prefab->createNewInstance(location.objectId, location.location);
 

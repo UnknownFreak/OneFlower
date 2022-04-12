@@ -67,9 +67,6 @@
     <Filter Include="Engine\File\Mod">
       <UniqueIdentifier>{ba7291de-fa3f-4dc6-8d27-3831a49c4cfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Template">
-      <UniqueIdentifier>{4595876a-6157-4be0-aa92-754074f9bcf5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit Tests">
       <UniqueIdentifier>{604da4f4-699c-4cc5-a7bc-03b3cc6dd90f}</UniqueIdentifier>
     </Filter>
@@ -321,6 +318,15 @@
     </Filter>
     <Filter Include="Engine\File\Archive">
       <UniqueIdentifier>{9a865b7e-716a-4767-99ba-2fec7c2f6cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Asset">
+      <UniqueIdentifier>{93cac833-42be-4d15-9cc0-35ce90be962e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Asset\Resource">
+      <UniqueIdentifier>{ae47f199-3370-40c6-a0c5-801627862269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\File\Asset\Resource\Template">
+      <UniqueIdentifier>{4595876a-6157-4be0-aa92-754074f9bcf5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -693,9 +699,6 @@
     <ClCompile Include="Project\Graphics\Window.cpp">
       <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\AssetManagerCore.cpp">
-      <Filter>Engine\File</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
@@ -741,9 +744,6 @@
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp">
       <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Resource\DialogTree.cpp">
-      <Filter>Engine\File\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Combat\Element.cpp">
       <Filter>Engine\Combat</Filter>
     </ClCompile>
@@ -762,15 +762,6 @@
     <ClCompile Include="Project\Tests\TestObjects.hpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Template\WorldInstance.cpp">
-      <Filter>Engine\File\Template</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Template\TileTemplate.cpp">
-      <Filter>Engine\File\Template</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Template\ColliderTemplate.cpp">
-      <Filter>Engine\File\Template</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
@@ -788,9 +779,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ProgressBar.cpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\Prefab.cpp">
-      <Filter>Engine\File\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Project\Module\Random.cpp">
       <Filter>Engine\Module\Random</Filter>
@@ -986,6 +974,24 @@
     </ClCompile>
     <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp">
       <Filter>Engine\File\Mod</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Manager.cpp">
+      <Filter>Engine\File\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp">
+      <Filter>Engine\File\Asset\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Resource\Prefab.cpp">
+      <Filter>Engine\File\Asset\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1409,15 +1415,6 @@
     <ClInclude Include="Project\Graphics\Window.hpp">
       <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\AssetManagerCore.hpp">
-      <Filter>Engine\File</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Template\ColliderTemplate.hpp">
-      <Filter>Engine\File\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Template\TileTemplate.hpp">
-      <Filter>Engine\File\Template</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClInclude>
@@ -1444,9 +1441,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\TransparencyMasker.hpp">
       <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Template\WorldInstance.hpp">
-      <Filter>Engine\File\Template</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -1493,9 +1487,6 @@
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\Resource\DialogTree.hpp">
-      <Filter>Engine\File\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Combat\Element.hpp">
       <Filter>Engine\Combat</Filter>
     </ClInclude>
@@ -1540,9 +1531,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ProgressBar.hpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\Prefab.hpp">
-      <Filter>Engine\File\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\Module\Random.hpp">
       <Filter>Engine\Module\Random</Filter>
@@ -1798,6 +1786,24 @@
     </ClInclude>
     <ClInclude Include="Project\File\Archive\Requestor.hpp">
       <Filter>Engine\File\Archive</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Manager.hpp">
+      <Filter>Engine\File\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp">
+      <Filter>Engine\File\Asset\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp">
+      <Filter>Engine\File\Asset\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp">
+      <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

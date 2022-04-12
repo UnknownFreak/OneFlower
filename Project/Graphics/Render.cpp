@@ -1,6 +1,6 @@
 #include "Render.hpp"
 #include <Object/GameObject.hpp>
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <Graphics/Window.hpp>
 #include <File/Resource/TextureLoader.hpp>
 
@@ -17,7 +17,7 @@ void Render::loadAndSetModel()
 	sprite = std::make_shared<sf::Sprite>(*texture.get());
 	if (!modelId.uuid.is_nil())
 	{
-		model = std::unique_ptr<IModel>(Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstancePtr<IModel>(modelId));
+		model = std::unique_ptr<IModel>(Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstancePtr<IModel>(modelId));
 		model->setRenderSprite(sprite);
 	}
 

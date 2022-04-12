@@ -1,5 +1,5 @@
 #include "Effect.hpp"
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 Core::uuid Interfaces::Trait<Combat::Effect>::typeId = Core::uuid("ce4cf3dd-435b-41a3-912f-925cfaa8f6b8");
 
@@ -9,7 +9,7 @@ namespace Combat
 
 	Element Effect::getElement()
 	{
-		return Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Element>(effectElememtId);
+		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(effectElememtId);
 	}
 
 	Effect::Effect() : IRequestable()

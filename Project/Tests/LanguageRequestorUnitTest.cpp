@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 
 #include <Helpers/ListDir.hpp>
-#include <File\AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <Language/LanguageRequestor.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -75,8 +75,8 @@ namespace Tests
 			file.close();
 			index.close();
 
-			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.clear();
-			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
+			Engine::GetModule<File::Asset::Manager>().getModLoader().loadOrder.clear();
+			Engine::GetModule<File::Asset::Manager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
 			r().clear();
 			req.clear();
 		}

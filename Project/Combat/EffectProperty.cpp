@@ -1,7 +1,7 @@
 #include "EffectProperty.hpp"
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 void Combat::VisualEffect::loadVfx()
 {
-	Engine::GetModule<Asset::AssetManager>().requestor.request<Prefab>(vfxPrefab);
+	Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfxPrefab);
 }

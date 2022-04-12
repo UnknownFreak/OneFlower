@@ -1,6 +1,6 @@
 #include "Element.hpp"
 
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <Module/EngineModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
@@ -37,7 +37,7 @@ namespace Combat
 	
 	Core::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
 	{
-		return Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Element>(element).name;
+		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(element).name;
 	}
 	
 	Interfaces::TypeInfo Element::getTrait() const

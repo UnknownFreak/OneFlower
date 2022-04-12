@@ -5,7 +5,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Shader.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <File/Resource/TextureLoader.hpp>
 
 #include <Helpers/Enum/TileTypes.hpp>
@@ -103,7 +103,7 @@ class TileMap : public Renderable
 	{
 		if (textures.find(helper) == textures.end())
 		{
-			File::Resource::Texture::TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(helper);
+			File::Resource::Texture::TileAtlas* ta = Engine::GetModule<File::Asset::Manager>().requestor.request<File::Resource::Texture::TileAtlas>(helper);
 			textures.insert({ helper, Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(ta->name, Globals::tileTexturePath) });
 		}
 	}
@@ -171,7 +171,7 @@ public:
 	{
 		allTiles++;
 		addTexture(textureAtlas);
-		File::Resource::Texture::TileAtlas* ta = Engine::GetModule<Asset::AssetManager>().requestor.request<File::Resource::Texture::TileAtlas>(textureAtlas);
+		File::Resource::Texture::TileAtlas* ta = Engine::GetModule<File::Asset::Manager>().requestor.request<File::Resource::Texture::TileAtlas>(textureAtlas);
 		auto texCoord = ta->get(atlasPos);
 		addLayer(textureAtlas);
 

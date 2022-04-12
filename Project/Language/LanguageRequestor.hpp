@@ -81,7 +81,7 @@ namespace Language
 		{
 			ar(allLanguageFiles);
 			ar(languageNames);
-			languages = Engine::GetModule<Asset::AssetManager>().loadLanguages(allLanguageFiles);
+			languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 			resolvePatchedLanguages();
 		}
 
@@ -90,7 +90,7 @@ namespace Language
 		{
 			ar(allLanguageFiles);
 			ar(languageNames);
-			Engine::GetModule<Asset::AssetManager>().saveLanguages(*this);
+			Engine::GetModule<File::Asset::Manager>().saveLanguages(*this);
 		}
 	};
 }

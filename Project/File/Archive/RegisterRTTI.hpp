@@ -14,12 +14,12 @@
 #endif
 
 #include <File/Resource/TileAtlas.hpp>
-#include <File/Resource/DialogTree.hpp>
-#include <File/Resource/Prefab.hpp>
+#include <File/Asset/Resource/DialogTree.hpp>
+#include <File/Asset/Resource/Prefab.hpp>
 
-#include <File/Template/WorldInstance.hpp>
-#include <File/Template/TileTemplate.hpp>
-#include <File/Template/ColliderTemplate.hpp>
+#include <File/Asset/Resource/Template/WorldInstance.hpp>
+#include <File/Asset/Resource/Template/TileTemplate.hpp>
+#include <File/Asset/Resource/Template/ColliderTemplate.hpp>
 
 #include <Graphics/Model/TextureMap.hpp>
 #include <Graphics/Model/IModel.hpp>
@@ -52,12 +52,12 @@
 
 CEREAL_REGISTER_TYPE(Interfaces::IRequestable);
 CEREAL_REGISTER_TYPE(File::Resource::Texture::TileAtlas);
-CEREAL_REGISTER_TYPE(DialogTree);
-CEREAL_REGISTER_TYPE(Prefab);
+CEREAL_REGISTER_TYPE(Asset::Resource::DialogTree);
+CEREAL_REGISTER_TYPE(Asset::Resource::Prefab);
 
-CEREAL_REGISTER_TYPE(WorldInstance);
-CEREAL_REGISTER_TYPE(TileChunk);
-CEREAL_REGISTER_TYPE(ColliderChunk);
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::WorldInstance);
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::TileChunk);
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::ColliderChunk);
 
 CEREAL_REGISTER_TYPE(TextureMap);
 CEREAL_REGISTER_TYPE(IModel);
@@ -90,12 +90,12 @@ CEREAL_REGISTER_TYPE(Questing::DuelObjective);
 CEREAL_REGISTER_TYPE(Questing::ListObjective);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Resource::Texture::TileAtlas);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, DialogTree);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Prefab);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Asset::Resource::DialogTree);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Asset::Resource::Prefab);
 
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, WorldInstance);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, TileChunk);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, ColliderChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Resource::Template::WorldInstance);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Resource::Template::TileChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Resource::Template::ColliderChunk);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, TextureMap);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, IModel);

@@ -1,5 +1,5 @@
-#ifndef AssetManagerCore_HPP
-#define AssetManagerCore_HPP
+#ifndef AssetManager_HPP
+#define AssetManager_HPP
 
 #include <File/Archive/RegisterRTTI.hpp>
 
@@ -41,22 +41,17 @@
 #include <File/Archive/Requestor.hpp>
 #include <File/Archive/RequestorV2.hpp>
 
-#include <File/Resource/DialogTree.hpp>
-#include <File/Template/WorldInstance.hpp>
-#include <File/Template/ColliderTemplate.hpp>
-#include <File/Template/TileTemplate.hpp>
+#include <File/Asset/Resource/DialogTree.hpp>
+#include <File/Asset/Resource/Template/WorldInstance.hpp>
+#include <File/Asset/Resource/Template/ColliderTemplate.hpp>
+#include <File/Asset/Resource/Template/TileTemplate.hpp>
 
 #include <Helpers/PrimitiveSaveable.hpp>
 #include <Helpers/Version.hpp>
 
-#ifdef _DEBUG
-void testSave();
-void testLoad();
-#endif
-
-namespace Asset
+namespace File::Asset
 {
-	class AssetManager : public Interfaces::IEngineResource<AssetManager>
+	class Manager : public Interfaces::IEngineResource<Manager>
 	{
 
 		File::Archive::Requestor<Language::LanguageRequestor> lang;
@@ -66,7 +61,7 @@ namespace Asset
 	public:
 		File::Archive::RequestorV2 requestor;
 		
-		AssetManager();
+		Manager();
 
 		Language::LanguageRequestor& getLanguage();
 
@@ -100,7 +95,7 @@ namespace Asset
 			File::Archive::DatabaseIndex ind;
 			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 			std::ifstream database("Data//" + modName, std::ios::binary);
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Asset::AssetManager");
+			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
 			if (!index.is_open())
 				logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
 			else if (!database.is_open())

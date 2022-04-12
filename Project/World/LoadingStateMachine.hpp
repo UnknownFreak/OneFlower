@@ -17,14 +17,14 @@ class LoadingStateMachine
 	File::Mod::ModFileUUIDHelper worldToLoad;
 	File::Mod::ModFileUUIDHelper loadingScreenToLoad;
 
-	WorldInstance instanceToLoad;
+	File::Asset::Resource::Template::WorldInstance instanceToLoad;
 
 public:
 
 	const File::Mod::ModFileUUIDHelper& getCurrentWorld() const;
 	const File::Mod::ModFileUUIDHelper& getCurrentLoadingScreen() const;
 
-	std::vector<ObjectInfo> buffer;
+	std::vector<File::Asset::Resource::Template::ObjectInfo> buffer;
 	
 	Core::Vector3f playerPos;
 

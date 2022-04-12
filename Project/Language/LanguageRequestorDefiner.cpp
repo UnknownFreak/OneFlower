@@ -1,5 +1,5 @@
 #include "LanguageRequestor.hpp"
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <algorithm>
 #include <Helpers/ListDir.hpp>
 
@@ -108,7 +108,7 @@ namespace Language
 		clear();
 #endif
 		allLanguageFiles = Helpers::listDirectory(Core::langPath, ".lang", false);
-		languages = Engine::GetModule<Asset::AssetManager>().loadLanguages(allLanguageFiles);
+		languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 		resolvePatchedLanguages();
 	}
 

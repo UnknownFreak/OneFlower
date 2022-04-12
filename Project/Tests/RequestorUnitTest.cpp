@@ -9,7 +9,7 @@
 #include <Interfaces/IRequestable.hpp>
 #include <File/Mod/ModHeader.hpp>
 #include <File/Resource/RequestorV2.hpp>
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 #include <Helpers/uuid.hpp>
 #include <Helpers/String.hpp>
@@ -79,8 +79,8 @@ namespace Tests
 			file.close();
 			index.close();
 
-			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.clear();
-			Engine::GetModule<Asset::AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
+			Engine::GetModule<File::Asset::AssetManager>().getModLoader().loadOrder.clear();
+			Engine::GetModule<File::Asset::AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
 		}
 
 		TEST_CLASS_INITIALIZE(Initialize)

@@ -16,10 +16,10 @@
 
 #include <Helpers/Enum/TileTypes.hpp>
 
-#include <File/Template/WorldInstance.hpp>
-#include <File/Template/TileTemplate.hpp>
-#include <File/Template/ColliderTemplate.hpp>
-#include <File/Resource/Prefab.hpp>
+#include <File/Asset/Resource/Template/WorldInstance.hpp>
+#include <File/Asset/Resource/Template/TileTemplate.hpp>
+#include <File/Asset/Resource/Template/ColliderTemplate.hpp>
+#include <File/Asset/Resource/Prefab.hpp>
 
 #include <Graphics/Render.hpp>
 #include <Graphics/Dialog.hpp>
@@ -214,7 +214,7 @@ void WorldManager::createSimpleWorld()
 	std::unique_ptr<File::Resource::Texture::TileAtlas> t(new File::Resource::Texture::TileAtlas(ta));
 
 
-	auto& theManager = Engine::GetModule<Asset::AssetManager>();
+	auto& theManager = Engine::GetModule<File::Asset::Manager>();
 	//auto& atlasMgr = theManager.getTileAtlas();
 	//atlasMgr.add(ta);
 	theManager.requestor.add(t.release());
@@ -226,12 +226,12 @@ void WorldManager::createSimpleWorld()
 	//auto& colliderChunks = theManager.getColliderChunks();
 	//auto& tileChunks = theManager.getTileChunks();
 
-	WorldInstance wi;
+	File::Asset::Resource::Template::WorldInstance wi;
 	wi.objectType = Enums::ObjectType::WorldInstance;
 	wi.fromMod = mod;
 	wi.tileAtlases.push_back(atlas);
 
-	ColliderChunk chunk;
+	File::Asset::Resource::Template::ColliderChunk chunk;
 	
 	chunk.objectType = Enums::ObjectType::ColliderChunk;
 	chunk.fromMod = mod;
@@ -243,58 +243,58 @@ void WorldManager::createSimpleWorld()
 	/// </summary>
 	chunk.layer = 0;
 	chunk.group = "Default";
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{64.f, 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{64.f + 256.f, 64.f, 0.f}, Core::Vector2f{192.f, 256.f}, Enums::ColliderType::Floor});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{64.f, 64.f + 256.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{64.f + 256.f, 64.f + 256.f, 0.f}, Core::Vector2f{192.f, 256.f}, Enums::ColliderType::Floor});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{8 * 64.f, 64.f, 0.f}, Core::Vector2f{64.f * 5, 192.f}, Enums::ColliderType::Floor});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{8 * 64.f, 4* 64.f, 0.f}, Core::Vector2f{64.f, 64.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{64.f, 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{64.f + 256.f, 64.f, 0.f}, Core::Vector2f{192.f, 256.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{64.f, 64.f + 256.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{64.f + 256.f, 64.f + 256.f, 0.f}, Core::Vector2f{192.f, 256.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{8 * 64.f, 64.f, 0.f}, Core::Vector2f{64.f * 5, 192.f}, Enums::ColliderType::Floor});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{8 * 64.f, 4* 64.f, 0.f}, Core::Vector2f{64.f, 64.f}, Enums::ColliderType::Floor});
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{0.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{2* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{3* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{4* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{0.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{2* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{3* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{4* 256.f, 0.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall});
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{0.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{1*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{2*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{3*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{4*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{9*256.f, 6* 64.f, 1.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{0.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{1*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{2*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{3*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{4*256.f, -64.f, 1.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{9*256.f, 6* 64.f, 1.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{128.f, 128.f, 1.f}, Core::Vector2f{128.f, 128.f}, Enums::ColliderType::Floor, true });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{512.f + 64.f, 256.f + 64.f, 1.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{512.f + 64.f, 256.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::NToSRamp });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{512.f + 64.f, 576.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::SToNRamp });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{128.f, 128.f, 1.f}, Core::Vector2f{128.f, 128.f}, Enums::ColliderType::Floor, true });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{512.f + 64.f, 256.f + 64.f, 1.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{512.f + 64.f, 256.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::NToSRamp });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{512.f + 64.f, 576.f, 0.f}, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::SToNRamp });
 	
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{512.f, 256.f + 64.f , 0.f}, Core::Vector2f{64.f, 256.f}, Enums::ColliderType::EToWRamp });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{512.f + 256.f + 64.f, 256.f + 64.f, 0.f}, Core::Vector2f{64.f, 256.f}, Enums::ColliderType::WToERamp });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{512.f, 256.f + 64.f , 0.f}, Core::Vector2f{64.f, 256.f}, Enums::ColliderType::EToWRamp });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{512.f + 256.f + 64.f, 256.f + 64.f, 0.f}, Core::Vector2f{64.f, 256.f}, Enums::ColliderType::WToERamp });
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{5 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{5 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{5 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 192.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{5 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{5 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{5 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 192.f}, Enums::ColliderType::Floor });
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{1 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{1 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{1 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 192.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{1 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{1 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{1 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 192.f}, Enums::ColliderType::Floor });
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{9 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{9 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{9 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{9 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{9 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{9 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f, 128.f}, Enums::ColliderType::Floor });
 
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{13 * 64.f, 1 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{14 * 64.f, 5 * 64.f, 0.f}, Core::Vector2f{ 256.f + 64, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{13 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{13 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{13 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 192.f}, Enums::ColliderType::Floor });
-	chunk.colliderInfo.push_back(ColliderTemplate{ Core::Vector3f{13 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f + 128 + 10240, 192.f + 10240 }, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{13 * 64.f, 1 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{14 * 64.f, 5 * 64.f, 0.f}, Core::Vector2f{ 256.f + 64, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{13 * 64.f, 9 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{13 * 64.f, 13 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 256.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{13 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f + 128, 192.f}, Enums::ColliderType::Floor });
+	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ Core::Vector3f{13 * 64.f, 17 * 64.f, 0.f}, Core::Vector2f{256.f + 128 + 10240, 192.f + 10240 }, Enums::ColliderType::Floor });
 	//colliderChunks.add(chunk);
-	theManager.requestor.add(new ColliderChunk(chunk));
+	theManager.requestor.add(new File::Asset::Resource::Template::ColliderChunk(chunk));
 	wi.colliderInfo.push_back(chunk.getModfile());
 
 
-	TileChunk tchunk;
+	File::Asset::Resource::Template::TileChunk tchunk;
 	tchunk.fromMod = mod;
 	tchunk.objectType = Enums::ObjectType::TileChunk;
 	//tiles.clear();
@@ -308,24 +308,24 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.clear();
 			tchunk.layer = 0;
 			tchunk.group = "Default";
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ -1 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 0 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 1 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 2 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 3 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 4 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 5 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 6 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 7 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 8 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 13 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 14 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 15 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 16 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 17 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{ 18 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ -1 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 0 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 1 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 2 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 3 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 4 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 5 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 6 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 7 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 8 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 13 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 14 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 15 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 16 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 17 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 18 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
 			
-			theManager.requestor.add(new TileChunk(tchunk));
+			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 
 		}
@@ -333,12 +333,12 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
 
-			theManager.requestor.add(new TileChunk(tchunk));
+			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 			
 		}
@@ -348,12 +348,12 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
 
-			theManager.requestor.add(new TileChunk(tchunk));
+			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 		
 		}
@@ -363,12 +363,12 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
 
-			theManager.requestor.add(new TileChunk(tchunk));
+			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 		}
 	
@@ -377,16 +377,16 @@ void WorldManager::createSimpleWorld()
 	for (float f = 0; f < 20; f++)
 	{
 
-		tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{f * 64.f, 0.f , 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
-		tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{f * 64.f, 1024.f, 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 0.f , 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 1024.f, 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
 
 	}
 	
 	for (float f = 1; f < 20; f++)
 	{
-		tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{0.f, f * 64.f , 0.f }, atlas, "Wall",  Enums::TileTypes::Wall, true });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{0.f, f * 64.f , 0.f }, atlas, "Wall",  Enums::TileTypes::Wall, true });
 	}
-	theManager.requestor.add(new TileChunk(tchunk));
+	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
 	tchunk.ID = Core::uuid();
@@ -395,37 +395,37 @@ void WorldManager::createSimpleWorld()
 	for (float f = 0; f < 20; f++)
 	{
 
-		tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{f * 64.f, -64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-		tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{f * 64.f,  0.f, 1.f }, atlas, "GroundWall",  Enums::TileTypes::Ground, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, -64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f,  0.f, 1.f }, atlas, "GroundWall",  Enums::TileTypes::Ground, false });
 	}
-	theManager.requestor.add(new TileChunk(tchunk));
+	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 	
 	tchunk.ID = Core::uuid();
 	tchunk.tileInfo.clear();
 	tchunk.group = "Island";
-	tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{128.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{128.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.chunkTransparency = TransparencyInfo{ true, Core::Vector3f{128.f, 128.f,  1.f},  Core::Vector2f{128.f , 128.f } };
-	theManager.requestor.add(new TileChunk(tchunk));
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.chunkTransparency = File::Asset::Resource::Template::TransparencyInfo{ true, Core::Vector3f{128.f, 128.f,  1.f},  Core::Vector2f{128.f , 128.f } };
+	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
-	auto greetings = DialogOption{ Core::uuid(), { {1,2}, {3,4}, {7,8}}, nullptr, nullptr, Enums::DialogStatus::Open, "Hello traveller!" };
-	auto playerResponse = DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Good day" };
-	auto npcResponse = DialogOption{ Core::uuid(), { {5,5}}, nullptr, nullptr, Enums::DialogStatus::Open, "I hope you're having a good day!" };
-	auto playerResponse2 = DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Wassup? " };
-	auto npcResponse2 = DialogOption{ Core::uuid(), { {5,6} }, nullptr, nullptr, Enums::DialogStatus::Open, "Not much... just added here as a testing dummy" };
-	auto exitDialog = DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Close, "Ok, Bye..." };
-	auto exitDialog2 = DialogOption{ Core::uuid(), { }, nullptr, nullptr,Enums::DialogStatus::Close, "Bye..." };
+	auto greetings = Asset::Resource::DialogOption{ Core::uuid(), { {1,2}, {3,4}, {7,8}}, nullptr, nullptr, Enums::DialogStatus::Open, "Hello traveller!" };
+	auto playerResponse = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Good day" };
+	auto npcResponse = Asset::Resource::DialogOption{ Core::uuid(), { {5,5}}, nullptr, nullptr, Enums::DialogStatus::Open, "I hope you're having a good day!" };
+	auto playerResponse2 = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Wassup? " };
+	auto npcResponse2 = Asset::Resource::DialogOption{ Core::uuid(), { {5,6} }, nullptr, nullptr, Enums::DialogStatus::Open, "Not much... just added here as a testing dummy" };
+	auto exitDialog = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Close, "Ok, Bye..." };
+	auto exitDialog2 = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr,Enums::DialogStatus::Close, "Bye..." };
 
-	auto nested1 = DialogOption{ Core::uuid(), { {-1, 9} }, nullptr, nullptr, Enums::DialogStatus::Open, "Nested Test" };
-	auto nested2 = DialogOption{ Core::uuid(), { {-1, 7}}, nullptr, nullptr,Enums::DialogStatus::Open, "Nested 2" };
-	auto nested3 = DialogOption{ Core::uuid(), { {5, 6}}, nullptr, nullptr, Enums::DialogStatus::Open, "Nested 3" };
+	auto nested1 = Asset::Resource::DialogOption{ Core::uuid(), { {-1, 9} }, nullptr, nullptr, Enums::DialogStatus::Open, "Nested Test" };
+	auto nested2 = Asset::Resource::DialogOption{ Core::uuid(), { {-1, 7}}, nullptr, nullptr,Enums::DialogStatus::Open, "Nested 2" };
+	auto nested3 = Asset::Resource::DialogOption{ Core::uuid(), { {5, 6}}, nullptr, nullptr, Enums::DialogStatus::Open, "Nested 3" };
 
 
-	std::unordered_map<size_t, DialogOption> opt{ 
+	std::unordered_map<size_t, Asset::Resource::DialogOption> opt{
 		{0, greetings},
 		{1, playerResponse},
 		{2, npcResponse},
@@ -437,12 +437,12 @@ void WorldManager::createSimpleWorld()
 		{8, nested2},
 		{9, nested3}
 	};
-	DialogTree dt(opt);
+	Asset::Resource::DialogTree dt(opt);
 	dt.objectType = Enums::ObjectType::DialogTree;
 	dt.fromMod = mod;
 	dt.ID = Core::uuid();
 
-	theManager.requestor.add(new DialogTree(dt));
+	theManager.requestor.add(new Asset::Resource::DialogTree(dt));
 	dialogTest = dt.getModfile();
 
 	gfx.addRenderable(0, "Default", { 1024.f + 64, 128.f}, 0.f, atlas, "WaterTop", Enums::TileTypes::Ground, true);
@@ -453,7 +453,7 @@ void WorldManager::createSimpleWorld()
 
 	auto dialog = objectHandler.objects[testObjectId].getComponent<Dialog>();
 	dialog->dialogTreeuuid = dialogTest;
-	dialog->dialogTree = Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<DialogTree>(dialogTest);
+	dialog->dialogTree = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Asset::Resource::DialogTree>(dialogTest);
 
 	Combat::Element e;
 	e.objectType = Enums::ObjectType::Element;
@@ -481,7 +481,7 @@ void WorldManager::createSimpleWorld()
 	auto ef2 = ef;
 	ef2.ID = Core::uuid();
 	theManager.requestor.add(new Combat::Effect(ef2));
-	Prefab p;
+	Asset::Resource::Prefab p;
 	p.objectType = Enums::ObjectType::Prefab;
 	p.components.emplace_back(std::make_unique<Collider, Core::Vector2f, Core::Vector2f>({ 64, 64 }, {-16, 16}));
 	Component::Damage d = Component::Damage();
@@ -495,7 +495,7 @@ void WorldManager::createSimpleWorld()
 	p.components.push_back(std::make_unique<Component::Damage>(d));
 	p.fromMod = mod;
 
-	theManager.requestor.add(new Prefab(p));
+	theManager.requestor.add(new Asset::Resource::Prefab(p));
 
 	Combat::Skill s;
 	s.objectType = Enums::ObjectType::Skill;
@@ -513,7 +513,7 @@ void WorldManager::createSimpleWorld()
 
 	isLoading = false;
 	setCurrentTime(12.f);
-	theManager.requestor.add(new WorldInstance(wi));
+	theManager.requestor.add(new File::Asset::Resource::Template::WorldInstance(wi));
 
 	File::Mod::Header mh;
 	mh.name = "Default";

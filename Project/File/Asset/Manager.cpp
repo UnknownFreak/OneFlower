@@ -1,4 +1,4 @@
-#include "AssetManagerCore.hpp"
+#include "Manager.hpp"
 
 //#include <Core/Component/BaseComponent.hpp>
 //#include <Core\Component\TransformComponent.hpp>
@@ -67,12 +67,12 @@
 //CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
 
 
-Enums::EngineResourceType Interfaces::IEngineResource<Asset::AssetManager>::type = Enums::EngineResourceType::AssetManager;
+Enums::EngineResourceType Interfaces::IEngineResource<File::Asset::Manager>::type = Enums::EngineResourceType::AssetManager;
 
-namespace Asset
+namespace File::Asset
 {
 
-	void AssetManager::saveModOrderFile()
+	void Manager::saveModOrderFile()
 	{
 		std::ofstream file("Data\\ModLoadOrder.xml");
 		{
@@ -81,126 +81,14 @@ namespace Asset
 		}
 	}
 
-
-#ifdef _DEBUG
-
-	void testSave()
-	{
-		//GameObject *test = new GameObject();
-		//test->tag = "debug";
-		//test->name = "TestPlatform";
-		//test->GetComponent<Component::Transform>()->position.x = 300;
-		//test->GetComponent<Component::Transform>()->position.y = 316;
-		//test->AddComponent(new Component::HitboxComponent(0, 0, 40, 40));
-		//test->AddComponent(new Component::RenderComponent("testCutHalf.png"));
-		//Prefab pref(test);
-		//pref.ID = 1;
-		////zone.addGameObject(test);
-
-		//GameObject *ground = new GameObject();
-		//ground->name = "da kewl ground";
-		//ground->tag = "debug";
-		//ground->GetComponent<Component::Transform>()->position.x = 400;
-		//ground->GetComponent<Component::Transform>()->position.y = 550;
-		//ground->AddComponent(new Component::HitboxComponent(0, 0, 40, 40));
-		//ground->AddComponent(new Component::RenderComponent("ground.marker_1.png"));
-		//ground->GetComponent<Component::RenderComponent>()->sprite.setScale(2, 1);
-		//ground->GetComponent<Component::HitboxComponent>()->bounding.size.x = ground->GetComponent<Component::HitboxComponent>()->bounding.size.x * 2;
-		//Prefab pref2(ground);
-		//pref2.ID = 2;
-
-		////zone.addGameObject(ground);
-
-		//GameObject *target = new GameObject();
-		//target->name = "testTarget";
-		//target->tag = "debug";
-		//target->GetComponent<Component::Transform>()->position.x = 580;
-		//target->GetComponent<Component::Transform>()->position.y = 480;
-		//target->AddComponent(new Component::HitboxComponent(0, 0, 40, 40));
-		//target->AddComponent(new Component::RenderComponent("testTarget.png"));
-
-		////target->AddComponent(new Component::DialogComponent(2));
-		//////target->GetComponent<DialogComponent>()->msg->iconName = "TestDialogChat.png";
-		////target->GetComponent<Component::DialogComponent>()->dialogMessage = "Senpai!\nNotice me!";
-		////target->GetComponent<Component::DialogComponent>()->position.x = 64;
-		////target->GetComponent<Component::DialogComponent>()->position.y = 80;
-		////target->GetComponent<DialogComponent>()->msg->setOffset(10, 5);
-
-		//Prefab pref3(target);
-		//pref3.ID = 3;
-
-
-		//std::ofstream index("TestSave.xml.index", std::ios::binary);
-		//std::ofstream file("TestSave.xml", std::ios::binary);
-		//{
-		//	DatabaseIndex ind;
-		//	cereal::BinaryOutputArchive mainAr(file);
-		//	cereal::BinaryOutputArchive indexAr(index);
-		//	//ind.flags = "-";
-		//	//ind.ID = zone.ID;
-		//	//ind.type = "Zone";
-		//	//ind.row = file.tellp();
-		//	//indexAr(ind);
-		//	//mainAr(zone);
-
-		//	ind.ID = pref.ID;
-		//	ind.type = Enums::ObjectType::Prefab;
-		//	ind.row = file.tellp();
-		//	indexAr(ind);
-		//	mainAr(pref);
-
-		//	ind.ID = pref2.ID;
-		//	ind.type = Enums::ObjectType::Prefab;
-		//	ind.row = file.tellp();
-		//	indexAr(ind);
-		//	mainAr(pref2);
-
-		//	ind.ID = pref3.ID;
-		//	ind.type = Enums::ObjectType::Prefab;
-		//	ind.row = file.tellp();
-		//	indexAr(ind);
-		//	mainAr(pref3);
-
-		//	ind.ID = 0xffffffff;
-		//	ind.type = Enums::ObjectType::EoF;
-		//	ind.row = file.tellp();
-		//	ind.flags = DatabaseIndex::ObjectFlag::EoF;
-		//	indexAr(ind);
-		//}
-		//delete test;
-		//test = 0;
-		//delete target;
-		//target = 0;
-		//delete ground;
-		//ground = 0;
-	}
-
-	void testLoad()
-	{
-		//Prefab a;
-		//Prefab b;
-		//Prefab c;
-		//std::ifstream index("TestSave.xml.index", std::ios::binary);
-		//std::ifstream file("TestSave.xml", std::ios::binary);
-		//{
-		//	DatabaseIndex ind;
-		//	cereal::BinaryInputArchive mainAr(file);
-		//	cereal::BinaryInputArchive indexAr(index);
-		//	mainAr(a);
-		//	mainAr(b);
-		//	mainAr(c);
-		//}
-	}
-#endif
-
-	AssetManager::AssetManager() : 
+	Manager::Manager() : 
 		openedMod("<Not Set>"),
 		modLoader(Engine::GetModule<File::Mod::Loader>()),
 		lang(Enums::ObjectType::Language)
 	{
 	}
 
-	void AssetManager::saveGameDatabase(
+	void Manager::saveGameDatabase(
 		std::string filename,
 		File::Mod::Header& modhdr)
 		//,
@@ -236,17 +124,17 @@ namespace Asset
 		index.close();
 	}
 
-	Language::LanguageRequestor & AssetManager::getLanguage()
+	Language::LanguageRequestor & Manager::getLanguage()
 	{
 		return lang.request(Core::Builtin, Core::uuid::nil());
 	}
 
-	File::Mod::Loader & AssetManager::getModLoader()
+	File::Mod::Loader & Manager::getModLoader()
 	{
 		return modLoader;
 	}
 
-	void AssetManager::loadAllEditorVariables()
+	void Manager::loadAllEditorVariables()
 	{
 #ifdef _EDITOR_
 		requestor.editorLoadAll(&Editor::onObjectLoaded);
@@ -257,7 +145,7 @@ namespace Asset
 		//	LoadAllZones(Editor::addons.myWorldManager.EditorAllZones);
 	}
 
-	std::map<Core::String, Language::TranslationString> AssetManager::loadLanguages(const std::vector<Core::String>& languageFiles)
+	std::map<Core::String, Language::TranslationString> Manager::loadLanguages(const std::vector<Core::String>& languageFiles)
 	{
 		std::map<Core::String, Language::TranslationString> tmp;
 
@@ -270,13 +158,13 @@ namespace Asset
 		return tmp;
 	}
 
-	void AssetManager::saveLanguages(const Language::LanguageRequestor& languageRequestor)
+	void Manager::saveLanguages(const Language::LanguageRequestor& languageRequestor)
 	{
 		for(std::pair<Core::String, Language::TranslationString> x : languageRequestor.languages)
 			saveLanguageFile(x.first, x.second);
 	}
 
-	void AssetManager::saveLanguageFile(Core::String & filename, Language::TranslationString & langHeader)
+	void Manager::saveLanguageFile(Core::String & filename, Language::TranslationString & langHeader)
 	{
 		std::ofstream file(Core::langPath + filename, std::ios::binary);
 		filename.append(".index");
@@ -303,9 +191,9 @@ namespace Asset
 	}
 
 #pragma warning(disable: 6262)
-	bool AssetManager::loadModOrderFile()
+	bool Manager::loadModOrderFile()
 	{
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Asset::AssetManager");
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
 		std::ifstream file("Data\\ModLoadOrder.xml");
 		if (file.is_open())
 		{

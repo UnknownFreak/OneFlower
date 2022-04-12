@@ -1,6 +1,6 @@
 #include "LootDrop.hpp"
 
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 #include <Object/ObjectInstanceHandler.hpp>
 #include <Graphics/Render.hpp>
@@ -16,7 +16,7 @@ void Component::LootDrop::loot(GameObject* object)
 	looted = true;
 	for (auto& x : lootDrops)
 	{
-		auto tmp = Engine::GetModule<Asset::AssetManager>().requestor.requestShared<Items::Base>(x.first);
+		auto tmp = Engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
 		object->getComponent<Component::Inventory>()->addItem(tmp, x.second);
 	}
 }

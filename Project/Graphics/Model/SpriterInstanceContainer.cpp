@@ -4,7 +4,7 @@
 #include <Graphics/Spriter/SpriterOverride\SFMLFileFactory.h>
 
 #include <Module\EngineModuleManager.hpp>
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 
 Enums::EngineResourceType Interfaces::IEngineResource<SpriterInstanceContainer>::type = Enums::EngineResourceType::SpriterContainer;
@@ -15,7 +15,7 @@ SpriterInstanceContainer::SpriterInstanceContainer() : modelFiles()
 
 SpriterInstanceContainer::~SpriterInstanceContainer()
 {
-	auto requestorv2 = Engine::GetModule<Asset::AssetManager>().requestor;
+	auto requestorv2 = Engine::GetModule<File::Asset::Manager>().requestor;
 	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>::iterator it = modelFiles.begin();
 	std::map<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>::iterator eit = modelFiles.end();
 
@@ -38,7 +38,7 @@ SpriterEngine::EntityInstance* SpriterInstanceContainer::requestModel(Core::Stri
 	}
 	else
 	{
-		TextureMap r = Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<TextureMap>({ _textureMapId.first, _textureMapId.second });
+		TextureMap r = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<TextureMap>({ _textureMapId.first, _textureMapId.second });
 
 		modelFiles.insert(std::pair<std::pair<Core::String, std::pair<Core::String, Core::uuid>>, SpriterEngine::SpriterModel*>(
 			_key,

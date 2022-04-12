@@ -5,7 +5,7 @@
 #include <Helpers/Enum/CombatSkill.hpp>
 #include <Interfaces/IRequestable.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
-#include <File/Resource/Prefab.hpp>
+#include <File/Asset/Resource/Prefab.hpp>
 
 #include "Effect.hpp"
 #include "Element.hpp"

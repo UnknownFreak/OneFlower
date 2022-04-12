@@ -6,13 +6,15 @@
 #include <Combat/Modifier.hpp>
 #include <Graphics/Model/IModel.hpp>
 
-class Prefab;
-
+namespace Asset::Resource
+{
+	class Prefab;
+}
 namespace Items
 {
 	class Weapon : public Items::StatChangingItem
 	{
-		Prefab* mesh;
+		Asset::Resource::Prefab* mesh;
 
 		void loadModel();
 

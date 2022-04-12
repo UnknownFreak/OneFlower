@@ -71,7 +71,7 @@ namespace File::Archive
 
 		bool saveIfMode(const std::unique_ptr<Interfaces::IRequestable>& ) const
 		{
-			//const Asset::AssetManager& manager = Engine::GetModule<Asset::AssetManager>();
+			//const File::Asset::AssetManager& manager = Engine::GetModule<File::Asset::AssetManager>();
 			//
 			//if (pref->mode != Enums::ObjectSaveMode::REMOVE)
 			//{

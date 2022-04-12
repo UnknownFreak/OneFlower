@@ -160,7 +160,7 @@ namespace File::Archive
 		inline typename std::enable_if<!std::is_pointer<In>::value, bool>::type
 			saveIfMode(T& pref) const
 		{
-			const Asset::AssetManager& manager = Engine::GetModule<Asset::AssetManager>();
+			const File::Asset::Manager& manager = Engine::GetModule<File::Asset::Manager>();
 		
 			if (pref.mode != Enums::ObjectSaveMode::REMOVE)
 			{
@@ -182,7 +182,7 @@ namespace File::Archive
 		inline typename std::enable_if<std::is_pointer<In>::value, bool >::type
 			saveIfMode(T& pref) const
 		{
-			const Asset::AssetManager& manager = Engine::GetModule<Asset::AssetManager>();
+			const File::Asset::AssetManager& manager = Engine::GetModule<File::Asset::AssetManager>();
 		
 			if (pref->mode != Enums::ObjectSaveMode::REMOVE)
 			{

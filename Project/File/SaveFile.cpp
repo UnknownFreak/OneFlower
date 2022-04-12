@@ -76,7 +76,7 @@ namespace File
 	{
 		diff = difficulty;
 		gameModeId;
-		//gameMode = Engine::GetModule<Asset::AssetManager>().requestor.requestUniqueInstance<Resource::GameMode>(gameModeId);
+		//gameMode = Engine::GetModule<File::Asset::AssetManager>().requestor.requestUniqueInstance<Resource::GameMode>(gameModeId);
 		customDiffId = customDifficultyId;
 		questState.clear();
 		lootedContainers.clear();

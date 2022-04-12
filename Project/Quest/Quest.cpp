@@ -1,13 +1,13 @@
 #include "Quest.hpp"
 
 #include <File/SaveFile.hpp>
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 Core::uuid Interfaces::Trait<Questing::Quest>::typeId = Core::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
 
 void Questing::Quest::loadStrings()
 {
-	auto& x = Engine::GetModule<Asset::AssetManager>().getLanguage();
+	auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
 	translatedQuestName = x.getString(questName);
 	translatedQuestDescription = x.getString(questDescription);
 	translatedQuestLine = x.getString(questLine);

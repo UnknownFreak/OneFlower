@@ -1,10 +1,10 @@
 #include "QuestObjective.hpp"
 
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 void Questing::QuestObjective::loadTranslations()
 {
-	auto& x = Engine::GetModule<Asset::AssetManager>().getLanguage();
+	auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
 	translatedObjectiveName = x.getString(objectiveName);
 	translatedObjectiveDescription = x.getString(objectiveDescription);
 	translatedObjectiveCompleteDescription = x.getString(objectiveCompleteDescription);

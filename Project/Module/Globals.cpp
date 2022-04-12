@@ -1,6 +1,6 @@
 #include "Globals.hpp"
 
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 
 #include "Module\EngineModuleManager.hpp"
 
@@ -30,7 +30,7 @@ const float Globals::Z_OFFSET = -64.f;
 
 Globals::Globals()
 {
-	Asset::AssetManager& am = Engine::GetModule<Asset::AssetManager>();
+	File::Asset::Manager& am = Engine::GetModule<File::Asset::Manager>();
 
 	putVariableInto<PrimitiveSaveable<long>>(am.requestor, longGlobals, Enums::ObjectType::PrimitiveInt);
 	putVariableInto<PrimitiveSaveable<double>>(am.requestor, doubleGlobals, Enums::ObjectType::PrimitiveDouble);

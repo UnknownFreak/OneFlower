@@ -1,6 +1,6 @@
 #include "LootContainer.hpp"
 
-#include <File/AssetManagerCore.hpp>
+#include <File/Asset/Manager.hpp>
 #include <File/SaveFile.hpp>
 
 #include <Object/ObjectInstanceHandler.hpp>
@@ -27,7 +27,7 @@ namespace Component
 			Engine::GetModule<File::SaveFile>().setLooted(attachedOn->id);
 		for (auto& x : lootDrops)
 		{
-			auto tmp = Engine::GetModule<Asset::AssetManager>().requestor.requestShared<Items::Base>(x.first);
+			auto tmp = Engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
 			object->getComponent<Component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
