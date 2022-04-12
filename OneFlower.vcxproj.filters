@@ -13,18 +13,6 @@
     <Filter Include="Engine\Interfaces">
       <UniqueIdentifier>{9a47a63f-6337-47cf-a8fd-97a72f3be955}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics">
-      <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI">
-      <UniqueIdentifier>{6680afbd-a381-472f-8fdb-1b320bccb796}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\UIContext">
-      <UniqueIdentifier>{f21bea24-3cc0-4d37-b453-d86341b13735}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Light">
-      <UniqueIdentifier>{e5770cdb-4232-48ec-8c69-d476a094cc63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module">
       <UniqueIdentifier>{11a64e41-8186-4b12-aa5f-c837a28361ee}</UniqueIdentifier>
     </Filter>
@@ -39,9 +27,6 @@
     </Filter>
     <Filter Include="Main\GameEntryNoEditor">
       <UniqueIdentifier>{e419195f-c39b-4fca-847f-9af7cddc3553}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\RenderWindow">
-      <UniqueIdentifier>{040d3bc4-6ec4-4571-8071-2fe6b487dfb2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Module\ModuleManager">
       <UniqueIdentifier>{91456c9e-a2fa-4858-a20a-a8a77d2b7ddb}</UniqueIdentifier>
@@ -94,80 +79,8 @@
     <Filter Include="Engine\World">
       <UniqueIdentifier>{24ee632d-982c-483b-afbc-cbdad4aa9482}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\Model">
-      <UniqueIdentifier>{636a7193-8abe-415e-af30-da1c27425ea2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Debug">
-      <UniqueIdentifier>{54553987-0ac0-4e27-bc01-237c1581bbe1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\TileMap">
-      <UniqueIdentifier>{7c7e2c78-707f-4e90-ab22-1e04acb7fafc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29">
-      <UniqueIdentifier>{083e5175-a5d7-4102-8747-239231f94412}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\tinyxml">
-      <UniqueIdentifier>{f4b7f443-3591-47ff-934a-a056c030b750}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine">
-      <UniqueIdentifier>{93a9b878-6977-47a4-b594-17d29cb63690}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation">
-      <UniqueIdentifier>{61486c3d-7853-4331-acff-8ba58d316bf9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap">
-      <UniqueIdentifier>{33e71a9d-59ab-41ea-8bd1-4a16c50e88b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity">
-      <UniqueIdentifier>{1b560c47-cb44-49b9-babf-3b201269be86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\file">
-      <UniqueIdentifier>{c6f9434a-68bf-4720-af9b-18d323356e86}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\global">
-      <UniqueIdentifier>{86028327-611f-45b1-9c9d-361209e9bf00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading">
-      <UniqueIdentifier>{3307b184-3600-4e90-94e1-5e111eef6366}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\model">
-      <UniqueIdentifier>{5a5df6f2-b450-41af-9e52-3daf4a459ced}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo">
-      <UniqueIdentifier>{9e474470-4a7a-470d-878f-338717751372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref">
-      <UniqueIdentifier>{958358d0-a5f4-41a7-a165-ef7e130ec6d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override">
-      <UniqueIdentifier>{a7f2f9c9-93fb-4e75-a660-433836d606fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo">
-      <UniqueIdentifier>{2148df45-5edf-4ac7-ba31-93558fb53924}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline">
-      <UniqueIdentifier>{9b6305f7-1913-4114-a7c6-d11e8fd9851d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable">
-      <UniqueIdentifier>{4deec42c-7a77-4772-baa8-86f4e5b61e43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride">
-      <UniqueIdentifier>{892bd546-a70b-4acd-804f-3d2e25acb468}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\Console">
-      <UniqueIdentifier>{ebcfee9a-9388-46a2-89a7-b95a3db44fee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\Handler">
-      <UniqueIdentifier>{dabad6cf-f197-44f5-bcdc-2b9bf0847d70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\LoadingScreen">
-      <UniqueIdentifier>{b4919839-4ca7-4ef8-a965-8fbf4f5cacf1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Component">
       <UniqueIdentifier>{58f8a0c8-dcd2-4d79-84c9-c46b47734885}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Component">
-      <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Combat">
       <UniqueIdentifier>{84b36307-4b68-4ce5-b696-f499f02475e8}</UniqueIdentifier>
@@ -184,35 +97,11 @@
     <Filter Include="Engine\Combat\Effects">
       <UniqueIdentifier>{27b662b5-b76c-4d5d-855b-3fdac50821b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\UI\GameUI">
-      <UniqueIdentifier>{664c0b2c-22e4-444b-9fae-a224d38361f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\GameUI\DialogScreen">
-      <UniqueIdentifier>{4d174737-eceb-4b63-a259-a117d6273601}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\GameUI\Player">
-      <UniqueIdentifier>{165361e8-fc67-4854-ac20-161a38cd23da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\GameUI\Enemy">
-      <UniqueIdentifier>{51a69cb1-acfe-4267-b1e5-d6bed5efb1ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\Widgets">
-      <UniqueIdentifier>{349c69cc-7245-4e50-80d8-059342a2f394}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module\Random">
       <UniqueIdentifier>{6dd76218-153c-48d5-83e4-07fea98b4789}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\UI\ToolTip">
-      <UniqueIdentifier>{5f80f683-cb70-4442-be1f-9014ac3e89e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\EffectIcons">
-      <UniqueIdentifier>{b28dc4c0-3d19-4206-a1b4-ed0764c3394c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Combat\Effects\EffectProperty">
       <UniqueIdentifier>{1f48fdc0-3325-4a56-ab76-5073963beb6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\Skill Icon">
-      <UniqueIdentifier>{5cfd916a-4117-484e-93b8-fdbc66aa87d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Module\GameSettings">
       <UniqueIdentifier>{1c88634f-7f82-4e8d-a4de-eb44adefe4cd}</UniqueIdentifier>
@@ -249,9 +138,6 @@
     </Filter>
     <Filter Include="Engine\Quest\Objectives">
       <UniqueIdentifier>{09bbf179-6af8-46bd-afdd-962a2a9f7c52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\UI\Stats">
-      <UniqueIdentifier>{c1e16dd8-ab6e-4cc0-b241-88f4aa487876}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Object\Component\Transform">
       <UniqueIdentifier>{8ab74c5d-a1f4-4082-bd58-21e73d38a049}</UniqueIdentifier>
@@ -328,6 +214,120 @@
     <Filter Include="Engine\File\Asset\Resource\Template">
       <UniqueIdentifier>{4595876a-6157-4be0-aa92-754074f9bcf5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29">
+      <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI">
+      <UniqueIdentifier>{6680afbd-a381-472f-8fdb-1b320bccb796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext">
+      <UniqueIdentifier>{f21bea24-3cc0-4d37-b453-d86341b13735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Console">
+      <UniqueIdentifier>{ebcfee9a-9388-46a2-89a7-b95a3db44fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler">
+      <UniqueIdentifier>{dabad6cf-f197-44f5-bcdc-2b9bf0847d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen">
+      <UniqueIdentifier>{b4919839-4ca7-4ef8-a965-8fbf4f5cacf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI">
+      <UniqueIdentifier>{664c0b2c-22e4-444b-9fae-a224d38361f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen">
+      <UniqueIdentifier>{4d174737-eceb-4b63-a259-a117d6273601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player">
+      <UniqueIdentifier>{165361e8-fc67-4854-ac20-161a38cd23da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Enemy">
+      <UniqueIdentifier>{51a69cb1-acfe-4267-b1e5-d6bed5efb1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets">
+      <UniqueIdentifier>{349c69cc-7245-4e50-80d8-059342a2f394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip">
+      <UniqueIdentifier>{5f80f683-cb70-4442-be1f-9014ac3e89e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons">
+      <UniqueIdentifier>{b28dc4c0-3d19-4206-a1b4-ed0764c3394c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon">
+      <UniqueIdentifier>{5cfd916a-4117-484e-93b8-fdbc66aa87d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats">
+      <UniqueIdentifier>{c1e16dd8-ab6e-4cc0-b241-88f4aa487876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Light">
+      <UniqueIdentifier>{e5770cdb-4232-48ec-8c69-d476a094cc63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow">
+      <UniqueIdentifier>{040d3bc4-6ec4-4571-8071-2fe6b487dfb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model">
+      <UniqueIdentifier>{636a7193-8abe-415e-af30-da1c27425ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Debug">
+      <UniqueIdentifier>{54553987-0ac0-4e27-bc01-237c1581bbe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\TileMap">
+      <UniqueIdentifier>{7c7e2c78-707f-4e90-ab22-1e04acb7fafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29">
+      <UniqueIdentifier>{083e5175-a5d7-4102-8747-239231f94412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\tinyxml">
+      <UniqueIdentifier>{f4b7f443-3591-47ff-934a-a056c030b750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine">
+      <UniqueIdentifier>{93a9b878-6977-47a4-b594-17d29cb63690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation">
+      <UniqueIdentifier>{61486c3d-7853-4331-acff-8ba58d316bf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap">
+      <UniqueIdentifier>{33e71a9d-59ab-41ea-8bd1-4a16c50e88b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity">
+      <UniqueIdentifier>{1b560c47-cb44-49b9-babf-3b201269be86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\file">
+      <UniqueIdentifier>{c6f9434a-68bf-4720-af9b-18d323356e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\global">
+      <UniqueIdentifier>{86028327-611f-45b1-9c9d-361209e9bf00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading">
+      <UniqueIdentifier>{3307b184-3600-4e90-94e1-5e111eef6366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\model">
+      <UniqueIdentifier>{5a5df6f2-b450-41af-9e52-3daf4a459ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo">
+      <UniqueIdentifier>{9e474470-4a7a-470d-878f-338717751372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref">
+      <UniqueIdentifier>{958358d0-a5f4-41a7-a165-ef7e130ec6d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override">
+      <UniqueIdentifier>{a7f2f9c9-93fb-4e75-a660-433836d606fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo">
+      <UniqueIdentifier>{2148df45-5edf-4ac7-ba31-93558fb53924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline">
+      <UniqueIdentifier>{9b6305f7-1913-4114-a7c6-d11e8fd9851d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable">
+      <UniqueIdentifier>{4deec42c-7a77-4772-baa8-86f4e5b61e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride">
+      <UniqueIdentifier>{892bd546-a70b-4acd-804f-3d2e25acb468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component">
+      <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -379,283 +379,283 @@
       <Filter>Engine\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\tinyxml2\tinyxml2.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\tinyxml</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlboneinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlboxinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\SFMLfilefactory.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlimagefile.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\SFMLobjectfactory.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlpointinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlsoundfile.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\sfmlsoundobjectinforeference.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfileattributewrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfiledocumentwrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfileelementwrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\animation\animation.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\animation\animationinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\animation\mainlinekey.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\animation\mainlinekeyinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\charactermap\charactermap.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\charactermap\charactermapinstruction.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\entity\entity.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\entity\entityinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\entity\entityinstancedata.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\entity\object.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\file\file.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\file\filereference.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\global\settings.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\loading\loader.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\loading\loadinghelpers.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\loading\spriterdocumentloader.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\model\spritermodel.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\angleinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boneinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boneobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boxinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boxobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\entityobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\eventobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\intvariableinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\pointinstanceinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\pointobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\realvariableinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\soundobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\spriteobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\stringvariableinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\stringvariableinforeference.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\taglist.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\tagobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\tagobjectinforeference.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\triggerobjectinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\universalobjectinterface.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\boneref.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\bonerefinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\entityref.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\entityrefinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\objectref.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\objectrefinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\spriteref.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\spriterefinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\objectref\transformprocessor.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\filefactory.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\imagefile.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\objectfactory.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\soundfile.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\soundobjectinforeference.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfileattributewrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfiledocumentwrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfileelementwrapper.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\beziereasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\cubiceasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\easingcurveinterface.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\instanteasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\lineareasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quadraticeasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quarticeasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quinticeasingcurve.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\timeinfo.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\proxytimelinekey.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\soundtimelineinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\tagtimelineinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\timeline.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\timelineinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\triggertimelineinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\timelinekey.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\timeline\variabletimelineinstance.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\variable\variable.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\variable\variablecontainer.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Spriter\SpriterEngine\variable\variableinstancenameandidmap.cpp">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\IModel.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\SpriterAnimationInfo.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\SpriterInstanceContainer.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\SpriterModel_.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\SpriteSheetAnimationDefiner.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\SpriteSheetModel.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\StaticModel.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Physics\Physics.cpp">
       <Filter>Engine\Physics</Filter>
@@ -667,7 +667,7 @@
       <Filter>Engine\Input\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\TileMap.cpp">
-      <Filter>Engine\Graphics\TileMap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Project\Physics\Colliders\TileCollider.cpp">
       <Filter>Engine\Physics\Colliders</Filter>
@@ -676,7 +676,7 @@
       <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp">
-      <Filter>Engine\Graphics\UI\UIContext</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext</Filter>
     </ClCompile>
     <ClCompile Include="Project\Language\TranslationStringDefiner.cpp">
       <Filter>Engine\Language\TranslationString</Filter>
@@ -694,10 +694,10 @@
       <Filter>Engine\Module\Globals</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Light.cpp">
-      <Filter>Engine\Graphics\Light</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Light</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Window.cpp">
-      <Filter>Engine\Graphics\RenderWindow</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -706,13 +706,13 @@
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
-      <Filter>Engine\Graphics\UI\Handler</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreen.cpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreenInfo.cpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\World\LoadingStateMachine.cpp">
       <Filter>Engine\World</Filter>
@@ -730,19 +730,19 @@
       <Filter>Engine\Helpers\Enum</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Render.cpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\Vector3.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Dialog.cpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp">
-      <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\Element.cpp">
       <Filter>Engine\Combat</Filter>
@@ -766,7 +766,7 @@
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Model\TextureMap.cpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\Effect.cpp">
       <Filter>Engine\Combat\Effects</Filter>
@@ -775,22 +775,22 @@
       <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerStats.cpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ProgressBar.cpp">
-      <Filter>Engine\Graphics\UI\Widgets</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Project\Module\Random.cpp">
       <Filter>Engine\Module\Random</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlainToolTip.cpp">
-      <Filter>Engine\Graphics\UI\ToolTip</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerBuffDebuff.cpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp">
-      <Filter>Engine\Graphics\UI\EffectIcons</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\EffectStack.cpp">
       <Filter>Engine\Combat\Effects</Filter>
@@ -805,13 +805,13 @@
       <Filter>Engine\Combat\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ActionBar.cpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\SkillIcon.cpp">
-      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\SkillIconChain.cpp">
-      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\TickTimer.cpp">
       <Filter>Engine\Helpers</Filter>
@@ -1065,298 +1065,298 @@
       <Filter>Engine\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\tinyxml2\tinyxml2.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\tinyxml</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\spriterengine.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlboneinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlboxinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\SFMLfilefactory.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlimagefile.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\SFMLobjectfactory.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlpointinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlsoundfile.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\sfmlsoundobjectinforeference.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfileattributewrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfiledocumentwrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterOverride\tinyxmlspriterfileelementwrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterOverride</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterOverride</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\animation\animation.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\animation\animationinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\animation\mainlinekey.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\animation\mainlinekeyinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\animation</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\charactermap\charactermap.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\charactermap\charactermapinstruction.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\charactermap\charactermapinterface.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\charactermap</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\entity\entity.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\entity\entityinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\entity\entityinstancedata.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\entity\object.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\entity</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\file\file.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\file\filereference.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\file</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\global\global.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\global\settings.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\global</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\loading\loader.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\loading\loadinghelpers.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\loading\spriterdocumentloader.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\loading</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\model\spritermodel.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\angleinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boneinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boneobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boxinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\boxobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\entityobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\eventobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\intvariableinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\pointinstanceinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\pointobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\realvariableinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\soundobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\spriteobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\stringvariableinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\stringvariableinforeference.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\taglist.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\tagobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\tagobjectinforeference.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\triggerobjectinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectinfo\universalobjectinterface.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\boneref.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\bonerefinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\entityref.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\entityrefinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\objectref.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\objectrefinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\spriteref.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\spriterefinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\objectref\transformprocessor.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\objectref</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\filefactory.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\imagefile.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\objectfactory.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\soundfile.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\soundobjectinforeference.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfileattributewrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfiledocumentwrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\override\spriterfileelementwrapper.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\override</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\beziereasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\cubiceasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\easingcurveinterface.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\instanteasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\lineareasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quadraticeasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quarticeasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\quinticeasingcurve.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeinfo\timeinfo.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeinfo</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\proxytimelinekey.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\soundtimelineinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\tagtimelineinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\timeline.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\timelineinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\triggertimelineinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\timelinekey.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\timeline\variabletimelineinstance.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\timeline</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\variable\variable.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\variable\variablecontainer.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Spriter\SpriterEngine\variable\variableinstancenameandidmap.h">
-      <Filter>Engine\Graphics\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Spriter %282d animation lib%29\SpriterEngine\variable</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\IModel.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\SpriterAnimationInfo.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\SpriterInstanceContainer.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\SpriterModel_.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\SpriteSheetAnimation.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\SpriteSheetModel.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\StaticModel.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\TextureMap.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model\TextureMapPoint.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Physics\Physics.hpp">
       <Filter>Engine\Physics</Filter>
@@ -1371,7 +1371,7 @@
       <Filter>Engine\Input\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\TileMap.hpp">
-      <Filter>Engine\Graphics\TileMap</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Project\Physics\Colliders\TileCollider.hpp">
       <Filter>Engine\Physics\Colliders</Filter>
@@ -1380,7 +1380,7 @@
       <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp">
-      <Filter>Engine\Graphics\UI\UIContext</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext</Filter>
     </ClInclude>
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
@@ -1410,10 +1410,10 @@
       <Filter>Engine\Module\Globals</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Light.hpp">
-      <Filter>Engine\Graphics\Light</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Light</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Window.hpp">
-      <Filter>Engine\Graphics\RenderWindow</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -1434,22 +1434,22 @@
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\RenderTextureDrawCallCounter.hpp">
-      <Filter>Engine\Graphics\Debug</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Renderable.hpp">
-      <Filter>Engine\Graphics</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\TransparencyMasker.hpp">
-      <Filter>Engine\Graphics</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp">
-      <Filter>Engine\Graphics\UI\Handler</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
     </ClInclude>
     <ClInclude Include="Project\World\LoadingStateMachine.hpp">
       <Filter>Engine\World</Filter>
@@ -1470,16 +1470,16 @@
       <Filter>Engine\Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Render.hpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Dialog.hpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp">
-      <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp">
-      <Filter>Engine\Graphics\Component</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -1527,10 +1527,10 @@
       <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ProgressBar.hpp">
-      <Filter>Engine\Graphics\UI\Widgets</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Project\Module\Random.hpp">
       <Filter>Engine\Module\Random</Filter>
@@ -1542,13 +1542,13 @@
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp">
-      <Filter>Engine\Graphics\UI\ToolTip</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerBuffDebuff.hpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\EffectIcon.hpp">
-      <Filter>Engine\Graphics\UI\EffectIcons</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons</Filter>
     </ClInclude>
     <ClInclude Include="Project\Combat\EffectProperty.hpp">
       <Filter>Engine\Combat\Effects\EffectProperty</Filter>
@@ -1560,16 +1560,16 @@
       <Filter>Engine\Combat\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ActionBar.hpp">
-      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\SkillIcon.hpp">
-      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\SkillIconChain.hpp">
-      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\TickTimer.hpp">
       <Filter>Engine\Helpers</Filter>
@@ -1659,10 +1659,10 @@
       <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\Stats.hpp">
-      <Filter>Engine\Graphics\UI\Stats</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp">
-      <Filter>Engine\Graphics\UI\Stats</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats</Filter>
     </ClInclude>
     <ClInclude Include="Project\Physics\Colliders\EntityCollider.hpp">
       <Filter>Engine\Physics\Colliders\Component</Filter>
@@ -1844,7 +1844,7 @@
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="Project\Graphics\UI\LoadingScreen.hpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
     </None>
     <None Include="Project\Trigger\DespawnObjectTrigger.hpp">
       <Filter>Engine\Trigger</Filter>
