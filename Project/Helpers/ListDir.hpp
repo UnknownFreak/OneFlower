@@ -3,7 +3,7 @@
 #include <vector>
 #include "String.hpp"
 
-namespace Helpers
+namespace Helpers::os
 {
 
 	std::vector<Core::String> listDirectory(const Core::String& path, const Core::String& ext, const bool& removeExtInReturn);

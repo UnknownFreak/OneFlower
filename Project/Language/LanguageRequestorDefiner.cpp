@@ -107,7 +107,7 @@ namespace Language
 #if defined _UNITTESTS_
 		clear();
 #endif
-		allLanguageFiles = Helpers::listDirectory(Core::langPath, ".lang", false);
+		allLanguageFiles = Helpers::os::listDirectory(Core::langPath, ".lang", false);
 		languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 		resolvePatchedLanguages();
 	}
