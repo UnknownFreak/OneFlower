@@ -35,8 +35,6 @@ namespace std
 
 namespace Items
 {
-
-
 	class LootTable : public Interfaces::IRequestable
 	{
 	public:

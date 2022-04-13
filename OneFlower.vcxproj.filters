@@ -37,9 +37,6 @@
     <Filter Include="Engine\Physics\Colliders">
       <UniqueIdentifier>{09bb870d-72ae-491e-973f-49d668d8e4c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Shaders">
-      <UniqueIdentifier>{8b19e790-5799-4f2e-9f06-74012ebc8f01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module\Logging">
       <UniqueIdentifier>{13e8bd03-bc8c-4246-8b6b-cdbb688b7597}</UniqueIdentifier>
     </Filter>
@@ -327,6 +324,12 @@
     </Filter>
     <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component">
       <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Helpers\Core">
+      <UniqueIdentifier>{9933d0b4-3da5-428e-b311-a6b33632e485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8b19e790-5799-4f2e-9f06-74012ebc8f01}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -702,9 +705,6 @@
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\String.cpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler</Filter>
     </ClCompile>
@@ -731,9 +731,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\Render.cpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Helpers\Vector3.cpp">
-      <Filter>Engine\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Dialog.cpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
@@ -812,9 +809,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\SkillIconChain.cpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Helpers\TickTimer.cpp">
-      <Filter>Engine\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Project\Items\Item.cpp">
       <Filter>Engine\Items</Filter>
@@ -992,6 +986,15 @@
     </ClCompile>
     <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp">
       <Filter>Engine\File\Asset\Resource\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Helpers\TickTimer.cpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Helpers\Vector3.cpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Helpers\String.cpp">
+      <Filter>Engine\Helpers\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1418,19 +1421,7 @@
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Rect.hpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Vector.hpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\String.hpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\uuid.hpp">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\RenderTextureDrawCallCounter.hpp">
@@ -1453,9 +1444,6 @@
     </ClInclude>
     <ClInclude Include="Project\World\LoadingStateMachine.hpp">
       <Filter>Engine\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Vector3.hpp">
-      <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Transform.hpp">
       <Filter>Engine\Object\Component\Transform</Filter>
@@ -1538,9 +1526,6 @@
     <ClInclude Include="Project\Helpers\Enum\LogLevel.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip</Filter>
     </ClInclude>
@@ -1570,9 +1555,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\SkillIconChain.hpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\TickTimer.hpp">
-      <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Items\Item.hpp">
       <Filter>Engine\Items</Filter>
@@ -1805,43 +1787,64 @@
     <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp">
       <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Helpers\TickTimer.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\uuid.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\Vector3.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\Vector.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\String.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\Rect.hpp">
+      <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="test2.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="test3.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="test4.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="luminescence.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="boxblur.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="multiply.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="assemble.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="shadow.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="shadow.vert">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="shadowEntity.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="light.frag">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="Project\Graphics\UI\LoadingScreen.hpp">
       <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
