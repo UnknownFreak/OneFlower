@@ -11,7 +11,7 @@ namespace Tests
 	TEST_CLASS(LanguageRequestorTest)
 	{
 	public:
-		static Requestor<Language::LanguageRequestor> req;
+		static File::Archive::Requestor<Language::LanguageRequestor> req;
 		static Core::uuid id1, id2;
 		static Language::LanguageRequestor& r()
 		{
@@ -42,7 +42,7 @@ namespace Tests
 
 		static void remove_old_files()
 		{
-			Helpers::clearDirectory(Core::langPath);
+			Helpers::os::clearDirectory(Core::langPath);
 		}
 
 		static void setup_file()
@@ -95,8 +95,8 @@ namespace Tests
 
 		TEST_METHOD(TestListDir)
 		{
-			std::vector<Core::String> expected = { "a", "b", "c" };
-			std::vector<Core::String> s = Helpers::listDirectory(Core::dataPath + "List//", ".txt", true);
+			std::vector<Core::String> expected = { "LangTest", "LangTest2", "LangTest3" };
+			std::vector<Core::String> s = Helpers::os::listDirectory(Core::dataPath + "Lang/", ".lang", true);
 			for (size_t i = 0; i < s.size(); i++)
 				Assert::IsTrue(s[i] == expected[i]);
 		}
@@ -127,7 +127,7 @@ namespace Tests
 			Assert::AreEqual("Empty2", s.c_str());
 		}
 	};
-	Requestor<Language::LanguageRequestor> LanguageRequestorTest::req(Enums::ObjectType::Language, "");
+	File::Archive::Requestor<Language::LanguageRequestor> LanguageRequestorTest::req(Enums::ObjectType::Language, "");
 	Core::uuid LanguageRequestorTest::id1;
 	Core::uuid LanguageRequestorTest::id2;
 }

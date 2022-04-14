@@ -3,12 +3,12 @@
 
 #include <cereal/types/polymorphic.hpp>
 #include "TestObjects.hpp"
-#include <File/Resource/RegisterRTTI.hpp>
+#include <File/Archive/RegisterRTTI.hpp>
+#include <File/Archive/RequestorV2.hpp>
 
 #include <Helpers/Enum/ObjectType.hpp>
 #include <Interfaces/IRequestable.hpp>
 #include <File/Mod/ModHeader.hpp>
-#include <File/Resource/RequestorV2.hpp>
 #include <File/Asset/Manager.hpp>
 
 #include <Helpers/uuid.hpp>
@@ -38,7 +38,7 @@ namespace Tests
 		static Core::uuid id8;
 		static Core::uuid id9;
 		static Core::uuid id10;
-		static RequestorV2 req_ptr;
+		static File::Archive::RequestorV2 req_ptr;
 
 		static void add_objects()
 		{
@@ -51,7 +51,7 @@ namespace Tests
 
 		static void setup_file()
 		{
-			File::Mod::ModHeader modhdr;
+			File::Mod::Header modhdr;
 			modhdr.name = "test";
 			std::ofstream file("test", std::ios::binary);
 			std::ofstream index("test.index", std::ios::binary);
@@ -79,8 +79,8 @@ namespace Tests
 			file.close();
 			index.close();
 
-			Engine::GetModule<File::Asset::AssetManager>().getModLoader().loadOrder.clear();
-			Engine::GetModule<File::Asset::AssetManager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
+			Engine::GetModule<File::Asset::Manager>().getModLoader().loadOrder.clear();
+			Engine::GetModule<File::Asset::Manager>().getModLoader().loadOrder.insert(std::make_pair("test", 0));
 		}
 
 		TEST_CLASS_INITIALIZE(Initialize)
@@ -164,7 +164,7 @@ namespace Tests
 	Core::uuid RequestorTest::id9 = Core::uuid();
 	Core::uuid RequestorTest::id10 = Core::uuid();
 	//Requestor<MockedSaveable> RequestorTest::req(Enums::ObjectType::Undefined, "");
-	RequestorV2 RequestorTest::req_ptr("");
+	File::Archive::RequestorV2 RequestorTest::req_ptr("");
 
 	//Requestor<Asset::Prefab> RequestorTest::prefab(Enums::ObjectType::Prefab, "");
 }

@@ -32,6 +32,7 @@ x64/Release/OneFlower.iobj
 x64/Release/OneFlower.ipdb
 x64/Release/OneFlower.lib
 x64/Release/OneFlower.vcxproj.FileListAbsolute.txt
+x64/UnitTests/*
 Data/Default
 Data/Default.index
 *.save

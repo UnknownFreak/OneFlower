@@ -690,7 +690,6 @@
     <ClCompile Include="Project\Tests\RequestorUnitTest.cpp" />
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp" />
     <ClCompile Include="Project\Tests\TestObjects.hpp" />
-    <ClCompile Include="Project\Tests\PhysicsQueryRegionUnitTest.cpp" />
     <ClCompile Include="Project\Tests\TimedRequirementUnitTest.cpp" />
     <ClCompile Include="Project\Tests\TimeUnitTest.cpp" />
     <ClCompile Include="Project\Tests\VectorUnitTest.cpp" />
