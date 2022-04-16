@@ -1,16 +1,9 @@
 #include "Manager.hpp"
 
-//#include <Core/Component/BaseComponent.hpp>
-//#include <Core\Component\TransformComponent.hpp>
-//#include <Core\Component\GameObject.h>
-//#include <Graphic\Component\RenderComponent.h>
-//#include <Physics\Component\HitboxComponent.hpp>
-//
 #include <File/Archive/DatabaseIndex.hpp>
 #include <fstream>
 
 #include <cereal\archives\binary.hpp>
-//#include <cereal\archives\xml.hpp>
 #include <cereal\types\string.hpp>
 #include <cereal\types\polymorphic.hpp>
 #include <cereal\types\map.hpp>
@@ -19,53 +12,9 @@
 #include <cereal\types\memory.hpp>
 #include <cereal\access.hpp>
 
-//#include <Graphic\World\WorldManager.hpp>
-//#include <Graphic\World\Zone.hpp>
-//
-//#include <Model\TextureMap.hpp>
-//#include <Model\SpriteSheetAnimation.hpp>
-//
-//#include <Model\IModel.hpp>
-//#include <Model\StaticModel.hpp>
-//#include <Model\SpriteSheetModel.hpp>
-
 #ifdef _EDITOR_
 #include <Editor/EditorEvents.hpp>
 #endif
-
-//CEREAL_REGISTER_TYPE(Component::Base);
-////CEREAL_REGISTER_TYPE(IBaseComponent<Component::DialogComponent>)
-//CEREAL_REGISTER_TYPE(Component::HitboxComponent)
-////CEREAL_REGISTER_TYPE(IBaseComponent<Component::OverheadComponent>)
-////CEREAL_REGISTER_TYPE(IBaseComponent<Component::PlayerComponent> )
-//CEREAL_REGISTER_TYPE(Component::RenderComponent)
-////CEREAL_REGISTER_TYPE(IBaseComponent<Component::RigidComponent> )
-////CEREAL_REGISTER_TYPE(IBaseComponent<Component::Timer>)
-//CEREAL_REGISTER_TYPE(Component::Transform)
-//
-//CEREAL_REGISTER_TYPE(StaticModel);
-//
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::DialogComponent, "Dialog")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::HitboxComponent, "Hitbox")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::OverheadComponent, "Overhead")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::PlayerComponent, "Player")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::RenderComponent, "Render")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::RigidComponent, "Rigid")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::Timer, "Timer")
-////CEREAL_REGISTER_TYPE_WITH_NAME(Component::Transform, "Transform")
-//
-////CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::DialogComponent)
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::HitboxComponent)
-////CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::OverheadComponent)
-////CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::PlayerComponent)
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::RenderComponent)
-////CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::RigidComponent)
-////CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Timer)
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Transform)
-//
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, StaticModel);
-//CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
-
 
 Enums::EngineResourceType Interfaces::IEngineResource<File::Asset::Manager>::type = Enums::EngineResourceType::AssetManager;
 
@@ -83,8 +32,7 @@ namespace File::Asset
 
 	Manager::Manager() : 
 		openedMod("<Not Set>"),
-		modLoader(Engine::GetModule<File::Mod::Loader>()),
-		lang(Enums::ObjectType::Language)
+		modLoader(Engine::GetModule<File::Mod::Loader>())
 	{
 	}
 
@@ -126,7 +74,7 @@ namespace File::Asset
 
 	Language::LanguageRequestor & Manager::getLanguage()
 	{
-		return lang.request(Core::Builtin, Core::uuid::nil());
+		return *lang.request<Language::LanguageRequestor>({ Core::Builtin, Core::uuid::nil() });
 	}
 
 	File::Mod::Loader & Manager::getModLoader()
@@ -160,15 +108,18 @@ namespace File::Asset
 
 	void Manager::saveLanguages(const Language::LanguageRequestor& languageRequestor)
 	{
-		for(std::pair<Core::String, Language::TranslationString> x : languageRequestor.languages)
-			saveLanguageFile(x.first, x.second);
+		for(auto& x : languageRequestor.languages)
+			saveLanguageFile(x.first, (Language::TranslationString&)x.second);
 	}
 
-	void Manager::saveLanguageFile(Core::String & filename, Language::TranslationString & langHeader)
+	void Manager::saveLanguageFile(const Core::String & filename, Language::TranslationString & langHeader)
 	{
+		Core::String idx = filename;
 		std::ofstream file(Core::langPath + filename, std::ios::binary);
-		filename.append(".index");
-		std::ofstream index(Core::langPath + filename, std::ios::binary);
+		idx.append(".index");
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Manager");
+		logger.Debug("Saving file: " + filename);
+		std::ofstream index(Core::langPath + idx, std::ios::binary);
 		{
 			File::Archive::DatabaseIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);

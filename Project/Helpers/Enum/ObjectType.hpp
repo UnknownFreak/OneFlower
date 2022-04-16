@@ -23,6 +23,7 @@ namespace Enums
 		Rank,
 		TileAtlas,
 		Language,
+		TranslationString,
 		TileChunk,
 		ColliderChunk,
 		DialogTree,

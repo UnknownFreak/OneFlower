@@ -1385,9 +1385,6 @@
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Interfaces\ISaveable.hpp">
-      <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Interfaces\ICollider.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
@@ -1761,9 +1758,6 @@
       <Filter>Engine\File\Archive</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Archive\RequestorV2.hpp">
-      <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Archive\Requestor.hpp">
       <Filter>Engine\File\Archive</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Manager.hpp">

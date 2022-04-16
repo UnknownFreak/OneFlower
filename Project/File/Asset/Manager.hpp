@@ -14,6 +14,7 @@
 #include <cereal\access.hpp>
 #pragma warning(pop)
 
+
 #include <Helpers\String.hpp>
 
 #include <Module/EngineModuleManager.hpp>
@@ -21,24 +22,17 @@
 
 #include <Graphics\Model\TextureMap.hpp>
 #include <Graphics\Model\IModel.hpp>
-//
 
 #include <File/Resource/TileAtlas.hpp>
 
 #include <Language/LanguageRequestor.hpp>
-#include <Language/LanguageHeader.hpp>
 #include <Language/TranslationString.hpp>
-//
-//#include "Database/DatabaseObjects.hpp"
-//
+
 #include <Combat/Element.hpp>
-//
+
 #include <File/Mod/ModHeader.hpp>
 #include <File/Mod/ModLoader.hpp>
 
-//#include "Prefab.hpp"
-
-#include <File/Archive/Requestor.hpp>
 #include <File/Archive/RequestorV2.hpp>
 
 #include <File/Asset/Resource/DialogTree.hpp>
@@ -54,7 +48,7 @@ namespace File::Asset
 	class Manager : public Interfaces::IEngineResource<Manager>
 	{
 
-		File::Archive::Requestor<Language::LanguageRequestor> lang;
+		File::Archive::RequestorV2 lang;
 
 		File::Mod::Loader& modLoader;
 
@@ -77,7 +71,7 @@ namespace File::Asset
 
 		std::map<Core::String, Language::TranslationString> loadLanguages(const std::vector<Core::String>& languageFiles);
 		void saveLanguages(const Language::LanguageRequestor& languageRequestor);
-		void saveLanguageFile(Core::String& filename, Language::TranslationString& langHeader);
+		void saveLanguageFile(const Core::String& filename, Language::TranslationString& langHeader);
 
 		Core::String openedMod;
 

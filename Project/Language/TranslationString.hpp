@@ -1,7 +1,8 @@
+#pragma once
 #ifndef Language_HPP
 #define Language_HPP
 #include <Interfaces/IRequestable.hpp>
-#include <File/Archive/Requestor.hpp>
+#include <File/Archive/RequestorV2.hpp>
 #include <Helpers/PrimitiveSaveable.hpp>
 
 #include <cereal/types/vector.hpp>
@@ -15,15 +16,15 @@
 
 namespace Language
 {
-
 	class TranslationString : public Interfaces::IRequestable
 	{
 		Core::String language;
 		LanguageHeader header;
 		Core::String fontName;
+		static PrimitiveSaveable<Core::String> empty;
 	public:
 
-		File::Archive::Requestor<PrimitiveSaveable<Core::String>> stringList;
+		File::Archive::RequestorV2 stringList;
 
 
 	#if defined _EDITOR_ || _UNITTESTS_

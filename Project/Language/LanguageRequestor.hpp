@@ -2,8 +2,6 @@
 #define LanguageRequsetor_HPP
 
 #include <Interfaces/IRequestable.hpp>
-//#include <Core/EngineModule/ListDir.hpp>
-#include <Module/EngineModuleManager.hpp>
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -52,6 +50,8 @@ namespace Language
 
 		void loadFont();
 
+		void archiveLoad();
+		void archiveSave() const;
 	public:
 
 #if defined _UNITTESTS_
@@ -74,6 +74,7 @@ namespace Language
 
 		void load();
 
+
 		virtual Interfaces::TypeInfo getTrait() const override;
 
 		template<class Archive>
@@ -81,7 +82,7 @@ namespace Language
 		{
 			ar(allLanguageFiles);
 			ar(languageNames);
-			languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
+			archiveLoad();
 			resolvePatchedLanguages();
 		}
 
@@ -90,7 +91,7 @@ namespace Language
 		{
 			ar(allLanguageFiles);
 			ar(languageNames);
-			Engine::GetModule<File::Asset::Manager>().saveLanguages(*this);
+			archiveSave();
 		}
 	};
 }

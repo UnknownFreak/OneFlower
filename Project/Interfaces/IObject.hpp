@@ -1,14 +1,12 @@
 #ifndef IObject_HPP
 #define IObject_HPP
 
-#include "ISaveable.hpp"
-
 #include <Helpers/uuid.hpp>
 
 namespace Interfaces
 {
 
-	class IObject : public ISaveable {
+	class IObject {
 
 	public:
 

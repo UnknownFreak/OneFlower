@@ -35,11 +35,11 @@ namespace File::Resource::Texture
 		void save(Archive& saver) const
 		{
 			saver(cereal::base_class<Interfaces::IObject>(this));
-			//saver(cereal::base_class<IRequestable>(this));
+			saver(cereal::base_class<IRequestable>(this));
 			// cereal does not seem to like multi inheritence... save IRequestable using lazy cast
 			//saver(cereal::base_class<Interfaces::IRequestable>(this));
 
-			lazyloadsaveconst<Archive, Interfaces::IRequestable>(saver, *this);
+			//lazyloadsaveconst<Archive, Interfaces::IRequestable>(saver, *this);
 			saver(atlas);
 		};
 
@@ -47,10 +47,10 @@ namespace File::Resource::Texture
 		void load(Archive& loader)
 		{
 			loader(cereal::base_class<Interfaces::IObject>(this));
-			//loader(cereal::base_class<IRequestable>(this));
+			loader(cereal::base_class<IRequestable>(this));
 			//loader(cereal::base_class<Interfaces::IRequestable>(this));
 
-			lazyloadsave<Archive, Interfaces::IRequestable>(loader, *this);
+			//lazyloadsave<Archive, Interfaces::IRequestable>(loader, *this);
 			loader(atlas);
 		};
 	};

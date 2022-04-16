@@ -27,11 +27,12 @@
 #include <Graphics/Model/SpriteSheetModel.hpp>
 #include <Graphics/Model/SpriterModel_.hpp>
 
+#include <Helpers/PrimitiveSaveable.hpp>
+
 #include <Combat/Element.hpp>
 #include <Combat/Effect.hpp>
 #include <Combat/EffectProperty.hpp>
 #include <Combat/Skill.hpp>
-
 
 #include <Object/BaseComponent.hpp>
 #include <Combat/Stats.hpp>
@@ -64,6 +65,8 @@ CEREAL_REGISTER_TYPE(IModel);
 CEREAL_REGISTER_TYPE(StaticModel);
 CEREAL_REGISTER_TYPE(SpriteSheetModel);
 CEREAL_REGISTER_TYPE(Model::SpriterModel);
+
+CEREAL_REGISTER_TYPE(PrimitiveSaveable<Core::String>);
 
 CEREAL_REGISTER_TYPE(Component::Base);
 CEREAL_REGISTER_TYPE(Component::Stats);
@@ -102,6 +105,8 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, IModel);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, StaticModel);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, SpriteSheetModel);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(IModel, Model::SpriterModel);
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, PrimitiveSaveable<Core::String>);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Combat::Element);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Combat::Effect);

@@ -12,10 +12,9 @@
 #include <Helpers/Vector3.hpp>
 #include <Helpers/Rect.hpp>
 #include <Helpers/Enum/ColliderType.hpp>
-#include <Interfaces/ISaveable.hpp>
 
 namespace Interfaces {
-	class ICollider : public Renderable, public ISaveable
+	class ICollider : public Renderable
 	{
 	public:
 		Core::Vector3f* position;

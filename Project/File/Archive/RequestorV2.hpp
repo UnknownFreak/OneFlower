@@ -132,6 +132,8 @@ namespace File::Archive
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			for(std::pair<std::string, size_t> var : getLoadOrder())
 			{
+				logger.Debug("---------------------------------------------------------------------------------------");
+				logger.Debug("Loading from archive file: " + var.first);
 				bool eof = false;
 				File::Archive::DatabaseIndex ind;
 				std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
@@ -146,13 +148,21 @@ namespace File::Archive
 							ar(ind);
 							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loaded object from index file: " + ind.ID.to_string());
 
-							if (ind.typeId == Interfaces::Trait<T>::typeId && init && ind.ID != uuid)
+							if (ind.typeId == Interfaces::Trait<T>::typeId && init && (ind.ID == uuid && ind.modFile == modName) == false)
 							{
 								logger.Debug("Loading first found object to initialize polymorphic type. file.tellp " + std::to_string(ind.row));
 								logger.Debug("Loading first found object to initialize polymorphic type. objectType " + getObjectTypeAsString(ind.type));
 								logger.Debug("Loading first found object to initialize polymorphic type. objectTypeId " + ind.typeId.to_string());
 								database.seekg(ind.row);
-								loadArchive(_t);
+								try
+								{
+									loadArchive(_t);
+								}
+								catch (std::exception x)
+								{
+									logger.Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
+									logger.Error("Loading object failed: " + Core::String(x.what()));
+								}
 								_t.reset();
 								init = false;
 
@@ -166,7 +176,8 @@ namespace File::Archive
 
 								logger.Debug("Loading object: before file.seekg(ind.row): file.tellg: " + std::to_string(database.tellg()));
 								database.seekg(ind.row);
-							
+								logger.Debug("Loading object: after file.seekg(ind.row): file.tellg: " + std::to_string(database.tellg()));
+
 								if (std::is_base_of<Interfaces::IPatch, T>::value)
 									patching = true;
 								if (patching && !first_loaded)
@@ -191,6 +202,10 @@ namespace File::Archive
 									{
 										logger.Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
 										logger.Error("Loading object failed: " + Core::String(x.what()));
+										logger.Error(" typeid: " + Interfaces::Trait<T>::typeId.to_string());
+										logger.Error(" index.typeid: " + ind.typeId.to_string());
+										logger.Error(" index.id: " + ind.ID.to_string());
+										logger.Error(" arg: id " + uuid.to_string());
 									}
 								}
 								eof = true;
@@ -266,8 +281,11 @@ namespace File::Archive
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			if (requestedMap.find(key) != requestedMap.end())
 			{
-				logger.Warning(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", logger.fileInfo(__FILE__, __LINE__));
-				return false;
+				if (requestedMap[key].operator bool())
+				{
+					logger.Warning(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", logger.fileInfo(__FILE__, __LINE__));
+					return false;
+				}
 			}
 			logger.Info(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " added.", logger.fileInfo(__FILE__, __LINE__));
 			requestedMap[key] = std::unique_ptr<Interfaces::IRequestable>(ptr);
@@ -415,6 +433,18 @@ namespace File::Archive
 			return nullptr;
 		}
 
+		template<class Ty>
+		inline Ty* request(const File::Mod::ModFileUUIDHelper& modfile, const bool& )
+		{
+			Ty* ptr = request<Ty>(modfile);
+			if (!ptr)
+			{
+				add(new Ty());
+				return request<Ty>(modfile);
+			}
+			return ptr;
+		}
+
 		template <class T>
 		inline Interfaces::IRequestable* request(const Core::String & name, const Core::uuid& uuid)
 		{
@@ -450,11 +480,11 @@ namespace File::Archive
 			}
 		}
 
-		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr)
+		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr) const
 		{
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
-			td_map::iterator it = requestedMap.begin();
-			td_map::iterator eit = requestedMap.end();
+			td_map::const_iterator it = requestedMap.begin();
+			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)
 			{
 				ind.flags = Enums::ObjectFlag::NoFlag;
@@ -467,16 +497,17 @@ namespace File::Archive
 				if (saveIfMode(it->second))
 				{
 					logger.Info("Saving object: uuid: " + ind.ID.to_string());
-					logger.Debug("Saving object: fileidx: " + std::to_string(ind.row));
-					logger.Debug("Saving object: type: " + getObjectTypeAsString(ind.type));
-					logger.Debug("Saving object: typeId: " + ind.typeId.to_string());
+					logger.Debug(" modfile: " + ind.modFile);
+					logger.Debug(" fileidx: " + std::to_string(ind.row));
+					logger.Debug(" type: " + getObjectTypeAsString(ind.type));
+					logger.Debug(" typeId: " + ind.typeId.to_string());
 					indexAr(ind);
 					try
 					{
 						mainAr(it->second);
 						logger.Debug("Saving object finished: fileidx: " + std::to_string(file.tellp()));
 					}
-					catch (std::exception x)
+					catch (const std::exception x)
 					{
 						logger.Error(x.what());
 					}

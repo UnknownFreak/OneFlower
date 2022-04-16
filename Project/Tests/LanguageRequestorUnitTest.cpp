@@ -11,11 +11,11 @@ namespace Tests
 	TEST_CLASS(LanguageRequestorTest)
 	{
 	public:
-		static File::Archive::Requestor<Language::LanguageRequestor> req;
+		static File::Archive::RequestorV2 req;
 		static Core::uuid id1, id2;
 		static Language::LanguageRequestor& r()
 		{
-			return req.request(Core::Builtin, Core::uuid::nil());
+			return *req.request<Language::LanguageRequestor>({ Core::Builtin, Core::uuid::nil() }, true);
 		}
 
 		static void add_objects()
@@ -96,7 +96,7 @@ namespace Tests
 		TEST_METHOD(TestListDir)
 		{
 			std::vector<Core::String> expected = { "LangTest", "LangTest2", "LangTest3" };
-			std::vector<Core::String> s = Helpers::os::listDirectory(Core::dataPath + "Lang/", ".lang", true);
+			std::vector<Core::String> s = Helpers::os::listDirectory(Core::langPath, ".lang", true);
 			for (size_t i = 0; i < s.size(); i++)
 				Assert::IsTrue(s[i] == expected[i]);
 		}
@@ -113,6 +113,8 @@ namespace Tests
 			r().setLanguage("Test2");
 			Core::String& s = r().getString(id1);
 			Assert::AreEqual("TestString2", s.c_str());
+			s = r().getString(id2);
+			Assert::AreEqual("Empty2", s.c_str());
 		}
 		TEST_METHOD(TestGetStringPatchedFirstLanguage)
 		{
@@ -127,7 +129,7 @@ namespace Tests
 			Assert::AreEqual("Empty2", s.c_str());
 		}
 	};
-	File::Archive::Requestor<Language::LanguageRequestor> LanguageRequestorTest::req(Enums::ObjectType::Language, "");
+	File::Archive::RequestorV2 LanguageRequestorTest::req;
 	Core::uuid LanguageRequestorTest::id1;
 	Core::uuid LanguageRequestorTest::id2;
 }
