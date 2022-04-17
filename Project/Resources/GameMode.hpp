@@ -25,7 +25,7 @@ namespace Resource
 
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
-		std::unordered_map<Core::String, GameModeModifier> bossTagModifiers;
+		std::unordered_map<Core::String, GameModeModifier> tagModifiers;
 
 		// Inherited via IRequestable
 		virtual Interfaces::TypeInfo getTrait() const override;
@@ -40,7 +40,7 @@ namespace Resource
 			ar(startingPosition);
 			ar(playerModifiers);
 			ar(enemyModifiers);
-			ar(bossTagModifiers);
+			ar(tagModifiers);
 		}
 
 		template<class Archive>
@@ -53,7 +53,7 @@ namespace Resource
 			ar(startingPosition); 
 			ar(playerModifiers);
 			ar(enemyModifiers);
-			ar(bossTagModifiers);
+			ar(tagModifiers);
 			loadTranslation();
 		}
 	};

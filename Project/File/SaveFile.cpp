@@ -87,6 +87,8 @@ namespace File
 		point = gameMode.startingPosition;
 
 		player = GameObject();
+		player.applyGameMode(gameMode.playerModifiers);
+		player.tag = "player";
 		player.id = Core::uuid::nil();
 		player.addComponent<Render>();
 		player.addComponent<PlayerInteractionPrompt>();
@@ -154,7 +156,7 @@ namespace File
 			mainAr(loadingScreen);
 			mainAr(point);
 		}
-		point.z += 0.1f;
+		point.z += 0.15f;
 		file.close();
 		setPlayerInfo();
 	}

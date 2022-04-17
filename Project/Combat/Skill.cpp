@@ -59,18 +59,18 @@ namespace Combat
 				GameObject* effectGo = nullptr;
 				if (summon)
 				{
-					skillGo = skillPrefab->createNewInstance(owner);
+					skillGo = skillPrefab->createNewInstance(owner, owner->tag == "player");
 					if (effectPrefab)
-						effectGo = effectPrefab->createNewInstance(owner);
+						effectGo = effectPrefab->createNewInstance(owner, owner->tag == "player");
 				}
 				else
 				{
 					auto* transform = owner->getComponent<Component::Transform>();
 					auto pos = transform->pos;
 					pos += Core::Vector2f::distanceWithAngle(summonPoint, transform->facingAngle);
-					skillGo = skillPrefab->createNewInstance(pos);
+					skillGo = skillPrefab->createNewInstance(pos, owner->tag == "player");
 					if (effectPrefab)
-						effectGo = effectPrefab->createNewInstance(pos);
+						effectGo = effectPrefab->createNewInstance(pos, owner->tag == "player");
 				}
 
 				if (onSelf)

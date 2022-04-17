@@ -17,19 +17,21 @@ namespace Asset::Resource
 	class Prefab : public Interfaces::IRequestable
 	{
 
-		void build(GameObject* object) const;
+		void build(GameObject* object, const bool& isPlayerSummon) const;
 	public:
 	
 		std::vector<std::unique_ptr<Component::Base>> components;
 		float spawnDistance;
 		bool isEditorOnly;
 
+		Core::String tag;
+
 		Prefab();
 		Prefab(const Prefab& copy);
 
-		GameObject* createNewInstance(const Core::uuid& uuid, const Core::Vector3& pos) const;
-		GameObject* createNewInstance(const Core::Vector3& pos) const;
-		GameObject* createNewInstance(GameObject* parent) const;
+		GameObject* createNewInstance(const Core::uuid& uuid, const Core::Vector3& pos, const bool& isPlayerSummon=false) const;
+		GameObject* createNewInstance(const Core::Vector3& pos, const bool& isPlayerSummon = false) const;
+		GameObject* createNewInstance(GameObject* parent, const bool& isPlayerSummon = false) const;
 
 		template <class Ar>
 		void save(Ar& ar) const
