@@ -1,3 +1,6 @@
 [submodule "Project/stduuid"]
 	path = Project/stduuid
 	url = git@github.com:mariusbancila/stduuid.git
+[submodule "swizzle"]
+	path = swizzle
+	url = git@github.com:deathcleaver/swizzle.git
