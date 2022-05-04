@@ -26,7 +26,7 @@ namespace Physics
 						auto possible_colliders = tree.query(it.rect);
 						for (auto& collider : possible_colliders)
 						{
-							if (ptr != collider.ptr && collider.ptr != nullptr)
+							if ((ptr != collider.ptr) & (collider.ptr != nullptr))
 							{
 								ptr->Collides(collider.ptr);
 							}

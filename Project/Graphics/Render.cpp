@@ -105,7 +105,7 @@ void Render::onDeath()
 void Render::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// TODO: change to check renderMode instead combined with objectState
-	if (!initialized || attachedOn->objectState == Enums::ObjectState::Inactive)
+	if (!initialized || (attachedOn && attachedOn->objectState == Enums::ObjectState::Inactive))
 		return;
 	if (model.get())
 	{
