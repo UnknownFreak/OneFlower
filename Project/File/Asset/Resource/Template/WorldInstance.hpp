@@ -10,6 +10,7 @@
 #include <map>
 
 #include <Helpers/Vector3.hpp>
+#include <Object/ObjectStateActivator.hpp>
 
 namespace File::Asset::Resource::Template
 {
@@ -18,11 +19,15 @@ namespace File::Asset::Resource::Template
 		File::Mod::ModFileUUIDHelper prefab;
 		Core::uuid objectId;
 		Core::Vector3f location;
+
+		Component::ObjectStateActivator activationInfo;
+
 		template<class Archive>
 		void save(Archive& ar) const
 		{
 			ar(objectId);
 			ar(location);
+			ar(activationInfo);
 		}
 
 		template<class Archive>
@@ -30,6 +35,7 @@ namespace File::Asset::Resource::Template
 		{
 			ar(objectId);
 			ar(location);
+			ar(activationInfo);
 		}
 	};
 

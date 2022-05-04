@@ -646,9 +646,11 @@
     <ClCompile Include="Project\Module\Logger\OneLogger.cpp" />
     <ClCompile Include="Project\Module\Random.cpp" />
     <ClCompile Include="Project\Module\OneTimeDefiner.cpp" />
+    <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
     <ClCompile Include="Project\Object\BaseComponentDefiner.cpp" />
     <ClCompile Include="Project\Object\GameObject.cpp" />
     <ClCompile Include="Project\Object\ObjectInstanceHandlerDefiner.cpp" />
+    <ClCompile Include="Project\Object\Interactable.cpp" />
     <ClCompile Include="Project\Object\Transform.cpp" />
     <ClCompile Include="Project\Physics\Colliders\EntityCollider.cpp" />
     <ClCompile Include="Project\Physics\Colliders\TileCollider.cpp" />
@@ -695,6 +697,7 @@
     <ClCompile Include="Project\Tests\VectorUnitTest.cpp" />
     <ClCompile Include="Project\Tests\VersionUnitTest.cpp" />
     <ClCompile Include="Project\Trigger\DespawnObjectTrigger.cpp" />
+    <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp" />
     <ClCompile Include="Project\Trigger\QuestTrigger.cpp" />
     <ClCompile Include="Project\Trigger\RequirementTrigger.cpp" />
     <ClCompile Include="Project\Trigger\SpawnObjectTrigger.cpp" />
@@ -875,6 +878,7 @@
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
+    <ClInclude Include="Project\Helpers\Enum\ObjectState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\TileTypes.hpp" />
     <ClInclude Include="Project\Helpers\Enum\TrinketType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
@@ -931,10 +935,13 @@
     <ClInclude Include="Project\Module\Random.hpp" />
     <ClInclude Include="Project\Module\OneTime.hpp" />
     <ClInclude Include="Project\Module\BuildVersion.hpp" />
+    <ClInclude Include="Project\Object\Interaction.hpp" />
+    <ClInclude Include="Project\Object\ObjectStateActivator.hpp" />
     <ClInclude Include="Project\Object\BaseComponent.hpp" />
     <ClInclude Include="Project\Object\GameObject.hpp" />
     <ClInclude Include="Project\Object\IBaseComponent.hpp" />
     <ClInclude Include="Project\Object\ObjectInstanceHandler.hpp" />
+    <ClInclude Include="Project\Object\Interactable.hpp" />
     <ClInclude Include="Project\Object\Transform.hpp" />
     <ClInclude Include="Project\Physics\Colliders\EntityCollider.hpp" />
     <ClInclude Include="Project\Physics\Colliders\TileCollider.hpp" />
@@ -963,6 +970,7 @@
     <ClInclude Include="Project\stduuid\include\uuid.h" />
     <ClInclude Include="Project\Trigger\EffectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\ItemTrigger.hpp" />
+    <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp" />
     <ClInclude Include="Project\Trigger\QuestTrigger.hpp" />
     <ClInclude Include="Project\Trigger\RequirementTrigger.hpp" />
     <ClInclude Include="Project\Trigger\SpawnObjectTrigger.hpp" />

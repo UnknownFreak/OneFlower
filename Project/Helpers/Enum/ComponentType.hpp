@@ -24,7 +24,9 @@ namespace Enums
 		LootDrop,
 		AttachToParent, // if used the "effect" is attached to the user (e.g) a barrier with an effect)
 		LootContainer,
-		PlayerController
+		PlayerController,
+		Activator,
+		Interactable,
 	};
 
 
@@ -48,6 +50,7 @@ namespace Enums
 		case ComponentType::AttachToParent: return "AttachToParent";
 		case ComponentType::LootContainer: return "LootContainer";
 		case ComponentType::PlayerController: return "PlayerController";
+		case ComponentType::Activator: return "Activator";
 		default:
 			return "Unknown";
 		}

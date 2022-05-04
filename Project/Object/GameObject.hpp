@@ -4,6 +4,7 @@
 
 #include <unordered_map>
 
+#include <Helpers/Enum/ObjectState.hpp>
 #include <Helpers/Enum/ComponentType.hpp>
 #include <Helpers/Enum/InteractionOption.hpp>
 #include "IBaseComponent.hpp"
@@ -27,6 +28,9 @@ public:
 	Core::uuid id;
 	Core::String tag;
 
+	Enums::ObjectState objectState = Enums::ObjectState::Active;
+
+	// TODO: Fix a message struct to set properties.
 	void sendMessage(const Core::String& msgType, const Core::String& message);
 
 	GameObject();
@@ -36,6 +40,10 @@ public:
 	~GameObject();
 	
 	bool interact(const Enums::InteractionOption& interaction);
+	void interact(const bool& reverseAnimation, const short& repeat);
+
+	void toggleObjectState();
+	void toggleObjectState(const Enums::ObjectState& newState);
 
 	void onCollision(Interfaces::ICollider*);
 	// Inherited via IUpdateable

@@ -5,6 +5,7 @@
 #include <Object/GameObject.hpp>
 #include <Quest/QuestState.hpp>
 #include <Helpers/String.hpp>
+#include <Helpers/Enum/ObjectState.hpp>
 #include <Helpers/TickTimer.hpp>
 
 #include <unordered_set>
@@ -32,6 +33,7 @@ namespace File
 		std::unordered_map<File::Mod::ModFileUUIDHelper, Questing::QuestState> questState;
 		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimerInfo> tickTimers;
 		std::unordered_map<Core::uuid, std::vector<File::Mod::ModFileUUIDHelper>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
+		std::unordered_map<Core::uuid, Enums::ObjectState> overridenRenderMode;
 
 		void setPlayerInfo();
 
@@ -43,6 +45,9 @@ namespace File
 
 		bool isTriggered(const Core::uuid& uuid) const;
 		void setTriggered(const Core::uuid& uuid);
+
+		Enums::ObjectState getObjectState(const Core::uuid& uuid, const Enums::ObjectState& default);
+		void setObjectState(const Core::uuid& uuid, const Enums::ObjectState& objectState);
 
 		bool isLooted(const Core::uuid& uuid) const;
 		void setLooted(const Core::uuid& uuid);

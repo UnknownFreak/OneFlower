@@ -103,6 +103,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			lived = 0.f;
 			updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
+		// TODO: add logic for interactables like, buttons/ levers/ portals?
 	}
 }
 

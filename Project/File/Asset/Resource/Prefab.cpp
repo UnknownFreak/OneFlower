@@ -11,6 +11,7 @@ namespace Asset::Resource
 	void Prefab::build(GameObject* object, const bool& isPlayersummon) const
 	{
 		object->tag = tag;
+		object->objectState = Engine::GetModule<File::SaveFile>().getObjectState(object->id, objectState);;
 		for (auto& x : components)
 			object->AddOrReplaceComponent(x.get()->copy());
 		auto& gameMode = Engine::GetModule<File::SaveFile>().getGameMode();
@@ -40,9 +41,6 @@ namespace Asset::Resource
 
 	GameObject* Prefab::createNewInstance(const Core::uuid& uuid, const Core::Vector3& pos, const bool& isPlayerSummon) const
 	{
-		if ((isEditorOnly && !Engine::GetBuildMode().isEditorBuild()) ||
-			(isEditorOnly && !Engine::GetBuildMode().isDebugBuild()))
-			return nullptr;
 		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);

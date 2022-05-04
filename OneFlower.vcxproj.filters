@@ -331,6 +331,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b19e790-5799-4f2e-9f06-74012ebc8f01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Component\Activatior">
+      <UniqueIdentifier>{f9f0fb3f-461a-45bd-899b-299b6d8f1aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -992,6 +995,15 @@
     </ClCompile>
     <ClCompile Include="Project\Helpers\String.cpp">
       <Filter>Engine\Helpers\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
+      <Filter>Engine\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\ObjectStateActivator.cpp">
+      <Filter>Engine\Object\Component\Activatior</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Object\Interactable.cpp">
+      <Filter>Engine\Object\Component\Activatior</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1798,6 +1810,21 @@
     </ClInclude>
     <ClInclude Include="Project\Helpers\Rect.hpp">
       <Filter>Engine\Helpers\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Helpers\Enum\ObjectState.hpp">
+      <Filter>Engine\Helpers\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp">
+      <Filter>Engine\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\ObjectStateActivator.hpp">
+      <Filter>Engine\Object\Component\Activatior</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Interactable.hpp">
+      <Filter>Engine\Object\Component\Activatior</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Object\Interaction.hpp">
+      <Filter>Engine\Object\Component\Activatior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <Helpers/Enum/ObjectState.hpp>
+
 #include <Interfaces/IRequestable.hpp>
 #include <Helpers/Vector3.hpp>
 #include <Object/BaseComponent.hpp>
@@ -22,7 +24,7 @@ namespace Asset::Resource
 	
 		std::vector<std::unique_ptr<Component::Base>> components;
 		float spawnDistance;
-		bool isEditorOnly;
+		Enums::ObjectState objectState = Enums::ObjectState::Active;
 
 		Core::String tag;
 
@@ -39,7 +41,7 @@ namespace Asset::Resource
 			ar(cereal::base_class<IRequestable>(this));
 			ar(components);
 			ar(spawnDistance);
-			ar(isEditorOnly);
+			ar(objectState);
 		}
 
 		template <class Ar>
@@ -48,7 +50,7 @@ namespace Asset::Resource
 			ar(cereal::base_class<IRequestable>(this));
 			ar(components);
 			ar(spawnDistance);
-			ar(isEditorOnly);
+			ar(objectState);
 		}
 
 

@@ -32,6 +32,19 @@ namespace File
 		triggerState.insert(uuid);
 	}
 
+	Enums::ObjectState SaveFile::getObjectState(const Core::uuid& uuid, const Enums::ObjectState& default)
+	{
+		auto it = overridenRenderMode.find(uuid);
+		if (it != overridenRenderMode.end())
+			return it->second;
+		return default;
+	}
+
+	void SaveFile::setObjectState(const Core::uuid& uuid, const Enums::ObjectState& objectState)
+	{
+		overridenRenderMode[uuid] = objectState;
+	}
+
 	bool SaveFile::isLooted(const Core::uuid& uuid) const
 	{
 		return lootedContainers.find(uuid) != lootedContainers.end();

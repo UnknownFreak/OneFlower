@@ -5,6 +5,7 @@
 #include <Graphics/PlayerInteractionPrompt.hpp>
 
 #include "ObjectInstanceHandler.hpp"
+#include "Interactable.hpp"
 
 
 void GameObject::sendMessage(const Core::String& msgType, const Core::String& message)
@@ -78,20 +79,58 @@ bool GameObject::interact(const Enums::InteractionOption& interaction)
 	return false;
 }
 
+void GameObject::interact(const bool& reverseAnimation, const short& repeat)
+{
+	auto comp = getComponent<Component::Interactable>();
+	if (comp)
+	{
+		comp->interact(reverseAnimation, repeat);
+	}
+}
+
+void GameObject::toggleObjectState()
+{
+	Enums::ObjectState state = Enums::ObjectState::Active;
+	if (objectState == Enums::ObjectState::Active)
+		state = Enums::ObjectState::Inactive;
+
+	toggleObjectState(state);
+}
+
+void GameObject::toggleObjectState(const Enums::ObjectState& newState)
+{
+	if (newState == Enums::ObjectState::Active && objectState != newState)
+	{
+		objectState = newState;
+		Component::ObjectStateActivator* c = getComponent<Component::ObjectStateActivator>();
+		if (c)
+		{
+			c->toggle();
+		}
+	}
+	else if (newState == Enums::ObjectState::Inactive && objectState != newState)
+	{
+		objectState = newState;
+		Component::ObjectStateActivator* c = getComponent<Component::ObjectStateActivator>();
+		if (c)
+		{
+			c->toggle();
+		}
+	}
+
+}
+
 void GameObject::onCollision(Interfaces::ICollider* collider)
 {
-	for (auto& component : componentMap)
-	{
-		component.second->onCollision(collider);
-	}
+	if (objectState == Enums::ObjectState::Active)
+		for (auto& component : componentMap)
+		{
+			component.second->onCollision(collider);
+		}
 }
 
 void GameObject::Update()
 {
-	//for (auto& x : updating)
-	//{
-	//	x->Update();
-	//}
 	for (auto& i : componentMap)
 	{
 		i.second->Update();
@@ -100,20 +139,22 @@ void GameObject::Update()
 
 void GameObject::Simulate(const float& fElapsedTime)
 {
-	for (auto& component : componentMap)
-	{
-		component.second->Simulate(fElapsedTime);
-	}
+	if (objectState == Enums::ObjectState::Active)
+		for (auto& component : componentMap)
+		{
+			component.second->Simulate(fElapsedTime);
+		}
 }
 
 void GameObject::Simulate(const float& fElapsedTime, const bool& bUpdate)
 {
-	for (auto& component : componentMap)
-	{
-		component.second->Simulate(fElapsedTime);
-		if (bUpdate)
-			component.second->Update();
-	}
+	if (objectState == Enums::ObjectState::Active)
+		for (auto& component : componentMap)
+		{
+			component.second->Simulate(fElapsedTime);
+			if (bUpdate)
+				component.second->Update();
+		}
 }
 
 void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTime, const bool& unloadFlag)
