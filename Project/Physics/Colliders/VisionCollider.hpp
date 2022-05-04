@@ -37,6 +37,9 @@ public:
 
 	virtual void Simulate(const float& dt) override;
 	virtual void onDeath() override;
+
+	virtual bool isActive() const override;
+
 };
 
 

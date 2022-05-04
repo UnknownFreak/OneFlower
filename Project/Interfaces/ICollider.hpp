@@ -57,6 +57,8 @@ namespace Interfaces {
 			return requireUpdate;
 		}
 
+		virtual bool isActive() const { return false; };
+
 		inline virtual void postUpdate() {};
 
 		Core::FloatRect getBox() const;

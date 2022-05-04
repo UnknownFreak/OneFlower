@@ -45,6 +45,8 @@ public:
 
 	virtual void Simulate(const float& dt) override;
 
+	virtual bool isActive() const override;
+
 	template <class Archive>
 	void save(Archive& ar) const
 	{

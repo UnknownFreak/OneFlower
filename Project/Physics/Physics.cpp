@@ -18,21 +18,10 @@ namespace Physics
 		{
 				auto it = visible_colliders[idx];
 				auto ptr = it.ptr;
-				if (ptr)
+				if (ptr && ptr->isActive())
 				{
 					ptr->doParentSimulate(eti);
-					if (ptr->colliderType == Enums::ColliderType::Entity)
-					{
-						auto possible_colliders = tree.query(it.rect);
-						for (auto& collider : possible_colliders)
-						{
-							if (ptr != collider.ptr && collider.ptr != nullptr)
-							{
-								ptr->Collides(collider.ptr);
-							}
-						}
-					}
-					else if (ptr->colliderType == Enums::ColliderType::VisionHitbox)
+					if ((ptr->colliderType == Enums::ColliderType::Entity) | (ptr->colliderType == Enums::ColliderType::VisionHitbox))
 					{
 						auto possible_colliders = tree.query(it.rect);
 						for (auto& collider : possible_colliders)
@@ -68,47 +57,13 @@ namespace Physics
 			auto ptr = it.ptr;
 			if (ptr)
 			{
-				//ptr->doParentSimulate(fElapsedTime);
-				//ptr->doParentUpdate();
-				if (ptr->colliderType == Enums::ColliderType::Entity)
+				if ((ptr->colliderType == Enums::ColliderType::Entity) | (ptr->colliderType == Enums::ColliderType::StaticEntity))
 				{
 					renderables.push_back(((Collider*)ptr)->attachedOn);
-					//auto possible_colliders = qt.query(it.rect);
-					//std::sort(possible_colliders.begin(), possible_colliders.end(), [](BoxInfo a, BoxInfo b) {
-					//	return (int)a.colliderType < (int)b.colliderType; });
-					//for (auto& collider : possible_colliders)
-					//{
-					//	if (ptr != collider.ptr && collider.ptr != nullptr)
-					//	{
-					//		ptr->Collides(collider.ptr);
-					//	}
-					//}
-					//ptr->postUpdate();
-		
 				}
-				//else if (ptr->colliderType == Enums::ColliderType::VisionHitbox)
-				//{
-				//	auto possible_colliders = qt.query(it.rect);
-				//	std::sort(possible_colliders.begin(), possible_colliders.end(), [](BoxInfo a, BoxInfo b) {
-				//		return (int)a.colliderType < (int)b.colliderType; });
-				//	for (auto& collider : possible_colliders)
-				//	{
-				//		if (ptr != collider.ptr && collider.ptr != nullptr)
-				//		{
-				//			ptr->Collides(collider.ptr);
-				//		}
-				//	}
-				//	ptr->postUpdate();
-				//
-				//}
-				else if (ptr->colliderType == Enums::ColliderType::StaticEntity)
-				{
-					renderables.push_back(((Collider*)ptr)->attachedOn);
-					//ptr->postUpdate();
-				}
+	
 			}
 		}
-//*/
 		Engine::GetModule<Graphics::RenderWindow>().Cull(renderables);
 	}
 	void PhysicsEngine::addCollider(Interfaces::ICollider* collider)

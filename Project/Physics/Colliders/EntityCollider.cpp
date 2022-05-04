@@ -226,6 +226,11 @@ void Collider::Simulate(const float& fElapsedTime)
 		transform->pos.z = -1;
 }
 
+bool Collider::isActive() const
+{
+	return attachedOn->objectState == Enums::ObjectState::Active;
+}
+
 void Collider::postUpdate()
 {
 	transform->pos += transform->lastDirection;

@@ -107,6 +107,11 @@ void VisionCollider::onDeath()
 {
 }
 
+bool VisionCollider::isActive() const
+{
+	return attachedOn->objectState == Enums::ObjectState::Active;
+}
+
 void VisionCollider::updateColliderPos(const Core::Vector2f& pos, const float& extra_offset)
 {
 	Core::Vector2f newPos = { pos.x - (collider.w / 2) , pos.y - extra_offset - (collider.h / 2) };
