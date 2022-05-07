@@ -7,19 +7,13 @@
 
 #include <Combat/Stats.hpp>
 
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-
 #include <Graphics/UI/ProgressBar.hpp>
 
 namespace Graphics::UI
 {
 	class PlayerStats : public Graphics::UI::UIContext
 	{
-		sf::RectangleShape temp;
 		std::shared_ptr<Component::Stats> stats;
-		sf::CircleShape playerLevel;
 		PlayerBuffDebuff buffDebuff;
 		ActionBar actionBar;
 
@@ -39,7 +33,7 @@ namespace Graphics::UI
 		virtual void update() override;
 
 		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() override;
 
 		// Inherited via UIContext
 		virtual void onMouseHover(const Core::Vector2f& mouse) override;

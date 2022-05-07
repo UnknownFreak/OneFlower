@@ -1,7 +1,7 @@
 #ifndef Item_HPP
 #define Item_HPP
 
-#include <SFML/Graphics/Texture.hpp>
+#include <swizzle/gfx/Texture.hpp>
 
 #include <cereal/cereal.hpp>
 
@@ -14,7 +14,7 @@ namespace Items
 {
 	class Base : public Interfaces::IRequestable
 	{
-		std::shared_ptr<sf::Texture> iconTexture;
+		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
 		Core::uuid uniqId;
 	public:
 

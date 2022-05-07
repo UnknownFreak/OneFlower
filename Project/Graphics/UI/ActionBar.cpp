@@ -1,6 +1,6 @@
 #include "ActionBar.hpp"
 
-Graphics::UI::ActionBar::ActionBar() : UIContext(sf::Keyboard::Unknown, "ActionBar", true)
+Graphics::UI::ActionBar::ActionBar() : UIContext(swizzle::input::Keys::KeyNone, "ActionBar", true)
 {
 }
 
@@ -40,8 +40,8 @@ void Graphics::UI::ActionBar::readInput()
 {
 }
 
-void Graphics::UI::ActionBar::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Graphics::UI::ActionBar::render()
 {
-	for(auto& it : iconChains)
-		target.draw(it.second, states);
+	for (auto& it : iconChains)
+		it.second.render();
 }

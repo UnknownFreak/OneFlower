@@ -1,6 +1,10 @@
 #include "TextureLoader.hpp"
-#include <fstream>
+
+#include <swizzle/asset/TextureLoader.hpp>
+
 #include <Module\EngineModuleManager.hpp>
+#include <Graphics/Window.hpp>
+
 #include <filesystem>
 
 Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Texture::Loader>::type = Enums::EngineResourceType::TextureLoader;
@@ -21,39 +25,18 @@ namespace File::Resource::Texture
 			//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 	#endif
 		mtx.lock();
+		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
-			std::make_pair(name, std::make_shared<sf::Texture>(loadTexture_internal(path))));
+			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
 		mtx.unlock();
 		return true;
 	}
-	sf::Texture Loader::loadTexture_internal(const Core::String& name)
-	{
-		std::wstring wstr = Engine::GetModule<Core::StringConverter>().toUtf16(name);
-		std::ifstream i(wstr , std::ios::in | std::ifstream::binary);
-		i.seekg(0, i.end);
-		size_t len = (size_t)i.tellg();
-		i.seekg(0, i.beg);
-		char* data = new char[len];
-		i.read(data, len);
-	
-		sf::Texture tempTexture;
-		bool ok = tempTexture.loadFromMemory(data, len);
-	
-		delete[] data;
-		if (! ok)
-		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
-			logger.Info("Failed to load texture: " + name, logger.fileInfo(__FILE__, __LINE__));
-			return sf::Texture();
-		}
-		return tempTexture;
-	}
 
-	std::shared_ptr<sf::Texture>& Loader::requestTexture(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const Core::String& name, const Core::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<sf::Texture>>::iterator it;
+			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
 			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name);
 
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())

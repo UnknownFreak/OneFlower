@@ -10,8 +10,6 @@ const Core::String Globals::texturePath = "Textures/";
 const Core::String Globals::uiTexturePath = Globals::texturePath + "Ui/";
 const Core::String Globals::tileTexturePath = Globals::texturePath + "Tiles/";
 const Core::String Globals::LIGHT = "light.png";
-sf::ConvexShape Globals::shape;
-sf::Font Globals::font;
 
 const Core::String Globals::GLOBAL_DRAW_HITBOX = "DrawHitbox";
 const Core::String Globals::GLOBAL_DRAW_QT = "DrawQuadTree";
@@ -42,12 +40,4 @@ Globals::Globals()
 	boolGlobals.insert(std::make_pair(B_GLOBAL_LOADINGSCREENINFO, true));
 	boolGlobals.insert(std::make_pair(B_GLOBAL_SLOW_LOADING, false));
 	boolGlobals.insert(std::make_pair(B_FORCE_SAME_SEED, false));
-	shape.setPointCount(4);
-	shape.setPoint(0, { 0, 0 });
-	shape.setPoint(1, { 0, 64 });
-	shape.setPoint(2, { 64, 64 });
-	shape.setPoint(3, { 64, 0 });
-	shape.setOutlineColor(sf::Color::Red);
-	shape.setOutlineThickness(1.f);
-	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 }

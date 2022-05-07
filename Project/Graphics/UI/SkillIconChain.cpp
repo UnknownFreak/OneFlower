@@ -4,7 +4,7 @@ Graphics::UI::SkillIconChain::SkillIconChain() : SkillIconChain(std::vector<Skil
 {
 }
 
-Graphics::UI::SkillIconChain::SkillIconChain(const std::vector<SkillIcon>& icons) : UIContext(sf::Keyboard::Key::Unknown, "SkillIconChain", true), icons(icons)
+Graphics::UI::SkillIconChain::SkillIconChain(const std::vector<SkillIcon>& icons) : UIContext(swizzle::input::Keys::KeyNone, "SkillIconChain", true), icons(icons)
 {
 }
 
@@ -42,10 +42,10 @@ void Graphics::UI::SkillIconChain::readInput()
 {
 }
 
-void Graphics::UI::SkillIconChain::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Graphics::UI::SkillIconChain::render()
 {
 	for (auto& icon : icons)
 	{
-		target.draw(icon, states);
+		icon.render();
 	}
 }

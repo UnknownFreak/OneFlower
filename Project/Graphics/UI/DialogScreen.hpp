@@ -5,21 +5,16 @@
 
 #include <Helpers/Enum/InteractionOption.hpp>
 
-#include <SFML/Graphics/VertexArray.hpp>
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Font.hpp>
-
 class Dialog;
 namespace Graphics::UI
 {
 	class DialogScreen : public UIContext
 	{
-		sf::Font f;
-		sf::Text t;
+		Core::String t;
 
 		Dialog* dialog = nullptr;
-		std::shared_ptr<sf::Texture> texture;
-		sf::VertexArray dialogFrame;
+		//std::shared_ptr<sf::Texture> texture;
+		//sf::VertexArray dialogFrame;
 	public:
 		DialogScreen();
 		DialogScreen(Dialog* dialog);
@@ -30,7 +25,7 @@ namespace Graphics::UI
 		virtual void readInput() override;
 		void readInput(const Enums::InteractionOption& navigation);
 		void show(Dialog* dialog);
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() override;
 
 
 		// Inherited via UIContext

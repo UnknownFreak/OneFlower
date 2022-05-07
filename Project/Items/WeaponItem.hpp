@@ -4,7 +4,6 @@
 #include "StatChangingItem.hpp"
 #include <Helpers/Enum/WeaponType.hpp>
 #include <Combat/Modifier.hpp>
-#include <Graphics/Model/IModel.hpp>
 
 namespace Asset::Resource
 {

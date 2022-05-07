@@ -3,7 +3,6 @@
 
 #include <map>
 #include <Helpers/Enum/InputEnum.hpp>
-#include <SFML/Window/Joystick.hpp>
 
 class Controller
 {
@@ -12,7 +11,7 @@ class Controller
 public:
 	static std::map<unsigned, Controller> controllers;
 	static bool isButtonPressed(Enums::Input::ControllerButtons button);
-	static float getControllerAxisPos(sf::Joystick::Axis axis);
+	//static float getControllerAxisPos(sf::Joystick::Axis axis);
 	static void update();
 	static bool getControllers;
 	static Controller& currentController;

@@ -2,7 +2,6 @@
 #define GameConfig_HPP
 
 #include <vector>
-#include <SFML/Window/VideoMode.hpp>
 
 #include <Interfaces/IEngineModule.hpp>
 
@@ -17,9 +16,8 @@ namespace EngineModule
 		bool configLoaded = false;
 		const Core::String configName;
 		File::Resource::Config::ConfigParser parser;
-		sf::VideoMode defaultMode;
+		std::pair<uint32_t, uint32_t> defaultMode;
 		bool fullscreen;
-		sf::Uint32 windowStyle;
 		unsigned antialiasing;
 		unsigned framerate;
 		Enums::LogLevel logLevel;
@@ -28,9 +26,9 @@ namespace EngineModule
 		bool physicsAdaptiveRegions;
 	public:
 
-		sf::VideoMode videoMode;
+		std::pair<uint32_t, uint32_t> videoMode;
 
-		std::vector<sf::VideoMode> videoModes;
+		std::vector<std::pair<uint32_t, uint32_t>> videoModes;
 
 		GameConfig();
 		~GameConfig();
@@ -42,7 +40,6 @@ namespace EngineModule
 		void load();
 		void setVideoMode(const size_t& index);
 		void toggleFullscreen();
-		sf::Uint32 getWindowStyle() const;
 		void setAntiAliasing(const unsigned& aa);
 		unsigned getAntiAliasing() const;
 

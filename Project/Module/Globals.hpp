@@ -1,8 +1,6 @@
 #ifndef Globals_HPP
 #define Globals_HPP
 
-#include <SFML/Graphics/ConvexShape.hpp>
-
 #include "Interfaces/IEngineModule.hpp"
 #include <map>
 #include <vector>
@@ -11,7 +9,6 @@
 #include <Interfaces/IRequestable.hpp>
 
 #include <Helpers/String.hpp>
-#include <SFML/Graphics/Font.hpp>
 
 class Globals : public Interfaces::IEngineResource<Globals>
 {
@@ -52,8 +49,6 @@ public:
 	File::Mod::ModFileUUIDHelper newGameWorldInstanceLoadingScreen;
 	Core::Vector3f newGamePoint;
 
-	static sf::Font font;
-
 	// Inherited via IEngineResource
 	Enums::EngineResourceType& getType() const
 	{
@@ -63,8 +58,6 @@ public:
 	static const Core::String texturePath;
 	static const Core::String uiTexturePath;
 	static const Core::String tileTexturePath;
-
-	static sf::ConvexShape shape;
 
 	static const Core::String GLOBAL_DRAW_HITBOX;
 	static const Core::String GLOBAL_DRAW_QT;

@@ -45,7 +45,6 @@ namespace File::Asset::Resource::Template
 	struct TileTemplate
 	{
 		Core::Vector3f pos;
-		File::Mod::ModFileUUIDHelper atlas;
 		Core::String textureCoors;
 		Enums::TileTypes type;
 		bool hasShadow;
@@ -66,7 +65,6 @@ namespace File::Asset::Resource::Template
 		{
 			ar(m_uuid);
 			ar(pos);
-			//ar(atlas);
 			ar(textureCoors);
 			ar(type);
 			ar(hasShadow);
@@ -77,7 +75,6 @@ namespace File::Asset::Resource::Template
 		{
 			ar(m_uuid);
 			ar(pos);
-			//ar(atlas);
 			ar(textureCoors);
 			ar(type);
 			ar(hasShadow);

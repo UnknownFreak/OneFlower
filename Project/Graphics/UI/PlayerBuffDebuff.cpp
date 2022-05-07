@@ -5,7 +5,7 @@ void Graphics::UI::PlayerBuffDebuff::setStats(std::shared_ptr<Component::Stats> 
 	stats = newStats;
 }
 
-Graphics::UI::PlayerBuffDebuff::PlayerBuffDebuff(const Core::Vector2f& pos) : UIContext(sf::Keyboard::Key::Unknown, "BuffDebuff", true), pos(pos)
+Graphics::UI::PlayerBuffDebuff::PlayerBuffDebuff(const Core::Vector2f& pos) : UIContext(swizzle::input::Keys::KeyNone, "BuffDebuff", true), pos(pos)
 {
 }
 
@@ -39,16 +39,16 @@ void Graphics::UI::PlayerBuffDebuff::readInput()
 {
 }
 
-void Graphics::UI::PlayerBuffDebuff::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Graphics::UI::PlayerBuffDebuff::render()
 {
 	if (!visible)
 		return;
 	for (auto& icon : effectIcons)
 	{
-		target.draw(icon.second, states);
+		icon.second.render();
 	}
-	for (auto& icon : effectIcons)
-	{
-		icon.second.drawToolTip(target, states);
-	}
+	//for (auto& icon : effectIcons)
+	//{
+	//	icon.second.drawToolTip(target, states);
+	//}
 }

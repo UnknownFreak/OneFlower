@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Helpers/Rect.hpp>
-#include "Renderable.hpp"
 #include <Module/Globals.hpp>
 #include <Object/Transform.hpp>
 struct TransparencyMasker
@@ -32,16 +31,16 @@ struct TransparencyMasker
 		releaseTransparency.pos.y += player->buffered.z * Globals::Z_OFFSET;
 	}
 
-	inline void triggersTransparency(Renderable* renderable, const int& currentZ)
-	{
-		if (player == nullptr)
-			return;
-		if (triggerTransparency.intersects(renderable->drawBox) && float(currentZ) > player->buffered.z)
-		{
-			renderable->setTransparency(true);
-			return;
-		}
-		//else if (releaseTransparency.contains(renderable->drawBox) && float(currentZ) > player->bufferedZ)
-			renderable->setTransparency(false);
-	}
+	//inline void triggersTransparency(Renderable* renderable, const int& currentZ)
+	//{
+	//	if (player == nullptr)
+	//		return;
+	//	if (triggerTransparency.intersects(renderable->drawBox) && float(currentZ) > player->buffered.z)
+	//	{
+	//		renderable->setTransparency(true);
+	//		return;
+	//	}
+	//	//else if (releaseTransparency.contains(renderable->drawBox) && float(currentZ) > player->bufferedZ)
+	//		renderable->setTransparency(false);
+	//}
 };

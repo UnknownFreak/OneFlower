@@ -1,7 +1,6 @@
 #ifndef LoadingStateMachine_HPP
 #define LoadingStateMachine_HPP
 
-
 #include <Graphics/Window.hpp>
 #include <Helpers/Enum/LoadingState.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>

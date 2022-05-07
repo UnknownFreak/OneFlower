@@ -12,7 +12,6 @@
 #include <Interfaces/ICollider.hpp>
 #include <Physics/Colliders/TileCollider.hpp>
 #include <Physics/Colliders/EntityCollider.hpp>
-#include <File/Resource/TileAtlas.hpp>
 
 #include <Helpers/Enum/TileTypes.hpp>
 
@@ -76,10 +75,10 @@ void WorldManager::doDayCycle(const float& fElapsedTime)
 
 	//gfx.shadowLengthX = gfx.timeOfDay / 12.f;
 	//gfx.shadowLengthY = gfx.timeOfDay / 18.f;
-	sf::Uint8 time = (sf::Uint8)(std::abs(std::sin(gfx.timeOfDay / 8.f)) * 255);
-	if (time < 64)
-		time = 64;
-	gfx.currentDayColor = sf::Color(time, time, time);
+	//uint_fast8_t time = (uint_fast8_t)(std::abs(std::sin(gfx.timeOfDay / 8.f)) * 255);
+	//if (time < 64)
+	//	time = 64;
+	//gfx.currentDayColor = sf::Color(time, time, time);
 	//std::cout << "Brightness of day (0-255): " << int(time) << std::endl;
 	//float whole, fractional;
 	//fractional = std::modf(gfx.timeOfDay, &whole);
@@ -90,6 +89,10 @@ void WorldManager::doDayCycle(const float& fElapsedTime)
 }
 
 WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(gfx, isLoading), objectHandler(Engine::GetModule<EngineModule::ObjectInstanceHandler>()), saveFile(Engine::GetModule<File::SaveFile>())
+{
+}
+
+void WorldManager::initialize()
 {
 	newGame();
 	auto& f = Engine::GetModule<Input::InputHandler>();
@@ -104,22 +107,30 @@ WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(
 	go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 
 
-	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("Console", [&](bool, sf::Keyboard::Key, const float&) {gfx.ui.ToggleConsole(); f.togglePlayerInput(); }, false), sf::Keyboard::Key::F1, Enums::Input::Action::Press);
+	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("Console", [&](bool, swizzle::input::Keys, const float&) {gfx.ui.ToggleConsole(); f.togglePlayerInput(); }, false),
+		swizzle::input::Keys::KeyF1
+		
+	, Enums::Input::Action::Press);
 
-	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("GlobalFlag", [&](bool, sf::Keyboard::Key, const float&) {
+	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("GlobalFlag", [&](bool, swizzle::input::Keys, const float&) {
 		Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX] = !Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX];
-		}, false), sf::Keyboard::Key::F2, Enums::Input::Action::Press);
+		}, false), 
+		 swizzle::input::Keys::KeyF2
+		, Enums::Input::Action::Press);
 
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("NewGame", [&](bool, sf::Keyboard::Key, const float&) {
+	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("NewGame", [&](bool, swizzle::input::Keys, const float&) {
 		newGame();
-		}, false), sf::Keyboard::Key::Num1, Enums::Input::Action::Press);
+		}, false),  swizzle::input::Keys::Key1
+		, Enums::Input::Action::Press);
 
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("SaveGame", [&](bool, sf::Keyboard::Key, const float&) {
+	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("SaveGame", [&](bool, swizzle::input::Keys, const float&) {
 		save("Test.save");
-		}, false), sf::Keyboard::Key::Num2, Enums::Input::Action::Press);
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("LoadGame", [&](bool, sf::Keyboard::Key, const float&) {
+		}, false), swizzle::input::Keys::Key2
+		, Enums::Input::Action::Press);
+	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("LoadGame", [&](bool, swizzle::input::Keys, const float&) {
 		load("Test.save");
-		}, false), sf::Keyboard::Key::Num3, Enums::Input::Action::Press);
+		}, false), swizzle::input::Keys::Key3
+		, Enums::Input::Action::Press);
 
 	auto& console = Engine::GetModule<Console>();
 	console.registerCommand("qtt", [&](const Core::String& arg)
@@ -156,9 +167,9 @@ WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(
 			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Wall test spawn");
 			isLoading = true;
 
-			gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 512.f, 720, 0.f }, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall, false), 1, "WallTest");
+			//gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 512.f, 720, 0.f }, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall, false), 1, "WallTest");
 
-			gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 720.f, 720.f, 0.f }, Core::Vector2f{ 64.f, 256.f }, Enums::ColliderType::Wall, false), 1, "WallTest");
+			//gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 720.f, 720.f, 0.f }, Core::Vector2f{ 64.f, 256.f }, Enums::ColliderType::Wall, false), 1, "WallTest");
 
 			isLoading = false;
 
@@ -195,31 +206,10 @@ void WorldManager::createSimpleWorld()
 {
 	const auto mod = "Default";
 	gfx.clearDrawList();
-	File::Resource::Texture::TileAtlas ta;
-	ta.fromMod = mod;
-	ta.name = "tilemap-superflat2-256.png";
-	ta.name = "Exterior.png";
-	ta.objectType = Enums::ObjectType::TileAtlas;
-	ta.addAtlasPos("Wall", {64, 0});
-	//ta.addAtlasPos("Wall", {256, 0});
-	//ta.addAtlasPos("Ground", {0, 64});
-	ta.addAtlasPos("Ground", {64, 64});
-	//ta.addAtlasPos("GroundWall", {0, 0});
-	ta.addAtlasPos("GroundWall", {128, 192});
-	ta.addAtlasPos("WallGround", {0, 192});
-	ta.addAtlasPos("Water", {192, 128});
-	ta.addAtlasPos("WaterTopLeft", {128, 64});
-	ta.addAtlasPos("WaterTop", {192, 64});
-
-	std::unique_ptr<File::Resource::Texture::TileAtlas> t(new File::Resource::Texture::TileAtlas(ta));
-
 
 	auto& theManager = Engine::GetModule<File::Asset::Manager>();
 	//auto& atlasMgr = theManager.getTileAtlas();
 	//atlasMgr.add(ta);
-	theManager.requestor.add(t.release());
-	File::Mod::ModFileUUIDHelper atlas = ta.getModfile();
-
 	//theManager.test.add(t.get());
 
 	//auto& worldInstance = theManager.getWorldInstance();
@@ -229,7 +219,6 @@ void WorldManager::createSimpleWorld()
 	File::Asset::Resource::Template::WorldInstance wi;
 	wi.objectType = Enums::ObjectType::WorldInstance;
 	wi.fromMod = mod;
-	wi.tileAtlases.push_back(atlas);
 
 	File::Asset::Resource::Template::ColliderChunk chunk;
 	
@@ -299,7 +288,6 @@ void WorldManager::createSimpleWorld()
 	tchunk.objectType = Enums::ObjectType::TileChunk;
 	//tiles.clear();
 	isLoading = true;
-	tchunk.atlas = atlas;
 		//for (float f = 1; f < 20; f++)
 		for (float f2 = 1; f2 < 20; f2++)
 		{
@@ -308,22 +296,22 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.clear();
 			tchunk.layer = 0;
 			tchunk.group = "Default";
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ -1 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 0 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 1 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 2 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 3 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 4 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 5 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 6 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 7 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 8 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 13 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 14 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 15 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 16 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 17 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 18 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ -1 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 0 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 1 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 2 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 3 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 4 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 5 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 6 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 7 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 8 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 13 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 14 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 15 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 16 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 17 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{ 18 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 			
 			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
@@ -333,10 +321,10 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
 
 			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
@@ -348,10 +336,10 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
 
 			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
@@ -363,10 +351,10 @@ void WorldManager::createSimpleWorld()
 		{
 			tchunk.ID = Core::uuid();
 			tchunk.tileInfo.clear();
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{9 * 64.f, f2 * 64.f , 0.f },  "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{10 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{11 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
+			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{12 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 
 			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
@@ -377,14 +365,14 @@ void WorldManager::createSimpleWorld()
 	for (float f = 0; f < 20; f++)
 	{
 
-		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 0.f , 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
-		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 1024.f, 0.f }, atlas, "GroundWall",  Enums::TileTypes::Wall, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 0.f , 0.f },  "GroundWall",  Enums::TileTypes::Wall, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, 1024.f, 0.f },  "GroundWall",  Enums::TileTypes::Wall, false });
 
 	}
 	
 	for (float f = 1; f < 20; f++)
 	{
-		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{0.f, f * 64.f , 0.f }, atlas, "Wall",  Enums::TileTypes::Wall, true });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{0.f, f * 64.f , 0.f }, "Wall",  Enums::TileTypes::Wall, true });
 	}
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
@@ -395,8 +383,8 @@ void WorldManager::createSimpleWorld()
 	for (float f = 0; f < 20; f++)
 	{
 
-		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, -64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, false });
-		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f,  0.f, 1.f }, atlas, "GroundWall",  Enums::TileTypes::Ground, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f, -64.f, 1.f },  "Ground",  Enums::TileTypes::Ground, false });
+		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{f * 64.f,  0.f, 1.f }, "GroundWall",  Enums::TileTypes::Ground, false });
 	}
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
@@ -404,10 +392,10 @@ void WorldManager::createSimpleWorld()
 	tchunk.ID = Core::uuid();
 	tchunk.tileInfo.clear();
 	tchunk.group = "Island";
-	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f + 64.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
-	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f, 1.f }, atlas, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f, 128.f + 64.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f + 64.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
+	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ Core::Vector3f{128.f + 64.f, 128.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
 	tchunk.chunkTransparency = File::Asset::Resource::Template::TransparencyInfo{ true, Core::Vector3f{128.f, 128.f,  1.f},  Core::Vector2f{128.f , 128.f } };
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
@@ -445,8 +433,8 @@ void WorldManager::createSimpleWorld()
 	theManager.requestor.add(new Asset::Resource::DialogTree(dt));
 	dialogTest = dt.getModfile();
 
-	gfx.addRenderable(0, "Default", { 1024.f + 64, 128.f}, 0.f, atlas, "WaterTop", Enums::TileTypes::Ground, true);
-	gfx.addRenderable(0, "Default", { 1024.f, 128.f }, 0.f, atlas, "WaterTopLeft", Enums::TileTypes::Ground, true);
+	gfx.addRenderable(0, "Default", { 1024.f + 64, 128.f}, 0.f, "WaterTop", Enums::TileTypes::Ground, true);
+	gfx.addRenderable(0, "Default", { 1024.f, 128.f }, 0.f, "WaterTopLeft", Enums::TileTypes::Ground, true);
 	
 	objectHandler.player->getComponent<Component::Transform>()->pos.x = 50.f; 
 	objectHandler.player->getComponent<Component::Transform>()->pos.y = -15.f;
@@ -570,8 +558,8 @@ void WorldManager::loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, 
 {
 	isLoading = true;
 	EngineModule::Time& time = Engine::GetModule<EngineModule::Time>();
-	time.getTimer(Globals::LOADING_TIMER).restart();
-	time.getTimer(Globals::TOTAL_TIME_LOADED).restart();
+	time.getTimer(Globals::LOADING_TIMER).reset();
+	time.getTimer(Globals::TOTAL_TIME_LOADED).reset();
 
 	loadHandler.beginLoad(world, loadingScreen, playerPosition);
 
@@ -582,8 +570,8 @@ void WorldManager::Update()
 	if (isLoading)
 	{
 		auto timer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::LOADING_TIMER);
-		timer.restart();
-		while (timer.getElapsedTime().asSeconds() < 0.05f && isLoading)
+		timer.reset();
+		while (timer.secondsAsFloat() < 0.05f && isLoading)
 		{
 			loadHandler.load();
 		}

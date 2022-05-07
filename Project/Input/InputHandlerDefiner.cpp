@@ -13,7 +13,7 @@ namespace Input
 		Controller::update();
 		// poll the event handlers -- not to be confused with updating the state of the controller.
 		controller.update(fElapsedTime);
-		controllerAxis.update(fElapsedTime);
+		//controllerAxis.update(fElapsedTime);
 		mouse.update(fElapsedTime);
 		uiKeyboard.update(fElapsedTime);
 		if (isPlayerKeyboardInputEnabled)
@@ -21,8 +21,8 @@ namespace Input
 		skipCurrentFrame = false;
 	}
 
-	InputHandler::InputHandler() : playerKeyboard(sf::Keyboard::isKeyPressed), uiKeyboard(sf::Keyboard::isKeyPressed), mouse(sf::Mouse::isButtonPressed), controller(Controller::isButtonPressed),
-	controllerAxis(Controller::getControllerAxisPos)
+	InputHandler::InputHandler() : playerKeyboard(swizzle::input::IsKeyPressed), uiKeyboard(swizzle::input::IsKeyPressed), mouse(swizzle::input::IsMouseButtonPressed), controller(Controller::isButtonPressed)
+	//,controllerAxis(Controller::getControllerAxisPos)
 	{
 	}
 	void InputHandler::togglePlayerInput()

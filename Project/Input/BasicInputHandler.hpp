@@ -72,26 +72,26 @@ namespace Input
 
 		inline void RegisterCallback(Callback::Callback<bool, T> callback, T input, const Enums::Input::Action actionType)
 		{
-			if (actionType & Enums::Input::Action::Press)
+			if ((int)actionType & (int)Enums::Input::Action::Press)
 				bindsOnPress.RegisterCallback(callback, input);
-			if (actionType & Enums::Input::Action::Release)
+			if ((int)actionType & (int)Enums::Input::Action::Release)
 				bindsOnRelease.RegisterCallback(callback, input);
-			if (actionType & Enums::Input::Action::Hold)
+			if ((int)actionType & (int)Enums::Input::Action::Hold)
 				bindsOnHold.RegisterCallback(callback, input);
 		}
 
 		inline void removeCallback(T input, Core::String callbackToRemove, const Enums::Input::Action actionType)
 		{
-			if (actionType & Enums::Input::Action::Press)
+			if ((int)actionType & (int)Enums::Input::Action::Press)
 				if(bindsOnPress.RemoveCallback(input, callbackToRemove))
 				{
 					std::vector<T>::iterator it = std::find(callbackRelease.begin(), callbackRelease.end(), input);
 					if (it != callbackRelease.end())
 						callbackRelease.erase(it);
 				}
-			if (actionType & Enums::Input::Action::Release)
+			if ((int)actionType & (int)Enums::Input::Action::Release)
 				bindsOnRelease.RemoveCallback(input, callbackToRemove);
-			if (actionType & Enums::Input::Action::Hold)
+			if ((int)actionType & (int)Enums::Input::Action::Hold)
 				bindsOnHold.RemoveCallback(input, callbackToRemove);
 		}
 	

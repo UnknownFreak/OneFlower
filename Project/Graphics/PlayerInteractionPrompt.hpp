@@ -3,29 +3,26 @@
 
 #include <Helpers/Enum/InteractionOption.hpp>
 
-#include "Renderable.hpp"
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
+#include "Model.hpp"
 #include "Dialog.hpp"
 #include <Items/LootDrop.hpp>
 #include <Items/LootContainer.hpp>
 
-class PlayerInteractionPrompt :public Renderable, public Component::IBase<PlayerInteractionPrompt>
+class PlayerInteractionPrompt : public Component::IBase<PlayerInteractionPrompt>
 {
 	bool showPrompt = false;
 	Dialog* dialog = nullptr;
 	Component::LootDrop* lootDrop = nullptr;
 	Component::LootContainer* lootContainer = nullptr;
-	std::shared_ptr<sf::Texture> texture;
-	sf::VertexArray dialogInteractionPromptIcon;
-	sf::VertexArray lootInteractionPromptIcon;
-	sf::VertexArray useInteractionPromptIcon;
+	Graphics::Model interactionModel;
+	std::shared_ptr<swizzle::gfx::Texture> texture;
 	float iconSize = 32.f;
 	float ttl = 0.1f;
 	float lived = 0.f;
 
-	void updatePromptIcon(sf::VertexArray& va, const Core::Vector2f& postision);
 
 public:
 
@@ -48,9 +45,6 @@ public:
 	virtual void Simulate(const float& fElapsedTime) override;
 	virtual void onDeath() override;
 
-	// Inherited via Renderable
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	//void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
 #endif

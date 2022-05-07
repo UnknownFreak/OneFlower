@@ -9,70 +9,70 @@ namespace Component
 {
 	void PlayerController::clearBindings()
 	{
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::E, "KbE<interact>", Enums::Input::Action::Press);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::W, "KbW<interact>", Enums::Input::Action::Press);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::S, "KbS<interact>", Enums::Input::Action::Press);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::A, "KbA<interact>", Enums::Input::Action::Press);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::D, "KbD<interact>", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyE, "KbE<interact>", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyW, "KbW<interact>", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyS, "KbS<interact>", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyA, "KbA<interact>", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyD, "KbD<interact>", Enums::Input::Action::Press);
 
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::W, "KbW", Enums::Input::Action::Hold);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::S, "KbS", Enums::Input::Action::Hold);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::A, "KbA", Enums::Input::Action::Hold);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::D, "KbD", Enums::Input::Action::Hold);
-		handler.playerKeyboard.removeCallback(sf::Keyboard::Key::Space, "Jmp", Enums::Input::Action::Press);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyW, "KbW", Enums::Input::Action::Hold);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyS, "KbS", Enums::Input::Action::Hold);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyA, "KbA", Enums::Input::Action::Hold);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyD, "KbD", Enums::Input::Action::Hold);
+		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeySpace, "Jmp", Enums::Input::Action::Press);
 
-		handler.mouse.removeCallback(sf::Mouse::Button::Left, "PAttack", Enums::Input::Action::Press);
+		handler.mouse.removeCallback(swizzle::input::Mouse::LeftClick, "PAttack", Enums::Input::Action::Press);
 
-		handler.controllerAxis.removeCallback(sf::Joystick::Y, "ControllerMoveY");
-		handler.controllerAxis.removeCallback(sf::Joystick::X, "ControllerMoveX");
+		//handler.controllerAxis.removeCallback(sf::Joystick::Y, "ControllerMoveY");
+		//handler.controllerAxis.removeCallback(sf::Joystick::X, "ControllerMoveX");
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerInteraction", Enums::Input::Action::Press);
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerJump", Enums::Input::Action::Press);
 	}
 	PlayerController::PlayerController() : handler(Engine::GetModule<Input::InputHandler>()),
 		window(Engine::GetModule<Graphics::RenderWindow>())
 	{
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbE<interact>", [&](bool, sf::Keyboard::Key, const float&) {
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbE<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			attachedOn->interact(Enums::InteractionOption::Select);
-			}, false), sf::Keyboard::Key::E, Enums::Input::Action::Press);
+			}, false), swizzle::input::Keys::KeyE, Enums::Input::Action::Press);
 
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbW<interact>", [&](bool, sf::Keyboard::Key, const float&) {
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbW<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			attachedOn->interact(Enums::InteractionOption::Up);
-			}, false), sf::Keyboard::Key::W, Enums::Input::Action::Press);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbS<interact>", [&](bool, sf::Keyboard::Key, const float&) {
+			}, false), swizzle::input::Keys::KeyW, Enums::Input::Action::Press);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbS<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			attachedOn->interact(Enums::InteractionOption::Down);
-			}, false), sf::Keyboard::Key::S, Enums::Input::Action::Press);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbA<interact>", [&](bool, sf::Keyboard::Key, const float&) {
+			}, false), swizzle::input::Keys::KeyS, Enums::Input::Action::Press);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbA<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			attachedOn->interact(Enums::InteractionOption::Left);
-			}, false), sf::Keyboard::Key::A, Enums::Input::Action::Press);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbD<interact>", [&](bool, sf::Keyboard::Key, const float&) {
+			}, false), swizzle::input::Keys::KeyA, Enums::Input::Action::Press);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbD<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			attachedOn->interact(Enums::InteractionOption::Right);
-			}, false), sf::Keyboard::Key::D, Enums::Input::Action::Press);
+			}, false), swizzle::input::Keys::KeyD, Enums::Input::Action::Press);
 
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbW", [&](bool, sf::Keyboard::Key, const float& fElapsedTime) {
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbW", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			transform->move({ 0, -200.f * fElapsedTime }); 
-			}, false), sf::Keyboard::Key::W, Enums::Input::Action::Hold);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbS", [&](bool, sf::Keyboard::Key, const float& fElapsedTime) {
+			}, false), swizzle::input::Keys::KeyW, Enums::Input::Action::Hold);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbS", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			transform->move({ 0, 200.f * fElapsedTime });
-			}, false), sf::Keyboard::Key::S, Enums::Input::Action::Hold);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbA", [&](bool, sf::Keyboard::Key, const float& fElapsedTime) {
+			}, false), swizzle::input::Keys::KeyS, Enums::Input::Action::Hold);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbA", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			transform->move({ -200.f * fElapsedTime, 0 });
-			}, false), sf::Keyboard::Key::A, Enums::Input::Action::Hold);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("KbD", [&](bool, sf::Keyboard::Key, const float& fElapsedTime) {
+			}, false), swizzle::input::Keys::KeyA, Enums::Input::Action::Hold);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbD", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			transform->move({ 200.f * fElapsedTime, 0 });
-			}, false), sf::Keyboard::Key::D, Enums::Input::Action::Hold);
-		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("Jmp", [&](bool, sf::Keyboard::Key, const float&) {
+			}, false), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
+		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("Jmp", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
 			transform->jump();
-			}, false), sf::Keyboard::Key::Space, Enums::Input::Action::Press);
+			}, false), swizzle::input::Keys::KeySpace, Enums::Input::Action::Press);
 
 		//handler.mouse.RegisterCallback(Input::Callback::MouseCallback("PAttack", [&](bool, sf::Mouse::Button, const float&) {
 			//if (!Input::InputHandler::isMovementEnabled || !enabled) return;
@@ -80,14 +80,14 @@ namespace Component
 			//}), sf::Mouse::Button::Left, Enums::Input::Action::Press);
 
 
-		handler.controllerAxis.RegisterCallback(Input::Callback::AxisCallback("ControllerMoveY", [&](float dir, sf::Joystick::Axis, const float& fElapsedTime) {
-			if (!Input::InputHandler::isMovementEnabled) return;
-			if (dir < 7.5 && dir > -7.5) return; transform->move({ 0, 2 * dir * fElapsedTime });
-			}, false), sf::Joystick::Axis::Y);
-		handler.controllerAxis.RegisterCallback(Input::Callback::AxisCallback("ControllerMoveX", [&](float dir, sf::Joystick::Axis, const float& fElapsedTime) {
-			if (!Input::InputHandler::isMovementEnabled) return;
-			if (dir < 7.5 && dir > -7.5) return; transform->move({ 2 * dir * fElapsedTime, 0 });
-			}, false), sf::Joystick::Axis::X);
+		//handler.controllerAxis.RegisterCallback(Input::Callback::AxisCallback("ControllerMoveY", [&](float dir, sf::Joystick::Axis, const float& fElapsedTime) {
+		//	if (!Input::InputHandler::isMovementEnabled) return;
+		//	if (dir < 7.5 && dir > -7.5) return; transform->move({ 0, 2 * dir * fElapsedTime });
+		//	}, false), sf::Joystick::Axis::Y);
+		//handler.controllerAxis.RegisterCallback(Input::Callback::AxisCallback("ControllerMoveX", [&](float dir, sf::Joystick::Axis, const float& fElapsedTime) {
+		//	if (!Input::InputHandler::isMovementEnabled) return;
+		//	if (dir < 7.5 && dir > -7.5) return; transform->move({ 2 * dir * fElapsedTime, 0 });
+		//	}, false), sf::Joystick::Axis::X);
 		
 		handler.controller.RegisterCallback(Input::Callback::Callback<bool, Enums::Input::ControllerButtons>("ControllerInteraction", [&](bool, Enums::Input::ControllerButtons, const float&) {
 			Input::InputHandler::skipCurrentFrame = attachedOn->interact(Enums::InteractionOption::Select);
@@ -133,7 +133,7 @@ namespace Component
 
 	void PlayerController::Simulate(const float& )
 	{
-		window.centerCameraOnObjectPos(transform->pos);
+		//window.centerCameraOnObjectPos(transform->pos);
 	}
 
 	void PlayerController::onDeath()

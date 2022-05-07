@@ -2,7 +2,6 @@
 #define SkillIconChain_HPP
 
 #include <vector>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include "UIContext.hpp"
 #include "SkillIcon.hpp"
 
@@ -26,7 +25,7 @@ namespace Graphics::UI
 		// Inherited via UIContext
 		virtual void onMouseHover(const Core::Vector2f& mouse) override;
 		virtual void readInput() override;
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() override;
 
 	};
 	

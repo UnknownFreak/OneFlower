@@ -2,15 +2,15 @@
 
 #include <File/Resource/TextureLoader.hpp>
 
-Graphics::UI::EffectIcon::EffectIcon(const Core::String& icon, Combat::EffectStack& stack) : UIContext(sf::Keyboard::Key::Unknown, "EffectIcon", true),
-buf(sf::PrimitiveType::Quads, sf::VertexBuffer::Usage::Static), iconSize{32.f, 32.f}, stack(stack),
+Graphics::UI::EffectIcon::EffectIcon(const Core::String& icon, Combat::EffectStack& stack) : UIContext(swizzle::input::Keys::KeyNone, "EffectIcon", true),
+iconSize{32.f, 32.f}, stack(stack),
 iconTexture(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(icon, Globals::uiTexturePath))
 {
-	vertex[0].texCoords = { 0.f ,0.f };
-	vertex[1].texCoords = { 0.f, 64.f };
-	vertex[2].texCoords = { 64.f, 64.f};
-	vertex[3].texCoords = { 64.f, 0.f };
-	buf.create(4);
+	//vertex[0].texCoords = { 0.f ,0.f };
+	//vertex[1].texCoords = { 0.f, 64.f };
+	//vertex[2].texCoords = { 64.f, 64.f};
+	//vertex[3].texCoords = { 64.f, 0.f };
+	//buf.create(4);
 	updatePos({ 0,0 });
 }
 
@@ -22,11 +22,11 @@ iconTexture(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(
 void Graphics::UI::EffectIcon::updatePos(const Core::Vector2f& newPos)
 {
 	pos = newPos;
-	vertex[0].position = { pos.x, pos.y };
-	vertex[1].position = { pos.x, pos.y + iconSize.y };
-	vertex[2].position = { pos.x + iconSize.x, pos.y + iconSize.y};
-	vertex[3].position = { pos.x + iconSize.x, pos.y };
-	buf.update(vertex);
+	//vertex[0].position = { pos.x, pos.y };
+	//vertex[1].position = { pos.x, pos.y + iconSize.y };
+	//vertex[2].position = { pos.x + iconSize.x, pos.y + iconSize.y};
+	//vertex[3].position = { pos.x + iconSize.x, pos.y };
+	//buf.update(vertex);
 	toolTip.setToolTip("Aasdad");
 }
 
@@ -42,14 +42,13 @@ void Graphics::UI::EffectIcon::readInput()
 {
 }
 
-void Graphics::UI::EffectIcon::draw(sf::RenderTarget& target, sf::RenderStates ) const
+void Graphics::UI::EffectIcon::render()
 {
 	if (!visible)
 		return;
-	target.draw(buf, iconTexture.get());
-}
-
-void Graphics::UI::EffectIcon::drawToolTip(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	target.draw(toolTip, states);
+	ImGui::Image((void*)iconTexture.get(), {64.f, 64.f});
+	if (ImGui::IsItemHovered())
+	{
+		// drawToolTip
+	}
 }

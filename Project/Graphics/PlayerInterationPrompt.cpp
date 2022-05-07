@@ -11,25 +11,13 @@
 Enums::ComponentType Component::IBase<PlayerInteractionPrompt>::typeID = Enums::ComponentType::PlayerInteraction;
 Core::String Component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
 
-void PlayerInteractionPrompt::updatePromptIcon(sf::VertexArray& va, const Core::Vector2f& postision)
-{
-	va[0].position = { postision.x, postision.y };
-	va[1].position = { postision.x, postision.y + iconSize };
-	va[2].position = { postision.x + iconSize, postision.y + iconSize };
-	va[3].position = { postision.x + iconSize, postision.y };
-}
-
-PlayerInteractionPrompt::PlayerInteractionPrompt() : Renderable({ 0,0,16.f,16.f }), dialogInteractionPromptIcon(sf::PrimitiveType::Quads, 4)
+PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
 	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
-	auto texSize = texture.get()->getSize();
-	dialogInteractionPromptIcon[0].texCoords = { 0,0 };
-	dialogInteractionPromptIcon[1].texCoords = { 0, float(texSize.y) };
-	dialogInteractionPromptIcon[2].texCoords = { float(texSize.x), float(texSize.y)};
-	dialogInteractionPromptIcon[3].texCoords = { float(texSize.y), 0 };
+
 }
 
-PlayerInteractionPrompt::PlayerInteractionPrompt(const PlayerInteractionPrompt& copy) : Renderable(copy), dialogInteractionPromptIcon(copy.dialogInteractionPromptIcon)
+PlayerInteractionPrompt::PlayerInteractionPrompt(const PlayerInteractionPrompt& )
 {
 }
 
@@ -85,7 +73,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			showPrompt = true;
 			dialog = dialogComponent;
 			lived = 0.f;
-			updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
 		else if (theDrop)
 		{
@@ -93,7 +81,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			showPrompt = true;
 			lootDrop = theDrop;
 			lived = 0.f;
-			updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
 		else if (theContainer)
 		{
@@ -101,7 +89,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			showPrompt = true;
 			lootContainer = theContainer;
 			lived = 0.f;
-			updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
 		// TODO: add logic for interactables like, buttons/ levers/ portals?
 	}
@@ -132,17 +120,4 @@ void PlayerInteractionPrompt::Simulate(const float&dt)
 
 void PlayerInteractionPrompt::onDeath()
 {
-}
-
-void PlayerInteractionPrompt::draw(sf::RenderTarget& target, sf::RenderStates ) const
-{
-	if (showPrompt)
-	{
-		if (dialog)
-			target.draw(dialogInteractionPromptIcon, texture.get());
-		else if (lootDrop || lootContainer)
-			target.draw(lootInteractionPromptIcon, texture.get());
-		else
-			target.draw(useInteractionPromptIcon, texture.get());
-	}
 }

@@ -9,8 +9,6 @@
 #include <cereal/types/map.hpp>
 
 #include <Helpers/String.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 #include "LanguageHeader.hpp"
 

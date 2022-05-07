@@ -3,11 +3,9 @@
 #ifdef _EDITOR_
 #include <Windows.h>
 #endif
-#include <Windows.h>
+//#include <Windows.h>
 
 #include <iostream>
-
-#include <SFML\Window\Event.hpp>
 
 #include <Main/GameEntry.hpp>
 
@@ -15,13 +13,11 @@
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>
+#include <File/Asset/Manager.hpp>
 #include <File/Resource/TextureLoader.hpp>
 #include <File/Mod/ModLoader.hpp>
 #include <File/GameConfig.hpp>
-#include <Graphics/Model/SpriterInstanceContainer.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
-
-sf::Event Game::event;
 
 Core::String to_string(const Enums::EngineResourceType& state)
 {
@@ -76,7 +72,6 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Texture::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Asset::Manager>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<SpriterInstanceContainer>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
 	
 	mainModule.Info("Initializing Modules group: Engine");
@@ -89,6 +84,24 @@ volatile void initializeSystems()
 	mainModule.Info("Finished initializing engine ");
 }
 
+class EngineLogger : public swizzle::core::LogDevice
+{
+	// Inherited via LogDevice
+	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
+	{
+		Engine::GetModule<EngineModule::Logger::OneLogger>().Always(messageType, ": ", message);
+	}
+
+	EngineLogger& operator=(const EngineLogger& other)
+	{
+		// Guard self assignment
+		if (this == &other)
+			return *this;
+	}
+
+};
+
+
 #ifdef _EDITOR_
 [System::STAThread]
 #endif
@@ -96,10 +109,15 @@ volatile void initializeSystems()
 int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR /*lpCmnLine*/, int /*nShowCmd*/)
 {
 	initializeSystems();
+	EngineLogger logger;
+	sw::core::AddLogger(&logger);
 
 	GameEntry g;
 	const int return_value = g.Run();
+	sw::core::RemoveLogger(&logger);
+
 	Engine::Dispose();
+
 #ifdef _EDITOR_
 	exit(return_value);
 #else

@@ -1,10 +1,6 @@
 #ifndef UIHandler_HPP
 #define UIHandler_HPP
 
-#include <SFML/Graphics/RenderWindow.hpp>
-
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <Module/EngineModuleManager.hpp>
 #include <Interfaces/IEngineModule.hpp>
 
@@ -16,15 +12,13 @@
 namespace Graphics::UI
 {
 
-	class UIHandler : public Interfaces::IEngineResource<UIHandler>, sf::Drawable
+	class UIHandler : public Interfaces::IEngineResource<UIHandler>
 	{
 		Core::Vector2f mouse;
 		std::vector<Enums::UIContextNames> uiToRemove;
 		std::map<Enums::UIContextNames, std::unique_ptr<UIContext>> uiContext;
 
 		bool consoleEnabled = false;
-
-		sf::RectangleShape rs;
 
 		Console& console;
 
@@ -34,9 +28,6 @@ namespace Graphics::UI
 
 		UIHandler() : console(Engine::GetModule<Console>())
 		{
-			rs.setPosition(0, 0);
-			rs.setSize({1920, 620 });
-			rs.setFillColor(sf::Color(100, 100, 100, 20));
 		};
 
 		~UIHandler() = default;
@@ -45,7 +36,6 @@ namespace Graphics::UI
 		void ShowConsole();
 		void addUIContext(const Enums::UIContextNames&, std::unique_ptr<UIContext> context);
 		void removeUIContext(const Enums::UIContextNames& contextName);
-		void updateMouse(const sf::RenderWindow& window);
 		void toggleToolTips() const;
 
 		template <class Ty>
@@ -61,9 +51,7 @@ namespace Graphics::UI
 		
 		bool isContextAvailable(const Enums::UIContextNames& name);
 		
-
-		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void render();
 
 	};
 }

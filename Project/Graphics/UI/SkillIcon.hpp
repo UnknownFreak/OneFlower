@@ -1,23 +1,18 @@
 #ifndef SkillIcon_HPP
 #define SkillIcon_HPP
 
+#include <swizzle/gfx/Texture.hpp>
+
 #include "UIContext.hpp"
 
 #include <Combat/Skill.hpp>
-
-#include <SFML/Graphics/RenderTarget.hpp>
-
-#include <SFML/Graphics/Vertex.hpp>
-#include <SFML/Graphics/VertexBuffer.hpp>
 
 namespace Graphics::UI
 {
 	class SkillIcon : public UIContext
 	{
-		std::shared_ptr<sf::Texture> skillIcon;
+		std::shared_ptr<swizzle::gfx::Texture> skillIcon;
 		Core::Vector2f pos;
-		sf::Vertex vertices[8];
-		sf::VertexBuffer buf;
 		Combat::Skill* skill;
 	public:
 		SkillIcon(Combat::Skill* skill);
@@ -31,8 +26,7 @@ namespace Graphics::UI
 		virtual void onMouseHover(const Core::Vector2f& mouse) override;
 		virtual void readInput() override;
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
+		virtual void render() override;
 	};
 }
 

@@ -111,6 +111,7 @@ std::tuple<Core::Vector2f, bool>  Collider::Collides(ICollider* other)
 		//transform->pos -= vec;
 		//lastDirection = {};
 	}
+	/*
 	if (other->colliderType == Enums::ColliderType::NToSRamp || other->colliderType == Enums::ColliderType::SToNRamp ||
 		other->colliderType == Enums::ColliderType::EToWRamp || other->colliderType == Enums::ColliderType::WToERamp)
 	{
@@ -165,6 +166,7 @@ std::tuple<Core::Vector2f, bool>  Collider::Collides(ICollider* other)
 
 		}
 	}
+	//*/
 	return { {0,0}, false };
 }
 
@@ -176,7 +178,7 @@ void Collider::Update()
 {
 	//if(collider.pos == transform->pos.toVector2() + hitboxOffset)
 	//	return;
-	Core::FloatRect /*cBefore = collider, */ dBefore = drawBox;
+	Core::FloatRect /*cBefore = collider, */ dBefore = getBox();
 	ICollider::updateColliderPos(transform->pos.toVector2() + hitboxOffset, 0);
 	//Engine::GetModule<Physics::PhysicsEngine>().addCollider(this);
 	//collider = cBefore;

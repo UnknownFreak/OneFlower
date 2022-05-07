@@ -3,9 +3,6 @@
 
 #include "UIContext.hpp"
 
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <Helpers/String.hpp>
 
 namespace Graphics::UI
@@ -13,31 +10,28 @@ namespace Graphics::UI
 
 	class BuildInfo : public Graphics::UI::UIContext
 	{
-		sf::Font f;
-		sf::Text t;
+		float x, y;
+		Core::String t;
 
-		const Core::String text;
 	public:
-		BuildInfo(const Core::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(sf::Keyboard::F3, info, false) {
-			f.loadFromFile("C:/Windows/Fonts/arial.ttf");
-			t.setFont(f);
-			t.setCharacterSize(12);
-			t.setPosition(x, y);
-
-			t.setString(info);
-
+		BuildInfo(const Core::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, info, false), x(x), y(y) {
+			t = info;
 		}
 
-		BuildInfo(const BuildInfo& copy) : BuildInfo(copy.text, copy.t.getPosition().x, copy.t.getPosition().y)
+		BuildInfo(const BuildInfo& copy) : BuildInfo(copy.t, copy.x, copy.y)
 		{
 		}
 		
 		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+		virtual void render() override
 		{
-			if (!visible)
-				return;
-			target.draw(t, states);
+			if (visible)
+			{
+				ImGui::SetNextWindowPos(ImVec2{ x,y });
+				ImGui::Begin("BuildInfo", nullptr, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
+				ImGui::Text("%s", t.c_str());
+				ImGui::End();
+			}
 		}
 
 		// Inherited via UIContext

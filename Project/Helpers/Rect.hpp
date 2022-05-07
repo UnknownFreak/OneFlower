@@ -1,10 +1,7 @@
 #ifndef RECT_HPP
 #define RECT_HPP
-#include <SFML\Graphics\Rect.hpp>
 #include <Helpers/Vector.hpp>
 #include <algorithm>
- // based of SFML Rect but this can handle references as well.
- // and does not generate compile errors...
 
 #ifdef min
 #undef min
@@ -88,10 +85,6 @@ struct Rect
 	//	h = copy.h;
 	//	return *this;
 	//}
-	inline sf::Rect<T> toSFRect() const
-	{
-		return sf::Rect<T>(x, y, w, h);
-	}
 
 	inline T getRight() const noexcept
 	{

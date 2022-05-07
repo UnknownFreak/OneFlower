@@ -29,7 +29,7 @@ namespace Graphics::UI
 		virtual void onMouseHover(const Core::Vector2f& mouse) override;
 		virtual void readInput() override;
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() override;
 
 	};
 }

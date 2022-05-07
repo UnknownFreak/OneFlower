@@ -3,9 +3,6 @@
 
 #include "UIContext.hpp"
 
-#include <SFML/System/Time.hpp>
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Font.hpp>
 #include <Helpers/Enum/LoadingState.hpp>
 
 namespace Graphics::UI
@@ -13,47 +10,47 @@ namespace Graphics::UI
 
 	class LoadingScreenInfo : public Graphics::UI::UIContext
 	{
-		sf::Font f;
-		sf::Text t;
+		Core::String t;
+		ImVec2 pos;
 
 	public:
-		sf::Time totalLoadTime;
+		float totalLoadTime = 0.f;
 
-		sf::Time loadScreenSetupTime;
-		sf::Time instanceLoadTime;
+		float loadScreenSetupTime = 0.f;
+		float instanceLoadTime = 0.f;
 
 		size_t totalAtlasCount = 0;
 		size_t currentAtlasCount = 0;
-		sf::Time atlasLoadTimer;
+		float atlasLoadTimer = 0.f;
 
 		size_t totalPrefabCount = 0;
 		size_t currentPrefabCount = 0;
-		sf::Time prefabLoadTimer;
+		float prefabLoadTimer = 0.f;
 
 
 		size_t totalTileCount = 0;
 		size_t currentTileCount = 0;
-		sf::Time tileLoadTimer;
+		float tileLoadTimer = 0.f;
 
 		size_t totalTileBuildingCount = 0;
 		size_t currentTileBuildingCount = 0;
-		sf::Time tileBuildLoadTimer;
+		float tileBuildLoadTimer = 0.f;
 
 		size_t totalColliderCount = 0;
 		size_t currentColliderCount = 0;
-		sf::Time colliderLoadTimer;
+		float colliderLoadTimer = 0.f;
 
 		size_t totalColliderBuildingCount = 0;
 		size_t currentColliderBuildingCount = 0;
-		sf::Time colliderBuildingLoadTimer;
+		float colliderBuildingLoadTimer = 0.f;
 
 		size_t totalObjectPartCount = 0;
 		size_t currentObjectPartCount = 0;
-		sf::Time objectPartLoadTimer;
+		float objectPartLoadTimer = 0.f;
 
 		size_t totalObjectCount = 0;
 		size_t currentObjectCount = 0;
-		sf::Time objectLoadTimer;
+		float objectLoadTimer = 0.f;
 
 		size_t currentLoadCount = 0;
 		size_t totalLoadCount = 0;
@@ -63,7 +60,7 @@ namespace Graphics::UI
 
 		// Inherited via UIContext
 		virtual void readInput() override;
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() override;
 		virtual void update() override;
 
 		// Inherited via UIContext

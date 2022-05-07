@@ -1,7 +1,6 @@
 #ifndef TemplateVector
 #define TemplateVector
 #include <ostream>
-#include <SFML/System/Vector2.hpp>
 #include <Module/EngineModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
@@ -85,11 +84,6 @@ struct Vector2t
 	{
 		auto rangle = angle * (T(3.14159265358979323846)/ 180);
 		return {distance * -std::sin(rangle), distance * std::cos(rangle)};
-	}
-
-	T dot(const sf::Vector2<T>& other) const
-	{
-		return x * other.x + y * other.y;
 	}
 
 	T cross(const Vector2t<T>& other) const

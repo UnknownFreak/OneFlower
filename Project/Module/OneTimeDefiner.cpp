@@ -4,23 +4,23 @@
 Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::Time>::type = Enums::EngineResourceType::Time;
 namespace EngineModule
 {
-	Time::Time() : timer(), clock(), elapsed()
+	Time::Time() : timer(), clock(), elapsed(), physicsElapsed()
 	{
-		timer.restart();
-		clock.restart();
+		timer.reset();
+		clock.reset();
 	}
 
-	double Time::deltaTime()
+	float Time::deltaTime() const
 	{
-		return update_ms.asSeconds();
+		return update_ms;
 	}
 
-	sf::Clock& Time::getTimer(const Core::String& name)
+	utils::HighResolutionClock& Time::getTimer(const Core::String& name)
 	{
-		std::unordered_map<Core::String, sf::Clock>::iterator it = timers.find(name);
+		std::unordered_map<Core::String, utils::HighResolutionClock>::iterator it = timers.find(name);
 		if (it == timers.end())
 		{
-			timers.insert(std::make_pair(name, sf::Clock()));
+			timers.insert(std::make_pair(name, utils::HighResolutionClock()));
 		}
 		return timers[name];
 	}
@@ -28,10 +28,10 @@ namespace EngineModule
 	bool Time::time(const Core::String& name, const double& msec)
 
 	{
-		std::unordered_map<Core::String, sf::Clock>::iterator it = timers.find(name);
+		std::unordered_map<Core::String, utils::HighResolutionClock>::iterator it = timers.find(name);
 		if (it == timers.end())
 		{
-			it = timers.insert(std::make_pair(name, sf::Clock())).first;
+			it = timers.insert(std::make_pair(name, utils::HighResolutionClock())).first;
 			return 0;
 		}
 		else
@@ -39,10 +39,10 @@ namespace EngineModule
 			//LOW: Research if needed
 			//Make it modulus instead, Also make a custom Holder so that we can have diffrent start timer if needed
 
-			if (it->second.getElapsedTime().asMilliseconds() > msec)
+			if (it->second.secondsAsFloat() > msec)
 			{
 				//Make it so that it doesnt restart
-				it->second.restart();
+				it->second.reset();
 				return 1;
 			}
 		}

@@ -3,8 +3,8 @@
 
 #include <Interfaces/IRequestable.hpp>
 
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
+//TODO:
+//#include <swizzle/font?>
 
 #include "LanguageHeader.hpp"
 #include "TranslationString.hpp"
@@ -17,8 +17,6 @@ namespace Language
 		
 		Core::String fallbackLanguage;
 		Core::String selectedLanguage;
-
-		sf::Font m_font;
 
 		typedef Core::String FileName;
 		typedef Core::String LanguageName;
@@ -66,7 +64,7 @@ namespace Language
 
 		Core::String& getString(const Core::uuid& id);
 		
-		const sf::Font& getCurrentFont() const;
+		//const sf::Font& getCurrentFont() const;
 
 		void setLanguage(const LanguageName& language);
 

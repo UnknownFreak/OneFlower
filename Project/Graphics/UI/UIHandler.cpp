@@ -1,7 +1,4 @@
 #include "UIHandler.hpp"
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Window/Mouse.hpp>
-
 
 Enums::EngineResourceType Interfaces::IEngineResource<Graphics::UI::UIHandler>::type = Enums::EngineResourceType::UIHandler;
 
@@ -29,12 +26,6 @@ namespace Graphics::UI
 		uiToRemove.push_back(contextName);
 	}
 
-	void UIHandler::updateMouse(const sf::RenderWindow& window)
-	{
-		auto m = sf::Mouse::getPosition(window);
-		mouse = { float(m.x), float(m.y) };
-	}
-
 	void UIHandler::toggleToolTips() const
 	{
 		for (const auto& ui : uiContext)
@@ -54,7 +45,7 @@ namespace Graphics::UI
 		return uiContext.find(name) != uiContext.end();
 	}
 
-	void UIHandler::draw(sf::RenderTarget& target, sf::RenderStates states) const
+	void UIHandler::render()
 	{
 		for(const auto name : uiToRemove)
 		{
@@ -69,19 +60,17 @@ namespace Graphics::UI
 			{
 				if (x.first < Enums::UIContextNames::LoadingScreen)
 				{
-					target.draw(*x.second.get(), states);
+					x.second->render();
 				}
 			}
 			else
 			{
-				target.draw(*x.second.get(), states);
-
+				x.second->render();
 			}
 		}
 		if (consoleEnabled)
 		{
-			target.draw(rs, states);
-			target.draw(console);
+			//target.draw(console);
 		}
 	}
 }

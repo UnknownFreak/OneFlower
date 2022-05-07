@@ -20,11 +20,6 @@
 #include <Module/EngineModuleManager.hpp>
 #include <Interfaces/IEngineModule.hpp>
 
-#include <Graphics\Model\TextureMap.hpp>
-#include <Graphics\Model\IModel.hpp>
-
-#include <File/Resource/TileAtlas.hpp>
-
 #include <Language/LanguageRequestor.hpp>
 #include <Language/TranslationString.hpp>
 

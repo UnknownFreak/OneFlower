@@ -83,10 +83,10 @@ namespace Language
 		return requestedStrings[id];
 	}
 
-	const sf::Font& LanguageRequestor::getCurrentFont() const
-	{
-		return m_font;
-	}
+	//const sf::Font& LanguageRequestor::getCurrentFont() const
+	//{
+	//	return m_font;
+	//}
 
 	void LanguageRequestor::setLanguage(const LanguageName & language)
 	{
@@ -141,7 +141,7 @@ namespace Language
 		char* data = new char[len];
 		i.read(data, len);
 	
-		m_font.loadFromMemory(data, len);
+		//m_font.loadFromMemory(data, len);
 		delete[] data;
 	}
 }

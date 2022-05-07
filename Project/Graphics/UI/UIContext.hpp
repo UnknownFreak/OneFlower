@@ -1,18 +1,18 @@
 #ifndef UICONTEXT_HPP
 #define UICONTEXT_HPP
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Window/Window.hpp>
-#include <SFML/Window/Keyboard.hpp>
+#include <swizzle/core/Input.hpp>
+
 #include <Helpers/String.hpp>
 #include <Helpers/Vector.hpp>
+#include <imgui/imgui.h>
 
 namespace Graphics::UI
 {
-	class UIContext : public sf::Drawable
+	class UIContext
 	{
 		bool noKeybind = false;
-		sf::Keyboard::Key toggleKey;
+		swizzle::input::Keys toggleKey;
 
 		void registerKeybind();
 
@@ -23,7 +23,7 @@ namespace Graphics::UI
 	public:
 		Core::String uiName;
 
-		UIContext(const sf::Keyboard::Key& toggleKey, const Core::String& uiName, const bool& noKeybind);
+		UIContext(const swizzle::input::Keys& toggleKey, const Core::String& uiName, const bool& noKeybind);
 		virtual void onMouseHover(const Core::Vector2f& mouse) = 0;
 		virtual ~UIContext() {};
 		virtual void readInput() = 0;
@@ -32,8 +32,8 @@ namespace Graphics::UI
 		void toggleVisible();
 		const bool& isVisible() const;
 
-		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void render() = 0;
+
 	};
 }
 #endif

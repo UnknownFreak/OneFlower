@@ -1,7 +1,6 @@
 #pragma once
 #ifndef Element_HPP
 #define Element_HPP
-#include <SFML/Graphics/Color.hpp>
 
 #include <Interfaces/IRequestable.hpp>
 #include <Interfaces/IObject.hpp>
@@ -27,7 +26,7 @@ namespace Combat
 		double damageToUnknownType = 0.0;
 		std::map<File::Mod::ModFileUUIDHelper, double> elementAttributes;
 
-		sf::Color elementUiColor;
+		//sf::Color elementUiColor;
 
 		double getElementModifier() const;
 		double getElementModifier(const File::Mod::ModFileUUIDHelper& element) const;
@@ -45,7 +44,7 @@ namespace Combat
 			ar(damageToUnknownType);
 			unsigned color;
 			ar(color);
-			elementUiColor = sf::Color(color);
+			//elementUiColor = sf::Color(color);
 		}
 		template<class Archive>
 		void save(Archive& ar) const
@@ -54,7 +53,7 @@ namespace Combat
 			ar(cereal::base_class<IObject>(this));
 			ar(elementAttributes);
 			ar(damageToUnknownType);
-			ar(elementUiColor.toInteger());
+			//ar(elementUiColor.toInteger());
 
 		}
 

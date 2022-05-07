@@ -1,23 +1,19 @@
 #ifndef RenderComponent_HPP
 #define RenderComponent_HPP
 
-#include "Renderable.hpp"
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
 #include <File/Mod/ModFileUUIDHelper.hpp>
-#include "Model/IModel.hpp"
+#include "Model.hpp"
 
-class Render : public Renderable, public Component::IBase<Render>
+class Render : public Component::IBase<Render>
 {
 	bool initialized = false;
-	mutable sf::VertexArray tmpSpriteTest;
 
 	Component::Transform* transform;
 
-	std::shared_ptr<sf::Sprite> sprite;
-	std::shared_ptr<sf::Texture> texture;
-	std::unique_ptr<IModel> model;
+	std::shared_ptr<Graphics::Model> model;
 
 	Core::String textureName;
 
@@ -26,8 +22,6 @@ class Render : public Renderable, public Component::IBase<Render>
 	void loadAndSetModel();
 
 public:
-	Render();
-	Render(const Render& copy);
 	~Render();
 
 	void detach();
@@ -46,8 +40,6 @@ public:
 	virtual void Update() override;
 	virtual void Simulate(const float& fElapsedTime) override;
 	virtual void onDeath() override;
-
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	template<class Archive>
 	void save(Archive& ar) const

@@ -1,9 +1,7 @@
 #ifndef Callback_HPP
 #define Callback_HPP
 
-#include <SFML/Window/Joystick.hpp>
-#include <SFML\Window\Keyboard.hpp>
-#include <SFML\Window\Mouse.hpp>
+#include <swizzle/core/Input.hpp>
 
 #include <Helpers\String.hpp>
 #include <functional>
@@ -71,9 +69,10 @@ namespace Input::Callback
 
 	};
 
-	typedef Callback<float, sf::Joystick::Axis> AxisCallback;
-	typedef Callback<bool, sf::Keyboard::Key> KeyboardCallback;
-	typedef Callback<bool, sf::Mouse::Button> MouseCallback;
+	//typedef Callback<float, sf::Joystick::Axis> AxisCallback;
+	typedef Callback<bool, swizzle::input::KeyAction> KeyboardCallback;
+	typedef Callback<bool, swizzle::input::Keys> KeyboardCallbackTemp;
+	typedef Callback<bool, swizzle::input::Mouse> MouseCallback;
 }
 
 #endif

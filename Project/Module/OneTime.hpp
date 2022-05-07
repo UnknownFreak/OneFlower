@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <mutex>
 
-#include <SFML\System\Clock.hpp>
+#include <utils/HighResolutionClock.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Helpers/String.hpp>
@@ -22,9 +22,9 @@ namespace EngineModule
 
 		Time();
 
-		double deltaTime();
+		float deltaTime() const;
 
-		sf::Clock& getTimer(const Core::String&);
+		utils::HighResolutionClock& getTimer(const Core::String&);
 		bool time(const Core::String&, const double& msec);
 		void remove(const Core::String& name);
 
@@ -33,13 +33,13 @@ namespace EngineModule
 		Core::TickTimer& getTickTimer(const File::Mod::ModFileUUIDHelper& timerId);
 		void removeTimer(const File::Mod::ModFileUUIDHelper& timerId);
 
-		const sf::Time update_ms = sf::seconds(1.f / 60.f);
+		const float update_ms = 1.f / 60.f;
 
-		sf::Time elapsed;
-		sf::Clock clock;
+		float elapsed;
+		utils::HighResolutionClock clock;
 
-		sf::Time physicsElapsed;
-		sf::Clock physicsClock;
+		float physicsElapsed;
+		utils::HighResolutionClock physicsClock;
 
 		Enums::EngineResourceType& getType() const
 		{
@@ -47,10 +47,10 @@ namespace EngineModule
 		}
 
 	private:
-		sf::Clock timer;
+		utils::HighResolutionClock timer;
 
 		//LOW: Put this in Definer to avoid include of Map:String?
-		std::unordered_map<Core::String, sf::Clock> timers;
+		std::unordered_map<Core::String, utils::HighResolutionClock> timers;
 		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimer> tickTimers;
 
 	public:

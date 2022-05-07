@@ -4,7 +4,6 @@
 #include <Interfaces/ICollider.hpp>
 #include <Interfaces/IUpdateable.hpp>
 #include <Module/Globals.hpp>
-#include <SFML/Graphics/VertexArray.hpp>
 
 class TileCollider : public Interfaces::ICollider, public Interfaces::IUpdateable
 {
@@ -21,6 +20,4 @@ public:
 
 	// Inherited via IUpdateable
 	virtual void Update() override;
-
-	void buildRenderableHitbox(sf::VertexArray& arr) const;
 };

@@ -1,12 +1,7 @@
 #ifndef ICollider_HPP
 #define ICollider_HPP
 
-#include <Graphics/Renderable.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/ConvexShape.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
+#include <glm/glm.hpp>
 
 #include <Helpers/Vector.hpp>
 #include <Helpers/Vector3.hpp>
@@ -14,16 +9,15 @@
 #include <Helpers/Enum/ColliderType.hpp>
 
 namespace Interfaces {
-	class ICollider : public Renderable
+	class ICollider
 	{
 	public:
 		Core::Vector3f* position;
-		sf::CircleShape s;
 	private:
-		sf::ConvexShape fromBox(const float& x1, const float& y1, const float& x2, const float& y2);
+		std::vector<glm::vec2> fromBox(const float& x1, const float& y1, const float& x2, const float& y2);
 	protected:
 		const bool& drawColliders;
-		std::tuple<Core::Vector2f, bool> intersect(const sf::ConvexShape& a, const Core::Vector2f& aCenter, const sf::ConvexShape& b, const Core::Vector2& bCenter) const;
+		std::tuple<Core::Vector2f, bool> intersect(const std::vector<glm::vec2>& a, const Core::Vector2f& aCenter, const std::vector<glm::vec2>& b, const Core::Vector2& bCenter) const;
 
 		bool within(const float& other, const float& margin) const;
 		bool within(const float& other, const float& lower, const float& upper) const;
@@ -39,9 +33,6 @@ namespace Interfaces {
 		ICollider& operator=(const ICollider& right);
 		virtual ~ICollider() = default;
 	
-		virtual bool Collides(Core::Vector2& other) const;
-		virtual bool Collides(Core::FloatRect& other) const;
-		virtual bool Collides(const Core::FloatRect& other) const;
 		virtual std::tuple<Core::Vector2f, bool> Collides(ICollider* other);
 		virtual void doParentSimulate(const float& fElapsedTime) = 0;
 
@@ -51,7 +42,7 @@ namespace Interfaces {
 		Enums::ColliderType colliderType;
 	
 		Core::FloatRect collider;
-		sf::ConvexShape convexCollider;
+		std::vector<glm::vec2> convexCollider;
 
 		inline bool needUpdate() {
 			return requireUpdate;
@@ -64,7 +55,6 @@ namespace Interfaces {
 		Core::FloatRect getBox() const;
 
 		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		template <class Archive>
 		void save(Archive& saver) const

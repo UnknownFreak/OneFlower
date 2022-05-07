@@ -3,18 +3,18 @@
 #include <Object/GameObject.hpp>
 
 // TODO: Read x, y from config file (makes the ui somewhat customizable)
-Graphics::UI::PlayerStats::PlayerStats() : UIContext(sf::Keyboard::F4, "PlayerStats", false), x(5.f), y(10.f),
-healthBar(x + 50, y + 15, 300, 20, 1, 1, sf::Color(0, 150, 0), 0, 40, true, 30, 2.f),
-manaBar(x + 60, y + 35, 250, 15, 1, 1, sf::Color(0, 0, 170), 40, 0, true, 20, 0.f),
-barrierBar(x + 50, y + 50, 180, 15, 1, 0, sf::Color(150, 150, 0), 40, 0, true, 30, 0.f),
-xpBar(x + 43, y + 65, 180, 4, 10, 5, sf::Color(0, 150, 150), 0, 0, false),
+Graphics::UI::PlayerStats::PlayerStats() : UIContext(swizzle::input::Keys::KeyF4, "PlayerStats", false), x(5.f), y(10.f),
+healthBar(x + 50, y + 15, 300, 20, 1, 1, glm::vec3(0, 150, 0), 0, 40, true, 30, 2.f),
+manaBar(x + 60, y + 35, 250, 15, 1, 1, glm::vec3(0, 0, 170), 40, 0, true, 20, 0.f),
+barrierBar(x + 50, y + 50, 180, 15, 1, 0, glm::vec3(150, 150, 0), 40, 0, true, 30, 0.f),
+xpBar(x + 43, y + 65, 180, 4, 10, 5, glm::vec3(0, 150, 150), 0, 0, false),
 buffDebuff({x + 40, y + 80})
 {
-	temp.setPosition(x, y);
-	temp.setSize({ 400.f, 170.f });
-	playerLevel.setPosition(x, y);
-	playerLevel.setRadius(30.f);
-	playerLevel.setFillColor(sf::Color::Black);
+	//temp.setPosition(x, y);
+	//temp.setSize({ 400.f, 170.f });
+	//playerLevel.setPosition(x, y);
+	//playerLevel.setRadius(30.f);
+	//playerLevel.setFillColor(sf::Color::Black);
 }
 
 void Graphics::UI::PlayerStats::setPlayerStats(std::shared_ptr<Component::Stats> component)
@@ -51,24 +51,21 @@ void Graphics::UI::PlayerStats::update()
 	}
 }
 
-void Graphics::UI::PlayerStats::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Graphics::UI::PlayerStats::render()
 {
 	if (!visible)
 		return;
-	target.draw(temp);
-	target.draw(healthBar, states);
-	target.draw(manaBar, states);
-	target.draw(barrierBar, states);
-	target.draw(xpBar, states);
-	target.draw(playerLevel, states);
-
-	healthBar.drawToolTip(target, states);
-	manaBar.drawToolTip(target, states);
-	barrierBar.drawToolTip(target, states);
-	xpBar.drawToolTip(target, states);
-
-	target.draw(buffDebuff, states);
-	target.draw(actionBar, states);
+	//ImGui::NewFrame();
+	//ImGui::Begin("Fluff");
+	//healthBar.render();
+	//manaBar.render();
+	//barrierBar.render();
+	//xpBar.render();
+	//
+	//buffDebuff.render();
+	//actionBar.render();
+	//ImGui::End();
+	//ImGui::EndFrame();
 }
 
 void Graphics::UI::PlayerStats::onMouseHover(const Core::Vector2f& mouse)

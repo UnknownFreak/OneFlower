@@ -3,57 +3,52 @@
 
 #include "UIContext.hpp"
 
-#include <SFML/System/Clock.hpp>
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
 #include <Helpers/String.hpp>
+
+#include <utils/FpsCounter.hpp>
+
+#include <imgui/imgui.h>
 
 namespace Graphics::UI
 {
 
 	class Stats : public Graphics::UI::UIContext
 	{
-		sf::Font f;
-		sf::Text t;
-
-		float minFrame;
-		float maxFrame;
-		float mean[50];
+		float x, y;
+		U32 minFrame;
+		U32 maxFrame;
+		U32 mean[50];
 
 		unsigned counterMax = 1;
 		unsigned counter = 0;
 
-		float mFrame;
-		float mFps;
-		const Core::String text;
-		sf::Clock mClock;
-		sf::Clock fpsPrintOut;
-		sf::Time previous;
-		sf::Time current;
+		U32 mFrame;
+		U32 mFps;
+		const Core::String title;
+		Core::String text = "";
+
+		utils::HighResolutionClock mClock;
+		utils::FpsCounter frameCounter;
+
+		float previous;
+		float current;
 	public:
-		Stats(const Core::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(sf::Keyboard::F3, text, false), mFrame(0.f), mFps(0.f), text(text), minFrame(1000000.f), maxFrame(0.f) {
-			f.loadFromFile("C:/Windows/Fonts/arial.ttf");
-			t.setFont(f);
-			t.setCharacterSize(12);
-			t.setPosition(x, y);
-			previous = current = mClock.getElapsedTime();
+		Stats(const Core::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0),
+		x(x), y(y) {
+			previous = current = mClock.secondsAsFloat(false);
 		}
 
-		Stats(const Stats& copy) : Stats(copy.text, copy.t.getPosition().x, copy.t.getPosition().y)
+		Stats(const Stats& copy) : Stats(copy.text, copy.x, copy.y)
 		{
 		}
 
-		void reset()
-		{
-			mClock.restart();
-		}
 		void update()
 		{
 
 			{
-				current = mClock.getElapsedTime();
-				mFps = 1.f / (current.asSeconds() - previous.asSeconds());
+				current = mClock.secondsAsFloat(true);
+				frameCounter.tick(current);
+				mFps = frameCounter.getFps();
 				previous = current;
 				if (mFps > maxFrame)
 					maxFrame = mFps;
@@ -78,17 +73,20 @@ namespace Graphics::UI
 					avg += mean[c];
 
 				avg /= counterMax;
-				t.setString(text + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / avg * 1000));
-				fpsPrintOut.restart();
+				text = Core::String(title + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / (avg * 1000)));
 			}
 		}
 
 		// Inherited via Drawable
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+		virtual void render() override
 		{
-			if (!visible)
-				return;
-			target.draw(t, states);
+			if (visible)
+			{
+				ImGui::SetNextWindowPos(ImVec2{ x,y });
+				ImGui::Begin(title.c_str(), nullptr, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
+				ImGui::Text("%s", text.c_str());
+				ImGui::End();
+				}
 		}
 
 		// Inherited via UIContext
