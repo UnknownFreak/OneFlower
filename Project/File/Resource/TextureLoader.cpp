@@ -28,6 +28,7 @@ namespace File::Resource::Texture
 		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
 			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
+		wnd.getCommandBuffer()->uploadTexture(loadedTextureMap[name]);
 		mtx.unlock();
 		return true;
 	}

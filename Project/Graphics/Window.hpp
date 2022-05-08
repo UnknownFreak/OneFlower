@@ -58,6 +58,7 @@ namespace Graphics
 		~RenderWindow();
 
 		std::shared_ptr<swizzle::gfx::GfxContext>& getGfxContext();
+		std::shared_ptr<swizzle::gfx::CommandBuffer>& getCommandBuffer();
 
 		void draw();
 		void drawUI();

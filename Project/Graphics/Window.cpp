@@ -91,9 +91,13 @@ namespace Graphics
 		return mGfxContext;
 	}
 
+	std::shared_ptr<swizzle::gfx::CommandBuffer>& RenderWindow::getCommandBuffer()
+	{
+		return mCmdBuffer;
+	}
+
 	void RenderWindow::draw()
 	{
-
 		//mFpsCounter.tick(dt);
 		std::string title;
 		title.reserve(1024);
