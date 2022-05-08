@@ -57,7 +57,7 @@ namespace Graphics
 		mFsq = mSwapchain->createShader(attribFsq);
 		mFsq->load("swizzle/data/shaders/fsq.shader");
 
-		mFsqMat = mFsq->createMaterial();
+		mFsqMat = mGfxContext->createMaterial(mFsq);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 	}
 
