@@ -211,57 +211,6 @@
     <Filter Include="Engine\File\Asset\Resource\Template">
       <UniqueIdentifier>{4595876a-6157-4be0-aa92-754074f9bcf5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29">
-      <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI">
-      <UniqueIdentifier>{6680afbd-a381-472f-8fdb-1b320bccb796}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext">
-      <UniqueIdentifier>{f21bea24-3cc0-4d37-b453-d86341b13735}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Console">
-      <UniqueIdentifier>{ebcfee9a-9388-46a2-89a7-b95a3db44fee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler">
-      <UniqueIdentifier>{dabad6cf-f197-44f5-bcdc-2b9bf0847d70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen">
-      <UniqueIdentifier>{b4919839-4ca7-4ef8-a965-8fbf4f5cacf1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI">
-      <UniqueIdentifier>{664c0b2c-22e4-444b-9fae-a224d38361f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen">
-      <UniqueIdentifier>{4d174737-eceb-4b63-a259-a117d6273601}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player">
-      <UniqueIdentifier>{165361e8-fc67-4854-ac20-161a38cd23da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Enemy">
-      <UniqueIdentifier>{51a69cb1-acfe-4267-b1e5-d6bed5efb1ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets">
-      <UniqueIdentifier>{349c69cc-7245-4e50-80d8-059342a2f394}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip">
-      <UniqueIdentifier>{5f80f683-cb70-4442-be1f-9014ac3e89e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons">
-      <UniqueIdentifier>{b28dc4c0-3d19-4206-a1b4-ed0764c3394c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon">
-      <UniqueIdentifier>{5cfd916a-4117-484e-93b8-fdbc66aa87d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats">
-      <UniqueIdentifier>{c1e16dd8-ab6e-4cc0-b241-88f4aa487876}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow">
-      <UniqueIdentifier>{040d3bc4-6ec4-4571-8071-2fe6b487dfb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component">
-      <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Helpers\Core">
       <UniqueIdentifier>{9933d0b4-3da5-428e-b311-a6b33632e485}</UniqueIdentifier>
     </Filter>
@@ -271,17 +220,68 @@
     <Filter Include="Engine\Object\Component\Activatior">
       <UniqueIdentifier>{f9f0fb3f-461a-45bd-899b-299b6d8f1aa0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model">
-      <UniqueIdentifier>{2e1e5fba-e3bf-456e-822b-7d412b0c84e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Camera">
-      <UniqueIdentifier>{5f515fb4-9d79-441f-a467-272583148dea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{cc0c9be3-4bff-43c1-ada2-d379e8e4a01c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\File\Resource\Mesh">
       <UniqueIdentifier>{289432cc-6865-4fa4-88b2-1cd8e528c1ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI">
+      <UniqueIdentifier>{6680afbd-a381-472f-8fdb-1b320bccb796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\UIContext">
+      <UniqueIdentifier>{f21bea24-3cc0-4d37-b453-d86341b13735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\Console">
+      <UniqueIdentifier>{ebcfee9a-9388-46a2-89a7-b95a3db44fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\Handler">
+      <UniqueIdentifier>{dabad6cf-f197-44f5-bcdc-2b9bf0847d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\LoadingScreen">
+      <UniqueIdentifier>{b4919839-4ca7-4ef8-a965-8fbf4f5cacf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\GameUI">
+      <UniqueIdentifier>{664c0b2c-22e4-444b-9fae-a224d38361f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\GameUI\DialogScreen">
+      <UniqueIdentifier>{4d174737-eceb-4b63-a259-a117d6273601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\GameUI\Player">
+      <UniqueIdentifier>{165361e8-fc67-4854-ac20-161a38cd23da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\GameUI\Enemy">
+      <UniqueIdentifier>{51a69cb1-acfe-4267-b1e5-d6bed5efb1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\Widgets">
+      <UniqueIdentifier>{349c69cc-7245-4e50-80d8-059342a2f394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\ToolTip">
+      <UniqueIdentifier>{5f80f683-cb70-4442-be1f-9014ac3e89e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\EffectIcons">
+      <UniqueIdentifier>{b28dc4c0-3d19-4206-a1b4-ed0764c3394c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\Skill Icon">
+      <UniqueIdentifier>{5cfd916a-4117-484e-93b8-fdbc66aa87d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\UI\Stats">
+      <UniqueIdentifier>{c1e16dd8-ab6e-4cc0-b241-88f4aa487876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\RenderWindow">
+      <UniqueIdentifier>{040d3bc4-6ec4-4571-8071-2fe6b487dfb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Component">
+      <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Model">
+      <UniqueIdentifier>{2e1e5fba-e3bf-456e-822b-7d412b0c84e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Camera">
+      <UniqueIdentifier>{5f515fb4-9d79-441f-a467-272583148dea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -349,7 +349,7 @@
       <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext</Filter>
+      <Filter>Engine\Graphics\UI\UIContext</Filter>
     </ClCompile>
     <ClCompile Include="Project\Language\TranslationStringDefiner.cpp">
       <Filter>Engine\Language\TranslationString</Filter>
@@ -367,19 +367,19 @@
       <Filter>Engine\Module\Globals</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Window.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow</Filter>
+      <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler</Filter>
+      <Filter>Engine\Graphics\UI\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreen.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreenInfo.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\World\LoadingStateMachine.cpp">
       <Filter>Engine\World</Filter>
@@ -397,16 +397,16 @@
       <Filter>Engine\Helpers\Enum</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Render.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Dialog.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\Element.cpp">
       <Filter>Engine\Combat</Filter>
@@ -436,22 +436,22 @@
       <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerStats.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ProgressBar.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets</Filter>
+      <Filter>Engine\Graphics\UI\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Project\Module\Random.cpp">
       <Filter>Engine\Module\Random</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlainToolTip.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip</Filter>
+      <Filter>Engine\Graphics\UI\ToolTip</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerBuffDebuff.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons</Filter>
+      <Filter>Engine\Graphics\UI\EffectIcons</Filter>
     </ClCompile>
     <ClCompile Include="Project\Combat\EffectStack.cpp">
       <Filter>Engine\Combat\Effects</Filter>
@@ -466,13 +466,13 @@
       <Filter>Engine\Combat\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ActionBar.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\SkillIcon.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\SkillIconChain.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
     </ClCompile>
     <ClCompile Include="Project\Items\Item.cpp">
       <Filter>Engine\Items</Filter>
@@ -664,10 +664,10 @@
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Camera.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Camera</Filter>
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\CameraController.cpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Camera</Filter>
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp">
       <Filter>imgui</Filter>
@@ -768,7 +768,7 @@
       <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\UIContext</Filter>
+      <Filter>Engine\Graphics\UI\UIContext</Filter>
     </ClInclude>
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
@@ -795,7 +795,7 @@
       <Filter>Engine\Module\Globals</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Window.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\RenderWindow</Filter>
+      <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -804,16 +804,16 @@
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\TransparencyMasker.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29</Filter>
+      <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Handler</Filter>
+      <Filter>Engine\Graphics\UI\Handler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClInclude>
     <ClInclude Include="Project\World\LoadingStateMachine.hpp">
       <Filter>Engine\World</Filter>
@@ -831,16 +831,16 @@
       <Filter>Engine\Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Render.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Dialog.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\DialogScreen</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Component</Filter>
+      <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -888,10 +888,10 @@
       <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ProgressBar.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Widgets</Filter>
+      <Filter>Engine\Graphics\UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Project\Module\Random.hpp">
       <Filter>Engine\Module\Random</Filter>
@@ -900,13 +900,13 @@
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\ToolTip</Filter>
+      <Filter>Engine\Graphics\UI\ToolTip</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerBuffDebuff.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\EffectIcon.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\EffectIcons</Filter>
+      <Filter>Engine\Graphics\UI\EffectIcons</Filter>
     </ClInclude>
     <ClInclude Include="Project\Combat\EffectProperty.hpp">
       <Filter>Engine\Combat\Effects\EffectProperty</Filter>
@@ -918,16 +918,16 @@
       <Filter>Engine\Combat\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ActionBar.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\GameUI\Player</Filter>
+      <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\SkillIcon.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\SkillIconChain.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Skill Icon</Filter>
+      <Filter>Engine\Graphics\UI\Skill Icon</Filter>
     </ClInclude>
     <ClInclude Include="Project\Items\Item.hpp">
       <Filter>Engine\Items</Filter>
@@ -1014,10 +1014,10 @@
       <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\Stats.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats</Filter>
+      <Filter>Engine\Graphics\UI\Stats</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\Stats</Filter>
+      <Filter>Engine\Graphics\UI\Stats</Filter>
     </ClInclude>
     <ClInclude Include="Project\Physics\Colliders\EntityCollider.hpp">
       <Filter>Engine\Physics\Colliders\Component</Filter>
@@ -1191,13 +1191,13 @@
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Model</Filter>
+      <Filter>Engine\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\CameraController.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Camera</Filter>
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Camera.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\Camera</Filter>
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp">
       <Filter>imgui</Filter>
@@ -1247,7 +1247,7 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Project\Graphics\UI\LoadingScreen.hpp">
-      <Filter>Engine\Graphics %28Skip refactoring as we gonna move to vulkan later...%29\UI\LoadingScreen</Filter>
+      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </None>
     <None Include="Project\Trigger\DespawnObjectTrigger.hpp">
       <Filter>Engine\Trigger</Filter>
