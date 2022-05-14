@@ -15,6 +15,7 @@
 #include <Input/InputHandler.hpp>
 #include <File/Asset/Manager.hpp>
 #include <File/Resource/TextureLoader.hpp>
+#include <File/Resource/MeshLoader.hpp>
 #include <File/Mod/ModLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
@@ -34,6 +35,7 @@ Core::String to_string(const Enums::EngineResourceType& state)
 	case Enums::EngineResourceType::Settings: return "EngineSettings";
 		// Asset
 	case Enums::EngineResourceType::TextureLoader: return "TextureLoader";
+	case Enums::EngineResourceType::MeshLoader: return "MeshLoader";
 	case Enums::EngineResourceType::AssetManager: return "AssetManager";
 	case Enums::EngineResourceType::SpriterContainer: return "SpriterContainer";
 	case Enums::EngineResourceType::ObjectInstanceHandler: return "ObjectInstanceHandler";
@@ -71,6 +73,7 @@ volatile void initializeSystems()
 	
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Texture::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Mesh::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Asset::Manager>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
 	

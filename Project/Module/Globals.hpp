@@ -58,6 +58,8 @@ public:
 	static const Core::String texturePath;
 	static const Core::String uiTexturePath;
 	static const Core::String tileTexturePath;
+	static const Core::String meshPath;
+	static const Core::String shaderPath;
 
 	static const Core::String GLOBAL_DRAW_HITBOX;
 	static const Core::String GLOBAL_DRAW_QT;

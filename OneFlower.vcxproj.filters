@@ -280,6 +280,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{cc0c9be3-4bff-43c1-ada2-d379e8e4a01c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\File\Resource\Mesh">
+      <UniqueIdentifier>{289432cc-6865-4fa4-88b2-1cd8e528c1ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -671,6 +674,9 @@
     </ClCompile>
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Resource\MeshLoader.cpp">
+      <Filter>Engine\File\Resource\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1198,6 +1204,9 @@
     </ClInclude>
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Resource\MeshLoader.hpp">
+      <Filter>Engine\File\Resource\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

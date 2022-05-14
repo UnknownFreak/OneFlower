@@ -24,6 +24,7 @@ namespace Enums
 		ObjectInstanceHandler,
 		RandomGen,
 		SaveFile,
+		MeshLoader,
 		NOT_SET,
 	};
 }

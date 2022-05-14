@@ -513,6 +513,7 @@
     <ClCompile Include="Project\File\CfgParser.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp" />
+    <ClCompile Include="Project\File\Resource\MeshLoader.cpp" />
     <ClCompile Include="Project\File\Resource\TextureLoader.cpp" />
     <ClCompile Include="Project\File\SaveFile.cpp" />
     <ClCompile Include="Project\Graphics\Camera.cpp" />
@@ -653,6 +654,7 @@
     <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp" />
     <ClInclude Include="Project\File\Mod\ModHeader.hpp" />
     <ClInclude Include="Project\File\Mod\ModLoader.hpp" />
+    <ClInclude Include="Project\File\Resource\MeshLoader.hpp" />
     <ClInclude Include="Project\File\SaveFile.hpp" />
     <ClInclude Include="Project\File\Resource\TextureLoader.hpp" />
     <ClInclude Include="Project\Graphics\Camera.hpp" />

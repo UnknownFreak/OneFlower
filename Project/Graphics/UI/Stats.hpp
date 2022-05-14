@@ -73,7 +73,7 @@ namespace Graphics::UI
 					avg += mean[c];
 
 				avg /= counterMax;
-				text = Core::String(title + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / (avg * 1000)));
+				text = Core::String(title + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / avg * 1000));
 			}
 		}
 
