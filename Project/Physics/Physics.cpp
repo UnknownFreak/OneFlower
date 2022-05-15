@@ -38,7 +38,7 @@ namespace Physics
 		);
 	}
 
-	PhysicsEngine::PhysicsEngine() : qt({ -100000, -100000, 200000, 200000 }, getBox), renderBox(Engine::GetModule<Graphics::RenderWindow>().renderBox)
+	PhysicsEngine::PhysicsEngine() : qt({ glm::vec2{-100000, -100000}, glm::vec2{200000, 200000} }, getBox), renderBox(Engine::GetModule<Graphics::RenderWindow>().renderBox)
 	{
 	}
 
@@ -49,7 +49,7 @@ namespace Physics
 	{
 		elapsedTimeInternal = fElapsedTime;
 		renderables.clear();
-		runQuery({ -100000, -100000, 200000, 200000 });
+		runQuery({ glm::vec2{-100000, -100000}, glm::vec2{200000, 200000 } });
 		
 		auto visible_colliders = qt.query(renderBox);
 		for (auto& it : visible_colliders)

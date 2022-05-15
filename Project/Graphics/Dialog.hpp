@@ -25,7 +25,7 @@ public:
 	//~Dialog();
 
 	virtual Enums::DialogStatus navigate(const Enums::InteractionOption& navigation);
-	void visualSelect(const Core::Vector2f& mousePosition);
+	void visualSelect(const glm::vec2& mousePosition);
 	virtual Core::String getCurrentText();
 
 	virtual std::vector<Core::String> getDialogOptions();

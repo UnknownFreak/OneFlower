@@ -14,7 +14,7 @@ namespace Graphics::UI
 
 	class UIHandler : public Interfaces::IEngineResource<UIHandler>
 	{
-		Core::Vector2f mouse;
+		glm::vec2 mouse;
 		std::vector<Enums::UIContextNames> uiToRemove;
 		std::map<Enums::UIContextNames, std::unique_ptr<UIContext>> uiContext;
 

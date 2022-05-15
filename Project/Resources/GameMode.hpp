@@ -2,7 +2,7 @@
 #define GameMode_HPP
 #include <vector>
 
-#include <Helpers/Vector3.hpp>
+#include <glm/vec3.hpp>
 
 #include <Interfaces/IRequestable.hpp>
 #include <Helpers/String.hpp>
@@ -21,7 +21,7 @@ namespace Resource
 
 		File::Mod::ModFileUUIDHelper startingZone;
 		File::Mod::ModFileUUIDHelper loadingScreen;
-		Core::Vector3f startingPosition;
+		glm::vec3 startingPosition;
 
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
@@ -37,7 +37,7 @@ namespace Resource
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);
-			ar(startingPosition);
+			ar(startingPosition.x, startingPosition.y, startingPosition.z);
 			ar(playerModifiers);
 			ar(enemyModifiers);
 			ar(tagModifiers);
@@ -50,7 +50,7 @@ namespace Resource
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);
-			ar(startingPosition); 
+			ar(startingPosition.x, startingPosition.y, startingPosition.z);
 			ar(playerModifiers);
 			ar(enemyModifiers);
 			ar(tagModifiers);

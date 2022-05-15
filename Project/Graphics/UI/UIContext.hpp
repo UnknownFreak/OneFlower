@@ -4,7 +4,7 @@
 #include <swizzle/core/Input.hpp>
 
 #include <Helpers/String.hpp>
-#include <Helpers/Vector.hpp>
+#include <glm/vec2.hpp>
 #include <imgui/imgui.h>
 
 namespace Graphics::UI
@@ -17,14 +17,14 @@ namespace Graphics::UI
 		void registerKeybind();
 
 	protected:
-		bool mouseInside(const Core::Vector2f& pos, const Core::Vector2f& size, const Core::Vector2f& mouse) const;
+		bool mouseInside(const glm::vec2& pos, const glm::vec2& size, const glm::vec2& mouse) const;
 		bool visible = true;
 
 	public:
 		Core::String uiName;
 
 		UIContext(const swizzle::input::Keys& toggleKey, const Core::String& uiName, const bool& noKeybind);
-		virtual void onMouseHover(const Core::Vector2f& mouse) = 0;
+		virtual void onMouseHover(const glm::vec2& mouse) = 0;
 		virtual ~UIContext() {};
 		virtual void readInput() = 0;
 		virtual void update() {};

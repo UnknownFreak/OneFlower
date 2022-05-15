@@ -1,5 +1,6 @@
 #include "Prefab.hpp"
 #include <Module/BuildMode.hpp>
+#include <Module/Random.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
 #include <File/SaveFile.hpp>
 
@@ -39,7 +40,7 @@ namespace Asset::Resource
 			components.push_back(x.get()->ucopy());
 	}
 
-	GameObject* Prefab::createNewInstance(const Core::uuid& uuid, const Core::Vector3& pos, const bool& isPlayerSummon) const
+	GameObject* Prefab::createNewInstance(const Core::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
 		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject(uuid);
@@ -49,7 +50,7 @@ namespace Asset::Resource
 		return object;
 	}
 
-	GameObject* Prefab::createNewInstance(const Core::Vector3& pos, const bool& isPlayerSummon) const
+	GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
 		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject();
@@ -60,13 +61,23 @@ namespace Asset::Resource
 		return object;
 	}
 
+	glm::vec3 randomize(const glm::vec3& in, const float& random_direction)
+	{
+		auto& randGen = Engine::GetModule<EngineModule::RandomGen>();
+
+		return {
+			in.x + randGen.random_float(-random_direction, random_direction),
+			in.y + randGen.random_float(-random_direction, random_direction),
+			in.z };
+	}
+
 	GameObject* Prefab::createNewInstance(GameObject* parent, const bool& isPlayerSummon) const
 	{
 		auto x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->getComponent<Component::Transform>();
-		transform->pos = parent->getComponent<Component::Transform>()->buffered.randomize(spawnDistance);
+		transform->pos = randomize(parent->getComponent<Component::Transform>()->buffered, spawnDistance);
 		return object;
 	}
 

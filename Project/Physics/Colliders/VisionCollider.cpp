@@ -17,7 +17,7 @@ VisionCollider::VisionCollider() : Interfaces::ICollider(nullptr, 64.f, 64.f, En
 {
 }
 
-VisionCollider::VisionCollider(const Core::Vector2f& coneSize) : Interfaces::ICollider(nullptr, std::max(coneSize.x, coneSize.y)*2, std::max(coneSize.x, coneSize.y)*2, Enums::ColliderAlgorithm::SAT, Enums::ColliderType::VisionHitbox)
+VisionCollider::VisionCollider(const glm::vec2& coneSize) : Interfaces::ICollider(nullptr, std::max(coneSize.x, coneSize.y)*2, std::max(coneSize.x, coneSize.y)*2, Enums::ColliderAlgorithm::SAT, Enums::ColliderType::VisionHitbox)
 {
 	hitboxOffset = { 16.f, 40.f };
 	convexCollider.push_back({0, 0 });
@@ -66,7 +66,7 @@ void VisionCollider::doParentSimulate(const float& )
 }
 
 
-std::tuple<Core::Vector2f, bool>  VisionCollider::Collides(ICollider* other)
+std::tuple<glm::vec2, bool>  VisionCollider::Collides(ICollider* other)
 {
 	if ((other->colliderType == Enums::ColliderType::Entity || other->colliderType == Enums::ColliderType::StaticEntity) && ((Collider*)other)->attachedOn != attachedOn)
 	{
@@ -88,7 +88,7 @@ void VisionCollider::Update()
 {
 	hitObject = false;
 	Core::FloatRect cBefore = collider, dBefore = getBox();
-	updateColliderPos(transform->pos.toVector2() + hitboxOffset, 0);
+	updateColliderPos(transform->pos + glm::vec3(hitboxOffset, 0), 0);
 	//Engine::GetModule<Physics::PhysicsEngine>().addCollider(this);
 	//collider = cBefore;
 	//drawBox = dBefore;
@@ -112,9 +112,9 @@ bool VisionCollider::isActive() const
 	return attachedOn->objectState == Enums::ObjectState::Active;
 }
 
-void VisionCollider::updateColliderPos(const Core::Vector2f& pos, const float& extra_offset)
+void VisionCollider::updateColliderPos(const glm::vec3& pos, const float& extra_offset)
 {
-	Core::Vector2f newPos = { pos.x - (collider.w / 2) , pos.y - extra_offset - (collider.h / 2) };
+	glm::vec2 newPos = { pos.x - (collider.w / 2) , pos.y - extra_offset - (collider.h / 2) };
 	collider.pos = newPos;
 	//convexCollider.setPosition(pos.x, pos.y);
 	//drawBox.pos = { pos.x, pos.y - extra_offset + (z * Globals::Z_OFFSET )};

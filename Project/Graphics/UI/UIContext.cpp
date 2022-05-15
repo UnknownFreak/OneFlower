@@ -18,7 +18,7 @@ namespace Graphics::UI
 		ih.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp(uiName, [&](bool, swizzle::input::Keys, const float&) { toggleVisible(); }, false), toggleKey, Enums::Input::Action::Press);
 	}
 
-	bool UIContext::mouseInside(const Core::Vector2f& pos, const Core::Vector2f& size, const Core::Vector2f& mouse) const
+	bool UIContext::mouseInside(const glm::vec2& pos, const glm::vec2& size, const glm::vec2& mouse) const
 	{
 		return mouse.x > pos.x && mouse.x < pos.x + size.x && 
 			mouse.y > pos.y && mouse.y < pos.y + size.y;

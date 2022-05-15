@@ -36,7 +36,7 @@ namespace Graphics::UI
 		virtual void render() override;
 
 		// Inherited via UIContext
-		virtual void onMouseHover(const Core::Vector2f& mouse) override;
+		virtual void onMouseHover(const glm::vec2& mouse) override;
 	};
 
 }

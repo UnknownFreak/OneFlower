@@ -1,6 +1,8 @@
 #ifndef LoadingStateMachine_HPP
 #define LoadingStateMachine_HPP
 
+#include <glm/vec3.hpp>
+
 #include <Graphics/Window.hpp>
 #include <Helpers/Enum/LoadingState.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>
@@ -25,11 +27,11 @@ public:
 
 	std::vector<File::Asset::Resource::Template::ObjectInfo> buffer;
 	
-	Core::Vector3f playerPos;
+	glm::vec3 playerPos;
 
 	LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLoading);
 
-	void beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& position);
+	void beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& position);
 	void load();
 	
 };

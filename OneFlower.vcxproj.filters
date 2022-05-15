@@ -651,9 +651,6 @@
     <ClCompile Include="Project\Helpers\TickTimer.cpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\Vector3.cpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\String.cpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClCompile>
@@ -1164,12 +1161,6 @@
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\uuid.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Vector3.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Vector.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\String.hpp">

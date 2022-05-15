@@ -541,7 +541,6 @@
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
     <ClCompile Include="Project\Helpers\String.cpp" />
     <ClCompile Include="Project\Helpers\TickTimer.cpp" />
-    <ClCompile Include="Project\Helpers\Vector3.cpp" />
     <ClCompile Include="Project\Helpers\Version.cpp" />
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
@@ -713,8 +712,6 @@
     <ClInclude Include="Project\Helpers\String.hpp" />
     <ClInclude Include="Project\Helpers\TickTimer.hpp" />
     <ClInclude Include="Project\Helpers\uuid.hpp" />
-    <ClInclude Include="Project\Helpers\Vector.hpp" />
-    <ClInclude Include="Project\Helpers\Vector3.hpp" />
     <ClInclude Include="Project\Helpers\Version.hpp" />
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />

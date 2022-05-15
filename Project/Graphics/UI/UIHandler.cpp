@@ -1,5 +1,7 @@
 #include "UIHandler.hpp"
 
+#include<Module/Logger/OneLogger.hpp>
+
 Enums::EngineResourceType Interfaces::IEngineResource<Graphics::UI::UIHandler>::type = Enums::EngineResourceType::UIHandler;
 
 namespace Graphics::UI

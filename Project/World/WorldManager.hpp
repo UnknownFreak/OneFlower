@@ -42,7 +42,7 @@ public:
 	void load(const Core::String& fileName);
 	void initialize();
 
-	void loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition = {0.f, 0.f, 0.f});
+	void loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f});
 	
 
 	// Inherited via IUpdateable

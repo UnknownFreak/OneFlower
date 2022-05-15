@@ -5,7 +5,7 @@ void Graphics::UI::PlayerBuffDebuff::setStats(std::shared_ptr<Component::Stats> 
 	stats = newStats;
 }
 
-Graphics::UI::PlayerBuffDebuff::PlayerBuffDebuff(const Core::Vector2f& pos) : UIContext(swizzle::input::Keys::KeyNone, "BuffDebuff", true), pos(pos)
+Graphics::UI::PlayerBuffDebuff::PlayerBuffDebuff(const glm::vec2& pos) : UIContext(swizzle::input::Keys::KeyNone, "BuffDebuff", true), pos(pos)
 {
 }
 
@@ -21,7 +21,7 @@ void Graphics::UI::PlayerBuffDebuff::update()
 	}
 	if (effects.size() == 0 && effectIcons.size() > 0)
 		effectIcons.clear();
-	Core::Vector2f loopPos = pos;
+	glm::vec2 loopPos = pos;
 	for (auto& icon : effectIcons)
 	{
 		icon.second.updatePos(loopPos);
@@ -29,7 +29,7 @@ void Graphics::UI::PlayerBuffDebuff::update()
 	}
 }
 
-void Graphics::UI::PlayerBuffDebuff::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::PlayerBuffDebuff::onMouseHover(const glm::vec2& mouse)
 {
 	for (auto& icon : effectIcons)
 		icon.second.onMouseHover(mouse);

@@ -29,7 +29,7 @@ namespace Component
 		damageElement = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Element>(elementId);
 	}
 
-	void Damage::setDirection(const Core::Vector2f& newDirection, const float& newSpeed)
+	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)
 	{
 		direction = newDirection;
 		speed = newSpeed;

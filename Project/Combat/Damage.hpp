@@ -38,13 +38,13 @@ namespace Component
 
 		Core::TickTimer intervalPerHit;
 		bool canLockNextFrame;
-		Core::Vector2f direction;
+		glm::vec2 direction;
 		float speed;
 		double damageCoef;
 	public:
 		std::shared_ptr<Component::Stats> owner;
 
-		void setDirection(const Core::Vector2f& direction, const float& speed);
+		void setDirection(const glm::vec2& direction, const float& speed);
 		void attachOn(GameObject* go);
 
 		// Inherited via IBase
@@ -67,7 +67,7 @@ namespace Component
 			ar(timeToLive);
 			ar(intervalPerHit);
 			ar(canLockNextFrame);
-			ar(direction);
+			ar(direction.x, direction.y);
 			ar(speed);
 			ar(damageCoef);
 			ar(elementId);
@@ -83,7 +83,7 @@ namespace Component
 			ar(timeToLive);
 			ar(intervalPerHit);
 			ar(canLockNextFrame);
-			ar(direction);
+			ar(direction.x, direction.y);
 			ar(speed);
 			ar(damageCoef);
 			ar(elementId);

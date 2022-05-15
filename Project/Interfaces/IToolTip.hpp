@@ -2,7 +2,7 @@
 #define IToolTip_HPP
 
 #include <Helpers/String.hpp>
-#include <Helpers/Vector.hpp>
+#include <glm/vec2.hpp>
 
 namespace Interfaces
 {
@@ -14,7 +14,7 @@ namespace Interfaces
 	public:
 		bool drawToolTip;
 		virtual void setToolTip(const Core::String& string) = 0;
-		virtual void setPosition(const Core::Vector2f& position) = 0;
+		virtual void setPosition(const glm::vec2& position) = 0;
 
 		// Inherited via Drawable
 	};

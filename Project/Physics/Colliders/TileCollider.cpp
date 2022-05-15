@@ -2,7 +2,7 @@
 
 #include <Physics/Physics.hpp>
 
-TileCollider::TileCollider(const Core::Vector3f& pos, const Core::Vector2f& size,
+TileCollider::TileCollider(const glm::vec3& pos, const glm::vec2& size,
 	const Enums::ColliderType& _colliderType, const bool& _isRoof): 
 	ICollider(&t.pos, size.x, size.y, Enums::ColliderAlgorithm::SAT, _colliderType)
 {
@@ -43,7 +43,7 @@ void TileCollider::Update()
 		float extra_offset = 0.f;
 		if (colliderType == Enums::ColliderType::SToNRamp)
 			extra_offset = 64.f;
-		updateColliderPos(position->toVector2(), extra_offset);
+		updateColliderPos(*position, extra_offset);
 		requireUpdate = false;
 	}
 }

@@ -13,7 +13,7 @@ namespace Graphics::UI
 		PlainToolTip(const PlainToolTip& copy);
 		
 		virtual void setToolTip(const Core::String& string) override;
-		virtual void setPosition(const Core::Vector2f& string) override;
+		virtual void setPosition(const glm::vec2& string) override;
 
 	};
 }

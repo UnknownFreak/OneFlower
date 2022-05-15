@@ -42,6 +42,12 @@ namespace Combat
 	{
 	}
 
+	glm::vec3 distanceWithAngle(const float &distance, const float& angle)
+	{
+		float rangle = angle * (3.14159265358979323846f / 180.f);
+		return glm::vec3{ distance * -std::sin(rangle), distance * std::cos(rangle), 0.f };
+	}
+
 	void Skill::onSkillExecution(GameObject* owner)
 	{
 		if (coolDown.ready())
@@ -67,7 +73,7 @@ namespace Combat
 				{
 					auto* transform = owner->getComponent<Component::Transform>();
 					auto pos = transform->pos;
-					pos += Core::Vector2f::distanceWithAngle(summonPoint, transform->facingAngle);
+					pos += distanceWithAngle(summonPoint, transform->facingAngle);
 					skillGo = skillPrefab->createNewInstance(pos, owner->tag == "player");
 					if (effectPrefab)
 						effectGo = effectPrefab->createNewInstance(pos, owner->tag == "player");

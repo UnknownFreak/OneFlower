@@ -6,7 +6,7 @@
 #include <Helpers/Enum/ObjectState.hpp>
 
 #include <Interfaces/IRequestable.hpp>
-#include <Helpers/Vector3.hpp>
+#include <glm/vec3.hpp>
 #include <Object/BaseComponent.hpp>
 
 #include <Object/Transform.hpp>
@@ -31,8 +31,8 @@ namespace Asset::Resource
 		Prefab();
 		Prefab(const Prefab& copy);
 
-		GameObject* createNewInstance(const Core::uuid& uuid, const Core::Vector3& pos, const bool& isPlayerSummon=false) const;
-		GameObject* createNewInstance(const Core::Vector3& pos, const bool& isPlayerSummon = false) const;
+		GameObject* createNewInstance(const Core::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
+		GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
 		GameObject* createNewInstance(GameObject* parent, const bool& isPlayerSummon = false) const;
 
 		template <class Ar>

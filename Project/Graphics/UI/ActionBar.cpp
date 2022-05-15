@@ -21,7 +21,7 @@ void Graphics::UI::ActionBar::update()
 		if (skills.size() != 0)
 			combat->wasSkillChanged = false;
 	}
-	Core::Vector2f pos = {420.f, 1440.f - 280.f};
+	glm::vec2 pos = {420.f, 1440.f - 280.f};
 	for (auto& chain : iconChains)
 	{
 		chain.second.update();
@@ -30,7 +30,7 @@ void Graphics::UI::ActionBar::update()
 	}
 }
 
-void Graphics::UI::ActionBar::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::ActionBar::onMouseHover(const glm::vec2& mouse)
 {
 	for (auto& it : iconChains)
 		it.second.onMouseHover(mouse);

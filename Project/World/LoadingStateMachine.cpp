@@ -21,7 +21,7 @@ LoadingStateMachine::LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLo
 }
 
 
-void LoadingStateMachine::beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const Core::Vector3f& playerPosition)
+void LoadingStateMachine::beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition)
 {
 	loadstate = Enums::LoadingState::PREPARE_LOADINGSCREEN;
 	worldToLoad = world;
@@ -151,11 +151,11 @@ void LoadingStateMachine::load()
 		{
 			auto chunk = Engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileBuildingCount]);
 			for (auto& x : chunk->tileInfo)
-				gfx.addRenderable(chunk->layer, chunk->group, x.pos.toVector2(), x.pos.z, x.textureCoors, x.type, x.hasShadow);
+				gfx.addRenderable(chunk->layer, chunk->group, x.pos, x.pos.z, x.textureCoors, x.type, x.hasShadow);
 			if (chunk->chunkTransparency.set)
 			{
 				auto& tl = chunk->chunkTransparency;
-				gfx.setTileMapTransparencyHitbox(chunk->layer, chunk->group, { tl.pos.x, tl.pos.y, tl.size.x, tl.size.y }, tl.pos.z);
+				gfx.setTileMapTransparencyHitbox(chunk->layer, chunk->group, { glm::vec2{tl.pos.x, tl.pos.y}, glm::vec2{tl.size.x, tl.size.y } }, tl.pos.z);
 			}
 			loadingScreenInfoPtr->currentTileBuildingCount++;
 			loadingScreenInfoPtr->currentLoadCount++;

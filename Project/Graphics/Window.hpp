@@ -4,6 +4,8 @@
 #include <map>
 #include <mutex>
 
+#include <glm/glm.hpp>
+
 #include <swizzle/Swizzle.hpp>
 
 #include <Interfaces/IEngineModule.hpp>
@@ -66,10 +68,10 @@ namespace Graphics
 
 		void setFramerate(const unsigned& limit) const;
 
-		void moveCamera(const Core::Vector2f& vec);
+		void moveCamera(const glm::vec2& vec);
 
 		void setTileMapTransparencyHitbox(int index, Core::String group, Core::Rect<float> rect, float z);
-		void addRenderable(const int& index, const Core::String& group, const Core::Vector2& pos, const float& z, const Core::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
+		void addRenderable(const int& index, const Core::String& group, const glm::vec2& pos, const float& z, const Core::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
 		void clearDrawList();
 
 		void Cull(std::vector<GameObject*>& colliders);

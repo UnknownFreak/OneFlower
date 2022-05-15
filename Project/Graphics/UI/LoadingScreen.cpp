@@ -21,6 +21,6 @@ void Graphics::UI::LoadingScreen::render()
 {
 }
 
-void Graphics::UI::LoadingScreen::onMouseHover(const Core::Vector2f&)
+void Graphics::UI::LoadingScreen::onMouseHover(const glm::vec2&)
 {
 }

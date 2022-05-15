@@ -10,7 +10,7 @@ class TileCollider : public Interfaces::ICollider, public Interfaces::IUpdateabl
 	Component::Transform t;
 public:
 
-	TileCollider(const Core::Vector3f& pos, const Core::Vector2f& size = { Globals::MAX_SIZE, Globals::MAX_SIZE },
+	TileCollider(const glm::vec3& pos, const glm::vec2& size = { Globals::MAX_SIZE, Globals::MAX_SIZE },
  const Enums::ColliderType& colliderType = Enums::ColliderType::Void, const bool& isRoof=false);
 
 	~TileCollider();

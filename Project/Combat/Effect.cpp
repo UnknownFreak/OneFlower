@@ -6,7 +6,6 @@ Core::uuid Interfaces::Trait<Combat::Effect>::typeId = Core::uuid("ce4cf3dd-435b
 namespace Combat
 {
 
-
 	Element Effect::getElement()
 	{
 		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(effectElememtId);

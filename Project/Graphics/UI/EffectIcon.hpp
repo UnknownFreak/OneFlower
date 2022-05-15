@@ -14,21 +14,21 @@ namespace Graphics::UI
 	class EffectIcon : public UIContext
 	{
 		PlainToolTip toolTip;
-		Core::Vector2f pos;
+		glm::vec2 pos;
 		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
 		Combat::EffectStack& stack;
 		//sf::Vertex vertex[4];
 		//sf::VertexBuffer buf;
 
 	public:
-		Core::Vector2f iconSize;
+		glm::vec2 iconSize;
 
 		EffectIcon(const Core::String& icon, Combat::EffectStack& stack);
 
 
-		void updatePos(const Core::Vector2f& pos);
+		void updatePos(const glm::vec2& pos);
 		// Inherited via UIContext
-		virtual void onMouseHover(const Core::Vector2f& mouse) override;
+		virtual void onMouseHover(const glm::vec2& mouse) override;
 		virtual void readInput() override;
 
 		virtual void render() override;

@@ -13,7 +13,7 @@ namespace Graphics::UI
 
 	class PlayerBuffDebuff : public UIContext
 	{
-		Core::Vector2f pos;
+		glm::vec2 pos;
 		std::unordered_map<Core::uuid, EffectIcon> effectIcons;
 		PlainToolTip dummy;
 		std::shared_ptr<Component::Stats> stats;
@@ -21,12 +21,12 @@ namespace Graphics::UI
 
 		void setStats(std::shared_ptr<Component::Stats> stats);
 
-		PlayerBuffDebuff(const Core::Vector2f& pos);
+		PlayerBuffDebuff(const glm::vec2& pos);
 
 		void update();
 
 		// Inherited via UIContext
-		virtual void onMouseHover(const Core::Vector2f& mouse) override;
+		virtual void onMouseHover(const glm::vec2& mouse) override;
 		virtual void readInput() override;
 
 		virtual void render() override;

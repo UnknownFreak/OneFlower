@@ -21,7 +21,7 @@ Graphics::UI::SkillIcon::SkillIcon(const SkillIcon& copy) : SkillIcon(copy.skill
 //	return *this;
 //}
 
-void Graphics::UI::SkillIcon::setPosition(const Core::Vector2f& newPos)
+void Graphics::UI::SkillIcon::setPosition(const glm::vec2& newPos)
 {
 	pos = newPos;
 }
@@ -30,7 +30,7 @@ void Graphics::UI::SkillIcon::update()
 {
 }
 
-void Graphics::UI::SkillIcon::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::SkillIcon::onMouseHover(const glm::vec2& mouse)
 {
 	if (mouseInside(pos, { 64.f, 64.f }, mouse))
 	{

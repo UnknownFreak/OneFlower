@@ -18,7 +18,7 @@ Graphics::UI::PlainToolTip::PlainToolTip(const PlainToolTip& copy) : PlainToolTi
 	setToolTip(copy.toolTip);
 }
 
-void Graphics::UI::PlainToolTip::setPosition(const Core::Vector2f& )
+void Graphics::UI::PlainToolTip::setPosition(const glm::vec2& )
 {
 
 }

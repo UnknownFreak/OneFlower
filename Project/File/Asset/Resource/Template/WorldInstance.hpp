@@ -9,7 +9,7 @@
 #include <vector>
 #include <map>
 
-#include <Helpers/Vector3.hpp>
+#include <glm/vec3.hpp>
 #include <Object/ObjectStateActivator.hpp>
 
 namespace File::Asset::Resource::Template
@@ -18,7 +18,7 @@ namespace File::Asset::Resource::Template
 	{
 		File::Mod::ModFileUUIDHelper prefab;
 		Core::uuid objectId;
-		Core::Vector3f location;
+		glm::vec3 location;
 
 		Component::ObjectStateActivator activationInfo;
 
@@ -26,7 +26,7 @@ namespace File::Asset::Resource::Template
 		void save(Archive& ar) const
 		{
 			ar(objectId);
-			ar(location);
+			ar(location.x, location.y, location.z);
 			ar(activationInfo);
 		}
 
@@ -34,7 +34,7 @@ namespace File::Asset::Resource::Template
 		void load(Archive& ar)
 		{
 			ar(objectId);
-			ar(location);
+			ar(location.x, location.y, location.z);
 			ar(activationInfo);
 		}
 	};

@@ -3,7 +3,7 @@
 
 #include "Trigger.hpp"
 #include <File/Mod/ModFileUUIDHelper.hpp>
-#include <Helpers/Vector3.hpp>
+#include <glm/vec3.hpp>
 
 namespace Trigger
 {
@@ -17,14 +17,14 @@ namespace Trigger
 	public:
 
 		File::Mod::ModFileUUIDHelper prefabId;
-		Core::Vector3f position;
+		glm::vec3 position;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
 			ar(cereal::base_class<Trigger>(this));
 			ar(prefabId);
-			ar(position);
+			ar(position.x, position.y, position.z);
 		}
 
 		template<class Archive>
@@ -32,7 +32,7 @@ namespace Trigger
 		{
 			ar(cereal::base_class<Trigger>(this));
 			ar(prefabId);
-			ar(position);
+			ar(position.x, position.y, position.z);
 		}
 
 		// Inherited via Trigger

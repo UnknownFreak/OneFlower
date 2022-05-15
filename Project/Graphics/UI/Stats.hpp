@@ -93,7 +93,7 @@ namespace Graphics::UI
 		virtual void readInput() override {};
 
 		// Inherited via UIContext
-		virtual void onMouseHover(const Core::Vector2f&) override {};
+		virtual void onMouseHover(const glm::vec2&) override {};
 	};
 }
 

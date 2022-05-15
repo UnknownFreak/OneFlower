@@ -3,16 +3,16 @@
 #include <Interfaces/IRequestable.hpp>
 #include <vector>
 
-#include <Helpers/Vector.hpp>
-#include <Helpers/Vector3.hpp>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 #include <Helpers/Enum/ColliderType.hpp>
 
 namespace File::Asset::Resource::Template
 {
 	struct ColliderTemplate
 	{
-		Core::Vector3f pos;
-		Core::Vector2f size;
+		glm::vec3 pos;
+		glm::vec2 size;
 		Enums::ColliderType type;
 
 		bool isRoof = false;
@@ -20,16 +20,16 @@ namespace File::Asset::Resource::Template
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(pos);
-			ar(size);
+			ar(pos.x, pos.y, pos.z);
+			ar(size.x, size.y);
 			ar(type);
 			ar(isRoof);
 		}
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(pos);
-			ar(size);
+			ar(pos.x, pos.y, pos.z);
+			ar(size.x, size.y);
 			ar(type);
 			ar(isRoof);
 		}

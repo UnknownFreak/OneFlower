@@ -2,7 +2,6 @@
 #ifndef Interactable_HPP
 #define Interactable_HPP
 
-#include <Helpers/Vector3.hpp>
 #include "IBaseComponent.hpp"
 #include "Interaction.hpp"
 #include <Interfaces/ICollider.hpp>

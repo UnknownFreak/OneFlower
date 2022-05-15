@@ -56,6 +56,6 @@ void Graphics::UI::LoadingScreenInfo::update()
 	;
 }
 
-void Graphics::UI::LoadingScreenInfo::onMouseHover(const Core::Vector2f&)
+void Graphics::UI::LoadingScreenInfo::onMouseHover(const glm::vec2&)
 {
 }

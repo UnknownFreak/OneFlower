@@ -105,7 +105,7 @@ namespace File
 		player.id = Core::uuid::nil();
 		player.addComponent<Render>();
 		player.addComponent<PlayerInteractionPrompt>();
-		player.addComponent<VisionCollider>(Core::Vector2f{ 45, 30 });
+		player.addComponent<VisionCollider>(glm::vec2{ 45.f, 30.f });
 		player.addComponent<Component::Stats>();
 		player.addComponent<Component::CombatComponent>();
 		player.getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
@@ -148,7 +148,7 @@ namespace File
 			mainAr(questState);
 			mainAr(currentZone);
 			mainAr(loadingScreen);
-			mainAr(point);
+			mainAr(point.x, point.y, point.z);
 		}
 		file.close();
 	}
@@ -167,7 +167,7 @@ namespace File
 			mainAr(questState);
 			mainAr(currentZone);
 			mainAr(loadingScreen);
-			mainAr(point);
+			mainAr(point.x, point.y, point.z);
 		}
 		point.z += 0.15f;
 		file.close();

@@ -2,7 +2,8 @@
 #ifndef Transform_HPP
 #define Transform_HPP
 
-#include <Helpers/Vector3.hpp>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 #include "IBaseComponent.hpp"
 #include <Interfaces/ICollider.hpp>
 #include <Combat/Stats.hpp>
@@ -15,9 +16,9 @@ namespace Component
 		bool moving;
 		bool falling;
 		float jumpSpeed = 0.f;
-		Core::Vector3f buffered = { 0.f, 0.f, 0.f };
-		Core::Vector3f pos = { 0.f, 0.f, 0.f };
-		Core::Vector2f lastDirection;
+		glm::vec3 buffered = { 0.f, 0.f, 0.f };
+		glm::vec3 pos = { 0.f, 0.f, 0.f };
+		glm::vec2 lastDirection;
 		int directionCounter = 0;
 		float facingAngle = 0.f;
 		Transform() = default;
@@ -34,8 +35,8 @@ namespace Component
 		}
 
 		void jump();
-		void move(const Core::Vector2f& direction);
-		void lookAt(const Core::Vector2f& direction);
+		void move(const glm::vec2& direction);
+		void lookAt(const glm::vec2& direction);
 
 		void attachOn(GameObject* go);
 		// Inherited via IBase

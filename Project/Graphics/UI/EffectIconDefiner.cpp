@@ -19,7 +19,7 @@ iconTexture(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(
 //
 //}
 
-void Graphics::UI::EffectIcon::updatePos(const Core::Vector2f& newPos)
+void Graphics::UI::EffectIcon::updatePos(const glm::vec2& newPos)
 {
 	pos = newPos;
 	//vertex[0].position = { pos.x, pos.y };
@@ -30,7 +30,7 @@ void Graphics::UI::EffectIcon::updatePos(const Core::Vector2f& newPos)
 	toolTip.setToolTip("Aasdad");
 }
 
-void Graphics::UI::EffectIcon::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::EffectIcon::onMouseHover(const glm::vec2& mouse)
 {
 	if (toolTip.drawToolTip = visible && mouseInside(pos, iconSize, mouse))
 	{

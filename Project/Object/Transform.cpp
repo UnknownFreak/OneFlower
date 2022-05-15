@@ -1,6 +1,11 @@
 #include "Transform.hpp"
 #include "GameObject.hpp"
 
+#pragma warning (push)
+#pragma warning (disable: 4201)
+#include <glm/gtx/vector_angle.hpp>
+#pragma warning (pop)
+
 Enums::ComponentType Component::IBase<Component::Transform>::typeID = Enums::ComponentType::Transform;
 Core::String Component::IBase<Component::Transform>::componentName = "Transform";
 
@@ -14,13 +19,13 @@ namespace Component
 		falling = true;
 	}
 
-	void Transform::move(const Core::Vector2f& direction)
+	void Transform::move(const glm::vec2& direction)
 	{
 		moving = true;
-		Core::Vector2f newDir;
+		glm::vec2 newDir;
 		if (stats)
 		{
-			newDir = direction * stats->getSpeed();
+			newDir = direction * stats->getSpeed() * 0.05f;
 			//pos += newDir;
 			lastDirection += newDir;
 		}
@@ -31,11 +36,11 @@ namespace Component
 		}
 	}
 
-	void Transform::lookAt(const Core::Vector2f& direction)
+	void Transform::lookAt(const glm::vec2& direction)
 	{
-		auto thePos = pos.toVector2();
+		auto thePos = glm::vec2(pos);
 		auto theOffset = thePos + direction;
-		facingAngle = thePos.angle<float>(theOffset) - 90.f;
+		facingAngle = glm::angle(thePos, theOffset) - 90;
 	}
 
 	void Transform::attachOn(GameObject* go)
@@ -60,8 +65,8 @@ namespace Component
 	void Transform::Update()
 	{
 		//directionCounter++;
-		lookAt(lastDirection);
-		pos += lastDirection;
+		//lookAt(lastDirection);
+		pos += glm::vec3(lastDirection, 0.f);
 		buffered = pos;
 		//if (directionCounter > 10 && !moving)
 		//{

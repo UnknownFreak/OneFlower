@@ -1,5 +1,6 @@
 #include "Stats.hpp"
 #include <File/Asset/Manager.hpp>
+#include <Module/Random.hpp>
 
 #include <Object/GameObject.hpp>
 #include "AttachToParent.hpp"
@@ -276,7 +277,7 @@ namespace Component
 					for (auto& vfx : vfxs)
 					{
 						auto pref = Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
-						auto x = Core::Vector3f{ 0,0,0 };
+						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
 						go->addComponent<AttachToParent>(attachedOn);
 					}

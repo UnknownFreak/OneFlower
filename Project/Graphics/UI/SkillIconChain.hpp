@@ -20,10 +20,10 @@ namespace Graphics::UI
 		SkillIconChain(const SkillIconChain& copy);
 
 		void update() override;
-		void updatePos(const Core::Vector2f& newPos);
+		void updatePos(const glm::vec2& newPos);
 
 		// Inherited via UIContext
-		virtual void onMouseHover(const Core::Vector2f& mouse) override;
+		virtual void onMouseHover(const glm::vec2& mouse) override;
 		virtual void readInput() override;
 		virtual void render() override;
 

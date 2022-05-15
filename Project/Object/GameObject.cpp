@@ -16,7 +16,7 @@ void GameObject::sendMessage(const Core::String& msgType, const Core::String& me
 GameObject::GameObject()
 {
 	addComponent<Component::Transform>();
-	addComponent<Collider>(Core::Vector2f{16.f, 16.f});
+	addComponent<Collider>(glm::vec2{16.f, 16.f});
 }
 GameObject::GameObject(GameObject&& copy)
 {

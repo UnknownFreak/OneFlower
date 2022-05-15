@@ -1,7 +1,7 @@
 #ifndef VisionCollider_HPP
 #define VisionCollider_HPP
 
-#include <Helpers/Vector3.hpp>
+#include <glm/vec2.hpp>
 #include <Object/Transform.hpp>
 #include <Interfaces/ICollider.hpp>
 
@@ -11,10 +11,10 @@ class VisionCollider : public Interfaces::ICollider, public Component::IBase<Vis
 	Component::Transform* transform;
 	bool hitObject = false;
 public:
-	Core::Vector2f hitboxOffset;
+	glm::vec2 hitboxOffset;
 
 	VisionCollider();
-	VisionCollider(const Core::Vector2f& coneSize);
+	VisionCollider(const glm::vec2& coneSize);
 	~VisionCollider();
 	virtual VisionCollider* copy() const override
 	{
@@ -25,12 +25,12 @@ public:
 	void detach();
 
 	virtual void doParentSimulate(const float& fElapsedTime) override;
-	virtual std::tuple<Core::Vector2f, bool> Collides(ICollider* other) override;
+	virtual std::tuple<glm::vec2, bool> Collides(ICollider* other) override;
 
 
 	// Inherited via IBase
 	virtual void onCollision(Interfaces::ICollider* the_collidee) override;
-	void updateColliderPos(const Core::Vector2f& pos, const float& extra_offset);
+	void updateColliderPos(const glm::vec3& pos, const float& extra_offset);
 
 	// Inherited via IBase
 	virtual void Update() override;

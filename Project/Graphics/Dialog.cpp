@@ -11,7 +11,7 @@ Enums::DialogStatus Dialog::navigate(const Enums::InteractionOption& navigation)
 	return dialogTree.doSelection(navigation);
 }
 
-void Dialog::visualSelect(const Core::Vector2f& mousePosition)
+void Dialog::visualSelect(const glm::vec2& mousePosition)
 {
 	mousePosition;
 }

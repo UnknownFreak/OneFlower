@@ -5,7 +5,6 @@
 #include <Helpers/Enum/EffectType.hpp>
 
 #include <Interfaces/IRequestable.hpp>
-#include <Helpers/Vector.hpp>
 #include "Element.hpp"
 #include "EffectProperty.hpp"
 #include <Helpers/TickTimer.hpp>

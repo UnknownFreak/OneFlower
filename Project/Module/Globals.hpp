@@ -1,6 +1,8 @@
 #ifndef Globals_HPP
 #define Globals_HPP
 
+#include <glm/vec3.hpp>
+
 #include "Interfaces/IEngineModule.hpp"
 #include <map>
 #include <vector>
@@ -47,7 +49,7 @@ public:
 
 	File::Mod::ModFileUUIDHelper newGameWorldInstance;
 	File::Mod::ModFileUUIDHelper newGameWorldInstanceLoadingScreen;
-	Core::Vector3f newGamePoint;
+	glm::vec3 newGamePoint;
 
 	// Inherited via IEngineResource
 	Enums::EngineResourceType& getType() const

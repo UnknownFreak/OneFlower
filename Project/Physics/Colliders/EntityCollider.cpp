@@ -11,11 +11,11 @@ Collider::Collider() : Interfaces::ICollider(nullptr, 64.f, 64.f, Enums::Collide
 {
 }
 
-Collider::Collider(const Core::Vector2f& size) : Interfaces::ICollider(nullptr, size.x, size.y, Enums::ColliderAlgorithm::SAT, Enums::ColliderType::Entity)
+Collider::Collider(const glm::vec2& size) : Interfaces::ICollider(nullptr, size.x, size.y, Enums::ColliderAlgorithm::SAT, Enums::ColliderType::Entity)
 {
 }
 
-Collider::Collider(const Core::Vector2f& size, const Core::Vector2f& nHitboxOffset) : Collider(size)
+Collider::Collider(const glm::vec2& size, const glm::vec2& nHitboxOffset) : Collider(size)
 {
 	hitboxOffset = nHitboxOffset;
 }
@@ -59,11 +59,11 @@ void Collider::attachOn(GameObject* go)
 void Collider::doParentSimulate(const float& fElapsedTime)
 {
 	attachedOn->Simulate(fElapsedTime,
-		(transform->moving || transform->falling) || (colliderType == Enums::ColliderType::StaticEntity && collider.pos != transform->pos.toVector2() + hitboxOffset));
+		(transform->moving || transform->falling) || (colliderType == Enums::ColliderType::StaticEntity && collider.pos != glm::vec2(transform->pos) + hitboxOffset));
 }
 
 
-std::tuple<Core::Vector2f, bool>  Collider::Collides(ICollider* other)
+std::tuple<glm::vec2, bool>  Collider::Collides(ICollider* other)
 {
 	if (other->colliderType == Enums::ColliderType::Floor)
 	{
@@ -99,7 +99,7 @@ std::tuple<Core::Vector2f, bool>  Collider::Collides(ICollider* other)
 		{
 			transform->moving = true;
 
-			Core::Vector2f vec = std::get<Core::Vector2f>(val);
+			glm::vec2 vec = std::get<glm::vec2>(val);
 			// prevent sliding when colliding direct on that axis
 
 			transform->lastDirection -= vec;
@@ -179,7 +179,7 @@ void Collider::Update()
 	//if(collider.pos == transform->pos.toVector2() + hitboxOffset)
 	//	return;
 	Core::FloatRect /*cBefore = collider, */ dBefore = getBox();
-	ICollider::updateColliderPos(transform->pos.toVector2() + hitboxOffset, 0);
+	ICollider::updateColliderPos(transform->pos + glm::vec3(hitboxOffset, 0), 0);
 	//Engine::GetModule<Physics::PhysicsEngine>().addCollider(this);
 	//collider = cBefore;
 	//drawBox = dBefore;
@@ -235,7 +235,7 @@ bool Collider::isActive() const
 
 void Collider::postUpdate()
 {
-	transform->pos += transform->lastDirection;
+	transform->pos += glm::vec3(transform->lastDirection, 0.f);
 	transform->lastDirection = { 0.f, 0.f };
 	transform->buffered = transform->pos;
 }

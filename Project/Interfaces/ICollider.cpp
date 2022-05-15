@@ -1,5 +1,4 @@
 #include "ICollider.hpp"
-#include <Helpers/Vector.hpp>
 #include <Module/Globals.hpp>
 
 #if defined max
@@ -37,14 +36,14 @@ namespace Interfaces {
 		return s;
 	}
 
-	int orientation(const Core::Vector2f& p, const Core::Vector2f& q, const Core::Vector2f& r)
+	int orientation(const glm::vec2& p, const glm::vec2& q, const glm::vec2& r)
 	{
 		const auto val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
 
 		return val > 0.f ? 1 : 2; // clock or counterclock wise
 	}
 
-	bool doIntersect(const Core::Vector2f& p1, const Core::Vector2f& q1, const Core::Vector2f& p2, const Core::Vector2f& q2)
+	bool doIntersect(const glm::vec2& p1, const glm::vec2& q1, const glm::vec2& p2, const glm::vec2& q2)
 	{
 		const auto o1 = orientation(p1, q1, p2);
 		const auto o2 = orientation(p1, q1, q2);
@@ -54,13 +53,13 @@ namespace Interfaces {
 		return o1 != o2 && o3 != o4;
 	}
 
-	std::tuple<Core::Vector2f, bool> ICollider::intersect(const std::vector<glm::vec2>& r1, const Core::Vector2f& aCenter, const std::vector<glm::vec2>& r2, const Core::Vector2& bCenter) const
+	std::tuple<glm::vec2, bool> ICollider::intersect(const std::vector<glm::vec2>& r1, const glm::vec2& aCenter, const std::vector<glm::vec2>& r2, const glm::vec2& bCenter) const
 	{
 		std::vector<glm::vec2> poly1 = transform(r1, { aCenter.x, aCenter.y });
 		std::vector<glm::vec2> poly2 = transform(r2, { bCenter.x, bCenter.y });
 
 		float overlap = INFINITY;
-		Core::Vector2f collisionEdgeNormal{ 0.f, 0.f };
+		glm::vec2 collisionEdgeNormal{ 0.f, 0.f };
 
 		for (int shape = 0; shape < 2; shape++)
 		{
@@ -82,7 +81,7 @@ namespace Interfaces {
 					collisionEdgeNormal = { pt.x - pt2.x, pt.y - pt2.y };
 				}
 
-				Core::Vector2f axisProj = { -(poly1[b].y - poly1[a].y), poly1[b].x - poly1[a].x };
+				glm::vec2 axisProj = { -(poly1[b].y - poly1[a].y), poly1[b].x - poly1[a].x };
 
 				// Optional normalisation of projection axis enhances stability slightly
 				float d = sqrtf(axisProj.x * axisProj.x + axisProj.y * axisProj.y);
@@ -117,13 +116,13 @@ namespace Interfaces {
 
 		// If we got here, the objects have collided, we will displace r1
 		// by overlap along the vector between the two object centers
-		collisionEdgeNormal = collisionEdgeNormal.lnormal();
-		collisionEdgeNormal.normalize();
-		collisionEdgeNormal.abs();
+		collisionEdgeNormal = {-collisionEdgeNormal.y, collisionEdgeNormal.x};
+		collisionEdgeNormal = (glm::vec2)glm::normalize(collisionEdgeNormal);
+		glm::abs(collisionEdgeNormal);
 		
 		auto dd = bCenter - aCenter;
 
-		Core::Vector2f o{ overlap * dd.x / std::fabs(dd.x), overlap * dd.y / std::fabs(dd.y) };
+		glm::vec2 o{ overlap * dd.x / std::fabs(dd.x), overlap * dd.y / std::fabs(dd.y) };
 		return { o * collisionEdgeNormal, true };
 	}
 
@@ -139,7 +138,7 @@ namespace Interfaces {
 		return (lo < position->z) && (position->z < up);
 	}
 
-	ICollider::ICollider(Core::Vector3f* pos, float size_x, float size_y, Enums::ColliderAlgorithm algo, Enums::ColliderType type) : collider{ 0.f, 0.f, size_x, size_y }, position(pos),
+	ICollider::ICollider(glm::vec3* pos, float size_x, float size_y, Enums::ColliderAlgorithm algo, Enums::ColliderType type) : collider{ glm::vec2{0.f, 0.f}, glm::vec2{size_x, size_y } }, position(pos),
 		algorithm(algo), colliderType(type), requireUpdate(true), convexCollider(fromBox(0.f, 0.f, size_x, size_y)),
 		drawColliders(Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX])
 	{
@@ -161,16 +160,16 @@ namespace Interfaces {
 		return *this;
 	}
 
-	std::tuple<Core::Vector2f, bool> ICollider::Collides(ICollider* other)
+	std::tuple<glm::vec2, bool> ICollider::Collides(ICollider* other)
 	{
 		if (within(other->position->z, 0.1f, 0.9f) && colliderType != Enums::ColliderType::Void && other->colliderType != Enums::ColliderType::Void)
 			return intersect(convexCollider, collider.getCenter(), ((ICollider*)other)->convexCollider, other->collider.getCenter());
 		return { {0,0}, false };
 	}
 
-	void ICollider::updateColliderPos(const Core::Vector2f& pos, const float& extra_offset)
+	void ICollider::updateColliderPos(const glm::vec3& pos, const float& extra_offset)
 	{
-		collider.pos = { pos.x, pos.y - extra_offset };
+		collider.pos = { pos.x, pos.y - extra_offset};
 		//convexCollider.setPosition(collider.getCenter().x, collider.getCenter().y);
 
 	}

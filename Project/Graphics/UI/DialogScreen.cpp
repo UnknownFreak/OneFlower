@@ -95,6 +95,6 @@ void Graphics::UI::DialogScreen::render()
 	}
 }
 
-void Graphics::UI::DialogScreen::onMouseHover(const Core::Vector2f&)
+void Graphics::UI::DialogScreen::onMouseHover(const glm::vec2&)
 {
 }

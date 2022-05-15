@@ -1,7 +1,6 @@
 #ifndef EntityCollider_HPP
 #define EntityCollider_HPP
 
-#include <Helpers/Vector3.hpp>
 #include <Object/Transform.hpp>
 #include <Interfaces/ICollider.hpp>
 
@@ -13,11 +12,11 @@ class Collider : public Interfaces::ICollider, public Component::IBase<Collider>
 
 public:
 	ICollider* floor = nullptr;
-	Core::Vector2f hitboxOffset;
+	glm::vec2 hitboxOffset;
 
 	Collider();
-	Collider(const Core::Vector2f& size);
-	Collider(const Core::Vector2f& size, const Core::Vector2f& hitboxOffset);
+	Collider(const glm::vec2& size);
+	Collider(const glm::vec2& size, const glm::vec2& hitboxOffset);
 	Collider(const Collider& copy);
 	~Collider();
 
@@ -33,7 +32,7 @@ public:
 	void attachOn(GameObject* go);
 
 	virtual void doParentSimulate(const float& fElapsedTime) override;
-	virtual std::tuple<Core::Vector2f, bool> Collides(ICollider* other) override;
+	virtual std::tuple<glm::vec2, bool> Collides(ICollider* other) override;
 
 
 	// Inherited via IBase
@@ -51,13 +50,13 @@ public:
 	void save(Archive& ar) const
 	{
 		cereal::base_class<Interfaces::ICollider>(this);
-		ar(hitboxOffset);
+		ar(hitboxOffset.x, hitboxOffset.y);
 	}
 	template <class Archive>
 	void load(Archive& ar)
 	{
 		cereal::base_class<Interfaces::ICollider>(this);
-		ar(hitboxOffset);
+		ar(hitboxOffset.x, hitboxOffset.y);
 	}
 };
 

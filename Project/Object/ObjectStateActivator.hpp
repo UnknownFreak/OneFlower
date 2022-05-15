@@ -4,7 +4,6 @@
 
 #include <Helpers/Enum/ObjectState.hpp>
 #include <Helpers/uuid.hpp>
-#include <Helpers/Vector3.hpp>
 #include "IBaseComponent.hpp"
 #include <Interfaces/ICollider.hpp>
 

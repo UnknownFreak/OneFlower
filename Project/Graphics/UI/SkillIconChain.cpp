@@ -20,9 +20,9 @@ void Graphics::UI::SkillIconChain::update()
 	}
 }
 
-void Graphics::UI::SkillIconChain::updatePos(const Core::Vector2f& newPos)
+void Graphics::UI::SkillIconChain::updatePos(const glm::vec2& newPos)
 {
-	Core::Vector2f offset = { 0,0 };
+	glm::vec2 offset(0.f);
 	for (auto& icon : icons)
 	{
 		icon.setPosition(newPos + offset);
@@ -30,7 +30,7 @@ void Graphics::UI::SkillIconChain::updatePos(const Core::Vector2f& newPos)
 	}
 }
 
-void Graphics::UI::SkillIconChain::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::SkillIconChain::onMouseHover(const glm::vec2& mouse)
 {
 	for (auto& icon : icons)
 	{

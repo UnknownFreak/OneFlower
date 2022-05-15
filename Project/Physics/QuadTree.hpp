@@ -91,17 +91,17 @@ namespace quadtree
                 return Rect<Float>{origin, childSize};
                 // Norst East
             case 1:
-                return Rect<Float>{Vector2t<Float>{origin.x + childSize.x, origin.y}, childSize};
+                return Rect<Float>{glm::vec2{origin.x + childSize.x, origin.y}, childSize};
                 // South West
             case 2:
-                return Rect<Float>{Vector2t<Float>{origin.x, origin.y + childSize.y}, childSize
+                return Rect<Float>{glm::vec2{origin.x, origin.y + childSize.y}, childSize
             };
                 // South East
             case 3:
                 return Rect<Float>{origin + childSize, childSize};
             default:
                 assert(false && "Invalid child index");
-                return { 0,0,0,0 };
+                return { glm::vec2(0.f),glm::vec2(0.f) };
             }
         }
 

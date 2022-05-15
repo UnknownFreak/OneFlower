@@ -40,7 +40,7 @@ namespace File
 	public:
 		File::Mod::ModFileUUIDHelper currentZone;
 		File::Mod::ModFileUUIDHelper loadingScreen;
-		Core::Vector3f point;
+		glm::vec3 point;
 		GameObject player;
 
 		bool isTriggered(const Core::uuid& uuid) const;

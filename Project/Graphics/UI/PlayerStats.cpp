@@ -68,7 +68,7 @@ void Graphics::UI::PlayerStats::render()
 	//ImGui::EndFrame();
 }
 
-void Graphics::UI::PlayerStats::onMouseHover(const Core::Vector2f& mouse)
+void Graphics::UI::PlayerStats::onMouseHover(const glm::vec2& mouse)
 {
 	healthBar.onMouseHover(mouse);
 	manaBar.onMouseHover(mouse);

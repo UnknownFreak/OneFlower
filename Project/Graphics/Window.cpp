@@ -2,6 +2,8 @@
 
 #include <Object/GameObject.hpp>
 #include <Object/BaseComponent.hpp>
+#include <Object/ObjectInstanceHandler.hpp>
+
 #include "Render.hpp"
 #include <Physics/Colliders/EntityCollider.hpp>
 #include <Physics/Colliders/VisionCollider.hpp>
@@ -145,6 +147,10 @@ namespace Graphics
 		title += "GameObject Transform count: " + std::to_string(positions.size()) + "\n";
 		title += "GameObject Model count: " + std::to_string(models.size()) + "\n";
 
+		auto player = Engine::GetModule<EngineModule::ObjectInstanceHandler>().getPlayer();
+		auto pos = player->getComponent<Component::Transform>()->pos;
+		title += "Player pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + "\n";
+
 		ImGui_ImplSwizzle_NewFrame(mWindow);
 		ImGui::NewFrame();
 
@@ -214,11 +220,11 @@ namespace Graphics
 		{
 		
 			auto& model = models[i];
-			t.model = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-			t.model *= glm::rotate(glm::mat4(1.f), 0.f, glm::vec3(1.f, 0.f, 0.f));
-			t.model *= glm::rotate(glm::mat4(1.f), 0.f, glm::vec3(0.f, 1.f, 0.f));
-			t.model *= glm::rotate(glm::mat4(1.f), positions[i]->facingAngle, glm::vec3(0.f, 0.f, 1.f));
-			t.model *= glm::translate(glm::mat4(1.f), glm::vec3(0.f));
+			//t.model = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
+			t.model = glm::translate(glm::mat4(1.f), positions[i]->buffered);
+			t.model = glm::rotate(t.model, 0.f, glm::vec3(1.f, 0.f, 0.f));
+			t.model = glm::rotate(t.model, 0.f, glm::vec3(0.f, 1.f, 0.f));
+			t.model = glm::rotate(t.model, positions[i]->facingAngle, glm::vec3(0.f, 0.f, 1.f));
 
 			positions[i]->facingAngle += 1.f / 255.f;
 
@@ -279,7 +285,7 @@ namespace Graphics
 		limit;
 	}
 
-	void RenderWindow::moveCamera(const Core::Vector2f& vec)
+	void RenderWindow::moveCamera(const glm::vec2& vec)
 	{
 		vec;
 		//auto view = (sf::View&)window->getView();
@@ -287,7 +293,7 @@ namespace Graphics
 		//window->setView(view);
 	}
 
-	void RenderWindow::addRenderable(const int& , const Core::String& , const Core::Vector2& , const float&, const Core::String& , const Enums::TileTypes& , bool )
+	void RenderWindow::addRenderable(const int& , const Core::String& , const glm::vec2& , const float&, const Core::String& , const Enums::TileTypes& , bool )
 	{
 	}
 

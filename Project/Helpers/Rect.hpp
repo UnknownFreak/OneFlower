@@ -1,6 +1,7 @@
 #ifndef RECT_HPP
 #define RECT_HPP
-#include <Helpers/Vector.hpp>
+
+#include <glm/glm.hpp>
 #include <algorithm>
 
 #ifdef min
@@ -18,7 +19,7 @@ struct Rect
 #pragma warning(disable: 4201)  // nonstandard extension used : nameless struct/union
 	union
 	{
-		struct { Vector2t<T> pos, size; };
+		struct { glm::vec2 pos, size; };
 		struct { T x, y, w, h; };
 	};
 #pragma warning(pop)
@@ -96,25 +97,25 @@ struct Rect
 		return y + h;
 	}
 
-	inline Vector2t<T> getTopLeft() const noexcept
+	inline glm::vec2 getTopLeft() const noexcept
 	{
-		return {x, y};
+		return {(float)x, (float)y};
 	}
 
-	inline Vector2t<T> getCenter() const noexcept
+	inline glm::vec2 getCenter() const noexcept
 	{
-		return {x + w / 2, y + h / 2};
+		return {(float)x + w / 2, (float)y + h / 2};
 	}
 
-	inline Vector2t<T> getSize() const noexcept
+	inline glm::vec2 getSize() const noexcept
 	{
-		return {w, h};
+		return {(float)w, (float)h};
 	}
 
 	template <class Archive>
 	void save(Archive& saver) const
 	{
-		saver(x,y,w,h);
+		saver(x, y, w, h);
 	}
 
 	template <class Archive>
