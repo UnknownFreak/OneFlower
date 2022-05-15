@@ -1,0 +1,1 @@
+https://tools.wwwtyro.net/space-3d/index.html#animationSpeed=0.08199880281747889&fov=90&nebulae=true&pointStars=true&resolution=4096&seed=65da91z8ohc0&stars=true&sun=true

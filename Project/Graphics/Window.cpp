@@ -22,8 +22,10 @@ namespace Graphics
 	{
 	}
 
-	void RenderWindow::AddRenderable(GameObject* )
+	void RenderWindow::AddRenderable(GameObject* go)
 	{
+		models.push_back(go->getComponent<Render>()->model);
+		positions.push_back(go->getSharedComponent<Component::Transform>());
 	}
 	void RenderWindow::RemoveRenderable(GameObject* )
 	{
@@ -96,13 +98,16 @@ namespace Graphics
 		return mCmdBuffer;
 	}
 
+	std::shared_ptr<swizzle::gfx::Swapchain>& RenderWindow::getSwapchain()
+	{
+		return mSwapchain;
+	}
+
 	void RenderWindow::draw()
 	{
-		//mFpsCounter.tick(dt);
 		std::string title;
 		title.reserve(1024);
 		title += "Frames: " + std::to_string(mSwapchain->getFrameCounter()) + "\n";
-		title += "FPS: " + std::to_string(mFpsCounter.getFps()) + "\n\n";
 
 		title += std::string(mGfxContext->getSelectedDeviceName()) + "\n";
 
@@ -184,7 +189,7 @@ namespace Graphics
 		t.proj = cam.getProjection();
 		t.eye = glm::vec4(cam.getPosition(), 1.0F);
 
-		mSwapchain->setClearColor({ 0, 0, 0, 1 });
+		mSwapchain->setClearColor({ 255, 255, 255, 255 });
 
 		mSwapchain->prepare();
 		mCmdBuffer->begin();
@@ -209,12 +214,18 @@ namespace Graphics
 		{
 		
 			auto& model = models[i];
-		
-			// prepare material/ shader bindings
-		
-			t.model = glm::translate(glm::mat4(1.f), glm::vec3(1.f));
+			t.model = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
+			t.model *= glm::rotate(glm::mat4(1.f), 0.f, glm::vec3(1.f, 0.f, 0.f));
+			t.model *= glm::rotate(glm::mat4(1.f), 0.f, glm::vec3(0.f, 1.f, 0.f));
+			t.model *= glm::rotate(glm::mat4(1.f), positions[i]->facingAngle, glm::vec3(0.f, 0.f, 1.f));
+			t.model *= glm::translate(glm::mat4(1.f), glm::vec3(0.f));
+
+			positions[i]->facingAngle += 1.f / 255.f;
+
+			mCmdBuffer->bindShader(model->shader);
+			mCmdBuffer->bindMaterial(model->shader, model->material);
 			mCmdBuffer->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
-			mCmdBuffer->drawIndexed(model->mesh->mVertexBuffer, model->mesh->mIndexBuffer);
+			mCmdBuffer->drawIndexed(model->mesh.mVertexBuffer, model->mesh.mIndexBuffer);
 		}
 
 		mCmdBuffer->bindShader(mFsq);

@@ -59,6 +59,7 @@ namespace Graphics
 
 		std::shared_ptr<swizzle::gfx::GfxContext>& getGfxContext();
 		std::shared_ptr<swizzle::gfx::CommandBuffer>& getCommandBuffer();
+		std::shared_ptr<swizzle::gfx::Swapchain>& getSwapchain();
 
 		void draw();
 		void drawUI();

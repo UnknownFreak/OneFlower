@@ -25,6 +25,7 @@ namespace Enums
 		RandomGen,
 		SaveFile,
 		MeshLoader,
+		ShaderLoader,
 		NOT_SET,
 	};
 }

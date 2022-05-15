@@ -13,6 +13,6 @@ namespace Graphics
 		std::shared_ptr<swizzle::gfx::Texture> texture;
 		std::shared_ptr<swizzle::gfx::Material> material;
 		std::shared_ptr<swizzle::gfx::Shader> shader;
-		std::shared_ptr<swizzle::Mesh> mesh;
+		swizzle::Mesh mesh;
 	};
 }

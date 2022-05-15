@@ -13,15 +13,16 @@ class Render : public Component::IBase<Render>
 
 	Component::Transform* transform;
 
-	std::shared_ptr<Graphics::Model> model;
 
 	Core::String textureName;
-
-	File::Mod::ModFileUUIDHelper modelId;
+	Core::String meshName;
+	Core::String shaderName;
 
 	void loadAndSetModel();
 
 public:
+	std::shared_ptr<Graphics::Model> model;
+
 	~Render();
 
 	void detach();
@@ -45,13 +46,15 @@ public:
 	void save(Archive& ar) const
 	{
 		ar(textureName);
-		ar(modelId);
+		ar(meshName);
+		ar(shaderName);
 	}
 	template<class Archive>
 	void load(Archive& ar)
 	{
 		ar(textureName);
-		ar(modelId);
+		ar(meshName);
+		ar(shaderName);
 		loadAndSetModel();
 	}
 };

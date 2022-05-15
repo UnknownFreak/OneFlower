@@ -283,6 +283,9 @@
     <Filter Include="Engine\Graphics\Camera">
       <UniqueIdentifier>{5f515fb4-9d79-441f-a467-272583148dea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\File\Resource\Shader">
+      <UniqueIdentifier>{468de5d0-0209-4785-a324-1f98d95648b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -677,6 +680,9 @@
     </ClCompile>
     <ClCompile Include="Project\File\Resource\MeshLoader.cpp">
       <Filter>Engine\File\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\File\Resource\ShaderLoader.cpp">
+      <Filter>Engine\File\Resource\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1207,6 +1213,9 @@
     </ClInclude>
     <ClInclude Include="Project\File\Resource\MeshLoader.hpp">
       <Filter>Engine\File\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\File\Resource\ShaderLoader.hpp">
+      <Filter>Engine\File\Resource\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

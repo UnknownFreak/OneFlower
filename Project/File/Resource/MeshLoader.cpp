@@ -22,19 +22,18 @@ namespace File::Resource::Mesh
 #endif
 		mtx.lock();
 		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
-		loadedMeshes.insert(
-			std::make_pair(name, std::make_shared<swizzle::Mesh>(swizzle::asset::LoadMesh(wnd.getGfxContext(), path.c_str(), true))));
+		loadedMeshes.insert(std::make_pair(name, swizzle::asset::LoadMesh(wnd.getGfxContext(), path.c_str(), true)));
 		mtx.unlock();
 		return true;
 	}
 
-	std::shared_ptr<swizzle::Mesh>& Loader::requestMesh(const Core::String& name, const Core::String& path)
+	swizzle::Mesh Loader::requestMesh(const Core::String& name, const Core::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::Mesh>>::iterator it;
+			std::unordered_map<Core::String, swizzle::Mesh>::iterator it;
 			it = loadedMeshes.find(path + name);
-
+			lastResult = true;
 			if (it != loadedMeshes.end())
 				return it->second;
 
@@ -42,21 +41,27 @@ namespace File::Resource::Mesh
 				return loadedMeshes.find(path + name)->second;
 
 			//LOW set propper texturename
-			it = loadedMeshes.find(Globals::texturePath + missingMesh);
+			it = loadedMeshes.find(Globals::meshPath + missingMesh);
+			lastResult = false;
 			if (it != loadedMeshes.end())
 				return it->second;
 			loadMesh(Globals::meshPath + missingMesh);
-			return loadedMeshes.find(Globals::texturePath + missingMesh)->second;
+			return loadedMeshes.find(Globals::meshPath + missingMesh)->second;
 		}
 		return requestMesh(missingMesh, Globals::meshPath);
+	}
+
+	bool Loader::getResult()
+	{
+		return lastResult;
 	}
 
 	void Loader::requestRemovalOfMesh(const Core::String& name)
 	{
 		if (loadedMeshes.find(name) != loadedMeshes.end())
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
-			logger.Info("Unloading texture " + name, logger.fileInfo(__FILE__, __LINE__));
+			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			logger.Info("Unloading mesh " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedMeshes.erase(name);
 		}
 	}

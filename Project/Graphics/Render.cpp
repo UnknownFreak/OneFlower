@@ -2,7 +2,10 @@
 #include <Object/GameObject.hpp>
 #include <File/Asset/Manager.hpp>
 #include <Graphics/Window.hpp>
+
 #include <File/Resource/TextureLoader.hpp>
+#include <File/Resource/MeshLoader.hpp>
+#include <File/Resource/ShaderLoader.hpp>
 
 #include <Physics/Colliders/EntityCollider.hpp>
 
@@ -12,14 +15,23 @@ Core::String Component::IBase<Render>::componentName = "Render";
 void Render::loadAndSetModel()
 {
 	textureName = "temporary.png";
+	meshName = "test.swm";
+	shaderName = "simple.shader";
 
 	model = std::make_shared<Graphics::Model>();
 
-	model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
-//	model->material = ...;
-//	model->shader = ...;
+	model->mesh = Engine::GetModule<File::Resource::Mesh::Loader>().requestMesh(meshName);
+	if (Engine::GetModule<File::Resource::Mesh::Loader>().getResult() == false)
+	{
+		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("missingMeshTexture.png");
+	}
+	else
+		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
+	model->shader = Engine::GetModule<File::Resource::Shader::Loader>().requestShader(shaderName);
+	auto& gfxContext = Engine::GetModule<Graphics::RenderWindow>().getGfxContext();
+	model->material = gfxContext->createMaterial(model->shader);
 
-//	model->mesh = ...;
+	model->material->setDescriptorTextureResource(0u, model->texture);
 
 	initialized = true;
 }
@@ -46,10 +58,10 @@ std::unique_ptr<Component::Base> Render::ucopy() const
 void Render::attachOn(GameObject* go)
 {
 	Render::Base::attachOn(go);
-	transform = go->getComponent<Component::Transform>();
-	Engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 	//go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 	loadAndSetModel();
+	transform = go->getComponent<Component::Transform>();
+	Engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 }
 
 void Render::onCollision(Interfaces::ICollider*)

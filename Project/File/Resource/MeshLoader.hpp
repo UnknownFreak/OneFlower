@@ -14,13 +14,15 @@ namespace File::Resource::Mesh
 {
 	class Loader : public Interfaces::IEngineResource<Loader>
 	{
+		bool lastResult = false;
 		std::mutex mtx;
-		const Core::String missingMesh = "missingMesh.png";
-		std::unordered_map<Core::String, std::shared_ptr<swizzle::Mesh>> loadedMeshes;
+		const Core::String missingMesh = "missingMesh.swm";
+		std::unordered_map<Core::String, swizzle::Mesh> loadedMeshes;
 		bool loadMesh(const Core::String& name);
 
 	public:
-		std::shared_ptr<swizzle::Mesh>& requestMesh(const Core::String& name, const Core::String& path = Globals::meshPath);
+		swizzle::Mesh requestMesh(const Core::String& name, const Core::String& path = Globals::meshPath);
+		bool getResult();
 
 		void requestRemovalOfMesh(const Core::String& name);
 
