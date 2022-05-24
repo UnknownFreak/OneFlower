@@ -2,6 +2,8 @@
 #define CONSOLE_HPP
 
 #include <vector>
+#include <unordered_map>
+#include <functional>
 #include <mutex>
 #include <Interfaces\IEngineModule.hpp>
 #include <Helpers/String.hpp>

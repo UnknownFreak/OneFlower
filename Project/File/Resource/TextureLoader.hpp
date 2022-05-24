@@ -19,9 +19,11 @@ namespace File::Resource::Texture
 		/*std::map<Settings::EngineSettings::TextureRes,*/
 		std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>/*> */loadedTextureMap;
 		bool loadTexture(const Core::String& name);
+		bool loadCubeMap(const Core::String& folderName);
 
 	public:
 		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const Core::String& name, const Core::String& path = Globals::texturePath);
+		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const Core::String& folderName, const Core::String& path = Globals::skyboxTexturePath);
 
 		void requestRemovalOfTexture(const Core::String& name);
 

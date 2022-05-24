@@ -28,7 +28,8 @@ void Render::loadAndSetModel()
 	else
 		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
 	model->shader = Engine::GetModule<File::Resource::Shader::Loader>().requestShader(shaderName);
-	auto& gfxContext = Engine::GetModule<Graphics::RenderWindow>().getGfxContext();
+	auto gfxContext = Engine::GetModule<Graphics::RenderWindow>().getGfxContext();
+
 	model->material = gfxContext->createMaterial(model->shader);
 
 	model->material->setDescriptorTextureResource(0u, model->texture);

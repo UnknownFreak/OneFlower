@@ -1,6 +1,7 @@
 #ifndef String_HPP
 #define String_HPP
 
+#include <iostream>
 #include <codecvt>
 #include <string>
 #include <algorithm>

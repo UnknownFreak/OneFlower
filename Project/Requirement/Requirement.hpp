@@ -6,6 +6,7 @@ namespace Requirement
 {
 	struct Requirement
 	{
+		inline virtual ~Requirement() {  };
 		virtual bool fullfilled() = 0;
 		inline virtual void start() {};
 		inline virtual void reset() {};

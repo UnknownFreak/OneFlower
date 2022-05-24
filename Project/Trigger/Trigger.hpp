@@ -14,6 +14,9 @@ namespace Trigger
 
 	public:
 
+
+		inline virtual ~Trigger() {};
+
 		bool triggerOnce;
 		Core::uuid uuid;
 

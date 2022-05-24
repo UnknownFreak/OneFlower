@@ -5,10 +5,13 @@
 #include <Object/ObjectInstanceHandler.hpp>
 
 #include "Render.hpp"
+#include "mvp.hpp"
+
 #include <Physics/Colliders/EntityCollider.hpp>
 #include <Physics/Colliders/VisionCollider.hpp>
 #include <Graphics/PlayerInteractionPrompt.hpp>
 #include <File/GameConfig.hpp>
+#include <File/Resource/ShaderLoader.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -16,6 +19,8 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_swizzle.hpp>
 #include <utils/StringUtils.hpp>
+
+#include <swizzle/asset/TextureLoader.hpp>
 
 Enums::EngineResourceType Interfaces::IEngineResource<Graphics::RenderWindow>::type = Enums::EngineResourceType::Graphics;
 namespace Graphics
@@ -49,25 +54,25 @@ namespace Graphics
 
 		mSwapchain->setVsync(sw::gfx::VSyncTypes::vSyncOn);
 		mCmdBuffer = mGfxContext->createCommandBuffer(3);
+		mUploadBuffer = mGfxContext->createCommandBuffer(1);
 
 		cam.setPosition({ 0.0F, 0.0F, 5.5F });
-
-		mUniformBuffer = mGfxContext->createBuffer(sw::gfx::BufferType::UniformBuffer);
 
 
 		sw::gfx::ShaderAttributeList attribFsq = {};
 		attribFsq.mEnableBlending = true;
 
-		mFsq = mSwapchain->createShader(attribFsq);
-		mFsq->load("swizzle/data/shaders/fsq.shader");
-
+		mFsq = Engine::GetModule<File::Resource::Shader::Loader>().requestShader("fsq.shader", attribFsq);
+		
 		mFsqMat = mGfxContext->createMaterial(mFsq);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
+
+		mSkybox.setSkyBox("dark");
+
 	}
 
 	SwBool RenderWindow::userUpdate(F32 )
 	{
-		
 		return mWindow->isVisible();
 	}
 
@@ -90,23 +95,29 @@ namespace Graphics
 	{
 	}
 
-	std::shared_ptr<swizzle::gfx::GfxContext>& RenderWindow::getGfxContext()
+	std::shared_ptr<swizzle::gfx::GfxContext> RenderWindow::getGfxContext()
 	{
 		return mGfxContext;
 	}
 
-	std::shared_ptr<swizzle::gfx::CommandBuffer>& RenderWindow::getCommandBuffer()
+	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getCommandBuffer()
 	{
 		return mCmdBuffer;
 	}
 
-	std::shared_ptr<swizzle::gfx::Swapchain>& RenderWindow::getSwapchain()
+	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getUploadBuffer()
+	{
+		return mUploadBuffer;
+	}
+
+	std::shared_ptr<swizzle::gfx::Swapchain> RenderWindow::getSwapchain()
 	{
 		return mSwapchain;
 	}
 
 	void RenderWindow::draw()
 	{
+		//mWindow->pollEvents();
 		std::string title;
 		title.reserve(1024);
 		title += "Frames: " + std::to_string(mSwapchain->getFrameCounter()) + "\n";
@@ -153,54 +164,50 @@ namespace Graphics
 
 		ImGui_ImplSwizzle_NewFrame(mWindow);
 		ImGui::NewFrame();
-
+		
 		ImGui::Begin("Stats");
 		{
 			OPTICK_EVENT("ImGui::Text");
 			ImGui::Text("%s", title.c_str());
 		}
-
-
+		
+		
 		ImGui::End();
-
+		
 		ImGui::Begin("Other");
 		{
 			ImGui::Text("%s", "foo");
 		}
-
-
+		
+		
 		ImGui::End();
-
+		
 		ui.render();
-
+		
 		ImGui::EndFrame();
 
 		//draw();
 
-
+		//cam.lookAt(glm::vec3(-15.f, -15.f, 15.f), positions[0]->pos);
 		U32 x, y;
 		mWindow->getSize(x, y);
 		cam.changeAspect((F32)x, (F32)y);
 
-		struct tmp
-		{
-			glm::mat4 model;
-			glm::mat4 view;
-			glm::mat4 proj;
-			glm::vec4 eye;
-		};
-
-		tmp t = {};
+		MVP t = {};
+		t.model = glm::translate(glm::mat4(1.f), { cam.getPosition() });
 		t.view = cam.getView();
 		t.proj = cam.getProjection();
 		t.eye = glm::vec4(cam.getPosition(), 1.0F);
 
-		mSwapchain->setClearColor({ 255, 255, 255, 255 });
+		//mSwapchain->setClearColor({ 0,0,0,1 });
 
 		mSwapchain->prepare();
 		mCmdBuffer->begin();
 
 		// upload textures
+
+		// TMP: fixme someday
+		//mCmdBuffer->uploadTexture(mSkybox.mModel->texture);
 
 		ImGui_ImplSwizzle_UploadFontTexture(mCmdBuffer);
 		
@@ -210,11 +217,15 @@ namespace Graphics
 		ImGui_ImplSwizzle_RenderDrawData(ImGui::GetDrawData(), mCmdBuffer);
 		ImGui_ImplSwizzle_EndDraw(mCmdBuffer);
 		
-
+		
 		ImGui_ImplSwizzle_NewFrame(mWindow);
 
 		mCmdBuffer->beginRenderPass(mSwapchain);
+		
 		mCmdBuffer->setViewport(x, y);
+		
+
+		mSkybox.render(mCmdBuffer, t);
 
 		for (size_t i = 0; i < positions.size(); i++)
 		{
@@ -225,9 +236,9 @@ namespace Graphics
 			t.model = glm::rotate(t.model, 0.f, glm::vec3(1.f, 0.f, 0.f));
 			t.model = glm::rotate(t.model, 0.f, glm::vec3(0.f, 1.f, 0.f));
 			t.model = glm::rotate(t.model, positions[i]->facingAngle, glm::vec3(0.f, 0.f, 1.f));
-
+		
 			positions[i]->facingAngle += 1.f / 255.f;
-
+		
 			mCmdBuffer->bindShader(model->shader);
 			mCmdBuffer->bindMaterial(model->shader, model->material);
 			mCmdBuffer->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
@@ -241,7 +252,7 @@ namespace Graphics
 		mCmdBuffer->endRenderPass();
 		mCmdBuffer->end();
 
-		mGfxContext->submit(&mCmdBuffer, 1, mSwapchain);
+		mGfxContext->submit(&mCmdBuffer, 1u, mSwapchain);
 		mSwapchain->present();
 
 	}

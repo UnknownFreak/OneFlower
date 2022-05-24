@@ -112,7 +112,11 @@ class EngineLogger : public swizzle::core::LogDevice
 [System::STAThread]
 #endif
 #pragma warning(disable: 28251)
-int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR /*lpCmnLine*/, int /*nShowCmd*/)
+#ifdef  _DEBUG
+	int main(int , char* )
+#else //  _DEBUG
+	int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR /*lpCmnLine*/, int /*nShowCmd*/)
+#endif
 {
 	initializeSystems();
 	EngineLogger logger;

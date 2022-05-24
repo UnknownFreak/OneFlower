@@ -16,7 +16,9 @@
 
 #include "Camera.hpp"
 #include "CameraController.hpp"
-#include <utils/FpsCounter.hpp>
+#include "SkyBox.hpp"
+
+#include <swizzle/asset/MeshLoader.hpp>
 
 namespace Component
 {
@@ -27,6 +29,7 @@ namespace Graphics
 {
 	class RenderWindow : public Interfaces::IEngineResource<RenderWindow>, public sw::Application
 	{
+
 		common::Resource<sw::gfx::Shader> mFsq;
 		common::Resource<sw::gfx::Material> mFsqMat;
 
@@ -36,14 +39,14 @@ namespace Graphics
 		std::vector<std::shared_ptr<Model>> models;
 		std::vector<std::shared_ptr<Component::Transform>> positions;
 
+		common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;
-		common::Resource<sw::gfx::Buffer> mUniformBuffer;
 
 		TransparencyMasker masker;
 		const bool& drawHitbox;
 
 		void ProcessCulling();
-		utils::FpsCounter mFpsCounter;
+		Skybox mSkybox;
 
 	public:
 		Graphics::UI::UIHandler& ui;
@@ -59,9 +62,10 @@ namespace Graphics
 		RenderWindow();
 		~RenderWindow();
 
-		std::shared_ptr<swizzle::gfx::GfxContext>& getGfxContext();
-		std::shared_ptr<swizzle::gfx::CommandBuffer>& getCommandBuffer();
-		std::shared_ptr<swizzle::gfx::Swapchain>& getSwapchain();
+		std::shared_ptr<swizzle::gfx::GfxContext> getGfxContext();
+		std::shared_ptr<swizzle::gfx::CommandBuffer> getCommandBuffer();
+		std::shared_ptr<swizzle::gfx::CommandBuffer> getUploadBuffer();
+		std::shared_ptr<swizzle::gfx::Swapchain> getSwapchain();
 
 		void draw();
 		void drawUI();

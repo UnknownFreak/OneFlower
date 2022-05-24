@@ -58,6 +58,7 @@ public:
 	}
 
 	static const Core::String texturePath;
+	static const Core::String skyboxTexturePath;
 	static const Core::String uiTexturePath;
 	static const Core::String tileTexturePath;
 	static const Core::String meshPath;

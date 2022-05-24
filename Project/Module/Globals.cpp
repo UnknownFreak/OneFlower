@@ -7,6 +7,7 @@
 Enums::EngineResourceType Interfaces::IEngineResource<Globals>::type = Enums::EngineResourceType::Globals;
 
 const Core::String Globals::texturePath = "Textures/";
+const Core::String Globals::skyboxTexturePath = Globals::texturePath + "skybox/";
 const Core::String Globals::uiTexturePath = Globals::texturePath + "Ui/";
 const Core::String Globals::tileTexturePath = Globals::texturePath + "Tiles/";
 const Core::String Globals::meshPath = "Meshes/";

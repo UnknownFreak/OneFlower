@@ -271,17 +271,8 @@
     <Filter Include="Engine\Graphics\UI\Stats">
       <UniqueIdentifier>{c1e16dd8-ab6e-4cc0-b241-88f4aa487876}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\RenderWindow">
-      <UniqueIdentifier>{040d3bc4-6ec4-4571-8071-2fe6b487dfb2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\Component">
       <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Model">
-      <UniqueIdentifier>{2e1e5fba-e3bf-456e-822b-7d412b0c84e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Camera">
-      <UniqueIdentifier>{5f515fb4-9d79-441f-a467-272583148dea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\File\Resource\Shader">
       <UniqueIdentifier>{468de5d0-0209-4785-a324-1f98d95648b7}</UniqueIdentifier>
@@ -368,9 +359,6 @@
     </ClCompile>
     <ClCompile Include="Project\Module\Globals.cpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\Window.cpp">
-      <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\ListDir.cpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -663,12 +651,6 @@
     <ClCompile Include="Project\Object\Interactable.cpp">
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\Camera.cpp">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\CameraController.cpp">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -680,6 +662,18 @@
     </ClCompile>
     <ClCompile Include="Project\File\Resource\ShaderLoader.cpp">
       <Filter>Engine\File\Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Window.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\CameraController.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Camera.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\SkyBox.cpp">
+      <Filter>Engine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -796,9 +790,6 @@
     </ClInclude>
     <ClInclude Include="Project\Module\Globals.hpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Window.hpp">
-      <Filter>Engine\Graphics\RenderWindow</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\ListDir.hpp">
       <Filter>Engine\Helpers\os</Filter>
@@ -1187,15 +1178,6 @@
     <ClInclude Include="Project\Object\Interaction.hpp">
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Graphics\Model.hpp">
-      <Filter>Engine\Graphics\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\CameraController.hpp">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Camera.hpp">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -1207,6 +1189,24 @@
     </ClInclude>
     <ClInclude Include="Project\File\Resource\ShaderLoader.hpp">
       <Filter>Engine\File\Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Model.hpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Window.hpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\CameraController.hpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Camera.hpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\SkyBox.hpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\mvp.hpp">
+      <Filter>Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

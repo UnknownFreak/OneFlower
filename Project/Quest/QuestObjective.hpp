@@ -36,6 +36,8 @@ namespace Questing
 
 	public:
 
+		inline virtual ~QuestObjective() {};
+
 		bool completeOnPendingComplete;
 		bool failOnRequirmentUnfulfilled;
 		// only applies to optional objectives

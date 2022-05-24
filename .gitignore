@@ -38,3 +38,4 @@ Data/Default
 Data/Default.index
 *.save
 imgui.ini
+*.recipe
