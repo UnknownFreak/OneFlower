@@ -34,6 +34,10 @@ namespace Graphics
 			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, sizeof(float) * 3U },
 			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec2f, sizeof(float) * 6U }
 		};
+		attribs.mDescriptors = {
+			{swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+		};
+		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mEnableDepthTest = false;
 		attribs.mEnableBlending = false;
 		

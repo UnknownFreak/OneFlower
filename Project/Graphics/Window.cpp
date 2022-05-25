@@ -60,6 +60,10 @@ namespace Graphics
 
 
 		sw::gfx::ShaderAttributeList attribFsq = {};
+		attribFsq.mDescriptors = {
+			{sw::gfx::DescriptorType::TextureSampler, sw::gfx::Count(1u), {sw::gfx::StageType::fragmentStage}}
+		};
+		attribFsq.mPushConstantSize = 0u;
 		attribFsq.mEnableBlending = true;
 
 		mFsq = Engine::GetModule<File::Resource::Shader::Loader>().requestShader("fsq.shader", attribFsq);

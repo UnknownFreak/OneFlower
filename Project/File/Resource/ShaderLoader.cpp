@@ -46,6 +46,9 @@ namespace File::Resource::Shader
 			{ 0U, sw::gfx::ShaderAttributeDataType::vec3f, sizeof(float) * 3U },
 			{ 0U, sw::gfx::ShaderAttributeDataType::vec2f, sizeof(float) * 6U }
 		};
+		attribs.mDescriptors = {
+			{swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+		};
 		attribs.mEnableDepthTest = true;
 		attribs.mEnableBlending = false;
 		return requestShader(name, attribs, path);

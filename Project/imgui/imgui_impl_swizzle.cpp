@@ -266,7 +266,10 @@ bool ImGui_ImplSwizzle_Init(common::Resource<swizzle::gfx::GfxContext> ctx, comm
     attributeList.mBufferInput = {
         { swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(ImDrawVert) }
     };
-
+    attributeList.mDescriptors = {
+        {swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+    };
+    attributeList.mPushConstantSize = sizeof(float) * 4u;
     attributeList.mEnableDepthTest = false;
     attributeList.mEnableBlending = true;
     attributeList.mPoints = false;
@@ -523,7 +526,7 @@ void ImGui_ImplVulkan_SetupRenderState(ImDrawData* draw_data, common::Resource<s
     data.scale[0] = 2.0f / draw_data->DisplaySize.x;
     data.scale[1] = (-2.0f) / draw_data->DisplaySize.y;
     data.translate[0] = (-1.0f) - (draw_data->DisplayPos.x * data.scale[0]);
-    data.translate[1] = 1.0f - (draw_data->DisplayPos.y * data.scale[1]);
+    data.translate[1] = (1.0f) - (draw_data->DisplayPos.y * data.scale[1]);
 
     command_buffer->setShaderConstant(bd->mShader, (U8*)&data, sizeof(data));
     if (draw_data->TotalVtxCount > 0)

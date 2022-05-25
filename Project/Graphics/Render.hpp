@@ -13,7 +13,6 @@ class Render : public Component::IBase<Render>
 
 	Component::Transform* transform;
 
-
 	Core::String textureName;
 	Core::String meshName;
 	Core::String shaderName;
