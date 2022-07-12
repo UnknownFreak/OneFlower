@@ -61,6 +61,10 @@ void EngineModule::ObjectInstanceHandler::processDeletedObjects(const float& ela
 			objects.erase(id);
 			it = objectsToDelete.erase(it);
 		}
+		else
+		{
+			it++;
+		}
 	}
 }
 
