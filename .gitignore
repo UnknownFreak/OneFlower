@@ -39,3 +39,6 @@ Data/Default.index
 *.save
 imgui.ini
 *.recipe
+x64/Release/_IsIncrementalBuild
+x64/Release/optick.exp
+x64/Release/swizzle.exp
