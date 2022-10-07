@@ -64,7 +64,7 @@ int GameEntry::Run()
 void GameEntry::render()
 {
 	auto fps = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::FPS);
-	while (!m_exit)
+	while (!m_exit && gfx.isClosing() == false)
 	{
 		if (world.isLoading)
 			gfx.drawUI();
@@ -73,6 +73,7 @@ void GameEntry::render()
 		fps->update();
 		fps->print();
 	}
+	gfx.setThreadStopped();
 }
 
 void GameEntry::physicsUpdate()
@@ -81,7 +82,7 @@ void GameEntry::physicsUpdate()
 	auto ups = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::UPS);
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;
-	while (!m_exit)
+	while (!m_exit && gfx.isClosing() == false)
 	{
 		while (world.isLoading)
 		{

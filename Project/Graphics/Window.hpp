@@ -47,8 +47,11 @@ namespace Graphics
 
 		void ProcessCulling();
 		Skybox mSkybox;
+		bool m_isClosing = false;
+		bool isThreadStopped = false;
 
 	public:
+
 		Graphics::UI::UIHandler& ui;
 
 		float shadowAngle = 0.f;
@@ -94,6 +97,17 @@ namespace Graphics
 		virtual void userSetup() override;
 		virtual SwBool userUpdate(F32 dt) override;
 		virtual void userCleanup() override;
+
+		inline bool isClosing() const
+		{
+			return m_isClosing;
+		}
+
+		inline void setThreadStopped()
+		{
+			isThreadStopped = true;
+		}
+
 };
 }
 
