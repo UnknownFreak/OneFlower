@@ -14,6 +14,8 @@ Core::String Component::IBase<Render>::componentName = "Render";
 
 void Render::loadAndSetModel()
 {
+	auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
+	wnd.getCommandBuffer()->begin();
 	textureName = "temporary.png";
 	meshName = "test.swm";
 	shaderName = "simple.shader";
@@ -35,6 +37,9 @@ void Render::loadAndSetModel()
 	model->material->setDescriptorTextureResource(0u, model->texture);
 
 	initialized = true;
+	wnd.getCommandBuffer()->end();
+	auto buf = wnd.getCommandBuffer();
+	wnd.getGfxContext()->submit(&buf, 1, nullptr);
 }
 
 Render::~Render()
@@ -71,6 +76,7 @@ void Render::onCollision(Interfaces::ICollider*)
 
 void Render::Update()
 {
+	model->material->setDescriptorTextureResource(0u, model->texture);
 }
 
 void Render::Simulate(const float& fElapsedTime)
