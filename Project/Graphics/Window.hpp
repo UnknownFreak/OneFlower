@@ -36,8 +36,8 @@ namespace Graphics
 		PerspectiveCamera cam;
 		CameraController mController;
 
-		std::vector<std::shared_ptr<Model>> models;
-		std::vector<std::shared_ptr<Component::Transform>> positions;
+		std::unordered_map<Core::uuid, std::shared_ptr<Model>> models;
+		std::unordered_map<Core::uuid, std::shared_ptr<Component::Transform>> positions;
 
 		common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;

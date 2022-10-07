@@ -31,11 +31,13 @@ namespace Graphics
 
 	void RenderWindow::AddRenderable(GameObject* go)
 	{
-		models.push_back(go->getComponent<Render>()->model);
-		positions.push_back(go->getSharedComponent<Component::Transform>());
+		models[go->id] = go->getComponent<Render>()->model;
+		positions[go->id] =  go->getSharedComponent<Component::Transform>();
 	}
-	void RenderWindow::RemoveRenderable(GameObject* )
+	void RenderWindow::RemoveRenderable(GameObject* go)
 	{
+		models.erase(go->id);
+		positions.erase(go->id);
 	}
 	TransparencyMasker& RenderWindow::getMasker()
 	{
@@ -82,6 +84,11 @@ namespace Graphics
 
 	void RenderWindow::userCleanup()
 	{
+		m_isClosing = true;
+		while (isThreadStopped == false)
+		{
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
 	}
 
 	void RenderWindow::ProcessCulling()
@@ -231,17 +238,17 @@ namespace Graphics
 
 		mSkybox.render(mCmdBuffer, t);
 
-		for (size_t i = 0; i < positions.size(); i++)
+		for (auto kv : positions)
 		{
 		
-			auto& model = models[i];
+			auto& model = models[kv.first];
 			//t.model = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
-			t.model = glm::translate(glm::mat4(1.f), positions[i]->buffered);
+			t.model = glm::translate(glm::mat4(1.f), kv.second->buffered);
 			t.model = glm::rotate(t.model, 0.f, glm::vec3(1.f, 0.f, 0.f));
 			t.model = glm::rotate(t.model, 0.f, glm::vec3(0.f, 1.f, 0.f));
-			t.model = glm::rotate(t.model, positions[i]->facingAngle, glm::vec3(0.f, 0.f, 1.f));
+			t.model = glm::rotate(t.model, kv.second->facingAngle, glm::vec3(0.f, 0.f, 1.f));
 		
-			positions[i]->facingAngle += 1.f / 255.f;
+			kv.second->facingAngle += 1.f / 255.f;
 		
 			mCmdBuffer->bindShader(model->shader);
 			mCmdBuffer->bindMaterial(model->shader, model->material);
