@@ -49,21 +49,21 @@ namespace Physics
 	{
 		elapsedTimeInternal = fElapsedTime;
 		renderables.clear();
-		runQuery({ glm::vec2{-100000, -100000}, glm::vec2{200000, 200000 } });
+		//runQuery({ glm::vec2{-100000, -100000}, glm::vec2{200000, 200000 } });
 		
-		auto visible_colliders = qt.query(renderBox);
-		for (auto& it : visible_colliders)
-		{
-			auto ptr = it.ptr;
-			if (ptr)
-			{
-				if ((ptr->colliderType == Enums::ColliderType::Entity) | (ptr->colliderType == Enums::ColliderType::StaticEntity))
-				{
-					renderables.push_back(((Collider*)ptr)->attachedOn);
-				}
+		//auto visible_colliders = qt.query(renderBox);
+		//for (auto& it : visible_colliders)
+		//{
+		//	auto ptr = it.ptr;
+		//	if (ptr)
+		//	{
+		//		if ((ptr->colliderType == Enums::ColliderType::Entity) | (ptr->colliderType == Enums::ColliderType::StaticEntity))
+		//		{
+		//			renderables.push_back(((Collider*)ptr)->attachedOn);
+		//		}
 	
-			}
-		}
+		//	}
+		//}
 		Engine::GetModule<Graphics::RenderWindow>().Cull(renderables);
 	}
 	void PhysicsEngine::addCollider(Interfaces::ICollider* collider)
