@@ -48,9 +48,11 @@ namespace File::Resource::Shader
 		};
 		attribs.mDescriptors = {
 			{swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+			{swizzle::gfx::DescriptorType::UniformBuffer, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
 		};
 		attribs.mEnableDepthTest = true;
 		attribs.mEnableBlending = false;
+		attribs.mPushConstantSize = sizeof(glm::mat4)*4;
 		return requestShader(name, attribs, path);
 	}
 
