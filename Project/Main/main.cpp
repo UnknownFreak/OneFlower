@@ -72,21 +72,21 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Core::StringConverter>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Globals>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::Time>().type));
-	
+
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Texture::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Mesh::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Shader::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Asset::Manager>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
-	
+
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Mod::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::RenderWindow>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::UI::UIHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Physics::PhysicsEngine>().type));
-	
+
 	mainModule.Info("Finished initializing engine ");
 }
 
@@ -95,7 +95,8 @@ class EngineLogger : public swizzle::core::LogDevice
 	// Inherited via LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().Always(messageType, ": ", message);
+		//Engine::GetModule<EngineModule::Logger::OneLogger>().Always(messageType, ": ", message);
+		printf("%s: %s\n", messageType, message);
 	}
 
 	EngineLogger& operator=(const EngineLogger& other)
