@@ -52,7 +52,7 @@ int GameEntry::Run()
 
 
 	gfx.run();
-
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_exit = true;
 	render_thread.join();
 	physics_thread.join();
