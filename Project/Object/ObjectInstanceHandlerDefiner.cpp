@@ -1,5 +1,7 @@
 #include "ObjectInstanceHandler.hpp"
 
+#include <imgui/imgui.h>
+
 Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::ObjectInstanceHandler>::type = Enums::EngineResourceType::ObjectInstanceHandler;
 
 GameObject* EngineModule::ObjectInstanceHandler::addObject()
@@ -12,6 +14,10 @@ GameObject* EngineModule::ObjectInstanceHandler::addObject(const Core::uuid& uui
 {
 	objects.insert({ uuid, GameObject() });
 	objects[uuid].id = uuid;
+	if (onAdd.operator bool())
+	{
+		onAdd.operator()(&objects[uuid]);
+	}
 	return &objects[uuid];
 }
 
@@ -38,6 +44,10 @@ void EngineModule::ObjectInstanceHandler::removeObject(GameObject* object, const
 {
 	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
 	objectsToDelete[object] = delayedtime;
+	if (onDelete.operator bool())
+	{
+		onDelete.operator()(object);
+	}
 }
 
 void EngineModule::ObjectInstanceHandler::removeObject(const Core::uuid objectId)
@@ -70,8 +80,29 @@ void EngineModule::ObjectInstanceHandler::processDeletedObjects(const float& ela
 
 void EngineModule::ObjectInstanceHandler::unload()
 {
+	// TODO: REwork, do a loop and sendOnDelete
+
+
 	while (objects.size() > 0)
 	{
-		objects.clear();
+		auto it = objects.begin();
+		while (it !=objects.end())
+		{
+			if (onDelete)
+			{
+				onDelete(&it->second);
+			}
+			it = objects.erase(it);
+		}
 	}
+}
+
+void EngineModule::ObjectInstanceHandler::onDeleteAction(std::function<void(GameObject*)> fnPtr)
+{
+	onDelete = fnPtr;
+}
+
+void EngineModule::ObjectInstanceHandler::onAddAction(std::function<void(GameObject*)> fnPtr)
+{
+	onAdd = fnPtr;
 }

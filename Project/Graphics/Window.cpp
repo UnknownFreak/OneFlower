@@ -22,6 +22,8 @@
 
 #include <swizzle/asset/TextureLoader.hpp>
 
+#include <Graphics/Editor/ObjectSelector.hpp>
+
 Enums::EngineResourceType Interfaces::IEngineResource<Graphics::RenderWindow>::type = Enums::EngineResourceType::Graphics;
 namespace Graphics
 {
@@ -74,6 +76,7 @@ namespace Graphics
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 
 		mSkybox.setSkyBox("dark");
+		ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
 
 	}
 

@@ -13,6 +13,7 @@ namespace Enums
 		LoadingScreen,
 		PlayerStats,
 		DialogScreen,
+		ObjectSelector
 	};
 }
 

@@ -10,6 +10,8 @@ namespace EngineModule
 {
 	class ObjectInstanceHandler : public Interfaces::IEngineResource<ObjectInstanceHandler>
 	{
+		std::function<void(GameObject*)> onAdd;
+		std::function<void(GameObject*)> onDelete;
 	public:
 		GameObject* player = nullptr;
 		std::unordered_map<Core::uuid, GameObject> objects;
@@ -28,6 +30,9 @@ namespace EngineModule
 		void processDeletedObjects(const float& elapsedTime);
 
 		void unload();
+
+		void onDeleteAction(std::function<void(GameObject*)> fnPtr);
+		void onAddAction(std::function<void(GameObject*)> fnPtr);
 
 		Enums::EngineResourceType& getType() const
 		{
