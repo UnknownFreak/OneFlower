@@ -12,6 +12,7 @@ namespace EngineModule
 		friend class ModuleManager;
 
 	protected:
+		bool disabled = false;
 
 		virtual Enums::EngineResourceType& getType() const = 0;
 
@@ -19,6 +20,8 @@ namespace EngineModule
 		virtual ~BaseEngineModule() = 0
 		{
 		};
+
+		void disable() { disabled = true; }
 	};
 }
 

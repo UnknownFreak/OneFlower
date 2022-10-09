@@ -2,6 +2,9 @@
 
 Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::Logger::OneLogger>::type = Enums::EngineResourceType::Logger;
 
+EngineModule::Logger::Streams::NullStream EngineModule::Logger::OneLogger::nullStream;
+EngineModule::Logger::ModuleLogger<EngineModule::Logger::Streams::NullStream> EngineModule::Logger::OneLogger::EMPTY(
+	"", EngineModule::Logger::OneLogger::nullStream, Enums::LogLevel::ALWAYS);
 
 namespace EngineModule
 {

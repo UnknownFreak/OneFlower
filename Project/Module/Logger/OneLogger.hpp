@@ -3,7 +3,9 @@
 
 #include "LoggerBase.hpp"
 
+#include "LoggerStreams/LogSteam.hpp"
 #include "LoggerStreams/BasicLogStream.hpp"
+#include "LoggerStreams/NullStream.hpp"
 
 #include <unordered_map>
 #include "ModuleLogger.hpp"
@@ -28,18 +30,21 @@ namespace EngineModule
 
 		class OneLogger : public LoggerBase<stream>, public Interfaces::IEngineResource<OneLogger>
 		{
-
+			static Streams::NullStream nullStream;
+			static ModuleLogger<Streams::NullStream> EMPTY;
 			std::unordered_map<Core::String, ModuleLogger<stream>> moduleLoggers;
 		public:
 			OneLogger();
 			~OneLogger();
 
-			ModuleLogger<stream>& getLogger(const Core::String& moduleName)
+			ModuleLogger<Streams::LogStream>& getLogger(const Core::String& moduleName)
 			{
+				if (this == nullptr)
+					return (ModuleLogger<Streams::LogStream>&)EMPTY;
 				if (moduleLoggers.find(moduleName) == moduleLoggers.end())
 					moduleLoggers.insert_or_assign(moduleName,
 						ModuleLogger<stream>(moduleName, log, level));
-				return moduleLoggers.at(moduleName);
+				return (ModuleLogger<Streams::LogStream>&)moduleLoggers.at(moduleName);
 			}
 
 			Enums::EngineResourceType& getType() const
