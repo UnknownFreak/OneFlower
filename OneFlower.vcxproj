@@ -519,6 +519,7 @@
     <ClCompile Include="Project\Graphics\Camera.cpp" />
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp" />
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
     <ClCompile Include="Project\Graphics\Render.cpp" />
     <ClCompile Include="Project\Graphics\SkyBox.cpp" />
@@ -661,6 +662,7 @@
     <ClInclude Include="Project\Graphics\Camera.hpp" />
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
+    <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp" />
     <ClInclude Include="Project\Graphics\Model.hpp" />
     <ClInclude Include="Project\Graphics\mvp.hpp" />
     <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp" />
