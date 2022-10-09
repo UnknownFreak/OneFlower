@@ -188,14 +188,6 @@ namespace Graphics
 		
 		ImGui::End();
 		
-		ImGui::Begin("Other");
-		{
-			ImGui::Text("%s", "foo");
-		}
-		
-		
-		ImGui::End();
-		
 		ui.render();
 		
 		ImGui::EndFrame();
