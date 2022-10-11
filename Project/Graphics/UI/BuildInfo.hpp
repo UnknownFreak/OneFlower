@@ -28,7 +28,8 @@ namespace Graphics::UI
 			if (visible)
 			{
 				ImGui::SetNextWindowPos(ImVec2{ x,y });
-				ImGui::Begin("BuildInfo", nullptr, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
+				ImGui::SetNextWindowBgAlpha(0.01f);
+				ImGui::Begin("BuildInfo", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
 				ImGui::Text("%s", t.c_str());
 				ImGui::End();
 			}
