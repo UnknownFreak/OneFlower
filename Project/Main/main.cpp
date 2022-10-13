@@ -95,7 +95,8 @@ class EngineLogger : public swizzle::core::LogDevice
 	// Inherited via LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
-		//Engine::GetModule<EngineModule::Logger::OneLogger>().Always(messageType, ": ", message);
+		Core::String tType = messageType;
+		Engine::GetModule<EngineModule::Logger::OneLogger>().EngineLogging(tType, message);
 		printf("%s: %s\n", messageType, message);
 	}
 

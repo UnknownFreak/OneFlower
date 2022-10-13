@@ -40,7 +40,7 @@ namespace Enums
 		else if (string == to_string(Enums::LogLevel::CRITICAL, false))
 			return LogLevel::CRITICAL;
 		else
-			return LogLevel::INFO;
+			return LogLevel::ALWAYS;
 	}
 }
 

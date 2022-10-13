@@ -97,6 +97,14 @@ namespace EngineModule
 				logMessage(Enums::LogLevel::ALWAYS, args...);
 			};
 
+			template <class ...Args>
+			void EngineLogging(Core::String& type, Args&& ... args)
+			{
+				for (std::string::iterator p = type.begin(); type.end() != p; ++p)
+					*p = (char)::toupper(*p);
+				logMessage(Enums::fromString(type), args...);
+			};
+
 			static Core::String fileInfo(const Core::String& fileName, const size_t& line)
 			{
 				return " - " + fileName + " (" + std::to_string(line) + ")";
