@@ -12,7 +12,7 @@ namespace Graphics
 {
 
 
-	Skybox::Skybox() : mModel(std::make_shared<Model>())
+	Skybox::Skybox() : mModel(std::make_shared<Model>()), loaded(false)
 	{
 	}
 
@@ -52,19 +52,23 @@ namespace Graphics
 
 		mModel->mesh = Engine::GetModule<File::Resource::Mesh::Loader>().requestMesh("inverted_sphere.obj");
 		
+		mModel->mMeshBuffer = Engine::GetModule<Graphics::RenderWindow>().getGfxContext()->createBuffer(swizzle::gfx::BufferType::Vertex);
+		mModel->mMeshBuffer->setBufferData((U8*)mModel->mesh->getVertexDataPtr(), mModel->mesh->getVertexDataSize(),
+			sizeof(float) * (3 + 3 + 2));
+		
 		loaded = true;
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
 	}
 
-	void Skybox::render(std::shared_ptr<swizzle::gfx::CommandBuffer> buffer, MVP mvp)
+	void Skybox::render(common::Unique<swizzle::gfx::DrawCommandTransaction>& trans, MVP mvp)
 	{
 		if (loaded)
 		{
-			buffer->bindShader(mModel->shader);
-			buffer->bindMaterial(mModel->shader, mModel->material);
-			buffer->setShaderConstant(mModel->shader, (U8*)&mvp, sizeof(mvp));
-			buffer->draw(mModel->mesh.mVertexBuffer);
+			trans->bindShader(mModel->shader);
+			trans->bindMaterial(mModel->shader, mModel->material);
+			trans->setShaderConstant(mModel->shader, (U8*)&mvp, sizeof(mvp));
+			trans->draw(mModel->mMeshBuffer);
 		}
 	}
 }

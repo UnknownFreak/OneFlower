@@ -9,6 +9,8 @@
 
 #include <Helpers/String.hpp>
 
+#include <swizzle/gfx/CommandBuffer.hpp>
+
 namespace Graphics
 {
 	class Skybox
@@ -23,7 +25,7 @@ namespace Graphics
 
 		void setSkyBox(const Core::String& skyboxTextureFolder);
 
-		void render(std::shared_ptr<swizzle::gfx::CommandBuffer> buffer, MVP mvp);
+		void render(common::Unique<swizzle::gfx::DrawCommandTransaction>& trans, MVP mvp);
 		
 		inline std::shared_ptr<swizzle::gfx::Texture> getTexture() const { return mModel->texture; };
 	};

@@ -28,7 +28,12 @@ namespace File::Resource::Texture
 		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
 			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
-		wnd.getCommandBuffer()->uploadTexture(loadedTextureMap[name]);
+
+		auto uploadBuffer = wnd.getUploadBuffer();
+		auto trans = uploadBuffer->begin();
+		trans->uploadTexture(loadedTextureMap[name]);
+		uploadBuffer->end(std::move(trans));
+		wnd.getGfxContext()->submit(&uploadBuffer, 1u, nullptr);
 		mtx.unlock();
 		return true;
 	}
@@ -46,7 +51,7 @@ namespace File::Resource::Texture
 				return false;
 			}
 		}
-		//mtx.lock();
+		mtx.lock();
 		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
 		loadedTextureMap[folderName] = swizzle::asset::LoadTextureCubeMap(wnd.getGfxContext(),
 					(path + "right.png").c_str(),
@@ -64,12 +69,12 @@ namespace File::Resource::Texture
 		logger.Info("Loaded skybox cubemap texture [" + path + "back.png]", logger.fileInfo(__FILE__, __LINE__));
 
 		auto uploadBuffer = wnd.getUploadBuffer();
-		uploadBuffer->begin();
-		uploadBuffer->uploadTexture(loadedTextureMap[folderName]);
-		uploadBuffer->end();
+		auto trans = uploadBuffer->begin();
+		trans->uploadTexture(loadedTextureMap[folderName]);
+		uploadBuffer->end(std::move(trans));
 		wnd.getGfxContext()->submit(&uploadBuffer, 1u, nullptr);
 
-		//mtx.unlock();
+		mtx.unlock();
 		return true;
 	}
 

@@ -18,7 +18,7 @@
 #include "CameraController.hpp"
 #include "SkyBox.hpp"
 
-#include <swizzle/asset/MeshLoader.hpp>
+#include <swizzle/asset2/Assets.hpp>
 
 namespace Component
 {

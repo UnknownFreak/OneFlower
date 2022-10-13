@@ -15,7 +15,10 @@ Core::String Component::IBase<Render>::componentName = "Render";
 void Render::loadAndSetModel()
 {
 	auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
-	wnd.getCommandBuffer()->begin();
+	//auto temp = wnd.getUploadBuffer();
+	//auto trans = temp->begin();
+	auto gfx = wnd.getGfxContext();
+
 	textureName = "temporary.png";
 	meshName = "test.swm";
 	shaderName = "simple.shader";
@@ -23,6 +26,21 @@ void Render::loadAndSetModel()
 	model = std::make_shared<Graphics::Model>();
 
 	model->mesh = Engine::GetModule<File::Resource::Mesh::Loader>().requestMesh(meshName);
+	{
+
+		model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		model->mIndexBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Index);
+		model->mBoneBuffer = gfx->createBuffer(swizzle::gfx::BufferType::UniformBuffer);
+		model->mMeshBuffer->setBufferData((U8*)model->mesh->getVertexDataPtr(), model->mesh->getVertexDataSize(),
+			sizeof(float) * (3u + 3u + 2u + 4u + 4u));
+
+		model->mIndexBuffer->setBufferData((U8*)model->mesh->getIndexDataPtr(), model->mesh->getIndexDataSize(), sizeof(U32) * 3u);
+
+		model->mBoneBuffer->setBufferData((U8*)model->mesh->getAnimationDataPtr(0, 0), model->mesh->getNumberOfBones() * sizeof(glm::mat4),
+			sizeof(glm::mat4));
+
+	}
+
 	if (Engine::GetModule<File::Resource::Mesh::Loader>().getResult() == false)
 	{
 		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("missingMeshTexture.png");
@@ -35,11 +53,11 @@ void Render::loadAndSetModel()
 	model->material = gfxContext->createMaterial(model->shader);
 
 	model->material->setDescriptorTextureResource(0u, model->texture);
+	model->material->setDescriptorBufferResource(1u, model->mBoneBuffer, ~0ull);
 
 	initialized = true;
-	wnd.getCommandBuffer()->end();
-	auto buf = wnd.getCommandBuffer();
-	wnd.getGfxContext()->submit(&buf, 1, nullptr);
+	//wnd.getCommandBuffer()->end(std::move(trans));
+	//wnd.getGfxContext()->submit(&temp, 1, nullptr);
 }
 
 Render::~Render()
@@ -76,7 +94,7 @@ void Render::onCollision(Interfaces::ICollider*)
 
 void Render::Update()
 {
-	model->material->setDescriptorTextureResource(0u, model->texture);
+	//model->material->setDescriptorTextureResource(0u, model->texture);
 }
 
 void Render::Simulate(const float& fElapsedTime)

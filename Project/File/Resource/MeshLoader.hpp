@@ -1,7 +1,7 @@
 #ifndef MeshLoader_HPP
 #define MeshLoader_HPP
 
-#include <swizzle/asset/MeshLoader.hpp>
+#include <swizzle/asset2/Assets.hpp>
 
 #include <Helpers/String.hpp>
 #include <Module/Globals.hpp>
@@ -17,11 +17,11 @@ namespace File::Resource::Mesh
 		bool lastResult = false;
 		std::mutex mtx;
 		const Core::String missingMesh = "missingMesh.swm";
-		std::unordered_map<Core::String, swizzle::Mesh> loadedMeshes;
+		std::unordered_map<Core::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedMeshes;
 		bool loadMesh(const Core::String& name);
 
 	public:
-		swizzle::Mesh requestMesh(const Core::String& name, const Core::String& path = Globals::meshPath);
+		std::shared_ptr<swizzle::asset2::IMeshAsset> requestMesh(const Core::String& name, const Core::String& path = Globals::meshPath);
 		bool getResult();
 
 		void requestRemovalOfMesh(const Core::String& name);

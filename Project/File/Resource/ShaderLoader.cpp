@@ -22,7 +22,7 @@ namespace File::Resource::Shader
 #endif
 		mtx.lock();
 		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
-		loadedShaders.insert(std::make_pair(name, wnd.getSwapchain()->createShader(attribs)));
+		loadedShaders.insert(std::make_pair(name, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[name];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
@@ -40,19 +40,32 @@ namespace File::Resource::Shader
 		sw::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
 			{ sw::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U + 3U + 2U) }
+			//{ sw::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U + 3U + 2U + 4u + 4u) },
+			//{ sw::gfx::ShaderBufferInputRate::InputRate_Instance, sizeof(float) * (16u) },
 		};
+
 		attribs.mAttributes = {
 			{ 0U, sw::gfx::ShaderAttributeDataType::vec3f, 0U},
 			{ 0U, sw::gfx::ShaderAttributeDataType::vec3f, sizeof(float) * 3U },
 			{ 0U, sw::gfx::ShaderAttributeDataType::vec2f, sizeof(float) * 6U }
+			//{0u, sw::gfx::ShaderAttributeDataType::vec3f, 0u},
+			//{0u, sw::gfx::ShaderAttributeDataType::vec3f, sizeof(float) * 3u},
+			//{0u, sw::gfx::ShaderAttributeDataType::vec2f, sizeof(float) * 6u},
+			//{0u, sw::gfx::ShaderAttributeDataType::vec4u, sizeof(float) * 8u},
+			//{0u, sw::gfx::ShaderAttributeDataType::vec4f, sizeof(float) * 12u},
+			//{1u, sw::gfx::ShaderAttributeDataType::vec4f, 0u},
+			//{1u, sw::gfx::ShaderAttributeDataType::vec4f, sizeof(float) * 4u},
+			//{1u, sw::gfx::ShaderAttributeDataType::vec4f, sizeof(float) * 8u},
+			//{1u, sw::gfx::ShaderAttributeDataType::vec4f, sizeof(float) * 12u},
 		};
 		attribs.mDescriptors = {
 			{swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
 			{swizzle::gfx::DescriptorType::UniformBuffer, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+			//{swizzle::gfx::DescriptorType::UniformBuffer, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage, swizzle::gfx::StageType::vertexStage}},
 		};
 		attribs.mEnableDepthTest = true;
 		attribs.mEnableBlending = false;
-		attribs.mPushConstantSize = sizeof(glm::mat4)*4;
+		attribs.mPushConstantSize = sizeof(glm::mat4)*4u;
 		return requestShader(name, attribs, path);
 	}
 

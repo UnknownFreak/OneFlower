@@ -149,7 +149,8 @@ namespace Graphics
 
 				title += "Memory Heap: " + std::string(memStat->mName) + "\n";
 				title += "  Mem: " + utils::toMemoryString(memStat->mUsed) + "/" + utils::toMemoryString(memStat->mSize);
-				title += "; Allocs: " + std::to_string(memStat->mNumAllocations) + "p, " + std::to_string(memStat->mNumVirtualAllocations) + "v\n";
+				title += "; Allocs: " + std::to_string(memStat->mNumAllocations) + "p, " +
+					std::to_string(memStat->mNumVirtualAllocations) + "v\n";
 			}
 			else if (iter->getType() == sw::gfx::GfxStatsType::DeviceStats)
 			{
@@ -160,12 +161,33 @@ namespace Graphics
 				title += "  Num Buffers: " + std::to_string(devStats->mNumBuffers) + "\n";
 				title += "  Pipelines: " + std::to_string(devStats->mNumPipelines) + "\n";
 			}
+			else if (iter->getType() == sw::gfx::GfxStatsType::InstanceStats)
+			{
+				sw::gfx::InstanceStatistics* instStats = (sw::gfx::InstanceStatistics*)iter->getStatisticsData();
+				title += "Instance\n";
+				title += "  Alloc Count " + std::to_string(instStats->mAllocCount) + "\n";
+				title += "  Internal Alloc Count " + std::to_string(instStats->mInternalAllocCount) + "\n";
+			}
+			else if (iter->getType() == sw::gfx::GfxStatsType::GfxPipelineStats)
+			{
+				sw::gfx::GfxPipelineStatistics* gfxStats = (sw::gfx::GfxPipelineStatistics*)iter->getStatisticsData();
+				title += "Graphics Pipeline statistics\n";
+				title += "  Input Assemby Vertices " + std::to_string(gfxStats->mInputAssemblyVertices) + "\n";
+				title += "  Input Assemby Primitives " + std::to_string(gfxStats->mInputAssemblyPrimitives) + "\n";
+				title += "  Vertex Shader Invocations " + std::to_string(gfxStats->mVertexShaderInvocations) + "\n";
+				title += "  Clipping Invocations " + std::to_string(gfxStats->mClippingInvocations) + "\n";
+				title += "  Clipping Primitives " + std::to_string(gfxStats->mClippingInvocations) + "\n";
+				title += "  Fragment Shader Invocations " + std::to_string(gfxStats->mFragmentShaderInvocations) + "\n";
+				title += "  Tesselation Control Shader Patches " +
+					std::to_string(gfxStats->mTesselationControlShaderPatches) + "\n";
+				title += "  Tesselation Evaluation Shader Invocations " +
+					std::to_string(gfxStats->mTesselationEvaluationShaderInvocations) + "\n";
+				title += "  Compute Shader Invocations " + std::to_string(gfxStats->mComputeShaderInvocations) + "\n";
+			}
 
 		} while (iter->next());
 
-		/*title += "Staged objects: " + std::to_string(stats.mStagedObjects) + "\n";
-		title += "Num Textures: " + std::to_string(stats.mNumTextures) + "\n";
-		title += "Num Buffers: " + std::to_string(stats.mNumBuffers) + "\n";*/
+
 		title += "Draw call count: " + std::to_string(mCmdBuffer->getDrawCount()) + "\n";
 		title += "Vertex count: " + std::to_string(mCmdBuffer->getVertCount()) + "\n";
 		title += "Triangle count: " + std::to_string(mCmdBuffer->getTriCount()) + "\n";
@@ -192,9 +214,6 @@ namespace Graphics
 		
 		ImGui::EndFrame();
 
-		//draw();
-
-		//cam.lookAt(glm::vec3(-15.f, -15.f, 15.f), positions[0]->pos);
 		U32 x, y;
 		mWindow->getSize(x, y);
 		cam.changeAspect((F32)x, (F32)y);
@@ -205,33 +224,26 @@ namespace Graphics
 		t.proj = cam.getProjection();
 		t.eye = glm::vec4(cam.getPosition(), 1.0F);
 
-		//mSwapchain->setClearColor({ 0,0,0,1 });
 
 		mSwapchain->prepare();
-		mCmdBuffer->begin();
+		auto transaction = mCmdBuffer->begin();
 
-		// upload textures
 
-		// TMP: fixme someday
-		//mCmdBuffer->uploadTexture(mSkybox.mModel->texture);
-
-		ImGui_ImplSwizzle_UploadFontTexture(mCmdBuffer);
+		ImGui_ImplSwizzle_UploadFontTexture(transaction);
 		
-		ImGui_ImplSwizzle_BeginDraw(mCmdBuffer);
+		auto dTransaction = mCmdBuffer->beginRenderPass(ImGui_ImplSwizzle_GetFramebuffer(), std::move(transaction));
 		
 		ImGui::Render();
-		ImGui_ImplSwizzle_RenderDrawData(ImGui::GetDrawData(), mCmdBuffer);
-		ImGui_ImplSwizzle_EndDraw(mCmdBuffer);
-		
-		
-		ImGui_ImplSwizzle_NewFrame(mWindow);
+		ImGui_ImplSwizzle_RenderDrawData(ImGui::GetDrawData(), dTransaction);
+		transaction = mCmdBuffer->endRenderPass(std::move(dTransaction));
 
-		mCmdBuffer->beginRenderPass(mSwapchain);
+
+		dTransaction = mCmdBuffer->beginRenderPass(mSwapchain, std::move(transaction));
 		
-		mCmdBuffer->setViewport(x, y);
+		dTransaction->setViewport(x, y);
 		
 
-		mSkybox.render(mCmdBuffer, t);
+		mSkybox.render(dTransaction, t);
 
 		for (auto kv : positions)
 		{
@@ -245,18 +257,18 @@ namespace Graphics
 		
 			kv.second->facingAngle += 1.f / 255.f;
 		
-			mCmdBuffer->bindShader(model->shader);
-			mCmdBuffer->bindMaterial(model->shader, model->material);
-			mCmdBuffer->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
-			mCmdBuffer->drawIndexed(model->mesh.mVertexBuffer, model->mesh.mIndexBuffer);
+			dTransaction->bindShader(model->shader);
+			dTransaction->bindMaterial(model->shader, model->material);
+			dTransaction->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
+			dTransaction->drawIndexed(model->mMeshBuffer, model->mIndexBuffer);
 		}
 
-		mCmdBuffer->bindShader(mFsq);
-		mCmdBuffer->bindMaterial(mFsq, mFsqMat);
-		mCmdBuffer->drawNoBind(3u, 0u);
+		dTransaction->bindShader(mFsq);
+		dTransaction->bindMaterial(mFsq, mFsqMat);
+		dTransaction->drawNoBind(3u, 0u);
 
-		mCmdBuffer->endRenderPass();
-		mCmdBuffer->end();
+		transaction = mCmdBuffer->endRenderPass(std::move(dTransaction));
+		mCmdBuffer->end(std::move(transaction));
 
 		mGfxContext->submit(&mCmdBuffer, 1u, mSwapchain);
 		mSwapchain->present();

@@ -21,17 +21,24 @@ namespace File::Resource::Mesh
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 #endif
 		mtx.lock();
-		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
-		loadedMeshes.insert(std::make_pair(name, swizzle::asset::LoadMesh(wnd.getGfxContext(), path.c_str(), true)));
+		swizzle::asset2::MeshAssetLoaderDescription ldi = {};
+		ldi.mLoadPossitions = {
+			{swizzle::asset2::AttributeTypes::VertexPosition, 0u},
+			{swizzle::asset2::AttributeTypes::NormalVector, sizeof(float) * 3u},
+			{swizzle::asset2::AttributeTypes::UvCoordinates, sizeof(float) * 6u},
+			{swizzle::asset2::AttributeTypes::BoneIndices, sizeof(float) * 8u},
+			{swizzle::asset2::AttributeTypes::BoneWeights, sizeof(float) * 12u},
+		};
+		loadedMeshes.insert(std::make_pair(name, swizzle::asset2::LoadMesh(path.c_str(), ldi)));
 		mtx.unlock();
 		return true;
 	}
 
-	swizzle::Mesh Loader::requestMesh(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::asset2::IMeshAsset> Loader::requestMesh(const Core::String& name, const Core::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, swizzle::Mesh>::iterator it;
+			std::unordered_map<Core::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>::iterator it;
 			it = loadedMeshes.find(path + name);
 			lastResult = true;
 			if (it != loadedMeshes.end())
