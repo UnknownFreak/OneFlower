@@ -21,6 +21,7 @@ namespace Graphics::UI
 		bool visible = true;
 
 	public:
+		float x, y;
 		Core::String uiName;
 
 		UIContext(const swizzle::input::Keys& toggleKey, const Core::String& uiName, const bool& noKeybind);

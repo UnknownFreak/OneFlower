@@ -44,36 +44,22 @@ int GameEntry::Run()
 	gfx.initialize();
 	world.initialize();
 	gfx.setFramerate(Engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
+
 	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 50.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 50.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getBuildNumberAsStringWithEditor(), float(width - (200 * 2)), 5.f));
-	std::thread render_thread(&GameEntry::render, this);
+	
+	gfx.postInitialize();
+
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
 
 
 	gfx.run();
-	std::this_thread::sleep_for(std::chrono::seconds(1));
 	m_exit = true;
-	render_thread.join();
 	physics_thread.join();
 
 	gfx.clearDrawList();
 	return EXIT_SUCCESS;
-}
-
-void GameEntry::render()
-{
-	auto fps = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::FPS);
-	while (!m_exit && gfx.isClosing() == false)
-	{
-		if (world.isLoading)
-			gfx.drawUI();
-		else
-			gfx.draw();
-		fps->update();
-		fps->print();
-	}
-	gfx.setThreadStopped();
 }
 
 void GameEntry::physicsUpdate()
@@ -82,7 +68,7 @@ void GameEntry::physicsUpdate()
 	auto ups = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::UPS);
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;
-	while (!m_exit && gfx.isClosing() == false)
+	while (!m_exit)
 	{
 		while (world.isLoading)
 		{

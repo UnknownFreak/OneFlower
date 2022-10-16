@@ -19,6 +19,7 @@
 #include "SkyBox.hpp"
 
 #include <swizzle/asset2/Assets.hpp>
+#include <Graphics/UI/Stats.hpp>
 
 namespace Component
 {
@@ -29,6 +30,30 @@ namespace Graphics
 {
 	class RenderWindow : public Interfaces::IEngineResource<RenderWindow>, public sw::Application
 	{
+
+		class UIContextResizeEvent : public swizzle::EventHandler<swizzle::core::WindowResizeEvent>
+		{
+		public:
+			Enums::UIContextNames type;
+			const float offset;
+
+			inline UIContextResizeEvent(const Enums::UIContextNames& type, const float& offset) : type(type), offset(offset) {}
+
+			inline virtual void publishEvent(const swizzle::core::WindowResizeEvent& evt)
+			{
+				auto x = Engine::GetModule<Graphics::UI::UIHandler>().getUIContext<Graphics::UI::UIContext>(type);
+				if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent && x)
+				{
+					x->x = evt.mWidth - offset;
+				}
+			}
+		};
+
+		UIContextResizeEvent fpsResizeEvent;
+		UIContextResizeEvent upsResizeEvent;
+		UIContextResizeEvent buildInfoResizeEvent;
+
+		Graphics::UI::Stats* fps = nullptr;
 
 		common::Resource<sw::gfx::Shader> mFsq;
 		common::Resource<sw::gfx::Material> mFsqMat;
@@ -47,8 +72,8 @@ namespace Graphics
 
 		void ProcessCulling();
 		Skybox mSkybox;
-		bool m_isClosing = false;
-		bool isThreadStopped = false;
+
+		void drawStats();
 
 	public:
 
@@ -98,15 +123,7 @@ namespace Graphics
 		virtual SwBool userUpdate(F32 dt) override;
 		virtual void userCleanup() override;
 
-		inline bool isClosing() const
-		{
-			return m_isClosing;
-		}
-
-		inline void setThreadStopped()
-		{
-			isThreadStopped = true;
-		}
+		void postInitialize();
 
 };
 }

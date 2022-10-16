@@ -9,7 +9,7 @@ namespace Graphics
 
 		ObjectSelector::ObjectSelector() : UIContext(swizzle::input::Keys::KeyNone, "ObjectSelector", true)
 		{
-			auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+			auto& oih = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 
 			auto onAdd = [&](GameObject* go) {
 				objects[go] = false;
@@ -19,8 +19,8 @@ namespace Graphics
 					selected = nullptr;
 				objects.erase(go);
 			};
-			x.onAddAction(onAdd);
-			x.onDeleteAction(onDelete);
+			oih.onAddAction(onAdd);
+			oih.onDeleteAction(onDelete);
 		}
 
 		void ObjectSelector::render()
@@ -43,16 +43,16 @@ namespace Graphics
 				}
 				if(ImGui::BeginListBox(" ", ImVec2(300.f,-1.f)))
 				{
-					for (auto& x : objects)
+					for (auto& object : objects)
 					{
 
-						if (ImGui::Selectable(x.first->id.to_string().c_str(), &x.second))
+						if (ImGui::Selectable(object.first->id.to_string().c_str(), &object.second))
 						{
 							if (selected != nullptr)
 							{
 								objects[selected] = false;
 							}
-							selected = x.first;
+							selected = object.first;
 						}
 					}
 					ImGui::EndListBox();

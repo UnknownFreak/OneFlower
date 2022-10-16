@@ -64,8 +64,8 @@ void Graphics::UI::DialogScreen::readInput(const Enums::InteractionOption& nav)
 	else
 	{
 		t = "";
-		auto x = dialog->getDialogOptions();
-		for (auto s : x)
+		auto op = dialog->getDialogOptions();
+		for (auto s : op)
 		{
 			t += s + "\n";
 		}

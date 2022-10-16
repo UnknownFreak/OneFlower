@@ -10,12 +10,13 @@ namespace Graphics::UI
 
 	class BuildInfo : public Graphics::UI::UIContext
 	{
-		float x, y;
 		Core::String t;
 
 	public:
-		BuildInfo(const Core::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, info, false), x(x), y(y) {
+		BuildInfo(const Core::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, info, false) {
 			t = info;
+			this->x = x;
+			this->y = y;
 		}
 
 		BuildInfo(const BuildInfo& copy) : BuildInfo(copy.t, copy.x, copy.y)
@@ -28,10 +29,12 @@ namespace Graphics::UI
 			if (visible)
 			{
 				ImGui::SetNextWindowPos(ImVec2{ x,y });
-				ImGui::SetNextWindowBgAlpha(0.01f);
+				ImGui::SetNextWindowBgAlpha(0.f);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
 				ImGui::Begin("BuildInfo", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
 				ImGui::Text("%s", t.c_str());
 				ImGui::End();
+				ImGui::PopStyleVar();
 			}
 		}
 

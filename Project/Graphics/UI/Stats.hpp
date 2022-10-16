@@ -14,7 +14,6 @@ namespace Graphics::UI
 
 	class Stats : public Graphics::UI::UIContext
 	{
-		float x, y;
 		U32 minFrame;
 		U32 maxFrame;
 		U32 mean[50];
@@ -33,9 +32,11 @@ namespace Graphics::UI
 		float previous;
 		float current;
 	public:
-		Stats(const Core::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0),
-		x(x), y(y) {
+		Stats(const Core::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0)
+		{
 			previous = current = mClock.secondsAsFloat(false);
+			this->x = x;
+			this->y = y;
 		}
 
 		Stats(const Stats& copy) : Stats(copy.text, copy.x, copy.y)
@@ -83,11 +84,13 @@ namespace Graphics::UI
 			if (visible)
 			{
 				ImGui::SetNextWindowPos(ImVec2{ x,y });
-				ImGui::SetNextWindowBgAlpha(0.01f);
+				ImGui::SetNextWindowBgAlpha(0.f);
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
 				ImGui::Begin(title.c_str(), nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
 				ImGui::Text("%s", text.c_str());
 				ImGui::End();
-				}
+				ImGui::PopStyleVar();
+			}
 		}
 
 		// Inherited via UIContext

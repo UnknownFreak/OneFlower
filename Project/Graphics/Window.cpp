@@ -27,6 +27,8 @@
 Enums::EngineResourceType Interfaces::IEngineResource<Graphics::RenderWindow>::type = Enums::EngineResourceType::Graphics;
 namespace Graphics
 {
+
+
 	void RenderWindow::Cull(std::vector<GameObject*>& )
 	{
 	}
@@ -76,62 +78,47 @@ namespace Graphics
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 
 		mSkybox.setSkyBox("dark");
+
 		ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
 
 	}
 
 	SwBool RenderWindow::userUpdate(F32 )
 	{
+		//if (world.isLoading)
+		//{
+		//
+		//}
+		//else
+		{
+			draw();
+		}
+		fps->update();
+		fps->print();
 		return mWindow->isVisible();
 	}
 
 	void RenderWindow::userCleanup()
 	{
-		m_isClosing = true;
-		while (isThreadStopped == false)
-		{
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
+		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & fpsResizeEvent);
+		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & upsResizeEvent);
+		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & buildInfoResizeEvent);
+	}
+
+	void RenderWindow::postInitialize()
+	{
+		fps = ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::FPS);
+		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &fpsResizeEvent);
+		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &upsResizeEvent);
+		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &buildInfoResizeEvent);
 	}
 
 	void RenderWindow::ProcessCulling()
 	{
 	}
 
-	RenderWindow::RenderWindow() :
-		drawHitbox(Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX]),
-		ui(Engine::GetModule<Graphics::UI::UIHandler>()),
-		cam(glm::radians(45.0F), 1280, 720), mController(cam)
+	void RenderWindow::drawStats()
 	{
-	}
-
-	RenderWindow::~RenderWindow()
-	{
-	}
-
-	std::shared_ptr<swizzle::gfx::GfxContext> RenderWindow::getGfxContext()
-	{
-		return mGfxContext;
-	}
-
-	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getCommandBuffer()
-	{
-		return mCmdBuffer;
-	}
-
-	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getUploadBuffer()
-	{
-		return mUploadBuffer;
-	}
-
-	std::shared_ptr<swizzle::gfx::Swapchain> RenderWindow::getSwapchain()
-	{
-		return mSwapchain;
-	}
-
-	void RenderWindow::draw()
-	{
-		//mWindow->pollEvents();
 		std::string title;
 		title.reserve(1024);
 		title += "Frames: " + std::to_string(mSwapchain->getFrameCounter()) + "\n";
@@ -198,18 +185,55 @@ namespace Graphics
 		auto pos = player->getComponent<Component::Transform>()->pos;
 		title += "Player pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + "\n";
 
-		ImGui_ImplSwizzle_NewFrame(mWindow);
-		ImGui::NewFrame();
-		
 		ImGui::Begin("Stats");
 		{
 			OPTICK_EVENT("ImGui::Text");
 			ImGui::Text("%s", title.c_str());
 		}
-		
-		
+
+
 		ImGui::End();
+	}
+
+	RenderWindow::RenderWindow() :
+		drawHitbox(Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX]),
+		ui(Engine::GetModule<Graphics::UI::UIHandler>()),
+		cam(glm::radians(45.0F), 1280, 720), mController(cam),
+		fpsResizeEvent(Enums::UIContextNames::FPS, 200.f*2), upsResizeEvent(Enums::UIContextNames::UPS, 200.f), buildInfoResizeEvent(Enums::UIContextNames::BuildInfo, 200.f*2)
+	{
+	}
+
+	RenderWindow::~RenderWindow()
+	{
+	}
+
+	std::shared_ptr<swizzle::gfx::GfxContext> RenderWindow::getGfxContext()
+	{
+		return mGfxContext;
+	}
+
+	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getCommandBuffer()
+	{
+		return mCmdBuffer;
+	}
+
+	std::shared_ptr<swizzle::gfx::CommandBuffer> RenderWindow::getUploadBuffer()
+	{
+		return mUploadBuffer;
+	}
+
+	std::shared_ptr<swizzle::gfx::Swapchain> RenderWindow::getSwapchain()
+	{
+		return mSwapchain;
+	}
+
+	void RenderWindow::draw()
+	{
 		
+		ImGui_ImplSwizzle_NewFrame(mWindow);
+		ImGui::NewFrame();
+		
+		drawStats();
 		ui.render();
 		
 		ImGui::EndFrame();
