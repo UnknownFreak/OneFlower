@@ -286,6 +286,12 @@
     <Filter Include="Engine\Graphics\Editor\MainWindow">
       <UniqueIdentifier>{cf15a131-63b2-4f62-98ba-91e4b2ebf00f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\Editor\ObjectDataTree">
+      <UniqueIdentifier>{66f6ac56-8922-47ff-92f1-84683c6c5089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ObjectModel">
+      <UniqueIdentifier>{69b16747-7357-41ee-b25d-ea76b6907f0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
