@@ -11,6 +11,10 @@
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/BuildInfo.hpp>
 
+#include <Graphics/Editor/EditorWindow.hpp>
+#include <Graphics/Editor/ObjectSelector.hpp>
+
+
 #ifdef _EDITOR_
 #include <Editor\MainEditorWindow.hpp>
 #include <Editor\SplashScreen.hpp>
@@ -47,8 +51,12 @@ int GameEntry::Run()
 
 	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 50.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 50.f));
-	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getBuildNumberAsStringWithEditor(), float(width - (200 * 2)), 5.f));
+	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getBuildNumberAsStringWithEditor(), float(width - (200 * 2)), 8.f));
 	
+	gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow , std::make_unique<Graphics::Editor::MainEditorWindow>());
+	gfx.ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
+
+
 	gfx.postInitialize();
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);

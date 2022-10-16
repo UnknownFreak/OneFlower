@@ -280,6 +280,12 @@
     <Filter Include="Engine\Trigger\Todo">
       <UniqueIdentifier>{b5e377a9-37bd-4799-aa98-e6ff4a92cf35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\Editor\Selectors">
+      <UniqueIdentifier>{177f612a-9466-48ac-a976-ff52052be98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Editor\MainWindow">
+      <UniqueIdentifier>{cf15a131-63b2-4f62-98ba-91e4b2ebf00f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -679,8 +685,9 @@
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp">
-      <Filter>Engine\Graphics\Editor</Filter>
+      <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\stduuid\include\uuid.h">
@@ -1215,7 +1222,10 @@
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp">
-      <Filter>Engine\Graphics\Editor</Filter>
+      <Filter>Engine\Graphics\Editor\Selectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp">
+      <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

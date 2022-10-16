@@ -1,6 +1,7 @@
 #include "ObjectSelector.hpp"
 
 #include <Object/ObjectInstanceHandler.hpp>
+#include <Module/BuildMode.hpp>
 
 namespace Graphics
 {
@@ -21,46 +22,53 @@ namespace Graphics
 			};
 			oih.onAddAction(onAdd);
 			oih.onDeleteAction(onDelete);
+
+			//visible = Engine::GetBuildMode().isEditorBuild();
+
 		}
 
 		void ObjectSelector::render()
 		{
-			ImGui::Begin(this->uiName.c_str());
+			if (visible)
 			{
-				ImGui::Columns(2);
-				ImGui::SetColumnWidth(0, 300.f);
-				if (ImGui::Button("Add object"))
+				ImGui::Begin(this->uiName.c_str());
 				{
-					Engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
-				}
-				ImGui::SameLine();
-				if (ImGui::Button("Delete object"))
-				{
-					if (selected)
+					ImGui::Columns(2);
+					ImGui::SetColumnWidth(0, 300.f);
+					if (ImGui::Button("Add object"))
 					{
-						Engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(selected->id);
+						Engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
 					}
-				}
-				if(ImGui::BeginListBox(" ", ImVec2(300.f,-1.f)))
-				{
-					for (auto& object : objects)
+					ImGui::SameLine();
+					if (ImGui::Button("Delete object"))
 					{
-
-						if (ImGui::Selectable(object.first->id.to_string().c_str(), &object.second))
+						if (selected)
 						{
-							if (selected != nullptr)
-							{
-								objects[selected] = false;
-							}
-							selected = object.first;
+							Engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(selected->id);
 						}
 					}
-					ImGui::EndListBox();
+					if(ImGui::BeginListBox(" ", ImVec2(300.f,-1.f)))
+					{
+						for (auto& object : objects)
+						{
+
+							if (ImGui::Selectable(object.first->id.to_string().c_str(), &object.second))
+							{
+								if (selected != nullptr)
+								{
+									objects[selected] = false;
+								}
+								selected = object.first;
+							}
+						}
+						ImGui::EndListBox();
+					}
+					ImGui::NextColumn();
+					ImGui::Text("foo");
 				}
-				ImGui::NextColumn();
-				ImGui::Text("foo");
+				ImGui::End();
 			}
-			ImGui::End();
+
 		}
 	}
 }
