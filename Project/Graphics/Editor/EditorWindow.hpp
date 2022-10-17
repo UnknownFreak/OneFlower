@@ -2,6 +2,7 @@
 #define EditorWindow_HPP
 
 #include <Graphics/UI/UIContext.hpp>
+#include "NewFileModal.hpp"
 
 namespace Graphics
 {
@@ -10,9 +11,8 @@ namespace Graphics
 
 		class MainEditorWindow : public Graphics::UI::UIContext
 		{
+			Modals::NewFile newFileModal;
 			unsigned width, height;
-			bool test;
-			bool test2;
 		public:
 
 			MainEditorWindow();

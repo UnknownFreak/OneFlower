@@ -51,6 +51,18 @@ namespace Graphics
 	{
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
+
+		// TODO: do some font combination magic & move to font handler?
+		// Will we be using imgui for the entire ui as well or do our own.
+		auto& io = ImGui::GetIO();
+		ImFont* font = io.Fonts->AddFontDefault();
+		font;
+		ImFontConfig config;
+		config.MergeMode = true;
+		std::string s2 = Core::SystemFonts + "msgothic.ttc";
+		ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 13.f, &config, 
+			ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
+		// endTodo
 		ImGui_ImplSwizzle_Init(mGfxContext, mWindow);
 
 		//auto& gameConfig = Engine::GetModule<EngineModule::GameConfig>();
@@ -77,7 +89,6 @@ namespace Graphics
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 
 		mSkybox.setSkyBox("dark");
-
 
 	}
 
@@ -188,7 +199,6 @@ namespace Graphics
 			OPTICK_EVENT("ImGui::Text");
 			ImGui::Text("%s", title.c_str());
 		}
-
 
 		ImGui::End();
 	}

@@ -520,6 +520,8 @@
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
     <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp" />
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
     <ClCompile Include="Project\Graphics\Render.cpp" />
@@ -546,6 +548,7 @@
     <ClCompile Include="Project\Helpers\Version.cpp" />
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
+    <ClCompile Include="Project\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="Project\Input\Console.cpp" />
     <ClCompile Include="Project\Input\Controller.cpp" />
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
@@ -664,6 +667,8 @@
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp" />
+    <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp" />
+    <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp" />
     <ClInclude Include="Project\Graphics\Model.hpp" />
     <ClInclude Include="Project\Graphics\mvp.hpp" />
@@ -721,6 +726,7 @@
     <ClInclude Include="Project\Helpers\Version.hpp" />
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />
+    <ClInclude Include="Project\imgui\imgui_stdlib.hpp" />
     <ClInclude Include="Project\Input\AxisInputHandler.hpp" />
     <ClInclude Include="Project\Input\BasicInputHandler.hpp" />
     <ClInclude Include="Project\Input\Callback.hpp" />

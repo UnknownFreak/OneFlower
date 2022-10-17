@@ -292,6 +292,9 @@
     <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ObjectModel">
       <UniqueIdentifier>{69b16747-7357-41ee-b25d-ea76b6907f0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\Editor\MainWindow\Modals">
+      <UniqueIdentifier>{29e9415f-5ae5-4a6d-a490-f263315d561e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -693,7 +696,18 @@
     <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp">
       <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp">
+      <Filter>Engine\Graphics\Editor\MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\imgui\imgui_stdlib.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\stduuid\include\uuid.h">
@@ -1232,6 +1246,15 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\imgui\imgui_stdlib.hpp">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
