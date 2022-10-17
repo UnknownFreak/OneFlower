@@ -18,10 +18,21 @@ namespace Graphics::Editor::Modals
         return m_isOpen;
     }
 
+    bool ModalBase::isClosed() const
+    {
+        return m_closed;
+    }
+
     void ModalBase::show()
     {
         m_isOpen = false;
+        m_closed = false;
         ImGui::OpenPopup(m_modalName.c_str());
 
+    }
+    void ModalBase::close()
+    {
+        m_closed = true;
+        ImGui::CloseCurrentPopup();
     }
 }

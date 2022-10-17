@@ -12,6 +12,7 @@ namespace Graphics
 			class ModalBase
 			{
 				bool m_isOpen = false;
+				bool m_closed = true;
 			protected:
 				Core::String m_modalName;
 
@@ -20,7 +21,9 @@ namespace Graphics
 
 				void open();
 				bool isOpen() const;
+				bool isClosed() const;
 				void show();
+				void close();
 
 				virtual void ImGuiRenderModal() = 0;
 			};

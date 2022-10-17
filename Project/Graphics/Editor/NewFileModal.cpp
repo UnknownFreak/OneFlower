@@ -52,12 +52,12 @@ namespace Graphics::Editor::Modals
 
 			if (ImGui::Button("Create"))
 			{
-				ImGui::CloseCurrentPopup();
+				close();
 			}
 			ImGui::SameLine();
 			if (ImGui::Button("Cancel"))
 			{
-				ImGui::CloseCurrentPopup();
+				close();
 			}
 
 			ImGui::EndPopup();

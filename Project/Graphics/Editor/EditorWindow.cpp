@@ -27,6 +27,10 @@ void Graphics::Editor::MainEditorWindow::render()
 		{
 			if(ImGui::BeginMainMenuBar())
 			{
+				if (ImGui::IsKeyPressed(ImGuiKeyModFlags_Ctrl |ImGuiKey_N) && newFileModal.isClosed())
+				{
+					newFileModal.open();
+				}
 				if(ImGui::BeginMenu("File"))
 				{
 					if (ImGui::MenuItem("New", "Ctrl + N"))
