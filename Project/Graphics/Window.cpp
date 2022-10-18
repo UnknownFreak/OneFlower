@@ -280,7 +280,7 @@ namespace Graphics
 		for (auto kv : positions)
 		{
 		
-			auto& model = models[kv.first];
+			auto model = models[kv.first];
 			//t.model = glm::scale(glm::mat4(1.f), glm::vec3(1.f));
 			t.model = glm::translate(glm::mat4(1.f), kv.second->buffered);
 			t.model = glm::rotate(t.model, 0.f, glm::vec3(1.f, 0.f, 0.f));
