@@ -288,11 +288,13 @@ namespace Graphics
 			t.model = glm::rotate(t.model, kv.second->facingAngle, glm::vec3(0.f, 0.f, 1.f));
 		
 			kv.second->facingAngle += 1.f / 255.f;
-		
-			dTransaction->bindShader(model->shader);
-			dTransaction->bindMaterial(model->shader, model->material);
-			dTransaction->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
-			dTransaction->drawIndexed(model->mMeshBuffer, model->mIndexBuffer);
+			if (model)
+			{
+				dTransaction->bindShader(model->shader);
+				dTransaction->bindMaterial(model->shader, model->material);
+				dTransaction->setShaderConstant(model->shader, (U8*)&t, sizeof(t));
+				dTransaction->drawIndexed(model->mMeshBuffer, model->mIndexBuffer);
+			}
 		}
 
 		dTransaction->bindShader(mFsq);
