@@ -813,7 +813,6 @@
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
     <ClInclude Include="Project\World\LoadingStateMachine.hpp" />
     <ClInclude Include="Project\World\WorldManager.hpp" />
-    <ClInclude Include="Project\World\WorldMap.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assemble.frag" />

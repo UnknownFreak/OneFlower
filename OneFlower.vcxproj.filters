@@ -773,9 +773,6 @@
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\World\WorldMap.hpp">
-      <Filter>Engine\World</Filter>
-    </ClInclude>
     <ClInclude Include="Project\World\WorldManager.hpp">
       <Filter>Engine\World</Filter>
     </ClInclude>
