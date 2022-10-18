@@ -43,6 +43,10 @@ void Graphics::Editor::MainEditorWindow::render()
 					if (ImGui::MenuItem("Load"))
 					{
 					}
+					if (ImGui::MenuItem("Save & Reload Dependencies", "Ctrl + Shift + R"))
+					{
+
+					}
 					ImGui::Separator();
 					if (ImGui::MenuItem("Exit", "Alt + F4"))
 					{
