@@ -34,7 +34,7 @@ namespace Asset::Resource
 		GameObject* createNewInstance(const Core::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
 		GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
 		GameObject* createNewInstance(GameObject* parent, const bool& isPlayerSummon = false) const;
-		void createNewInstance(GameObject& theObject);
+		void createNewPlayerInstance(GameObject& theObject);
 
 		template <class Ar>
 		void save(Ar& ar) const

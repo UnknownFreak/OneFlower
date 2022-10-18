@@ -81,9 +81,9 @@ namespace Asset::Resource
 		return object;
 	}
 
-	void Prefab::createNewInstance(GameObject& theObject)
+	void Prefab::createNewPlayerInstance(GameObject& theObject)
 	{
-		build(&theObject, false);
+		build(&theObject, true);
 	}
 
 	Interfaces::TypeInfo Prefab::getTrait() const

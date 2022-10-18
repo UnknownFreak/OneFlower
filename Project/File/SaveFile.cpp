@@ -119,8 +119,7 @@ namespace File
 		auto prefab = Engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		player = GameObject();
 
-		prefab.createNewInstance(player);
-		player.applyGameMode(gameMode.playerModifiers);
+		prefab.createNewPlayerInstance(player);
 		player.tag = "player";
 		player.id = Core::uuid::nil();
 		player.addComponent<Render>();
