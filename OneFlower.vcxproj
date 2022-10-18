@@ -270,9 +270,6 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="EditorResources\EditorResources.csproj">
-      <Project>{258982f6-92f2-4d9a-b8d2-58774d0fd26b}</Project>
-    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
