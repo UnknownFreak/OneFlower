@@ -17,6 +17,7 @@ namespace Engine
 
 		OneVersion getBuildNumber() const;
 		Core::String getBuildNumberAsStringWithEditor() const;
+		Core::String getDetailedBuildInfo() const;
 
 		std::vector<Core::String> toLogString() const;
 	};

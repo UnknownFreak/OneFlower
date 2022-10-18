@@ -49,9 +49,9 @@ int GameEntry::Run()
 	world.initialize();
 	gfx.setFramerate(Engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
-	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 50.f));
-	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 50.f));
-	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getBuildNumberAsStringWithEditor(), float(width - (200 * 2)), 10.f));
+	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 70.f));
+	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 70.f));
+	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), float(width - (200 * 2)), 10.f));
 	
 	gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow , std::make_unique<Graphics::Editor::MainEditorWindow>());
 	gfx.ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());

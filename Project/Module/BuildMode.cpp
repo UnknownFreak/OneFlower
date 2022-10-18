@@ -43,6 +43,14 @@ namespace Engine
 		return getBuildNumber().str() + " - Build: " + Core::toString(VERSION_BUILD) + x;
 	}
 
+	Core::String BuildMode::getDetailedBuildInfo() const
+	{
+		Core::String detailedString;
+		for (auto s : toLogString())
+			detailedString += s + "\n";
+		return detailedString;
+	}
+
 	std::vector<Core::String> BuildMode::toLogString() const
 	{
 		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorBuild: " + toYesNoString(isEditorBuild()), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
