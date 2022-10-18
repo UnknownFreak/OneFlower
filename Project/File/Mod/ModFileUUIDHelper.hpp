@@ -29,6 +29,11 @@ namespace File::Mod
 			return uuid == other.uuid && name == other.name;
 		}
 
+		bool isValid()
+		{
+			return !uuid.is_nil() && name != "";
+		}
+
 		Core::String name;
 		Core::uuid uuid;
 
