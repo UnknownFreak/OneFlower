@@ -29,7 +29,7 @@ namespace File::Mod
 			return uuid == other.uuid && name == other.name;
 		}
 
-		bool isValid()
+		bool isValid() const
 		{
 			return !uuid.is_nil() && name != "";
 		}
