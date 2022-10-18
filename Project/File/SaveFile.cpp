@@ -128,6 +128,7 @@ namespace File
 		player.addComponent<Component::Stats>();
 		player.addComponent<Component::CombatComponent>();
 		player.getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
+		//player.removeComponent<Component::AI>();
 		player.addComponent<Component::PlayerController>();
 		setPlayerInfo();
 	}
