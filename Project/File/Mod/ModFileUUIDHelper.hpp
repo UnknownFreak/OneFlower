@@ -53,7 +53,7 @@ namespace File::Mod
 
 		Core::String operator()() const
 		{
-			return "{" + name + "," + uuid.to_string() + "}";
+			return "{\"" + name + "\"," + uuid.to_string() + "}";
 		}
 	};
 };
