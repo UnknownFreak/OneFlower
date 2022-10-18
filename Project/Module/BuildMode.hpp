@@ -7,7 +7,6 @@
 
 namespace Engine
 {
-
 	struct BuildMode {
 
 		Core::String toYesNoString(const bool& b) const;
@@ -21,11 +20,13 @@ namespace Engine
 		Core::String getDetailedBuildInfo() const;
 
 		std::vector<Core::String> toLogString() const;
+		static BuildMode buildMode;
+
 	private:
 		bool m_isEditorMode = false;
 	};
 
-	BuildMode GetBuildMode();
+	BuildMode& GetBuildMode();
 
 }
 

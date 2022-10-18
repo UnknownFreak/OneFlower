@@ -1,12 +1,14 @@
 #include "BuildMode.hpp"
 #include "BuildVersion.hpp"
 
+Engine::BuildMode Engine::BuildMode::buildMode;
+
 namespace Engine
 {
 
-	BuildMode GetBuildMode()
+	BuildMode& GetBuildMode()
 	{
-		return BuildMode();
+		return Engine::BuildMode::buildMode;
 	}
 
 	Core::String BuildMode::toYesNoString(const bool& b) const
