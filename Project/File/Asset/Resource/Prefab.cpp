@@ -81,6 +81,11 @@ namespace Asset::Resource
 		return object;
 	}
 
+	void Prefab::createNewInstance(GameObject& theObject)
+	{
+		build(&theObject, false);
+	}
+
 	Interfaces::TypeInfo Prefab::getTrait() const
 	{
 		return { Interfaces::Trait<Prefab>::typeId };

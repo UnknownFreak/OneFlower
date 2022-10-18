@@ -23,6 +23,8 @@ namespace Resource
 		File::Mod::ModFileUUIDHelper loadingScreen;
 		glm::vec3 startingPosition;
 
+		File::Mod::ModFileUUIDHelper playerPrefab;
+
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
 		std::unordered_map<Core::String, GameModeModifier> tagModifiers;
@@ -41,6 +43,7 @@ namespace Resource
 			ar(playerModifiers);
 			ar(enemyModifiers);
 			ar(tagModifiers);
+			ar(playerPrefab);
 		}
 
 		template<class Archive>
@@ -54,6 +57,7 @@ namespace Resource
 			ar(playerModifiers);
 			ar(enemyModifiers);
 			ar(tagModifiers);
+			ar(playerPrefab);
 			loadTranslation();
 		}
 	};

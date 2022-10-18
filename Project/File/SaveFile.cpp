@@ -9,6 +9,8 @@
 #include <Input/PlayerController.hpp>
 #include <Quest/Quest.hpp>
 
+#include <File/Asset/Resource/Prefab.hpp>
+
 Enums::EngineResourceType Interfaces::IEngineResource<File::SaveFile>::type = Enums::EngineResourceType::SaveFile;
 
 namespace File
@@ -89,6 +91,17 @@ namespace File
 	{
 		diff = difficulty;
 		gameModeId;
+		if (!gameModeId.isValid())
+		{
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile::newGame").Critical("invalidGameModeId:", gameModeId.operator()(),
+				" this is very bad...");
+#ifndef _DEBUG
+				std::exit(-1);
+#else
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile::newGame").Always("But we're in debug mode so gonna continue anyways...");
+#endif // !_DEBUG
+
+		}
 		//gameMode = Engine::GetModule<File::Asset::AssetManager>().requestor.requestUniqueInstance<Resource::GameMode>(gameModeId);
 		customDiffId = customDifficultyId;
 		questState.clear();
@@ -99,7 +112,14 @@ namespace File
 		loadingScreen = gameMode.loadingScreen;
 		point = gameMode.startingPosition;
 
+		if (!gameMode.playerPrefab.isValid())
+		{
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile::newGame").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
+		}
+		auto prefab = Engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		player = GameObject();
+
+		prefab.createNewInstance(player);
 		player.applyGameMode(gameMode.playerModifiers);
 		player.tag = "player";
 		player.id = Core::uuid::nil();
