@@ -12,7 +12,8 @@ namespace Engine
 
 		Core::String toYesNoString(const bool& b) const;
 
-		bool isEditorBuild() const;
+		bool isEditorMode() const;
+		void setEditorMode();
 		bool isDebugBuild() const;
 
 		OneVersion getBuildNumber() const;
@@ -20,6 +21,8 @@ namespace Engine
 		Core::String getDetailedBuildInfo() const;
 
 		std::vector<Core::String> toLogString() const;
+	private:
+		bool m_isEditorMode = false;
 	};
 
 	BuildMode GetBuildMode();

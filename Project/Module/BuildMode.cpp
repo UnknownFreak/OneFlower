@@ -14,14 +14,18 @@ namespace Engine
 		return b ? "Yes" : "No";
 	}
 
-	bool BuildMode::isEditorBuild() const
+	bool BuildMode::isEditorMode() const
 	{
 #ifdef _EDITOR_
 		return true;
 #else 
-		return false;
+		return m_isEditorMode;
 #endif // _EDITOR_
 
+	}
+	void BuildMode::setEditorMode()
+	{
+		m_isEditorMode = true;
 	}
 	bool BuildMode::isDebugBuild() const
 	{
@@ -39,8 +43,7 @@ namespace Engine
 
 	Core::String BuildMode::getBuildNumberAsStringWithEditor() const
 	{
-		Core::String x = isEditorBuild() ? "E" : "";
-		return getBuildNumber().str() + " - Build: " + Core::toString(VERSION_BUILD) + x;
+		return getBuildNumber().str() + " - Build: " + Core::toString(VERSION_BUILD);
 	}
 
 	Core::String BuildMode::getDetailedBuildInfo() const
@@ -53,6 +56,6 @@ namespace Engine
 
 	std::vector<Core::String> BuildMode::toLogString() const
 	{
-		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorBuild: " + toYesNoString(isEditorBuild()), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
+		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(isEditorMode()), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
 	}
 }

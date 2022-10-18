@@ -115,11 +115,13 @@ class EngineLogger : public swizzle::core::LogDevice
 #endif
 #pragma warning(disable: 28251)
 #ifdef  _DEBUG
-	int main(int , char* )
+	int main(int c, char* argv )
 #else //  _DEBUG
 	int __stdcall WinMain(HINSTANCE /*hInstance*/, HINSTANCE /*prevInstance*/, LPSTR /*lpCmnLine*/, int /*nShowCmd*/)
 #endif
 {
+		c; argv;
+	// Parse argv;
 	initializeSystems();
 	EngineLogger logger;
 	sw::core::AddLogger(&logger);
