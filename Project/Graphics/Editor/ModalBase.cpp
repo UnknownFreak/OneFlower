@@ -27,6 +27,7 @@ namespace Graphics::Editor::Modals
     {
         m_isOpen = false;
         m_closed = false;
+        OnOpen();
         ImGui::OpenPopup(m_modalName.c_str());
 
     }

@@ -25,6 +25,7 @@ namespace Graphics
 				void show();
 				void close();
 
+				virtual void OnOpen() = 0;
 				virtual void ImGuiRenderModal() = 0;
 			};
 		}
