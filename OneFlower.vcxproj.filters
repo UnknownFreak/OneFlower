@@ -295,6 +295,9 @@
     <Filter Include="Engine\Graphics\Editor\MainWindow\Modals">
       <UniqueIdentifier>{29e9415f-5ae5-4a6d-a490-f263315d561e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Module\Editor">
+      <UniqueIdentifier>{73b4c501-7e6e-42c3-b051-38270f0f5ce5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
