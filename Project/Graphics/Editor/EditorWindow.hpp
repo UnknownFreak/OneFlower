@@ -15,6 +15,8 @@ namespace Graphics
 			unsigned width, height;
 		public:
 
+			void setSize(const unsigned& width, const unsigned& height);
+
 			MainEditorWindow();
 
 			// Inherited via UIContext

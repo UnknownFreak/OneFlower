@@ -19,7 +19,6 @@ class GameEntry
 	
 	WorldManager world;
 
-	void render();
 	void physicsUpdate();
 public:
 	GameEntry();

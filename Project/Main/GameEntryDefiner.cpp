@@ -14,12 +14,6 @@
 #include <Graphics/Editor/EditorWindow.hpp>
 #include <Graphics/Editor/ObjectSelector.hpp>
 
-
-#ifdef _EDITOR_
-#include <Editor\MainEditorWindow.hpp>
-#include <Editor\SplashScreen.hpp>
-#endif
-
 #include <chrono>
 #include <thread>
 #include <iostream>
@@ -37,11 +31,6 @@ GameEntry::GameEntry() :
 
 int GameEntry::Run()
 {
-#ifdef _EDITOR_
-	SplashScreen^ splash = gcnew SplashScreen();
-	MainEditorWindow^ window = splash->InitializeEditor();
-#endif
-
 	auto width = Engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
 	physics.renderBox = gfx.renderBox;
@@ -53,11 +42,48 @@ int GameEntry::Run()
 	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 70.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), float(width - (200 * 2)), 10.f));
 	
-	gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow , std::make_unique<Graphics::Editor::MainEditorWindow>());
-	gfx.ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
 
 
 	gfx.postInitialize();
+
+	auto& listener = gfx.getEventListener();
+	listener.addListener("UIElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
+		if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)
+		{
+			auto& e = (const swizzle::core::WindowResizeEvent&)evt;
+
+			auto& ui = Engine::GetModule<Graphics::UI::UIHandler>();
+			auto x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::FPS);
+			x->x = e.mWidth - 400.f;
+			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::UPS);
+			x->x = e.mWidth - 200.f;
+			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::BuildInfo);
+			x->x = e.mWidth - 400.f;
+
+			if (Engine::GetBuildMode().isEditorMode())
+			{
+				auto editorWindow = ui.getUIContext<Graphics::Editor::MainEditorWindow>(Enums::UIContextNames::MainEditorWindow);
+				editorWindow->setSize(e.mWidth, e.mHeight);
+			}
+		}
+		});
+
+	if (Engine::GetBuildMode().isEditorMode())
+	{
+		gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow, std::make_unique<Graphics::Editor::MainEditorWindow>());
+		gfx.ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
+
+		listener.addListener("UIEditorElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
+			if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)
+			{
+				auto& e = (const swizzle::core::WindowResizeEvent&)evt;
+
+				auto& ui = Engine::GetModule<Graphics::UI::UIHandler>();
+				auto editorWindow = ui.getUIContext<Graphics::Editor::MainEditorWindow>(Enums::UIContextNames::MainEditorWindow);
+				editorWindow->setSize(e.mWidth, e.mHeight);
+			}
+			});
+	}
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
 
@@ -72,7 +98,11 @@ int GameEntry::Run()
 
 void GameEntry::physicsUpdate()
 {
-	world.createSimpleWorld();
+	if (!Engine::GetBuildMode().isEditorMode())
+	{
+		world.createSimpleWorld();
+//		world.createMainMenu();
+	}
 	auto ups = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::UPS);
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;

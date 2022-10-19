@@ -42,6 +42,11 @@ namespace Graphics
 		models.erase(go->id);
 		positions.erase(go->id);
 	}
+	RenderWindow::DynamicWindowListener& RenderWindow::getEventListener()
+	{
+		return listener;
+	}
+
 	TransparencyMasker& RenderWindow::getMasker()
 	{
 		return masker;
@@ -65,8 +70,6 @@ namespace Graphics
 		// endTodo
 		ImGui_ImplSwizzle_Init(mGfxContext, mWindow);
 
-		//auto& gameConfig = Engine::GetModule<EngineModule::GameConfig>();
-		//mWindow->setSize(gameConfig.videoMode.first, gameConfig.videoMode.second);
 		mWindow->setTitle("Vk Window");
 
 		mSwapchain->setVsync(sw::gfx::VSyncTypes::vSyncOn);
@@ -87,6 +90,9 @@ namespace Graphics
 		
 		mFsqMat = mGfxContext->createMaterial(mFsq);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
+
+		auto& gameConfig = Engine::GetModule<EngineModule::GameConfig>();
+		mWindow->setSize(gameConfig.videoMode.first, gameConfig.videoMode.second);
 
 		mSkybox.setSkyBox("dark");
 
@@ -109,17 +115,13 @@ namespace Graphics
 
 	void RenderWindow::userCleanup()
 	{
-		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & fpsResizeEvent);
-		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & upsResizeEvent);
-		mWindow->removeEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) & buildInfoResizeEvent);
+		mWindow->removeEventListener(&listener);
 	}
 
 	void RenderWindow::postInitialize()
 	{
 		fps = ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::FPS);
-		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &fpsResizeEvent);
-		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &upsResizeEvent);
-		mWindow->addEventListener((swizzle::EventHandler<swizzle::core::WindowEvent>*) &buildInfoResizeEvent);
+		mWindow->addEventListener(&listener);
 	}
 
 	void RenderWindow::ProcessCulling()
@@ -206,8 +208,7 @@ namespace Graphics
 	RenderWindow::RenderWindow() :
 		drawHitbox(Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX]),
 		ui(Engine::GetModule<Graphics::UI::UIHandler>()),
-		cam(glm::radians(45.0F), 1280, 720), mController(cam),
-		fpsResizeEvent(Enums::UIContextNames::FPS, 200.f*2), upsResizeEvent(Enums::UIContextNames::UPS, 200.f), buildInfoResizeEvent(Enums::UIContextNames::BuildInfo, 200.f*2)
+		cam(glm::radians(45.0F), 1280, 720), mController(cam)
 	{
 	}
 

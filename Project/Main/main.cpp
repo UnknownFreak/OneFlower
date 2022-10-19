@@ -1,9 +1,4 @@
 #ifndef _UNITTESTS_
-// Windows.h has to be included first. Due to how clr works (only affects editormode).
-#ifdef _EDITOR_
-#include <Windows.h>
-#endif
-//#include <Windows.h>
 
 #include <iostream>
 
@@ -110,9 +105,6 @@ class EngineLogger : public swizzle::core::LogDevice
 };
 
 
-#ifdef _EDITOR_
-[System::STAThread]
-#endif
 #pragma warning(disable: 28251)
 #ifdef  _DEBUG
 	int main(int c, char** argv )
@@ -133,11 +125,7 @@ class EngineLogger : public swizzle::core::LogDevice
 
 	Engine::Dispose();
 
-#ifdef _EDITOR_
-	exit(return_value);
-#else
 	return return_value;
-#endif
 }
 #pragma warning(default: 28251)
 

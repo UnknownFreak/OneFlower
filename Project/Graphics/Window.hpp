@@ -31,27 +31,31 @@ namespace Graphics
 	class RenderWindow : public Interfaces::IEngineResource<RenderWindow>, public sw::Application
 	{
 
-		class UIContextResizeEvent : public swizzle::EventHandler<swizzle::core::WindowResizeEvent>
+		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
 		{
+			std::unordered_map<Core::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
 		public:
-			Enums::UIContextNames type;
-			const float offset;
+			DynamicWindowListener() = default;
 
-			inline UIContextResizeEvent(const Enums::UIContextNames& type, const float& offset) : type(type), offset(offset) {}
-
-			inline virtual void publishEvent(const swizzle::core::WindowResizeEvent& evt)
+			inline virtual void publishEvent(const swizzle::core::WindowEvent& evt)
 			{
-				auto x = Engine::GetModule<Graphics::UI::UIHandler>().getUIContext<Graphics::UI::UIContext>(type);
-				if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent && x)
+				for (auto& it : events)
 				{
-					x->x = evt.mWidth - offset;
+					it.second(evt);
 				}
+			}
+
+			void addListener(const Core::String& name, std::function<void(const swizzle::core::WindowEvent&)> fn)
+			{
+				events[name] = fn;
+			}
+			void removeListener(const Core::String& name)
+			{
+				events.erase(name);
 			}
 		};
 
-		UIContextResizeEvent fpsResizeEvent;
-		UIContextResizeEvent upsResizeEvent;
-		UIContextResizeEvent buildInfoResizeEvent;
+		DynamicWindowListener listener;
 
 		Graphics::UI::Stats* fps = nullptr;
 
@@ -110,6 +114,8 @@ namespace Graphics
 
 		void AddRenderable(GameObject* theObject);
 		void RemoveRenderable(GameObject* theObject);
+
+		DynamicWindowListener& getEventListener();
 
 		Enums::EngineResourceType & getType() const
 		{

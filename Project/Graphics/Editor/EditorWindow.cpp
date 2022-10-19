@@ -2,6 +2,12 @@
 
 #include <File/GameConfig.hpp>
 
+void Graphics::Editor::MainEditorWindow::setSize(const unsigned& inWidth, const unsigned& inHeight)
+{
+	width = inWidth;
+	height = inHeight;
+}
+
 Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File")
 {
 	auto gc = Engine::GetModule<EngineModule::GameConfig>();
