@@ -60,6 +60,37 @@ void Graphics::Editor::MainEditorWindow::render()
 					}
 					ImGui::EndMenu();
 				}
+				if (ImGui::BeginMenu("Tools"))
+				{
+					// Terrain
+					// Objects
+					// Ai etc
+					ImGui::EndMenu();
+				}
+				if (ImGui::BeginMenu("Translation"))
+				{
+					// Translation file management
+					ImGui::EndMenu();
+				}
+				if (ImGui::BeginMenu("UI"))
+				{
+					// UI customization
+					ImGui::EndMenu();
+				}
+				if (ImGui::BeginMenu("Settings"))
+				{
+					// EditorSettings
+				}
+				if (ImGui::BeginMenu("Help"))
+				{
+					if (ImGui::MenuItem("Help"))
+					{
+					}
+					if (ImGui::MenuItem("About"))
+					{
+					}
+					ImGui::EndMenu();
+				}
 				ImGui::EndMainMenuBar();
 			}
 			if (newFileModal.isOpen())
