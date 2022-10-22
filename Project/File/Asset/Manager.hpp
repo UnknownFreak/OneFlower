@@ -68,7 +68,7 @@ namespace File::Asset
 		void saveLanguages(const Language::LanguageRequestor& languageRequestor);
 		void saveLanguageFile(const Core::String& filename, Language::TranslationString& langHeader);
 
-		Core::String openedMod;
+		File::Mod::Header openedMod;
 
 		File::Mod::Loader& getModLoader();
 

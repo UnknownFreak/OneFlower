@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "ModalBase.hpp"
+#include <imgui/imgui.h>
 
 namespace Graphics
 {
@@ -10,16 +11,35 @@ namespace Graphics
 	{
 		namespace Modals
 		{
+			struct TreeItem
+			{
+				Core::String ItemName;
+				std::vector<TreeItem> subItems;
+				bool operator <(const TreeItem& other);
+			};
+
+			struct TreeItemRoot
+			{
+				Core::String ItemName;
+				bool selected;
+				std::vector<TreeItem> subItems;
+				bool operator<(const TreeItemRoot& other);
+			};
+
+
 			class NewFile : public ModalBase
 			{
 				bool m_isOpen = false;
 				Core::String m_fileName;
 				bool isMaster = false;
-				std::vector<std::pair<Core::String, bool>> modFiles;
-				std::vector<std::pair<Core::String, Core::String>> dependencies;
+				std::vector<TreeItemRoot> modFiles;
 
-				void loadDependencyDetails(const Core::String& file);
-				void loadDependencyDetails(const Core::String& file, std::vector<std::pair<Core::String, Core::String>>& dependencies, const int index );
+				std::vector<TreeItem> loadDependencyDetails(const Core::String& file);
+
+				void newModFile();
+
+				ImVec4 drawTree(const TreeItem& item);
+				void drawTree(TreeItemRoot& item);
 
 			public:
 

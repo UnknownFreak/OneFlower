@@ -31,9 +31,10 @@ namespace File::Asset
 	}
 
 	Manager::Manager() : 
-		openedMod("<Not Set>"),
+		openedMod(),
 		modLoader(Engine::GetModule<File::Mod::Loader>())
 	{
+		openedMod.name = "<Not Set>";
 	}
 
 	void Manager::saveGameDatabase(
