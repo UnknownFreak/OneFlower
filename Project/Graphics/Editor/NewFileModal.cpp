@@ -54,8 +54,15 @@ namespace Graphics::Editor::Modals
 
 		manager.openedMod = header;
 		manager.requestor.clear();
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
+		logger.Debug("Creating new language module [" + Core::Builtin + "].");
+		manager.getLanguage();
+
+		logger.Debug("Saving the file...");
 		manager.saveGameDatabase(header.name, header);
+		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();
+		logger.Info("Successfully created mod [" + header.name + "].");
 
 	}
 
