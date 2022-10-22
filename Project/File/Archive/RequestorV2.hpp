@@ -415,7 +415,7 @@ namespace File::Archive
 							else if (ind.flags == Enums::ObjectFlag::EoF)
 							{
 								eof = true;
-								logger.Info("Requestor loaded from ["+ var.first +"]" + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
+								logger.Info("Requestor loaded from ["+ var.first +"] total size is now: " + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
 							}
 						}
 					}
