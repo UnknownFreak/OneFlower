@@ -33,11 +33,23 @@ namespace Graphics::Editor::Modals
 		modLoader.loadOrder.clear();
 
 		std::vector<Core::String> deps;
+		std::set<Core::String> loadOrder;
 
+
+		const auto x = [&](auto const& ref, std::set<Core::String>& loadOrder, std::vector<TreeItem>& items) -> void
+		{
+			for (auto& item : items)
+			{
+				loadOrder.insert(item.ItemName);
+				ref(ref, loadOrder, item.subItems);
+			}
+		};
 		for (auto & d : modFiles)
 			if (d.selected)
 			{
 				deps.push_back(d.ItemName);
+				loadOrder.insert(d.ItemName);
+				x(x,loadOrder, d.subItems);
 			}
 
 		Core::String fileName = m_fileName;
@@ -50,13 +62,12 @@ namespace Graphics::Editor::Modals
 		header.name = fileName;
 		header.dependencies = deps;
 
-		modLoader.loadOrder.insert(std::pair<Core::String, size_t>(fileName, modLoader.loadOrder.size()));
+		manager.buildModOrderFile(fileName, loadOrder);
 
 		manager.openedMod = header;
-		manager.requestor.clear();
 		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
-		logger.Debug("Creating new language module [" + Core::Builtin + "].");
-		manager.getLanguage();
+		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
+		//manager.getLanguage();
 
 		logger.Debug("Saving the file...");
 		manager.saveGameDatabase(header.name, header);

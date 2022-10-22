@@ -4,6 +4,7 @@
 #include "RegisterRTTI.hpp"
 
 #include <fstream>
+#include <functional>
 #include <unordered_map>
 
 #include <Interfaces/IPatch.hpp>
@@ -18,15 +19,103 @@
 #include <File/Mod/ModLoader.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 
-//#pragma warning(push)
-//#pragma warning(disable: 4003)
 #include <cereal\archives\binary.hpp>
-//#pragma warning(pop)
 
 namespace File::Archive
 {
+	
 	class RequestorV2
 	{
+
+		class ArchiveFactory
+		{
+			std::unordered_map<Core::uuid, std::function<void(const File::Archive::DatabaseIndex&)>> helpers;
+
+			RequestorV2* ref;
+
+		public:
+
+			ArchiveFactory(RequestorV2* ref) : ref(ref) {};
+
+			inline void OnLoadingRequested(const File::Archive::DatabaseIndex& index)
+			{
+				helpers[index.typeId](index);
+			}
+			inline void registerDefaults()
+			{
+				helpers[Interfaces::Trait<::Asset::Resource::DialogTree>::typeId] = [this](const File::Archive::DatabaseIndex& index)
+				{
+					ref->request<::Asset::Resource::DialogTree>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<::Asset::Resource::Prefab>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<::Asset::Resource::Prefab>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<File::Asset::Resource::Template::WorldInstance>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<File::Asset::Resource::Template::WorldInstance>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<File::Asset::Resource::Template::TileChunk>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<File::Asset::Resource::Template::TileChunk>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<File::Asset::Resource::Template::ColliderChunk>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<File::Asset::Resource::Template::ColliderChunk>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<PrimitiveSaveable<Core::String>>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<PrimitiveSaveable<Core::String>>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<Combat::Element>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<Combat::Element>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<Combat::Effect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<Combat::Effect>(index.modFile, index.ID);
+				};
+				helpers[Interfaces::Trait<Combat::Skill>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<Combat::Skill>(index.modFile, index.ID);
+				};
+				//helpers[Interfaces::Trait<Combat::EffectProperty>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Combat::EffectProperty>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Combat::DamageEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Combat::DamageEffect>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Combat::BarrierEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Combat::BarrierEffect>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Combat::VisualEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Combat::VisualEffect>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Combat::ModifierEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Combat::ModifierEffect>(index.modFile, index.ID);
+				//};
+				helpers[Interfaces::Trait<Questing::Quest>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<Questing::Quest>(index.modFile, index.ID);
+				};
+				//helpers[Interfaces::Trait<Questing::AOrBObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::AOrBObjective>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Questing::CollectItemObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::CollectItemObjective>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Questing::DefeatEnemyObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::DefeatEnemyObjective>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Questing::DefendObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::DefendObjective>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Questing::DuelObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::DuelObjective>(index.modFile, index.ID);
+				//};
+				//helpers[Interfaces::Trait<Questing::ListObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+				//	ref->request<Questing::ListObjective>(index.modFile, index.ID);
+				//};
+
+			}
+
+			void registerCustom(const Core::uuid& uuid, const std::function<void(const File::Archive::DatabaseIndex&)>& func) // if custom dllmods ever become a thing
+			{
+				helpers[uuid] = func;
+			}
+		};
+
 		// ##################################################
 		// # VARIABLE SECTION								#
 		// ##################################################
@@ -237,14 +326,16 @@ namespace File::Archive
 	public:
 
 		std::map<Core::String, size_t> fileLoadOrder;
+		ArchiveFactory factory;
 
 		// ##################################################
 		// # INITIALIZERS									#
 		// ##################################################
 
 		RequestorV2(const Core::String& loadDirectory = "Data\\", const std::map<Core::String, size_t>& loadOrder = {}) :
-			loadDirectory(loadDirectory), fileLoadOrder(loadOrder)
+			loadDirectory(loadDirectory), fileLoadOrder(loadOrder), factory(this)
 		{
+			factory.registerDefaults();
 		}
 
 		~RequestorV2()
@@ -271,7 +362,6 @@ namespace File::Archive
 		// # PUBLIC METHODS									#
 		// ##################################################
 
-	#if defined(_EDITOR_) || defined(_UNITTESTS_) || TRUE
 		template<class T>
 		inline bool add(T* ptr)
 		{
@@ -292,7 +382,6 @@ namespace File::Archive
 			return true;
 		}
 
-	#endif
 
 		inline void clear()
 		{
@@ -302,10 +391,8 @@ namespace File::Archive
 			requestedMap.clear();
 		}
 
-	#ifdef _EDITOR_
 
-		inline void editorLoadAll(void(*onObjectLoaded)(const Core::String, const Core::uuid&, const Core::String, const ObjectSaveMode,
-			const DatabaseIndex::ObjectTypeEnum, void*))
+		inline void editorLoadAll()
 		{
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			clear();
@@ -314,7 +401,6 @@ namespace File::Archive
 				bool eof = false;
 				File::Archive::DatabaseIndex ind;
 				std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
-				std::ifstream database(loadDirectory + var.first, std::ios::binary);
 				if (index.is_open())
 				{
 					cereal::BinaryInputArchive ar(index);
@@ -322,38 +408,21 @@ namespace File::Archive
 						while (!eof)
 						{
 							ar(ind);
-							if (ind.type == objectType)
+							if (ind.flags != Enums::ObjectFlag::EoF && ind.type != Enums::ObjectType::Header)
 							{
-								database.seekg(ind.row);
-								cereal::BinaryInputArchive loader(database);
-								td_map::iterator it = requestedMap.find(std::pair<std::string, Core::uuid>(ind.modFile, ind.ID));
-
-								if (it != requestedMap.end())
-								{
-									// stuff exist add extra things to object.
-									serialize(loader, it->second);
-								}
-								else
-								{
-									T tmp = defaultValue();
-									serialize(loader, tmp);
-									requestedMap.emplace(std::make_pair(td_key(ind.modFile, ind.ID), tmp));
-									auto ref = getAsPtr(tmp);
-									onObjectLoaded(ind.modFile, ind.ID, ref->getName(), ref->mode, objectType, (void*)ref);
-								}
+								factory.OnLoadingRequested(ind);
 							}
-							else if (ind.flags == Enums::ObjectType::EoF)
+							else if (ind.flags == Enums::ObjectFlag::EoF)
 							{
 								eof = true;
-								logger.Info("Requestor<" + getObjectTypeAsString() + "> Loaded from ["+ var.first +"]" + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
+								logger.Info("Requestor loaded from ["+ var.first +"]" + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
 							}
 						}
 					}
 				}
 				else
-					logger.Error("Requestor<" + getObjectTypeAsString() + "> Unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
+					logger.Error("Requestor unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
 				index.close();
-				database.close();
 			}
 		}
 
@@ -368,7 +437,6 @@ namespace File::Archive
 			}
 			return listofall;
 		}
-	#endif
 
 		inline std::vector<std::pair<Core::String, Core::uuid>> listAllObjectKeys(const Enums::ObjectType& objectType) const
 		{

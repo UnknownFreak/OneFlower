@@ -14,6 +14,7 @@
 #include <cereal\access.hpp>
 #pragma warning(pop)
 
+#include <set>
 
 #include <Helpers\String.hpp>
 
@@ -54,10 +55,10 @@ namespace File::Asset
 
 		Language::LanguageRequestor& getLanguage();
 
-		//bool loadModHeader(Core::String modName, Header& modHeader);
-
 		bool loadModOrderFile();
 		void saveModOrderFile();
+		void buildModOrderFile(const Core::String & modFile, std::set<Core::String>& dependencies);
+
 
 		void saveGameDatabase(std::string filename, File::Mod::Header& modhdr);
 

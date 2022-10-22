@@ -30,6 +30,23 @@ namespace File::Asset
 		}
 	}
 
+	void Manager::buildModOrderFile(const Core::String& modFile, std::set<Core::String>& dependencies)
+	{
+		modLoader.loadOrder.clear();
+		for (auto& name : dependencies)
+		{
+			modLoader.loadOrder.insert(std::make_pair(name, modLoader.loadOrder.size()));
+		}
+		modLoader.loadOrder.insert(std::make_pair(modFile, modLoader.loadOrder.size()));
+		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+		logger.Info("New load order built: Order is as follows,");
+		for (auto& order : modLoader.loadOrder)
+		{
+			logger.Info(order.first);
+		}
+		logger.Info("End of load order.");
+	}
+
 	Manager::Manager() : 
 		openedMod(),
 		modLoader(Engine::GetModule<File::Mod::Loader>())
@@ -85,13 +102,8 @@ namespace File::Asset
 
 	void Manager::loadAllEditorVariables()
 	{
-#ifdef _EDITOR_
-		requestor.editorLoadAll(&Editor::onObjectLoaded);
-		lang.editorLoadAll(&Editor::onObjectLoaded);
-#endif	
-		//	LoadAllTextureMaps(Engine::ModelContainer);
-		//	LoadAllPrefabs(Editor::addons.myWorldManager.editorPrefabContainer);
-		//	LoadAllZones(Editor::addons.myWorldManager.EditorAllZones);
+		requestor.editorLoadAll();
+		lang.editorLoadAll();
 	}
 
 	std::map<Core::String, Language::TranslationString> Manager::loadLanguages(const std::vector<Core::String>& languageFiles)
