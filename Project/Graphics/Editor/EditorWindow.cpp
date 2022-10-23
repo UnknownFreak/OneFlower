@@ -2,13 +2,15 @@
 
 #include <File/GameConfig.hpp>
 
+#include<File/Asset/Manager.hpp>
+
 void Graphics::Editor::MainEditorWindow::setSize(const unsigned& inWidth, const unsigned& inHeight)
 {
 	width = inWidth;
 	height = inHeight;
 }
 
-Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File")
+Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File"), loadFileModal("Load File")
 {
 	auto gc = Engine::GetModule<EngineModule::GameConfig>();
 	width = gc.videoMode.first;
@@ -45,9 +47,12 @@ void Graphics::Editor::MainEditorWindow::render()
 					}
 					if (ImGui::MenuItem("Save", "Ctrl + S"))
 					{
+						auto& manager = Engine::GetModule<File::Asset::Manager>();
+						manager.saveGameDatabase(manager.openedMod.name, manager.openedMod);
 					}
 					if (ImGui::MenuItem("Load"))
 					{
+						loadFileModal.open();
 					}
 					if (ImGui::MenuItem("Save & Reload Dependencies", "Ctrl + Shift + R"))
 					{
@@ -95,7 +100,10 @@ void Graphics::Editor::MainEditorWindow::render()
 			}
 			if (newFileModal.isOpen())
 				newFileModal.show();
+			if (loadFileModal.isOpen())
+				loadFileModal.show();
 			newFileModal.ImGuiRenderModal();
+			loadFileModal.ImGuiRenderModal();
 
 			ImGui::Text("MainEditorWindow: Hello World!");
 		}

@@ -426,6 +426,11 @@ namespace File::Archive
 			}
 		}
 
+		inline td_map& getLoadedMap()
+		{
+			return requestedMap;
+		}
+
 		inline std::vector<std::pair<Core::String, Core::uuid>> listAllCurrentLoadedObjects() const
 		{
 			std::vector<std::pair<Core::String, Core::uuid>> listofall;

@@ -44,8 +44,6 @@ namespace File::Asset
 	class Manager : public Interfaces::IEngineResource<Manager>
 	{
 
-		File::Archive::RequestorV2 lang;
-
 		File::Mod::Loader& modLoader;
 
 	public:

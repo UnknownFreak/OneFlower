@@ -202,13 +202,16 @@ namespace Graphics::Editor::Modals
 			}
 
 			ImGui::SetCursorPos(ImVec2(480.f, 370.f));
-			if (ImGui::Button("Create"))
+			if (ImGui::Button("Create", ImVec2(50, 0)))
 			{
-				newModFile();
-				close();
+				if (m_fileName != "")
+				{
+					newModFile();
+					close();
+				}
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Cancel"))
+			if (ImGui::Button("Cancel", ImVec2(50, 0)))
 			{
 				close();
 			}
@@ -219,6 +222,7 @@ namespace Graphics::Editor::Modals
 
 	void NewFile::OnOpen()
 	{
+		m_fileName = "";
 		auto mainFiles = Helpers::os::listDirectory("Data", ".main", false);
 		auto i_modFiles = Helpers::os::listDirectory("Data", ".mod", false);
 		modFiles.clear();

@@ -57,9 +57,6 @@ namespace File::Asset
 	void Manager::saveGameDatabase(
 		std::string filename,
 		File::Mod::Header& modhdr)
-		//,
-		//std::map<std::pair<std::string, size_t>, Items::Item*>& editorAllItems,
-		//std::map<std::pair<std::string, size_t>, Quests::Quest>& EditorAllQuests)
 	{
 		std::ofstream file(Core::dataPath + filename, std::ios::binary | std::ios::out);
 		filename.append(".index");
@@ -77,7 +74,7 @@ namespace File::Asset
 			indexAr(ind);
 			mainAr(modhdr);
 
-			lang.save(ind, file, indexAr, mainAr);
+			//lang.save(ind, file, indexAr, mainAr);
 			requestor.save(ind, file, indexAr, mainAr);
 
 			ind.ID = Core::uuid::nil();
@@ -92,7 +89,7 @@ namespace File::Asset
 
 	Language::LanguageRequestor & Manager::getLanguage()
 	{
-		return *lang.request<Language::LanguageRequestor>({ Core::Builtin, Core::uuid::nil() });
+		return *requestor.request<Language::LanguageRequestor>({ Core::Builtin, Core::uuid::nil() }, true);
 	}
 
 	File::Mod::Loader & Manager::getModLoader()
@@ -103,7 +100,6 @@ namespace File::Asset
 	void Manager::loadAllEditorVariables()
 	{
 		requestor.editorLoadAll();
-		lang.editorLoadAll();
 	}
 
 	std::map<Core::String, Language::TranslationString> Manager::loadLanguages(const std::vector<Core::String>& languageFiles)

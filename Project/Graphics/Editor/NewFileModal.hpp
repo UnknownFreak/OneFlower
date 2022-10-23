@@ -29,7 +29,6 @@ namespace Graphics
 
 			class NewFile : public ModalBase
 			{
-				bool m_isOpen = false;
 				Core::String m_fileName;
 				bool isMaster = false;
 				std::vector<TreeItemRoot> modFiles;

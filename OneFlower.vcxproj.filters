@@ -711,6 +711,9 @@
     <ClCompile Include="Project\imgui\imgui_stdlib.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\stduuid\include\uuid.h">
@@ -1255,6 +1258,9 @@
     </ClInclude>
     <ClInclude Include="Project\imgui\imgui_stdlib.hpp">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp">
+      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

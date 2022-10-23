@@ -3,6 +3,7 @@
 
 #include <Graphics/UI/UIContext.hpp>
 #include "NewFileModal.hpp"
+#include "LoadFileModal.hpp"
 
 namespace Graphics
 {
@@ -12,6 +13,7 @@ namespace Graphics
 		class MainEditorWindow : public Graphics::UI::UIContext
 		{
 			Modals::NewFile newFileModal;
+			Modals::LoadFile loadFileModal;
 			unsigned width, height;
 		public:
 
