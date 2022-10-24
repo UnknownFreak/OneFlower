@@ -1,6 +1,9 @@
 [submodule "Project/stduuid"]
-	path = Project/stduuid
+	path = vendor/stduuid
 	url = git@github.com:mariusbancila/stduuid.git
 [submodule "swizzle"]
 	path = swizzle
 	url = git@github.com:deathcleaver/swizzle.git
+[submodule "vendor/cereal"]
+	path = vendor/cereal
+	url = https://github.com/USCiLab/cereal.git

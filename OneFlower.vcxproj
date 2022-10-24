@@ -85,7 +85,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)Lib\cereal-1.3.2\include\;$(SolutionDir)Project\stduuid\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)vendor\stduuid\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
@@ -100,7 +100,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)Lib\cereal-1.3.0\include\;$(SolutionDir)Project\stduuid\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)vendor\stduuid\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)swizzle\build\bin-release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseEditor|x64'">
@@ -594,7 +594,6 @@
     <ClInclude Include="Project\Requirement\TimedRequirement.hpp" />
     <ClInclude Include="Project\Resources\GameMode.hpp" />
     <ClInclude Include="Project\Resources\GameModeModifier.hpp" />
-    <ClInclude Include="Project\stduuid\include\uuid.h" />
     <ClInclude Include="Project\Trigger\EffectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\ItemTrigger.hpp" />
     <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp" />
@@ -606,6 +605,7 @@
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
     <ClInclude Include="Project\World\LoadingStateMachine.hpp" />
     <ClInclude Include="Project\World\WorldManager.hpp" />
+    <ClInclude Include="vendor\stduuid\include\uuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assemble.frag" />

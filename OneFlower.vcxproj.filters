@@ -716,9 +716,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\stduuid\include\uuid.h">
-      <Filter>External</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\EngineResourceTypes.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
@@ -1261,6 +1258,9 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\stduuid\include\uuid.h">
+      <Filter>External</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
