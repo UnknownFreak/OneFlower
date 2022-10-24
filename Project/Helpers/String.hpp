@@ -87,18 +87,13 @@ namespace Core
 	}
 
 	template <typename T>
+	requires std::integral<T>
 	Core::String toHex(const T& addr)
 	{
-		// Ensure this function is called with a template parameter that makes sense. Note: static_assert is only available in C++11 and higher.
-		static_assert(std::is_integral<T>::value, "Template argument 'T' must be a fundamental integer type (e.g. int, short, etc..).");
-
 		std::stringstream stream;
 		stream << "0x"
 			<< std::setfill('0') << std::setw(sizeof(T) * 2)
 			<< std::hex << addr;
-
-		// Optional: replace above line with this to handle 8-bit integers.
-		// << std::hex << std::to_string(i);
 
 		return stream.str();
 	}
