@@ -1,6 +1,8 @@
 #ifndef WORLDTEMPLATE_HPP
 #define WORLDTEMPLATE_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Interfaces/IRequestable.hpp>
 
 #include <Helpers/Enum/ColliderType.hpp>

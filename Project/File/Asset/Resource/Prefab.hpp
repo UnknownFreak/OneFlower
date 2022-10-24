@@ -1,6 +1,8 @@
 #ifndef Prefab_HPP
 #define Prefab_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <vector>
 
 #include <Helpers/Enum/ObjectState.hpp>

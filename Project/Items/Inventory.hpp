@@ -1,7 +1,11 @@
 #ifndef Inventory_Hpp
 #define Inventory_Hpp
 
+#include <memory>
+
 #include <Object/IBaseComponent.hpp>
+#include <Object/GameObject.hpp>
+#include <Combat/Stats.hpp>
 
 #include "Item.hpp"
 #include "StatChangingItem.hpp"
@@ -14,6 +18,7 @@ namespace Component
 	class Inventory : public Component::IBase<Inventory>
 	{
 		template <class T>
+		requires std::derived_from<T, Items::StatChangingItem>
 		void swap(std::shared_ptr<T>& theSlot, std::shared_ptr<T>& theItem)
 		{
 			auto stats = attachedOn->getComponent<Component::Stats>();

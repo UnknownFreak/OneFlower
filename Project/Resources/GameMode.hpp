@@ -2,6 +2,8 @@
 #define GameMode_HPP
 #include <vector>
 
+#include <cereal/cereal.hpp>
+
 #include <glm/vec3.hpp>
 
 #include <Interfaces/IRequestable.hpp>

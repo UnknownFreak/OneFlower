@@ -2,6 +2,8 @@
 #ifndef Element_HPP
 #define Element_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Interfaces/IRequestable.hpp>
 #include <Interfaces/IObject.hpp>
 

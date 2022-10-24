@@ -67,7 +67,7 @@ namespace Interfaces {
 			for (size_t i = 0; i < count; i++)
 			{
 				auto vec = convexCollider[i];
-				saver(vec.x, vec.y)
+				saver(vec.x, vec.y);
 			}
 		}
 

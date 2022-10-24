@@ -2,7 +2,7 @@
 #define InputHandlerBase_HPP
 
 #include <functional>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include <Module/Logger/OneLogger.hpp>
@@ -23,7 +23,7 @@ namespace Input
 
 		void insertIntoHolder(const Callback::Callback<T2, T> callback, std::unordered_map<T, callbackVector>& holder, const T input)
 		{
-			std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
+			typename std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
 			if (it == holder.end())
 			{
 				callbackVector tempVector;
@@ -36,7 +36,7 @@ namespace Input
 
 		bool removeFromHolder(const Core::String& callbackToRemove, std::unordered_map<T, callbackVector>& holder, const T& input)
 		{
-			std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
+			typename std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
 			if (it == holder.end())
 			{
 				//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from holder [" + "TMP" +
@@ -44,7 +44,7 @@ namespace Input
 			}
 			else
 			{
-				std::vector<Callback::Callback<T2, T>>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback::Callback<T2, T > (callbackToRemove));
+				typename std::vector<Callback::Callback<T2, T>>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback::Callback<T2, T > (callbackToRemove));
 				if (iit == it->second.end())
 				{
 					//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from [" + "TMP" + "] with input value["
@@ -75,8 +75,8 @@ namespace Input
 		std::function<T2(T)> checkInput;
 		inline void update(const float& fElapsedTime)
 		{
-			std::unordered_map<T, callbackVector>::iterator it = binds.begin();
-			std::unordered_map<T, callbackVector>::iterator eit = binds.end();
+			typename std::unordered_map<T, callbackVector>::iterator it = binds.begin();
+			typename std::unordered_map<T, callbackVector>::iterator eit = binds.end();
 
 			for (; it != eit; ++it)
 			{

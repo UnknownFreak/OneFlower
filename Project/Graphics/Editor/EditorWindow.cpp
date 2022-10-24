@@ -35,7 +35,7 @@ void Graphics::Editor::MainEditorWindow::render()
 		{
 			if(ImGui::BeginMainMenuBar())
 			{
-				if (ImGui::IsKeyPressed(ImGuiKeyModFlags_Ctrl |ImGuiKey_N) && newFileModal.isClosed())
+				if (ImGui::IsKeyPressed((ImGuiKey)((int)ImGuiKeyModFlags_Ctrl | (int)ImGuiKey_N)) && newFileModal.isClosed())
 				{
 					newFileModal.open();
 				}

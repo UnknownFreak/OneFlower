@@ -1,6 +1,8 @@
 #ifndef TriggerList_HPP
 #define TriggerList_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <vector>
 #include <Trigger/Trigger.hpp>
 

@@ -1,6 +1,8 @@
 #ifndef EntityCollider_HPP
 #define EntityCollider_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Object/Transform.hpp>
 #include <Interfaces/ICollider.hpp>
 

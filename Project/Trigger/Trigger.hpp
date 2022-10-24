@@ -1,6 +1,7 @@
 #ifndef TRIGGER_HPP
 #define TRIGGER_HPP
 
+#include <cereal/cereal.hpp>
 #include <Helpers/uuid.hpp>
 
 namespace Trigger

@@ -11,6 +11,9 @@
 #include <vector>
 #include <Helpers/Rect.hpp>
 
+#include <Module/EngineModuleManager.hpp>
+#include <Module/Logger/OneLogger.hpp>
+
 namespace quadtree
 {
     

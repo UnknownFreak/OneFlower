@@ -34,12 +34,12 @@ namespace File
 		triggerState.insert(uuid);
 	}
 
-	Enums::ObjectState SaveFile::getObjectState(const Core::uuid& uuid, const Enums::ObjectState& default)
+	Enums::ObjectState SaveFile::getObjectState(const Core::uuid& uuid, const Enums::ObjectState& _default)
 	{
 		auto it = overridenRenderMode.find(uuid);
 		if (it != overridenRenderMode.end())
 			return it->second;
-		return default;
+		return _default;
 	}
 
 	void SaveFile::setObjectState(const Core::uuid& uuid, const Enums::ObjectState& objectState)

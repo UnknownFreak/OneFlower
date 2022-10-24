@@ -26,20 +26,20 @@ struct Rect
 
 	bool contains(T tx, T ty) const
 	{
-		std::remove_reference<T>::type minX = std::min(this->x, std::remove_reference<T>::type(this->x + w));
-		std::remove_reference<T>::type maxX = std::max(this->x, std::remove_reference<T>::type(this->x + w));
-		std::remove_reference<T>::type minY = std::min(this->y, std::remove_reference<T>::type(this->y + h));
-		std::remove_reference<T>::type maxY = std::max(this->y, std::remove_reference<T>::type(this->y + h));
+		T minX = std::min<T>(this->x, this->x + w);
+		T maxX = std::max<T>(this->x, this->x + w);
+		T minY = std::min<T>(this->y, this->y + h);
+		T maxY = std::max<T>(this->y, this->y + h);
 		
 		return (tx >= minX) && (tx < maxX) && (ty >= minY) && (ty < maxY);
 	}
 
 	bool contains_const(const T& tx, const T& ty) const
 	{
-		std::remove_reference<T>::type minX = std::min(this->x, std::remove_reference<T>::type(this->x + w));
-		std::remove_reference<T>::type maxX = std::max(this->x, std::remove_reference<T>::type(this->x + w));
-		std::remove_reference<T>::type minY = std::min(this->y, std::remove_reference<T>::type(this->y + h));
-		std::remove_reference<T>::type maxY = std::max(this->y, std::remove_reference<T>::type(this->y + h));
+		T minX = std::min(this->x, this->x + w);
+		T maxX = std::max(this->x, this->x + w);
+		T minY = std::min(this->y, this->y + h);
+		T maxY = std::max(this->y, this->y + h);
 
 		return (tx >= minX) && (tx < maxX) && (ty >= minY) && (ty < maxY);
 	}
@@ -52,15 +52,15 @@ struct Rect
 
 	inline bool intersects(const Rect<T>& rectangle) const
 	{
-		auto r1MinX = std::min<T>(x, std::remove_reference<T>::type(x + w));
-		auto r1MaxX = std::max<T>(x, std::remove_reference<T>::type(x + w));
-		auto r1MinY = std::min<T>(y, std::remove_reference<T>::type(y + h));
-		auto r1MaxY = std::max<T>(y, std::remove_reference<T>::type(y + h));
+		auto r1MinX = std::min<T>(x, x + w);
+		auto r1MaxX = std::max<T>(x, x + w);
+		auto r1MinY = std::min<T>(y, y + h);
+		auto r1MaxY = std::max<T>(y, y + h);
 		
-		auto r2MinX = std::min<T>(rectangle.x, std::remove_reference<T>::type(rectangle.x + rectangle.w));
-		auto r2MaxX = std::max<T>(rectangle.x, std::remove_reference<T>::type(rectangle.x + rectangle.w));
-		auto r2MinY = std::min<T>(rectangle.y, std::remove_reference<T>::type(rectangle.y + rectangle.h));
-		auto r2MaxY = std::max<T>(rectangle.y, std::remove_reference<T>::type(rectangle.y + rectangle.h));
+		auto r2MinX = std::min<T>(rectangle.x, rectangle.x + rectangle.w);
+		auto r2MaxX = std::max<T>(rectangle.x, rectangle.x + rectangle.w);
+		auto r2MinY = std::min<T>(rectangle.y, rectangle.y + rectangle.h);
+		auto r2MaxY = std::max<T>(rectangle.y, rectangle.y + rectangle.h);
 		
 		auto interLeft = std::max<T>(r1MinX, r2MinX);
 		auto interTop = std::max<T>(r1MinY, r2MinY);

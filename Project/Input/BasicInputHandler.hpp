@@ -85,7 +85,7 @@ namespace Input
 			if ((int)actionType & (int)Enums::Input::Action::Press)
 				if(bindsOnPress.RemoveCallback(input, callbackToRemove))
 				{
-					std::vector<T>::iterator it = std::find(callbackRelease.begin(), callbackRelease.end(), input);
+					typename std::vector<T>::iterator it = std::find(callbackRelease.begin(), callbackRelease.end(), input);
 					if (it != callbackRelease.end())
 						callbackRelease.erase(it);
 				}

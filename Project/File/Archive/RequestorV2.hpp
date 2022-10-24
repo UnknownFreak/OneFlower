@@ -348,7 +348,7 @@ namespace File::Archive
 			//requestedMap = copy.requestedMap;
 		}
 
-		RequestorV2& RequestorV2::operator=(const RequestorV2& right)
+		RequestorV2& operator=(const RequestorV2& right)
 		{
 			if (this == &right)
 				return *this;

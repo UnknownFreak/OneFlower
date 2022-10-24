@@ -2,6 +2,8 @@
 #ifndef Skill_HPP
 #define Skill_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Helpers/Enum/CombatSkill.hpp>
 #include <Interfaces/IRequestable.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>

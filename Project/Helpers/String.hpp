@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <codecvt>
+#include <sstream>
 #include <string>
+#include <iomanip>
 #include <algorithm>
 
 #include <Interfaces/IEngineModule.hpp>

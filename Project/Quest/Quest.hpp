@@ -1,6 +1,8 @@
 #ifndef Quest_HPP
 #define Quest_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Helpers/Enum/QuestState.hpp>
 #include "QuestObjective.hpp"
 #include "QuestState.hpp"

@@ -18,7 +18,7 @@ namespace EngineModule
 	namespace Logger
 	{
 		
-		template<class Stream>
+		template<class T_Stream>
 		class LoggerBase
 		{
 			template <class ...Args>
@@ -37,7 +37,7 @@ namespace EngineModule
 			Core::String keyword;
 
 			Enums::LogLevel level;
-			Stream log;
+			typename T_Stream log;
 
 			template <class ...Args>
 			void logMessage(const Enums::LogLevel& logLevel, Args&& ... args)
@@ -50,9 +50,9 @@ namespace EngineModule
 			};
 
 		public:
-			LoggerBase(Stream s, const Enums::LogLevel level): log(s), level(level), keyword()
+			LoggerBase(T_Stream s, const Enums::LogLevel level): log(s), level(level), keyword()
 			{
-					static_assert(std::is_base_of_v<Logger::Streams::LogStream, std::remove_reference_t<Stream>>, "Stream is not a base of LogStream");
+				static_assert(std::is_base_of_v<Logger::Streams::LogStream, std::remove_reference_t<T_Stream>>, "Stream is not a base of LogStream");
 			};
 
 			virtual void setLogLevel(const Enums::LogLevel& newLevel)

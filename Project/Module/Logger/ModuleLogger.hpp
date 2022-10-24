@@ -9,15 +9,15 @@ namespace EngineModule
 {
 	namespace Logger
 	{
-		template <class Stream>
-		class ModuleLogger : public LoggerBase<Stream&>
+		template <class T_Stream>
+		class ModuleLogger : public LoggerBase<T_Stream&>
 		{
 			Core::String moduleName;
 
 		public:
-			ModuleLogger(const Core::String& moduleName, Stream& stream, const Enums::LogLevel& level) : LoggerBase(stream, level), moduleName(moduleName)
+			ModuleLogger(const Core::String& moduleName, T_Stream& stream, const Enums::LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
 			{
-				keyword = "Module: " + moduleName + " ";
+				this->keyword = "Module: " + moduleName + " ";
 			};
 
 			ModuleLogger(const ModuleLogger& logger) : ModuleLogger(logger.moduleName, logger.log, logger.level)
@@ -26,15 +26,15 @@ namespace EngineModule
 			ModuleLogger& operator= (const ModuleLogger& logger) 
 			{
 				moduleName = logger.moduleName;
-				log = logger.log;
-				level = logger.level;
+				this->log = logger.log;
+				this->level = logger.level;
 				return *this;
 			}
 
 			void setLogLevel(const Enums::LogLevel& newLevel) override
 			{
-				Always("Setting new log level for module [" + moduleName +"]: From " + Enums::to_string(level, false) + " to " + Enums::to_string(newLevel, false));
-				level = newLevel;
+				this->Always("Setting new log level for module [" + moduleName +"]: From " + Enums::to_string(this->level, false) + " to " + Enums::to_string(newLevel, false));
+				this->level = newLevel;
 			};
 
 

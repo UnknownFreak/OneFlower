@@ -5,7 +5,7 @@
 #define VERSION_MINOR 1
 #define VERSION_PATCH 1
 #define VERSION_REV   1
-#define VERSION_BUILD 2030
+#define VERSION_BUILD 2066
 
 #define stringify(x) _stringify(x)
 #define _stringify(x) #x

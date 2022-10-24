@@ -1,6 +1,8 @@
 #ifndef QuestObjective_HPP
 #define QuestObjective_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Requirement/Requirement.hpp>
 

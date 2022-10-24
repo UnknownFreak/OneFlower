@@ -46,7 +46,7 @@ namespace File
 		bool isTriggered(const Core::uuid& uuid) const;
 		void setTriggered(const Core::uuid& uuid);
 
-		Enums::ObjectState getObjectState(const Core::uuid& uuid, const Enums::ObjectState& default);
+		Enums::ObjectState getObjectState(const Core::uuid& uuid, const Enums::ObjectState& _default);
 		void setObjectState(const Core::uuid& uuid, const Enums::ObjectState& objectState);
 
 		bool isLooted(const Core::uuid& uuid) const;

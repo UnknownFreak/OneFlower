@@ -2,6 +2,8 @@
 #ifndef Effect_HPP
 #define Effect_HPP
 
+#include <cereal/cereal.hpp>
+
 #include <Helpers/Enum/EffectType.hpp>
 
 #include <Interfaces/IRequestable.hpp>
