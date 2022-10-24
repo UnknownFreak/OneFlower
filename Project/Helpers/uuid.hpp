@@ -1,9 +1,8 @@
 #ifndef UUID_HPP
 #define UUID_HPP
-#pragma warning(push)
-#pragma warning(disable: 4189)
+#define UUID_SYSTEM_GENERATOR
 #include <uuid.h>
-#pragma warning(pop)
+
 #include <Helpers/String.hpp>
 #include <vector>
 
@@ -77,14 +76,7 @@ namespace Core
 		inline std::string to_string() const
 		{
 			std::stringstream sstr;
-			sstr << this->m_uuid;
-			return sstr.str();
-		}
-	
-		inline std::wstring to_wstring() const
-		{
-			std::wstringstream sstr;
-			sstr << this->m_uuid;
+			sstr << uuids::to_string(this->m_uuid);
 			return sstr.str();
 		}
 	
