@@ -714,6 +714,9 @@
     <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\DataTree.cpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Helpers\Enum\EngineResourceTypes.hpp">
@@ -1261,6 +1264,9 @@
     </ClInclude>
     <ClInclude Include="vendor\stduuid\include\uuid.h">
       <Filter>External</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\DataTree.hpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

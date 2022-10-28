@@ -310,6 +310,7 @@
     <ClCompile Include="Project\Graphics\Camera.cpp" />
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\DataTree.cpp" />
     <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp" />
     <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp" />
@@ -458,6 +459,7 @@
     <ClInclude Include="Project\Graphics\Camera.hpp" />
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
+    <ClInclude Include="Project\Graphics\Editor\DataTree.hpp" />
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp" />
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp" />
