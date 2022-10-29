@@ -66,16 +66,20 @@ namespace Graphics::Editor
 		}
 		else
 		{
-			const bool recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
 
+
+			bool recurse = false;
 			if (item.ptr == nullptr)
 			{
+				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(400.f);
 				ImGui::Button("+", {18.f, 0});
 			}
 			else
 			{
+
+				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
 				ImGui::SameLine();
 				ImGui::TextDisabled("(?)");
 				if (ImGui::IsItemHovered())
@@ -90,10 +94,16 @@ namespace Graphics::Editor
 				}
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(420.f);
-				ImGui::Button("e",{18.f, 0});
+				if(ImGui::Button("e", { 18.f, 0 }))
+				{
+					editView.ptr = item.ptr;
+				}
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(440.f);
-				ImGui::Button("-", {18.f, 0});
+				if(ImGui::Button("-", { 18.f, 0 }))
+				{
+					item.ptr->mode = Enums::ObjectSaveMode::REMOVE;
+				};
 			}
 
 			if (recurse)
