@@ -100,6 +100,7 @@ namespace Asset::Resource
 			ar(fromMod);
 			ar(ID);
 			ar(mode);
+			ar(objectType);
 			ar(objectVersion);
 			ar(dialogStrings);
 		}
@@ -109,6 +110,7 @@ namespace Asset::Resource
 			ar(fromMod);
 			ar(ID);
 			ar(mode);
+			ar(objectType);
 			ar(objectVersion);
 			ar(dialogStrings);
 		}
