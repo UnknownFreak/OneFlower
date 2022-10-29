@@ -75,6 +75,18 @@ namespace Graphics::Editor
 			else
 			{
 				ImGui::SameLine();
+				ImGui::TextDisabled("(?)");
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::BeginTooltip();
+					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+					Core::String s = "From Mod: " + item.ptr->getModfile()();
+					
+					ImGui::TextUnformatted(s.c_str());
+					ImGui::PopTextWrapPos();
+					ImGui::EndTooltip();
+				}
+				ImGui::SameLine();
 				ImGui::SetCursorPosX(420.f);
 				ImGui::Button("e",{18.f, 0});
 				ImGui::SameLine();
