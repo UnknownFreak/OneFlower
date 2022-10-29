@@ -59,12 +59,6 @@ int GameEntry::Run()
 			x->x = e.mWidth - 200.f;
 			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::BuildInfo);
 			x->x = e.mWidth - 400.f;
-
-			if (Engine::GetBuildMode().isEditorMode())
-			{
-				auto editorWindow = ui.getUIContext<Graphics::Editor::MainEditorWindow>(Enums::UIContextNames::MainEditorWindow);
-				editorWindow->setSize(e.mWidth, e.mHeight);
-			}
 		}
 		});
 
