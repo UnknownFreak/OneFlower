@@ -3,6 +3,7 @@
 
 #include "RegisterRTTI.hpp"
 
+#include <concepts>
 #include <fstream>
 #include <functional>
 #include <unordered_map>
@@ -45,67 +46,67 @@ namespace File::Archive
 			{
 				helpers[Interfaces::Trait<::Asset::Resource::DialogTree>::typeId] = [this](const File::Archive::DatabaseIndex& index)
 				{
-					ref->request<::Asset::Resource::DialogTree>(index.modFile, index.ID);
+					ref->request<::Asset::Resource::DialogTree>(File::Mod::ModFileUUIDHelper(File::Mod::ModFileUUIDHelper(index.modFile, index.ID)));
 				};
 				helpers[Interfaces::Trait<::Asset::Resource::Prefab>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<::Asset::Resource::Prefab>(index.modFile, index.ID);
+					ref->request<::Asset::Resource::Prefab>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<File::Asset::Resource::Template::WorldInstance>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<File::Asset::Resource::Template::WorldInstance>(index.modFile, index.ID);
+					ref->request<File::Asset::Resource::Template::WorldInstance>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<File::Asset::Resource::Template::TileChunk>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<File::Asset::Resource::Template::TileChunk>(index.modFile, index.ID);
+					ref->request<File::Asset::Resource::Template::TileChunk>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<File::Asset::Resource::Template::ColliderChunk>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<File::Asset::Resource::Template::ColliderChunk>(index.modFile, index.ID);
+					ref->request<File::Asset::Resource::Template::ColliderChunk>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<PrimitiveSaveable<Core::String>>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<PrimitiveSaveable<Core::String>>(index.modFile, index.ID);
+					ref->request<PrimitiveSaveable<Core::String>>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<Combat::Element>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<Combat::Element>(index.modFile, index.ID);
+					ref->request<Combat::Element>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<Combat::Effect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<Combat::Effect>(index.modFile, index.ID);
+					ref->request<Combat::Effect>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<Combat::Skill>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<Combat::Skill>(index.modFile, index.ID);
+					ref->request<Combat::Skill>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				//helpers[Interfaces::Trait<Combat::EffectProperty>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Combat::EffectProperty>(index.modFile, index.ID);
+				//	ref->request<Combat::EffectProperty>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Combat::DamageEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Combat::DamageEffect>(index.modFile, index.ID);
+				//	ref->request<Combat::DamageEffect>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Combat::BarrierEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Combat::BarrierEffect>(index.modFile, index.ID);
+				//	ref->request<Combat::BarrierEffect>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Combat::VisualEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Combat::VisualEffect>(index.modFile, index.ID);
+				//	ref->request<Combat::VisualEffect>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Combat::ModifierEffect>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Combat::ModifierEffect>(index.modFile, index.ID);
+				//	ref->request<Combat::ModifierEffect>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				helpers[Interfaces::Trait<Questing::Quest>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<Questing::Quest>(index.modFile, index.ID);
+					ref->request<Questing::Quest>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				//helpers[Interfaces::Trait<Questing::AOrBObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::AOrBObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::AOrBObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Questing::CollectItemObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::CollectItemObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::CollectItemObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Questing::DefeatEnemyObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::DefeatEnemyObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::DefeatEnemyObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Questing::DefendObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::DefendObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::DefendObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Questing::DuelObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::DuelObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::DuelObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 				//helpers[Interfaces::Trait<Questing::ListObjective>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-				//	ref->request<Questing::ListObjective>(index.modFile, index.ID);
+				//	ref->request<Questing::ListObjective>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				//};
 
 			}
@@ -120,17 +121,8 @@ namespace File::Archive
 		// # VARIABLE SECTION								#
 		// ##################################################
 
-		struct myhash
-		{
-			size_t operator() (const std::pair<Core::String, Core::uuid>& key) const noexcept
-			{
-				return (size_t)std::hash<Core::String>()(key.first) ^ (std::hash<Core::uuid>()(key.second) < 1);
-			}
-		};
-
 	protected:
-		typedef std::unordered_map<std::pair<Core::String, Core::uuid>, std::unique_ptr<Interfaces::IRequestable>, myhash> td_map;
-		typedef std::pair<Core::String, Core::uuid> td_key;
+		typedef std::unordered_map<File::Mod::ModFileUUIDHelper, std::unique_ptr<Interfaces::IRequestable>> td_map;
 
 		td_map requestedMap;
 
@@ -190,23 +182,22 @@ namespace File::Archive
 		}
 
 		template<class T>
-		bool load(const Core::String & name, const Core::uuid& uuid)
+		bool load(const File::Mod::ModFileUUIDHelper& modFile)
 		{
-			td_key key(name, uuid);
-			requestedMap[key] = loadInternal<T>(name, uuid);
+			requestedMap[modFile] = loadInternal<T>(modFile);
 			return true;
 		}
 
 		template<class T>
-		std::unique_ptr<Interfaces::IRequestable> loadInternal(const Core::String & name, const Core::uuid& uuid)
+		std::unique_ptr<Interfaces::IRequestable> loadInternal(const File::Mod::ModFileUUIDHelper& modFile)
 		{
 			std::unique_ptr<Interfaces::IRequestable> t;
-			if (name == "EMPTY" && uuid.is_nil() || name == Core::Builtin && uuid.is_nil())
+			if (modFile.name == "EMPTY" && modFile.uuid.is_nil() || modFile.name == Core::Builtin && modFile.uuid.is_nil())
 				return t;
-			if (!requestFromDatabase<T>(t, name, uuid))
+			if (!requestFromDatabase<T>(t, modFile.name, modFile.uuid))
 			{
 				auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
-				logger.Error("Requestor was unable to request [" + name + ", " + uuid.to_string() + "] from database.", logger.fileInfo(__FILE__, __LINE__));
+				logger.Error("Requestor was unable to request [" + modFile.operator()() + "] from database.", logger.fileInfo(__FILE__, __LINE__));
 			}
 			return t;
 		}
@@ -363,21 +354,20 @@ namespace File::Archive
 		// ##################################################
 
 		template<class T>
+		requires std::derived_from<T, Interfaces::IRequestable>
 		inline bool add(T* ptr)
 		{
-			const Core::String name = ptr->fromMod;
-			const Core::uuid uuid = ptr->ID;
-			td_key key(name, uuid);
+			File::Mod::ModFileUUIDHelper key(ptr->fromMod, ptr->ID);
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			if (requestedMap.find(key) != requestedMap.end())
 			{
 				if (requestedMap[key].operator bool())
 				{
-					logger.Warning(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " already exists!", logger.fileInfo(__FILE__, __LINE__));
+					logger.Warning(getObjectTypeAsString(ptr->objectType) + " - Object from mod " + key.operator()() + " already exists!", logger.fileInfo(__FILE__, __LINE__));
 					return false;
 				}
 			}
-			logger.Info(getObjectTypeAsString(ptr->objectType) + "- Object from mod " + name + " and ID " + uuid.to_string() + " added.", logger.fileInfo(__FILE__, __LINE__));
+			logger.Info(getObjectTypeAsString(ptr->objectType) + " - Object from mod " + key.operator()() + " added.", logger.fileInfo(__FILE__, __LINE__));
 			requestedMap[key] = std::unique_ptr<Interfaces::IRequestable>(ptr);
 			return true;
 		}
@@ -431,9 +421,9 @@ namespace File::Archive
 			return requestedMap;
 		}
 
-		inline std::vector<std::pair<Core::String, Core::uuid>> listAllCurrentLoadedObjects() const
+		inline std::vector<File::Mod::ModFileUUIDHelper> listAllCurrentLoadedObjects() const
 		{
-			std::vector<std::pair<Core::String, Core::uuid>> listofall;
+			std::vector<File::Mod::ModFileUUIDHelper> listofall;
 			td_map::const_iterator it = requestedMap.begin();
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)
@@ -443,10 +433,10 @@ namespace File::Archive
 			return listofall;
 		}
 
-		inline std::vector<std::pair<Core::String, Core::uuid>> listAllObjectKeys(const Enums::ObjectType& objectType) const
+		inline std::vector<File::Mod::ModFileUUIDHelper> listAllObjectKeys(const Enums::ObjectType& objectType) const
 		{
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
-			std::vector<std::pair<Core::String, Core::uuid>> listofall;
+			std::vector<File::Mod::ModFileUUIDHelper> listofall;
 			for(std::pair<std::string, size_t> var :getLoadOrder())
 			{
 				bool eof = false;
@@ -461,7 +451,7 @@ namespace File::Archive
 							ar(ind);
 							if (ind.type == objectType)
 							{
-								listofall.push_back({ ind.modFile, ind.ID });
+								listofall.push_back(File::Mod::ModFileUUIDHelper(ind.modFile, ind.ID));
 							}
 							else if (ind.flags == Enums::ObjectFlag::EoF)
 								eof = true;
@@ -475,18 +465,21 @@ namespace File::Archive
 		}
 	
 		template<class T>
+		requires std::derived_from<T, Interfaces::IRequestable>
 		inline T* requestUniqueInstancePtr(const File::Mod::ModFileUUIDHelper& modFile)
 		{
-			return (T*) loadInternal<T>(modFile.name, modFile.uuid).release();
+			return (T*) loadInternal<T>(modFile).release();
 		}
 
 		template<class T>
+		requires std::derived_from<T, Interfaces::IRequestable>
 		inline std::shared_ptr<T> requestShared(const File::Mod::ModFileUUIDHelper& modFile)
 		{
-			return std::shared_ptr<T>((T*)loadInternal<T>(modFile.name, modFile.uuid).release());
+			return std::shared_ptr<T>((T*)loadInternal<T>(modFile).release());
 		}
 
 		template<class T>
+		requires std::derived_from<T, Interfaces::IRequestable>
 		inline T requestUniqueInstance(const File::Mod::ModFileUUIDHelper& modFile)
 		{
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
@@ -498,15 +491,36 @@ namespace File::Archive
 		}
 
 		template<class Ty>
+		requires std::derived_from<Ty, Interfaces::IRequestable>
 		inline Ty* request(const File::Mod::ModFileUUIDHelper& modfile)
 		{
-			Interfaces::IRequestable* requested = request<Ty>(modfile.name, modfile.uuid);
+			td_map::iterator it;
+			bool found = false;
+			if (!modfile.name.empty())
+			{
+				it = requestedMap.find(modfile);
+
+				if (it != requestedMap.end())
+					found = true;
+				else if (!found && load<Ty>(modfile))
+				{
+					it = requestedMap.find(modfile);
+					found = true;
+				}
+			}
+
+			if (!found)
+			{
+				return nullptr;
+			}
+			Interfaces::IRequestable* requested = it->second.get();
 			if (requested && requested->getTrait().hasTypeId(Interfaces::Trait<Ty>::typeId))
 				return (Ty*)requested;
 			return nullptr;
 		}
 
 		template<class Ty>
+		requires std::derived_from<Ty, Interfaces::IRequestable>
 		inline Ty* request(const File::Mod::ModFileUUIDHelper& modfile, const bool& )
 		{
 			Ty* ptr = request<Ty>(modfile);
@@ -518,39 +532,15 @@ namespace File::Archive
 			return ptr;
 		}
 
-		template <class T>
-		inline Interfaces::IRequestable* request(const Core::String & name, const Core::uuid& uuid)
+		inline void requestRemoval(const File::Mod::ModFileUUIDHelper& modFile)
 		{
-			td_key empty = { "EMPTY", Core::uuid::nil() };
-			td_map::iterator it;
-			bool found = false;
-			if (!name.empty())
-			{
-				it = requestedMap.find({ name, uuid });
-
-				if (it != requestedMap.end())
-					found = true;
-				else if (!found && load<T>(name, uuid))
-				{
-					it = requestedMap.find({ name, uuid });
-					found = true;
-				}
-			}
-
-			if (!found)
-			{
-				return nullptr;
-			}
-			return it->second.get();
+			requestedMap.erase(modFile);
 		}
 
+		//legacy
 		inline void requestRemoval(const Core::String & name, const Core::uuid& uuid)
 		{
-			td_map::iterator it = requestedMap.find({ name, uuid });
-			if (it != requestedMap.end())
-			{
-				requestedMap.erase(it);
-			}
+			requestRemoval(File::Mod::ModFileUUIDHelper(name, uuid));
 		}
 
 		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr) const
@@ -561,7 +551,7 @@ namespace File::Archive
 			for (it; it != eit; it++)
 			{
 				ind.flags = Enums::ObjectFlag::NoFlag;
-				ind.ID = it->first.second;
+				ind.ID = it->first.uuid;
 				ind.type = it->second->objectType;
 				ind.typeId = it->second->getTrait().typeId;
 				ind.modFile = it->second->fromMod;

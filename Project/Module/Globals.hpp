@@ -17,15 +17,15 @@ class Globals : public Interfaces::IEngineResource<Globals>
 	template<class T, class U>
 	void putVariableInto(File::Archive::RequestorV2& container, U& containerToPut, const Enums::ObjectType& type)
 	{
-		std::vector<std::pair<Core::String, Core::uuid>> idVector = container.listAllObjectKeys(type);
-		for (std::pair<Core::String, Core::uuid> it : idVector)
+		std::vector<File::Mod::ModFileUUIDHelper> idVector = container.listAllObjectKeys(type);
+		for (auto& it : idVector)
 		{
 			{
-				T* ref = container.request<T>({ it.first, it.second });
+				T* ref = container.request<T>(it);
 				if (ref)
 					containerToPut.insert({ ref->name, ref->value });
 			}
-			container.requestRemoval(it.first, it.second);
+			container.requestRemoval(it);
 		}
 	}
 
