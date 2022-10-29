@@ -3,9 +3,12 @@
 #include <Module/Globals.hpp>
 Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::RandomGen>::type = Enums::EngineResourceType::RandomGen;
 
+std::random_device EngineModule::RandomGen::rd;
+std::mt19937_64 EngineModule::RandomGen::engine(EngineModule::RandomGen::rd());
+
 namespace EngineModule
 {
-	RandomGen::RandomGen(): engine(rd())
+	RandomGen::RandomGen()
 	{
 		if (Engine::GetModule<Globals>().boolGlobals[Globals::B_FORCE_SAME_SEED])
 			engine.seed(0);

@@ -1,6 +1,8 @@
 #ifndef UUID_HPP
 #define UUID_HPP
-#define UUID_SYSTEM_GENERATOR
+//#define UUID_SYSTEM_GENERATOR
+
+#include <Module/Random.hpp>
 #include <uuid.h>
 
 #include <Helpers/String.hpp>
@@ -19,11 +21,14 @@ namespace Core
 				return uuids::uuid::from_string(str).value();
 			}
 			else
-				return uuids::uuid_system_generator{}();
+			{
+				return uuids::basic_uuid_random_generator<std::mt19937_64>(EngineModule::RandomGen::engine)();
+			}
 		}
 	
 	public:
-		inline uuid() noexcept : m_uuid(uuids::uuid_system_generator{}())
+
+		inline uuid() noexcept : m_uuid(uuids::basic_uuid_random_generator<std::mt19937_64>(EngineModule::RandomGen::engine)())
 		{}
 		inline uuid(const uuid& uuid) noexcept : m_uuid(uuid.m_uuid)
 		{}
