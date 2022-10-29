@@ -289,9 +289,6 @@
     <Filter Include="Engine\Graphics\Editor\ObjectDataTree">
       <UniqueIdentifier>{66f6ac56-8922-47ff-92f1-84683c6c5089}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ObjectModel">
-      <UniqueIdentifier>{69b16747-7357-41ee-b25d-ea76b6907f0d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\Editor\MainWindow\Modals">
       <UniqueIdentifier>{29e9415f-5ae5-4a6d-a490-f263315d561e}</UniqueIdentifier>
     </Filter>
@@ -715,6 +712,9 @@
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\DataTree.cpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp">
       <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1266,6 +1266,9 @@
       <Filter>External</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\DataTree.hpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp">
       <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
     </ClInclude>
   </ItemGroup>

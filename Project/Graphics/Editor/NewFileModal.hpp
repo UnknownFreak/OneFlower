@@ -4,7 +4,7 @@
 #include <vector>
 #include "ModalBase.hpp"
 #include <imgui/imgui.h>
-
+#include "DataTree.hpp"
 namespace Graphics
 {
 	namespace Editor
@@ -32,6 +32,7 @@ namespace Graphics
 				Core::String m_fileName;
 				bool isMaster = false;
 				std::vector<TreeItemRoot> modFiles;
+				DataTree& tree;
 
 				std::vector<TreeItem> loadDependencyDetails(const Core::String& file);
 
@@ -42,7 +43,7 @@ namespace Graphics
 
 			public:
 
-				NewFile(const Core::String& modalName);
+				NewFile(const Core::String& modalName, DataTree& tree);
 
 				void ImGuiRenderModal() override;
 				void OnOpen() override;

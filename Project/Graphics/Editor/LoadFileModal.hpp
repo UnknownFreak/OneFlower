@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "ModalBase.hpp"
+#include "DataTree.hpp"
 
 namespace Graphics
 {
@@ -17,10 +18,10 @@ namespace Graphics
 				Core::String m_selectedFile;
 				std::vector<std::pair<Core::String, bool>> m_fileNames;
 				void load();
-
+				DataTree& tree;
 			public:
 
-				LoadFile(const Core::String& modalName);
+				LoadFile(const Core::String& modalName, DataTree& tree);
 
 				void ImGuiRenderModal() override;
 				void OnOpen() override;

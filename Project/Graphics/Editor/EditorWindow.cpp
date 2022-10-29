@@ -85,7 +85,7 @@ void Graphics::Editor::MainEditorWindow::setSize(const unsigned& inWidth, const 
 	height = (float)inHeight-30;
 }
 
-Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File"), loadFileModal("Load File"), tree(height)
+Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), tree(height), newFileModal("New File", tree), loadFileModal("Load File", tree)
 {
 	auto gc = Engine::GetModule<EngineModule::GameConfig>();
 	width = (float)gc.videoMode.first;

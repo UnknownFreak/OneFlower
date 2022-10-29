@@ -81,7 +81,7 @@ namespace Enums
 		case Enums::ObjectType::ColliderChunk: return true;
 		case Enums::ObjectType::WorldInstance: return true;
 		case Enums::ObjectType::EoF: return true;
-		case Enums::ObjectType::Undefined: return true;
+		case Enums::ObjectType::Undefined: return false;
 		default: return false;
 
 		}

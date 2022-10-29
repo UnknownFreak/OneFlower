@@ -10,6 +10,7 @@ namespace Graphics::Editor::Modals
 {
 	void LoadFile::load()
 	{
+		tree.clear();
 		auto& manager = Engine::GetModule<File::Asset::Manager>();
 		auto& modLoader = manager.getModLoader();
 		modLoader.loadOrder.clear();
@@ -47,7 +48,7 @@ namespace Graphics::Editor::Modals
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");
 	}
-	LoadFile::LoadFile(const Core::String& modalName) : ModalBase(modalName)
+	LoadFile::LoadFile(const Core::String& modalName, DataTree& tree) : ModalBase(modalName), tree(tree)
 	{
 	}
 	void LoadFile::ImGuiRenderModal()

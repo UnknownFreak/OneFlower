@@ -17,6 +17,7 @@
 #include <Module/EngineModuleManager.hpp>
 
 #include <File/Archive/DatabaseIndex.hpp>
+#include <File/Mod/ModHeader.hpp>
 #include <File/Mod/ModLoader.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 
@@ -150,23 +151,21 @@ namespace File::Archive
 		{
 		}
 
-		bool saveIfMode(const std::unique_ptr<Interfaces::IRequestable>& ) const
+		bool saveIfMode(const std::unique_ptr<Interfaces::IRequestable>& pref, const File::Mod::Header& header) const
 		{
-			//const File::Asset::AssetManager& manager = Engine::GetModule<File::Asset::AssetManager>();
-			//
-			//if (pref->mode != Enums::ObjectSaveMode::REMOVE)
-			//{
-			//	bool b = true;
-			//	if (pref->fromMod == manager.openedMod && pref->mode == Enums::ObjectSaveMode::EDIT)
-			//		pref->mode = Enums::ObjectSaveMode::DEFAULT;
-			//	else if (pref->fromMod == manager.openedMod && pref->mode == Enums::ObjectSaveMode::ADD)
-			//		pref->mode = Enums::ObjectSaveMode::DEFAULT;
-			//	else if (pref->fromMod != manager.openedMod && pref->mode == Enums::ObjectSaveMode::DEFAULT)
-			//		b = false;
-			//	else if (pref->mode > Enums::ObjectSaveMode::ADD)
-			//		pref->mode = Enums::ObjectSaveMode::DEFAULT;
-			//	return b;
-			//}
+			if (pref->mode != Enums::ObjectSaveMode::REMOVE)
+			{
+				bool b = true;
+				if (pref->fromMod == header.name && pref->mode == Enums::ObjectSaveMode::EDIT)
+					pref->mode = Enums::ObjectSaveMode::DEFAULT;
+				else if (pref->fromMod == header.name && pref->mode == Enums::ObjectSaveMode::ADD)
+					pref->mode = Enums::ObjectSaveMode::DEFAULT;
+				else if (pref->fromMod != header.name && pref->mode == Enums::ObjectSaveMode::DEFAULT)
+					b = false;
+				else if (pref->mode > Enums::ObjectSaveMode::ADD)
+					pref->mode = Enums::ObjectSaveMode::DEFAULT;
+				return b;
+			}
 			return true;
 		}
 
@@ -543,7 +542,8 @@ namespace File::Archive
 			requestRemoval(File::Mod::ModFileUUIDHelper(name, uuid));
 		}
 
-		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr) const
+		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr,
+			const File::Mod::Header& header, const bool& skipSaveIfMode=false) const
 		{
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			td_map::const_iterator it = requestedMap.begin();
@@ -557,7 +557,7 @@ namespace File::Archive
 				ind.modFile = it->second->fromMod;
 				ind.row = file.tellp();
 	
-				if (saveIfMode(it->second))
+				if (skipSaveIfMode || saveIfMode(it->second, header))
 				{
 					logger.Info("Saving object: uuid: " + ind.ID.to_string());
 					logger.Debug(" modfile: " + ind.modFile);

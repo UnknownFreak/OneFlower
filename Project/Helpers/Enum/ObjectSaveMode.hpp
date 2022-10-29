@@ -10,7 +10,7 @@ namespace Enums
 	{
 		/*
 		Default mode for saving object,
-		this will save the object IF the requestable fromMod equals WorldManagement openedMod
+		this will save the object IF the requestable fromMod equals current openedMod
 		//*/
 		DEFAULT,
 		/*
@@ -35,5 +35,18 @@ namespace Enums
 		//*/
 		ADD
 	};
+
+	inline Core::String to_string(const Enums::ObjectSaveMode& type)
+	{
+		switch (type)
+		{
+		case Enums::ObjectSaveMode::DEFAULT: return "Default";
+		case Enums::ObjectSaveMode::REMOVE: return "Remove";
+		case Enums::ObjectSaveMode::EDIT: return "Edit";
+		case Enums::ObjectSaveMode::ADD: return "Add";
+		default:
+			return "Unknown";
+		}
+	}
 }
 #endif

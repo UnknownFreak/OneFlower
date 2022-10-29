@@ -315,6 +315,7 @@
     <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp" />
     <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp" />
+    <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp" />
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
     <ClCompile Include="Project\Graphics\Render.cpp" />
@@ -464,6 +465,7 @@
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp" />
     <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp" />
+    <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp" />
     <ClInclude Include="Project\Graphics\Model.hpp" />
     <ClInclude Include="Project\Graphics\mvp.hpp" />

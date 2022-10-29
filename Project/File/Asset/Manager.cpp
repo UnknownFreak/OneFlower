@@ -75,7 +75,7 @@ namespace File::Asset
 			mainAr(modhdr);
 
 			//lang.save(ind, file, indexAr, mainAr);
-			requestor.save(ind, file, indexAr, mainAr);
+			requestor.save(ind, file, indexAr, mainAr, modhdr);
 
 			ind.ID = Core::uuid::nil();
 			ind.type = Enums::ObjectType::EoF;
@@ -140,7 +140,7 @@ namespace File::Asset
 			ind.row = file.tellp();
 			indexAr(ind);
 			mainAr(langHeader);
-			langHeader.stringList.save(ind, file, indexAr, mainAr);
+			langHeader.stringList.save(ind, file, indexAr, mainAr, {}, true);
 
 			ind.ID = Core::uuid::nil();
 			ind.type = Enums::ObjectType::EoF;

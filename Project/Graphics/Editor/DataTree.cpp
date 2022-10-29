@@ -36,6 +36,8 @@ namespace Graphics::Editor
 		for (auto x : tmp_map)
 			objectTree.items.push_back(x.second);
 
+		std::sort(objectTree.items.begin(), objectTree.items.end());
+
 	}
 
 	void DataTree::drawTree(const DataTreeItem& item)
@@ -53,7 +55,7 @@ namespace Graphics::Editor
 			if (item.ptr == nullptr)
 				return;
 			itemName = item.ptr->getModfile().operator()();
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Object has no display name, using the uuid for it instead.");
+			//Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Object has no display name, using the uuid for it instead.");
 		}
 		if (itemName == "### ROOT")
 		{
@@ -80,7 +82,7 @@ namespace Graphics::Editor
 				{
 					ImGui::BeginTooltip();
 					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-					Core::String s = "From Mod: " + item.ptr->getModfile()();
+					Core::String s = "From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + Enums::to_string(item.ptr->mode);
 					
 					ImGui::TextUnformatted(s.c_str());
 					ImGui::PopTextWrapPos();
@@ -127,8 +129,15 @@ namespace Graphics::Editor
 		if(ImGui::Begin("DataTree", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings/* | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus*/))
 		{
 			drawTree(objectTree);
+			editView.render();
 		}
 		ImGui::End();
 
+	}
+	void DataTree::clear()
+	{
+		editView.ptr = nullptr;
+		objectTree.items.clear();
+		mapSize = 0;
 	}
 }

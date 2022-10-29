@@ -28,6 +28,7 @@ namespace Graphics::Editor::Modals
 
 	void NewFile::newModFile()
 	{
+		tree.clear();
 		auto& manager = Engine::GetModule<File::Asset::Manager>();
 		auto& modLoader = manager.getModLoader();
 		modLoader.loadOrder.clear();
@@ -164,7 +165,7 @@ namespace Graphics::Editor::Modals
 	}
 
 
-	NewFile::NewFile(const Core::String& modalName) : ModalBase(modalName), m_fileName("")
+	NewFile::NewFile(const Core::String& modalName, DataTree& tree) : ModalBase(modalName), m_fileName(""), tree(tree)
 	{
 	}
 
