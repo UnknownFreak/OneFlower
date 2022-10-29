@@ -81,15 +81,15 @@ void Graphics::Editor::MainEditorWindow::renderMenuBar()
 
 void Graphics::Editor::MainEditorWindow::setSize(const unsigned& inWidth, const unsigned& inHeight)
 {
-	width = inWidth;
-	height = inHeight;
+	width = (float)inWidth;
+	height = (float)inHeight-30;
 }
 
-Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File"), loadFileModal("Load File")
+Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), newFileModal("New File"), loadFileModal("Load File"), tree(height)
 {
 	auto gc = Engine::GetModule<EngineModule::GameConfig>();
-	width = gc.videoMode.first;
-	height = gc.videoMode.second;
+	width = (float)gc.videoMode.first;
+	height = (float)gc.videoMode.second-30;
 }
 
 void Graphics::Editor::MainEditorWindow::onMouseHover(const glm::vec2&)
@@ -105,7 +105,7 @@ void Graphics::Editor::MainEditorWindow::render()
 	if (visible)
 	{
 		ImGui::SetNextWindowPos({ 0.f,0.f });
-		ImGui::SetNextWindowSize({(float)width, (float)height});
+		ImGui::SetNextWindowSize({width, height});
 		ImGui::SetNextWindowBgAlpha(0);
 		ImGui::Begin(this->uiName.c_str(), nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav |ImGuiWindowFlags_NoBringToFrontOnFocus |ImGuiWindowFlags_MenuBar);
 		{

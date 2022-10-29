@@ -16,7 +16,7 @@ namespace Graphics
 			Modals::NewFile newFileModal;
 			Modals::LoadFile loadFileModal;
 			DataTree tree;
-			unsigned width, height;
+			float width, height;
 
 			void renderMenuBar();
 
