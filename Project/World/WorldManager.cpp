@@ -119,20 +119,6 @@ void WorldManager::initialize()
 		 swizzle::input::Keys::KeyF2
 		, Enums::Input::Action::Press);
 
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("NewGame", [&](bool, swizzle::input::Keys, const float&) {
-		newGame();
-		}, false),  swizzle::input::Keys::Key1
-		, Enums::Input::Action::Press);
-
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("SaveGame", [&](bool, swizzle::input::Keys, const float&) {
-		save("Test.save");
-		}, false), swizzle::input::Keys::Key2
-		, Enums::Input::Action::Press);
-	f.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("LoadGame", [&](bool, swizzle::input::Keys, const float&) {
-		load("Test.save");
-		}, false), swizzle::input::Keys::Key3
-		, Enums::Input::Action::Press);
-
 	auto& console = Engine::GetModule<Console>();
 	console.registerCommand("qtt", [&](const Core::String& arg)
 		{
