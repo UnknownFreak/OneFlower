@@ -58,6 +58,7 @@ void Graphics::Editor::MainEditorWindow::renderMenuBar()
 		if (ImGui::BeginMenu("Settings"))
 		{
 			// EditorSettings
+			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Help"))
 		{
