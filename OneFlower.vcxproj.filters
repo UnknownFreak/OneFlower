@@ -295,6 +295,12 @@
     <Filter Include="Engine\Module\Editor">
       <UniqueIdentifier>{73b4c501-7e6e-42c3-b051-38270f0f5ce5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ViewModels">
+      <UniqueIdentifier>{3a422f9e-e7b2-4dfa-bcb4-810760e47e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Editor\Tooltip">
+      <UniqueIdentifier>{841c7f50-3c7d-4480-b554-c88d5800af1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">
@@ -716,6 +722,18 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp">
       <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.cpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.cpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\EditorBasicToolTip.cpp">
+      <Filter>Engine\Graphics\Editor\Tooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp">
+      <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1270,6 +1288,18 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp">
       <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.hpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.hpp">
+      <Filter>Engine\Graphics\Editor\ObjectDataTree\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\EditorBasicToolTip.hpp">
+      <Filter>Engine\Graphics\Editor\Tooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.hpp">
+      <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

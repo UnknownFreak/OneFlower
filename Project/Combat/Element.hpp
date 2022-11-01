@@ -62,6 +62,10 @@ namespace Combat
 		// Inherited via IRequestable
 		virtual Interfaces::TypeInfo getTrait() const override;
 
+		virtual void render() override;
+
+		Core::String getName() const override;
+
 	};
 }
 

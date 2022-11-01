@@ -6,6 +6,7 @@
 #include <File/Mod/ModHeader.hpp>
 #include <File/Asset/Manager.hpp>
 
+#include "EditorBasicToolTip.hpp"
 
 namespace Graphics::Editor::Modals
 {
@@ -178,20 +179,10 @@ namespace Graphics::Editor::Modals
 			ImGui::InputText("###FileName", &m_fileName);
 				
 			ImGui::Checkbox("Is Main", &isMaster);
-			ImGui::SameLine();
-			ImGui::TextDisabled("(?)");
-			if (ImGui::IsItemHovered())
-			{
-				ImGui::BeginTooltip();
-				ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-				ImGui::TextUnformatted(
-					"Check if this file is a main file (only changes extension from .mod to .main)\n"
-					"This only highlights the file as a possible base mod.\n"
-					"You can still create a mod based of a mod, but it's more for clarification than anything");
-				ImGui::PopTextWrapPos();
-				ImGui::EndTooltip();
-			}
-
+			BasicToolTip(
+				"Check if this file is a main file (only changes extension from .mod to .main)\n"
+				"This only highlights the file as a possible base mod.\n"
+				"You can still create a mod based of a mod, but it's more for clarification than anything");
 			ImGui::Text("Select Dependencies");
 			if (ImGui::BeginListBox("###Dependencies", ImVec2(-1, 275.f)))
 			{

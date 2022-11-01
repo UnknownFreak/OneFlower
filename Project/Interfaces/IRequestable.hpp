@@ -48,8 +48,9 @@ namespace Interfaces
 		OneVersion objectVersion;
 
 
-		inline IRequestable() : fromMod(""), ID(Core::uuid()), objectVersion(0, 0, 0), objectType(Enums::ObjectType::Undefined) {}
-		inline IRequestable(const Core::String fromMod, const Core::uuid ID, const OneVersion version, const Enums::ObjectType& type = Enums::ObjectType::Undefined) : fromMod(fromMod), ID(ID), objectVersion(version), objectType(type) {}
+		inline IRequestable() : IRequestable(Enums::ObjectType::Undefined) {}
+		inline IRequestable(const Enums::ObjectType& type) : IRequestable("", Core::uuid(), OneVersion(0, 0, 0), type) {}
+		inline IRequestable(const Core::String& fromMod, const Core::uuid& ID, const OneVersion& version, const Enums::ObjectType& type = Enums::ObjectType::Undefined) : fromMod(fromMod), ID(ID), objectVersion(version), objectType(type) {}
 		inline IRequestable(const IRequestable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode), objectVersion(copy.objectVersion), objectType(copy.objectType) {}
 	
 		inline IRequestable(const IRequestable&& rvalreference) noexcept : fromMod(rvalreference.fromMod), ID(rvalreference.ID),
@@ -77,6 +78,11 @@ namespace Interfaces
 		inline virtual File::Mod::ModFileUUIDHelper getModfile() const
 		{
 			return File::Mod::ModFileUUIDHelper(fromMod, ID);
+		}
+
+		inline virtual void render()
+		{
+
 		}
 
 		inline virtual TypeInfo getTrait() const = 0;

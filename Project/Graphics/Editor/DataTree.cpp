@@ -3,6 +3,8 @@
 #include <imgui/imgui.h>
 
 #include <File/Asset/Manager.hpp>
+#include "EditorBasicToolTip.hpp"
+#include "ModFileUuidHelperDropDown.hpp"
 
 namespace Graphics::Editor
 {
@@ -21,6 +23,7 @@ namespace Graphics::Editor
 			if (Enums::hide_from_view((Enums::ObjectType)x) == false)
 			{
 				tmp_map[(Enums::ObjectType)x].name = Enums::to_string((Enums::ObjectType)x);
+				tmp_map[(Enums::ObjectType)x].type = (Enums::ObjectType)x;
 			}
 		}
 		
@@ -40,7 +43,7 @@ namespace Graphics::Editor
 
 	}
 
-	void DataTree::drawTree(const DataTreeItem& item)
+	void DataTree::drawTree(DataTreeItem& item)
 	{
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 	
@@ -74,29 +77,28 @@ namespace Graphics::Editor
 				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(400.f);
-				ImGui::Button("+", {18.f, 0});
+				if (ImGui::Button("+", { 18.f, 0 }))
+				{
+					auto& manager = Engine::GetModule<File::Asset::Manager>();
+					manager.requestor.add(item.type, manager.openedMod.name);
+				}
 			}
 			else
 			{
 
 				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
-				ImGui::SameLine();
-				ImGui::TextDisabled("(?)");
-				if (ImGui::IsItemHovered())
-				{
-					ImGui::BeginTooltip();
-					ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-					Core::String s = "From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + Enums::to_string(item.ptr->mode);
-					
-					ImGui::TextUnformatted(s.c_str());
-					ImGui::PopTextWrapPos();
-					ImGui::EndTooltip();
-				}
+				BasicToolTip("From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + Enums::to_string(item.ptr->mode));
+
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(420.f);
 				if(ImGui::Button("e", { 18.f, 0 }))
 				{
+					Selectors::cached.clear();
 					editView.ptr = item.ptr;
+				}
+				if (editView.ptr == item.ptr)
+				{
+					item.name = item.ptr->getName();
 				}
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(440.f);
@@ -146,6 +148,7 @@ namespace Graphics::Editor
 	}
 	void DataTree::clear()
 	{
+		Selectors::cached.clear();
 		editView.ptr = nullptr;
 		objectTree.items.clear();
 		mapSize = 0;

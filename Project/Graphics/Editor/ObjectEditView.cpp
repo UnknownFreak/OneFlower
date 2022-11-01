@@ -1,5 +1,7 @@
 #include "ObjectEditView.hpp"
 
+#include "ViewModels/IRequestableRenderView.hpp"
+
 #include <imgui/imgui.h>
 
 namespace Graphics
@@ -19,8 +21,10 @@ namespace Graphics
 				ImGui::SetNextWindowSize({ 500.f, 600 });
 				if (ImGui::Begin("EditView", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings))
 				{
-					ImGui::Text("EditorFrame");
-					ImGui::Text(Core::toHex((size_t)ptr).c_str());
+					ImGui::Text("Object Info: ");
+					ViewModels::renderInfo(ptr);
+					ImGui::Separator();
+					ptr->render();
 				}
 				ImGui::End();
 			}

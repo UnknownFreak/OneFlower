@@ -371,6 +371,22 @@ namespace File::Archive
 			return true;
 		}
 
+		inline void add(const Enums::ObjectType& type, const Core::String& name)
+		{
+			switch (type)
+			{
+			case Enums::ObjectType::Element: 
+			{
+				auto elem = new Combat::Element;
+				elem->fromMod = name;
+				add(elem); 
+				break;
+			}
+			default:
+				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
+			}
+		}
+
 
 		inline void clear()
 		{
@@ -420,14 +436,31 @@ namespace File::Archive
 			return requestedMap;
 		}
 
-		inline std::vector<File::Mod::ModFileUUIDHelper> listAllCurrentLoadedObjects() const
+		inline bool editorKeyExists(const File::Mod::ModFileUUIDHelper& modFile) const
+		{
+			return requestedMap.contains(modFile);
+		}
+
+		inline Core::String editorGetObjectName(const File::Mod::ModFileUUIDHelper& modFile)
+		{
+			if (editorKeyExists(modFile))
+			{
+				auto& ptr = requestedMap[modFile];
+				return ptr->getName();
+			}
+			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Tried to get name of object, but object does not exist!");
+			return "";
+		}
+
+		inline std::vector<File::Mod::ModFileUUIDHelper> listAllCurrentLoadedObjects(const Enums::ObjectType& objectType) const
 		{
 			std::vector<File::Mod::ModFileUUIDHelper> listofall;
 			td_map::const_iterator it = requestedMap.begin();
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)
 			{
-				listofall.push_back(it->first);
+				if(it->second->objectType == objectType)
+					listofall.push_back(it->first);
 			}
 			return listofall;
 		}

@@ -8,10 +8,10 @@ void Graphics::Editor::MainEditorWindow::renderMenuBar()
 {
 	if (ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::IsKeyPressed((ImGuiKey)((int)ImGuiKeyModFlags_Ctrl | (int)ImGuiKey_N)) && newFileModal.isClosed())
-		{
-			newFileModal.open();
-		}
+		//if (ImGui::IsKeyPressed((ImGuiKey)((int)ImGuiKeyModFlags_Ctrl | (int)ImGuiKey_N)) && newFileModal.isClosed())
+		//{
+		//	newFileModal.open();
+		//}
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("New", "Ctrl + N"))

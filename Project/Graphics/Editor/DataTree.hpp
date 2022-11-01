@@ -16,6 +16,7 @@ namespace Graphics
 		{
 			Core::String name;
 			Interfaces::IRequestable* ptr;
+			Enums::ObjectType type = Enums::ObjectType::Undefined;
 			std::vector<DataTreeItem> items;
 			inline bool operator< (const DataTreeItem& item)
 			{
@@ -34,7 +35,7 @@ namespace Graphics
 
 			bool treeNeedsUpdate();
 			void buildTree();
-			void drawTree(const DataTreeItem& item);
+			void drawTree(DataTreeItem& item);
 
 		public:
 			DataTree(float& height);

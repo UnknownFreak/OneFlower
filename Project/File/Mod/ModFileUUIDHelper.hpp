@@ -51,9 +51,13 @@ namespace File::Mod
 			loader(uuid);
 		}
 
-		Core::String operator()() const
+		inline Core::String operator()(const bool& truncateUuidString=false) const
 		{
-			return "{\"" + name + "\"," + uuid.to_string() + "}";
+			if (truncateUuidString)
+			{
+				return "[\"" + name + "\"," + Core::truncate(uuid.to_string()) + "]";
+			}
+			return "[\"" + name + "\"," + uuid.to_string() + "]";
 		}
 	};
 };
