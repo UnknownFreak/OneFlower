@@ -190,9 +190,6 @@
     <Filter Include="Engine\Helpers\Core">
       <UniqueIdentifier>{9933d0b4-3da5-428e-b311-a6b33632e485}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{8b19e790-5799-4f2e-9f06-74012ebc8f01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Component\Activatior">
       <UniqueIdentifier>{f9f0fb3f-461a-45bd-899b-299b6d8f1aa0}</UniqueIdentifier>
     </Filter>
@@ -1261,42 +1258,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="test2.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="test3.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="test4.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="luminescence.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="boxblur.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="multiply.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="assemble.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shadow.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shadow.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="shadowEntity.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="light.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Project\Graphics\UI\LoadingScreen.hpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </None>

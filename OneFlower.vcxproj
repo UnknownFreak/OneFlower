@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="DebugEditor|x64">
-      <Configuration>DebugEditor</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseEditor|x64">
-      <Configuration>ReleaseEditor</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -609,21 +601,9 @@
     <ClInclude Include="vendor\stduuid\include\uuid.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assemble.frag" />
-    <None Include="boxblur.frag" />
     <None Include="gameConfig.cfg" />
-    <None Include="light.frag" />
-    <None Include="luminescence.frag" />
-    <None Include="multiply.frag" />
     <None Include="Project\Graphics\UI\LoadingScreen.hpp" />
     <None Include="Project\Trigger\DespawnObjectTrigger.hpp" />
-    <None Include="shadow.frag" />
-    <None Include="shadow.vert" />
-    <None Include="shadowEntity.frag" />
-    <None Include="test.frag" />
-    <None Include="test2.frag" />
-    <None Include="test3.frag" />
-    <None Include="test4.frag" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.log" />
