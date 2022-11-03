@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{3c1e95ab-b73b-4b45-8f2f-984a952d25fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{ad746789-1295-42ff-9cf9-f76e1731b4c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{9fac0261-029d-43bb-bca8-3036be2f9e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\module">
+      <UniqueIdentifier>{95a5eeff-0e34-4a3c-ba28-2fb1a7217733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\streams">
+      <UniqueIdentifier>{f14c3734-b482-4175-bd60-222de9fcbbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module\logger">
+      <UniqueIdentifier>{2298d236-83df-4363-99c0-520a3e0e2e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module\logger\streams">
+      <UniqueIdentifier>{288f764b-a9d9-4c95-8b62-72ace2bb6fae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\OneLogger.cpp">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicLogStream.cpp">
+      <Filter>src\streams</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\module\logger\LoggerBase.hpp">
+      <Filter>include\module\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\LogLevel.hpp">
+      <Filter>include\module\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\ModuleLogger.hpp">
+      <Filter>include\module\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\OneLogger.hpp">
+      <Filter>include\module\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\streams\BasicLogStream.hpp">
+      <Filter>include\module\logger\streams</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\streams\LogSteam.hpp">
+      <Filter>include\module\logger\streams</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\streams\NullStream.hpp">
+      <Filter>include\module\logger\streams</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
