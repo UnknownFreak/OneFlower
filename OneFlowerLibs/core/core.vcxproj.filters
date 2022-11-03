@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\vendor\stduuid\include\uuid.h">
+      <Filter>external</Filter>
+    </ClInclude>
+    <ClInclude Include="include\os\ListDir.hpp">
+      <Filter>include\os</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\String.hpp">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\uuid.hpp">
+      <Filter>include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Version.hpp">
+      <Filter>include\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{125934aa-595b-4dd8-8e05-da20c95f4ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\core">
+      <UniqueIdentifier>{70e51bee-f62f-4d7c-8767-326ea4934ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{a29a4418-83fa-4fef-a6a4-630320d77b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{7fa6faf3-31c4-4eca-ae7c-ebf86d331d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\os">
+      <UniqueIdentifier>{9584626f-6eb7-472f-a089-b53de373c761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{2a3144d6-a91d-465b-9294-79f369e39a94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os">
+      <UniqueIdentifier>{2277eb6c-9bd2-433d-818c-22b8cdad207f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ListDir.cpp">
+      <Filter>src\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\String.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uuid.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Version.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
