@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{af302e76-6148-4d69-8415-21f9858bbd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{3004d64d-786c-40b3-a9bc-307a9c728080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{af28fff4-622b-4e2f-b365-14a7aaab9d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\module">
+      <UniqueIdentifier>{971b8a2d-d90d-4966-8958-a723477a76e3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\module\BaseEngineModule.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\EngineResourceTypes.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\IEngineModule.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\ModuleManager.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ModuleManager.cpp">
+      <Filter>src\module</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
