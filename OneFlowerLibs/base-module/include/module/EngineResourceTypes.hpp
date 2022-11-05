@@ -28,6 +28,7 @@ namespace OneFlower::Module
 		MeshLoader,
 		ShaderLoader,
 		EngineSettings,
+		WindowProxy,
 		NOT_SET,
 	};
 }
