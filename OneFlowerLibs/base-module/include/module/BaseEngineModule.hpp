@@ -5,11 +5,8 @@
 
 namespace OneFlower::Module
 {
-	class ModuleManager;
-
 	class BaseEngineModule
 	{
-		friend class ModuleManager;
 
 	protected:
 		bool disabled = false;
@@ -17,9 +14,7 @@ namespace OneFlower::Module
 		virtual EngineResourceType& getType() const = 0;
 
 	public:
-		virtual ~BaseEngineModule() = 0
-		{
-		};
+		virtual ~BaseEngineModule() {};
 
 		void disable() { disabled = true; }
 	};

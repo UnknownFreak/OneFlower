@@ -27,6 +27,7 @@ namespace OneFlower::Module
 		SaveFile,
 		MeshLoader,
 		ShaderLoader,
+		EngineSettings,
 		NOT_SET,
 	};
 }

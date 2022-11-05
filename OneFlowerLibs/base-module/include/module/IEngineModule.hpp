@@ -8,7 +8,6 @@ namespace OneFlower::Module::Interface
 	template <typename T>
 	struct IEngineResource : public Module::BaseEngineModule
 	{
-	
 		static EngineResourceType type;
 		static const EngineResourceType& getType()
 		{ 

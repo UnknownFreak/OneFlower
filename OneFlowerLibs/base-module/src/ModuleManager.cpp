@@ -8,7 +8,7 @@ namespace OneFlower::Module
 	{
 		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it = componentMap.begin();
 		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator eit = componentMap.end();
-		for (it; it != eit; it++)
+		for (; it != eit; it++)
 		{
 			it->second->disable();
 			//delete it->second;
