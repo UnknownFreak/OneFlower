@@ -11,7 +11,6 @@ namespace Enums
 		Physics,
 		WorldManager,
 		WorldManagerAddon,
-		SpriterContainer,
 		AssetManager,
 		Logger,
 		Globals,

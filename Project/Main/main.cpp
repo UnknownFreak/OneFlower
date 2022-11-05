@@ -25,7 +25,6 @@ Core::String to_string(const Enums::EngineResourceType& state)
 		// Console
 	case Enums::EngineResourceType::Console: return "Console";
 		// Core
-	case Enums::EngineResourceType::StringConverter: return "StringConverter";
 	case Enums::EngineResourceType::Globals: return "Globals";
 	case Enums::EngineResourceType::Time: return "Time";
 	case Enums::EngineResourceType::Settings: return "EngineSettings";
@@ -34,7 +33,6 @@ Core::String to_string(const Enums::EngineResourceType& state)
 	case Enums::EngineResourceType::MeshLoader: return "MeshLoader";
 	case Enums::EngineResourceType::ShaderLoader: return "ShaderLoader";
 	case Enums::EngineResourceType::AssetManager: return "AssetManager";
-	case Enums::EngineResourceType::SpriterContainer: return "SpriterContainer";
 	case Enums::EngineResourceType::ObjectInstanceHandler: return "ObjectInstanceHandler";
 		// Engine
 	case Enums::EngineResourceType::ModLoader: return "ModLoader";
