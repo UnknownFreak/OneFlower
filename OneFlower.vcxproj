@@ -375,10 +375,6 @@
     <ClCompile Include="Project\Object\ObjectInstanceHandlerDefiner.cpp" />
     <ClCompile Include="Project\Object\Interactable.cpp" />
     <ClCompile Include="Project\Object\Transform.cpp" />
-    <ClCompile Include="Project\Physics\Colliders\EntityCollider.cpp" />
-    <ClCompile Include="Project\Physics\Colliders\TileCollider.cpp" />
-    <ClCompile Include="Project\Physics\Colliders\VisionCollider.cpp" />
-    <ClCompile Include="Project\Physics\Physics.cpp" />
     <ClCompile Include="Project\Quest\AOrBObjective.cpp" />
     <ClCompile Include="Project\Quest\CollectItemObjective.cpp" />
     <ClCompile Include="Project\Quest\DefeatEnemyObjective.cpp" />
@@ -582,11 +578,6 @@
     <ClInclude Include="Project\Object\ObjectInstanceHandler.hpp" />
     <ClInclude Include="Project\Object\Interactable.hpp" />
     <ClInclude Include="Project\Object\Transform.hpp" />
-    <ClInclude Include="Project\Physics\Colliders\EntityCollider.hpp" />
-    <ClInclude Include="Project\Physics\Colliders\TileCollider.hpp" />
-    <ClInclude Include="Project\Physics\Colliders\VisionCollider.hpp" />
-    <ClInclude Include="Project\Physics\Physics.hpp" />
-    <ClInclude Include="Project\Physics\QuadTree.hpp" />
     <ClInclude Include="Project\Quest\AOrBObjective.hpp" />
     <ClInclude Include="Project\Quest\CollectItemObjective.hpp" />
     <ClInclude Include="Project\Quest\DefeatEnemyObjective.hpp" />

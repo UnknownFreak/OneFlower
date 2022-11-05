@@ -2,7 +2,6 @@
 
 #include <Object/GameObject.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
-#include <Physics/Colliders/EntityCollider.hpp>
 #include <File/Asset/Manager.hpp>
 #include <Items/Inventory.hpp>
 
@@ -76,49 +75,49 @@ namespace Component
 		return std::make_unique<Damage>(*this);
 	}
 
-	void Damage::onCollision(Interfaces::ICollider* the_collidee)
+	void Damage::onCollision(Interfaces::ICollider* )
 	{
-		Collider* x = (Collider*)the_collidee;
+		//Collider* x = (Collider*)the_collidee;
 		//if (x->attachedOn != owner->attachedOn)
 		{
-			if (std::find(targetsHit.begin(), targetsHit.end(), x->attachedOn) != targetsHit.end() && eachTargetUnique || targetsHit.size() == maxTargets)
-				return;
+			//if (std::find(targetsHit.begin(), targetsHit.end(), x->attachedOn) != targetsHit.end() && eachTargetUnique || targetsHit.size() == maxTargets)
+			//	return;
 
 			if (locked)
 				return;
 
-			auto* stats = x->attachedOn->getComponent<Component::Stats>();
-			auto* inventory = x->attachedOn->getComponent<Component::Inventory>();
+			//auto* stats = x->attachedOn->getComponent<Component::Stats>();
+			//auto* inventory = x->attachedOn->getComponent<Component::Inventory>();
 
-			if (stats)
-			{
-				stats->doEffects(effects, owner);
-
-				if (inventory)
-				{
-					if (inventory->mainHand)
-					{
-						double theDamage = inventory->mainHand->weaponStrength;
-						if (inventory->offHand)
-							theDamage += inventory->offHand->weaponStrength;
-						stats->doDamage(theDamage, damageCoef, damageElement, owner);
-					}
-					else
-					{
-						Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
-					}
-				}
-				else
-				{
-					double theDamage = 15.0 * stats->getLevel();
-					Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use default 15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
-					stats->doDamage(theDamage, damageCoef, damageElement, owner);
-				}
-
-				targetsHit.push_back(x->attachedOn);
-				if (canLockNextFrame)
-					lockNextFrame = true;
-			}
+			//if (stats)
+			//{
+			//	stats->doEffects(effects, owner);
+			//
+			//	if (inventory)
+			//	{
+			//		if (inventory->mainHand)
+			//		{
+			//			double theDamage = inventory->mainHand->weaponStrength;
+			//			if (inventory->offHand)
+			//				theDamage += inventory->offHand->weaponStrength;
+			//			stats->doDamage(theDamage, damageCoef, damageElement, owner);
+			//		}
+			//		else
+			//		{
+			//			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
+			//		}
+			//	}
+			//	else
+			//	{
+			//		double theDamage = 15.0 * stats->getLevel();
+			//		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use /default /15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
+			//		stats->doDamage(theDamage, damageCoef, damageElement, owner);
+			//	}
+			//
+			//	targetsHit.push_back(x->attachedOn);
+			//	if (canLockNextFrame)
+			//		lockNextFrame = true;
+			//}
 		}
 	}
 };

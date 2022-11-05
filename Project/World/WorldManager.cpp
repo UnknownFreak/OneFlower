@@ -5,14 +5,10 @@
 #include <Module/OneTime.hpp>
 #include <Module/Random.hpp>
 
-#include <Physics/Physics.hpp>
-
 #include <Object/BaseComponent.hpp>
 #include <Object/IBaseComponent.hpp>
 
 #include <Interfaces/ICollider.hpp>
-#include <Physics/Colliders/TileCollider.hpp>
-#include <Physics/Colliders/EntityCollider.hpp>
 
 #include <Helpers/Enum/TileTypes.hpp>
 
@@ -27,8 +23,6 @@
 
 #include <Graphics/UI/PlayerStats.hpp>
 
-#include <Physics/Colliders/VisionCollider.hpp>
-#include <Physics/Colliders/EntityCollider.hpp>
 #include <Combat/Stats.hpp>
 #include <Combat/Effect.hpp>
 #include <Combat/Element.hpp>
@@ -104,13 +98,8 @@ void WorldManager::initialize()
 	go->addComponent<Render>();
 	go->addComponent<Dialog>();
 	
-	go->getComponent<Collider>()->colliderType = Enums::ColliderType::StaticEntity;
-	go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
-
-
 	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("Console", [&](bool, swizzle::input::Keys, const float&) {gfx.ui.ToggleConsole(); f.togglePlayerInput(); }, false),
 		swizzle::input::Keys::KeyF1
-		
 	, Enums::Input::Action::Press);
 
 	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("GlobalFlag", [&](bool, swizzle::input::Keys, const float&) {
@@ -120,68 +109,7 @@ void WorldManager::initialize()
 		, Enums::Input::Action::Press);
 
 	auto& console = Engine::GetModule<Console>();
-	console.registerCommand("qtt", [&](const Core::String& arg)
-		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Quadtree test begin");
-			try
-			{
-				const auto count = std::stoi(arg);
-				isLoading = true;
-				for (auto i = 0; i < count; i++)
-				{
-					auto* go = objectHandler.addObject();
-					auto& randomGen = Engine::GetModule<EngineModule::RandomGen>();
-					go->getComponent<Component::Transform>()->pos = {
-						randomGen.random_float(-100000.f, 100000.f),
-						randomGen.random_float(-100000.f, 100000.f), 0.f };
-					go->addComponent<Render>();
-					go->getComponent<Collider>()->colliderType = Enums::ColliderType::StaticEntity;
-					go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
-					go->getComponent<Collider>()->Update();
-				}
-				isLoading = false;
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Quadtree finished spwning");
-			}
-			catch (...)
-			{
-				Engine::GetModule<EngineModule::Logger::OneLogger>().Error("Failed to execture command Quadtree test");
-
-			}
-		});
-
-	console.registerCommand("wt", [&](const Core::String& )
-		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Wall test spawn");
-			isLoading = true;
-
-			//gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 512.f, 720, 0.f }, Core::Vector2f{256.f, 64.f}, Enums::ColliderType::Wall, false), 1, "WallTest");
-
-			//gfx.addHitbox(std::make_unique<TileCollider>(Core::Vector3f{ 720.f, 720.f, 0.f }, Core::Vector2f{ 64.f, 256.f }, Enums::ColliderType::Wall, false), 1, "WallTest");
-
-			isLoading = false;
-
-				
-		});
-
-	console.registerCommand("e", [&](const Core::String&)
-		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Info("Entity");
-				isLoading = true;
-				{
-					auto* go = objectHandler.addObject();
-					go->getComponent<Component::Transform>()->pos = {150.f, 250.f, 0.f };
-					go->addComponent<Render>();
-					go->getComponent<Collider>()->colliderType = Enums::ColliderType::StaticEntity;
-					go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
-					go->getComponent<Collider>()->Update();
-				}
-				isLoading = false;
-		});
-
-	//f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallback("ReloadShader", [&](bool, sf::Keyboard::Key, const float&) {
-	//	gfx.reloadShader();
-	//	std::cout << "Reloading shader" << std::endl;
-	//	}, false), sf::Keyboard::Key::Num3, Enums::Input::Action::Press);
+	console;
 
 }
 
@@ -458,7 +386,6 @@ void WorldManager::createSimpleWorld()
 	theManager.requestor.add(new Combat::Effect(ef2));
 	Asset::Resource::Prefab p;
 	p.objectType = Enums::ObjectType::Prefab;
-	p.components.emplace_back(std::make_unique<Collider, glm::vec2, glm::vec2>({ 64, 64 }, {-16, 16}));
 	Component::Damage d = Component::Damage();
 	d.canLockNextFrame = false;
 	d.maxTargets = 1;

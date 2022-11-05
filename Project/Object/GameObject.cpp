@@ -1,5 +1,4 @@
 #include "GameObject.hpp"
-#include <Physics/Colliders/EntityCollider.hpp>
 #include <Combat/Stats.hpp>
 
 #include <Graphics/PlayerInteractionPrompt.hpp>
@@ -16,7 +15,6 @@ void GameObject::sendMessage(const Core::String& msgType, const Core::String& me
 GameObject::GameObject()
 {
 	addComponent<Component::Transform>();
-	addComponent<Collider>(glm::vec2{16.f, 16.f});
 }
 GameObject::GameObject(GameObject&& copy)
 {

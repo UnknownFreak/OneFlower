@@ -77,7 +77,6 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::RenderWindow>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::UI::UIHandler>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Physics::PhysicsEngine>().type));
 
 	mainModule.Info("Finished initializing engine ");
 }

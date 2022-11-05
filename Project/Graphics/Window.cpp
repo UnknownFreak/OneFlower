@@ -7,8 +7,6 @@
 #include "Render.hpp"
 #include "mvp.hpp"
 
-#include <Physics/Colliders/EntityCollider.hpp>
-#include <Physics/Colliders/VisionCollider.hpp>
 #include <Graphics/PlayerInteractionPrompt.hpp>
 #include <File/GameConfig.hpp>
 #include <File/Resource/ShaderLoader.hpp>

@@ -31,7 +31,6 @@
 #include <Combat/Stats.hpp>
 #include <Combat/Damage.hpp>
 #include <Combat/Combat.hpp>
-#include <Physics/Colliders/EntityCollider.hpp>
 
 #include <Quest/Quest.hpp>
 #include <Quest/QuestObjective.hpp>
@@ -58,7 +57,6 @@ CEREAL_REGISTER_TYPE(Component::Base);
 CEREAL_REGISTER_TYPE(Component::Stats);
 CEREAL_REGISTER_TYPE(Component::Damage);
 CEREAL_REGISTER_TYPE(Component::CombatComponent);
-CEREAL_REGISTER_TYPE(Collider);
 
 CEREAL_REGISTER_TYPE(Combat::Element);
 CEREAL_REGISTER_TYPE(Combat::Effect);
@@ -99,7 +97,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::ModifierEff
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Stats);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Damage);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::CombatComponent);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Collider);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Questing::Quest);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Questing::QuestObjective, Questing::AOrBObjective);

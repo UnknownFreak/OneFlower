@@ -7,8 +7,6 @@
 #include <File/Resource/MeshLoader.hpp>
 #include <File/Resource/ShaderLoader.hpp>
 
-#include <Physics/Colliders/EntityCollider.hpp>
-
 Enums::ComponentType Component::IBase<Render>::typeID = Enums::ComponentType::Render;
 Core::String Component::IBase<Render>::componentName = "Render";
 

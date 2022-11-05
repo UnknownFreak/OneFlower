@@ -31,12 +31,6 @@
     <Filter Include="Engine\Module\ModuleManager">
       <UniqueIdentifier>{91456c9e-a2fa-4858-a20a-a8a77d2b7ddb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Physics">
-      <UniqueIdentifier>{b283e2a6-7363-4cd6-a1c4-918b738c9dc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Physics\Colliders">
-      <UniqueIdentifier>{09bb870d-72ae-491e-973f-49d668d8e4c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File">
       <UniqueIdentifier>{3245884f-a954-41f8-ad6d-30cfede76175}</UniqueIdentifier>
     </Filter>
@@ -135,9 +129,6 @@
     </Filter>
     <Filter Include="Engine\Object\Component\Transform">
       <UniqueIdentifier>{8ab74c5d-a1f4-4082-bd58-21e73d38a049}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Physics\Colliders\Component">
-      <UniqueIdentifier>{5616e1df-3187-45d0-b767-e6a506197242}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Input\Component">
       <UniqueIdentifier>{553e714f-775a-4530-a9c3-f83a214b42be}</UniqueIdentifier>
@@ -351,17 +342,11 @@
     <ClCompile Include="Project\World\WorldManager.cpp">
       <Filter>Engine\World</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Physics\Physics.cpp">
-      <Filter>Engine\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\RectUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
     <ClCompile Include="Project\Input\Controller.cpp">
       <Filter>Engine\Input\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Physics\Colliders\TileCollider.cpp">
-      <Filter>Engine\Physics\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Project\Input\Console.cpp">
       <Filter>Engine\Input</Filter>
@@ -572,12 +557,6 @@
     </ClCompile>
     <ClCompile Include="Project\File\SaveFile.cpp">
       <Filter>Engine\File\SaveFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Physics\Colliders\EntityCollider.cpp">
-      <Filter>Engine\Physics\Colliders\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Physics\Colliders\VisionCollider.cpp">
-      <Filter>Engine\Physics\Colliders\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Input\PlayerController.cpp">
       <Filter>Engine\Input\Component</Filter>
@@ -800,20 +779,11 @@
     <ClInclude Include="Project\World\WorldManager.hpp">
       <Filter>Engine\World</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Physics\Physics.hpp">
-      <Filter>Engine\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics\QuadTree.hpp">
-      <Filter>Engine\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Input\Controller.hpp">
       <Filter>Engine\Input\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Project\Input\AxisInputHandler.hpp">
       <Filter>Engine\Input\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics\Colliders\TileCollider.hpp">
-      <Filter>Engine\Physics\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Project\Input\Console.hpp">
       <Filter>Engine\Input</Filter>
@@ -1066,12 +1036,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp">
       <Filter>Engine\Graphics\UI\Stats</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics\Colliders\EntityCollider.hpp">
-      <Filter>Engine\Physics\Colliders\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Physics\Colliders\VisionCollider.hpp">
-      <Filter>Engine\Physics\Colliders\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp">
       <Filter>Engine\Helpers\Enum</Filter>

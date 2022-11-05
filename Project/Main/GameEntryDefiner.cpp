@@ -20,7 +20,6 @@
 
 GameEntry::GameEntry() : 
 	gfx(Engine::GetModule<Graphics::RenderWindow>()),
-	physics(Engine::GetModule<Physics::PhysicsEngine>()),
 	time(Engine::GetModule<EngineModule::Time>()),
 	input(Engine::GetModule<Input::InputHandler>()),
 	world(gfx),
@@ -33,7 +32,6 @@ int GameEntry::Run()
 {
 	auto width = Engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
-	physics.renderBox = gfx.renderBox;
 	gfx.initialize();
 	world.initialize();
 	gfx.setFramerate(Engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
@@ -112,7 +110,6 @@ void GameEntry::physicsUpdate()
 			time.physicsElapsed -= time.update_ms;
 			{
 				input.update(update_time);
-				physics.update(update_time);
 				world.Simulate(update_time);
 				time.Simulate(update_time);
 				ups->update();

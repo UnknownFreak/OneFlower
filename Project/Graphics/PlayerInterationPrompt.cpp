@@ -1,7 +1,6 @@
 #include "PlayerInteractionPrompt.hpp"
 
 #include <Object/GameObject.hpp>
-#include <Physics/Colliders/EntityCollider.hpp>
 
 #include <Graphics/UI/UIHandler.hpp>
 #include <Graphics/UI/DialogScreen.hpp>
@@ -64,6 +63,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 	auto& colliderType = theCollidee->colliderType;
 	if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
 	{
+		/*
 		GameObject* theObject = ((Collider*)theCollidee)->attachedOn;
 		Dialog* dialogComponent = theObject->getComponent<Dialog>();
 		Component::LootDrop* theDrop = theObject->getComponent<Component::LootDrop>();
@@ -92,6 +92,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
 		// TODO: add logic for interactables like, buttons/ levers/ portals?
+		*/
 	}
 }
 

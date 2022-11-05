@@ -5,7 +5,6 @@
 #include <Graphics/Render.hpp>
 #include <Graphics/PlayerInteractionPrompt.hpp>
 #include <Graphics/UI/PlayerStats.hpp>
-#include <Physics/Colliders/VisionCollider.hpp>
 #include <Input/PlayerController.hpp>
 #include <Quest/Quest.hpp>
 
@@ -124,10 +123,8 @@ namespace File
 		player.id = Core::uuid::nil();
 		player.addComponent<Render>();
 		player.addComponent<PlayerInteractionPrompt>();
-		player.addComponent<VisionCollider>(glm::vec2{ 45.f, 30.f });
 		player.addComponent<Component::Stats>();
 		player.addComponent<Component::CombatComponent>();
-		player.getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 		//player.removeComponent<Component::AI>();
 		player.addComponent<Component::PlayerController>();
 		setPlayerInfo();
@@ -175,7 +172,6 @@ namespace File
 
 	void SaveFile::load(const Core::String& fileName)
 	{
-		player.getComponent<Collider>()->floor = nullptr;
 		std::ifstream file(Core::savePath + fileName, std::ios::binary | std::ios::in);
 		{
 			cereal::BinaryInputArchive mainAr(file);
