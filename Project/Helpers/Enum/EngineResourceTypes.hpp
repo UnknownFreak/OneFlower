@@ -14,7 +14,6 @@ namespace Enums
 		SpriterContainer,
 		AssetManager,
 		Logger,
-		StringConverter,
 		Globals,
 		GameVariableMapping,
 		ModLoader,
