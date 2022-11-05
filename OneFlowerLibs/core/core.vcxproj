@@ -15,10 +15,8 @@
     <ClInclude Include="include\core\String.hpp" />
     <ClInclude Include="include\core\uuid.hpp" />
     <ClInclude Include="include\core\Version.hpp" />
-    <ClInclude Include="include\os\ListDir.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ListDir.cpp" />
     <ClCompile Include="src\String.cpp" />
     <ClCompile Include="src\uuid.cpp" />
     <ClCompile Include="src\Version.cpp" />

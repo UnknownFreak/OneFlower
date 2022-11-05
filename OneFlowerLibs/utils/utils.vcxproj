@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ListDir.cpp" />
     <ClCompile Include="src\parser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\os\ListDir.hpp" />
     <ClInclude Include="include\utils\config\parser.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

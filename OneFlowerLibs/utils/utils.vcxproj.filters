@@ -13,15 +13,30 @@
     <Filter Include="include\utils\config">
       <UniqueIdentifier>{fa36366a-f157-42a1-9684-d2e06068ac1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\utils\os">
+      <UniqueIdentifier>{16638acf-fd20-44cd-acf5-15148807692a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os">
+      <UniqueIdentifier>{9ef7ad27-f375-4527-9823-7820186397e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\config">
+      <UniqueIdentifier>{622db6a1-2536-4436-9ebb-2f26e82af914}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ListDir.cpp">
+      <Filter>src\os</Filter>
+    </ClCompile>
     <ClCompile Include="src\parser.cpp">
-      <Filter>src</Filter>
+      <Filter>src\config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\utils\config\parser.hpp">
       <Filter>include\utils\config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\os\ListDir.hpp">
+      <Filter>include\utils\os</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
