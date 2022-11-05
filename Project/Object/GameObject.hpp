@@ -45,7 +45,7 @@ public:
 	void toggleObjectState();
 	void toggleObjectState(const Enums::ObjectState& newState);
 
-	void onCollision(Interfaces::ICollider*);
+	void onCollision(GameObject*);
 	// Inherited via IUpdateable
 	virtual void Update() override;
 

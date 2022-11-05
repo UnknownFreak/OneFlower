@@ -58,13 +58,13 @@ void PlayerInteractionPrompt::attachOn(GameObject* go)
 	Base::attachOn(go);
 }
 
-void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
+void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
 {
-	auto& colliderType = theCollidee->colliderType;
-	if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
+	//auto& colliderType = theCollidee->colliderType;
+	//if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
 	{
-		/*
-		GameObject* theObject = ((Collider*)theCollidee)->attachedOn;
+		
+		GameObject* theObject = theCollidee;
 		Dialog* dialogComponent = theObject->getComponent<Dialog>();
 		Component::LootDrop* theDrop = theObject->getComponent<Component::LootDrop>();
 		Component::LootContainer* theContainer = theObject->getComponent<Component::LootContainer>();
@@ -92,7 +92,7 @@ void PlayerInteractionPrompt::onCollision(Interfaces::ICollider* theCollidee)
 			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
 		}
 		// TODO: add logic for interactables like, buttons/ levers/ portals?
-		*/
+		//*/
 	}
 }
 

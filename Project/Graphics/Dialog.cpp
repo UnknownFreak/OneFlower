@@ -41,7 +41,7 @@ void Dialog::attachOn(GameObject* go)
 	Base::attachOn(go);
 }
 
-void Dialog::onCollision(Interfaces::ICollider*)
+void Dialog::onCollision(GameObject*)
 {
 }
 

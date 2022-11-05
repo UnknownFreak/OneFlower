@@ -15,7 +15,7 @@ namespace Component
 	{
 	}
 
-	void CombatComponent::onCollision(Interfaces::ICollider*)
+	void CombatComponent::onCollision(GameObject*)
 	{
 	}
 

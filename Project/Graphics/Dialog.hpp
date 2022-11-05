@@ -39,7 +39,7 @@ public:
 	// maybe not needed
 	void attachOn(GameObject* go);
 	// Inherited via IBase
-	virtual void onCollision(Interfaces::ICollider* the_collidee) override;
+	virtual void onCollision(GameObject* the_collidee) override;
 
 
 	// Inherited via IBase

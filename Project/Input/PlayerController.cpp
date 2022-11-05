@@ -123,7 +123,7 @@ namespace Component
 		enable();
 	}
 
-	void PlayerController::onCollision(Interfaces::ICollider* )
+	void PlayerController::onCollision(GameObject* )
 	{
 	}
 

@@ -5,17 +5,14 @@
 
 class GameObject;
 struct ComponentFactory;
-namespace Interfaces
-{
-	class ICollider;
-}
+
 namespace Component
 {
 	class Base
 	{
 	public:
 
-		virtual void onCollision(Interfaces::ICollider* the_collidee) = 0;
+		virtual void onCollision(GameObject* the_collidee) = 0;
 
 		GameObject* attachedOn = nullptr;
 

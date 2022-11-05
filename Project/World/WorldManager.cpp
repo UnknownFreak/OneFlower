@@ -8,8 +8,6 @@
 #include <Object/BaseComponent.hpp>
 #include <Object/IBaseComponent.hpp>
 
-#include <Interfaces/ICollider.hpp>
-
 #include <Helpers/Enum/TileTypes.hpp>
 
 #include <File/Asset/Resource/Template/WorldInstance.hpp>

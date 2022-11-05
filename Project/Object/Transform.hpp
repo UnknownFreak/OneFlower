@@ -5,7 +5,6 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include "IBaseComponent.hpp"
-#include <Interfaces/ICollider.hpp>
 #include <Combat/Stats.hpp>
 
 namespace Component
@@ -40,7 +39,7 @@ namespace Component
 
 		void attachOn(GameObject* go);
 		// Inherited via IBase
-		virtual void onCollision(Interfaces::ICollider* the_collidee);
+		virtual void onCollision(GameObject* the_collidee);
 		virtual void Update() override;
 		virtual void Simulate(const float& dt) override;
 		virtual void onDeath() override;

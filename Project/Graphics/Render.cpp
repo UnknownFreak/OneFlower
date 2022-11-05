@@ -86,7 +86,7 @@ void Render::attachOn(GameObject* go)
 	Engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 }
 
-void Render::onCollision(Interfaces::ICollider*)
+void Render::onCollision(GameObject*)
 {
 }
 

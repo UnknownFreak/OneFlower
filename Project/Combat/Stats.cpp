@@ -212,7 +212,7 @@ namespace Component
 		go->getComponent<Component::Transform>()->stats = this;
 	}
 
-	void Stats::onCollision(Interfaces::ICollider*)
+	void Stats::onCollision(GameObject*)
 	{
 	}
 

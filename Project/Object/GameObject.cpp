@@ -118,7 +118,7 @@ void GameObject::toggleObjectState(const Enums::ObjectState& newState)
 
 }
 
-void GameObject::onCollision(Interfaces::ICollider* collider)
+void GameObject::onCollision(GameObject* collider)
 {
 	if (objectState == Enums::ObjectState::Active)
 		for (auto& component : componentMap)

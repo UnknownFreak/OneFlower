@@ -26,7 +26,7 @@ namespace Component
 			}
 		}
 	}
-	void ObjectStateActivator::onCollision(Interfaces::ICollider*)
+	void ObjectStateActivator::onCollision(GameObject*)
 	{
 	}
 	void ObjectStateActivator::Update()

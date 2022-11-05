@@ -357,9 +357,6 @@
     <ClCompile Include="Project\Language\TranslationStringDefiner.cpp">
       <Filter>Engine\Language\TranslationString</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Interfaces\ICollider.cpp">
-      <Filter>Engine\Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Main\GameEntryDefiner.cpp">
       <Filter>Main\GameEntryNoEditor</Filter>
     </ClCompile>
@@ -793,9 +790,6 @@
     </ClInclude>
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Interfaces\ICollider.hpp">
-      <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IEngineModule.hpp">
       <Filter>Engine\Interfaces</Filter>

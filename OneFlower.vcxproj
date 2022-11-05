@@ -351,7 +351,6 @@
     <ClCompile Include="Project\Input\Controller.cpp" />
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Input\PlayerController.cpp" />
-    <ClCompile Include="Project\Interfaces\ICollider.cpp" />
     <ClCompile Include="Project\Items\Inventory.cpp" />
     <ClCompile Include="Project\Items\Item.cpp" />
     <ClCompile Include="Project\Items\LootContainer.cpp" />
@@ -536,7 +535,6 @@
     <ClInclude Include="Project\Input\Controller.hpp" />
     <ClInclude Include="Project\Input\InputHandlerBase.hpp" />
     <ClInclude Include="Project\Input\PlayerController.hpp" />
-    <ClInclude Include="Project\Interfaces\ICollider.hpp" />
     <ClInclude Include="Project\Interfaces\IEngineModule.hpp" />
     <ClInclude Include="Project\Interfaces\IObject.hpp" />
     <ClInclude Include="Project\Interfaces\IPatch.hpp" />

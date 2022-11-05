@@ -26,7 +26,7 @@ bool Component::LootDrop::isLooted() const
 	return looted;
 }
 
-void Component::LootDrop::onCollision(Interfaces::ICollider* )
+void Component::LootDrop::onCollision(GameObject* )
 {
 }
 

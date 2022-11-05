@@ -112,7 +112,7 @@ size_t Component::Inventory::getItemStack(const File::Mod::ModFileUUIDHelper& it
 	return result->get()->stackSize;
 }
 
-void Component::Inventory::onCollision(Interfaces::ICollider* )
+void Component::Inventory::onCollision(GameObject* )
 {
 }
 

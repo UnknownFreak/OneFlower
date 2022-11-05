@@ -55,7 +55,7 @@ namespace Component
 			interact(normalInteraction);
 		}
 	}
-	void Interactable::onCollision(Interfaces::ICollider*)
+	void Interactable::onCollision(GameObject*)
 	{
 	}
 	void Interactable::Update()

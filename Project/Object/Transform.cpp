@@ -50,7 +50,7 @@ namespace Component
 		moving = true;
 	}
 
-	void Transform::onCollision(Interfaces::ICollider*)
+	void Transform::onCollision(GameObject*)
 	{
 	}
 

@@ -25,7 +25,7 @@ namespace Component
 	{
 	}
 
-	void AttachToParent::onCollision(Interfaces::ICollider*)
+	void AttachToParent::onCollision(GameObject*)
 	{
 	}
 };

@@ -37,7 +37,7 @@ namespace Component
 		return looted;
 	}
 
-	void LootContainer::onCollision(Interfaces::ICollider* )
+	void LootContainer::onCollision(GameObject* )
 	{
 	}
 

@@ -4,7 +4,6 @@
 
 #include "IBaseComponent.hpp"
 #include "Interaction.hpp"
-#include <Interfaces/ICollider.hpp>
 
 namespace Object
 {
@@ -42,7 +41,7 @@ namespace Component
 		void interact(GameObject& interactable);
 		void interact(const bool& reverse, const short& repeat);
 
-		virtual void onCollision(Interfaces::ICollider* the_collidee);
+		virtual void onCollision(GameObject* the_collidee);
 		virtual void Update() override;
 		virtual void Simulate(const float& dt) override;
 		virtual void onDeath() override;
