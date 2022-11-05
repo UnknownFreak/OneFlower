@@ -4,6 +4,14 @@ OneFlower::Module::EngineResourceType  OneFlower::Module::Interface::IEngineReso
 
 namespace OneFlower::Module
 {
+
+	const Core::String Settings::texturePath = "Textures/";
+	const Core::String Settings::skyboxTexturePath = Settings::texturePath + "skybox/";
+	const Core::String Settings::uiTexturePath = Settings::texturePath + "Ui/";
+	const Core::String Settings::tileTexturePath = Settings::texturePath + "Tiles/";
+	const Core::String Settings::meshPath = "Meshes/";
+	const Core::String Settings::shaderPath = "Shaders/";
+
 	Settings::Settings(): parser("EngineConfig.cfg")
 	{
 	}
