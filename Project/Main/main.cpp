@@ -64,7 +64,6 @@ volatile void initializeSystems()
 
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Console>().type));
 	mainModule.Info("Initializing Modules group: Core");
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Core::StringConverter>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Globals>().type));
 	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::Time>().type));
 

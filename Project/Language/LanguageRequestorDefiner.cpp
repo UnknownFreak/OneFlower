@@ -133,7 +133,6 @@ namespace Language
 	void LanguageRequestor::loadFont()
 	{
 		const Core::String path = Core::fontPath + languages[selectedLanguage].getFontName();
-		std::wstring wstr = Engine::GetModule<Core::StringConverter>().toUtf16(path);
 		std::ifstream i(path, std::ios::in | std::ifstream::binary);
 		i.seekg(0, i.end);
 		size_t len = (size_t)i.tellg();

@@ -11,10 +11,20 @@ namespace Helpers::os
 		for (auto& p : std::filesystem::directory_iterator(path))
 		{
 			if (p.path().extension() == ext)
+			{
+
 				if (removeExtInReturn)
-					l.push_back(Engine::GetModule<Core::StringConverter>().toUtf8(p.path().stem().c_str()));
+				{
+					auto x = p.path().stem().generic_u8string();
+					l.push_back(Core::String(x.begin(), x.end()));
+
+				}
 				else
-					l.push_back(Engine::GetModule<Core::StringConverter>().toUtf8(p.path().filename().c_str()));
+				{
+					auto x = p.path().filename().generic_u8string();
+					l.push_back(Core::String(x.begin(), x.end()));
+				}
+			}
 		}
 		return l;
 	}

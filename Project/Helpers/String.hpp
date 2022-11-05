@@ -39,39 +39,6 @@ namespace Core
 
 	const String Builtin = "BUILTIN";
 
-	class StringConverter : public Interfaces::IEngineResource<StringConverter>
-	{
-		typedef std::codecvt_utf8_utf16<wchar_t> utf8_16converter;
-		std::wstring_convert<utf8_16converter, wchar_t>* con;
-		
-	public:
-		
-		~StringConverter();
-		StringConverter();
-		StringConverter(const StringConverter& copy);
-
- 		Enums::EngineResourceType& getType() const
-		{
-			return type;
-		}
-
-		String toUtf8(const std::wstring& wstr) const;
-		std::wstring toUtf16(const String& str) const;
-	};
-
-	inline String trim(const String& s)
-	{
-		auto start = s.begin();
-		while (start != s.end() && std::isspace(*start, std::locale::classic())) {
-			start++;
-		}
-		auto end = s.end();
-		do {
-			end--;
-		} while (std::distance(start, end) > 0 && std::isspace(*end, std::locale::classic()));
-
-		return String(start, end + 1);
-	}
 
 	template<class T>
 	inline typename std::enable_if<std::is_same<String, T>::value, String>::type
@@ -98,26 +65,8 @@ namespace Core
 		return stream.str();
 	}
 
-	inline Core::String truncate(const Core::String& theString, size_t max_size = 20)
-	{
-		if (theString.size() > max_size + 3)
-		{
-			const size_t max_forward = max_size / 2;
-			const size_t max_backwards = theString.size() - max_forward;
-			Core::String tmp;
-			for (size_t i = 0; i < max_forward; i++)
-			{
-				tmp.push_back(theString[i]);
-			}
-			tmp += "...";
-			for (size_t i = theString.size()-1; i > max_backwards; i--)
-			{
-				tmp.push_back(theString[i]);
-			}
-			return tmp;
-		}
-		return theString;
-	}
+	String trim(const String& s);
+	String truncate(const String& theString, size_t max_size = 20);
 
 }
 #endif

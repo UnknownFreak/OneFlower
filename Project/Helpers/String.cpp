@@ -1,26 +1,39 @@
 #include "String.hpp"
 
-Enums::EngineResourceType Interfaces::IEngineResource < Core::StringConverter >::type = Enums::EngineResourceType::StringConverter;
-
-Core::StringConverter::StringConverter() : con(new std::wstring_convert<utf8_16converter, wchar_t>())
+namespace Core
 {
-}
+	String trim(const String& s)
+	{
+		auto start = s.begin();
+		while (start != s.end() && std::isspace(*start, std::locale::classic())) {
+			start++;
+		}
+		auto end = s.end();
+		do {
+			end--;
+		} while (std::distance(start, end) > 0 && std::isspace(*end, std::locale::classic()));
 
-Core::StringConverter::StringConverter(const StringConverter& copy) : con(std::move(copy.con))
-{
-}
+		return String(start, end + 1);
+	}
 
-Core::StringConverter::~StringConverter()
-{
-	delete con;
-}
-
-Core::String Core::StringConverter::toUtf8(const std::wstring & wstr) const
-{
-	return con->to_bytes(wstr);
-}
-
-std::wstring Core::StringConverter::toUtf16(const Core::String & str) const
-{
-	return con->from_bytes(str);
+	String truncate(const String& theString, size_t max_size)
+	{
+		if (theString.size() > max_size + 3)
+		{
+			const size_t max_forward = max_size / 2;
+			const size_t max_backwards = theString.size() - max_forward;
+			String tmp;
+			for (size_t i = 0; i < max_forward; i++)
+			{
+				tmp.push_back(theString[i]);
+			}
+			tmp += "...";
+			for (size_t i = theString.size() - 1; i > max_backwards; i--)
+			{
+				tmp.push_back(theString[i]);
+			}
+			return tmp;
+		}
+		return theString;
+	}
 }
