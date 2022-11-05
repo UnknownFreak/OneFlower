@@ -69,8 +69,6 @@ namespace Graphics::Editor
 		}
 		else
 		{
-
-
 			bool recurse = false;
 			if (item.ptr == nullptr)
 			{
