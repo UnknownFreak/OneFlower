@@ -2,16 +2,16 @@
 #include <module/ModuleManager.hpp>
 #include <module/settings/EngineSettings.hpp>
 
-OneFlower::Module::EngineResourceType  OneFlower::Module::Interface::IEngineResource< OneFlower::Module::RandomGen>::type = OneFlower::Module::EngineResourceType::RandomGen;
+of::module::EngineResourceType  of::module::Interface::IEngineResource< of::module::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
-std::random_device  OneFlower::Module::RandomGen::rd;
-std::mt19937_64  OneFlower::Module::RandomGen::engine(OneFlower::Module::RandomGen::rd());
+std::random_device  of::module::RandomGen::rd;
+std::mt19937_64  of::module::RandomGen::engine(of::module::RandomGen::rd());
 
-namespace OneFlower::Module
+namespace of::module
 {
 	RandomGen::RandomGen()
 	{
-		if (Engine::GetModule<Settings>().useFixedSeed())
+		if (engine::GetModule<Settings>().useFixedSeed())
 			engine.seed(0);
 		//else
 		//engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());

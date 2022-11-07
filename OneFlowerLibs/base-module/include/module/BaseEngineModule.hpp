@@ -3,7 +3,7 @@
 
 #include <module/EngineResourceTypes.hpp>
 
-namespace OneFlower::Module
+namespace of::module
 {
 	class BaseEngineModule
 	{

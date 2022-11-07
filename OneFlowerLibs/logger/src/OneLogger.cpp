@@ -1,12 +1,12 @@
 #include <module/logger/OneLogger.hpp>
 
-OneFlower::Module::EngineResourceType OneFlower::Module::Interface::IEngineResource<OneFlower::Module::Logger::OneLogger>::type = OneFlower::Module::EngineResourceType::Logger;
+of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Logger::OneLogger>::type = of::module::EngineResourceType::Logger;
 
-OneFlower::Module::Logger::Streams::NullStream OneFlower::Module::Logger::OneLogger::nullStream;
-OneFlower::Module::Logger::ModuleLogger<OneFlower::Module::Logger::Streams::NullStream> OneFlower::Module::Logger::OneLogger::EMPTY(
-	"", OneFlower::Module::Logger::OneLogger::nullStream, OneFlower::Module::Logger::LogLevel::ALWAYS);
+of::module::Logger::Streams::NullStream of::module::Logger::OneLogger::nullStream;
+of::module::Logger::ModuleLogger<of::module::Logger::Streams::NullStream> of::module::Logger::OneLogger::EMPTY(
+	"", of::module::Logger::OneLogger::nullStream, of::module::Logger::LogLevel::ALWAYS);
 
-namespace OneFlower::Module::Logger
+namespace of::module::Logger
 {
 	OneLogger::OneLogger() : LoggerBase(stream("Log.log"), LogLevel::INFO)
 	{

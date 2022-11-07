@@ -1,10 +1,10 @@
-#include <core/uuid.hpp>
+#include <common/uuid.hpp>
 
-std::mt19937_64 OneFlower::Core::uuid::engine = std::mt19937_64(std::random_device()());
+std::mt19937_64 of::common::uuid::engine = std::mt19937_64(std::random_device()());
 
-namespace OneFlower::Core
+namespace of::common
 {
-	uuids::uuid uuid::from_string(const Core::String& str) noexcept
+	uuids::uuid uuid::from_string(const String& str) noexcept
 	{
 		if (uuids::uuid::is_valid_uuid(str))
 		{
@@ -20,7 +20,7 @@ namespace OneFlower::Core
 	uuid::uuid(const uuid& uuid) noexcept : m_uuid(uuid.m_uuid) {}
 	uuid::uuid(const uuids::uuid& uuid) noexcept : m_uuid(uuid) {}
 	uuid::uuid(const uuid&& uuid) noexcept : m_uuid(uuid.m_uuid) {}
-	uuid::uuid(const Core::String& str) noexcept : m_uuid(from_string(str)) {}
+	uuid::uuid(const String& str) noexcept : m_uuid(from_string(str)) {}
 
 
 	uuid uuid::nil() noexcept
@@ -46,17 +46,17 @@ namespace OneFlower::Core
 		return sstr.str();
 	}
 
-	bool uuid::operator<(const Core::uuid& right) const noexcept
+	bool uuid::operator<(const uuid& right) const noexcept
 	{
 		return m_uuid < right.m_uuid;
 	}
 
-	bool uuid::operator!=(const Core::uuid& right) const noexcept
+	bool uuid::operator!=(const uuid& right) const noexcept
 	{
 		return m_uuid != right.m_uuid;
 	}
 
-	bool uuid::operator==(const Core::uuid& right) const noexcept
+	bool uuid::operator==(const uuid& right) const noexcept
 	{
 		return m_uuid == right.m_uuid;
 	}

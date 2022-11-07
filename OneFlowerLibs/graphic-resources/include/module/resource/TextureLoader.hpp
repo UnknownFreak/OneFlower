@@ -6,26 +6,26 @@
 
 #include <swizzle/gfx/Texture.hpp>
 
-#include <core/String.hpp>
+#include <common/string.hpp>
 #include <module/IEngineModule.hpp>
 #include <module/settings/EngineSettings.hpp>
 
-namespace OneFlower::Module::Texture
+namespace of::module::Texture
 {
 	class Loader : public Interface::IEngineResource<Loader>
 	{
 		std::mutex mtx;
-		const Core::String missingTexture = "missingTexture.png";
+		const common::String missingTexture = "missingTexture.png";
 		/*std::map<Settings::EngineSettings::TextureRes,*/
-		std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>/*> */loadedTextureMap;
-		bool loadTexture(const Core::String& name);
-		bool loadCubeMap(const Core::String& folderName);
+		std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Texture>>/*> */loadedTextureMap;
+		bool loadTexture(const common::String& name);
+		bool loadCubeMap(const common::String& folderName);
 
 	public:
-		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const Core::String& name, const Core::String& path = Settings::texturePath);
-		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const Core::String& folderName, const Core::String& path = Settings::skyboxTexturePath);
+		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const common::String& name, const common::String& path = Settings::texturePath);
+		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const common::String& folderName, const common::String& path = Settings::skyboxTexturePath);
 
-		void requestRemovalOfTexture(const Core::String& name);
+		void requestRemovalOfTexture(const common::String& name);
 
 		EngineResourceType& getType() const
 		{

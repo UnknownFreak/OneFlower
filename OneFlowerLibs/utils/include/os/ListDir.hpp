@@ -2,15 +2,15 @@
 #define LIST_DIR_HPP
 
 #include <vector>
-#include <core/String.hpp>
+#include <common/string.hpp>
 
-namespace OneFlower::os
+namespace of::os
 {
 
-	std::vector<Core::String> listDirectory(const Core::String& path, const Core::String& ext, const bool& removeExtInReturn);
+	std::vector<common::String> listDirectory(const common::String& path, const common::String& ext, const bool& removeExtInReturn);
 
 #ifdef _UNITTESTS_
-	void clearDirectory(const Core::String& path);
+	void clearDirectory(const common::String& path);
 #endif // _UNITTESTS_
 }
 #endif

@@ -1,9 +1,9 @@
 #include <module/window/GraphicsProxy.hpp>
 
-OneFlower::Module::EngineResourceType OneFlower::Module::Interface::IEngineResource<OneFlower::Module::Window::Proxy>::type = OneFlower::Module::EngineResourceType::WindowProxy;
+of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Window::Proxy>::type = of::module::EngineResourceType::WindowProxy;
 
 
-namespace OneFlower::Module::Window
+namespace of::module::Window
 {
 	Proxy::Proxy() {}
 

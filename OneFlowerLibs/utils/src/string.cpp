@@ -1,7 +1,7 @@
-#include <core/String.hpp>
+#include <common/string.hpp>
 #include <locale>
 
-namespace OneFlower::Core
+namespace of::common
 {
 	String trim(const String& s)
 	{

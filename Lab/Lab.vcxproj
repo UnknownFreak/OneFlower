@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\common\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,14 +140,26 @@
     <ProjectReference Include="..\OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\OneFlowerLibs\core\core.vcxproj">
-      <Project>{c041095a-4a5a-4ba3-98fa-44ceebae99b9}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\OneFlowerLibs\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\OneFlowerLibs\graphic-resources\graphics.vcxproj">
+      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OneFlowerLibs\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\OneFlowerLibs\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
+      <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\OneFlowerLibs\utils\utils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\swizzle\build\vs2019\swizzle\swizzle.vcxproj">
+      <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\swizzle\build\vs2019\utils\utils.vcxproj">
+      <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

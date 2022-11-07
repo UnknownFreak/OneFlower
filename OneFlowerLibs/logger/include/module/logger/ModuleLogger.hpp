@@ -2,18 +2,18 @@
 #define MODULE_LOGGER_HPP
 
 #include "LoggerBase.hpp"
-#include <core\String.hpp>
+#include <common/string.hpp>
 #include <module\logger\LogLevel.hpp>
 
-namespace OneFlower::Module::Logger
+namespace of::module::Logger
 {
 	template <class T_Stream>
 	class ModuleLogger : public LoggerBase<T_Stream&>
 	{
-		OneFlower::Core::String moduleName;
+		common::String moduleName;
 
 	public:
-		ModuleLogger(const Core::String& moduleName, T_Stream& stream, const LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
+		ModuleLogger(const common::String& moduleName, T_Stream& stream, const LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
 		{
 			this->keyword = "Module: " + moduleName + " ";
 		};

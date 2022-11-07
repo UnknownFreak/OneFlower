@@ -2,7 +2,7 @@
 #include <random>
 #include <module/IEngineModule.hpp>
 
-namespace OneFlower::Module
+namespace of::module
 {
 	class RandomGen : public Interface::IEngineResource<RandomGen>
 	{

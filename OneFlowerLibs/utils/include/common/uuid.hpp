@@ -12,16 +12,16 @@
 #pragma warning(default: 6001)
 #pragma warning(disable: 5246)
 
-#include <core/String.hpp>
+#include <common/string.hpp>
 
-namespace OneFlower::Core
+namespace of::common
 {
 	class uuid
 	{
 		static std::mt19937_64 engine;
 		uuids::uuid m_uuid;
 	
-		uuids::uuid from_string(const Core::String& str) noexcept;
+		uuids::uuid from_string(const String& str) noexcept;
 	
 	public:
 
@@ -29,7 +29,7 @@ namespace OneFlower::Core
 		uuid(const uuid& uuid) noexcept;
 		uuid(const uuids::uuid& uuid) noexcept;
 		uuid(const uuid&& uuid) noexcept;
-		uuid(const Core::String& str) noexcept;
+		uuid(const String& str) noexcept;
 	
 		static uuid nil() noexcept;
 		bool is_nil() const noexcept;
@@ -60,17 +60,17 @@ namespace OneFlower::Core
 		}
 	
 		std::string to_string() const;
-		bool operator<(const Core::uuid& right) const noexcept;
-		bool operator!=(const Core::uuid& right) const noexcept;
-		bool operator==(const Core::uuid& right) const noexcept;
+		bool operator<(const uuid& right) const noexcept;
+		bool operator!=(const uuid& right) const noexcept;
+		bool operator==(const uuid& right) const noexcept;
 	};
 }
 namespace std
 {
 	template <>
-	struct hash<OneFlower::Core::uuid>
+	struct hash<of::common::uuid>
 	{
-		std::size_t operator()(OneFlower::Core::uuid const& uuid) const
+		std::size_t operator()(of::common::uuid const& uuid) const
 		{
 			return std::hash<std::string>()(uuid.to_string());
 		}

@@ -1,16 +1,16 @@
 #include <module/settings/EngineSettings.hpp>
 
-OneFlower::Module::EngineResourceType  OneFlower::Module::Interface::IEngineResource< OneFlower::Module::Settings>::type = OneFlower::Module::EngineResourceType::EngineSettings;
+of::module::EngineResourceType  of::module::Interface::IEngineResource< of::module::Settings>::type = of::module::EngineResourceType::EngineSettings;
 
-namespace OneFlower::Module
+namespace of::module
 {
 
-	const Core::String Settings::texturePath = "Textures/";
-	const Core::String Settings::skyboxTexturePath = Settings::texturePath + "skybox/";
-	const Core::String Settings::uiTexturePath = Settings::texturePath + "Ui/";
-	const Core::String Settings::tileTexturePath = Settings::texturePath + "Tiles/";
-	const Core::String Settings::meshPath = "Meshes/";
-	const Core::String Settings::shaderPath = "Shaders/";
+	const common::String Settings::texturePath = "Textures/";
+	const common::String Settings::skyboxTexturePath = Settings::texturePath + "skybox/";
+	const common::String Settings::uiTexturePath = Settings::texturePath + "Ui/";
+	const common::String Settings::tileTexturePath = Settings::texturePath + "Tiles/";
+	const common::String Settings::meshPath = "Meshes/";
+	const common::String Settings::shaderPath = "Shaders/";
 
 	Settings::Settings(): parser("EngineConfig.cfg")
 	{

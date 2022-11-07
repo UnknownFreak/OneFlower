@@ -3,7 +3,7 @@
 
 #include "LogSteam.hpp"
 
-namespace OneFlower::Module::Logger::Streams
+namespace of::module::Logger::Streams
 {
 	class NullStream : public LogStream
 	{
@@ -14,7 +14,7 @@ namespace OneFlower::Module::Logger::Streams
 		NullStream& operator=(const NullStream& ) { return *this; };
 		~NullStream() = default;
 
-		inline virtual void LogMessage(const LogLevel& , const Core::String& ) override {};
+		inline virtual void LogMessage(const LogLevel& , const common::String& ) override {};
 		inline virtual void flush() override {};
 		inline virtual void close() override {};
 	};

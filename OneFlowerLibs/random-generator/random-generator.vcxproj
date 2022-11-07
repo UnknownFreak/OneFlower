@@ -144,9 +144,6 @@
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\core\core.vcxproj">
-      <Project>{c041095a-4a5a-4ba3-98fa-44ceebae99b9}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>

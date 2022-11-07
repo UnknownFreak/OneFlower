@@ -10,16 +10,16 @@
 #include <Module\ModuleManager.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
-OneFlower::Module::EngineResourceType OneFlower::Module::Interface::IEngineResource<OneFlower::Module::Shader::Loader>::type = OneFlower::Module::EngineResourceType::ShaderLoader;
+of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
 
-namespace OneFlower::Module::Shader
+namespace of::module::Shader
 {
-	bool Loader::loadShader(const Core::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
+	bool Loader::loadShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
 	{
-		Core::String path = "Data/" + name;
+		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to locate shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -27,13 +27,13 @@ namespace OneFlower::Module::Shader
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 #endif
 		mtx.lock();
-		auto& wnd = Engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<Window::Proxy>();
 		loadedShaders.insert(std::make_pair(name, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[name];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
-			auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to load shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		}
 		//, path.c_str(), true)));
@@ -41,7 +41,7 @@ namespace OneFlower::Module::Shader
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& name, const common::String& path)
 	{
 		swizzle::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -75,11 +75,11 @@ namespace OneFlower::Module::Shader
 		return requestShader(name, attribs, path);
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const Core::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
+			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
 			it = loadedShaders.find(path + name);
 			lastResult = true;
 			if (it != loadedShaders.end())
@@ -104,11 +104,11 @@ namespace OneFlower::Module::Shader
 		return lastResult;
 	}
 
-	void Loader::requestRemovalOfShader(const Core::String& name)
+	void Loader::requestRemovalOfShader(const common::String& name)
 	{
 		if (loadedShaders.find(name) != loadedShaders.end())
 		{
-			auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Info("Unloading shader " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedShaders.erase(name);
 		}

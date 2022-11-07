@@ -1,25 +1,33 @@
 #include <utils/config/parser.hpp>
-#include <module/ModuleManager.hpp>
-#include <Module/Logger/OneLogger.hpp>
 
-namespace OneFlower::Config
+#include <iostream>
+
+std::function<void(const of::common::String&, const of::common::String&, const of::common::String&)> 
+of::config::ConfigParser::logger = [](const common::String& module, const common::String& level, const common::String& message)
 {
+	std::cout << module << " " << level << " " << message << std::endl;
+};
+
+namespace of::config
+{
+
+
 
 	ConfigParser::ConfigParser()
 	{
 	}
 
-	ConfigParser::ConfigParser(const Core::String& configFile)
+	ConfigParser::ConfigParser(const common::String& configFile)
 	{
 		load(configFile);
 	}
 
-	void ConfigParser::comment(const Core::String& comment)
+	void ConfigParser::comment(const common::String& comment)
 	{
 		sections[comment] = {};
 	}
 
-	void ConfigParser::comment(const Core::String& section, const Core::String& comment)
+	void ConfigParser::comment(const common::String& section, const common::String& comment)
 	{
 		sections[section].put("#" + comment, "");
 	}
@@ -34,7 +42,7 @@ namespace OneFlower::Config
 		load(fileName);
 	}
 
-	void ConfigParser::load(const Core::String& configFile)
+	void ConfigParser::load(const common::String& configFile)
 	{
 		fileName = configFile;
 		clear();
@@ -42,9 +50,9 @@ namespace OneFlower::Config
 		{
 			if (file.is_open())
 			{
-				Engine::GetModule<Module::Logger::OneLogger>().getLogger("ConfigParser").Debug("Begin parsing configuration file", fileName);
-				Core::String section = "";
-				Core::String line;
+				logger("ConfigParser", "DEBUG", "Begin parsing configuration file " + fileName);
+				common::String section = "";
+				common::String line;
 				while (std::getline(file, line))
 				{
 					bool bcomment = false;
@@ -65,27 +73,28 @@ namespace OneFlower::Config
 							comment(section, line.substr(1));
 						else
 						{
-							Core::String the_comment = "";
+							common::String the_comment = "";
 							auto commentpos = line.find_first_of(";");
 							if (commentpos != std::string::npos)
 								the_comment = line.substr(commentpos);
 							else
 								commentpos = line.size();
 							auto pos = line.find_first_of("=");
-							auto key = Core::trim(line.substr(0, pos));
-							auto value = Core::String(line.begin() + pos + 1, line.begin() + commentpos);
-							value = Core::trim(value);
+							auto key = common::trim(line.substr(0, pos));
+							auto value = common::String(line.begin() + pos + 1, line.begin() + commentpos);
+							value = common::trim(value);
 							put(section, key, value, the_comment);
 						}
 					}
 					else if (section.size() == 0 && bcomment)
 						comment(line.substr(1));
 				}
-				Engine::GetModule<Module::Logger::OneLogger>().getLogger("ConfigParser").Debug("Finished parsing configuration file", fileName);
+				logger("ConfigParser", "DEBUG", "Finished parsing configuration file " + fileName);
+
 			}
 			else
 			{
-				Engine::GetModule<Module::Logger::OneLogger>().getLogger("ConfigParser").Warning("Unable to open config file: ", fileName);
+				logger("ConfigParser", "WARNING", "Unable to open config file: " + fileName);
 			}
 		}
 		file.close();
@@ -96,7 +105,7 @@ namespace OneFlower::Config
 		save(fileName);
 	}
 
-	void ConfigParser::save(const Core::String& configFile)
+	void ConfigParser::save(const common::String& configFile)
 	{
 		fileName = configFile;
 		//Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("ConfigParser").Debug("Begin writing configuration file ", fileName);
@@ -123,4 +132,11 @@ namespace OneFlower::Config
 		file.flush();
 		file.close();
 	}
+
+
+	void ConfigParser::setLogger(std::function<void(const common::String&, const common::String&, const common::String&)> inLogger)
+	{
+		logger = inLogger;
+	}
+
 };

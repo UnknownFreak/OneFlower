@@ -24,6 +24,7 @@
     <ProjectGuid>{95bfd529-031b-441c-babd-3a028dfd3b92}</ProjectGuid>
     <RootNamespace>utils</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ofutils</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,10 +72,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\utils\include;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\utils\include</PublicIncludeDirectories>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\utils\include;$(SolutionDir)vendor\stduuid\include\;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\utils\include;$(SolutionDir)vendor\stduuid\include\</PublicIncludeDirectories>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <TargetName>of$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,19 +138,15 @@
   <ItemGroup>
     <ClCompile Include="src\ListDir.cpp" />
     <ClCompile Include="src\parser.cpp" />
+    <ClCompile Include="src\string.cpp" />
+    <ClCompile Include="src\uuid.cpp" />
+    <ClCompile Include="src\version.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\base-module\base-module.vcxproj">
-      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\core\core.vcxproj">
-      <Project>{c041095a-4a5a-4ba3-98fa-44ceebae99b9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\logger\logger.vcxproj">
-      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="..\..\vendor\stduuid\include\uuid.h" />
+    <ClInclude Include="include\common\string.hpp" />
+    <ClInclude Include="include\common\uuid.hpp" />
+    <ClInclude Include="include\common\version.hpp" />
     <ClInclude Include="include\os\ListDir.hpp" />
     <ClInclude Include="include\utils\config\parser.hpp" />
   </ItemGroup>

@@ -1,5 +1,4 @@
-#include <core/String.hpp>
-#include <core/Version.hpp>
+#include <common/Version.hpp>
 
 OneVersion OneVersion::EMPTY(0, 0, 0);
 
@@ -76,7 +75,7 @@ void OneVersion::incRev()
 	revision++;
 }
 
-OneFlower::Core::String OneVersion::str() const
+of::common::String OneVersion::str() const
 {
 	auto s = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(build);
 	if (revision)

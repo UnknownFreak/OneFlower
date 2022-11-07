@@ -10,17 +10,17 @@
 
 #include <filesystem>
 
-OneFlower::Module::EngineResourceType OneFlower::Module::Interface::IEngineResource<OneFlower::Module::Texture::Loader>::type = OneFlower::Module::EngineResourceType::TextureLoader;
+of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Texture::Loader>::type = of::module::EngineResourceType::TextureLoader;
 
-namespace OneFlower::Module::Texture
+namespace of::module::Texture
 {
 
-	bool Loader::loadTexture(const Core::String& name)
+	bool Loader::loadTexture(const common::String& name)
 	{
-		Core::String path = "Data/" + name;
+		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
+			auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 			logger.Error("Unable to load texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -28,7 +28,7 @@ namespace OneFlower::Module::Texture
 			//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 	#endif
 		mtx.lock();
-		auto& wnd = Engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<Window::Proxy>();
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
 			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
 
@@ -41,11 +41,11 @@ namespace OneFlower::Module::Texture
 		return true;
 	}
 
-	bool Loader::loadCubeMap(const Core::String& folderName)
+	bool Loader::loadCubeMap(const common::String& folderName)
 	{
-		auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
+		auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Loading skybox cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
-		Core::String path = "Data/" + folderName;
+		common::String path = "Data/" + folderName;
 		for (auto& file : { "top.png", "back.png", "bottom.png", "front.png", "left.png", "right.png" })
 		{
 			if (!std::filesystem::exists(path + file))
@@ -55,7 +55,7 @@ namespace OneFlower::Module::Texture
 			}
 		}
 		mtx.lock();
-		auto& wnd = Engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<Window::Proxy>();
 		loadedTextureMap[folderName] = swizzle::asset::LoadTextureCubeMap(wnd.getGfxContext(),
 					(path + "right.png").c_str(),
 					(path + "left.png").c_str(),
@@ -81,13 +81,13 @@ namespace OneFlower::Module::Texture
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const common::String& name, const common::String& path)
 	{
-		auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
+		auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Request texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
+			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
 			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name);
 
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
@@ -106,13 +106,13 @@ namespace OneFlower::Module::Texture
 		return requestTexture(missingTexture, Settings::texturePath);
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const Core::String& folderName, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const common::String& folderName, const common::String& path)
 	{
-		auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
+		auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Request cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!folderName.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
+			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
 			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + folderName);
 
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
@@ -124,11 +124,11 @@ namespace OneFlower::Module::Texture
 		return requestTexture(missingTexture, Settings::texturePath);
 	}
 
-	void Loader::requestRemovalOfTexture(const Core::String& name)
+	void Loader::requestRemovalOfTexture(const common::String& name)
 	{
 		if (loadedTextureMap.find(name) != loadedTextureMap.end())
 		{
-			auto& logger = Engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
+			auto& logger = engine::GetModule <Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 			logger.Info("Unloading texture " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedTextureMap.erase(name);
 		}

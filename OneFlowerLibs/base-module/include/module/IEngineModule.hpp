@@ -3,10 +3,10 @@
 
 #include <module/BaseEngineModule.hpp>
 
-namespace OneFlower::Module::Interface
+namespace of::module::Interface
 {
 	template <typename T>
-	struct IEngineResource : public Module::BaseEngineModule
+	struct IEngineResource : public module::BaseEngineModule
 	{
 		static EngineResourceType type;
 		static const EngineResourceType& getType()

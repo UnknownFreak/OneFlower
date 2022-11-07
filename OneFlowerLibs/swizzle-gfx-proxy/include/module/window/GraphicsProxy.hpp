@@ -9,7 +9,7 @@
 #include <swizzle/gfx/Swapchain.hpp>
 
 
-namespace OneFlower::Module::Window
+namespace of::module::Window
 {
 	class Proxy : public Interface::IEngineResource<Proxy>
 	{

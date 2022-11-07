@@ -11,10 +11,10 @@
 #include <sstream>
 
 #include <module\logger\streams\LogSteam.hpp>
-#include <core\String.hpp>
+#include <common/string.hpp>
 #include <module\logger\LogLevel.hpp>
 
-namespace OneFlower::Module::Logger
+namespace of::module::Logger
 {
 		
 	template<class T_Stream>
@@ -33,7 +33,7 @@ namespace OneFlower::Module::Logger
 
 	protected:
 
-		Core::String keyword;
+		common::String keyword;
 
 		LogLevel level;
 		typename T_Stream log;
@@ -97,14 +97,15 @@ namespace OneFlower::Module::Logger
 		};
 
 		template <class ...Args>
-		void EngineLogging(Core::String& type, Args&& ... args)
+		void EngineLogging(const common::String& type, Args&& ... args)
 		{
-			for (std::string::iterator p = type.begin(); type.end() != p; ++p)
+			common::String upper = type;
+			for (common::String::iterator p = upper.begin(); upper.end() != p; ++p)
 				*p = (char)::toupper(*p);
-			logMessage(fromString(type), args...);
+			logMessage(fromString(upper), args...);
 		};
 
-		static Core::String fileInfo(const Core::String& fileName, const size_t& line)
+		static common::String fileInfo(const common::String& fileName, const size_t& line)
 		{
 			return " - " + fileName + " (" + std::to_string(line) + ")";
 		}

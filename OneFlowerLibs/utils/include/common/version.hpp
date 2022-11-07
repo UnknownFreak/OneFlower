@@ -1,7 +1,7 @@
 #ifndef VERSION_HPP
 #define VERSION_HPP
 
-#include "String.hpp"
+#include "string.hpp"
 
 class OneVersion
 {
@@ -49,7 +49,7 @@ public:
 	
 	void incRev();
 
-	OneFlower::Core::String str() const;
+	of::common::String str() const;
 
 	static OneVersion EMPTY;
 };

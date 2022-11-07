@@ -137,8 +137,8 @@
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\core\core.vcxproj">
-      <Project>{c041095a-4a5a-4ba3-98fa-44ceebae99b9}</Project>
+    <ProjectReference Include="..\utils\utils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

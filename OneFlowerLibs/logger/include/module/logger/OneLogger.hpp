@@ -12,7 +12,7 @@
 
 #include <module/IEngineModule.hpp>
 
-namespace OneFlower::Module::Logger
+namespace of::module::Logger
 {
 #ifdef __EDITOR__
 		typedef Streams::EditorStream stream
@@ -26,12 +26,12 @@ namespace OneFlower::Module::Logger
 	{
 		static Streams::NullStream nullStream;
 		static ModuleLogger<Streams::NullStream> EMPTY;
-		std::unordered_map<Core::String, ModuleLogger<stream>> moduleLoggers;
+		std::unordered_map<common::String, ModuleLogger<stream>> moduleLoggers;
 	public:
 		OneLogger();
 		~OneLogger();
 
-		ModuleLogger<Streams::LogStream>& getLogger(const Core::String& moduleName)
+		ModuleLogger<Streams::LogStream>& getLogger(const common::String& moduleName)
 		{
 			if (this == nullptr)
 				return (ModuleLogger<Streams::LogStream>&)EMPTY;

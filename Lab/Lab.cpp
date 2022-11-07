@@ -2,14 +2,16 @@
 //
 
 #include <iostream>
-//#include <core/uuid.hpp>
 #include <module/ModuleManager.hpp>
-#include <module/settings/EngineSettings.hpp>
+#include <module/logger/OneLogger.hpp>
+#include <utils/config/parser.hpp>
+#include <module/window/GraphicsProxy.hpp>
 
 int main()
 {
-    auto& x = OneFlower::Engine::GetModule<OneFlower::Module::Settings>();
-    std::cout << x.useFixedSeed();
+    
+    auto& x = of::engine::GetModule<of::module::Window::Proxy>();
+    x;
     system("pause");
 }
 

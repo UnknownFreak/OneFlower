@@ -4,11 +4,11 @@
 #include <module/IEngineModule.hpp>
 #include <utils/config/parser.hpp>
 
-namespace OneFlower::Module
+namespace of::module
 {
 	class Settings : public Interface::IEngineResource<Settings>
 	{
-		OneFlower::Config::ConfigParser parser;
+		of::config::ConfigParser parser;
 
 	public:
 		Settings();
@@ -19,12 +19,12 @@ namespace OneFlower::Module
 		EngineResourceType& getType() const override;
 
 
-		static const Core::String texturePath;
-		static const Core::String skyboxTexturePath;
-		static const Core::String uiTexturePath;
-		static const Core::String tileTexturePath;
-		static const Core::String meshPath;
-		static const Core::String shaderPath;
+		static const common::String texturePath;
+		static const common::String skyboxTexturePath;
+		static const common::String uiTexturePath;
+		static const common::String tileTexturePath;
+		static const common::String meshPath;
+		static const common::String shaderPath;
 	};
 }
 

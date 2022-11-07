@@ -1,19 +1,20 @@
 #ifndef Config_HPP
 #define Config_HPP
 
-#include <core/String.hpp>
+#include <common/string.hpp>
 #include <map>
 #include <sstream>
 #include <fstream>
+#include <functional>
 
-namespace OneFlower::Config
+namespace of::config
 {
 	struct Section
 	{
 
 		template <class T>
 		std::enable_if_t<std::is_same_v<T, bool>, T>
-			to_value_v(const Core::String& v, T )
+			to_value_v(const common::String& v, T )
 		{
 			if (v == "true" || v == "yes" || v == "on" || v == "1")
 				return true;
@@ -22,7 +23,7 @@ namespace OneFlower::Config
 
 		template <class T>
 		std::enable_if_t<!std::is_same_v<T, bool>, T>
-			to_value_v(const Core::String& v, T d)
+			to_value_v(const common::String& v, T d)
 		{
 			T t;
 			std::stringstream ss(v);
@@ -32,9 +33,9 @@ namespace OneFlower::Config
 			return t;
 		}
 
-		std::map<Core::String, Core::String> values;
+		std::map<common::String, common::String> values;
 
-		Core::String get(const Core::String& key)
+		common::String get(const common::String& key)
 		{
 			auto value = values.find(key);
 			if (value == values.end() || value->first[0] == '#')
@@ -45,18 +46,18 @@ namespace OneFlower::Config
 		template<class Ty>
 		std::enable_if_t<
 			!std::is_same_v<Ty, const char*>, Ty>
-			get(const Core::String& key, Ty default_value)
+			get(const common::String& key, Ty default_value)
 		{
 			auto str = get(key);
 			if (str.size() == 0)
 				return default_value;
-			Core::String spl = str.substr(0, str.find(";"));
+			common::String spl = str.substr(0, str.find(";"));
 			return to_value_v(spl, default_value);
 		}
 
 		template<class Ty>
-		std::enable_if_t<std::is_same_v<Ty, const char*>, Core::String>
-		get(const Core::String& key, Ty default_value)
+		std::enable_if_t<std::is_same_v<Ty, const char*>, common::String>
+		get(const common::String& key, Ty default_value)
 		{
 			auto str = get(key);
 			if (str.size() == 0)
@@ -64,7 +65,7 @@ namespace OneFlower::Config
 			return str.substr(0, str.find(";"));
 		}
 
-		void putS(const Core::String& key, Core::String value, const Core::String& comment)
+		void putS(const common::String& key, common::String value, const common::String& comment)
 		{
 			if (comment.size())
 				value += "; " + comment;
@@ -73,18 +74,18 @@ namespace OneFlower::Config
 
 		template<class Ty>
 		std::enable_if_t<
-			std::is_same_v<Ty, Core::String> ||
+			std::is_same_v<Ty, common::String> ||
 			std::is_same_v<Ty, const char*>
 		>
-			put(const Core::String& key, Ty value, const Core::String& comment="")
+			put(const common::String& key, Ty value, const common::String& comment="")
 		{
 			putS(key, value, comment);
 		}
 		template<class Ty>
 		std::enable_if_t<std::is_same_v<Ty, bool>>
-			put(const Core::String& key, Ty value, const Core::String& comment="")
+			put(const common::String& key, Ty value, const common::String& comment="")
 		{
-			Core::String s = "false";
+			common::String s = "false";
 			if (value)
 				s = "true";
 			putS(key, s, comment);
@@ -92,9 +93,9 @@ namespace OneFlower::Config
 		template<class Ty>
 		std::enable_if_t<
 			!(std::is_same_v<Ty, bool> ||
-			std::is_same_v<Ty, Core::String> ||
+			std::is_same_v<Ty, common::String> ||
 			std::is_same_v<Ty, const char*>)>
-			put(const Core::String& key, Ty value, const Core::String& comment="")
+			put(const common::String& key, Ty value, const common::String& comment="")
 		{
 			putS(key, std::to_string(value), comment);
 		}
@@ -102,21 +103,22 @@ namespace OneFlower::Config
 
 	class ConfigParser
 	{
-		Core::String fileName;
-		std::map<Core::String, Section> sections;
+		common::String fileName;
+		std::map<common::String, Section> sections;
+		static std::function<void(const common::String&, const common::String&, const common::String&)> logger;
 	public:
 		ConfigParser();
-		ConfigParser(const Core::String& configFile);
+		ConfigParser(const common::String& configFile);
 
 
-		Section& get(const Core::String& section)
+		Section& get(const common::String& section)
 		{
 			return sections[section];
 		}
 
 		template<class Ty>
-		std::enable_if_t<std::is_same_v<Ty, const char*>, Core::String>
-		get(const Core::String& section, const Core::String& key, Ty default_value)
+		std::enable_if_t<std::is_same_v<Ty, const char*>, common::String>
+		get(const common::String& section, const common::String& key, Ty default_value)
 		{
 			auto the_section = sections.find(section);
 			if (the_section == sections.end())
@@ -126,7 +128,7 @@ namespace OneFlower::Config
 
 		template<class Ty>
 		std::enable_if_t<!std::is_same_v<Ty, const char*>, Ty>
-			get(const Core::String& section, const Core::String& key, Ty default_value)
+			get(const common::String& section, const common::String& key, Ty default_value)
 		{
 			auto the_section = sections.find(section);
 			if (the_section == sections.end())
@@ -135,19 +137,32 @@ namespace OneFlower::Config
 		}
 
 		template<class Ty>
-		void put(const Core::String& section, const Core::String& key, Ty value, const Core::String& comment="")
+		void put(const common::String& section, const common::String& key, Ty value, const common::String& comment="")
 		{
 			sections[section].put<Ty>(key, value, comment);
 		}
 
-		void comment(const Core::String& comment);
-		void comment(const Core::String& section, const Core::String& comment);
+		void comment(const common::String& comment);
+		void comment(const common::String& section, const common::String& comment);
 		void clear();
 		void load();
-		void load(const Core::String& configFile);
+		void load(const common::String& configFile);
 		
 		void save();
-		void save(const Core::String& configFile);
+		void save(const common::String& configFile);
+
+
+		/*
+		* Sets a logger function that can forward the message to a logger (default logger function is to stdout)
+		* 
+		* logger function arguments 
+		* const common::String& moduleName - if the logger supports logging on a module level pass this as the value for the module
+		* const common::String& logLevel - logLevel of the log
+		* const common::String& logMessage - the message to be logged
+		* 
+		* returns void;
+		*/
+		static void setLogger(std::function<void(const common::String&, const common::String&, const common::String&)> func);
 
 	};
 

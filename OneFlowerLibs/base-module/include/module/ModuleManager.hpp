@@ -5,7 +5,7 @@
 #include <module/IEngineModule.hpp>
 #include <memory>
 
-namespace OneFlower::Module
+namespace of::module
 {
 	class ModuleManager
 	{
@@ -41,16 +41,16 @@ namespace OneFlower::Module
 
 	};
 }
-namespace OneFlower::Engine
+namespace of::engine
 {
 	template<class T>
 	inline T& GetModule()
 	{
-		return Module::ModuleManager::get().GetResource<T>();
+		return module::ModuleManager::get().GetResource<T>();
 	}
 
 	inline void Dispose() {
-		Module::ModuleManager::deconstruct();
+		module::ModuleManager::deconstruct();
 	}
 }
 

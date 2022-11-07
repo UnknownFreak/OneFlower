@@ -2,9 +2,9 @@
 
 auto iosop = std::ios_base::trunc;
 
-namespace OneFlower::Module::Logger::Streams
+namespace of::module::Logger::Streams
 {
-	BasicLogStream::BasicLogStream(const Core::String& fileName) : log(fileName, iosop), logName(fileName)
+	BasicLogStream::BasicLogStream(const common::String& fileName) : log(fileName, iosop), logName(fileName)
 	{
 		iosop = std::ios_base::app;
 	}
@@ -21,7 +21,7 @@ namespace OneFlower::Module::Logger::Streams
 		return *this;
 	}
 
-	void BasicLogStream::LogMessage(const LogLevel& logLevel, const Core::String& message)
+	void BasicLogStream::LogMessage(const LogLevel& logLevel, const common::String& message)
 	{
 		log << to_string(logLevel) << message << std::endl;
 	}

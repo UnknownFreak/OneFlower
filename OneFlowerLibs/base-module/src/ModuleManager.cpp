@@ -1,6 +1,6 @@
 #include <module/ModuleManager.hpp>
 
-namespace OneFlower::Module
+namespace of::module
 {
 	ModuleManager* ModuleManager::m_engineResourceManager = nullptr;
 

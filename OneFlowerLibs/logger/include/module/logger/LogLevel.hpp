@@ -1,9 +1,9 @@
 #ifndef LogLevel_HPP
 #define LogLevel_HPP
 
-#include <core/String.hpp>
+#include <common/string.hpp>
 
-namespace OneFlower::Module::Logger
+namespace of::module::Logger
 {
 	enum class LogLevel
 	{
@@ -14,20 +14,20 @@ namespace OneFlower::Module::Logger
 		CRITICAL,
 		ALWAYS
 	};
-	inline Core::String to_string(const LogLevel& state, const bool& tabs=true)
+	inline common::String to_string(const LogLevel& state, const bool& tabs=true)
 	{
 		switch (state)
 		{
-		case LogLevel::DBG: return "DEBUG" + Core::String(tabs ? "\t\t": "");
-		case LogLevel::INFO: return "INFO" + Core::String(tabs ? "\t\t" : "");
-		case LogLevel::WARNING: return "WARNING" + Core::String(tabs ? "\t\t" : "");
-		case LogLevel::ERROR: return "ERROR" + Core::String(tabs ? "\t\t" : "");
-		case LogLevel::CRITICAL: return "CRITICAL" + Core::String(tabs ? "\t" : "");
-		case LogLevel::ALWAYS: return "INFO" + Core::String(tabs ? "\t\t" : "");
+		case LogLevel::DBG: return "DEBUG" + common::String(tabs ? "\t\t": "");
+		case LogLevel::INFO: return "INFO" + common::String(tabs ? "\t\t" : "");
+		case LogLevel::WARNING: return "WARNING" + common::String(tabs ? "\t\t" : "");
+		case LogLevel::ERROR: return "ERROR" + common::String(tabs ? "\t\t" : "");
+		case LogLevel::CRITICAL: return "CRITICAL" + common::String(tabs ? "\t" : "");
+		case LogLevel::ALWAYS: return "INFO" + common::String(tabs ? "\t\t" : "");
 		}
 		return "ERR_MISSING_LOG_LEVEL";
 	}
-	inline LogLevel fromString(const Core::String& string)
+	inline LogLevel fromString(const common::String& string)
 	{
 		if (string == to_string(LogLevel::DBG, false))
 			return LogLevel::DBG;

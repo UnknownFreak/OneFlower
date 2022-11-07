@@ -1,7 +1,7 @@
 #ifndef EngineResourceTypes_HPP
 #define EngineResourceTypes_HPP
 
-namespace OneFlower::Module
+namespace of::module
 {
 	enum class EngineResourceType
 	{

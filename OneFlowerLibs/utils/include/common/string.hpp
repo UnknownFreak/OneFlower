@@ -5,7 +5,7 @@
 #include <string>
 #include <iomanip>
 
-namespace OneFlower::Core
+namespace of::common
 {
 
 	typedef std::string String;
@@ -35,7 +35,7 @@ namespace OneFlower::Core
 	const String Builtin = "BUILTIN";
 
 	String trim(const String& s);
-	Core::String truncate(const Core::String& theString, size_t max_size = 20);
+	String truncate(const String& theString, size_t max_size = 20);
 
 
 	template<class T>
@@ -53,7 +53,7 @@ namespace OneFlower::Core
 
 	template <typename T>
 	requires std::integral<T>
-	Core::String toHex(const T& addr)
+	String toHex(const T& addr)
 	{
 		std::stringstream stream;
 		stream << "0x"
