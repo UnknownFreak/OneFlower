@@ -12,7 +12,7 @@
 
 namespace of::module::Texture
 {
-	class Loader : public Interface::IEngineResource<Loader>
+	class Loader : public interface::IEngineResource<Loader>
 	{
 		std::mutex mtx;
 		const common::String missingTexture = "missingTexture.png";

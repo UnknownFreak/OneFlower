@@ -4,7 +4,7 @@
 
 namespace of::module
 {
-	class RandomGen : public Interface::IEngineResource<RandomGen>
+	class RandomGen : public interface::IEngineResource<RandomGen>
 	{
 		std::uniform_real_distribution<double> d;
 		std::uniform_real_distribution<float> f;

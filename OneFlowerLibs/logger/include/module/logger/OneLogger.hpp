@@ -22,7 +22,7 @@ namespace of::module::Logger
 	typedef Streams::BasicLogStream stream;
 #endif
 
-	class OneLogger : public LoggerBase<stream>, public Interface::IEngineResource<OneLogger>
+	class OneLogger : public LoggerBase<stream>, public interface::IEngineResource<OneLogger>
 	{
 		static Streams::NullStream nullStream;
 		static ModuleLogger<Streams::NullStream> EMPTY;

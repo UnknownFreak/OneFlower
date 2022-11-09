@@ -2,7 +2,7 @@
 #include <module/ModuleManager.hpp>
 #include <module/settings/EngineSettings.hpp>
 
-of::module::EngineResourceType  of::module::Interface::IEngineResource< of::module::RandomGen>::type = of::module::EngineResourceType::RandomGen;
+of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
 std::random_device  of::module::RandomGen::rd;
 std::mt19937_64  of::module::RandomGen::engine(of::module::RandomGen::rd());

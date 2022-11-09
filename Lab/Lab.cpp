@@ -10,7 +10,7 @@
 int main()
 {
     
-    auto& x = of::engine::GetModule<of::module::Window::Proxy>();
+    auto& x = of::engine::GetModule<of::module::window::Proxy>();
     x;
     system("pause");
 }

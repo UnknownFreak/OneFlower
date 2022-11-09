@@ -10,7 +10,7 @@
 
 #include <filesystem>
 
-of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Texture::Loader>::type = of::module::EngineResourceType::TextureLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Texture::Loader>::type = of::module::EngineResourceType::TextureLoader;
 
 namespace of::module::Texture
 {
@@ -28,7 +28,7 @@ namespace of::module::Texture
 			//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 	#endif
 		mtx.lock();
-		auto& wnd = engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<window::Proxy>();
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
 			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
 
@@ -55,7 +55,7 @@ namespace of::module::Texture
 			}
 		}
 		mtx.lock();
-		auto& wnd = engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<window::Proxy>();
 		loadedTextureMap[folderName] = swizzle::asset::LoadTextureCubeMap(wnd.getGfxContext(),
 					(path + "right.png").c_str(),
 					(path + "left.png").c_str(),

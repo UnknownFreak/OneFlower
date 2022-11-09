@@ -5,7 +5,7 @@
 
 #include <filesystem>
 
-of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
 
 namespace of::module::Mesh
 {

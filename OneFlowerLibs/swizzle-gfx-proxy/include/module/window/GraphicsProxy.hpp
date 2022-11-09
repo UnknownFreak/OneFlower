@@ -9,9 +9,9 @@
 #include <swizzle/gfx/Swapchain.hpp>
 
 
-namespace of::module::Window
+namespace of::module::window
 {
-	class Proxy : public Interface::IEngineResource<Proxy>
+	class Proxy : public interface::IEngineResource<Proxy>
 	{
 	private:
 

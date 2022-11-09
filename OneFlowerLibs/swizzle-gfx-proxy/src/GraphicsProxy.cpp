@@ -1,9 +1,9 @@
 #include <module/window/GraphicsProxy.hpp>
 
-of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Window::Proxy>::type = of::module::EngineResourceType::WindowProxy;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::window::Proxy>::type = of::module::EngineResourceType::WindowProxy;
 
 
-namespace of::module::Window
+namespace of::module::window
 {
 	Proxy::Proxy() {}
 

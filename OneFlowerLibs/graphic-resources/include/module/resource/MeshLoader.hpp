@@ -12,7 +12,7 @@
 
 namespace of::module::Mesh
 {
-	class Loader : public Interface::IEngineResource<Loader>
+	class Loader : public interface::IEngineResource<Loader>
 	{
 		bool lastResult = false;
 		std::mutex mtx;

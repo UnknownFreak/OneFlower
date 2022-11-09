@@ -10,7 +10,7 @@
 #include <Module\ModuleManager.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
-of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
 
 namespace of::module::Shader
 {
@@ -27,7 +27,7 @@ namespace of::module::Shader
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 #endif
 		mtx.lock();
-		auto& wnd = engine::GetModule<Window::Proxy>();
+		auto& wnd = engine::GetModule<window::Proxy>();
 		loadedShaders.insert(std::make_pair(name, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[name];
 		bool loaded = shader->load(path.c_str());

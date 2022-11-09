@@ -1,6 +1,6 @@
 #include <module/logger/OneLogger.hpp>
 
-of::module::EngineResourceType of::module::Interface::IEngineResource<of::module::Logger::OneLogger>::type = of::module::EngineResourceType::Logger;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Logger::OneLogger>::type = of::module::EngineResourceType::Logger;
 
 of::module::Logger::Streams::NullStream of::module::Logger::OneLogger::nullStream;
 of::module::Logger::ModuleLogger<of::module::Logger::Streams::NullStream> of::module::Logger::OneLogger::EMPTY(

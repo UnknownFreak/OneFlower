@@ -19,8 +19,8 @@ namespace of::module
 		template<class T>
 		T* Create_T()
 		{
-			componentMap.insert({ Interface::IEngineResource<T>::type, std::make_unique<T>() });
-			return (T*)componentMap[Interface::IEngineResource<T>::type].get();
+			componentMap.insert({ interface::IEngineResource<T>::type, std::make_unique<T>() });
+			return (T*)componentMap[interface::IEngineResource<T>::type].get();
 		}
 
 	public:
@@ -28,7 +28,7 @@ namespace of::module
 		T_S& GetResource()
 		{
 			std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it;
-			it = componentMap.find(Interface::IEngineResource<T_S>::type);
+			it = componentMap.find(interface::IEngineResource<T_S>::type);
 
 			if (it != componentMap.end())
 				return 	(T_S&)*it->second;

@@ -3,7 +3,7 @@
 
 #include <module/BaseEngineModule.hpp>
 
-namespace of::module::Interface
+namespace of::module::interface
 {
 	template <typename T>
 	struct IEngineResource : public module::BaseEngineModule

@@ -6,7 +6,7 @@
 
 namespace of::module
 {
-	class Settings : public Interface::IEngineResource<Settings>
+	class Settings : public interface::IEngineResource<Settings>
 	{
 		of::config::ConfigParser parser;
 
