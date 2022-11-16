@@ -18,7 +18,7 @@ namespace of::module
 		StringConverter,
 		Globals,
 		GameVariableMapping,
-		ModLoader,
+		Loader,
 		TextureLoader,
 		Console,
 		UIHandler,
