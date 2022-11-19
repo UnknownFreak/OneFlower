@@ -1,26 +1,26 @@
-#ifndef DATABASE_INDEX_HPP
-#define DATABASE_INDEX_HPP
+#ifndef ENTITY_INDEX_HPP
+#define ENTITY_INDEX_HPP
 
-#include <Helpers/Enum/ObjectFlag.hpp>
-#include <Helpers/Enum/ObjectType.hpp>
+#include <file/ObjectFlag.hpp>
+#include <file/ObjectType.hpp>
 
-#include <Helpers/uuid.hpp>
-#include <Helpers/String.hpp>
+#include <common/uuid.hpp>
+#include <common/String.hpp>
 
-#include <Helpers/Version.hpp>
+#include <common/Version.hpp>
 
-namespace File::Archive
+namespace of::file::archive
 {
 
-	class DatabaseIndex
+	class EntityIndex
 	{
 		OneVersion modFileVersion;
 
 	public:
 		long long row;
-		Core::uuid ID;
+		common::uuid ID;
 
-		inline DatabaseIndex() noexcept : row(0), ID(), modFile(""), type(Enums::ObjectType::Undefined), flags(Enums::ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
+		inline EntityIndex() noexcept : row(0), ID(), modFile(""), type(ObjectType::Undefined), flags(ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
 		{
 		}
 
@@ -33,8 +33,8 @@ namespace File::Archive
 		Quest - load a quest
 		Item - load a item
 		//*/
-		Enums::ObjectType type;
-		Core::uuid typeId;
+		ObjectType type;
+		common::uuid typeId;
 		/*
 		Flag types:
 		EoF - says it is the endof the file - Do not use, it is automatic.
@@ -44,11 +44,11 @@ namespace File::Archive
 		Modify - SourceID - Modify flag tells to modifiy that object
 		"-" - No flag
 		//*/
-		Enums::ObjectFlag flags;
+		ObjectFlag flags;
 		/*
 		ModFile tells from what mod that object comes from
 		//*/
-		Core::String modFile;
+		common::String modFile;
 
 	public:
 #pragma region DatabaseIndex

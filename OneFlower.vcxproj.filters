@@ -644,12 +644,6 @@
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\ObjectType.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\ObjectFlag.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Module\OneTime.hpp">
       <Filter>Engine\Module\Time</Filter>
     </ClInclude>
@@ -702,9 +696,6 @@
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IPatch.hpp">
-      <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Interfaces\IRequestable.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Main\GameEntry.hpp">
@@ -998,13 +989,7 @@
     <ClInclude Include="Project\Resources\GameModeModifier.hpp">
       <Filter>Engine\Resources\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\Archive\DatabaseIndex.hpp">
-      <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
     <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp">
-      <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Archive\RequestorV2.hpp">
       <Filter>Engine\File\Archive</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Manager.hpp">

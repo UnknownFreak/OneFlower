@@ -15,6 +15,9 @@
     <Filter Include="src\file">
       <UniqueIdentifier>{a8681691-e239-4f7c-a7ba-09a0b14dfcc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\file\archive">
+      <UniqueIdentifier>{f04696bb-1f35-4e54-802b-6a5b4d1a09a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\file\FileId.hpp">
@@ -25,6 +28,24 @@
     </ClInclude>
     <ClInclude Include="include\file\Loader.hpp">
       <Filter>include\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\ObjectFlag.hpp">
+      <Filter>include\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\ObjectType.hpp">
+      <Filter>include\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\archive\EntityIndex.hpp">
+      <Filter>include\file\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\archive\Requestor.hpp">
+      <Filter>include\file\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\archive\Requestable.hpp">
+      <Filter>include\file\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\archive\ObjectSaveMode.hpp">
+      <Filter>include\file\archive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

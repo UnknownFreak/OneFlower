@@ -417,9 +417,7 @@
     <ClInclude Include="Project\Combat\Modifier.hpp" />
     <ClInclude Include="Project\Combat\Skill.hpp" />
     <ClInclude Include="Project\Combat\Stats.hpp" />
-    <ClInclude Include="Project\File\Archive\DatabaseIndex.hpp" />
     <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp" />
-    <ClInclude Include="Project\File\Archive\RequestorV2.hpp" />
     <ClInclude Include="Project\File\Asset\Manager.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp" />
@@ -477,9 +475,7 @@
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\EffectType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\LogLevel.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectFlag.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
@@ -505,7 +501,6 @@
     <ClInclude Include="Project\Input\PlayerController.hpp" />
     <ClInclude Include="Project\Interfaces\IObject.hpp" />
     <ClInclude Include="Project\Interfaces\IPatch.hpp" />
-    <ClInclude Include="Project\Interfaces\IRequestable.hpp" />
     <ClInclude Include="Project\Interfaces\ISimulatable.hpp" />
     <ClInclude Include="Project\Interfaces\IToolTip.hpp" />
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp" />

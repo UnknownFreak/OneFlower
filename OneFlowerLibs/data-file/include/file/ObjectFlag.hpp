@@ -1,6 +1,7 @@
 #ifndef ObjectFlag_HPP
 #define ObjectFlag_HPP
-namespace Enums
+
+namespace of::file
 {
 	enum class ObjectFlag
 	{

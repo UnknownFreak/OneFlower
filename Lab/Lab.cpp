@@ -7,11 +7,97 @@
 #include <utils/config/parser.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
+#include <cereal/cereal.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/map.hpp>
+
+#include <file/archive/Requestable.hpp>
+
+#include <map>
+#include <File/FileId.hpp>
+#include <common/uuid.hpp>
+#include <common/string.hpp>
+
+#include <file/archive/Requestor.hpp>
+
+class Element : public of::file::archive::Requestable
+{
+public:
+	struct Hash
+	{
+		size_t operator() (const Element& key) const noexcept
+		{
+			return std::hash<of::common::uuid>()(key.ID);
+		}
+	};
+	Element() : of::file::archive::Requestable(of::file::ObjectType::Element) {};
+	Element(const Element& copy) : of::file::archive::Requestable(copy) {};
+
+	double damageToUnknownType = 0.0;
+	std::map<of::file::FileId, double> elementAttributes;
+
+	//sf::Color elementUiColor;
+
+	double getElementModifier() const
+	{
+		return 1.0;
+	}
+	double getElementModifier(const of::file::FileId& ) const
+	{
+		return 0.0;
+	}
+
+	of::common::String getElementAttributeName(const of::file::FileId& ) const
+	{
+		return "";
+	}
+
+	bool operator==(const Element& other) const
+	{
+		return other.ID == ID;
+	}
+
+	template<class Archive>
+	void load(Archive& ar)
+	{
+		ar(cereal::base_class<of::file::archive::Requestable>(this));
+		//ar(cereal::base_class<IObject>(this));
+		ar(elementAttributes);
+		ar(damageToUnknownType);
+		unsigned color;
+		ar(color);
+		//elementUiColor = sf::Color(color);
+	}
+	template<class Archive>
+	void save(Archive& ar) const
+	{
+		ar(cereal::base_class<of::file::archive::Requestable>(this));
+		//ar(cereal::base_class<IObject>(this));
+		ar(elementAttributes);
+		ar(damageToUnknownType);
+		//ar(elementUiColor.toInteger());
+
+	}
+
+	// Inherited via IRequestable
+	virtual of::file::archive::TypeInfo getTrait() const override
+	{
+		return { of::file::archive::Trait<Element>::typeId };
+	}
+	of::common::String getName() const override
+	{
+		return "name";
+	}
+
+};
+
+of::common::uuid of::file::archive::Trait<Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
+
 int main()
 {
-    
+	of::file::archive::Requestor r;
+	r.add(new Element);
     auto& x = of::engine::GetModule<of::module::window::Proxy>();
-    x;
     system("pause");
 }
 
