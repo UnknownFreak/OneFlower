@@ -28,17 +28,11 @@
     <Filter Include="Main\GameEntryNoEditor">
       <UniqueIdentifier>{e419195f-c39b-4fca-847f-9af7cddc3553}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\ModuleManager">
-      <UniqueIdentifier>{91456c9e-a2fa-4858-a20a-a8a77d2b7ddb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File">
       <UniqueIdentifier>{3245884f-a954-41f8-ad6d-30cfede76175}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Helpers">
       <UniqueIdentifier>{085614b7-fedc-4052-9732-b3054c33da8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Mod">
-      <UniqueIdentifier>{ba7291de-fa3f-4dc6-8d27-3831a49c4cfc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Unit Tests">
       <UniqueIdentifier>{604da4f4-699c-4cc5-a7bc-03b3cc6dd90f}</UniqueIdentifier>
@@ -55,14 +49,8 @@
     <Filter Include="Engine\Input\Controller">
       <UniqueIdentifier>{7aaa660c-0b01-41b5-9bac-1e84d750e2f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Helpers\os">
-      <UniqueIdentifier>{19c0f637-a8a8-4519-9078-b78125d3b452}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Helpers\Enum">
       <UniqueIdentifier>{3a847f5b-3d6c-4206-9d2a-11ac1baefbc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Helpers\Version">
-      <UniqueIdentifier>{1ee57fa9-740b-4e2c-9b72-aa1bcca1386e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\World">
       <UniqueIdentifier>{24ee632d-982c-483b-afbc-cbdad4aa9482}</UniqueIdentifier>
@@ -85,14 +73,8 @@
     <Filter Include="Engine\Combat\Effects">
       <UniqueIdentifier>{27b662b5-b76c-4d5d-855b-3fdac50821b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\Random">
-      <UniqueIdentifier>{6dd76218-153c-48d5-83e4-07fea98b4789}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Combat\Effects\EffectProperty">
       <UniqueIdentifier>{1f48fdc0-3325-4a56-ab76-5073963beb6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\GameSettings">
-      <UniqueIdentifier>{1c88634f-7f82-4e8d-a4de-eb44adefe4cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Items">
       <UniqueIdentifier>{bb79b8b3-b507-4e0a-a3f0-e6a91944ebe1}</UniqueIdentifier>
@@ -166,15 +148,6 @@
     <Filter Include="NonCodeFiles">
       <UniqueIdentifier>{5b52cf0f-5d30-4a62-b9f2-2acf15bf93e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Resource">
-      <UniqueIdentifier>{6cfc005d-1287-4e24-8714-d6670353acfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Config">
-      <UniqueIdentifier>{88b585d3-f166-41a8-ad36-d453bda2c77a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Texture">
-      <UniqueIdentifier>{9c9bfd28-c295-4bbb-b21e-56e2c329221e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File\Archive">
       <UniqueIdentifier>{9a865b7e-716a-4767-99ba-2fec7c2f6cbe}</UniqueIdentifier>
     </Filter>
@@ -195,9 +168,6 @@
     </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{cc0c9be3-4bff-43c1-ada2-d379e8e4a01c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Mesh">
-      <UniqueIdentifier>{289432cc-6865-4fa4-88b2-1cd8e528c1ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Graphics">
       <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
@@ -247,20 +217,8 @@
     <Filter Include="Engine\Graphics\Component">
       <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Resource\Shader">
-      <UniqueIdentifier>{468de5d0-0209-4785-a324-1f98d95648b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\Editor">
       <UniqueIdentifier>{c75e244b-7551-4f79-9e6e-0200849b749a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Logging">
-      <UniqueIdentifier>{13e8bd03-bc8c-4246-8b6b-cdbb688b7597}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Logging\LoggerBase">
-      <UniqueIdentifier>{061ef2f5-8cbe-4712-9d24-2ba7cf100354}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Logging\LoggerBase\LoggerStreams">
-      <UniqueIdentifier>{f17b6840-8f71-417b-9d2e-12d6bca26c32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Trigger">
       <UniqueIdentifier>{ba750d6b-eb71-4835-b26f-cc15d826f976}</UniqueIdentifier>
@@ -280,9 +238,6 @@
     <Filter Include="Engine\Graphics\Editor\MainWindow\Modals">
       <UniqueIdentifier>{29e9415f-5ae5-4a6d-a490-f263315d561e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\Editor">
-      <UniqueIdentifier>{73b4c501-7e6e-42c3-b051-38270f0f5ce5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ViewModels">
       <UniqueIdentifier>{3a422f9e-e7b2-4dfa-bcb4-810760e47e20}</UniqueIdentifier>
     </Filter>
@@ -299,12 +254,6 @@
     </ClCompile>
     <ClCompile Include="Project\Tests\ModuleManagerTest.cpp">
       <Filter>Unit Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\EngineModuleManager.cpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Helpers\Version.cpp">
-      <Filter>Engine\Helpers\Version</Filter>
     </ClCompile>
     <ClCompile Include="Project\Tests\VersionUnitTest.cpp">
       <Filter>Unit Tests</Filter>
@@ -362,9 +311,6 @@
     </ClCompile>
     <ClCompile Include="Project\Module\Globals.cpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Helpers\ListDir.cpp">
-      <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
       <Filter>Engine\Graphics\UI\Handler</Filter>
@@ -434,9 +380,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ProgressBar.cpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\Random.cpp">
-      <Filter>Engine\Module\Random</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlainToolTip.cpp">
       <Filter>Engine\Graphics\UI\ToolTip</Filter>
@@ -528,9 +471,6 @@
     <ClCompile Include="Project\Tests\ConfigParserUnitTest.cpp">
       <Filter>Unit Tests\File</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\CfgParser.cpp">
-      <Filter>Engine\File\Resource\Config</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Quest\AOrBObjective.cpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClCompile>
@@ -554,9 +494,6 @@
     </ClCompile>
     <ClCompile Include="Project\Input\PlayerController.cpp">
       <Filter>Engine\Input\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\TextureLoader.cpp">
-      <Filter>Engine\File\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Project\Quest\QuestObjective.cpp">
       <Filter>Engine\Quest\Objectives\Base</Filter>
@@ -606,15 +543,6 @@
     <ClCompile Include="Project\Requirement\GameModeRequirement.cpp">
       <Filter>Engine\Requirement</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Module\Logger\OneLogger.cpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\Logger\LoggerStreams\BasicLogStream.cpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClCompile>
     <ClCompile Include="Project\File\Asset\Manager.cpp">
       <Filter>Engine\File\Asset</Filter>
     </ClCompile>
@@ -636,9 +564,6 @@
     <ClCompile Include="Project\Helpers\TickTimer.cpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\String.cpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
@@ -653,12 +578,6 @@
     </ClCompile>
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp">
       <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\MeshLoader.cpp">
-      <Filter>Engine\File\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\ShaderLoader.cpp">
-      <Filter>Engine\File\Resource\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Window.cpp">
       <Filter>Engine\Graphics</Filter>
@@ -712,15 +631,6 @@
   <ItemGroup>
     <ClInclude Include="Project\Helpers\Enum\EngineResourceTypes.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\BaseEngineModule.hpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\EngineModuleManager.hpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Version.hpp">
-      <Filter>Engine\Helpers\Version</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -788,9 +698,6 @@
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Interfaces\IEngineModule.hpp">
-      <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Interfaces\IObject.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
@@ -805,9 +712,6 @@
     </ClInclude>
     <ClInclude Include="Project\Module\Globals.hpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\ListDir.hpp">
-      <Filter>Engine\Helpers\os</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
       <Filter>Engine\Helpers</Filter>
@@ -902,9 +806,6 @@
     <ClInclude Include="Project\Graphics\UI\ProgressBar.hpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Module\Random.hpp">
-      <Filter>Engine\Module\Random</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\LogLevel.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
@@ -998,9 +899,6 @@
     <ClInclude Include="Project\File\GameConfig.hpp">
       <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\CfgParser.hpp">
-      <Filter>Engine\File\Resource\Config</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Quest\AOrBObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClInclude>
@@ -1033,9 +931,6 @@
     </ClInclude>
     <ClInclude Include="Project\Input\PlayerController.hpp">
       <Filter>Engine\Input\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\TextureLoader.hpp">
-      <Filter>Engine\File\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Project\Quest\QuestState.hpp">
       <Filter>Engine\Quest</Filter>
@@ -1103,33 +998,6 @@
     <ClInclude Include="Project\Resources\GameModeModifier.hpp">
       <Filter>Engine\Resources\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Module\Logger\ModuleLogger.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\OneLogger.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerBase.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\LogSteam.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\BasicLogStream.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\NullStream.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModHeader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModLoader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
     <ClInclude Include="Project\File\Archive\DatabaseIndex.hpp">
       <Filter>Engine\File\Archive</Filter>
     </ClInclude>
@@ -1160,12 +1028,6 @@
     <ClInclude Include="Project\Helpers\TickTimer.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\uuid.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\String.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
@@ -1192,12 +1054,6 @@
     </ClInclude>
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp">
       <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\MeshLoader.hpp">
-      <Filter>Engine\File\Resource\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\ShaderLoader.hpp">
-      <Filter>Engine\File\Resource\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model.hpp">
       <Filter>Engine\Graphics</Filter>
