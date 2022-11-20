@@ -52,7 +52,7 @@ namespace of::file
 				of::engine::GetModule<of::module::Logger::OneLogger>().getLogger("File::Header").Info("Mod [" + name + "] version is: " + modVersion.str());
 			}
 			else
-				of::engine::GetModule<of::module::Logger::OneLogger>().getLogger("File::Mod::Header").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
+				of::engine::GetModule<of::module::Logger::OneLogger>().getLogger("File::Header").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
 			ar(mysize);
 			for (size_t i = 0; i < mysize; i++)
 			{
