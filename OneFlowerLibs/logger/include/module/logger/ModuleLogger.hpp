@@ -3,7 +3,7 @@
 
 #include "LoggerBase.hpp"
 #include <utils/common/string.hpp>
-#include <module\logger\LogLevel.hpp>
+#include <module/logger/LogLevel.hpp>
 
 namespace of::module::Logger
 {

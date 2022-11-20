@@ -9,7 +9,7 @@
 #include <unordered_map>
 
 
-#include <utils/common\String.hpp>
+#include <utils/common/String.hpp>
 #include <module/logger/OneLogger.hpp>
 
 #include <Module/ModuleManager.hpp>

@@ -1,6 +1,6 @@
-#include <file\Loader.hpp>
-#include <Module\ModuleManager.hpp>
-#include <Module\Logger\OneLogger.hpp>
+#include <file/Loader.hpp>
+#include <Module/ModuleManager.hpp>
+#include <Module/Logger/OneLogger.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::file::Loader>::type = of::module::EngineResourceType::Loader;

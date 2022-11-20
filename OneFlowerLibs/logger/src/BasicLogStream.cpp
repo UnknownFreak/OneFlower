@@ -1,4 +1,4 @@
-#include <module\logger\streams\BasicLogStream.hpp>
+#include <module/logger/streams/BasicLogStream.hpp>
 
 auto iosop = std::ios_base::trunc;
 

@@ -1,13 +1,12 @@
 #include <module/resource/ShaderLoader.hpp>
 
-
 #include <filesystem>
 
 #include <glm/glm.hpp>
 #include <swizzle/gfx/Shader.hpp>
 
 #include <module/logger/OneLogger.hpp>
-#include <Module\ModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
