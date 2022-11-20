@@ -19,4 +19,9 @@ namespace of::file
 			return 0xFFFFFFFF;
 		}
 	}
+
+	module::EngineResourceType& Loader::getType() const
+	{
+		return type;
+	}
 };

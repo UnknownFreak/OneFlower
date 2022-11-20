@@ -44,10 +44,7 @@ namespace of::file
 			}
 		}
 
-		module::EngineResourceType& getType() const
-		{
-			return type;
-		}
+		module::EngineResourceType& getType() const;
 	};
 };
 #endif 
