@@ -1,7 +1,7 @@
 #ifndef LogLevel_HPP
 #define LogLevel_HPP
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 
 namespace of::module::Logger
 {

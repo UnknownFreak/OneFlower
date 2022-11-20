@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <mutex>
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <module/IEngineModule.hpp>
 #include <module/settings/EngineSettings.hpp>
 #include <swizzle/gfx/Shader.hpp>

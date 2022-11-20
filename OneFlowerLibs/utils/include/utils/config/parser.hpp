@@ -1,7 +1,7 @@
 #ifndef Config_HPP
 #define Config_HPP
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <map>
 #include <sstream>
 #include <fstream>

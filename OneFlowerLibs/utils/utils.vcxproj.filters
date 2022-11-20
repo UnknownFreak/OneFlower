@@ -53,20 +53,20 @@
     <ClInclude Include="include\utils\config\parser.hpp">
       <Filter>include\utils\config</Filter>
     </ClInclude>
-    <ClInclude Include="include\os\ListDir.hpp">
-      <Filter>include\utils\os</Filter>
-    </ClInclude>
-    <ClInclude Include="include\common\uuid.hpp">
-      <Filter>include\utils\common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\common\version.hpp">
-      <Filter>include\utils\common</Filter>
-    </ClInclude>
-    <ClInclude Include="include\common\string.hpp">
-      <Filter>include\utils\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\vendor\stduuid\include\uuid.h">
       <Filter>external</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\os\ListDir.hpp">
+      <Filter>include\utils\os</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\string.hpp">
+      <Filter>include\utils\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\uuid.hpp">
+      <Filter>include\utils\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\version.hpp">
+      <Filter>include\utils\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

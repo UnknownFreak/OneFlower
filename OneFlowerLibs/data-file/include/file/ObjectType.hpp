@@ -1,7 +1,7 @@
 #ifndef ObjectType_HPP
 #define ObjectType_HPP
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 
 namespace of::file
 {

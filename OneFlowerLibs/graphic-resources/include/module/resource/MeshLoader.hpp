@@ -3,7 +3,7 @@
 
 #include <swizzle/asset2/Assets.hpp>
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <module/settings/EngineSettings.hpp>
 #include <unordered_map>
 #include <mutex>

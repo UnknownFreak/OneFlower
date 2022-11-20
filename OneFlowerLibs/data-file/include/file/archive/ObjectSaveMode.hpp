@@ -1,6 +1,6 @@
 #ifndef EDITOROBJECTSAVEMODE_HPP
 #define EDITOROBJECTSAVEMODE_HPP
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 /*
 Save mode defines how the Requestable is saved.
 */

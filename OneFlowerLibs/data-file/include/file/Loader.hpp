@@ -2,7 +2,7 @@
 #define LOADER_HPP
 #include <map>
 
-#include <common/String.hpp>
+#include <utils/common/String.hpp>
 #include <module/IEngineModule.hpp>
 
 namespace of::file

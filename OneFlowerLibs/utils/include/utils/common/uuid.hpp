@@ -12,7 +12,7 @@
 #pragma warning(default: 6001)
 #pragma warning(disable: 5246)
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 
 namespace of::common
 {

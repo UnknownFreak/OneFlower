@@ -144,11 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\vendor\stduuid\include\uuid.h" />
-    <ClInclude Include="include\common\string.hpp" />
-    <ClInclude Include="include\common\uuid.hpp" />
-    <ClInclude Include="include\common\version.hpp" />
-    <ClInclude Include="include\os\ListDir.hpp" />
+    <ClInclude Include="include\utils\common\string.hpp" />
+    <ClInclude Include="include\utils\common\uuid.hpp" />
+    <ClInclude Include="include\utils\common\version.hpp" />
     <ClInclude Include="include\utils\config\parser.hpp" />
+    <ClInclude Include="include\utils\os\ListDir.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

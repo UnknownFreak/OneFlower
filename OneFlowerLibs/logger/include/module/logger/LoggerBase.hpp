@@ -11,7 +11,7 @@
 #include <sstream>
 
 #include <module\logger\streams\LogSteam.hpp>
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <module\logger\LogLevel.hpp>
 
 namespace of::module::Logger

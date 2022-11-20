@@ -1,7 +1,7 @@
 #ifndef LogStream_HPP
 #define LogStream_HPP
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <module/logger/LogLevel.hpp>
 
 namespace of::module::Logger::Streams

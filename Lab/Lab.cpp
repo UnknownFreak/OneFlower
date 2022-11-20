@@ -15,8 +15,8 @@
 
 #include <map>
 #include <File/FileId.hpp>
-#include <common/uuid.hpp>
-#include <common/string.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/common/string.hpp>
 
 #include <file/archive/Requestor.hpp>
 

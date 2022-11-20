@@ -6,7 +6,7 @@
 
 #include <swizzle/gfx/Texture.hpp>
 
-#include <common/string.hpp>
+#include <utils/common/string.hpp>
 #include <module/IEngineModule.hpp>
 #include <module/settings/EngineSettings.hpp>
 

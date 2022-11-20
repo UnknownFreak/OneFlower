@@ -3,9 +3,9 @@
 
 #include <cereal/types/polymorphic.hpp>
 
-#include <common/uuid.hpp>
-#include <common/String.hpp>
-#include <common/Version.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/common/String.hpp>
+#include <utils/common/Version.hpp>
 #include <file/FileId.hpp>
 
 #include <file/ObjectType.hpp>
