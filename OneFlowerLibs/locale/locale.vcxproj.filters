@@ -12,5 +12,48 @@
     <Filter Include="include\locale">
       <UniqueIdentifier>{895d70d9-0539-467b-a212-395ba6e37aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{39f71133-1da8-4745-9ae3-97d090d3d7c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\internal-include">
+      <UniqueIdentifier>{24b25c87-1e79-4190-bac8-0c0091b71950}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\util\langaugeSaverUtil.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\locale\LanguageHeader.hpp">
+      <Filter>src\internal-include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\locale\LanguageRequestor.hpp">
+      <Filter>src\internal-include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\locale\StoredTranslatable.hpp">
+      <Filter>src\internal-include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\locale\TranslationStringContainer.hpp">
+      <Filter>src\internal-include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\locale\Translatable.hpp">
+      <Filter>include\locale</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LanguageRequestorDefiner.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TranslationStringContainer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\languageSaverUtil.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StoredTranslatable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Translatable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

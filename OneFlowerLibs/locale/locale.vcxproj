@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)OneFlowerLibs\locale\include;$(SolutionDir)OneFlowerLibs\locale\src\include;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\locale\include</PublicIncludeDirectories>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -128,6 +132,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\locale\Translatable.hpp" />
+    <ClInclude Include="src\include\locale\LanguageHeader.hpp" />
+    <ClInclude Include="src\include\locale\LanguageRequestor.hpp" />
+    <ClInclude Include="src\include\locale\StoredTranslatable.hpp" />
+    <ClInclude Include="src\include\locale\TranslationStringContainer.hpp" />
+    <ClInclude Include="src\util\langaugeSaverUtil.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LanguageRequestorDefiner.cpp" />
+    <ClCompile Include="src\StoredTranslatable.cpp" />
+    <ClCompile Include="src\Translatable.cpp" />
+    <ClCompile Include="src\TranslationStringContainer.cpp" />
+    <ClCompile Include="src\util\languageSaverUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\base-module\base-module.vcxproj">
+      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\data-file\data-file.vcxproj">
+      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\utils\utils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
