@@ -14,6 +14,7 @@ namespace of::module
 		WorldManagerAddon,
 		SpriterContainer,
 		AssetManager,
+		FileHandler = AssetManager,
 		Logger,
 		StringConverter,
 		Globals,

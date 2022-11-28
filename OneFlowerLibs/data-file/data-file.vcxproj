@@ -135,10 +135,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\file\archive\EntityIndex.hpp" />
+    <ClInclude Include="include\file\archive\loadHeader.hpp" />
     <ClInclude Include="include\file\archive\Requestable.hpp" />
     <ClInclude Include="include\file\archive\ObjectSaveMode.hpp" />
     <ClInclude Include="include\file\archive\Requestor.hpp" />
     <ClInclude Include="include\file\FileId.hpp" />
+    <ClInclude Include="include\file\Handler.hpp" />
     <ClInclude Include="include\file\Header.hpp" />
     <ClInclude Include="include\file\Loader.hpp" />
     <ClInclude Include="include\file\ObjectFlag.hpp" />
@@ -157,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FileId.cpp" />
+    <ClCompile Include="src\Handler.cpp" />
     <ClCompile Include="src\Loader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

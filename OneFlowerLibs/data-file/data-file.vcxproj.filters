@@ -47,12 +47,21 @@
     <ClInclude Include="include\file\archive\ObjectSaveMode.hpp">
       <Filter>include\file\archive</Filter>
     </ClInclude>
+    <ClInclude Include="include\file\archive\loadHeader.hpp">
+      <Filter>include\file\archive</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\Handler.hpp">
+      <Filter>include\file</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FileId.cpp">
       <Filter>src\file</Filter>
     </ClCompile>
     <ClCompile Include="src\Loader.cpp">
+      <Filter>src\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Handler.cpp">
       <Filter>src\file</Filter>
     </ClCompile>
   </ItemGroup>
