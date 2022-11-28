@@ -6,7 +6,6 @@
 //TODO:
 //#include <swizzle/font?>
 
-#include "LanguageHeader.hpp"
 #include "TranslationStringContainer.hpp"
 
 
