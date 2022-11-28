@@ -13,7 +13,7 @@ namespace of::locale
 			header.moddedIds[languageName].push_back(stringId);
 		else
 			header.addedIds[languageName].push_back(stringId);
-		stringList.add(new PrimitiveSaveable<Core::String>(value, language, languageName, stringId, OneVersion(1, 0, 0)));
+		stringList.add(new StoredTranslatable(value, language, languageName, stringId, OneVersion(1, 0, 0)));
 	}
 
 #endif
