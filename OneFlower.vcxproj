@@ -340,8 +340,6 @@
     <ClCompile Include="Project\Items\LootDropDefiner.cpp" />
     <ClCompile Include="Project\Items\LootTable.cpp" />
     <ClCompile Include="Project\Items\WeaponItem.cpp" />
-    <ClCompile Include="Project\Language\TranslationStringDefiner.cpp" />
-    <ClCompile Include="Project\Language\LanguageRequestorDefiner.cpp" />
     <ClCompile Include="Project\Main\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
@@ -513,9 +511,6 @@
     <ClInclude Include="Project\Items\StatChangingItem.hpp" />
     <ClInclude Include="Project\Items\TrinketItem.hpp" />
     <ClInclude Include="Project\Items\WeaponItem.hpp" />
-    <ClInclude Include="Project\Language\TranslationString.hpp" />
-    <ClInclude Include="Project\Language\LanguageHeader.hpp" />
-    <ClInclude Include="Project\Language\LanguageRequestor.hpp" />
     <ClInclude Include="Project\Main\GameEntry.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
