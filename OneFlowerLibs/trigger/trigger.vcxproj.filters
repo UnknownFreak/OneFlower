@@ -9,5 +9,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="include\trigger">
+      <UniqueIdentifier>{2b96543f-f7ea-4aab-bd8d-e89d828b6642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\trigger">
+      <UniqueIdentifier>{ba16d8b3-8ff3-458f-9614-1c9f54b632d2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\trigger\Trigger.hpp">
+      <Filter>include\trigger</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Trigger.cpp">
+      <Filter>src\trigger</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
