@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{3ecccc77-8c43-4158-a15e-2c6db9c5fdb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b5af640e-fef2-437f-b60d-9cf859ca1c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\utils">
+      <UniqueIdentifier>{37d5718f-a445-4d0d-af5c-aab4f99e2748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\utils\config">
+      <UniqueIdentifier>{fa36366a-f157-42a1-9684-d2e06068ac1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\utils\os">
+      <UniqueIdentifier>{16638acf-fd20-44cd-acf5-15148807692a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os">
+      <UniqueIdentifier>{9ef7ad27-f375-4527-9823-7820186397e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\config">
+      <UniqueIdentifier>{622db6a1-2536-4436-9ebb-2f26e82af914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\utils\common">
+      <UniqueIdentifier>{802e0f22-119e-478a-bcd2-1fd3b2d5db10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\common">
+      <UniqueIdentifier>{736cb279-697f-4986-8f05-1080185c8484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{ec7557ae-1eec-472b-a919-03e53ca899ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ListDir.cpp">
+      <Filter>src\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parser.cpp">
+      <Filter>src\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uuid.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\version.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\string.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\utils\config\parser.hpp">
+      <Filter>include\utils\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\stduuid\include\uuid.h">
+      <Filter>external</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\os\ListDir.hpp">
+      <Filter>include\utils\os</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\string.hpp">
+      <Filter>include\utils\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\uuid.hpp">
+      <Filter>include\utils\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\common\version.hpp">
+      <Filter>include\utils\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
