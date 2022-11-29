@@ -514,7 +514,6 @@
     <ClInclude Include="Project\Helpers\Enum\TrinketType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
-    <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
     <ClInclude Include="Project\Helpers\Rect.hpp" />
     <ClInclude Include="Project\Helpers\TickTimer.hpp" />

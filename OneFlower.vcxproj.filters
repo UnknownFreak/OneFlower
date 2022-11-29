@@ -1130,9 +1130,6 @@
     <ClInclude Include="Project\Helpers\TickTimer.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Rect.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>

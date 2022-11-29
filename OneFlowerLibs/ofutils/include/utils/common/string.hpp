@@ -63,6 +63,14 @@ namespace of::common
 		return stream.str();
 	}
 
+	template <typename T>
+	String to_string_with_precision(const T a_value, const int n = 6)
+	{
+		std::ostringstream out;
+		out.precision(n);
+		out << std::fixed << a_value;
+		return out.str();
+	}
 }
 
 #endif

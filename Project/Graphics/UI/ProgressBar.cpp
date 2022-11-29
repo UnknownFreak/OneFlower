@@ -1,5 +1,5 @@
 #include "ProgressBar.hpp"
-#include <Helpers/FloatingPointConversionHelper.hpp>
+#include <utils/common/string.hpp>
 
 
 Graphics::UI::ProgressBar::ProgressBar(const float& x, const float& y, const float& sizeX, const float& sizeY, const float& maxVal, const float& currentVal, const glm::vec3& color,
@@ -22,7 +22,7 @@ void Graphics::UI::ProgressBar::setNewMax(const float& newMax)
 void Graphics::UI::ProgressBar::update(const float& newVal)
 {
 	currentVal = newVal;
-	valueText = Core::to_string_with_precision(currentVal, 0);
+	valueText = of::common::to_string_with_precision(currentVal, 0);
 	update();
 }
 
@@ -43,7 +43,7 @@ void Graphics::UI::ProgressBar::update()
 	//	auto lb = valueText.getLocalBounds();
 	//	valueText.setPosition(std::floor(x + textOffsetX) , std::floor(y + textOffsetY));
 	//}
-	tooltip.setToolTip(Core::to_string_with_precision(currentVal, 0) + "/" + Core::to_string_with_precision(maxVal, 0));
+	tooltip.setToolTip(of::common::to_string_with_precision(currentVal, 0) + "/" + of::common::to_string_with_precision(maxVal, 0));
 }
 
 void Graphics::UI::ProgressBar::render()
