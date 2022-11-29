@@ -261,6 +261,33 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
+      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
+      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\engine-settings\engine-settings.vcxproj">
+      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\graphic-resources\graphics.vcxproj">
+      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\locale\locale.vcxproj">
+      <Project>{cc7913ea-b4b7-4e91-b0a1-dad708b32482}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\random-generator\random-generator.vcxproj">
+      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
+      <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\utils\utils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>

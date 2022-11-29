@@ -1,25 +1,25 @@
 #ifndef BuildMode_HPP
 #define BuildMode_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 #include <vector>
-#include <Helpers/Version.hpp>
+#include <utils/common/Version.hpp>
 
-namespace Engine
+namespace of::engine
 {
 	struct BuildMode {
 
-		Core::String toYesNoString(const bool& b) const;
+		common::String toYesNoString(const bool& b) const;
 
 		bool isEditorMode() const;
 		void setEditorMode();
 		bool isDebugBuild() const;
 
 		OneVersion getBuildNumber() const;
-		Core::String getBuildNumberAsStringWithEditor() const;
-		Core::String getDetailedBuildInfo() const;
+		common::String getBuildNumberAsStringWithEditor() const;
+		common::String getDetailedBuildInfo() const;
 
-		std::vector<Core::String> toLogString() const;
+		std::vector<common::String> toLogString() const;
 		static BuildMode buildMode;
 
 	private:

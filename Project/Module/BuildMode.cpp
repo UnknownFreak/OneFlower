@@ -1,17 +1,17 @@
 #include "BuildMode.hpp"
 #include "BuildVersion.hpp"
 
-Engine::BuildMode Engine::BuildMode::buildMode;
+of::engine::BuildMode of::engine::BuildMode::buildMode;
 
-namespace Engine
+namespace of::engine
 {
 
 	BuildMode& GetBuildMode()
 	{
-		return Engine::BuildMode::buildMode;
+		return of::engine::BuildMode::buildMode;
 	}
 
-	Core::String BuildMode::toYesNoString(const bool& b) const
+	common::String BuildMode::toYesNoString(const bool& b) const
 	{
 		return b ? "Yes" : "No";
 	}
@@ -43,20 +43,20 @@ namespace Engine
 		return OneVersion(VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_REV);
 	}
 
-	Core::String BuildMode::getBuildNumberAsStringWithEditor() const
+	common::String BuildMode::getBuildNumberAsStringWithEditor() const
 	{
-		return getBuildNumber().str() + " - Build: " + Core::toString(VERSION_BUILD);
+		return getBuildNumber().str() + " - Build: " + common::toString(VERSION_BUILD);
 	}
 
-	Core::String BuildMode::getDetailedBuildInfo() const
+	common::String BuildMode::getDetailedBuildInfo() const
 	{
-		Core::String detailedString;
+		common::String detailedString;
 		for (auto s : toLogString())
 			detailedString += s + "\n";
 		return detailedString;
 	}
 
-	std::vector<Core::String> BuildMode::toLogString() const
+	std::vector<common::String> BuildMode::toLogString() const
 	{
 		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(isEditorMode()), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
 	}

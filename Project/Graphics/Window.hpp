@@ -8,7 +8,8 @@
 
 #include <swizzle/Swizzle.hpp>
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
+
 #include <Helpers/Rect.hpp>
 #include <Graphics/TransparencyMasker.hpp>
 #include "UI/UIHandler.hpp"
@@ -28,12 +29,12 @@ namespace Component
 class GameObject;
 namespace Graphics
 {
-	class RenderWindow : public Interfaces::IEngineResource<RenderWindow>, public sw::Application
+	class RenderWindow : public of::module::interface::IEngineResource<RenderWindow>, public sw::Application
 	{
 
 		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
 		{
-			std::unordered_map<Core::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
+			std::unordered_map<of::common::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
 		public:
 			DynamicWindowListener() = default;
 
