@@ -21,9 +21,9 @@ namespace Component
 
 		bool canPlayerInteract;
 
-		Core::String interactionState;
+		of::common::String interactionState;
 
-		std::unordered_map<Core::String, std::pair<Object::Interaction, Object::Interaction>> interactions;
+		std::unordered_map<of::common::String, std::pair<Object::Interaction, Object::Interaction>> interactions;
 
 		Interactable() = default;
 		~Interactable() = default;

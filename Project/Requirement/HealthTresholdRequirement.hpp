@@ -4,7 +4,7 @@
 #include "Requirement.hpp"
 
 #include <Helpers/Enum/HealthTresholdComparitor.hpp>
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 
 namespace Requirement
 {
@@ -12,7 +12,7 @@ namespace Requirement
 	class HealthTresholdRequirement : public Requirement
 	{
 	public:
-		Core::uuid objectId;
+		of::common::uuid objectId;
 		Enums::HealthTresholdComparitor comparitor = Enums::HealthTresholdComparitor::LessThan;
 		double percentage;
 

@@ -12,9 +12,9 @@ Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Texture::L
 namespace File::Resource::Texture
 {
 
-	bool Loader::loadTexture(const Core::String& name)
+	bool Loader::loadTexture(const of::common::String& name)
 	{
-		Core::String path = "Data/" + name;
+		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
 			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
@@ -38,11 +38,11 @@ namespace File::Resource::Texture
 		return true;
 	}
 
-	bool Loader::loadCubeMap(const Core::String& folderName)
+	bool Loader::loadCubeMap(const of::common::String& folderName)
 	{
 		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Loading skybox cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
-		Core::String path = "Data/" + folderName;
+		of::common::String path = "Data/" + folderName;
 		for (auto& file : { "top.png", "back.png", "bottom.png", "front.png", "left.png", "right.png" })
 		{
 			if (!std::filesystem::exists(path + file))
@@ -78,13 +78,13 @@ namespace File::Resource::Texture
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const of::common::String& name, const of::common::String& path)
 	{
 		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Request texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
+			std::unordered_map<of::common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
 			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name);
 
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
@@ -103,13 +103,13 @@ namespace File::Resource::Texture
 		return requestTexture(missingTexture, Globals::texturePath);
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const Core::String& folderName, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const of::common::String& folderName, const of::common::String& path)
 	{
 		auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Texture::Loader");
 		logger.Info("Request cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!folderName.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
+			std::unordered_map<of::common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
 			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + folderName);
 
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
@@ -121,7 +121,7 @@ namespace File::Resource::Texture
 		return requestTexture(missingTexture, Globals::texturePath);
 	}
 
-	void Loader::requestRemovalOfTexture(const Core::String& name)
+	void Loader::requestRemovalOfTexture(const of::common::String& name)
 	{
 		if (loadedTextureMap.find(name) != loadedTextureMap.end())
 		{

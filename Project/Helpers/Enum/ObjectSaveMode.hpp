@@ -36,7 +36,7 @@ namespace Enums
 		ADD
 	};
 
-	inline Core::String to_string(const Enums::ObjectSaveMode& type)
+	inline of::common::String to_string(const Enums::ObjectSaveMode& type)
 	{
 		switch (type)
 		{

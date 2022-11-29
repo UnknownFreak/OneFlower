@@ -7,7 +7,7 @@
 #pragma warning (pop)
 
 Enums::ComponentType Component::IBase<Component::Transform>::typeID = Enums::ComponentType::Transform;
-Core::String Component::IBase<Component::Transform>::componentName = "Transform";
+of::common::String Component::IBase<Component::Transform>::componentName = "Transform";
 
 namespace Component
 {

@@ -16,7 +16,7 @@
 
 #include <set>
 
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 
 #include <Module/EngineModuleManager.hpp>
 #include <Interfaces/IEngineModule.hpp>
@@ -37,7 +37,7 @@
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
 
 #include <Helpers/PrimitiveSaveable.hpp>
-#include <Helpers/Version.hpp>
+#include <utils/common/version.hpp>
 
 namespace File::Asset
 {
@@ -55,7 +55,7 @@ namespace File::Asset
 
 		bool loadModOrderFile();
 		void saveModOrderFile();
-		void buildModOrderFile(const Core::String & modFile, std::set<Core::String>& dependencies);
+		void buildModOrderFile(const of::common::String & modFile, std::set<of::common::String>& dependencies);
 
 
 		void saveGameDatabase(std::string filename, File::Mod::Header& modhdr);
@@ -63,9 +63,9 @@ namespace File::Asset
 		void loadAllEditorVariables();
 
 
-		std::map<Core::String, Language::TranslationString> loadLanguages(const std::vector<Core::String>& languageFiles);
+		std::map<of::common::String, Language::TranslationString> loadLanguages(const std::vector<of::common::String>& languageFiles);
 		void saveLanguages(const Language::LanguageRequestor& languageRequestor);
-		void saveLanguageFile(const Core::String& filename, Language::TranslationString& langHeader);
+		void saveLanguageFile(const of::common::String& filename, Language::TranslationString& langHeader);
 
 		File::Mod::Header openedMod;
 
@@ -77,7 +77,7 @@ namespace File::Asset
 		}
 
 		template< typename T>
-		bool loadModHeader(Core::String modName, T & myheader)
+		bool loadModHeader(of::common::String modName, T & myheader)
 		{
 			bool eof = false;
 			File::Archive::DatabaseIndex ind;

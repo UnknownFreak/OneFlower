@@ -1,7 +1,7 @@
 #ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
 #include <Helpers/Enum/ComponentType.hpp>
-#include <Helpers\String.hpp>
+#include <utils/common/String.hpp>
 
 class GameObject;
 struct ComponentFactory;
@@ -30,7 +30,7 @@ namespace Component
 
 		virtual Enums::ComponentType getType() const = 0;
 
-		virtual	Core::String getTypeName() const = 0;
+		virtual	of::common::String getTypeName() const = 0;
 
 		//HIGH: remove?
 	public:

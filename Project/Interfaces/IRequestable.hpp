@@ -1,8 +1,8 @@
 #ifndef IREQUESTABLE_HPP
 #define IREQUESTABLE_HPP
-#include <Helpers/uuid.hpp>
-#include <Helpers\String.hpp>
-#include <Helpers/Version.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/common/string.hpp>
+#include <utils/common/version.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 #include <Helpers/Enum/ObjectSaveMode.hpp>
 #include <Helpers/Enum/ObjectType.hpp>
@@ -11,17 +11,17 @@ namespace Interfaces
 {
 	struct TypeInfo
 	{
-		Core::uuid typeId;
-		std::vector<Core::uuid> parents;
+		of::common::uuid typeId;
+		std::vector<of::common::uuid> parents;
 
-		bool hasTypeId(const Core::uuid& uuid) const noexcept
+		bool hasTypeId(const of::common::uuid& uuid) const noexcept
 		{
 			return uuid == typeId || isParentuuid(uuid);
 		}
 	private:
-		bool isParentuuid(const Core::uuid& uuid) const noexcept
+		bool isParentuuid(const of::common::uuid& uuid) const noexcept
 		{
-			for (const Core::uuid& x : parents)
+			for (const of::common::uuid& x : parents)
 			{
 				if (x == uuid)
 					return true;
@@ -33,15 +33,15 @@ namespace Interfaces
 	template<class Ty>
 	struct Trait
 	{
-		static Core::uuid typeId;
+		static of::common::uuid typeId;
 	};
 
 
 	struct IRequestable
 	{
 		
-		Core::String fromMod;
-		Core::uuid ID;
+		of::common::String fromMod;
+		of::common::uuid ID;
 		Enums::ObjectSaveMode mode = Enums::ObjectSaveMode::ADD;
 		Enums::ObjectType objectType;
 
@@ -49,8 +49,8 @@ namespace Interfaces
 
 
 		inline IRequestable() : IRequestable(Enums::ObjectType::Undefined) {}
-		inline IRequestable(const Enums::ObjectType& type) : IRequestable("", Core::uuid(), OneVersion(0, 0, 0), type) {}
-		inline IRequestable(const Core::String& fromMod, const Core::uuid& ID, const OneVersion& version, const Enums::ObjectType& type = Enums::ObjectType::Undefined) : fromMod(fromMod), ID(ID), objectVersion(version), objectType(type) {}
+		inline IRequestable(const Enums::ObjectType& type) : IRequestable("", of::common::uuid(), OneVersion(0, 0, 0), type) {}
+		inline IRequestable(const of::common::String& fromMod, const of::common::uuid& ID, const OneVersion& version, const Enums::ObjectType& type = Enums::ObjectType::Undefined) : fromMod(fromMod), ID(ID), objectVersion(version), objectType(type) {}
 		inline IRequestable(const IRequestable& copy) : fromMod(copy.fromMod), ID(copy.ID), mode(copy.mode), objectVersion(copy.objectVersion), objectType(copy.objectType) {}
 	
 		inline IRequestable(const IRequestable&& rvalreference) noexcept : fromMod(rvalreference.fromMod), ID(rvalreference.ID),
@@ -65,12 +65,12 @@ namespace Interfaces
 			return *this;
 		}
 	
-		inline virtual Core::String getName() const
+		inline virtual of::common::String getName() const
 		{
 			return "";
 		}
 
-		inline virtual Core::String getValue() const
+		inline virtual of::common::String getValue() const
 		{
 			return "";
 		}

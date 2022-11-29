@@ -8,9 +8,9 @@ Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Shader::Lo
 
 namespace File::Resource::Shader
 {
-	bool Loader::loadShader(const Core::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
+	bool Loader::loadShader(const of::common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
 	{
-		Core::String path = "Data/" + name;
+		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
 			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
@@ -35,7 +35,7 @@ namespace File::Resource::Shader
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const of::common::String& name, const of::common::String& path)
 	{
 		sw::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -69,11 +69,11 @@ namespace File::Resource::Shader
 		return requestShader(name, attribs, path);
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const Core::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const Core::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const of::common::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const of::common::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
+			std::unordered_map<of::common::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
 			it = loadedShaders.find(path + name);
 			lastResult = true;
 			if (it != loadedShaders.end())
@@ -98,7 +98,7 @@ namespace File::Resource::Shader
 		return lastResult;
 	}
 
-	void Loader::requestRemovalOfShader(const Core::String& name)
+	void Loader::requestRemovalOfShader(const of::common::String& name)
 	{
 		if (loadedShaders.find(name) != loadedShaders.end())
 		{

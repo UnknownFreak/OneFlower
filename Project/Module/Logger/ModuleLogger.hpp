@@ -2,7 +2,7 @@
 #define MODULE_LOGGER_HPP
 
 #include "LoggerBase.hpp"
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 #include <Helpers\Enum\LogLevel.hpp>
 
 namespace EngineModule
@@ -12,10 +12,10 @@ namespace EngineModule
 		template <class T_Stream>
 		class ModuleLogger : public LoggerBase<T_Stream&>
 		{
-			Core::String moduleName;
+			of::common::String moduleName;
 
 		public:
-			ModuleLogger(const Core::String& moduleName, T_Stream& stream, const Enums::LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
+			ModuleLogger(const of::common::String& moduleName, T_Stream& stream, const Enums::LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
 			{
 				this->keyword = "Module: " + moduleName + " ";
 			};

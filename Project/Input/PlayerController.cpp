@@ -3,7 +3,7 @@
 #include <Object/GameObject.hpp>
 
 Enums::ComponentType Component::IBase<Component::PlayerController>::typeID = Enums::ComponentType::PlayerController;
-Core::String Component::IBase<Component::PlayerController>::componentName = "PlayerController";
+of::common::String Component::IBase<Component::PlayerController>::componentName = "PlayerController";
 
 namespace Component
 {

@@ -55,14 +55,8 @@
     <Filter Include="Engine\Input\Controller">
       <UniqueIdentifier>{7aaa660c-0b01-41b5-9bac-1e84d750e2f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Helpers\os">
-      <UniqueIdentifier>{19c0f637-a8a8-4519-9078-b78125d3b452}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Helpers\Enum">
       <UniqueIdentifier>{3a847f5b-3d6c-4206-9d2a-11ac1baefbc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Helpers\Version">
-      <UniqueIdentifier>{1ee57fa9-740b-4e2c-9b72-aa1bcca1386e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\World">
       <UniqueIdentifier>{24ee632d-982c-483b-afbc-cbdad4aa9482}</UniqueIdentifier>
@@ -72,9 +66,6 @@
     </Filter>
     <Filter Include="Engine\Combat">
       <UniqueIdentifier>{84b36307-4b68-4ce5-b696-f499f02475e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="External">
-      <UniqueIdentifier>{57a78c02-ca26-4f69-a15b-5e7bd86cbbaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Combat\Component">
       <UniqueIdentifier>{58fcb014-d9ae-4a37-bb52-169ddb8bc07e}</UniqueIdentifier>
@@ -168,9 +159,6 @@
     </Filter>
     <Filter Include="Engine\File\Resource">
       <UniqueIdentifier>{6cfc005d-1287-4e24-8714-d6670353acfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Config">
-      <UniqueIdentifier>{88b585d3-f166-41a8-ad36-d453bda2c77a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\File\Resource\Texture">
       <UniqueIdentifier>{9c9bfd28-c295-4bbb-b21e-56e2c329221e}</UniqueIdentifier>
@@ -306,9 +294,6 @@
     <ClCompile Include="Project\Module\EngineModuleManager.cpp">
       <Filter>Engine\Module\ModuleManager</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\Version.cpp">
-      <Filter>Engine\Helpers\Version</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\VersionUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
@@ -365,9 +350,6 @@
     </ClCompile>
     <ClCompile Include="Project\Module\Globals.cpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Helpers\ListDir.cpp">
-      <Filter>Engine\Helpers\os</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
       <Filter>Engine\Graphics\UI\Handler</Filter>
@@ -531,9 +513,6 @@
     <ClCompile Include="Project\Tests\ConfigParserUnitTest.cpp">
       <Filter>Unit Tests\File</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\CfgParser.cpp">
-      <Filter>Engine\File\Resource\Config</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Quest\AOrBObjective.cpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClCompile>
@@ -639,9 +618,6 @@
     <ClCompile Include="Project\Helpers\TickTimer.cpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\String.cpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
@@ -721,9 +697,6 @@
     </ClInclude>
     <ClInclude Include="Project\Module\EngineModuleManager.hpp">
       <Filter>Engine\Module\ModuleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Version.hpp">
-      <Filter>Engine\Helpers\Version</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -808,9 +781,6 @@
     </ClInclude>
     <ClInclude Include="Project\Module\Globals.hpp">
       <Filter>Engine\Module\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\ListDir.hpp">
-      <Filter>Engine\Helpers\os</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
       <Filter>Engine\Helpers</Filter>
@@ -1001,9 +971,6 @@
     <ClInclude Include="Project\File\GameConfig.hpp">
       <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\CfgParser.hpp">
-      <Filter>Engine\File\Resource\Config</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Quest\AOrBObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClInclude>
@@ -1163,12 +1130,6 @@
     <ClInclude Include="Project\Helpers\TickTimer.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\uuid.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\String.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
@@ -1237,9 +1198,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\stduuid\include\uuid.h">
-      <Filter>External</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\DataTree.hpp">
       <Filter>Engine\Graphics\Editor\ObjectDataTree</Filter>

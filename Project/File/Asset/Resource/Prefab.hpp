@@ -28,12 +28,12 @@ namespace Asset::Resource
 		float spawnDistance;
 		Enums::ObjectState objectState = Enums::ObjectState::Active;
 
-		Core::String tag;
+		of::common::String tag;
 
 		Prefab();
 		Prefab(const Prefab& copy);
 
-		GameObject* createNewInstance(const Core::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
+		GameObject* createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
 		GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
 		GameObject* createNewInstance(GameObject* parent, const bool& isPlayerSummon = false) const;
 		void createNewPlayerInstance(GameObject& theObject);

@@ -7,7 +7,7 @@
 
 #include "Model.hpp"
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include <swizzle/gfx/CommandBuffer.hpp>
 
@@ -21,9 +21,9 @@ namespace Graphics
 
 	public:
 		Skybox();
-		Skybox(const Core::String& skyboxTextureFolder);
+		Skybox(const of::common::String& skyboxTextureFolder);
 
-		void setSkyBox(const Core::String& skyboxTextureFolder);
+		void setSkyBox(const of::common::String& skyboxTextureFolder);
 
 		void render(common::Unique<swizzle::gfx::DrawCommandTransaction>& trans, MVP mvp);
 		

@@ -80,7 +80,7 @@ namespace Input
 				bindsOnHold.RegisterCallback(callback, input);
 		}
 
-		inline void removeCallback(T input, Core::String callbackToRemove, const Enums::Input::Action actionType)
+		inline void removeCallback(T input, of::common::String callbackToRemove, const Enums::Input::Action actionType)
 		{
 			if ((int)actionType & (int)Enums::Input::Action::Press)
 				if(bindsOnPress.RemoveCallback(input, callbackToRemove))

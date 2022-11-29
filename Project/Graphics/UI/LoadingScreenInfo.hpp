@@ -10,7 +10,7 @@ namespace Graphics::UI
 
 	class LoadingScreenInfo : public Graphics::UI::UIContext
 	{
-		Core::String t;
+		of::common::String t;
 		ImVec2 pos;
 
 	public:

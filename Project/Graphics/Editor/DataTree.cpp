@@ -52,7 +52,7 @@ namespace Graphics::Editor
 			flags |= ImGuiTreeNodeFlags_Bullet;
 		}
 	
-		Core::String itemName = item.name;
+		of::common::String itemName = item.name;
 		if (itemName.empty())
 		{
 			if (item.ptr == nullptr)

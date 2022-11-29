@@ -1,7 +1,7 @@
 #include "Item.hpp"
 #include <File/Resource/TextureLoader.hpp>
 
-Core::uuid Interfaces::Trait<Items::Base>::typeId = Core::uuid("d2ab3ecd-a468-4170-bd8b-d4fdd6fd9235");
+of::common::uuid Interfaces::Trait<Items::Base>::typeId = of::common::uuid("d2ab3ecd-a468-4170-bd8b-d4fdd6fd9235");
 
 void Items::Base::loadIcon()
 {

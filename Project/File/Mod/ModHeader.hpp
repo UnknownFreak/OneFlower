@@ -3,9 +3,11 @@
 
 #include <vector>
 
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
+#include <Module/EngineModuleManager.hpp>
+
 #include <Module/Logger/OneLogger.hpp>
-#include <Helpers\Version.hpp>
+#include <utils/common/version.hpp>
 
 namespace File::Mod
 {
@@ -16,8 +18,8 @@ namespace File::Mod
 
 	public:
 
-		Core::String name = "";
-		std::vector<Core::String> dependencies;
+		of::common::String name = "";
+		std::vector<of::common::String> dependencies;
 
 		OneVersion modVersion = OneVersion(1, 0, 0);
 
@@ -29,7 +31,7 @@ namespace File::Mod
 			if (modFileVersion >= OneVersion(1, 0, 1))
 				ar(modVersion);
 			ar(dependencies.size());
-			for (Core::String var : dependencies)
+			for (of::common::String var : dependencies)
 			{
 				ar(var);
 			}

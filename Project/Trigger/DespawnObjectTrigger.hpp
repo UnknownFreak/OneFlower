@@ -10,7 +10,7 @@ namespace Trigger
 
 	public:
 
-		Core::uuid gameObjectToDespawn;
+		of::common::uuid gameObjectToDespawn;
 
 		// Inherited via Trigger
 		virtual void executeInternal() override;

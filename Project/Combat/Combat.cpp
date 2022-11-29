@@ -1,7 +1,7 @@
 #include "Combat.hpp"
 
 Enums::ComponentType Component::IBase<Component::CombatComponent>::typeID = Enums::ComponentType::Combat;
-Core::String Component::IBase<Component::CombatComponent>::componentName = "Combat";
+of::common::String Component::IBase<Component::CombatComponent>::componentName = "Combat";
 
 namespace Component
 {

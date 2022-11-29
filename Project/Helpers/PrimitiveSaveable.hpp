@@ -9,17 +9,17 @@ template <class T>
 class PrimitiveSaveable : public Interfaces::IRequestable, public Interfaces::IObject
 {
 	template <class In = T>
-	inline typename std::enable_if<std::is_same<std::vector<Core::String>, In>::value, 
-	Core::String>::type str() const
+	inline typename std::enable_if<std::is_same<std::vector<of::common::String>, In>::value,
+		of::common::String>::type str() const
 	{
 		return "<List Data>";
 	}
 
 	template <class In = T>
-	inline typename std::enable_if<!std::is_same<std::vector<Core::String>, In>::value,
-	Core::String>::type str() const
+	inline typename std::enable_if<!std::is_same<std::vector<of::common::String>, In>::value,
+		of::common::String>::type str() const
 	{
-		return Core::toString(value);
+		return of::common::toString(value);
 	}
 
 public:
@@ -29,11 +29,11 @@ public:
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name) : PrimitiveSaveable(value, name, "", Core::uuid::nil(), OneVersion::EMPTY)
+	inline PrimitiveSaveable(T value, of::common::String name) : PrimitiveSaveable(value, name, "", of::common::uuid::nil(), OneVersion::EMPTY)
 	{
 	}
 
-	inline PrimitiveSaveable(T value, Core::String name, const Core::String fromMod, const Core::uuid ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
+	inline PrimitiveSaveable(T value, of::common::String name, const of::common::String fromMod, const of::common::uuid ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
 	{
 	}
 
@@ -41,12 +41,12 @@ public:
 	{
 	}
 
-	inline Core::String getName() const override
+	inline of::common::String getName() const override
 	{
 		return name;
 	}
 
-	inline Core::String getValue() const override
+	inline of::common::String getValue() const override
 	{
 		return str();
 	}

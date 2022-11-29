@@ -1,19 +1,19 @@
 #include "TranslationString.hpp"
 
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 
-Core::uuid Interfaces::Trait<Language::TranslationString>::typeId = Core::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
-PrimitiveSaveable<Core::String> Language::TranslationString::empty = PrimitiveSaveable<Core::String>("", "");
+of::common::uuid Interfaces::Trait<Language::TranslationString>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
+PrimitiveSaveable<of::common::String> Language::TranslationString::empty = PrimitiveSaveable<of::common::String>("", "");
 namespace Language
 {
 #if defined _EDITOR_ || _UNITTESTS_
-	void TranslationString::addString(const Core::String & languageName, const Core::uuid & stringId, const Core::String value, const bool& isPatch)
+	void TranslationString::addString(const of::common::String & languageName, const of::common::uuid & stringId, const of::common::String value, const bool& isPatch)
 	{
 		if (isPatch)
 			header.moddedIds[languageName].push_back(stringId);
 		else
 			header.addedIds[languageName].push_back(stringId);
-		stringList.add(new PrimitiveSaveable<Core::String>(value, language, languageName, stringId, OneVersion(1, 0, 0)));
+		stringList.add(new PrimitiveSaveable<of::common::String>(value, language, languageName, stringId, OneVersion(1, 0, 0)));
 	}
 
 #endif
@@ -22,7 +22,7 @@ namespace Language
 	{
 	}
 
-	TranslationString::TranslationString(const Core::String& language, Core::String fontName) : language(language), fontName(fontName), stringList(Core::langPath), IRequestable(Core::Builtin, Core::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::TranslationString)
+	TranslationString::TranslationString(const of::common::String& language, of::common::String fontName) : language(language), fontName(fontName), stringList(of::common::langPath), IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::TranslationString)
 	{
 		setAvailableLanguageFiles();
 	}
@@ -53,16 +53,16 @@ namespace Language
 		return *this;
 	}
 
-	const Core::String & TranslationString::getFontName() const
+	const of::common::String & TranslationString::getFontName() const
 	{
 		return fontName;
 	}
 
-	PrimitiveSaveable<Core::String>& TranslationString::getPrimitive(const Core::String & languageName, const Core::uuid & id)
+	PrimitiveSaveable<of::common::String>& TranslationString::getPrimitive(const of::common::String & languageName, const of::common::uuid & id)
 	{
 		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("TranslationString");
 		logger.Debug("Loading translation string value from database: " + language + ", " + languageName + ", " + id.to_string());
-		auto ptr = stringList.request<PrimitiveSaveable<Core::String>>({ languageName, id });
+		auto ptr = stringList.request<PrimitiveSaveable<of::common::String>>({ languageName, id });
 		if (ptr)
 			return *ptr;
 		return empty;

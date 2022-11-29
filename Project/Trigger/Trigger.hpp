@@ -2,7 +2,7 @@
 #define TRIGGER_HPP
 
 #include <cereal/cereal.hpp>
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 
 namespace Trigger
 {
@@ -19,7 +19,7 @@ namespace Trigger
 		inline virtual ~Trigger() {};
 
 		bool triggerOnce;
-		Core::uuid uuid;
+		of::common::uuid uuid;
 
 		void execute();
 

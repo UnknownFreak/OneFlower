@@ -11,7 +11,7 @@ bool Core::TickTimer::ready() const
 	return currentTime > maxTime;
 }
 
-Core::String Core::TickTimer::remainingTime() const
+of::common::String Core::TickTimer::remainingTime() const
 {
 	return std::to_string(maxTime - currentTime);
 }

@@ -1,7 +1,7 @@
 #ifndef ModFileUUIDHelper_HPP
 #define ModFileUUIDHelper_HPP
-#include <Helpers/String.hpp>
-#include <Helpers/uuid.hpp>
+#include <utils/common/String.hpp>
+#include <utils/common/uuid.hpp>
 
 namespace File::Mod
 {
@@ -9,8 +9,8 @@ namespace File::Mod
 	struct ModFileUUIDHelper
 	{
 
-		ModFileUUIDHelper() : ModFileUUIDHelper("", Core::uuid::nil()) {};
-		ModFileUUIDHelper(const Core::String& name, const Core::uuid& uuid) : name(name), uuid(uuid) {};
+		ModFileUUIDHelper() : ModFileUUIDHelper("", of::common::uuid::nil()) {};
+		ModFileUUIDHelper(const of::common::String& name, const of::common::uuid& uuid) : name(name), uuid(uuid) {};
 		ModFileUUIDHelper(const ModFileUUIDHelper& copy) : ModFileUUIDHelper(copy.name, copy.uuid) {};
 		ModFileUUIDHelper& operator=(const ModFileUUIDHelper& right)
 		{
@@ -34,8 +34,8 @@ namespace File::Mod
 			return !uuid.is_nil() && name != "";
 		}
 
-		Core::String name;
-		Core::uuid uuid;
+		of::common::String name;
+		of::common::uuid uuid;
 
 		template <class Archive>
 		void save(Archive& saver) const
@@ -51,11 +51,11 @@ namespace File::Mod
 			loader(uuid);
 		}
 
-		inline Core::String operator()(const bool& truncateUuidString=false) const
+		inline of::common::String operator()(const bool& truncateUuidString=false) const
 		{
 			if (truncateUuidString)
 			{
-				return "[\"" + name + "\"," + Core::truncate(uuid.to_string()) + "]";
+				return "[\"" + name + "\"," + of::common::truncate(uuid.to_string()) + "]";
 			}
 			return "[\"" + name + "\"," + uuid.to_string() + "]";
 		}
@@ -69,7 +69,7 @@ namespace std
 	{
 		std::size_t operator()(File::Mod::ModFileUUIDHelper const& helper) const
 		{
-			return std::hash<Core::String>()(helper());
+			return std::hash<of::common::String>()(helper());
 		}
 	};
 }

@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 
 #include <Interfaces/IUpdateable.hpp>
@@ -38,8 +38,8 @@ public:
 //#endif
 
 	void newGame();
-	void save(const Core::String& fileName);
-	void load(const Core::String& fileName);
+	void save(const of::common::String& fileName);
+	void load(const of::common::String& fileName);
 	void initialize();
 
 	void loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f});

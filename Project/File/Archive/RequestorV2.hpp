@@ -11,7 +11,7 @@
 #include <Interfaces/IPatch.hpp>
 #include <Interfaces/IRequestable.hpp>
 
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 #include <Module/EngineModuleManager.hpp>
@@ -31,7 +31,7 @@ namespace File::Archive
 
 		class ArchiveFactory
 		{
-			std::unordered_map<Core::uuid, std::function<void(const File::Archive::DatabaseIndex&)>> helpers;
+			std::unordered_map<of::common::uuid, std::function<void(const File::Archive::DatabaseIndex&)>> helpers;
 
 			RequestorV2* ref;
 
@@ -61,8 +61,8 @@ namespace File::Archive
 				helpers[Interfaces::Trait<File::Asset::Resource::Template::ColliderChunk>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
 					ref->request<File::Asset::Resource::Template::ColliderChunk>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
-				helpers[Interfaces::Trait<PrimitiveSaveable<Core::String>>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
-					ref->request<PrimitiveSaveable<Core::String>>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
+				helpers[Interfaces::Trait<PrimitiveSaveable<of::common::String>>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
+					ref->request<PrimitiveSaveable<of::common::String>>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
 				};
 				helpers[Interfaces::Trait<Combat::Element>::typeId] = [this](const File::Archive::DatabaseIndex& index) {
 					ref->request<Combat::Element>(File::Mod::ModFileUUIDHelper(index.modFile, index.ID));
@@ -112,7 +112,7 @@ namespace File::Archive
 
 			}
 
-			void registerCustom(const Core::uuid& uuid, const std::function<void(const File::Archive::DatabaseIndex&)>& func) // if custom dllmods ever become a thing
+			void registerCustom(const of::common::uuid& uuid, const std::function<void(const File::Archive::DatabaseIndex&)>& func) // if custom dllmods ever become a thing
 			{
 				helpers[uuid] = func;
 			}
@@ -127,8 +127,8 @@ namespace File::Archive
 
 		td_map requestedMap;
 
-		Core::String loadDirectory;
-		Core::String pointerPrefixString;
+		of::common::String loadDirectory;
+		of::common::String pointerPrefixString;
 
 	private:
 	
@@ -175,7 +175,7 @@ namespace File::Archive
 		// # and non pointer type.							#
 		// ##################################################
 
-		Core::String getObjectTypeAsString(const Enums::ObjectType& objectType) const
+		of::common::String getObjectTypeAsString(const Enums::ObjectType& objectType) const
 		{
 			return Enums::to_string(objectType) + pointerPrefixString;
 		}
@@ -191,7 +191,7 @@ namespace File::Archive
 		std::unique_ptr<Interfaces::IRequestable> loadInternal(const File::Mod::ModFileUUIDHelper& modFile)
 		{
 			std::unique_ptr<Interfaces::IRequestable> t;
-			if (modFile.name == "EMPTY" && modFile.uuid.is_nil() || modFile.name == Core::Builtin && modFile.uuid.is_nil())
+			if (modFile.name == "EMPTY" && modFile.uuid.is_nil() || modFile.name == of::common::Builtin && modFile.uuid.is_nil())
 				return t;
 			if (!requestFromDatabase<T>(t, modFile.name, modFile.uuid))
 			{
@@ -202,7 +202,7 @@ namespace File::Archive
 		}
 
 		template<class T>
-		inline bool requestFromDatabase(std::unique_ptr<Interfaces::IRequestable>& _t, const Core::String& modName, const Core::uuid & uuid) const
+		inline bool requestFromDatabase(std::unique_ptr<Interfaces::IRequestable>& _t, const of::common::String& modName, const of::common::uuid & uuid) const
 		{
 			bool found = false;
 			bool init = true;
@@ -240,7 +240,7 @@ namespace File::Archive
 								catch (std::exception x)
 								{
 									logger.Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
-									logger.Error("Loading object failed: " + Core::String(x.what()));
+									logger.Error("Loading object failed: " + of::common::String(x.what()));
 								}
 								_t.reset();
 								init = false;
@@ -250,7 +250,7 @@ namespace File::Archive
 							{
 								logger.Fine("Loading object: fileidx: " + std::to_string(ind.row));
 								logger.Debug("Loading object: type: " + getObjectTypeAsString(ind.type));
-								logger.Debug("Loading object: derived typename: " + Core::String(typeid(T).name()));
+								logger.Debug("Loading object: derived typename: " + of::common::String(typeid(T).name()));
 								logger.Debug("Loading object: derived typehash: " + std::to_string(typeid(T).hash_code()));
 
 								logger.Debug("Loading object: before file.seekg(ind.row): file.tellg: " + std::to_string(database.tellg()));
@@ -272,15 +272,15 @@ namespace File::Archive
 										loadArchive(_t);
 										const auto& base = typeid(_t.get());
 										const auto& derived = typeid(*_t.get());
-										logger.Debug("Finished loading object: base typename: " + Core::String(base.name()));
+										logger.Debug("Finished loading object: base typename: " + of::common::String(base.name()));
 										logger.Debug("Finished loading object: base typehash: " + std::to_string(base.hash_code()));
-										logger.Debug("Finished loading object: derived typename: " + Core::String(derived.name()));
+										logger.Debug("Finished loading object: derived typename: " + of::common::String(derived.name()));
 										logger.Debug("Finished loading object: derived typehash: " + std::to_string(derived.hash_code()));
 									}
 									catch (std::exception x)
 									{
 										logger.Debug("Loading object failed: file.tellg: " + std::to_string(database.tellg()));
-										logger.Error("Loading object failed: " + Core::String(x.what()));
+										logger.Error("Loading object failed: " + of::common::String(x.what()));
 										logger.Error(" typeid: " + Interfaces::Trait<T>::typeId.to_string());
 										logger.Error(" index.typeid: " + ind.typeId.to_string());
 										logger.Error(" index.id: " + ind.ID.to_string());
@@ -306,7 +306,7 @@ namespace File::Archive
 			return found;
 		}
 
-		std::map<Core::String, size_t> getLoadOrder() const
+		std::map<of::common::String, size_t> getLoadOrder() const
 		{
 			if (fileLoadOrder.size() == 0)
 				return Engine::GetModule<File::Mod::Loader>().loadOrder;
@@ -315,14 +315,14 @@ namespace File::Archive
 
 	public:
 
-		std::map<Core::String, size_t> fileLoadOrder;
+		std::map<of::common::String, size_t> fileLoadOrder;
 		ArchiveFactory factory;
 
 		// ##################################################
 		// # INITIALIZERS									#
 		// ##################################################
 
-		RequestorV2(const Core::String& loadDirectory = "Data\\", const std::map<Core::String, size_t>& loadOrder = {}) :
+		RequestorV2(const of::common::String& loadDirectory = "Data\\", const std::map<of::common::String, size_t>& loadOrder = {}) :
 			loadDirectory(loadDirectory), fileLoadOrder(loadOrder), factory(this)
 		{
 			factory.registerDefaults();
@@ -371,7 +371,7 @@ namespace File::Archive
 			return true;
 		}
 
-		inline void add(const Enums::ObjectType& type, const Core::String& name)
+		inline void add(const Enums::ObjectType& type, const of::common::String& name)
 		{
 			switch (type)
 			{
@@ -441,7 +441,7 @@ namespace File::Archive
 			return requestedMap.contains(modFile);
 		}
 
-		inline Core::String editorGetObjectName(const File::Mod::ModFileUUIDHelper& modFile)
+		inline of::common::String editorGetObjectName(const File::Mod::ModFileUUIDHelper& modFile)
 		{
 			if (editorKeyExists(modFile))
 			{
@@ -570,7 +570,7 @@ namespace File::Archive
 		}
 
 		//legacy
-		inline void requestRemoval(const Core::String & name, const Core::uuid& uuid)
+		inline void requestRemoval(const of::common::String & name, const of::common::uuid& uuid)
 		{
 			requestRemoval(File::Mod::ModFileUUIDHelper(name, uuid));
 		}

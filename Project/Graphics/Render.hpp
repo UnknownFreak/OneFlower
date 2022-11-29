@@ -13,9 +13,9 @@ class Render : public Component::IBase<Render>
 
 	Component::Transform* transform;
 
-	Core::String textureName;
-	Core::String meshName;
-	Core::String shaderName;
+	of::common::String textureName;
+	of::common::String meshName;
+	of::common::String shaderName;
 
 	void loadAndSetModel();
 

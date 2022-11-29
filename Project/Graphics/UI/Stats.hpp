@@ -3,7 +3,7 @@
 
 #include "UIContext.hpp"
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include <utils/FpsCounter.hpp>
 
@@ -23,8 +23,8 @@ namespace Graphics::UI
 
 		U32 mFrame;
 		U32 mFps;
-		const Core::String title;
-		Core::String text = "";
+		const of::common::String title;
+		of::common::String text = "";
 
 		utils::HighResolutionClock mClock;
 		utils::FpsCounter frameCounter;
@@ -32,7 +32,7 @@ namespace Graphics::UI
 		float previous;
 		float current;
 	public:
-		Stats(const Core::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0)
+		Stats(const of::common::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0)
 		{
 			previous = current = mClock.secondsAsFloat(false);
 			this->x = x;
@@ -74,7 +74,7 @@ namespace Graphics::UI
 					avg += mean[c];
 
 				avg /= counterMax;
-				text = Core::String(title + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / avg * 1000));
+				text = of::common::String(title + ": " + std::to_string(mFps) + "\nmin: " + std::to_string(minFrame) + "\nmax: " + std::to_string(maxFrame) + "\navg: " + std::to_string(avg) + "\nms: " + std::to_string(1 / avg * 1000));
 			}
 		}
 

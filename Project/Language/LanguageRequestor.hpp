@@ -15,18 +15,18 @@ namespace Language
 	class LanguageRequestor : public Interfaces::IRequestable
 	{
 		
-		Core::String fallbackLanguage;
-		Core::String selectedLanguage;
+		of::common::String fallbackLanguage;
+		of::common::String selectedLanguage;
 
-		typedef Core::String FileName;
-		typedef Core::String LanguageName;
+		typedef of::common::String FileName;
+		typedef of::common::String LanguageName;
 
 		std::vector<FileName> allLanguageFiles;
 		std::vector<LanguageName> languageNames;
 
-		std::map<std::tuple<LanguageName, Core::uuid>, FileName> mappedLanguageIds;
+		std::map<std::tuple<LanguageName, of::common::uuid>, FileName> mappedLanguageIds;
 
-		std::map<Core::uuid, Core::String> requestedStrings;
+		std::map<of::common::uuid, of::common::String> requestedStrings;
 
 //#if defined _EDITOR_ || _UNITTESTS_
 	public:
@@ -35,13 +35,13 @@ namespace Language
 	private:
 
 		void resolvePatchedLanguages();
-		void resolvePatchedLanguages(const std::map<Core::String, std::vector<Core::uuid>>& ref, const Core::String& fileName);
+		void resolvePatchedLanguages(const std::map<of::common::String, std::vector<of::common::uuid>>& ref, const of::common::String& fileName);
 
 #if defined _EDITOR_ || _UNITTESTS_
 	public:
-		void addLanguage(const FileName & language, const Core::String& fontName);
+		void addLanguage(const FileName & language, const of::common::String& fontName);
 
-		void addString(const LanguageName& language, const Core::uuid& id, const Core::String& value, const FileName& languageFile, const bool& isPatch=false);
+		void addString(const LanguageName& language, const of::common::uuid& id, const of::common::String& value, const FileName& languageFile, const bool& isPatch=false);
 	private:
 #endif
 		void reloadStrings();
@@ -60,9 +60,9 @@ namespace Language
 		}
 #endif
 
-		std::vector<Core::String>& getLanguages();
+		std::vector<of::common::String>& getLanguages();
 
-		Core::String& getString(const Core::uuid& id);
+		of::common::String& getString(const of::common::uuid& id);
 		
 		//const sf::Font& getCurrentFont() const;
 

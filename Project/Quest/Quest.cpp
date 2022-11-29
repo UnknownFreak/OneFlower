@@ -3,7 +3,7 @@
 #include <File/SaveFile.hpp>
 #include <File/Asset/Manager.hpp>
 
-Core::uuid Interfaces::Trait<Questing::Quest>::typeId = Core::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
+of::common::uuid Interfaces::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
 
 void Questing::Quest::loadStrings()
 {
@@ -69,7 +69,7 @@ Questing::Quest& Questing::Quest::operator=(const Questing::Quest& copy)
 void Questing::Quest::failQuest()
 {
 	questState = Enums::QuestState::FAILED;
-	if (nextQuestOnFailure.uuid != Core::uuid::nil())
+	if (nextQuestOnFailure.uuid != of::common::uuid::nil())
 	{
 		//Engine::GetModule<Questing>().startQuest(nextQuestOnFailure);
 		// UiPopup that next quest started
@@ -80,7 +80,7 @@ void Questing::Quest::failQuest()
 void Questing::Quest::completeQuest()
 {
 	questState = Enums::QuestState::COMPLETE;
-	if (nextQuest.uuid != Core::uuid::nil())
+	if (nextQuest.uuid != of::common::uuid::nil())
 	{
 		//Engine::GetModule<Questing>().startQuest(nextQuest);
 		// UiPopup that next quest started

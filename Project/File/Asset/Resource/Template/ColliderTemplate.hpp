@@ -38,7 +38,7 @@ namespace File::Asset::Resource::Template
 	struct ColliderChunk : public Interfaces::IRequestable {
 		std::vector<ColliderTemplate> colliderInfo;
 		int layer;
-		Core::String group;
+		of::common::String group;
 		template<class Archive>
 		void save(Archive& ar) const
 		{

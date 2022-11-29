@@ -1,5 +1,6 @@
 #include "GameConfig.hpp"
 
+#include <Module/EngineModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::GameConfig>::type = Enums::EngineResourceType::Settings;
@@ -81,7 +82,7 @@ Enums::LogLevel EngineModule::GameConfig::getCurrentLogLevel() const
 	return logLevel;
 }
 
-Enums::LogLevel EngineModule::GameConfig::getModuleLogLevel(const Core::String& module)
+Enums::LogLevel EngineModule::GameConfig::getModuleLogLevel(const of::common::String& module)
 {
 	if (configLoaded)
 		return Enums::fromString(parser.get("logger", module, Enums::to_string(logLevel, false)));

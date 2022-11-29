@@ -4,10 +4,10 @@
 #include <cereal/access.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include <Helpers/Enum/TileTypes.hpp>
 
@@ -45,10 +45,10 @@ namespace File::Asset::Resource::Template
 	struct TileTemplate
 	{
 		glm::vec3 pos;
-		Core::String textureCoors;
+		of::common::String textureCoors;
 		Enums::TileTypes type;
 		bool hasShadow;
-		Core::uuid m_uuid;
+		of::common::uuid m_uuid;
 
 		bool operator==(const TileTemplate& other)
 		{
@@ -87,7 +87,7 @@ namespace File::Asset::Resource::Template
 		std::vector<TileTemplate> tileInfo;
 		TransparencyInfo chunkTransparency;
 		int layer;
-		Core::String group;
+		of::common::String group;
 		File::Mod::ModFileUUIDHelper atlas;
 
 		template<class Archive>

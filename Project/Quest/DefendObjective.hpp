@@ -8,7 +8,7 @@ namespace Questing
 	class DefendObjective : public QuestObjective
 	{
 	public:
-		Core::uuid defend;
+		of::common::uuid defend;
 		std::unique_ptr<Requirement::Requirement> completeRequirement;
 
 		template<class Archive>

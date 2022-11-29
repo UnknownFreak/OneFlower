@@ -33,7 +33,7 @@ namespace Input
 			AxisHandler.RegisterCallback(callback, input);
 		}
 
-		inline void removeCallback(T input, Core::String callbackToRemove)
+		inline void removeCallback(T input, of::common::String callbackToRemove)
 		{
 			AxisHandler.RemoveCallback(input, callbackToRemove);
 		}

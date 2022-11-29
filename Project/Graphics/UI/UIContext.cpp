@@ -5,7 +5,7 @@
 #include <Input/InputHandler.hpp>
 namespace Graphics::UI
 {
-	UIContext::UIContext(const swizzle::input::Keys& toggleKey, const Core::String& uiName, const bool& noKeybind) : toggleKey(toggleKey), uiName(uiName), noKeybind(noKeybind)
+	UIContext::UIContext(const swizzle::input::Keys& toggleKey, const of::common::String& uiName, const bool& noKeybind) : toggleKey(toggleKey), uiName(uiName), noKeybind(noKeybind)
 	{
 		registerKeybind();
 	}

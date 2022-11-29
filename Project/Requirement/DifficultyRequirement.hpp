@@ -2,6 +2,7 @@
 #define DifficultyRequirement_HPP
 
 #include "Requirement.hpp"
+#include <utils/common/uuid.hpp>
 #include <Helpers/Enum/DifficultyLevels.hpp>
 
 namespace Requirement
@@ -11,7 +12,7 @@ namespace Requirement
 	public:
 
 		Enums::DifficultyLevel level;
-		Core::uuid customDiff;
+		of::common::uuid customDiff;
 
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

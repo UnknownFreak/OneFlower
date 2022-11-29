@@ -26,9 +26,9 @@ public:
 
 	virtual Enums::DialogStatus navigate(const Enums::InteractionOption& navigation);
 	void visualSelect(const glm::vec2& mousePosition);
-	virtual Core::String getCurrentText();
+	virtual of::common::String getCurrentText();
 
-	virtual std::vector<Core::String> getDialogOptions();
+	virtual std::vector<of::common::String> getDialogOptions();
 
 	virtual Dialog* copy() const override
 	{

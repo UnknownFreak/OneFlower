@@ -8,7 +8,7 @@
 #include <Items/Inventory.hpp>
 
 Enums::ComponentType Component::IBase<Component::LootContainer>::typeID = Enums::ComponentType::LootContainer;
-Core::String Component::IBase<Component::LootContainer>::componentName = "LootContainer";
+of::common::String Component::IBase<Component::LootContainer>::componentName = "LootContainer";
 
 
 namespace Component

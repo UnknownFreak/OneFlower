@@ -3,17 +3,17 @@
 
 #include "UIContext.hpp"
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 namespace Graphics::UI
 {
 
 	class BuildInfo : public Graphics::UI::UIContext
 	{
-		Core::String t;
+		of::common::String t;
 
 	public:
-		BuildInfo(const Core::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, info, false) {
+		BuildInfo(const of::common::String info = "Null", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, info, false) {
 			t = info;
 			this->x = x;
 			this->y = y;

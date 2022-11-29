@@ -2,7 +2,7 @@
 #include <Object/GameObject.hpp>
 
 Enums::ComponentType Component::IBase<Component::Inventory>::typeID = Enums::ComponentType::Inventory;
-Core::String Component::IBase<Component::Inventory>::componentName = "Inventory";
+of::common::String Component::IBase<Component::Inventory>::componentName = "Inventory";
 
 void Component::Inventory::equipWeapon(std::shared_ptr<Items::Base>& item, const bool& offhand)
 {

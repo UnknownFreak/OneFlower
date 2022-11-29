@@ -15,7 +15,7 @@ namespace EngineModule::Logger::Streams
 		NullStream& operator=(const NullStream& ) { return *this; };
 		~NullStream() = default;
 
-		inline virtual void LogMessage(const Enums::LogLevel& , const Core::String& ) override {};
+		inline virtual void LogMessage(const Enums::LogLevel& , const of::common::String& ) override {};
 		inline virtual void flush() override {};
 		inline virtual void close() override {};
 	};

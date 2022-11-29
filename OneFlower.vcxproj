@@ -85,7 +85,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)vendor\stduuid\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
@@ -270,6 +270,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="OneFlowerLibs\ofutils\ofutils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
@@ -300,7 +303,6 @@
     <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp" />
-    <ClCompile Include="Project\File\CfgParser.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\File\Resource\MeshLoader.cpp" />
@@ -339,11 +341,8 @@
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp" />
     <ClCompile Include="Project\Graphics\Window.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
-    <ClCompile Include="Project\Helpers\ListDir.cpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
-    <ClCompile Include="Project\Helpers\String.cpp" />
     <ClCompile Include="Project\Helpers\TickTimer.cpp" />
-    <ClCompile Include="Project\Helpers\Version.cpp" />
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
     <ClCompile Include="Project\imgui\imgui_stdlib.cpp" />
@@ -447,7 +446,6 @@
     <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp" />
-    <ClInclude Include="Project\File\CfgParser.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
     <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp" />
     <ClInclude Include="Project\File\Mod\ModHeader.hpp" />
@@ -517,13 +515,9 @@
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
     <ClInclude Include="Project\Helpers\FloatingPointConversionHelper.hpp" />
-    <ClInclude Include="Project\Helpers\ListDir.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
     <ClInclude Include="Project\Helpers\Rect.hpp" />
-    <ClInclude Include="Project\Helpers\String.hpp" />
     <ClInclude Include="Project\Helpers\TickTimer.hpp" />
-    <ClInclude Include="Project\Helpers\uuid.hpp" />
-    <ClInclude Include="Project\Helpers\Version.hpp" />
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />
     <ClInclude Include="Project\imgui\imgui_stdlib.hpp" />
@@ -606,7 +600,6 @@
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
     <ClInclude Include="Project\World\LoadingStateMachine.hpp" />
     <ClInclude Include="Project\World\WorldManager.hpp" />
-    <ClInclude Include="vendor\stduuid\include\uuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assemble.frag" />

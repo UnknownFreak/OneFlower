@@ -4,7 +4,7 @@
 #include<Object/ObjectInstanceHandler.hpp>
 
 Enums::ComponentType Component::IBase<Dialog>::typeID = Enums::ComponentType::Dialog;
-Core::String Component::IBase<Dialog>::componentName = "Dialog";
+of::common::String Component::IBase<Dialog>::componentName = "Dialog";
 
 Enums::DialogStatus Dialog::navigate(const Enums::InteractionOption& navigation)
 {
@@ -16,12 +16,12 @@ void Dialog::visualSelect(const glm::vec2& mousePosition)
 	mousePosition;
 }
 
-Core::String Dialog::getCurrentText()
+of::common::String Dialog::getCurrentText()
 {
 	return dialogTree.getCurrentDialogString();
 }
 
-std::vector<Core::String> Dialog::getDialogOptions()
+std::vector<of::common::String> Dialog::getDialogOptions()
 {
 	auto vec = dialogTree.getCurrentDialogOptions();
 	if (dialogTree.hasDialogOptions())

@@ -5,17 +5,17 @@
 
 #include <Interfaces/IEngineModule.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 #include <Helpers/Enum/LogLevel.hpp>
-#include <File/CfgParser.hpp>
+#include <utils/config/parser.hpp>
 
 namespace EngineModule
 {
 	class GameConfig : public Interfaces::IEngineResource<GameConfig>
 	{
 		bool configLoaded = false;
-		const Core::String configName;
-		File::Resource::Config::ConfigParser parser;
+		const of::common::String configName;
+		of::config::ConfigParser parser;
 		std::pair<uint32_t, uint32_t> defaultMode;
 		bool fullscreen;
 		unsigned antialiasing;
@@ -44,7 +44,7 @@ namespace EngineModule
 		unsigned getAntiAliasing() const;
 
 		Enums::LogLevel getCurrentLogLevel() const;
-		Enums::LogLevel getModuleLogLevel(const Core::String& module);
+		Enums::LogLevel getModuleLogLevel(const of::common::String& module);
 
 		void setFramerateLimit(const unsigned& u);
 		unsigned getFramerateLimit() const;

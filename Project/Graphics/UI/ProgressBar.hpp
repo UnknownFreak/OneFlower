@@ -16,7 +16,7 @@ namespace Graphics::UI
 		float extensionTop, extensionBottom;
 		float textOffsetX, textOffsetY;
 		float maxVal, currentVal;
-		Core::String valueText;
+		of::common::String valueText;
 		bool drawText;
 	protected:
 

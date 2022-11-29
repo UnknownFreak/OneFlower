@@ -4,7 +4,7 @@ auto iosop = std::ios_base::trunc;
 
 namespace EngineModule::Logger::Streams
 {
-	BasicLogStream::BasicLogStream(const Core::String& fileName) : log(fileName, iosop), logName(fileName)
+	BasicLogStream::BasicLogStream(const of::common::String& fileName) : log(fileName, iosop), logName(fileName)
 	{
 		iosop = std::ios_base::app;
 	}
@@ -21,7 +21,7 @@ namespace EngineModule::Logger::Streams
 		return *this;
 	}
 
-	void BasicLogStream::LogMessage(const Enums::LogLevel& logLevel, const Core::String& message)
+	void BasicLogStream::LogMessage(const Enums::LogLevel& logLevel, const of::common::String& message)
 	{
 		log << Enums::to_string(logLevel) << message << std::endl;
 	}

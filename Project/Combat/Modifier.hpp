@@ -1,7 +1,7 @@
 #ifndef Modifier_HPP
 #define Modifier_HPP
 
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 #include <Helpers/Enum/Attribute.hpp>
 #include <Helpers/TickTimer.hpp>
 
@@ -13,7 +13,7 @@ namespace Combat
 		bool inf;
 		Core::TickTimer duration;
 		double statModification;
-		Core::uuid modifierId;
+		of::common::uuid modifierId;
 		inline bool operator==(const Modifier& other)
 		{
 			return modifierId == other.modifierId;

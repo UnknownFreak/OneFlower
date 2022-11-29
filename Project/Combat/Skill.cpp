@@ -11,7 +11,7 @@
 #include <Graphics/UI/SkillIcon.hpp>
 #include <Graphics/UI/SkillIconChain.hpp>
 
-Core::uuid Interfaces::Trait<Combat::Skill>::typeId = Core::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
+of::common::uuid Interfaces::Trait<Combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
 
 namespace Combat
 {

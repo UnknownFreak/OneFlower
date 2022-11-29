@@ -30,7 +30,7 @@ namespace File::Asset
 		}
 	}
 
-	void Manager::buildModOrderFile(const Core::String& modFile, std::set<Core::String>& dependencies)
+	void Manager::buildModOrderFile(const of::common::String& modFile, std::set<of::common::String>& dependencies)
 	{
 		modLoader.loadOrder.clear();
 		for (auto& name : dependencies)
@@ -58,16 +58,16 @@ namespace File::Asset
 		std::string filename,
 		File::Mod::Header& modhdr)
 	{
-		std::ofstream file(Core::dataPath + filename, std::ios::binary | std::ios::out);
+		std::ofstream file(of::common::dataPath + filename, std::ios::binary | std::ios::out);
 		filename.append(".index");
-		std::ofstream index(Core::dataPath + filename, std::ios::binary | std::ios::out);
+		std::ofstream index(of::common::dataPath + filename, std::ios::binary | std::ios::out);
 		{
 
 			File::Archive::DatabaseIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = Enums::ObjectFlag::NoFlag;
-			ind.ID = Core::uuid::nil();
+			ind.ID = of::common::uuid::nil();
 			ind.type = Enums::ObjectType::Header;
 			ind.modFile = modhdr.name;
 			ind.row = file.tellp();
@@ -77,7 +77,7 @@ namespace File::Asset
 			//lang.save(ind, file, indexAr, mainAr);
 			requestor.save(ind, file, indexAr, mainAr, modhdr);
 
-			ind.ID = Core::uuid::nil();
+			ind.ID = of::common::uuid::nil();
 			ind.type = Enums::ObjectType::EoF;
 			ind.row = file.tellp();
 			ind.flags = Enums::ObjectFlag::EoF;
@@ -89,7 +89,7 @@ namespace File::Asset
 
 	Language::LanguageRequestor & Manager::getLanguage()
 	{
-		return *requestor.request<Language::LanguageRequestor>({ Core::Builtin, Core::uuid::nil() }, true);
+		return *requestor.request<Language::LanguageRequestor>({ of::common::Builtin, of::common::uuid::nil() }, true);
 	}
 
 	File::Mod::Loader & Manager::getModLoader()
@@ -102,12 +102,12 @@ namespace File::Asset
 		requestor.editorLoadAll();
 	}
 
-	std::map<Core::String, Language::TranslationString> Manager::loadLanguages(const std::vector<Core::String>& languageFiles)
+	std::map<of::common::String, Language::TranslationString> Manager::loadLanguages(const std::vector<of::common::String>& languageFiles)
 	{
-		std::map<Core::String, Language::TranslationString> tmp;
+		std::map<of::common::String, Language::TranslationString> tmp;
 
 		Language::TranslationString translationStr;
-		for(Core::String var : languageFiles)
+		for(of::common::String var : languageFiles)
 		{
 			loadModHeader("Lang//" + var, translationStr);
 			tmp.emplace(var, translationStr);
@@ -121,20 +121,20 @@ namespace File::Asset
 			saveLanguageFile(x.first, (Language::TranslationString&)x.second);
 	}
 
-	void Manager::saveLanguageFile(const Core::String & filename, Language::TranslationString & langHeader)
+	void Manager::saveLanguageFile(const of::common::String & filename, Language::TranslationString & langHeader)
 	{
-		Core::String idx = filename;
-		std::ofstream file(Core::langPath + filename, std::ios::binary);
+		of::common::String idx = filename;
+		std::ofstream file(of::common::langPath + filename, std::ios::binary);
 		idx.append(".index");
 		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Manager");
 		logger.Debug("Saving file: " + filename);
-		std::ofstream index(Core::langPath + idx, std::ios::binary);
+		std::ofstream index(of::common::langPath + idx, std::ios::binary);
 		{
 			File::Archive::DatabaseIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
 			ind.flags = Enums::ObjectFlag::NoFlag;
-			ind.ID = Core::uuid::nil();
+			ind.ID = of::common::uuid::nil();
 			ind.type = Enums::ObjectType::Header;
 			ind.modFile = "notUsed";
 			ind.row = file.tellp();
@@ -142,7 +142,7 @@ namespace File::Asset
 			mainAr(langHeader);
 			langHeader.stringList.save(ind, file, indexAr, mainAr, {}, true);
 
-			ind.ID = Core::uuid::nil();
+			ind.ID = of::common::uuid::nil();
 			ind.type = Enums::ObjectType::EoF;
 			ind.row = file.tellp();
 			ind.flags = Enums::ObjectFlag::EoF;

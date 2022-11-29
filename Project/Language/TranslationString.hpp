@@ -8,7 +8,7 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/map.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include "LanguageHeader.hpp"
 
@@ -16,10 +16,10 @@ namespace Language
 {
 	class TranslationString : public Interfaces::IRequestable
 	{
-		Core::String language;
+		of::common::String language;
 		LanguageHeader header;
-		Core::String fontName;
-		static PrimitiveSaveable<Core::String> empty;
+		of::common::String fontName;
+		static PrimitiveSaveable<of::common::String> empty;
 	public:
 
 		File::Archive::RequestorV2 stringList;
@@ -27,19 +27,19 @@ namespace Language
 
 	#if defined _EDITOR_ || _UNITTESTS_
 
-		void addString(const Core::String& language, const Core::uuid& ID, const Core::String value, const bool& isPatch);
+		void addString(const of::common::String& language, const of::common::uuid& ID, const of::common::String value, const bool& isPatch);
 
 	#endif
 
 		TranslationString();
-		TranslationString(const Core::String& language, Core::String fontName);
+		TranslationString(const of::common::String& language, of::common::String fontName);
 		TranslationString(const TranslationString& copy);
 
 		TranslationString& operator=(const TranslationString& right);
 
-		const Core::String& getFontName() const;
+		const of::common::String& getFontName() const;
 
-		PrimitiveSaveable<Core::String>& getPrimitive(const Core::String& language, const Core::uuid& id);
+		PrimitiveSaveable<of::common::String>& getPrimitive(const of::common::String& language, const of::common::uuid& id);
 		LanguageHeader& getHeader();
 		void setAvailableLanguageFiles();
 

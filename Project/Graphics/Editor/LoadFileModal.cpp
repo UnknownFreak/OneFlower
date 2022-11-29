@@ -2,7 +2,7 @@
 
 #include <imgui/imgui.h>
 
-#include <Helpers/ListDir.hpp>
+#include <utils/os/ListDir.hpp>
 #include <File/Asset/Manager.hpp>
 
 
@@ -19,10 +19,10 @@ namespace Graphics::Editor::Modals
 		manager.loadModHeader(m_selectedFile, header);
 
 
-		std::set<Core::String> loadOrder;
+		std::set<of::common::String> loadOrder;
 
 
-		const auto x = [&](auto const& ref, std::set<Core::String>& loadOrder, std::vector<Core::String>& items) -> void
+		const auto x = [&](auto const& ref, std::set<of::common::String>& loadOrder, std::vector<of::common::String>& items) -> void
 		{
 			for (auto& item : items)
 			{
@@ -48,7 +48,7 @@ namespace Graphics::Editor::Modals
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");
 	}
-	LoadFile::LoadFile(const Core::String& modalName, DataTree& tree) : ModalBase(modalName), tree(tree)
+	LoadFile::LoadFile(const of::common::String& modalName, DataTree& tree) : ModalBase(modalName), tree(tree)
 	{
 	}
 	void LoadFile::ImGuiRenderModal()
@@ -87,8 +87,8 @@ namespace Graphics::Editor::Modals
 	}
 	void LoadFile::OnOpen()
 	{
-		auto mainFiles = Helpers::os::listDirectory("Data", ".main", false);
-		auto i_modFiles = Helpers::os::listDirectory("Data", ".mod", false);
+		auto mainFiles = of::os::listDirectory("Data", ".main", false);
+		auto i_modFiles = of::os::listDirectory("Data", ".mod", false);
 		m_fileNames.clear();
 
 		for (auto file : mainFiles)

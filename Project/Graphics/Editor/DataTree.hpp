@@ -14,7 +14,7 @@ namespace Graphics
 	{
 		struct DataTreeItem
 		{
-			Core::String name;
+			of::common::String name;
 			Interfaces::IRequestable* ptr;
 			Enums::ObjectType type = Enums::ObjectType::Undefined;
 			std::vector<DataTreeItem> items;

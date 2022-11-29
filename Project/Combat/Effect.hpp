@@ -25,7 +25,7 @@ namespace Combat
 		std::shared_ptr<Component::Stats> owner;
 
 		Effect();
-		Core::String effectIcon = "EffectIconFrame.png";
+		of::common::String effectIcon = "EffectIconFrame.png";
 		Element effectElement;
 		File::Mod::ModFileUUIDHelper effectElememtId;
 		Enums::EffectType effectType;

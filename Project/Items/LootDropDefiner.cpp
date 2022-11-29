@@ -9,7 +9,7 @@
 
 
 Enums::ComponentType Component::IBase<Component::LootDrop>::typeID = Enums::ComponentType::LootDrop;
-Core::String Component::IBase<Component::LootDrop>::componentName = "LootDrop";
+of::common::String Component::IBase<Component::LootDrop>::componentName = "LootDrop";
 
 void Component::LootDrop::loot(GameObject* object)
 {

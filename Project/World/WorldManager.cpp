@@ -33,7 +33,7 @@
 #include <Module/Globals.hpp>
 
 File::Mod::ModFileUUIDHelper dialogTest;
-Core::uuid testObjectId;
+of::common::uuid testObjectId;
 
 void WorldManager::doDayCycle(const float& fElapsedTime)
 {
@@ -205,7 +205,7 @@ void WorldManager::createSimpleWorld()
 		for (float f2 = 1; f2 < 20; f2++)
 		{
 
-			tchunk.ID = Core::uuid();
+			tchunk.ID = of::common::uuid();
 			tchunk.tileInfo.clear();
 			tchunk.layer = 0;
 			tchunk.group = "Default";
@@ -232,7 +232,7 @@ void WorldManager::createSimpleWorld()
 		}
 		for (float f2 = 1; f2 < 4; f2++)
 		{
-			tchunk.ID = Core::uuid();
+			tchunk.ID = of::common::uuid();
 			tchunk.tileInfo.clear();
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{9 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{10 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
@@ -247,7 +247,7 @@ void WorldManager::createSimpleWorld()
 
 		for (float f2 = 6; f2 < 9; f2++)
 		{
-			tchunk.ID = Core::uuid();
+			tchunk.ID = of::common::uuid();
 			tchunk.tileInfo.clear();
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{9 * 64.f, f2 * 64.f , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{10 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
@@ -262,7 +262,7 @@ void WorldManager::createSimpleWorld()
 
 		for (float f2 = 9; f2 < 20; f2++)
 		{
-			tchunk.ID = Core::uuid();
+			tchunk.ID = of::common::uuid();
 			tchunk.tileInfo.clear();
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{9 * 64.f, f2 * 64.f , 0.f },  "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{10 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
@@ -273,7 +273,7 @@ void WorldManager::createSimpleWorld()
 			wi.tileInfo.push_back(tchunk.getModfile());
 		}
 	
-	tchunk.ID = Core::uuid();
+	tchunk.ID = of::common::uuid();
 	tchunk.tileInfo.clear();
 	for (float f = 0; f < 20; f++)
 	{
@@ -290,7 +290,7 @@ void WorldManager::createSimpleWorld()
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
-	tchunk.ID = Core::uuid();
+	tchunk.ID = of::common::uuid();
 	tchunk.tileInfo.clear();
 	tchunk.layer = 1;
 	for (float f = 0; f < 20; f++)
@@ -302,7 +302,7 @@ void WorldManager::createSimpleWorld()
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 	
-	tchunk.ID = Core::uuid();
+	tchunk.ID = of::common::uuid();
 	tchunk.tileInfo.clear();
 	tchunk.group = "Island";
 	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{128.f, 128.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
@@ -313,17 +313,17 @@ void WorldManager::createSimpleWorld()
 	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
-	auto greetings = Asset::Resource::DialogOption{ Core::uuid(), { {1,2}, {3,4}, {7,8}}, nullptr, nullptr, Enums::DialogStatus::Open, "Hello traveller!" };
-	auto playerResponse = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Good day" };
-	auto npcResponse = Asset::Resource::DialogOption{ Core::uuid(), { {5,5}}, nullptr, nullptr, Enums::DialogStatus::Open, "I hope you're having a good day!" };
-	auto playerResponse2 = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Wassup? " };
-	auto npcResponse2 = Asset::Resource::DialogOption{ Core::uuid(), { {5,6} }, nullptr, nullptr, Enums::DialogStatus::Open, "Not much... just added here as a testing dummy" };
-	auto exitDialog = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Close, "Ok, Bye..." };
-	auto exitDialog2 = Asset::Resource::DialogOption{ Core::uuid(), { }, nullptr, nullptr,Enums::DialogStatus::Close, "Bye..." };
+	auto greetings = Asset::Resource::DialogOption{ of::common::uuid(), { {1,2}, {3,4}, {7,8}}, nullptr, nullptr, Enums::DialogStatus::Open, "Hello traveller!" };
+	auto playerResponse = Asset::Resource::DialogOption{ of::common::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Good day" };
+	auto npcResponse = Asset::Resource::DialogOption{ of::common::uuid(), { {5,5}}, nullptr, nullptr, Enums::DialogStatus::Open, "I hope you're having a good day!" };
+	auto playerResponse2 = Asset::Resource::DialogOption{ of::common::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Open, "Wassup? " };
+	auto npcResponse2 = Asset::Resource::DialogOption{ of::common::uuid(), { {5,6} }, nullptr, nullptr, Enums::DialogStatus::Open, "Not much... just added here as a testing dummy" };
+	auto exitDialog = Asset::Resource::DialogOption{ of::common::uuid(), { }, nullptr, nullptr, Enums::DialogStatus::Close, "Ok, Bye..." };
+	auto exitDialog2 = Asset::Resource::DialogOption{ of::common::uuid(), { }, nullptr, nullptr,Enums::DialogStatus::Close, "Bye..." };
 
-	auto nested1 = Asset::Resource::DialogOption{ Core::uuid(), { {-1, 9} }, nullptr, nullptr, Enums::DialogStatus::Open, "Nested Test" };
-	auto nested2 = Asset::Resource::DialogOption{ Core::uuid(), { {-1, 7}}, nullptr, nullptr,Enums::DialogStatus::Open, "Nested 2" };
-	auto nested3 = Asset::Resource::DialogOption{ Core::uuid(), { {5, 6}}, nullptr, nullptr, Enums::DialogStatus::Open, "Nested 3" };
+	auto nested1 = Asset::Resource::DialogOption{ of::common::uuid(), { {-1, 9} }, nullptr, nullptr, Enums::DialogStatus::Open, "Nested Test" };
+	auto nested2 = Asset::Resource::DialogOption{ of::common::uuid(), { {-1, 7}}, nullptr, nullptr,Enums::DialogStatus::Open, "Nested 2" };
+	auto nested3 = Asset::Resource::DialogOption{ of::common::uuid(), { {5, 6}}, nullptr, nullptr, Enums::DialogStatus::Open, "Nested 3" };
 
 
 	std::unordered_map<size_t, Asset::Resource::DialogOption> opt{
@@ -341,7 +341,7 @@ void WorldManager::createSimpleWorld()
 	Asset::Resource::DialogTree dt(opt);
 	dt.objectType = Enums::ObjectType::DialogTree;
 	dt.fromMod = mod;
-	dt.ID = Core::uuid();
+	dt.ID = of::common::uuid();
 
 	theManager.requestor.add(new Asset::Resource::DialogTree(dt));
 	dialogTest = dt.getModfile();
@@ -380,7 +380,7 @@ void WorldManager::createSimpleWorld()
 	ef.tickDelay.maxTime = 1.f;
 
 	auto ef2 = ef;
-	ef2.ID = Core::uuid();
+	ef2.ID = of::common::uuid();
 	theManager.requestor.add(new Combat::Effect(ef2));
 	Asset::Resource::Prefab p;
 	p.objectType = Enums::ObjectType::Prefab;
@@ -444,12 +444,12 @@ void WorldManager::setCurrentTime(const float& currentTime)
 void WorldManager::newGame()
 {
 	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("New Game");
-	saveFile.newGame(Enums::DifficultyLevel::Normal, Core::uuid::nil(), {});
+	saveFile.newGame(Enums::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 	auto& glob = Engine::GetModule<Globals>();
 	loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 }
 
-void WorldManager::save(const Core::String& fileName)
+void WorldManager::save(const of::common::String& fileName)
 {
 	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
 	saveFile.currentZone = loadHandler.getCurrentWorld();
@@ -457,7 +457,7 @@ void WorldManager::save(const Core::String& fileName)
 	saveFile.save(fileName);
 }
 
-void WorldManager::load(const Core::String& fileName)
+void WorldManager::load(const of::common::String& fileName)
 {
 	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
 	isLoading = true;

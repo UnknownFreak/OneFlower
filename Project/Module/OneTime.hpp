@@ -7,7 +7,7 @@
 #include <utils/HighResolutionClock.hpp>
 #include <File/Mod/ModFileUUIDHelper.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 #include <Helpers/TickTimer.hpp>
 #include <Interfaces/IEngineModule.hpp>
 #include <Interfaces/ISimulatable.hpp>
@@ -24,9 +24,9 @@ namespace EngineModule
 
 		float deltaTime() const;
 
-		utils::HighResolutionClock& getTimer(const Core::String&);
-		bool time(const Core::String&, const double& msec);
-		void remove(const Core::String& name);
+		utils::HighResolutionClock& getTimer(const of::common::String&);
+		bool time(const of::common::String&, const double& msec);
+		void remove(const of::common::String& name);
 
 		void addTicKTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimer& timer);
 		bool exists(const File::Mod::ModFileUUIDHelper& timerId) const;
@@ -50,7 +50,7 @@ namespace EngineModule
 		utils::HighResolutionClock timer;
 
 		//LOW: Put this in Definer to avoid include of Map:String?
-		std::unordered_map<Core::String, utils::HighResolutionClock> timers;
+		std::unordered_map<of::common::String, utils::HighResolutionClock> timers;
 		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimer> tickTimers;
 
 	public:

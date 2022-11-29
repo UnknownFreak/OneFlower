@@ -1,7 +1,7 @@
 #ifndef IBaseComponent_HPP
 #define IBaseComponent_HPP
 #include "BaseComponent.hpp"
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 #include <Helpers/Enum/ComponentType.hpp>
 
 #include <Module/EngineModuleManager.hpp>
@@ -20,7 +20,7 @@ namespace Component
 		{
 			return typeID;
 		}
-		Core::String getTypeName() const
+		of::common::String getTypeName() const
 		{
 			return componentName;
 		}
@@ -37,7 +37,7 @@ namespace Component
 			return nullptr;
 		}
 
-		static Core::String componentName;
+		static of::common::String componentName;
 		static Enums::ComponentType typeID;
 
 	protected:

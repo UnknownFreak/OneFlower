@@ -12,7 +12,7 @@ namespace Trigger
 
 	public:
 
-		Core::uuid gameObjectToModify;
+		of::common::uuid gameObjectToModify;
 		Enums::ObjectState objectState = Enums::ObjectState::Active;
 
 		// Inherited via Trigger

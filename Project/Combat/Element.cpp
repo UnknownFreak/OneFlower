@@ -9,7 +9,7 @@
 #include <Graphics/Editor/EditorBasicToolTip.hpp>
 #include <Graphics/Editor/ModFileUuidHelperDropDown.hpp>
 
-Core::uuid Interfaces::Trait<Combat::Element>::typeId = Core::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
+of::common::uuid Interfaces::Trait<Combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
 
 namespace Combat
 {
@@ -40,7 +40,7 @@ namespace Combat
 		}
 	}
 	
-	Core::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
+	of::common::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
 	{
 		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(element).name;
 	}
@@ -103,7 +103,7 @@ namespace Combat
 				{
 					if (Engine::GetModule<File::Asset::Manager>().requestor.editorKeyExists(item.first))
 					{
-						Core::String tmp_name = Engine::GetModule<File::Asset::Manager>().requestor.editorGetObjectName(item.first);
+						of::common::String tmp_name = Engine::GetModule<File::Asset::Manager>().requestor.editorGetObjectName(item.first);
 						if (tmp_name == "")
 						{
 							ImGui::Text(item.first.operator()(true).c_str());
@@ -133,7 +133,7 @@ namespace Combat
 				}
 				ImGui::TableNextColumn();
 				ImGui::SetNextItemWidth(-1);
-				Core::String s = "###" + item.first.operator()();
+				of::common::String s = "###" + item.first.operator()();
 				if (ImGui::InputDouble(s.c_str(), &item.second))
 				{
 					mode = Enums::ObjectSaveMode::EDIT;
@@ -144,7 +144,7 @@ namespace Combat
 		}
 	}
 	
-	Core::String Element::getName() const
+	of::common::String Element::getName() const
 	{
 		return name;
 	}

@@ -6,11 +6,11 @@ Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::ObjectInstan
 
 GameObject* EngineModule::ObjectInstanceHandler::addObject()
 {
-	Core::uuid id;
+	of::common::uuid id;
 	return addObject(id);
 }
 
-GameObject* EngineModule::ObjectInstanceHandler::addObject(const Core::uuid& uuid)
+GameObject* EngineModule::ObjectInstanceHandler::addObject(const of::common::uuid& uuid)
 {
 	objects.insert({ uuid, GameObject() });
 	objects[uuid].id = uuid;
@@ -21,16 +21,16 @@ GameObject* EngineModule::ObjectInstanceHandler::addObject(const Core::uuid& uui
 	return &objects[uuid];
 }
 
-GameObject* EngineModule::ObjectInstanceHandler::getObject(const Core::uuid& uuid)
+GameObject* EngineModule::ObjectInstanceHandler::getObject(const of::common::uuid& uuid)
 {
 	if (exists(uuid))
 		return &objects.at(uuid);
-	else if (uuid == Core::uuid::nil())
+	else if (uuid == of::common::uuid::nil())
 		return player;
 	return nullptr;
 }
 
-bool EngineModule::ObjectInstanceHandler::exists(const Core::uuid& uuid) const
+bool EngineModule::ObjectInstanceHandler::exists(const of::common::uuid& uuid) const
 {
 	return objects.find(uuid) != objects.end();
 }
@@ -50,7 +50,7 @@ void EngineModule::ObjectInstanceHandler::removeObject(GameObject* object, const
 	}
 }
 
-void EngineModule::ObjectInstanceHandler::removeObject(const Core::uuid objectId)
+void EngineModule::ObjectInstanceHandler::removeObject(const of::common::uuid objectId)
 {
 	removeObject(getObject(objectId));
 }
@@ -66,7 +66,7 @@ void EngineModule::ObjectInstanceHandler::processDeletedObjects(const float& ela
 			auto id = it->first->id;
 			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
 			logger.Fine("Processing removal of " + id.to_string());
-			logger.Debug(Core::toHex((size_t)&it->first));
+			logger.Debug(of::common::toHex((size_t)&it->first));
 			it->first->onDelete();
 			objects.erase(id);
 			it = objectsToDelete.erase(it);

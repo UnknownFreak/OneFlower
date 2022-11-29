@@ -4,7 +4,7 @@
 
 namespace Graphics::Editor::Modals
 {
-    ModalBase::ModalBase(const Core::String& modalName) : m_modalName(modalName)
+    ModalBase::ModalBase(const of::common::String& modalName) : m_modalName(modalName)
 {
 }
 

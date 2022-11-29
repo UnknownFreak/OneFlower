@@ -34,7 +34,7 @@ namespace Input
 				it->second.push_back(callback);
 		}
 
-		bool removeFromHolder(const Core::String& callbackToRemove, std::unordered_map<T, callbackVector>& holder, const T& input)
+		bool removeFromHolder(const of::common::String& callbackToRemove, std::unordered_map<T, callbackVector>& holder, const T& input)
 		{
 			typename std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
 			if (it == holder.end())
@@ -99,7 +99,7 @@ namespace Input
 			insertIntoHolder(callback, binds, input);
 		}
 
-		inline bool RemoveCallback(T input, Core::String callbackToRemove)
+		inline bool RemoveCallback(T input, of::common::String callbackToRemove)
 		{
 			return removeFromHolder(callbackToRemove, binds, input);
 		}

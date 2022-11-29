@@ -7,7 +7,7 @@
 #include "Interactable.hpp"
 
 
-void GameObject::sendMessage(const Core::String& msgType, const Core::String& message)
+void GameObject::sendMessage(const of::common::String& msgType, const of::common::String& message)
 {
 	msgType;
 	message;
@@ -180,8 +180,8 @@ void GameObject::onDelete()
 	logger.Debug("OnDelete -> componentMap");
 	for (auto& component : componentMap)
 	{
-		logger.Debug("OnDelete Component Shared Ptr Addr -> " + Core::toHex((size_t)&component.second));
-		logger.Debug("OnDelete Component Addr -> " + Core::toHex((size_t)component.second.get()));
+		logger.Debug("OnDelete Component Shared Ptr Addr -> " + of::common::toHex((size_t)&component.second));
+		logger.Debug("OnDelete Component Addr -> " + of::common::toHex((size_t)component.second.get()));
 		logger.Debug("OnDelete Component Type -> " + Enums::to_string(component.first));
 		logger.Debug("OnDelete Component TypeName -> " + component.second->getTypeName());
 		component.second->onDelete();

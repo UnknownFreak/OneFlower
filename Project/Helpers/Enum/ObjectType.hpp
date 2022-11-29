@@ -29,7 +29,7 @@ namespace Enums
 		Undefined
 	};
 
-	inline Core::String to_string(const Enums::ObjectType& type)
+	inline of::common::String to_string(const Enums::ObjectType& type)
 	{
 		switch (type)
 		{

@@ -1,7 +1,7 @@
 #ifndef CombatSkill_HPP
 #define CombatSkill_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 namespace Enums
 {
@@ -13,7 +13,7 @@ namespace Enums
 		Chain,
 	};
 
-	inline Core::String to_string(const CombatSkill& skill)
+	inline of::common::String to_string(const CombatSkill& skill)
 	{
 		switch (skill)
 		{

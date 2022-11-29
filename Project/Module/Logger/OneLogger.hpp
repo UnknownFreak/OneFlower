@@ -11,7 +11,7 @@
 #include "ModuleLogger.hpp"
 
 #include <Interfaces/IEngineModule.hpp>
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 #include <Helpers\Enum\LogLevel.hpp>
 
 #include <File/GameConfig.hpp>
@@ -32,12 +32,12 @@ namespace EngineModule
 		{
 			static Streams::NullStream nullStream;
 			static ModuleLogger<Streams::NullStream> EMPTY;
-			std::unordered_map<Core::String, ModuleLogger<stream>> moduleLoggers;
+			std::unordered_map<of::common::String, ModuleLogger<stream>> moduleLoggers;
 		public:
 			OneLogger();
 			~OneLogger();
 
-			ModuleLogger<Streams::LogStream>& getLogger(const Core::String& moduleName)
+			ModuleLogger<Streams::LogStream>& getLogger(const of::common::String& moduleName)
 			{
 				if (this == nullptr)
 					return (ModuleLogger<Streams::LogStream>&)EMPTY;

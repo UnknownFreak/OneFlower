@@ -8,9 +8,9 @@ Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Mesh::Load
 
 namespace File::Resource::Mesh
 {
-	bool Loader::loadMesh(const Core::String& name)
+	bool Loader::loadMesh(const of::common::String& name)
 	{
-		Core::String path = "Data/" + name;
+		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
 			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
@@ -34,11 +34,11 @@ namespace File::Resource::Mesh
 		return true;
 	}
 
-	std::shared_ptr<swizzle::asset2::IMeshAsset> Loader::requestMesh(const Core::String& name, const Core::String& path)
+	std::shared_ptr<swizzle::asset2::IMeshAsset> Loader::requestMesh(const of::common::String& name, const of::common::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<Core::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>::iterator it;
+			std::unordered_map<of::common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>::iterator it;
 			it = loadedMeshes.find(path + name);
 			lastResult = true;
 			if (it != loadedMeshes.end())
@@ -63,7 +63,7 @@ namespace File::Resource::Mesh
 		return lastResult;
 	}
 
-	void Loader::requestRemovalOfMesh(const Core::String& name)
+	void Loader::requestRemovalOfMesh(const of::common::String& name)
 	{
 		if (loadedMeshes.find(name) != loadedMeshes.end())
 		{

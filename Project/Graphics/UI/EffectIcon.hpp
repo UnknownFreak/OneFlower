@@ -23,7 +23,7 @@ namespace Graphics::UI
 	public:
 		glm::vec2 iconSize;
 
-		EffectIcon(const Core::String& icon, Combat::EffectStack& stack);
+		EffectIcon(const of::common::String& icon, Combat::EffectStack& stack);
 
 
 		void updatePos(const glm::vec2& pos);

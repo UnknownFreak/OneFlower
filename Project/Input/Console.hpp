@@ -6,19 +6,19 @@
 #include <functional>
 #include <mutex>
 #include <Interfaces\IEngineModule.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 
 class Console : public Interfaces::IEngineResource<Console>
 {
 	mutable std::mutex insertionLock;
 	const size_t max_lines = 45;
-	const Core::String caret = "> ";
-	std::vector<Core::String> lines;
-	Core::String currentText;
-	Core::String textLine;
+	const of::common::String caret = "> ";
+	std::vector<of::common::String> lines;
+	of::common::String currentText;
+	of::common::String textLine;
 
-	std::unordered_map<Core::String, std::function<void(const Core::String& args)>> commands;
+	std::unordered_map<of::common::String, std::function<void(const of::common::String& args)>> commands;
 
 public:
 
@@ -26,9 +26,9 @@ public:
 
 	void addCharacter(const char& s);
 	void removeLastCharacter();
-	void write(const Core::String& theLine, const bool& forcePopup);
+	void write(const of::common::String& theLine, const bool& forcePopup);
 
-	void registerCommand(const Core::String& command, std::function<void(const Core::String&)> commandFunc);
+	void registerCommand(const of::common::String& command, std::function<void(const of::common::String&)> commandFunc);
 
 	bool execute();
 

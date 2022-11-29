@@ -10,7 +10,7 @@
 #include <chrono>
 #include <sstream>
 #include "LoggerStreams\LogSteam.hpp"
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 #include <Helpers\Enum\LogLevel.hpp>
 
 namespace EngineModule
@@ -34,7 +34,7 @@ namespace EngineModule
 
 		protected:
 
-			Core::String keyword;
+			of::common::String keyword;
 
 			Enums::LogLevel level;
 			typename T_Stream log;
@@ -98,14 +98,14 @@ namespace EngineModule
 			};
 
 			template <class ...Args>
-			void EngineLogging(Core::String& type, Args&& ... args)
+			void EngineLogging(of::common::String& type, Args&& ... args)
 			{
 				for (std::string::iterator p = type.begin(); type.end() != p; ++p)
 					*p = (char)::toupper(*p);
 				logMessage(Enums::fromString(type), args...);
 			};
 
-			static Core::String fileInfo(const Core::String& fileName, const size_t& line)
+			static of::common::String fileInfo(const of::common::String& fileName, const size_t& line)
 			{
 				return " - " + fileName + " (" + std::to_string(line) + ")";
 			}

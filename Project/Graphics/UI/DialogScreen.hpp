@@ -10,7 +10,7 @@ namespace Graphics::UI
 {
 	class DialogScreen : public UIContext
 	{
-		Core::String t;
+		of::common::String t;
 
 		Dialog* dialog = nullptr;
 		//std::shared_ptr<sf::Texture> texture;

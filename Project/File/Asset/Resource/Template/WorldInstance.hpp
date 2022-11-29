@@ -19,7 +19,7 @@ namespace File::Asset::Resource::Template
 	struct ObjectInfo
 	{
 		File::Mod::ModFileUUIDHelper prefab;
-		Core::uuid objectId;
+		of::common::uuid objectId;
 		glm::vec3 location;
 
 		Component::ObjectStateActivator activationInfo;
@@ -66,7 +66,7 @@ namespace File::Asset::Resource::Template
 
 	struct WorldInstance : public Interfaces::IRequestable
 	{
-		Core::String name;
+		of::common::String name;
 		std::vector<File::Mod::ModFileUUIDHelper> tileAtlases;
 		std::vector<File::Mod::ModFileUUIDHelper> prefabs;
 		std::vector<File::Mod::ModFileUUIDHelper> tileInfo;

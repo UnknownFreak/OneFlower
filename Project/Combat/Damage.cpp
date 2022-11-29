@@ -7,7 +7,7 @@
 
 
 Enums::ComponentType Component::IBase<Component::Damage>::typeID = Enums::ComponentType::Damage;
-Core::String Component::IBase<Component::Damage>::componentName = "Damage";
+of::common::String Component::IBase<Component::Damage>::componentName = "Damage";
 
 namespace Component
 {

@@ -1,7 +1,7 @@
 #ifndef TickTimer_HPP
 #define TickTimer_HPP
 
-#include "String.hpp"
+#include <utils/common/string.hpp>
 
 namespace Core
 {
@@ -39,7 +39,7 @@ namespace Core
 
 		bool tick(const float& dt);
 		bool ready() const;
-		String remainingTime() const;
+		of::common::String remainingTime() const;
 		void reset(const bool& hard=false);
 
 		float getFraction() const;

@@ -1,7 +1,7 @@
 #ifndef Rarity_HPP
 #define Rarity_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 
 namespace Enums
 {
@@ -15,7 +15,7 @@ namespace Enums
 		Unknown = 255
 	};
 
-	inline Core::String to_string(const Rarity& ths)
+	inline of::common::String to_string(const Rarity& ths)
 	{
 		switch (ths)
 		{

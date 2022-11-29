@@ -4,7 +4,7 @@
 #include <Object/ObjectInstanceHandler.hpp>
 
 Enums::ComponentType Component::IBase<Component::Interactable>::typeID = Enums::ComponentType::Interactable;
-Core::String Component::IBase<Component::Interactable>::componentName = "Interactable";
+of::common::String Component::IBase<Component::Interactable>::componentName = "Interactable";
 
 namespace Component
 {

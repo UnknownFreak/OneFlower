@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\utils\include;$(SolutionDir)vendor\stduuid\include\;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\utils\include;$(SolutionDir)vendor\stduuid\include\</PublicIncludeDirectories>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\ofutils\include;$(SolutionDir)vendor\stduuid\include\;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\ofutils\include;$(SolutionDir)vendor\stduuid\include\</PublicIncludeDirectories>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -109,9 +109,9 @@
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -14,18 +14,18 @@ namespace EngineModule
 		std::function<void(GameObject*)> onDelete;
 	public:
 		GameObject* player = nullptr;
-		std::unordered_map<Core::uuid, GameObject> objects;
+		std::unordered_map<of::common::uuid, GameObject> objects;
 		std::unordered_map<GameObject*, float> objectsToDelete;
 
 		GameObject* addObject();
-		GameObject* addObject(const Core::uuid& uuid);
-		GameObject* getObject(const Core::uuid& uuid);
+		GameObject* addObject(const of::common::uuid& uuid);
+		GameObject* getObject(const of::common::uuid& uuid);
 
-		bool exists(const Core::uuid& uuid) const;
+		bool exists(const of::common::uuid& uuid) const;
 		GameObject* getPlayer() const;
 
 		void removeObject(GameObject* object, const float& delayedTime=0);
-		void removeObject(const Core::uuid objectId);
+		void removeObject(const of::common::uuid objectId);
 
 		void processDeletedObjects(const float& elapsedTime);
 

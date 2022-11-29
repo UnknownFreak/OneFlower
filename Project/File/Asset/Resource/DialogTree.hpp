@@ -20,12 +20,12 @@ namespace Asset::Resource
 	{
 		typedef size_t DialogOptionId;
 		typedef size_t ResponseValueId;
-		Core::uuid dialogString;
+		of::common::uuid dialogString;
 		std::vector<std::pair<DialogOptionId, ResponseValueId>> dialogOptions;
 		Requirement::Requirement* optionRequirement;
 		Trigger::Trigger* onDialogActivatedTrigger;
 		Enums::DialogStatus selectionStatus;
-		Core::String tempText;
+		of::common::String tempText;
 
 		template<class Archive>
 		void save(Archive& ar) const
@@ -87,8 +87,8 @@ namespace Asset::Resource
 		DialogTree(std::unordered_map<size_t, DialogOption>& um);
 
 		size_t getPreviewSelection() const;
-		std::vector<Core::String> getCurrentDialogOptions();
-		Core::String getCurrentDialogString();
+		std::vector<of::common::String> getCurrentDialogOptions();
+		of::common::String getCurrentDialogString();
 		Enums::DialogStatus doSelection(const Enums::InteractionOption& option);
 		bool hasDialogOptions();
 

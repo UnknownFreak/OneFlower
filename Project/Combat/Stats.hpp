@@ -24,7 +24,7 @@ namespace Component
 
 		std::unordered_map<Enums::Attribute, ::Combat::Attribute> attributes;
 		std::unordered_map<Enums::Attribute, ::Combat::ModifierStack> buffAndDebuffs;
-		std::unordered_map<Core::uuid, ::Combat::EffectStack> effects;
+		std::unordered_map<of::common::uuid, ::Combat::EffectStack> effects;
 
 		void setStats();
 		void recalculateAttribute(Combat::Attribute& attribute, const double& modifiedValue);
@@ -39,7 +39,7 @@ namespace Component
 		std::unordered_map<Enums::Attribute, Combat::MainAttribute> mainStat;
 		std::unordered_map<Enums::Attribute, Combat::StatAttribute> statValues;
 		std::unordered_map<Enums::Attribute, Combat::PercentualAttribute> statChances;
-		std::unordered_map<Core::uuid, Combat::Barrier> barriers;
+		std::unordered_map<of::common::uuid, Combat::Barrier> barriers;
 
 		Stats();
 
@@ -52,7 +52,7 @@ namespace Component
 		void doEffects(const std::vector<Combat::Effect>& effects, std::shared_ptr<Stats> owner);
 		void doDamage(const double& weaponStrength, const double& damageCoef, const Combat::Element& damageElement, std::shared_ptr<Stats> owner);
 
-		std::unordered_map<Core::uuid, Combat::EffectStack>& getEffects();
+		std::unordered_map<of::common::uuid, Combat::EffectStack>& getEffects();
 
 		size_t getLevel() const;
 

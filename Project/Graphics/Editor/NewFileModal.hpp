@@ -13,14 +13,14 @@ namespace Graphics
 		{
 			struct TreeItem
 			{
-				Core::String ItemName;
+				of::common::String ItemName;
 				std::vector<TreeItem> subItems;
 				bool operator <(const TreeItem& other);
 			};
 
 			struct TreeItemRoot
 			{
-				Core::String ItemName;
+				of::common::String ItemName;
 				bool selected;
 				std::vector<TreeItem> subItems;
 				bool operator<(const TreeItemRoot& other);
@@ -29,12 +29,12 @@ namespace Graphics
 
 			class NewFile : public ModalBase
 			{
-				Core::String m_fileName;
+				of::common::String m_fileName;
 				bool isMaster = false;
 				std::vector<TreeItemRoot> modFiles;
 				DataTree& tree;
 
-				std::vector<TreeItem> loadDependencyDetails(const Core::String& file);
+				std::vector<TreeItem> loadDependencyDetails(const of::common::String& file);
 
 				void newModFile();
 
@@ -43,7 +43,7 @@ namespace Graphics
 
 			public:
 
-				NewFile(const Core::String& modalName, DataTree& tree);
+				NewFile(const of::common::String& modalName, DataTree& tree);
 
 				void ImGuiRenderModal() override;
 				void OnOpen() override;

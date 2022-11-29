@@ -4,7 +4,7 @@
 #include <File/SaveFile.hpp>
 
 Enums::ComponentType Component::IBase<Component::ObjectStateActivator>::typeID = Enums::ComponentType::Activator;
-Core::String Component::IBase<Component::ObjectStateActivator>::componentName = "Activator";
+of::common::String Component::IBase<Component::ObjectStateActivator>::componentName = "Activator";
 
 namespace Component
 {

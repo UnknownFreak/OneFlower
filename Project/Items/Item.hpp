@@ -5,7 +5,7 @@
 
 #include <cereal/cereal.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 #include <Helpers/Enum/Rarity.hpp>
 #include <Helpers/Enum/ItemType.hpp>
 #include <Interfaces/IRequestable.hpp>
@@ -15,7 +15,7 @@ namespace Items
 	class Base : public Interfaces::IRequestable
 	{
 		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
-		Core::uuid uniqId;
+		of::common::uuid uniqId;
 	public:
 
 		void loadIcon();
@@ -24,8 +24,8 @@ namespace Items
 		Enums::Rarity rarity;
 		unsigned int value;
 
-		Core::String itemIconName;
-		Core::String itemName;
+		of::common::String itemIconName;
+		of::common::String itemName;
 		bool stacking = true;
 		size_t stackSize;
 

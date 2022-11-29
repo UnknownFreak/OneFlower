@@ -7,7 +7,7 @@
 #include <glm/vec3.hpp>
 
 #include <Interfaces/IRequestable.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 
 #include "GameModeModifier.hpp"
 
@@ -17,9 +17,9 @@ namespace Resource
 	{
 		void loadTranslation();
 	public:
-		Core::uuid gameModeNameStringTranslation;
+		of::common::uuid gameModeNameStringTranslation;
 
-		Core::String gameModeName;
+		of::common::String gameModeName;
 
 		File::Mod::ModFileUUIDHelper startingZone;
 		File::Mod::ModFileUUIDHelper loadingScreen;
@@ -29,7 +29,7 @@ namespace Resource
 
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
-		std::unordered_map<Core::String, GameModeModifier> tagModifiers;
+		std::unordered_map<of::common::String, GameModeModifier> tagModifiers;
 
 		// Inherited via IRequestable
 		virtual Interfaces::TypeInfo getTrait() const override;

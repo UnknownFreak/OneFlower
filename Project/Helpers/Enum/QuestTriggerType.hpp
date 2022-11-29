@@ -1,7 +1,7 @@
 #ifndef QuestTriggerType_HPP
 #define QuestTriggerType_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 namespace Enums
 {
@@ -14,7 +14,7 @@ namespace Enums
 	};
 
 	// Is this needed??? it's never gonna be printed :think:
-	inline Core::String to_string(const QuestTriggerType& typ)
+	inline of::common::String to_string(const QuestTriggerType& typ)
 	{
 		switch (typ)
 		{

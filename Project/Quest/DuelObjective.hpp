@@ -8,7 +8,7 @@ namespace Questing
 	class DuelObjective : public QuestObjective
 	{
 	public:
-		Core::uuid duel;
+		of::common::uuid duel;
 
 		template<class Archive>
 		void save(Archive& ar) const

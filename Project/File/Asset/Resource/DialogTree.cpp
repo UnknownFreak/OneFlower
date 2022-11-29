@@ -2,7 +2,7 @@
 #include <File/Asset/Manager.hpp>
 #include <Language/LanguageRequestor.hpp>
 
-Core::uuid Interfaces::Trait<Asset::Resource::DialogTree>::typeId = Core::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
+of::common::uuid Interfaces::Trait<Asset::Resource::DialogTree>::typeId = of::common::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
 
 namespace Asset::Resource
 {
@@ -10,7 +10,7 @@ namespace Asset::Resource
 	auto DialogTree::getString(const size_t& idx) const
 	{
 		if (idx == size_t(-1))
-			return Core::String("");
+			return of::common::String("");
 		auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
 		auto uid = dialogStrings.at(idx).dialogString;
 		return dialogStrings.at(idx).tempText + x.getString(uid);
@@ -61,9 +61,9 @@ namespace Asset::Resource
 		return previewSelection;
 	}
 
-	std::vector<Core::String> DialogTree::getCurrentDialogOptions()
+	std::vector<of::common::String> DialogTree::getCurrentDialogOptions()
 	{
-		auto vec = std::vector<Core::String>();
+		auto vec = std::vector<of::common::String>();
 		for (std::pair<DialogOptionId, ResponseValueId> u : dialogStrings[currentSelection].dialogOptions)
 		{
 			if (canPlayerAccessDialogOption(u.first))
@@ -73,7 +73,7 @@ namespace Asset::Resource
 		return vec;
 	}
 
-	Core::String DialogTree::getCurrentDialogString()
+	of::common::String DialogTree::getCurrentDialogString()
 	{
 		return getString(currentSelection);
 	}

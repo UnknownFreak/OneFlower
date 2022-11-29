@@ -11,8 +11,8 @@ namespace Questing
 		size_t defeatCount;
 		size_t currentDefeatCount;
 
-		Core::uuid enemy;
-		Core::String tag;
+		of::common::uuid enemy;
+		of::common::String tag;
 
 		template<class Archive>
 		void save(Archive& ar) const

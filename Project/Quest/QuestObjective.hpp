@@ -8,8 +8,8 @@
 
 #include <Helpers/Enum/QuestState.hpp>
 
-#include <Helpers/uuid.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/common/string.hpp>
 #include "ObjectiveState.hpp"
 
 class GameObject;
@@ -49,15 +49,15 @@ namespace Questing
 		size_t failedObjectiveStateId;
 		size_t nextQuestObjectiveStateId;
 
-		Core::uuid objectiveName;
-		Core::uuid objectiveDescription;
-		Core::uuid objectiveCompleteDescription;
+		of::common::uuid objectiveName;
+		of::common::uuid objectiveDescription;
+		of::common::uuid objectiveCompleteDescription;
 
 		std::unique_ptr<Requirement::Requirement> activationRequirement;
 
-		Core::String translatedObjectiveName;
-		Core::String translatedObjectiveDescription;
-		Core::String translatedObjectiveCompleteDescription;
+		of::common::String translatedObjectiveName;
+		of::common::String translatedObjectiveDescription;
+		of::common::String translatedObjectiveCompleteDescription;
 
 		Enums::QuestState objectiveState = Enums::QuestState::NOT_ACTIVE;
 

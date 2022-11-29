@@ -3,7 +3,7 @@
 
 #include <swizzle/asset2/Assets.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 #include <Module/Globals.hpp>
 #include <unordered_map>
 #include <mutex>
@@ -16,15 +16,15 @@ namespace File::Resource::Mesh
 	{
 		bool lastResult = false;
 		std::mutex mtx;
-		const Core::String missingMesh = "missingMesh.swm";
-		std::unordered_map<Core::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedMeshes;
-		bool loadMesh(const Core::String& name);
+		const of::common::String missingMesh = "missingMesh.swm";
+		std::unordered_map<of::common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedMeshes;
+		bool loadMesh(const of::common::String& name);
 
 	public:
-		std::shared_ptr<swizzle::asset2::IMeshAsset> requestMesh(const Core::String& name, const Core::String& path = Globals::meshPath);
+		std::shared_ptr<swizzle::asset2::IMeshAsset> requestMesh(const of::common::String& name, const of::common::String& path = Globals::meshPath);
 		bool getResult();
 
-		void requestRemovalOfMesh(const Core::String& name);
+		void requestRemovalOfMesh(const of::common::String& name);
 
 		Enums::EngineResourceType& getType() const
 		{

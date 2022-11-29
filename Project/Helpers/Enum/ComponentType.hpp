@@ -1,7 +1,7 @@
 #ifndef ComponentType_HPP
 #define ComponentType_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 
 namespace Enums
 {
@@ -30,7 +30,7 @@ namespace Enums
 	};
 
 
-	inline Core::String to_string(const ComponentType& type)
+	inline of::common::String to_string(const ComponentType& type)
 	{
 		switch (type)
 		{

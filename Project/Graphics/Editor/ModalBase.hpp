@@ -1,7 +1,7 @@
 #ifndef ModalBase_HPP
 #define ModalBase_HPP
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 namespace Graphics
 {
@@ -14,10 +14,10 @@ namespace Graphics
 				bool m_isOpen = false;
 				bool m_closed = true;
 			protected:
-				Core::String m_modalName;
+				of::common::String m_modalName;
 
 			public:
-				ModalBase(const Core::String& modalName);
+				ModalBase(const of::common::String& modalName);
 
 				void open();
 				bool isOpen() const;

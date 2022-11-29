@@ -7,7 +7,7 @@ Graphics::UI::PlainToolTip::PlainToolTip(): toolTipText()
 	setPosition({ 0,0 });
 }
 
-void Graphics::UI::PlainToolTip::setToolTip(const Core::String& string)
+void Graphics::UI::PlainToolTip::setToolTip(const of::common::String& string)
 {
 	toolTip = string;
 	toolTipText = toolTip;

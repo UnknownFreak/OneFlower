@@ -10,7 +10,7 @@
 #include <File/Archive/RequestorV2.hpp>
 #include <Interfaces/IRequestable.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 
 class Globals : public Interfaces::IEngineResource<Globals>
 {
@@ -37,14 +37,14 @@ public:
 	
 	Globals();
 
-	std::map<Core::String, long> longGlobals;
-	std::map<Core::String, double> doubleGlobals;
-	std::map<Core::String, Core::String> stringGlobals;
-	std::map<Core::String, bool> boolGlobals;
+	std::map<of::common::String, long> longGlobals;
+	std::map<of::common::String, double> doubleGlobals;
+	std::map<of::common::String, of::common::String> stringGlobals;
+	std::map<of::common::String, bool> boolGlobals;
 
-	std::map<Core::String, std::vector<Core::String>> stringList;
-	std::map<Core::String, std::vector<long>> longList;
-	std::map<Core::String, std::vector<double>> doubleList;
+	std::map<of::common::String, std::vector<of::common::String>> stringList;
+	std::map<of::common::String, std::vector<long>> longList;
+	std::map<of::common::String, std::vector<double>> doubleList;
 
 
 	File::Mod::ModFileUUIDHelper newGameWorldInstance;
@@ -57,24 +57,24 @@ public:
 		return type;
 	}
 
-	static const Core::String texturePath;
-	static const Core::String skyboxTexturePath;
-	static const Core::String uiTexturePath;
-	static const Core::String tileTexturePath;
-	static const Core::String meshPath;
-	static const Core::String shaderPath;
+	static const of::common::String texturePath;
+	static const of::common::String skyboxTexturePath;
+	static const of::common::String uiTexturePath;
+	static const of::common::String tileTexturePath;
+	static const of::common::String meshPath;
+	static const of::common::String shaderPath;
 
-	static const Core::String GLOBAL_DRAW_HITBOX;
-	static const Core::String GLOBAL_DRAW_QT;
-	static const Core::String LIGHT;
+	static const of::common::String GLOBAL_DRAW_HITBOX;
+	static const of::common::String GLOBAL_DRAW_QT;
+	static const of::common::String LIGHT;
 
-	static const Core::String LOADING_TIMER;
-	static const Core::String TOTAL_TIME_LOADED_PART;
-	static const Core::String TOTAL_TIME_LOADED;
-	static const Core::String B_GLOBAL_LOADINGSCREENINFO;
-	static const Core::String B_GLOBAL_SLOW_LOADING;
+	static const of::common::String LOADING_TIMER;
+	static const of::common::String TOTAL_TIME_LOADED_PART;
+	static const of::common::String TOTAL_TIME_LOADED;
+	static const of::common::String B_GLOBAL_LOADINGSCREENINFO;
+	static const of::common::String B_GLOBAL_SLOW_LOADING;
 
-	static const Core::String B_FORCE_SAME_SEED;
+	static const of::common::String B_FORCE_SAME_SEED;
 };
 
 

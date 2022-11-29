@@ -33,7 +33,7 @@ namespace Graphics
 
 		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
 		{
-			std::unordered_map<Core::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
+			std::unordered_map<of::common::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
 		public:
 			DynamicWindowListener() = default;
 
@@ -45,11 +45,11 @@ namespace Graphics
 				}
 			}
 
-			void addListener(const Core::String& name, std::function<void(const swizzle::core::WindowEvent&)> fn)
+			void addListener(const of::common::String& name, std::function<void(const swizzle::core::WindowEvent&)> fn)
 			{
 				events[name] = fn;
 			}
-			void removeListener(const Core::String& name)
+			void removeListener(const of::common::String& name)
 			{
 				events.erase(name);
 			}
@@ -65,8 +65,8 @@ namespace Graphics
 		PerspectiveCamera cam;
 		CameraController mController;
 
-		std::unordered_map<Core::uuid, std::shared_ptr<Model>> models;
-		std::unordered_map<Core::uuid, std::shared_ptr<Component::Transform>> positions;
+		std::unordered_map<of::common::uuid, std::shared_ptr<Model>> models;
+		std::unordered_map<of::common::uuid, std::shared_ptr<Component::Transform>> positions;
 
 		common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;
@@ -106,8 +106,8 @@ namespace Graphics
 
 		void moveCamera(const glm::vec2& vec);
 
-		void setTileMapTransparencyHitbox(int index, Core::String group, Core::Rect<float> rect, float z);
-		void addRenderable(const int& index, const Core::String& group, const glm::vec2& pos, const float& z, const Core::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
+		void setTileMapTransparencyHitbox(int index, of::common::String group, Core::Rect<float> rect, float z);
+		void addRenderable(const int& index, const of::common::String& group, const glm::vec2& pos, const float& z, const of::common::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
 		void clearDrawList();
 
 		void Cull(std::vector<GameObject*>& colliders);

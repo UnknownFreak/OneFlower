@@ -26,7 +26,7 @@ void Console::removeLastCharacter()
 	textLine = caret + currentText;
 }
 
-void Console::write(const Core::String& theLine, const bool& forcePopup)
+void Console::write(const of::common::String& theLine, const bool& forcePopup)
 {
 	insertionLock.lock();
 	lines.push_back(theLine);
@@ -37,7 +37,7 @@ void Console::write(const Core::String& theLine, const bool& forcePopup)
 	}
 }
 
-void Console::registerCommand(const Core::String& command, std::function<void(const Core::String&)> commandFunc)
+void Console::registerCommand(const of::common::String& command, std::function<void(const of::common::String&)> commandFunc)
 {
 	commands[command] = commandFunc;
 }
@@ -47,7 +47,7 @@ bool Console::execute()
 	insertionLock.lock();
 	lines.push_back(textLine);
 	insertionLock.unlock();
-	Core::String commandString = textLine;
+	of::common::String commandString = textLine;
 
 	auto command = commandString.substr(caret.length(), commandString.find(" ", 2) - caret.length());
 	if (commands.find(command) != commands.end())

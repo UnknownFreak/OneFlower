@@ -3,7 +3,7 @@
 
 #include <swizzle/core/Input.hpp>
 
-#include <Helpers\String.hpp>
+#include <utils/common/string.hpp>
 #include <functional>
 
 namespace Input::Callback
@@ -13,10 +13,10 @@ namespace Input::Callback
 	struct Callback
 	{
 		std::function<void(Targ, InputEnum, const float&)> callbackMethod;
-		Core::String callbackName;
+		of::common::String callbackName;
 		bool callIfRemoved;
 
-		Callback(const Core::String& callbackName, std::function<void(Targ, InputEnum, const float&)> callbackMethod, bool callIfRemoved=false) : callbackName(callbackName), callbackMethod(callbackMethod),
+		Callback(const of::common::String& callbackName, std::function<void(Targ, InputEnum, const float&)> callbackMethod, bool callIfRemoved=false) : callbackName(callbackName), callbackMethod(callbackMethod),
 			callIfRemoved(callIfRemoved)
 		{
 		}
@@ -28,7 +28,7 @@ namespace Input::Callback
 			callIfRemoved(rval_copy.callIfRemoved)
 		{
 		}
-		Callback(const Core::String& callbackName) : callbackName(callbackName)
+		Callback(const of::common::String& callbackName) : callbackName(callbackName)
 		{
 
 		}

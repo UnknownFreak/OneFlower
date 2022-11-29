@@ -16,12 +16,12 @@ namespace Graphics
 	{
 	}
 
-	Skybox::Skybox(const Core::String& skyboxTextureFolder) : Skybox()
+	Skybox::Skybox(const of::common::String& skyboxTextureFolder) : Skybox()
 	{
 		setSkyBox(skyboxTextureFolder);
 	}
 
-	void Skybox::setSkyBox(const Core::String& skyboxTextureFolder)
+	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
 	{
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
 

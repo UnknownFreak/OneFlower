@@ -2,7 +2,7 @@
 
 #include <imgui/imgui_stdlib.hpp>
 
-#include <Helpers/ListDir.hpp>
+#include <utils/os/ListDir.hpp>
 #include <File/Mod/ModHeader.hpp>
 #include <File/Asset/Manager.hpp>
 
@@ -11,7 +11,7 @@
 namespace Graphics::Editor::Modals
 {
 
-	std::vector<TreeItem> NewFile::loadDependencyDetails(const Core::String& file)
+	std::vector<TreeItem> NewFile::loadDependencyDetails(const of::common::String& file)
 	{
 		std::vector<TreeItem> deps;
 		auto& manager = Engine::GetModule<File::Asset::Manager>();
@@ -34,11 +34,11 @@ namespace Graphics::Editor::Modals
 		auto& modLoader = manager.getModLoader();
 		modLoader.loadOrder.clear();
 
-		std::vector<Core::String> deps;
-		std::set<Core::String> loadOrder;
+		std::vector<of::common::String> deps;
+		std::set<of::common::String> loadOrder;
 
 
-		const auto x = [&](auto const& ref, std::set<Core::String>& loadOrder, std::vector<TreeItem>& items) -> void
+		const auto x = [&](auto const& ref, std::set<of::common::String>& loadOrder, std::vector<TreeItem>& items) -> void
 		{
 			for (auto& item : items)
 			{
@@ -54,7 +54,7 @@ namespace Graphics::Editor::Modals
 				x(x,loadOrder, d.subItems);
 			}
 
-		Core::String fileName = m_fileName;
+		of::common::String fileName = m_fileName;
 		if (isMaster)
 			fileName.append(".main");
 		else
@@ -166,7 +166,7 @@ namespace Graphics::Editor::Modals
 	}
 
 
-	NewFile::NewFile(const Core::String& modalName, DataTree& tree) : ModalBase(modalName), m_fileName(""), tree(tree)
+	NewFile::NewFile(const of::common::String& modalName, DataTree& tree) : ModalBase(modalName), m_fileName(""), tree(tree)
 	{
 	}
 
@@ -215,8 +215,8 @@ namespace Graphics::Editor::Modals
 	void NewFile::OnOpen()
 	{
 		m_fileName = "";
-		auto mainFiles = Helpers::os::listDirectory("Data", ".main", false);
-		auto i_modFiles = Helpers::os::listDirectory("Data", ".mod", false);
+		auto mainFiles = of::os::listDirectory("Data", ".main", false);
+		auto i_modFiles = of::os::listDirectory("Data", ".mod", false);
 		modFiles.clear();
 
 		for (auto file : mainFiles)

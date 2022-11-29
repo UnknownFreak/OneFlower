@@ -8,7 +8,7 @@
 #include "QuestState.hpp"
 
 #include <Interfaces/IRequestable.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include <unordered_map>
 
@@ -32,16 +32,16 @@ namespace Questing
 
 		bool requireInteractionOnPendingObjectives;
 
-		Core::uuid questName;
-		Core::uuid questDescription;
-		Core::uuid questLine;
+		of::common::uuid questName;
+		of::common::uuid questDescription;
+		of::common::uuid questLine;
 
 		File::Mod::ModFileUUIDHelper nextQuest;
 		File::Mod::ModFileUUIDHelper nextQuestOnFailure;
 
-		Core::String translatedQuestName;
-		Core::String translatedQuestDescription;
-		Core::String translatedQuestLine;
+		of::common::String translatedQuestName;
+		of::common::String translatedQuestDescription;
+		of::common::String translatedQuestLine;
 
 		bool hidden;
 		Enums::QuestState questState;

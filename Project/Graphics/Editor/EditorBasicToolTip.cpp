@@ -4,7 +4,7 @@
 
 namespace Graphics::Editor
 {
-	void BasicToolTip(const Core::String& string)
+	void BasicToolTip(const of::common::String& string)
 	{
 		ImGui::SameLine();
 		ImGui::TextDisabled("(?)");

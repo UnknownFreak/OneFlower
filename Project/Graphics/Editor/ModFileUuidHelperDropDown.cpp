@@ -5,9 +5,9 @@
 
 namespace Graphics::Editor::Selectors
 {
-	std::vector<std::pair<Core::String, File::Mod::ModFileUUIDHelper>> dropDownComboRefresh(const Enums::ObjectType& type, const std::vector<File::Mod::ModFileUUIDHelper>& filter)
+	std::vector<std::pair<of::common::String, File::Mod::ModFileUUIDHelper>> dropDownComboRefresh(const Enums::ObjectType& type, const std::vector<File::Mod::ModFileUUIDHelper>& filter)
 	{
-		std::vector<std::pair<Core::String, File::Mod::ModFileUUIDHelper>> list;
+		std::vector<std::pair<of::common::String, File::Mod::ModFileUUIDHelper>> list;
 		auto& manager = Engine::GetModule<File::Asset::Manager>();
 		auto x = manager.requestor.listAllCurrentLoadedObjects(type);
 
@@ -20,7 +20,7 @@ namespace Graphics::Editor::Selectors
 		}
 		return list;
 	}
-	File::Mod::ModFileUUIDHelper dropDownSelection(const Core::String& prompt, const Enums::ObjectType& type, const std::vector<File::Mod::ModFileUUIDHelper>& filter)
+	File::Mod::ModFileUUIDHelper dropDownSelection(const of::common::String& prompt, const Enums::ObjectType& type, const std::vector<File::Mod::ModFileUUIDHelper>& filter)
 	{
 		if (cached[type].size() == 0)
 		{
@@ -28,12 +28,12 @@ namespace Graphics::Editor::Selectors
 		}
 
 		ImGui::SetNextItemWidth(300);
-		Core::String s = "### " + Enums::to_string(type);
+		of::common::String s = "### " + Enums::to_string(type);
 		if (ImGui::BeginCombo(s.c_str(), prompt.c_str()))
 		{
 			for (auto& it : cached[type])
 			{
-				Core::String name = it.first + ", " + it.second.operator()();
+				of::common::String name = it.first + ", " + it.second.operator()();
 				if (ImGui::Selectable(name.c_str()))
 				{
 					File::Mod::ModFileUUIDHelper tmp = it.second;

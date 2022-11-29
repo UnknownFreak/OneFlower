@@ -19,7 +19,7 @@ namespace Combat
 			{
 				size_t operator() (const Combat::Element& key) const noexcept
 				{
-					return std::hash<Core::uuid>()(key.ID);
+					return std::hash<of::common::uuid>()(key.ID);
 				}
 			};
 		Element();
@@ -33,7 +33,7 @@ namespace Combat
 		double getElementModifier() const;
 		double getElementModifier(const File::Mod::ModFileUUIDHelper& element) const;
 
-		Core::String getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const;
+		of::common::String getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const;
 
 		bool operator==(const Element& other) const;
 
@@ -64,7 +64,7 @@ namespace Combat
 
 		virtual void render() override;
 
-		Core::String getName() const override;
+		of::common::String getName() const override;
 
 	};
 }

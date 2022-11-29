@@ -12,7 +12,7 @@ namespace Combat
 		static EffectStack EMPTY;
 		size_t maxStackSize = 100;
 		std::vector<Effect> modifiers;
-		Core::String effectIcon;
+		of::common::String effectIcon;
 		Enums::EffectType effectType;
 		bool hiddenStack;
 

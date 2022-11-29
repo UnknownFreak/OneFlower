@@ -1,7 +1,7 @@
 #ifndef MODLOADER_HPP
 #define MODLOADER_HPP
 #include <map>
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 #include <Interfaces/IEngineModule.hpp>
 
@@ -13,9 +13,9 @@ namespace File::Mod
 
 	public:
 		Loader() = default;
-		std::map <Core::String, size_t> loadOrder;
+		std::map <of::common::String, size_t> loadOrder;
 
-		const size_t getModPosition(const Core::String& mod) const;
+		const size_t getModPosition(const of::common::String& mod) const;
 
 		template <class Archive>
 		void load(Archive& ar)
@@ -26,7 +26,7 @@ namespace File::Mod
 			for (size_t i = 0; i < size; i++)
 			{
 				ar(tmp);
-				loadOrder.insert(std::pair<Core::String, size_t>(tmp, i));
+				loadOrder.insert(std::pair<of::common::String, size_t>(tmp, i));
 			}
 		}
 		template <class Archive>
@@ -34,8 +34,8 @@ namespace File::Mod
 		{
 			size_t size = loadOrder.size();
 			ar(size);
-			std::map<Core::String, size_t>::const_iterator it = loadOrder.begin();
-			std::map<Core::String, size_t>::const_iterator eit = loadOrder.end();
+			std::map<of::common::String, size_t>::const_iterator it = loadOrder.begin();
+			std::map<of::common::String, size_t>::const_iterator eit = loadOrder.end();
 
 			for (it; it != eit; it++)
 			{

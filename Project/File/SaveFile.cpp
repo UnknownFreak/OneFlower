@@ -23,17 +23,17 @@ namespace File
 		ui.getUIContext<Graphics::UI::PlayerStats>(Enums::UIContextNames::PlayerStats)->setPlayerStats(player.getSharedComponent<Component::Stats>());
 		ui.getUIContext<Graphics::UI::PlayerStats>(Enums::UIContextNames::PlayerStats)->update();
 	}
-	bool SaveFile::isTriggered(const Core::uuid& uuid) const
+	bool SaveFile::isTriggered(const of::common::uuid& uuid) const
 	{
 		return triggerState.find(uuid) != triggerState.end();
 	}
 	
-	void SaveFile::setTriggered(const Core::uuid& uuid)
+	void SaveFile::setTriggered(const of::common::uuid& uuid)
 	{
 		triggerState.insert(uuid);
 	}
 
-	Enums::ObjectState SaveFile::getObjectState(const Core::uuid& uuid, const Enums::ObjectState& _default)
+	Enums::ObjectState SaveFile::getObjectState(const of::common::uuid& uuid, const Enums::ObjectState& _default)
 	{
 		auto it = overridenRenderMode.find(uuid);
 		if (it != overridenRenderMode.end())
@@ -41,17 +41,17 @@ namespace File
 		return _default;
 	}
 
-	void SaveFile::setObjectState(const Core::uuid& uuid, const Enums::ObjectState& objectState)
+	void SaveFile::setObjectState(const of::common::uuid& uuid, const Enums::ObjectState& objectState)
 	{
 		overridenRenderMode[uuid] = objectState;
 	}
 
-	bool SaveFile::isLooted(const Core::uuid& uuid) const
+	bool SaveFile::isLooted(const of::common::uuid& uuid) const
 	{
 		return lootedContainers.find(uuid) != lootedContainers.end();
 	}
 
-	void SaveFile::setLooted(const Core::uuid& uuid)
+	void SaveFile::setLooted(const of::common::uuid& uuid)
 	{
 		lootedContainers.insert(uuid);
 	}
@@ -86,7 +86,7 @@ namespace File
 		return tickTimers.at(timerId);
 	}
 
-	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const Core::uuid& customDifficultyId, const File::Mod::ModFileUUIDHelper& gameModeId)
+	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const File::Mod::ModFileUUIDHelper& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;
@@ -120,7 +120,7 @@ namespace File
 
 		prefab.createNewPlayerInstance(player);
 		player.tag = "player";
-		player.id = Core::uuid::nil();
+		player.id = of::common::uuid::nil();
 		player.addComponent<Render>();
 		player.addComponent<PlayerInteractionPrompt>();
 		player.addComponent<Component::Stats>();
@@ -135,7 +135,7 @@ namespace File
 		return diff;
 	}
 
-	Core::uuid SaveFile::getCustomDiffId() const
+	of::common::uuid SaveFile::getCustomDiffId() const
 	{
 		return customDiffId;
 	}
@@ -151,10 +151,10 @@ namespace File
 	}
 
 
-	void SaveFile::save(const Core::String& fileName)
+	void SaveFile::save(const of::common::String& fileName)
 	{
 		point = player.getComponent<Component::Transform>()->pos;
-		std::ofstream file(Core::savePath + fileName, std::ios::binary | std::ios::out);
+		std::ofstream file(of::common::savePath + fileName, std::ios::binary | std::ios::out);
 		{
 			cereal::BinaryOutputArchive mainAr(file);
 			mainAr(diff);
@@ -170,9 +170,9 @@ namespace File
 		file.close();
 	}
 
-	void SaveFile::load(const Core::String& fileName)
+	void SaveFile::load(const of::common::String& fileName)
 	{
-		std::ifstream file(Core::savePath + fileName, std::ios::binary | std::ios::in);
+		std::ifstream file(of::common::savePath + fileName, std::ios::binary | std::ios::in);
 		{
 			cereal::BinaryInputArchive mainAr(file);
 			mainAr(diff);

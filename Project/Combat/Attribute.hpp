@@ -2,7 +2,7 @@
 #define CAttribute_HPP
 
 #include <Helpers/Enum/Attribute.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/String.hpp>
 
 namespace Combat
 {

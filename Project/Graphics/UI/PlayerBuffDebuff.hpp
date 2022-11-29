@@ -14,7 +14,7 @@ namespace Graphics::UI
 	class PlayerBuffDebuff : public UIContext
 	{
 		glm::vec2 pos;
-		std::unordered_map<Core::uuid, EffectIcon> effectIcons;
+		std::unordered_map<of::common::uuid, EffectIcon> effectIcons;
 		PlainToolTip dummy;
 		std::shared_ptr<Component::Stats> stats;
 	public:

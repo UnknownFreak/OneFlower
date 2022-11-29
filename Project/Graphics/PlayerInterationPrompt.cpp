@@ -8,7 +8,7 @@
 #include <Items/Inventory.hpp>
 
 Enums::ComponentType Component::IBase<PlayerInteractionPrompt>::typeID = Enums::ComponentType::PlayerInteraction;
-Core::String Component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
+of::common::String Component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
 
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {

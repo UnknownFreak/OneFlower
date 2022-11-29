@@ -4,7 +4,7 @@
 #include <Object/ObjectInstanceHandler.hpp>
 #include <File/SaveFile.hpp>
 
-Core::uuid Interfaces::Trait<Asset::Resource::Prefab>::typeId = Core::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
+of::common::uuid Interfaces::Trait<Asset::Resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
 
 namespace Asset::Resource
 {
@@ -40,7 +40,7 @@ namespace Asset::Resource
 			components.push_back(x.get()->ucopy());
 	}
 
-	GameObject* Prefab::createNewInstance(const Core::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
+	GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
 		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject(uuid);

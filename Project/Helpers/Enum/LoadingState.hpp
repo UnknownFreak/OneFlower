@@ -23,7 +23,7 @@ namespace Enums
 	};
 
 
-	inline Core::String to_string(const LoadingState& state)
+	inline of::common::String to_string(const LoadingState& state)
 	{
 		switch (state)
 		{

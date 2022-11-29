@@ -6,7 +6,7 @@
 #include "AttachToParent.hpp"
 
 Enums::ComponentType Component::IBase<Component::Stats>::typeID = Enums::ComponentType::Vitality;
-Core::String Component::IBase<Component::Stats>::componentName = "Stats";
+of::common::String Component::IBase<Component::Stats>::componentName = "Stats";
 
 namespace Component
 {
@@ -187,7 +187,7 @@ namespace Component
 		}
 	}
 
-	std::unordered_map<Core::uuid, Combat::EffectStack>& Stats::getEffects()
+	std::unordered_map<of::common::uuid, Combat::EffectStack>& Stats::getEffects()
 	{
 		return effects;
 	}

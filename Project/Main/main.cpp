@@ -16,7 +16,7 @@
 #include <File/GameConfig.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
 
-Core::String to_string(const Enums::EngineResourceType& state)
+of::common::String to_string(const Enums::EngineResourceType& state)
 {
 	switch (state)
 	{
@@ -86,7 +86,7 @@ class EngineLogger : public swizzle::core::LogDevice
 	// Inherited via LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
-		Core::String tType = messageType;
+		of::common::String tType = messageType;
 		Engine::GetModule<EngineModule::Logger::OneLogger>().EngineLogging(tType, message);
 		printf("%s: %s\n", messageType, message);
 	}

@@ -3,7 +3,7 @@
 #define ObjectStateActivator_HPP
 
 #include <Helpers/Enum/ObjectState.hpp>
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 #include "IBaseComponent.hpp"
 
 namespace Component
@@ -11,7 +11,7 @@ namespace Component
 	struct ObjectStateActivator : public Component::IBase<ObjectStateActivator>
 	{
 	public:
-		std::vector<std::pair<Core::uuid, Enums::ObjectState>> m_objectsToToggle;
+		std::vector<std::pair<of::common::uuid, Enums::ObjectState>> m_objectsToToggle;
 
 		ObjectStateActivator() = default;
 		~ObjectStateActivator() = default;

@@ -51,7 +51,7 @@ CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::WorldInstance);
 CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::TileChunk);
 CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::ColliderChunk);
 
-CEREAL_REGISTER_TYPE(PrimitiveSaveable<Core::String>);
+CEREAL_REGISTER_TYPE(PrimitiveSaveable<of::common::String>);
 
 CEREAL_REGISTER_TYPE(Component::Base);
 CEREAL_REGISTER_TYPE(Component::Stats);
@@ -83,7 +83,7 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Reso
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Resource::Template::TileChunk);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, File::Asset::Resource::Template::ColliderChunk);
 
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, PrimitiveSaveable<Core::String>);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, PrimitiveSaveable<of::common::String>);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Combat::Element);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Combat::Effect);

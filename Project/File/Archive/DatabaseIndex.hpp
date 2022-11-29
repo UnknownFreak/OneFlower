@@ -4,10 +4,10 @@
 #include <Helpers/Enum/ObjectFlag.hpp>
 #include <Helpers/Enum/ObjectType.hpp>
 
-#include <Helpers/uuid.hpp>
-#include <Helpers/String.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/common/String.hpp>
 
-#include <Helpers/Version.hpp>
+#include <utils/common/Version.hpp>
 
 namespace File::Archive
 {
@@ -18,7 +18,7 @@ namespace File::Archive
 
 	public:
 		long long row;
-		Core::uuid ID;
+		of::common::uuid ID;
 
 		inline DatabaseIndex() noexcept : row(0), ID(), modFile(""), type(Enums::ObjectType::Undefined), flags(Enums::ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
 		{
@@ -34,7 +34,7 @@ namespace File::Archive
 		Item - load a item
 		//*/
 		Enums::ObjectType type;
-		Core::uuid typeId;
+		of::common::uuid typeId;
 		/*
 		Flag types:
 		EoF - says it is the endof the file - Do not use, it is automatic.
@@ -48,7 +48,7 @@ namespace File::Archive
 		/*
 		ModFile tells from what mod that object comes from
 		//*/
-		Core::String modFile;
+		of::common::String modFile;
 
 	public:
 #pragma region DatabaseIndex

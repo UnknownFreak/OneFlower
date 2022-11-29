@@ -1,7 +1,7 @@
 #include "GameMode.hpp"
 #include <File/Asset/Manager.hpp>
 
-Core::uuid Interfaces::Trait<Resource::GameMode>::typeId = Core::uuid("655f83d2-bd83-4065-9b47-3109c4e57d5c");
+of::common::uuid Interfaces::Trait<Resource::GameMode>::typeId = of::common::uuid("655f83d2-bd83-4065-9b47-3109c4e57d5c");
 
 namespace Resource
 {

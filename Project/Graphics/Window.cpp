@@ -62,7 +62,7 @@ namespace Graphics
 		font;
 		ImFontConfig config;
 		config.MergeMode = true;
-		std::string s2 = Core::SystemFonts + "msgothic.ttc";
+		std::string s2 = of::common::SystemFonts + "msgothic.ttc";
 		ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 13.f, &config, 
 			ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
 		// endTodo
@@ -355,11 +355,11 @@ namespace Graphics
 		//window->setView(view);
 	}
 
-	void RenderWindow::addRenderable(const int& , const Core::String& , const glm::vec2& , const float&, const Core::String& , const Enums::TileTypes& , bool )
+	void RenderWindow::addRenderable(const int& , const of::common::String& , const glm::vec2& , const float&, const of::common::String& , const Enums::TileTypes& , bool )
 	{
 	}
 
-	void RenderWindow::setTileMapTransparencyHitbox(int , Core::String , Core::Rect<float> , float )
+	void RenderWindow::setTileMapTransparencyHitbox(int , of::common::String , Core::Rect<float> , float )
 	{
 	}
 

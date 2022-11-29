@@ -1,9 +1,9 @@
 #include "LanguageRequestor.hpp"
 #include <File/Asset/Manager.hpp>
 #include <algorithm>
-#include <Helpers/ListDir.hpp>
+#include <utils/os/ListDir.hpp>
 
-Core::uuid Interfaces::Trait<Language::LanguageRequestor>::typeId = Core::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
+of::common::uuid Interfaces::Trait<Language::LanguageRequestor>::typeId = of::common::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
 CEREAL_REGISTER_TYPE(Language::LanguageRequestor);
 CEREAL_REGISTER_TYPE(Language::TranslationString);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Language::LanguageRequestor);
@@ -21,15 +21,15 @@ namespace Language
 		}
 	}
 
-	void LanguageRequestor::resolvePatchedLanguages(const std::map<Core::String, std::vector<Core::uuid>>& ref, const Core::String& fileName)
+	void LanguageRequestor::resolvePatchedLanguages(const std::map<of::common::String, std::vector<of::common::uuid>>& ref, const of::common::String& fileName)
 	{
-		for(std::pair<LanguageName, std::vector<Core::uuid>> pair2 : ref)
+		for(std::pair<LanguageName, std::vector<of::common::uuid>> pair2 : ref)
 		{
 			if (std::find(languageNames.begin(), languageNames.end(), pair2.first) == languageNames.end())
 			{
 				languageNames.push_back(pair2.first);
 			}
-			for (Core::uuid& i : pair2.second)
+			for (of::common::uuid& i : pair2.second)
 			{
 				mappedLanguageIds[{pair2.first, i}] = fileName;
 			}
@@ -38,7 +38,7 @@ namespace Language
 
 #if defined _EDITOR_ || _UNITTESTS_
 
-	void LanguageRequestor::addLanguage(const FileName & language, const Core::String & fontName)
+	void LanguageRequestor::addLanguage(const FileName & language, const of::common::String & fontName)
 	{
 		if (std::find(allLanguageFiles.begin(), allLanguageFiles.end(), language) == allLanguageFiles.end())
 		{
@@ -47,7 +47,7 @@ namespace Language
 		}
 	}
 
-	void LanguageRequestor::addString(const LanguageName & language, const Core::uuid & id, const Core::String & value,
+	void LanguageRequestor::addString(const LanguageName & language, const of::common::uuid & id, const of::common::String & value,
 		const FileName& languageFile, const bool& isPatch)
 	{
 		if (std::find(languageNames.begin(), languageNames.end(), language) == languageNames.end())
@@ -68,12 +68,12 @@ namespace Language
 		}
 	}
 
-	std::vector<Core::String>& LanguageRequestor::getLanguages()
+	std::vector<of::common::String>& LanguageRequestor::getLanguages()
 	{
 		return languageNames;
 	}
 
-	Core::String& LanguageRequestor::getString(const Core::uuid & id)
+	of::common::String& LanguageRequestor::getString(const of::common::uuid & id)
 	{
 		if (requestedStrings.find(id) == requestedStrings.end()) 
 		{
@@ -100,7 +100,7 @@ namespace Language
 		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
-	LanguageRequestor::LanguageRequestor() : IRequestable(Core::Builtin, Core::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::Language)
+	LanguageRequestor::LanguageRequestor() : IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::Language)
 	{
 		load();
 	}
@@ -110,7 +110,7 @@ namespace Language
 #if defined _UNITTESTS_
 		clear();
 #endif
-		allLanguageFiles = Helpers::os::listDirectory(Core::langPath, ".lang", false);
+		allLanguageFiles = of::os::listDirectory(of::common::langPath, ".lang", false);
 		languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 		resolvePatchedLanguages();
 	}
@@ -132,7 +132,7 @@ namespace Language
 
 	void LanguageRequestor::loadFont()
 	{
-		const Core::String path = Core::fontPath + languages[selectedLanguage].getFontName();
+		const of::common::String path = of::common::fontPath + languages[selectedLanguage].getFontName();
 		std::ifstream i(path, std::ios::in | std::ifstream::binary);
 		i.seekg(0, i.end);
 		size_t len = (size_t)i.tellg();

@@ -52,8 +52,8 @@ namespace Combat
 		bool summon;
 		bool onSelf;
 		float summonPoint;
-		Core::String animation;
-		Core::String iconTextureName;
+		of::common::String animation;
+		of::common::String iconTextureName;
 
 		void onSkillExecution(GameObject* owner);
 		void update(const float& dt);

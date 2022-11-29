@@ -3,14 +3,14 @@
 
 #include <Graphics/UI/UIContext.hpp>
 
-#include <Helpers/String.hpp>
+#include <utils/common/string.hpp>
 
 namespace Graphics::UI
 {
 	class LoadingScreen : public UIContext
 	{
 		//std::shared_ptr<sf::Texture> texture;
-		Core::String loadingScreenName;
+		of::common::String loadingScreenName;
 		//sf::Sprite loadingScreen;
 	public:
 		LoadingScreen();

@@ -3,7 +3,7 @@
 #include <Object/GameObject.hpp>
 
 Enums::ComponentType Component::IBase<Component::AttachToParent>::typeID = Enums::ComponentType::AttachToParent;
-Core::String Component::IBase<Component::AttachToParent>::componentName = "AttachToParent";
+of::common::String Component::IBase<Component::AttachToParent>::componentName = "AttachToParent";
 
 namespace Component
 {

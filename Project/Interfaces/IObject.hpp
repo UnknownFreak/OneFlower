@@ -1,7 +1,7 @@
 #ifndef IObject_HPP
 #define IObject_HPP
 
-#include <Helpers/uuid.hpp>
+#include <utils/common/uuid.hpp>
 
 namespace Interfaces
 {
@@ -11,7 +11,7 @@ namespace Interfaces
 	public:
 
 		inline IObject() : IObject("") {} 
-		inline IObject(const Core::String& name) : identifier(Core::uuid()), tag(), name(name) {}
+		inline IObject(const of::common::String& name) : identifier(of::common::uuid()), tag(), name(name) {}
 		inline IObject(const IObject& copy) : identifier(copy.identifier), tag(copy.tag), name(copy.name) {}
 		inline IObject& operator= (const IObject& left) {
 			if (left.identifier == identifier)
@@ -22,9 +22,9 @@ namespace Interfaces
 			return *this;
 		}
 
-		Core::uuid identifier;
-		Core::String tag;
-		Core::String name;
+		of::common::uuid identifier;
+		of::common::String tag;
+		of::common::String name;
 
 		template<class Archive>
 		void save(Archive& saver) const

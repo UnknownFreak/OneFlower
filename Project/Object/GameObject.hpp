@@ -25,13 +25,13 @@ class GameObject : public Interfaces::IUpdateable, Interfaces::ISimulatable
 	std::vector<std::unique_ptr<Trigger::Trigger>> onDeathTriggers;
 
 public:
-	Core::uuid id;
-	Core::String tag;
+	of::common::uuid id;
+	of::common::String tag;
 
 	Enums::ObjectState objectState = Enums::ObjectState::Active;
 
 	// TODO: Fix a message struct to set properties.
-	void sendMessage(const Core::String& msgType, const Core::String& message);
+	void sendMessage(const of::common::String& msgType, const of::common::String& message);
 
 	GameObject();
 	GameObject(GameObject&& copy);
