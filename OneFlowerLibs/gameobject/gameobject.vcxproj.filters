@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src\module">
+      <UniqueIdentifier>{d8765338-8b2c-4d37-91fa-4803b7a023de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{2ae275be-2d55-4fbf-a5af-7b7c66bd2ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\gameobject">
+      <UniqueIdentifier>{3ff2e4fc-f4d8-4143-8203-0f0337b43229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameobject">
+      <UniqueIdentifier>{537d4644-1667-442e-847a-987ccf97feb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\gameobject\component">
+      <UniqueIdentifier>{a4cbd754-6019-46fe-bc49-3b2a60b6b72c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>src\gameobject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\module\ObjectInstanceHandler.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gameobject\GameObject.hpp">
+      <Filter>include\gameobject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
