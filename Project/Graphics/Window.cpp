@@ -20,6 +20,8 @@
 
 #include <swizzle/asset/TextureLoader.hpp>
 
+#include <module/window/GraphicsProxy.hpp>
+
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Graphics::RenderWindow>::type = of::module::EngineResourceType::Graphics;
 namespace Graphics
@@ -93,6 +95,9 @@ namespace Graphics
 		mWindow->setSize(gameConfig.videoMode.first, gameConfig.videoMode.second);
 
 		mSkybox.setSkyBox("dark");
+
+		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
+		proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
 
 	}
 

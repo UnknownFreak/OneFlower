@@ -285,6 +285,9 @@
     <ProjectReference Include="OneFlowerLibs\random-generator\random-generator.vcxproj">
       <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
+      <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
+    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
