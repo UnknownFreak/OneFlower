@@ -11,8 +11,8 @@ namespace Component
 
 	void ObjectStateActivator::toggle()
 	{
-		auto& saveFile = Engine::GetModule<File::SaveFile>();
-		auto& handler = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& saveFile = of::engine::GetModule<File::SaveFile>();
+		auto& handler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		for (auto& [objectId, toggleState] : m_objectsToToggle)
 		{
 			if (handler.exists(objectId))

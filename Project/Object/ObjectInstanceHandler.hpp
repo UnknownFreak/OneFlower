@@ -1,14 +1,14 @@
 #ifndef ObjectInstanceHandler_HPP
 #define ObjectInstanceHandler_HPP
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 #include "GameObject.hpp"
 #include <unordered_map>
 
 namespace EngineModule
 {
-	class ObjectInstanceHandler : public Interfaces::IEngineResource<ObjectInstanceHandler>
+	class ObjectInstanceHandler : public of::module::interface::IEngineResource<ObjectInstanceHandler>
 	{
 		std::function<void(GameObject*)> onAdd;
 		std::function<void(GameObject*)> onDelete;
@@ -34,7 +34,7 @@ namespace EngineModule
 		void onDeleteAction(std::function<void(GameObject*)> fnPtr);
 		void onAddAction(std::function<void(GameObject*)> fnPtr);
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

@@ -12,7 +12,7 @@ of::common::String Component::IBase<PlayerInteractionPrompt>::componentName = "P
 
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
-	texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
+	texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
 
 }
 
@@ -24,7 +24,7 @@ bool PlayerInteractionPrompt::doInteraction(const Enums::InteractionOption& navi
 {
 	if (showPrompt && dialog )
 	{
-		auto& handler = Engine::GetModule<Graphics::UI::UIHandler>();
+		auto& handler = of::engine::GetModule<Graphics::UI::UIHandler>();
 		if (handler.isContextAvailable(Enums::UIContextNames::DialogScreen))
 		{
 			Graphics::UI::DialogScreen* uicontext = handler.getUIContext<Graphics::UI::DialogScreen>(Enums::UIContextNames::DialogScreen);
@@ -77,7 +77,7 @@ void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
 		}
 		else if (theDrop)
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 			showPrompt = true;
 			lootDrop = theDrop;
 			lived = 0.f;
@@ -85,7 +85,7 @@ void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
 		}
 		else if (theContainer)
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 			showPrompt = true;
 			lootContainer = theContainer;
 			lived = 0.f;
@@ -101,7 +101,7 @@ void PlayerInteractionPrompt::Update()
 	if (showPrompt == false && dialog)
 	{
 		dialog = nullptr;
-		auto& handler = Engine::GetModule<Graphics::UI::UIHandler>();
+		auto& handler = of::engine::GetModule<Graphics::UI::UIHandler>();
 		if (handler.isContextAvailable(Enums::UIContextNames::DialogScreen))
 		{
 			Graphics::UI::DialogScreen* uicontext = handler.getUIContext<Graphics::UI::DialogScreen>(Enums::UIContextNames::DialogScreen);

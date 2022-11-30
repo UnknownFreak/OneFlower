@@ -6,7 +6,7 @@ namespace Requirement
 
 	bool HealthTresholdRequirement::fullfilled()
 	{
-		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);
@@ -23,7 +23,7 @@ namespace Requirement
 			}
 			else
 			{
-				auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requirement::HealthTresholdRequirement");
+				auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requirement::HealthTresholdRequirement");
 				logger.Warning("Checking requirement on an object that does not have any stats! - It will always return false.");
 			}
 		}

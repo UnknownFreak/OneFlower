@@ -4,7 +4,7 @@
 #include <utils/common/string.hpp>
 #include <Helpers/Enum/ComponentType.hpp>
 
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 namespace Component
@@ -27,13 +27,13 @@ namespace Component
 
 		Base* copy() const {
 			
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing copy() override, it will always return nullptr");
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing copy() override, it will always return nullptr");
 			return nullptr;
 		}
 
 		std::unique_ptr<Base> ucopy() const
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing ucopy() override, it will always return empty unique_ptr");
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::IBase").Error("Component: " + getTypeName() + " is missing ucopy() override, it will always return empty unique_ptr");
 			return nullptr;
 		}
 

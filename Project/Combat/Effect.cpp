@@ -8,7 +8,7 @@ namespace Combat
 
 	Element Effect::getElement()
 	{
-		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(effectElememtId);
+		return of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(effectElememtId);
 	}
 
 	Effect::Effect() : IRequestable()

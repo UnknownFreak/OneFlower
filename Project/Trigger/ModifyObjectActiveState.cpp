@@ -7,11 +7,11 @@ namespace Trigger
 {
 	void ModifyObjectActiveState::executeInternal()
 	{
-		if (Engine::GetModule<EngineModule::ObjectInstanceHandler>().exists(gameObjectToModify))
+		if (of::engine::GetModule<EngineModule::ObjectInstanceHandler>().exists(gameObjectToModify))
 		{
-			Engine::GetModule<EngineModule::ObjectInstanceHandler>().getObject(gameObjectToModify)->toggleObjectState(objectState);
+			of::engine::GetModule<EngineModule::ObjectInstanceHandler>().getObject(gameObjectToModify)->toggleObjectState(objectState);
 		}
-		Engine::GetModule<File::SaveFile>().setObjectState(gameObjectToModify, objectState);
+		of::engine::GetModule<File::SaveFile>().setObjectState(gameObjectToModify, objectState);
 
 	}
 	std::unique_ptr<Trigger> ModifyObjectActiveState::clone() const

@@ -1,12 +1,12 @@
 #include "Console.hpp"
 
 #include <iostream>
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 #include <Graphics/Window.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<Console>::type = Enums::EngineResourceType::Console;
+of::module::EngineResourceType of::module::interface::IEngineResource<Console>::type = of::module::EngineResourceType::Console;
 
 Console::Console() : currentText(), lines()
 {
@@ -33,7 +33,7 @@ void Console::write(const of::common::String& theLine, const bool& forcePopup)
 	insertionLock.unlock();
 	if (forcePopup)
 	{
-		Engine::GetModule<Graphics::UI::UIHandler>().ShowConsole();
+		of::engine::GetModule<Graphics::UI::UIHandler>().ShowConsole();
 	}
 }
 

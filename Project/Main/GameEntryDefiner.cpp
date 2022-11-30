@@ -3,7 +3,7 @@
 #include <thread>
 
 //#include <File/Asset/Manager.hpp>
-#include <Module\EngineModuleManager.hpp>
+#include <Module\ModuleManager.hpp>
 #include <Module\BuildMode.hpp>
 
 #include<File/GameConfig.hpp>
@@ -19,22 +19,22 @@
 #include <iostream>
 
 GameEntry::GameEntry() : 
-	gfx(Engine::GetModule<Graphics::RenderWindow>()),
-	time(Engine::GetModule<EngineModule::Time>()),
-	input(Engine::GetModule<Input::InputHandler>()),
+	gfx(of::engine::GetModule<Graphics::RenderWindow>()),
+	time(of::engine::GetModule<EngineModule::Time>()),
+	input(of::engine::GetModule<Input::InputHandler>()),
 	world(gfx),
-	console(Engine::GetModule<Console>()), m_exit(false)
+	console(of::engine::GetModule<Console>()), m_exit(false)
 {
 }
 
 
 int GameEntry::Run()
 {
-	auto width = Engine::GetModule<EngineModule::GameConfig>().videoMode.first;
+	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
 	gfx.initialize();
 	world.initialize();
-	gfx.setFramerate(Engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
+	gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
 	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 70.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 70.f));
@@ -50,7 +50,7 @@ int GameEntry::Run()
 		{
 			auto& e = (const swizzle::core::WindowResizeEvent&)evt;
 
-			auto& ui = Engine::GetModule<Graphics::UI::UIHandler>();
+			auto& ui = of::engine::GetModule<Graphics::UI::UIHandler>();
 			auto x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::FPS);
 			x->x = e.mWidth - 400.f;
 			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::UPS);
@@ -70,7 +70,7 @@ int GameEntry::Run()
 			{
 				auto& e = (const swizzle::core::WindowResizeEvent&)evt;
 
-				auto& ui = Engine::GetModule<Graphics::UI::UIHandler>();
+				auto& ui = of::engine::GetModule<Graphics::UI::UIHandler>();
 				auto editorWindow = ui.getUIContext<Graphics::Editor::MainEditorWindow>(Enums::UIContextNames::MainEditorWindow);
 				editorWindow->setSize(e.mWidth, e.mHeight);
 			}

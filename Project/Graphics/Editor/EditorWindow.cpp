@@ -20,7 +20,7 @@ void Graphics::Editor::MainEditorWindow::renderMenuBar()
 			}
 			if (ImGui::MenuItem("Save", "Ctrl + S"))
 			{
-				auto& manager = Engine::GetModule<File::Asset::Manager>();
+				auto& manager = of::engine::GetModule<File::Asset::Manager>();
 				manager.saveGameDatabase(manager.openedMod.name, manager.openedMod);
 			}
 			if (ImGui::MenuItem("Load"))
@@ -88,7 +88,7 @@ void Graphics::Editor::MainEditorWindow::setSize(const unsigned& inWidth, const 
 
 Graphics::Editor::MainEditorWindow::MainEditorWindow() : UI::UIContext(swizzle::input::Keys::KeyNone, "MainWindow", true), tree(height), newFileModal("New File", tree), loadFileModal("Load File", tree)
 {
-	auto gc = Engine::GetModule<EngineModule::GameConfig>();
+	auto gc = of::engine::GetModule<EngineModule::GameConfig>();
 	width = (float)gc.videoMode.first;
 	height = (float)gc.videoMode.second-30;
 }

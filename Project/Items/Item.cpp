@@ -5,7 +5,7 @@ of::common::uuid Interfaces::Trait<Items::Base>::typeId = of::common::uuid("d2ab
 
 void Items::Base::loadIcon()
 {
-	iconTexture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(itemIconName, Globals::uiTexturePath);
+	iconTexture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture(itemIconName, Globals::uiTexturePath);
 }
 
 Interfaces::TypeInfo Items::Base::getTrait() const

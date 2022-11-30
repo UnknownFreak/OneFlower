@@ -28,9 +28,6 @@
     <Filter Include="Main\GameEntryNoEditor">
       <UniqueIdentifier>{e419195f-c39b-4fca-847f-9af7cddc3553}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\ModuleManager">
-      <UniqueIdentifier>{91456c9e-a2fa-4858-a20a-a8a77d2b7ddb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File">
       <UniqueIdentifier>{3245884f-a954-41f8-ad6d-30cfede76175}</UniqueIdentifier>
     </Filter>
@@ -290,9 +287,6 @@
     </ClCompile>
     <ClCompile Include="Project\Tests\ModuleManagerTest.cpp">
       <Filter>Unit Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\EngineModuleManager.cpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
     </ClCompile>
     <ClCompile Include="Project\Tests\VersionUnitTest.cpp">
       <Filter>Unit Tests</Filter>
@@ -689,15 +683,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\Helpers\Enum\EngineResourceTypes.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\BaseEngineModule.hpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\EngineModuleManager.hpp">
-      <Filter>Engine\Module\ModuleManager</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
@@ -763,9 +748,6 @@
     </ClInclude>
     <ClInclude Include="Project\Language\TranslationString.hpp">
       <Filter>Engine\Language\TranslationString</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Interfaces\IEngineModule.hpp">
-      <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IObject.hpp">
       <Filter>Engine\Interfaces</Filter>

@@ -52,7 +52,7 @@ Graphics::UI::DialogScreen::~DialogScreen()
 void Graphics::UI::DialogScreen::toggleVisible()
 {
 	UIContext::toggleVisible();
-	Engine::GetModule<Input::InputHandler>().enablePlayerMovement();
+	of::engine::GetModule<Input::InputHandler>().enablePlayerMovement();
 }
 void Graphics::UI::DialogScreen::readInput()
 {
@@ -78,7 +78,7 @@ void Graphics::UI::DialogScreen::show(Dialog* diag)
 	dialog = diag;
 	dialog->reset();
 	visible = true;
-	Engine::GetModule<Input::InputHandler>().disablePlayerMovement();
+	of::engine::GetModule<Input::InputHandler>().disablePlayerMovement();
 	t = dialog->getCurrentText();
 
 }

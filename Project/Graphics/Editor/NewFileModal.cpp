@@ -14,7 +14,7 @@ namespace Graphics::Editor::Modals
 	std::vector<TreeItem> NewFile::loadDependencyDetails(const of::common::String& file)
 	{
 		std::vector<TreeItem> deps;
-		auto& manager = Engine::GetModule<File::Asset::Manager>();
+		auto& manager = of::engine::GetModule<File::Asset::Manager>();
 		File::Mod::Header header;
 		if (manager.loadModHeader(file, header))
 		{
@@ -30,7 +30,7 @@ namespace Graphics::Editor::Modals
 	void NewFile::newModFile()
 	{
 		tree.clear();
-		auto& manager = Engine::GetModule<File::Asset::Manager>();
+		auto& manager = of::engine::GetModule<File::Asset::Manager>();
 		auto& modLoader = manager.getModLoader();
 		modLoader.loadOrder.clear();
 
@@ -67,7 +67,7 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(fileName, loadOrder);
 
 		manager.openedMod = header;
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();
 

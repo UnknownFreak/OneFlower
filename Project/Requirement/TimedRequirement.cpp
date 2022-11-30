@@ -9,7 +9,7 @@ namespace Requirement
 
 	void TimedRequirement::loadTimerFromSave()
 	{
-		auto& saveFile = Engine::GetModule<File::SaveFile>();
+		auto& saveFile = of::engine::GetModule<File::SaveFile>();
 		if (saveFile.isTimerSaved(timerId))
 		{
 			timerInfo = saveFile.getTickTimer(timerId);
@@ -29,12 +29,12 @@ namespace Requirement
 	{
 		if (timerInfo.started || timerInfo.finished)
 		{
-			auto& timer = Engine::GetModule<EngineModule::Time>();
+			auto& timer = of::engine::GetModule<EngineModule::Time>();
 			if (timer.exists(timerId))
 			{
 				auto& tickTimer = timer.getTickTimer(timerId);
 				timerInfo = tickTimer.getInfo();
-				Engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
+				of::engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
 				if (timerInfo.finished)
 					stop();
 			
@@ -53,7 +53,7 @@ namespace Requirement
 	void TimedRequirement::start()
 	{
 		if (!timerInfo.finished)
-		Engine::GetModule<EngineModule::Time>().addTicKTimer(timerId, Core::TickTimer::from(timerInfo));
+			of::engine::GetModule<EngineModule::Time>().addTicKTimer(timerId, Core::TickTimer::from(timerInfo));
 		timerInfo.started = true;
 	}
 
@@ -62,13 +62,13 @@ namespace Requirement
 		timerInfo.started = false;
 		timerInfo.currentTime = 0.f;
 		timerInfo.finished = false;
-		Engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
+		of::engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
 	}
 
 	void TimedRequirement::stop()
 	{
 		timerInfo.started = false;
-		Engine::GetModule<EngineModule::Time>().removeTimer(timerId);
+		of::engine::GetModule<EngineModule::Time>().removeTimer(timerId);
 	}
 
 	std::unique_ptr<Requirement> TimedRequirement::clone() const

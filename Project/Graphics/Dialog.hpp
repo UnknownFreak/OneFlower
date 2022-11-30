@@ -59,7 +59,7 @@ public:
 	void load(Archive& ar)
 	{
 		ar(dialogTreeuuid);
-		dialogTree = Engine::GetModule<File::Asset::Manager>().getDialogTree().request(dialogTreeuuid);
+		dialogTree = of::engine::GetModule<File::Asset::Manager>().getDialogTree().request(dialogTreeuuid);
 	}
 };
 #endif

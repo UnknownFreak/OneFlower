@@ -81,14 +81,14 @@ void WorldManager::doDayCycle(const float& fElapsedTime)
 	//std::cout << "shadow length y: " << gfx.shadowLengthY << std::endl;
 }
 
-WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(gfx, isLoading), objectHandler(Engine::GetModule<EngineModule::ObjectInstanceHandler>()), saveFile(Engine::GetModule<File::SaveFile>())
+WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(gfx, isLoading), objectHandler(of::engine::GetModule<EngineModule::ObjectInstanceHandler>()), saveFile(of::engine::GetModule<File::SaveFile>())
 {
 }
 
 void WorldManager::initialize()
 {
 	newGame();
-	auto& f = Engine::GetModule<Input::InputHandler>();
+	auto& f = of::engine::GetModule<Input::InputHandler>();
 
 	auto* go = objectHandler.addObject();
 	testObjectId = go->id;
@@ -101,17 +101,17 @@ void WorldManager::initialize()
 	, Enums::Input::Action::Press);
 
 	f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("GlobalFlag", [&](bool, swizzle::input::Keys, const float&) {
-		Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX] = !Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX];
+		of::engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX] = !of::engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX];
 		}, false), 
 		 swizzle::input::Keys::KeyF2
 		, Enums::Input::Action::Press);
 
-	auto& console = Engine::GetModule<Console>();
+	auto& console = of::engine::GetModule<Console>();
 	console;
 
 }
 
-WorldManager::WorldManager(const WorldManager& copy): gfx(copy.gfx), objectHandler(Engine::GetModule<EngineModule::ObjectInstanceHandler>()), loadHandler(copy.gfx, isLoading), saveFile(Engine::GetModule<File::SaveFile>())
+WorldManager::WorldManager(const WorldManager& copy): gfx(copy.gfx), objectHandler(of::engine::GetModule<EngineModule::ObjectInstanceHandler>()), loadHandler(copy.gfx, isLoading), saveFile(of::engine::GetModule<File::SaveFile>())
 {
 }
 
@@ -120,7 +120,7 @@ void WorldManager::createSimpleWorld()
 	const auto mod = "Default";
 	gfx.clearDrawList();
 
-	auto& theManager = Engine::GetModule<File::Asset::Manager>();
+	auto& theManager = of::engine::GetModule<File::Asset::Manager>();
 	//auto& atlasMgr = theManager.getTileAtlas();
 	//atlasMgr.add(ta);
 	//theManager.test.add(t.get());
@@ -354,7 +354,7 @@ void WorldManager::createSimpleWorld()
 
 	auto dialog = objectHandler.objects[testObjectId].getComponent<Dialog>();
 	dialog->dialogTreeuuid = dialogTest;
-	dialog->dialogTree = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Asset::Resource::DialogTree>(dialogTest);
+	dialog->dialogTree = of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Asset::Resource::DialogTree>(dialogTest);
 
 	Combat::Element e;
 	e.objectType = Enums::ObjectType::Element;
@@ -443,15 +443,15 @@ void WorldManager::setCurrentTime(const float& currentTime)
 
 void WorldManager::newGame()
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("New Game");
+	of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("New Game");
 	saveFile.newGame(Enums::DifficultyLevel::Normal, of::common::uuid::nil(), {});
-	auto& glob = Engine::GetModule<Globals>();
+	auto& glob = of::engine::GetModule<Globals>();
 	loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 }
 
 void WorldManager::save(const of::common::String& fileName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
+	of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
 	saveFile.currentZone = loadHandler.getCurrentWorld();
 	saveFile.loadingScreen = loadHandler.getCurrentLoadingScreen();
 	saveFile.save(fileName);
@@ -459,7 +459,7 @@ void WorldManager::save(const of::common::String& fileName)
 
 void WorldManager::load(const of::common::String& fileName)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
+	of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
 	isLoading = true;
 	saveFile.load(fileName);
 	loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point);
@@ -469,7 +469,7 @@ void WorldManager::load(const of::common::String& fileName)
 void WorldManager::loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition)
 {
 	isLoading = true;
-	EngineModule::Time& time = Engine::GetModule<EngineModule::Time>();
+	EngineModule::Time& time = of::engine::GetModule<EngineModule::Time>();
 	time.getTimer(Globals::LOADING_TIMER).reset();
 	time.getTimer(Globals::TOTAL_TIME_LOADED).reset();
 
@@ -481,7 +481,7 @@ void WorldManager::Update()
 {
 	if (isLoading)
 	{
-		auto timer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::LOADING_TIMER);
+		auto timer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::LOADING_TIMER);
 		timer.reset();
 		while (timer.secondsAsFloat() < 0.05f && isLoading)
 		{

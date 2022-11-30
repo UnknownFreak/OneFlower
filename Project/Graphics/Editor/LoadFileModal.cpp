@@ -11,7 +11,7 @@ namespace Graphics::Editor::Modals
 	void LoadFile::load()
 	{
 		tree.clear();
-		auto& manager = Engine::GetModule<File::Asset::Manager>();
+		auto& manager = of::engine::GetModule<File::Asset::Manager>();
 		auto& modLoader = manager.getModLoader();
 		modLoader.loadOrder.clear();
 
@@ -43,7 +43,7 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(m_selectedFile, loadOrder);
 
 		manager.openedMod = header;
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
 		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");

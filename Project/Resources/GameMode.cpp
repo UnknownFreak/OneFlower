@@ -7,7 +7,7 @@ namespace Resource
 {
     void GameMode::loadTranslation()
     {
-        gameModeName = Engine::GetModule<File::Asset::Manager>().getLanguage().getString(gameModeNameStringTranslation);
+        gameModeName = of::engine::GetModule<File::Asset::Manager>().getLanguage().getString(gameModeNameStringTranslation);
     }
     Interfaces::TypeInfo GameMode::getTrait() const
     {

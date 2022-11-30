@@ -1,7 +1,7 @@
 #include "InputHandler.hpp"
 #include "Controller.hpp"
 
-Enums::EngineResourceType Interfaces::IEngineResource<Input::InputHandler>::type = Enums::EngineResourceType::Input;
+of::module::EngineResourceType of::module::interface::IEngineResource<Input::InputHandler>::type = of::module::EngineResourceType::Input;
 bool Input::InputHandler::isMovementEnabled = true;
 bool Input::InputHandler::skipCurrentFrame = true;
 

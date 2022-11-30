@@ -1,10 +1,10 @@
 #include "ShaderLoader.hpp"
 
-#include <Module\EngineModuleManager.hpp>
+#include <Module\ModuleManager.hpp>
 #include <Graphics/Window.hpp>
 #include <filesystem>
 
-Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Shader::Loader>::type = Enums::EngineResourceType::ShaderLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<File::Resource::Shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
 
 namespace File::Resource::Shader
 {
@@ -13,7 +13,7 @@ namespace File::Resource::Shader
 		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to locate shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -21,13 +21,13 @@ namespace File::Resource::Shader
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 #endif
 		mtx.lock();
-		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
+		auto& wnd = of::engine::GetModule<Graphics::RenderWindow>();
 		loadedShaders.insert(std::make_pair(name, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[name];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to load shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		}
 		//, path.c_str(), true)));
@@ -102,7 +102,7 @@ namespace File::Resource::Shader
 	{
 		if (loadedShaders.find(name) != loadedShaders.end())
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Info("Unloading shader " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedShaders.erase(name);
 		}

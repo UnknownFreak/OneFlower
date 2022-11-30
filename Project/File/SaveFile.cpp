@@ -10,14 +10,14 @@
 
 #include <File/Asset/Resource/Prefab.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<File::SaveFile>::type = Enums::EngineResourceType::SaveFile;
+of::module::EngineResourceType of::module::interface::IEngineResource<File::SaveFile>::type = of::module::EngineResourceType::SaveFile;
 
 namespace File
 {
 	void SaveFile::setPlayerInfo()
 	{
-		auto& ui = Engine::GetModule<Graphics::UI::UIHandler>();
-		auto& objectHandler = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& ui = of::engine::GetModule<Graphics::UI::UIHandler>();
+		auto& objectHandler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		objectHandler.player = &player;
 		ui.addUIContext(Enums::UIContextNames::PlayerStats, std::make_unique<Graphics::UI::PlayerStats>());
 		ui.getUIContext<Graphics::UI::PlayerStats>(Enums::UIContextNames::PlayerStats)->setPlayerStats(player.getSharedComponent<Component::Stats>());
@@ -92,12 +92,12 @@ namespace File
 		gameModeId;
 		if (!gameModeId.isValid())
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
 				" this is very bad...");
 #ifndef _DEBUG
 				std::exit(-1);
 #else
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
 #endif // !_DEBUG
 
 		}
@@ -113,9 +113,9 @@ namespace File
 
 		if (!gameMode.playerPrefab.isValid())
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
-		auto prefab = Engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
+		auto prefab = of::engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		player = GameObject();
 
 		prefab.createNewPlayerInstance(player);
@@ -190,7 +190,7 @@ namespace File
 		setPlayerInfo();
 	}
 
-	Enums::EngineResourceType& SaveFile::getType() const
+	of::module::EngineResourceType& SaveFile::getType() const
 	{
 		return type;
 	}

@@ -16,7 +16,7 @@
 #include <Editor/EditorEvents.hpp>
 #endif
 
-Enums::EngineResourceType Interfaces::IEngineResource<File::Asset::Manager>::type = Enums::EngineResourceType::AssetManager;
+of::module::EngineResourceType of::module::interface::IEngineResource<File::Asset::Manager>::type = of::module::EngineResourceType::AssetManager;
 
 namespace File::Asset
 {
@@ -38,7 +38,7 @@ namespace File::Asset
 			modLoader.loadOrder.insert(std::make_pair(name, modLoader.loadOrder.size()));
 		}
 		modLoader.loadOrder.insert(std::make_pair(modFile, modLoader.loadOrder.size()));
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
 		logger.Info("New load order built: Order is as follows,");
 		for (auto& order : modLoader.loadOrder)
 		{
@@ -49,7 +49,7 @@ namespace File::Asset
 
 	Manager::Manager() : 
 		openedMod(),
-		modLoader(Engine::GetModule<File::Mod::Loader>())
+		modLoader(of::engine::GetModule<File::Mod::Loader>())
 	{
 		openedMod.name = "<Not Set>";
 	}
@@ -126,7 +126,7 @@ namespace File::Asset
 		of::common::String idx = filename;
 		std::ofstream file(of::common::langPath + filename, std::ios::binary);
 		idx.append(".index");
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Manager");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Manager");
 		logger.Debug("Saving file: " + filename);
 		std::ofstream index(of::common::langPath + idx, std::ios::binary);
 		{
@@ -153,7 +153,7 @@ namespace File::Asset
 #pragma warning(disable: 6262)
 	bool Manager::loadModOrderFile()
 	{
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
 		std::ifstream file("Data\\ModLoadOrder.xml");
 		if (file.is_open())
 		{

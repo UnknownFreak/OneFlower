@@ -19,12 +19,12 @@ namespace Combat
 
 	Element Skill::getElement()
 	{
-		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(elementId);
+		return of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(elementId);
 	}
 
 	void Skill::preloadEffect()
 	{
-		auto& x = Engine::GetModule<File::Asset::Manager>().requestor;
+		auto& x = of::engine::GetModule<File::Asset::Manager>().requestor;
 		x.request<Asset::Resource::Prefab>(prefabId);
 		x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
 	}
@@ -58,7 +58,7 @@ namespace Combat
 				stats->mainStat[Enums::Attribute::Mana].current -= cost;
 				coolDown.reset(true);
 				owner->getComponent<Component::Stats>()->doEffects(skillExecutionEffects, stats);
-				auto& x = Engine::GetModule<File::Asset::Manager>().requestor;
+				auto& x = of::engine::GetModule<File::Asset::Manager>().requestor;
 				Asset::Resource::Prefab* skillPrefab = x.request<Asset::Resource::Prefab>(prefabId);
 				Asset::Resource::Prefab* effectPrefab = x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
 				GameObject* skillGo = nullptr;

@@ -16,7 +16,7 @@ void Component::LootDrop::loot(GameObject* object)
 	looted = true;
 	for (auto& x : lootDrops)
 	{
-		auto tmp = Engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
+		auto tmp = of::engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
 		object->getComponent<Component::Inventory>()->addItem(tmp, x.second);
 	}
 }
@@ -47,7 +47,7 @@ void Component::LootDrop::onDelete()
 {
 	if (!looted && lootDrops.size() != 0)
 	{
-		auto go = Engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
+		auto go = of::engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
 		go->addComponent<Render>();
 		go->getComponent<Component::Transform>()->pos = attachedOn->getComponent<Component::Transform>()->pos;
 		go->addComponent<Component::LootContainer>();

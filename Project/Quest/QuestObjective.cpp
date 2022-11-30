@@ -4,7 +4,7 @@
 
 void Questing::QuestObjective::loadTranslations()
 {
-	auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
+	auto& x = of::engine::GetModule<File::Asset::Manager>().getLanguage();
 	translatedObjectiveName = x.getString(objectiveName);
 	translatedObjectiveDescription = x.getString(objectiveDescription);
 	translatedObjectiveCompleteDescription = x.getString(objectiveCompleteDescription);

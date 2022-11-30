@@ -3,12 +3,12 @@
 #include <map>
 #include <utils/common/string.hpp>
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 namespace File::Mod
 {
 
-	class Loader : public Interfaces::IEngineResource<Loader>
+	class Loader : public of::module::interface::IEngineResource<Loader>
 	{
 
 	public:
@@ -44,7 +44,7 @@ namespace File::Mod
 			}
 		}
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

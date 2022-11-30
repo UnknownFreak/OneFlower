@@ -1,9 +1,9 @@
 #include "GameConfig.hpp"
 
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::GameConfig>::type = Enums::EngineResourceType::Settings;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::Settings;
 
 EngineModule::GameConfig::GameConfig() : configName("gameConfig.cfg"), videoModes({}), antialiasing(32), framerate(0), parser(configName)
 {
@@ -16,7 +16,7 @@ EngineModule::GameConfig::~GameConfig()
 	save();
 }
 
-Enums::EngineResourceType& EngineModule::GameConfig::getType() const
+of::module::EngineResourceType& EngineModule::GameConfig::getType() const
 {
 	return type;
 }
@@ -44,11 +44,11 @@ void EngineModule::GameConfig::load()
 	physicsForceSingleThread = parser.get("physics", "forceSingleThread", false);
 	physicsAdaptiveRegions = parser.get("physics", "adaptiveRegions", true);
 
-	Engine::GetModule<EngineModule::Logger::OneLogger>().setLogLevel(logLevel);
+	of::engine::GetModule<EngineModule::Logger::OneLogger>().setLogLevel(logLevel);
 	for (auto& logger_level : parser.get("logger").values)
 	{
 		if (logger_level.first != "core.level")
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger(logger_level.first).setLogLevel(Enums::fromString(logger_level.second));
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger(logger_level.first).setLogLevel(Enums::fromString(logger_level.second));
 	}
 
 	configLoaded = true;

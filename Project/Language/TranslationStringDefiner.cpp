@@ -60,7 +60,7 @@ namespace Language
 
 	PrimitiveSaveable<of::common::String>& TranslationString::getPrimitive(const of::common::String & languageName, const of::common::uuid & id)
 	{
-		auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("TranslationString");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("TranslationString");
 		logger.Debug("Loading translation string value from database: " + language + ", " + languageName + ", " + id.to_string());
 		auto ptr = stringList.request<PrimitiveSaveable<of::common::String>>({ languageName, id });
 		if (ptr)

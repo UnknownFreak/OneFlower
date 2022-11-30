@@ -7,7 +7,7 @@ of::common::uuid Interfaces::Trait<Questing::Quest>::typeId = of::common::uuid("
 
 void Questing::Quest::loadStrings()
 {
-	auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
+	auto& x = of::engine::GetModule<File::Asset::Manager>().getLanguage();
 	translatedQuestName = x.getString(questName);
 	translatedQuestDescription = x.getString(questDescription);
 	translatedQuestLine = x.getString(questLine);
@@ -94,7 +94,7 @@ void Questing::Quest::startQuest()
 {
 	objectiveMap[currentObjectiveId]->activateObjective();
 	questState = Enums::QuestState::ACTIVE;
-	Engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
+	of::engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
 }
 
 void Questing::Quest::updateQuest()
@@ -105,7 +105,7 @@ void Questing::Quest::updateQuest()
 		failQuest();
 	else
 		startNextObjectiveIfNotActive();
-	Engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
+	of::engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
 }
 
 void Questing::Quest::startNextObjectiveIfNotActive()
@@ -201,7 +201,7 @@ Questing::QuestState Questing::Quest::getQuestState() const
 
 void Questing::Quest::setQuestState()
 {
-	auto& saveFile = Engine::GetModule<File::SaveFile>();
+	auto& saveFile = of::engine::GetModule<File::SaveFile>();
 	if (saveFile.isQuestStored(getModfile()))
 	{
 		auto state = saveFile.getQuestState(getModfile());

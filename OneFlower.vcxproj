@@ -270,6 +270,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
+      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
@@ -361,7 +364,6 @@
     <ClCompile Include="Project\Main\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
-    <ClCompile Include="Project\Module\EngineModuleManager.cpp" />
     <ClCompile Include="Project\Module\Globals.cpp" />
     <ClCompile Include="Project\Module\Logger\LoggerStreams\BasicLogStream.cpp" />
     <ClCompile Include="Project\Module\Logger\OneLogger.cpp" />
@@ -497,7 +499,6 @@
     <ClInclude Include="Project\Helpers\Enum\DifficultyLevels.hpp" />
     <ClInclude Include="Project\Helpers\Enum\HealthTresholdComparitor.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\EngineResourceTypes.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InputEnum.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ItemType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp" />
@@ -528,7 +529,6 @@
     <ClInclude Include="Project\Input\Controller.hpp" />
     <ClInclude Include="Project\Input\InputHandlerBase.hpp" />
     <ClInclude Include="Project\Input\PlayerController.hpp" />
-    <ClInclude Include="Project\Interfaces\IEngineModule.hpp" />
     <ClInclude Include="Project\Interfaces\IObject.hpp" />
     <ClInclude Include="Project\Interfaces\IPatch.hpp" />
     <ClInclude Include="Project\Interfaces\IRequestable.hpp" />
@@ -548,9 +548,7 @@
     <ClInclude Include="Project\Language\LanguageHeader.hpp" />
     <ClInclude Include="Project\Language\LanguageRequestor.hpp" />
     <ClInclude Include="Project\Main\GameEntry.hpp" />
-    <ClInclude Include="Project\Module\BaseEngineModule.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
-    <ClInclude Include="Project\Module\EngineModuleManager.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
     <ClInclude Include="Project\Module\Logger\LoggerBase.hpp" />
     <ClInclude Include="Project\Module\Logger\LoggerStreams\BasicLogStream.hpp" />

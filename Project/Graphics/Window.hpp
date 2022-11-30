@@ -8,7 +8,7 @@
 
 #include <swizzle/Swizzle.hpp>
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <Helpers/Rect.hpp>
 #include <Graphics/TransparencyMasker.hpp>
 #include "UI/UIHandler.hpp"
@@ -28,7 +28,7 @@ namespace Component
 class GameObject;
 namespace Graphics
 {
-	class RenderWindow : public Interfaces::IEngineResource<RenderWindow>, public sw::Application
+	class RenderWindow : public of::module::interface::IEngineResource<RenderWindow>, public sw::Application
 	{
 
 		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
@@ -117,7 +117,7 @@ namespace Graphics
 
 		DynamicWindowListener& getEventListener();
 
-		Enums::EngineResourceType & getType() const
+		of::module::EngineResourceType & getType() const
 		{
 			return type;
 		}

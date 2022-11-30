@@ -8,7 +8,7 @@ namespace Graphics::Editor::Selectors
 	std::vector<std::pair<of::common::String, File::Mod::ModFileUUIDHelper>> dropDownComboRefresh(const Enums::ObjectType& type, const std::vector<File::Mod::ModFileUUIDHelper>& filter)
 	{
 		std::vector<std::pair<of::common::String, File::Mod::ModFileUUIDHelper>> list;
-		auto& manager = Engine::GetModule<File::Asset::Manager>();
+		auto& manager = of::engine::GetModule<File::Asset::Manager>();
 		auto x = manager.requestor.listAllCurrentLoadedObjects(type);
 
 		for (auto it = x.begin(); it != x.end(); it++)

@@ -6,7 +6,7 @@ namespace Requirement
 {
 	bool DifficultyRequirement::fullfilled()
 	{
-		auto& savefile = Engine::GetModule<File::SaveFile>();
+		auto& savefile = of::engine::GetModule<File::SaveFile>();
 		return savefile.getCustomDiffId() == customDiff || savefile.getDifficulty() == level;
 	}
 

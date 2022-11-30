@@ -8,11 +8,11 @@
 #include <unordered_map>
 #include <mutex>
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 namespace File::Resource::Texture
 {
-	class Loader : public Interfaces::IEngineResource<Loader>
+	class Loader : public of::module::interface::IEngineResource<Loader>
 	{
 		std::mutex mtx;
 		const of::common::String missingTexture = "missingTexture.png";
@@ -27,7 +27,7 @@ namespace File::Resource::Texture
 
 		void requestRemovalOfTexture(const of::common::String& name);
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

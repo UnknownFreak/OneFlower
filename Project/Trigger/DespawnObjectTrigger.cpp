@@ -6,7 +6,7 @@ namespace Trigger
 {
 	void DespawnObjectTrigger::executeInternal()
 	{
-		Engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(gameObjectToDespawn);
+		of::engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(gameObjectToDespawn);
 	}
 	std::unique_ptr<Trigger> DespawnObjectTrigger::clone() const
 	{

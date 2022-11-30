@@ -1,6 +1,7 @@
 #ifndef EngineResourceTypes_HPP
 #define EngineResourceTypes_HPP
-namespace Enums
+
+namespace of::module
 {
 	enum class EngineResourceType
 	{
@@ -11,11 +12,14 @@ namespace Enums
 		Physics,
 		WorldManager,
 		WorldManagerAddon,
+		SpriterContainer,
 		AssetManager,
+		FileHandler = AssetManager,
 		Logger,
+		StringConverter,
 		Globals,
 		GameVariableMapping,
-		ModLoader,
+		Loader,
 		TextureLoader,
 		Console,
 		UIHandler,
@@ -24,6 +28,8 @@ namespace Enums
 		SaveFile,
 		MeshLoader,
 		ShaderLoader,
+		EngineSettings,
+		WindowProxy,
 		NOT_SET,
 	};
 }

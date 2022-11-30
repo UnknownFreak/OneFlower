@@ -1,8 +1,8 @@
 #include "ObjectInstanceHandler.hpp"
 
-#include <imgui/imgui.h>
+#include <module/ModuleManager.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::ObjectInstanceHandler>::type = Enums::EngineResourceType::ObjectInstanceHandler;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::ObjectInstanceHandler>::type = of::module::EngineResourceType::ObjectInstanceHandler;
 
 GameObject* EngineModule::ObjectInstanceHandler::addObject()
 {
@@ -42,7 +42,7 @@ GameObject* EngineModule::ObjectInstanceHandler::getPlayer() const
 
 void EngineModule::ObjectInstanceHandler::removeObject(GameObject* object, const float& delayedtime)
 {
-	Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
+	of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
 	objectsToDelete[object] = delayedtime;
 	if (onDelete.operator bool())
 	{
@@ -64,7 +64,7 @@ void EngineModule::ObjectInstanceHandler::processDeletedObjects(const float& ela
 		if (it->second < 0)
 		{
 			auto id = it->first->id;
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
 			logger.Fine("Processing removal of " + id.to_string());
 			logger.Debug(of::common::toHex((size_t)&it->first));
 			it->first->onDelete();

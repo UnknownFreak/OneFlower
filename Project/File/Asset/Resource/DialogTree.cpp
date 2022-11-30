@@ -11,7 +11,7 @@ namespace Asset::Resource
 	{
 		if (idx == size_t(-1))
 			return of::common::String("");
-		auto& x = Engine::GetModule<File::Asset::Manager>().getLanguage();
+		auto& x = of::engine::GetModule<File::Asset::Manager>().getLanguage();
 		auto uid = dialogStrings.at(idx).dialogString;
 		return dialogStrings.at(idx).tempText + x.getString(uid);
 	}
@@ -98,7 +98,7 @@ namespace Asset::Resource
 		{
 			if (!incrementSelection())
 			{
-				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 				return Enums::DialogStatus::Close;
 			}
 		}
@@ -106,7 +106,7 @@ namespace Asset::Resource
 		{
 			if (!decrementSelection())
 			{
-				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 				return Enums::DialogStatus::Close;
 			}
 		}

@@ -173,12 +173,12 @@ namespace Component
 	{
 		auto trueDamage = weaponStrength * damageCoef * damageOwner->statValues[Enums::Attribute::Power].getValue() / statValues[Enums::Attribute::Toughness].getValue();
 		auto critChance = statChances[Enums::Attribute::CritChange].getValue() * 100.0;
-		if (critChance > Engine::GetModule<EngineModule::RandomGen>().random_double(0.0, 100.0))
+		if (critChance > of::engine::GetModule<EngineModule::RandomGen>().random_double(0.0, 100.0))
 		{
 			auto critDamageMult = statChances[Enums::Attribute::CritDamage].getValue();
 			trueDamage *= critDamageMult;
 		}
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
 		mainStat[Enums::Attribute::Health].current -= trueDamage * attunedTo.getElementModifier(damageElement.getModfile());
 		if (mainStat[Enums::Attribute::Health].current <= 0)
 		{
@@ -276,7 +276,7 @@ namespace Component
 					auto vfxs = it.second.tick<Combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
-						auto pref = Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
+						auto pref = of::engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
 						go->addComponent<AttachToParent>(attachedOn);

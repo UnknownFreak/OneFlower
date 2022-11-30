@@ -28,8 +28,8 @@ namespace Component
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerInteraction", Enums::Input::Action::Press);
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerJump", Enums::Input::Action::Press);
 	}
-	PlayerController::PlayerController() : handler(Engine::GetModule<Input::InputHandler>()),
-		window(Engine::GetModule<Graphics::RenderWindow>())
+	PlayerController::PlayerController() : handler(of::engine::GetModule<Input::InputHandler>()),
+		window(of::engine::GetModule<Graphics::RenderWindow>())
 	{
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbE<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;

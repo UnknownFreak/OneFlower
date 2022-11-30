@@ -13,7 +13,7 @@ namespace Questing
 		QuestObjective::activateObjective();
 		if (objectiveState == Enums::QuestState::ACTIVE)
 		{
-			auto& player = Engine::GetModule<File::SaveFile>().player;
+			auto& player = of::engine::GetModule<File::SaveFile>().player;
 			auto inventory = player.getComponent<Component::Inventory>();
 			if (inventory)
 			{

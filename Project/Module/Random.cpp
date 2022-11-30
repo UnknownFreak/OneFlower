@@ -1,7 +1,7 @@
 #pragma once
 #include "Random.hpp"
 #include <Module/Globals.hpp>
-Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::RandomGen>::type = Enums::EngineResourceType::RandomGen;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
 std::random_device EngineModule::RandomGen::rd;
 std::mt19937_64 EngineModule::RandomGen::engine(EngineModule::RandomGen::rd());
@@ -10,7 +10,7 @@ namespace EngineModule
 {
 	RandomGen::RandomGen()
 	{
-		if (Engine::GetModule<Globals>().boolGlobals[Globals::B_FORCE_SAME_SEED])
+		if (of::engine::GetModule<Globals>().boolGlobals[Globals::B_FORCE_SAME_SEED])
 			engine.seed(0);
 		else
 			engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
@@ -41,7 +41,7 @@ namespace EngineModule
 	{
 		return d(engine, std::uniform_real<double>::param_type(min, max));
 	}
-	Enums::EngineResourceType& RandomGen::getType() const
+	of::module::EngineResourceType& RandomGen::getType() const
 	{
 		return type;
 	}

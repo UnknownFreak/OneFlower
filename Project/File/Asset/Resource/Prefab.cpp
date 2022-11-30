@@ -12,10 +12,10 @@ namespace Asset::Resource
 	void Prefab::build(GameObject* object, const bool& isPlayersummon) const
 	{
 		object->tag = tag;
-		object->objectState = Engine::GetModule<File::SaveFile>().getObjectState(object->id, objectState);;
+		object->objectState = of::engine::GetModule<File::SaveFile>().getObjectState(object->id, objectState);;
 		for (auto& x : components)
 			object->AddOrReplaceComponent(x.get()->copy());
-		auto& gameMode = Engine::GetModule<File::SaveFile>().getGameMode();
+		auto& gameMode = of::engine::GetModule<File::SaveFile>().getGameMode();
 		if (gameMode.tagModifiers.find(object->tag) != gameMode.tagModifiers.end())
 			object->applyGameMode(gameMode.tagModifiers.at(object->tag));
 		else if (isPlayersummon)
@@ -42,7 +42,7 @@ namespace Asset::Resource
 
 	GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
 		auto transform = object->getComponent<Component::Transform>();
@@ -52,7 +52,7 @@ namespace Asset::Resource
 
 	GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->getComponent<Component::Transform>();
@@ -63,7 +63,7 @@ namespace Asset::Resource
 
 	glm::vec3 randomize(const glm::vec3& in, const float& random_direction)
 	{
-		auto& randGen = Engine::GetModule<EngineModule::RandomGen>();
+		auto& randGen = of::engine::GetModule<EngineModule::RandomGen>();
 
 		return {
 			in.x + randGen.random_float(-random_direction, random_direction),
@@ -73,7 +73,7 @@ namespace Asset::Resource
 
 	GameObject* Prefab::createNewInstance(GameObject* parent, const bool& isPlayerSummon) const
 	{
-		auto x = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->getComponent<Component::Transform>();

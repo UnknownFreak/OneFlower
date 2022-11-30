@@ -15,7 +15,7 @@ namespace Component
 {
 	void LootContainer::setLooted()
 	{
-		looted = Engine::GetModule<File::SaveFile>().isLooted(attachedOn->id);
+		looted = of::engine::GetModule<File::SaveFile>().isLooted(attachedOn->id);
 	}
 
 	void LootContainer::loot(GameObject* object)
@@ -24,10 +24,10 @@ namespace Component
 		// play loot animation
 		// set containerId looted in saveState;
 		if (isStaticContainer)
-			Engine::GetModule<File::SaveFile>().setLooted(attachedOn->id);
+			of::engine::GetModule<File::SaveFile>().setLooted(attachedOn->id);
 		for (auto& x : lootDrops)
 		{
-			auto tmp = Engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
+			auto tmp = of::engine::GetModule<File::Asset::Manager>().requestor.requestShared<Items::Base>(x.first);
 			object->getComponent<Component::Inventory>()->addItem(tmp, x.second);
 		}
 	}

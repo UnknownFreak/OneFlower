@@ -1,8 +1,8 @@
 #ifndef UIHandler_HPP
 #define UIHandler_HPP
 
-#include <Module/EngineModuleManager.hpp>
-#include <Interfaces/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
+#include <module/IEngineModule.hpp>
 
 #include <vector>
 #include <Input/Console.hpp>
@@ -12,7 +12,7 @@
 namespace Graphics::UI
 {
 
-	class UIHandler : public Interfaces::IEngineResource<UIHandler>
+	class UIHandler : public of::module::interface::IEngineResource<UIHandler>
 	{
 		glm::vec2 mouse;
 		std::vector<Enums::UIContextNames> uiToRemove;
@@ -26,7 +26,7 @@ namespace Graphics::UI
 
 		bool showLoadingScreenOnly;
 
-		UIHandler() : console(Engine::GetModule<Console>())
+		UIHandler() : console(of::engine::GetModule<Console>())
 		{
 		};
 
@@ -44,7 +44,7 @@ namespace Graphics::UI
 			return (Ty*)uiContext[name].get();
 		}
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

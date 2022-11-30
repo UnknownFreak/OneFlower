@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 #include <utils/common/String.hpp>
 #include <Helpers/Enum/LogLevel.hpp>
@@ -11,7 +11,7 @@
 
 namespace EngineModule
 {
-	class GameConfig : public Interfaces::IEngineResource<GameConfig>
+	class GameConfig : public of::module::interface::IEngineResource<GameConfig>
 	{
 		bool configLoaded = false;
 		const of::common::String configName;
@@ -34,7 +34,7 @@ namespace EngineModule
 		~GameConfig();
 
 		// Inherited via IEngineResource
-		virtual Enums::EngineResourceType& getType() const override;
+		virtual of::module::EngineResourceType& getType() const override;
 
 		void save();
 		void load();

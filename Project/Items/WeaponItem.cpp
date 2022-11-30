@@ -3,5 +3,5 @@
 
 void Items::Weapon::loadModel()
 {
-	mesh = Engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(modelId);
+	mesh = of::engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(modelId);
 }

@@ -9,13 +9,13 @@
 
 #include <utils/common/String.hpp>
 #include <Helpers/TickTimer.hpp>
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <Interfaces/ISimulatable.hpp>
 
 namespace EngineModule
 {
 
-	class Time : public Interfaces::IEngineResource<Time>, Interfaces::ISimulatable
+	class Time : public of::module::interface::IEngineResource<Time>, Interfaces::ISimulatable
 	{
 		std::mutex mtx;
 	public:
@@ -41,7 +41,7 @@ namespace EngineModule
 		float physicsElapsed;
 		utils::HighResolutionClock physicsClock;
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

@@ -8,14 +8,14 @@
 
 #include <swizzle/core/Input.hpp>
 
-#include <Interfaces\IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 #include "BasicInputHandler.hpp"
 #include "AxisInputHandler.hpp"
 
 namespace Input
 {
-	class InputHandler : public Interfaces::IEngineResource<InputHandler>
+	class InputHandler : public of::module::interface::IEngineResource<InputHandler>
 	{
 		bool isPlayerKeyboardInputEnabled = true;
 	public:
@@ -30,7 +30,7 @@ namespace Input
 		BasicInputHandler<swizzle::input::Keys> uiKeyboard;
 		BasicInputHandler<swizzle::input::Mouse> mouse;
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

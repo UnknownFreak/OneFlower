@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include "ModuleLogger.hpp"
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <utils/common/string.hpp>
 #include <Helpers\Enum\LogLevel.hpp>
 
@@ -28,7 +28,7 @@ namespace EngineModule
 		typedef Streams::BasicLogStream stream;
 #endif
 
-		class OneLogger : public LoggerBase<stream>, public Interfaces::IEngineResource<OneLogger>
+		class OneLogger : public LoggerBase<stream>, public of::module::interface::IEngineResource<OneLogger>
 		{
 			static Streams::NullStream nullStream;
 			static ModuleLogger<Streams::NullStream> EMPTY;
@@ -47,7 +47,7 @@ namespace EngineModule
 				return (ModuleLogger<Streams::LogStream>&)moduleLoggers.at(moduleName);
 			}
 
-			Enums::EngineResourceType& getType() const
+			of::module::EngineResourceType& getType() const
 			{
 				return type;
 			}

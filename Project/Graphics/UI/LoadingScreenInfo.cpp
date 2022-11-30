@@ -7,8 +7,8 @@
 
 Graphics::UI::LoadingScreenInfo::LoadingScreenInfo(const Enums::LoadingState& theState) : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), theState(theState)
 {
-	visible = Engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
-	auto height = Engine::GetModule<EngineModule::GameConfig>().videoMode.second;
+	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
+	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;
 	pos = { 5, height - 320.f };
 }
 

@@ -1,7 +1,7 @@
 #include "Element.hpp"
 
 #include <File/Asset/Manager.hpp>
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 #include <imgui/imgui.h>
@@ -34,7 +34,7 @@ namespace Combat
 			return elementAttributes.at(element);
 		else
 		{
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
 				"to internal damageToUnknownType(" + std::to_string(damageToUnknownType).c_str() + ")");
 			return damageToUnknownType;
 		}
@@ -42,7 +42,7 @@ namespace Combat
 	
 	of::common::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
 	{
-		return Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(element).name;
+		return of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(element).name;
 	}
 	
 	Interfaces::TypeInfo Element::getTrait() const
@@ -101,9 +101,9 @@ namespace Combat
 				}
 				else
 				{
-					if (Engine::GetModule<File::Asset::Manager>().requestor.editorKeyExists(item.first))
+					if (of::engine::GetModule<File::Asset::Manager>().requestor.editorKeyExists(item.first))
 					{
-						of::common::String tmp_name = Engine::GetModule<File::Asset::Manager>().requestor.editorGetObjectName(item.first);
+						of::common::String tmp_name = of::engine::GetModule<File::Asset::Manager>().requestor.editorGetObjectName(item.first);
 						if (tmp_name == "")
 						{
 							ImGui::Text(item.first.operator()(true).c_str());

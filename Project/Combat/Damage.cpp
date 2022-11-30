@@ -24,8 +24,8 @@ namespace Component
 	void Damage::loadEffects()
 	{
 		for (auto& id : effectsIds)
-			effects.push_back(Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Effect>(id));
-		damageElement = Engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Element>(elementId);
+			effects.push_back(of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Effect>(id));
+		damageElement = of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Element>(elementId);
 	}
 
 	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)
@@ -103,13 +103,13 @@ namespace Component
 					}
 					else
 					{
-						Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
+						of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
 					}
 				}
 				else
 				{
 					double theDamage = 15.0 * stats->getLevel();
-					Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use /default /15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
+					of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use /default /15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
 					stats->doDamage(theDamage, damageCoef, damageElement, owner);
 				}
 			

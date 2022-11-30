@@ -9,7 +9,7 @@
 namespace Graphics::Editor
 {
 
-	DataTree::DataTree(float& height) : height(height), map(Engine::GetModule<File::Asset::Manager>().requestor.getLoadedMap())
+	DataTree::DataTree(float& height) : height(height), map(of::engine::GetModule<File::Asset::Manager>().requestor.getLoadedMap())
 	{
 	}
 
@@ -77,7 +77,7 @@ namespace Graphics::Editor
 				ImGui::SetCursorPosX(400.f);
 				if (ImGui::Button("+", { 18.f, 0 }))
 				{
-					auto& manager = Engine::GetModule<File::Asset::Manager>();
+					auto& manager = of::engine::GetModule<File::Asset::Manager>();
 					manager.requestor.add(item.type, manager.openedMod.name);
 				}
 			}

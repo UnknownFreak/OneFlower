@@ -1,7 +1,7 @@
 #include "UIContext.hpp"
 
 
-#include <Module/EngineModuleManager.hpp>
+#include <module/ModuleManager.hpp>
 #include <Input/InputHandler.hpp>
 namespace Graphics::UI
 {
@@ -14,7 +14,7 @@ namespace Graphics::UI
 	{
 		if (noKeybind)
 			return;
-		Input::InputHandler& ih = Engine::GetModule<Input::InputHandler>();
+		Input::InputHandler& ih = of::engine::GetModule<Input::InputHandler>();
 		ih.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp(uiName, [&](bool, swizzle::input::Keys, const float&) { toggleVisible(); }, false), toggleKey, Enums::Input::Action::Press);
 	}
 

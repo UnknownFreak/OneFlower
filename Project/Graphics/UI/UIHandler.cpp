@@ -2,7 +2,7 @@
 
 #include<Module/Logger/OneLogger.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<Graphics::UI::UIHandler>::type = Enums::EngineResourceType::UIHandler;
+of::module::EngineResourceType of::module::interface::IEngineResource<Graphics::UI::UIHandler>::type = of::module::EngineResourceType::UIHandler;
 
 namespace Graphics::UI
 {
@@ -18,7 +18,7 @@ namespace Graphics::UI
 
 	void UIHandler::addUIContext(const Enums::UIContextNames& contextName, std::unique_ptr<UIContext> context)
 	{
-		auto& logger =Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::UI::UIHandler");
+		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::UI::UIHandler");
 		logger.Debug("Adding UI Context ", context->uiName);
 		uiContext.emplace(contextName, std::move(context));
 	}

@@ -7,7 +7,7 @@ namespace Requirement
 
 	bool QuestStateRequirment::fullfilled()
 	{
-		auto& saveFile = Engine::GetModule<File::SaveFile>();
+		auto& saveFile = of::engine::GetModule<File::SaveFile>();
 		if (saveFile.isQuestStored(questId))
 		{
 			auto& state = saveFile.getQuestState(questId);
@@ -15,7 +15,7 @@ namespace Requirement
 			{
 				if (state.objectiveStates.find(objectiveId) == state.objectiveStates.end())
 				{
-					auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Questing::QuestStateRequirement");
+					auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Questing::QuestStateRequirement");
 					logger.Warning("QuestStateRequirement for objective state cannot be checked for as it does not exist in the quest state.", logger.fileInfo(__FILE__, __LINE__));
 					return false;
 				}

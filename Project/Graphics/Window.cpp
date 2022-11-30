@@ -21,7 +21,7 @@
 #include <swizzle/asset/TextureLoader.hpp>
 
 
-Enums::EngineResourceType Interfaces::IEngineResource<Graphics::RenderWindow>::type = Enums::EngineResourceType::Graphics;
+of::module::EngineResourceType of::module::interface::IEngineResource<Graphics::RenderWindow>::type = of::module::EngineResourceType::Graphics;
 namespace Graphics
 {
 
@@ -84,12 +84,12 @@ namespace Graphics
 		attribFsq.mPushConstantSize = 0u;
 		attribFsq.mEnableBlending = true;
 
-		mFsq = Engine::GetModule<File::Resource::Shader::Loader>().requestShader("fsq.shader", attribFsq);
+		mFsq = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader("fsq.shader", attribFsq);
 		
 		mFsqMat = mGfxContext->createMaterial(mFsq);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 
-		auto& gameConfig = Engine::GetModule<EngineModule::GameConfig>();
+		auto& gameConfig = of::engine::GetModule<EngineModule::GameConfig>();
 		mWindow->setSize(gameConfig.videoMode.first, gameConfig.videoMode.second);
 
 		mSkybox.setSkyBox("dark");
@@ -190,7 +190,7 @@ namespace Graphics
 		title += "GameObject Transform count: " + std::to_string(positions.size()) + "\n";
 		title += "GameObject Model count: " + std::to_string(models.size()) + "\n";
 
-		auto player = Engine::GetModule<EngineModule::ObjectInstanceHandler>().getPlayer();
+		auto player = of::engine::GetModule<EngineModule::ObjectInstanceHandler>().getPlayer();
 		auto pos = player->getComponent<Component::Transform>()->pos;
 		title += "Player pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + "\n";
 
@@ -204,8 +204,8 @@ namespace Graphics
 	}
 
 	RenderWindow::RenderWindow() :
-		drawHitbox(Engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX]),
-		ui(Engine::GetModule<Graphics::UI::UIHandler>()),
+		drawHitbox(of::engine::GetModule<Globals>().boolGlobals[Globals::GLOBAL_DRAW_HITBOX]),
+		ui(of::engine::GetModule<Graphics::UI::UIHandler>()),
 		cam(glm::radians(45.0F), 1280, 720), mController(cam)
 	{
 	}

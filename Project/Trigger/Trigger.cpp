@@ -6,11 +6,11 @@ namespace Trigger
 {
 	void Trigger::execute()
 	{
-		if (triggerOnce && Engine::GetModule<File::SaveFile>().isTriggered(uuid))
+		if (triggerOnce && of::engine::GetModule<File::SaveFile>().isTriggered(uuid))
 			return;
 
 		executeInternal();
 		if (triggerOnce)
-			Engine::GetModule<File::SaveFile>().setTriggered(uuid);
+			of::engine::GetModule<File::SaveFile>().setTriggered(uuid);
 	}
 }

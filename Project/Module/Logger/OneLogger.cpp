@@ -1,6 +1,6 @@
 #include "OneLogger.hpp"
 
-Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::Logger::OneLogger>::type = Enums::EngineResourceType::Logger;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::Logger::OneLogger>::type = of::module::EngineResourceType::Logger;
 
 EngineModule::Logger::Streams::NullStream EngineModule::Logger::OneLogger::nullStream;
 EngineModule::Logger::ModuleLogger<EngineModule::Logger::Streams::NullStream> EngineModule::Logger::OneLogger::EMPTY(

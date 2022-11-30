@@ -10,7 +10,7 @@ namespace Graphics
 
 		ObjectSelector::ObjectSelector() : UIContext(swizzle::input::Keys::KeyNone, "ObjectSelector", true)
 		{
-			auto& oih = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+			auto& oih = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 
 			auto onAdd = [&](GameObject* go) {
 				objects[go] = false;
@@ -37,14 +37,14 @@ namespace Graphics
 					ImGui::SetColumnWidth(0, 300.f);
 					if (ImGui::Button("Add object"))
 					{
-						Engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
+						of::engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
 					}
 					ImGui::SameLine();
 					if (ImGui::Button("Delete object"))
 					{
 						if (selected)
 						{
-							Engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(selected->id);
+							of::engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(selected->id);
 						}
 					}
 					if(ImGui::BeginListBox(" ", ImVec2(300.f,-1.f)))

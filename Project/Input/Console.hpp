@@ -5,11 +5,11 @@
 #include <unordered_map>
 #include <functional>
 #include <mutex>
-#include <Interfaces\IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <utils/common/string.hpp>
 
 
-class Console : public Interfaces::IEngineResource<Console>
+class Console : public of::module::interface::IEngineResource<Console>
 {
 	mutable std::mutex insertionLock;
 	const size_t max_lines = 45;
@@ -33,7 +33,7 @@ public:
 	bool execute();
 
 	// Inherited via IEngineResource
-	virtual Enums::EngineResourceType& getType() const override { return type; }
+	virtual of::module::EngineResourceType& getType() const override { return type; }
 
 
 };

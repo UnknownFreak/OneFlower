@@ -19,7 +19,7 @@ namespace Component
 
 			if (interaction.interactionTrigger.operator bool())
 				interaction.interactionTrigger->execute();
-			auto& instanceHandler = Engine::GetModule<EngineModule::ObjectInstanceHandler>();
+			auto& instanceHandler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
 			for (auto& [objectId, toggleState, reverse, repeat] : interaction.interactions)
 			{
 				if (instanceHandler.exists(objectId))

@@ -23,7 +23,7 @@ namespace Graphics
 
 	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
 
 		swizzle::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -41,23 +41,23 @@ namespace Graphics
 		attribs.mEnableDepthTest = false;
 		attribs.mEnableBlending = false;
 		
-		auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
-		mModel->shader = Engine::GetModule<File::Resource::Shader::Loader>().requestShader("sky.shader", attribs);
+		auto& wnd = of::engine::GetModule<Graphics::RenderWindow>();
+		mModel->shader = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader("sky.shader", attribs);
 		
-		mModel->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
+		mModel->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		
 		mModel->material = wnd.getGfxContext()->createMaterial(mModel->shader);
 		
 		mModel->material->setDescriptorTextureResource(0, mModel->texture);
 
-		mModel->mesh = Engine::GetModule<File::Resource::Mesh::Loader>().requestMesh("inverted_sphere.obj");
+		mModel->mesh = of::engine::GetModule<File::Resource::Mesh::Loader>().requestMesh("inverted_sphere.obj");
 		
-		mModel->mMeshBuffer = Engine::GetModule<Graphics::RenderWindow>().getGfxContext()->createBuffer(swizzle::gfx::BufferType::Vertex);
+		mModel->mMeshBuffer = of::engine::GetModule<Graphics::RenderWindow>().getGfxContext()->createBuffer(swizzle::gfx::BufferType::Vertex);
 		mModel->mMeshBuffer->setBufferData((U8*)mModel->mesh->getVertexDataPtr(), mModel->mesh->getVertexDataSize(),
 			sizeof(float) * (3 + 3 + 2));
 		
 		loaded = true;
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
 	}
 

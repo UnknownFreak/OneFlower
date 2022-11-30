@@ -2,7 +2,7 @@
 #include <File/Resource/TextureLoader.hpp>
 
 Graphics::UI::SkillIcon::SkillIcon(Combat::Skill* skill) : UIContext(swizzle::input::Keys::KeyNone, "SkillIcon", false), skill(skill),
-skillIcon(Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(skill->iconTextureName, Globals::uiTexturePath))
+skillIcon(of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture(skill->iconTextureName, Globals::uiTexturePath))
 {
 	setPosition({ 0,0 });
 }

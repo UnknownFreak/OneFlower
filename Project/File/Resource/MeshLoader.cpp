@@ -1,10 +1,10 @@
 #include "MeshLoader.hpp"
 
-#include <Module\EngineModuleManager.hpp>
+#include <Module\ModuleManager.hpp>
 #include <Graphics/Window.hpp>
 #include <filesystem>
 
-Enums::EngineResourceType Interfaces::IEngineResource<File::Resource::Mesh::Loader>::type = Enums::EngineResourceType::MeshLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<File::Resource::Mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
 
 namespace File::Resource::Mesh
 {
@@ -13,7 +13,7 @@ namespace File::Resource::Mesh
 		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
 			logger.Error("Unable to load mesh [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -67,7 +67,7 @@ namespace File::Resource::Mesh
 	{
 		if (loadedMeshes.find(name) != loadedMeshes.end())
 		{
-			auto& logger = Engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
 			logger.Info("Unloading mesh " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedMeshes.erase(name);
 		}

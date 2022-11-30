@@ -1,5 +1,5 @@
 #include "LootTable.hpp"
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 #include <Module/Random.hpp>
 
 of::common::uuid Interfaces::Trait<Items::LootTable>::typeId = of::common::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");

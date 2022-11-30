@@ -1,14 +1,14 @@
-#include "EngineModuleManager.hpp"
+#include <module/ModuleManager.hpp>
 
-namespace EngineModule
+namespace of::module
 {
 	ModuleManager* ModuleManager::m_engineResourceManager = nullptr;
 
 	ModuleManager::~ModuleManager()
 	{
-		std::map<Enums::EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it = componentMap.begin();
-		std::map<Enums::EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator eit = componentMap.end();
-		for (it; it != eit; it++)
+		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it = componentMap.begin();
+		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator eit = componentMap.end();
+		for (; it != eit; it++)
 		{
 			it->second->disable();
 			//delete it->second;

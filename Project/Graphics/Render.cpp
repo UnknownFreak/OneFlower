@@ -12,7 +12,7 @@ of::common::String Component::IBase<Render>::componentName = "Render";
 
 void Render::loadAndSetModel()
 {
-	auto& wnd = Engine::GetModule<Graphics::RenderWindow>();
+	auto& wnd = of::engine::GetModule<Graphics::RenderWindow>();
 	//auto temp = wnd.getUploadBuffer();
 	//auto trans = temp->begin();
 	auto gfx = wnd.getGfxContext();
@@ -23,7 +23,7 @@ void Render::loadAndSetModel()
 
 	model = std::make_shared<Graphics::Model>();
 
-	model->mesh = Engine::GetModule<File::Resource::Mesh::Loader>().requestMesh(meshName);
+	model->mesh = of::engine::GetModule<File::Resource::Mesh::Loader>().requestMesh(meshName);
 	{
 
 		model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
@@ -39,14 +39,14 @@ void Render::loadAndSetModel()
 
 	}
 
-	if (Engine::GetModule<File::Resource::Mesh::Loader>().getResult() == false)
+	if (of::engine::GetModule<File::Resource::Mesh::Loader>().getResult() == false)
 	{
-		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture("missingMeshTexture.png");
+		model->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture("missingMeshTexture.png");
 	}
 	else
-		model->texture = Engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
-	model->shader = Engine::GetModule<File::Resource::Shader::Loader>().requestShader(shaderName);
-	auto gfxContext = Engine::GetModule<Graphics::RenderWindow>().getGfxContext();
+		model->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
+	model->shader = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader(shaderName);
+	auto gfxContext = of::engine::GetModule<Graphics::RenderWindow>().getGfxContext();
 
 	model->material = gfxContext->createMaterial(model->shader);
 
@@ -67,7 +67,7 @@ void Render::detach()
 {
 	if (attachedOn)
 	{
-		Engine::GetModule<Graphics::RenderWindow>().RemoveRenderable(attachedOn);
+		of::engine::GetModule<Graphics::RenderWindow>().RemoveRenderable(attachedOn);
 		attachedOn = nullptr;
 	}
 }
@@ -83,7 +83,7 @@ void Render::attachOn(GameObject* go)
 	//go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 	loadAndSetModel();
 	transform = go->getComponent<Component::Transform>();
-	Engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
+	of::engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 }
 
 void Render::onCollision(GameObject*)

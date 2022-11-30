@@ -1,7 +1,7 @@
 #include "OneTime.hpp"
-#include <Module\EngineModuleManager.hpp>
+#include <Module\ModuleManager.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<EngineModule::Time>::type = Enums::EngineResourceType::Time;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::Time>::type = of::module::EngineResourceType::Time;
 namespace EngineModule
 {
 	Time::Time() : timer(), clock(), elapsed(), physicsElapsed()

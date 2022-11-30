@@ -4,7 +4,8 @@
 
 #include <Main/GameEntry.hpp>
 
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
+
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>
@@ -16,67 +17,67 @@
 #include <File/GameConfig.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
 
-of::common::String to_string(const Enums::EngineResourceType& state)
+of::common::String to_string(const of::module::EngineResourceType& state)
 {
 	switch (state)
 	{
 		// Logger
-	case Enums::EngineResourceType::Logger: return "Logger";
+	case of::module::EngineResourceType::Logger: return "Logger";
 		// Console
-	case Enums::EngineResourceType::Console: return "Console";
+	case of::module::EngineResourceType::Console: return "Console";
 		// Core
-	case Enums::EngineResourceType::Globals: return "Globals";
-	case Enums::EngineResourceType::Time: return "Time";
-	case Enums::EngineResourceType::Settings: return "EngineSettings";
+	case of::module::EngineResourceType::Globals: return "Globals";
+	case of::module::EngineResourceType::Time: return "Time";
+	case of::module::EngineResourceType::Settings: return "EngineSettings";
 		// Asset
-	case Enums::EngineResourceType::TextureLoader: return "TextureLoader";
-	case Enums::EngineResourceType::MeshLoader: return "MeshLoader";
-	case Enums::EngineResourceType::ShaderLoader: return "ShaderLoader";
-	case Enums::EngineResourceType::AssetManager: return "AssetManager";
-	case Enums::EngineResourceType::ObjectInstanceHandler: return "ObjectInstanceHandler";
+	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
+	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
+	case of::module::EngineResourceType::ShaderLoader: return "ShaderLoader";
+	case of::module::EngineResourceType::AssetManager: return "AssetManager";
+	case of::module::EngineResourceType::ObjectInstanceHandler: return "ObjectInstanceHandler";
 		// Engine
-	case Enums::EngineResourceType::ModLoader: return "ModLoader";
-	case Enums::EngineResourceType::Input: return "Input";
-	case Enums::EngineResourceType::Graphics: return "Graphics";
-	case Enums::EngineResourceType::Physics: return "Physics";
-	case Enums::EngineResourceType::UIHandler: return "Console";
+	case of::module::EngineResourceType::Loader: return "ModLoader";
+	case of::module::EngineResourceType::Input: return "Input";
+	case of::module::EngineResourceType::Graphics: return "Graphics";
+	case of::module::EngineResourceType::Physics: return "Physics";
+	case of::module::EngineResourceType::UIHandler: return "Console";
 
 		// Unused
-	case Enums::EngineResourceType::WorldManager: return "WorldManager";
-	case Enums::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
-	case Enums::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
+	case of::module::EngineResourceType::WorldManager: return "WorldManager";
+	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
+	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
 	}
 	return "";
 }
 
 volatile void initializeSystems()
 {
-	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>();
+	auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>();
 	logger.Info("Initializing Engine");
 	for (auto& str : Engine::GetBuildMode().toLogString())
 		logger.Info(str);
 
-	logger.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::GameConfig>().type));
+	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
 
 	auto mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Console>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Console>().type));
 	mainModule.Info("Initializing Modules group: Core");
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Globals>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::Time>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Globals>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::Time>().type));
 
 	mainModule.Info("Initializing Modules group: Asset Management");
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Texture::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Mesh::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Resource::Shader::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Asset::Manager>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Texture::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Mesh::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Shader::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Asset::Manager>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<File::Mod::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Input::InputHandler>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::RenderWindow>().type));
-	mainModule.Info("Initializing Module: " + to_string(Engine::GetModule<Graphics::UI::UIHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Mod::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::RenderWindow>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Finished initializing engine ");
 }
@@ -87,7 +88,7 @@ class EngineLogger : public swizzle::core::LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
 		of::common::String tType = messageType;
-		Engine::GetModule<EngineModule::Logger::OneLogger>().EngineLogging(tType, message);
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().EngineLogging(tType, message);
 		printf("%s: %s\n", messageType, message);
 	}
 
@@ -119,7 +120,7 @@ class EngineLogger : public swizzle::core::LogDevice
 	const int return_value = g.Run();
 	sw::core::RemoveLogger(&logger);
 
-	Engine::Dispose();
+	of::engine::Dispose();
 
 	return return_value;
 }

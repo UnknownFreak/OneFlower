@@ -2,9 +2,9 @@
 
 #include <File/Asset/Manager.hpp>
 
-#include "Module\EngineModuleManager.hpp"
+#include <Module/ModuleManager.hpp>
 
-Enums::EngineResourceType Interfaces::IEngineResource<Globals>::type = Enums::EngineResourceType::Globals;
+of::module::EngineResourceType of::module::interface::IEngineResource<Globals>::type = of::module::EngineResourceType::Globals;
 
 const of::common::String Globals::texturePath = "Textures/";
 const of::common::String Globals::skyboxTexturePath = Globals::texturePath + "skybox/";
@@ -31,7 +31,7 @@ const float Globals::Z_OFFSET = -64.f;
 
 Globals::Globals()
 {
-	File::Asset::Manager& am = Engine::GetModule<File::Asset::Manager>();
+	File::Asset::Manager& am = of::engine::GetModule<File::Asset::Manager>();
 
 	putVariableInto<PrimitiveSaveable<long>>(am.requestor, longGlobals, Enums::ObjectType::PrimitiveInt);
 	putVariableInto<PrimitiveSaveable<double>>(am.requestor, doubleGlobals, Enums::ObjectType::PrimitiveDouble);

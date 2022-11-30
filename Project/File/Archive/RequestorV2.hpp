@@ -14,7 +14,7 @@
 #include <utils/common/string.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
-#include <Module/EngineModuleManager.hpp>
+#include <Module/ModuleManager.hpp>
 
 #include <File/Archive/DatabaseIndex.hpp>
 #include <File/Mod/ModHeader.hpp>
@@ -195,7 +195,7 @@ namespace File::Archive
 				return t;
 			if (!requestFromDatabase<T>(t, modFile.name, modFile.uuid))
 			{
-				auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+				auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 				logger.Error("Requestor was unable to request [" + modFile.operator()() + "] from database.", logger.fileInfo(__FILE__, __LINE__));
 			}
 			return t;
@@ -208,7 +208,7 @@ namespace File::Archive
 			bool init = true;
 			bool first_loaded = false;
 			bool patching = false;
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			for(std::pair<std::string, size_t> var : getLoadOrder())
 			{
 				logger.Debug("---------------------------------------------------------------------------------------");
@@ -225,7 +225,7 @@ namespace File::Archive
 						while (!eof)
 						{
 							ar(ind);
-							Engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loaded object from index file: " + ind.ID.to_string());
+							of::engine::GetModule<EngineModule::Logger::OneLogger>().Debug("Loaded object from index file: " + ind.ID.to_string());
 
 							if (ind.typeId == Interfaces::Trait<T>::typeId && init && (ind.ID == uuid && ind.modFile == modName) == false)
 							{
@@ -309,7 +309,7 @@ namespace File::Archive
 		std::map<of::common::String, size_t> getLoadOrder() const
 		{
 			if (fileLoadOrder.size() == 0)
-				return Engine::GetModule<File::Mod::Loader>().loadOrder;
+				return of::engine::GetModule<File::Mod::Loader>().loadOrder;
 			return fileLoadOrder;
 		}
 
@@ -357,7 +357,7 @@ namespace File::Archive
 		inline bool add(T* ptr)
 		{
 			File::Mod::ModFileUUIDHelper key(ptr->fromMod, ptr->ID);
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			if (requestedMap.find(key) != requestedMap.end())
 			{
 				if (requestedMap[key].operator bool())
@@ -383,14 +383,14 @@ namespace File::Archive
 				break;
 			}
 			default:
-				Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
+				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
 			}
 		}
 
 
 		inline void clear()
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			logger.Warning("Unloading object using clear from Requestor it is still possible it has uses,"
 				"this is dangerous and can lead to undefined behaviour if any references or pointers are used.", logger.fileInfo(__FILE__, __LINE__));
 			requestedMap.clear();
@@ -399,7 +399,7 @@ namespace File::Archive
 
 		inline void editorLoadAll()
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			clear();
 			for(std::pair<std::string, size_t> var : getLoadOrder())
 			{
@@ -448,7 +448,7 @@ namespace File::Archive
 				auto& ptr = requestedMap[modFile];
 				return ptr->getName();
 			}
-			Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Tried to get name of object, but object does not exist!");
+			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor").Warning("Tried to get name of object, but object does not exist!");
 			return "";
 		}
 
@@ -467,7 +467,7 @@ namespace File::Archive
 
 		inline std::vector<File::Mod::ModFileUUIDHelper> listAllObjectKeys(const Enums::ObjectType& objectType) const
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			std::vector<File::Mod::ModFileUUIDHelper> listofall;
 			for(std::pair<std::string, size_t> var :getLoadOrder())
 			{
@@ -514,7 +514,7 @@ namespace File::Archive
 		requires std::derived_from<T, Interfaces::IRequestable>
 		inline T requestUniqueInstance(const File::Mod::ModFileUUIDHelper& modFile)
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			T* t = request<T>(modFile);
 			if(t)
 				return T(*t);
@@ -578,7 +578,7 @@ namespace File::Archive
 		inline void save(File::Archive::DatabaseIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr,
 			const File::Mod::Header& header, const bool& skipSaveIfMode=false) const
 		{
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Requestor");
 			td_map::const_iterator it = requestedMap.begin();
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)

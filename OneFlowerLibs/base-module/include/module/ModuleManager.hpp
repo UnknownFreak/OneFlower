@@ -2,9 +2,10 @@
 #define EngineResourceManager_HPP
 
 #include <map>
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <memory>
-namespace EngineModule
+
+namespace of::module
 {
 	class ModuleManager
 	{
@@ -13,21 +14,21 @@ namespace EngineModule
 
 		~ModuleManager();
 
-		std::map<Enums::EngineResourceType, std::unique_ptr<BaseEngineModule> > componentMap;
+		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule> > componentMap;
 
 		template<class T>
 		T* Create_T()
 		{
-			componentMap.insert({ Interfaces::IEngineResource<T>::type, std::make_unique<T>() });
-			return (T*)componentMap[Interfaces::IEngineResource<T>::type].get();
+			componentMap.insert({ interface::IEngineResource<T>::type, std::make_unique<T>() });
+			return (T*)componentMap[interface::IEngineResource<T>::type].get();
 		}
 
 	public:
 		template<class T_S>
 		T_S& GetResource()
 		{
-			std::map<Enums::EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it;
-			it = componentMap.find(Interfaces::IEngineResource<T_S>::type);
+			std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it;
+			it = componentMap.find(interface::IEngineResource<T_S>::type);
 
 			if (it != componentMap.end())
 				return 	(T_S&)*it->second;
@@ -40,15 +41,16 @@ namespace EngineModule
 
 	};
 }
-namespace Engine
+namespace of::engine
 {
 	template<class T>
 	inline T& GetModule()
 	{
-		return EngineModule::ModuleManager::get().GetResource<T>();
+		return module::ModuleManager::get().GetResource<T>();
 	}
+
 	inline void Dispose() {
-		EngineModule::ModuleManager::deconstruct();
+		module::ModuleManager::deconstruct();
 	}
 }
 

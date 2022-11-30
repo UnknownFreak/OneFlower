@@ -3,7 +3,7 @@
 
 #include <glm/vec3.hpp>
 
-#include "Interfaces/IEngineModule.hpp"
+#include "module/IEngineModule.hpp"
 #include <map>
 #include <vector>
 
@@ -12,7 +12,7 @@
 
 #include <utils/common/String.hpp>
 
-class Globals : public Interfaces::IEngineResource<Globals>
+class Globals : public of::module::interface::IEngineResource<Globals>
 {
 	template<class T, class U>
 	void putVariableInto(File::Archive::RequestorV2& container, U& containerToPut, const Enums::ObjectType& type)
@@ -52,7 +52,7 @@ public:
 	glm::vec3 newGamePoint;
 
 	// Inherited via IEngineResource
-	Enums::EngineResourceType& getType() const
+	of::module::EngineResourceType& getType() const
 	{
 		return type;
 	}

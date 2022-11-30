@@ -51,7 +51,7 @@ GameObject& GameObject::operator=(const GameObject& copy)
 
 GameObject::~GameObject()
 {
-	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject");
+	auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject");
 	logger.Debug("~GameObject -> id: " + id.to_string());
 	logger.Debug("~GameObject -> tag: " + tag);
 	for (auto& x : componentMap)
@@ -72,7 +72,7 @@ bool GameObject::interact(const Enums::InteractionOption& interaction)
 	}
 	else
 	{
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject").Warning("Trying to perform interact with an object that has no player interact prompt added to it.");
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject").Warning("Trying to perform interact with an object that has no player interact prompt added to it.");
 	}
 	return false;
 }
@@ -164,13 +164,13 @@ void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTi
 		{
 			component.second->onDeath();
 		}
-	Engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(this, delayedDespawnTime);
+	of::engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(this, delayedDespawnTime);
 
 }
 
 void GameObject::onDelete()
 {
-	auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject");
+	auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Object::GameObject");
 	logger.Debug("OnDelete -> Enter");
 	if (unloading)
 	{

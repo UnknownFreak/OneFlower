@@ -1,7 +1,7 @@
 #ifndef SaveFile_HPP
 #define SaveFile_HPP
 
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 #include <Object/GameObject.hpp>
 #include <Quest/QuestState.hpp>
 #include <utils/common/string.hpp>
@@ -22,7 +22,7 @@ namespace Questing {
 namespace File
 {
 
-	class SaveFile : public Interfaces::IEngineResource<SaveFile>
+	class SaveFile : public of::module::interface::IEngineResource<SaveFile>
 	{
 
 		Enums::DifficultyLevel diff = Enums::DifficultyLevel::NotSet;
@@ -71,7 +71,7 @@ namespace File
 		void load(const of::common::String& fileName);
 
 		// Inherited via IEngineResource
-		virtual Enums::EngineResourceType& getType() const override;
+		virtual of::module::EngineResourceType& getType() const override;
 	};
 }
 

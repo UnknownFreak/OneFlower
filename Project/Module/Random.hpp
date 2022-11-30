@@ -1,10 +1,10 @@
 #pragma once
 #include <random>
-#include <Interfaces/IEngineModule.hpp>
+#include <module/IEngineModule.hpp>
 
 namespace EngineModule
 {
-	class RandomGen : public Interfaces::IEngineResource<RandomGen>
+	class RandomGen : public of::module::interface::IEngineResource<RandomGen>
 	{
 		std::uniform_real_distribution<double> d;
 		std::uniform_real_distribution<float> f;
@@ -24,6 +24,6 @@ namespace EngineModule
 		double random_double(const double& min, const double& max);
 
 		// Inherited via IEngineResource
-		virtual Enums::EngineResourceType& getType() const override;
+		virtual of::module::EngineResourceType& getType() const override;
 	};
 }

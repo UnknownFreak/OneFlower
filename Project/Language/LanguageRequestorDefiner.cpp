@@ -97,7 +97,7 @@ namespace Language
 				reloadStrings();
 				return;
 			}
-		Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
+		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
 	LanguageRequestor::LanguageRequestor() : IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::Language)
@@ -111,18 +111,18 @@ namespace Language
 		clear();
 #endif
 		allLanguageFiles = of::os::listDirectory(of::common::langPath, ".lang", false);
-		languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
+		languages = of::engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 		resolvePatchedLanguages();
 	}
 
 	void LanguageRequestor::archiveLoad()
 	{
-		languages = Engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
+		languages = of::engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
 	}
 
 	void LanguageRequestor::archiveSave() const
 	{
-		Engine::GetModule<File::Asset::Manager>().saveLanguages(*this);
+		of::engine::GetModule<File::Asset::Manager>().saveLanguages(*this);
 	}
 
 	Interfaces::TypeInfo LanguageRequestor::getTrait() const

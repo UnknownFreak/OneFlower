@@ -18,8 +18,8 @@
 
 #include <utils/common/string.hpp>
 
-#include <Module/EngineModuleManager.hpp>
-#include <Interfaces/IEngineModule.hpp>
+#include <Module/ModuleManager.hpp>
+#include <module/IEngineModule.hpp>
 
 #include <Language/LanguageRequestor.hpp>
 #include <Language/TranslationString.hpp>
@@ -41,7 +41,7 @@
 
 namespace File::Asset
 {
-	class Manager : public Interfaces::IEngineResource<Manager>
+	class Manager : public of::module::interface::IEngineResource<Manager>
 	{
 
 		File::Mod::Loader& modLoader;
@@ -71,7 +71,7 @@ namespace File::Asset
 
 		File::Mod::Loader& getModLoader();
 
-		Enums::EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}
@@ -83,7 +83,7 @@ namespace File::Asset
 			File::Archive::DatabaseIndex ind;
 			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 			std::ifstream database("Data//" + modName, std::ios::binary);
-			auto& logger = Engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
 			if (!index.is_open())
 				logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
 			else if (!database.is_open())
