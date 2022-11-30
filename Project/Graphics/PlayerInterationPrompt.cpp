@@ -4,7 +4,7 @@
 
 #include <Graphics/UI/UIHandler.hpp>
 #include <Graphics/UI/DialogScreen.hpp>
-#include <File/Resource/TextureLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
 #include <Items/Inventory.hpp>
 
 Enums::ComponentType Component::IBase<PlayerInteractionPrompt>::typeID = Enums::ComponentType::PlayerInteraction;
@@ -12,7 +12,7 @@ of::common::String Component::IBase<PlayerInteractionPrompt>::componentName = "P
 
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
-	texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture("DialogPrompt.png", Globals::uiTexturePath);
+	texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("DialogPrompt.png", of::module::Settings::uiTexturePath);
 
 }
 

@@ -151,12 +151,6 @@
     <Filter Include="NonCodeFiles">
       <UniqueIdentifier>{5b52cf0f-5d30-4a62-b9f2-2acf15bf93e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Resource">
-      <UniqueIdentifier>{6cfc005d-1287-4e24-8714-d6670353acfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Texture">
-      <UniqueIdentifier>{9c9bfd28-c295-4bbb-b21e-56e2c329221e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File\Archive">
       <UniqueIdentifier>{9a865b7e-716a-4767-99ba-2fec7c2f6cbe}</UniqueIdentifier>
     </Filter>
@@ -180,9 +174,6 @@
     </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{cc0c9be3-4bff-43c1-ada2-d379e8e4a01c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Mesh">
-      <UniqueIdentifier>{289432cc-6865-4fa4-88b2-1cd8e528c1ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Graphics">
       <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
@@ -231,9 +222,6 @@
     </Filter>
     <Filter Include="Engine\Graphics\Component">
       <UniqueIdentifier>{4bcf0112-46eb-48c0-9341-2e1f7b84326e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Resource\Shader">
-      <UniqueIdentifier>{468de5d0-0209-4785-a324-1f98d95648b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Graphics\Editor">
       <UniqueIdentifier>{c75e244b-7551-4f79-9e6e-0200849b749a}</UniqueIdentifier>
@@ -516,9 +504,6 @@
     <ClCompile Include="Project\Input\PlayerController.cpp">
       <Filter>Engine\Input\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Resource\TextureLoader.cpp">
-      <Filter>Engine\File\Resource\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Quest\QuestObjective.cpp">
       <Filter>Engine\Quest\Objectives\Base</Filter>
     </ClCompile>
@@ -605,12 +590,6 @@
     </ClCompile>
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp">
       <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\MeshLoader.cpp">
-      <Filter>Engine\File\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Resource\ShaderLoader.cpp">
-      <Filter>Engine\File\Resource\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Window.cpp">
       <Filter>Engine\Graphics</Filter>
@@ -959,9 +938,6 @@
     <ClInclude Include="Project\Input\PlayerController.hpp">
       <Filter>Engine\Input\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\Resource\TextureLoader.hpp">
-      <Filter>Engine\File\Resource\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Quest\QuestState.hpp">
       <Filter>Engine\Quest</Filter>
     </ClInclude>
@@ -1090,12 +1066,6 @@
     </ClInclude>
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp">
       <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\MeshLoader.hpp">
-      <Filter>Engine\File\Resource\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Resource\ShaderLoader.hpp">
-      <Filter>Engine\File\Resource\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Model.hpp">
       <Filter>Engine\Graphics</Filter>

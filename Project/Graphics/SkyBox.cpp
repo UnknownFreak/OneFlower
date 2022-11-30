@@ -1,8 +1,8 @@
 #include "SkyBox.hpp"
 
-#include <File/Resource/MeshLoader.hpp>
-#include <File/Resource/TextureLoader.hpp>
-#include <File/Resource/ShaderLoader.hpp>
+#include <module/resource/MeshLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
+#include <module/resource/ShaderLoader.hpp>
 
 #include <swizzle/asset/TextureLoader.hpp>
 
@@ -42,15 +42,15 @@ namespace Graphics
 		attribs.mEnableBlending = false;
 		
 		auto& wnd = of::engine::GetModule<Graphics::RenderWindow>();
-		mModel->shader = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader("sky.shader", attribs);
+		mModel->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", attribs);
 		
-		mModel->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
+		mModel->texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		
 		mModel->material = wnd.getGfxContext()->createMaterial(mModel->shader);
 		
 		mModel->material->setDescriptorTextureResource(0, mModel->texture);
 
-		mModel->mesh = of::engine::GetModule<File::Resource::Mesh::Loader>().requestMesh("inverted_sphere.obj");
+		mModel->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh("inverted_sphere.obj");
 		
 		mModel->mMeshBuffer = of::engine::GetModule<Graphics::RenderWindow>().getGfxContext()->createBuffer(swizzle::gfx::BufferType::Vertex);
 		mModel->mMeshBuffer->setBufferData((U8*)mModel->mesh->getVertexDataPtr(), mModel->mesh->getVertexDataSize(),

@@ -1,19 +1,21 @@
-#include "MeshLoader.hpp"
+#include <module/resource/MeshLoader.hpp>
 
-#include <Module\ModuleManager.hpp>
-#include <Graphics/Window.hpp>
+#include <Module/ModuleManager.hpp>
+#include <module/logger/OneLogger.hpp>
+
 #include <filesystem>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<File::Resource::Mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
 
-namespace File::Resource::Mesh
+namespace of::module::mesh
 {
-	bool Loader::loadMesh(const of::common::String& name)
+
+	bool Loader::loadMesh(const common::String& name)
 	{
-		of::common::String path = "Data/" + name;
+		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("mesh::Loader");
 			logger.Error("Unable to load mesh [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -34,11 +36,11 @@ namespace File::Resource::Mesh
 		return true;
 	}
 
-	std::shared_ptr<swizzle::asset2::IMeshAsset> Loader::requestMesh(const of::common::String& name, const of::common::String& path)
+	std::shared_ptr<swizzle::asset2::IMeshAsset> Loader::requestMesh(const common::String& name, const common::String& path)
 	{
 		if (!name.empty())
 		{
-			std::unordered_map<of::common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>::iterator it;
+			std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>::iterator it;
 			it = loadedMeshes.find(path + name);
 			lastResult = true;
 			if (it != loadedMeshes.end())
@@ -48,14 +50,14 @@ namespace File::Resource::Mesh
 				return loadedMeshes.find(path + name)->second;
 
 			//LOW set propper texturename
-			it = loadedMeshes.find(Globals::meshPath + missingMesh);
+			it = loadedMeshes.find(Settings::meshPath + missingMesh);
 			lastResult = false;
 			if (it != loadedMeshes.end())
 				return it->second;
-			loadMesh(Globals::meshPath + missingMesh);
-			return loadedMeshes.find(Globals::meshPath + missingMesh)->second;
+			loadMesh(Settings::meshPath + missingMesh);
+			return loadedMeshes.find(Settings::meshPath + missingMesh)->second;
 		}
-		return requestMesh(missingMesh, Globals::meshPath);
+		return requestMesh(missingMesh, Settings::meshPath);
 	}
 
 	bool Loader::getResult()
@@ -63,11 +65,11 @@ namespace File::Resource::Mesh
 		return lastResult;
 	}
 
-	void Loader::requestRemovalOfMesh(const of::common::String& name)
+	void Loader::requestRemovalOfMesh(const common::String& name)
 	{
 		if (loadedMeshes.find(name) != loadedMeshes.end())
 		{
-			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("mesh::Loader");
 			logger.Info("Unloading mesh " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedMeshes.erase(name);
 		}

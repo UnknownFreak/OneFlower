@@ -3,9 +3,9 @@
 #include <File/Asset/Manager.hpp>
 #include <Graphics/Window.hpp>
 
-#include <File/Resource/TextureLoader.hpp>
-#include <File/Resource/MeshLoader.hpp>
-#include <File/Resource/ShaderLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
+#include <module/resource/MeshLoader.hpp>
+#include <module/resource/ShaderLoader.hpp>
 
 Enums::ComponentType Component::IBase<Render>::typeID = Enums::ComponentType::Render;
 of::common::String Component::IBase<Render>::componentName = "Render";
@@ -23,7 +23,7 @@ void Render::loadAndSetModel()
 
 	model = std::make_shared<Graphics::Model>();
 
-	model->mesh = of::engine::GetModule<File::Resource::Mesh::Loader>().requestMesh(meshName);
+	model->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh(meshName);
 	{
 
 		model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
@@ -39,13 +39,13 @@ void Render::loadAndSetModel()
 
 	}
 
-	if (of::engine::GetModule<File::Resource::Mesh::Loader>().getResult() == false)
+	if (of::engine::GetModule<of::module::mesh::Loader>().getResult() == false)
 	{
-		model->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture("missingMeshTexture.png");
+		model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("missingMeshTexture.png");
 	}
 	else
-		model->texture = of::engine::GetModule<File::Resource::Texture::Loader>().requestTexture(textureName);
-	model->shader = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader(shaderName);
+		model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
+	model->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName);
 	auto gfxContext = of::engine::GetModule<Graphics::RenderWindow>().getGfxContext();
 
 	model->material = gfxContext->createMaterial(model->shader);

@@ -10,9 +10,9 @@
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>
 #include <File/Asset/Manager.hpp>
-#include <File/Resource/TextureLoader.hpp>
-#include <File/Resource/MeshLoader.hpp>
-#include <File/Resource/ShaderLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
+#include <module/resource/MeshLoader.hpp>
+#include <module/resource/ShaderLoader.hpp>
 #include <File/Mod/ModLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
@@ -67,9 +67,9 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::Time>().type));
 
 	mainModule.Info("Initializing Modules group: Asset Management");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Texture::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Mesh::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Resource::Shader::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::shader::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Asset::Manager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
 

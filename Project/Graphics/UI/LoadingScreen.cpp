@@ -1,6 +1,6 @@
 #include "LoadingScreen.hpp"
 
-#include <File/Resource/TextureLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
 
 Graphics::UI::LoadingScreen::LoadingScreen() : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreen", true)
 {

@@ -9,7 +9,6 @@
 
 #include <Graphics/PlayerInteractionPrompt.hpp>
 #include <File/GameConfig.hpp>
-#include <File/Resource/ShaderLoader.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -21,6 +20,7 @@
 #include <swizzle/asset/TextureLoader.hpp>
 
 #include <module/window/GraphicsProxy.hpp>
+#include <module/resource/ShaderLoader.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Graphics::RenderWindow>::type = of::module::EngineResourceType::Graphics;
@@ -76,6 +76,9 @@ namespace Graphics
 		mCmdBuffer = mGfxContext->createCommandBuffer(3);
 		mUploadBuffer = mGfxContext->createCommandBuffer(1);
 
+		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
+		proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
+
 		cam.setPosition({ 0.0F, 0.0F, 5.5F });
 
 
@@ -86,7 +89,7 @@ namespace Graphics
 		attribFsq.mPushConstantSize = 0u;
 		attribFsq.mEnableBlending = true;
 
-		mFsq = of::engine::GetModule<File::Resource::Shader::Loader>().requestShader("fsq.shader", attribFsq);
+		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq.shader", attribFsq);
 		
 		mFsqMat = mGfxContext->createMaterial(mFsq);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
@@ -96,8 +99,6 @@ namespace Graphics
 
 		mSkybox.setSkyBox("dark");
 
-		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
-		proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
 
 	}
 

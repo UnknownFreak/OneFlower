@@ -1,5 +1,5 @@
 #include "DialogScreen.hpp"
-#include <File/Resource/TextureLoader.hpp>
+#include <module/resource/TextureLoader.hpp>
 #include <Input/InputHandler.hpp>
 #include <Graphics/Dialog.hpp>
 
