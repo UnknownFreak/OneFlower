@@ -50,10 +50,10 @@ namespace File::Mod
 			if (myVersion >= OneVersion(1, 0, 1))
 			{
 				ar(modVersion);
-				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Mod [" + name + "] version is: " + modVersion.str());
+				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Mod [" + name + "] version is: " + modVersion.str());
 			}
 			else
-				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
+				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Mod::ModHeader").Info("Current header version does not support loading mod file version (Save file again to apply this feature)");
 			ar(mysize);
 			for (size_t i = 0; i < mysize; i++)
 			{

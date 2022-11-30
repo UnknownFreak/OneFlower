@@ -38,7 +38,7 @@ namespace File::Asset
 			modLoader.loadOrder.insert(std::make_pair(name, modLoader.loadOrder.size()));
 		}
 		modLoader.loadOrder.insert(std::make_pair(modFile, modLoader.loadOrder.size()));
-		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Asset::Manager");
 		logger.Info("New load order built: Order is as follows,");
 		for (auto& order : modLoader.loadOrder)
 		{
@@ -126,7 +126,7 @@ namespace File::Asset
 		of::common::String idx = filename;
 		std::ofstream file(of::common::langPath + filename, std::ios::binary);
 		idx.append(".index");
-		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Manager");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Manager");
 		logger.Debug("Saving file: " + filename);
 		std::ofstream index(of::common::langPath + idx, std::ios::binary);
 		{
@@ -153,7 +153,7 @@ namespace File::Asset
 #pragma warning(disable: 6262)
 	bool Manager::loadModOrderFile()
 	{
-		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Asset::Manager");
 		std::ifstream file("Data\\ModLoadOrder.xml");
 		if (file.is_open())
 		{

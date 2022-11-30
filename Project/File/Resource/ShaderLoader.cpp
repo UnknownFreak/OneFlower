@@ -13,7 +13,7 @@ namespace File::Resource::Shader
 		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to locate shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -27,7 +27,7 @@ namespace File::Resource::Shader
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
-			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Error("Unable to load shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		}
 		//, path.c_str(), true)));
@@ -102,7 +102,7 @@ namespace File::Resource::Shader
 	{
 		if (loadedShaders.find(name) != loadedShaders.end())
 		{
-			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
+			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Shader::Loader");
 			logger.Info("Unloading shader " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedShaders.erase(name);
 		}

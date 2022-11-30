@@ -97,7 +97,7 @@ namespace Language
 				reloadStrings();
 				return;
 			}
-		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
 	LanguageRequestor::LanguageRequestor() : IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::Language)

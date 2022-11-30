@@ -273,6 +273,9 @@
     <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
@@ -365,8 +368,6 @@
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
     <ClCompile Include="Project\Module\Globals.cpp" />
-    <ClCompile Include="Project\Module\Logger\LoggerStreams\BasicLogStream.cpp" />
-    <ClCompile Include="Project\Module\Logger\OneLogger.cpp" />
     <ClCompile Include="Project\Module\Random.cpp" />
     <ClCompile Include="Project\Module\OneTimeDefiner.cpp" />
     <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
@@ -503,7 +504,6 @@
     <ClInclude Include="Project\Helpers\Enum\ItemType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\EffectType.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\LogLevel.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ObjectFlag.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ObjectType.hpp" />
@@ -550,12 +550,6 @@
     <ClInclude Include="Project\Main\GameEntry.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
-    <ClInclude Include="Project\Module\Logger\LoggerBase.hpp" />
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\BasicLogStream.hpp" />
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\LogSteam.hpp" />
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\NullStream.hpp" />
-    <ClInclude Include="Project\Module\Logger\OneLogger.hpp" />
-    <ClInclude Include="Project\Module\Logger\ModuleLogger.hpp" />
     <ClInclude Include="Project\Module\Random.hpp" />
     <ClInclude Include="Project\Module\OneTime.hpp" />
     <ClInclude Include="Project\Module\BuildVersion.hpp" />

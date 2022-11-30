@@ -241,15 +241,6 @@
     <Filter Include="Engine\Graphics\Editor">
       <UniqueIdentifier>{c75e244b-7551-4f79-9e6e-0200849b749a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\Logging">
-      <UniqueIdentifier>{13e8bd03-bc8c-4246-8b6b-cdbb688b7597}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Logging\LoggerBase">
-      <UniqueIdentifier>{061ef2f5-8cbe-4712-9d24-2ba7cf100354}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Logging\LoggerBase\LoggerStreams">
-      <UniqueIdentifier>{f17b6840-8f71-417b-9d2e-12d6bca26c32}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Trigger">
       <UniqueIdentifier>{ba750d6b-eb71-4835-b26f-cc15d826f976}</UniqueIdentifier>
     </Filter>
@@ -582,12 +573,6 @@
     <ClCompile Include="Project\Requirement\GameModeRequirement.cpp">
       <Filter>Engine\Requirement</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Module\Logger\OneLogger.cpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\Logger\LoggerStreams\BasicLogStream.cpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClCompile>
     <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp">
       <Filter>Engine\File\Mod</Filter>
     </ClCompile>
@@ -860,9 +845,6 @@
     <ClInclude Include="Project\Module\Random.hpp">
       <Filter>Engine\Module\Random</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\LogLevel.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp">
       <Filter>Engine\Graphics\UI\ToolTip</Filter>
     </ClInclude>
@@ -1054,24 +1036,6 @@
     </ClInclude>
     <ClInclude Include="Project\Resources\GameModeModifier.hpp">
       <Filter>Engine\Resources\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\ModuleLogger.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\OneLogger.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerBase.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\LogSteam.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\BasicLogStream.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Logger\LoggerStreams\NullStream.hpp">
-      <Filter>Engine\Module\Logging\LoggerBase\LoggerStreams</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp">
       <Filter>Engine\File\Mod</Filter>

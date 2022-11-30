@@ -52,7 +52,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 
 volatile void initializeSystems()
 {
-	auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>();
+	auto& logger = of::engine::GetModule<of::module::logger::OneLogger>();
 	logger.Info("Initializing Engine");
 	for (auto& str : Engine::GetBuildMode().toLogString())
 		logger.Info(str);
@@ -88,7 +88,7 @@ class EngineLogger : public swizzle::core::LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
 		of::common::String tType = messageType;
-		of::engine::GetModule<EngineModule::Logger::OneLogger>().EngineLogging(tType, message);
+		of::engine::GetModule<of::module::logger::OneLogger>().EngineLogging(tType, message);
 		printf("%s: %s\n", messageType, message);
 	}
 

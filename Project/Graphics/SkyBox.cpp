@@ -23,7 +23,7 @@ namespace Graphics
 
 	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
 	{
-		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
 
 		swizzle::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -57,7 +57,7 @@ namespace Graphics
 			sizeof(float) * (3 + 3 + 2));
 		
 		loaded = true;
-		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
 	}
 

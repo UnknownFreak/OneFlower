@@ -27,7 +27,7 @@ void LoadingStateMachine::beginLoad(const File::Mod::ModFileUUIDHelper& world, c
 	worldToLoad = world;
 	loadingScreenToLoad = loadingScreen;
 	playerPos = playerPosition;
-	auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("LoadingStateMachine");
+	auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
 	logger.Info("Begin loading world " + world(),logger.fileInfo( __FILE__, __LINE__));
 	of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).reset();
 }
@@ -271,7 +271,7 @@ void LoadingStateMachine::load()
 			gfx.ui.removeUIContext(Enums::UIContextNames::LoadingScreen);
 			gfx.ui.removeUIContext(Enums::UIContextNames::LoadingScreenInfo);
 			gfx.ui.showLoadingScreenOnly = false;
-			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("LoadingStateMachine");
+			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
 			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
 		}
 		of::engine::GetModule<EngineModule::ObjectInstanceHandler>().player->getComponent<Component::Transform>()->pos = playerPos;

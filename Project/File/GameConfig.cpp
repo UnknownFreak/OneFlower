@@ -39,16 +39,16 @@ void EngineModule::GameConfig::load()
 	framerate = parser.get("window", "framerate", 0);
 	antialiasing = parser.get("window", "aa", 32);
 	fullscreen = parser.get("window", "fullscreen", false);
-	logLevel = Enums::fromString(parser.get("logger", "core.level", Enums::to_string(Enums::LogLevel::INFO, false)));
+	logLevel = of::module::logger::fromString(parser.get("logger", "core.level", of::module::logger::to_string(of::module::logger::LogLevel::INFO, false)));
 	physicsThreadCount = parser.get("physics", "threadCount", 4);
 	physicsForceSingleThread = parser.get("physics", "forceSingleThread", false);
 	physicsAdaptiveRegions = parser.get("physics", "adaptiveRegions", true);
 
-	of::engine::GetModule<EngineModule::Logger::OneLogger>().setLogLevel(logLevel);
+	of::engine::GetModule<of::module::logger::OneLogger>().setLogLevel(logLevel);
 	for (auto& logger_level : parser.get("logger").values)
 	{
 		if (logger_level.first != "core.level")
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger(logger_level.first).setLogLevel(Enums::fromString(logger_level.second));
+			of::engine::GetModule<of::module::logger::OneLogger>().getLogger(logger_level.first).setLogLevel(of::module::logger::fromString(logger_level.second));
 	}
 
 	configLoaded = true;
@@ -77,16 +77,16 @@ unsigned EngineModule::GameConfig::getAntiAliasing() const
 	return antialiasing;
 }
 
-Enums::LogLevel EngineModule::GameConfig::getCurrentLogLevel() const
+of::module::logger::LogLevel EngineModule::GameConfig::getCurrentLogLevel() const
 {
 	return logLevel;
 }
 
-Enums::LogLevel EngineModule::GameConfig::getModuleLogLevel(const of::common::String& module)
+of::module::logger::LogLevel EngineModule::GameConfig::getModuleLogLevel(const of::common::String& module)
 {
 	if (configLoaded)
-		return Enums::fromString(parser.get("logger", module, Enums::to_string(logLevel, false)));
-	return Enums::LogLevel::INFO;
+		return of::module::logger::fromString(parser.get("logger", module, of::module::logger::to_string(logLevel, false)));
+	return of::module::logger::LogLevel::INFO;
 }
 
 void EngineModule::GameConfig::setFramerateLimit(const unsigned& u)

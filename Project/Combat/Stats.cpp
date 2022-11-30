@@ -178,7 +178,7 @@ namespace Component
 			auto critDamageMult = statChances[Enums::Attribute::CritDamage].getValue();
 			trueDamage *= critDamageMult;
 		}
-		of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
 		mainStat[Enums::Attribute::Health].current -= trueDamage * attunedTo.getElementModifier(damageElement.getModfile());
 		if (mainStat[Enums::Attribute::Health].current <= 0)
 		{

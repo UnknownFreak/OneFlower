@@ -92,12 +92,12 @@ namespace File
 		gameModeId;
 		if (!gameModeId.isValid())
 		{
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
+			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
 				" this is very bad...");
 #ifndef _DEBUG
 				std::exit(-1);
 #else
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
+			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
 #endif // !_DEBUG
 
 		}
@@ -113,7 +113,7 @@ namespace File
 
 		if (!gameMode.playerPrefab.isValid())
 		{
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
+			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
 		auto prefab = of::engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		player = GameObject();

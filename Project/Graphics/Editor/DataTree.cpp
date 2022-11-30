@@ -58,7 +58,7 @@ namespace Graphics::Editor
 			if (item.ptr == nullptr)
 				return;
 			itemName = item.ptr->getModfile().operator()();
-			//Engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Object has no display name, using the uuid for it instead.");
+			//Engine::GetModule<of::module::logger::OneLogger>().Warning("Object has no display name, using the uuid for it instead.");
 		}
 		if (itemName == "### ROOT")
 		{

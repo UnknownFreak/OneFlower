@@ -1,10 +1,10 @@
-#include "BasicLogStream.hpp"
+#include <module/logger/streams/BasicLogStream.hpp>
 
 auto iosop = std::ios_base::trunc;
 
-namespace EngineModule::Logger::Streams
+namespace of::module::logger::Streams
 {
-	BasicLogStream::BasicLogStream(const of::common::String& fileName) : log(fileName, iosop), logName(fileName)
+	BasicLogStream::BasicLogStream(const common::String& fileName) : log(fileName, iosop), logName(fileName)
 	{
 		iosop = std::ios_base::app;
 	}
@@ -21,9 +21,9 @@ namespace EngineModule::Logger::Streams
 		return *this;
 	}
 
-	void BasicLogStream::LogMessage(const Enums::LogLevel& logLevel, const of::common::String& message)
+	void BasicLogStream::LogMessage(const LogLevel& logLevel, const common::String& message)
 	{
-		log << Enums::to_string(logLevel) << message << std::endl;
+		log << to_string(logLevel) << message << std::endl;
 	}
 
 	void BasicLogStream::flush()

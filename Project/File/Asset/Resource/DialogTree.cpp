@@ -98,7 +98,7 @@ namespace Asset::Resource
 		{
 			if (!incrementSelection())
 			{
-				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 				return Enums::DialogStatus::Close;
 			}
 		}
@@ -106,7 +106,7 @@ namespace Asset::Resource
 		{
 			if (!decrementSelection())
 			{
-				of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
+				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("DialogTree").Error(this->getModfile().operator()() + " DialogOptionId [" + std::to_string(currentSelection) + "] got stuck in a loop while going to next option");
 				return Enums::DialogStatus::Close;
 			}
 		}

@@ -77,7 +77,7 @@ void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
 		}
 		else if (theDrop)
 		{
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+			of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 			showPrompt = true;
 			lootDrop = theDrop;
 			lived = 0.f;
@@ -85,7 +85,7 @@ void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
 		}
 		else if (theContainer)
 		{
-			of::engine::GetModule<EngineModule::Logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+			of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 			showPrompt = true;
 			lootContainer = theContainer;
 			lived = 0.f;

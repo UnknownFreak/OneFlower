@@ -83,7 +83,7 @@ namespace File::Asset
 			File::Archive::DatabaseIndex ind;
 			std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 			std::ifstream database("Data//" + modName, std::ios::binary);
-			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("File::Asset::Manager");
+			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Asset::Manager");
 			if (!index.is_open())
 				logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
 			else if (!database.is_open())

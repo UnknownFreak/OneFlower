@@ -43,7 +43,7 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(m_selectedFile, loadOrder);
 
 		manager.openedMod = header;
-		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
 		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");

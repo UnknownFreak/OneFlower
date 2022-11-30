@@ -13,7 +13,7 @@ namespace File::Resource::Mesh
 		of::common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
 			logger.Error("Unable to load mesh [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -67,7 +67,7 @@ namespace File::Resource::Mesh
 	{
 		if (loadedMeshes.find(name) != loadedMeshes.end())
 		{
-			auto& logger = of::engine::GetModule <EngineModule::Logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
+			auto& logger = of::engine::GetModule <of::module::logger::OneLogger>().getLogger("File::Resource::Mesh::Loader");
 			logger.Info("Unloading mesh " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedMeshes.erase(name);
 		}

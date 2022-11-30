@@ -67,7 +67,7 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(fileName, loadOrder);
 
 		manager.openedMod = header;
-		auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();
 

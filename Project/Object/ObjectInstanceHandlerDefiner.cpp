@@ -42,7 +42,7 @@ GameObject* EngineModule::ObjectInstanceHandler::getPlayer() const
 
 void EngineModule::ObjectInstanceHandler::removeObject(GameObject* object, const float& delayedtime)
 {
-	of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
+	of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
 	objectsToDelete[object] = delayedtime;
 	if (onDelete.operator bool())
 	{
@@ -64,7 +64,7 @@ void EngineModule::ObjectInstanceHandler::processDeletedObjects(const float& ela
 		if (it->second < 0)
 		{
 			auto id = it->first->id;
-			auto& logger = of::engine::GetModule<EngineModule::Logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
+			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
 			logger.Fine("Processing removal of " + id.to_string());
 			logger.Debug(of::common::toHex((size_t)&it->first));
 			it->first->onDelete();
