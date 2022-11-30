@@ -7,7 +7,7 @@ of::common::uuid Interfaces::Trait<Items::LootTable>::typeId = of::common::uuid(
 std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> Items::LootTable::generateDrops() const
 {
     std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> loot;
-    //auto& gen = Engine::GetModule<EngineModule::RandomGen>();
+    //auto& gen = Engine::GetModule<of::module::RandomGen>();
     //for (auto& x : lootTable)
     //{
     //    auto chance = gen.random_double(0, 100);

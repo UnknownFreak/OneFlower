@@ -1,21 +1,20 @@
-#pragma once
-#include "Random.hpp"
-
+#include <module/Random.hpp>
 #include <module/ModuleManager.hpp>
 #include <module/settings/EngineSettings.hpp>
-of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
-std::random_device EngineModule::RandomGen::rd;
-std::mt19937_64 EngineModule::RandomGen::engine(EngineModule::RandomGen::rd());
+of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
-namespace EngineModule
+std::random_device  of::module::RandomGen::rd;
+std::mt19937_64  of::module::RandomGen::engine(of::module::RandomGen::rd());
+
+namespace of::module
 {
 	RandomGen::RandomGen()
 	{
-		if (of::engine::GetModule<of::module::Settings>().useFixedSeed())
+		if (engine::GetModule<Settings>().useFixedSeed())
 			engine.seed(0);
 		//else
-		//	engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+		//engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 	}
 	int RandomGen::random_int()
 	{
@@ -43,7 +42,7 @@ namespace EngineModule
 	{
 		return d(engine, std::uniform_real<double>::param_type(min, max));
 	}
-	of::module::EngineResourceType& RandomGen::getType() const
+	EngineResourceType& RandomGen::getType() const
 	{
 		return type;
 	}

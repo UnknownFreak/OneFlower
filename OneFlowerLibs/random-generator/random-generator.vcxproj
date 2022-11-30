@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</ProjectGuid>
-    <RootNamespace>enginesettings</RootNamespace>
+    <ProjectGuid>{db323fb9-3471-4730-8762-25624d18b1ee}</ProjectGuid>
+    <RootNamespace>randomgenerator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\engine-settings\include</PublicIncludeDirectories>
-    <IncludePath>$(SolutionDir)OneFlowerLibs\engine-settings\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\random-generator\include;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\random-generator\include</PublicIncludeDirectories>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,9 +118,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ProjectReference />
-    <Lib>
-      <Verbose>true</Verbose>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -139,18 +136,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\module\Random.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Random.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
+      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\module\settings\EngineSettings.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\EngineSettings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

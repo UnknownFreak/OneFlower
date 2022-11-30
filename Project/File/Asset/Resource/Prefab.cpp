@@ -63,7 +63,7 @@ namespace Asset::Resource
 
 	glm::vec3 randomize(const glm::vec3& in, const float& random_direction)
 	{
-		auto& randGen = of::engine::GetModule<EngineModule::RandomGen>();
+		auto& randGen = of::engine::GetModule<of::module::RandomGen>();
 
 		return {
 			in.x + randGen.random_float(-random_direction, random_direction),

@@ -73,9 +73,6 @@
     <Filter Include="Engine\Combat\Effects">
       <UniqueIdentifier>{27b662b5-b76c-4d5d-855b-3fdac50821b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\Random">
-      <UniqueIdentifier>{6dd76218-153c-48d5-83e4-07fea98b4789}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Combat\Effects\EffectProperty">
       <UniqueIdentifier>{1f48fdc0-3325-4a56-ab76-5073963beb6b}</UniqueIdentifier>
     </Filter>
@@ -404,9 +401,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ProgressBar.cpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Module\Random.cpp">
-      <Filter>Engine\Module\Random</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlainToolTip.cpp">
       <Filter>Engine\Graphics\UI\ToolTip</Filter>
@@ -841,9 +835,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ProgressBar.hpp">
       <Filter>Engine\Graphics\UI\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\Random.hpp">
-      <Filter>Engine\Module\Random</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp">
       <Filter>Engine\Graphics\UI\ToolTip</Filter>

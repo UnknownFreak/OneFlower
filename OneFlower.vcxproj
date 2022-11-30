@@ -273,11 +273,17 @@
     <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\engine-settings\engine-settings.vcxproj">
+      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\random-generator\random-generator.vcxproj">
+      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
     </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
@@ -368,7 +374,6 @@
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
     <ClCompile Include="Project\Module\Globals.cpp" />
-    <ClCompile Include="Project\Module\Random.cpp" />
     <ClCompile Include="Project\Module\OneTimeDefiner.cpp" />
     <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
     <ClCompile Include="Project\Object\BaseComponentDefiner.cpp" />
@@ -550,7 +555,6 @@
     <ClInclude Include="Project\Main\GameEntry.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
-    <ClInclude Include="Project\Module\Random.hpp" />
     <ClInclude Include="Project\Module\OneTime.hpp" />
     <ClInclude Include="Project\Module\BuildVersion.hpp" />
     <ClInclude Include="Project\Object\Interaction.hpp" />
