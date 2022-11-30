@@ -1,6 +1,8 @@
 #pragma once
 #include "Random.hpp"
-#include <Module/Globals.hpp>
+
+#include <module/ModuleManager.hpp>
+#include <module/settings/EngineSettings.hpp>
 of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::RandomGen>::type = of::module::EngineResourceType::RandomGen;
 
 std::random_device EngineModule::RandomGen::rd;
@@ -10,10 +12,10 @@ namespace EngineModule
 {
 	RandomGen::RandomGen()
 	{
-		if (of::engine::GetModule<Globals>().boolGlobals[Globals::B_FORCE_SAME_SEED])
+		if (of::engine::GetModule<of::module::Settings>().useFixedSeed())
 			engine.seed(0);
-		else
-			engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+		//else
+		//	engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 	}
 	int RandomGen::random_int()
 	{
