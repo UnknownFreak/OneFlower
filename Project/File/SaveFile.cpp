@@ -56,37 +56,37 @@ namespace File
 		lootedContainers.insert(uuid);
 	}
 
-	void SaveFile::setQuestState(const File::Mod::ModFileUUIDHelper& questId, const Questing::QuestState& state)
+	void SaveFile::setQuestState(const of::file::FileId& questId, const Questing::QuestState& state)
 	{
 		questState[questId] = state;
 	}
 
-	bool SaveFile::isQuestStored(const File::Mod::ModFileUUIDHelper& questId) const
+	bool SaveFile::isQuestStored(const of::file::FileId& questId) const
 	{
 		return questState.find(questId) != questState.end();
 	}
 
-	Questing::QuestState& SaveFile::getQuestState(const File::Mod::ModFileUUIDHelper& quest)
+	Questing::QuestState& SaveFile::getQuestState(const of::file::FileId& quest)
 	{
 		return questState.at(quest);
 	}
 
-	void SaveFile::setTickTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimerInfo& timer)
+	void SaveFile::setTickTimer(const of::file::FileId& timerId, const Core::TickTimerInfo& timer)
 	{
 		tickTimers[timerId] = timer;
 	}
 
-	bool SaveFile::isTimerSaved(const File::Mod::ModFileUUIDHelper& timerId) const
+	bool SaveFile::isTimerSaved(const of::file::FileId& timerId) const
 	{
 		return tickTimers.find(timerId) != tickTimers.end();
 	}
 
-	Core::TickTimerInfo& SaveFile::getTickTimer(const File::Mod::ModFileUUIDHelper& timerId)
+	Core::TickTimerInfo& SaveFile::getTickTimer(const of::file::FileId& timerId)
 	{
 		return tickTimers.at(timerId);
 	}
 
-	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const File::Mod::ModFileUUIDHelper& gameModeId)
+	void SaveFile::newGame(const Enums::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;
@@ -115,7 +115,7 @@ namespace File
 		{
 			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
-		auto prefab = of::engine::GetModule<Asset::Manager>().requestor.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
+		auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		player = GameObject();
 
 		prefab.createNewPlayerInstance(player);
@@ -140,7 +140,7 @@ namespace File
 		return customDiffId;
 	}
 
-	File::Mod::ModFileUUIDHelper SaveFile::getGameModeId() const
+	of::file::FileId SaveFile::getGameModeId() const
 	{
 		return gameMode.getModfile();
 	}

@@ -10,6 +10,7 @@
 
 #include <module/IEngineModule.hpp>
 #include <Helpers/Rect.hpp>
+#include <Helpers/Enum/TileTypes.hpp>
 #include <Graphics/TransparencyMasker.hpp>
 #include "UI/UIHandler.hpp"
 #include "Model.hpp"

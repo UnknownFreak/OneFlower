@@ -1,5 +1,9 @@
 #ifndef BaseComponentTest_HPP
 #define BaseComponentTest_HPP
+
+#include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
+
 #include <Helpers/Enum/ComponentType.hpp>
 #include <utils/common/String.hpp>
 
@@ -47,5 +51,6 @@ namespace Component
 	};
 }
 
+CEREAL_REGISTER_TYPE(Component::Base);
 
 #endif

@@ -1,6 +1,6 @@
 #include "Element.hpp"
 
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
@@ -9,16 +9,16 @@
 #include <Graphics/Editor/EditorBasicToolTip.hpp>
 #include <Graphics/Editor/ModFileUuidHelperDropDown.hpp>
 
-of::common::uuid Interfaces::Trait<Combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
+of::common::uuid of::file::archive::Trait<Combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
 
 namespace Combat
 {
-	Element::Element() : IRequestable(Enums::ObjectType::Element), IObject()
+	Element::Element() : Requestable(of::file::ObjectType::Element), IObject()
 	{
 
 	}
 
-	Element::Element(const Element& copy) : IRequestable(copy), IObject(copy), elementAttributes(copy.elementAttributes), damageToUnknownType(copy.damageToUnknownType)
+	Element::Element(const Element& copy) : Requestable(copy), IObject(copy), elementAttributes(copy.elementAttributes), damageToUnknownType(copy.damageToUnknownType)
 	{
 
 	}
@@ -28,7 +28,7 @@ namespace Combat
 		return 1.0;
 	}
 
-	double Element::getElementModifier(const File::Mod::ModFileUUIDHelper& element) const
+	double Element::getElementModifier(const of::file::FileId& element) const
 	{
 		if (elementAttributes.find(element) != elementAttributes.end())
 			return elementAttributes.at(element);
@@ -40,25 +40,25 @@ namespace Combat
 		}
 	}
 	
-	of::common::String Element::getElementAttributeName(const File::Mod::ModFileUUIDHelper& element) const
+	of::common::String Element::getElementAttributeName(const of::file::FileId& element) const
 	{
-		return of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(element).name;
+		return of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Element>(element).name;
 	}
 	
-	Interfaces::TypeInfo Element::getTrait() const
+	of::file::archive::TypeInfo Element::getTrait() const
 	{
-		return { Interfaces::Trait<Element>::typeId };
+		return { of::file::archive::Trait<Element>::typeId };
 	}
 
 	void Element::render()
 	{
 		if(Graphics::Editor::ViewModels::renderInfo(this, true))
-			mode = Enums::ObjectSaveMode::EDIT;
+			mode = of::file::archive::ObjectSaveMode::EDIT;
 
 		ImGui::Text("Damage To Unknown Element Type:");
 		if (ImGui::InputDouble("###ElementDamageToUnknownType", &damageToUnknownType))
 		{
-			mode = Enums::ObjectSaveMode::EDIT;
+			mode = of::file::archive::ObjectSaveMode::EDIT;
 		}
 		ImGui::Text("Elemental Modifiers");
 		Graphics::Editor::BasicToolTip(
@@ -75,16 +75,16 @@ namespace Combat
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
 
-			std::vector<File::Mod::ModFileUUIDHelper> temp;
+			std::vector<of::file::FileId> temp;
 			for (auto& it : elementAttributes)
 			{
 				temp.push_back(it.first);
 			}
-			auto x = Graphics::Editor::Selectors::dropDownSelection("Select element to add...", Enums::ObjectType::Element, temp);
+			auto x = Graphics::Editor::Selectors::dropDownSelection("Select element to add...", of::file::ObjectType::Element, temp);
 			if (x.isValid())
 			{
 				elementAttributes[x] = 0.0;
-				mode = Enums::ObjectSaveMode::EDIT;
+				mode = of::file::archive::ObjectSaveMode::EDIT;
 			}
 			ImGui::TableNextColumn();
 			ImGui::Text("N/A");
@@ -101,9 +101,9 @@ namespace Combat
 				}
 				else
 				{
-					if (of::engine::GetModule<File::Asset::Manager>().requestor.editorKeyExists(item.first))
+					if (of::engine::GetModule<of::file::Handler>().archive.editorKeyExists(item.first))
 					{
-						of::common::String tmp_name = of::engine::GetModule<File::Asset::Manager>().requestor.editorGetObjectName(item.first);
+						of::common::String tmp_name = of::engine::GetModule<of::file::Handler>().archive.editorGetObjectName(item.first);
 						if (tmp_name == "")
 						{
 							ImGui::Text(item.first.operator()(true).c_str());
@@ -128,7 +128,7 @@ namespace Combat
 				if (ImGui::Button("-"))
 				{
 					elementAttributes.erase(item.first);
-					mode = Enums::ObjectSaveMode::EDIT;
+					mode = of::file::archive::ObjectSaveMode::EDIT;
 					break;
 				}
 				ImGui::TableNextColumn();
@@ -136,7 +136,7 @@ namespace Combat
 				of::common::String s = "###" + item.first.operator()();
 				if (ImGui::InputDouble(s.c_str(), &item.second))
 				{
-					mode = Enums::ObjectSaveMode::EDIT;
+					mode = of::file::archive::ObjectSaveMode::EDIT;
 				}
 			}
 			

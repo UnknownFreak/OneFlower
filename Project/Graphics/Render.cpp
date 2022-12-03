@@ -1,6 +1,5 @@
 #include "Render.hpp"
 #include <Object/GameObject.hpp>
-#include <File/Asset/Manager.hpp>
 #include <Graphics/Window.hpp>
 
 #include <module/resource/TextureLoader.hpp>

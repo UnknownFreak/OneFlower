@@ -7,14 +7,14 @@
 #include "QuestObjective.hpp"
 #include "QuestState.hpp"
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <utils/common/string.hpp>
 
 #include <unordered_map>
 
 namespace Questing
 {
-	class Quest : public Interfaces::IRequestable
+	class Quest : public of::file::archive::Requestable
 	{
 		template<class U = size_t, class Tc, class ...Targs>
 		U magic(U(Tc::* fn)(Targs...), Targs...args)
@@ -36,8 +36,8 @@ namespace Questing
 		of::common::uuid questDescription;
 		of::common::uuid questLine;
 
-		File::Mod::ModFileUUIDHelper nextQuest;
-		File::Mod::ModFileUUIDHelper nextQuestOnFailure;
+		of::file::FileId nextQuest;
+		of::file::FileId nextQuestOnFailure;
 
 		of::common::String translatedQuestName;
 		of::common::String translatedQuestDescription;
@@ -71,7 +71,7 @@ namespace Questing
 		void interactWithNpc();
 		void updateRequirement();
 
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 		Questing::QuestState getQuestState() const;
 		void setQuestState();
@@ -79,7 +79,7 @@ namespace Questing
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(requireInteractionOnPendingObjectives);
 			ar(questName);
 			ar(questDescription);
@@ -98,7 +98,7 @@ namespace Questing
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(requireInteractionOnPendingObjectives);
 			ar(questName);
 			ar(questDescription);
@@ -117,5 +117,6 @@ namespace Questing
 		}
 	};
 }
-
+CEREAL_REGISTER_TYPE(Questing::Quest);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Questing::Quest);
 #endif

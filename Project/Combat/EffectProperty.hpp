@@ -1,7 +1,10 @@
 #ifndef EffectProperty_HPP
 #define EffectProperty_HPP
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
+
+#include <file/FileId.hpp>
 #include <Helpers/Enum/Attribute.hpp>
 #include "Modifier.hpp"
 
@@ -74,12 +77,10 @@ namespace Combat
 
 	struct VisualEffect : public EffectProperty
 	{
-
-
-		File::Mod::ModFileUUIDHelper vfxPrefab;
+		of::file::FileId vfxPrefab;
 
 		VisualEffect() {}
-		VisualEffect(const File::Mod::ModFileUUIDHelper& vfx) : vfxPrefab(vfx) {}
+		VisualEffect(const of::file::FileId& vfx) : vfxPrefab(vfx) {}
 		VisualEffect(const VisualEffect& copy): vfxPrefab(copy.vfxPrefab) {}
 
 		template<class Ar>
@@ -117,7 +118,16 @@ namespace Combat
 			ar(modifier);
 		}
 	};
-
 }
+
+CEREAL_REGISTER_TYPE(Combat::EffectProperty);
+CEREAL_REGISTER_TYPE(Combat::DamageEffect);
+CEREAL_REGISTER_TYPE(Combat::BarrierEffect);
+CEREAL_REGISTER_TYPE(Combat::VisualEffect);
+CEREAL_REGISTER_TYPE(Combat::ModifierEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::DamageEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::BarrierEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::VisualEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::ModifierEffect);
 
 #endif

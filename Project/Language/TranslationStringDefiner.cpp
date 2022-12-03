@@ -2,7 +2,7 @@
 
 #include <utils/common/uuid.hpp>
 
-of::common::uuid Interfaces::Trait<Language::TranslationString>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
+of::common::uuid of::file::archive::Trait<Language::TranslationString>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
 PrimitiveSaveable<of::common::String> Language::TranslationString::empty = PrimitiveSaveable<of::common::String>("", "");
 namespace Language
 {
@@ -22,12 +22,12 @@ namespace Language
 	{
 	}
 
-	TranslationString::TranslationString(const of::common::String& language, of::common::String fontName) : language(language), fontName(fontName), stringList(of::common::langPath), IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::TranslationString)
+	TranslationString::TranslationString(const of::common::String& language, of::common::String fontName) : language(language), fontName(fontName), stringList(of::common::langPath), Requestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), of::file::ObjectType::TranslationString)
 	{
 		setAvailableLanguageFiles();
 	}
 
-	TranslationString::TranslationString(const TranslationString & copy) : IRequestable(copy), language(language), fontName(fontName), stringList(copy.stringList), header(copy.header)
+	TranslationString::TranslationString(const TranslationString & copy) : Requestable(copy), language(language), fontName(fontName), stringList(copy.stringList), header(copy.header)
 	{
 		fontName = copy.fontName;
 		language = copy.language;
@@ -77,8 +77,8 @@ namespace Language
 	{
 		stringList.fileLoadOrder = { { language, 0} };
 	}
-	Interfaces::TypeInfo TranslationString::getTrait() const
+	of::file::archive::TypeInfo TranslationString::getTrait() const
 	{
-		return { Interfaces::Trait<TranslationString>::typeId };
+		return { of::file::archive::Trait<TranslationString>::typeId };
 	}
 }

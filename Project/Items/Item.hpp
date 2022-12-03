@@ -8,11 +8,11 @@
 #include <utils/common/string.hpp>
 #include <Helpers/Enum/Rarity.hpp>
 #include <Helpers/Enum/ItemType.hpp>
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 
 namespace Items
 {
-	class Base : public Interfaces::IRequestable
+	class Base : public of::file::archive::Requestable
 	{
 		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
 		of::common::uuid uniqId;
@@ -32,7 +32,7 @@ namespace Items
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(type);
 			ar(rarity);
 			ar(value);
@@ -45,7 +45,7 @@ namespace Items
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(type);
 			ar(rarity);
 			ar(value);
@@ -55,9 +55,11 @@ namespace Items
 			ar(stackSize);
 			loadIcon();
 		}
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 	};
 }
+
+CEREAL_REGISTER_TYPE(Items::Base);
 
 #endif

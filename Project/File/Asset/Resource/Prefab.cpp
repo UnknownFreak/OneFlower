@@ -4,7 +4,7 @@
 #include <Object/ObjectInstanceHandler.hpp>
 #include <File/SaveFile.hpp>
 
-of::common::uuid Interfaces::Trait<Asset::Resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
+of::common::uuid of::file::archive::Trait<Asset::Resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
 
 namespace Asset::Resource
 {
@@ -28,12 +28,12 @@ namespace Asset::Resource
 		}
 	}
 
-	Prefab::Prefab() : IRequestable(), spawnDistance(0.f)
+	Prefab::Prefab() : Requestable(), spawnDistance(0.f)
 	{
 
 	}
 
-	Prefab::Prefab(const Prefab& copy) : IRequestable(copy), spawnDistance(copy.spawnDistance)
+	Prefab::Prefab(const Prefab& copy) : Requestable(copy), spawnDistance(copy.spawnDistance)
 	{
 		components.reserve(copy.components.size());
 		for (auto& x : copy.components)
@@ -86,8 +86,8 @@ namespace Asset::Resource
 		build(&theObject, true);
 	}
 
-	Interfaces::TypeInfo Prefab::getTrait() const
+	of::file::archive::TypeInfo Prefab::getTrait() const
 	{
-		return { Interfaces::Trait<Prefab>::typeId };
+		return { of::file::archive::Trait<Prefab>::typeId };
 	}
 }

@@ -1,13 +1,13 @@
 #include "QuestObjective.hpp"
 
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 
 void Questing::QuestObjective::loadTranslations()
 {
-	auto& x = of::engine::GetModule<File::Asset::Manager>().getLanguage();
-	translatedObjectiveName = x.getString(objectiveName);
-	translatedObjectiveDescription = x.getString(objectiveDescription);
-	translatedObjectiveCompleteDescription = x.getString(objectiveCompleteDescription);
+	//auto& x = of::engine::GetModule<of::file::Handler>().getLanguage();
+	//translatedObjectiveName = x.getString(objectiveName);
+	//translatedObjectiveDescription = x.getString(objectiveDescription);
+	//translatedObjectiveCompleteDescription = x.getString(objectiveCompleteDescription);
 }
 
 bool Questing::QuestObjective::isActiveOrPendingComplete() const

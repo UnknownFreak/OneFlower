@@ -6,6 +6,7 @@
 #include <Graphics/Window.hpp>
 #include <Helpers/Enum/LoadingState.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>
+#include <File/Asset/Resource/Template/WorldInstance.hpp>
 
 class LoadingStateMachine
 {
@@ -15,15 +16,15 @@ class LoadingStateMachine
 	Graphics::RenderWindow& gfx;
 	Enums::LoadingState loadstate;
 
-	File::Mod::ModFileUUIDHelper worldToLoad;
-	File::Mod::ModFileUUIDHelper loadingScreenToLoad;
+	of::file::FileId worldToLoad;
+	of::file::FileId loadingScreenToLoad;
 
 	File::Asset::Resource::Template::WorldInstance instanceToLoad;
 
 public:
 
-	const File::Mod::ModFileUUIDHelper& getCurrentWorld() const;
-	const File::Mod::ModFileUUIDHelper& getCurrentLoadingScreen() const;
+	const of::file::FileId& getCurrentWorld() const;
+	const of::file::FileId& getCurrentLoadingScreen() const;
 
 	std::vector<File::Asset::Resource::Template::ObjectInfo> buffer;
 	
@@ -31,7 +32,7 @@ public:
 
 	LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLoading);
 
-	void beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& position);
+	void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position);
 	void load();
 	
 };

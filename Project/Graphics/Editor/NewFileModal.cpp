@@ -3,8 +3,10 @@
 #include <imgui/imgui_stdlib.hpp>
 
 #include <utils/os/ListDir.hpp>
-#include <File/Mod/ModHeader.hpp>
-#include <File/Asset/Manager.hpp>
+
+#include <file/Header.hpp>
+#include <file/Handler.hpp>
+#include <file/archive/loadHeader.hpp>
 
 #include "EditorBasicToolTip.hpp"
 
@@ -14,9 +16,8 @@ namespace Graphics::Editor::Modals
 	std::vector<TreeItem> NewFile::loadDependencyDetails(const of::common::String& file)
 	{
 		std::vector<TreeItem> deps;
-		auto& manager = of::engine::GetModule<File::Asset::Manager>();
-		File::Mod::Header header;
-		if (manager.loadModHeader(file, header))
+		of::file::Header header;
+		if (of::file::archive::loadHeader(file, header))
 		{
 			for (auto dependency : header.dependencies)
 			{
@@ -30,8 +31,8 @@ namespace Graphics::Editor::Modals
 	void NewFile::newModFile()
 	{
 		tree.clear();
-		auto& manager = of::engine::GetModule<File::Asset::Manager>();
-		auto& modLoader = manager.getModLoader();
+		auto& manager = of::engine::GetModule<of::file::Handler>();
+		auto& modLoader = of::engine::GetModule<of::file::Loader>();
 		modLoader.loadOrder.clear();
 
 		std::vector<of::common::String> deps;
@@ -60,13 +61,13 @@ namespace Graphics::Editor::Modals
 		else
 			fileName.append(".mod");
 
-		File::Mod::Header header;
+		of::file::Header header;
 		header.name = fileName;
 		header.dependencies = deps;
 
 		manager.buildModOrderFile(fileName, loadOrder);
 
-		manager.openedMod = header;
+		manager.openedFile = header;
 		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();

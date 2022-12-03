@@ -39,4 +39,6 @@ namespace Questing
 	};
 }
 
+CEREAL_REGISTER_TYPE(Questing::DuelObjective);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Questing::QuestObjective, Questing::DuelObjective);
 #endif 

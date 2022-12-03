@@ -1,6 +1,8 @@
 #include "GameObject.hpp"
 #include <Combat/Stats.hpp>
 
+#include <Object/ObjectStateActivator.hpp>
+
 #include <Graphics/PlayerInteractionPrompt.hpp>
 
 #include "ObjectInstanceHandler.hpp"

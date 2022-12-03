@@ -1,16 +1,16 @@
 #include "Quest.hpp"
 
 #include <File/SaveFile.hpp>
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 
-of::common::uuid Interfaces::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
+of::common::uuid of::file::archive::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
 
 void Questing::Quest::loadStrings()
 {
-	auto& x = of::engine::GetModule<File::Asset::Manager>().getLanguage();
-	translatedQuestName = x.getString(questName);
-	translatedQuestDescription = x.getString(questDescription);
-	translatedQuestLine = x.getString(questLine);
+	//auto& x = of::engine::GetModule<of::file::Handler().getLanguage();
+	//translatedQuestName = x.getString(questName);
+	//translatedQuestDescription = x.getString(questDescription);
+	//translatedQuestLine = x.getString(questLine);
 }
 
 Questing::Quest::Quest()
@@ -21,7 +21,7 @@ Questing::Quest::Quest(const Quest& copy) : requireInteractionOnPendingObjective
 questName(copy.questName), questDescription(copy.questDescription), questLine(copy.questLine), nextQuest(copy.nextQuest),
 nextQuestOnFailure(copy.nextQuestOnFailure), hidden(copy.hidden), questState(copy.questState),
 currentObjectiveId(copy.currentObjectiveId), completedStateId(copy.completedStateId), failedStateId(copy.failedStateId),
-IRequestable(copy)
+Requestable(copy)
 {
 }
 
@@ -31,13 +31,13 @@ nextQuestOnFailure(copy.nextQuestOnFailure), hidden(copy.hidden), questState(cop
 currentObjectiveId(copy.currentObjectiveId), completedStateId(copy.completedStateId), failedStateId(copy.failedStateId),
 objectiveMap(std::move(copy.objectiveMap)),
 optionalObjectives(std::move(copy.optionalObjectives)),
-IRequestable(copy)
+Requestable(copy)
 {
 }
 
 Questing::Quest& Questing::Quest::operator=(const Questing::Quest& copy)
 {
-	IRequestable::operator=(copy);
+	Requestable::operator=(copy);
 	requireInteractionOnPendingObjectives = copy.requireInteractionOnPendingObjectives;
 
 	questName = copy.questName;
@@ -176,9 +176,9 @@ void Questing::Quest::updateRequirement()
 }
 
 
-Interfaces::TypeInfo Questing::Quest::getTrait() const
+of::file::archive::TypeInfo Questing::Quest::getTrait() const
 {
-	return { Interfaces::Trait<Questing::Quest>::typeId };
+	return { of::file::archive::Trait<Questing::Quest>::typeId };
 }
 
 Questing::QuestState Questing::Quest::getQuestState() const

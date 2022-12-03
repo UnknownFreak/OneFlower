@@ -3,8 +3,8 @@
 
 #include <unordered_map>
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
-#include <Interfaces/IRequestable.hpp>
+#include <file/FileId.hpp>
+#include <file/archive/Requestable.hpp>
 
 #include "ObjectEditView.hpp"
 
@@ -15,8 +15,8 @@ namespace Graphics
 		struct DataTreeItem
 		{
 			of::common::String name;
-			Interfaces::IRequestable* ptr;
-			Enums::ObjectType type = Enums::ObjectType::Undefined;
+			of::file::archive::Requestable* ptr;
+			of::file::ObjectType type = of::file::ObjectType::Undefined;
 			std::vector<DataTreeItem> items;
 			inline bool operator< (const DataTreeItem& item)
 			{
@@ -31,7 +31,7 @@ namespace Graphics
 			ObjectEditView editView;
 
 			float& height;
-			std::unordered_map<File::Mod::ModFileUUIDHelper, std::unique_ptr<Interfaces::IRequestable>>& map;
+			std::unordered_map<of::file::FileId, std::unique_ptr<of::file::archive::Requestable>>& map;
 
 			bool treeNeedsUpdate();
 			void buildTree();

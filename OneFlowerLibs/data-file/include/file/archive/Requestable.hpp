@@ -1,6 +1,7 @@
 #ifndef IREQUESTABLE_HPP
 #define IREQUESTABLE_HPP
 
+#include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
 #include <utils/common/uuid.hpp>

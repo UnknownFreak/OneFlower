@@ -2,7 +2,7 @@
 #define GameModeRequirement_HPP
 
 #include "Requirement.hpp"
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 
 namespace Requirement
 {
@@ -10,7 +10,7 @@ namespace Requirement
 	{
 	public:
 
-		File::Mod::ModFileUUIDHelper gameModeId;
+		of::file::FileId gameModeId;
 
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

@@ -1,8 +1,10 @@
 #pragma once
 #ifndef Language_HPP
 #define Language_HPP
-#include <Interfaces/IRequestable.hpp>
-#include <File/Archive/RequestorV2.hpp>
+
+#include <file/archive/Requestable.hpp>
+#include <file/archive/Requestor.hpp>
+
 #include <Helpers/PrimitiveSaveable.hpp>
 
 #include <cereal/types/vector.hpp>
@@ -14,7 +16,7 @@
 
 namespace Language
 {
-	class TranslationString : public Interfaces::IRequestable
+	class TranslationString : public of::file::archive::Requestable
 	{
 		of::common::String language;
 		LanguageHeader header;
@@ -22,7 +24,7 @@ namespace Language
 		static PrimitiveSaveable<of::common::String> empty;
 	public:
 
-		File::Archive::RequestorV2 stringList;
+		of::file::archive::Requestor stringList;
 
 
 	#if defined _EDITOR_ || _UNITTESTS_
@@ -46,7 +48,7 @@ namespace Language
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(language);
 			ar(header);
 			ar(fontName);
@@ -54,14 +56,14 @@ namespace Language
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(language);
 			ar(header);
 			ar(fontName);
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 	};
 }
 #endif

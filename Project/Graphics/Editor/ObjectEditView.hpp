@@ -1,7 +1,7 @@
 #ifndef ObjectEditView_HPP
 #define ObjectEditView_HPP
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 
 namespace Graphics
 {
@@ -12,7 +12,7 @@ namespace Graphics
 		{
 		public:
 
-			Interfaces::IRequestable* ptr = nullptr;
+			of::file::archive::Requestable* ptr = nullptr;
 
 			ObjectEditView();
 			void render();

@@ -4,18 +4,18 @@
 #include <Helpers/Enum/InteractionOption.hpp>
 #include <Helpers/Enum/DialogStatus.hpp>
 
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <File/Asset/Resource/DialogTree.hpp>
 
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 
 class Dialog : public Component::IBase<Dialog>
 {
 public:
-	File::Mod::ModFileUUIDHelper dialogTreeuuid;
+	of::file::FileId dialogTreeuuid;
 
 	Asset::Resource::DialogTree dialogTree;
 
@@ -59,7 +59,11 @@ public:
 	void load(Archive& ar)
 	{
 		ar(dialogTreeuuid);
-		dialogTree = of::engine::GetModule<File::Asset::Manager>().getDialogTree().request(dialogTreeuuid);
+		dialogTree = of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::DialogTree>(dialogTreeuuid);
 	}
 };
+
+CEREAL_REGISTER_ARCHIVE(Dialog);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Dialog);
+
 #endif

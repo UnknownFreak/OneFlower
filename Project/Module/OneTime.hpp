@@ -5,7 +5,7 @@
 #include <mutex>
 
 #include <utils/HighResolutionClock.hpp>
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 
 #include <utils/common/String.hpp>
 #include <Helpers/TickTimer.hpp>
@@ -28,10 +28,10 @@ namespace EngineModule
 		bool time(const of::common::String&, const double& msec);
 		void remove(const of::common::String& name);
 
-		void addTicKTimer(const File::Mod::ModFileUUIDHelper& timerId, const Core::TickTimer& timer);
-		bool exists(const File::Mod::ModFileUUIDHelper& timerId) const;
-		Core::TickTimer& getTickTimer(const File::Mod::ModFileUUIDHelper& timerId);
-		void removeTimer(const File::Mod::ModFileUUIDHelper& timerId);
+		void addTicKTimer(const of::file::FileId& timerId, const Core::TickTimer& timer);
+		bool exists(const of::file::FileId& timerId) const;
+		Core::TickTimer& getTickTimer(const of::file::FileId& timerId);
+		void removeTimer(const of::file::FileId& timerId);
 
 		const float update_ms = 1.f / 60.f;
 
@@ -51,7 +51,7 @@ namespace EngineModule
 
 		//LOW: Put this in Definer to avoid include of Map:String?
 		std::unordered_map<of::common::String, utils::HighResolutionClock> timers;
-		std::unordered_map<File::Mod::ModFileUUIDHelper, Core::TickTimer> tickTimers;
+		std::unordered_map<of::file::FileId, Core::TickTimer> tickTimers;
 
 	public:
 		// Inherited via ISimulatable

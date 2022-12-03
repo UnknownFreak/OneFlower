@@ -22,7 +22,11 @@
 //#include <Interfaces/IPatch.hpp>
 #include <file/archive/Requestable.hpp>
 
-
+#include<cereal/cereal.hpp>
+#include <cereal/types/map.hpp>
+#include <cereal/types/unordered_map.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/utility.hpp>
 #include <cereal\archives\binary.hpp>
 
 namespace of::file::archive
@@ -45,8 +49,12 @@ namespace of::file::archive
 			{
 				helpers[index.typeId](index);
 			}
-			inline void registerDefaults()
+			inline void registerDefaults(std::vector<std::pair<common::uuid, std::function<void(const EntityIndex&)>>>& vector)
 			{
+				for (auto& i : vector)
+				{
+					helpers[i.first] = i.second;
+				}
 				/*
 				helpers[Trait<::Asset::Resource::DialogTree>::typeId] = [this](const EntityIndex& index)
 				{
@@ -328,7 +336,6 @@ namespace of::file::archive
 		Requestor(const common::String& loadDirectory = "Data\\", const std::map<common::String, size_t>& loadOrder = {}) :
 			loadDirectory(loadDirectory), fileLoadOrder(loadOrder), factory(this)
 		{
-			factory.registerDefaults();
 		}
 
 		~Requestor()

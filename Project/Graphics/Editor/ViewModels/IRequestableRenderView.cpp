@@ -4,7 +4,7 @@
 
 namespace Graphics::Editor::ViewModels
 {
-	void renderInfo(Interfaces::IRequestable* ptr)
+	void renderInfo(of::file::archive::Requestable* ptr)
 	{
 		ImGui::SameLine();
 		ImGui::TextDisabled("(Version: ");
@@ -15,7 +15,7 @@ namespace Graphics::Editor::ViewModels
 		ImGui::NewLine();
 		ImGui::Text("Type: ");
 		ImGui::SameLine();
-		ImGui::Text(Enums::to_string(ptr->objectType).c_str());
+		ImGui::Text(of::file::to_string(ptr->objectType).c_str());
 		ImGui::Text("Id:");
 		ImGui::SameLine();
 		ImGui::TextDisabled(ptr->fromMod.c_str());
@@ -25,6 +25,6 @@ namespace Graphics::Editor::ViewModels
 		ImGui::TextDisabled(ptr->ID.to_string().c_str());
 		ImGui::Text("Save Mode:");
 		ImGui::SameLine();
-		ImGui::Text(Enums::to_string(ptr->mode).c_str());
+		ImGui::Text(of::file::archive::to_string(ptr->mode).c_str());
 	}
 }

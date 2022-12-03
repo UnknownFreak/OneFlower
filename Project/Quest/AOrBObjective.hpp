@@ -46,5 +46,6 @@ namespace Questing
 		virtual void restoreState(const ObjectiveState& state) override;
 	};
 }
-
+CEREAL_REGISTER_TYPE(Questing::AOrBObjective);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Questing::QuestObjective, Questing::AOrBObjective);
 #endif 

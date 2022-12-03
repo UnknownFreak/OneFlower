@@ -1,7 +1,9 @@
 #include "WeaponItem.hpp"
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
+
+#include <File/Asset/Resource/Prefab.hpp>
 
 void Items::Weapon::loadModel()
 {
-	mesh = of::engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(modelId);
+	mesh = of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(modelId);
 }

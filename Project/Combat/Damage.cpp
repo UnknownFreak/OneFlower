@@ -2,7 +2,7 @@
 
 #include <Object/GameObject.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <Items/Inventory.hpp>
 
 
@@ -24,8 +24,8 @@ namespace Component
 	void Damage::loadEffects()
 	{
 		for (auto& id : effectsIds)
-			effects.push_back(of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Effect>(id));
-		damageElement = of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Combat::Element>(elementId);
+			effects.push_back(of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Effect>(id));
+		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Element>(elementId);
 	}
 
 	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)

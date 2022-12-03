@@ -4,7 +4,7 @@
 #include <Object/IBaseComponent.hpp>
 #include <Object/Transform.hpp>
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 #include "Model.hpp"
 
 class Render : public Component::IBase<Render>

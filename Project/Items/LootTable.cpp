@@ -2,11 +2,11 @@
 #include <Module/ModuleManager.hpp>
 #include <Module/Random.hpp>
 
-of::common::uuid Interfaces::Trait<Items::LootTable>::typeId = of::common::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");
+of::common::uuid of::file::archive::Trait<Items::LootTable>::typeId = of::common::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");
 
-std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> Items::LootTable::generateDrops() const
+std::unordered_map<of::file::FileId, size_t> Items::LootTable::generateDrops() const
 {
-    std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> loot;
+    std::unordered_map<of::file::FileId, size_t> loot;
     //auto& gen = Engine::GetModule<of::module::RandomGen>();
     //for (auto& x : lootTable)
     //{
@@ -23,7 +23,7 @@ std::unordered_map<File::Mod::ModFileUUIDHelper, size_t> Items::LootTable::gener
     return loot;
 }
 
-Interfaces::TypeInfo Items::LootTable::getTrait() const
+of::file::archive::TypeInfo Items::LootTable::getTrait() const
 {
-    return { Interfaces::Trait<Items::LootTable>::typeId };
+    return { of::file::archive::Trait<Items::LootTable>::typeId };
 }

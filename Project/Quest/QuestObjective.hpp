@@ -2,8 +2,9 @@
 #define QuestObjective_HPP
 
 #include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 #include <Requirement/Requirement.hpp>
 
 #include <Helpers/Enum/QuestState.hpp>
@@ -106,5 +107,5 @@ namespace Questing
 		}
 	};
 }
-
+CEREAL_REGISTER_TYPE(Questing::QuestObjective);
 #endif

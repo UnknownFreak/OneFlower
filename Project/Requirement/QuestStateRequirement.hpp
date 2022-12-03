@@ -2,7 +2,7 @@
 #define QuestStateRequirement_HPP
 
 #include "Requirement.hpp"
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 #include <Helpers/Enum/QuestState.hpp>
 
 namespace Requirement
@@ -10,7 +10,7 @@ namespace Requirement
 	class QuestStateRequirment : public Requirement
 	{
 	public:
-		File::Mod::ModFileUUIDHelper questId;
+		of::file::FileId questId;
 		Enums::QuestState questState;
 		bool checkObjective = false;
 		size_t objectiveId = 0;

@@ -1,13 +1,15 @@
 #include "LanguageRequestor.hpp"
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <algorithm>
 #include <utils/os/ListDir.hpp>
 
-of::common::uuid Interfaces::Trait<Language::LanguageRequestor>::typeId = of::common::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
+
+of::common::uuid of::file::archive::Trait<Language::LanguageRequestor>::typeId = of::common::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
 CEREAL_REGISTER_TYPE(Language::LanguageRequestor);
 CEREAL_REGISTER_TYPE(Language::TranslationString);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Language::LanguageRequestor);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Interfaces::IRequestable, Language::TranslationString);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Language::LanguageRequestor);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Language::TranslationString);
+
 namespace Language
 {
 
@@ -100,7 +102,7 @@ namespace Language
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Language::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
-	LanguageRequestor::LanguageRequestor() : IRequestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), Enums::ObjectType::Language)
+	LanguageRequestor::LanguageRequestor() : Requestable(of::common::Builtin, of::common::uuid::nil(), OneVersion(1, 0, 0), of::file::ObjectType::Language)
 	{
 		load();
 	}
@@ -111,23 +113,23 @@ namespace Language
 		clear();
 #endif
 		allLanguageFiles = of::os::listDirectory(of::common::langPath, ".lang", false);
-		languages = of::engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
+		//languages = of::engine::GetModule<of::file::Handler>().loadLanguages(allLanguageFiles);
 		resolvePatchedLanguages();
 	}
 
 	void LanguageRequestor::archiveLoad()
 	{
-		languages = of::engine::GetModule<File::Asset::Manager>().loadLanguages(allLanguageFiles);
+		//languages = of::engine::GetModule<of::file::Handler>().loadLanguages(allLanguageFiles);
 	}
 
 	void LanguageRequestor::archiveSave() const
 	{
-		of::engine::GetModule<File::Asset::Manager>().saveLanguages(*this);
+		//of::engine::GetModule<of::file::Handler>().saveLanguages(*this);
 	}
 
-	Interfaces::TypeInfo LanguageRequestor::getTrait() const
+	of::file::archive::TypeInfo LanguageRequestor::getTrait() const
 	{
-		return { Interfaces::Trait<LanguageRequestor>::typeId };
+		return { of::file::archive::Trait<LanguageRequestor>::typeId };
 	}
 
 	void LanguageRequestor::loadFont()

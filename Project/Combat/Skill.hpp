@@ -3,10 +3,13 @@
 #define Skill_HPP
 
 #include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
 
 #include <Helpers/Enum/CombatSkill.hpp>
-#include <Interfaces/IRequestable.hpp>
-#include <File/Mod/ModFileUUIDHelper.hpp>
+
+#include <file/archive/Requestable.hpp>
+#include <file/FileId.hpp>
+
 #include <File/Asset/Resource/Prefab.hpp>
 
 #include "Effect.hpp"
@@ -23,20 +26,20 @@ namespace Graphics::UI
 
 namespace Combat
 {
-	class Skill : public Interfaces::IRequestable
+	class Skill : public of::file::archive::Requestable
 	{
 		// prefab that applies damage and buff/debuffs to the enemy (yes you can buff enemies)
 	public:
-		File::Mod::ModFileUUIDHelper prefabId;
-		File::Mod::ModFileUUIDHelper skillEffectPrefabId;
+		of::file::FileId prefabId;
+		of::file::FileId skillEffectPrefabId;
 		// effects that apply to the player
 		std::vector<Combat::Effect> skillExecutionEffects;
-		std::vector<File::Mod::ModFileUUIDHelper> skillExecutionEffectIds;
+		std::vector<of::file::FileId> skillExecutionEffectIds;
 
 		Element getElement();
 		void preloadEffect();
 
-		std::unordered_map<Enums::CombatSkill, File::Mod::ModFileUUIDHelper> chainSkillsIds;
+		std::unordered_map<Enums::CombatSkill, of::file::FileId> chainSkillsIds;
 		std::unordered_map<Enums::CombatSkill, Skill> chainSkills;
 
 		void getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec);
@@ -45,7 +48,7 @@ namespace Combat
 
 		Skill();
 
-		File::Mod::ModFileUUIDHelper elementId;
+		of::file::FileId elementId;
 		Combat::Element element;
 		Core::TickTimer coolDown;
 		double cost;
@@ -63,7 +66,7 @@ namespace Combat
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(elementId);
 			ar(coolDown);
 			ar(cost);
@@ -79,7 +82,7 @@ namespace Combat
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(elementId);
 			element = getElement();
 			ar(coolDown);
@@ -95,9 +98,10 @@ namespace Combat
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 	};
 }
-
+CEREAL_REGISTER_TYPE(Combat::Skill);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Combat::Skill);
 #endif

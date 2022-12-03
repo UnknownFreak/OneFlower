@@ -1,7 +1,7 @@
 #ifndef TimedRequirement_HPP
 #define TimedRequirement_HPP
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/FileId.hpp>
 #include <Helpers/TickTimer.hpp>
 #include "Requirement.hpp"
 
@@ -14,7 +14,7 @@ namespace Requirement
 
 		~TimedRequirement();
 		bool fullfilledIftimeRanOut;
-		File::Mod::ModFileUUIDHelper timerId;
+		of::file::FileId timerId;
 		Core::TickTimerInfo timerInfo;
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

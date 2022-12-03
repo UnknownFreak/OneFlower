@@ -1,8 +1,10 @@
 #include "Globals.hpp"
 
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 
 #include <Module/ModuleManager.hpp>
+
+#include <Helpers/PrimitiveSaveable.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Globals>::type = of::module::EngineResourceType::Globals;
 
@@ -31,12 +33,12 @@ const float Globals::Z_OFFSET = -64.f;
 
 Globals::Globals()
 {
-	File::Asset::Manager& am = of::engine::GetModule<File::Asset::Manager>();
+	auto& am = of::engine::GetModule<of::file::Handler>();
 
-	putVariableInto<PrimitiveSaveable<long>>(am.requestor, longGlobals, Enums::ObjectType::PrimitiveInt);
-	putVariableInto<PrimitiveSaveable<double>>(am.requestor, doubleGlobals, Enums::ObjectType::PrimitiveDouble);
-	putVariableInto<PrimitiveSaveable<of::common::String>>(am.requestor, stringGlobals, Enums::ObjectType::PrimitiveString);
-	putVariableInto<PrimitiveSaveable<std::vector<of::common::String>>>(am.requestor, stringList, Enums::ObjectType::PrimitiveString);
+	putVariableInto<PrimitiveSaveable<long>>(am.archive, longGlobals, of::file::ObjectType::PrimitiveInt);
+	putVariableInto<PrimitiveSaveable<double>>(am.archive, doubleGlobals, of::file::ObjectType::PrimitiveDouble);
+	putVariableInto<PrimitiveSaveable<of::common::String>>(am.archive, stringGlobals, of::file::ObjectType::PrimitiveString);
+	putVariableInto<PrimitiveSaveable<std::vector<of::common::String>>>(am.archive, stringList, of::file::ObjectType::PrimitiveString);
 
 	boolGlobals.insert(std::make_pair(GLOBAL_DRAW_HITBOX, true));
 	boolGlobals.insert(std::make_pair(GLOBAL_DRAW_QT, false));

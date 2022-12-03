@@ -1,16 +1,20 @@
 #include "LoadingStateMachine.hpp"
 
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <Graphics/UI/LoadingScreen.hpp>
 #include <Module/OneTime.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
 
-const File::Mod::ModFileUUIDHelper& LoadingStateMachine::getCurrentWorld() const
+#include <File/Asset/Resource/Prefab.hpp>
+#include <File/Asset/Resource/Template/TileTemplate.hpp>
+#include <File/Asset/Resource/Template/ColliderTemplate.hpp>
+
+const of::file::FileId& LoadingStateMachine::getCurrentWorld() const
 {
 	return worldToLoad;
 }
 
-const File::Mod::ModFileUUIDHelper& LoadingStateMachine::getCurrentLoadingScreen() const
+const of::file::FileId& LoadingStateMachine::getCurrentLoadingScreen() const
 {
 	return loadingScreenToLoad;
 }
@@ -21,7 +25,7 @@ LoadingStateMachine::LoadingStateMachine(Graphics::RenderWindow& gfx, bool& isLo
 }
 
 
-void LoadingStateMachine::beginLoad(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition)
+void LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition)
 {
 	loadstate = Enums::LoadingState::PREPARE_LOADINGSCREEN;
 	worldToLoad = world;
@@ -53,7 +57,7 @@ void LoadingStateMachine::load()
 	
 	case Enums::LoadingState::BEGIN_LOAD:
 	{
-		instanceToLoad = of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<File::Asset::Resource::Template::WorldInstance>(worldToLoad);
+		instanceToLoad = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<File::Asset::Resource::Template::WorldInstance>(worldToLoad);
 		loadingScreenInfoPtr->totalLoadCount = instanceToLoad.getLoadingCount();
 		loadingScreenInfoPtr->totalAtlasCount = instanceToLoad.tileAtlases.size();
 		loadingScreenInfoPtr->totalPrefabCount = instanceToLoad.prefabs.size();
@@ -117,7 +121,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			of::engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
+			of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
 			loadingScreenInfoPtr->currentPrefabCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
@@ -133,7 +137,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			of::engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileCount]);
+			of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileCount]);
 			loadingScreenInfoPtr->currentTileCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->tileLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
@@ -149,7 +153,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto chunk = of::engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileBuildingCount]);
+			auto chunk = of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileBuildingCount]);
 			for (auto& x : chunk->tileInfo)
 				gfx.addRenderable(chunk->layer, chunk->group, x.pos, x.pos.z, x.textureCoors, x.type, x.hasShadow);
 			if (chunk->chunkTransparency.set)
@@ -172,7 +176,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			of::engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderCount]);
+			of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderCount]);
 			loadingScreenInfoPtr->currentColliderCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->colliderLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
@@ -188,7 +192,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto chunk = of::engine::GetModule<File::Asset::Manager>().requestor.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderBuildingCount]);
+			auto chunk = of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderBuildingCount]);
 			for (auto& x : chunk->colliderInfo)
 			{
 				x;
@@ -210,7 +214,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			auto& requestor = of::engine::GetModule<File::Asset::Manager>().requestor;
+			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
 			auto chunk = requestor.request<File::Asset::Resource::Template::ObjectChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentObjectPartCount]);
 			for (auto& x : chunk->objectLocations)
 			{
@@ -243,7 +247,7 @@ void LoadingStateMachine::load()
 		{
 			auto& location = buffer[loadingScreenInfoPtr->currentObjectCount];
 
-			auto& requestor = of::engine::GetModule<File::Asset::Manager>().requestor;
+			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
 			auto prefab = requestor.request<Asset::Resource::Prefab>(location.prefab);
 
 			prefab->createNewInstance(location.objectId, location.location);

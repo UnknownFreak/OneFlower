@@ -3,7 +3,8 @@
 #include <imgui/imgui.h>
 
 #include <utils/os/ListDir.hpp>
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
+#include <file/archive/loadHeader.hpp>
 
 
 namespace Graphics::Editor::Modals
@@ -11,12 +12,12 @@ namespace Graphics::Editor::Modals
 	void LoadFile::load()
 	{
 		tree.clear();
-		auto& manager = of::engine::GetModule<File::Asset::Manager>();
-		auto& modLoader = manager.getModLoader();
+		auto& manager = of::engine::GetModule<of::file::Handler>();
+		auto& modLoader = of::engine::GetModule<of::file::Loader>();
 		modLoader.loadOrder.clear();
 
-		File::Mod::Header header;
-		manager.loadModHeader(m_selectedFile, header);
+		of::file::Header header;
+		of::file::archive::loadHeader(m_selectedFile, header);
 
 
 		std::set<of::common::String> loadOrder;
@@ -26,23 +27,23 @@ namespace Graphics::Editor::Modals
 		{
 			for (auto& item : items)
 			{
-				File::Mod::Header tmp;
-				manager.loadModHeader(item, tmp);
+				of::file::Header tmp;
+				of::file::archive::loadHeader(item, tmp);
 				loadOrder.insert(item);
 				ref(ref, loadOrder, tmp.dependencies);
 			}
 		};
 		for (auto& d : header.dependencies)
 		{
-			File::Mod::Header tmp;
-			manager.loadModHeader(d, tmp);
+			of::file::Header tmp;
+			of::file::archive::loadHeader(d, tmp);
 			loadOrder.insert(d);
 			x(x, loadOrder, tmp.dependencies);
 		}
 
 		manager.buildModOrderFile(m_selectedFile, loadOrder);
 
-		manager.openedMod = header;
+		manager.openedFile = header;
 		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
 		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();

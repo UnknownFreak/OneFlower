@@ -78,7 +78,7 @@ namespace Component
 		void addItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize);
 		void removeItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize);
 
-		size_t getItemStack(const File::Mod::ModFileUUIDHelper& itemId);
+		size_t getItemStack(const of::file::FileId& itemId);
 
 		// Inherited via IBase
 		virtual void onCollision(GameObject* the_collidee) override;

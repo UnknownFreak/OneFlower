@@ -34,9 +34,6 @@
     <Filter Include="Engine\Helpers">
       <UniqueIdentifier>{085614b7-fedc-4052-9732-b3054c33da8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Mod">
-      <UniqueIdentifier>{ba7291de-fa3f-4dc6-8d27-3831a49c4cfc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit Tests">
       <UniqueIdentifier>{604da4f4-699c-4cc5-a7bc-03b3cc6dd90f}</UniqueIdentifier>
     </Filter>
@@ -552,12 +549,6 @@
     <ClCompile Include="Project\Requirement\GameModeRequirement.cpp">
       <Filter>Engine\Requirement</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Asset\Manager.cpp">
-      <Filter>Engine\File\Asset</Filter>
-    </ClCompile>
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp">
       <Filter>Engine\File\Asset\Resource</Filter>
     </ClCompile>
@@ -641,9 +632,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Interfaces\ISimulatable.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
@@ -652,12 +640,6 @@
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp">
       <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\ObjectType.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\ObjectFlag.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Module\OneTime.hpp">
       <Filter>Engine\Module\Time</Filter>
@@ -711,9 +693,6 @@
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IPatch.hpp">
-      <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Interfaces\IRequestable.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Project\Main\GameEntry.hpp">
@@ -1004,26 +983,8 @@
     <ClInclude Include="Project\Resources\GameModeModifier.hpp">
       <Filter>Engine\Resources\GameMode</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModHeader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Mod\ModLoader.hpp">
-      <Filter>Engine\File\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Archive\DatabaseIndex.hpp">
-      <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
     <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp">
       <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Archive\RequestorV2.hpp">
-      <Filter>Engine\File\Archive</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Asset\Manager.hpp">
-      <Filter>Engine\File\Asset</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>
@@ -1120,6 +1081,9 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.hpp">
       <Filter>Engine\Graphics\Editor\Selectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

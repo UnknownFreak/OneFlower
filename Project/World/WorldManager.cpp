@@ -9,6 +9,8 @@
 
 #include <Helpers/Enum/TileTypes.hpp>
 
+#include <File/Handler.hpp>
+
 #include <File/Asset/Resource/Template/WorldInstance.hpp>
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
 #include <File/Asset/Resource/Template/ColliderTemplate.hpp>
@@ -31,7 +33,7 @@
 
 #include <Module/Globals.hpp>
 
-File::Mod::ModFileUUIDHelper dialogTest;
+of::file::FileId dialogTest;
 of::common::uuid testObjectId;
 
 void WorldManager::doDayCycle(const float& fElapsedTime)
@@ -119,7 +121,7 @@ void WorldManager::createSimpleWorld()
 	const auto mod = "Default";
 	gfx.clearDrawList();
 
-	auto& theManager = of::engine::GetModule<File::Asset::Manager>();
+	auto& theManager = of::engine::GetModule<of::file::Handler>();
 	//auto& atlasMgr = theManager.getTileAtlas();
 	//atlasMgr.add(ta);
 	//theManager.test.add(t.get());
@@ -129,12 +131,12 @@ void WorldManager::createSimpleWorld()
 	//auto& tileChunks = theManager.getTileChunks();
 
 	File::Asset::Resource::Template::WorldInstance wi;
-	wi.objectType = Enums::ObjectType::WorldInstance;
+	wi.objectType = of::file::ObjectType::WorldInstance;
 	wi.fromMod = mod;
 
 	File::Asset::Resource::Template::ColliderChunk chunk;
 	
-	chunk.objectType = Enums::ObjectType::ColliderChunk;
+	chunk.objectType = of::file::ObjectType::ColliderChunk;
 	chunk.fromMod = mod;
 	/// <summary>
 	/// glm::vec2 size;
@@ -191,13 +193,13 @@ void WorldManager::createSimpleWorld()
 	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ glm::vec3{13 * 64.f, 17 * 64.f, 0.f}, glm::vec2{256.f + 128, 192.f}, Enums::ColliderType::Floor });
 	chunk.colliderInfo.push_back(File::Asset::Resource::Template::ColliderTemplate{ glm::vec3{13 * 64.f, 17 * 64.f, 0.f}, glm::vec2{256.f + 128 + 10240, 192.f + 10240 }, Enums::ColliderType::Floor });
 	//colliderChunks.add(chunk);
-	theManager.requestor.add(new File::Asset::Resource::Template::ColliderChunk(chunk));
+	theManager.archive.add(new File::Asset::Resource::Template::ColliderChunk(chunk));
 	wi.colliderInfo.push_back(chunk.getModfile());
 
 
 	File::Asset::Resource::Template::TileChunk tchunk;
 	tchunk.fromMod = mod;
-	tchunk.objectType = Enums::ObjectType::TileChunk;
+	tchunk.objectType = of::file::ObjectType::TileChunk;
 	//tiles.clear();
 	isLoading = true;
 		//for (float f = 1; f < 20; f++)
@@ -225,7 +227,7 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{ 17 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{ 18 * 64.f, f2 * 64.f , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 			
-			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+			theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 
 		}
@@ -238,7 +240,7 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{11 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{12 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });				  
 
-			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+			theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 			
 		}
@@ -253,7 +255,7 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{11 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{12 * 64.f, f2 * 64.f  , 1.f }, "Ground",  Enums::TileTypes::Ground, false });
 
-			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+			theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 		
 		}
@@ -268,7 +270,7 @@ void WorldManager::createSimpleWorld()
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{11 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 			tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{12 * 64.f, f2 * 64.f  , 0.f }, "Ground",  Enums::TileTypes::Ground, false });
 
-			theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+			theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 			wi.tileInfo.push_back(tchunk.getModfile());
 		}
 	
@@ -286,7 +288,7 @@ void WorldManager::createSimpleWorld()
 	{
 		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{0.f, f * 64.f , 0.f }, "Wall",  Enums::TileTypes::Wall, true });
 	}
-	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+	theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
 	tchunk.ID = of::common::uuid();
@@ -298,7 +300,7 @@ void WorldManager::createSimpleWorld()
 		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{f * 64.f, -64.f, 1.f },  "Ground",  Enums::TileTypes::Ground, false });
 		tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{f * 64.f,  0.f, 1.f }, "GroundWall",  Enums::TileTypes::Ground, false });
 	}
-	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+	theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 	
 	tchunk.ID = of::common::uuid();
@@ -309,7 +311,7 @@ void WorldManager::createSimpleWorld()
 	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{128.f + 64.f, 128.f + 64.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
 	tchunk.tileInfo.push_back(File::Asset::Resource::Template::TileTemplate{ glm::vec3{128.f + 64.f, 128.f, 1.f }, "Ground",  Enums::TileTypes::Ground, true });
 	tchunk.chunkTransparency = File::Asset::Resource::Template::TransparencyInfo{ true, glm::vec3{128.f, 128.f,  1.f},  glm::vec2{128.f , 128.f } };
-	theManager.requestor.add(new File::Asset::Resource::Template::TileChunk(tchunk));
+	theManager.archive.add(new File::Asset::Resource::Template::TileChunk(tchunk));
 	wi.tileInfo.push_back(tchunk.getModfile());
 
 	auto greetings = Asset::Resource::DialogOption{ of::common::uuid(), { {1,2}, {3,4}, {7,8}}, nullptr, nullptr, Enums::DialogStatus::Open, "Hello traveller!" };
@@ -338,11 +340,11 @@ void WorldManager::createSimpleWorld()
 		{9, nested3}
 	};
 	Asset::Resource::DialogTree dt(opt);
-	dt.objectType = Enums::ObjectType::DialogTree;
+	dt.objectType = of::file::ObjectType::DialogTree;
 	dt.fromMod = mod;
 	dt.ID = of::common::uuid();
 
-	theManager.requestor.add(new Asset::Resource::DialogTree(dt));
+	theManager.archive.add(new Asset::Resource::DialogTree(dt));
 	dialogTest = dt.getModfile();
 
 	gfx.addRenderable(0, "Default", { 1024.f + 64, 128.f}, 0.f, "WaterTop", Enums::TileTypes::Ground, true);
@@ -353,25 +355,25 @@ void WorldManager::createSimpleWorld()
 
 	auto dialog = objectHandler.objects[testObjectId].getComponent<Dialog>();
 	dialog->dialogTreeuuid = dialogTest;
-	dialog->dialogTree = of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Asset::Resource::DialogTree>(dialogTest);
+	dialog->dialogTree = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Asset::Resource::DialogTree>(dialogTest);
 
 	Combat::Element e;
-	e.objectType = Enums::ObjectType::Element;
+	e.objectType = of::file::ObjectType::Element;
 	e.name = "Testelement";
 	e.fromMod = mod;
 	e.elementAttributes[e.getModfile()] = 1.0;
 
-	theManager.requestor.add(new Combat::Element(e));
+	theManager.archive.add(new Combat::Element(e));
 
 	Combat::Effect ef;
-	ef.objectType = Enums::ObjectType::Effect;
+	ef.objectType = of::file::ObjectType::Effect;
 	ef.effectTime.maxTime = 10.f;
 	ef.effectElememtId = e.getModfile();
 	ef.effectType = Enums::EffectType::TickDamage;
 	ef.theEffect = std::shared_ptr<Combat::DamageEffect>(new Combat::DamageEffect(1, Enums::Attribute::Power, 0.4));
 	ef.tickDelay.maxTime = .1f;
 	ef.fromMod = mod;
-	theManager.requestor.add(new Combat::Effect(ef));
+	theManager.archive.add(new Combat::Effect(ef));
 
 	ef.effectType = Enums::EffectType::Barrier;
 	ef.theEffect = std::shared_ptr<Combat::BarrierEffect>(new Combat::BarrierEffect(2, 20));
@@ -380,9 +382,9 @@ void WorldManager::createSimpleWorld()
 
 	auto ef2 = ef;
 	ef2.ID = of::common::uuid();
-	theManager.requestor.add(new Combat::Effect(ef2));
+	theManager.archive.add(new Combat::Effect(ef2));
 	Asset::Resource::Prefab p;
-	p.objectType = Enums::ObjectType::Prefab;
+	p.objectType = of::file::ObjectType::Prefab;
 	Component::Damage d = Component::Damage();
 	d.canLockNextFrame = false;
 	d.maxTargets = 1;
@@ -394,10 +396,10 @@ void WorldManager::createSimpleWorld()
 	p.components.push_back(std::make_unique<Component::Damage>(d));
 	p.fromMod = mod;
 
-	theManager.requestor.add(new Asset::Resource::Prefab(p));
+	theManager.archive.add(new Asset::Resource::Prefab(p));
 
 	Combat::Skill s;
-	s.objectType = Enums::ObjectType::Skill;
+	s.objectType = of::file::ObjectType::Skill;
 	s.animation = "foo";
 	s.coolDown.maxTime = 1.f;
 	s.summonPoint = 100.f;
@@ -407,26 +409,26 @@ void WorldManager::createSimpleWorld()
 	s.skillExecutionEffectIds.push_back(ef2.getModfile());
 	s.iconTextureName = "SkillIconFrame.png";
 
-	theManager.requestor.add(new Combat::Skill(s));
+	theManager.archive.add(new Combat::Skill(s));
 
 
 	isLoading = false;
 	setCurrentTime(12.f);
-	theManager.requestor.add(new File::Asset::Resource::Template::WorldInstance(wi));
+	theManager.archive.add(new File::Asset::Resource::Template::WorldInstance(wi));
 
-	File::Mod::Header mh;
+	of::file::Header mh;
 	mh.name = "Default";
 	mh.modVersion = OneVersion(1, 0, 0);
 	theManager.saveGameDatabase(mh.name, mh);
-	theManager.getModLoader().loadOrder.insert({mh.name, 0});
-	theManager.requestor.clear();
+	of::engine::GetModule<of::file::Loader>().loadOrder.insert({ mh.name, 0 });
+	theManager.archive.clear();
 	loadWorldInstance(wi.getModfile(), {}, { 50.f, -15.f , 1.f});
-	auto eff = theManager.requestor.requestUniqueInstance<Combat::Effect>(ef.getModfile());
-	auto eff2 = theManager.requestor.requestUniqueInstance<Combat::Effect>(ef2.getModfile());
-	auto elm = theManager.requestor.request<Combat::Element>(e.getModfile());
+	auto eff = theManager.archive.requestUniqueInstance<Combat::Effect>(ef.getModfile());
+	auto eff2 = theManager.archive.requestUniqueInstance<Combat::Effect>(ef2.getModfile());
+	auto elm = theManager.archive.request<Combat::Element>(e.getModfile());
 	objectHandler.player->getComponent<Component::Stats>()->attunedTo = *elm;
 	objectHandler.player->getComponent<Component::Stats>()->doEffects({ eff, eff2 }, objectHandler.player->getSharedComponent<Component::Stats>());
-	auto skill = theManager.requestor.requestUniqueInstance<Combat::Skill>(s.getModfile());
+	auto skill = theManager.archive.requestUniqueInstance<Combat::Skill>(s.getModfile());
 	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Primary] = skill;
 	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Secondary] = skill;
 	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Special] = skill;
@@ -465,7 +467,7 @@ void WorldManager::load(const of::common::String& fileName)
 	// TODO: start timers from questing module if needed
 }
 
-void WorldManager::loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition)
+void WorldManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition)
 {
 	isLoading = true;
 	EngineModule::Time& time = of::engine::GetModule<EngineModule::Time>();

@@ -39,4 +39,6 @@ namespace Component
 
 }
 
+CEREAL_REGISTER_TYPE(Component::CombatComponent);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::CombatComponent);
 #endif

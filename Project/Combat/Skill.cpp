@@ -1,7 +1,7 @@
 #include "Skill.hpp"
 
 #include "Damage.hpp"
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 
 #include <Object/GameObject.hpp>
 #include "Stats.hpp"
@@ -11,7 +11,7 @@
 #include <Graphics/UI/SkillIcon.hpp>
 #include <Graphics/UI/SkillIconChain.hpp>
 
-of::common::uuid Interfaces::Trait<Combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
+of::common::uuid of::file::archive::Trait<Combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
 
 namespace Combat
 {
@@ -19,12 +19,12 @@ namespace Combat
 
 	Element Skill::getElement()
 	{
-		return of::engine::GetModule<File::Asset::Manager>().requestor.requestUniqueInstance<Element>(elementId);
+		return of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Element>(elementId);
 	}
 
 	void Skill::preloadEffect()
 	{
-		auto& x = of::engine::GetModule<File::Asset::Manager>().requestor;
+		auto& x = of::engine::GetModule<of::file::Handler>().archive;
 		x.request<Asset::Resource::Prefab>(prefabId);
 		x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
 	}
@@ -38,7 +38,7 @@ namespace Combat
 		}
 	}
 
-	Skill::Skill() : IRequestable()
+	Skill::Skill() : Requestable()
 	{
 	}
 
@@ -58,7 +58,7 @@ namespace Combat
 				stats->mainStat[Enums::Attribute::Mana].current -= cost;
 				coolDown.reset(true);
 				owner->getComponent<Component::Stats>()->doEffects(skillExecutionEffects, stats);
-				auto& x = of::engine::GetModule<File::Asset::Manager>().requestor;
+				auto& x = of::engine::GetModule<of::file::Handler>().archive;
 				Asset::Resource::Prefab* skillPrefab = x.request<Asset::Resource::Prefab>(prefabId);
 				Asset::Resource::Prefab* effectPrefab = x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
 				GameObject* skillGo = nullptr;
@@ -105,8 +105,8 @@ namespace Combat
 		return Graphics::UI::SkillIconChain(v);
 	}
 
-	Interfaces::TypeInfo Skill::getTrait() const
+	of::file::archive::TypeInfo Skill::getTrait() const
 	{
-		return { Interfaces::Trait<Skill>::typeId };
+		return { of::file::archive::Trait<Skill>::typeId };
 	}
 };

@@ -2,6 +2,9 @@
 #ifndef ObjectStateActivator_HPP
 #define ObjectStateActivator_HPP
 
+#include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
+
 #include <Helpers/Enum/ObjectState.hpp>
 #include <utils/common/uuid.hpp>
 #include "IBaseComponent.hpp"
@@ -47,5 +50,7 @@ namespace Component
 	};
 }
 
+CEREAL_REGISTER_TYPE(Component::ObjectStateActivator);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::ObjectStateActivator);
 
 #endif

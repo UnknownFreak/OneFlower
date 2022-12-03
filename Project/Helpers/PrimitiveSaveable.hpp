@@ -1,12 +1,12 @@
 #ifndef PrimitiveSaveable_HPP
 #define PrimitiveSaveable_HPP
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <Interfaces/IObject.hpp>
 #include <cereal\types\vector.hpp>
 
 template <class T>
-class PrimitiveSaveable : public Interfaces::IRequestable, public Interfaces::IObject
+class PrimitiveSaveable : public of::file::archive::Requestable, public Interfaces::IObject
 {
 	template <class In = T>
 	inline typename std::enable_if<std::is_same<std::vector<of::common::String>, In>::value,
@@ -33,11 +33,11 @@ public:
 	{
 	}
 
-	inline PrimitiveSaveable(T value, of::common::String name, const of::common::String fromMod, const of::common::uuid ID, const OneVersion version) : IRequestable(fromMod, ID, version), IObject(name), value(value)
+	inline PrimitiveSaveable(T value, of::common::String name, const of::common::String fromMod, const of::common::uuid ID, const OneVersion version) : Requestable(fromMod, ID, version), IObject(name), value(value)
 	{
 	}
 
-	inline PrimitiveSaveable(const PrimitiveSaveable& copy) : IRequestable(copy), IObject(copy), value(copy.value)
+	inline PrimitiveSaveable(const PrimitiveSaveable& copy) : Requestable(copy), IObject(copy), value(copy.value)
 	{
 	}
 
@@ -80,9 +80,12 @@ public:
 	}
 
 	// Inherited via IRequestable
-	virtual Interfaces::TypeInfo getTrait() const override
+	virtual of::file::archive::TypeInfo getTrait() const override
 	{
-		return { Interfaces::Trait<PrimitiveSaveable<T>>::typeId };
+		return { of::file::archive::Trait<PrimitiveSaveable<T>>::typeId };
 	}
 };
+
+CEREAL_REGISTER_TYPE(PrimitiveSaveable<of::common::String>);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, PrimitiveSaveable<of::common::String>);
 #endif

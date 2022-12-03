@@ -1,7 +1,7 @@
 #ifndef LanguageRequsetor_HPP
 #define LanguageRequsetor_HPP
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 
 //TODO:
 //#include <swizzle/font?>
@@ -12,7 +12,7 @@
 
 namespace Language
 {
-	class LanguageRequestor : public Interfaces::IRequestable
+	class LanguageRequestor : public of::file::archive::Requestable
 	{
 		
 		of::common::String fallbackLanguage;
@@ -73,7 +73,7 @@ namespace Language
 		void load();
 
 
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void load(Archive& ar)

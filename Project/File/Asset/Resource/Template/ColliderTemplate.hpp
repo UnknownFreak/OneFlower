@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <vector>
 
 #include <glm/vec2.hpp>
@@ -35,13 +35,14 @@ namespace File::Asset::Resource::Template
 		}
 	};
 
-	struct ColliderChunk : public Interfaces::IRequestable {
+	struct ColliderChunk : public of::file::archive::Requestable {
 		std::vector<ColliderTemplate> colliderInfo;
 		int layer;
 		of::common::String group;
 		template<class Archive>
 		void save(Archive& ar) const
 		{
+			ar(cereal::base_class<Requestable>(this));
 			ar(colliderInfo);
 			ar(layer);
 			ar(group);
@@ -49,12 +50,15 @@ namespace File::Asset::Resource::Template
 		template <class Archive>
 		void load(Archive& ar)
 		{
+			ar(cereal::base_class<Requestable>(this));
 			ar(colliderInfo);
 			ar(layer);
 			ar(group);
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 	};
 }
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::ColliderChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, File::Asset::Resource::Template::ColliderChunk);

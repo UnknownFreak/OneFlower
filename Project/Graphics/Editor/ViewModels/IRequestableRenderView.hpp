@@ -1,11 +1,11 @@
 #ifndef IRequestableRenderView_HPP
 #define IRequestableRenderView_HPP
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 
 namespace Graphics::Editor::ViewModels
 {
-	void renderInfo(Interfaces::IRequestable* ptr);
+	void renderInfo(of::file::archive::Requestable* ptr);
 }
 
 #endif

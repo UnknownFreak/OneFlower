@@ -1,6 +1,9 @@
 #ifndef Damage_HPP
 #define Damage_HPP
 
+#include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
+
 #include <vector>
 
 #include <Object/IBaseComponent.hpp>
@@ -25,8 +28,8 @@ namespace Component
 		void loadEffects();
 
 	public:
-		std::vector<File::Mod::ModFileUUIDHelper> effectsIds;
-		File::Mod::ModFileUUIDHelper elementId;
+		std::vector<of::file::FileId> effectsIds;
+		of::file::FileId elementId;
 
 		bool attachToOwner;
 		// Buff/debuffs that get applied (includes DoTs)
@@ -91,5 +94,6 @@ namespace Component
 		}
 	};
 }
-
+CEREAL_REGISTER_TYPE(Component::Damage);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Damage);
 #endif

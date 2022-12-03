@@ -11,9 +11,9 @@
 
 #include <Helpers/Enum/TileTypes.hpp>
 
-#include <File/Mod/ModFileUUIDHelper.hpp>
+#include <file/archive/Requestable.hpp>
+#include <file/FileId.hpp>
 
-#include <Interfaces/IRequestable.hpp>
 #include <vector>
 
 namespace File::Asset::Resource::Template
@@ -82,18 +82,18 @@ namespace File::Asset::Resource::Template
 	};
 
 
-	struct TileChunk : public Interfaces::IRequestable
+	struct TileChunk : public of::file::archive::Requestable
 	{
 		std::vector<TileTemplate> tileInfo;
 		TransparencyInfo chunkTransparency;
 		int layer;
 		of::common::String group;
-		File::Mod::ModFileUUIDHelper atlas;
+		of::file::FileId atlas;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(tileInfo);
 			ar(chunkTransparency);
 			ar(layer);
@@ -103,7 +103,7 @@ namespace File::Asset::Resource::Template
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(tileInfo);
 			ar(chunkTransparency);
 			ar(layer);
@@ -112,7 +112,11 @@ namespace File::Asset::Resource::Template
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 	};
 }
+
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::TileChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, File::Asset::Resource::Template::TileChunk);
+
 #endif

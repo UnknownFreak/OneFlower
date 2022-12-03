@@ -273,6 +273,9 @@
     <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
+      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
@@ -315,14 +318,12 @@
     <ClCompile Include="Project\Combat\Element.cpp" />
     <ClCompile Include="Project\Combat\Skill.cpp" />
     <ClCompile Include="Project\Combat\Stats.cpp" />
-    <ClCompile Include="Project\File\Asset\Manager.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Prefab.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
-    <ClCompile Include="Project\File\Mod\ModLoaderDefiner.cpp" />
     <ClCompile Include="Project\File\SaveFile.cpp" />
     <ClCompile Include="Project\Graphics\Camera.cpp" />
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
@@ -448,19 +449,13 @@
     <ClInclude Include="Project\Combat\Modifier.hpp" />
     <ClInclude Include="Project\Combat\Skill.hpp" />
     <ClInclude Include="Project\Combat\Stats.hpp" />
-    <ClInclude Include="Project\File\Archive\DatabaseIndex.hpp" />
     <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp" />
-    <ClInclude Include="Project\File\Archive\RequestorV2.hpp" />
-    <ClInclude Include="Project\File\Asset\Manager.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
-    <ClInclude Include="Project\File\Mod\ModFileUUIDHelper.hpp" />
-    <ClInclude Include="Project\File\Mod\ModHeader.hpp" />
-    <ClInclude Include="Project\File\Mod\ModLoader.hpp" />
     <ClInclude Include="Project\File\SaveFile.hpp" />
     <ClInclude Include="Project\Graphics\Camera.hpp" />
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
@@ -509,9 +504,6 @@
     <ClInclude Include="Project\Helpers\Enum\ItemType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\EffectType.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectFlag.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectSaveMode.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
@@ -536,7 +528,6 @@
     <ClInclude Include="Project\Input\PlayerController.hpp" />
     <ClInclude Include="Project\Interfaces\IObject.hpp" />
     <ClInclude Include="Project\Interfaces\IPatch.hpp" />
-    <ClInclude Include="Project\Interfaces\IRequestable.hpp" />
     <ClInclude Include="Project\Interfaces\ISimulatable.hpp" />
     <ClInclude Include="Project\Interfaces\IToolTip.hpp" />
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp" />
@@ -553,6 +544,7 @@
     <ClInclude Include="Project\Language\LanguageHeader.hpp" />
     <ClInclude Include="Project\Language\LanguageRequestor.hpp" />
     <ClInclude Include="Project\Main\GameEntry.hpp" />
+    <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
     <ClInclude Include="Project\Module\OneTime.hpp" />

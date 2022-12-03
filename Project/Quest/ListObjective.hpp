@@ -44,4 +44,6 @@ namespace Questing
 
 	};
 }
+CEREAL_REGISTER_TYPE(Questing::ListObjective);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Questing::QuestObjective, Questing::ListObjective);
 #endif

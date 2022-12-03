@@ -6,7 +6,7 @@
 
 #include <Helpers/Enum/EffectType.hpp>
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include "Element.hpp"
 #include "EffectProperty.hpp"
 #include <Helpers/TickTimer.hpp>
@@ -18,7 +18,7 @@ namespace Component
 
 namespace Combat
 {
-	class Effect : public Interfaces::IRequestable
+	class Effect : public of::file::archive::Requestable
 	{
 		Element getElement();
 	public:
@@ -27,7 +27,7 @@ namespace Combat
 		Effect();
 		of::common::String effectIcon = "EffectIconFrame.png";
 		Element effectElement;
-		File::Mod::ModFileUUIDHelper effectElememtId;
+		of::file::FileId effectElememtId;
 		Enums::EffectType effectType;
 		std::shared_ptr<EffectProperty> theEffect;
 
@@ -36,12 +36,12 @@ namespace Combat
 		bool hideFromBuffsUI;
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 		template<class T>
 		void save(T& ar) const
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(effectType);
 			ar(effectTime);
 			ar(effectIcon);
@@ -54,7 +54,7 @@ namespace Combat
 		template<class T>
 		void load(T& ar)
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(effectType);
 			ar(effectTime);
 			ar(effectIcon);
@@ -69,6 +69,7 @@ namespace Combat
 
 	};
 }
-
+CEREAL_REGISTER_TYPE(Combat::Effect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Combat::Effect);
 
 #endif

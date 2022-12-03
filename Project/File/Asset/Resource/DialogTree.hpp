@@ -1,7 +1,7 @@
 #ifndef DialogTree_HPP
 #define DialogTree_HPP
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <Helpers/Enum/InteractionOption.hpp>
 #include <Helpers/Enum/DialogStatus.hpp>
 #include <unordered_map>
@@ -65,7 +65,7 @@ namespace Asset::Resource
 		}
 	};
 
-	class DialogTree : public Interfaces::IRequestable
+	class DialogTree : public of::file::archive::Requestable
 	{
 		typedef size_t DialogOptionId;
 		typedef size_t ResponseValueId;
@@ -116,9 +116,11 @@ namespace Asset::Resource
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 	};
 
 }
+CEREAL_REGISTER_TYPE(Asset::Resource::DialogTree);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Asset::Resource::DialogTree);
 
 #endif // !DialogTree_HPP

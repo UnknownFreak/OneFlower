@@ -6,7 +6,8 @@
 #include <memory>
 
 #include <utils/common/uuid.hpp>
-#include <File/Mod/ModFileUUIDHelper.hpp>
+
+#include <file/FileId.hpp>
 
 #include <Interfaces/IUpdateable.hpp>
 #include <Graphics/Window.hpp>
@@ -42,7 +43,7 @@ public:
 	void load(const of::common::String& fileName);
 	void initialize();
 
-	void loadWorldInstance(const File::Mod::ModFileUUIDHelper& world, const File::Mod::ModFileUUIDHelper& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f});
+	void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f});
 	
 
 	// Inherited via IUpdateable

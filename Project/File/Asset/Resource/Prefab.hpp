@@ -7,7 +7,7 @@
 
 #include <Helpers/Enum/ObjectState.hpp>
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <glm/vec3.hpp>
 #include <Object/BaseComponent.hpp>
 
@@ -18,7 +18,7 @@ class GameObject;
 namespace Asset::Resource
 {
 
-	class Prefab : public Interfaces::IRequestable
+	class Prefab : public of::file::archive::Requestable
 	{
 
 		void build(GameObject* object, const bool& isPlayerSummon) const;
@@ -41,7 +41,7 @@ namespace Asset::Resource
 		template <class Ar>
 		void save(Ar& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(components);
 			ar(spawnDistance);
 			ar(objectState);
@@ -50,7 +50,7 @@ namespace Asset::Resource
 		template <class Ar>
 		void load(Ar& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(components);
 			ar(spawnDistance);
 			ar(objectState);
@@ -58,9 +58,11 @@ namespace Asset::Resource
 
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 	};
 }
+CEREAL_REGISTER_TYPE(Asset::Resource::Prefab);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Asset::Resource::Prefab);
 
 #endif 

@@ -7,17 +7,17 @@
 #include <map>
 #include <vector>
 
-#include <File/Archive/RequestorV2.hpp>
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestor.hpp>
+#include <file/archive/Requestable.hpp>
 
 #include <utils/common/String.hpp>
 
 class Globals : public of::module::interface::IEngineResource<Globals>
 {
 	template<class T, class U>
-	void putVariableInto(File::Archive::RequestorV2& container, U& containerToPut, const Enums::ObjectType& type)
+	void putVariableInto(of::file::archive::Requestor& container, U& containerToPut, const of::file::ObjectType& type)
 	{
-		std::vector<File::Mod::ModFileUUIDHelper> idVector = container.listAllObjectKeys(type);
+		std::vector<of::file::FileId> idVector = container.listAllObjectKeys(type);
 		for (auto& it : idVector)
 		{
 			{
@@ -47,8 +47,8 @@ public:
 	std::map<of::common::String, std::vector<double>> doubleList;
 
 
-	File::Mod::ModFileUUIDHelper newGameWorldInstance;
-	File::Mod::ModFileUUIDHelper newGameWorldInstanceLoadingScreen;
+	of::file::FileId newGameWorldInstance;
+	of::file::FileId newGameWorldInstanceLoadingScreen;
 	glm::vec3 newGamePoint;
 
 	// Inherited via IEngineResource

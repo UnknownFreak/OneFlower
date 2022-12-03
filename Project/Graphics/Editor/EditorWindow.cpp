@@ -2,7 +2,7 @@
 
 #include <File/GameConfig.hpp>
 
-#include<File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 
 void Graphics::Editor::MainEditorWindow::renderMenuBar()
 {
@@ -20,8 +20,8 @@ void Graphics::Editor::MainEditorWindow::renderMenuBar()
 			}
 			if (ImGui::MenuItem("Save", "Ctrl + S"))
 			{
-				auto& manager = of::engine::GetModule<File::Asset::Manager>();
-				manager.saveGameDatabase(manager.openedMod.name, manager.openedMod);
+				auto& manager = of::engine::GetModule<of::file::Handler>();
+				manager.saveGameDatabase(manager.openedFile.name, manager.openedFile);
 			}
 			if (ImGui::MenuItem("Load"))
 			{

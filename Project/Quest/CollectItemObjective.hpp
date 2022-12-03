@@ -9,7 +9,7 @@ namespace Questing
 	{
 	public:
 		size_t itemCount;
-		File::Mod::ModFileUUIDHelper itemId;
+		of::file::FileId itemId;
 
 		template<class Archive>
 		void save(Archive& ar) const
@@ -39,5 +39,8 @@ namespace Questing
 		virtual void restoreState(const ObjectiveState& state) override;
 	};
 }
+
+CEREAL_REGISTER_TYPE(Questing::CollectItemObjective);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Questing::QuestObjective, Questing::CollectItemObjective);
 
 #endif

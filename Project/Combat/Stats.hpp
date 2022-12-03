@@ -71,6 +71,7 @@ namespace Component
 	};
 
 }
-
+CEREAL_REGISTER_TYPE(Component::Stats);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Stats);
 
 #endif

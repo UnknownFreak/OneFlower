@@ -104,7 +104,7 @@ void Component::Inventory::removeItem(std::shared_ptr<Items::Base>& item, const 
 	//Engine::Get<Questing>().onItemRemoved(findItem(item), findItemStack(item))
 }
 
-size_t Component::Inventory::getItemStack(const File::Mod::ModFileUUIDHelper& itemId)
+size_t Component::Inventory::getItemStack(const of::file::FileId& itemId)
 {
 	auto result = std::find_if(itemList.begin(), itemList.end(), [&itemId](const std::shared_ptr<Items::Base>& b) { return b->getModfile() == itemId; });
 	if (result == itemList.end())

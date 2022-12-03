@@ -9,13 +9,17 @@
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>
-#include <File/Asset/Manager.hpp>
+
+#include <file/Handler.hpp>
+#include <file/Loader.hpp>
+
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
-#include <File/Mod/ModLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <Object/ObjectInstanceHandler.hpp>
+
+#include "RegisterArchiveDefaults.hpp"
 
 of::common::String to_string(const of::module::EngineResourceType& state)
 {
@@ -70,16 +74,18 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::shader::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Asset::Manager>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<File::Mod::Loader>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::RenderWindow>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Finished initializing engine ");
+
+	registerArchiveDefaults();
 }
 
 class EngineLogger : public swizzle::core::LogDevice

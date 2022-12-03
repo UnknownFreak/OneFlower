@@ -6,14 +6,14 @@
 
 #include <glm/vec3.hpp>
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
 #include <utils/common/String.hpp>
 
 #include "GameModeModifier.hpp"
 
 namespace Resource
 {
-	class GameMode : public Interfaces::IRequestable
+	class GameMode : public of::file::archive::Requestable
 	{
 		void loadTranslation();
 	public:
@@ -21,23 +21,23 @@ namespace Resource
 
 		of::common::String gameModeName;
 
-		File::Mod::ModFileUUIDHelper startingZone;
-		File::Mod::ModFileUUIDHelper loadingScreen;
+		of::file::FileId startingZone;
+		of::file::FileId loadingScreen;
 		glm::vec3 startingPosition;
 
-		File::Mod::ModFileUUIDHelper playerPrefab;
+		of::file::FileId playerPrefab;
 
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
 		std::unordered_map<of::common::String, GameModeModifier> tagModifiers;
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);
@@ -51,7 +51,7 @@ namespace Resource
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Interfaces::IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);

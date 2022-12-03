@@ -2,12 +2,15 @@
 #define WORLDTEMPLATE_HPP
 
 #include <cereal/cereal.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/types/map.hpp>
+#include <cereal/types/vector.hpp>
 
-#include <Interfaces/IRequestable.hpp>
+#include <file/archive/Requestable.hpp>
+#include <file/FileId.hpp>
 
 #include <Helpers/Enum/ColliderType.hpp>
 #include <Helpers/Enum/TileTypes.hpp>
-#include <File/Mod/ModFileUUIDHelper.hpp>
 #include <vector>
 #include <map>
 
@@ -18,7 +21,7 @@ namespace File::Asset::Resource::Template
 {
 	struct ObjectInfo
 	{
-		File::Mod::ModFileUUIDHelper prefab;
+		of::file::FileId prefab;
 		of::common::uuid objectId;
 		glm::vec3 location;
 
@@ -41,44 +44,44 @@ namespace File::Asset::Resource::Template
 		}
 	};
 
-	struct ObjectChunk : public Interfaces::IRequestable
+	struct ObjectChunk : public of::file::archive::Requestable
 	{
-		std::map<File::Mod::ModFileUUIDHelper, std::vector<ObjectInfo>> objectLocations;
+		std::map<of::file::FileId, std::vector<ObjectInfo>> objectLocations;
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(objectLocations);
 		}
 
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(objectLocations);
 		}
 	};
 
 
-	struct WorldInstance : public Interfaces::IRequestable
+	struct WorldInstance : public of::file::archive::Requestable
 	{
 		of::common::String name;
-		std::vector<File::Mod::ModFileUUIDHelper> tileAtlases;
-		std::vector<File::Mod::ModFileUUIDHelper> prefabs;
-		std::vector<File::Mod::ModFileUUIDHelper> tileInfo;
-		std::vector<File::Mod::ModFileUUIDHelper> colliderInfo;
-		std::vector<File::Mod::ModFileUUIDHelper> objectChunk;
+		std::vector<of::file::FileId> tileAtlases;
+		std::vector<of::file::FileId> prefabs;
+		std::vector<of::file::FileId> tileInfo;
+		std::vector<of::file::FileId> colliderInfo;
+		std::vector<of::file::FileId> objectChunk;
 
 		size_t getLoadingCount() const;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(tileAtlases);
 			ar(prefabs);
 			ar(tileInfo);
@@ -89,7 +92,7 @@ namespace File::Asset::Resource::Template
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<IRequestable>(this));
+			ar(cereal::base_class<Requestable>(this));
 			ar(tileAtlases);
 			ar(prefabs);
 			ar(tileInfo);
@@ -98,7 +101,14 @@ namespace File::Asset::Resource::Template
 		}
 
 		// Inherited via IRequestable
-		virtual Interfaces::TypeInfo getTrait() const override;
+		virtual of::file::archive::TypeInfo getTrait() const override;
 	};
+
 }
+
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::ObjectChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, File::Asset::Resource::Template::ObjectChunk);
+CEREAL_REGISTER_TYPE(File::Asset::Resource::Template::WorldInstance);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, File::Asset::Resource::Template::WorldInstance);
+
 #endif 

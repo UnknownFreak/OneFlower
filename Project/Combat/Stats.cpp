@@ -1,8 +1,9 @@
 #include "Stats.hpp"
-#include <File/Asset/Manager.hpp>
+#include <file/Handler.hpp>
 #include <Module/Random.hpp>
 
 #include <Object/GameObject.hpp>
+#include <file/Asset/Resource/Prefab.hpp>
 #include "AttachToParent.hpp"
 
 Enums::ComponentType Component::IBase<Component::Stats>::typeID = Enums::ComponentType::Vitality;
@@ -276,7 +277,7 @@ namespace Component
 					auto vfxs = it.second.tick<Combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
-						auto pref = of::engine::GetModule<File::Asset::Manager>().requestor.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
+						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
 						go->addComponent<AttachToParent>(attachedOn);
