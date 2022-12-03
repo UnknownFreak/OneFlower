@@ -148,9 +148,6 @@
     <Filter Include="NonCodeFiles">
       <UniqueIdentifier>{5b52cf0f-5d30-4a62-b9f2-2acf15bf93e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\Archive">
-      <UniqueIdentifier>{9a865b7e-716a-4767-99ba-2fec7c2f6cbe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\File\Asset">
       <UniqueIdentifier>{93cac833-42be-4d15-9cc0-35ce90be962e}</UniqueIdentifier>
     </Filter>
@@ -982,9 +979,6 @@
     </ClInclude>
     <ClInclude Include="Project\Resources\GameModeModifier.hpp">
       <Filter>Engine\Resources\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp">
-      <Filter>Engine\File\Archive</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>

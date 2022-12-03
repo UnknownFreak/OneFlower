@@ -1,8 +1,6 @@
 #ifndef REQUESTOR_HPP
 #define REQUESTOR_HPP
 
-//#include "RegisterRTTI.hpp"
-
 #include <concepts>
 #include <fstream>
 #include <functional>

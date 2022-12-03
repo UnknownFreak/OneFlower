@@ -449,7 +449,6 @@
     <ClInclude Include="Project\Combat\Modifier.hpp" />
     <ClInclude Include="Project\Combat\Skill.hpp" />
     <ClInclude Include="Project\Combat\Stats.hpp" />
-    <ClInclude Include="Project\File\Archive\RegisterRTTI.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp" />
