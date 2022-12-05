@@ -1,5 +1,6 @@
 #include "DialogTree.hpp"
 #include <file/Handler.hpp>
+#include <locale/Translatable.hpp>
 
 of::common::uuid of::file::archive::Trait<Asset::Resource::DialogTree>::typeId = of::common::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
 
@@ -11,8 +12,8 @@ namespace Asset::Resource
 		if (idx == size_t(-1))
 			return of::common::String("");
 		//auto& x = of::engine::GetModule<of::file::Handler>().getLanguage();
-		//auto uid = dialogStrings.at(idx).dialogString;
-		return dialogStrings.at(idx).tempText;// +x.getString(uid);
+		auto uid = dialogStrings.at(idx).dialogString;
+		return dialogStrings.at(idx).tempText + of::locale::Translatable(uid).value;
 	}
 
 	bool DialogTree::canPlayerAccessDialogOption(const DialogOptionId& optionId) const

@@ -16,6 +16,11 @@ namespace of::locale
 	{
 	}
 
+	Translatable::Translatable(const common::uuid& translationId) : translationId(translationId)
+	{
+		load();
+	}
+
 	void Translatable::load()
 	{
 		

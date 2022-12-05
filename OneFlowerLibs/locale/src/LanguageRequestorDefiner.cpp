@@ -85,7 +85,16 @@ namespace of::locale
 		if (requestedStrings.find(id) == requestedStrings.end()) 
 		{
 			FileName f = mappedLanguageIds[{selectedLanguage, id}];
-			requestedStrings[id].first = languages[f].getPrimitive(selectedLanguage, id).getValue();
+			auto& x = languages[f].getPrimitive(selectedLanguage, id);
+			if (x.ID.is_nil())
+			{
+				requestedStrings[id].first = "#ERR_TRANSLATION: #ID:" + id.to_string() + " #NOT_FOUND";
+			}
+			else
+			{
+
+				requestedStrings[id].first = x.getValue();
+			}
 			requestedStrings[id].second = false;
 		}
 		return requestedStrings[id].first;

@@ -12,6 +12,7 @@ namespace of::locale
 	public:
 
 		Translatable();
+		Translatable(const common::uuid& translationId);
 
 		common::String value;
 		common::uuid translationId;
