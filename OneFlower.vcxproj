@@ -282,6 +282,9 @@
     <ProjectReference Include="OneFlowerLibs\graphic-resources\graphics.vcxproj">
       <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\locale\locale.vcxproj">
+      <Project>{cc7913ea-b4b7-4e91-b0a1-dad708b32482}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
@@ -372,8 +375,6 @@
     <ClCompile Include="Project\Items\LootDropDefiner.cpp" />
     <ClCompile Include="Project\Items\LootTable.cpp" />
     <ClCompile Include="Project\Items\WeaponItem.cpp" />
-    <ClCompile Include="Project\Language\TranslationStringDefiner.cpp" />
-    <ClCompile Include="Project\Language\LanguageRequestorDefiner.cpp" />
     <ClCompile Include="Project\Main\GameEntryDefiner.cpp" />
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
@@ -539,9 +540,6 @@
     <ClInclude Include="Project\Items\StatChangingItem.hpp" />
     <ClInclude Include="Project\Items\TrinketItem.hpp" />
     <ClInclude Include="Project\Items\WeaponItem.hpp" />
-    <ClInclude Include="Project\Language\TranslationString.hpp" />
-    <ClInclude Include="Project\Language\LanguageHeader.hpp" />
-    <ClInclude Include="Project\Language\LanguageRequestor.hpp" />
     <ClInclude Include="Project\Main\GameEntry.hpp" />
     <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />

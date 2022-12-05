@@ -4,12 +4,6 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{0a6a9686-ed05-4c0a-9118-9ed3adca015b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Language">
-      <UniqueIdentifier>{bf16ab10-01bf-4594-9f61-ae1a0672234a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Language\TranslationString">
-      <UniqueIdentifier>{0a4bf022-6e64-4858-ad92-b2ecbc623470}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Interfaces">
       <UniqueIdentifier>{9a47a63f-6337-47cf-a8fd-97a72f3be955}</UniqueIdentifier>
     </Filter>
@@ -276,9 +270,6 @@
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp">
       <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Language\LanguageRequestorDefiner.cpp">
-      <Filter>Engine\Language</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\LanguageRequestorUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
@@ -302,9 +293,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Language\TranslationStringDefiner.cpp">
-      <Filter>Engine\Language\TranslationString</Filter>
     </ClCompile>
     <ClCompile Include="Project\Main\GameEntryDefiner.cpp">
       <Filter>Main\GameEntryNoEditor</Filter>
@@ -656,12 +644,6 @@
     <ClInclude Include="Project\Input\BasicInputHandler.hpp">
       <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Language\LanguageHeader.hpp">
-      <Filter>Engine\Language</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Language\LanguageRequestor.hpp">
-      <Filter>Engine\Language</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\TileTypes.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
@@ -682,9 +664,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Language\TranslationString.hpp">
-      <Filter>Engine\Language\TranslationString</Filter>
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IObject.hpp">
       <Filter>Engine\Interfaces</Filter>

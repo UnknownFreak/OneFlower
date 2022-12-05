@@ -1,6 +1,5 @@
 #include "DialogTree.hpp"
 #include <file/Handler.hpp>
-#include <Language/LanguageRequestor.hpp>
 
 of::common::uuid of::file::archive::Trait<Asset::Resource::DialogTree>::typeId = of::common::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
 
