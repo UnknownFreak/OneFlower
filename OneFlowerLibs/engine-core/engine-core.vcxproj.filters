@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{57489be9-29d1-4af9-b7b6-8c4fc31aa92f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\module">
+      <UniqueIdentifier>{59b6cdba-413d-4d2a-b2a3-33c744af30dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\resource">
+      <UniqueIdentifier>{3a1f87dd-9887-42bb-abaf-d6bfddcf7cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resource">
+      <UniqueIdentifier>{0c4aa2d0-b7e0-4302-b8d7-420c00b341c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object">
+      <UniqueIdentifier>{91a40b47-1bfc-4d49-8431-9105f375f78b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\resource\trigger">
+      <UniqueIdentifier>{612b2229-28e7-4a0c-bdf7-e9359f72fb6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resource\trigger">
+      <UniqueIdentifier>{71fc05d0-bde1-4877-a7f2-c52609bc8993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object\messaging">
+      <UniqueIdentifier>{e7519405-d77a-4df6-99e8-3beebeb4019e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object\component">
+      <UniqueIdentifier>{77f4957b-497d-401a-9f74-03185c03aa0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object\component\base">
+      <UniqueIdentifier>{20b48f91-8728-4730-9b1b-41f5006f1fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\object">
+      <UniqueIdentifier>{d24d90b5-847c-47a4-9c0a-812c56514700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\object\component">
+      <UniqueIdentifier>{e9b586be-61b8-4667-9d52-b44558ea8721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\object\component\base">
+      <UniqueIdentifier>{05c4bd23-cfc7-4545-8508-b4e90d1b90ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\module\ObjectInstanceHandler.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\SaveFile.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\SaveState.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\DifficultyLevel.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\GameMode.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\GameModeModifier.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\GameObject.hpp">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\trigger\Trigger.hpp">
+      <Filter>include\resource\trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\trigger\TriggerState.hpp">
+      <Filter>include\resource\trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\messaging\ComponentMessage.hpp">
+      <Filter>include\object\messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\BaseComponent.hpp">
+      <Filter>include\object\component\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\IBaseComponent.hpp">
+      <Filter>include\object\component\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\ObjectState.hpp">
+      <Filter>include\object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\messaging\Topics.hpp">
+      <Filter>include\object\messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\Transform.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SaveFile.cpp">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMode.cpp">
+      <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Trigger.cpp">
+      <Filter>src\resource\trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TriggerState.cpp">
+      <Filter>src\resource\trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseComponentDefiner.cpp">
+      <Filter>src\object\component\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>src\object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp">
+      <Filter>src\module</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Transform.cpp">
+      <Filter>src\object\component</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

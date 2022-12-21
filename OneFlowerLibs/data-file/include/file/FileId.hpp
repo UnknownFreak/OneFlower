@@ -13,6 +13,7 @@ namespace of::file
 		common::uuid uuid;
 
 		FileId();
+		FileId(const common::uuid& uuid);
 		FileId(const common::String& name, const common::uuid& uuid);
 		FileId(const FileId& copy);
 		FileId& operator=(const FileId& right);

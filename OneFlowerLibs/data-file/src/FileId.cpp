@@ -4,6 +4,8 @@ namespace of::file
 {
 	FileId::FileId() : FileId("", common::uuid::nil()) {}
 
+	FileId::FileId(const common::uuid& uuid) : FileId("", uuid) {};
+
 	FileId::FileId(const common::String& name, const common::uuid& uuid) : name(name), uuid(uuid) {}
 
 	FileId::FileId(const FileId& copy) : FileId(copy.name, copy.uuid) {}
