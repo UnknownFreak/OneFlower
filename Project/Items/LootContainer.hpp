@@ -3,13 +3,14 @@
 
 #include <file/FileId.hpp>
 
-#include <Object/IBaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 
-namespace Component
+namespace of::object::component
 {
-	class LootContainer : public Component::IBase<LootContainer>
+	class LootContainer : public IBase<LootContainer>
 	{
 		void setLooted();
+		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
 		bool looted;
 		bool isStaticContainer;

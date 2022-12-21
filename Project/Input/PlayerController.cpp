@@ -2,11 +2,14 @@
 
 #include <Object/GameObject.hpp>
 
-Enums::ComponentType Component::IBase<Component::PlayerController>::typeID = Enums::ComponentType::PlayerController;
-of::common::String Component::IBase<Component::PlayerController>::componentName = "PlayerController";
+of::common::uuid of::object::component::IBase<of::object::component::PlayerController>::typeID = of::common::uuid("4eb8d991-d06e-4231-b3bc-82e4b5d5199d");
+of::common::String of::object::component::IBase<of::object::component::PlayerController>::componentName = "PlayerController";
 
-namespace Component
+namespace of::object::component
 {
+	void PlayerController::onMessage(const of::object::messaging::Message&)
+	{
+	}
 	void PlayerController::clearBindings()
 	{
 		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyE, "KbE<interact>", Enums::Input::Action::Press);
@@ -31,26 +34,27 @@ namespace Component
 	PlayerController::PlayerController() : handler(of::engine::GetModule<Input::InputHandler>()),
 		window(of::engine::GetModule<Graphics::RenderWindow>())
 	{
+		// TODO: change to gameobject->post(Topic::of(Topics::INTERACTION, std::make_shared<Interaction>(Things));
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbE<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			attachedOn->interact(Enums::InteractionOption::Select);
+			//attachedOn->interact(Enums::InteractionOption::Select);
 			}, false), swizzle::input::Keys::KeyE, Enums::Input::Action::Press);
 
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbW<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			attachedOn->interact(Enums::InteractionOption::Up);
+			//attachedOn->interact(Enums::InteractionOption::Up);
 			}, false), swizzle::input::Keys::KeyW, Enums::Input::Action::Press);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbS<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			attachedOn->interact(Enums::InteractionOption::Down);
+			//attachedOn->interact(Enums::InteractionOption::Down);
 			}, false), swizzle::input::Keys::KeyS, Enums::Input::Action::Press);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbA<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			attachedOn->interact(Enums::InteractionOption::Left);
+			//attachedOn->interact(Enums::InteractionOption::Left);
 			}, false), swizzle::input::Keys::KeyA, Enums::Input::Action::Press);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbD<interact>", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			attachedOn->interact(Enums::InteractionOption::Right);
+			//attachedOn->interact(Enums::InteractionOption::Right);
 			}, false), swizzle::input::Keys::KeyD, Enums::Input::Action::Press);
 
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbW", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
@@ -90,7 +94,7 @@ namespace Component
 		//	}, false), sf::Joystick::Axis::X);
 		
 		handler.controller.RegisterCallback(Input::Callback::Callback<bool, Enums::Input::ControllerButtons>("ControllerInteraction", [&](bool, Enums::Input::ControllerButtons, const float&) {
-			Input::InputHandler::skipCurrentFrame = attachedOn->interact(Enums::InteractionOption::Select);
+			//Input::InputHandler::skipCurrentFrame = attachedOn->interact(Enums::InteractionOption::Select);
 			}, false), Enums::Input::ControllerButtons::XB_A, Enums::Input::Action::Press);
 		handler.controller.RegisterCallback(Input::Callback::Callback<bool, Enums::Input::ControllerButtons>("ControllerJump", [&](bool, Enums::Input::ControllerButtons, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || Input::InputHandler::skipCurrentFrame) return;
@@ -119,7 +123,7 @@ namespace Component
 		Base::attachOn(go);
 		window.getMasker().player = go->getSharedComponent<Transform>();
 		transform = go->getComponent<Transform>();
-		combat = go->getComponent<CombatComponent>();
+		combat = go->getComponent<of::object::component::CombatComponent>();
 		enable();
 	}
 

@@ -3,7 +3,7 @@
 
 #include "Requirement.hpp"
 #include <utils/common/uuid.hpp>
-#include <Helpers/Enum/DifficultyLevels.hpp>
+#include <resource/DifficultyLevel.hpp>
 
 namespace Requirement
 {
@@ -11,7 +11,7 @@ namespace Requirement
 	{
 	public:
 
-		Enums::DifficultyLevel level;
+		of::resource::DifficultyLevel level;
 		of::common::uuid customDiff;
 
 		// Inherited via Requirement

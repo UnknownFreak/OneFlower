@@ -22,11 +22,14 @@
 #include <swizzle/asset2/Assets.hpp>
 #include <Graphics/UI/Stats.hpp>
 
-namespace Component
+namespace of::object
 {
-	class Base;
+	namespace component
+	{
+		class Base;
+	}
+	class GameObject;
 }
-class GameObject;
 namespace Graphics
 {
 	class RenderWindow : public of::module::interface::IEngineResource<RenderWindow>, public sw::Application
@@ -67,7 +70,7 @@ namespace Graphics
 		CameraController mController;
 
 		std::unordered_map<of::common::uuid, std::shared_ptr<Model>> models;
-		std::unordered_map<of::common::uuid, std::shared_ptr<Component::Transform>> positions;
+		std::unordered_map<of::common::uuid, std::shared_ptr<of::object::component::Transform>> positions;
 
 		common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;
@@ -111,10 +114,10 @@ namespace Graphics
 		void addRenderable(const int& index, const of::common::String& group, const glm::vec2& pos, const float& z, const of::common::String& textureCoords, const Enums::TileTypes& type, bool addShadow=false);
 		void clearDrawList();
 
-		void Cull(std::vector<GameObject*>& colliders);
+		void Cull(std::vector<of::object::GameObject*>& colliders);
 
-		void AddRenderable(GameObject* theObject);
-		void RemoveRenderable(GameObject* theObject);
+		void AddRenderable(of::object::GameObject* theObject);
+		void RemoveRenderable(of::object::GameObject* theObject);
 
 		DynamicWindowListener& getEventListener();
 

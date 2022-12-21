@@ -10,9 +10,11 @@
 #include <file/FileId.hpp>
 
 #include <Interfaces/IUpdateable.hpp>
+#include <Interfaces/ISimulatable.hpp>
+
 #include <Graphics/Window.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
-#include <File/SaveFile.hpp>
+#include <module/ObjectInstanceHandler.hpp>
+#include <module/SaveFile.hpp>
 
 #include "LoadingStateMachine.hpp"
 
@@ -21,8 +23,8 @@ class WorldManager : public Interfaces::IUpdateable, Interfaces::ISimulatable
 
 	LoadingStateMachine loadHandler;
 
-	EngineModule::ObjectInstanceHandler& objectHandler;
-	File::SaveFile& saveFile;
+	of::module::ObjectInstanceHandler& objectHandler;
+	of::module::SaveFile& saveFile;
 
 	void doDayCycle(const float& fElapsedTime);
 

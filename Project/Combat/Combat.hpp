@@ -3,16 +3,16 @@
 #include "Skill.hpp"
 
 #include <vector>
-#include <Object/IBaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 
 #include <Helpers/Enum/CombatSkill.hpp>
 
-namespace Component
+namespace of::object::component
 {
 
 	class CombatComponent : public IBase<CombatComponent>
 	{
-
+		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
 		std::unordered_map<Enums::CombatSkill, ::Combat::Skill> skills;
 
@@ -39,6 +39,6 @@ namespace Component
 
 }
 
-CEREAL_REGISTER_TYPE(Component::CombatComponent);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::CombatComponent);
+CEREAL_REGISTER_TYPE(of::object::component::CombatComponent);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::CombatComponent);
 #endif

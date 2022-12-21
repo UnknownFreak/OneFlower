@@ -6,13 +6,11 @@
 #include <file/Asset/Resource/Prefab.hpp>
 #include "AttachToParent.hpp"
 
-Enums::ComponentType Component::IBase<Component::Stats>::typeID = Enums::ComponentType::Vitality;
-of::common::String Component::IBase<Component::Stats>::componentName = "Stats";
+of::common::uuid of::object::component::IBase<of::object::component::Stats>::typeID = of::common::uuid("7fa92fde-ab34-4477-a9db-0b590f51b7b9");
+of::common::String of::object::component::IBase<of::object::component::Stats>::componentName = "Stats";
 
-namespace Component
+namespace of::object::component
 {
-
-
 	void Stats::setStats()
 	{
 		auto& health = mainStat[Enums::Attribute::Health];
@@ -95,6 +93,19 @@ namespace Component
 		}
 	}
 
+	void component::Stats::onMessage(const messaging::Message& message)
+	{
+		using namespace of::object::messaging;
+		if (message.messageTopic == Topic::of(Topics::TRANSFORM_SPEED_MODIFIER))
+		{
+			if (message.messageBody->bodyType == BodyType::FLOAT_PTR)
+			{
+				auto x = (FloatPtr*)message.messageBody.get();
+				speedModifier = x->fp;
+			}
+		}
+	}
+
 	Stats::Stats() :
 		// Take a look at Combat/Attribute.hpp for initializer list construction for attributes
 		// and MainAttribute.hpp for mainStat
@@ -134,7 +145,7 @@ namespace Component
 		return new Stats(*this);
 	}
 
-	std::unique_ptr<Component::Base> Stats::ucopy() const
+	std::unique_ptr<of::object::component::Base> Stats::ucopy() const
 	{
 		return std::make_unique<Stats>(*this);
 	}
@@ -196,21 +207,6 @@ namespace Component
 	size_t Stats::getLevel() const
 	{
 		return level;
-	}
-
-	void Stats::detach()
-	{
-		auto t = attachedOn->getComponent<Transform>();
-		if (t)
-		{
-			t->stats = nullptr;
-		}
-	}
-
-	void Stats::attachOn(GameObject* go)
-	{
-		Base::attachOn(go);
-		go->getComponent<Component::Transform>()->stats = this;
 	}
 
 	void Stats::onCollision(GameObject*)

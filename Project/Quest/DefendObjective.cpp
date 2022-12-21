@@ -27,7 +27,7 @@ namespace Questing
 		completeRequirement->stop();
 	}
 
-	size_t DefendObjective::onEnemyDefeated(GameObject* go)
+	size_t DefendObjective::onEnemyDefeated(of::object::GameObject* go)
 	{
 		if (go->id == defend && isActive())
 			return failObjective();

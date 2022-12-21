@@ -1,16 +1,21 @@
 #include "Damage.hpp"
 
 #include <Object/GameObject.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 #include <file/Handler.hpp>
 #include <Items/Inventory.hpp>
 
 
-Enums::ComponentType Component::IBase<Component::Damage>::typeID = Enums::ComponentType::Damage;
-of::common::String Component::IBase<Component::Damage>::componentName = "Damage";
+of::common::uuid of::object::component::IBase<of::object::component::Damage>::typeID = of::common::uuid("e7bfcebf-4147-4af8-b881-2ea64812700f");
+of::common::String of::object::component::IBase<of::object::component::Damage>::componentName = "Damage";
 
-namespace Component
+namespace of::object::component
 {
+
+	void onMessage(const of::object::messaging::Message&)
+	{
+	}
+
 	bool Damage::hasLivedTooLong()
 	{
 		return timeToLive.maxTime > 0 && timeToLive.ready();
@@ -26,6 +31,10 @@ namespace Component
 		for (auto& id : effectsIds)
 			effects.push_back(of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Effect>(id));
 		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Element>(elementId);
+	}
+
+	void component::Damage::onMessage(const of::object::messaging::Message&)
+	{
 	}
 
 	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)
@@ -70,7 +79,7 @@ namespace Component
 		return new Damage(*this);
 	}
 
-	std::unique_ptr<Component::Base> Damage::ucopy() const
+	std::unique_ptr<of::object::component::Base> Damage::ucopy() const
 	{
 		return std::make_unique<Damage>(*this);
 	}
@@ -85,8 +94,8 @@ namespace Component
 			if (locked)
 				return;
 
-			auto* stats = the_collidee ->getComponent<Component::Stats>();
-			auto* inventory = the_collidee->getComponent<Component::Inventory>();
+			auto* stats = the_collidee ->getComponent<of::object::component::Stats>();
+			auto* inventory = the_collidee->getComponent<of::object::component::Inventory>();
 
 			if (stats)
 			{

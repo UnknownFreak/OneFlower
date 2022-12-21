@@ -52,6 +52,12 @@ namespace of::object::messaging
 		float * fp;
 	};
 
+	struct StringBody : public Body
+	{
+		StringBody(const of::common::String& s) : Body(BodyType::STRING), s(s) {}
+		of::common::String s;
+	};
+
 	struct Custom : public Body
 	{
 		inline Custom() : Body(BodyType::CUSTOM) {};

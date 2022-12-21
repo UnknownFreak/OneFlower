@@ -1,129 +1,136 @@
 #include "Inventory.hpp"
 #include <Object/GameObject.hpp>
 
-Enums::ComponentType Component::IBase<Component::Inventory>::typeID = Enums::ComponentType::Inventory;
-of::common::String Component::IBase<Component::Inventory>::componentName = "Inventory";
+of::common::uuid of::object::component::IBase<of::object::component::Inventory>::typeID;
+of::common::String of::object::component::IBase<of::object::component::Inventory>::componentName = "Inventory";
 
-void Component::Inventory::equipWeapon(std::shared_ptr<Items::Base>& item, const bool& offhand)
+namespace of::object::component
 {
-	auto theWeapon = std::dynamic_pointer_cast<Items::Weapon>(item);
-	if (theWeapon->isTwoHanded)
+	void Inventory::onMessage(const of::object::messaging::Message&)
 	{
-		mainHand = theWeapon;
-		offHand.reset();
 	}
-	else
+
+	void Inventory::equipWeapon(std::shared_ptr<Items::Base>& item, const bool& offhand)
 	{
-		if (offhand)
-			offHand = theWeapon;
-		else
+		auto theWeapon = std::dynamic_pointer_cast<Items::Weapon>(item);
+		if (theWeapon->isTwoHanded)
+		{
 			mainHand = theWeapon;
-	}
-}
-
-void Component::Inventory::equipArmor(std::shared_ptr<Items::Base>& item)
-{
-	auto theArmor = std::dynamic_pointer_cast<Items::Armor>(item);
-	if (theArmor->armorType == Enums::ArmorType::Head)
-		swap(helm, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Shoulder)
-		swap(shoulder, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Gloves)
-		swap(shoulder, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Chest)
-		swap(chest, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Leggings)
-		swap(leggings, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Boot)
-		swap(boots, theArmor);
-	else if (theArmor->armorType == Enums::ArmorType::Cape)
-		swap(cape, theArmor);
-}
-
-void Component::Inventory::equipAmmo(std::shared_ptr<Items::Base>& theAmmo)
-{
-	ammo = theAmmo;
-}
-
-void Component::Inventory::equipTrinket(std::shared_ptr<Items::Base>& item, const bool& secondary)
-{
-	auto theTrinket = std::dynamic_pointer_cast<Items::Trinket>(item);
-	if (theTrinket->trinketType == Enums::TrinketType::Amulet)
-	{
-		swap(amulet, theTrinket);
-	}
-	else if (theTrinket->trinketType == Enums::TrinketType::Accessory)
-	{
-		if (secondary)
-			swap(accessory2, theTrinket);
+			offHand.reset();
+		}
 		else
-			swap(accessory, theTrinket);
+		{
+			if (offhand)
+				offHand = theWeapon;
+			else
+				mainHand = theWeapon;
+		}
 	}
-	else if (theTrinket->trinketType == Enums::TrinketType::Ring)
+
+	void Inventory::equipArmor(std::shared_ptr<Items::Base>& item)
 	{
-		if (secondary)
-			swap(ring2, theTrinket);
-		else
-			swap(ring, theTrinket);
+		auto theArmor = std::dynamic_pointer_cast<Items::Armor>(item);
+		if (theArmor->armorType == Enums::ArmorType::Head)
+			swap(helm, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Shoulder)
+			swap(shoulder, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Gloves)
+			swap(shoulder, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Chest)
+			swap(chest, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Leggings)
+			swap(leggings, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Boot)
+			swap(boots, theArmor);
+		else if (theArmor->armorType == Enums::ArmorType::Cape)
+			swap(cape, theArmor);
 	}
-}
 
-void Component::Inventory::equipItem(std::shared_ptr<Items::Base>& item, const bool& offhand)
-{
-	if (item->type == Enums::ItemType::Weapon)
+	void Inventory::equipAmmo(std::shared_ptr<Items::Base>& theAmmo)
 	{
-		equipWeapon(item, offhand);
+		ammo = theAmmo;
 	}
-	else if (item->type == Enums::ItemType::Armor)
+
+	void Inventory::equipTrinket(std::shared_ptr<Items::Base>& item, const bool& secondary)
 	{
-		equipArmor(item);
+		auto theTrinket = std::dynamic_pointer_cast<Items::Trinket>(item);
+		if (theTrinket->trinketType == Enums::TrinketType::Amulet)
+		{
+			swap(amulet, theTrinket);
+		}
+		else if (theTrinket->trinketType == Enums::TrinketType::Accessory)
+		{
+			if (secondary)
+				swap(accessory2, theTrinket);
+			else
+				swap(accessory, theTrinket);
+		}
+		else if (theTrinket->trinketType == Enums::TrinketType::Ring)
+		{
+			if (secondary)
+				swap(ring2, theTrinket);
+			else
+				swap(ring, theTrinket);
+		}
 	}
-	else if (item->type == Enums::ItemType::Ammo)
+
+	void Inventory::equipItem(std::shared_ptr<Items::Base>& item, const bool& offhand)
 	{
-		equipAmmo(item);
+		if (item->type == Enums::ItemType::Weapon)
+		{
+			equipWeapon(item, offhand);
+		}
+		else if (item->type == Enums::ItemType::Armor)
+		{
+			equipArmor(item);
+		}
+		else if (item->type == Enums::ItemType::Ammo)
+		{
+			equipAmmo(item);
+		}
+		else if (item->type == Enums::ItemType::Trinket)
+		{
+			equipTrinket(item, offhand);
+		}
 	}
-	else if (item->type == Enums::ItemType::Trinket)
+
+	void Inventory::addItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize)
 	{
-		equipTrinket(item, offhand);
+		item;
+		stackSize;
+		//itemList.push_back(item); 
+		//Engine::Get<Questing>().onItemPickUp(findItem(item), findItemStack(item))
 	}
-}
 
-void Component::Inventory::addItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize)
-{
-	item;
-	stackSize;
-	//itemList.push_back(item); 
-	//Engine::Get<Questing>().onItemPickUp(findItem(item), findItemStack(item))
-}
+	void Inventory::removeItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize)
+	{
+		item;
+		stackSize;
+		//itemList.push_back(item); 
+		//Engine::Get<Questing>().onItemRemoved(findItem(item), findItemStack(item))
+	}
 
-void Component::Inventory::removeItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize)
-{
-	item;
-	stackSize;
-	//itemList.push_back(item); 
-	//Engine::Get<Questing>().onItemRemoved(findItem(item), findItemStack(item))
-}
+	size_t Inventory::getItemStack(const of::file::FileId& itemId)
+	{
+		auto result = std::find_if(itemList.begin(), itemList.end(), [&itemId](const std::shared_ptr<Items::Base>& b) { return b->getModfile() == itemId; });
+		if (result == itemList.end())
+			return 0;
+		return result->get()->stackSize;
+	}
 
-size_t Component::Inventory::getItemStack(const of::file::FileId& itemId)
-{
-	auto result = std::find_if(itemList.begin(), itemList.end(), [&itemId](const std::shared_ptr<Items::Base>& b) { return b->getModfile() == itemId; });
-	if (result == itemList.end())
-		return 0;
-	return result->get()->stackSize;
-}
+	void Inventory::onCollision(GameObject*)
+	{
+	}
 
-void Component::Inventory::onCollision(GameObject* )
-{
-}
+	void Inventory::Update()
+	{
+	}
 
-void Component::Inventory::Update()
-{
-}
+	void Inventory::Simulate(const float&)
+	{
+	}
 
-void Component::Inventory::Simulate(const float& )
-{
-}
-
-void Component::Inventory::onDeath()
-{
+	void Inventory::onDeath()
+	{
+	}
 }

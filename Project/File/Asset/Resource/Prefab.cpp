@@ -1,21 +1,24 @@
 #include "Prefab.hpp"
 #include <Module/BuildMode.hpp>
 #include <Module/Random.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
-#include <File/SaveFile.hpp>
+#include <object/GameObject.hpp>
+
+#include <module/ObjectInstanceHandler.hpp>
+#include <module/SaveFile.hpp>
 
 of::common::uuid of::file::archive::Trait<Asset::Resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
 
 namespace Asset::Resource
 {
 
-	void Prefab::build(GameObject* object, const bool& isPlayersummon) const
+	void Prefab::build(of::object::GameObject* object, const bool& isPlayersummon) const
 	{
 		object->tag = tag;
-		object->objectState = of::engine::GetModule<File::SaveFile>().getObjectState(object->id, objectState);;
+		//TODO: replace with ObjectStateSaveState
+		//object->objectState = of::engine::GetModule<of::module::SaveFile>().getObjectState(object->id, objectState);
 		for (auto& x : components)
 			object->AddOrReplaceComponent(x.get()->copy());
-		auto& gameMode = of::engine::GetModule<File::SaveFile>().getGameMode();
+		auto& gameMode = of::engine::GetModule<of::module::SaveFile>().getGameMode();
 		if (gameMode.tagModifiers.find(object->tag) != gameMode.tagModifiers.end())
 			object->applyGameMode(gameMode.tagModifiers.at(object->tag));
 		else if (isPlayersummon)
@@ -40,22 +43,22 @@ namespace Asset::Resource
 			components.push_back(x.get()->ucopy());
 	}
 
-	GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
-		auto transform = object->getComponent<Component::Transform>();
+		auto transform = object->getComponent<of::object::component::Transform>();
 		transform->pos = pos;
 		return object;
 	}
 
-	GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->getComponent<Component::Transform>();
+		auto transform = object->getComponent<of::object::component::Transform>();
 		transform->pos = pos;
 		object->Update();
 		return object;
@@ -71,17 +74,17 @@ namespace Asset::Resource
 			in.z };
 	}
 
-	GameObject* Prefab::createNewInstance(GameObject* parent, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool& isPlayerSummon) const
 	{
-		auto x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->getComponent<Component::Transform>();
-		transform->pos = randomize(parent->getComponent<Component::Transform>()->buffered, spawnDistance);
+		auto transform = object->getComponent<of::object::component::Transform>();
+		transform->pos = randomize(parent->getComponent<of::object::component::Transform>()->buffered, spawnDistance);
 		return object;
 	}
 
-	void Prefab::createNewPlayerInstance(GameObject& theObject)
+	void Prefab::createNewPlayerInstance(of::object::GameObject& theObject)
 	{
 		build(&theObject, true);
 	}

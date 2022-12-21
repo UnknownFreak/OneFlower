@@ -1,21 +1,23 @@
 #ifndef PlayerController_HPP
 #define PlayerController_HPP
 
-#include <Object/IBaseComponent.hpp>
-#include <Object/Transform.hpp>
+#include <Object/component/IBaseComponent.hpp>
+#include <Object/component/Transform.hpp>
 #include <Combat/Combat.hpp>
 
 #include "InputHandler.hpp"
 #include <Graphics/Window.hpp>
 
-namespace Component
+namespace of::object::component
 {
-	struct PlayerController : public Component::IBase<PlayerController>
+	class PlayerController : public IBase<PlayerController>
 	{
+		virtual void onMessage(const of::object::messaging::Message& message) override;
+	public:
 		Graphics::RenderWindow& window;
 		void clearBindings();
-		Component::Transform* transform = nullptr;
-		Component::CombatComponent* combat = nullptr;
+		Transform* transform = nullptr;
+		of::object::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
 		Input::InputHandler& handler;
 

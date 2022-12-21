@@ -7,13 +7,15 @@
 #include <file/Handler.hpp>
 #include <File/Asset/Resource/DialogTree.hpp>
 
-#include <Object/IBaseComponent.hpp>
-#include <Object/Transform.hpp>
+#include <object/component/IBaseComponent.hpp>
+#include <object/component/Transform.hpp>
 
 #include <file/FileId.hpp>
 
-class Dialog : public Component::IBase<Dialog>
+class Dialog : public of::object::component::IBase<Dialog>
 {
+	virtual void onMessage(const of::object::messaging::Message& message) override;
+
 public:
 	of::file::FileId dialogTreeuuid;
 
@@ -37,9 +39,9 @@ public:
 
 	void reset();
 	// maybe not needed
-	void attachOn(GameObject* go);
+	void attachOn(of::object::GameObject* go);
 	// Inherited via IBase
-	virtual void onCollision(GameObject* the_collidee) override;
+	virtual void onCollision(of::object::GameObject* the_collidee) override;
 
 
 	// Inherited via IBase
@@ -64,6 +66,6 @@ public:
 };
 
 CEREAL_REGISTER_ARCHIVE(Dialog);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Dialog);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, Dialog);
 
 #endif

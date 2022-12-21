@@ -12,7 +12,7 @@
 #include <cereal/types/utility.hpp>
 
 #include <Requirement/Requirement.hpp>
-#include <Trigger/Trigger.hpp>
+#include <resource/trigger/Trigger.hpp>
 
 namespace Asset::Resource
 {
@@ -23,7 +23,7 @@ namespace Asset::Resource
 		of::common::uuid dialogString;
 		std::vector<std::pair<DialogOptionId, ResponseValueId>> dialogOptions;
 		Requirement::Requirement* optionRequirement;
-		Trigger::Trigger* onDialogActivatedTrigger;
+		of::resource::trigger::Trigger* onDialogActivatedTrigger;
 		Enums::DialogStatus selectionStatus;
 		of::common::String tempText;
 
@@ -41,7 +41,7 @@ namespace Asset::Resource
 			}
 			{
 				// TODO: fixme! change member variable to not use raw pointer...
-				auto tmp = std::unique_ptr<Trigger::Trigger>((Trigger::Trigger*)onDialogActivatedTrigger);
+				auto tmp = std::unique_ptr<of::resource::trigger::Trigger>((of::resource::trigger::Trigger*)onDialogActivatedTrigger);
 				ar(tmp);
 				tmp.release();
 			}
@@ -58,7 +58,7 @@ namespace Asset::Resource
 				optionRequirement = tmp.release();
 			}
 			{
-				std::unique_ptr<Trigger::Trigger> tmp;
+				std::unique_ptr<of::resource::trigger::Trigger> tmp;
 				ar(tmp);
 				onDialogActivatedTrigger = tmp.release();
 			}

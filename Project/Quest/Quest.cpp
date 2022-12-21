@@ -1,6 +1,6 @@
 #include "Quest.hpp"
 
-#include <File/SaveFile.hpp>
+#include <module/SaveFile.hpp>
 #include <file/Handler.hpp>
 
 of::common::uuid of::file::archive::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
@@ -94,7 +94,8 @@ void Questing::Quest::startQuest()
 {
 	objectiveMap[currentObjectiveId]->activateObjective();
 	questState = Enums::QuestState::ACTIVE;
-	of::engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
+	// TODO, replace with QuestSaveState
+	//of::engine::GetModule<of::module::SaveFile>().setQuestState(getModfile(), getQuestState());
 }
 
 void Questing::Quest::updateQuest()
@@ -105,7 +106,9 @@ void Questing::Quest::updateQuest()
 		failQuest();
 	else
 		startNextObjectiveIfNotActive();
-	of::engine::GetModule<File::SaveFile>().setQuestState(getModfile(), getQuestState());
+
+	// TODO, replace with QuestSaveState
+	//of::engine::GetModule<of::module::SaveFile>().setQuestState(getModfile(), getQuestState());
 }
 
 void Questing::Quest::startNextObjectiveIfNotActive()
@@ -131,7 +134,7 @@ void Questing::Quest::resetCurrentObjective()
 	magic(&Questing::QuestObjective::resetObjective);
 }
 
-void Questing::Quest::onEnemyDefeated(GameObject* go)
+void Questing::Quest::onEnemyDefeated(of::object::GameObject* go)
 {
 	if (questState == Enums::QuestState::ACTIVE)
 	{
@@ -201,26 +204,29 @@ Questing::QuestState Questing::Quest::getQuestState() const
 
 void Questing::Quest::setQuestState()
 {
-	auto& saveFile = of::engine::GetModule<File::SaveFile>();
-	if (saveFile.isQuestStored(getModfile()))
+	auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+	if (saveFile.exists(getModfile()))
 	{
-		auto state = saveFile.getQuestState(getModfile());
-		currentObjectiveId = state.questStateId;
-		questState = state.questState;
-		if (questState == Enums::QuestState::COMPLETE || questState == Enums::QuestState::FAILED)
-			return;
-
-		for (auto& x : objectiveMap)
-			x.second->restoreState(state.objectiveStates.at(x.first));
-
-		for (auto& x : optionalObjectives)
-		{
-			size_t idx = 0;
-			for (auto& y : x.second)
-			{
-				y->restoreState(state.bonusObjectiveStates.at(x.first)[idx]);
-				++idx;
-			}
-		}
+		//auto& state = saveFile.getState(getModfile());
+		// TODO: replace with QuestSaveState
+		
+		//auto state = saveFile.getQuestState(getModfile());
+		//currentObjectiveId = state.questStateId;
+		//questState = state.questState;
+		//if (questState == Enums::QuestState::COMPLETE || questState == Enums::QuestState::FAILED)
+		//	return;
+		//
+		//for (auto& x : objectiveMap)
+		//	x.second->restoreState(state.objectiveStates.at(x.first));
+		//
+		//for (auto& x : optionalObjectives)
+		//{
+		//	size_t idx = 0;
+		//	for (auto& y : x.second)
+		//	{
+		//		y->restoreState(state.bonusObjectiveStates.at(x.first)[idx]);
+		//		++idx;
+		//	}
+		//}
 	}
 }

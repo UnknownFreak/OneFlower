@@ -1,8 +1,8 @@
 #include "Window.hpp"
 
-#include <Object/GameObject.hpp>
-#include <Object/BaseComponent.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
+#include <object/GameObject.hpp>
+#include <object/component/BaseComponent.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 
 #include "Render.hpp"
 #include "mvp.hpp"
@@ -28,16 +28,16 @@ namespace Graphics
 {
 
 
-	void RenderWindow::Cull(std::vector<GameObject*>& )
+	void RenderWindow::Cull(std::vector<of::object::GameObject*>& )
 	{
 	}
 
-	void RenderWindow::AddRenderable(GameObject* go)
+	void RenderWindow::AddRenderable(of::object::GameObject* go)
 	{
 		models[go->id] = go->getComponent<Render>()->model;
-		positions[go->id] =  go->getSharedComponent<Component::Transform>();
+		positions[go->id] =  go->getSharedComponent<of::object::component::Transform>();
 	}
-	void RenderWindow::RemoveRenderable(GameObject* go)
+	void RenderWindow::RemoveRenderable(of::object::GameObject* go)
 	{
 		models.erase(go->id);
 		positions.erase(go->id);
@@ -196,8 +196,8 @@ namespace Graphics
 		title += "GameObject Transform count: " + std::to_string(positions.size()) + "\n";
 		title += "GameObject Model count: " + std::to_string(models.size()) + "\n";
 
-		auto player = of::engine::GetModule<EngineModule::ObjectInstanceHandler>().getPlayer();
-		auto pos = player->getComponent<Component::Transform>()->pos;
+		auto player = of::engine::GetModule<of::module::ObjectInstanceHandler>().getPlayer();
+		auto pos = player->getComponent<of::object::component::Transform>()->pos;
 		title += "Player pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + "\n";
 
 		ImGui::Begin("Stats");

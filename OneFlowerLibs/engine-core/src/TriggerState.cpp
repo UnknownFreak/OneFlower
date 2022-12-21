@@ -6,14 +6,14 @@ namespace of::resource::trigger
 {
 	common::String TriggerState::getType() const
 	{
-		return of::module::save_state::SaveStateTypeRef<SaveState>::type;
+		return of::module::save_state::SaveStateTypeRef<TriggerState>::type;
 	}
 
 	TriggerState::TriggerState() : TriggerState(false)
 	{
 	}
 
-	TriggerState::TriggerState(bool triggered) : SaveState(of::module::save_state::SaveStateTypeRef<SaveState>::type), triggered(triggered)
+	TriggerState::TriggerState(bool triggered) : SaveState(of::module::save_state::SaveStateTypeRef<TriggerState>::type), triggered(triggered)
 	{
 	}
 }

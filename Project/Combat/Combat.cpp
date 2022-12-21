@@ -1,11 +1,13 @@
 #include "Combat.hpp"
 
-Enums::ComponentType Component::IBase<Component::CombatComponent>::typeID = Enums::ComponentType::Combat;
-of::common::String Component::IBase<Component::CombatComponent>::componentName = "Combat";
+of::common::uuid of::object::component::IBase<of::object::component::CombatComponent>::typeID = of::common::uuid("4d167cc6-90bd-491e-8def-0def351fec54");
+of::common::String of::object::component::IBase<of::object::component::CombatComponent>::componentName = "Combat";
 
-namespace Component
+namespace of::object::component
 {
-
+	void component::CombatComponent::onMessage(const of::object::messaging::Message&)
+	{
+	}
 	std::unordered_map<Enums::CombatSkill, ::Combat::Skill >& CombatComponent::getSkills()
 	{
 		return skills;
@@ -48,7 +50,7 @@ namespace Component
 		return new CombatComponent(*this);
 	}
 
-	std::unique_ptr<Component::Base> CombatComponent::ucopy() const
+	std::unique_ptr<of::object::component::Base> CombatComponent::ucopy() const
 	{
 		return std::make_unique<CombatComponent>(*this);
 	}

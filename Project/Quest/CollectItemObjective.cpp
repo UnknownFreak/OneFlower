@@ -2,7 +2,7 @@
 
 #include <Items/Item.hpp>
 
-#include <File/SaveFile.hpp>
+#include <module/SaveFile.hpp>
 
 #include <Items/Inventory.hpp>
 
@@ -13,8 +13,8 @@ namespace Questing
 		QuestObjective::activateObjective();
 		if (objectiveState == Enums::QuestState::ACTIVE)
 		{
-			auto& player = of::engine::GetModule<File::SaveFile>().player;
-			auto inventory = player.getComponent<Component::Inventory>();
+			auto& player = of::engine::GetModule<of::module::SaveFile>().player;
+			auto inventory = player.getComponent<of::object::component::Inventory>();
 			if (inventory)
 			{
 				if (inventory->getItemStack(itemId) >= itemCount)
@@ -26,7 +26,7 @@ namespace Questing
 			}
 		}
 	}
-	size_t CollectItemObjective::onEnemyDefeated(GameObject*)
+	size_t CollectItemObjective::onEnemyDefeated(of::object::GameObject*)
 	{
 		return objectiveId;
 	}

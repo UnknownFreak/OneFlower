@@ -4,8 +4,8 @@
 #include <Module/Globals.hpp>
 #include <Module/OneTime.hpp>
 
-#include <Object/BaseComponent.hpp>
-#include <Object/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 
 #include <Helpers/Enum/TileTypes.hpp>
 
@@ -27,8 +27,6 @@
 #include <Combat/Element.hpp>
 #include <Combat/Damage.hpp>
 
-
-#include <Object/ObjectInstanceHandler.hpp>
 #include <Object/GameObject.hpp>
 
 #include <Module/Globals.hpp>
@@ -82,7 +80,7 @@ void WorldManager::doDayCycle(const float& fElapsedTime)
 	//std::cout << "shadow length y: " << gfx.shadowLengthY << std::endl;
 }
 
-WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(gfx, isLoading), objectHandler(of::engine::GetModule<EngineModule::ObjectInstanceHandler>()), saveFile(of::engine::GetModule<File::SaveFile>())
+WorldManager::WorldManager(Graphics::RenderWindow& gfx) : gfx(gfx), loadHandler(gfx, isLoading), objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), saveFile(of::engine::GetModule<of::module::SaveFile>())
 {
 }
 
@@ -93,7 +91,7 @@ void WorldManager::initialize()
 
 	auto* go = objectHandler.addObject();
 	testObjectId = go->id;
-	go->getComponent<Component::Transform>()->pos = { 150, 250.f, 0.f };
+	go->getComponent<of::object::component::Transform>()->pos = { 150, 250.f, 0.f };
 	go->addComponent<Render>();
 	go->addComponent<Dialog>();
 	
@@ -112,7 +110,7 @@ void WorldManager::initialize()
 
 }
 
-WorldManager::WorldManager(const WorldManager& copy): gfx(copy.gfx), objectHandler(of::engine::GetModule<EngineModule::ObjectInstanceHandler>()), loadHandler(copy.gfx, isLoading), saveFile(of::engine::GetModule<File::SaveFile>())
+WorldManager::WorldManager(const WorldManager& copy): gfx(copy.gfx), objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), loadHandler(copy.gfx, isLoading), saveFile(of::engine::GetModule<of::module::SaveFile>())
 {
 }
 
@@ -350,8 +348,8 @@ void WorldManager::createSimpleWorld()
 	gfx.addRenderable(0, "Default", { 1024.f + 64, 128.f}, 0.f, "WaterTop", Enums::TileTypes::Ground, true);
 	gfx.addRenderable(0, "Default", { 1024.f, 128.f }, 0.f, "WaterTopLeft", Enums::TileTypes::Ground, true);
 	
-	objectHandler.player->getComponent<Component::Transform>()->pos.x = 50.f; 
-	objectHandler.player->getComponent<Component::Transform>()->pos.y = -15.f;
+	objectHandler.player->getComponent<of::object::component::Transform>()->pos.x = 50.f;
+	objectHandler.player->getComponent<of::object::component::Transform>()->pos.y = -15.f;
 
 	auto dialog = objectHandler.objects[testObjectId].getComponent<Dialog>();
 	dialog->dialogTreeuuid = dialogTest;
@@ -385,7 +383,7 @@ void WorldManager::createSimpleWorld()
 	theManager.archive.add(new Combat::Effect(ef2));
 	Asset::Resource::Prefab p;
 	p.objectType = of::file::ObjectType::Prefab;
-	Component::Damage d = Component::Damage();
+	of::object::component::Damage d = of::object::component::Damage();
 	d.canLockNextFrame = false;
 	d.maxTargets = 1;
 	d.speed = 0.f;
@@ -393,7 +391,7 @@ void WorldManager::createSimpleWorld()
 	d.timeToLive.maxTime = 2.f;
 	d.elementId = e.getModfile();
 	d.damageCoef = 1.0;
-	p.components.push_back(std::make_unique<Component::Damage>(d));
+	p.components.push_back(std::make_unique<of::object::component::Damage>(d));
 	p.fromMod = mod;
 
 	theManager.archive.add(new Asset::Resource::Prefab(p));
@@ -426,12 +424,12 @@ void WorldManager::createSimpleWorld()
 	auto eff = theManager.archive.requestUniqueInstance<Combat::Effect>(ef.getModfile());
 	auto eff2 = theManager.archive.requestUniqueInstance<Combat::Effect>(ef2.getModfile());
 	auto elm = theManager.archive.request<Combat::Element>(e.getModfile());
-	objectHandler.player->getComponent<Component::Stats>()->attunedTo = *elm;
-	objectHandler.player->getComponent<Component::Stats>()->doEffects({ eff, eff2 }, objectHandler.player->getSharedComponent<Component::Stats>());
+	objectHandler.player->getComponent<of::object::component::Stats>()->attunedTo = *elm;
+	objectHandler.player->getComponent<of::object::component::Stats>()->doEffects({ eff, eff2 }, objectHandler.player->getSharedComponent<of::object::component::Stats>());
 	auto skill = theManager.archive.requestUniqueInstance<Combat::Skill>(s.getModfile());
-	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Primary] = skill;
-	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Secondary] = skill;
-	objectHandler.player->getComponent<Component::CombatComponent>()->skills[Enums::CombatSkill::Special] = skill;
+	objectHandler.player->getComponent<of::object::component::CombatComponent>()->skills[Enums::CombatSkill::Primary] = skill;
+	objectHandler.player->getComponent<of::object::component::CombatComponent>()->skills[Enums::CombatSkill::Secondary] = skill;
+	objectHandler.player->getComponent<of::object::component::CombatComponent>()->skills[Enums::CombatSkill::Special] = skill;
 
 }
 
@@ -445,7 +443,7 @@ void WorldManager::setCurrentTime(const float& currentTime)
 void WorldManager::newGame()
 {
 	of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("New Game");
-	saveFile.newGame(Enums::DifficultyLevel::Normal, of::common::uuid::nil(), {});
+	saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 	auto& glob = of::engine::GetModule<Globals>();
 	loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 }

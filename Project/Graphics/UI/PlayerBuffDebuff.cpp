@@ -1,6 +1,6 @@
 #include "PlayerBuffDebuff.hpp"
 
-void Graphics::UI::PlayerBuffDebuff::setStats(std::shared_ptr<Component::Stats> newStats)
+void Graphics::UI::PlayerBuffDebuff::setStats(std::shared_ptr<of::object::component::Stats> newStats)
 {
 	stats = newStats;
 }

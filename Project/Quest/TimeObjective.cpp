@@ -2,7 +2,7 @@
 
 namespace Questing
 {
-	size_t TimeObjective::onEnemyDefeated(GameObject* )
+	size_t TimeObjective::onEnemyDefeated(of::object::GameObject* )
 	{
 		return objectiveId;
 	}

@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include <Object/IBaseComponent.hpp>
-#include <Object/GameObject.hpp>
+#include <object/component/IBaseComponent.hpp>
+#include <object/GameObject.hpp>
 #include <Combat/Stats.hpp>
 
 #include "Item.hpp"
@@ -13,15 +13,15 @@
 #include "ArmorItem.hpp"
 #include "TrinketItem.hpp"
 
-namespace Component
+namespace of::object::component
 {
-	class Inventory : public Component::IBase<Inventory>
+	class Inventory : public IBase<Inventory>
 	{
 		template <class T>
 		requires std::derived_from<T, Items::StatChangingItem>
 		void swap(std::shared_ptr<T>& theSlot, std::shared_ptr<T>& theItem)
 		{
-			auto stats = attachedOn->getComponent<Component::Stats>();
+			auto stats = attachedOn->getComponent<of::object::component::Stats>();
 			if (theSlot.operator bool())
 			{
 				stats->removeModifier(theSlot->defence);
@@ -41,6 +41,9 @@ namespace Component
 		void equipArmor(std::shared_ptr<Items::Base>& item);
 		void equipAmmo(std::shared_ptr<Items::Base>& ammo);
 		void equipTrinket(std::shared_ptr<Items::Base>& item, const bool& secondary);
+
+		virtual void onMessage(const of::object::messaging::Message& message) override;
+
 	public:
 
 		virtual Inventory* copy() const override

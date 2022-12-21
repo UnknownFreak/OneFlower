@@ -35,7 +35,7 @@ namespace Questing
 		}
 
 		// Inherited via QuestObjective
-		virtual size_t onEnemyDefeated(GameObject* go) override;
+		virtual size_t onEnemyDefeated(of::object::GameObject* go) override;
 		virtual size_t onItemPickUp(Items::Base* b) override;
 		virtual size_t onItemDropped(Items::Base* b) override;
 

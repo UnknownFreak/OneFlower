@@ -1,9 +1,9 @@
 #ifndef AttachToParent_HPP
 #define AttachToParent_Hpp
 
-#include <Object/IBaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 
-namespace Component
+namespace of::object::component
 {
 
 	class AttachToParent : public IBase<AttachToParent>
@@ -17,6 +17,9 @@ namespace Component
 		virtual void Update() override;
 		virtual void Simulate(const float& fElapsedTime) override;
 		virtual void onDeath();
+
+		virtual void onMessage(const messaging::Message& message) override;
+
 	};
 }
 

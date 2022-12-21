@@ -1,7 +1,7 @@
 #include "TimedRequirement.hpp"
 
-#include <File/SaveFile.hpp>
-#include <Module/OneTime.hpp>
+#include <module/SaveFile.hpp>
+#include <module/OneTime.hpp>
 
 
 namespace Requirement
@@ -9,11 +9,13 @@ namespace Requirement
 
 	void TimedRequirement::loadTimerFromSave()
 	{
-		auto& saveFile = of::engine::GetModule<File::SaveFile>();
-		if (saveFile.isTimerSaved(timerId))
-		{
-			timerInfo = saveFile.getTickTimer(timerId);
-		}
+		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		saveFile;
+		// TODO replace with TimerSaveState
+		//if (saveFile.isTimerSaved(timerId))
+		//{
+		//	timerInfo = saveFile.getTickTimer(timerId);
+		//}
 		//TODO: Move to questing module and initalize once the save file have been loaded.
 		//if (timerInfo.started && !timerInfo.finished)
 		//	start();
@@ -34,7 +36,8 @@ namespace Requirement
 			{
 				auto& tickTimer = timer.getTickTimer(timerId);
 				timerInfo = tickTimer.getInfo();
-				of::engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
+				// TODO: Replace with TimerSaveState
+				//of::engine::GetModule<of::module::SaveFile>().setTickTimer(timerId, timerInfo);
 				if (timerInfo.finished)
 					stop();
 			
@@ -62,7 +65,8 @@ namespace Requirement
 		timerInfo.started = false;
 		timerInfo.currentTime = 0.f;
 		timerInfo.finished = false;
-		of::engine::GetModule<File::SaveFile>().setTickTimer(timerId, timerInfo);
+		// TODO: replace with TimerSaveState
+		//of::engine::GetModule<of::module::SaveFile>().setTickTimer(timerId, timerInfo);
 	}
 
 	void TimedRequirement::stop()

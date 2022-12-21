@@ -1,16 +1,18 @@
 #include "HealthTresholdRequirement.hpp"
-#include <Object/ObjectInstanceHandler.hpp>
+
+#include <module/ObjectInstanceHandler.hpp>
+#include <Combat/Stats.hpp>
 
 namespace Requirement
 {
 
 	bool HealthTresholdRequirement::fullfilled()
 	{
-		auto& x = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);
-			auto stats = ptr->getComponent<Component::Stats>();
+			auto stats = ptr->getComponent<of::object::component::Stats>();
 			if (stats)
 			{
 				auto p = stats->mainStat[Enums::Attribute::Health].current / stats->mainStat[Enums::Attribute::Health].max;

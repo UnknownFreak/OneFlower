@@ -1,12 +1,12 @@
 #include "DifficultyRequirement.hpp"
 
-#include <File/SaveFile.hpp>
+#include <module/SaveFile.hpp>
 
 namespace Requirement
 {
 	bool DifficultyRequirement::fullfilled()
 	{
-		auto& savefile = of::engine::GetModule<File::SaveFile>();
+		auto& savefile = of::engine::GetModule<of::module::SaveFile>();
 		return savefile.getCustomDiffId() == customDiff || savefile.getDifficulty() == level;
 	}
 

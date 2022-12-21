@@ -10,7 +10,7 @@ namespace Trigger
 		auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestShared<Asset::Resource::Prefab>(prefabId);
 		prefab->createNewInstance(position);
 	}
-	std::unique_ptr<Trigger> SpawnObjectTrigger::clone() const
+	std::unique_ptr<of::resource::trigger::Trigger> SpawnObjectTrigger::clone() const
 	{
 		return std::make_unique<SpawnObjectTrigger>(*this);
 	}

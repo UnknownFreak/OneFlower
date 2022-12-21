@@ -17,7 +17,7 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 #include <File/GameConfig.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
 
@@ -75,7 +75,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::shader::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::ObjectInstanceHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::ObjectInstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));

@@ -7,6 +7,7 @@
 //#include <Graphics/PlayerInteractionPrompt.hpp>
 
 #include <module/ObjectInstanceHandler.hpp>
+#include <object/component/Transform.hpp>
 //#include "Interactable.hpp"
 
 namespace of::object
@@ -40,7 +41,7 @@ namespace of::object
 
 	GameObject::GameObject() noexcept
 	{
-		//addComponent<component::Transform>();
+		addComponent<component::Transform>();
 	}
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{

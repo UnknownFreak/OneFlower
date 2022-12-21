@@ -1,6 +1,6 @@
 #include "ObjectSelector.hpp"
 
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 #include <Module/BuildMode.hpp>
 
 namespace Graphics
@@ -10,12 +10,12 @@ namespace Graphics
 
 		ObjectSelector::ObjectSelector() : UIContext(swizzle::input::Keys::KeyNone, "ObjectSelector", true)
 		{
-			auto& oih = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+			auto& oih = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 
-			auto onAdd = [&](GameObject* go) {
+			auto onAdd = [&](of::object::GameObject* go) {
 				objects[go] = false;
 			};
-			auto onDelete = [&](GameObject* go) {
+			auto onDelete = [&](of::object::GameObject* go) {
 				if (selected == go)
 					selected = nullptr;
 				objects.erase(go);
@@ -37,14 +37,14 @@ namespace Graphics
 					ImGui::SetColumnWidth(0, 300.f);
 					if (ImGui::Button("Add object"))
 					{
-						of::engine::GetModule<EngineModule::ObjectInstanceHandler>().addObject();
+						of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
 					}
 					ImGui::SameLine();
 					if (ImGui::Button("Delete object"))
 					{
 						if (selected)
 						{
-							of::engine::GetModule<EngineModule::ObjectInstanceHandler>().removeObject(selected->id);
+							of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(selected->id);
 						}
 					}
 					if(ImGui::BeginListBox(" ", ImVec2(300.f,-1.f)))

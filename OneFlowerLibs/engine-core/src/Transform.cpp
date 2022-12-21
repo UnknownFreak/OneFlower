@@ -64,7 +64,7 @@ namespace of::object::component
 	{
 	}
 
-	void of::object::component::Transform::onMessage(const messaging::Message& message)
+	void Transform::onMessage(const messaging::Message& message)
 	{
 	}
 

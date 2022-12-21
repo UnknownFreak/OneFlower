@@ -1,14 +1,14 @@
 #ifndef LootDrop_Hpp
 #define LootDrop_Hpp
 
-#include <Object/IBaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 #include "LootTable.hpp"
 
-namespace Component
+namespace of::object::component
 {
-	class LootDrop : public Component::IBase<LootDrop>
+	class LootDrop : public of::object::component::IBase<LootDrop>
 	{
-
+		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
 		bool looted;
 		of::file::FileId lootTableId;

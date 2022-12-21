@@ -2,12 +2,13 @@
 
 #include <Helpers/Rect.hpp>
 #include <Module/Globals.hpp>
-#include <Object/Transform.hpp>
+#include <Object/component/Transform.hpp>
+
 struct TransparencyMasker
 {
 	Core::Rect<float> triggerTransparency{ glm::vec2{0.f, 0.f}, glm::vec2{128.f, 128.f } };
 	Core::Rect<float> releaseTransparency{ glm::vec2{0.f, 0.f}, glm::vec2{256.f + 64.f, 256.f + 64.f } };
-	std::shared_ptr<Component::Transform> player = nullptr;
+	std::shared_ptr<of::object::component::Transform> player = nullptr;
 
 	//inline void setPos(Component::Transform* player)
 	//{

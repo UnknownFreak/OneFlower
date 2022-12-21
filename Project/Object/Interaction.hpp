@@ -2,7 +2,7 @@
 #define Interaction_HPP
 
 #include <Requirement/Requirement.hpp>
-#include <Trigger/Trigger.hpp>
+#include <resource/trigger/Trigger.hpp>
 
 namespace Object
 {
@@ -20,7 +20,7 @@ namespace Object
 		of::common::String interactionState;
 
 		std::unique_ptr<Requirement::Requirement> interactionRequirement;
-		std::unique_ptr<Trigger::Trigger> interactionTrigger;
+		std::unique_ptr<of::resource::trigger::Trigger> interactionTrigger;
 
 		std::vector<std::tuple<of::common::uuid, bool, bool, short>> interactions;
 

@@ -2,8 +2,8 @@
 
 #include <file/Handler.hpp>
 #include <Graphics/UI/LoadingScreen.hpp>
-#include <Module/OneTime.hpp>
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/OneTime.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 
 #include <File/Asset/Resource/Prefab.hpp>
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
@@ -89,7 +89,7 @@ void LoadingStateMachine::load()
 	}
 	case Enums::LoadingState::UNLOAD_OLD_OBJECTS:
 	{
-		auto& handler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& handler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		handler.unload();
 		loadstate = Enums::LoadingState::LOADING_ATLAS;
 		break;
@@ -278,7 +278,8 @@ void LoadingStateMachine::load()
 			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
 			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
 		}
-		of::engine::GetModule<EngineModule::ObjectInstanceHandler>().player->getComponent<Component::Transform>()->pos = playerPos;
+		// TODO: replace with GameObject MessageTopic SetPosition
+		of::engine::GetModule<of::module::ObjectInstanceHandler>().player->getComponent<of::object::component::Transform>()->pos = playerPos;
 		loadingScreenInfoPtr = nullptr;
 		isLoading = false;
 		loadstate = Enums::LoadingState::UNDEFINED;

@@ -276,6 +276,9 @@
     <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\engine-core\engine-core.vcxproj">
+      <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
@@ -327,7 +330,6 @@
     <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
-    <ClCompile Include="Project\File\SaveFile.cpp" />
     <ClCompile Include="Project\Graphics\Camera.cpp" />
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
@@ -381,11 +383,7 @@
     <ClCompile Include="Project\Module\Globals.cpp" />
     <ClCompile Include="Project\Module\OneTimeDefiner.cpp" />
     <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
-    <ClCompile Include="Project\Object\BaseComponentDefiner.cpp" />
-    <ClCompile Include="Project\Object\GameObject.cpp" />
-    <ClCompile Include="Project\Object\ObjectInstanceHandlerDefiner.cpp" />
     <ClCompile Include="Project\Object\Interactable.cpp" />
-    <ClCompile Include="Project\Object\Transform.cpp" />
     <ClCompile Include="Project\Quest\AOrBObjective.cpp" />
     <ClCompile Include="Project\Quest\CollectItemObjective.cpp" />
     <ClCompile Include="Project\Quest\DefeatEnemyObjective.cpp" />
@@ -400,7 +398,6 @@
     <ClCompile Include="Project\Requirement\HealthTresholdRequirement.cpp" />
     <ClCompile Include="Project\Requirement\QuestStateRequirement.cpp" />
     <ClCompile Include="Project\Requirement\TimedRequirement.cpp" />
-    <ClCompile Include="Project\Resources\GameMode.cpp" />
     <ClCompile Include="Project\Tests\AOrBObjectiveUnitTest.cpp" />
     <ClCompile Include="Project\Tests\BaseInputHandlerUnitTest.cpp" />
     <ClCompile Include="Project\Tests\CollectItemObjectiveUnitTest.cpp" />
@@ -431,7 +428,6 @@
     <ClCompile Include="Project\Trigger\QuestTrigger.cpp" />
     <ClCompile Include="Project\Trigger\RequirementTrigger.cpp" />
     <ClCompile Include="Project\Trigger\SpawnObjectTrigger.cpp" />
-    <ClCompile Include="Project\Trigger\Trigger.cpp" />
     <ClCompile Include="Project\Trigger\TriggerList.cpp" />
     <ClCompile Include="Project\World\LoadingStateMachine.cpp" />
     <ClCompile Include="Project\World\WorldManager.cpp" />
@@ -456,7 +452,6 @@
     <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
-    <ClInclude Include="Project\File\SaveFile.hpp" />
     <ClInclude Include="Project\Graphics\Camera.hpp" />
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
@@ -497,7 +492,6 @@
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp" />
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\DifficultyLevels.hpp" />
     <ClInclude Include="Project\Helpers\Enum\HealthTresholdComparitor.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InputEnum.hpp" />
@@ -548,12 +542,7 @@
     <ClInclude Include="Project\Module\BuildVersion.hpp" />
     <ClInclude Include="Project\Object\Interaction.hpp" />
     <ClInclude Include="Project\Object\ObjectStateActivator.hpp" />
-    <ClInclude Include="Project\Object\BaseComponent.hpp" />
-    <ClInclude Include="Project\Object\GameObject.hpp" />
-    <ClInclude Include="Project\Object\IBaseComponent.hpp" />
-    <ClInclude Include="Project\Object\ObjectInstanceHandler.hpp" />
     <ClInclude Include="Project\Object\Interactable.hpp" />
-    <ClInclude Include="Project\Object\Transform.hpp" />
     <ClInclude Include="Project\Quest\AOrBObjective.hpp" />
     <ClInclude Include="Project\Quest\CollectItemObjective.hpp" />
     <ClInclude Include="Project\Quest\DefeatEnemyObjective.hpp" />
@@ -571,8 +560,6 @@
     <ClInclude Include="Project\Requirement\QuestStateRequirement.hpp" />
     <ClInclude Include="Project\Requirement\Requirement.hpp" />
     <ClInclude Include="Project\Requirement\TimedRequirement.hpp" />
-    <ClInclude Include="Project\Resources\GameMode.hpp" />
-    <ClInclude Include="Project\Resources\GameModeModifier.hpp" />
     <ClInclude Include="Project\Trigger\EffectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\ItemTrigger.hpp" />
     <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp" />
@@ -580,7 +567,6 @@
     <ClInclude Include="Project\Trigger\RequirementTrigger.hpp" />
     <ClInclude Include="Project\Trigger\SpawnObjectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\TeleportTrigger.hpp" />
-    <ClInclude Include="Project\Trigger\Trigger.hpp" />
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
     <ClInclude Include="Project\World\LoadingStateMachine.hpp" />
     <ClInclude Include="Project\World\WorldManager.hpp" />

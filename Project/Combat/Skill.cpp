@@ -48,21 +48,21 @@ namespace Combat
 		return glm::vec3{ distance * -std::sin(rangle), distance * std::cos(rangle), 0.f };
 	}
 
-	void Skill::onSkillExecution(GameObject* owner)
+	void Skill::onSkillExecution(of::object::GameObject* owner)
 	{
 		if (coolDown.ready())
 		{
-			auto stats = owner->getSharedComponent<Component::Stats>();
+			auto stats = owner->getSharedComponent<of::object::component::Stats>();
 			if (stats && stats->mainStat[Enums::Attribute::Mana].current >= cost)
 			{
 				stats->mainStat[Enums::Attribute::Mana].current -= cost;
 				coolDown.reset(true);
-				owner->getComponent<Component::Stats>()->doEffects(skillExecutionEffects, stats);
+				owner->getComponent<of::object::component::Stats>()->doEffects(skillExecutionEffects, stats);
 				auto& x = of::engine::GetModule<of::file::Handler>().archive;
 				Asset::Resource::Prefab* skillPrefab = x.request<Asset::Resource::Prefab>(prefabId);
 				Asset::Resource::Prefab* effectPrefab = x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
-				GameObject* skillGo = nullptr;
-				GameObject* effectGo = nullptr;
+				of::object::GameObject* skillGo = nullptr;
+				of::object::GameObject* effectGo = nullptr;
 				if (summon)
 				{
 					skillGo = skillPrefab->createNewInstance(owner, owner->tag == "player");
@@ -71,7 +71,7 @@ namespace Combat
 				}
 				else
 				{
-					auto* transform = owner->getComponent<Component::Transform>();
+					auto* transform = owner->getComponent<of::object::component::Transform>();
 					auto pos = transform->pos;
 					pos += distanceWithAngle(summonPoint, transform->facingAngle);
 					skillGo = skillPrefab->createNewInstance(pos, owner->tag == "player");
@@ -81,14 +81,14 @@ namespace Combat
 
 				if (onSelf)
 				{
-					skillGo->addComponent<Component::AttachToParent>(owner);
+					skillGo->addComponent<of::object::component::AttachToParent>(owner);
 					if (effectGo)
-						effectGo->addComponent<Component::AttachToParent>(owner);
+						effectGo->addComponent<of::object::component::AttachToParent>(owner);
 				}
-				auto damage = skillGo->getComponent<Component::Damage>();
+				auto damage = skillGo->getComponent<of::object::component::Damage>();
 				skillGo->addComponent<Render>();
 				if (damage)
-					damage->owner = owner->getSharedComponent<Component::Stats>();
+					damage->owner = owner->getSharedComponent<of::object::component::Stats>();
 			}
 		}
 	}

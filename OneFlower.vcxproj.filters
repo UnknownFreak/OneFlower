@@ -58,9 +58,6 @@
     <Filter Include="Engine\Combat\Component">
       <UniqueIdentifier>{58fcb014-d9ae-4a37-bb52-169ddb8bc07e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\ObjectInstanceHandler">
-      <UniqueIdentifier>{d00ef0e4-7382-4df0-adf4-4e944b58988b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Combat\Effects">
       <UniqueIdentifier>{27b662b5-b76c-4d5d-855b-3fdac50821b4}</UniqueIdentifier>
     </Filter>
@@ -103,9 +100,6 @@
     <Filter Include="Engine\Quest\Objectives">
       <UniqueIdentifier>{09bbf179-6af8-46bd-afdd-962a2a9f7c52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Component\Transform">
-      <UniqueIdentifier>{8ab74c5d-a1f4-4082-bd58-21e73d38a049}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Input\Component">
       <UniqueIdentifier>{553e714f-775a-4530-a9c3-f83a214b42be}</UniqueIdentifier>
     </Filter>
@@ -126,12 +120,6 @@
     </Filter>
     <Filter Include="Engine\Quest\TODO: adjust timeObjective">
       <UniqueIdentifier>{b758b7dc-4323-489a-a82a-6dfef97c8a25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Resources">
-      <UniqueIdentifier>{c59c4ef0-1279-4306-aba4-ecfaeca4b5f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Resources\GameMode">
-      <UniqueIdentifier>{b63f0fd3-ff1a-4674-b2c8-6b5e8a00a591}</UniqueIdentifier>
     </Filter>
     <Filter Include="Unit Tests\Logger">
       <UniqueIdentifier>{e0f7a1ca-67cb-4af6-ad41-d473fc902de0}</UniqueIdentifier>
@@ -315,15 +303,6 @@
     <ClCompile Include="Project\World\LoadingStateMachine.cpp">
       <Filter>Engine\World</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Object\Transform.cpp">
-      <Filter>Engine\Object\Component\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Object\GameObject.cpp">
-      <Filter>Engine\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Object\BaseComponentDefiner.cpp">
-      <Filter>Engine\Object\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClCompile>
@@ -362,9 +341,6 @@
     </ClCompile>
     <ClCompile Include="Project\Combat\Effect.cpp">
       <Filter>Engine\Combat\Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Object\ObjectInstanceHandlerDefiner.cpp">
-      <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerStats.cpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
@@ -480,9 +456,6 @@
     <ClCompile Include="Project\Quest\ListObjective.cpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\SaveFile.cpp">
-      <Filter>Engine\File\SaveFile</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Input\PlayerController.cpp">
       <Filter>Engine\Input\Component</Filter>
     </ClCompile>
@@ -507,9 +480,6 @@
     <ClCompile Include="Project\Quest\TimeObjective.cpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Trigger\Trigger.cpp">
-      <Filter>Engine\Trigger</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Trigger\SpawnObjectTrigger.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
@@ -527,9 +497,6 @@
     </ClCompile>
     <ClCompile Include="Project\Trigger\QuestTrigger.cpp">
       <Filter>Engine\Trigger\Todo</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Resources\GameMode.cpp">
-      <Filter>Engine\Resources\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Project\Requirement\GameModeRequirement.cpp">
       <Filter>Engine\Requirement</Filter>
@@ -695,18 +662,6 @@
     <ClInclude Include="Project\World\LoadingStateMachine.hpp">
       <Filter>Engine\World</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Object\Transform.hpp">
-      <Filter>Engine\Object\Component\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\GameObject.hpp">
-      <Filter>Engine\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\IBaseComponent.hpp">
-      <Filter>Engine\Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\BaseComponent.hpp">
-      <Filter>Engine\Object\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\Render.hpp">
       <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
@@ -760,9 +715,6 @@
     </ClInclude>
     <ClInclude Include="Project\Combat\Effect.hpp">
       <Filter>Engine\Combat\Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\ObjectInstanceHandler.hpp">
-      <Filter>Engine\Object\ObjectInstanceHandler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
@@ -878,9 +830,6 @@
     <ClInclude Include="Project\Quest\ListObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClInclude>
-    <ClInclude Include="Project\File\SaveFile.hpp">
-      <Filter>Engine\File\SaveFile</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\Stats.hpp">
       <Filter>Engine\Graphics\UI\Stats</Filter>
     </ClInclude>
@@ -917,9 +866,6 @@
     <ClInclude Include="Project\Quest\TimeObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Trigger\Trigger.hpp">
-      <Filter>Engine\Trigger</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Trigger\SpawnObjectTrigger.hpp">
       <Filter>Engine\Trigger</Filter>
     </ClInclude>
@@ -944,20 +890,11 @@
     <ClInclude Include="Project\Requirement\DifficultyRequirement.hpp">
       <Filter>Engine\Requirement</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\DifficultyLevels.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Trigger\QuestTrigger.hpp">
       <Filter>Engine\Trigger\Todo</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Resources\GameMode.hpp">
-      <Filter>Engine\Resources\GameMode</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Requirement\GameModeRequirement.hpp">
       <Filter>Engine\Requirement</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Resources\GameModeModifier.hpp">
-      <Filter>Engine\Resources\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>

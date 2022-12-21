@@ -13,7 +13,7 @@ namespace Graphics::UI
 {
 	class PlayerStats : public Graphics::UI::UIContext
 	{
-		std::shared_ptr<Component::Stats> stats;
+		std::shared_ptr<of::object::component::Stats> stats;
 		PlayerBuffDebuff buffDebuff;
 		ActionBar actionBar;
 
@@ -26,7 +26,7 @@ namespace Graphics::UI
 	public:
 		PlayerStats();
 
-		void setPlayerStats(std::shared_ptr<Component::Stats> component);
+		void setPlayerStats(std::shared_ptr<of::object::component::Stats> component);
 
 		// Inherited via UIContext
 		virtual void readInput() override;

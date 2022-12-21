@@ -9,11 +9,14 @@
 
 #include <file/archive/Requestable.hpp>
 #include <glm/vec3.hpp>
-#include <Object/BaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 
-#include <Object/Transform.hpp>
+#include <object/component/Transform.hpp>
 
+namespace of::object
+{
 class GameObject;
+}
 
 namespace Asset::Resource
 {
@@ -21,10 +24,10 @@ namespace Asset::Resource
 	class Prefab : public of::file::archive::Requestable
 	{
 
-		void build(GameObject* object, const bool& isPlayerSummon) const;
+		void build(of::object::GameObject* object, const bool& isPlayerSummon) const;
 	public:
 	
-		std::vector<std::unique_ptr<Component::Base>> components;
+		std::vector<std::unique_ptr<of::object::component::Base>> components;
 		float spawnDistance;
 		Enums::ObjectState objectState = Enums::ObjectState::Active;
 
@@ -33,10 +36,10 @@ namespace Asset::Resource
 		Prefab();
 		Prefab(const Prefab& copy);
 
-		GameObject* createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
-		GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
-		GameObject* createNewInstance(GameObject* parent, const bool& isPlayerSummon = false) const;
-		void createNewPlayerInstance(GameObject& theObject);
+		of::object::GameObject* createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
+		of::object::GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
+		of::object::GameObject* createNewInstance(of::object::GameObject* parent, const bool& isPlayerSummon = false) const;
+		void createNewPlayerInstance(of::object::GameObject& theObject);
 
 		template <class Ar>
 		void save(Ar& ar) const

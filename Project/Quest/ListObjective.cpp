@@ -63,7 +63,7 @@ namespace Questing
 		}
 		QuestObjective::deactivateObjective();
 	}
-	size_t ListObjective::onEnemyDefeated(GameObject* go)
+	size_t ListObjective::onEnemyDefeated(of::object::GameObject* go)
 	{
 		for (auto& i : list)
 		{

@@ -9,7 +9,7 @@ namespace Trigger
             trigger->execute();
         }
     }
-    std::unique_ptr<Trigger> RequirementTrigger::clone() const
+    std::unique_ptr<of::resource::trigger::Trigger> RequirementTrigger::clone() const
     {
         auto p = std::unique_ptr<RequirementTrigger>(new RequirementTrigger);
         p->triggerOnce = triggerOnce;

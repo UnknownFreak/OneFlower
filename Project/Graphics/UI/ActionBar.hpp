@@ -13,13 +13,13 @@ namespace Graphics::UI
 	class ActionBar : public UIContext
 	{
 		std::map<Enums::CombatSkill, SkillIconChain> iconChains;
-		std::shared_ptr<Component::CombatComponent> combat = nullptr;
+		std::shared_ptr<of::object::component::CombatComponent> combat = nullptr;
 
 	public:
 
 		ActionBar();
 
-		void setPlayerCombatSkills(std::shared_ptr<Component::CombatComponent> combat);
+		void setPlayerCombatSkills(std::shared_ptr<of::object::component::CombatComponent> combat);
 
 		virtual void update() override;
 

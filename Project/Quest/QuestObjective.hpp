@@ -13,7 +13,10 @@
 #include <utils/common/string.hpp>
 #include "ObjectiveState.hpp"
 
-class GameObject;
+namespace of::object
+{
+	class GameObject;
+}
 
 namespace Items
 {
@@ -62,7 +65,7 @@ namespace Questing
 
 		Enums::QuestState objectiveState = Enums::QuestState::NOT_ACTIVE;
 
-		virtual size_t onEnemyDefeated(GameObject* go) = 0;
+		virtual size_t onEnemyDefeated(of::object::GameObject* go) = 0;
 		virtual size_t onItemPickUp(Items::Base* b) = 0;
 		virtual size_t onItemDropped(Items::Base* b) = 0;
 		virtual void activateObjective();

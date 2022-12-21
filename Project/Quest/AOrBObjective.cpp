@@ -45,7 +45,7 @@ namespace Questing
 		QuestObjective::deactivateObjective();
 	}
 
-	size_t AOrBObjective::onEnemyDefeated(GameObject* go)
+	size_t AOrBObjective::onEnemyDefeated(of::object::GameObject* go)
 	{
 		if (isActive())
 		{

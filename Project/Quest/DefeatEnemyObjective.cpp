@@ -4,7 +4,7 @@
 
 namespace Questing
 {
-	size_t DefeatEnemyObjective::onEnemyDefeated(GameObject* go)
+	size_t DefeatEnemyObjective::onEnemyDefeated(of::object::GameObject* go)
 	{
 		if (isActive() && (go->id == enemy || go->tag == tag))
 		{

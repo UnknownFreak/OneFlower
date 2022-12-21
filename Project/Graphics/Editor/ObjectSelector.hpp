@@ -13,8 +13,8 @@ namespace Graphics
 
 		class ObjectSelector : public Graphics::UI::UIContext
 		{
-			std::map<GameObject*, bool> objects;
-			GameObject* selected = nullptr;
+			std::map<of::object::GameObject*, bool> objects;
+			of::object::GameObject* selected = nullptr;
 		public:
 			ObjectSelector();
 

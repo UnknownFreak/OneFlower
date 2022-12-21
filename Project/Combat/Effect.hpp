@@ -11,7 +11,7 @@
 #include "EffectProperty.hpp"
 #include <Helpers/TickTimer.hpp>
 
-namespace Component
+namespace of::object::component
 {
 	class Stats;
 }
@@ -22,7 +22,7 @@ namespace Combat
 	{
 		Element getElement();
 	public:
-		std::shared_ptr<Component::Stats> owner;
+		std::shared_ptr<of::object::component::Stats> owner;
 
 		Effect();
 		of::common::String effectIcon = "EffectIconFrame.png";

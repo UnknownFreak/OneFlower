@@ -7,8 +7,8 @@
 #include <module/resource/TextureLoader.hpp>
 #include <Items/Inventory.hpp>
 
-Enums::ComponentType Component::IBase<PlayerInteractionPrompt>::typeID = Enums::ComponentType::PlayerInteraction;
-of::common::String Component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
+of::common::uuid of::object::component::IBase<PlayerInteractionPrompt>::typeID;
+of::common::String of::object::component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
 
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
@@ -17,6 +17,10 @@ PlayerInteractionPrompt::PlayerInteractionPrompt()
 }
 
 PlayerInteractionPrompt::PlayerInteractionPrompt(const PlayerInteractionPrompt& )
+{
+}
+
+void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message&)
 {
 }
 
@@ -53,21 +57,21 @@ bool PlayerInteractionPrompt::doInteraction(const Enums::InteractionOption& navi
 	return false;
 }
 
-void PlayerInteractionPrompt::attachOn(GameObject* go)
+void PlayerInteractionPrompt::attachOn(of::object::GameObject* go)
 {
 	Base::attachOn(go);
 }
 
-void PlayerInteractionPrompt::onCollision(GameObject* theCollidee)
+void PlayerInteractionPrompt::onCollision(of::object::GameObject* theCollidee)
 {
 	//auto& colliderType = theCollidee->colliderType;
 	//if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
 	{
 		
-		GameObject* theObject = theCollidee;
+		of::object::GameObject* theObject = theCollidee;
 		Dialog* dialogComponent = theObject->getComponent<Dialog>();
-		Component::LootDrop* theDrop = theObject->getComponent<Component::LootDrop>();
-		Component::LootContainer* theContainer = theObject->getComponent<Component::LootContainer>();
+		of::object::component::LootDrop* theDrop = theObject->getComponent<of::object::component::LootDrop>();
+		of::object::component::LootContainer* theContainer = theObject->getComponent<of::object::component::LootContainer>();
 		if (dialogComponent)
 		{
 			showPrompt = true;

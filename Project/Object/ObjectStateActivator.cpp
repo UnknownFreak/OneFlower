@@ -1,18 +1,24 @@
 #include "ObjectStateActivator.hpp"
-#include "GameObject.hpp"
-#include "ObjectInstanceHandler.hpp"
-#include <File/SaveFile.hpp>
 
-Enums::ComponentType Component::IBase<Component::ObjectStateActivator>::typeID = Enums::ComponentType::Activator;
-of::common::String Component::IBase<Component::ObjectStateActivator>::componentName = "Activator";
+#include <object/GameObject.hpp>
+#include <module/ObjectInstanceHandler.hpp>
+#include <module/SaveFile.hpp>
 
-namespace Component
+of::common::uuid of::object::component::IBase<of::object::component::ObjectStateActivator>::typeID = of::common::uuid("36d49da3-ef84-4856-8a1e-3bfd5fcb1898");
+of::common::String of::object::component::IBase<of::object::component::ObjectStateActivator>::componentName = "Activator";
+
+namespace of::object::component
 {
+
+	void ObjectStateActivator::onMessage(const of::object::messaging::Message&)
+	{
+	}
 
 	void ObjectStateActivator::toggle()
 	{
-		auto& saveFile = of::engine::GetModule<File::SaveFile>();
-		auto& handler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		saveFile;
+		auto& handler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		for (auto& [objectId, toggleState] : m_objectsToToggle)
 		{
 			if (handler.exists(objectId))
@@ -22,7 +28,8 @@ namespace Component
 					object->toggleObjectState();
 				else
 					object->toggleObjectState(toggleState);
-				saveFile.setObjectState(object->id, object->objectState);
+				// TODO: replace with ObjectStateSaveState
+				//saveFile.setObjectState(object->id, object->objectState);
 			}
 		}
 	}

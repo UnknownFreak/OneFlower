@@ -2,12 +2,12 @@
 #ifndef ModifyObjectActiveStateTrigger_HPP
 #define ModifyObjectActiveStateTrigger_HPP
 
-#include "Trigger.hpp"
+#include <resource/trigger/Trigger.hpp>
 #include <Helpers/Enum/ObjectState.hpp>
 
 namespace Trigger
 {
-	class ModifyObjectActiveState : public Trigger
+	class ModifyObjectActiveState : public of::resource::trigger::Trigger
 	{
 
 	public:

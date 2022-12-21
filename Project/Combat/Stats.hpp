@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-#include <Object/IBaseComponent.hpp>
+#include <object/component/IBaseComponent.hpp>
 #include <Helpers/Enum/Attribute.hpp>
 #include "Attribute.hpp"
 #include "MainAttribute.hpp"
@@ -13,11 +13,12 @@
 #include "Modifier.hpp"
 #include "EffectStack.hpp"
 
-namespace Component
+namespace of::object::component
 {
 
 	class Stats : public IBase<Stats>
 	{
+		float* speedModifier;
 		bool died = false;
 		const size_t maxLevel = 100;
 		size_t level = 1;
@@ -32,6 +33,8 @@ namespace Component
 		void recalculateStatValues(Combat::StatAttribute& attribute, const double& modifiedValue);
 		void recalculateStatChances(Combat::PercentualAttribute& attribute, const double& modifiedValue);
 		void recalculateStat(const Enums::Attribute& attribute, const double& modifiedValue);
+
+		virtual void onMessage(const messaging::Message& message) override;
 
 	public:
 		Combat::Element attunedTo;
@@ -58,8 +61,6 @@ namespace Component
 
 		//void addItemStat();
 
-		void detach() override;
-		void attachOn(GameObject* go);
 		// Inherited via IBase
 		virtual void onCollision(GameObject* the_collidee) override;
 
@@ -71,7 +72,7 @@ namespace Component
 	};
 
 }
-CEREAL_REGISTER_TYPE(Component::Stats);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Stats);
+CEREAL_REGISTER_TYPE(of::object::component::Stats);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Stats);
 
 #endif

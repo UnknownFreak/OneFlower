@@ -1,7 +1,7 @@
 #ifndef QuestTrigger_HPP
 #define QuestTrigger_HPP
 
-#include "Trigger.hpp"
+#include <resource/trigger/Trigger.hpp>
 
 #include <Helpers/Enum/QuestTriggerType.hpp>
 #include <Quest/Quest.hpp>
@@ -16,7 +16,7 @@ namespace Trigger
 		inline void progress(const of::file::FileId&) {};
 	};
 
-	class QuestTrigger : public Trigger
+	class QuestTrigger : public of::resource::trigger::Trigger
 	{
 		// Inherited via Trigger
 		virtual void executeInternal() override;

@@ -65,7 +65,7 @@ namespace Questing
 		void startNextObjectiveIfNotActive();
 		void resetCurrentObjective();
 
-		void onEnemyDefeated(GameObject* go);
+		void onEnemyDefeated(of::object::GameObject* go);
 		void onItemDropped(Items::Base* b);
 		void onItemPicked(Items::Base* b);
 		void interactWithNpc();

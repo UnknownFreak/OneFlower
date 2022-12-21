@@ -58,7 +58,7 @@ namespace Combat
 		of::common::String animation;
 		of::common::String iconTextureName;
 
-		void onSkillExecution(GameObject* owner);
+		void onSkillExecution(of::object::GameObject* owner);
 		void update(const float& dt);
 
 		Graphics::UI::SkillIconChain getChain();

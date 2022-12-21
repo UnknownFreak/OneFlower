@@ -1,13 +1,13 @@
 #ifndef RequirementTrigger_HPP
 #define RequirementTrigger_HPP
 
-#include "trigger.hpp"
+#include <resource/trigger/Trigger.hpp>
 
 #include <Requirement/Requirement.hpp>
 
 namespace Trigger
 {
-	class RequirementTrigger : public Trigger
+	class RequirementTrigger : public of::resource::trigger::Trigger
 	{
 		std::unique_ptr<Requirement::Requirement> requirement;
 		std::unique_ptr<Trigger> trigger;

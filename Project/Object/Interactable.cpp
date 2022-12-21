@@ -1,25 +1,26 @@
 #include "Interactable.hpp"
 #include <Object/GameObject.hpp>
 
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 
-Enums::ComponentType Component::IBase<Component::Interactable>::typeID = Enums::ComponentType::Interactable;
-of::common::String Component::IBase<Component::Interactable>::componentName = "Interactable";
+of::common::uuid of::object::component::IBase<of::object::component::Interactable>::typeID = of::common::uuid("4f6d8d08-5bec-475a-867c-5a42f3bdf285");
+of::common::String of::object::component::IBase<of::object::component::Interactable>::componentName = "Interactable";
 
-namespace Component
+namespace of::object::component
 {
 	bool Interactable::interact(const Object::Interaction& interaction)
 	{
+		using namespace of::object::messaging;
 		if (interaction.interactionRequirement.operator bool() &&
 			interaction.interactionRequirement->fullfilled())
 		{
 			interactionState = interaction.interactionState;
 
-			attachedOn->sendMessage("Anim", interaction.interactionAnimation);
+			attachedOn->post(Topic::of(Topics::SET_ANIMATION), std::make_shared<StringBody>(interaction.interactionAnimation));
 
 			if (interaction.interactionTrigger.operator bool())
 				interaction.interactionTrigger->execute();
-			auto& instanceHandler = of::engine::GetModule<EngineModule::ObjectInstanceHandler>();
+			auto& instanceHandler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 			for (auto& [objectId, toggleState, reverse, repeat] : interaction.interactions)
 			{
 				if (instanceHandler.exists(objectId))
@@ -28,7 +29,12 @@ namespace Component
 					if (toggleState)
 						object->toggleObjectState();
 					else
-						object->interact(reverse, repeat);
+					{
+						// TODO: fix message for interaction
+						//object->post()
+						//object->interact(reverse, repeat);
+					}
+						
 				}
 			}
 			return true;
@@ -37,9 +43,11 @@ namespace Component
 	}
 	void Interactable::interact(GameObject& interactable)
 	{
+		using namespace of::object::messaging;
 		auto& [normalInteraction, _] = interactions[interactionState];
 		if (interact(normalInteraction))
-			interactable.sendMessage("Anim", normalInteraction.actorAnimation);
+			interactable.post(Topic::of(Topics::SET_ANIMATION), std::make_shared<StringBody>(normalInteraction.actorAnimation));
+			//interactable.sendMessage("Anim", normalInteraction.actorAnimation);
 	}
 	void Interactable::interact(const bool& reverse, const short& repeat)
 	{

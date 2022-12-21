@@ -48,7 +48,6 @@ namespace of::object::component
 		virtual void Simulate(const float& dt) override;
 		virtual void onDeath() override;
 
-
 	};
 }
 

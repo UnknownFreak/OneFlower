@@ -14,7 +14,7 @@ namespace Questing
 		return QuestObjective::completeOrFailObjective(forceFail);
 	}
 
-	size_t DuelObjective::onEnemyDefeated(GameObject* go)
+	size_t DuelObjective::onEnemyDefeated(of::object::GameObject* go)
 	{
 		if (go->id == duel && isActive())
 			return completeObjective();

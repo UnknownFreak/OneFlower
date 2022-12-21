@@ -6,8 +6,10 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 
-Enums::ComponentType Component::IBase<Render>::typeID = Enums::ComponentType::Render;
-of::common::String Component::IBase<Render>::componentName = "Render";
+using namespace of::object;
+
+of::common::uuid component::IBase<Render>::typeID = of::common::uuid("206d37a1-aa09-44ff-bd7b-bfdd4b5a4b87"); 
+of::common::String component::IBase<Render>::componentName = "Render";
 
 void Render::loadAndSetModel()
 {
@@ -57,6 +59,10 @@ void Render::loadAndSetModel()
 	//wnd.getGfxContext()->submit(&temp, 1, nullptr);
 }
 
+void Render::onMessage(const of::object::messaging::Message&)
+{
+}
+
 Render::~Render()
 {
 	detach();
@@ -71,21 +77,21 @@ void Render::detach()
 	}
 }
 
-std::unique_ptr<Component::Base> Render::ucopy() const
+std::unique_ptr<of::object::component::Base> Render::ucopy() const
 {
 	return std::make_unique<Render>(*this);
 }
 
-void Render::attachOn(GameObject* go)
+void Render::attachOn(of::object::GameObject* go)
 {
 	Render::Base::attachOn(go);
 	//go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 	loadAndSetModel();
-	transform = go->getComponent<Component::Transform>();
+	transform = go->getComponent<of::object::component::Transform>();
 	of::engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 }
 
-void Render::onCollision(GameObject*)
+void Render::onCollision(of::object::GameObject*)
 {
 }
 

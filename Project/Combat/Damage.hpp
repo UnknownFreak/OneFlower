@@ -6,12 +6,13 @@
 
 #include <vector>
 
-#include <Object/IBaseComponent.hpp>
-#include <Object/Transform.hpp>
+#include <object/component/IBaseComponent.hpp>
+#include <object/component/Transform.hpp>
+#include "Stats.hpp"
 #include <Combat/Effect.hpp>
 #include <Helpers/TickTimer.hpp>
 
-namespace Component
+namespace of::object::component
 {
 
 	class Damage : public IBase<Damage>
@@ -26,6 +27,8 @@ namespace Component
 		Combat::Element damageElement;
 
 		void loadEffects();
+
+		virtual void onMessage(const of::object::messaging::Message& message) override;
 
 	public:
 		std::vector<of::file::FileId> effectsIds;
@@ -45,7 +48,7 @@ namespace Component
 		float speed;
 		double damageCoef;
 	public:
-		std::shared_ptr<Component::Stats> owner;
+		std::shared_ptr<of::object::component::Stats> owner;
 
 		void setDirection(const glm::vec2& direction, const float& speed);
 		void attachOn(GameObject* go);
@@ -94,6 +97,6 @@ namespace Component
 		}
 	};
 }
-CEREAL_REGISTER_TYPE(Component::Damage);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::Damage);
+CEREAL_REGISTER_TYPE(of::object::component::Damage);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Damage);
 #endif

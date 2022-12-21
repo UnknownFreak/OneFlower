@@ -1,21 +1,25 @@
 #include "LootContainer.hpp"
 
 #include <file/Handler.hpp>
-#include <File/SaveFile.hpp>
+#include <module/SaveFile.hpp>
 
-#include <Object/ObjectInstanceHandler.hpp>
+#include <module/ObjectInstanceHandler.hpp>
 #include <Graphics/Render.hpp>
 #include <Items/Inventory.hpp>
 
-Enums::ComponentType Component::IBase<Component::LootContainer>::typeID = Enums::ComponentType::LootContainer;
-of::common::String Component::IBase<Component::LootContainer>::componentName = "LootContainer";
+of::common::uuid of::object::component::IBase<of::object::component::LootContainer>::typeID;
+of::common::String of::object::component::IBase<of::object::component::LootContainer>::componentName = "LootContainer";
 
 
-namespace Component
+namespace of::object::component
 {
+	void component::LootContainer::onMessage(const of::object::messaging::Message&)
+	{
+	}
 	void LootContainer::setLooted()
 	{
-		looted = of::engine::GetModule<File::SaveFile>().isLooted(attachedOn->id);
+		//TODO: replace with LootedSaveState
+		//looted = of::engine::GetModule<of::module::SaveFile>().isLooted(attachedOn->id);
 	}
 
 	void LootContainer::loot(GameObject* object)
@@ -24,11 +28,14 @@ namespace Component
 		// play loot animation
 		// set containerId looted in saveState;
 		if (isStaticContainer)
-			of::engine::GetModule<File::SaveFile>().setLooted(attachedOn->id);
+		{
+			// TODO: replace with LootedSaveState
+			//of::engine::GetModule<of::module::SaveFile>().setLooted(attachedOn->id);
+		}
 		for (auto& x : lootDrops)
 		{
 			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
-			object->getComponent<Component::Inventory>()->addItem(tmp, x.second);
+			object->getComponent<of::object::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
 

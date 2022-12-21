@@ -2,20 +2,16 @@
 #ifndef Interactable_HPP
 #define Interactable_HPP
 
-#include "IBaseComponent.hpp"
+#include <object/component/IBaseComponent.hpp>
 #include "Interaction.hpp"
 
-namespace Object
+namespace of::object::component
 {
-	class GameObject;
-}
-
-namespace Component
-{
-	struct Interactable : public Component::IBase<Interactable>
+	struct Interactable : public of::object::component::IBase<Interactable>
 	{
 
 		bool interact(const Object::Interaction& interaction);
+		virtual void onMessage(const of::object::messaging::Message& message) override;
 
 	public:
 

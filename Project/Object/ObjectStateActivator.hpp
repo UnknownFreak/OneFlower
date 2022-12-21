@@ -3,16 +3,22 @@
 #define ObjectStateActivator_HPP
 
 #include <cereal/cereal.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/utility.hpp>
+
 #include <cereal/types/polymorphic.hpp>
 
 #include <Helpers/Enum/ObjectState.hpp>
 #include <utils/common/uuid.hpp>
-#include "IBaseComponent.hpp"
+#include <object/component/IBaseComponent.hpp>
 
-namespace Component
+namespace of::object::component
 {
-	struct ObjectStateActivator : public Component::IBase<ObjectStateActivator>
+	struct ObjectStateActivator : public of::object::component::IBase<ObjectStateActivator>
 	{
+
+		virtual void onMessage(const of::object::messaging::Message& message) override;
+
 	public:
 		std::vector<std::pair<of::common::uuid, Enums::ObjectState>> m_objectsToToggle;
 
@@ -50,7 +56,7 @@ namespace Component
 	};
 }
 
-CEREAL_REGISTER_TYPE(Component::ObjectStateActivator);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Component::Base, Component::ObjectStateActivator);
+CEREAL_REGISTER_TYPE(of::object::component::ObjectStateActivator);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::ObjectStateActivator);
 
 #endif

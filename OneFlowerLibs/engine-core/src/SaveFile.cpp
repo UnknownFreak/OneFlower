@@ -13,6 +13,10 @@ of::module::EngineResourceType of::module::interface::IEngineResource<of::module
 namespace of::module
 {
 
+	void SaveFile::setPlayerInfo()
+	{
+
+	}
 
 	void SaveFile::setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state)
 	{

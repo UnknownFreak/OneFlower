@@ -25,7 +25,7 @@ namespace File::Asset::Resource::Template
 		of::common::uuid objectId;
 		glm::vec3 location;
 
-		Component::ObjectStateActivator activationInfo;
+		of::object::component::ObjectStateActivator activationInfo;
 
 		template<class Archive>
 		void save(Archive& ar) const
