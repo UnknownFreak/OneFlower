@@ -5,7 +5,6 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include "IBaseComponent.hpp"
-//#include <Combat/Stats.hpp>
 
 namespace of::object::component
 {
@@ -16,7 +15,6 @@ namespace of::object::component
 		// Inherited via IBase
 		virtual void onMessage(const messaging::Message& message) override;
 	public:
-		//Component::Stats* stats = nullptr;
 		float speedModifier = 1.f;
 		bool moving;
 		bool falling;

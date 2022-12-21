@@ -14,7 +14,7 @@ namespace of::object::messaging
 		inline Topic(const of::common::String& topic) : topic(topic) {}
 	public:
 		inline static Topic of(const of::common::String& topic) { return Topic(topic); };
-		inline static Topic of(const Topics& type) { return Topic::of(to_string(type)); };
+		inline static Topic of(const Topics& topic) { return Topic::of(to_string(topic)); };
 
 		inline bool operator==(const Topic& other) { return topic == other.topic; }
 
