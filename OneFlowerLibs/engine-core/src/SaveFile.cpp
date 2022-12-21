@@ -5,6 +5,7 @@
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/archives/binary.hpp>
 
+#include <module/ObjectInstanceHandler.hpp>
 #include <module/ModuleManager.hpp>
 #include <module/logger/OneLogger.hpp>
 
@@ -15,7 +16,8 @@ namespace of::module
 
 	void SaveFile::setPlayerInfo()
 	{
-
+		auto& objectHandler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		objectHandler.player = &player;
 	}
 
 	void SaveFile::setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state)

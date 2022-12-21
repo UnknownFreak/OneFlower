@@ -468,7 +468,11 @@ namespace of::file::archive
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)
 			{
-				if(it->second->objectType == objectType)
+				if (it->second.operator bool() == false)
+				{
+					of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor").Error("Found empty object in requestor" + it->first.operator()());
+				}
+				else if(it->second.operator bool() && it->second->objectType == objectType)
 					listofall.push_back(it->first);
 			}
 			return listofall;

@@ -2,6 +2,7 @@
 #define Damage_HPP
 
 #include <cereal/cereal.hpp>
+#include <cereal/archives/binary.hpp>
 #include <cereal/types/polymorphic.hpp>
 
 #include <vector>
@@ -97,6 +98,6 @@ namespace of::object::component
 		}
 	};
 }
-CEREAL_REGISTER_TYPE(of::object::component::Damage);
+CEREAL_REGISTER_TYPE_WITH_NAME(of::object::component::Damage, "Component::Damage");
 CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Damage);
 #endif
