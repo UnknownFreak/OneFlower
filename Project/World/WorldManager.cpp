@@ -468,7 +468,7 @@ void WorldManager::load(const of::common::String& fileName)
 void WorldManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition)
 {
 	isLoading = true;
-	EngineModule::Time& time = of::engine::GetModule<EngineModule::Time>();
+	of::module::Time& time = of::engine::GetModule<of::module::Time>();
 	time.getTimer(Globals::LOADING_TIMER).reset();
 	time.getTimer(Globals::TOTAL_TIME_LOADED).reset();
 
@@ -480,7 +480,7 @@ void WorldManager::Update()
 {
 	if (isLoading)
 	{
-		auto timer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::LOADING_TIMER);
+		auto timer = of::engine::GetModule<of::module::Time>().getTimer(Globals::LOADING_TIMER);
 		timer.reset();
 		while (timer.secondsAsFloat() < 0.05f && isLoading)
 		{

@@ -8,14 +8,13 @@
 #include <file/FileId.hpp>
 
 #include <utils/common/String.hpp>
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 #include <module/IEngineModule.hpp>
-#include <Interfaces/ISimulatable.hpp>
 
-namespace EngineModule
+namespace of::module
 {
 
-	class Time : public of::module::interface::IEngineResource<Time>, Interfaces::ISimulatable
+	class Time : public of::module::interface::IEngineResource<Time>
 	{
 		std::mutex mtx;
 	public:
@@ -28,9 +27,9 @@ namespace EngineModule
 		bool time(const of::common::String&, const double& msec);
 		void remove(const of::common::String& name);
 
-		void addTicKTimer(const of::file::FileId& timerId, const Core::TickTimer& timer);
+		void addTicKTimer(const of::file::FileId& timerId, const resource::TickTimer& timer);
 		bool exists(const of::file::FileId& timerId) const;
-		Core::TickTimer& getTickTimer(const of::file::FileId& timerId);
+		resource::TickTimer& getTickTimer(const of::file::FileId& timerId);
 		void removeTimer(const of::file::FileId& timerId);
 
 		const float update_ms = 1.f / 60.f;
@@ -49,13 +48,11 @@ namespace EngineModule
 	private:
 		utils::HighResolutionClock timer;
 
-		//LOW: Put this in Definer to avoid include of Map:String?
 		std::unordered_map<of::common::String, utils::HighResolutionClock> timers;
-		std::unordered_map<of::file::FileId, Core::TickTimer> tickTimers;
+		std::unordered_map<of::file::FileId, resource::TickTimer> tickTimers;
 
 	public:
-		// Inherited via ISimulatable
-		virtual void Simulate(const float& fElapsedTime) override;
+		virtual void Simulate(const float& fElapsedTime);
 
 	};
 }

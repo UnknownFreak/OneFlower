@@ -1,8 +1,10 @@
-#include "OneTime.hpp"
-#include <Module\ModuleManager.hpp>
+#include <module/OneTime.hpp>
+#include <module/ModuleManager.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::Time>::type = of::module::EngineResourceType::Time;
-namespace EngineModule
+
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Time>::type = of::module::EngineResourceType::Time;
+
+namespace of::module
 {
 	Time::Time() : timer(), clock(), elapsed(), physicsElapsed()
 	{
@@ -52,7 +54,7 @@ namespace EngineModule
 	{
 		timers.erase(name);
 	}
-	void Time::addTicKTimer(const of::file::FileId& timerId, const Core::TickTimer& tickTimer)
+	void Time::addTicKTimer(const of::file::FileId& timerId, const resource::TickTimer& tickTimer)
 	{
 		mtx.lock();
 		tickTimers[timerId] = tickTimer;
@@ -62,7 +64,7 @@ namespace EngineModule
 	{
 		return tickTimers.find(timerId) != tickTimers.end();
 	}
-	Core::TickTimer& Time::getTickTimer(const of::file::FileId& timerId)
+	resource::TickTimer& Time::getTickTimer(const of::file::FileId& timerId)
 	{
 		return tickTimers.at(timerId);
 	}

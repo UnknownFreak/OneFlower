@@ -300,6 +300,9 @@
     <ProjectReference Include="OneFlowerLibs\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
       <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\time\time.vcxproj">
+      <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
+    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
@@ -363,7 +366,6 @@
     <ClCompile Include="Project\Graphics\Window.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
-    <ClCompile Include="Project\Helpers\TickTimer.cpp" />
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
     <ClCompile Include="Project\imgui\imgui_stdlib.cpp" />
@@ -381,7 +383,6 @@
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
     <ClCompile Include="Project\Module\Globals.cpp" />
-    <ClCompile Include="Project\Module\OneTimeDefiner.cpp" />
     <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
     <ClCompile Include="Project\Object\Interactable.cpp" />
     <ClCompile Include="Project\Quest\AOrBObjective.cpp" />
@@ -508,7 +509,6 @@
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
     <ClInclude Include="Project\Helpers\Rect.hpp" />
-    <ClInclude Include="Project\Helpers\TickTimer.hpp" />
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />
     <ClInclude Include="Project\imgui\imgui_stdlib.hpp" />
@@ -538,7 +538,6 @@
     <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp" />
     <ClInclude Include="Project\Module\BuildMode.hpp" />
     <ClInclude Include="Project\Module\Globals.hpp" />
-    <ClInclude Include="Project\Module\OneTime.hpp" />
     <ClInclude Include="Project\Module\BuildVersion.hpp" />
     <ClInclude Include="Project\Object\Interaction.hpp" />
     <ClInclude Include="Project\Object\ObjectStateActivator.hpp" />

@@ -3,7 +3,7 @@
 
 #include <utils/common/string.hpp>
 
-namespace Core
+namespace of::resource
 {
 
 	struct TickTimerInfo

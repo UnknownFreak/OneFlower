@@ -249,9 +249,6 @@
     <ClCompile Include="Project\Tests\TimeUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Module\OneTimeDefiner.cpp">
-      <Filter>Engine\Module\Time</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\BaseInputHandlerUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
@@ -516,9 +513,6 @@
     <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp">
       <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Helpers\TickTimer.cpp">
-      <Filter>Engine\Helpers\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
@@ -592,9 +586,6 @@
     </ClInclude>
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp">
       <Filter>Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Module\OneTime.hpp">
-      <Filter>Engine\Module\Time</Filter>
     </ClInclude>
     <ClInclude Include="Project\Input\InputHandler.hpp">
       <Filter>Engine\Input</Filter>
@@ -910,9 +901,6 @@
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp">
       <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\TickTimer.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Rect.hpp">
       <Filter>Engine\Helpers\Core</Filter>

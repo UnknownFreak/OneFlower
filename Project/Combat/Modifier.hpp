@@ -3,7 +3,7 @@
 
 #include <utils/common/uuid.hpp>
 #include <Helpers/Enum/Attribute.hpp>
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 
 namespace Combat
 {
@@ -11,7 +11,7 @@ namespace Combat
 	{
 		Enums::Attribute attributeToModify;
 		bool inf;
-		Core::TickTimer duration;
+		of::resource::TickTimer duration;
 		double statModification;
 		of::common::uuid modifierId;
 		inline bool operator==(const Modifier& other)

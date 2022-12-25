@@ -20,7 +20,7 @@
 
 GameEntry::GameEntry() : 
 	gfx(of::engine::GetModule<Graphics::RenderWindow>()),
-	time(of::engine::GetModule<EngineModule::Time>()),
+	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<Input::InputHandler>()),
 	world(gfx),
 	console(of::engine::GetModule<Console>()), m_exit(false)

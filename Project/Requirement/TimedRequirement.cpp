@@ -31,7 +31,7 @@ namespace Requirement
 	{
 		if (timerInfo.started || timerInfo.finished)
 		{
-			auto& timer = of::engine::GetModule<EngineModule::Time>();
+			auto& timer = of::engine::GetModule<of::module::Time>();
 			if (timer.exists(timerId))
 			{
 				auto& tickTimer = timer.getTickTimer(timerId);
@@ -56,7 +56,7 @@ namespace Requirement
 	void TimedRequirement::start()
 	{
 		if (!timerInfo.finished)
-			of::engine::GetModule<EngineModule::Time>().addTicKTimer(timerId, Core::TickTimer::from(timerInfo));
+			of::engine::GetModule<of::module::Time>().addTicKTimer(timerId, of::resource::TickTimer::from(timerInfo));
 		timerInfo.started = true;
 	}
 
@@ -72,7 +72,7 @@ namespace Requirement
 	void TimedRequirement::stop()
 	{
 		timerInfo.started = false;
-		of::engine::GetModule<EngineModule::Time>().removeTimer(timerId);
+		of::engine::GetModule<of::module::Time>().removeTimer(timerId);
 	}
 
 	std::unique_ptr<Requirement> TimedRequirement::clone() const

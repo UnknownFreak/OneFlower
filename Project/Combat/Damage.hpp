@@ -11,7 +11,7 @@
 #include <object/component/Transform.hpp>
 #include "Stats.hpp"
 #include <Combat/Effect.hpp>
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 
 namespace of::object::component
 {
@@ -41,9 +41,9 @@ namespace of::object::component
 		bool eachTargetUnique;
 		bool killWhenMaxTargetsHit;
 
-		Core::TickTimer timeToLive;
+		of::resource::TickTimer timeToLive;
 
-		Core::TickTimer intervalPerHit;
+		of::resource::TickTimer intervalPerHit;
 		bool canLockNextFrame;
 		glm::vec2 direction;
 		float speed;

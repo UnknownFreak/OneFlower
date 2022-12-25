@@ -68,7 +68,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Console>().type));
 	mainModule.Info("Initializing Modules group: Core");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Globals>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::Time>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::Time>().type));
 
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));

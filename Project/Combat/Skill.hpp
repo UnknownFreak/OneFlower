@@ -14,7 +14,7 @@
 
 #include "Effect.hpp"
 #include "Element.hpp"
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 
 class GameObject;
 
@@ -50,7 +50,7 @@ namespace Combat
 
 		of::file::FileId elementId;
 		Combat::Element element;
-		Core::TickTimer coolDown;
+		of::resource::TickTimer coolDown;
 		double cost;
 		bool summon;
 		bool onSelf;

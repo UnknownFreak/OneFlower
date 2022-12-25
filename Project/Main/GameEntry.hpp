@@ -11,7 +11,7 @@ class GameEntry
 {
 	bool m_exit;
 	Graphics::RenderWindow& gfx;
-	EngineModule::Time& time;
+	of::module::Time& time;
 	Input::InputHandler& input;
 	Console& console;
 	

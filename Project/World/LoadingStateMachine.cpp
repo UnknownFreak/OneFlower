@@ -33,7 +33,7 @@ void LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::fil
 	playerPos = playerPosition;
 	auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
 	logger.Info("Begin loading world " + world(),logger.fileInfo( __FILE__, __LINE__));
-	of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).reset();
+	of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).reset();
 }
 
 void LoadingStateMachine::load()
@@ -51,7 +51,7 @@ void LoadingStateMachine::load()
 		gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreenInfo, std::make_unique<Graphics::UI::LoadingScreenInfo>(loadstate));
 		gfx.ui.showLoadingScreenOnly = true;
 		loadingScreenInfoPtr = gfx.ui.getUIContext<Graphics::UI::LoadingScreenInfo>(Enums::UIContextNames::LoadingScreenInfo);
-		loadingScreenInfoPtr->loadScreenSetupTime = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+		loadingScreenInfoPtr->loadScreenSetupTime = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 		loadstate = Enums::LoadingState::BEGIN_LOAD;
 		break;
 	
@@ -83,7 +83,7 @@ void LoadingStateMachine::load()
 		buffer.clear();
 		//gfx.mtx.unlock();
 
-		loadingScreenInfoPtr->instanceLoadTime = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+		loadingScreenInfoPtr->instanceLoadTime = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 		loadstate = Enums::LoadingState::UNLOAD_OLD_OBJECTS;
 		break;
 	}
@@ -100,7 +100,7 @@ void LoadingStateMachine::load()
 	//
 	//	if (loadingScreenInfoPtr->currentAtlasCount == loadingScreenInfoPtr->totalAtlasCount)
 	//	{
-	//		loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+	//		loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 	//		loadstate = Enums::LoadingState::LOADING_PREFABS;
 	//	}
 	//	else
@@ -108,7 +108,7 @@ void LoadingStateMachine::load()
 	//		Engine::GetModule<File::Asset::Manager>().requestor.request<File::Resource::Texture::TileAtlas>(instanceToLoad.tileAtlases[loadingScreenInfoPtr->currentAtlasCount]);
 	//		loadingScreenInfoPtr->currentAtlasCount++;
 	//		loadingScreenInfoPtr->currentLoadCount++;
-	//		loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+	//		loadingScreenInfoPtr->atlasLoadTimer = Engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 	//	}
 		break;
 	}
@@ -116,7 +116,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentPrefabCount == loadingScreenInfoPtr->totalPrefabCount)
 		{
-			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 			loadstate = Enums::LoadingState::LOADING_TILES;
 		}
 		else
@@ -124,7 +124,7 @@ void LoadingStateMachine::load()
 			of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
 			loadingScreenInfoPtr->currentPrefabCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 		break;
 	}
@@ -132,7 +132,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentTileCount == loadingScreenInfoPtr->totalTileCount)
 		{
-			loadingScreenInfoPtr->tileLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingScreenInfoPtr->tileLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 			loadstate = Enums::LoadingState::BUILDING_TILEMAP;
 		}
 		else
@@ -140,7 +140,7 @@ void LoadingStateMachine::load()
 			of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::TileChunk>(instanceToLoad.tileInfo[loadingScreenInfoPtr->currentTileCount]);
 			loadingScreenInfoPtr->currentTileCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->tileLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->tileLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 		break;
@@ -148,7 +148,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentTileBuildingCount == loadingScreenInfoPtr->totalTileBuildingCount)
 		{
-			loadingScreenInfoPtr->tileBuildLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);;
+			loadingScreenInfoPtr->tileBuildLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);;
 			loadstate = Enums::LoadingState::LOADING_COLLIDERS;
 		}
 		else
@@ -163,7 +163,7 @@ void LoadingStateMachine::load()
 			}
 			loadingScreenInfoPtr->currentTileBuildingCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->tileBuildLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->tileBuildLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 	break;
@@ -171,7 +171,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentColliderCount == loadingScreenInfoPtr->totalColliderCount)
 		{
-			loadingScreenInfoPtr->colliderLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);;
+			loadingScreenInfoPtr->colliderLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);;
 			loadstate = Enums::LoadingState::BUILD_COLLIDERS;
 		}
 		else
@@ -179,7 +179,7 @@ void LoadingStateMachine::load()
 			of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::ColliderChunk>(instanceToLoad.colliderInfo[loadingScreenInfoPtr->currentColliderCount]);
 			loadingScreenInfoPtr->currentColliderCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->colliderLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->colliderLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 	break;
@@ -187,7 +187,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentColliderBuildingCount == loadingScreenInfoPtr->totalColliderBuildingCount)
 		{
-			loadingScreenInfoPtr->colliderBuildingLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingScreenInfoPtr->colliderBuildingLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 			loadstate = Enums::LoadingState::PRE_BUILDING_OBJECTS;
 		}
 		else
@@ -200,7 +200,7 @@ void LoadingStateMachine::load()
 			}
 			loadingScreenInfoPtr->currentColliderBuildingCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->colliderBuildingLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->colliderBuildingLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 	break;
@@ -209,7 +209,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentObjectPartCount == loadingScreenInfoPtr->totalObjectPartCount)
 		{
-			loadingScreenInfoPtr->objectPartLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingScreenInfoPtr->objectPartLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 			loadstate = Enums::LoadingState::BUILDING_OBJECTS;
 		}
 		else
@@ -230,7 +230,7 @@ void LoadingStateMachine::load()
 			}
 			loadingScreenInfoPtr->currentObjectPartCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->objectPartLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->objectPartLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 		//loadstate = Enums::LoadingState::BUILDING_OBJECTS;
@@ -240,7 +240,7 @@ void LoadingStateMachine::load()
 	{
 		if (loadingScreenInfoPtr->currentObjectPartCount == loadingScreenInfoPtr->totalObjectCount)
 		{
-			loadingScreenInfoPtr->objectLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingScreenInfoPtr->objectLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 			loadstate = Enums::LoadingState::DONE;
 		}
 		else
@@ -254,7 +254,7 @@ void LoadingStateMachine::load()
 
 			loadingScreenInfoPtr->currentObjectCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
-			loadingScreenInfoPtr->objectLoadTimer = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingScreenInfoPtr->objectLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
 	//loadstate = Enums::LoadingState::BUILDING_OBJECTS;
@@ -276,7 +276,7 @@ void LoadingStateMachine::load()
 			gfx.ui.removeUIContext(Enums::UIContextNames::LoadingScreenInfo);
 			gfx.ui.showLoadingScreenOnly = false;
 			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
-			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
+			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
 		}
 		// TODO: replace with GameObject MessageTopic SetPosition
 		of::engine::GetModule<of::module::ObjectInstanceHandler>().player->getComponent<of::object::component::Transform>()->pos = playerPos;
@@ -290,7 +290,7 @@ void LoadingStateMachine::load()
 	}
 	if (loadingScreenInfoPtr)
 	{
-		loadingScreenInfoPtr->totalLoadTime = of::engine::GetModule<EngineModule::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat();
+		loadingScreenInfoPtr->totalLoadTime = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED).secondsAsFloat();
 		loadingScreenInfoPtr->update();
 	}
 }

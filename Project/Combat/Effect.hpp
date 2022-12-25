@@ -9,7 +9,7 @@
 #include <file/archive/Requestable.hpp>
 #include "Element.hpp"
 #include "EffectProperty.hpp"
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 
 namespace of::object::component
 {
@@ -31,8 +31,8 @@ namespace Combat
 		Enums::EffectType effectType;
 		std::shared_ptr<EffectProperty> theEffect;
 
-		Core::TickTimer effectTime;
-		Core::TickTimer tickDelay;
+		of::resource::TickTimer effectTime;
+		of::resource::TickTimer tickDelay;
 		bool hideFromBuffsUI;
 
 		// Inherited via IRequestable

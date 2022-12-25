@@ -2,7 +2,7 @@
 #define TimedRequirement_HPP
 
 #include <file/FileId.hpp>
-#include <Helpers/TickTimer.hpp>
+#include <resource/TickTimer.hpp>
 #include "Requirement.hpp"
 
 namespace Requirement
@@ -15,7 +15,7 @@ namespace Requirement
 		~TimedRequirement();
 		bool fullfilledIftimeRanOut;
 		of::file::FileId timerId;
-		Core::TickTimerInfo timerInfo;
+		of::resource::TickTimerInfo timerInfo;
 		// Inherited via Requirement
 		virtual bool fullfilled() override;
 
