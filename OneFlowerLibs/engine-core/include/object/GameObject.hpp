@@ -20,12 +20,17 @@
 
 namespace of::object
 {
+	class ObjectSaveState;
+
 	class GameObject
 	{
 		friend class component::Base;
 		bool unloading = false;
 
 		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;
+
+		void putObjectState() const;
+		void retreiveObjectState();
 
 	public:
 		of::common::uuid id;
@@ -128,6 +133,8 @@ namespace of::object
 			componentMap.erase(type_id);
 			return true;
 		}
+
+		ObjectSaveState* getCurrentSaveState();
 
 		template <class Archive>
 		void save(Archive& ar) const

@@ -1,6 +1,7 @@
 #include <object/component/ObjectStateActivator.hpp>
 
 #include <object/GameObject.hpp>
+
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 
@@ -14,10 +15,15 @@ namespace of::object::component
 	{
 	}
 
-	void ObjectStateActivator::toggle()
+	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId, const Enums::ObjectState& toggle)
 	{
 		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 		saveFile;
+	}
+
+	void ObjectStateActivator::toggle()
+	{
+
 		auto& handler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		for (auto& [objectId, toggleState] : m_objectsToToggle)
 		{
@@ -28,8 +34,13 @@ namespace of::object::component
 					object->toggleObjectState();
 				else
 					object->toggleObjectState(toggleState);
-				// TODO: replace with ObjectStateSaveState
-				//saveFile.setObjectState(object->id, object->objectState);
+			}
+			else
+			{
+				if (toggleState != Enums::ObjectState::Toggle)
+				{
+					pushObjectSaveState(objectId, toggleState);
+				}
 			}
 		}
 	}

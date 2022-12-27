@@ -7,7 +7,11 @@
 //#include <Graphics/PlayerInteractionPrompt.hpp>
 
 #include <module/ObjectInstanceHandler.hpp>
+#include <module/SaveFile.hpp>
+
 #include <object/component/Transform.hpp>
+#include <object/ObjectSaveState.hpp>
+
 //#include "Interactable.hpp"
 
 namespace of::object
@@ -42,6 +46,7 @@ namespace of::object
 	GameObject::GameObject() noexcept
 	{
 		addComponent<component::Transform>();
+		retreiveObjectState();
 	}
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{
@@ -51,6 +56,7 @@ namespace of::object
 			x.second.get()->attachOn(this);
 		}
 		copy.componentMap.clear();
+		retreiveObjectState();
 	}
 	GameObject::GameObject(const GameObject& copy) noexcept
 	{
@@ -58,6 +64,7 @@ namespace of::object
 		{
 			AddComponent(x.second->copy());
 		}
+		retreiveObjectState();
 	}
 
 	GameObject& GameObject::operator=(const GameObject& copy) noexcept
@@ -73,6 +80,7 @@ namespace of::object
 			AddComponent(x.second->copy());
 		}
 		reAttach();
+		retreiveObjectState();
 		return *this;
 	}
 
@@ -131,6 +139,7 @@ namespace of::object
 			objectState = newState;
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
+
 			//
 			//Component::ObjectStateActivator* c = getComponent<Component::ObjectStateActivator>();
 			//if (c)
@@ -148,7 +157,7 @@ namespace of::object
 			//	c->toggle();
 			//}
 		}
-
+		putObjectState();
 	}
 
 	void GameObject::onCollision(GameObject* collider)
@@ -267,5 +276,41 @@ namespace of::object
 			componentToAdd->attachOn(this);
 		}
 		return componentToAdd;
+	}
+
+	ObjectSaveState* GameObject::getCurrentSaveState()
+	{
+		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		of::file::FileId tmp(id);
+		if (!saveFile.exists(tmp))
+		{
+			saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
+		}
+		auto state = saveFile.getState<ObjectSaveState>(tmp);
+		state->objectState = objectState;
+		return state;
+	}
+
+	void GameObject::putObjectState() const
+	{
+		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		of::file::FileId tmp(id);
+		if (!saveFile.exists(tmp))
+		{
+			saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
+		}
+		auto state = saveFile.getState<ObjectSaveState>(tmp);
+		state->objectState = objectState;
+	}
+
+	void GameObject::retreiveObjectState()
+	{
+		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		of::file::FileId tmp(id);
+		if (saveFile.exists(tmp))
+		{
+			auto state = saveFile.getState<ObjectSaveState>(tmp);
+			objectState = state->objectState;
+		}
 	}
 };

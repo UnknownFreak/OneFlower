@@ -10,6 +10,7 @@ namespace Enums
 		Active,
 		Inactive,
 		Toggle,
+		Undefined,
 	};
 }
 
