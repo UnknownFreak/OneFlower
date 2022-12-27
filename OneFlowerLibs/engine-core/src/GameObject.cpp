@@ -46,7 +46,6 @@ namespace of::object
 	GameObject::GameObject() noexcept
 	{
 		addComponent<component::Transform>();
-		retreiveObjectState();
 	}
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{
@@ -56,7 +55,6 @@ namespace of::object
 			x.second.get()->attachOn(this);
 		}
 		copy.componentMap.clear();
-		retreiveObjectState();
 	}
 	GameObject::GameObject(const GameObject& copy) noexcept
 	{
@@ -64,7 +62,6 @@ namespace of::object
 		{
 			AddComponent(x.second->copy());
 		}
-		retreiveObjectState();
 	}
 
 	GameObject& GameObject::operator=(const GameObject& copy) noexcept

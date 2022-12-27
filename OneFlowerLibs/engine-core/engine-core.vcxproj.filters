@@ -101,6 +101,9 @@
     <ClInclude Include="include\object\component\ObjectStateActivator.hpp">
       <Filter>include\object\component</Filter>
     </ClInclude>
+    <ClInclude Include="include\object\ObjectSaveState.hpp">
+      <Filter>include\object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">
@@ -132,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="src\ObjectStateActivator.cpp">
       <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectSaveState.cpp">
+      <Filter>src\object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
