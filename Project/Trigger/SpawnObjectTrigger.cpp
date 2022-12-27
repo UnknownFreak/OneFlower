@@ -1,13 +1,13 @@
 #include "SpawnObjectTrigger.hpp"
 
 #include <file/Handler.hpp>
-#include <File/Asset/Resource/Prefab.hpp>
+#include <resource/Prefab.hpp>
 
 namespace Trigger
 {
 	void SpawnObjectTrigger::executeInternal()
 	{
-		auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestShared<Asset::Resource::Prefab>(prefabId);
+		auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestShared<of::resource::Prefab>(prefabId);
 		prefab->createNewInstance(position);
 	}
 	std::unique_ptr<of::resource::trigger::Trigger> SpawnObjectTrigger::clone() const

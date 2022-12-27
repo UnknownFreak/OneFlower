@@ -147,6 +147,7 @@
     <ClInclude Include="include\resource\DifficultyLevel.hpp" />
     <ClInclude Include="include\resource\GameMode.hpp" />
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
+    <ClInclude Include="include\resource\Prefab.hpp" />
     <ClInclude Include="include\resource\trigger\Trigger.hpp" />
     <ClInclude Include="include\resource\trigger\TriggerState.hpp" />
   </ItemGroup>
@@ -163,12 +164,16 @@
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\random-generator\random-generator.vcxproj">
+      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseComponentDefiner.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp" />
+    <ClCompile Include="src\Prefab.cpp" />
     <ClCompile Include="src\SaveFile.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Trigger.cpp" />

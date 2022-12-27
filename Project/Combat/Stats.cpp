@@ -3,7 +3,7 @@
 #include <Module/Random.hpp>
 
 #include <Object/GameObject.hpp>
-#include <file/Asset/Resource/Prefab.hpp>
+#include <resource/Prefab.hpp>
 #include "AttachToParent.hpp"
 
 of::common::uuid of::object::component::IBase<of::object::component::Stats>::typeID = of::common::uuid("7fa92fde-ab34-4477-a9db-0b590f51b7b9");
@@ -273,7 +273,7 @@ namespace of::object::component
 					auto vfxs = it.second.tick<Combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
-						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(vfx.first.vfxPrefab);
+						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
 						go->addComponent<AttachToParent>(attachedOn);

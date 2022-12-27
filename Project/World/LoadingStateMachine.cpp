@@ -5,7 +5,7 @@
 #include <module/OneTime.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 
-#include <File/Asset/Resource/Prefab.hpp>
+#include <resource/Prefab.hpp>
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
 #include <File/Asset/Resource/Template/ColliderTemplate.hpp>
 
@@ -121,7 +121,7 @@ void LoadingStateMachine::load()
 		}
 		else
 		{
-			of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
+			of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(instanceToLoad.prefabs[loadingScreenInfoPtr->currentPrefabCount]);
 			loadingScreenInfoPtr->currentPrefabCount++;
 			loadingScreenInfoPtr->currentLoadCount++;
 			loadingScreenInfoPtr->prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(Globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
@@ -220,7 +220,7 @@ void LoadingStateMachine::load()
 			{
 				loadingScreenInfoPtr->totalObjectCount += x.second.size();
 				loadingScreenInfoPtr->totalLoadCount += x.second.size();
-				auto pref = requestor.requestShared<Asset::Resource::Prefab>(x.first);
+				auto pref = requestor.requestShared<of::resource::Prefab>(x.first);
 				for (auto& location : x.second)
 				{
 					location.prefab = x.first;
@@ -248,7 +248,7 @@ void LoadingStateMachine::load()
 			auto& location = buffer[loadingScreenInfoPtr->currentObjectCount];
 
 			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
-			auto prefab = requestor.request<Asset::Resource::Prefab>(location.prefab);
+			auto prefab = requestor.request<of::resource::Prefab>(location.prefab);
 
 			prefab->createNewInstance(location.objectId, location.location);
 

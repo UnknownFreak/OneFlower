@@ -6,6 +6,9 @@
 #include <Object/GameObject.hpp>
 #include "Stats.hpp"
 
+#include <resource/Prefab.hpp>
+
+
 #include <Graphics/Render.hpp>
 #include "AttachToParent.hpp"
 #include <Graphics/UI/SkillIcon.hpp>
@@ -25,8 +28,8 @@ namespace Combat
 	void Skill::preloadEffect()
 	{
 		auto& x = of::engine::GetModule<of::file::Handler>().archive;
-		x.request<Asset::Resource::Prefab>(prefabId);
-		x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
+		x.request<of::resource::Prefab>(prefabId);
+		x.request<of::resource::Prefab>(skillEffectPrefabId);
 	}
 
 	void Skill::getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec)
@@ -59,8 +62,8 @@ namespace Combat
 				coolDown.reset(true);
 				owner->getComponent<of::object::component::Stats>()->doEffects(skillExecutionEffects, stats);
 				auto& x = of::engine::GetModule<of::file::Handler>().archive;
-				Asset::Resource::Prefab* skillPrefab = x.request<Asset::Resource::Prefab>(prefabId);
-				Asset::Resource::Prefab* effectPrefab = x.request<Asset::Resource::Prefab>(skillEffectPrefabId);
+				of::resource::Prefab* skillPrefab = x.request<of::resource::Prefab>(prefabId);
+				of::resource::Prefab* effectPrefab = x.request<of::resource::Prefab>(skillEffectPrefabId);
 				of::object::GameObject* skillGo = nullptr;
 				of::object::GameObject* effectGo = nullptr;
 				if (summon)

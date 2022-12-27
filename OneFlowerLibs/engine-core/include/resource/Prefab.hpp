@@ -5,20 +5,18 @@
 
 #include <vector>
 
-#include <Helpers/Enum/ObjectState.hpp>
+#include <object/ObjectState.hpp>
 
 #include <file/archive/Requestable.hpp>
 #include <glm/vec3.hpp>
 #include <object/component/BaseComponent.hpp>
-
-#include <object/component/Transform.hpp>
 
 namespace of::object
 {
 class GameObject;
 }
 
-namespace Asset::Resource
+namespace of::resource
 {
 
 	class Prefab : public of::file::archive::Requestable
@@ -65,7 +63,8 @@ namespace Asset::Resource
 
 	};
 }
-CEREAL_REGISTER_TYPE(Asset::Resource::Prefab);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Asset::Resource::Prefab);
+
+CEREAL_REGISTER_TYPE(of::resource::Prefab);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::resource::Prefab);
 
 #endif 

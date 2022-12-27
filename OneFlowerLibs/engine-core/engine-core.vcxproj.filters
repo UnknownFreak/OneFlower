@@ -95,6 +95,9 @@
     <ClInclude Include="include\object\component\Transform.hpp">
       <Filter>include\object\component</Filter>
     </ClInclude>
+    <ClInclude Include="include\resource\Prefab.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="src\Transform.cpp">
       <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Prefab.cpp">
+      <Filter>src\resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

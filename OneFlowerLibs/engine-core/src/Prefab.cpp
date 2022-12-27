@@ -1,14 +1,16 @@
-#include "Prefab.hpp"
-#include <Module/BuildMode.hpp>
-#include <Module/Random.hpp>
-#include <object/GameObject.hpp>
+#include <resource/Prefab.hpp>
 
+#include <module/Random.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 
-of::common::uuid of::file::archive::Trait<Asset::Resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
+#include <object/GameObject.hpp>
+#include <object/component/Transform.hpp>
 
-namespace Asset::Resource
+
+of::common::uuid of::file::archive::Trait<of::resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
+
+namespace of::resource
 {
 
 	void Prefab::build(of::object::GameObject* object, const bool& isPlayersummon) const

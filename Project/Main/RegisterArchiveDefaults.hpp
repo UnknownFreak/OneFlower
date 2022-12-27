@@ -3,7 +3,7 @@
 #include <file/Handler.hpp>
 
 #include <File/Asset/Resource/DialogTree.hpp>
-#include <File/Asset/Resource/Prefab.hpp>
+#include <resource/Prefab.hpp>
 
 #include <File/Asset/Resource/Template/WorldInstance.hpp>
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
@@ -31,9 +31,9 @@ inline void registerArchiveDefaults()
 	}});
 
 
-	vec.push_back({ Trait<Asset::Resource::Prefab>::typeId ,
+	vec.push_back({ Trait<of::resource::Prefab>::typeId ,
 [](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::Prefab>(FileId(index.modFile, index.ID));
+	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(FileId(index.modFile, index.ID));
 } });
 
 	vec.push_back({ Trait<File::Asset::Resource::Template::WorldInstance>::typeId ,

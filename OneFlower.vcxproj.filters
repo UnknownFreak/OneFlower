@@ -501,9 +501,6 @@
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp">
       <Filter>Engine\File\Asset\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Asset\Resource\Prefab.cpp">
-      <Filter>Engine\File\Asset\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp">
       <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClCompile>
@@ -886,9 +883,6 @@
     </ClInclude>
     <ClInclude Include="Project\Requirement\GameModeRequirement.hpp">
       <Filter>Engine\Requirement</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Asset\Resource\Prefab.hpp">
-      <Filter>Engine\File\Asset\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>

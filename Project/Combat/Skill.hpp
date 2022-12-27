@@ -10,14 +10,14 @@
 #include <file/archive/Requestable.hpp>
 #include <file/FileId.hpp>
 
-#include <File/Asset/Resource/Prefab.hpp>
-
 #include "Effect.hpp"
 #include "Element.hpp"
 #include <resource/TickTimer.hpp>
 
-class GameObject;
-
+namespace of::object
+{
+	class GameObject;
+}
 namespace Graphics::UI
 {
 	class SkillIcon;

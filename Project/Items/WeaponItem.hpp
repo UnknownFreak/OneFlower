@@ -5,15 +5,16 @@
 #include <Helpers/Enum/WeaponType.hpp>
 #include <Combat/Modifier.hpp>
 
-namespace Asset::Resource
+namespace of::resource
 {
 	class Prefab;
 }
+
 namespace Items
 {
 	class Weapon : public Items::StatChangingItem
 	{
-		Asset::Resource::Prefab* mesh;
+		of::resource::Prefab* mesh;
 
 		void loadModel();
 

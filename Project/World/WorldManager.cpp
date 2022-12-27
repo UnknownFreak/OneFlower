@@ -14,7 +14,7 @@
 #include <File/Asset/Resource/Template/WorldInstance.hpp>
 #include <File/Asset/Resource/Template/TileTemplate.hpp>
 #include <File/Asset/Resource/Template/ColliderTemplate.hpp>
-#include <File/Asset/Resource/Prefab.hpp>
+#include <resource/Prefab.hpp>
 
 #include <Graphics/Render.hpp>
 #include <Graphics/Dialog.hpp>
@@ -381,7 +381,7 @@ void WorldManager::createSimpleWorld()
 	auto ef2 = ef;
 	ef2.ID = of::common::uuid();
 	theManager.archive.add(new Combat::Effect(ef2));
-	Asset::Resource::Prefab p;
+	of::resource::Prefab p;
 	p.objectType = of::file::ObjectType::Prefab;
 	of::object::component::Damage d = of::object::component::Damage();
 	d.canLockNextFrame = false;
@@ -394,7 +394,7 @@ void WorldManager::createSimpleWorld()
 	p.components.push_back(std::make_unique<of::object::component::Damage>(d));
 	p.fromMod = mod;
 
-	theManager.archive.add(new Asset::Resource::Prefab(p));
+	theManager.archive.add(new of::resource::Prefab(p));
 
 	Combat::Skill s;
 	s.objectType = of::file::ObjectType::Skill;
