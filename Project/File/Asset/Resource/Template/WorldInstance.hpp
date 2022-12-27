@@ -15,7 +15,7 @@
 #include <map>
 
 #include <glm/vec3.hpp>
-#include <Object/ObjectStateActivator.hpp>
+#include <object/component/ObjectStateActivator.hpp>
 
 namespace File::Asset::Resource::Template
 {

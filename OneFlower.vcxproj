@@ -382,7 +382,6 @@
     <ClCompile Include="Project\Main\main.cpp" />
     <ClCompile Include="Project\Module\BuildMode.cpp" />
     <ClCompile Include="Project\Module\Globals.cpp" />
-    <ClCompile Include="Project\Object\ObjectStateActivator.cpp" />
     <ClCompile Include="Project\Object\Interactable.cpp" />
     <ClCompile Include="Project\Quest\AOrBObjective.cpp" />
     <ClCompile Include="Project\Quest\CollectItemObjective.cpp" />
@@ -538,7 +537,6 @@
     <ClInclude Include="Project\Module\Globals.hpp" />
     <ClInclude Include="Project\Module\BuildVersion.hpp" />
     <ClInclude Include="Project\Object\Interaction.hpp" />
-    <ClInclude Include="Project\Object\ObjectStateActivator.hpp" />
     <ClInclude Include="Project\Object\Interactable.hpp" />
     <ClInclude Include="Project\Quest\AOrBObjective.hpp" />
     <ClInclude Include="Project\Quest\CollectItemObjective.hpp" />

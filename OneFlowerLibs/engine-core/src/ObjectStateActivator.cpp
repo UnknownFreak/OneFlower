@@ -1,4 +1,4 @@
-#include "ObjectStateActivator.hpp"
+#include <object/component/ObjectStateActivator.hpp>
 
 #include <object/GameObject.hpp>
 #include <module/ObjectInstanceHandler.hpp>

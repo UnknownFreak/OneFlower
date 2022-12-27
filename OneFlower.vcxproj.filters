@@ -513,9 +513,6 @@
     <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Object\ObjectStateActivator.cpp">
-      <Filter>Engine\Object\Component\Activatior</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Object\Interactable.cpp">
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClCompile>
@@ -904,9 +901,6 @@
     </ClInclude>
     <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp">
       <Filter>Engine\Trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Object\ObjectStateActivator.hpp">
-      <Filter>Engine\Object\Component\Activatior</Filter>
     </ClInclude>
     <ClInclude Include="Project\Object\Interactable.hpp">
       <Filter>Engine\Object\Component\Activatior</Filter>

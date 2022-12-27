@@ -139,6 +139,7 @@
     <ClInclude Include="include\module\SaveFile.hpp" />
     <ClInclude Include="include\object\component\BaseComponent.hpp" />
     <ClInclude Include="include\object\component\IBaseComponent.hpp" />
+    <ClInclude Include="include\object\component\ObjectStateActivator.hpp" />
     <ClInclude Include="include\object\component\Transform.hpp" />
     <ClInclude Include="include\object\GameObject.hpp" />
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp" />
+    <ClCompile Include="src\ObjectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />
     <ClCompile Include="src\SaveFile.cpp" />
     <ClCompile Include="src\Transform.cpp" />

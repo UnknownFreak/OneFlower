@@ -98,6 +98,9 @@
     <ClInclude Include="include\resource\Prefab.hpp">
       <Filter>include\resource</Filter>
     </ClInclude>
+    <ClInclude Include="include\object\component\ObjectStateActivator.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">
@@ -126,6 +129,9 @@
     </ClCompile>
     <ClCompile Include="src\Prefab.cpp">
       <Filter>src\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectStateActivator.cpp">
+      <Filter>src\object\component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

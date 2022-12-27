@@ -8,9 +8,9 @@
 
 #include <cereal/types/polymorphic.hpp>
 
-#include <Helpers/Enum/ObjectState.hpp>
 #include <utils/common/uuid.hpp>
 #include <object/component/IBaseComponent.hpp>
+#include <object/ObjectState.hpp>
 
 namespace of::object::component
 {
