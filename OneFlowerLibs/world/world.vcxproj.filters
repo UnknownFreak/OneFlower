@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="include\world">
+      <UniqueIdentifier>{2a30f09d-ac3b-4d2b-993d-79d730013c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{d811aa44-3dbe-4bb4-ab00-d53f2eeb9b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\resource">
+      <UniqueIdentifier>{200cec52-af20-4257-80a1-c2ece1b58e07}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\WorldManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LoadingStateInfo.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldInstance.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\world\LoadingState.hpp">
+      <Filter>include\world</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\WorldManager.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
+    <ClInclude Include="include\world\LoadingStateInfo.hpp">
+      <Filter>include\world</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\WorldInstance.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
