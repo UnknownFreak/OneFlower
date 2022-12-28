@@ -84,8 +84,6 @@ namespace of::module
 	void ObjectInstanceHandler::unload()
 	{
 		// TODO: REwork, do a loop and sendOnDelete
-
-
 		while (objects.size() > 0)
 		{
 			auto it = objects.begin();
@@ -98,6 +96,10 @@ namespace of::module
 				it = objects.erase(it);
 			}
 		}
+	}
+
+	void ObjectInstanceHandler::unloadNonUnique()
+	{
 	}
 
 	void ObjectInstanceHandler::onDeleteAction(std::function<void(object::GameObject*)> fnPtr)

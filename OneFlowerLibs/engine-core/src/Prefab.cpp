@@ -48,6 +48,8 @@ namespace of::resource
 	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
 		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		if (x.exists(uuid))
+			return x.getObject(uuid);
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
 		auto transform = object->getComponent<of::object::component::Transform>();

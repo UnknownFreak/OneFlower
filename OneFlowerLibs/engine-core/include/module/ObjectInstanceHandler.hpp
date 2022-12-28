@@ -30,6 +30,7 @@ namespace of::module
 		void processDeletedObjects(const float& elapsedTime);
 
 		void unload();
+		void unloadNonUnique();
 
 		void onDeleteAction(std::function<void(object::GameObject*)> fnPtr);
 		void onAddAction(std::function<void(object::GameObject*)> fnPtr);
