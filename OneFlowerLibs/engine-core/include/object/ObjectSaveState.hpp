@@ -20,7 +20,7 @@ namespace of::object
 
 	public:
 		std::map<of::common::uuid, std::unique_ptr<of::module::save_state::SaveState>> objectSaveStates;
-		Enums::ObjectState objectState = Enums::ObjectState::Undefined;
+		ObjectState objectState = ObjectState::Undefined;
 
 		ObjectSaveState();
 		ObjectSaveState(const ObjectSaveState&) = delete;

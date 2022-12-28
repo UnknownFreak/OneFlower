@@ -27,7 +27,7 @@ namespace of::resource
 	
 		std::vector<std::unique_ptr<of::object::component::Base>> components;
 		float spawnDistance;
-		Enums::ObjectState objectState = Enums::ObjectState::Active;
+		object::ObjectState objectState = object::ObjectState::Active;
 
 		of::common::String tag;
 

@@ -19,10 +19,10 @@ namespace of::object::component
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 
-		void pushObjectSaveState(const of::common::uuid& objectId, const Enums::ObjectState& toggle);
+		void pushObjectSaveState(const of::common::uuid& objectId, const ObjectState& toggle);
 
 	public:
-		std::vector<std::pair<of::common::uuid, Enums::ObjectState>> m_objectsToToggle;
+		std::vector<std::pair<of::common::uuid, ObjectState>> m_objectsToToggle;
 
 		ObjectStateActivator() = default;
 		~ObjectStateActivator() = default;

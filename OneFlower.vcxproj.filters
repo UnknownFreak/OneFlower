@@ -896,9 +896,6 @@
     <ClInclude Include="Project\Helpers\Rect.hpp">
       <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\ObjectState.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp">
       <Filter>Engine\Trigger</Filter>
     </ClInclude>

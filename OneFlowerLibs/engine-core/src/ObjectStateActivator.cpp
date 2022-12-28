@@ -15,7 +15,7 @@ namespace of::object::component
 	{
 	}
 
-	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId, const Enums::ObjectState& toggle)
+	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId, const ObjectState& toggle)
 	{
 		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 		saveFile;
@@ -30,14 +30,14 @@ namespace of::object::component
 			if (handler.exists(objectId))
 			{
 				auto object = handler.getObject(objectId);
-				if (toggleState == Enums::ObjectState::Toggle)
+				if (toggleState == ObjectState::Toggle)
 					object->toggleObjectState();
 				else
 					object->toggleObjectState(toggleState);
 			}
 			else
 			{
-				if (toggleState != Enums::ObjectState::Toggle)
+				if (toggleState != ObjectState::Toggle)
 				{
 					pushObjectSaveState(objectId, toggleState);
 				}

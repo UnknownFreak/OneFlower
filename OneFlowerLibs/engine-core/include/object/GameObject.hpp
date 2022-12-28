@@ -8,12 +8,9 @@
 #include "messaging/ComponentMessage.hpp"
 
 #include "ObjectState.hpp"
-//#include <Helpers/Enum/ComponentType.hpp>
-//#include <Helpers/Enum/InteractionOption.hpp>
 
 #include "component/IBaseComponent.hpp"
 
-//#include "Transform.hpp"
 #include <resource/GameModeModifier.hpp>
 #include <resource/trigger/Trigger.hpp>
 
@@ -36,7 +33,7 @@ namespace of::object
 		of::common::uuid id;
 		of::common::String tag;
 
-		Enums::ObjectState objectState = Enums::ObjectState::Active;
+		ObjectState objectState = ObjectState::Active;
 
 		void post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message);
 		void post(const messaging::Message& message);
@@ -74,7 +71,7 @@ namespace of::object
 		//void interact(const bool& reverseAnimation, const short& repeat);
 
 		void toggleObjectState();
-		void toggleObjectState(const Enums::ObjectState& newState);
+		void toggleObjectState(const ObjectState& newState);
 
 		void onCollision(GameObject*);
 		// Inherited via IUpdateable

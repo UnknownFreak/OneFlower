@@ -3,7 +3,7 @@
 #define ModifyObjectActiveStateTrigger_HPP
 
 #include <resource/trigger/Trigger.hpp>
-#include <Helpers/Enum/ObjectState.hpp>
+#include <object/ObjectState.hpp>
 
 namespace Trigger
 {
@@ -13,7 +13,7 @@ namespace Trigger
 	public:
 
 		of::common::uuid gameObjectToModify;
-		Enums::ObjectState objectState = Enums::ObjectState::Active;
+		of::object::ObjectState objectState = of::object::ObjectState::Active;
 
 		// Inherited via Trigger
 		virtual void executeInternal() override;

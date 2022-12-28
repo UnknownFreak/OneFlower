@@ -122,44 +122,27 @@ namespace of::object
 
 	void GameObject::toggleObjectState()
 	{
-		Enums::ObjectState state = Enums::ObjectState::Active;
-		if (objectState == Enums::ObjectState::Active)
-			state = Enums::ObjectState::Inactive;
+		ObjectState state = ObjectState::Active;
+		if (objectState == ObjectState::Active)
+			state = ObjectState::Inactive;
 
 		toggleObjectState(state);
 	}
 
-	void GameObject::toggleObjectState(const Enums::ObjectState& newState)
+	void GameObject::toggleObjectState(const ObjectState& newState)
 	{
-		if (newState == Enums::ObjectState::Active && objectState != newState)
+		if ((newState == ObjectState::Active && objectState != newState) || (objectState == ObjectState::Inactive && objectState != newState))
 		{
 			objectState = newState;
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
-
-			//
-			//Component::ObjectStateActivator* c = getComponent<Component::ObjectStateActivator>();
-			//if (c)
-			//{
-			//	c->toggle();
-			//}
-		}
-		else if (newState == Enums::ObjectState::Inactive && objectState != newState)
-		{
-			objectState = newState;
-			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
-			//	Component::ObjectStateActivator* c = getComponent<Component::ObjectStateActivator>();
-			//if (c)
-			//{
-			//	c->toggle();
-			//}
 		}
 		putObjectState();
 	}
 
 	void GameObject::onCollision(GameObject* collider)
 	{
-		if (objectState == Enums::ObjectState::Active)
+		if (objectState == ObjectState::Active)
 			for (auto& component : componentMap)
 			{
 				component.second->onCollision(collider);
@@ -176,7 +159,7 @@ namespace of::object
 
 	void GameObject::Simulate(const float& fElapsedTime)
 	{
-		if (objectState == Enums::ObjectState::Active)
+		if (objectState == ObjectState::Active)
 			for (auto& component : componentMap)
 			{
 				component.second->Simulate(fElapsedTime);
@@ -185,7 +168,7 @@ namespace of::object
 
 	void GameObject::Simulate(const float& fElapsedTime, const bool& bUpdate)
 	{
-		if (objectState == Enums::ObjectState::Active)
+		if (objectState == ObjectState::Active)
 			for (auto& component : componentMap)
 			{
 				component.second->Simulate(fElapsedTime);

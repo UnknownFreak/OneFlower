@@ -499,7 +499,6 @@
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\ObjectState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\TileTypes.hpp" />
     <ClInclude Include="Project\Helpers\Enum\TrinketType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />

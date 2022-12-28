@@ -3,7 +3,7 @@
 #define ObjectState_HPP
 
 
-namespace Enums
+namespace of::object
 {
 	enum class ObjectState
 	{
