@@ -5,9 +5,7 @@
 #include <File/Asset/Resource/DialogTree.hpp>
 #include <resource/Prefab.hpp>
 
-#include <File/Asset/Resource/Template/WorldInstance.hpp>
-#include <File/Asset/Resource/Template/TileTemplate.hpp>
-#include <File/Asset/Resource/Template/ColliderTemplate.hpp>
+#include <resource/WorldInstance.hpp>
 
 #include <Helpers/PrimitiveSaveable.hpp>
 
@@ -36,19 +34,9 @@ inline void registerArchiveDefaults()
 	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(FileId(index.modFile, index.ID));
 } });
 
-	vec.push_back({ Trait<File::Asset::Resource::Template::WorldInstance>::typeId ,
+	vec.push_back({ Trait<of::resource::WorldInstance>::typeId ,
 [](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::WorldInstance>(FileId(index.modFile, index.ID));
-} });
-
-	vec.push_back({ Trait<File::Asset::Resource::Template::TileChunk>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::TileChunk>(FileId(index.modFile, index.ID));
-} });
-
-	vec.push_back({ Trait<File::Asset::Resource::Template::ColliderChunk>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<File::Asset::Resource::Template::ColliderChunk>(FileId(index.modFile, index.ID));
+	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::WorldInstance>(FileId(index.modFile, index.ID));
 } });
 
 	vec.push_back({ Trait<PrimitiveSaveable<of::common::String>>::typeId ,

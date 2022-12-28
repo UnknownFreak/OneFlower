@@ -303,6 +303,9 @@
     <ProjectReference Include="OneFlowerLibs\time\time.vcxproj">
       <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\world\world.vcxproj">
+      <Project>{4ee36817-7fe2-41aa-bb0f-997a272acb20}</Project>
+    </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
@@ -328,9 +331,6 @@
     <ClCompile Include="Project\Combat\Skill.cpp" />
     <ClCompile Include="Project\Combat\Stats.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp" />
-    <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp" />
-    <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp" />
-    <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\Graphics\Camera.cpp" />
     <ClCompile Include="Project\Graphics\CameraController.cpp" />
@@ -428,8 +428,6 @@
     <ClCompile Include="Project\Trigger\RequirementTrigger.cpp" />
     <ClCompile Include="Project\Trigger\SpawnObjectTrigger.cpp" />
     <ClCompile Include="Project\Trigger\TriggerList.cpp" />
-    <ClCompile Include="Project\World\LoadingStateMachine.cpp" />
-    <ClCompile Include="Project\World\WorldManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Combat\AttachToParent.hpp" />
@@ -446,9 +444,6 @@
     <ClInclude Include="Project\Combat\Skill.hpp" />
     <ClInclude Include="Project\Combat\Stats.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
-    <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp" />
-    <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp" />
-    <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
     <ClInclude Include="Project\Graphics\Camera.hpp" />
     <ClInclude Include="Project\Graphics\CameraController.hpp" />
@@ -562,8 +557,6 @@
     <ClInclude Include="Project\Trigger\SpawnObjectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\TeleportTrigger.hpp" />
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
-    <ClInclude Include="Project\World\LoadingStateMachine.hpp" />
-    <ClInclude Include="Project\World\WorldManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assemble.frag" />

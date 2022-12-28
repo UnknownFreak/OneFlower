@@ -46,9 +46,6 @@
     <Filter Include="Engine\Helpers\Enum">
       <UniqueIdentifier>{3a847f5b-3d6c-4206-9d2a-11ac1baefbc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\World">
-      <UniqueIdentifier>{24ee632d-982c-483b-afbc-cbdad4aa9482}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Component">
       <UniqueIdentifier>{58f8a0c8-dcd2-4d79-84c9-c46b47734885}</UniqueIdentifier>
     </Filter>
@@ -135,9 +132,6 @@
     </Filter>
     <Filter Include="Engine\File\Asset\Resource">
       <UniqueIdentifier>{ae47f199-3370-40c6-a0c5-801627862269}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\File\Asset\Resource\Template">
-      <UniqueIdentifier>{4595876a-6157-4be0-aa92-754074f9bcf5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Helpers\Core">
       <UniqueIdentifier>{9933d0b4-3da5-428e-b311-a6b33632e485}</UniqueIdentifier>
@@ -264,9 +258,6 @@
     <ClCompile Include="Project\Tests\ColliderTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Project\World\WorldManager.cpp">
-      <Filter>Engine\World</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\RectUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
@@ -296,9 +287,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreenInfo.cpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\World\LoadingStateMachine.cpp">
-      <Filter>Engine\World</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
@@ -501,15 +489,6 @@
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp">
       <Filter>Engine\File\Asset\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\Asset\Resource\Template\ColliderTemplate.cpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Asset\Resource\Template\TileTemplate.cpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\File\Asset\Resource\Template\WorldInstance.cpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Trigger\ModifyObjectActiveState.cpp">
       <Filter>Engine\Trigger</Filter>
     </ClCompile>
@@ -602,9 +581,6 @@
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\World\WorldManager.hpp">
-      <Filter>Engine\World</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Input\Controller.hpp">
       <Filter>Engine\Input\Controller</Filter>
     </ClInclude>
@@ -643,9 +619,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\World\LoadingStateMachine.hpp">
-      <Filter>Engine\World</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Render.hpp">
       <Filter>Engine\Graphics\Component</Filter>
@@ -883,15 +856,6 @@
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Asset\Resource\Template\ColliderTemplate.hpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Asset\Resource\Template\TileTemplate.hpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\Asset\Resource\Template\WorldInstance.hpp">
-      <Filter>Engine\File\Asset\Resource\Template</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Rect.hpp">
       <Filter>Engine\Helpers\Core</Filter>

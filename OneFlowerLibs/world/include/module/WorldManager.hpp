@@ -18,7 +18,7 @@
 #include <world/LoadingState.hpp>
 #include <world/LoadingStateInfo.hpp>
 
-namespace Globals
+namespace of::module::globals
 {
 	static const of::common::String LOADING_TIMER = "LOADING_TIMER";
 	static const of::common::String TOTAL_TIME_LOADED = "TOTAL_TIME_LOADED";
@@ -48,6 +48,7 @@ namespace of::module
 			void finalize();
 			void done();
 			void unloadAll();
+		public:
 
 			of::world::LoadingStateInfo loadingStateInfo;
 			of::world::LoadingState loadstate;
@@ -63,7 +64,6 @@ namespace of::module
 
 			bool navMeshLoaded = false;
 
-		public:
 
 			const of::file::FileId& getCurrentWorld() const;
 			const of::file::FileId& getCurrentLoadingScreen() const;
@@ -96,6 +96,8 @@ namespace of::module
 		//void setCurrentTime(const float& currentTime);
 
 	//#endif
+
+		of::world::LoadingStateInfo& getLoadingStateInfo();
 
 		void newGame();
 		void save(const of::common::String& fileName);

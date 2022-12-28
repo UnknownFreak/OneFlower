@@ -3,7 +3,7 @@
 
 #include "UIContext.hpp"
 
-#include <Helpers/Enum/LoadingState.hpp>
+#include <world/LoadingStateInfo.hpp>
 
 namespace Graphics::UI
 {
@@ -13,50 +13,11 @@ namespace Graphics::UI
 		of::common::String t;
 		ImVec2 pos;
 
+		of::world::LoadingStateInfo& info;
+
 	public:
-		float totalLoadTime = 0.f;
 
-		float loadScreenSetupTime = 0.f;
-		float instanceLoadTime = 0.f;
-
-		size_t totalAtlasCount = 0;
-		size_t currentAtlasCount = 0;
-		float atlasLoadTimer = 0.f;
-
-		size_t totalPrefabCount = 0;
-		size_t currentPrefabCount = 0;
-		float prefabLoadTimer = 0.f;
-
-
-		size_t totalTileCount = 0;
-		size_t currentTileCount = 0;
-		float tileLoadTimer = 0.f;
-
-		size_t totalTileBuildingCount = 0;
-		size_t currentTileBuildingCount = 0;
-		float tileBuildLoadTimer = 0.f;
-
-		size_t totalColliderCount = 0;
-		size_t currentColliderCount = 0;
-		float colliderLoadTimer = 0.f;
-
-		size_t totalColliderBuildingCount = 0;
-		size_t currentColliderBuildingCount = 0;
-		float colliderBuildingLoadTimer = 0.f;
-
-		size_t totalObjectPartCount = 0;
-		size_t currentObjectPartCount = 0;
-		float objectPartLoadTimer = 0.f;
-
-		size_t totalObjectCount = 0;
-		size_t currentObjectCount = 0;
-		float objectLoadTimer = 0.f;
-
-		size_t currentLoadCount = 0;
-		size_t totalLoadCount = 0;
-		const Enums::LoadingState& theState;
-
-		LoadingScreenInfo(const Enums::LoadingState& theState);
+		LoadingScreenInfo();
 
 		// Inherited via UIContext
 		virtual void readInput() override;

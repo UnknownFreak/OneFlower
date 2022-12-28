@@ -18,6 +18,7 @@
 #include <module/resource/ShaderLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <module/ObjectInstanceHandler.hpp>
+#include <module/WorldManager.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
 
@@ -37,7 +38,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
 	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
 	case of::module::EngineResourceType::ShaderLoader: return "ShaderLoader";
-	case of::module::EngineResourceType::AssetManager: return "AssetManager";
+	case of::module::EngineResourceType::FileHandler: return "FileHandler";
 	case of::module::EngineResourceType::ObjectInstanceHandler: return "ObjectInstanceHandler";
 		// Engine
 	case of::module::EngineResourceType::Loader: return "ModLoader";
@@ -78,6 +79,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::ObjectInstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::WorldManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::RenderWindow>().type));

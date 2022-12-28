@@ -4,12 +4,13 @@
 #include <File/GameConfig.hpp>
 
 #include <imgui/imgui.h>
+#include <Module/WorldManager.hpp>
 
-Graphics::UI::LoadingScreenInfo::LoadingScreenInfo(const Enums::LoadingState& theState) : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), theState(theState)
+Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), info(of::engine::GetModule<of::module::WorldManager>().getLoadingStateInfo())
 {
 	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
 	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;
-	pos = { 5, height - 320.f };
+	pos = { 5, height - 400.f };
 }
 
 void Graphics::UI::LoadingScreenInfo::readInput()
@@ -18,9 +19,10 @@ void Graphics::UI::LoadingScreenInfo::readInput()
 
 void Graphics::UI::LoadingScreenInfo::render()
 {
-	if (visible)
+	if (visible && info.isLoading)
 	{
-		ImGui::Begin("LoadingScreenInfo", 0, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
+		ImGui::SetWindowFocus();
+		ImGui::Begin("LoadingScreenInfo", 0, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs |ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 		{
 			ImGui::SetWindowPos(pos);
 			ImGui::Text("%s", t.c_str());
@@ -32,28 +34,31 @@ void Graphics::UI::LoadingScreenInfo::render()
 void Graphics::UI::LoadingScreenInfo::update()
 {
 	t =
-		"\nElapsed time: " + std::to_string(totalLoadTime) + 
-		"\nLoading State: " + Enums::to_string(theState) +
-		"\nProgress (Total): " + std::to_string(currentLoadCount) +"/" + std::to_string(totalLoadCount) +
-		"\nTime (Prepare load): " + std::to_string(instanceLoadTime) +
-		"\nProgress (Tile Atlas): " + std::to_string(currentAtlasCount) +"/" + std::to_string(totalAtlasCount) +
-		"\n    Elapsed: " + std::to_string(atlasLoadTimer) +
-		"\nProgress (Prefabs): " + std::to_string(currentPrefabCount) +"/" + std::to_string(totalPrefabCount) +
-		"\n    Elapsed: " + std::to_string(prefabLoadTimer) +
-		"\nProgress (Tiles): " + std::to_string(currentTileCount) +"/" + std::to_string(totalTileCount) +
-		"\n    Elapsed: " + std::to_string(tileLoadTimer) +
-		"\nProgress (Tile Building): " + std::to_string(currentTileBuildingCount) +"/" + std::to_string(totalTileBuildingCount) +
-		"\n    Elapsed: " + std::to_string(tileBuildLoadTimer) +
-		"\nProgress (Collider): " + std::to_string(currentColliderCount) +"/" + std::to_string(totalColliderCount) +
-		"\n    Elapsed: " + std::to_string(colliderLoadTimer) +
-		"\nProgress (Building Colliders): " + std::to_string(currentColliderBuildingCount) +"/" + std::to_string(totalColliderBuildingCount) +
-		"\n    Elapsed: " + std::to_string(colliderBuildingLoadTimer) +
-		"\nProgress (Pre building objects): " + std::to_string(currentObjectPartCount) + "/" + std::to_string(totalObjectPartCount) +
-		"\n    Elapsed: " + std::to_string(objectPartLoadTimer) + 
-		"\nProgress (Building objects): " + std::to_string(currentObjectCount) + "/" + std::to_string(totalObjectCount) +
-		"\n    Elapsed: " + std::to_string(objectLoadTimer) +
+		"\nIs Loading: " + std::to_string(info.isLoading) + 
+		"\nElapsed time: " + std::to_string(info.totalLoadTime) +
+		"\nLoading State: " + of::world::to_string(info.theState) +
+		"\nProgress (Total): " + std::to_string(info.currentLoadCount) + "/" + std::to_string(info.totalLoadCount) +
+		"\nTime (Prepare load): " + std::to_string(info.instanceLoadTime) +
+		"\nProgress (Instances): " + std::to_string(info.currentZoneCount) + "/" + std::to_string(info.totalZoneCount) +
+		"\n    Elapsed: " + std::to_string(info.totalZoneUpdateCountTimer) +
+		"\nProgress (Unload objects): " + "TODO / TODO" +
+		"\n    Elapsed: " + "N/A" +
+		"\nProgress (Prefabs): " + std::to_string(info.currentPrefabCount) + "/" + std::to_string(info.totalPrefabCount) +
+		"\n    Elapsed: " + std::to_string(info.prefabLoadTimer) +
+		"\nProgress (NavMesh): " + std::to_string(info.currentNavmeshCount) + "/" + std::to_string(info.totalNavmeshCount) +
+		"\n    Elapsed: " + std::to_string(info.navmeshLoadTimer) +
+		"\nProgress (Geometry): " + std::to_string(info.currentGeometryCount) + "/" + std::to_string(info.totalGeometryCount) +
+		"\n    Elapsed: " + std::to_string(info.geometryLoadTimer) +
+		"\nProgress (Collider): " + "TODO / TODO"
+		"\n    Elapsed: " + "N/A" +
+		"\nProgress (Building Colliders): " + "TODO / TODO" +
+		"\n    Elapsed: " + "N/A" +
+		"\nProgress (Pre building objects): " + std::to_string(info.currentObjectPartCount) + "/" + std::to_string(info.totalObjectPartCount) +
+		"\n    Elapsed: " + std::to_string(info.objectPartLoadTimer) +
+		"\nProgress (Building objects): " + std::to_string(info.currentObjectCount) + "/" + std::to_string(info.totalObjectCount) +
+		"\n    Elapsed: " + std::to_string(info.objectLoadTimer) +
 		""
-	;
+		;
 }
 
 void Graphics::UI::LoadingScreenInfo::onMouseHover(const glm::vec2&)

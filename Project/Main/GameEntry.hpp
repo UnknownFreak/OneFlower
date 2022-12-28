@@ -5,7 +5,7 @@
 #include <Module/OneTime.hpp>
 #include <Input/Console.hpp>
 #include <Input/InputHandler.hpp>
-#include <World/WorldManager.hpp>
+#include <module/WorldManager.hpp>
 
 class GameEntry
 {
@@ -15,7 +15,7 @@ class GameEntry
 	Input::InputHandler& input;
 	Console& console;
 	
-	WorldManager world;
+	of::module::WorldManager& world;
 
 	void physicsUpdate();
 public:

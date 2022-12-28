@@ -3,6 +3,7 @@
 
 #include <module/ModuleManager.hpp>
 #include <module/IEngineModule.hpp>
+#include <module/WorldManager.hpp>
 
 #include <vector>
 #include <Input/Console.hpp>
@@ -24,9 +25,9 @@ namespace Graphics::UI
 
 	public:
 
-		bool showLoadingScreenOnly;
+		bool& showLoadingScreenOnly;
 
-		UIHandler() : console(of::engine::GetModule<Console>())
+		UIHandler() : console(of::engine::GetModule<Console>()), showLoadingScreenOnly(of::engine::GetModule<of::module::WorldManager>().isLoading)
 		{
 		};
 

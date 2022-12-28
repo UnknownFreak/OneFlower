@@ -2,7 +2,6 @@
 
 #include <thread>
 
-//#include <File/Asset/Manager.hpp>
 #include <Module\ModuleManager.hpp>
 #include <Module\BuildMode.hpp>
 
@@ -10,6 +9,9 @@
 
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/BuildInfo.hpp>
+
+#include <Graphics/UI/LoadingScreen.hpp>
+#include <Graphics/UI/LoadingScreenInfo.hpp>
 
 #include <Graphics/Editor/EditorWindow.hpp>
 #include <Graphics/Editor/ObjectSelector.hpp>
@@ -22,7 +24,7 @@ GameEntry::GameEntry() :
 	gfx(of::engine::GetModule<Graphics::RenderWindow>()),
 	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<Input::InputHandler>()),
-	world(gfx),
+	world(of::engine::GetModule<of::module::WorldManager>()),
 	console(of::engine::GetModule<Console>()), m_exit(false)
 {
 }
@@ -40,7 +42,8 @@ int GameEntry::Run()
 	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 70.f));
 	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), float(width - (200 * 2)), 10.f));
 	
-
+	gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreen, std::make_unique<Graphics::UI::LoadingScreen>());
+	gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreenInfo, std::make_unique<Graphics::UI::LoadingScreenInfo>());
 
 	gfx.postInitialize();
 
@@ -92,10 +95,10 @@ void GameEntry::physicsUpdate()
 {
 	if (!Engine::GetBuildMode().isEditorMode())
 	{
-		world.createSimpleWorld();
 //		world.createMainMenu();
 	}
 	auto ups = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::UPS);
+	auto loadingScreenState = gfx.ui.getUIContext<Graphics::UI::LoadingScreenInfo>(Enums::UIContextNames::LoadingScreenInfo);
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;
 	while (!m_exit)
@@ -104,6 +107,7 @@ void GameEntry::physicsUpdate()
 		{
 			time.physicsElapsed = time.update_ms;
 			world.Update();
+			loadingScreenState->update();
 		}
 		while (time.physicsElapsed >= time.update_ms)
 		{
