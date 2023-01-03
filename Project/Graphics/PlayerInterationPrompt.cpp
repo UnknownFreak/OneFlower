@@ -69,9 +69,9 @@ void PlayerInteractionPrompt::onCollision(of::object::GameObject* theCollidee)
 	{
 		
 		of::object::GameObject* theObject = theCollidee;
-		Dialog* dialogComponent = theObject->getComponent<Dialog>();
-		of::object::component::LootDrop* theDrop = theObject->getComponent<of::object::component::LootDrop>();
-		of::object::component::LootContainer* theContainer = theObject->getComponent<of::object::component::LootContainer>();
+		Dialog* dialogComponent = theObject->get<Dialog>();
+		of::object::component::LootDrop* theDrop = theObject->get<of::object::component::LootDrop>();
+		of::object::component::LootContainer* theContainer = theObject->get<of::object::component::LootContainer>();
 		if (dialogComponent)
 		{
 			showPrompt = true;

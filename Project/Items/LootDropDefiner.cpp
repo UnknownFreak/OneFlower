@@ -25,7 +25,7 @@ namespace of::object::component
 		for (auto& x : lootDrops)
 		{
 			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
-			object->getComponent<of::object::component::Inventory>()->addItem(tmp, x.second);
+			object->get<of::object::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
 
@@ -56,9 +56,9 @@ namespace of::object::component
 		if (!looted && lootDrops.size() != 0)
 		{
 			auto go = of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
-			go->addComponent<Render>();
-			go->getComponent<of::object::component::Transform>()->pos = attachedOn->getComponent<of::object::component::Transform>()->pos;
-			go->addComponent<of::object::component::LootContainer>();
+			go->add<Render>();
+			go->get<of::object::component::Transform>()->pos = attachedOn->get<of::object::component::Transform>()->pos;
+			go->add<of::object::component::LootContainer>();
 			// TODO: Attach loot to container & set proper rendering texture via global prefab perhaps?
 		}
 	}

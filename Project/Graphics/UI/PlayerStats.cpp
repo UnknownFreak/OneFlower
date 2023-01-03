@@ -21,7 +21,7 @@ void Graphics::UI::PlayerStats::setPlayerStats(std::shared_ptr<of::object::compo
 {
 	stats = component;
 	buffDebuff.setStats(component);
-	actionBar.setPlayerCombatSkills(component->attachedOn->getSharedComponent<of::object::component::CombatComponent>());
+	actionBar.setPlayerCombatSkills(component->attachedOn->getShared<of::object::component::CombatComponent>());
 }
 
 void Graphics::UI::PlayerStats::readInput()

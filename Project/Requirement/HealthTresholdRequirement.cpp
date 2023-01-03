@@ -12,7 +12,7 @@ namespace Requirement
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);
-			auto stats = ptr->getComponent<of::object::component::Stats>();
+			auto stats = ptr->get<of::object::component::Stats>();
 			if (stats)
 			{
 				auto p = stats->mainStat[Enums::Attribute::Health].current / stats->mainStat[Enums::Attribute::Health].max;

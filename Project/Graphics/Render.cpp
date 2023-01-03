@@ -87,7 +87,7 @@ void Render::attachOn(of::object::GameObject* go)
 	Render::Base::attachOn(go);
 	//go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
 	loadAndSetModel();
-	transform = go->getComponent<of::object::component::Transform>();
+	transform = go->get<of::object::component::Transform>();
 	of::engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
 }
 

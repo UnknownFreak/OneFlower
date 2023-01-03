@@ -56,7 +56,7 @@ namespace of::object
 
 	GameObject::GameObject() noexcept
 	{
-		addComponent<component::Transform>();
+		add<component::Transform>();
 	}
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{
@@ -71,7 +71,7 @@ namespace of::object
 	{
 		for (auto& x : copy.componentMap)
 		{
-			AddComponent(x.second->copy());
+			add(x.second->copy());
 		}
 	}
 
@@ -85,7 +85,7 @@ namespace of::object
 		componentMap.clear();
 		for (auto& x : copy.componentMap)
 		{
-			AddComponent(x.second->copy());
+			add(x.second->copy());
 		}
 		reAttach();
 		return *this;
@@ -250,7 +250,7 @@ namespace of::object
 		}
 	}
 
-	component::Base* GameObject::AddComponent(component::Base* componentToAdd)
+	component::Base* GameObject::add(component::Base* componentToAdd)
 	{
 		if (componentMap.find(componentToAdd->getType()) == componentMap.end())
 		{
@@ -264,7 +264,7 @@ namespace of::object
 		return componentToAdd;
 	}
 
-	component::Base* GameObject::AddOrReplaceComponent(component::Base* componentToAdd)
+	component::Base* GameObject::addOrReplace(component::Base* componentToAdd)
 	{
 		if (componentMap.find(componentToAdd->getType()) == componentMap.end())
 			componentToAdd->attachOn(this);

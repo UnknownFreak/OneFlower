@@ -99,7 +99,7 @@ namespace of::object
 
 		template <class T, typename... Args>
 			requires std::derived_from<T, component::Base> && std::constructible_from<T, Args...>
-		T* addComponent(Args... as)
+		T* add(Args... as)
 		{
 			if (componentMap.find(component::IBase<T>::typeID) == componentMap.end())
 			{
@@ -110,12 +110,12 @@ namespace of::object
 			return nullptr;
 		};
 
-		component::Base* AddComponent(component::Base* componentToAdd);
-		component::Base* AddOrReplaceComponent(component::Base* componentToAdd);
+		component::Base* add(component::Base* componentToAdd);
+		component::Base* addOrReplace(component::Base* componentToAdd);
 
 		template<class T>
 			requires std::derived_from<T, component::Base>
-		T* getComponent() const
+		T* get() const
 		{
 			auto it = componentMap.find(component::IBase<T>::typeID);
 			return it == componentMap.end() ? nullptr : (T*)it->second.get();
@@ -123,7 +123,7 @@ namespace of::object
 
 		template<class T>
 			requires std::derived_from<T, component::Base>
-		std::shared_ptr<T> getSharedComponent() const
+		std::shared_ptr<T> getShared() const
 		{
 			auto it = componentMap.find(component::IBase<T>::typeID);
 			return it == componentMap.end() ? nullptr : std::dynamic_pointer_cast<T>(it->second);
@@ -131,7 +131,7 @@ namespace of::object
 
 		template<class T>
 			requires std::derived_from<T, component::Base>
-		bool removeComponent()
+		bool remove()
 		{
 			auto const type_id = component::IBase<T>::typeID;
 

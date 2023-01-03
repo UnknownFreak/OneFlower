@@ -276,7 +276,7 @@ namespace of::object::component
 						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
-						go->addComponent<AttachToParent>(attachedOn);
+						go->add<AttachToParent>(attachedOn);
 					}
 				}
 				else if (it.second.effectType == Enums::EffectType::Modifier)

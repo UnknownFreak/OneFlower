@@ -14,7 +14,7 @@ namespace Questing
 		if (objectiveState == Enums::QuestState::ACTIVE)
 		{
 			auto& player = of::engine::GetModule<of::module::SaveFile>().player;
-			auto inventory = player.getComponent<of::object::component::Inventory>();
+			auto inventory = player.get<of::object::component::Inventory>();
 			if (inventory)
 			{
 				if (inventory->getItemStack(itemId) >= itemCount)

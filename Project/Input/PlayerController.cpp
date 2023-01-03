@@ -121,9 +121,9 @@ namespace of::object::component
 	void PlayerController::attachOn(GameObject* go)
 	{
 		Base::attachOn(go);
-		window.getMasker().player = go->getSharedComponent<Transform>();
-		transform = go->getComponent<Transform>();
-		combat = go->getComponent<of::object::component::CombatComponent>();
+		window.getMasker().player = go->getShared<Transform>();
+		transform = go->get<Transform>();
+		combat = go->get<of::object::component::CombatComponent>();
 		enable();
 	}
 

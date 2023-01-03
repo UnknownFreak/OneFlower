@@ -34,8 +34,8 @@ namespace Graphics
 
 	void RenderWindow::AddRenderable(of::object::GameObject* go)
 	{
-		models[go->id] = go->getComponent<Render>()->model;
-		positions[go->id] =  go->getSharedComponent<of::object::component::Transform>();
+		models[go->id] = go->get<Render>()->model;
+		positions[go->id] =  go->getShared<of::object::component::Transform>();
 	}
 	void RenderWindow::RemoveRenderable(of::object::GameObject* go)
 	{
@@ -197,7 +197,7 @@ namespace Graphics
 		title += "GameObject Model count: " + std::to_string(models.size()) + "\n";
 
 		auto player = of::engine::GetModule<of::module::ObjectInstanceHandler>().getPlayer();
-		auto pos = player->getComponent<of::object::component::Transform>()->pos;
+		auto pos = player->get<of::object::component::Transform>()->pos;
 		title += "Player pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z) + "\n";
 
 		ImGui::Begin("Stats");

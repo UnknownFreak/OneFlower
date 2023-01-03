@@ -45,7 +45,7 @@ namespace of::object::component
 	void Damage::attachOn(GameObject* go)
 	{
 		Base::attachOn(go);
-		transform = go->getComponent<Transform>();
+		transform = go->get<Transform>();
 	}
 
 	void Damage::Update()
@@ -93,8 +93,8 @@ namespace of::object::component
 			if (locked)
 				return;
 
-			auto* stats = the_collidee ->getComponent<of::object::component::Stats>();
-			auto* inventory = the_collidee->getComponent<of::object::component::Inventory>();
+			auto* stats = the_collidee ->get<of::object::component::Stats>();
+			auto* inventory = the_collidee->get<of::object::component::Inventory>();
 
 			if (stats)
 			{

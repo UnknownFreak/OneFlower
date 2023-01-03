@@ -16,7 +16,7 @@ namespace of::object::component
 
 	void AttachToParent::Update()
 	{
-		attachedOn->getComponent<Transform>()->pos = objectToFollow->getComponent<Transform>()->buffered;
+		attachedOn->get<Transform>()->pos = objectToFollow->get<Transform>()->buffered;
 	}
 
 	void AttachToParent::Simulate(const float&)

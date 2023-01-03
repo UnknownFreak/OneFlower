@@ -19,7 +19,7 @@ namespace of::resource
 		//TODO: replace with ObjectStateSaveState
 		//object->objectState = of::engine::GetModule<of::module::SaveFile>().getObjectState(object->id, objectState);
 		for (auto& x : components)
-			object->AddOrReplaceComponent(x.get()->copy());
+			object->addOrReplace(x.get()->copy());
 		auto& gameMode = of::engine::GetModule<of::module::SaveFile>().getGameMode();
 		if (gameMode.tagModifiers.find(object->tag) != gameMode.tagModifiers.end())
 			object->applyGameMode(gameMode.tagModifiers.at(object->tag));
@@ -53,7 +53,7 @@ namespace of::resource
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
 		object->onReconstruct();
-		auto transform = object->getComponent<of::object::component::Transform>();
+		auto transform = object->get<of::object::component::Transform>();
 		transform->pos = pos;
 		return object;
 	}
@@ -63,7 +63,7 @@ namespace of::resource
 		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->getComponent<of::object::component::Transform>();
+		auto transform = object->get<of::object::component::Transform>();
 		transform->pos = pos;
 		object->Update();
 		return object;
@@ -84,8 +84,8 @@ namespace of::resource
 		auto x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->getComponent<of::object::component::Transform>();
-		transform->pos = randomize(parent->getComponent<of::object::component::Transform>()->buffered, spawnDistance);
+		auto transform = object->get<of::object::component::Transform>();
+		transform->pos = randomize(parent->get<of::object::component::Transform>()->buffered, spawnDistance);
 		return object;
 	}
 

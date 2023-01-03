@@ -21,7 +21,7 @@ namespace of::object::component
 		requires std::derived_from<T, Items::StatChangingItem>
 		void swap(std::shared_ptr<T>& theSlot, std::shared_ptr<T>& theItem)
 		{
-			auto stats = attachedOn->getComponent<of::object::component::Stats>();
+			auto stats = attachedOn->get<of::object::component::Stats>();
 			if (theSlot.operator bool())
 			{
 				stats->removeModifier(theSlot->defence);

@@ -55,12 +55,12 @@ namespace Combat
 	{
 		if (coolDown.ready())
 		{
-			auto stats = owner->getSharedComponent<of::object::component::Stats>();
+			auto stats = owner->getShared<of::object::component::Stats>();
 			if (stats && stats->mainStat[Enums::Attribute::Mana].current >= cost)
 			{
 				stats->mainStat[Enums::Attribute::Mana].current -= cost;
 				coolDown.reset(true);
-				owner->getComponent<of::object::component::Stats>()->doEffects(skillExecutionEffects, stats);
+				owner->get<of::object::component::Stats>()->doEffects(skillExecutionEffects, stats);
 				auto& x = of::engine::GetModule<of::file::Handler>().archive;
 				of::resource::Prefab* skillPrefab = x.request<of::resource::Prefab>(prefabId);
 				of::resource::Prefab* effectPrefab = x.request<of::resource::Prefab>(skillEffectPrefabId);
@@ -74,7 +74,7 @@ namespace Combat
 				}
 				else
 				{
-					auto* transform = owner->getComponent<of::object::component::Transform>();
+					auto* transform = owner->get<of::object::component::Transform>();
 					auto pos = transform->pos;
 					pos += distanceWithAngle(summonPoint, transform->facingAngle);
 					skillGo = skillPrefab->createNewInstance(pos, owner->tag == "player");
@@ -84,14 +84,14 @@ namespace Combat
 
 				if (onSelf)
 				{
-					skillGo->addComponent<of::object::component::AttachToParent>(owner);
+					skillGo->add<of::object::component::AttachToParent>(owner);
 					if (effectGo)
-						effectGo->addComponent<of::object::component::AttachToParent>(owner);
+						effectGo->add<of::object::component::AttachToParent>(owner);
 				}
-				auto damage = skillGo->getComponent<of::object::component::Damage>();
-				skillGo->addComponent<Render>();
+				auto damage = skillGo->get<of::object::component::Damage>();
+				skillGo->add<Render>();
 				if (damage)
-					damage->owner = owner->getSharedComponent<of::object::component::Stats>();
+					damage->owner = owner->getShared<of::object::component::Stats>();
 			}
 		}
 	}

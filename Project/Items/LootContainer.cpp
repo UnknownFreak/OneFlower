@@ -35,7 +35,7 @@ namespace of::object::component
 		for (auto& x : lootDrops)
 		{
 			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
-			object->getComponent<of::object::component::Inventory>()->addItem(tmp, x.second);
+			object->get<of::object::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
 
