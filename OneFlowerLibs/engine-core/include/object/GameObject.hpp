@@ -62,7 +62,7 @@ namespace of::object
 		requires std::derived_from<T, component::Base>
 		bool post(const messaging::Message& message)
 		{
-			auto comp = getComponent<T>();
+			auto comp = get<T>();
 			if (comp)
 			{
 				comp->onMessage(message);
