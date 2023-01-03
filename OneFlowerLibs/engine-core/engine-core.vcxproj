@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\module\SaveSetting.hpp" />
     <ClInclude Include="include\module\SaveState.hpp" />
     <ClInclude Include="include\module\ObjectInstanceHandler.hpp" />
     <ClInclude Include="include\module\SaveFile.hpp" />

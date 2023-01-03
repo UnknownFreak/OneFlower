@@ -14,6 +14,12 @@
 #include <resource/GameModeModifier.hpp>
 #include <resource/trigger/Trigger.hpp>
 
+#include <module/SaveSetting.hpp>
+
+namespace of::module
+{
+	class ObjectInstanceHandler;
+}
 
 namespace of::object
 {
@@ -21,19 +27,23 @@ namespace of::object
 
 	class GameObject
 	{
+		friend class of::module::ObjectInstanceHandler;
 		friend class component::Base;
 		bool unloading = false;
 
 		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;
 
-		void putObjectState() const;
-		void retreiveObjectState();
+
+		void resolveReferences();
 
 	public:
 		of::common::uuid id;
 		of::common::String tag;
 
+		of::module::SaveSetting saveSetting = of::module::SaveSetting::NEVER_STORE;
 		ObjectState objectState = ObjectState::Active;
+		bool keepSavedOnObjectDelete = false;
+		bool unique = false;
 
 		void post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message);
 		void post(const messaging::Message& message);
@@ -132,6 +142,8 @@ namespace of::object
 		}
 
 		ObjectSaveState* getCurrentSaveState();
+		void persist(const of::module::SaveSetting& persist);
+		void onReconstruct();
 
 		template <class Archive>
 		void save(Archive& ar) const

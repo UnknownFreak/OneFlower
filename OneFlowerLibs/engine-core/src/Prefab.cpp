@@ -52,6 +52,7 @@ namespace of::resource
 			return x.getObject(uuid);
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
+		object->onReconstruct();
 		auto transform = object->getComponent<of::object::component::Transform>();
 		transform->pos = pos;
 		return object;

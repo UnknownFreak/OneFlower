@@ -51,6 +51,10 @@ public:
 	virtual void onDeath() override;
 	//void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+	void persist(of::object::ObjectSaveState*) override {};
+	void onReconstruct(of::object::ObjectSaveState*) override {};
+	void resolveReferences() override {};
+
 	template<class Archive>
 	void save(Archive& ar) const
 	{

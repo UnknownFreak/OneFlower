@@ -68,12 +68,13 @@ namespace of::module
 	{
 
 	}
-	void WorldManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition)
+	void WorldManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& _loadArgs)
 	{
 		loadstate = of::world::LoadingState::PREPARE_LOADINGSCREEN;
 		worldToLoad = world;
 		loadingScreenToLoad = loadingScreen;
 		playerPos = playerPosition;
+		loadArgs = _loadArgs;
 		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine");
 		logger.Info("Begin loading world " + world(), logger.fileInfo(__FILE__, __LINE__));
 		of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).reset();
@@ -162,6 +163,10 @@ namespace of::module
 		buffer.clear();
 		loadingStateInfo.instanceLoadTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 		loadstate = of::world::LoadingState::CACHE_ALL_ZONES;
+		if (loadArgs == of::world::LoadArgs::NEW_GAME)
+		{
+			navMeshLoaded = false;
+		}
 	}
 	void WorldManager::LoadingStateMachine::cacheAllZones()
 	{
@@ -206,8 +211,18 @@ namespace of::module
 	void WorldManager::LoadingStateMachine::unloadObjects()
 	{
 		auto& handler = parent.objectHandler;
-
-		handler.unloadNonUnique();
+		if (loadArgs == of::world::LoadArgs::NEW_GAME)
+		{
+			// things may be a bit confusing regarding new game... but we do not need to set the clear persistance flag on the gameobjects when deleted,
+			// because first of all if new game is called from the main menu, zero objects should be loaded (minus the splash screen objects)
+			// on the other hand, if the player goes back to main menu, ALL objects should still have been unloaded via the of::world::LoadingState::UNLOAD_ALL state,
+			// and even if objects still exist, the save file reference itself has nuked ALL object persistance data before any loading is started.
+			handler.unload();
+		}
+		else
+		{
+			handler.unloadNonUnique();
+		}
 		loadstate = of::world::LoadingState::LOAD_ALL_PREFABS;
 	}
 	void WorldManager::LoadingStateMachine::loadAllPrefabs()
@@ -315,6 +330,10 @@ namespace of::module
 	}
 	void WorldManager::LoadingStateMachine::finalize()
 	{
+		if (loadArgs == of::world::LoadArgs::LOAD_FROM_FILE)
+		{
+			parent.objectHandler.resolveObjectReferences();
+		}
 		loadstate = of::world::LoadingState::DONE;
 	}
 	void WorldManager::LoadingStateMachine::done()
@@ -380,7 +399,7 @@ namespace of::module
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("New Game");
 		saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 		auto& p = saveFile.getGameMode();
-		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition);
+		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition, of::world::LoadArgs::NEW_GAME);
 		//auto& glob = of::engine::GetModule<Globals>();
 		//loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 	}
@@ -392,6 +411,7 @@ namespace of::module
 
 	void WorldManager::save(const of::common::String& fileName)
 	{
+		objectHandler.persistGameObjects();
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
 		saveFile.currentZone = loadStateMachine.getCurrentWorld();
 		saveFile.loadingScreen = loadStateMachine.getCurrentLoadingScreen();
@@ -403,18 +423,18 @@ namespace of::module
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
 		isLoading = true;
 		saveFile.load(fileName);
-		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point);
+		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point, of::world::LoadArgs::LOAD_FROM_FILE);
 		// TODO: start timers from questing module if needed
 	}
 
-	void WorldManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition)
+	void WorldManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& loadArgs)
 	{
 		isLoading = true;
 		of::module::Time& time = of::engine::GetModule<of::module::Time>();
 		time.getTimer(globals::LOADING_TIMER).reset();
 		time.getTimer(globals::TOTAL_TIME_LOADED).reset();
 
-		loadStateMachine.beginLoad(world, loadingScreen, playerPosition);
+		loadStateMachine.beginLoad(world, loadingScreen, playerPosition, loadArgs);
 
 	}
 

@@ -35,6 +35,10 @@ namespace of::object::component
 
 		virtual std::unique_ptr<Base> ucopy() const override;
 
+		void persist(of::object::ObjectSaveState*) override {};
+		void onReconstruct(of::object::ObjectSaveState*) override {};
+		void resolveReferences() override {};
+
 	};
 
 }

@@ -17,6 +17,7 @@
 #include <resource/WorldInstance.hpp>
 #include <world/LoadingState.hpp>
 #include <world/LoadingStateInfo.hpp>
+#include <world/LoadArgs.hpp>
 
 namespace of::module::globals
 {
@@ -63,6 +64,7 @@ namespace of::module
 			std::vector<of::file::FileId> allInstances;
 
 			bool navMeshLoaded = false;
+			of::world::LoadArgs loadArgs = of::world::LoadArgs::UNDEFINED;
 
 
 			const of::file::FileId& getCurrentWorld() const;
@@ -73,7 +75,7 @@ namespace of::module
 
 			LoadingStateMachine(WorldManager& parent);
 
-			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position);
+			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs& loadArgs);
 			void load();
 			// TODO
 			//void unloadAllAssets();
@@ -104,7 +106,7 @@ namespace of::module
 		void load(const of::common::String& fileName);
 		void initialize();
 
-		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f});
+		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs& loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
 	
 
 		virtual void Update();

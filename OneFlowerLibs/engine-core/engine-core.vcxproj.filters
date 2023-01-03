@@ -104,6 +104,9 @@
     <ClInclude Include="include\object\ObjectSaveState.hpp">
       <Filter>include\object</Filter>
     </ClInclude>
+    <ClInclude Include="include\module\SaveSetting.hpp">
+      <Filter>include\module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">

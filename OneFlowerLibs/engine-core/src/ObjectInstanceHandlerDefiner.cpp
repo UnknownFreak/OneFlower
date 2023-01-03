@@ -102,6 +102,23 @@ namespace of::module
 	{
 	}
 
+	void ObjectInstanceHandler::persistGameObjects()
+	{
+		for (auto& i : objects)
+		{
+			i.second.persist(of::module::SaveSetting::PERSIST_ON_SAVE);
+			i.second.persist(of::module::SaveSetting::SPECIAL_EFFECT_RE_CONSTRUCT);
+		}
+	}
+
+	void ObjectInstanceHandler::resolveObjectReferences()
+	{
+		for (auto& i : objects)
+		{
+			i.second.resolveReferences();
+		}
+	}
+
 	void ObjectInstanceHandler::onDeleteAction(std::function<void(object::GameObject*)> fnPtr)
 	{
 		onDelete = fnPtr;

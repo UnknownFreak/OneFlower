@@ -16,10 +16,20 @@
 
 namespace of::object
 {
+
+	void GameObject::resolveReferences()
+	{
+		for (auto& it : componentMap)
+		{
+			it.second->resolveReferences();
+		}
+	}
+
 	void GameObject::post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message)
 	{
 		post({ topic, message });
 	}
+
 	void GameObject::post(const messaging::Message& message)
 	{
 		for (auto& it : componentMap)
@@ -27,6 +37,7 @@ namespace of::object
 			it.second->onMessage(message);
 		}
 	}
+
 	bool GameObject::post(const common::uuid& id, const messaging::Topic& topic, std::shared_ptr<messaging::Body> message)
 	{
 		return post(id, { topic, message });
@@ -77,7 +88,6 @@ namespace of::object
 			AddComponent(x.second->copy());
 		}
 		reAttach();
-		retreiveObjectState();
 		return *this;
 	}
 
@@ -137,7 +147,7 @@ namespace of::object
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
 		}
-		putObjectState();
+		persist(of::module::SaveSetting::PERSIST_ON_INTERACT);
 	}
 
 	void GameObject::onCollision(GameObject* collider)
@@ -208,7 +218,15 @@ namespace of::object
 			logger.Debug("OnDelete Component TypeName -> " + component.second->getTypeName());
 			component.second->onDelete();
 		}
+
+		if (keepSavedOnObjectDelete == false)
+		{
+			logger.Debug("Clearing object persistance status");
+			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			saveFile.remove(of::file::FileId(id));
+		}
 		logger.Debug("OnDelete -> Exit");
+
 	}
 
 	void GameObject::applyGameMode(const of::resource::GameModeModifier& modifier)
@@ -271,19 +289,26 @@ namespace of::object
 		return state;
 	}
 
-	void GameObject::putObjectState() const
+	void GameObject::persist(const of::module::SaveSetting& persist)
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
-		of::file::FileId tmp(id);
-		if (!saveFile.exists(tmp))
+		if (persist != of::module::SaveSetting::NEVER_STORE && saveSetting == persist)
 		{
-			saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
+			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			of::file::FileId tmp(id);
+			if (!saveFile.exists(tmp))
+			{
+				saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
+			}
+			auto state = saveFile.getState<ObjectSaveState>(tmp);
+			state->objectState = objectState;
+			for (auto& it : componentMap)
+			{
+				it.second->persist(state);
+			}
 		}
-		auto state = saveFile.getState<ObjectSaveState>(tmp);
-		state->objectState = objectState;
 	}
 
-	void GameObject::retreiveObjectState()
+	void GameObject::onReconstruct()
 	{
 		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 		of::file::FileId tmp(id);
@@ -291,6 +316,10 @@ namespace of::object
 		{
 			auto state = saveFile.getState<ObjectSaveState>(tmp);
 			objectState = state->objectState;
+			for (auto& it : componentMap)
+			{
+				it.second->onReconstruct(state);
+			}
 		}
 	}
 };

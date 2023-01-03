@@ -43,5 +43,8 @@
     <ClInclude Include="include\resource\WorldInstance.hpp">
       <Filter>include\resource</Filter>
     </ClInclude>
+    <ClInclude Include="include\world\LoadArgs.hpp">
+      <Filter>include\world</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

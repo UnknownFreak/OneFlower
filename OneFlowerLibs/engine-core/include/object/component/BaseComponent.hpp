@@ -7,6 +7,7 @@
 #include <utils/common/String.hpp>
 #include <utils/common/uuid.hpp>
 #include <object/messaging/ComponentMessage.hpp>
+#include <object/ObjectSaveState.hpp>
 
 namespace of::object
 {
@@ -52,6 +53,11 @@ namespace of::object::component
 		virtual void onDelete() {};
 
 	public:
+
+		virtual void persist(of::object::ObjectSaveState* saveState) = 0;
+		virtual void onReconstruct(of::object::ObjectSaveState* saveState) = 0;
+		virtual void resolveReferences() = 0;
+
 		virtual ~Base() = default;
 	};
 }

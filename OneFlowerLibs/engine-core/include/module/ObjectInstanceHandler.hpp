@@ -8,8 +8,11 @@
 
 namespace of::module
 {
+
 	class ObjectInstanceHandler : public of::module::interface::IEngineResource<ObjectInstanceHandler>
 	{
+		friend class of::object::GameObject;
+
 		std::function<void(object::GameObject*)> onAdd;
 		std::function<void(object::GameObject*)> onDelete;
 	public:
@@ -31,6 +34,8 @@ namespace of::module
 
 		void unload();
 		void unloadNonUnique();
+		void persistGameObjects();
+		void resolveObjectReferences();
 
 		void onDeleteAction(std::function<void(object::GameObject*)> fnPtr);
 		void onAddAction(std::function<void(object::GameObject*)> fnPtr);

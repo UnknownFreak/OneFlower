@@ -44,6 +44,7 @@ namespace of::module
 
 		bool exists(const of::file::FileId& uuid);
 		bool exists(const of::file::FileId& uuid, const common::String& type);
+		void remove(const of::file::FileId& uuid);
 
 		std::unique_ptr<save_state::SaveState>& getState(const of::file::FileId& uuid);
 

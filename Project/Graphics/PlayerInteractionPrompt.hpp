@@ -45,6 +45,9 @@ public:
 	virtual void Simulate(const float& fElapsedTime) override;
 	virtual void onDeath() override;
 
+	void persist(of::object::ObjectSaveState*) override {};
+	void onReconstruct(of::object::ObjectSaveState*) override {};
+	void resolveReferences() override {};
 };
 
 #endif

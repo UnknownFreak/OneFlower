@@ -20,6 +20,9 @@ namespace of::object::component
 
 		virtual void onMessage(const messaging::Message& message) override;
 
+		void persist(of::object::ObjectSaveState*) override {};
+		void onReconstruct(of::object::ObjectSaveState*) override {};
+		void resolveReferences() override {};
 	};
 }
 

@@ -45,6 +45,9 @@ namespace of::object::component
 		virtual void Simulate(const float& dt) override;
 		virtual void onDeath() override;
 
+		void persist(of::object::ObjectSaveState*) override {};
+		void onReconstruct(of::object::ObjectSaveState*) override {};
+		void resolveReferences() override {};
 	};
 }
 

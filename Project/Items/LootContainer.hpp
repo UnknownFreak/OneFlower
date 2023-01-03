@@ -38,6 +38,10 @@ namespace of::object::component
 		virtual void onDeath() override;
 		virtual void onDelete() override;
 
+		void persist(of::object::ObjectSaveState*) override {};
+		void onReconstruct(of::object::ObjectSaveState*) override {};
+		void resolveReferences() override {};
+
 		template<class Archive>
 		void save(Archive& ar) const
 		{

@@ -35,11 +35,15 @@ namespace of::module
 		return exists(uuid) && saveStates[uuid]->isOfType(type);
 	}
 
+	void SaveFile::remove(const of::file::FileId& uuid)
+	{
+		saveStates.erase(uuid);
+	}
+
 	std::unique_ptr<save_state::SaveState>& SaveFile::getState(const of::file::FileId& uuid)
 	{
 		return saveStates[uuid];
 	}
-
 
 	of::resource::DifficultyLevel SaveFile::getDifficulty() const
 	{

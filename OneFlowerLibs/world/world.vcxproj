@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="include\module\WorldManager.hpp" />
     <ClInclude Include="include\resource\WorldInstance.hpp" />
+    <ClInclude Include="include\world\LoadArgs.hpp" />
     <ClInclude Include="include\world\LoadingState.hpp" />
     <ClInclude Include="include\world\LoadingStateInfo.hpp" />
   </ItemGroup>
