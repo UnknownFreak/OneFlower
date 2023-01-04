@@ -1,9 +1,8 @@
 #include <locale/LanguageRequestor.hpp>
 #include "util/langaugeSaverUtil.hpp"
 
-
 #include <algorithm>
-#include <module/ModuleManager.hpp>
+#include <module/logger/OneLogger.hpp>
 
 #include <utils/os/ListDir.hpp>
 

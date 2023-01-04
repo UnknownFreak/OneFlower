@@ -5,9 +5,6 @@
 #include <file/Handler.hpp>
 #include <Items/Inventory.hpp>
 
-//of::common::uuid of::object::component::IBase<of::object::component::Damage>::typeID = of::common::uuid("e7bfcebf-4147-4af8-b881-2ea64812700f");
-//of::common::String of::object::component::IBase<of::object::component::Damage>::componentName = "Damage";
-
 namespace of::object::component
 {
 

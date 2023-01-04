@@ -1,5 +1,4 @@
 #include <module/OneTime.hpp>
-#include <module/ModuleManager.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::Time>::type = of::module::EngineResourceType::Time;

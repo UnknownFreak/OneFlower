@@ -1,4 +1,5 @@
 #include <file/Handler.hpp>
+#include <module/logger/OneLogger.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::file::Handler>::type = of::module::EngineResourceType::FileHandler;

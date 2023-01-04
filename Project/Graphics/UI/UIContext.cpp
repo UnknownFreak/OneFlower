@@ -1,7 +1,5 @@
 #include "UIContext.hpp"
 
-
-#include <module/ModuleManager.hpp>
 #include <Input/InputHandler.hpp>
 namespace Graphics::UI
 {

@@ -1,11 +1,7 @@
 #include "Interactable.hpp"
 #include <Object/GameObject.hpp>
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
-
-//of::common::uuid of::object::component::IBase<of::object::component::Interactable>::typeID = of::common::uuid("4f6d8d08-5bec-475a-867c-5a42f3bdf285");
-//of::common::String of::object::component::IBase<of::object::component::Interactable>::componentName = "Interactable";
 
 namespace of::object::component
 {

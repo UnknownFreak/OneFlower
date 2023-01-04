@@ -2,6 +2,8 @@
 #define EngineSettings_HPP
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
+
 #include <utils/config/parser.hpp>
 
 namespace of::module

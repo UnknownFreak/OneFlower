@@ -1,7 +1,6 @@
 #include <module/WorldManager.hpp>
 
 #include <file/Handler.hpp>
-#include <utils/HighResolutionClock.hpp>
 #include <module/OneTime.hpp>
 
 #include <resource/Prefab.hpp>

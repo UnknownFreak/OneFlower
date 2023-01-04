@@ -1,6 +1,7 @@
 #pragma once
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <file/Header.hpp>
 #include <file/Loader.hpp>
 #include <file/archive/Requestor.hpp>

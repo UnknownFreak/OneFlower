@@ -2,7 +2,6 @@
 
 #include <Items/Item.hpp>
 
-#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 
 #include <Items/Inventory.hpp>

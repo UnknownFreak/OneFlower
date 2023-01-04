@@ -4,6 +4,7 @@
 
 #include <utils/common/String.hpp>
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 namespace of::file
 {

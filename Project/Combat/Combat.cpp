@@ -1,9 +1,6 @@
 #include "Combat.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/logger/OneLogger.hpp>
-//of::common::uuid of::object::component::IBase<of::object::component::CombatComponent>::typeID = of::common::uuid("4d167cc6-90bd-491e-8def-0def351fec54");
-//of::common::String of::object::component::IBase<of::object::component::CombatComponent>::componentName = "Combat";
 
 namespace of::object::component
 {

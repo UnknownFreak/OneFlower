@@ -1,6 +1,7 @@
 #include <locale/LanguageRequestor.hpp>
-
 #include <file/archive/loadHeader.hpp>
+
+#include <module/logger/OneLogger.hpp>
 
 #include "langaugeSaverUtil.hpp"
 

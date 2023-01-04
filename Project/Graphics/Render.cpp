@@ -8,9 +8,6 @@
 
 using namespace of::object;
 
-//of::common::uuid component::IBase<Render>::typeID = of::common::uuid("206d37a1-aa09-44ff-bd7b-bfdd4b5a4b87"); 
-//of::common::String component::IBase<Render>::componentName = "Render";
-
 void Render::loadAndSetModel()
 {
 	auto& wnd = of::engine::GetModule<Graphics::RenderWindow>();

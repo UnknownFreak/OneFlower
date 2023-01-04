@@ -1,6 +1,5 @@
 #include "GameConfig.hpp"
 
-#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::Settings;

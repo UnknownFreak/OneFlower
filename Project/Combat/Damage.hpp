@@ -7,7 +7,6 @@
 
 #include <vector>
 
-#include <object/component/IBaseComponent.hpp>
 #include <object/component/Transform.hpp>
 #include "Stats.hpp"
 #include <Combat/Effect.hpp>

@@ -1,6 +1,5 @@
 #include <module/resource/MeshLoader.hpp>
 
-#include <Module/ModuleManager.hpp>
 #include <module/logger/OneLogger.hpp>
 
 #include <filesystem>

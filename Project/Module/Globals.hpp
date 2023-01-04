@@ -3,7 +3,8 @@
 
 #include <glm/vec3.hpp>
 
-#include "module/IEngineModule.hpp"
+#include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <map>
 #include <vector>
 

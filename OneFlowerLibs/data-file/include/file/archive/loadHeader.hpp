@@ -7,7 +7,6 @@
 
 #include <file/archive/EntityIndex.hpp>
 
-#include <module/ModuleManager.hpp>
 #include <module/logger/OneLogger.hpp>
 
 namespace of::file::archive

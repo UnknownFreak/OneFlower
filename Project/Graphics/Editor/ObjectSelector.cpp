@@ -1,6 +1,5 @@
 #include "ObjectSelector.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <Module/BuildMode.hpp>
 

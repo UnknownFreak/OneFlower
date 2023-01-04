@@ -2,7 +2,6 @@
 
 #include <object/GameObject.hpp>
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 

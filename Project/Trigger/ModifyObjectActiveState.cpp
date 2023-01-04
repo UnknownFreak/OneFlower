@@ -1,6 +1,5 @@
 #include "ModifyObjectActiveState.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 

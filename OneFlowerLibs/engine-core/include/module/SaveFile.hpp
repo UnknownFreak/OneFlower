@@ -2,6 +2,7 @@
 #define SaveFile_HPP
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 #include <utils/common/string.hpp>
 #include <utils/common/uuid.hpp>

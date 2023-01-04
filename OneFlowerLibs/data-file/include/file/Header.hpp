@@ -6,7 +6,6 @@
 #include <utils/common/string.hpp>
 #include <utils/common/version.hpp>
 #include <Module/Logger/OneLogger.hpp>
-#include <module/ModuleManager.hpp>
 
 namespace of::file
 {

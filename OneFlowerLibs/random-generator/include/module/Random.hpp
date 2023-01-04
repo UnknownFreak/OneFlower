@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 namespace of::module
 {

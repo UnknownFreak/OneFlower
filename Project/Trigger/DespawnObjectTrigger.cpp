@@ -1,6 +1,5 @@
 #include "DespawnObjectTrigger.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 
 namespace Trigger

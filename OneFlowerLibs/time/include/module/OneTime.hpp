@@ -4,12 +4,15 @@
 #include <unordered_map>
 #include <mutex>
 
-#include <utils/HighResolutionClock.hpp>
 #include <file/FileId.hpp>
 
+#include <utils/HighResolutionClock.hpp>
 #include <utils/common/String.hpp>
+
 #include <resource/TickTimer.hpp>
+
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 namespace of::module
 {

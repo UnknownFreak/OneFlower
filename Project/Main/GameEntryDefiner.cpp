@@ -2,7 +2,6 @@
 
 #include <thread>
 
-#include <Module\ModuleManager.hpp>
 #include <Module\BuildMode.hpp>
 
 #include<File/GameConfig.hpp>

@@ -1,6 +1,5 @@
 #include "HealthTresholdRequirement.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
 #include <Combat/Stats.hpp>

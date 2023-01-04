@@ -1,5 +1,4 @@
 #include <file/Loader.hpp>
-#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 

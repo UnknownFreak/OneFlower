@@ -1,7 +1,6 @@
 #include "Console.hpp"
 
 #include <iostream>
-#include <Module/ModuleManager.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
 #include <Graphics/Window.hpp>

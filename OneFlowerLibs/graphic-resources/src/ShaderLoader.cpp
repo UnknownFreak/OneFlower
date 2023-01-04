@@ -6,7 +6,6 @@
 #include <swizzle/gfx/Shader.hpp>
 
 #include <module/logger/OneLogger.hpp>
-#include <Module/ModuleManager.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;

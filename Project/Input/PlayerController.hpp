@@ -1,7 +1,6 @@
 #ifndef PlayerController_HPP
 #define PlayerController_HPP
 
-#include <Object/component/IBaseComponent.hpp>
 #include <Object/component/Transform.hpp>
 #include <Combat/Combat.hpp>
 

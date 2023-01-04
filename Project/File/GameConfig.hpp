@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 #include <utils/common/String.hpp>
 #include <module/logger/LogLevel.hpp>

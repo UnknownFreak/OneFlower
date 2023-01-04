@@ -6,6 +6,7 @@
 #include <functional>
 #include <mutex>
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <utils/common/string.hpp>
 
 

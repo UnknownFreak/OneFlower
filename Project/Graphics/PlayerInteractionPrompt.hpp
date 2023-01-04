@@ -3,7 +3,6 @@
 
 #include <Helpers/Enum/InteractionOption.hpp>
 
-#include <object/component/IBaseComponent.hpp>
 #include <object/component/Transform.hpp>
 
 #include "Model.hpp"

@@ -3,9 +3,6 @@
 #include <Module/Logger/OneLogger.hpp>
 #include<module/ObjectInstanceHandler.hpp>
 
-//of::common::uuid of::object::component::IBase<Dialog>::typeID = of::common::uuid("54f0116b-25fc-422a-82ed-bb2ff6c60820");
-//of::common::String of::object::component::IBase<Dialog>::componentName = "Dialog";
-
 void Dialog::onMessage(const of::object::messaging::Message&)
 {
 }

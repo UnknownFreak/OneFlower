@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include "ModuleLogger.hpp"
 
+#include <module/ModuleManager.hpp>
 #include <module/IEngineModule.hpp>
 
 namespace of::module::logger

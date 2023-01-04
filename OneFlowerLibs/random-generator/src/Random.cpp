@@ -1,5 +1,4 @@
 #include <module/Random.hpp>
-#include <module/ModuleManager.hpp>
 #include <module/settings/EngineSettings.hpp>
 
 of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::RandomGen>::type = of::module::EngineResourceType::RandomGen;

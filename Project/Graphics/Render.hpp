@@ -1,7 +1,6 @@
 #ifndef RenderComponent_HPP
 #define RenderComponent_HPP
 
-#include <object/component/IBaseComponent.hpp>
 #include <object/component/Transform.hpp>
 
 #include <file/FileId.hpp>

@@ -1,6 +1,5 @@
 #include "EffectIcon.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/resource/TextureLoader.hpp>
 
 Graphics::UI::EffectIcon::EffectIcon(const of::common::String& icon, Combat::EffectStack& stack) : UIContext(swizzle::input::Keys::KeyNone, "EffectIcon", true),

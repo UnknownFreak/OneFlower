@@ -8,6 +8,7 @@
 
 #include <utils/common/string.hpp>
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <module/settings/EngineSettings.hpp>
 
 namespace of::module::texture

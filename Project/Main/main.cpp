@@ -4,8 +4,6 @@
 
 #include <Main/GameEntry.hpp>
 
-#include <Module/ModuleManager.hpp>
-
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
 #include <Input/InputHandler.hpp>

@@ -7,7 +7,6 @@
 #include <file/Handler.hpp>
 #include <File/Asset/Resource/DialogTree.hpp>
 
-#include <object/component/IBaseComponent.hpp>
 #include <object/component/Transform.hpp>
 
 #include <file/FileId.hpp>

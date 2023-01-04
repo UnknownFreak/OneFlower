@@ -1,5 +1,4 @@
 #include "Item.hpp"
-#include <module/ModuleManager.hpp>
 #include <module/resource/TextureLoader.hpp>
 
 of::common::uuid of::file::archive::Trait<Items::Base>::typeId = of::common::uuid("d2ab3ecd-a468-4170-bd8b-d4fdd6fd9235");

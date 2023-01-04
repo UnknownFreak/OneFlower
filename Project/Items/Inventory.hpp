@@ -3,7 +3,6 @@
 
 #include <memory>
 
-#include <object/component/IBaseComponent.hpp>
 #include <object/GameObject.hpp>
 #include <Combat/Stats.hpp>
 

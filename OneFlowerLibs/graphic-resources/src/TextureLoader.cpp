@@ -1,9 +1,6 @@
 #include <module/resource/TextureLoader.hpp>
 
-
 #include <swizzle/asset/TextureLoader.hpp>
-
-#include <Module/ModuleManager.hpp>
 
 #include <module/logger/OneLogger.hpp>
 #include <module/window/GraphicsProxy.hpp>

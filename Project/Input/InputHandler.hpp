@@ -9,6 +9,7 @@
 #include <swizzle/core/Input.hpp>
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 #include "BasicInputHandler.hpp"
 #include "AxisInputHandler.hpp"

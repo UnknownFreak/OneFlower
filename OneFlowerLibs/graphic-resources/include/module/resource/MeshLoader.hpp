@@ -9,6 +9,7 @@
 #include <mutex>
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 namespace of::module::mesh
 {

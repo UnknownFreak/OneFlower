@@ -1,5 +1,7 @@
 #include <locale/TranslationStringContainer.hpp>
 
+#include <module/logger/OneLogger.hpp>
+
 of::common::uuid of::file::archive::Trait<of::locale::TranslationStringContainer>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
 
 of::locale::StoredTranslatable of::locale::TranslationStringContainer::empty = of::locale::StoredTranslatable("", "");

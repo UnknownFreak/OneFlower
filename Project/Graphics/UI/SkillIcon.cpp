@@ -1,6 +1,5 @@
 #include "SkillIcon.hpp"
 
-#include <module/ModuleManager.hpp>
 #include <module/resource/TextureLoader.hpp>
 
 Graphics::UI::SkillIcon::SkillIcon(Combat::Skill* skill) : UIContext(swizzle::input::Keys::KeyNone, "SkillIcon", false), skill(skill),

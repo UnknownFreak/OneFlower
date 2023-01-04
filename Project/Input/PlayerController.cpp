@@ -2,9 +2,6 @@
 
 #include <Object/GameObject.hpp>
 
-//of::common::uuid of::object::component::IBase<of::object::component::PlayerController>::typeID = of::common::uuid("4eb8d991-d06e-4231-b3bc-82e4b5d5199d");
-//of::common::String of::object::component::IBase<of::object::component::PlayerController>::componentName = "PlayerController";
-
 namespace of::object::component
 {
 	void PlayerController::onMessage(const of::object::messaging::Message&)

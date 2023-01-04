@@ -2,8 +2,6 @@
 
 #include <file/Handler.hpp>
 
-#include <Module/ModuleManager.hpp>
-
 #include <Helpers/PrimitiveSaveable.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Globals>::type = of::module::EngineResourceType::Globals;

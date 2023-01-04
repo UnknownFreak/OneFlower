@@ -1,8 +1,8 @@
 #ifndef UIHandler_HPP
 #define UIHandler_HPP
 
-#include <module/ModuleManager.hpp>
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <module/WorldManager.hpp>
 
 #include <vector>

@@ -13,6 +13,7 @@
 #include <module/IEngineModule.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
+#include <module/ModuleManager.hpp>
 
 #include <resource/WorldInstance.hpp>
 #include <world/LoadingState.hpp>

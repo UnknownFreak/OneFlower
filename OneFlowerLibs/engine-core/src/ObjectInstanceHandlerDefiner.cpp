@@ -1,6 +1,4 @@
 #include <module/ObjectInstanceHandler.hpp>
-
-#include <module/ModuleManager.hpp>
 #include <module/logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::ObjectInstanceHandler>::type = of::module::EngineResourceType::ObjectInstanceHandler;

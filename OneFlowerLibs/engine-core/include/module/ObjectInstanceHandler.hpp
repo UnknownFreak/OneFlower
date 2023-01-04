@@ -2,6 +2,7 @@
 #define ObjectInstanceHandler_HPP
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 
 #include <object/GameObject.hpp>
 #include <unordered_map>

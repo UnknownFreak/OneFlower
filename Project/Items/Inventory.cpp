@@ -1,9 +1,6 @@
 #include "Inventory.hpp"
 #include <Object/GameObject.hpp>
 
-//of::common::uuid of::object::component::IBase<of::object::component::Inventory>::typeID;
-//of::common::String of::object::component::IBase<of::object::component::Inventory>::componentName = "Inventory";
-
 namespace of::object::component
 {
 	void Inventory::onMessage(const of::object::messaging::Message&)

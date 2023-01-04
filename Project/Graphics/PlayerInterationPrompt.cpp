@@ -7,9 +7,6 @@
 #include <module/resource/TextureLoader.hpp>
 #include <Items/Inventory.hpp>
 
-//of::common::uuid of::object::component::IBase<PlayerInteractionPrompt>::typeID;
-//of::common::String of::object::component::IBase<PlayerInteractionPrompt>::componentName = "PlayerInteractionPrompt";
-
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
 	texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("DialogPrompt.png", of::module::Settings::uiTexturePath);

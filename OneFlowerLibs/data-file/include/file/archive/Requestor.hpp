@@ -10,8 +10,6 @@
 #include <utils/common/String.hpp>
 #include <module/logger/OneLogger.hpp>
 
-#include <Module/ModuleManager.hpp>
-
 #include <File/Archive/EntityIndex.hpp>
 #include <File/Header.hpp>
 #include <File/Loader.hpp>

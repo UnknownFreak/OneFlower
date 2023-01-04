@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <module/IEngineModule.hpp>
+#include <module/ModuleManager.hpp>
 #include <swizzle/gfx/Context.hpp>
 #include <swizzle/gfx/CommandBuffer.hpp>
 #include <swizzle/gfx/Swapchain.hpp>

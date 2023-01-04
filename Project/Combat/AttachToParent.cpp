@@ -4,8 +4,6 @@
 #include <object/GameObject.hpp>
 #include <object/component/Transform.hpp>
 
-//of::common::uuid of::object::component::IBase<of::object::component::AttachToParent>::typeID = of::common::uuid("6e45ab1c-7a29-417b-b9fb-d6db1789696b");
-//of::common::String of::object::component::IBase<of::object::component::AttachToParent>::componentName = "AttachToParent";
 
 namespace of::object::component
 {

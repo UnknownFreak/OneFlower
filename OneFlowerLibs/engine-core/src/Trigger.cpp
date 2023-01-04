@@ -2,7 +2,6 @@
 
 #include <resource/trigger/TriggerState.hpp>
 
-#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 
 namespace of::resource::trigger

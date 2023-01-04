@@ -8,10 +8,6 @@
 #include <Items/LootContainer.hpp>
 
 
-//of::common::uuid of::object::component::IBase<of::object::component::LootDrop>::typeID;
-//of::common::String of::object::component::IBase<of::object::component::LootDrop>::componentName = "LootDrop";
-
-
 namespace of::object::component
 {
 
