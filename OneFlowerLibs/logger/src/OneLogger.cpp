@@ -11,7 +11,7 @@ namespace of::module::logger
 	{
 	}
 
-	OneLogger::OneLogger(std::shared_ptr<Streams::LogStream>& logStream) : LoggerBase(logStream, LogLevel::INFO)
+	OneLogger::OneLogger(std::shared_ptr<Streams::LogStream> logStream) : LoggerBase(logStream, LogLevel::INFO)
 	{
 	}
 

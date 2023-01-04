@@ -29,7 +29,7 @@ namespace of::module::logger
 		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
 	public:
 		OneLogger();
-		OneLogger(std::shared_ptr<Streams::LogStream>& logStream);
+		OneLogger(std::shared_ptr<Streams::LogStream> logStream);
 		~OneLogger();
 
 		ModuleLogger& getLogger(const common::String& moduleName)
