@@ -4,7 +4,7 @@ std::mt19937_64 of::common::uuid::engine = std::mt19937_64(std::random_device()(
 
 namespace of::common
 {
-	uuids::uuid uuid::from_string(const String& str) noexcept
+	constexpr uuids::uuid uuid::from_string(const String& str) noexcept
 	{
 		if (uuids::uuid::is_valid_uuid(str))
 		{
@@ -20,7 +20,8 @@ namespace of::common
 	uuid::uuid(const uuid& uuid) noexcept : m_uuid(uuid.m_uuid) {}
 	uuid::uuid(const uuids::uuid& uuid) noexcept : m_uuid(uuid) {}
 	uuid::uuid(const uuid&& uuid) noexcept : m_uuid(uuid.m_uuid) {}
-	uuid::uuid(const String& str) noexcept : m_uuid(from_string(str)) {}
+	constexpr uuid::uuid(const String& str) noexcept : m_uuid(uuids::uuid::from_string(str).value()) {}
+	constexpr uuid::uuid(const char* str) noexcept : m_uuid(uuids::uuid::from_string(str).value()) {}
 
 
 	uuid uuid::nil() noexcept
@@ -37,6 +38,11 @@ namespace of::common
 	{
 		m_uuid = uuid.m_uuid;
 		return *this;
+	}
+
+	constexpr uuid uuid::operator=(const String& str)
+	{
+		return uuid(str);
 	}
 
 	std::string uuid::to_string() const

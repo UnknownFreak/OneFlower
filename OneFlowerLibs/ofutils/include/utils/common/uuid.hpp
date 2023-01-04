@@ -21,7 +21,7 @@ namespace of::common
 		static std::mt19937_64 engine;
 		uuids::uuid m_uuid;
 	
-		uuids::uuid from_string(const String& str) noexcept;
+		constexpr uuids::uuid from_string(const String& str) noexcept;
 	
 	public:
 
@@ -29,12 +29,14 @@ namespace of::common
 		uuid(const uuid& uuid) noexcept;
 		uuid(const uuids::uuid& uuid) noexcept;
 		uuid(const uuid&& uuid) noexcept;
-		uuid(const String& str) noexcept;
+		constexpr uuid(const String& str) noexcept;
+		constexpr uuid(const char* str) noexcept;
 	
 		static uuid nil() noexcept;
 		bool is_nil() const noexcept;
 
 		uuid& operator=(const uuid& uuid);
+		constexpr uuid operator=(const String& str);
 	
 		template<class Archive>
 		void save(Archive& ar) const
