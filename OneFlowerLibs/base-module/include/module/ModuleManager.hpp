@@ -16,16 +16,16 @@ namespace of::module
 
 		std::map<EngineResourceType, std::unique_ptr<BaseEngineModule> > componentMap;
 
-		template<class T>
-		T* Create_T()
+		template<class T, class ...Args>
+		T* Create_T(Args&&... args)
 		{
-			componentMap.insert({ interface::IEngineResource<T>::type, std::make_unique<T>() });
+			componentMap.insert({ interface::IEngineResource<T>::type, std::make_unique<T>(std::forward<Args>(args)...) });
 			return (T*)componentMap[interface::IEngineResource<T>::type].get();
 		}
 
 	public:
-		template<class T_S>
-		T_S& GetResource()
+		template<class T_S, class ...Args>
+		T_S& GetResource(Args&&... args)
 		{
 			std::map<EngineResourceType, std::unique_ptr<BaseEngineModule>>::iterator it;
 			it = componentMap.find(interface::IEngineResource<T_S>::type);
@@ -33,7 +33,7 @@ namespace of::module
 			if (it != componentMap.end())
 				return 	(T_S&)*it->second;
 			else
-				return (T_S&)*Create_T<T_S>();
+				return (T_S&)*Create_T<T_S>(std::forward<Args>(args)...);
 		}
 
 		static ModuleManager& get();
@@ -43,10 +43,10 @@ namespace of::module
 }
 namespace of::engine
 {
-	template<class T>
-	inline T& GetModule()
+	template<class T, typename... Args>
+	inline T& GetModule(Args&& ... args)
 	{
-		return module::ModuleManager::get().GetResource<T>();
+		return module::ModuleManager::get().GetResource<T>(std::forward<Args>(args)...);
 	}
 
 	inline void Dispose() {
