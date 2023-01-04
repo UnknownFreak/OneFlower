@@ -4,7 +4,7 @@
 #include <utils/common/string.hpp>
 #include <module/logger/LogLevel.hpp>
 
-namespace of::module::logger::Streams
+namespace of::module::logger::streams
 {
 	struct LogStream
 	{

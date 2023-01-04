@@ -94,7 +94,7 @@ volatile void initializeSystems()
 
 class EngineLogger : public swizzle::core::LogDevice
 {
-	typedef of::module::logger::Streams::ConsoleLogStream CLS;
+	typedef of::module::logger::streams::ConsoleLogStream CLS;
 	of::module::logger::ModuleLogger& stream;
 
 public:
@@ -107,9 +107,6 @@ public:
 	{
 		of::common::String tType = messageType;
 		stream.EngineLogging(tType, message);
-
-		//of::engine::GetModule<of::module::logger::OneLogger>().EngineLogging(tType, message);
-		//printf("%s: %s\n", messageType, message);
 	}
 
 	EngineLogger& operator=(const EngineLogger& other)

@@ -20,7 +20,7 @@ namespace of::module::logger
 
 #else
 	// TODO change with LogFileStream custom class
-	typedef Streams::BasicLogStream stream;
+	typedef streams::BasicLogStream stream;
 #endif
 
 	class OneLogger : public LoggerBase, public interface::IEngineResource<OneLogger>
@@ -29,7 +29,7 @@ namespace of::module::logger
 		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
 	public:
 		OneLogger();
-		OneLogger(std::shared_ptr<Streams::LogStream> logStream);
+		OneLogger(std::shared_ptr<streams::LogStream> logStream);
 		~OneLogger();
 
 		ModuleLogger& getLogger(const common::String& moduleName)

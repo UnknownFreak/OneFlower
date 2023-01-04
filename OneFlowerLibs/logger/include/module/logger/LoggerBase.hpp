@@ -35,7 +35,7 @@ namespace of::module::logger
 		common::String keyword;
 
 		LogLevel level;
-		typename std::shared_ptr<Streams::LogStream> log;
+		typename std::shared_ptr<streams::LogStream> log;
 
 		template <class ...Args>
 		void logMessage(const LogLevel& logLevel, Args&& ... args)

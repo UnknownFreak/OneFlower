@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace of::module::logger::Streams
+namespace of::module::logger::streams
 {
 
 	void ConsoleLogStream::LogMessage(const LogLevel& logLevel, const common::String& message)

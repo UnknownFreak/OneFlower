@@ -3,7 +3,7 @@
 
 #include "LogSteam.hpp"
 
-namespace of::module::logger::Streams
+namespace of::module::logger::streams
 {
 	class NullStream : public LogStream
 	{
