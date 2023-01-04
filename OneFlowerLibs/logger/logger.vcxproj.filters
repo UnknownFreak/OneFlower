@@ -30,6 +30,9 @@
     <ClCompile Include="src\BasicLogStream.cpp">
       <Filter>src\streams</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConsoleLogStream.cpp">
+      <Filter>src\streams</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\logger\LoggerBase.hpp">
@@ -51,6 +54,9 @@
       <Filter>include\module\logger\streams</Filter>
     </ClInclude>
     <ClInclude Include="include\module\logger\streams\NullStream.hpp">
+      <Filter>include\module\logger\streams</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\logger\streams\ConsoleStream.hpp">
       <Filter>include\module\logger\streams</Filter>
     </ClInclude>
   </ItemGroup>

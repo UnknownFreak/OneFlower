@@ -6,6 +6,8 @@
 
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
+#include <module/logger/streams/ConsoleStream.hpp>
+
 #include <Input/InputHandler.hpp>
 
 #include <file/Handler.hpp>
@@ -88,14 +90,26 @@ volatile void initializeSystems()
 	registerArchiveDefaults();
 }
 
+
+
 class EngineLogger : public swizzle::core::LogDevice
 {
+	typedef of::module::logger::Streams::ConsoleLogStream CLS;
+	of::module::logger::ModuleLogger& stream;
+
+public:
+	inline EngineLogger() : stream(of::engine::GetModule<of::module::logger::OneLogger>().getLogger<CLS>("Swizzle", std::make_shared<CLS>()))
+	{
+	}
+
 	// Inherited via LogDevice
 	virtual void logMessage(const SwChar* messageType, const SwChar* message) override
 	{
 		of::common::String tType = messageType;
-		of::engine::GetModule<of::module::logger::OneLogger>().EngineLogging(tType, message);
-		printf("%s: %s\n", messageType, message);
+		stream.EngineLogging(tType, message);
+
+		//of::engine::GetModule<of::module::logger::OneLogger>().EngineLogging(tType, message);
+		//printf("%s: %s\n", messageType, message);
 	}
 
 	EngineLogger& operator=(const EngineLogger& other)

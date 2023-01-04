@@ -23,23 +23,34 @@ namespace of::module::logger
 	typedef Streams::BasicLogStream stream;
 #endif
 
-	class OneLogger : public LoggerBase<stream>, public interface::IEngineResource<OneLogger>
+	class OneLogger : public LoggerBase, public interface::IEngineResource<OneLogger>
 	{
-		static Streams::NullStream nullStream;
-		static ModuleLogger<Streams::NullStream> EMPTY;
-		std::unordered_map<common::String, ModuleLogger<stream>> moduleLoggers;
+		static ModuleLogger EMPTY;
+		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
 	public:
 		OneLogger();
+		OneLogger(std::shared_ptr<Streams::LogStream>& logStream);
 		~OneLogger();
 
-		ModuleLogger<Streams::LogStream>& getLogger(const common::String& moduleName)
+		ModuleLogger& getLogger(const common::String& moduleName)
 		{
 			if (this == nullptr)
-				return (ModuleLogger<Streams::LogStream>&)EMPTY;
+				return EMPTY;
 			if (moduleLoggers.find(moduleName) == moduleLoggers.end())
 				moduleLoggers.insert_or_assign(moduleName,
-					ModuleLogger<stream>(moduleName, log, level));
-			return (ModuleLogger<Streams::LogStream>&)moduleLoggers.at(moduleName);
+					ModuleLogger(moduleName, log, level));
+			return moduleLoggers.at(moduleName);
+		}
+
+		template<class logStream>
+		ModuleLogger& getLogger(const common::String& moduleName, std::shared_ptr<logStream> customLogger)
+		{
+			if (this == nullptr)
+				return EMPTY;
+			if (moduleLoggers.find(moduleName) == moduleLoggers.end())
+				moduleLoggers.insert_or_assign(moduleName,
+					ModuleLogger(moduleName, customLogger, level));
+			return moduleLoggers.at(moduleName);
 		}
 
 		EngineResourceType& getType() const

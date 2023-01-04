@@ -7,15 +7,15 @@
 
 namespace of::module::logger
 {
-	template <class T_Stream>
-	class ModuleLogger : public LoggerBase<T_Stream&>
+	class ModuleLogger : public LoggerBase
 	{
 		common::String moduleName;
 
 	public:
-		ModuleLogger(const common::String& moduleName, T_Stream& stream, const LogLevel& level) : LoggerBase<T_Stream&>(stream, level), moduleName(moduleName)
+		template<class Ty>
+		ModuleLogger(const common::String& moduleName, std::shared_ptr<Ty> stream, const LogLevel& level) : LoggerBase(stream, level), moduleName(moduleName)
 		{
-			this->keyword = "Module: " + moduleName + " ";
+			this->keyword = "Module: \"" + moduleName + "\" - ";
 		};
 
 		ModuleLogger(const ModuleLogger& logger) : ModuleLogger(logger.moduleName, logger.log, logger.level)

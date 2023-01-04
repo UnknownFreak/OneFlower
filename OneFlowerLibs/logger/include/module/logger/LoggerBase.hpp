@@ -17,7 +17,6 @@
 namespace of::module::logger
 {
 		
-	template<class T_Stream>
 	class LoggerBase
 	{
 		template <class ...Args>
@@ -27,7 +26,7 @@ namespace of::module::logger
 			{
 				std::stringstream ss;
 				(ss << ... << args);
-				log.LogMessage(logLevel, ss.str());
+				log->LogMessage(logLevel, ss.str());
 			}
 		};
 
@@ -36,7 +35,7 @@ namespace of::module::logger
 		common::String keyword;
 
 		LogLevel level;
-		typename T_Stream log;
+		typename std::shared_ptr<Streams::LogStream> log;
 
 		template <class ...Args>
 		void logMessage(const LogLevel& logLevel, Args&& ... args)
@@ -49,9 +48,14 @@ namespace of::module::logger
 		};
 
 	public:
-		LoggerBase(T_Stream s, const LogLevel level): log(s), level(level), keyword()
+		template<class Ty>
+		LoggerBase(Ty s, const LogLevel level): log(std::make_shared<Ty>(s)), level(level), keyword()
 		{
-			static_assert(std::is_base_of_v<logger::Streams::LogStream, std::remove_reference_t<T_Stream>>, "Stream is not a base of LogStream");
+		};
+
+		template<class Ty>
+		LoggerBase(std::shared_ptr<Ty> s, const LogLevel level) : log(s), level(level), keyword()
+		{
 		};
 
 		virtual void setLogLevel(const LogLevel& newLevel)
