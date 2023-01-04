@@ -7,8 +7,8 @@
 #include <glm/gtx/vector_angle.hpp>
 #pragma warning (pop)
 
-of::common::uuid of::object::component::IBase<of::object::component::Transform>::typeID = of::common::uuid("e6f52003-0e92-4118-8ab0-b5d54b680c81");
-of::common::String of::object::component::IBase<of::object::component::Transform>::componentName = "Transform";
+//of::common::uuid of::object::component::IBase<of::object::component::Transform>::typeID = of::common::uuid("e6f52003-0e92-4118-8ab0-b5d54b680c81");
+//of::common::String of::object::component::IBase<of::object::component::Transform>::componentName = "Transform";
 
 namespace of::object::component
 {

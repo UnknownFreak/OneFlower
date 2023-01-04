@@ -9,12 +9,12 @@
 #include <cereal/types/polymorphic.hpp>
 
 #include <utils/common/uuid.hpp>
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 #include <object/ObjectState.hpp>
 
 namespace of::object::component
 {
-	struct ObjectStateActivator : public of::object::component::IBase<ObjectStateActivator>
+	struct ObjectStateActivator : public Base
 	{
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
@@ -59,6 +59,17 @@ namespace of::object::component
 		{
 			ar(m_objectsToToggle);
 		}
+
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+		of::common::String getTypeName() const override
+		{
+			return "Activator";
+		};
+
+		static constexpr of::common::uuid typeId = "36d49da3-ef84-4856-8a1e-3bfd5fcb1898";
 	};
 }
 

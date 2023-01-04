@@ -1,12 +1,12 @@
 #ifndef LootDrop_Hpp
 #define LootDrop_Hpp
 
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 #include "LootTable.hpp"
 
 namespace of::object::component
 {
-	class LootDrop : public of::object::component::IBase<LootDrop>
+	class LootDrop : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
@@ -41,6 +41,18 @@ namespace of::object::component
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};
+
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "LootDrop";
+		};
+
+		static constexpr of::common::uuid typeId = "6e45ab1f-7a29-417b-b9fb-d6db1789696b";
 	};
 }
 

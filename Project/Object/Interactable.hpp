@@ -2,12 +2,12 @@
 #ifndef Interactable_HPP
 #define Interactable_HPP
 
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 #include "Interaction.hpp"
 
 namespace of::object::component
 {
-	struct Interactable : public of::object::component::IBase<Interactable>
+	struct Interactable : public Base
 	{
 
 		bool interact(const Object::Interaction& interaction);
@@ -61,6 +61,17 @@ namespace of::object::component
 			ar(interactionState);
 			ar(interactions);
 		}
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Interactable";
+		};
+
+		static constexpr of::common::uuid typeId = "4f6d8d08-5bec-475a-867c-5a42f3bdf285";
 	};
 }
 

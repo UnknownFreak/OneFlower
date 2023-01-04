@@ -15,8 +15,7 @@
 
 namespace of::object::component
 {
-
-	class Damage : public IBase<Damage>
+	class Damage : public Base
 	{
 		Transform* transform;
 		bool hasLivedTooLong();
@@ -67,6 +66,18 @@ namespace of::object::component
 		virtual Damage* copy() const override;
 		virtual std::unique_ptr<Base> ucopy() const override;
 
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Damage";
+		};
+
+		static constexpr of::common::uuid typeId = "e7bfcebf-4147-4af8-b881-2ea64812700f";
+
 		template<class Archive>
 		void save(Archive& ar) const
 		{
@@ -102,6 +113,7 @@ namespace of::object::component
 		}
 	};
 }
+
 CEREAL_REGISTER_TYPE_WITH_NAME(of::object::component::Damage, "Component::Damage");
 CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Damage);
 #endif

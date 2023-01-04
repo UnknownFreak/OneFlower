@@ -10,7 +10,7 @@
 
 namespace of::object::component
 {
-	class PlayerController : public IBase<PlayerController>
+	class PlayerController : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
@@ -48,6 +48,18 @@ namespace of::object::component
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};
+
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "PlayerController";
+		};
+
+		static constexpr of::common::uuid typeId = "4eb8d991-d06e-4231-b3bc-82e4b5d5199d";
 	};
 }
 

@@ -17,6 +17,8 @@ namespace of::object::component
 {
 	class Base
 	{
+		friend class GameObject;
+
 	public:
 
 		virtual void onCollision(GameObject* the_collidee) = 0;
@@ -32,15 +34,13 @@ namespace of::object::component
 
 	protected:
 
-		friend class GameObject;
-
 		virtual of::common::uuid getType() const = 0;
+		virtual of::common::String getTypeName() const = 0;
+		virtual void onMessage(const messaging::Message& message) = 0;
 
-		virtual	of::common::String getTypeName() const = 0;
 
 		void post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
 		void post(const messaging::Message& message) const;
-		virtual void onMessage(const messaging::Message& message) = 0;
 
 		//HIGH: remove?
 	public:

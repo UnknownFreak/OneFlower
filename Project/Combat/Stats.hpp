@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 #include <Helpers/Enum/Attribute.hpp>
 #include "Attribute.hpp"
 #include "MainAttribute.hpp"
@@ -16,7 +16,7 @@
 namespace of::object::component
 {
 
-	class Stats : public IBase<Stats>
+	class Stats : public Base
 	{
 		float* speedModifier;
 		bool died = false;
@@ -73,6 +73,17 @@ namespace of::object::component
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};
 
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Stats";
+		};
+
+		static constexpr of::common::uuid typeId = "7fa92fde-ab34-4477-a9db-0b590f51b7b9";
 	};
 
 }

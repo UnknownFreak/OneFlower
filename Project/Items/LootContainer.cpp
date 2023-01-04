@@ -7,8 +7,8 @@
 #include <Graphics/Render.hpp>
 #include <Items/Inventory.hpp>
 
-of::common::uuid of::object::component::IBase<of::object::component::LootContainer>::typeID;
-of::common::String of::object::component::IBase<of::object::component::LootContainer>::componentName = "LootContainer";
+//of::common::uuid of::object::component::IBase<of::object::component::LootContainer>::typeID;
+//of::common::String of::object::component::IBase<of::object::component::LootContainer>::componentName = "LootContainer";
 
 
 namespace of::object::component

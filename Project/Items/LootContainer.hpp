@@ -3,11 +3,11 @@
 
 #include <file/FileId.hpp>
 
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 
 namespace of::object::component
 {
-	class LootContainer : public IBase<LootContainer>
+	class LootContainer : public Base
 	{
 		void setLooted();
 		virtual void onMessage(const of::object::messaging::Message& message) override;
@@ -56,7 +56,17 @@ namespace of::object::component
 			ar(lootDrops);
 			setLooted();
 		}
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
 
+		of::common::String getTypeName() const override
+		{
+			return "LootContainer";
+		};
+
+		static constexpr of::common::uuid typeId = "6f45ab1c-7a29-417b-b9fb-d6db1789696b";
 	};
 }
 

@@ -21,7 +21,17 @@ namespace of::common
 		static std::mt19937_64 engine;
 		uuids::uuid m_uuid;
 	
-		constexpr uuids::uuid from_string(const String& str) noexcept;
+		inline constexpr uuids::uuid from_string(const String& str) noexcept
+		{
+			if (uuids::uuid::is_valid_uuid(str))
+			{
+				return uuids::uuid::from_string(str).value();
+			}
+			else
+			{
+				return uuids::basic_uuid_random_generator<std::mt19937_64>(engine)();
+			}
+		};
 	
 	public:
 
@@ -29,14 +39,17 @@ namespace of::common
 		uuid(const uuid& uuid) noexcept;
 		uuid(const uuids::uuid& uuid) noexcept;
 		uuid(const uuid&& uuid) noexcept;
-		constexpr uuid(const String& str) noexcept;
-		constexpr uuid(const char* str) noexcept;
+		inline constexpr uuid(const String& str) noexcept : m_uuid(uuids::uuid::from_string(str).value()) {};
+		inline constexpr uuid(const char* str) noexcept : m_uuid(uuids::uuid::from_string(str).value()) {};
 	
 		static uuid nil() noexcept;
 		bool is_nil() const noexcept;
 
 		uuid& operator=(const uuid& uuid);
-		constexpr uuid operator=(const String& str);
+		constexpr uuid operator=(const String& str)
+		{
+			return uuid(str);
+		};
 	
 		template<class Archive>
 		void save(Archive& ar) const

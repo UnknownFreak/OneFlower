@@ -83,9 +83,6 @@
     <ClInclude Include="include\object\component\BaseComponent.hpp">
       <Filter>include\object\component\base</Filter>
     </ClInclude>
-    <ClInclude Include="include\object\component\IBaseComponent.hpp">
-      <Filter>include\object\component\base</Filter>
-    </ClInclude>
     <ClInclude Include="include\object\ObjectState.hpp">
       <Filter>include\object</Filter>
     </ClInclude>

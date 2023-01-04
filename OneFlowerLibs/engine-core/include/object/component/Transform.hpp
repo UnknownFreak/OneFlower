@@ -4,11 +4,11 @@
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#include "IBaseComponent.hpp"
+#include "BaseComponent.hpp"
 
 namespace of::object::component
 {
-	class Transform : public IBase<Transform>
+	class Transform : public Base
 	{
 
 	protected:
@@ -37,6 +37,18 @@ namespace of::object::component
 			return std::make_unique<Transform>(*this);
 		}
 
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Transform";
+		};
+
+		static constexpr of::common::uuid typeId = "e6f52003-0e92-4118-8ab0-b5d54b680c81";
+
 		void jump();
 		void move(const glm::vec2& direction);
 		void lookAt(const glm::vec2& direction);
@@ -54,6 +66,5 @@ namespace of::object::component
 
 	};
 }
-
 
 #endif

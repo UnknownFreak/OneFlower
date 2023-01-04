@@ -1,5 +1,6 @@
 #include "QuestStateRequirement.hpp"
 
+#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 
 namespace Requirement

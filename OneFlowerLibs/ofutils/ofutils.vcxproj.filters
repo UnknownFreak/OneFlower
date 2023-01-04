@@ -31,6 +31,9 @@
     <Filter Include="external">
       <UniqueIdentifier>{ec7557ae-1eec-472b-a919-03e53ca899ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\utils\concepts">
+      <UniqueIdentifier>{f03fa27f-cd60-4378-b273-911c44f69c09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ListDir.cpp">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="include\utils\common\version.hpp">
       <Filter>include\utils\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\concepts\concepts.hpp">
+      <Filter>include\utils\concepts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "DifficultyRequirement.hpp"
 
+#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 
 namespace Requirement

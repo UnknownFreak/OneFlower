@@ -7,7 +7,7 @@
 #include <file/FileId.hpp>
 #include "Model.hpp"
 
-class Render : public of::object::component::IBase<Render>
+class Render : public of::object::component::Base
 {
 	bool initialized = false;
 
@@ -62,6 +62,18 @@ public:
 		ar(shaderName);
 		loadAndSetModel();
 	}
+
+	of::common::uuid getType() const override
+	{
+		return typeId;
+	};
+
+	of::common::String getTypeName() const override
+	{
+		return "Render";
+	};
+
+	static constexpr of::common::uuid typeId = "206d37a1-aa09-44ff-bd7b-bfdd4b5a4b87";
 };
 
 #endif

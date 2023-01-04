@@ -11,7 +11,7 @@
 #include <Items/LootDrop.hpp>
 #include <Items/LootContainer.hpp>
 
-class PlayerInteractionPrompt : public of::object::component::IBase<PlayerInteractionPrompt>
+class PlayerInteractionPrompt : public of::object::component::Base
 {
 	bool showPrompt = false;
 	Dialog* dialog = nullptr;
@@ -35,6 +35,11 @@ public:
 		return new PlayerInteractionPrompt(*this);
 	}
 
+	std::unique_ptr<Base> ucopy() const override
+	{
+		return std::make_unique<PlayerInteractionPrompt>(*this);
+	}
+
 	bool doInteraction(const Enums::InteractionOption& navigate);
 
 	// maybe not needed
@@ -48,6 +53,18 @@ public:
 	void persist(of::object::ObjectSaveState*) override {};
 	void onReconstruct(of::object::ObjectSaveState*) override {};
 	void resolveReferences() override {};
+
+	of::common::uuid getType() const override
+	{
+		return typeId;
+	};
+
+	of::common::String getTypeName() const override
+	{
+		return "PlayerInteractionPrompt";
+	};
+
+	static constexpr of::common::uuid typeId = "6e45ab1c-7a29-417b-b9fb-d6db1789696f";
 };
 
 #endif

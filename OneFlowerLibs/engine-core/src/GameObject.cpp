@@ -12,6 +12,9 @@
 #include <object/component/Transform.hpp>
 #include <object/ObjectSaveState.hpp>
 
+#include <module/ModuleManager.hpp>
+#include <module/logger/OneLogger.hpp>
+
 //#include "Interactable.hpp"
 
 namespace of::object

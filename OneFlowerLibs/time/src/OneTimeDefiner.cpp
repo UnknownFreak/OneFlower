@@ -17,12 +17,12 @@ namespace of::module
 		return update_ms;
 	}
 
-	utils::HighResolutionClock& Time::getTimer(const of::common::String& name)
+	::utils::HighResolutionClock& Time::getTimer(const of::common::String& name)
 	{
-		std::unordered_map<of::common::String, utils::HighResolutionClock>::iterator it = timers.find(name);
+		std::unordered_map<of::common::String, ::utils::HighResolutionClock>::iterator it = timers.find(name);
 		if (it == timers.end())
 		{
-			timers.insert(std::make_pair(name, utils::HighResolutionClock()));
+			timers.insert(std::make_pair(name, ::utils::HighResolutionClock()));
 		}
 		return timers[name];
 	}
@@ -30,10 +30,10 @@ namespace of::module
 	bool Time::time(const of::common::String& name, const double& msec)
 
 	{
-		std::unordered_map<of::common::String, utils::HighResolutionClock>::iterator it = timers.find(name);
+		std::unordered_map<of::common::String, ::utils::HighResolutionClock>::iterator it = timers.find(name);
 		if (it == timers.end())
 		{
-			it = timers.insert(std::make_pair(name, utils::HighResolutionClock())).first;
+			it = timers.insert(std::make_pair(name, ::utils::HighResolutionClock())).first;
 			return 0;
 		}
 		else

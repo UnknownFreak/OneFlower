@@ -15,7 +15,7 @@
 
 namespace of::object::component
 {
-	class Inventory : public IBase<Inventory>
+	class Inventory : public Base
 	{
 		template <class T>
 		requires std::derived_from<T, Items::StatChangingItem>
@@ -92,6 +92,18 @@ namespace of::object::component
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};
+
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Inventory";
+		};
+
+		static constexpr of::common::uuid typeId = "6e45ab1c-7a29-417b-b9fb-d6fb1789696b";
 	};
 }
 

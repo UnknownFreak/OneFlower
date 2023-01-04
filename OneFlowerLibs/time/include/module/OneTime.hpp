@@ -23,7 +23,7 @@ namespace of::module
 
 		float deltaTime() const;
 
-		utils::HighResolutionClock& getTimer(const of::common::String&);
+		::utils::HighResolutionClock& getTimer(const of::common::String&);
 		bool time(const of::common::String&, const double& msec);
 		void remove(const of::common::String& name);
 
@@ -35,10 +35,10 @@ namespace of::module
 		const float update_ms = 1.f / 60.f;
 
 		float elapsed;
-		utils::HighResolutionClock clock;
+		::utils::HighResolutionClock clock;
 
 		float physicsElapsed;
-		utils::HighResolutionClock physicsClock;
+		::utils::HighResolutionClock physicsClock;
 
 		of::module::EngineResourceType& getType() const
 		{
@@ -46,9 +46,9 @@ namespace of::module
 		}
 
 	private:
-		utils::HighResolutionClock timer;
+		::utils::HighResolutionClock timer;
 
-		std::unordered_map<of::common::String, utils::HighResolutionClock> timers;
+		std::unordered_map<of::common::String, ::utils::HighResolutionClock> timers;
 		std::unordered_map<of::file::FileId, resource::TickTimer> tickTimers;
 
 	public:

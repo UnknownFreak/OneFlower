@@ -3,6 +3,7 @@
 #include <module/Random.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
+#include <module/ModuleManager.hpp>
 
 #include <object/GameObject.hpp>
 #include <object/component/Transform.hpp>

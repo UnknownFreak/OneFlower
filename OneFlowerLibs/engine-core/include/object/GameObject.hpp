@@ -9,12 +9,13 @@
 
 #include "ObjectState.hpp"
 
-#include "component/IBaseComponent.hpp"
+#include "component/BaseComponent.hpp"
 
 #include <resource/GameModeModifier.hpp>
 #include <resource/trigger/Trigger.hpp>
 
 #include <module/SaveSetting.hpp>
+#include <utils/concepts/concepts.hpp>
 
 namespace of::module
 {
@@ -98,10 +99,12 @@ namespace of::object
 		void reAttach();
 
 		template <class T, typename... Args>
-			requires std::derived_from<T, component::Base> && std::constructible_from<T, Args...>
+			requires std::derived_from<T, component::Base> && 
+		std::constructible_from<T, Args...> &&
+			of::utils::concepts::has_typeId_member<T>
 		T* add(Args... as)
 		{
-			if (componentMap.find(component::IBase<T>::typeID) == componentMap.end())
+			if (componentMap.find(T::typeId) == componentMap.end())
 			{
 				component::Base* componentToAttach = new T(as...);
 				componentToAttach->attachOn(this);
@@ -114,26 +117,29 @@ namespace of::object
 		component::Base* addOrReplace(component::Base* componentToAdd);
 
 		template<class T>
-			requires std::derived_from<T, component::Base>
+			requires std::derived_from<T, component::Base> &&
+		of::utils::concepts::has_typeId_member<T>
 		T* get() const
 		{
-			auto it = componentMap.find(component::IBase<T>::typeID);
+			auto it = componentMap.find(T::typeId);
 			return it == componentMap.end() ? nullptr : (T*)it->second.get();
 		}
 
 		template<class T>
-			requires std::derived_from<T, component::Base>
+			requires std::derived_from<T, component::Base> &&
+		of::utils::concepts::has_typeId_member<T>
 		std::shared_ptr<T> getShared() const
 		{
-			auto it = componentMap.find(component::IBase<T>::typeID);
+			auto it = componentMap.find(T::typeId);
 			return it == componentMap.end() ? nullptr : std::dynamic_pointer_cast<T>(it->second);
 		}
 
 		template<class T>
-			requires std::derived_from<T, component::Base>
+			requires std::derived_from<T, component::Base>&&
+		of::utils::concepts::has_typeId_member<T>
 		bool remove()
 		{
-			auto const type_id = component::IBase<T>::typeID;
+			auto constexpr type_id = T::typeId;
 
 			if (componentMap.find(type_id) == componentMap.end())
 				return false;

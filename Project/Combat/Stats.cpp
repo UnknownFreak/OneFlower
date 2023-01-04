@@ -6,8 +6,8 @@
 #include <resource/Prefab.hpp>
 #include "AttachToParent.hpp"
 
-of::common::uuid of::object::component::IBase<of::object::component::Stats>::typeID = of::common::uuid("7fa92fde-ab34-4477-a9db-0b590f51b7b9");
-of::common::String of::object::component::IBase<of::object::component::Stats>::componentName = "Stats";
+//of::common::uuid of::object::component::IBase<of::object::component::Stats>::typeID = of::common::uuid("7fa92fde-ab34-4477-a9db-0b590f51b7b9");
+//of::common::String of::object::component::IBase<of::object::component::Stats>::componentName = "Stats";
 
 namespace of::object::component
 {

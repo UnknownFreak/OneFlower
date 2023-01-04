@@ -3,14 +3,14 @@
 #include "Skill.hpp"
 
 #include <vector>
-#include <object/component/IBaseComponent.hpp>
+#include <object/component/BaseComponent.hpp>
 
 #include <Helpers/Enum/CombatSkill.hpp>
 
 namespace of::object::component
 {
 
-	class CombatComponent : public IBase<CombatComponent>
+	class CombatComponent : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 	public:
@@ -38,6 +38,18 @@ namespace of::object::component
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};
+
+		of::common::uuid getType() const override
+		{
+			return typeId;
+		};
+
+		of::common::String getTypeName() const override
+		{
+			return "Combat";
+		};
+
+		static constexpr of::common::uuid typeId = "4d167cc6-90bd-491e-8def-0def351fec54";
 
 	};
 

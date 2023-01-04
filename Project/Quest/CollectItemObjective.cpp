@@ -2,6 +2,7 @@
 
 #include <Items/Item.hpp>
 
+#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 
 #include <Items/Inventory.hpp>
@@ -13,6 +14,7 @@ namespace Questing
 		QuestObjective::activateObjective();
 		if (objectiveState == Enums::QuestState::ACTIVE)
 		{
+			// TODO: change to objectInstanceHandler instead
 			auto& player = of::engine::GetModule<of::module::SaveFile>().player;
 			auto inventory = player.get<of::object::component::Inventory>();
 			if (inventory)

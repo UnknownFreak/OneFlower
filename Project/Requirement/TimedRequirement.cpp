@@ -1,5 +1,6 @@
 #include "TimedRequirement.hpp"
 
+#include <module/ModuleManager.hpp>
 #include <module/SaveFile.hpp>
 #include <module/OneTime.hpp>
 
