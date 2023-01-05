@@ -206,15 +206,7 @@ namespace of::object::component
 		return level;
 	}
 
-	void Stats::onCollision(GameObject*)
-	{
-	}
-
-	void Stats::Update()
-	{
-	}
-
-	void Stats::Simulate(const float& dt)
+	void Stats::update(const float& dt)
 	{
 		if (died)
 			return;
@@ -296,9 +288,5 @@ namespace of::object::component
 		{
 			it.second.tick(dt);
 		}
-	}
-
-	void Stats::onDeath()
-	{
 	}
 };

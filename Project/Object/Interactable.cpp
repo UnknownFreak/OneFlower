@@ -38,6 +38,7 @@ namespace of::object::component
 		}
 		return false;
 	}
+
 	void Interactable::interact(GameObject& interactable)
 	{
 		using namespace of::object::messaging;
@@ -60,16 +61,7 @@ namespace of::object::component
 			interact(normalInteraction);
 		}
 	}
-	void Interactable::onCollision(GameObject*)
-	{
-	}
-	void Interactable::Update()
-	{
-	}
-	void Interactable::Simulate(const float&)
-	{
-	}
-	void Interactable::onDeath()
+	void Interactable::update(const float&)
 	{
 	}
 }

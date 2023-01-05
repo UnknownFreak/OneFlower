@@ -6,10 +6,17 @@ namespace of::object::component
 	void Base::attachOn(GameObject* attachTo)
 	{
 		if (attachedOn)
-			detach();
+			decouple();
 		this->attachedOn = attachTo;
 		if(attachTo->componentMap.find(this->getType()) == attachTo->componentMap.end())
 			attachTo->componentMap.insert(std::make_pair(this->getType(), std::shared_ptr<Base>(this)));
+		initialize();
+	}
+
+	void component::Base::decouple()
+	{
+		deconstruct();
+		attachedOn = nullptr;
 	}
 
 	void component::Base::post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const

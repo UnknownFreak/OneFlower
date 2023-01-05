@@ -115,19 +115,7 @@ namespace of::object::component
 		return result->get()->stackSize;
 	}
 
-	void Inventory::onCollision(GameObject*)
-	{
-	}
-
-	void Inventory::Update()
-	{
-	}
-
-	void Inventory::Simulate(const float&)
-	{
-	}
-
-	void Inventory::onDeath()
+	void Inventory::update(const float&)
 	{
 	}
 }

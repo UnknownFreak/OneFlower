@@ -19,18 +19,15 @@ namespace of::object::component
 	{
 		friend class GameObject;
 
-	public:
+		void attachOn(GameObject* attachTo);
+		void decouple();
 
-		virtual void onCollision(GameObject* the_collidee) = 0;
+	public:
 
 		GameObject* attachedOn = nullptr;
 
 		virtual Base* copy() const = 0;
 		virtual std::unique_ptr<Base> ucopy() const = 0;
-
-		virtual void detach() {};
-
-		//Base(Base&&) = default;
 
 	protected:
 
@@ -38,19 +35,14 @@ namespace of::object::component
 		virtual of::common::String getTypeName() const = 0;
 		virtual void onMessage(const messaging::Message& message) = 0;
 
-
 		void post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
 		void post(const messaging::Message& message) const;
 
-		//HIGH: remove?
 	public:
-		virtual void Update() = 0;
-		virtual void Simulate(const float& fElapsedTime) = 0;
 
-		virtual void attachOn(GameObject* attachTo);
-
-		virtual void onDeath() = 0;
-		virtual void onDelete() {};
+		virtual void update(const float& fElapsedTime) = 0;
+		virtual void deconstruct() = 0;
+		virtual void initialize() = 0;
 
 	public:
 

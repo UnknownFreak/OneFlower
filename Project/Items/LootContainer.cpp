@@ -41,23 +41,7 @@ namespace of::object::component
 		return looted;
 	}
 
-	void LootContainer::onCollision(GameObject* )
-	{
-	}
-
-	void LootContainer::Update()
-	{
-	}
-
-	void LootContainer::Simulate(const float& )
-	{
-	}
-
-	void LootContainer::onDeath()
-	{
-	}
-
-	void LootContainer::onDelete()
+	void LootContainer::update(const float& )
 	{
 	}
 }

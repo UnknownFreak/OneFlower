@@ -9,6 +9,9 @@ namespace of::object::component
 	class LootDrop : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void initialize() override {};
+		virtual void deconstruct() override {};
+
 	public:
 		bool looted;
 		of::file::FileId lootTableId;
@@ -30,13 +33,7 @@ namespace of::object::component
 			return std::make_unique<LootDrop>(*this);
 		}
 
-		// Inherited via IBase
-		virtual void onCollision(GameObject* the_collidee) override;
-		virtual void Update() override;
-		virtual void Simulate(const float& fElapsedTime) override;
-		virtual void onDeath() override;
-
-		virtual void onDelete() override;
+		virtual void update(const float& fElapsedTime) override;
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

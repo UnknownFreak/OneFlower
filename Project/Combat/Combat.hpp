@@ -13,6 +13,8 @@ namespace of::object::component
 	class CombatComponent : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void initialize() override {};
+		virtual void deconstruct() override {};
 	public:
 		std::unordered_map<Enums::CombatSkill, ::Combat::Skill> skills;
 
@@ -22,12 +24,7 @@ namespace of::object::component
 
 		CombatComponent();
 
-		virtual void onCollision(GameObject* the_collidee) override;
-
-		virtual void Update() override;
-
-		virtual void Simulate(const float& fElapsedTime) override;
-		virtual void onDeath() override;
+		virtual void update(const float& fElapsedTime) override;
 
 		void execute(const Enums::CombatSkill& skill);
 

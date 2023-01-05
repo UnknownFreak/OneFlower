@@ -85,12 +85,8 @@ namespace of::object
 		void toggleObjectState(const ObjectState& newState);
 
 		void onCollision(GameObject*);
-		// Inherited via IUpdateable
-		void Update();
 
-		// Inherited via ISimulatable
 		void Simulate(const float& fElapsedTime);
-		void Simulate(const float& fElapsedTime, const bool& bUpdate);
 
 		void onDeath(const GameObject* killer, const float& delayedDespawnTime=0, const bool& unloadFlag=false);
 		void onDelete();

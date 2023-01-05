@@ -12,24 +12,12 @@ namespace of::object::component
 	{
 	}
 
-	void AttachToParent::Update()
+	void AttachToParent::update(const float&)
 	{
 		attachedOn->get<Transform>()->pos = objectToFollow->get<Transform>()->buffered;
 	}
 
-	void AttachToParent::Simulate(const float&)
-	{
-	}
-
-	void AttachToParent::onDeath()
-	{
-	}
-
 	void AttachToParent::onMessage(const messaging::Message&)
-	{
-	}
-
-	void AttachToParent::onCollision(GameObject*)
 	{
 	}
 };

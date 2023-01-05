@@ -7,6 +7,19 @@ namespace of::object::component
 	void PlayerController::onMessage(const of::object::messaging::Message&)
 	{
 	}
+	void component::PlayerController::initialize()
+	{
+		window.getMasker().player = attachedOn->getShared<Transform>();
+		transform = attachedOn->get<Transform>();
+		combat = attachedOn->get<of::object::component::CombatComponent>();
+		enable();
+	}
+	void component::PlayerController::deconstruct()
+	{
+		disable();
+		clearBindings();
+	}
+
 	void PlayerController::clearBindings()
 	{
 		handler.playerKeyboard.removeCallback(swizzle::input::Keys::KeyE, "KbE<interact>", Enums::Input::Action::Press);
@@ -115,29 +128,8 @@ namespace of::object::component
 		enabled = true;
 	}
 
-	void PlayerController::attachOn(GameObject* go)
-	{
-		Base::attachOn(go);
-		window.getMasker().player = go->getShared<Transform>();
-		transform = go->get<Transform>();
-		combat = go->get<of::object::component::CombatComponent>();
-		enable();
-	}
-
-	void PlayerController::onCollision(GameObject* )
-	{
-	}
-
-	void PlayerController::Update()
-	{
-	}
-
-	void PlayerController::Simulate(const float& )
+	void PlayerController::update(const float& )
 	{
 		//window.centerCameraOnObjectPos(transform->pos);
-	}
-
-	void PlayerController::onDeath()
-	{
 	}
 }

@@ -12,7 +12,10 @@ namespace of::object::messaging
 		SET_ANIMATION,
 		INTERACT,
 		TOGGLE_STATE,
-		TRANSFORM_SPEED_MODIFIER
+		TRANSFORM_SPEED_MODIFIER,
+		ON_DEATH,
+		ON_DELETE,
+		ON_COLLISION,
 	};
 
 	enum class BodyType
@@ -22,10 +25,11 @@ namespace of::object::messaging
 		FILE_ID,
 		MODIFIER_ID,
 		FLOAT_PTR,
+		GAMEOBJECT_PTR,
 		CUSTOM
 	};
 
-	inline of::common::String to_string(const Topics& topic)
+	inline consteval std::string_view to_string(const Topics& topic)
 	{
 		switch (topic)
 		{
@@ -41,6 +45,12 @@ namespace of::object::messaging
 			return "TOGGLE_STATE";
 		case Topics::TRANSFORM_SPEED_MODIFIER:
 			return "TRANSFORM_SPEED_MODIFIER";
+		case Topics::ON_DEATH:
+			return "ON_DEATH";
+		case Topics::ON_DELETE:
+			return "ON_DELETE";
+		case Topics::ON_COLLISION:
+			return "ON_COLLISION";
 		default:
 			break;
 		}

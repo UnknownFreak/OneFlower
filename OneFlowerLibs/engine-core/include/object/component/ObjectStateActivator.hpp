@@ -21,6 +21,9 @@ namespace of::object::component
 
 		void pushObjectSaveState(const of::common::uuid& objectId, const ObjectState& toggle);
 
+		virtual void initialize() override {};
+		virtual void deconstruct() override {};
+
 	public:
 		std::vector<std::pair<of::common::uuid, ObjectState>> m_objectsToToggle;
 
@@ -39,10 +42,7 @@ namespace of::object::component
 
 		void toggle();
 
-		virtual void onCollision(GameObject* the_collidee);
-		virtual void Update() override;
-		virtual void Simulate(const float& dt) override;
-		virtual void onDeath() override;
+		virtual void update(const float& dt) override;
 
 		void persist(of::object::ObjectSaveState* ) override {};
 		void onReconstruct(of::object::ObjectSaveState* ) override {};

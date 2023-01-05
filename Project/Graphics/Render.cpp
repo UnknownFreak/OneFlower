@@ -55,23 +55,29 @@ void Render::loadAndSetModel()
 	//wnd.getCommandBuffer()->end(std::move(trans));
 	//wnd.getGfxContext()->submit(&temp, 1, nullptr);
 }
-
-void Render::onMessage(const of::object::messaging::Message&)
+void Render::onMessage(const of::object::messaging::Message& message)
 {
-}
+	using namespace of::object::messaging;
 
-Render::~Render()
-{
-	detach();
-}
-
-void Render::detach()
-{
-	if (attachedOn)
+	if (message.messageTopic == Topic::of(Topics::ON_DEATH))
 	{
-		of::engine::GetModule<Graphics::RenderWindow>().RemoveRenderable(attachedOn);
-		attachedOn = nullptr;
+		if (model.get())
+		{
+			//		model->setAnimation("onDeath");
+		}
 	}
+}
+
+void Render::initialize()
+{
+	loadAndSetModel();
+	transform = attachedOn->get<of::object::component::Transform>();
+	of::engine::GetModule<Graphics::RenderWindow>().AddRenderable(attachedOn);
+}
+
+void Render::deconstruct()
+{
+	of::engine::GetModule<Graphics::RenderWindow>().RemoveRenderable(attachedOn);
 }
 
 std::unique_ptr<of::object::component::Base> Render::ucopy() const
@@ -79,37 +85,13 @@ std::unique_ptr<of::object::component::Base> Render::ucopy() const
 	return std::make_unique<Render>(*this);
 }
 
-void Render::attachOn(of::object::GameObject* go)
+void Render::update(const float& fElapsedTime)
 {
-	Render::Base::attachOn(go);
-	//go->getComponent<Collider>()->hitboxOffset = { 8.f, 32.f };
-	loadAndSetModel();
-	transform = go->get<of::object::component::Transform>();
-	of::engine::GetModule<Graphics::RenderWindow>().AddRenderable(go);
-}
 
-void Render::onCollision(of::object::GameObject*)
-{
-}
-
-void Render::Update()
-{
-	//model->material->setDescriptorTextureResource(0u, model->texture);
-}
-
-void Render::Simulate(const float& fElapsedTime)
-{
 	fElapsedTime;
 	if (model)
 	{
+		//model->material->setDescriptorTextureResource(0u, model->texture);
 		//model->mesh->updateFrame(fElapsedTime);
-	}
-}
-
-void Render::onDeath()
-{
-	if (model.get())
-	{
-//		model->setAnimation("onDeath");
 	}
 }

@@ -81,7 +81,7 @@ namespace of::object
 		id = copy.id;
 		for (auto& x : componentMap)
 		{
-			x.second->detach();
+			x.second->decouple();
 		}
 		componentMap.clear();
 		for (auto& x : copy.componentMap)
@@ -100,7 +100,7 @@ namespace of::object
 		for (auto& x : componentMap)
 		{
 			logger.Debug("~GameObject -> Detach" + x.second->getTypeName());
-			x.second.get()->detach();
+			x.second.get()->decouple();
 		}
 		componentMap.clear();
 		logger.Debug("~GameObject -> Done " + id.to_string());
@@ -154,17 +154,9 @@ namespace of::object
 	void GameObject::onCollision(GameObject* collider)
 	{
 		if (objectState == ObjectState::Active)
-			for (auto& component : componentMap)
-			{
-				component.second->onCollision(collider);
-			}
-	}
-
-	void GameObject::Update()
-	{
-		for (auto& i : componentMap)
 		{
-			i.second->Update();
+			using namespace of::object::messaging;
+			post(Topic::of(Topics::ON_COLLISION), std::make_shared<GameObjectPtr>(collider));
 		}
 	}
 
@@ -173,30 +165,18 @@ namespace of::object
 		if (objectState == ObjectState::Active)
 			for (auto& component : componentMap)
 			{
-				component.second->Simulate(fElapsedTime);
-			}
-	}
-
-	void GameObject::Simulate(const float& fElapsedTime, const bool& bUpdate)
-	{
-		if (objectState == ObjectState::Active)
-			for (auto& component : componentMap)
-			{
-				component.second->Simulate(fElapsedTime);
-				if (bUpdate)
-					component.second->Update();
+				component.second->update(fElapsedTime);
 			}
 	}
 
 	void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTime, const bool& unloadFlag)
 	{
-		killer;
+		using namespace of::object::messaging;
 		unloading = unloadFlag;
 		if (!unloadFlag)
-			for (auto& component : componentMap)
-			{
-				component.second->onDeath();
-			}
+		{
+			post(Topic::of(Topics::ON_DEATH), std::make_shared<GameObjectPtr>(killer));
+		}
 		of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(this, delayedDespawnTime);
 
 	}
@@ -213,11 +193,12 @@ namespace of::object
 		logger.Debug("OnDelete -> componentMap");
 		for (auto& component : componentMap)
 		{
+			using namespace of::object::messaging;
 			logger.Debug("OnDelete Component Shared Ptr Addr -> " + of::common::toHex((size_t)&component.second));
 			logger.Debug("OnDelete Component Addr -> " + of::common::toHex((size_t)component.second.get()));
 			logger.Debug("OnDelete Component TypeId -> " + component.first.to_string());
 			logger.Debug("OnDelete Component TypeName -> " + component.second->getTypeName());
-			component.second->onDelete();
+			post(component.first, Topic::of(Topics::ON_DELETE), std::make_shared<Body>());
 		}
 
 		if (keepSavedOnObjectDelete == false)
@@ -246,7 +227,7 @@ namespace of::object
 	{
 		for (auto& x : componentMap)
 		{
-			x.second->detach();
+			x.second->decouple();
 			x.second->attachOn(this);
 		}
 	}

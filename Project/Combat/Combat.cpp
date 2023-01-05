@@ -16,22 +16,10 @@ namespace of::object::component
 	{
 	}
 
-	void CombatComponent::onCollision(GameObject*)
-	{
-	}
-
-	void CombatComponent::Update()
-	{
-	}
-
-	void CombatComponent::Simulate(const float& fElapsedTime)
+	void CombatComponent::update(const float& fElapsedTime)
 	{
 		for (auto& skill : skills)
 			skill.second.update(fElapsedTime);
-	}
-
-	void CombatComponent::onDeath()
-	{
 	}
 
 	void CombatComponent::execute(const Enums::CombatSkill& skill)

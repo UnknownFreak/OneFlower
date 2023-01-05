@@ -23,7 +23,11 @@ class PlayerInteractionPrompt : public of::object::component::Base
 	float lived = 0.f;
 
 	virtual void onMessage(const of::object::messaging::Message& message) override;
+	virtual void initialize() override {};
+	virtual void deconstruct() override {};
+
 public:
+
 
 	PlayerInteractionPrompt();
 	PlayerInteractionPrompt(const PlayerInteractionPrompt& copy);
@@ -41,13 +45,7 @@ public:
 
 	bool doInteraction(const Enums::InteractionOption& navigate);
 
-	// maybe not needed
-	void attachOn(of::object::GameObject* go);
-	// Inherited via IBase
-	virtual void onCollision(of::object::GameObject* the_collidee) override;
-	virtual void Update() override;
-	virtual void Simulate(const float& fElapsedTime) override;
-	virtual void onDeath() override;
+	virtual void update(const float& fElapsedTime) override;
 
 	void persist(of::object::ObjectSaveState*) override {};
 	void onReconstruct(of::object::ObjectSaveState*) override {};

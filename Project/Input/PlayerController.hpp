@@ -12,6 +12,9 @@ namespace of::object::component
 	class PlayerController : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void initialize() override;
+		virtual void deconstruct() override;
+
 	public:
 		Graphics::RenderWindow& window;
 		void clearBindings();
@@ -36,13 +39,7 @@ namespace of::object::component
 		void disable();
 		void enable();
 
-		void attachOn(GameObject* go);
-
-		// Inherited via IBase
-		virtual void onCollision(GameObject* the_collidee);
-		virtual void Update() override;
-		virtual void Simulate(const float& dt) override;
-		virtual void onDeath() override;
+		virtual void update(const float& dt) override;
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

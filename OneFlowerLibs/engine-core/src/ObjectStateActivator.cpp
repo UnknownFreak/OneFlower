@@ -44,16 +44,7 @@ namespace of::object::component
 			}
 		}
 	}
-	void ObjectStateActivator::onCollision(GameObject*)
-	{
-	}
-	void ObjectStateActivator::Update()
-	{
-	}
-	void ObjectStateActivator::Simulate(const float&)
-	{
-	}
-	void ObjectStateActivator::onDeath()
+	void ObjectStateActivator::update(const float&)
 	{
 	}
 }

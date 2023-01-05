@@ -37,23 +37,6 @@ void Dialog::reset()
 	dialogTree.reset();
 }
 
-void Dialog::attachOn(of::object::GameObject* go)
-{
-	Base::attachOn(go);
-}
-
-void Dialog::onCollision(of::object::GameObject*)
-{
-}
-
-void Dialog::Update()
-{
-}
-
-void Dialog::Simulate(const float& )
-{
-}
-
-void Dialog::onDeath()
+void Dialog::update(const float& )
 {
 }

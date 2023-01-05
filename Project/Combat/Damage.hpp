@@ -28,6 +28,8 @@ namespace of::object::component
 		void loadEffects();
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void initialize() override;
+		virtual void deconstruct() override {};
 
 	public:
 		std::vector<of::file::FileId> effectsIds;
@@ -50,13 +52,8 @@ namespace of::object::component
 		std::shared_ptr<of::object::component::Stats> owner;
 
 		void setDirection(const glm::vec2& direction, const float& speed);
-		void attachOn(GameObject* go);
 
-		// Inherited via IBase
-		virtual void onCollision(GameObject* the_collidee) override;
-		virtual void Update() override;
-		virtual void Simulate(const float& fElapsedTime) override;
-		virtual void onDeath() override;
+		virtual void update(const float& fElapsedTime) override;
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

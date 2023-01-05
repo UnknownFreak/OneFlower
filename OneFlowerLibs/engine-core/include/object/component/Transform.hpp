@@ -12,8 +12,12 @@ namespace of::object::component
 	{
 
 	protected:
-		// Inherited via IBase
+
 		virtual void onMessage(const messaging::Message& message) override;
+
+		virtual void deconstruct() override {};
+		virtual void initialize() override;
+
 	public:
 		float speedModifier = 1.f;
 		bool moving;
@@ -53,12 +57,7 @@ namespace of::object::component
 		void move(const glm::vec2& direction);
 		void lookAt(const glm::vec2& direction);
 
-		void attachOn(GameObject* go);
-		// Inherited via IBase
-		virtual void onCollision(GameObject* the_collidee);
-		virtual void Update() override;
-		virtual void Simulate(const float& dt) override;
-		virtual void onDeath() override;
+		virtual void update(const float& dt) override;
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

@@ -35,6 +35,8 @@ namespace of::object::component
 		void recalculateStat(const Enums::Attribute& attribute, const double& modifiedValue);
 
 		virtual void onMessage(const messaging::Message& message) override;
+		virtual void initialize() override {};
+		virtual void deconstruct() override {};
 
 	public:
 		Combat::Element attunedTo;
@@ -61,13 +63,7 @@ namespace of::object::component
 
 		//void addItemStat();
 
-		// Inherited via IBase
-		virtual void onCollision(GameObject* the_collidee) override;
-
-		virtual void Update() override;
-
-		virtual void Simulate(const float& fElapsedTime) override;
-		virtual void onDeath() override;
+		virtual void update(const float& fElapsedTime) override;
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

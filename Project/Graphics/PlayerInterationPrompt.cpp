@@ -17,8 +17,46 @@ PlayerInteractionPrompt::PlayerInteractionPrompt(const PlayerInteractionPrompt& 
 {
 }
 
-void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message&)
+void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message& message)
 {
+	using namespace of::object::messaging;
+	if (message.messageTopic == Topic::of(Topics::ON_COLLISION) && message.messageBody->bodyType == BodyType::GAMEOBJECT_PTR)
+	{
+		//auto& colliderType = theCollidee->colliderType;
+//if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
+		{
+
+			of::object::GameObject* theObject = (of::object::GameObject*) ((GameObjectPtr*)message.messageBody.get())->go;
+			Dialog* dialogComponent = theObject->get<Dialog>();
+			of::object::component::LootDrop* theDrop = theObject->get<of::object::component::LootDrop>();
+			of::object::component::LootContainer* theContainer = theObject->get<of::object::component::LootContainer>();
+			if (dialogComponent)
+			{
+				showPrompt = true;
+				dialog = dialogComponent;
+				lived = 0.f;
+				//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			}
+			else if (theDrop)
+			{
+				of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+				showPrompt = true;
+				lootDrop = theDrop;
+				lived = 0.f;
+				//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			}
+			else if (theContainer)
+			{
+				of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+				showPrompt = true;
+				lootContainer = theContainer;
+				lived = 0.f;
+				//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
+			}
+			// TODO: add logic for interactables like, buttons/ levers/ portals?
+			//*/
+		}
+	}
 }
 
 bool PlayerInteractionPrompt::doInteraction(const Enums::InteractionOption& navigate)
@@ -54,51 +92,12 @@ bool PlayerInteractionPrompt::doInteraction(const Enums::InteractionOption& navi
 	return false;
 }
 
-void PlayerInteractionPrompt::attachOn(of::object::GameObject* go)
+void PlayerInteractionPrompt::update(const float&dt)
 {
-	Base::attachOn(go);
-}
+	lived += dt;
+	showPrompt = lived < ttl;
 
-void PlayerInteractionPrompt::onCollision(of::object::GameObject* theCollidee)
-{
-	//auto& colliderType = theCollidee->colliderType;
-	//if (colliderType == Enums::ColliderType::Entity || colliderType == Enums::ColliderType::StaticEntity)
-	{
-		
-		of::object::GameObject* theObject = theCollidee;
-		Dialog* dialogComponent = theObject->get<Dialog>();
-		of::object::component::LootDrop* theDrop = theObject->get<of::object::component::LootDrop>();
-		of::object::component::LootContainer* theContainer = theObject->get<of::object::component::LootContainer>();
-		if (dialogComponent)
-		{
-			showPrompt = true;
-			dialog = dialogComponent;
-			lived = 0.f;
-			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
-		}
-		else if (theDrop)
-		{
-			of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
-			showPrompt = true;
-			lootDrop = theDrop;
-			lived = 0.f;
-			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
-		}
-		else if (theContainer)
-		{
-			of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
-			showPrompt = true;
-			lootContainer = theContainer;
-			lived = 0.f;
-			//updatePromptIcon(dialogInteractionPromptIcon, theObject->getComponent<Component::Transform>()->buffered.toVector2());
-		}
-		// TODO: add logic for interactables like, buttons/ levers/ portals?
-		//*/
-	}
-}
 
-void PlayerInteractionPrompt::Update()
-{
 	if (showPrompt == false && dialog)
 	{
 		dialog = nullptr;
@@ -112,14 +111,4 @@ void PlayerInteractionPrompt::Update()
 			}
 		}
 	}
-}
-
-void PlayerInteractionPrompt::Simulate(const float&dt)
-{
-	lived += dt;
-	showPrompt = lived < ttl;
-}
-
-void PlayerInteractionPrompt::onDeath()
-{
 }

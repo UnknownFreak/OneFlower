@@ -7,9 +7,6 @@
 #include <glm/gtx/vector_angle.hpp>
 #pragma warning (pop)
 
-//of::common::uuid of::object::component::IBase<of::object::component::Transform>::typeID = of::common::uuid("e6f52003-0e92-4118-8ab0-b5d54b680c81");
-//of::common::String of::object::component::IBase<of::object::component::Transform>::componentName = "Transform";
-
 namespace of::object::component
 {
 	void Transform::jump()
@@ -44,31 +41,7 @@ namespace of::object::component
 		facingAngle = glm::angle(thePos, theOffset) - 90;
 	}
 
-	void Transform::attachOn(GameObject* go)
-	{
-		using namespace of::object::messaging;
-		Base::attachOn(go);
-		post(Topic::of(Topics::TRANSFORM_SPEED_MODIFIER), std::make_shared<FloatPtr>(&speedModifier));
-		moving = true;
-	}
-
-	void Transform::onCollision(GameObject*)
-	{
-	}
-
-	void Transform::Simulate(const float&)
-	{
-	}
-
-	void Transform::onDeath()
-	{
-	}
-
-	void Transform::onMessage(const messaging::Message& message)
-	{
-	}
-
-	void Transform::Update()
+	void Transform::update(const float&)
 	{
 		//directionCounter++;
 		//lookAt(lastDirection);
@@ -85,5 +58,15 @@ namespace of::object::component
 		//}
 		lastDirection = { 0.f, 0.f };
 		moving = false;
+	}
+
+	void Transform::onMessage(const messaging::Message& message)
+	{
+	}
+	void component::Transform::initialize()
+	{
+		using namespace of::object::messaging;
+		post(Topic::of(Topics::TRANSFORM_SPEED_MODIFIER), std::make_shared<FloatPtr>(&speedModifier));
+		moving = true;
 	}
 }
