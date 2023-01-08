@@ -72,17 +72,19 @@ namespace of::module
 		}
 	}
 
-	void ObjectInstanceHandler::unload()
+	void ObjectInstanceHandler::unloadAll()
 	{
-		auto it = objects.begin();
-		while (it !=objects.end())
-		{
-			it = objects.erase(it);
-		}
+		objects.clear();
+		//auto it = objects.begin();
+		//while (it !=objects.end())
+		//{
+		//	it = objects.erase(it);
+		//}
 	}
 
 	void ObjectInstanceHandler::unloadNonUnique()
 	{
+		// TODO: replace with std erase_if()???
 		auto it = objects.begin();
 		while (it != objects.end())
 		{

@@ -30,7 +30,7 @@ namespace of::module
 
 		void processDeletedObjects(const float& elapsedTime);
 
-		void unload();
+		void unloadAll();
 		void unloadNonUnique();
 		void persistGameObjects();
 		void resolveObjectReferences();

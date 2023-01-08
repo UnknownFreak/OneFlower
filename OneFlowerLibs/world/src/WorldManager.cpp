@@ -217,7 +217,7 @@ namespace of::module
 			// because first of all if new game is called from the main menu, zero objects should be loaded (minus the splash screen objects)
 			// on the other hand, if the player goes back to main menu, ALL objects should still have been unloaded via the of::world::LoadingState::UNLOAD_ALL state,
 			// and even if objects still exist, the save file reference itself has nuked ALL object persistance data before any loading is started.
-			handler.unload();
+			handler.unloadAll();
 		}
 		else
 		{
@@ -350,7 +350,7 @@ namespace of::module
 	}
 	void WorldManager::LoadingStateMachine::unloadAll()
 	{
-		parent.objectHandler.unload();
+		parent.objectHandler.unloadAll();
 		//parent.navMesh.unload();
 		// or similar way to get the navmesh module and unload it
 		navMeshLoaded = false;
