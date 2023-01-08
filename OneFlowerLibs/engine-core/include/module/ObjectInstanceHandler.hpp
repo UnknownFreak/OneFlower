@@ -13,8 +13,6 @@ namespace of::module
 	class ObjectInstanceHandler : public of::module::interface::IEngineResource<ObjectInstanceHandler>
 	{
 		
-		std::function<void(object::GameObject*)> onAdd;
-		std::function<void(object::GameObject*)> onDelete;
 	public:
 		object::GameObject* player = nullptr;
 		std::unordered_map<of::common::uuid, object::GameObject> objects;
@@ -36,9 +34,6 @@ namespace of::module
 		void unloadNonUnique();
 		void persistGameObjects();
 		void resolveObjectReferences();
-
-		void onDeleteAction(std::function<void(object::GameObject*)> fnPtr);
-		void onAddAction(std::function<void(object::GameObject*)> fnPtr);
 
 		of::module::EngineResourceType& getType() const
 		{

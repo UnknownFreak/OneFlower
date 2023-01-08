@@ -13,7 +13,6 @@
 #include <Graphics/UI/LoadingScreenInfo.hpp>
 
 #include <Graphics/Editor/EditorWindow.hpp>
-#include <Graphics/Editor/ObjectSelector.hpp>
 
 #include <chrono>
 #include <thread>
@@ -65,7 +64,6 @@ int GameEntry::Run()
 	if (Engine::GetBuildMode().isEditorMode())
 	{
 		gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow, std::make_unique<Graphics::Editor::MainEditorWindow>());
-		gfx.ui.addUIContext(Enums::UIContextNames::ObjectSelector, std::make_unique<Graphics::Editor::ObjectSelector>());
 
 		listener.addListener("UIEditorElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
 			if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)

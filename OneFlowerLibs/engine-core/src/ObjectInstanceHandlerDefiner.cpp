@@ -16,10 +16,6 @@ namespace of::module
 	{
 		objects.insert({ uuid, object::GameObject() });
 		objects[uuid].id = uuid;
-		if (onAdd.operator bool())
-		{
-			onAdd.operator()(&objects[uuid]);
-		}
 		return &objects[uuid];
 	}
 
@@ -46,10 +42,6 @@ namespace of::module
 	{
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
 		objectsToDelete[object] = delayedtime;
-		if (onDelete.operator bool())
-		{
-			onDelete.operator()(object);
-		}
 	}
 
 	void ObjectInstanceHandler::removeObject(const of::common::uuid objectId)
@@ -85,10 +77,6 @@ namespace of::module
 		auto it = objects.begin();
 		while (it !=objects.end())
 		{
-			if (onDelete)
-			{
-				onDelete(&it->second);
-			}
 			it = objects.erase(it);
 		}
 	}
@@ -100,10 +88,6 @@ namespace of::module
 		{
 			if (it->second.unique == false)
 			{
-				if (onDelete)
-				{
-					onDelete(&it->second);
-				}
 				it = objects.erase(it);
 			}
 			else
@@ -128,15 +112,5 @@ namespace of::module
 		{
 			i.second.resolveReferences();
 		}
-	}
-
-	void ObjectInstanceHandler::onDeleteAction(std::function<void(object::GameObject*)> fnPtr)
-	{
-		onDelete = fnPtr;
-	}
-
-	void ObjectInstanceHandler::onAddAction(std::function<void(object::GameObject*)> fnPtr)
-	{
-		onAdd = fnPtr;
 	}
 }

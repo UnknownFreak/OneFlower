@@ -513,9 +513,6 @@
     <ClCompile Include="Project\Graphics\SkyBox.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp">
-      <Filter>Engine\Graphics\Editor\Selectors</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClCompile>
@@ -892,9 +889,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\mvp.hpp">
       <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp">
-      <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>

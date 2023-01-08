@@ -343,7 +343,6 @@
     <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp" />
     <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp" />
-    <ClCompile Include="Project\Graphics\Editor\ObjectSelector.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.cpp" />
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
@@ -456,7 +455,6 @@
     <ClInclude Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.hpp" />
     <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp" />
-    <ClInclude Include="Project\Graphics\Editor\ObjectSelector.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.hpp" />
     <ClInclude Include="Project\Graphics\Model.hpp" />
