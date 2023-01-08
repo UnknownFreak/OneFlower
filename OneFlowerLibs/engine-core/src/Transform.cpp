@@ -62,11 +62,18 @@ namespace of::object::component
 
 	void Transform::onMessage(const messaging::Message& message)
 	{
+		using namespace messaging;
+		if (message.messageTopic == Topic::of(Topics::REQUEST_DATA) && message.messageBody->bodyType == BodyType::REQUEST_DATA)
+		{
+			auto ref = ((RequestData*)message.messageBody.get());
+			if (ref->topic == Topic::of(Topics::TRANSFORM_SPEED_MODIFIER))
+			{
+				post(ref->id, ref->topic, std::make_shared<FloatPtr>(&speedModifier));
+			}
+		}
 	}
 	void component::Transform::initialize()
 	{
-		using namespace of::object::messaging;
-		post(Topic::of(Topics::TRANSFORM_SPEED_MODIFIER), std::make_shared<FloatPtr>(&speedModifier));
 		moving = true;
 	}
 }

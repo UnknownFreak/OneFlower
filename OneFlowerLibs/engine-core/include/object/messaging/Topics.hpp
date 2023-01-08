@@ -16,6 +16,7 @@ namespace of::object::messaging
 		ON_DEATH,
 		ON_DELETE,
 		ON_COLLISION,
+		REQUEST_DATA,
 	};
 
 	enum class BodyType
@@ -26,7 +27,8 @@ namespace of::object::messaging
 		MODIFIER_ID,
 		FLOAT_PTR,
 		GAMEOBJECT_PTR,
-		CUSTOM
+		REQUEST_DATA,
+		CUSTOM,
 	};
 
 	inline consteval std::string_view to_string(const Topics& topic)
@@ -51,6 +53,8 @@ namespace of::object::messaging
 			return "ON_DELETE";
 		case Topics::ON_COLLISION:
 			return "ON_COLLISION";
+		case Topics::REQUEST_DATA:
+			return "REQUEST_DATA";
 		default:
 			break;
 		}

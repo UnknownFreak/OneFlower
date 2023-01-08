@@ -90,6 +90,12 @@ namespace of::object::component
 		}
 	}
 
+	void of::object::component::Stats::initialize()
+	{
+		using namespace messaging;
+		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
+	}
+
 	void component::Stats::onMessage(const messaging::Message& message)
 	{
 		using namespace of::object::messaging;

@@ -35,6 +35,7 @@ namespace of::object::component
 		virtual of::common::String getTypeName() const = 0;
 		virtual void onMessage(const messaging::Message& message) = 0;
 
+		bool post(const of::common::uuid& id, const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
 		void post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
 		void post(const messaging::Message& message) const;
 

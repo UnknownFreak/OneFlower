@@ -69,6 +69,13 @@ namespace of::object
 			of::common::String s;
 		};
 
+		struct RequestData : public Body
+		{
+			RequestData(const Topic& topic, const of::common::uuid& id) : Body(BodyType::REQUEST_DATA), topic(topic), id(id) {}
+			Topic topic;
+			of::common::uuid id;
+		};
+
 		struct Custom : public Body
 		{
 			inline Custom() : Body(BodyType::CUSTOM) {};

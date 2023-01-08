@@ -19,6 +19,11 @@ namespace of::object::component
 		attachedOn = nullptr;
 	}
 
+	bool component::Base::post(const of::common::uuid& id, const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
+	{
+		return attachedOn->post(id, topic, message);
+	}
+
 	void component::Base::post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
 	{
 		attachedOn->post(topic, message);
