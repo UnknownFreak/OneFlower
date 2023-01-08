@@ -167,6 +167,25 @@ namespace of::module
 		{
 			navMeshLoaded = false;
 		}
+		else if (loadArgs == of::world::LoadArgs::LOAD_FROM_FILE)
+		{
+			auto it = parent.saveFile.begin();
+			for (it; it != parent.saveFile.end(); it++)
+			{
+				using namespace of::module::save_state;
+				if (it->second->isOfType(SaveStateTypeRef<of::object::ObjectSaveState>::type))
+				{
+					auto derived = it->second->toDerived<of::object::ObjectSaveState>();
+					if (derived->prefabId.isValid())
+					{
+						// We're currently lacking layer info... we need to account for that in the future.
+						// The best is if we do not need to account for it, because it should be stored on 
+						// ActiveLayerComponent could be a solution.
+						buffer.push_back(of::resource::ObjectInfo{ .prefab = derived->prefabId, .objectId = it->first.uuid, .location = {0,0,0}, .isUnique = true });
+					}
+				}
+			}
+		}
 	}
 	void WorldManager::LoadingStateMachine::cacheAllZones()
 	{
@@ -319,8 +338,13 @@ namespace of::module
 			auto object = prefab->createNewInstance(bufferObj.objectId, bufferObj.location);
 			object->unique = bufferObj.isUnique;
 			// TODO:
-			//object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(bufferObj.layer));
+			// object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(bufferObj.layer));
 			// The render, physics & ai component should listen to this to properly move it to the correct layer upon loading
+			// We need to be careful here with layer info, the option might be to add a paremeter to createNewInstance, since we only want to set the current layer if we're creating the object
+			// and not it's already loaded.
+			// currently prefab checks for object existance, BUT, maybe it should be unaware of that, and existance needs to be checked before hand...
+			// layers should preferably be stored on the gameobject root
+
 			}
 
 			loadingStateInfo.currentObjectCount++;

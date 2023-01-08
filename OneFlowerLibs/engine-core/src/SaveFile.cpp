@@ -64,6 +64,14 @@ namespace of::module
 		return gameMode;
 	}
 
+	SaveFile::saveStateIterator SaveFile::begin() const noexcept
+	{
+		return saveStates.begin();
+	}
+	SaveFile::saveStateIterator SaveFile::end() const noexcept
+	{
+		return saveStates.end();
+	}
 
 	void SaveFile::newGame(const of::resource::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
 	{

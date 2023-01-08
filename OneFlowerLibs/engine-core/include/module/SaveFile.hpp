@@ -20,9 +20,10 @@
 
 namespace of::module
 {
-
 	class SaveFile : public of::module::interface::IEngineResource<SaveFile>
 	{
+
+		typedef std::unordered_map<of::file::FileId, std::unique_ptr<save_state::SaveState>>::const_iterator saveStateIterator;
 
 		of::resource::DifficultyLevel diff = of::resource::DifficultyLevel::NotSet;
 		of::resource::GameMode gameMode;
@@ -62,6 +63,9 @@ namespace of::module
 
 		of::file::FileId getGameModeId() const;
 		const of::resource::GameMode& getGameMode() const;
+
+		saveStateIterator begin() const noexcept;
+		saveStateIterator end() const noexcept;
 
 		void save(const of::common::String& fileName);
 		void load(const of::common::String& fileName);

@@ -109,7 +109,6 @@ namespace of::module
 
 		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs& loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
 	
-
 		virtual void Update();
 		virtual void Simulate(const float& fElapsedTime);
 
