@@ -308,18 +308,18 @@ namespace of::module
 		}
 		else
 		{
-			auto& location = buffer[loadingStateInfo.currentObjectCount];
+			auto& bufferObj = buffer[loadingStateInfo.currentObjectCount];
 
 			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
-			auto prefab = requestor.request<of::resource::Prefab>(location.prefab);
+			auto prefab = requestor.request<of::resource::Prefab>(bufferObj.prefab);
 
-			if (location.isUnique || location.layer == getCurrentWorld())
+			if (bufferObj.isUnique || bufferObj.layer == getCurrentWorld())
 			{
 
-			auto object = prefab->createNewInstance(location.objectId, location.location);
-			object;
+			auto object = prefab->createNewInstance(bufferObj.objectId, bufferObj.location);
+			object->unique = bufferObj.isUnique;
 			// TODO:
-			//object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(location.layer));
+			//object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(bufferObj.layer));
 			// The render, physics & ai component should listen to this to properly move it to the correct layer upon loading
 			}
 

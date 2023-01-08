@@ -10,6 +10,7 @@
 #include <object/ObjectState.hpp>
 
 #include <utils/common/uuid.hpp>
+#include <file/FileId.hpp>
 
 namespace of::object
 {
@@ -21,6 +22,7 @@ namespace of::object
 	public:
 		std::map<of::common::uuid, std::unique_ptr<of::module::save_state::SaveState>> objectSaveStates;
 		ObjectState objectState = ObjectState::Undefined;
+		of::file::FileId prefabId{};
 
 		ObjectSaveState();
 		ObjectSaveState(const ObjectSaveState&) = delete;
@@ -31,12 +33,14 @@ namespace of::object
 		{
 			ar(cereal::base_class<SaveState>(this));
 			ar(objectSaveStates);
+			ar(prefabId);
 		}
 		template<class Archive>
 		void load(Archive& ar)
 		{
 			ar(cereal::base_class<SaveState>(this));
 			ar(objectSaveStates);
+			ar(prefabId);
 		}
 	};
 }

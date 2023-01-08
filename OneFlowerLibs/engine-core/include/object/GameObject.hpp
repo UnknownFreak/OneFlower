@@ -2,6 +2,12 @@
 #ifndef GameObject_HPP
 #define GameObject_HPP
 
+#include <utils/common/string.hpp>
+#include <utils/common/uuid.hpp>
+#include <utils/concepts/concepts.hpp>
+
+#include <file/FileId.hpp>
+
 #include <unordered_map>
 #include <cereal/types/unordered_map.hpp>
 
@@ -15,7 +21,6 @@
 #include <resource/trigger/Trigger.hpp>
 
 #include <module/SaveSetting.hpp>
-#include <utils/concepts/concepts.hpp>
 
 namespace of::module
 {
@@ -34,7 +39,6 @@ namespace of::object
 
 		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;
 
-
 		void resolveReferences();
 
 	public:
@@ -45,6 +49,7 @@ namespace of::object
 		ObjectState objectState = ObjectState::Active;
 		bool keepSavedOnObjectDelete = false;
 		bool unique = false;
+		of::file::FileId prefabId;
 
 		void post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message);
 		void post(const messaging::Message& message);

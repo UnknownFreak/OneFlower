@@ -31,6 +31,8 @@ namespace of::resource
 		{
 			object->applyGameMode(gameMode.enemyModifiers);
 		}
+		// TODO: check if we need to delay the initialize method call to here.
+		// That would ensure that all components can listen to messages from ANY other component...
 	}
 
 	Prefab::Prefab() : Requestable(), spawnDistance(0.f)

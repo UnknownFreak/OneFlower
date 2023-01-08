@@ -82,11 +82,23 @@ namespace of::module
 
 	void ObjectInstanceHandler::unload()
 	{
-		// TODO: REwork, do a loop and sendOnDelete
-		while (objects.size() > 0)
+		auto it = objects.begin();
+		while (it !=objects.end())
 		{
-			auto it = objects.begin();
-			while (it !=objects.end())
+			if (onDelete)
+			{
+				onDelete(&it->second);
+			}
+			it = objects.erase(it);
+		}
+	}
+
+	void ObjectInstanceHandler::unloadNonUnique()
+	{
+		auto it = objects.begin();
+		while (it != objects.end())
+		{
+			if (it->second.unique == false)
 			{
 				if (onDelete)
 				{
@@ -94,11 +106,11 @@ namespace of::module
 				}
 				it = objects.erase(it);
 			}
+			else
+			{
+				it++;
+			}
 		}
-	}
-
-	void ObjectInstanceHandler::unloadNonUnique()
-	{
 	}
 
 	void ObjectInstanceHandler::persistGameObjects()
@@ -106,7 +118,7 @@ namespace of::module
 		for (auto& i : objects)
 		{
 			i.second.persist(of::module::SaveSetting::PERSIST_ON_SAVE);
-			i.second.persist(of::module::SaveSetting::SPECIAL_EFFECT_RE_CONSTRUCT);
+			i.second.persist(of::module::SaveSetting::SPECIAL_RE_CONSTRUCT);
 		}
 	}
 

@@ -17,9 +17,9 @@ namespace of::module
 		*/
 		PERSIST_ON_SAVE,
 		/*
-		* Persist the object, but it's a special effect (e.g. player spell, or skill), persist the status of the skill (if applicable)
+		* Persist the object, but it's a special object (e.g. player spell, or skill), could also be loot for example), persist the statuses of the object (if applicable)
 		*/
-		SPECIAL_EFFECT_RE_CONSTRUCT,
+		SPECIAL_RE_CONSTRUCT,
 	};
 
 }

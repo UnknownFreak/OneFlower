@@ -282,6 +282,10 @@ namespace of::object
 				saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
 			}
 			auto state = saveFile.getState<ObjectSaveState>(tmp);
+			if (saveSetting == of::module::SaveSetting::SPECIAL_RE_CONSTRUCT)
+			{
+				state->prefabId = prefabId;
+			}
 			state->objectState = objectState;
 			for (auto& it : componentMap)
 			{
