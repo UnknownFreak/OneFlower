@@ -1,19 +1,11 @@
 #include <object/GameObject.hpp>
 
-//#include <Combat/Stats.hpp>
-
-//#include <Object/ObjectStateActivator.hpp>
-
-//#include <Graphics/PlayerInteractionPrompt.hpp>
-
 #include <object/component/Transform.hpp>
 #include <object/ObjectSaveState.hpp>
 
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 #include <module/logger/OneLogger.hpp>
-
-//#include "Interactable.hpp"
 
 namespace of::object
 {
@@ -206,6 +198,13 @@ namespace of::object
 			logger.Debug("Clearing object persistance status");
 			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 			saveFile.remove(of::file::FileId(id));
+		}
+		else
+		{
+			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			auto saveState = saveFile.getState<ObjectSaveState>(of::file::FileId(id));
+			saveState->objectState = ObjectState::NoRecreate;
+			saveState->objectSaveStates.clear();
 		}
 		logger.Debug("OnDelete -> Exit");
 

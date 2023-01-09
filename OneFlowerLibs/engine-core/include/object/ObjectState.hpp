@@ -10,6 +10,7 @@ namespace of::object
 		Active,
 		Inactive,
 		Toggle,
+		NoRecreate,
 		Undefined,
 	};
 }
