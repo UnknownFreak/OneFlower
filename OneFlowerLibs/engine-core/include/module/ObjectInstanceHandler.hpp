@@ -14,6 +14,7 @@ namespace of::module
 	{
 		
 	public:
+		// TODO: move to private
 		object::GameObject* player = nullptr;
 		std::unordered_map<of::common::uuid, object::GameObject> objects;
 		std::unordered_map<of::common::uuid, float> objectsToDelete;
