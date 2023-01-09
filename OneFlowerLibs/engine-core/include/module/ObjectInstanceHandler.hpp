@@ -16,7 +16,7 @@ namespace of::module
 	public:
 		object::GameObject* player = nullptr;
 		std::unordered_map<of::common::uuid, object::GameObject> objects;
-		std::unordered_map<object::GameObject*, float> objectsToDelete;
+		std::unordered_map<of::common::uuid, float> objectsToDelete;
 
 		object::GameObject* addObject();
 		object::GameObject* addObject(const of::common::uuid& uuid);
@@ -25,8 +25,7 @@ namespace of::module
 		bool exists(const of::common::uuid& uuid) const;
 		object::GameObject* getPlayer() const;
 
-		void removeObject(object::GameObject* object, const float& delayedTime=0);
-		void removeObject(const of::common::uuid objectId);
+		void removeObject(const of::common::uuid objectId, const float& delayedTime=0);
 
 		void processDeletedObjects(const float& elapsedTime);
 

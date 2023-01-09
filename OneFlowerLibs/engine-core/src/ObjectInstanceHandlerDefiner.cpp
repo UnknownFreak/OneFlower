@@ -38,15 +38,10 @@ namespace of::module
 		return player;
 	}
 
-	void ObjectInstanceHandler::removeObject(object::GameObject* object, const float& delayedtime)
+	void ObjectInstanceHandler::removeObject(of::common::uuid objectId, const float& delayedtime)
 	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + object->id.to_string());
-		objectsToDelete[object] = delayedtime;
-	}
-
-	void ObjectInstanceHandler::removeObject(const of::common::uuid objectId)
-	{
-		removeObject(getObject(objectId));
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + objectId.to_string());
+		objectsToDelete[objectId] = delayedtime;
 	}
 
 	void ObjectInstanceHandler::processDeletedObjects(const float& elapsedTime)
@@ -57,11 +52,11 @@ namespace of::module
 			it->second -= elapsedTime;
 			if (it->second < 0)
 			{
-				auto id = it->first->id;
+				auto id = it->first;
 				auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
 				logger.Fine("Processing removal of " + id.to_string());
 				logger.Debug(of::common::toHex((size_t)&it->first));
-				it->first->onDelete();
+				objects[id].onDelete();
 				objects.erase(id);
 				it = objectsToDelete.erase(it);
 			}
@@ -75,6 +70,7 @@ namespace of::module
 	void ObjectInstanceHandler::unloadAll()
 	{
 		objects.clear();
+		objectsToDelete.clear();
 		//auto it = objects.begin();
 		//while (it !=objects.end())
 		//{
@@ -84,12 +80,12 @@ namespace of::module
 
 	void ObjectInstanceHandler::unloadNonUnique()
 	{
-		// TODO: replace with std erase_if()???
 		auto it = objects.begin();
 		while (it != objects.end())
 		{
 			if (it->second.unique == false)
 			{
+				objectsToDelete.erase(it->first);
 				it = objects.erase(it);
 			}
 			else

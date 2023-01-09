@@ -5,7 +5,7 @@ namespace of::module
 	enum class SaveSetting
 	{
 		/*
-		* Never save the object, this is used for all static objects that can be saved
+		* Never save the object, this is used for all static objects
 		*/
 		NEVER_STORE,
 		/*

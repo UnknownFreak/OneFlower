@@ -169,8 +169,7 @@ namespace of::object
 		{
 			post(Topic::of(Topics::ON_DEATH), std::make_shared<GameObjectPtr>(killer));
 		}
-		of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(this, delayedDespawnTime);
-
+		of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(id, delayedDespawnTime);
 	}
 
 	void GameObject::onDelete()
