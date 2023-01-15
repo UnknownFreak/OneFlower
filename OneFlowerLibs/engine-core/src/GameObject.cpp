@@ -140,7 +140,7 @@ namespace of::object
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
 		}
-		persist(of::module::SaveSetting::PERSIST_ON_INTERACT);
+		persistIf(of::module::SaveSetting::PERSIST_ON_INTERACT);
 	}
 
 	void GameObject::onCollision(GameObject* collider)
@@ -198,7 +198,7 @@ namespace of::object
 			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 			saveFile.remove(of::file::FileId(id));
 		}
-		else
+		else if (keepSavedOnObjectDelete && unique)
 		{
 			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 			auto saveState = saveFile.getState<ObjectSaveState>(of::file::FileId(id));
@@ -269,7 +269,7 @@ namespace of::object
 		return state;
 	}
 
-	void GameObject::persist(const of::module::SaveSetting& persist)
+	void GameObject::persistIf(const of::module::SaveSetting& persist)
 	{
 		if (persist != of::module::SaveSetting::NEVER_STORE && saveSetting == persist)
 		{

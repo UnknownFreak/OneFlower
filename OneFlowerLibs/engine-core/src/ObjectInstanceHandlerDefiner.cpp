@@ -99,8 +99,8 @@ namespace of::module
 	{
 		for (auto& i : objects)
 		{
-			i.second.persist(of::module::SaveSetting::PERSIST_ON_SAVE);
-			i.second.persist(of::module::SaveSetting::SPECIAL_RE_CONSTRUCT);
+			i.second.persistIf(of::module::SaveSetting::PERSIST_ON_SAVE);
+			i.second.persistIf(of::module::SaveSetting::SPECIAL_RE_CONSTRUCT);
 		}
 	}
 

@@ -30,8 +30,7 @@ namespace of::module
 		of::common::uuid customDiffId = of::common::uuid::nil();
 
 		std::unordered_map<of::file::FileId, std::unique_ptr<save_state::SaveState>> saveStates;
-
-
+		std::unordered_map<of::common::uuid, float> despawnTimers;
 		std::unordered_map<of::common::uuid, std::vector<of::file::FileId>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
 
 		void setPlayerInfo();
@@ -56,6 +55,9 @@ namespace of::module
 		{
 			return getState(uuid)->toDerived<T>();
 		}
+
+		void setDespawnTimers(const std::unordered_map<of::common::uuid, float>& timers);
+		const std::unordered_map<of::common::uuid, float>& getDespawnTimers() const;
 
 		void newGame(const of::resource::DifficultyLevel& diff, const of::common::uuid& customDiffId, const of::file::FileId& gameMode);
 		of::resource::DifficultyLevel getDifficulty() const;

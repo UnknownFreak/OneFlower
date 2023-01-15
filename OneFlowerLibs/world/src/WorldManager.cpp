@@ -335,15 +335,23 @@ namespace of::module
 			if (bufferObj.isUnique || bufferObj.layer == getCurrentWorld())
 			{
 
-			auto object = prefab->createNewInstance(bufferObj.objectId, bufferObj.location);
-			object->unique = bufferObj.isUnique;
-			// TODO:
-			// object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(bufferObj.layer));
-			// The render, physics & ai component should listen to this to properly move it to the correct layer upon loading
-			// We need to be careful here with layer info, the option might be to add a paremeter to createNewInstance, since we only want to set the current layer if we're creating the object
-			// and not it's already loaded.
-			// currently prefab checks for object existance, BUT, maybe it should be unaware of that, and existance needs to be checked before hand...
-			// layers should preferably be stored on the gameobject root
+				if (parent.saveFile.getState<of::object::ObjectSaveState>(bufferObj.objectId)->objectState == of::object::ObjectState::NoRecreate)
+				{
+					of::engine::GetModule<of::module::logger::OneLogger>().getLogger("LoadingStateMachine").Debug("Skipping object creation as it's flagged NoRecreate in saveFile");
+					// Pass
+				}
+				else
+				{
+					auto object = prefab->createNewInstance(bufferObj.objectId, bufferObj.location);
+					object->unique = bufferObj.isUnique;
+					// TODO:
+					// object->post(of::object::messaging::Topic::of(of::object::messaging::Topics::MOVE_ZONE), std::make_shared<MoveToZone>(bufferObj.layer));
+					// The render, physics & ai component should listen to this to properly move it to the correct layer upon loading
+					// We need to be careful here with layer info, the option might be to add a paremeter to createNewInstance, 
+					// since we only want to set the current layer if we're creating the object and not it's already loaded.
+					// currently prefab checks for object existance, BUT, maybe it should be unaware of that, and existance needs to be checked before hand...
+					// layers should preferably be stored on the gameobject root
+				}
 
 			}
 
@@ -424,6 +432,7 @@ namespace of::module
 		saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 		auto& p = saveFile.getGameMode();
 		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition, of::world::LoadArgs::NEW_GAME);
+		objectHandler.objectsToDelete.clear();
 		//auto& glob = of::engine::GetModule<Globals>();
 		//loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 	}
@@ -439,6 +448,7 @@ namespace of::module
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
 		saveFile.currentZone = loadStateMachine.getCurrentWorld();
 		saveFile.loadingScreen = loadStateMachine.getCurrentLoadingScreen();
+		saveFile.setDespawnTimers(objectHandler.objectsToDelete);
 		saveFile.save(fileName);
 	}
 
@@ -448,6 +458,7 @@ namespace of::module
 		isLoading = true;
 		saveFile.load(fileName);
 		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point, of::world::LoadArgs::LOAD_FROM_FILE);
+		objectHandler.objectsToDelete = saveFile.getDespawnTimers();
 		// TODO: start timers from questing module if needed
 	}
 

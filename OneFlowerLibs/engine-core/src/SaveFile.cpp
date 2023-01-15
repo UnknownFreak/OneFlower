@@ -73,6 +73,16 @@ namespace of::module
 		return saveStates.end();
 	}
 
+	void SaveFile::setDespawnTimers(const std::unordered_map<of::common::uuid, float>& timers)
+	{
+		despawnTimers = timers;
+	}
+
+	const std::unordered_map<of::common::uuid, float>& SaveFile::getDespawnTimers() const
+	{
+		return despawnTimers;
+	}
+
 	void SaveFile::newGame(const of::resource::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
 	{
 		diff = difficulty;
@@ -127,6 +137,7 @@ namespace of::module
 			mainAr(customDiffId);
 			mainAr(player);
 			mainAr(saveStates);
+			mainAr(despawnTimers);
 			mainAr(currentZone);
 			mainAr(loadingScreen);
 			mainAr(point.x, point.y, point.z);
@@ -144,6 +155,7 @@ namespace of::module
 			mainAr(customDiffId);
 			mainAr(player);
 			mainAr(saveStates);
+			mainAr(despawnTimers);
 			mainAr(currentZone);
 			mainAr(loadingScreen);
 			mainAr(point.x, point.y, point.z);

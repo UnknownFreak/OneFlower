@@ -149,7 +149,7 @@ namespace of::object
 		}
 
 		ObjectSaveState* getCurrentSaveState();
-		void persist(const of::module::SaveSetting& persist);
+		void persistIf(const of::module::SaveSetting& persist);
 		void onReconstruct();
 
 		template <class Archive>
