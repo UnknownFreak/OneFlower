@@ -15,5 +15,108 @@
     <Filter Include="include\object\component">
       <UniqueIdentifier>{759eff16-6245-4f57-96f4-00e3ad776fe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\object">
+      <UniqueIdentifier>{f3836eda-98a6-430a-bb10-39e7d27c7181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\object\component">
+      <UniqueIdentifier>{b8166011-04e2-4b10-986f-ef6624406561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\combat">
+      <UniqueIdentifier>{2ac1e2b3-af33-46ca-83b0-bfa72926954e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\combat\effect">
+      <UniqueIdentifier>{9c48c457-b37f-4d81-868a-fd8e1123cb75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\combat\attribute">
+      <UniqueIdentifier>{2d8a43c2-9766-4f71-87af-4a2cb7c9f2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\combat">
+      <UniqueIdentifier>{9c4b4b66-83c6-4062-bdd6-0b10fb5f52a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\combat\effect">
+      <UniqueIdentifier>{554b3f1a-ae7d-4049-a3d8-74c480564cf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\combat\attribute">
+      <UniqueIdentifier>{1a8c5e13-6259-4fec-b661-5c6f3e0a9957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\combat\attribute\e">
+      <UniqueIdentifier>{f100d6c4-28f9-48af-a0d7-d2984a64b772}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Barrier.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Element.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Skill.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttachToParent.cpp">
+      <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stats.cpp">
+      <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Damage.cpp">
+      <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Combat.cpp">
+      <Filter>src\object\component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Effect.cpp">
+      <Filter>src\combat\effect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EffectProperty.cpp">
+      <Filter>src\combat\effect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EffectStack.cpp">
+      <Filter>src\combat\effect</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\object\component\AttachToParent.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\Combat.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\Damage.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\Stats.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\effect\Effect.hpp">
+      <Filter>include\combat\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\effect\EffectProperty.hpp">
+      <Filter>include\combat\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\effect\EffectStack.hpp">
+      <Filter>include\combat\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\attribute\Attribute.hpp">
+      <Filter>include\combat\attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\attribute\MainAttribute.hpp">
+      <Filter>include\combat\attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\Barrier.hpp">
+      <Filter>include\combat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\Element.hpp">
+      <Filter>include\combat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\Modifier.hpp">
+      <Filter>include\combat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\Skill.hpp">
+      <Filter>include\combat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\combat\effect\EffectType.hpp">
+      <Filter>include\combat\effect</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
