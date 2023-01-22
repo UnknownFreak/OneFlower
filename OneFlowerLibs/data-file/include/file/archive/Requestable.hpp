@@ -87,10 +87,6 @@ namespace of::file::archive
 			return FileId(fromMod, ID);
 		}
 
-		inline virtual void render()
-		{
-		}
-
 		inline virtual TypeInfo getTrait() const = 0;
 
 		virtual ~Requestable() = default;

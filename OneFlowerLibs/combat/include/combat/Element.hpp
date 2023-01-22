@@ -2,6 +2,8 @@
 #ifndef Element_HPP
 #define Element_HPP
 
+#include <utils/expose/expose.hpp>
+
 #include <cereal/cereal.hpp>
 #include <cereal/types/map.hpp>
 
@@ -12,10 +14,12 @@
 #include <map>
 #include <File/FileId.hpp>
 
+
 namespace Combat
 {
 	class Element : public of::file::archive::Requestable
 	{
+		template <class T> friend class of::expose::ExposeToEditor;
 		public:
 			struct Hash
 			{
@@ -64,8 +68,6 @@ namespace Combat
 
 		// Inherited via IRequestable
 		virtual of::file::archive::TypeInfo getTrait() const override;
-
-		virtual void render() override;
 
 		of::common::String getName() const override;
 
