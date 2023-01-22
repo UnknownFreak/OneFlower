@@ -566,9 +566,6 @@
     <ClInclude Include="Project\Graphics\TransparencyMasker.hpp">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp">
       <Filter>Engine\Graphics\UI\Handler</Filter>
     </ClInclude>
@@ -591,12 +588,6 @@
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\Attribute.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\EffectType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp">

@@ -459,7 +459,6 @@
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp" />
     <ClInclude Include="Project\Graphics\Window.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ArmorType.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\Attribute.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp" />
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp" />
@@ -467,8 +466,6 @@
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InputEnum.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ItemType.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\LoadingState.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\EffectType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
