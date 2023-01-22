@@ -15,9 +15,9 @@
 #include <Graphics/UI/SkillIconChain.hpp>
 */
 
-of::common::uuid of::file::archive::Trait<Combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
+of::common::uuid of::file::archive::Trait<of::combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
 
-namespace Combat
+namespace of::combat
 {
 	Element Skill::getElement()
 	{

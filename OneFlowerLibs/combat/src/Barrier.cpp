@@ -1,9 +1,7 @@
 #include <combat/Barrier.hpp>
 
-namespace Combat
+namespace of::combat
 {
-
-
 	void Barrier::add(const float& time, const double& strength)
 	{
 		totalBarrier += strength;

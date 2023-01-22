@@ -6,7 +6,7 @@
 #include <vector>
 #include <utility>
 
-namespace Combat
+namespace of::combat
 {
 	struct MainAttribute
 	{

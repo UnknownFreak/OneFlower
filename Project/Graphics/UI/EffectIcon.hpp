@@ -16,14 +16,14 @@ namespace Graphics::UI
 		PlainToolTip toolTip;
 		glm::vec2 pos;
 		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
-		Combat::EffectStack& stack;
+		of::combat::EffectStack& stack;
 		//sf::Vertex vertex[4];
 		//sf::VertexBuffer buf;
 
 	public:
 		glm::vec2 iconSize;
 
-		EffectIcon(const of::common::String& icon, Combat::EffectStack& stack);
+		EffectIcon(const of::common::String& icon, of::combat::EffectStack& stack);
 
 
 		void updatePos(const glm::vec2& pos);

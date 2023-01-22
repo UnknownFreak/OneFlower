@@ -16,7 +16,7 @@ namespace of::object::component
 	class Stats;
 }
 
-namespace Combat
+namespace of::combat
 {
 	class Effect : public of::file::archive::Requestable
 	{
@@ -28,7 +28,7 @@ namespace Combat
 		of::common::String effectIcon = "EffectIconFrame.png";
 		Element effectElement;
 		of::file::FileId effectElememtId;
-		Enums::EffectType effectType;
+		of::combat::EffectType effectType;
 		std::shared_ptr<EffectProperty> theEffect;
 
 		of::resource::TickTimer effectTime;
@@ -69,7 +69,7 @@ namespace Combat
 
 	};
 }
-CEREAL_REGISTER_TYPE(Combat::Effect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Combat::Effect);
+CEREAL_REGISTER_TYPE(of::combat::Effect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::combat::Effect);
 
 #endif

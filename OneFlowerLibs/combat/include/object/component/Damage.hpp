@@ -20,10 +20,10 @@ namespace of::object::component
 		bool hasLivedTooLong();
 		bool hasHitEnoughEnemiesAndDestroy();
 		std::vector<GameObject*> targetsHit;
-		std::vector<::Combat::Effect> effects;
+		std::vector<of::combat::Effect> effects;
 		bool lockNextFrame;
 		bool locked;
-		Combat::Element damageElement;
+		of::combat::Element damageElement;
 
 		void loadEffects();
 

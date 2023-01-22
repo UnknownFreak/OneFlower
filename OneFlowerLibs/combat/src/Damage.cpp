@@ -80,8 +80,8 @@ namespace of::object::component
 	void Damage::loadEffects()
 	{
 		for (auto& id : effectsIds)
-			effects.push_back(of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Effect>(id));
-		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Combat::Element>(elementId);
+			effects.push_back(of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Effect>(id));
+		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Element>(elementId);
 	}
 
 	void component::Damage::initialize()

@@ -1,7 +1,7 @@
 #ifndef EffectType_HPP
 #define EffectType_HPP
 
-namespace Enums
+namespace of::combat
 {
 	enum class EffectType
 	{

@@ -5,7 +5,7 @@
 #include <combat/attribute/StatType.hpp>
 #include <resource/TickTimer.hpp>
 
-namespace Combat
+namespace of::combat
 {
 	struct Modifier
 	{

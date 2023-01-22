@@ -27,12 +27,12 @@ namespace of::object::component
 			it.second.value = it.second.getValue();
 	}
 
-	void Stats::recalculateAttribute(Combat::Attribute& attribute, const double& modifiedValue)
+	void Stats::recalculateAttribute(of::combat::Attribute& attribute, const double& modifiedValue)
 	{
 		attribute.valueFromItems += modifiedValue;
 	}
 
-	void Stats::recalculateMainStat(Combat::MainAttribute& attribute, const double& modifiedValue)
+	void Stats::recalculateMainStat(of::combat::MainAttribute& attribute, const double& modifiedValue)
 	{
 		auto percent = attribute.current / attribute.max;
 		attribute.modifier += modifiedValue;
@@ -40,13 +40,13 @@ namespace of::object::component
 		attribute.current = attribute.max * percent;
 	}
 
-	void Stats::recalculateStatValues(Combat::StatAttribute& attribute, const double& modifiedValue)
+	void Stats::recalculateStatValues(of::combat::StatAttribute& attribute, const double& modifiedValue)
 	{
 		attribute.modifier += modifiedValue;
 		attribute.value = attribute.getValue();
 	}
 
-	void Stats::recalculateStatChances(Combat::PercentualAttribute& attribute, const double& modifiedValue)
+	void Stats::recalculateStatChances(of::combat::PercentualAttribute& attribute, const double& modifiedValue)
 	{
 		attribute.modifier += modifiedValue;
 		attribute.value = attribute.getValue();
@@ -159,13 +159,13 @@ namespace of::object::component
 		return float(attributes.at(Enums::StatType::Speed).getStatValue());
 	}
 
-	void Stats::addModifier(const Combat::Modifier& modifier)
+	void Stats::addModifier(const of::combat::Modifier& modifier)
 	{
 		buffAndDebuffs[modifier.attributeToModify].modifiers.push_back(modifier);
 		recalculateStat(modifier.attributeToModify, modifier.statModification);
 	}
 
-	void Stats::removeModifier(const Combat::Modifier& modifier)
+	void Stats::removeModifier(const of::combat::Modifier& modifier)
 	{
 		auto& modifierList = buffAndDebuffs[modifier.attributeToModify].modifiers;
 		auto it = std::find(modifierList.begin(), modifierList.end(), modifier);
@@ -173,9 +173,9 @@ namespace of::object::component
 		recalculateStat(modifier.attributeToModify, -modifier.statModification);
 	}
 
-	void Stats::doEffects(const std::vector<Combat::Effect>& newEffects, std::shared_ptr<Stats> owner)
+	void Stats::doEffects(const std::vector<of::combat::Effect>& newEffects, std::shared_ptr<Stats> owner)
 	{
-		for (Combat::Effect effect : newEffects)
+		for (of::combat::Effect effect : newEffects)
 		{
 			effect.owner = owner;
 			effects[effect.ID].effectType = effect.effectType;
@@ -185,7 +185,7 @@ namespace of::object::component
 		}
 	}
 
-	void Stats::doDamage(const double& weaponStrength, const double& damageCoef, const Combat::Element& damageElement, std::shared_ptr<Stats> damageOwner)
+	void Stats::doDamage(const double& weaponStrength, const double& damageCoef, const of::combat::Element& damageElement, std::shared_ptr<Stats> damageOwner)
 	{
 		auto trueDamage = weaponStrength * damageCoef * damageOwner->statValues[Enums::StatType::Power].getValue() / statValues[Enums::StatType::Toughness].getValue();
 		auto critChance = statChances[Enums::StatType::CritChange].getValue() * 100.0;
@@ -203,7 +203,7 @@ namespace of::object::component
 		}
 	}
 
-	std::unordered_map<of::common::uuid, Combat::EffectStack>& Stats::getEffects()
+	std::unordered_map<of::common::uuid, of::combat::EffectStack>& Stats::getEffects()
 	{
 		return effects;
 	}
@@ -225,10 +225,10 @@ namespace of::object::component
 		{
 			if (it.second.modifiers.size() != 0)
 			{
-				if (it.second.effectType == Enums::EffectType::TickDamage)
+				if (it.second.effectType == of::combat::EffectType::TickDamage)
 				{
 					auto element = it.second.modifiers[0].effectElement;
-					auto tickDamages = it.second.tick<Combat::DamageEffect>(dt);
+					auto tickDamages = it.second.tick<of::combat::DamageEffect>(dt);
 					double tickDamage = 0;
 					for (auto& x : tickDamages)
 						tickDamage += x.first.damage * x.second;
@@ -239,22 +239,22 @@ namespace of::object::component
 
 					mainStat[Enums::StatType::Health].current -= tickDamage * attunedTo.getElementModifier(element.getModfile());
 				}
-				else if (it.second.effectType == Enums::EffectType::Healing)
+				else if (it.second.effectType == of::combat::EffectType::Healing)
 				{
 
 					auto element = it.second.modifiers[0].effectElement;
-					auto tickDamages = it.second.tick<Combat::DamageEffect>(dt);
+					auto tickDamages = it.second.tick<of::combat::DamageEffect>(dt);
 					double tickDamage = 0;
 					for (auto& x : tickDamages)
 						tickDamage += x.first.damage * x.second;
 
 					mainStat[Enums::StatType::Health].current += tickDamage * attunedTo.getElementModifier(element.getModfile());
 				}
-				else if (it.second.effectType == Enums::EffectType::Barrier)
+				else if (it.second.effectType == of::combat::EffectType::Barrier)
 				{
 
 					auto element = it.second.modifiers[0].effectElement;
-					auto barrierValues = it.second.tick<Combat::BarrierEffect>(dt);
+					auto barrierValues = it.second.tick<of::combat::BarrierEffect>(dt);
 					for (auto& barrier : barrierValues)
 					{
 						auto& b = barriers[element.ID];
@@ -264,9 +264,9 @@ namespace of::object::component
 
 					}
 				}
-				else if (it.second.effectType == Enums::EffectType::VisualEffect)
+				else if (it.second.effectType == of::combat::EffectType::VisualEffect)
 				{
-					auto vfxs = it.second.tick<Combat::VisualEffect>(dt);
+					auto vfxs = it.second.tick<of::combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
 						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfx.first.vfxPrefab);
@@ -275,9 +275,9 @@ namespace of::object::component
 						go->add<AttachToParent>(attachedOn);
 					}
 				}
-				else if (it.second.effectType == Enums::EffectType::Modifier)
+				else if (it.second.effectType == of::combat::EffectType::Modifier)
 				{
-					auto modifiers = it.second.tick<Combat::ModifierEffect>(dt);
+					auto modifiers = it.second.tick<of::combat::ModifierEffect>(dt);
 					for (auto& modif : modifiers)
 					{
 						if (!modif.first.applied)

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace Combat
+namespace of::combat
 {
 	struct Barrier
 	{

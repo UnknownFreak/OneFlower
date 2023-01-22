@@ -11,8 +11,8 @@ namespace Items
 	{
 
 	public:
-		Combat::Modifier defence;
-		std::vector<Combat::Modifier> attributeModifier;
+		of::combat::Modifier defence;
+		std::vector<of::combat::Modifier> attributeModifier;
 
 		template <class Archive>
 		void save(Archive& ar) const

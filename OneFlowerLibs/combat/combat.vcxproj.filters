@@ -39,9 +39,6 @@
     <Filter Include="src\combat\attribute">
       <UniqueIdentifier>{1a8c5e13-6259-4fec-b661-5c6f3e0a9957}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\combat\attribute\e">
-      <UniqueIdentifier>{f100d6c4-28f9-48af-a0d7-d2984a64b772}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Barrier.cpp">

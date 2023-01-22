@@ -13,9 +13,9 @@ namespace Graphics::UI
 	{
 		std::shared_ptr<swizzle::gfx::Texture> skillIcon;
 		glm::vec2 pos;
-		Combat::Skill* skill;
+		of::combat::Skill* skill;
 	public:
-		SkillIcon(Combat::Skill* skill);
+		SkillIcon(of::combat::Skill* skill);
 		SkillIcon(const SkillIcon& copy);
 		//SkillIcon& operator=(const SkillIcon& other);
 

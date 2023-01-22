@@ -18,10 +18,10 @@ namespace of::expose
 	//namespace
 	//{
 		template<>
-		class ExposeToEditor<Combat::Element>
+		class ExposeToEditor<of::combat::Element>
 		{
 		public:
-			static void edit(Combat::Element& e)
+			static void edit(of::combat::Element& e)
 			{
 				//if(Graphics::Editor::ViewModels::renderInfo(r, true))
 				//	e.mode = of::file::archive::ObjectSaveMode::EDIT;
@@ -123,7 +123,7 @@ namespace of::expose
 			static void edit(of::file::archive::Requestable& r)
 			{
 				if (r.objectType == of::file::ObjectType::Element)
-					ExposeToEditor<Combat::Element>::edit((Combat::Element&)r);
+					ExposeToEditor<of::combat::Element>::edit((of::combat::Element&)r);
 			}
 		};
 	//}

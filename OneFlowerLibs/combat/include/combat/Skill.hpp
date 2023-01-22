@@ -26,7 +26,7 @@ namespace Graphics::UI
 }
 */
 
-namespace Combat
+namespace of::combat
 {
 	class Skill : public of::file::archive::Requestable
 	{
@@ -35,7 +35,7 @@ namespace Combat
 		of::file::FileId prefabId;
 		of::file::FileId skillEffectPrefabId;
 		// effects that apply to the player
-		std::vector<Combat::Effect> skillExecutionEffects;
+		std::vector<of::combat::Effect> skillExecutionEffects;
 		std::vector<of::file::FileId> skillExecutionEffectIds;
 
 		Element getElement();
@@ -51,7 +51,7 @@ namespace Combat
 		Skill();
 
 		of::file::FileId elementId;
-		Combat::Element element;
+		of::combat::Element element;
 		of::resource::TickTimer coolDown;
 		double cost;
 		bool summon;
@@ -104,6 +104,6 @@ namespace Combat
 
 	};
 }
-CEREAL_REGISTER_TYPE(Combat::Skill);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Combat::Skill);
+CEREAL_REGISTER_TYPE(of::combat::Skill);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::combat::Skill);
 #endif

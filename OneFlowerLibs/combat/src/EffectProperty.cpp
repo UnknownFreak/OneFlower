@@ -3,7 +3,10 @@
 #include <resource/Prefab.hpp>
 #include <file/Handler.hpp>
 
-void Combat::VisualEffect::loadVfx()
+namespace of::combat
 {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfxPrefab);
+	void of::combat::VisualEffect::loadVfx()
+	{
+		of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfxPrefab);
+	}
 }

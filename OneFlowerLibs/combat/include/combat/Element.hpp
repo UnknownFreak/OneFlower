@@ -15,7 +15,7 @@
 #include <File/FileId.hpp>
 
 
-namespace Combat
+namespace of::combat
 {
 	class Element : public of::file::archive::Requestable
 	{
@@ -23,7 +23,7 @@ namespace Combat
 		public:
 			struct Hash
 			{
-				size_t operator() (const Combat::Element& key) const noexcept
+				size_t operator() (const of::combat::Element& key) const noexcept
 				{
 					return std::hash<of::common::uuid>()(key.ID);
 				}
@@ -74,7 +74,7 @@ namespace Combat
 	};
 }
 
-CEREAL_REGISTER_TYPE(Combat::Element);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Combat::Element);
+CEREAL_REGISTER_TYPE(of::combat::Element);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::combat::Element);
 
 #endif

@@ -7,7 +7,7 @@ namespace of::object::component
 	void component::CombatComponent::onMessage(const of::object::messaging::Message&)
 	{
 	}
-	std::unordered_map<Enums::CombatSkill, ::Combat::Skill >& CombatComponent::getSkills()
+	std::unordered_map<Enums::CombatSkill, of::combat::Skill >& CombatComponent::getSkills()
 	{
 		return skills;
 	}

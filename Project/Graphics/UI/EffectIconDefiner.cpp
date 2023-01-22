@@ -2,7 +2,7 @@
 
 #include <module/resource/TextureLoader.hpp>
 
-Graphics::UI::EffectIcon::EffectIcon(const of::common::String& icon, Combat::EffectStack& stack) : UIContext(swizzle::input::Keys::KeyNone, "EffectIcon", true),
+Graphics::UI::EffectIcon::EffectIcon(const of::common::String& icon, of::combat::EffectStack& stack) : UIContext(swizzle::input::Keys::KeyNone, "EffectIcon", true),
 iconSize{32.f, 32.f}, stack(stack),
 iconTexture(of::engine::GetModule<of::module::texture::Loader>().requestTexture(icon, of::module::Settings::uiTexturePath))
 {

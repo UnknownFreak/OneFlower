@@ -3,7 +3,7 @@
 
 #include <utils/common/String.hpp>
 
-namespace Combat
+namespace of::combat
 {
 	struct Attribute
 	{

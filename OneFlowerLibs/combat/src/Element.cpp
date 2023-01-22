@@ -3,9 +3,9 @@
 #include <file/Handler.hpp>
 #include <Module/Logger/OneLogger.hpp>
 
-of::common::uuid of::file::archive::Trait<Combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
+of::common::uuid of::file::archive::Trait<of::combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
 
-namespace Combat
+namespace of::combat
 {
 	Element::Element() : Requestable(of::file::ObjectType::Element)
 	{

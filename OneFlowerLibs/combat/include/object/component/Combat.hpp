@@ -17,9 +17,9 @@ namespace of::object::component
 		virtual void initialize() override {};
 		virtual void deconstruct() override {};
 	public:
-		std::unordered_map<Enums::CombatSkill, ::Combat::Skill> skills;
+		std::unordered_map<Enums::CombatSkill, of::combat::Skill> skills;
 
-		std::unordered_map<Enums::CombatSkill, ::Combat::Skill>& getSkills();
+		std::unordered_map<Enums::CombatSkill, of::combat::Skill>& getSkills();
 
 		bool wasSkillChanged = true;
 

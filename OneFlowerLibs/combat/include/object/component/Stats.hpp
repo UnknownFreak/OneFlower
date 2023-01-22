@@ -24,15 +24,15 @@ namespace of::object::component
 		const size_t maxLevel = 100;
 		size_t level = 1;
 
-		std::unordered_map<Enums::StatType, ::Combat::Attribute> attributes;
-		std::unordered_map<Enums::StatType, ::Combat::ModifierStack> buffAndDebuffs;
-		std::unordered_map<of::common::uuid, ::Combat::EffectStack> effects;
+		std::unordered_map<Enums::StatType, of::combat::Attribute> attributes;
+		std::unordered_map<Enums::StatType, of::combat::ModifierStack> buffAndDebuffs;
+		std::unordered_map<of::common::uuid, of::combat::EffectStack> effects;
 
 		void setStats();
-		void recalculateAttribute(Combat::Attribute& attribute, const double& modifiedValue);
-		void recalculateMainStat(Combat::MainAttribute& attribute, const double& modifiedValue);
-		void recalculateStatValues(Combat::StatAttribute& attribute, const double& modifiedValue);
-		void recalculateStatChances(Combat::PercentualAttribute& attribute, const double& modifiedValue);
+		void recalculateAttribute(of::combat::Attribute& attribute, const double& modifiedValue);
+		void recalculateMainStat(of::combat::MainAttribute& attribute, const double& modifiedValue);
+		void recalculateStatValues(of::combat::StatAttribute& attribute, const double& modifiedValue);
+		void recalculateStatChances(of::combat::PercentualAttribute& attribute, const double& modifiedValue);
 		void recalculateStat(const Enums::StatType& attribute, const double& modifiedValue);
 
 		virtual void onMessage(const messaging::Message& message) override;
@@ -40,12 +40,12 @@ namespace of::object::component
 		virtual void deconstruct() override {};
 
 	public:
-		Combat::Element attunedTo;
+		of::combat::Element attunedTo;
 
-		std::unordered_map<Enums::StatType, Combat::MainAttribute> mainStat;
-		std::unordered_map<Enums::StatType, Combat::StatAttribute> statValues;
-		std::unordered_map<Enums::StatType, Combat::PercentualAttribute> statChances;
-		std::unordered_map<of::common::uuid, Combat::Barrier> barriers;
+		std::unordered_map<Enums::StatType, of::combat::MainAttribute> mainStat;
+		std::unordered_map<Enums::StatType, of::combat::StatAttribute> statValues;
+		std::unordered_map<Enums::StatType, of::combat::PercentualAttribute> statChances;
+		std::unordered_map<of::common::uuid, of::combat::Barrier> barriers;
 
 		Stats();
 
@@ -53,12 +53,12 @@ namespace of::object::component
 		virtual std::unique_ptr<Base> ucopy() const override;
 
 		float getSpeed() const;
-		void addModifier(const Combat::Modifier& modifier);
-		void removeModifier(const Combat::Modifier& modifier);
-		void doEffects(const std::vector<Combat::Effect>& effects, std::shared_ptr<Stats> owner);
-		void doDamage(const double& weaponStrength, const double& damageCoef, const Combat::Element& damageElement, std::shared_ptr<Stats> owner);
+		void addModifier(const of::combat::Modifier& modifier);
+		void removeModifier(const of::combat::Modifier& modifier);
+		void doEffects(const std::vector<of::combat::Effect>& effects, std::shared_ptr<Stats> owner);
+		void doDamage(const double& weaponStrength, const double& damageCoef, const of::combat::Element& damageElement, std::shared_ptr<Stats> owner);
 
-		std::unordered_map<of::common::uuid, Combat::EffectStack>& getEffects();
+		std::unordered_map<of::common::uuid, of::combat::EffectStack>& getEffects();
 
 		size_t getLevel() const;
 

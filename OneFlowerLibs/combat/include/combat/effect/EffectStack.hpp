@@ -4,7 +4,7 @@
 #include <vector>
 #include "Effect.hpp"
 
-namespace Combat
+namespace of::combat
 {
 
 	struct EffectStack
@@ -13,7 +13,7 @@ namespace Combat
 		size_t maxStackSize = 100;
 		std::vector<Effect> modifiers;
 		of::common::String effectIcon;
-		Enums::EffectType effectType;
+		of::combat::EffectType effectType;
 		bool hiddenStack;
 
 		template <class T>

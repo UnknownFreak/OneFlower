@@ -44,19 +44,19 @@ inline void registerArchiveDefaults()
 	of::engine::GetModule<of::file::Handler>().archive.request<PrimitiveSaveable<of::common::String>>(FileId(index.modFile, index.ID));
 } });
 
-	vec.push_back({ Trait<Combat::Element>::typeId ,
+	vec.push_back({ Trait<of::combat::Element>::typeId ,
 [](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<Combat::Element>(FileId(index.modFile, index.ID));
+	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Element>(FileId(index.modFile, index.ID));
 } });
 
-	vec.push_back({ Trait<Combat::Effect>::typeId ,
+	vec.push_back({ Trait<of::combat::Effect>::typeId ,
 [](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<Combat::Effect>(FileId(index.modFile, index.ID));
+	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Effect>(FileId(index.modFile, index.ID));
 } });
 
-	vec.push_back({ Trait<Combat::Skill>::typeId ,
+	vec.push_back({ Trait<of::combat::Skill>::typeId ,
 [](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<Combat::Skill>(FileId(index.modFile, index.ID));
+	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Skill>(FileId(index.modFile, index.ID));
 } });
 
 	vec.push_back({ Trait<Questing::Quest>::typeId ,

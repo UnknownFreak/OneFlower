@@ -8,7 +8,7 @@
 #include <combat/attribute/StatType.hpp>
 #include <combat/Modifier.hpp>
 
-namespace Combat
+namespace of::combat
 {
 	struct EffectProperty
 	{
@@ -120,14 +120,14 @@ namespace Combat
 	};
 }
 
-CEREAL_REGISTER_TYPE(Combat::EffectProperty);
-CEREAL_REGISTER_TYPE(Combat::DamageEffect);
-CEREAL_REGISTER_TYPE(Combat::BarrierEffect);
-CEREAL_REGISTER_TYPE(Combat::VisualEffect);
-CEREAL_REGISTER_TYPE(Combat::ModifierEffect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::DamageEffect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::BarrierEffect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::VisualEffect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Combat::EffectProperty, Combat::ModifierEffect);
+CEREAL_REGISTER_TYPE(of::combat::EffectProperty);
+CEREAL_REGISTER_TYPE(of::combat::DamageEffect);
+CEREAL_REGISTER_TYPE(of::combat::BarrierEffect);
+CEREAL_REGISTER_TYPE(of::combat::VisualEffect);
+CEREAL_REGISTER_TYPE(of::combat::ModifierEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::DamageEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::BarrierEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::VisualEffect);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::ModifierEffect);
 
 #endif
