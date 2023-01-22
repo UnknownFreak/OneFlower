@@ -34,6 +34,9 @@
     <Filter Include="include\utils\concepts">
       <UniqueIdentifier>{f03fa27f-cd60-4378-b273-911c44f69c09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\utils\expose">
+      <UniqueIdentifier>{acab288a-1400-473b-b852-282eb3a8bf66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ListDir.cpp">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="include\utils\concepts\concepts.hpp">
       <Filter>include\utils\concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\expose\expose.hpp">
+      <Filter>include\utils\expose</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
