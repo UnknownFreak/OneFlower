@@ -49,18 +49,6 @@
     <Filter Include="Engine\Object\Component">
       <UniqueIdentifier>{58f8a0c8-dcd2-4d79-84c9-c46b47734885}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Combat">
-      <UniqueIdentifier>{84b36307-4b68-4ce5-b696-f499f02475e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Combat\Component">
-      <UniqueIdentifier>{58fcb014-d9ae-4a37-bb52-169ddb8bc07e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Combat\Effects">
-      <UniqueIdentifier>{27b662b5-b76c-4d5d-855b-3fdac50821b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Combat\Effects\EffectProperty">
-      <UniqueIdentifier>{1f48fdc0-3325-4a56-ab76-5073963beb6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module\GameSettings">
       <UniqueIdentifier>{1c88634f-7f82-4e8d-a4de-eb44adefe4cd}</UniqueIdentifier>
     </Filter>
@@ -303,29 +291,11 @@
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp">
       <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Combat\Element.cpp">
-      <Filter>Engine\Combat</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Skill.cpp">
-      <Filter>Engine\Combat</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Stats.cpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\AttachToParent.cpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Damage.cpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\TestObjects.hpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp">
       <Filter>Engine\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Effect.cpp">
-      <Filter>Engine\Combat\Effects</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\PlayerStats.cpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
@@ -341,18 +311,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp">
       <Filter>Engine\Graphics\UI\EffectIcons</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\EffectStack.cpp">
-      <Filter>Engine\Combat\Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Barrier.cpp">
-      <Filter>Engine\Combat</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\EffectProperty.cpp">
-      <Filter>Engine\Combat\Effects\EffectProperty</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Combat\Combat.cpp">
-      <Filter>Engine\Combat\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\ActionBar.cpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
@@ -635,41 +593,11 @@
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Combat\Element.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Modifier.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\Attribute.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Combat\Attribute.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\MainAttribute.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Barrier.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Skill.hpp">
-      <Filter>Engine\Combat</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\EffectType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Stats.hpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Damage.hpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\AttachToParent.hpp">
-      <Filter>Engine\Combat\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Effect.hpp">
-      <Filter>Engine\Combat\Effects</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>
@@ -685,15 +613,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\EffectIcon.hpp">
       <Filter>Engine\Graphics\UI\EffectIcons</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\EffectProperty.hpp">
-      <Filter>Engine\Combat\Effects\EffectProperty</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\EffectStack.hpp">
-      <Filter>Engine\Combat\Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Combat\Combat.hpp">
-      <Filter>Engine\Combat\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\ActionBar.hpp">
       <Filter>Engine\Graphics\UI\GameUI\Player</Filter>

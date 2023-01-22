@@ -32,13 +32,13 @@ void Graphics::UI::PlayerStats::update()
 {
 	if (stats)
 	{
-		auto& health = stats->mainStat[Enums::Attribute::Health];
+		auto& health = stats->mainStat[Enums::StatType::Health];
 		healthBar.setNewMax(float(health.max));
 		healthBar.update(float(health.current));
-		auto& mana = stats->mainStat[Enums::Attribute::Mana];
+		auto& mana = stats->mainStat[Enums::StatType::Mana];
 		manaBar.setNewMax(float(mana.max));
 		manaBar.update(float(mana.current));
-		auto& barrierStat = stats->mainStat[Enums::Attribute::BarrierStrength];
+		auto& barrierStat = stats->mainStat[Enums::StatType::BarrierStrength];
 		float barrierValue = 0.f;
 		for (auto& barrier : stats->barriers)
 		{

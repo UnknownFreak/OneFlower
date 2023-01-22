@@ -273,6 +273,9 @@
     <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\combat\combat.vcxproj">
+      <Project>{42211920-482d-448d-b536-0da516dd0db2}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
@@ -320,16 +323,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project\Combat\AttachToParent.cpp" />
-    <ClCompile Include="Project\Combat\Barrier.cpp" />
-    <ClCompile Include="Project\Combat\Combat.cpp" />
-    <ClCompile Include="Project\Combat\Damage.cpp" />
-    <ClCompile Include="Project\Combat\Effect.cpp" />
-    <ClCompile Include="Project\Combat\EffectProperty.cpp" />
-    <ClCompile Include="Project\Combat\EffectStack.cpp" />
-    <ClCompile Include="Project\Combat\Element.cpp" />
-    <ClCompile Include="Project\Combat\Skill.cpp" />
-    <ClCompile Include="Project\Combat\Stats.cpp" />
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\Graphics\Camera.cpp" />
@@ -429,19 +422,6 @@
     <ClCompile Include="Project\Trigger\TriggerList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Project\Combat\AttachToParent.hpp" />
-    <ClInclude Include="Project\Combat\Attribute.hpp" />
-    <ClInclude Include="Project\Combat\Barrier.hpp" />
-    <ClInclude Include="Project\Combat\Combat.hpp" />
-    <ClInclude Include="Project\Combat\Damage.hpp" />
-    <ClInclude Include="Project\Combat\Effect.hpp" />
-    <ClInclude Include="Project\Combat\EffectProperty.hpp" />
-    <ClInclude Include="Project\Combat\EffectStack.hpp" />
-    <ClInclude Include="Project\Combat\Element.hpp" />
-    <ClInclude Include="Project\Combat\MainAttribute.hpp" />
-    <ClInclude Include="Project\Combat\Modifier.hpp" />
-    <ClInclude Include="Project\Combat\Skill.hpp" />
-    <ClInclude Include="Project\Combat\Stats.hpp" />
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
     <ClInclude Include="Project\Graphics\Camera.hpp" />

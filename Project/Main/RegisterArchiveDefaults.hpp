@@ -9,7 +9,7 @@
 
 #include <Helpers/PrimitiveSaveable.hpp>
 
-#include <Combat/Effect.hpp>
+#include <combat/effect/Effect.hpp>
 #include <Combat/Element.hpp>
 #include <Combat/Skill.hpp>
 

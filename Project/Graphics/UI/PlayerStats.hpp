@@ -5,7 +5,7 @@
 #include "PlayerBuffDebuff.hpp"
 #include "ActionBar.hpp"
 
-#include <Combat/Stats.hpp>
+#include <object/component/Stats.hpp>
 
 #include <Graphics/UI/ProgressBar.hpp>
 

@@ -29,9 +29,9 @@ namespace of::module
 		return saveStates.find(uuid) != saveStates.end();
 	}
 
-	bool SaveFile::exists(const of::file::FileId& uuid, const of::common::String& type)
+	bool SaveFile::exists(const of::file::FileId& uuid, const of::common::String& type_)
 	{
-		return exists(uuid) && saveStates[uuid]->isOfType(type);
+		return exists(uuid) && saveStates[uuid]->isOfType(type_);
 	}
 
 	void SaveFile::remove(const of::file::FileId& uuid)

@@ -2,7 +2,7 @@
 #define PlayerController_HPP
 
 #include <Object/component/Transform.hpp>
-#include <Combat/Combat.hpp>
+#include <object/component/combat.hpp>
 
 #include "InputHandler.hpp"
 #include <Graphics/Window.hpp>

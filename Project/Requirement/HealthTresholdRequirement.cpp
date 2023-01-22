@@ -2,7 +2,7 @@
 
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
-#include <Combat/Stats.hpp>
+#include <object/component/Stats.hpp>
 
 namespace Requirement
 {
@@ -16,7 +16,7 @@ namespace Requirement
 			auto stats = ptr->get<of::object::component::Stats>();
 			if (stats)
 			{
-				auto p = stats->mainStat[Enums::Attribute::Health].current / stats->mainStat[Enums::Attribute::Health].max;
+				auto p = stats->mainStat[Enums::StatType::Health].current / stats->mainStat[Enums::StatType::Health].max;
 				if (comparitor == Enums::HealthTresholdComparitor::LessThan)
 					return p < percentage;
 				else if (comparitor == Enums::HealthTresholdComparitor::MoreThan)

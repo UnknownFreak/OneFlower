@@ -6,7 +6,7 @@
 #include "UIContext.hpp"
 #include "PlainToolTip.hpp"
 
-#include <Combat/EffectStack.hpp>
+#include <combat/effect/EffectStack.hpp>
 
 
 namespace Graphics::UI

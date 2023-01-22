@@ -15,8 +15,9 @@ namespace of::object::component
 	{
 	}
 
-	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId, const ObjectState& toggle)
+	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId_, const ObjectState& toggle_)
 	{
+		objectId_, toggle_;
 		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
 		saveFile;
 	}

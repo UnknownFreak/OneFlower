@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <object/GameObject.hpp>
-#include <Combat/Stats.hpp>
+#include <object/component/Stats.hpp>
 
 #include "Item.hpp"
 #include "StatChangingItem.hpp"

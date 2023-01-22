@@ -5,7 +5,7 @@
 
 #include "SkillIconChain.hpp"
 
-#include <Combat/Combat.hpp>
+#include <object/component/Combat.hpp>
 
 namespace Graphics::UI
 {

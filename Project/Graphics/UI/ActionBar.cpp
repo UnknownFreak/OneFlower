@@ -14,10 +14,10 @@ void Graphics::UI::ActionBar::update()
 	if (combat && combat->wasSkillChanged)
 	{
 		auto& skills = combat->getSkills();
-		for (auto& skill : skills)
-		{
-			iconChains[skill.first] = skill.second.getChain();
-		}
+		//for (auto& skill : skills)
+		//{
+		//	iconChains[skill.first] = skill.second.getChain();
+		//}
 		if (skills.size() != 0)
 			combat->wasSkillChanged = false;
 	}

@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "UIContext.hpp"
 
-#include <Combat/Stats.hpp>
+#include <object/component/Stats.hpp>
 #include "PlainToolTip.hpp"
 #include "EffectIcon.hpp"
 
