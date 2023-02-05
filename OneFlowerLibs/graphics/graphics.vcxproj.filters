@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include\graphics">
+      <UniqueIdentifier>{a74391c8-d04d-4161-87f0-7777b8b9cd9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object">
+      <UniqueIdentifier>{102674e0-4959-496a-9d30-8a8ec7f159d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object\component">
+      <UniqueIdentifier>{2a9f3ed3-dc67-4af4-97e6-1b6e77adb9b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics\window">
+      <UniqueIdentifier>{5a527742-2ae7-4af2-938a-f80420377d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics\view">
+      <UniqueIdentifier>{4ea05674-84c6-4211-9695-06b4e54befa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics\sky">
+      <UniqueIdentifier>{a2b63805-b517-4cb2-b5e7-ebb3c88c8d1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\resource">
+      <UniqueIdentifier>{8dfde863-69da-448d-9796-c39b02b0d903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module">
+      <UniqueIdentifier>{86c2d264-9145-4263-acc3-a83665dbe2c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module\window">
+      <UniqueIdentifier>{29559624-ace7-47b4-96be-0277f6c00d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\imgui">
+      <UniqueIdentifier>{8f4b46f3-9cd0-4ee5-93e1-e2c418925944}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\object\component\Render.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\Model.hpp">
+      <Filter>include\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\window\Window.hpp">
+      <Filter>include\graphics\window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\renderable.hpp">
+      <Filter>include\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp">
+      <Filter>include\graphics\window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\view\mvp.hpp">
+      <Filter>include\graphics\view</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\window\renderLayer.hpp">
+      <Filter>include\graphics\window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\view\camera.hpp">
+      <Filter>include\graphics\view</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\sky\skyBox.hpp">
+      <Filter>include\graphics\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\window\WindowProxy.hpp">
+      <Filter>include\module\window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_impl_swizzle.hpp">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\imgui_stdlib.hpp">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\ImGuiTranslateKey.hpp">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\parentedRenderable.hpp">
+      <Filter>include\graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\graphics\sky\skyBox.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Render.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowProxy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_impl_swizzle.cpp">
+      <Filter>include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_stdlib.cpp">
+      <Filter>include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\ImGuiTranslateKey.cpp">
+      <Filter>include\imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
