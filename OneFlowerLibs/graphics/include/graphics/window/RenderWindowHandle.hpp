@@ -4,6 +4,8 @@
 #include <graphics/renderable.hpp>
 #include <utils/common/uuid.hpp>
 
+#include <graphics/view/camera.hpp>
+
 namespace of::graphics::window
 {
 
@@ -43,6 +45,8 @@ namespace of::graphics::window
 		
 		virtual U32 getWindowHeight() = 0;
 		virtual U32 getWindowWidth() = 0;
+
+		virtual of::graphics::view::Camera* getCamera() = 0;
 
 		template<class T, typename ...Args>
 		requires std::derived_from<T, RenderWindowHandle> &&

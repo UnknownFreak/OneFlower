@@ -6,32 +6,9 @@
 namespace of::graphics::view
 {
 
-    class PerspectiveCamera
+    class Camera
     {
-    public:
-        PerspectiveCamera(float fov, float width, float heigth);
-        ~PerspectiveCamera();
-
-        void changeFov(float fov);
-        void changeAspect(float width, float height);
-
-        void setPosition(glm::vec3 pos);
-        void setRotation(glm::vec3 rot);
-
-        void lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up = glm::vec3(0.0F, 1.0F, 0.0F));
-
-        const glm::vec3& getPosition();
-        const glm::vec3& getRotation();
-
-        const glm::mat4& getView() const;
-        const glm::mat4& getProjection() const;
-
-        const glm::mat4& getViewProjection() const;
-
-    private:
-        void recalculatePerspective();
-        void recalculateViewProj();
-
+    protected:
         float mFov;
         float mWidth;
         float mHeight;
@@ -42,6 +19,53 @@ namespace of::graphics::view
 
         glm::vec3 mPosition;
         glm::vec3 mRotation;
+
+        virtual void recalculatePerspective() = 0;
+        virtual void recalculateViewProj();
+
+    protected:
+
+        void initCamera();
+
+    public:
+        Camera(float fov, float width, float height);
+        virtual ~Camera() = default;
+        void changeFov(float fov);
+        void changeAspect(float width, float height);
+
+        void setPosition(glm::vec3 pos);
+        void setRotation(glm::vec3 pos);
+
+        void lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up = glm::vec3(0.0F, 1.0F, 0.0F));
+
+        const glm::vec3& getPosition();
+        const glm::vec3& getRotation();
+
+        const glm::mat4& getView() const;
+        const glm::mat4& getProjection() const;
+
+        const glm::mat4& getViewProjection() const;
+    };
+
+    class OrthographicCamera : public Camera
+    {
+    public:
+        OrthographicCamera(float width, float height);
+        ~OrthographicCamera();
+
+    private:
+        virtual void recalculatePerspective() override;
+;
+    };
+
+    class PerspectiveCamera : public Camera
+    {
+    public:
+        PerspectiveCamera(float fov, float width, float height);
+        ~PerspectiveCamera();
+
+    private:
+        virtual void recalculatePerspective() override;
     };
 }
 

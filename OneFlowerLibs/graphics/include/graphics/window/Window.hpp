@@ -100,7 +100,7 @@ namespace of::graphics::window
 		virtual U32 getWindowHeight() override;
 		virtual U32 getWindowWidth() override;
 
-		view::PerspectiveCamera& getCamera();
+		view::Camera* getCamera();
 
 	};
 }

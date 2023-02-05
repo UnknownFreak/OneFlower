@@ -20,30 +20,26 @@
 namespace of::graphics::view
 {
 
-    PerspectiveCamera::PerspectiveCamera(float fov, float width, float heigth)
+#pragma region camera
+    Camera::Camera(float fov, float width, float height)
         : mFov(fov)
         , mWidth(width)
-        , mHeight(heigth)
+        , mHeight(height)
         , mProjectionMatrix()
         , mViewMatrix(1.0F)
         , mProjView(1.0F)
         , mPosition(0.0F)
         , mRotation(0.0F)
     {
-        // mProjectionMatrix[1][1] *= -1;
-        recalculatePerspective();
-        recalculateViewProj();
     }
 
-    PerspectiveCamera::~PerspectiveCamera() {}
-
-    void PerspectiveCamera::changeFov(float fov)
+    void Camera::changeFov(float fov)
     {
         mFov = fov;
         recalculatePerspective();
     }
 
-    void PerspectiveCamera::changeAspect(float width, float height)
+    void Camera::changeAspect(float width, float height)
     {
         if ((width != 0.0F) && (height != 0.0F))
         {
@@ -53,54 +49,49 @@ namespace of::graphics::view
         }
     }
 
-    void PerspectiveCamera::setPosition(glm::vec3 pos)
+    void Camera::setPosition(glm::vec3 pos)
     {
         mPosition = pos;
         recalculateViewProj();
     }
 
-    void PerspectiveCamera::setRotation(glm::vec3 rot)
+    void Camera::setRotation(glm::vec3 rot)
     {
         mRotation = rot;
         recalculateViewProj();
     }
 
-    void PerspectiveCamera::lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up)
+    void Camera::lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up)
     {
         mViewMatrix = glm::lookAt(pos, dir, up);
     }
 
-    const glm::vec3& PerspectiveCamera::getPosition()
+    const glm::vec3& Camera::getPosition()
     {
-        return *&mPosition;
+        return mPosition;
     }
 
-    const glm::vec3& PerspectiveCamera::getRotation()
+    const glm::vec3& Camera::getRotation()
     {
-        return *&mRotation;
+        return mRotation;
     }
 
-    const glm::mat4& PerspectiveCamera::getView() const
+    const glm::mat4& Camera::getView() const
     {
         return mViewMatrix;
     }
 
-    const glm::mat4& PerspectiveCamera::getProjection() const
+    const glm::mat4& Camera::getProjection() const
     {
         return mProjectionMatrix;
     }
 
-    const glm::mat4& PerspectiveCamera::getViewProjection() const
+    const glm::mat4& Camera::getViewProjection() const
     {
         return mProjView;
     }
 
-    void PerspectiveCamera::recalculatePerspective()
-    {
-        mProjectionMatrix = glm::perspective(mFov, mWidth / mHeight, 0.01F, 100.0F);
-    }
-
-    void PerspectiveCamera::recalculateViewProj()
+    void Camera::recalculateViewProj()
     {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), mPosition);
         glm::mat4 rot = glm::yawPitchRoll(mRotation.z, mRotation.x, mRotation.y);
@@ -108,4 +99,45 @@ namespace of::graphics::view
         mViewMatrix = glm::inverse(transform * rot);
         mProjView = mProjectionMatrix * mViewMatrix;
     }
+
+    void Camera::initCamera()
+    { 
+        recalculatePerspective();
+        recalculateViewProj();
+    }
+
+#pragma endregion
+#pragma region PerspectiveCamera
+
+    PerspectiveCamera::PerspectiveCamera(float fov, float width, float height) : Camera(fov, width, height)
+    {
+        initCamera();
+    }
+
+    PerspectiveCamera::~PerspectiveCamera() {}
+
+    void PerspectiveCamera::recalculatePerspective()
+    {
+        mProjectionMatrix = glm::perspective(mFov, mWidth / mHeight, 0.01F, 100.0F);
+    }
+
+#pragma endregion
+#pragma region OrthoCamera
+
+    OrthographicCamera::OrthographicCamera(float width, float height) : Camera(0.f, width, height)
+    {
+        initCamera();
+    }
+
+    OrthographicCamera::~OrthographicCamera()
+    {
+    }
+
+    void OrthographicCamera::recalculatePerspective()
+    {
+        mProjectionMatrix = glm::ortho(0.f, mWidth, 0.f, mHeight, 0.01f, 100.f);
+    }
+
+#pragma endregion
+
 }

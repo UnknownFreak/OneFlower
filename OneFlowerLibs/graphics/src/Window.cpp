@@ -230,9 +230,9 @@ namespace of::graphics::window
         }
     }
 
-	view::PerspectiveCamera& Application::getCamera()
+	view::Camera* Application::getCamera()
 	{
-		return cam;
+		return &cam;
 	}
 
 	U32 Application::getWindowHeight()
