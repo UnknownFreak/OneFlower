@@ -19,6 +19,8 @@ namespace of::graphics::sky
 
 	Skybox::Skybox(const of::common::String& skyboxTextureFolder) : Skybox()
 	{
+		if (skyboxTextureFolder.empty())
+			return;
 		setSkyBox(skyboxTextureFolder);
 	}
 

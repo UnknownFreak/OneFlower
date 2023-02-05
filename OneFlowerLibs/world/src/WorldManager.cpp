@@ -163,6 +163,10 @@ namespace of::module
 		buffer.clear();
 		loadingStateInfo.instanceLoadTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 		loadstate = of::world::LoadingState::CACHE_ALL_ZONES;
+
+		//insert the skybox renderable
+		// of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>());
+
 		if (loadArgs == of::world::LoadArgs::NEW_GAME)
 		{
 			navMeshLoaded = false;

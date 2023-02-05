@@ -76,6 +76,7 @@ namespace of::resource
 	struct WorldInstance : public of::file::archive::Requestable
 	{
 		of::common::String name;
+		of::common::String skybox;
 		std::vector<of::file::FileId> prefabs;
 		std::vector<of::file::FileId> navMesh;
 		std::vector<of::file::FileId> worldGeometry;
@@ -88,6 +89,8 @@ namespace of::resource
 		void save(Archive& ar) const
 		{
 			ar(cereal::base_class<Requestable>(this));
+			ar(name);
+			ar(skybox);
 			ar(prefabs);
 			ar(navMesh);
 			ar(worldGeometry);
@@ -98,6 +101,8 @@ namespace of::resource
 		void load(Archive& ar)
 		{
 			ar(cereal::base_class<Requestable>(this));
+			ar(name);
+			ar(skybox);
 			ar(prefabs);
 			ar(navMesh);
 			ar(worldGeometry);
