@@ -36,7 +36,6 @@ int GameEntry::Run()
 	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
 	gfx->initialize();
-	gfx->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>("dark"));
 	world.initialize();
 
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
