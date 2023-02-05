@@ -3,7 +3,7 @@
 #include <file/Handler.hpp>
 
 #include <module/ObjectInstanceHandler.hpp>
-#include <Graphics/Render.hpp>
+#include <object/component/Render.hpp>
 #include <Items/Inventory.hpp>
 #include <Items/LootContainer.hpp>
 

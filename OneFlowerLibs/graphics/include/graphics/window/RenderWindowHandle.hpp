@@ -37,9 +37,12 @@ namespace of::graphics::window
 		
 		virtual ~RenderWindowHandle() = default;
 
-		virtual void addRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable) = 0;
-		virtual void updateRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable) = 0;
-		virtual void removeRenderable(of::common::uuid& id) = 0;
+		virtual void addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) = 0;
+		virtual void updateRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) = 0;
+		virtual void removeRenderable(const of::common::uuid& id) = 0;
+		
+		virtual U32 getWindowHeight() = 0;
+		virtual U32 getWindowWidth() = 0;
 
 		template<class T, typename ...Args>
 		requires std::derived_from<T, RenderWindowHandle> &&

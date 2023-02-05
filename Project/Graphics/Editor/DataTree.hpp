@@ -15,7 +15,7 @@ namespace Graphics
 		struct DataTreeItem
 		{
 			of::common::String name;
-			of::file::archive::Requestable* ptr;
+			of::file::archive::Requestable* ptr = nullptr;
 			of::file::ObjectType type = of::file::ObjectType::Undefined;
 			std::vector<DataTreeItem> items;
 			inline bool operator< (const DataTreeItem& item)

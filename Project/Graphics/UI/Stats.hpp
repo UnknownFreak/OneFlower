@@ -6,17 +6,19 @@
 #include <utils/common/string.hpp>
 
 #include <utils/FpsCounter.hpp>
+#include <utils/HighResolutionClock.hpp>
 
 #include <imgui/imgui.h>
+#include <graphics/parentedRenderable.hpp>
 
 namespace Graphics::UI
 {
 
-	class Stats : public Graphics::UI::UIContext
+	class Stats : public Graphics::UI::UIContext, public of::graphics::ParentedRenderable
 	{
 		U32 minFrame;
 		U32 maxFrame;
-		U32 mean[50];
+		U32 mean[50] = { 0 };
 
 		unsigned counterMax = 1;
 		unsigned counter = 0;
@@ -26,13 +28,16 @@ namespace Graphics::UI
 		const of::common::String title;
 		of::common::String text = "";
 
-		utils::HighResolutionClock mClock;
-		utils::FpsCounter frameCounter;
+		::utils::HighResolutionClock mClock;
+		::utils::FpsCounter frameCounter;
 
 		float previous;
 		float current;
+		Rel rel;
+		float offsetX;
+		float offsetY;
 	public:
-		Stats(const of::common::String text = "FPS", float x = 0.f, float y = 0.f) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0)
+		Stats(const of::common::String text = "FPS", float x = 0.f, float y = 0.f, Rel rel = Rel::Left) : UIContext(swizzle::input::Keys::KeyF3, text, false), mFrame(0), mFps(0), title(text), minFrame(1000000), maxFrame(0), rel(rel), offsetX(x), offsetY(y)
 		{
 			previous = current = mClock.secondsAsFloat(false);
 			this->x = x;
@@ -98,6 +103,21 @@ namespace Graphics::UI
 
 		// Inherited via UIContext
 		virtual void onMouseHover(const glm::vec2&) override {};
+
+		// Inherited via ParentedRenderable
+		virtual void updateFrame(const float&) override 
+		{
+			y = offsetY;
+			if (rel == Rel::Left)
+			{
+				x = offsetX;
+			}
+			else
+			{
+				x = m_parent->getWindowWidth() - offsetX;
+			}
+		};
+		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& ) override { render(); };
 	};
 }
 

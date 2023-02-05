@@ -10,21 +10,24 @@
 #include <Graphics/UI/BuildInfo.hpp>
 
 #include <Graphics/UI/LoadingScreen.hpp>
-#include <Graphics/UI/LoadingScreenInfo.hpp>
 
 #include <Graphics/Editor/EditorWindow.hpp>
+#include <module/window/WindowProxy.hpp>
+#include <Graphics/sky/skyBox.hpp>
 
 #include <chrono>
 #include <thread>
 #include <iostream>
 
 GameEntry::GameEntry() : 
-	gfx(of::engine::GetModule<Graphics::RenderWindow>()),
+	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<Input::InputHandler>()),
-	world(of::engine::GetModule<of::module::WorldManager>()),
-	console(of::engine::GetModule<Console>()), m_exit(false)
+	world(of::engine::GetModule<of::module::WorldManager>()), m_exit(false)
 {
+	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
+	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 70.f, Graphics::UI::Rel::Right);
+	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 }
 
 
@@ -32,17 +35,21 @@ int GameEntry::Run()
 {
 	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
-	gfx.initialize();
+	gfx->initialize();
+	gfx->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>("dark"));
 	world.initialize();
-	gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
-	gfx.ui.addUIContext(Enums::UIContextNames::FPS, std::make_unique<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 70.f));
-	gfx.ui.addUIContext(Enums::UIContextNames::UPS, std::make_unique<Graphics::UI::Stats>("UPS", float(width - 200), 70.f));
-	gfx.ui.addUIContext(Enums::UIContextNames::BuildInfo, std::make_unique<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), float(width - (200 * 2)), 10.f));
-	
-	gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreen, std::make_unique<Graphics::UI::LoadingScreen>());
-	gfx.ui.addUIContext(Enums::UIContextNames::LoadingScreenInfo, std::make_unique<Graphics::UI::LoadingScreenInfo>());
+	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 400.f, 70.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), ups);
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 400.f, 10.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 70.f));
+
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
+
+	/*
 	gfx.postInitialize();
 
 	auto& listener = gfx.getEventListener();
@@ -60,11 +67,11 @@ int GameEntry::Run()
 			x->x = e.mWidth - 400.f;
 		}
 		});
-
+		*/
 	if (Engine::GetBuildMode().isEditorMode())
 	{
-		gfx.ui.addUIContext(Enums::UIContextNames::MainEditorWindow, std::make_unique<Graphics::Editor::MainEditorWindow>());
-
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
+		/*
 		listener.addListener("UIEditorElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
 			if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)
 			{
@@ -75,16 +82,17 @@ int GameEntry::Run()
 				editorWindow->setSize(e.mWidth, e.mHeight);
 			}
 			});
+		*/
 	}
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
 
 
-	gfx.run();
+	gfx->loop();
 	m_exit = true;
 	physics_thread.join();
 
-	gfx.clearDrawList();
+	//gfx.clearDrawList();
 	return EXIT_SUCCESS;
 }
 
@@ -94,8 +102,6 @@ void GameEntry::physicsUpdate()
 	{
 //		world.createMainMenu();
 	}
-	auto ups = gfx.ui.getUIContext<Graphics::UI::Stats>(Enums::UIContextNames::UPS);
-	auto loadingScreenState = gfx.ui.getUIContext<Graphics::UI::LoadingScreenInfo>(Enums::UIContextNames::LoadingScreenInfo);
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;
 	while (!m_exit)
@@ -104,7 +110,7 @@ void GameEntry::physicsUpdate()
 		{
 			time.physicsElapsed = time.update_ms;
 			world.Update();
-			loadingScreenState->update();
+			loadingScreenInfo->update();
 		}
 		while (time.physicsElapsed >= time.update_ms)
 		{

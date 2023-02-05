@@ -252,9 +252,6 @@
     <ClCompile Include="Project\Input\Controller.cpp">
       <Filter>Engine\Input\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Input\Console.cpp">
-      <Filter>Engine\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>
     </ClCompile>
@@ -278,9 +275,6 @@
     </ClCompile>
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\Render.cpp">
-      <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Dialog.cpp">
       <Filter>Engine\Graphics\Component</Filter>
@@ -459,18 +453,6 @@
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\Window.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\CameraController.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\Camera.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\SkyBox.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClCompile>
@@ -542,9 +524,6 @@
     <ClInclude Include="Project\Input\AxisInputHandler.hpp">
       <Filter>Engine\Input\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Input\Console.hpp">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>
     </ClInclude>
@@ -563,17 +542,11 @@
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Graphics\TransparencyMasker.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp">
       <Filter>Engine\Graphics\UI\Handler</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Render.hpp">
-      <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Dialog.hpp">
       <Filter>Engine\Graphics\Component</Filter>
@@ -781,24 +754,6 @@
     </ClInclude>
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp">
       <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Model.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Window.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\CameraController.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Camera.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\SkyBox.hpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\mvp.hpp">
-      <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>

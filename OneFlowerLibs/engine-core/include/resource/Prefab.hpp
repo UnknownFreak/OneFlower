@@ -13,7 +13,7 @@
 
 namespace of::object
 {
-class GameObject;
+	class GameObject;
 }
 
 namespace of::resource
@@ -24,7 +24,7 @@ namespace of::resource
 
 		void build(of::object::GameObject* object, const bool& isPlayerSummon) const;
 	public:
-	
+
 		std::vector<std::unique_ptr<of::object::component::Base>> components;
 		float spawnDistance;
 		object::ObjectState objectState = object::ObjectState::Active;

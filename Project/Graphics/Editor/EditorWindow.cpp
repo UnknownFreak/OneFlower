@@ -117,3 +117,12 @@ void Graphics::Editor::MainEditorWindow::render()
 
 	}
 }
+
+void Graphics::Editor::MainEditorWindow::updateFrame(const float& )
+{
+}
+
+void Graphics::Editor::MainEditorWindow::render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
+{
+	render();
+}

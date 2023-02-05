@@ -35,7 +35,6 @@ namespace of::object
 	{
 		friend class of::module::ObjectInstanceHandler;
 		friend class component::Base;
-		bool unloading = false;
 
 		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;
 

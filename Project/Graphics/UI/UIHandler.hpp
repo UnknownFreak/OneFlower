@@ -6,7 +6,6 @@
 #include <module/WorldManager.hpp>
 
 #include <vector>
-#include <Input/Console.hpp>
 #include <Helpers/Enum/UIContextNames.hpp>
 #include "UIContext.hpp"
 
@@ -21,13 +20,11 @@ namespace Graphics::UI
 
 		bool consoleEnabled = false;
 
-		Console& console;
-
 	public:
 
 		bool& showLoadingScreenOnly;
 
-		UIHandler() : console(of::engine::GetModule<Console>()), showLoadingScreenOnly(of::engine::GetModule<of::module::WorldManager>().isLoading)
+		UIHandler() : showLoadingScreenOnly(of::engine::GetModule<of::module::WorldManager>().isLoading)
 		{
 		};
 

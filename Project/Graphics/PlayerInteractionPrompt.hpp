@@ -5,7 +5,7 @@
 
 #include <object/component/Transform.hpp>
 
-#include "Model.hpp"
+#include <resource/Model.hpp>
 #include "Dialog.hpp"
 #include <Items/LootDrop.hpp>
 #include <Items/LootContainer.hpp>
@@ -16,7 +16,7 @@ class PlayerInteractionPrompt : public of::object::component::Base
 	Dialog* dialog = nullptr;
 	of::object::component::LootDrop* lootDrop = nullptr;
 	of::object::component::LootContainer* lootContainer = nullptr;
-	Graphics::Model interactionModel;
+	of::resource::Model interactionModel;
 	std::shared_ptr<swizzle::gfx::Texture> texture;
 	float iconSize = 32.f;
 	float ttl = 0.1f;

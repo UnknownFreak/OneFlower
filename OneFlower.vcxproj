@@ -288,6 +288,9 @@
     <ProjectReference Include="OneFlowerLibs\graphic-resources\graphics.vcxproj">
       <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\graphics\graphics.vcxproj">
+      <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\locale\locale.vcxproj">
       <Project>{cc7913ea-b4b7-4e91-b0a1-dad708b32482}</Project>
     </ProjectReference>
@@ -325,8 +328,6 @@
   <ItemGroup>
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp" />
     <ClCompile Include="Project\File\GameConfig.cpp" />
-    <ClCompile Include="Project\Graphics\Camera.cpp" />
-    <ClCompile Include="Project\Graphics\CameraController.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
     <ClCompile Include="Project\Graphics\Editor\DataTree.cpp" />
     <ClCompile Include="Project\Graphics\Editor\EditorBasicToolTip.cpp" />
@@ -339,8 +340,6 @@
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.cpp" />
     <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
-    <ClCompile Include="Project\Graphics\Render.cpp" />
-    <ClCompile Include="Project\Graphics\SkyBox.cpp" />
     <ClCompile Include="Project\Graphics\UI\ActionBar.cpp" />
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp" />
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp" />
@@ -354,13 +353,11 @@
     <ClCompile Include="Project\Graphics\UI\SkillIconChain.cpp" />
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp" />
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp" />
-    <ClCompile Include="Project\Graphics\Window.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
     <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
     <ClCompile Include="Project\imgui\imgui_stdlib.cpp" />
-    <ClCompile Include="Project\Input\Console.cpp" />
     <ClCompile Include="Project\Input\Controller.cpp" />
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Input\PlayerController.cpp" />
@@ -424,8 +421,6 @@
   <ItemGroup>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
-    <ClInclude Include="Project\Graphics\Camera.hpp" />
-    <ClInclude Include="Project\Graphics\CameraController.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
     <ClInclude Include="Project\Graphics\Editor\EditorBasicToolTip.hpp" />
     <ClInclude Include="Project\Graphics\Editor\DataTree.hpp" />
@@ -437,12 +432,7 @@
     <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.hpp" />
-    <ClInclude Include="Project\Graphics\Model.hpp" />
-    <ClInclude Include="Project\Graphics\mvp.hpp" />
     <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp" />
-    <ClInclude Include="Project\Graphics\Render.hpp" />
-    <ClInclude Include="Project\Graphics\SkyBox.hpp" />
-    <ClInclude Include="Project\Graphics\TransparencyMasker.hpp" />
     <ClInclude Include="Project\Graphics\UI\ActionBar.hpp" />
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp" />
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp" />
@@ -457,7 +447,6 @@
     <ClInclude Include="Project\Graphics\UI\Stats.hpp" />
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp" />
     <ClInclude Include="Project\Graphics\UI\UIHandler.hpp" />
-    <ClInclude Include="Project\Graphics\Window.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ArmorType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp" />
@@ -481,7 +470,6 @@
     <ClInclude Include="Project\Input\AxisInputHandler.hpp" />
     <ClInclude Include="Project\Input\BasicInputHandler.hpp" />
     <ClInclude Include="Project\Input\Callback.hpp" />
-    <ClInclude Include="Project\Input\Console.hpp" />
     <ClInclude Include="Project\Input\InputHandler.hpp" />
     <ClInclude Include="Project\Input\Controller.hpp" />
     <ClInclude Include="Project\Input\InputHandlerBase.hpp" />

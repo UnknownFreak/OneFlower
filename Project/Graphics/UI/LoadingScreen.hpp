@@ -4,10 +4,11 @@
 #include <Graphics/UI/UIContext.hpp>
 
 #include <utils/common/string.hpp>
+#include <graphics/parentedRenderable.hpp>
 
 namespace Graphics::UI
 {
-	class LoadingScreen : public UIContext
+	class LoadingScreen : public UIContext, public of::graphics::ParentedRenderable
 	{
 		//std::shared_ptr<sf::Texture> texture;
 		of::common::String loadingScreenName;
@@ -23,6 +24,10 @@ namespace Graphics::UI
 
 		// Inherited via UIContext
 		virtual void onMouseHover(const glm::vec2& mouse) override;
+
+		// Inherited via ParentedRenderable
+		virtual void updateFrame(const float& dt) override;
+		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp) override;
 	};
 }
 

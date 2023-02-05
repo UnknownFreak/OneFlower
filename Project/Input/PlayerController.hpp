@@ -5,7 +5,6 @@
 #include <object/component/combat.hpp>
 
 #include "InputHandler.hpp"
-#include <Graphics/Window.hpp>
 
 namespace of::object::component
 {
@@ -16,7 +15,6 @@ namespace of::object::component
 		virtual void deconstruct() override;
 
 	public:
-		Graphics::RenderWindow& window;
 		void clearBindings();
 		Transform* transform = nullptr;
 		of::object::component::CombatComponent* combat = nullptr;

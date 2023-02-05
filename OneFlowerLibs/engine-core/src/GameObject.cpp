@@ -31,14 +31,14 @@ namespace of::object
 		}
 	}
 
-	bool GameObject::post(const common::uuid& id, const messaging::Topic& topic, std::shared_ptr<messaging::Body> message)
+	bool GameObject::post(const common::uuid& id_, const messaging::Topic& topic, std::shared_ptr<messaging::Body> message)
 	{
-		return post(id, { topic, message });
+		return post(id_, { topic, message });
 	}
 
-	bool GameObject::post(const common::uuid& id, const messaging::Message& message)
+	bool GameObject::post(const common::uuid& id_, const messaging::Message& message)
 	{
-		auto comp = componentMap.find(id);
+		auto comp = componentMap.find(id_);
 		if (comp != componentMap.end())
 		{
 			comp->second->onMessage(message);
@@ -164,7 +164,7 @@ namespace of::object
 	void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTime, const bool& unloadFlag)
 	{
 		using namespace of::object::messaging;
-		unloading = unloadFlag;
+		//unloading = unloadFlag;
 		if (!unloadFlag)
 		{
 			post(Topic::of(Topics::ON_DEATH), std::make_shared<GameObjectPtr>(killer));
@@ -176,11 +176,11 @@ namespace of::object
 	{
 		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Object::GameObject");
 		logger.Debug("OnDelete -> Enter");
-		if (unloading)
-		{
-			logger.Debug("Unloading - Fast return");
-			return;
-		}
+		//if (unloading)
+		//{
+		//	logger.Debug("Unloading - Fast return");
+		//	return;
+		//}
 		logger.Debug("OnDelete -> componentMap");
 		for (auto& component : componentMap)
 		{

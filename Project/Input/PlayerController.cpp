@@ -9,7 +9,6 @@ namespace of::object::component
 	}
 	void component::PlayerController::initialize()
 	{
-		window.getMasker().player = attachedOn->getShared<Transform>();
 		transform = attachedOn->get<Transform>();
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		enable();
@@ -41,8 +40,7 @@ namespace of::object::component
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerInteraction", Enums::Input::Action::Press);
 		handler.controller.removeCallback(Enums::Input::ControllerButtons::XB_A, "ControllerJump", Enums::Input::Action::Press);
 	}
-	PlayerController::PlayerController() : handler(of::engine::GetModule<Input::InputHandler>()),
-		window(of::engine::GetModule<Graphics::RenderWindow>())
+	PlayerController::PlayerController() : handler(of::engine::GetModule<Input::InputHandler>())
 	{
 		// TODO: change to gameobject->post(Topic::of(Topics::INTERACTION, std::make_shared<Interaction>(Things));
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbE<interact>", [&](bool, swizzle::input::Keys, const float&) {

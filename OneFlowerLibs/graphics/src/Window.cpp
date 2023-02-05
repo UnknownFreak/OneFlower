@@ -18,6 +18,18 @@ namespace of::graphics::window
 {
 	void Application::setupImGui()
 	{
+		//FSQ - fullscreen quad
+		sw::gfx::ShaderAttributeList attribFsq = {};
+		attribFsq.mDescriptors = {
+			{sw::gfx::DescriptorType::TextureSampler, sw::gfx::Count(1u), {sw::gfx::StageType::fragmentStage}}
+		};
+		attribFsq.mPushConstantSize = 0u;
+		attribFsq.mEnableBlending = true;
+
+		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq.shader", attribFsq);
+
+		mFsqMat = mGfxContext->createMaterial(mFsq);
+
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
@@ -182,7 +194,6 @@ namespace of::graphics::window
     {
         auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
         proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
-		setupImGui();
     }
 
     void of::graphics::window::Application::loop()
@@ -194,7 +205,7 @@ namespace of::graphics::window
     {
     }
 
-    void of::graphics::window::Application::addRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable)
+    void of::graphics::window::Application::addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
     {
 		if (renderLayer == RenderLayer::SKYBOX)
 			skyBox = renderable;
@@ -206,12 +217,12 @@ namespace of::graphics::window
 		}
     }
 
-	void Application::updateRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable)
+	void Application::updateRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
 	{
 		renderLayer, id, renderable;
 	}
 
-    void of::graphics::window::Application::removeRenderable(of::common::uuid& id)
+    void of::graphics::window::Application::removeRenderable(const of::common::uuid& id)
     {
         for (auto& it : renderables)
         {
@@ -224,6 +235,20 @@ namespace of::graphics::window
 		return cam;
 	}
 
+	U32 Application::getWindowHeight()
+	{
+		U32 x, y;
+		mWindow->getSize(x, y);
+		return y;
+	}
+
+	U32 Application::getWindowWidth()
+	{
+		U32 x, y;
+		mWindow->getSize(x, y);
+		return x;
+	}
+
     void of::graphics::window::Application::userSetup()
     {
         mWindow->setTitle("One Flower");
@@ -232,19 +257,9 @@ namespace of::graphics::window
         mCmdBuffer = mGfxContext->createCommandBuffer(3);
         mUploadBuffer = mGfxContext->createCommandBuffer(1);
 
-		//FSQ - fullscreen quad
-		sw::gfx::ShaderAttributeList attribFsq = {};
-		attribFsq.mDescriptors = {
-			{sw::gfx::DescriptorType::TextureSampler, sw::gfx::Count(1u), {sw::gfx::StageType::fragmentStage}}
-		};
-		attribFsq.mPushConstantSize = 0u;
-		attribFsq.mEnableBlending = true;
+		setup();
+		setupImGui();
 
-		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq.shader", attribFsq);
-
-		mFsqMat = mGfxContext->createMaterial(mFsq);
-
-        setup();
     }
 
     SwBool of::graphics::window::Application::userUpdate(F32 dt)

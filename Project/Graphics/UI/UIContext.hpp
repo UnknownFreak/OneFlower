@@ -9,6 +9,11 @@
 
 namespace Graphics::UI
 {
+	enum class Rel
+	{
+		Left,
+		Right,
+	};
 	class UIContext
 	{
 		bool noKeybind = false;

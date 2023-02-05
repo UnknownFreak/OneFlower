@@ -64,3 +64,12 @@ void Graphics::UI::LoadingScreenInfo::update()
 void Graphics::UI::LoadingScreenInfo::onMouseHover(const glm::vec2&)
 {
 }
+
+void Graphics::UI::LoadingScreenInfo::updateFrame(const float&)
+{
+}
+
+void Graphics::UI::LoadingScreenInfo::render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP&)
+{
+	render();
+}

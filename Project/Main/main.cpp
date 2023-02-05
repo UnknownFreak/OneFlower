@@ -20,6 +20,11 @@
 #include <module/ObjectInstanceHandler.hpp>
 #include <module/WorldManager.hpp>
 
+#include <Module/Globals.hpp>
+
+#include <module/window/GraphicsProxy.hpp>
+#include <module/window/WindowProxy.hpp>
+
 #include "RegisterArchiveDefaults.hpp"
 
 of::common::String to_string(const of::module::EngineResourceType& state)
@@ -66,7 +71,6 @@ volatile void initializeSystems()
 
 	auto mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Console>().type));
 	mainModule.Info("Initializing Modules group: Core");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Globals>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::Time>().type));
@@ -82,8 +86,9 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::WorldManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::RenderWindow>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));
+	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Finished initializing engine ");
 

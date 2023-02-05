@@ -24,3 +24,12 @@ void Graphics::UI::LoadingScreen::render()
 void Graphics::UI::LoadingScreen::onMouseHover(const glm::vec2&)
 {
 }
+
+void Graphics::UI::LoadingScreen::updateFrame(const float& )
+{
+}
+
+void Graphics::UI::LoadingScreen::render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+{
+	render();
+}

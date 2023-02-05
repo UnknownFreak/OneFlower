@@ -94,9 +94,11 @@ namespace of::graphics::window
 		virtual void setup() override;
 		virtual void loop() override;
 		virtual void cleanup() override;
-		virtual void addRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
-		virtual void updateRenderable(RenderLayer renderLayer, of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
-		virtual void removeRenderable(of::common::uuid& id) override;
+		virtual void addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
+		virtual void updateRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
+		virtual void removeRenderable(const of::common::uuid& id) override;
+		virtual U32 getWindowHeight() override;
+		virtual U32 getWindowWidth() override;
 
 		view::PerspectiveCamera& getCamera();
 
