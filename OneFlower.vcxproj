@@ -458,12 +458,10 @@
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\Rarity.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\TileTypes.hpp" />
     <ClInclude Include="Project\Helpers\Enum\TrinketType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
-    <ClInclude Include="Project\Helpers\Rect.hpp" />
     <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
     <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />
     <ClInclude Include="Project\imgui\imgui_stdlib.hpp" />

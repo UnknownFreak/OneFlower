@@ -512,9 +512,6 @@
     <ClInclude Include="Project\Input\BasicInputHandler.hpp">
       <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\TileTypes.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClInclude>
@@ -736,9 +733,6 @@
     </ClInclude>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp">
       <Filter>Engine\File\Asset\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Rect.hpp">
-      <Filter>Engine\Helpers\Core</Filter>
     </ClInclude>
     <ClInclude Include="Project\Trigger\ModifyObjectActiveState.hpp">
       <Filter>Engine\Trigger</Filter>
