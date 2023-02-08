@@ -309,6 +309,9 @@
     <ProjectReference Include="OneFlowerLibs\time\time.vcxproj">
       <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\ui-core\ui-core.vcxproj">
+      <Project>{aebc39cb-380d-4316-b1c6-42df6fa92a5c}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\world\world.vcxproj">
       <Project>{4ee36817-7fe2-41aa-bb0f-997a272acb20}</Project>
     </ProjectReference>
@@ -355,9 +358,6 @@
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
-    <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp" />
-    <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp" />
-    <ClCompile Include="Project\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="Project\Input\Controller.cpp" />
     <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Input\PlayerController.cpp" />
@@ -462,9 +462,6 @@
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
-    <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp" />
-    <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp" />
-    <ClInclude Include="Project\imgui\imgui_stdlib.hpp" />
     <ClInclude Include="Project\Input\AxisInputHandler.hpp" />
     <ClInclude Include="Project\Input\BasicInputHandler.hpp" />
     <ClInclude Include="Project\Input\Callback.hpp" />

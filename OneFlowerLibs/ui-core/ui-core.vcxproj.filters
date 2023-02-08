@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include\graphics">
+      <UniqueIdentifier>{0ae8ce08-f98a-4100-a600-a1adb6b6043d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics\ui">
+      <UniqueIdentifier>{dbd400b4-1a78-428d-9628-c81b2e0a035b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\progressbar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uiRenderable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\frame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\graphics\ui\progressbar_t.hpp">
+      <Filter>include\graphics\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\ui\uiRenderable.hpp">
+      <Filter>include\graphics\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\ui\relation.hpp">
+      <Filter>include\graphics\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\ui\frame.hpp">
+      <Filter>include\graphics\ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

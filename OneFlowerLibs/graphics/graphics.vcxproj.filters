@@ -109,5 +109,8 @@
     <ClCompile Include="include\imgui\ImGuiTranslateKey.cpp">
       <Filter>include\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="src\parentedRenderable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

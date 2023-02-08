@@ -447,12 +447,6 @@
     <ClCompile Include="Project\Object\Interactable.cpp">
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClCompile>
-    <ClCompile Include="Project\imgui\imgui_impl_swizzle.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\imgui\ImGuiTranslateKey.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClCompile>
@@ -461,9 +455,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\imgui\imgui_stdlib.cpp">
-      <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
@@ -743,12 +734,6 @@
     <ClInclude Include="Project\Object\Interaction.hpp">
       <Filter>Engine\Object\Component\Activatior</Filter>
     </ClInclude>
-    <ClInclude Include="Project\imgui\imgui_impl_swizzle.hpp">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\imgui\ImGuiTranslateKey.hpp">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClInclude>
@@ -757,9 +742,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\imgui\imgui_stdlib.hpp">
-      <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>

@@ -509,3 +509,9 @@ void ImGui_ImplVulkan_SetupRenderState(ImDrawData* draw_data,
         dTrans->bindIndexBuffer(bd->mIndexBuffer, sizeof(ImDrawIdx) == 2);
     }
 }
+
+common::Resource<swizzle::gfx::Material> ImGui_ImplSwizzle_CreateMaterial(common::Resource<swizzle::gfx::GfxContext> ctx)
+{
+    ImGui_ImplSwizzle_Data* bd = ImGui_ImplSwizzle_GetBackendData();
+    return ctx->createMaterial(bd->mShader);
+}
