@@ -26,16 +26,24 @@
 #include <module/window/GraphicsProxy.hpp>
 
 #include <imgui/imgui_impl_swizzle.hpp>
+#include <imgui/of_imgui_extensions.hpp>
 
 class ttext : public of::graphics::ui::UIRenderable
 {
 	of::common::String m_s;
 	std::shared_ptr<sw::gfx::Texture> tex;
 	std::shared_ptr<sw::gfx::Material> material;
+	of::imgui::ProgressBarSettings settings {
+		ImVec2{0.f, 0.f},ImVec2{1.f, 0.5f},
+		ImVec2{0.f, 0.5f}, ImVec2{1.f, 1.f}
+	};
+	float min = 0.f;
+	float max = 100.f;
+	float c = 50.f;
 public:
 	ttext(of::common::String s, const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::UIRenderable(x, rel), m_s(s) 
 	{
-		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("Flower.png");
+		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("Progressbar.png");
 		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
 
 		material = ImGui_ImplSwizzle_CreateMaterial(proxy.getGfxContext());
@@ -50,8 +58,10 @@ public:
 	virtual void render() override
 	{
 		ImGui::SetCursorPos({m_renderBox.x, m_renderBox.y});
-		ImGui::Text(m_s.c_str());
-		ImGui::Image(&material, {64.f, 64.f});
+		//ImGui::Text(m_s.c_str());
+		//ImGui::Image(&material, {64.f, 64.f});
+		ImGui::SliderFloat("Value", &c, min, max);
+		of::imgui::Progressbar(&material, {64.f, 16.f}, min, max, c, settings);
 	}
 };
 
@@ -89,16 +99,8 @@ public:
 	Test(const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::Frame(x, rel) 
 	{
 
-		add(std::make_shared<tttext>(ImVec4{0.f, 25.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
-		add(std::make_shared<ttext>("TL", ImVec4{0.f, 0.f, 64, 64}, of::graphics::ui::Relation::TOP_LEFT));
-		add(std::make_shared<ttext>("T ", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::TOP));
-		add(std::make_shared<ttext>("TR", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::TOP_RIGHT));
-		add(std::make_shared<ttext>("L ", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::LEFT));
-		add(std::make_shared<ttext>("C ", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::CENTER));
-		add(std::make_shared<ttext>("R ", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::RIGHT));
-		add(std::make_shared<ttext>("BL", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::BOTTOM_LEFT));
-		add(std::make_shared<ttext>("B ", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::BOTTOM));
-		add(std::make_shared<ttext>("BR", ImVec4{0.f, 0.f, 20, 20}, of::graphics::ui::Relation::BOTTOM_RIGHT));
+		add(std::make_shared<tttext>(ImVec4{0.f, 0.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
+		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 200.f, 64}, of::graphics::ui::Relation::TOP_LEFT));
 	}
 };
 
