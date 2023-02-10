@@ -32,22 +32,28 @@ class ttext : public of::graphics::ui::UIRenderable
 {
 	of::common::String m_s;
 	std::shared_ptr<sw::gfx::Texture> tex;
+	std::shared_ptr<sw::gfx::Texture> tex2;
 	std::shared_ptr<sw::gfx::Material> material;
+	std::shared_ptr<sw::gfx::Material> material2;
 	of::imgui::ProgressBarSettings settings {
 		ImVec2{0.f, 0.f},ImVec2{1.f, 0.5f},
 		ImVec2{0.f, 0.5f}, ImVec2{1.f, 1.f}
 	};
+	of::imgui::BuffIconSettings settings2 {true, false, false};
 	float min = 0.f;
-	float max = 100.f;
+	float max = 120.f;
 	float c = 50.f;
 public:
 	ttext(of::common::String s, const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::UIRenderable(x, rel), m_s(s) 
 	{
 		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("Progressbar.png");
+		tex2 = of::engine::GetModule<of::module::texture::Loader>().requestTexture("EffectIconFrame.png", of::module::Settings::uiTexturePath);
 		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
 
 		material = ImGui_ImplSwizzle_CreateMaterial(proxy.getGfxContext());
+		material2 = ImGui_ImplSwizzle_CreateMaterial(proxy.getGfxContext());
 		material->setDescriptorTextureResource(0, tex);
+		material2->setDescriptorTextureResource(0, tex2);
 	}
 
 	virtual void beginRender() override 
@@ -58,10 +64,11 @@ public:
 	virtual void render() override
 	{
 		ImGui::SetCursorPos({m_renderBox.x, m_renderBox.y});
-		//ImGui::Text(m_s.c_str());
-		//ImGui::Image(&material, {64.f, 64.f});
 		ImGui::SliderFloat("Value", &c, min, max);
-		of::imgui::Progressbar(&material, {64.f, 16.f}, min, max, c, settings);
+		ImGui::Checkbox("ShowDurationBar", &settings2.showIconDuration);
+		ImGui::Checkbox("ShowDurationSeconds", &settings2.showIconDurationInSeconds);
+		ImGui::Checkbox("Icon blink on expire", &settings2.flashIconWhenAboutToExpire);
+		of::imgui::BuffIcon(&material2, { 32.f, 32.f }, max, c, settings2);
 	}
 };
 
@@ -100,7 +107,7 @@ public:
 	{
 
 		add(std::make_shared<tttext>(ImVec4{0.f, 0.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
-		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 200.f, 64}, of::graphics::ui::Relation::TOP_LEFT));
+		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 200.f, 200.f}, of::graphics::ui::Relation::TOP_LEFT));
 	}
 };
 
