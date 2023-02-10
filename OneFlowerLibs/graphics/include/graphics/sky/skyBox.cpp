@@ -50,7 +50,7 @@ namespace of::graphics::sky
 		
 		mModel->texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		
-		mModel->material = wnd.getGfxContext()->createMaterial(mModel->shader);
+		mModel->material = wnd.getGfxContext()->createMaterial(mModel->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		
 		mModel->material->setDescriptorTextureResource(0, mModel->texture);
 

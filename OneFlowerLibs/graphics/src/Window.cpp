@@ -25,10 +25,11 @@ namespace of::graphics::window
 		};
 		attribFsq.mPushConstantSize = 0u;
 		attribFsq.mEnableBlending = true;
+		attribFsq.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 
 		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq.shader", attribFsq);
 
-		mFsqMat = mGfxContext->createMaterial(mFsq);
+		mFsqMat = mGfxContext->createMaterial(mFsq, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
@@ -259,6 +260,8 @@ namespace of::graphics::window
         mSwapchain->setVsync(sw::gfx::VSyncTypes::vSyncOn);
         mCmdBuffer = mGfxContext->createCommandBuffer(3);
         mUploadBuffer = mGfxContext->createCommandBuffer(1);
+
+		mGfxContext->enablePipelineStatistics(true);
 
 		setup();
 		setupImGui();

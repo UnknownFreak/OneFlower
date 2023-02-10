@@ -47,7 +47,7 @@ namespace of::object::component
 			model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
 		model->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName);
 
-		model->material = gfx->createMaterial(model->shader);
+		model->material = gfx->createMaterial(model->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		model->material->setDescriptorTextureResource(0u, model->texture);
 		model->material->setDescriptorBufferResource(1u, model->mBoneBuffer, ~0ull);

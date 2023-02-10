@@ -70,6 +70,7 @@ namespace of::module::shader
 		attribs.mEnableDepthTest = true;
 		attribs.mEnableBlending = false;
 		attribs.mPushConstantSize = sizeof(glm::mat4)*4u;
+		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 		return requestShader(name, attribs, path);
 	}
 
