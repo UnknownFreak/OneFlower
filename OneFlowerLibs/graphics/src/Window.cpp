@@ -123,7 +123,7 @@ namespace of::graphics::window
     void Application::draw(const float& dt)
     {
 		// TODO: move to userSetup.
-		mSwapchain->setClearColor(swizzle::gfx::ClearColor{ 0.f,0.f,0.f,0.f });
+		//mSwapchain->setClearColor(swizzle::gfx::ClearColor{ 0.f,0.f,0.f,0.f });
 
 		view::MVP mvp{};
 

@@ -31,6 +31,9 @@
 class ttext : public of::graphics::ui::UIRenderable
 {
 	of::common::String m_s;
+	of::common::String val;
+	of::common::String duration;
+	of::common::String blink;
 	std::shared_ptr<sw::gfx::Texture> tex;
 	std::shared_ptr<sw::gfx::Texture> tex2;
 	std::shared_ptr<sw::gfx::Material> material;
@@ -39,14 +42,27 @@ class ttext : public of::graphics::ui::UIRenderable
 		ImVec2{0.f, 0.f},ImVec2{1.f, 0.5f},
 		ImVec2{0.f, 0.5f}, ImVec2{1.f, 1.f}
 	};
-	of::imgui::BuffIconSettings settings2 {true, false, false};
+
+	of::imgui::BuffIconSettings settings2 {true, 50, false, "Test", "body tooltip"};
 	float min = 0.f;
-	float max = 120.f;
-	float c = 50.f;
+	float max = 10.f;
+	float c = 5.f;
+	float u = -1.f;
+	float barX = 800.f;
+	float barY = 64.f;
+
+	float cornerX = 32.f;
+	float cornerY = 16.f;
+	bool delay;
+	float diminishSpeed = 0.01f;
+	int idx = 0;
 public:
 	ttext(of::common::String s, const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::UIRenderable(x, rel), m_s(s) 
 	{
-		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("Progressbar.png");
+		val = "Value ###" + of::common::uuid().to_string();
+		duration = "ShowDurationBar ###" + of::common::uuid().to_string();
+		blink = "Icon blink on expire ###" + of::common::uuid().to_string();
+		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("ProgressBar.png");
 		tex2 = of::engine::GetModule<of::module::texture::Loader>().requestTexture("EffectIconFrame.png", of::module::Settings::uiTexturePath);
 		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
 
@@ -64,11 +80,17 @@ public:
 	virtual void render() override
 	{
 		ImGui::SetCursorPos({m_renderBox.x, m_renderBox.y});
-		ImGui::SliderFloat("Value", &c, min, max);
-		ImGui::Checkbox("ShowDurationBar", &settings2.showIconDuration);
-		ImGui::Checkbox("ShowDurationSeconds", &settings2.showIconDurationInSeconds);
-		ImGui::Checkbox("Icon blink on expire", &settings2.flashIconWhenAboutToExpire);
-		of::imgui::BuffIcon(&material2, { 32.f, 32.f }, max, c, settings2);
+		ImGui::SliderFloat(val.c_str(), &c, min, max);
+		ImGui::SliderFloat("AnimateFraction", &u, min, 1.f);
+		ImGui::SliderFloat("DiminishSpeed", &diminishSpeed, min, 0.1f);
+		ImGui::Checkbox("Delay", &delay);
+		of::imgui::ProgressbarHitEffect({200.f, 20.f}, min, max, c, u, ImColor(0,0,0), ImColor(0,200, 0), ImColor(0, 255,0), delay, diminishSpeed);
+		ImGui::SliderInt("ObjectiveState", &idx, 0, 2);
+		of::imgui::objectiveIcon("test", (of::imgui::ObjectiveState)idx);
+		//ImGui::Checkbox(duration.c_str(), &settings2.showIconDuration);
+		//ImGui::Checkbox("ShowDurationSeconds", &settings2.showIconDurationInSeconds);
+		//ImGui::Checkbox(blink.c_str(), &settings2.flashIconWhenAboutToExpire);
+		//of::imgui::BuffIcon(&material2, { 32.f, 32.f }, max, c, settings2);
 	}
 };
 
@@ -105,9 +127,8 @@ class Test : public of::graphics::ui::Frame
 public:
 	Test(const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::Frame(x, rel) 
 	{
-
-		add(std::make_shared<tttext>(ImVec4{0.f, 0.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
-		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 200.f, 200.f}, of::graphics::ui::Relation::TOP_LEFT));
+		//add(std::make_shared<tttext>(ImVec4{0.f, 0.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
+		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 1000.f, 200.f}, of::graphics::ui::Relation::TOP));
 	}
 };
 
@@ -141,7 +162,7 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Test>(ImVec4{ 0, 50.f, 200.f, 200.f }, of::graphics::ui::Relation::TOP));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Test>(ImVec4{ 0, 25.f, 1000.f, 400.f }, of::graphics::ui::Relation::TOP));
 
 	/*
 	gfx.postInitialize();
