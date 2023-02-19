@@ -160,8 +160,8 @@ ImGuiInputCallback cb;
 ImGui_ImplSwizzle_Data* ImGui_ImplSwizzle_GetBackendData();
 
 void ImGui_ImplVulkan_SetupRenderState(ImDrawData* draw_data,
-                                       common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans, int fb_width,
-                                       int fb_height);
+    common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans, int fb_width,
+    int fb_height);
 
 /* Class Public Function Definition */
 
@@ -174,8 +174,7 @@ void ImGuiInputCallback::publishEvent(const swizzle::core::WindowEvent& evt)
     auto evtType = evt.getEventType();
     switch (evtType)
     {
-    case swizzle::core::WindowEventType::CharacterTypeEvent:
-    {
+    case swizzle::core::WindowEventType::CharacterTypeEvent: {
         swizzle::core::CharacterEvent& e = (swizzle::core::CharacterEvent&)evt;
         if (e.mCodePoint > 0 && e.mCodePoint < 0x10000)
         {
@@ -183,21 +182,11 @@ void ImGuiInputCallback::publishEvent(const swizzle::core::WindowEvent& evt)
         }
         break;
     }
-    case swizzle::core::WindowEventType::KeyboardInputEvent:
-    {
+    case swizzle::core::WindowEventType::KeyboardInputEvent: {
         swizzle::core::InputEvent& e = (swizzle::core::InputEvent&)evt;
         if (e.mFromKeyboard)
         {
-            auto imKey = fromScanCode(e.mKey);
-            io.AddKeyEvent(imKey, e.mPressed);
-            if (imKey == ImGuiKey_::ImGuiKey_LeftAlt || imKey == ImGuiKey_::ImGuiKey_RightAlt)
-                io.KeyAlt = e.mPressed;
-            if (imKey == ImGuiKey_::ImGuiKey_LeftShift || imKey == ImGuiKey_::ImGuiKey_RightShift)
-                io.KeyShift = e.mPressed;
-            if (imKey == ImGuiKey_::ImGuiKey_LeftCtrl || imKey == ImGuiKey_::ImGuiKey_RightCtrl)
-                io.KeyCtrl = e.mPressed;
-            if (imKey == ImGuiKey_::ImGuiKey_LeftSuper || imKey == ImGuiKey_::ImGuiKey_RightSuper)
-                io.KeySuper = e.mPressed;
+            io.AddKeyEvent(fromScanCode(e.mKey), e.mPressed);
         }
         else
         {
@@ -205,20 +194,17 @@ void ImGuiInputCallback::publishEvent(const swizzle::core::WindowEvent& evt)
         }
         break;
     }
-    case swizzle::core::WindowEventType::MouseMoveEvent:
-    {
+    case swizzle::core::WindowEventType::MouseMoveEvent: {
         swizzle::core::MouseMoveEvent& e = (swizzle::core::MouseMoveEvent&)evt;
         io.AddMousePosEvent((float)e.mX, (float)e.mY);
         break;
     }
-    case swizzle::core::WindowEventType::MouseScrollEvent:
-    {
+    case swizzle::core::WindowEventType::MouseScrollEvent: {
         swizzle::core::MouseScrollEvent& e = (swizzle::core::MouseScrollEvent&)evt;
         io.AddMouseWheelEvent((float)e.mScrollX, (float)e.mScrollY);
         break;
     }
-    case swizzle::core::WindowEventType::ResizeEvent:
-    {
+    case swizzle::core::WindowEventType::ResizeEvent: {
         swizzle::core::WindowResizeEvent& e = (swizzle::core::WindowResizeEvent&)evt;
         bd->mImGuiFbo->resize(e.mWidth, e.mHeight);
         if (bd->mImGuiMat)
@@ -232,7 +218,7 @@ void ImGuiInputCallback::publishEvent(const swizzle::core::WindowEvent& evt)
 }
 
 bool ImGui_ImplSwizzle_Init(common::Resource<swizzle::gfx::GfxContext> ctx,
-                            common::Resource<swizzle::core::SwWindow> window)
+    common::Resource<swizzle::core::SwWindow> window)
 {
     ImGuiIO& io = ImGui::GetIO();
     window->addEventListener(&cb);
@@ -277,7 +263,7 @@ bool ImGui_ImplSwizzle_Init(common::Resource<swizzle::gfx::GfxContext> ctx,
 
     bd->mShader = ctx->createShader(bd->mImGuiFbo, swizzle::gfx::ShaderType::ShaderType_Graphics, attributeList);
     bd->mShader->loadVertFragMemory(__glsl_shader_vert_spv, sizeof(__glsl_shader_vert_spv), __glsl_shader_frag_spv,
-                                    sizeof(__glsl_shader_frag_spv), properties);
+        sizeof(__glsl_shader_frag_spv), properties);
 
     unsigned char* pixels;
     int width, height;
@@ -357,7 +343,7 @@ common::Resource<swizzle::gfx::Texture> ImGui_ImplSwizzle_GetFrameBufferTexture(
 }
 
 void ImGui_ImplSwizzle_RenderDrawData(ImDrawData* draw_data,
-                                      common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans)
+    common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans)
 {
     // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer
     // coordinates)
@@ -432,9 +418,9 @@ void ImGui_ImplSwizzle_RenderDrawData(ImDrawData* draw_data,
             {
                 // Project scissor/clipping rectangles into framebuffer space
                 ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x) * clip_scale.x,
-                                (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
+                    (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
                 ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x) * clip_scale.x,
-                                (pcmd->ClipRect.w - clip_off.y) * clip_scale.y);
+                    (pcmd->ClipRect.w - clip_off.y) * clip_scale.y);
 
                 // Clamp to viewport as vkCmdSetScissor() won't accept values that are off bounds
                 if (clip_min.x < 0.0f)
@@ -478,7 +464,7 @@ void ImGui_ImplSwizzle_RenderDrawData(ImDrawData* draw_data,
 
                 // Draw
                 dTrans->drawIndexedNoBind(pcmd->ElemCount, pcmd->IdxOffset + global_idx_offset,
-                                          pcmd->VtxOffset + global_vtx_offset);
+                    pcmd->VtxOffset + global_vtx_offset);
             }
         }
         global_idx_offset += cmd_list->IdxBuffer.Size;
@@ -504,8 +490,8 @@ ImGui_ImplSwizzle_Data* ImGui_ImplSwizzle_GetBackendData()
 }
 
 void ImGui_ImplVulkan_SetupRenderState(ImDrawData* draw_data,
-                                       common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans, int fb_width,
-                                       int fb_height)
+    common::Unique<swizzle::gfx::DrawCommandTransaction>& dTrans, int fb_width,
+    int fb_height)
 {
     ImGui_ImplSwizzle_Data* bd = ImGui_ImplSwizzle_GetBackendData();
 
