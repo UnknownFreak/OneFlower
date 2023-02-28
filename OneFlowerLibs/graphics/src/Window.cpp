@@ -190,7 +190,7 @@ namespace of::graphics::window
 
 	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitbox(false)
 	{
-		cam.setPosition({ 0.f, 0.f, 0.f });
+		cam.setPosition({ 0.f, 0.f, 5.f });
 		skyBox = std::make_shared<sky::Skybox>();
 	}
 
@@ -198,7 +198,8 @@ namespace of::graphics::window
     {
         auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
         proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
-    }
+		mWindow->addEventListener(&listener);
+	}
 
     void of::graphics::window::Application::loop()
     {
@@ -207,6 +208,7 @@ namespace of::graphics::window
 
     void of::graphics::window::Application::cleanup()
     {
+		mWindow->removeEventListener(&listener);
     }
 
     void of::graphics::window::Application::addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
@@ -270,6 +272,8 @@ namespace of::graphics::window
 
     SwBool of::graphics::window::Application::userUpdate(F32 dt)
     {
+		if(camController)
+			camController->update(dt);
         draw(dt);
         return mWindow->isVisible();
     }

@@ -32,36 +32,6 @@ namespace of::graphics::window
 {
 	class Application : public RenderWindowHandle, public sw::Application
 	{
-		// TODO: maybe not needed... rednerables has an update deltat, so we could use that option to "update" ui position in case of window resize and whatnot.
-		/*
-		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
-		{
-			std::unordered_map<of::common::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
-		public:
-			DynamicWindowListener() = default;
-
-			inline virtual void publishEvent(const swizzle::core::WindowEvent& evt)
-			{
-				for (auto& it : events)
-				{
-					it.second(evt);
-				}
-			}
-
-			void addListener(const of::common::String& name, std::function<void(const swizzle::core::WindowEvent&)> fn)
-			{
-				events[name] = fn;
-			}
-			void removeListener(const of::common::String& name)
-			{
-				events.erase(name);
-			}
-		};
-
-		DynamicWindowListener listener;
-		DynamicWindowListener& getEventListener();
-
-		*/
 
 		::common::Resource<sw::gfx::Shader> mFsq;
 		::common::Resource<sw::gfx::Material> mFsqMat;

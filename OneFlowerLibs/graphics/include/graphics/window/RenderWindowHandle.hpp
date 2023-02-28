@@ -1,10 +1,14 @@
 #pragma once
 
+#include <swizzle/core/Event.hpp>
+#include <swizzle/core/WindowEvents.hpp>
+
 #include <graphics/window/renderLayer.hpp>
 #include <graphics/renderable.hpp>
 #include <utils/common/uuid.hpp>
 
 #include <graphics/view/camera.hpp>
+#include <graphics/view/cameraController.hpp>
 
 namespace of::graphics::window
 {
@@ -33,6 +37,34 @@ namespace of::graphics::window
 
 	public:
 
+		class DynamicWindowListener : public swizzle::EventHandler<swizzle::core::WindowEvent>
+		{
+			std::unordered_map<of::common::String, std::function<void(const swizzle::core::WindowEvent&)>> events;
+		public:
+			DynamicWindowListener() = default;
+
+			inline virtual void publishEvent(const swizzle::core::WindowEvent& evt)
+			{
+				for (auto& it : events)
+				{
+					it.second(evt);
+				}
+			}
+
+			void addListener(const of::common::String& name, std::function<void(const swizzle::core::WindowEvent&)> fn)
+			{
+				events[name] = fn;
+			}
+			void removeListener(const of::common::String& name)
+			{
+				events.erase(name);
+			}
+		};
+
+		std::shared_ptr<of::graphics::view::CameraController> camController;
+		DynamicWindowListener listener;
+		DynamicWindowListener& getEventListener() { return listener; };
+
 		virtual void setup() = 0;
 		virtual void loop() = 0;
 		virtual void cleanup() = 0;
@@ -47,6 +79,14 @@ namespace of::graphics::window
 		virtual U32 getWindowWidth() = 0;
 
 		virtual of::graphics::view::Camera* getCamera() = 0;
+		virtual void setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller)
+		{ 
+			camController = controller;
+			/*if (controller.operator bool())
+				camController = controller;
+			else
+				camController = std::make_shared<of::graphics::view::EmptyController>();*/
+		}
 
 		template<class T, typename ...Args>
 		requires std::derived_from<T, RenderWindowHandle> &&

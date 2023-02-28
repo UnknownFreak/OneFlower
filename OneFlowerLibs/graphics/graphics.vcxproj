@@ -138,6 +138,7 @@
     <ClInclude Include="include\graphics\renderable.hpp" />
     <ClInclude Include="include\graphics\sky\skyBox.hpp" />
     <ClInclude Include="include\graphics\view\camera.hpp" />
+    <ClInclude Include="include\graphics\view\cameraController.hpp" />
     <ClInclude Include="include\graphics\view\mvp.hpp" />
     <ClInclude Include="include\graphics\window\renderLayer.hpp" />
     <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\graphics\sky\skyBox.cpp" />
+    <ClCompile Include="include\graphics\view\cameraController.cpp" />
     <ClCompile Include="include\imgui\ImGuiTranslateKey.cpp" />
     <ClCompile Include="include\imgui\imgui_impl_swizzle.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />

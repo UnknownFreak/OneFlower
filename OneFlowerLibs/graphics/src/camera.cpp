@@ -66,6 +66,11 @@ namespace of::graphics::view
         mViewMatrix = glm::lookAt(pos, dir, up);
     }
 
+    void Camera::lookAt(glm::mat4& mView)
+    {
+        mViewMatrix = mView;
+    }
+
     const glm::vec3& Camera::getPosition()
     {
         return mPosition;

@@ -83,6 +83,9 @@
     <ClInclude Include="include\graphics\parentedRenderable.hpp">
       <Filter>include\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="include\graphics\view\cameraController.hpp">
+      <Filter>include\graphics\view</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp">
@@ -110,6 +113,9 @@
       <Filter>include\imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\parentedRenderable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\graphics\view\cameraController.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

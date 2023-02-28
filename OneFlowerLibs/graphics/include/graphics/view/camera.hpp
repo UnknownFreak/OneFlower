@@ -37,6 +37,7 @@ namespace of::graphics::view
         void setRotation(glm::vec3 pos);
 
         void lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up = glm::vec3(0.0F, 1.0F, 0.0F));
+        void lookAt(glm::mat4& mView);
 
         const glm::vec3& getPosition();
         const glm::vec3& getRotation();
