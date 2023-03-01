@@ -1,0 +1,1 @@
+glslangvalidator -V --target-env spirv1.6 shader.name
