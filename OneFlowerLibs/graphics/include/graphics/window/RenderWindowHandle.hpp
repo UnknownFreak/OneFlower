@@ -79,13 +79,11 @@ namespace of::graphics::window
 		virtual U32 getWindowWidth() = 0;
 
 		virtual of::graphics::view::Camera* getCamera() = 0;
-		virtual void setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller)
-		{ 
+		std::shared_ptr<of::graphics::view::CameraController> setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller)
+		{
+			auto prev = camController;
 			camController = controller;
-			/*if (controller.operator bool())
-				camController = controller;
-			else
-				camController = std::make_shared<of::graphics::view::EmptyController>();*/
+			return prev;
 		}
 
 		template<class T, typename ...Args>
