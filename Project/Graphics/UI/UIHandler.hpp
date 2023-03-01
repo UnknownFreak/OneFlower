@@ -3,7 +3,7 @@
 
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
-#include <module/WorldManager.hpp>
+#include <module/sceneManager.hpp>
 
 #include <vector>
 #include <Helpers/Enum/UIContextNames.hpp>
@@ -24,7 +24,7 @@ namespace Graphics::UI
 
 		bool& showLoadingScreenOnly;
 
-		UIHandler() : showLoadingScreenOnly(of::engine::GetModule<of::module::WorldManager>().isLoading)
+		UIHandler() : showLoadingScreenOnly(of::engine::GetModule<of::module::SceneManager>().isLoading)
 		{
 		};
 

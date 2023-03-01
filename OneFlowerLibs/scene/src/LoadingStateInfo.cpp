@@ -1,4 +1,4 @@
-#include <world/LoadingStateInfo.hpp>
+#include <scene/LoadingStateInfo.hpp>
 
 namespace of::world
 {

@@ -18,7 +18,7 @@
 #include <module/resource/ShaderLoader.hpp>
 #include <File/GameConfig.hpp>
 #include <module/ObjectInstanceHandler.hpp>
-#include <module/WorldManager.hpp>
+#include <module/sceneManager.hpp>
 
 #include <Module/Globals.hpp>
 
@@ -53,7 +53,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::UIHandler: return "Console";
 
 		// Unused
-	case of::module::EngineResourceType::WorldManager: return "WorldManager";
+	case of::module::EngineResourceType::SceneManager: return "SceneManager";
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
 	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
 	}
@@ -83,7 +83,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::ObjectInstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::WorldManager>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));

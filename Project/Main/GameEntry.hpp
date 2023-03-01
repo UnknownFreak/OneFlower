@@ -4,7 +4,7 @@
 #include <graphics/window/Window.hpp>
 #include <Module/OneTime.hpp>
 #include <Input/InputHandler.hpp>
-#include <module/WorldManager.hpp>
+#include <module/sceneManager.hpp>
 
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>
@@ -16,7 +16,7 @@ class GameEntry
 	of::module::Time& time;
 	Input::InputHandler& input;
 	
-	of::module::WorldManager& world;
+	of::module::SceneManager& world;
 
 	std::shared_ptr<Graphics::UI::Stats> ups;
 	std::shared_ptr<Graphics::UI::LoadingScreenInfo> loadingScreenInfo;

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef WorldManager_HPP
-#define WorldManager_HPP
 
 #include <vector>
 #include <memory>
@@ -16,9 +14,9 @@
 #include <module/ModuleManager.hpp>
 
 #include <resource/WorldInstance.hpp>
-#include <world/LoadingState.hpp>
-#include <world/LoadingStateInfo.hpp>
-#include <world/LoadArgs.hpp>
+#include <scene/LoadingState.hpp>
+#include <scene/LoadingStateInfo.hpp>
+#include <scene/LoadArgs.hpp>
 
 namespace of::module::globals
 {
@@ -29,7 +27,7 @@ namespace of::module::globals
 
 namespace of::module
 {
-	class WorldManager : public of::module::interface::IEngineResource<WorldManager>
+	class SceneManager : public of::module::interface::IEngineResource<SceneManager>
 	{
 
 		class LoadingStateMachine
@@ -58,7 +56,7 @@ namespace of::module
 			of::file::FileId worldToLoad;
 			of::file::FileId loadingScreenToLoad;
 			of::resource::WorldInstance instanceToLoad;
-			WorldManager& parent;
+			SceneManager& parent;
 
 			std::map<of::file::FileId, of::file::FileId> objectChunkToInstanceId;
 
@@ -74,7 +72,7 @@ namespace of::module
 			std::vector<of::resource::ObjectInfo> buffer;
 			glm::vec3 playerPos;
 
-			LoadingStateMachine(WorldManager& parent);
+			LoadingStateMachine(SceneManager& parent);
 
 			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs& loadArgs);
 			void load();
@@ -92,8 +90,8 @@ namespace of::module
 
 	public:
 		bool isLoading = false;
-		WorldManager();
-		WorldManager(const WorldManager& copy);
+		SceneManager();
+		SceneManager(const SceneManager& copy);
 
 	//#ifdef _DEBUG
 		//void setCurrentTime(const float& currentTime);
@@ -117,5 +115,3 @@ namespace of::module
 
 	};
 }
-
-#endif 

@@ -10,7 +10,7 @@ namespace of::module
 		Settings,
 		Graphics,
 		Physics,
-		WorldManager,
+		SceneManager,
 		WorldManagerAddon,
 		SpriterContainer,
 		FileHandler,

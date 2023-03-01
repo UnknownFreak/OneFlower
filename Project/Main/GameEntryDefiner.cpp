@@ -394,7 +394,7 @@ GameEntry::GameEntry() :
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<Input::InputHandler>()),
-	world(of::engine::GetModule<of::module::WorldManager>()), m_exit(false)
+	world(of::engine::GetModule<of::module::SceneManager>()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 70.f, Graphics::UI::Rel::Right);

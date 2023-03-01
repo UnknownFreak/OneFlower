@@ -9,18 +9,18 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="include\world">
-      <UniqueIdentifier>{2a30f09d-ac3b-4d2b-993d-79d730013c68}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\module">
       <UniqueIdentifier>{d811aa44-3dbe-4bb4-ab00-d53f2eeb9b82}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\resource">
       <UniqueIdentifier>{200cec52-af20-4257-80a1-c2ece1b58e07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\scene">
+      <UniqueIdentifier>{2a30f09d-ac3b-4d2b-993d-79d730013c68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\WorldManager.cpp">
+    <ClCompile Include="src\sceneManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\LoadingStateInfo.cpp">
@@ -31,20 +31,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\world\LoadingState.hpp">
-      <Filter>include\world</Filter>
-    </ClInclude>
-    <ClInclude Include="include\module\WorldManager.hpp">
+    <ClInclude Include="include\module\sceneManager.hpp">
       <Filter>include\module</Filter>
-    </ClInclude>
-    <ClInclude Include="include\world\LoadingStateInfo.hpp">
-      <Filter>include\world</Filter>
     </ClInclude>
     <ClInclude Include="include\resource\WorldInstance.hpp">
       <Filter>include\resource</Filter>
     </ClInclude>
-    <ClInclude Include="include\world\LoadArgs.hpp">
-      <Filter>include\world</Filter>
+    <ClInclude Include="include\scene\LoadArgs.hpp">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scene\LoadingState.hpp">
+      <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scene\LoadingStateInfo.hpp">
+      <Filter>include\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

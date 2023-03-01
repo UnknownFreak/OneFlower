@@ -3,7 +3,7 @@
 
 #include "UIContext.hpp"
 
-#include <world/LoadingStateInfo.hpp>
+#include <scene/LoadingStateInfo.hpp>
 #include <graphics/parentedRenderable.hpp>
 
 namespace Graphics::UI

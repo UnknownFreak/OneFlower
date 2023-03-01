@@ -1,6 +1,6 @@
 #pragma once
 
-#include <world/LoadingState.hpp>
+#include <scene/LoadingState.hpp>
 
 namespace of::world
 {

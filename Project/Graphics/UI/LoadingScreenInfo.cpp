@@ -4,9 +4,9 @@
 #include <File/GameConfig.hpp>
 
 #include <imgui/imgui.h>
-#include <Module/WorldManager.hpp>
+#include <Module/sceneManager.hpp>
 
-Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), info(of::engine::GetModule<of::module::WorldManager>().getLoadingStateInfo())
+Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), info(of::engine::GetModule<of::module::SceneManager>().getLoadingStateInfo())
 {
 	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
 	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;

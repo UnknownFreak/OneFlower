@@ -1,4 +1,4 @@
-#include <module/WorldManager.hpp>
+#include <module/sceneManager.hpp>
 
 #include <file/Handler.hpp>
 #include <module/OneTime.hpp>
@@ -52,25 +52,25 @@
 //	//std::cout << "shadow length x: " << gfx.shadowLengthX << std::endl;
 //	//std::cout << "shadow length y: " << gfx.shadowLengthY << std::endl;
 //}
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::WorldManager>::type = of::module::EngineResourceType::WorldManager;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::module::SceneManager>::type = of::module::EngineResourceType::SceneManager;
 
 namespace of::module
 {
-	const of::file::FileId& WorldManager::LoadingStateMachine::getCurrentWorld() const
+	const of::file::FileId& SceneManager::LoadingStateMachine::getCurrentWorld() const
 	{
 		return worldToLoad;
 	}
 
-	const of::file::FileId& WorldManager::LoadingStateMachine::getCurrentLoadingScreen() const
+	const of::file::FileId& SceneManager::LoadingStateMachine::getCurrentLoadingScreen() const
 	{
 		return loadingScreenToLoad;
 	}
 
-	WorldManager::LoadingStateMachine::LoadingStateMachine(WorldManager& parent) : parent(parent), loadingStateInfo(loadstate, parent.isLoading)
+	SceneManager::LoadingStateMachine::LoadingStateMachine(SceneManager& parent) : parent(parent), loadingStateInfo(loadstate, parent.isLoading)
 	{
 
 	}
-	void WorldManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& _loadArgs)
+	void SceneManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& _loadArgs)
 	{
 		loadstate = of::world::LoadingState::PREPARE_LOADINGSCREEN;
 		worldToLoad = world;
@@ -82,7 +82,7 @@ namespace of::module
 		of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).reset();
 	}
 
-	void WorldManager::LoadingStateMachine::load()
+	void SceneManager::LoadingStateMachine::load()
 	{
 		using namespace of::world;
 		switch (loadstate)
@@ -135,16 +135,16 @@ namespace of::module
 			loadingStateInfo.totalLoadTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED).secondsAsFloat();
 	}
 
-	void WorldManager::LoadingStateMachine::loadMainMenu()
+	void SceneManager::LoadingStateMachine::loadMainMenu()
 	{
 		loadstate = of::world::LoadingState::LOAD_GROUND;
 	}
-	void WorldManager::LoadingStateMachine::prepareLoadingScreen()
+	void SceneManager::LoadingStateMachine::prepareLoadingScreen()
 	{
 		loadingStateInfo.loadScreenSetupTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
 		loadstate = of::world::LoadingState::BEGIN_LOAD;
 	}
-	void WorldManager::LoadingStateMachine::beginLoad()
+	void SceneManager::LoadingStateMachine::beginLoad()
 	{
 		instanceToLoad = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::resource::WorldInstance>(worldToLoad);
 		loadingStateInfo.totalLoadCount = instanceToLoad.getLoadingCount();
@@ -192,14 +192,14 @@ namespace of::module
 			}
 		}
 	}
-	void WorldManager::LoadingStateMachine::cacheAllZones()
+	void SceneManager::LoadingStateMachine::cacheAllZones()
 	{
 		allInstances = of::engine::GetModule<of::file::Handler>().archive.listAllObjectKeys(of::file::ObjectType::WorldInstance);
 		loadingStateInfo.totalZoneCount = allInstances.size();
 		// TODO: request all zones... this can be huge...
 		loadstate = of::world::LoadingState::UPDATE_LOAD_INFO;
 	}
-	void WorldManager::LoadingStateMachine::updateZoneInfo()
+	void SceneManager::LoadingStateMachine::updateZoneInfo()
 	{
 		if (loadingStateInfo.currentZoneCount == loadingStateInfo.totalZoneCount)
 		{
@@ -232,7 +232,7 @@ namespace of::module
 			loadingStateInfo.totalZoneUpdateCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
-	void WorldManager::LoadingStateMachine::unloadObjects()
+	void SceneManager::LoadingStateMachine::unloadObjects()
 	{
 		auto& handler = parent.objectHandler;
 		if (loadArgs == of::world::LoadArgs::NEW_GAME)
@@ -249,7 +249,7 @@ namespace of::module
 		}
 		loadstate = of::world::LoadingState::LOAD_ALL_PREFABS;
 	}
-	void WorldManager::LoadingStateMachine::loadAllPrefabs()
+	void SceneManager::LoadingStateMachine::loadAllPrefabs()
 	{
 		if (loadingStateInfo.currentPrefabCount == loadingStateInfo.totalPrefabCount)
 		{
@@ -264,7 +264,7 @@ namespace of::module
 			loadingStateInfo.prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
-	void WorldManager::LoadingStateMachine::loadAllNavmesh()
+	void SceneManager::LoadingStateMachine::loadAllNavmesh()
 	{
 		if (!navMeshLoaded)
 		{
@@ -284,15 +284,15 @@ namespace of::module
 			loadstate = of::world::LoadingState::LOAD_GROUND;
 		}
 	}
-	void WorldManager::LoadingStateMachine::loadGround()
+	void SceneManager::LoadingStateMachine::loadGround()
 	{
 		loadstate = of::world::LoadingState::BUILD_COLLIDERS;
 	}
-	void WorldManager::LoadingStateMachine::buildColliders()
+	void SceneManager::LoadingStateMachine::buildColliders()
 	{
 		loadstate = of::world::LoadingState::PRE_BUILDING_OBJECTS;
 	}
-	void WorldManager::LoadingStateMachine::preBuildObjects()
+	void SceneManager::LoadingStateMachine::preBuildObjects()
 	{
 		if (loadingStateInfo.currentObjectPartCount == loadingStateInfo.totalObjectPartCount)
 		{
@@ -323,7 +323,7 @@ namespace of::module
 			loadingStateInfo.objectPartLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
-	void WorldManager::LoadingStateMachine::buildObjects()
+	void SceneManager::LoadingStateMachine::buildObjects()
 	{
 		if (loadingStateInfo.currentObjectCount == loadingStateInfo.totalObjectCount)
 		{
@@ -365,7 +365,7 @@ namespace of::module
 			loadingStateInfo.objectLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
 		}
 	}
-	void WorldManager::LoadingStateMachine::finalize()
+	void SceneManager::LoadingStateMachine::finalize()
 	{
 		if (loadArgs == of::world::LoadArgs::LOAD_FROM_FILE)
 		{
@@ -373,7 +373,7 @@ namespace of::module
 		}
 		loadstate = of::world::LoadingState::DONE;
 	}
-	void WorldManager::LoadingStateMachine::done()
+	void SceneManager::LoadingStateMachine::done()
 	{
 		if (parent.isLoading)
 		{
@@ -385,7 +385,7 @@ namespace of::module
 		parent.isLoading = false;
 		loadstate = of::world::LoadingState::UNDEFINED;
 	}
-	void WorldManager::LoadingStateMachine::unloadAll()
+	void SceneManager::LoadingStateMachine::unloadAll()
 	{
 		parent.objectHandler.unloadAll();
 		//parent.navMesh.unload();
@@ -397,11 +397,11 @@ namespace of::module
 
 namespace of::module
 {
-	WorldManager::WorldManager() : loadStateMachine(*this), objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), saveFile(of::engine::GetModule<of::module::SaveFile>())
+	SceneManager::SceneManager() : loadStateMachine(*this), objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), saveFile(of::engine::GetModule<of::module::SaveFile>())
 	{
 	}
 
-	void WorldManager::initialize()
+	void SceneManager::initialize()
 	{
 		newGame();
 		//auto& f = of::engine::GetModule<Input::InputHandler>();
@@ -421,7 +421,7 @@ namespace of::module
 
 	}
 
-	WorldManager::WorldManager(const WorldManager& ) : objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), loadStateMachine(*this), saveFile(of::engine::GetModule<of::module::SaveFile>())
+	SceneManager::SceneManager(const SceneManager& ) : objectHandler(of::engine::GetModule<of::module::ObjectInstanceHandler>()), loadStateMachine(*this), saveFile(of::engine::GetModule<of::module::SaveFile>())
 	{
 	}
 
@@ -431,9 +431,9 @@ namespace of::module
 	//		Simulate(12.f);
 	//}
 
-	void WorldManager::newGame()
+	void SceneManager::newGame()
 	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("New Game");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("SceneManager").Info("New Game");
 		saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 		auto& p = saveFile.getGameMode();
 		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition, of::world::LoadArgs::NEW_GAME);
@@ -442,24 +442,24 @@ namespace of::module
 		//loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
 	}
 
-	of::world::LoadingStateInfo& WorldManager::getLoadingStateInfo()
+	of::world::LoadingStateInfo& SceneManager::getLoadingStateInfo()
 	{
 		return loadStateMachine.loadingStateInfo;
 	}
 
-	void WorldManager::save(const of::common::String& fileName)
+	void SceneManager::save(const of::common::String& fileName)
 	{
 		objectHandler.persistGameObjects();
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("Save Game");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("SceneManager").Info("Save Game");
 		saveFile.currentZone = loadStateMachine.getCurrentWorld();
 		saveFile.loadingScreen = loadStateMachine.getCurrentLoadingScreen();
 		saveFile.setDespawnTimers(objectHandler.objectsToDelete);
 		saveFile.save(fileName);
 	}
 
-	void WorldManager::load(const of::common::String& fileName)
+	void SceneManager::load(const of::common::String& fileName)
 	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("WorldManager").Info("Load Game");
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("SceneManager").Info("Load Game");
 		isLoading = true;
 		saveFile.load(fileName);
 		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point, of::world::LoadArgs::LOAD_FROM_FILE);
@@ -467,7 +467,7 @@ namespace of::module
 		// TODO: start timers from questing module if needed
 	}
 
-	void WorldManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& loadArgs)
+	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& loadArgs)
 	{
 		isLoading = true;
 		of::module::Time& time = of::engine::GetModule<of::module::Time>();
@@ -478,7 +478,7 @@ namespace of::module
 
 	}
 
-	void WorldManager::Update()
+	void SceneManager::Update()
 	{
 		if (isLoading)
 		{
@@ -491,13 +491,13 @@ namespace of::module
 		}
 	}
 
-	void WorldManager::Simulate(const float& fElapsedTime)
+	void SceneManager::Simulate(const float& fElapsedTime)
 	{
 		//doDayCycle(fElapsedTime);
 		objectHandler.processDeletedObjects(fElapsedTime);
 	}
 
-	of::module::EngineResourceType& WorldManager::getType() const
+	of::module::EngineResourceType& SceneManager::getType() const
 	{
 		return type;
 	}
