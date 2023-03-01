@@ -289,13 +289,13 @@ private:
 	F32 mAngleH;
 	F32 mAngleV;
 
-	glm::vec3* mFollow;
+	std::shared_ptr<of::object::component::Transform> mFollow;
 
 public:
 
-	void follow(glm::vec3* vec)
+	void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3& = {})
 	{
-		mFollow = vec;
+		mFollow = transform;
 	}
 
 	virtual void update(const float&) override
@@ -304,7 +304,7 @@ public:
 		swizzle::input::GetMouseDelta(dx, dy);
 		if (mFollow != nullptr)
 		{
-			pan(*mFollow);
+			pan(mFollow->pos);
 			if (swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
 			{
 				rotate(dx * 0.1f, dy * 0.1f);
@@ -338,7 +338,7 @@ public:
 
 class CustomTrackerPoint : public of::graphics::ParentedRenderable
 {
-	glm::vec3 pos = glm::vec3(0.f);
+	std::shared_ptr<of::object::component::Transform> transform = std::make_shared<of::object::component::Transform>();
 	std::shared_ptr<EditorController>& controller;
 	bool mFollowing = false;
 
@@ -353,7 +353,7 @@ public:
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
 	{
 		ImGui::Begin("TrackerPoint");
-		ImGui::SliderFloat3("Pos", (float*)&pos, -10.f, 10.f);
+		ImGui::SliderFloat3("Pos", (float*)&transform->pos, -10.f, 10.f);
 		if (mFollowing)
 		{
 			ImGui::Text("Following object == true");
@@ -365,7 +365,7 @@ public:
 		}
 		if (ImGui::Button("Set"))
 		{
-			controller->follow(getPos());
+			controller->follow(transform);
 			mFollowing = true;
 		}
 		if (ImGui::Button("Unset"))
@@ -375,11 +375,6 @@ public:
 		}
 		ImGui::End();
 	};
-
-	glm::vec3* getPos()
-	{
-		return &pos;
-	}
 };
 
 GameEntry::GameEntry() : 
