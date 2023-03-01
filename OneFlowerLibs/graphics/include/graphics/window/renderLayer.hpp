@@ -7,6 +7,7 @@ namespace of::graphics::window
 	{
 		IMGUI,
 		SKYBOX,
+		EDITOR,
 		HITBOXES,
 		MODELS,
 		DISTANT_UI,

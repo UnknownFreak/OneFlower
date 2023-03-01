@@ -85,8 +85,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\include\imgui;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -417,6 +418,7 @@
     <ClCompile Include="Project\Trigger\RequirementTrigger.cpp" />
     <ClCompile Include="Project\Trigger\SpawnObjectTrigger.cpp" />
     <ClCompile Include="Project\Trigger\TriggerList.cpp" />
+    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
@@ -515,6 +517,7 @@
     <ClInclude Include="Project\Trigger\SpawnObjectTrigger.hpp" />
     <ClInclude Include="Project\Trigger\TeleportTrigger.hpp" />
     <ClInclude Include="Project\Trigger\TriggerList.hpp" />
+    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assemble.frag" />

@@ -28,110 +28,367 @@
 #include <imgui/imgui_impl_swizzle.hpp>
 #include <imgui/of_imgui_extensions.hpp>
 
-class ttext : public of::graphics::ui::UIRenderable
+
+#include <object/component/Render.hpp>
+
+#include <ImGuizmo.h>
+
+class WorldGrid : public of::graphics::ParentedRenderable
 {
-	of::common::String m_s;
-	of::common::String val;
-	of::common::String duration;
-	of::common::String blink;
-	std::shared_ptr<sw::gfx::Texture> tex;
-	std::shared_ptr<sw::gfx::Texture> tex2;
-	std::shared_ptr<sw::gfx::Material> material;
-	std::shared_ptr<sw::gfx::Material> material2;
-	of::imgui::ProgressBarSettings settings {
-		ImVec2{0.f, 0.f},ImVec2{1.f, 0.5f},
-		ImVec2{0.f, 0.5f}, ImVec2{1.f, 1.f}
+
+	of::graphics::view::Camera* c;
+	common::Resource<swizzle::gfx::Buffer> buf_x;
+	common::Resource<swizzle::gfx::Buffer> buf_y;
+	common::Resource<swizzle::gfx::Buffer> buf_z;
+	common::Resource<swizzle::gfx::Buffer> buf;
+	common::Resource<swizzle::gfx::Material> mat;
+	common::Resource<swizzle::gfx::Shader> shader;
+
+	glm::vec3 x_line[2] = { {-1000.f, 0.f, 0.f}, {1000.f, 0.f, 0.f} };
+	glm::vec3 y_line[2] = { {0.f, -1000.f, 0.f}, {0.f, 1000.f, 0.f} };
+	glm::vec3 z_line[2] = { {0.f, 0.f, -1000.f}, {0.f, 0.f, 1000.f} };
+
+	std::vector<glm::vec3> points;
+
+	glm::vec4 color_red = { 1.f, 0.f, 0.f, 0.f };
+	glm::vec4 color_green = { 0.f, 1.f, 0.f, 0.f };
+	glm::vec4 color_blue = { 0.f, 0.f, 1.f, 0.f };
+	glm::vec4 color_gray = { .25f, .25f, .25f, 0.f };
+
+	void loadShader()
+	{
+		swizzle::gfx::ShaderAttributeList attribs = {};
+		attribs.mBufferInput = {
+			{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U) }
+		};
+
+		attribs.mAttributes = {
+			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+		};
+		attribs.mDescriptors = {};
+		attribs.mEnableDepthTest = false;
+		attribs.mEnableBlending = false;
+		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
+
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+	}
+
+public:
+
+	WorldGrid() : c(m_parent->getCamera())
+	{
+		for (float f = -20.f; f < 20.f; f+= 1.f)
+		{
+			points.push_back({f, 0.f, -20.f});
+			points.push_back({f, 0.f, 20.f});
+			// temporary, need lineStrip to remove
+			points.push_back({f, 0.f, -20.f});
+		}
+		for (float f = -20.f; f < 20.f; f += 1.f)
+		{
+			points.push_back({ -20.f, 0.f, f });
+			points.push_back({ 20.f, 0.f, f });
+			// temporary, need lineStrip to remove
+			points.push_back({ -20.f, 0.f, f });
+		}
+
+		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+		auto gfx = wnd.getGfxContext();
+
+		loadShader();
+		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+
+		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(float) * 3u);
+
+		buf_x = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_x->setBufferData(x_line, sizeof(x_line), sizeof(float) * 3u);
+
+		buf_y = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_y->setBufferData(y_line, sizeof(y_line), sizeof(float) * 3u);
+
+		buf_z = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_z->setBufferData(z_line, sizeof(y_line), sizeof(float) * 3u);
+
+	}
+
+	virtual void updateFrame(const float& )
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+	{
+
+		mvp.model = glm::translate(glm::mat4(1.f), { 0.f,0.f,0.f });
+
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&color_gray, sizeof(glm::vec4), sizeof(mvp));
+		transaction->draw(buf);
+
+		mvp.model = glm::translate(glm::mat4(1.f), { c->getPosition().x,0.f,0.f });
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&color_red, sizeof(glm::vec4), sizeof(mvp));
+		transaction->draw(buf_x);
+
+		mvp.model = glm::translate(glm::mat4(1.f), { 0.f, c->getPosition().y,0.f });
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&color_green, sizeof(glm::vec4), sizeof(mvp));
+		transaction->draw(buf_y);
+
+		mvp.model = glm::translate(glm::mat4(1.f), { 0.f,0.f,c->getPosition().z });
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&color_blue, sizeof(glm::vec4), sizeof(mvp));
+		transaction->draw(buf_z);
+	};
+};
+
+class Gizmo : public of::graphics::ParentedRenderable
+{
+	of::graphics::view::Camera* c;
+	glm::mat4 mat = glm::mat4(0.f);
+	glm::vec3 pos = glm::vec3(0.f);
+	glm::vec3 rot = glm::vec3(0.f);
+	glm::vec3 scale = glm::vec3(1.f);
+
+public:
+
+	Gizmo() : c(m_parent->getCamera())
+	{
+		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*)&mat);
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
+	{
+		ImGuizmo::BeginFrame();
+		ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
+		auto io = ImGui::GetIO();
+		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+		ImGuizmo::Enable(true);
+
+		ImGuizmo::DecomposeMatrixToComponents((float*)&mat, (float*)&pos, (float*)&rot, (float*)&scale);
+		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*) &mat);
+
+		ImGuizmo::Manipulate((float*)&c->getView(), (float*)&c->getProjection(), ImGuizmo::UNIVERSAL, ImGuizmo::MODE::LOCAL, (float*)&mat);
 	};
 
-	of::imgui::BuffIconSettings settings2 {true, 50, false, "Test", "body tooltip"};
-	float min = 0.f;
-	float max = 10.f;
-	float c = 5.f;
-	float u = -1.f;
-	float barX = 800.f;
-	float barY = 64.f;
-
-	float cornerX = 32.f;
-	float cornerY = 16.f;
-	bool delay;
-	float diminishSpeed = 0.01f;
-	int idx = 0;
-public:
-	ttext(of::common::String s, const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::UIRenderable(x, rel), m_s(s) 
+	glm::vec3* getPos()
 	{
-		val = "Value ###" + of::common::uuid().to_string();
-		duration = "ShowDurationBar ###" + of::common::uuid().to_string();
-		blink = "Icon blink on expire ###" + of::common::uuid().to_string();
-		tex = of::engine::GetModule<of::module::texture::Loader>().requestTexture("ProgressBar.png");
-		tex2 = of::engine::GetModule<of::module::texture::Loader>().requestTexture("EffectIconFrame.png", of::module::Settings::uiTexturePath);
-		auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
-
-		material = ImGui_ImplSwizzle_CreateMaterial(proxy.getGfxContext());
-		material2 = ImGui_ImplSwizzle_CreateMaterial(proxy.getGfxContext());
-		material->setDescriptorTextureResource(0, tex);
-		material2->setDescriptorTextureResource(0, tex2);
-	}
-
-	virtual void beginRender() override 
-	{
-	}
-	virtual void endRender() override {}
-
-	virtual void render() override
-	{
-		ImGui::SetCursorPos({m_renderBox.x, m_renderBox.y});
-		ImGui::SliderFloat(val.c_str(), &c, min, max);
-		ImGui::SliderFloat("AnimateFraction", &u, min, 1.f);
-		ImGui::SliderFloat("DiminishSpeed", &diminishSpeed, min, 0.1f);
-		ImGui::Checkbox("Delay", &delay);
-		of::imgui::ProgressbarHitEffect({200.f, 20.f}, min, max, c, u, ImColor(0,0,0), ImColor(0,200, 0), ImColor(0, 255,0), delay, diminishSpeed);
-		ImGui::SliderInt("ObjectiveState", &idx, 0, 2);
-		of::imgui::objectiveIcon("test", (of::imgui::ObjectiveState)idx);
-		//ImGui::Checkbox(duration.c_str(), &settings2.showIconDuration);
-		//ImGui::Checkbox("ShowDurationSeconds", &settings2.showIconDurationInSeconds);
-		//ImGui::Checkbox(blink.c_str(), &settings2.flashIconWhenAboutToExpire);
-		//of::imgui::BuffIcon(&material2, { 32.f, 32.f }, max, c, settings2);
+		return &pos;
 	}
 };
 
-
-class tttext : public of::graphics::ui::UIRenderable
+class EditorController : public of::graphics::view::CameraController
 {
+	std::mutex mtx;
 public:
-	tttext(const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::UIRenderable(x, rel) {}
-
-	virtual void beginRender() override {}
-	virtual void endRender() override {}
-
-	virtual void render() override
+	EditorController()
+		: CameraController()
+		, mTarget(0.0F)
+		, mDirection(0.0F)
+		, mAngleH(0.0F)
+		, mAngleV(0.0F)
+		, mFollow(nullptr)
 	{
-		ImGui::SetCursorPos({ m_renderBox.x, m_renderBox.y });
-		if (ImGui::BeginCombo("selector", nullptr))
+		mCamera->lookAt(mCamera->getPosition(), mTarget);
+		rotate(0.f, -34.f);
+	}
+	~EditorController()
+	{
+	};
+
+private:
+
+	void pan(const glm::vec3& pos)
+	{
+		auto delta = glm::vec3{ mTarget } + pos;
+
+		delta = delta * 0.1f;
+
+		glm::vec3 motion(-delta.x, -delta.y, -delta.z);
+		mTarget += motion;
+	}
+
+	void zoom(const float& zoomDelta) override
+	{
+		if (zoomDelta == 0.f)
+			return;
+		mZoomConstant -= zoomDelta;
+		if (mZoomConstant < 0.2f)
+			mZoomConstant = 0.2f;
+	}
+
+	void mouseSlideXY(float dx, float dy)
+	{
+		glm::vec3 xySlide = mDirection;
+		xySlide.y = 0;
+		glm::vec3 left = cross(mDirection, glm::vec3(0.0F, 1.0F, 0.0F));
+		left = glm::normalize(left);
+		mTarget += left * -dx;
+		mTarget += xySlide * dy;
+	}
+
+	void mouseSlide(float dx, float dy)
+	{
+		glm::vec3 right = glm::normalize(cross(glm::vec3(0.0F, 1.0F, 0.0F), mDirection));
+		glm::vec3 up = cross(mDirection, right);
+		mTarget += right * dx;
+		mTarget += up * -dy;
+	}
+
+	void rotate(float dx, float dy)
+	{
+		mAngleH -= dx;
+		mAngleV -= dy;
+		if (mAngleV > 89)
 		{
-			if (ImGui::Selectable("TOP_LEFT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::TOP_LEFT; }
-			else if (ImGui::Selectable("LEFT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::LEFT; }
-			else if (ImGui::Selectable("BOTTOM_LEFT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::BOTTOM_LEFT; }
-			else if (ImGui::Selectable("TOP")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::TOP; }
-			else if (ImGui::Selectable("CENTER")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::CENTER; }
-			else if (ImGui::Selectable("BOTTOM")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::BOTTOM; }
-			else if (ImGui::Selectable("TOP_RIGHT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::TOP_RIGHT; }
-			else if (ImGui::Selectable("RIGHT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::RIGHT; }
-			else if (ImGui::Selectable("BOTTOM_RIGHT")) { m_uiParent->m_windowRelation = of::graphics::ui::Relation::BOTTOM_RIGHT; }
-			ImGui::EndCombo();
+			mAngleV = 89;
 		}
-	}
-};
+		if (mAngleV < -89)
+		{
+			mAngleV = -89;
+		}
 
-class Test : public of::graphics::ui::Frame
-{
+		glm::vec3 dir = { -1.0F, 0.0F, 0.0F };
+
+		F32 rotateRad = glm::radians(mAngleV);
+
+		glm::mat3 rotV = glm::mat3(glm::cos(rotateRad), -glm::sin(rotateRad), 0.0f,
+			glm::sin(rotateRad), glm::cos(rotateRad), 0.0f,
+			0.0f, 0.0f, 1.0f);
+
+		dir = rotV * dir;
+		dir = glm::normalize(dir);
+
+		rotateRad = glm::radians(mAngleH);
+		glm::mat3 rotH = glm::mat3(glm::cos(rotateRad), 0.0f, -glm::sin(rotateRad),
+			0.0f, 1.0f, 0.0f,
+			glm::sin(rotateRad), 0.0f, glm::cos(rotateRad));
+
+		dir = rotH * dir;
+		mDirection = glm::normalize(dir);
+	}
+
+	float mZoomConstant = 10.f;
+	glm::vec3 mZoom;
+	glm::vec3 mTarget;
+	glm::vec3 mDirection;
+
+	F32 mAngleH;
+	F32 mAngleV;
+
+	glm::vec3* mFollow;
+
 public:
-	Test(const ImVec4& x, const of::graphics::ui::Relation& rel) : of::graphics::ui::Frame(x, rel) 
+
+	void follow(glm::vec3* vec)
 	{
-		//add(std::make_shared<tttext>(ImVec4{0.f, 0.f, 200.f, 20.f}, of::graphics::ui::Relation::TOP_LEFT));
-		add(std::make_shared<ttext>("TL", ImVec4{0.f, 25.f, 1000.f, 200.f}, of::graphics::ui::Relation::TOP));
+		mFollow = vec;
 	}
+
+	virtual void update(const float&) override
+	{
+		float dx, dy;
+		swizzle::input::GetMouseDelta(dx, dy);
+		if (mFollow != nullptr)
+		{
+			pan(*mFollow);
+			if (swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
+			{
+				rotate(dx * 0.1f, dy * 0.1f);
+			}
+		}
+		else
+		{
+			if (swizzle::input::IsKeyPressed(swizzle::input::Keys::KeyLShift) && swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
+			{
+				rotate(dx * 0.1f, dy * 0.1f);
+			}
+			else if (swizzle::input::IsKeyPressed(swizzle::input::Keys::KeyLCtrl) && swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
+			{
+				mouseSlideXY(dx * 0.05f, dy * 0.05f);
+			}
+			else if (swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
+			{
+				mouseSlide(dx * 0.05f, dy * 0.05f);
+			}
+		}
+
+		mZoom = { mZoomConstant, mZoomConstant, mZoomConstant};
+
+		auto pos = mTarget + (mDirection * mZoom);
+
+
+		mCamera->setPosition(pos);
+		mCamera->lookAt(pos, mTarget);
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		ImGui::Begin("CameraController");
+		ImGui::SliderFloat3("Target", (float*)&mTarget, -10, 10);
+		ImGui::InputFloat3("CamPos", (float*)&mCamera->getPosition(), "%.3f", ImGuiInputTextFlags_ReadOnly);
+		ImGui::End();
+	};
 };
 
+class CustomTrackerPoint : public of::graphics::ParentedRenderable
+{
+	glm::vec3 pos = glm::vec3(0.f);
+	std::shared_ptr<EditorController>& controller;
+	bool mFollowing = false;
+
+public:
+
+	CustomTrackerPoint(std::shared_ptr<EditorController>& controller): controller(controller) {}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		ImGui::Begin("TrackerPoint");
+		ImGui::SliderFloat3("Pos", (float*)&pos, -10.f, 10.f);
+		if (mFollowing)
+		{
+			ImGui::Text("Following object == true");
+		}
+		else
+		{
+			ImGui::Text("Following object == false");
+
+		}
+		if (ImGui::Button("Set"))
+		{
+			controller->follow(getPos());
+			mFollowing = true;
+		}
+		if (ImGui::Button("Unset"))
+		{
+			controller->follow(nullptr);
+			mFollowing = false;
+		}
+		ImGui::End();
+	};
+
+	glm::vec3* getPos()
+	{
+		return &pos;
+	}
+};
 
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
@@ -162,42 +419,15 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Test>(ImVec4{ 0, 25.f, 1000.f, 400.f }, of::graphics::ui::Relation::TOP));
+	auto cameraController = std::make_shared<EditorController>();
+	gfx->setCameraController(cameraController);
 
-	/*
-	gfx.postInitialize();
-
-	auto& listener = gfx.getEventListener();
-	listener.addListener("UIElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
-		if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)
-		{
-			auto& e = (const swizzle::core::WindowResizeEvent&)evt;
-
-			auto& ui = of::engine::GetModule<Graphics::UI::UIHandler>();
-			auto x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::FPS);
-			x->x = e.mWidth - 400.f;
-			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::UPS);
-			x->x = e.mWidth - 200.f;
-			x = ui.getUIContext<Graphics::UI::UIContext>(Enums::UIContextNames::BuildInfo);
-			x->x = e.mWidth - 400.f;
-		}
-		});
-		*/
 	if (Engine::GetBuildMode().isEditorMode())
 	{
-		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
-		/*
-		listener.addListener("UIEditorElementsUpdate", [](const swizzle::core::WindowEvent& evt) {
-			if (evt.getEventType() == swizzle::core::WindowEventType::ResizeEvent)
-			{
-				auto& e = (const swizzle::core::WindowResizeEvent&)evt;
+		gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
 
-				auto& ui = of::engine::GetModule<Graphics::UI::UIHandler>();
-				auto editorWindow = ui.getUIContext<Graphics::Editor::MainEditorWindow>(Enums::UIContextNames::MainEditorWindow);
-				editorWindow->setSize(e.mWidth, e.mHeight);
-			}
-			});
-		*/
 	}
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);

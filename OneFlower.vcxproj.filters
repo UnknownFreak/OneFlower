@@ -130,9 +130,6 @@
     <Filter Include="Engine\Object\Component\Activatior">
       <UniqueIdentifier>{f9f0fb3f-461a-45bd-899b-299b6d8f1aa0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{cc0c9be3-4bff-43c1-ada2-d379e8e4a01c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics">
       <UniqueIdentifier>{09ee8b5c-0154-4966-9d6c-d0ffcfa0e60d}</UniqueIdentifier>
     </Filter>
@@ -210,6 +207,9 @@
     </Filter>
     <Filter Include="Engine\Graphics\Editor\Tooltip">
       <UniqueIdentifier>{841c7f50-3c7d-4480-b554-c88d5800af1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\imguizmo">
+      <UniqueIdentifier>{3c4dc4eb-ab0f-4354-ad5c-4c72c5f93ec7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp">
       <Filter>Engine\Graphics\Editor\Selectors</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Main\imguizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -766,6 +769,9 @@
     </ClInclude>
     <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>Main\imguizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
