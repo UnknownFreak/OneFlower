@@ -213,11 +213,11 @@ private:
 
 	void pan(const glm::vec3& pos)
 	{
-		auto delta = glm::vec3{ mTarget } + pos;
+		auto delta = pos - mTarget;
 
 		delta = delta * 0.1f;
 
-		glm::vec3 motion(-delta.x, -delta.y, -delta.z);
+		glm::vec3 motion(delta.x, delta.y, delta.z);
 		mTarget += motion;
 	}
 
@@ -334,14 +334,6 @@ public:
 		mCamera->setPosition(pos);
 		mCamera->lookAt(pos, mTarget);
 	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
-	{
-		ImGui::Begin("CameraController");
-		ImGui::SliderFloat3("Target", (float*)&mTarget, -10, 10);
-		ImGui::InputFloat3("CamPos", (float*)&mCamera->getPosition(), "%.3f", ImGuiInputTextFlags_ReadOnly);
-		ImGui::End();
-	};
 };
 
 class CustomTrackerPoint : public of::graphics::ParentedRenderable
