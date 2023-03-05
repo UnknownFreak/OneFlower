@@ -1,5 +1,7 @@
 #include "GameEntry.hpp"
 
+#include <engine/runMode.hpp>
+
 #include <thread>
 
 #include <Module\BuildMode.hpp>
@@ -409,7 +411,7 @@ int GameEntry::Run()
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
 
-	if (Engine::GetBuildMode().isEditorMode())
+	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
 		gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
@@ -418,7 +420,6 @@ int GameEntry::Run()
 	}
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
-
 
 	gfx->loop();
 	m_exit = true;
@@ -430,7 +431,7 @@ int GameEntry::Run()
 
 void GameEntry::physicsUpdate()
 {
-	if (!Engine::GetBuildMode().isEditorMode())
+	if (of::engine::getRunMode() != of::engine::RunMode::EDITOR)
 	{
 //		world.createMainMenu();
 	}

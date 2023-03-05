@@ -4,6 +4,7 @@
 
 #include <Main/GameEntry.hpp>
 
+#include <engine/runMode.hpp>
 #include <Module/BuildMode.hpp>
 #include <Module/Logger/OneLogger.hpp>
 #include <module/logger/streams/ConsoleStream.hpp>
@@ -132,7 +133,9 @@ public:
 #endif
 {
 		c; argv;
-	Engine::GetBuildMode().setEditorMode();
+	of::engine::setRunMode(of::engine::RunMode::EDITOR);
+	of::engine::lockRunMode();
+
 	// Parse argv;
 	initializeSystems();
 	EngineLogger logger;
