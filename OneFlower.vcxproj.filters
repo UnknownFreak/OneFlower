@@ -49,9 +49,6 @@
     <Filter Include="Engine\Object\Component">
       <UniqueIdentifier>{58f8a0c8-dcd2-4d79-84c9-c46b47734885}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\GameSettings">
-      <UniqueIdentifier>{1c88634f-7f82-4e8d-a4de-eb44adefe4cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Items">
       <UniqueIdentifier>{bb79b8b3-b507-4e0a-a3f0-e6a91944ebe1}</UniqueIdentifier>
     </Filter>
@@ -97,9 +94,6 @@
     <Filter Include="Engine\Requirement">
       <UniqueIdentifier>{8e429b10-c25f-419d-938a-2427680f497c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\Time">
-      <UniqueIdentifier>{e0ebb09e-f152-4978-94ba-996edbbb6819}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit Tests\Trigger">
       <UniqueIdentifier>{d3a9a0ef-7dfe-4720-8e70-48238d42d120}</UniqueIdentifier>
     </Filter>
@@ -120,9 +114,6 @@
     </Filter>
     <Filter Include="Engine\File\Asset\Resource">
       <UniqueIdentifier>{ae47f199-3370-40c6-a0c5-801627862269}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Helpers\Core">
-      <UniqueIdentifier>{9933d0b4-3da5-428e-b311-a6b33632e485}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b19e790-5799-4f2e-9f06-74012ebc8f01}</UniqueIdentifier>
@@ -198,9 +189,6 @@
     </Filter>
     <Filter Include="Engine\Graphics\Editor\MainWindow\Modals">
       <UniqueIdentifier>{29e9415f-5ae5-4a6d-a490-f263315d561e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\Editor">
-      <UniqueIdentifier>{73b4c501-7e6e-42c3-b051-38270f0f5ce5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ViewModels">
       <UniqueIdentifier>{3a422f9e-e7b2-4dfa-bcb4-810760e47e20}</UniqueIdentifier>
