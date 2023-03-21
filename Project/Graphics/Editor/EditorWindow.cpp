@@ -105,13 +105,16 @@ void Graphics::Editor::MainEditorWindow::render()
 {
 	if (visible)
 	{
-		ImGui::SetNextWindowPos({ 0.f,0.f });
-		ImGui::SetNextWindowSize({width, height});
+		ImGui::SetNextWindowPos({ 0.f, 0.f });
+		ImGui::SetNextWindowSize({width, 0.f});
 		ImGui::SetNextWindowBgAlpha(0);
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0,0 });
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
 		ImGui::Begin(this->uiName.c_str(), nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav |ImGuiWindowFlags_NoBringToFrontOnFocus |ImGuiWindowFlags_MenuBar);
+		ImGui::PopStyleVar(2);
 		{
 			renderMenuBar();
-			tree.render();
+			//tree.render();
 		}
 		ImGui::End();
 

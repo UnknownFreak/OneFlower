@@ -12,6 +12,7 @@ namespace of::world
 		PREPARE_LOADINGSCREEN,
 		BEGIN_LOAD,
 		CACHE_ALL_ZONES,
+		CACHE_ALL_CUTSCENES,
 		UPDATE_LOAD_INFO,
 		UNLOAD_OBJECTS,
 		LOAD_ALL_PREFABS,
@@ -38,6 +39,7 @@ namespace of::world
 		case LoadingState::PREPARE_LOADINGSCREEN: return "PREPARE_LOADINGSCREEN";
 		case LoadingState::BEGIN_LOAD: return "BEGIN_LOAD";
 		case LoadingState::CACHE_ALL_ZONES: return "CACHE_ALL_ZONES";
+		case LoadingState::CACHE_ALL_CUTSCENES: return "CACHE_ALL_CUTSCENES";
 		case LoadingState::UPDATE_LOAD_INFO: return "UPDATE_LOAD_INFO";
 		case LoadingState::UNLOAD_OBJECTS: return "UNLOAD_OBJECTS";
 		case LoadingState::LOAD_ALL_PREFABS: return "LOAD_ALL_PREFABS";

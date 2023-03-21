@@ -135,12 +135,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\cutSceneInfo.cpp" />
     <ClCompile Include="src\LoadingStateInfo.cpp" />
     <ClCompile Include="src\WorldInstance.cpp" />
     <ClCompile Include="src\sceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\sceneManager.hpp" />
+    <ClInclude Include="include\resource\cutSceneInfo.hpp" />
     <ClInclude Include="include\resource\WorldInstance.hpp" />
     <ClInclude Include="include\scene\LoadArgs.hpp" />
     <ClInclude Include="include\scene\LoadingState.hpp" />

@@ -33,17 +33,19 @@ namespace of::graphics::window
 
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
+		ImGui::GetStyle().AntiAliasedFill = true;
+		ImGui::GetStyle().AntiAliasedLines = true;
 
 		// TODO: do some font combination magic & move to font handler?
 		// Will we be using imgui for the entire ui as well or do our own.
 		auto& io = ImGui::GetIO();
 		ImFont* font = io.Fonts->AddFontDefault();
 		font;
-		ImFontConfig config;
-		config.MergeMode = true;
-		std::string s2 = of::common::SystemFonts + "msgothic.ttc";
-		ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 13.f, &config,
-			ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
+		//ImFontConfig config;
+		//config.MergeMode = true;
+		//std::string s2 = of::common::SystemFonts + "msgothic.ttc";
+		//ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 13.f, &config,
+		//	ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
 		// endTodo
 
 		ImGui_ImplSwizzle_Init(mGfxContext, mWindow);

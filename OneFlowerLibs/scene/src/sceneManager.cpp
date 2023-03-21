@@ -1,11 +1,15 @@
 #include <module/sceneManager.hpp>
 
+#include <engine/runMode.hpp>
+
 #include <file/Handler.hpp>
 #include <module/OneTime.hpp>
 
 #include <resource/Prefab.hpp>
 #include <module/window/WindowProxy.hpp>
 #include <graphics/sky/skyBox.hpp>
+
+#include <resource/cutSceneInfo.hpp>
 
 //void WorldManager::doDayCycle(const float& fElapsedTime)
 //{
@@ -99,8 +103,10 @@ namespace of::module
 		case LoadingState::CACHE_ALL_ZONES:
 			cacheAllZones();
 			break;
+		case LoadingState::CACHE_ALL_CUTSCENES:
+			cacheCutScenes();
 		case LoadingState::UPDATE_LOAD_INFO:
-			updateZoneInfo();
+			updateLoadInfo();
 			break;
 		case LoadingState::UNLOAD_OBJECTS:
 			unloadObjects();
@@ -152,6 +158,7 @@ namespace of::module
 		loadingStateInfo.totalNavmeshCount = instanceToLoad.navMesh.size();
 		loadingStateInfo.totalGeometryCount = instanceToLoad.worldGeometry.size();
 		loadingStateInfo.totalObjectPartCount = instanceToLoad.objectChunk.size();
+		loadingStateInfo.totalCutSceneCount = instanceToLoad.cutScenes.size();
 		loadingStateInfo.totalObjectCount = 0;
 
 		loadingStateInfo.currentLoadCount = 0;
@@ -160,6 +167,7 @@ namespace of::module
 		loadingStateInfo.currentGeometryCount = 0;
 		loadingStateInfo.currentObjectPartCount = 0;
 		loadingStateInfo.currentObjectCount = 0;
+		loadingStateInfo.currentCutSceneCount = 0;
 		loadingStateInfo.currentZoneCount = 0;
 
 		buffer.clear();
@@ -197,9 +205,32 @@ namespace of::module
 		allInstances = of::engine::GetModule<of::file::Handler>().archive.listAllObjectKeys(of::file::ObjectType::WorldInstance);
 		loadingStateInfo.totalZoneCount = allInstances.size();
 		// TODO: request all zones... this can be huge...
-		loadstate = of::world::LoadingState::UPDATE_LOAD_INFO;
+		loadstate = of::world::LoadingState::CACHE_ALL_CUTSCENES;
 	}
-	void SceneManager::LoadingStateMachine::updateZoneInfo()
+	void SceneManager::LoadingStateMachine::cacheCutScenes()
+	{
+		if (loadingStateInfo.currentCutSceneCount == loadingStateInfo.totalCutSceneCount)
+		{
+			loadingStateInfo.totalCutSceneCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadstate = of::world::LoadingState::UPDATE_LOAD_INFO;
+		}
+		else
+		{
+			//auto instance = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::CutSceneInfo>(instanceToLoad.cutScenes[loadingStateInfo.currentCutSceneCount]);
+			{
+				
+				if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
+				{
+					/*
+					Create a temporary object to push an editor renderable to represent the cutscene renderInfo (e.g camera lookat & camera path etc.)
+					*/
+				}
+			}
+			loadingStateInfo.currentCutSceneCount++;
+			loadingStateInfo.totalCutSceneCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+		}
+	}
+	void SceneManager::LoadingStateMachine::updateLoadInfo()
 	{
 		if (loadingStateInfo.currentZoneCount == loadingStateInfo.totalZoneCount)
 		{

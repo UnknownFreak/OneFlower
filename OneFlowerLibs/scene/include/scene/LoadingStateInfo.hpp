@@ -40,6 +40,10 @@ namespace of::world
 		size_t totalZoneCount = 0;
 		float totalZoneUpdateCountTimer = 0.f;
 
+		size_t currentCutSceneCount = 0;
+		size_t totalCutSceneCount = 0;
+		float totalCutSceneCountTimer = 0.f;
+
 		const LoadingState& theState;
 		const bool& isLoading;
 

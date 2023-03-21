@@ -18,6 +18,15 @@
     <Filter Include="include\scene">
       <UniqueIdentifier>{2a30f09d-ac3b-4d2b-993d-79d730013c68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\scene\cutScene">
+      <UniqueIdentifier>{00c19310-41b0-4e6e-a15b-df2526d6239e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\scene\cutIn">
+      <UniqueIdentifier>{6991832d-8630-485c-b3d4-d5fd03384e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\trigger">
+      <UniqueIdentifier>{1206ec77-e9f7-4df3-bada-2dabfa8d173b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\sceneManager.cpp">
@@ -27,6 +36,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\WorldInstance.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cutSceneInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="include\scene\LoadingStateInfo.hpp">
       <Filter>include\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource\cutSceneInfo.hpp">
+      <Filter>include\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

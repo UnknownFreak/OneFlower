@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="src\frame.cpp" />
     <ClCompile Include="src\progressbar.cpp" />
+    <ClCompile Include="src\sequencer.cpp" />
+    <ClCompile Include="src\shapes.cpp" />
     <ClCompile Include="src\uiRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +39,8 @@
     <ClInclude Include="include\graphics\ui\relation.hpp" />
     <ClInclude Include="include\graphics\ui\uiRenderable.hpp" />
     <ClInclude Include="include\imgui\of_imgui_extensions.hpp" />
+    <ClInclude Include="include\imgui\sequencer.hpp" />
+    <ClInclude Include="include\imgui\shapes.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

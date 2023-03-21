@@ -335,12 +335,15 @@ namespace of::imgui
 		}
 		break;
 		case ObjectiveState::Failed:
+		{
+
 			ImGui::PushStyleColor(ImGuiCol_Text, ImColor(255, 0, 0).operator ImVec4());
 			ImGui::PushStyleColor(ImGuiCol_CheckMark, ImColor(255, 0, 0).operator ImVec4());
 			RenderX(window->DrawList, check_bb.Min + ImVec2(pad, pad), GetColorU32(ImGuiCol_CheckMark), square_sz - pad * 2.0f);
 			RenderText(label_pos, objectiveText.c_str());
 			ImGui::PopStyleColor(2);
-			break;
+		}
+		break;
 		default:
 			break;
 		}

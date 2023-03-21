@@ -27,6 +27,7 @@ namespace of::file
 		Effect,
 		Skill,
 		WorldInstance,
+		CutScene,
 		EndIteration,
 		EoF = 254,
 		Undefined
@@ -56,6 +57,7 @@ namespace of::file
 		case ObjectType::Effect: return "Effect";
 		case ObjectType::Skill: return "Skill";
 		case ObjectType::WorldInstance: return "WorldInstance";
+		case ObjectType::CutScene: return "CutScene";
 		case ObjectType::EoF: return "EoF";
 		case ObjectType::Undefined: return "Undefined";
 		default: return "Unknown";
@@ -83,6 +85,7 @@ namespace of::file
 		case ObjectType::TileChunk: return true;
 		case ObjectType::ColliderChunk: return true;
 		case ObjectType::WorldInstance: return true;
+		case ObjectType::CutScene: return true;
 		case ObjectType::EoF: return true;
 		case ObjectType::Undefined: return false;
 		default: return false;

@@ -10,7 +10,7 @@ Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input:
 {
 	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
 	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;
-	pos = { 5, height - 400.f };
+	pos = { 5, height - 420.f };
 }
 
 void Graphics::UI::LoadingScreenInfo::readInput()
@@ -39,6 +39,8 @@ void Graphics::UI::LoadingScreenInfo::update()
 		"\nLoading State: " + of::world::to_string(info.theState) +
 		"\nProgress (Total): " + std::to_string(info.currentLoadCount) + "/" + std::to_string(info.totalLoadCount) +
 		"\nTime (Prepare load): " + std::to_string(info.instanceLoadTime) +
+		"\nProgress (CutScenes): " + std::to_string(info.currentCutSceneCount) + "/" + std::to_string(info.totalCutSceneCount) +
+		"\n    Elapsed: " + std::to_string(info.totalCutSceneCountTimer) +
 		"\nProgress (Instances): " + std::to_string(info.currentZoneCount) + "/" + std::to_string(info.totalZoneCount) +
 		"\n    Elapsed: " + std::to_string(info.totalZoneUpdateCountTimer) +
 		"\nProgress (Unload objects): " + "TODO / TODO" +
@@ -57,8 +59,7 @@ void Graphics::UI::LoadingScreenInfo::update()
 		"\n    Elapsed: " + std::to_string(info.objectPartLoadTimer) +
 		"\nProgress (Building objects): " + std::to_string(info.currentObjectCount) + "/" + std::to_string(info.totalObjectCount) +
 		"\n    Elapsed: " + std::to_string(info.objectLoadTimer) +
-		""
-		;
+		"";
 }
 
 void Graphics::UI::LoadingScreenInfo::onMouseHover(const glm::vec2&)

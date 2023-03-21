@@ -37,7 +37,8 @@ namespace of::module
 			void prepareLoadingScreen();
 			void beginLoad();
 			void cacheAllZones();
-			void updateZoneInfo();
+			void cacheCutScenes();
+			void updateLoadInfo();
 			void unloadObjects();
 			void loadAllPrefabs();
 			void loadAllNavmesh();
@@ -104,6 +105,10 @@ namespace of::module
 		void save(const of::common::String& fileName);
 		void load(const of::common::String& fileName);
 		void initialize();
+
+		void playCutScene(const of::file::FileId& cutSceneId);
+		void skipCurrentCutScene();
+		void playCutIn(const of::file::FileId& cutInId);
 
 		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs& loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
 	

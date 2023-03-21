@@ -7,7 +7,7 @@ namespace of::resource
 {
 	size_t WorldInstance::getLoadingCount() const
 	{
-		return prefabs.size() + navMesh.size() + worldGeometry.size() + objectChunk.size();
+		return prefabs.size() + navMesh.size() + worldGeometry.size() + objectChunk.size() + cutScenes.size();
 	}
 
 	void WorldInstance::addTo(const WorldInstance& other, const bool& objectsOnly)

@@ -29,6 +29,12 @@
     <ClCompile Include="src\frame.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\sequencer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\ui\progressbar_t.hpp">
@@ -44,6 +50,12 @@
       <Filter>include\graphics\ui</Filter>
     </ClInclude>
     <ClInclude Include="include\imgui\of_imgui_extensions.hpp">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\sequencer.hpp">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\shapes.hpp">
       <Filter>include\imgui</Filter>
     </ClInclude>
   </ItemGroup>

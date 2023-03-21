@@ -81,6 +81,7 @@ namespace of::resource
 		std::vector<of::file::FileId> navMesh;
 		std::vector<of::file::FileId> worldGeometry;
 		std::vector<of::file::FileId> objectChunk;
+		std::vector<of::file::FileId> cutScenes;
 
 		size_t getLoadingCount() const;
 		void addTo(const WorldInstance& other, const bool& objectsOnly);
@@ -95,6 +96,7 @@ namespace of::resource
 			ar(navMesh);
 			ar(worldGeometry);
 			ar(objectChunk);
+			ar(cutScenes);
 		}
 
 		template<class Archive>
@@ -107,6 +109,7 @@ namespace of::resource
 			ar(navMesh);
 			ar(worldGeometry);
 			ar(objectChunk);
+			ar(cutScenes);
 		}
 
 		// Inherited via IRequestable

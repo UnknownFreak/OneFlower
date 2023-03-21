@@ -26,8 +26,6 @@ namespace of::graphics::view
 
 		virtual void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3& distance = {10.f, 10.f, 10.f}) = 0;
 
-		virtual void zoom(const float& zoomDelta) = 0;
-
 		virtual void update(const float& dt) = 0;
 
 	};
