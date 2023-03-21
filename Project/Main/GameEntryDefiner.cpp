@@ -46,9 +46,9 @@ class WorldGrid : public of::graphics::ParentedRenderable
 	common::Resource<swizzle::gfx::Material> mat;
 	common::Resource<swizzle::gfx::Shader> shader;
 
-	glm::vec3 x_line[2] = { {-1000.f, 0.f, 0.f}, {1000.f, 0.f, 0.f} };
-	glm::vec3 y_line[2] = { {0.f, -1000.f, 0.f}, {0.f, 1000.f, 0.f} };
-	glm::vec3 z_line[2] = { {0.f, 0.f, -1000.f}, {0.f, 0.f, 1000.f} };
+	glm::vec3 x_line[2] = { {-100.f, 0.f, 0.f}, {100.f, 0.f, 0.f} };
+	glm::vec3 y_line[2] = { {0.f, -100.f, 0.f}, {0.f, 100.f, 0.f} };
+	glm::vec3 z_line[2] = { {0.f, 0.f, -100.f}, {0.f, 0.f, 100.f} };
 
 	std::vector<glm::vec3> points;
 
@@ -111,7 +111,7 @@ public:
 		buf_y->setBufferData(y_line, sizeof(y_line), sizeof(float) * 3u);
 
 		buf_z = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
-		buf_z->setBufferData(z_line, sizeof(y_line), sizeof(float) * 3u);
+		buf_z->setBufferData(z_line, sizeof(z_line), sizeof(float) * 3u);
 
 	}
 
@@ -130,21 +130,18 @@ public:
 		transaction->setShaderConstant(shader, (U8*)&color_gray, sizeof(glm::vec4), sizeof(mvp));
 		transaction->draw(buf);
 
-		mvp.model = glm::translate(glm::mat4(1.f), { c->getPosition().x,0.f,0.f });
 		transaction->bindShader(shader);
 		transaction->bindMaterial(shader, mat);
 		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
 		transaction->setShaderConstant(shader, (U8*)&color_red, sizeof(glm::vec4), sizeof(mvp));
 		transaction->draw(buf_x);
 
-		mvp.model = glm::translate(glm::mat4(1.f), { 0.f, c->getPosition().y,0.f });
 		transaction->bindShader(shader);
 		transaction->bindMaterial(shader, mat);
 		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
 		transaction->setShaderConstant(shader, (U8*)&color_green, sizeof(glm::vec4), sizeof(mvp));
 		transaction->draw(buf_y);
 
-		mvp.model = glm::translate(glm::mat4(1.f), { 0.f,0.f,c->getPosition().z });
 		transaction->bindShader(shader);
 		transaction->bindMaterial(shader, mat);
 		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
