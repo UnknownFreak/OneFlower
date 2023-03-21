@@ -35,8 +35,6 @@
 
 #include <ImGuizmo.h>
 
-#include <imgui/sequencer.hpp>
-
 class WorldGrid : public of::graphics::ParentedRenderable
 {
 
@@ -391,94 +389,6 @@ public:
 	};
 };
 
-
-class Seq : public of::graphics::ParentedRenderable
-{
-
-	float t = 0.f, a = 0.f, b = 100.f, x = -10.f;
-	float timeLineEndOffset = 200.f;
-
-	float trackStart = 0.f;
-	float trackEnd = 100.f;
-
-	float trackStart2 = 0.f;
-	float trackEnd2 = 100.f;
-
-	float eventStart = 0.f;
-	float eventEnd = 50.f;
-
-	float eventStart2 = 50.f;
-	float eventEnd2 = 100.f;
-
-public:
-
-	Seq()
-	{
-	}
-
-	virtual void updateFrame(const float&)
-	{
-	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
-	{
-		if (ImGui::Begin("SequencerScaling"))
-		{
-			ImGui::SliderFloat("Tracker Point", &t, 0, x+timeLineEndOffset);
-			ImGui::SliderFloat("Timeline VStart", &a, 0, x + timeLineEndOffset);
-			ImGui::SliderFloat("Timeline VEnd", &b, 0, x + timeLineEndOffset);
-			ImGui::InputFloat("Timeline Start", &x, 10);
-			ImGui::InputFloat("Timeline End", &timeLineEndOffset, 10);
-		}
-		ImGui::End();
-
-
-		ImGui::SetNextWindowSize(ImVec2(1920.f, 300.f));
-		ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.2f, 1.f));
-		ImGui::Begin("SequencerTest");
-		ImGui::PopStyleColor();
-		{
-			if (of::imgui::BeginSequencer("Sequencer", {1600.f, 0.f}, &t, &a, &b, &x, &timeLineEndOffset))
-			{
-				if (of::imgui::BeginTrack("Track Name", &trackStart, &trackEnd, ImColor(0.2f, 0.6f, 0.2f, 1.f)))
-				{
-
-					of::imgui::EventLine("Event", &eventStart, &eventEnd, &trackStart, &trackEnd, ImColor(0, 32, 107));
-					of::imgui::EventLine("Event2", &eventStart2, &eventEnd2, &trackStart, &trackEnd, ImColor(107, 0,0));
-					//of::imgui::AddEventLine("asda");
-					of::imgui::EndTrack();
-				}
-				if (of::imgui::BeginTrack("Track Name 2", &trackStart2, &trackEnd2, ImColor(0.2f, 0.6f, 0.2f, 1.f)))
-				{
-					of::imgui::EndTrack();
-				}
-				if (of::imgui::BeginTrack("Track Name 2", &trackStart2, &trackEnd2, ImColor(0.2f, 0.6f, 0.2f, 1.f)))
-				{
-					of::imgui::EndTrack();
-				}
-				if (of::imgui::BeginTrack("Track Name 2", &trackStart2, &trackEnd2, ImColor(0.2f, 0.6f, 0.2f, 1.f)))
-				{
-					of::imgui::EndTrack();
-				}
-				if (of::imgui::BeginTrack("Track Name 2", &trackStart2, &trackEnd2, ImColor(0.2f, 0.6f, 0.2f, 1.f)))
-				{
-					of::imgui::EndTrack();
-				}
-				//if (of::imgui::SequencerAddTrack())
-				//{
-				//
-				//}
-				of::imgui::EndSequencer();
-			}
-			ImGui::SameLine();
-			// list cutscene & cut-in sequences here
-		}
-		ImGui::End();
-
-	};
-};
-
-
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
@@ -517,7 +427,6 @@ int GameEntry::Run()
 		gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Seq>());
 
 	}
 
