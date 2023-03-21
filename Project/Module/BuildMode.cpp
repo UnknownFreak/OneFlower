@@ -1,6 +1,8 @@
 #include "BuildMode.hpp"
 #include "BuildVersion.hpp"
 
+#include <engine/runMode.hpp>
+
 Engine::BuildMode Engine::BuildMode::buildMode;
 
 namespace Engine
@@ -58,6 +60,6 @@ namespace Engine
 
 	std::vector<of::common::String> BuildMode::toLogString() const
 	{
-		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(isEditorMode()), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
+		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(of::engine::getRunMode() == of::engine::RunMode::EDITOR), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
 	}
 }
