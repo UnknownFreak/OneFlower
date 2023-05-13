@@ -151,6 +151,7 @@ namespace of::graphics::window
 		mvp.proj = cam.getProjection();
 		mvp.eye = glm::vec4(cam.getPosition(), 1.0F);
 
+		mSwapchain->setClearColor(swizzle::gfx::ClearColor(0, 0, 0, 0));
 		mSwapchain->prepare();
 		auto transaction = mCmdBuffer->begin();
 

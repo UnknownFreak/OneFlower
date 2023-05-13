@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "ModalBase.hpp"
+#include <imgui/modalBase.hpp>
 #include "DataTree.hpp"
 
 namespace Graphics
@@ -13,7 +13,7 @@ namespace Graphics
 		namespace Modals
 		{
 
-			class LoadFile : public ModalBase
+			class LoadFile : public of::imgui::ModalBase
 			{
 				of::common::String m_selectedFile;
 				std::vector<std::pair<of::common::String, bool>> m_fileNames;

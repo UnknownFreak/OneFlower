@@ -9,6 +9,7 @@
 #include <swizzle/core/Platform.hpp>
 #include <swizzle/core/WindowEvents.hpp>
 
+#include <iostream>
 #include <optick/optick.h>
 
 /* Defines */

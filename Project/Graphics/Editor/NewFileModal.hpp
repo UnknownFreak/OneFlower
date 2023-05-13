@@ -2,7 +2,7 @@
 #define NewFileModal_HPP
 
 #include <vector>
-#include "ModalBase.hpp"
+#include <imgui/modalBase.hpp>
 #include <imgui/imgui.h>
 #include "DataTree.hpp"
 namespace Graphics
@@ -27,7 +27,7 @@ namespace Graphics
 			};
 
 
-			class NewFile : public ModalBase
+			class NewFile : public of::imgui::ModalBase
 			{
 				of::common::String m_fileName;
 				bool isMaster = false;

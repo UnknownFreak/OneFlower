@@ -1,12 +1,11 @@
-#include "ModalBase.hpp"
-
+#include <imgui/modalBase.hpp>
 #include <imgui/imgui.h>
 
-namespace Graphics::Editor::Modals
+namespace of::imgui
 {
     ModalBase::ModalBase(const of::common::String& modalName) : m_modalName(modalName)
-{
-}
+    {
+    }
 
     void ModalBase::open()
     {

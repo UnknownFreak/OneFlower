@@ -319,7 +319,9 @@ namespace of::imgui
 			return;
 
 		const ImRect check_bb(pos, pos + ImVec2(square_sz, square_sz));
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImColor(0, 0, 0, 0).operator ImVec4());
 		ImGui::RenderFrame(check_bb.Min, check_bb.Max, GetColorU32(ImGuiCol_FrameBg), true);
+		ImGui::PopStyleColor();
 		ImVec2 label_pos = ImVec2(check_bb.Max.x + style.ItemInnerSpacing.x, check_bb.Min.y + style.FramePadding.y);
 		const float pad = ImMax(1.0f, IM_FLOOR(square_sz / 6.0f));
 

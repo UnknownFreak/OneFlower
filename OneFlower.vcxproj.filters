@@ -441,9 +441,6 @@
     <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\Editor\ModalBase.cpp">
-      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClCompile>
@@ -729,9 +726,6 @@
       <Filter>Engine\Graphics\Editor\MainWindow</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp">
-      <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\Editor\ModalBase.hpp">
       <Filter>Engine\Graphics\Editor\MainWindow\Modals</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp">

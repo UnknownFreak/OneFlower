@@ -29,11 +29,16 @@
 
 #include <imgui/imgui_impl_swizzle.hpp>
 #include <imgui/of_imgui_extensions.hpp>
+#include <imgui/fileSelector.hpp>
+#include <imgui/imgui_stdlib.hpp>
 
+#include <graphics/Editor/EditorBasicToolTip.hpp>
 
 #include <object/component/Render.hpp>
 
 #include <ImGuizmo.h>
+#include <stb/stb_image.h>
+#include <algorithm>
 
 class WorldGrid : public of::graphics::ParentedRenderable
 {
@@ -68,8 +73,9 @@ class WorldGrid : public of::graphics::ParentedRenderable
 			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
 		};
 		attribs.mDescriptors = {};
-		attribs.mEnableDepthTest = false;
-		attribs.mEnableBlending = false;
+		attribs.mEnableDepthTest = true;
+		attribs.mEnableDepthWrite = true;
+		attribs.mEnableBlending = true;
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
@@ -386,6 +392,519 @@ public:
 	};
 };
 
+class TestRunner : public of::graphics::ParentedRenderable
+{
+
+	struct Step
+	{
+
+	};
+
+	struct Test
+	{
+		std::string name;
+		of::imgui::ObjectiveState executionState = of::imgui::ObjectiveState::Active;
+
+		std::vector<Step> testSteps;
+
+		bool runTest();
+
+	};
+
+	struct TestResult
+	{
+		std::vector<std::pair<int, std::string>> testFailureStrings;
+ 	};
+
+	struct Suite
+	{
+		std::string name;
+		TestResult results;
+		std::vector<Test> tests;
+
+		void runTests();
+
+		bool isSuiteRunning();
+
+		TestResult& getTestResults();
+
+	};
+
+	std::vector<Suite> test;
+
+public:
+
+	TestRunner()
+	{
+		test = { {"test", {}, { {"a"}, {"b", of::imgui::ObjectiveState::Complete}, {"b", of::imgui::ObjectiveState::Failed}}}, {"test2"}};
+	}
+
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		ImGui::SetNextWindowSize({ float(m_parent->getWindowWidth()), float(m_parent->getWindowHeight()) });
+		ImGui::SetNextWindowPos({ 0.f, 0.f });
+		if (ImGui::Begin("Test Runner"))
+		{
+			ImGui::Text("RunnerPanel");
+			ImGui::Text("|<Run All>|<Run Suite>|<Run Failed>|<Run Selected>|   |<TOTAL>|PASSED|FAILED|   |SETTINGS|");
+			ImGui::Text("");
+			ImGui::ProgressBar(0, {400.f, 0});
+			ImGui::Text("____________________________________________________________________________________________________________________________________________________________________________________");
+
+			if (ImGui::BeginChild(ImGui::GetID("TestRunnerSidePanel"), {400.f, 0}))
+			{
+				ImGui::Text("Tests");
+				
+				for (auto& var : test)
+				{
+					ImGui::Text(var.name.c_str());
+					for (auto& tc : var.tests)
+					{
+						ImGui::Bullet();
+						ImGui::SameLine();
+						ImGui::Text(tc.name.c_str());
+						ImGui::SameLine();
+						ImGui::Text("                     ");
+						ImGui::SameLine();
+						of::imgui::objectiveIcon("## bleh", tc.executionState);
+
+					}
+					ImGui::Text("__________________________________________");
+				}
+				
+			}
+			ImGui::EndChild();
+			ImGui::SameLine();
+			if (ImGui::BeginChild(ImGui::GetID("TestRunnerConfigPanel")))
+			{
+				ImGui::Text("|CONFIGURATOR PANEL");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+				ImGui::Text("|");
+			}
+			ImGui::EndChild();
+		}
+		ImGui::End();
+	};
+
+};
+
+
+class Heightmap : public of::graphics::ParentedRenderable
+{
+
+	size_t chunksCountX = 1;
+	size_t chunksCountY = 1;
+	bool link = false;
+	int waterLevel = 64;
+	int resolution = 1024;
+	int chunkSize = 100;
+	of::common::String heightMapPath;
+	bool changed = true;
+
+	struct HeightMapVertex
+	{
+		float x, y, z;
+		float nx, ny, nz;
+		float u, v;
+	};
+
+	class HeightmapData : public of::graphics::ParentedRenderable
+	{
+		bool done;
+		bool set = false;
+		common::Resource<swizzle::gfx::Buffer> buf;
+		common::Resource<swizzle::gfx::Buffer> index;
+		common::Resource<swizzle::gfx::Material> mat;
+		common::Resource<swizzle::gfx::Shader> shader;
+		common::Resource<swizzle::gfx::Texture> texture;
+
+		std::vector<glm::vec3> points;
+		std::vector<HeightMapVertex> verts;
+		std::vector<glm::ivec3> tris;
+		glm::vec4 black = { 0.f, 0.f, 0.0f, 0.f };
+
+		void loadShader()
+		{
+			swizzle::gfx::ShaderAttributeList attribs = {};
+			attribs.mBufferInput = {
+				{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U + 3U + 2U) }
+			};
+
+			attribs.mAttributes = {
+				{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+				{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, sizeof(float) * 3U },
+				{ 0U, swizzle::gfx::ShaderAttributeDataType::vec2f, sizeof(float) * 6U }
+			};
+			attribs.mDescriptors = {
+				{swizzle::gfx::DescriptorType::TextureSampler, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}},
+				//{swizzle::gfx::DescriptorType::UniformBuffer, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage}}, 
+			};
+			attribs.mEnableDepthTest = true;
+			attribs.mEnableBlending = false;
+			attribs.mEnableDepthWrite = true;
+			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
+
+			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("terrain.shader", attribs);
+		}
+
+		F32 getHeight(U8* image, S32 x, S32 y, S32 ch, F32 xp, F32 yp, F32 max)
+		{
+			F32 value = 0.0f;
+			if (image)
+			{
+				U32 xCoord = U32(F32(x) * xp);
+				if (xCoord >= (U32)x)
+				{
+					xCoord = x - 1;
+				}
+				U32 yCoord = U32(F32(y) * yp);
+
+				if (yCoord >= (U32)y)
+				{
+					yCoord = y - 1;
+				}
+
+				U32 idx = ((yCoord * x) + xCoord) * ch;
+
+				U8 val = image[idx];
+				F32 conv = F32(val) / 255.0f;
+
+				value = conv * max;
+			}
+			return value;
+		}
+
+		void loadHeightMap(std::string heightmap, std::vector<HeightMapVertex>& v, std::vector<glm::ivec3>& t,
+			const glm::vec2& start, const glm::vec2& end, const size_t chunkCountX, const size_t chunkCountY)
+		{
+			S32 ix = 0;
+			S32 iy = 0;
+			S32 ic = 0;
+
+			// we assume start is negative coords
+			F32 totalX = end.x - start.x;
+			F32 totalY = end.y - start.y;
+
+			F32 ChunkSizeX = totalX / (float)chunkCountX;
+			F32 ChunkSizeY = totalY / (float)chunkCountY;
+
+			F32 step = 1.f;
+			F32 UVDeltaX = step / ChunkSizeX;
+			F32 UVDeltaY = step / ChunkSizeY;
+
+			//U32 totalXI = (U32)totalX;
+			//U32 totalYI = (U32)totalY;
+
+			U8* image = stbi_load(heightmap.c_str(), &ix, &iy, &ic, 4);
+			U32 lastSize = 0;
+			for (U32 cx = 0; cx < chunkCountX; cx ++)
+			{
+				for (U32 cy = 0; cy < chunkCountY; cy++)
+				{
+					F32 startX = start.x + cx * ChunkSizeX;
+					F32 endX = startX + ChunkSizeX;
+					F32 startY = start.y + cy * ChunkSizeY;
+					F32 endY = startY + ChunkSizeY;
+					std::vector<HeightMapVertex> vertsTemp;
+					std::vector<glm::ivec3> trisTemp;
+
+					U32 totalXCnt = 0;
+					U32 totalYCnt = 0;
+					F32 ux = 0;
+					for (F32 x = startX; x < endX + 1; x += step)
+					{
+						F32 uy = 0;
+						for (F32 y = startY; y < endY + 1; y += step)
+						{
+							F32 px = (x + end.x) / totalX;
+							F32 py = (y + end.y) / totalY;
+							HeightMapVertex vert{};
+							vert.x = x;
+							vert.y = getHeight(image, ix, iy, ic, px, py, 10.0f);
+							vert.z = y;
+							vert.nz = 1.0f;
+
+							vert.u = ux;
+							vert.v = uy;
+
+							uy += UVDeltaY;
+
+							vertsTemp.push_back(vert);
+						}
+						ux += UVDeltaX;
+
+						totalYCnt++;
+						totalXCnt++;
+					}
+
+					for (U32 y = 0; y < totalYCnt -1; ++y)
+					{
+						for (U32 x = 0; x < totalXCnt -1; ++x)
+						{
+							U32 currRow = (y * totalYCnt) + x;
+							U32 nextRow = ((y + 1) * totalYCnt) + x;
+
+							currRow += lastSize;
+							nextRow += lastSize;
+
+							glm::ivec3 t1{ currRow + 1, nextRow + 1, currRow };
+							glm::ivec3 t2{ currRow, nextRow + 1, nextRow };
+							trisTemp.push_back(t1);
+							trisTemp.push_back(t2);
+						}
+					}
+					lastSize += (U32) vertsTemp.size();
+
+					copy( vertsTemp.begin(), vertsTemp.end(), std::back_inserter(v));
+					copy( trisTemp.begin(), trisTemp.end(), std::back_inserter(t));
+
+				}
+			}
+			stbi_image_free(image);
+		}
+
+	public:
+	
+		HeightmapData()
+		{
+			done = false;
+			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+			auto gfx = wnd.getGfxContext();
+
+			loadShader();
+			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+			texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("flower.png");
+			mat->setDescriptorTextureResource(0u, texture);
+
+			buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+			//buf->setBufferData(points.data(), 0, sizeof(float) * 3u);
+
+
+			index = gfx->createBuffer(swizzle::gfx::BufferType::Index);
+			//index->setBufferData(tris.data(), 0, sizeof(float));
+		}
+
+		size_t generate(const glm::vec2& a, const glm::vec2& b, const size_t chunksX, const size_t chunksY, const of::common::String& heightmap)
+		{
+			verts.clear();
+			tris.clear();
+
+			// calculate region splicing & chunk size.
+
+			loadHeightMap(heightmap, verts, tris, a, b, chunksX, chunksY);
+
+			done = true;
+			return 0u;
+		}
+
+		virtual void updateFrame(const float&)
+		{
+			if (done)
+			{
+				buf->setBufferData(verts.data(), verts.size() * sizeof(HeightMapVertex), sizeof(HeightMapVertex));
+				index->setBufferData(tris.data(), tris.size() * sizeof(glm::ivec3), sizeof(glm::ivec3));
+				done = false;
+				set = true;
+			}
+		}
+
+		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+		{
+			if (set)
+			{
+				mvp.model = glm::translate(glm::mat4(1.f), { 0.f,0.f,0.f });
+
+				transaction->bindShader(shader);
+				transaction->bindMaterial(shader, mat);
+				transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+				//transaction->setShaderConstant(shader, (U8*)&black, sizeof(glm::vec4), sizeof(mvp));
+				transaction->drawIndexed(buf, index);
+			}
+		};
+	};
+
+	class HeightmapOutline : public of::graphics::ParentedRenderable
+	{
+		bool& changed;
+		of::graphics::view::Camera* c;
+		common::Resource<swizzle::gfx::Buffer> buf;
+		common::Resource<swizzle::gfx::Material> mat;
+		common::Resource<swizzle::gfx::Shader> shader;
+
+		glm::vec3 line[5] = { 
+			{-10.f, 0.f, 0.f},
+			{-10.f, 0.f, 0.f},
+			{10.f, 0.f, 0.f},
+			{10.f, 0.f, 0.f},
+			{-10.f, 0.f, 0.f},
+		};
+
+		glm::vec4 black = { 0.f, 1.f, 1.0f, 0.f };
+
+		void loadShader()
+		{
+			swizzle::gfx::ShaderAttributeList attribs = {};
+			attribs.mBufferInput = {
+				{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U) }
+			};
+
+			attribs.mAttributes = {
+				{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+			};
+			attribs.mDescriptors = {};
+			attribs.mEnableDepthTest = false;
+			attribs.mEnableBlending = false;
+			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
+
+			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+		}
+
+	public:
+
+		HeightmapOutline(bool& changed) : c(m_parent->getCamera()), changed(changed)
+		{
+			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+			auto gfx = wnd.getGfxContext();
+
+			loadShader();
+			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+
+			buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+			buf->setBufferData(line, sizeof(line), sizeof(float) * 3u);
+
+		}
+
+		void setData(const glm::vec2& start, const glm::vec2& end)
+		{
+			line[0].x = start.x;
+			line[0].z = start.y;
+
+			line[1].x = start.x;
+			line[1].z = end.y;
+
+			line[2].x = end.x;
+			line[2].z = end.y;
+
+			line[3].x = end.x;
+			line[3].z = start.y;
+
+			line[4].x = start.x;
+			line[4].z = start.y;
+		}
+
+		virtual void updateFrame(const float&)
+		{
+			if (changed)
+			{
+				buf->setBufferData(line, sizeof(line), sizeof(float) * 3u);
+				changed = false;
+			}
+		}
+
+		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+		{
+
+			mvp.model = glm::translate(glm::mat4(1.f), { 0.f,0.f,0.f });
+
+			transaction->bindShader(shader);
+			transaction->bindMaterial(shader, mat);
+			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+			transaction->setShaderConstant(shader, (U8*)&black, sizeof(glm::vec4), sizeof(mvp));
+			transaction->draw(buf);
+		};
+	};
+
+	std::shared_ptr<HeightmapOutline> outline;
+	std::shared_ptr<HeightmapData> data;
+
+	of::imgui::FileSelector selector;
+
+public:
+
+	Heightmap() : selector("SelectTexture", "Data/Heightmaps/", ".png")
+	{
+		outline = std::make_shared<HeightmapOutline>(changed);
+		data = std::make_shared<HeightmapData>();
+		m_parent->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), outline);
+		m_parent->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), data);
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		if (ImGui::Begin("Landmass Generator"))
+		{
+			changed |= ImGui::InputScalarN("Chunk Count", ImGuiDataType_U64, (void*) &chunksCountX, 2);
+			ImGui::SameLine();
+			ImGui::Checkbox("Link", &link);
+			ImGui::InputText("Path", &heightMapPath);
+			ImGui::SameLine();
+			if (ImGui::Button("..."))
+			{
+				selector.open();
+			}
+			if (selector.hasFileBeenSelected())
+			{
+				heightMapPath = selector.getSelectedFile();
+			}
+
+			ImGui::InputInt("Water level", &waterLevel);
+			Graphics::Editor::BasicToolTip(
+				"Scalar between 0-255, it's defining the point on the heightmap used where it will put the water-line,"
+				" note this does not mean the water will be put at this value."
+			);
+			changed |= ImGui::InputInt("Chunk size", &chunkSize);
+			Graphics::Editor::BasicToolTip(
+				"Size in units that one chunk is, e.g a chunk size of 10 would make "
+				"the chunk (starting at x,y = 0,0), end at 9,9, and the next starting at 10,0, etc."
+			);
+
+			ImGui::InputInt("Resolution", &resolution);
+			Graphics::Editor::BasicToolTip(
+				"The resolution of the chunk, this affects how many vertices each chunk will contain, "
+				"the higher, the more memory used, recommended to use a setting to the power of 2 based on the chunk size."
+				"e.g a chunk size of 16, will have the resolution 256. This makes each triangle side lengths 1, 1 and sqrt(2)"
+			);
+
+			ImGui::Text("Estimated vert count: %d", resolution * chunksCountX * chunksCountY);
+			ImGui::Text("Est size (Bytes): %d", resolution * chunksCountX * chunksCountY * (sizeof(glm::vec3) + sizeof(glm::vec3) + sizeof(glm::vec2)));
+
+			float sizeX = chunkSize / 2.f * chunksCountX;
+			float sizeY = chunkSize / 2.f * chunksCountY;
+			ImGui::Text("Instance size: (-x, -y, x, y) %.1f, %.1f, %.1f, %.1f", -sizeX, -sizeY, sizeX, sizeY);
+
+			outline->setData({-sizeX, -sizeY}, {sizeX, sizeY});
+
+			if (ImGui::Button("Generate"))
+			{
+				data->generate({-sizeX, -sizeY}, {sizeX, sizeY}, chunksCountX, chunksCountY, heightMapPath);
+			}
+
+			if (selector.isOpen())
+				selector.show();
+			selector.ImGuiRenderModal();
+		}
+		ImGui::End();
+	};
+};
+
+
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
@@ -421,9 +940,11 @@ int GameEntry::Run()
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
-		gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
+		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>());
+		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
 
 	}
 

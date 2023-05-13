@@ -68,6 +68,7 @@ namespace of::module::shader
 			//{swizzle::gfx::DescriptorType::UniformBuffer, swizzle::gfx::Count(1u), {swizzle::gfx::StageType::fragmentStage, swizzle::gfx::StageType::vertexStage}},
 		};
 		attribs.mEnableDepthTest = true;
+		attribs.mEnableDepthWrite = true;
 		attribs.mEnableBlending = false;
 		attribs.mPushConstantSize = sizeof(glm::mat4)*4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
