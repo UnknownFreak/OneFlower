@@ -29,6 +29,7 @@ namespace of::module
 		ShaderLoader,
 		EngineSettings,
 		WindowProxy,
+		Courier,
 		NOT_SET,
 	};
 }

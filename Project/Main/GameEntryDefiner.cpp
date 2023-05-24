@@ -40,6 +40,90 @@
 #include <stb/stb_image.h>
 #include <algorithm>
 
+#include <PxPhysicsAPI.h>
+
+using namespace physx;
+
+class ErrorCallBack : public PxErrorCallback
+{
+public:
+	virtual void reportError(PxErrorCode::Enum code, const char* message, const char* file, int line)
+	{
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("PhysX").Always(code, message, file, line);
+		std::cout << message << " " << file << " " << line << std::endl;
+	}
+};
+
+static PxDefaultAllocator		gAllocator;
+static ErrorCallBack			gErrorCallback;
+
+static PxFoundation* gFoundation = NULL;
+static PxPvd* mPvd = NULL;
+static PxPhysics* mPhysics = NULL;
+static PxScene* mScene = NULL;
+static PxControllerManager* manager = NULL;
+static PxController* controller = NULL;
+static PxMaterial* gMaterial = NULL;
+
+static PxRigidStatic* actor = NULL;
+static PxRigidDynamic* actor2 = NULL;
+
+bool paused = false;
+
+void initPhysics()
+{
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
+	mPvd = PxCreatePvd(*gFoundation);
+
+	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), false, mPvd);
+
+
+	PxSceneDesc d = PxSceneDesc(mPhysics->getTolerancesScale());
+	d.gravity = PxVec3(0.f, -9.81f, 0.f);
+	d.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
+	d.filterShader = PxDefaultSimulationFilterShader;
+	
+	mScene = mPhysics->createScene(d);
+	manager = PxCreateControllerManager(*mScene);
+	
+	PxCapsuleControllerDesc desc;
+	desc.material = mPhysics->createMaterial(0.f, 0.f, 0.f);
+	desc.height = 2.f;
+	desc.radius = 1.f;
+	desc.position = PxExtendedVec3(0, 10000, 0);
+	controller = manager->createController(desc);
+
+	gMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
+
+	mScene->addActor(*PxCreatePlane(*mPhysics, PxPlane(0, 1, 0, 0), *gMaterial));
+
+	PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
+
+	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(0.f, 1.f, 0.f)));
+	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 3.f, 0.f)));
+
+	actor->attachShape(*shape);
+	actor2->attachShape(*shape);
+
+	shape->release();
+
+	//PxRigidBodyExt::updateMassAndInertia(*actor, 10.f);
+	PxRigidBodyExt::updateMassAndInertia(*actor2, 10.f);
+
+	mScene->addActor(*actor);
+	mScene->addActor(*actor2);
+
+}
+
+void shutDown()
+{
+	manager->purgeControllers();
+	manager->release();
+	mScene->release();
+	mPhysics->release();
+	gFoundation->release();
+}
+
 class WorldGrid : public of::graphics::ParentedRenderable
 {
 
@@ -392,6 +476,49 @@ public:
 	};
 };
 
+class PxSimulationStats : public of::graphics::ParentedRenderable
+{
+	const bool& m_paused;
+	of::common::String string;
+public:
+
+	PxSimulationStats(const bool& p_paused): m_paused(p_paused){}
+
+	void set(PxSimulationStatistics& st)
+	{
+		set();
+		string += "Active Dynamic Bodies: " + std::to_string(st.nbActiveDynamicBodies) + "\n"
+			"Active Kinematic Bodies: " + std::to_string(st.nbActiveKinematicBodies) + "\n"
+			"Dynamic Bodies: " + std::to_string(st.nbDynamicBodies) + "\n"
+			"Kinematic Bodies: " + std::to_string(st.nbKinematicBodies) + "\n"
+			"Static Bodies: " + std::to_string(st.nbStaticBodies) + "\n"
+			"Controller is sleeping: " + std::to_string(controller->getActor()->isSleeping()) + "\n"
+			"Controller pos: " + std::to_string(controller->getPosition().x) + ", " + std::to_string(controller->getPosition().y) + ", " + std::to_string(controller->getPosition().z) + "\n"
+			"Actor 1 pos: " + std::to_string(actor->getGlobalPose().p.x) + ", " + std::to_string(actor->getGlobalPose().p.y) + ", " + std::to_string(actor->getGlobalPose().p.z) + "\n"
+			"Actor 2 pos: " + std::to_string(actor2->getGlobalPose().p.x) + ", " + std::to_string(actor2->getGlobalPose().p.y) + ", " + std::to_string(actor2->getGlobalPose().p.z) + "\n";
+	}
+
+	void set()
+	{
+		if (m_paused)
+			string = "PAUSED";
+		else
+			string = "RUNNING";
+		string += "\n";
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		ImGui::Begin("PxStats");
+		ImGui::Text(string.c_str());
+		ImGui::End();
+	};
+};
+
 class TestRunner : public of::graphics::ParentedRenderable
 {
 
@@ -511,6 +638,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 	int chunkSize = 100;
 	of::common::String heightMapPath;
 	bool changed = true;
+	bool& m_paused;
 
 	struct HeightMapVertex
 	{
@@ -834,7 +962,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 
 public:
 
-	Heightmap() : selector("SelectTexture", "Data/Heightmaps/", ".png")
+	Heightmap(bool& p) : selector("SelectTexture", "Data/Heightmaps/", ".png"), m_paused(p)
 	{
 		outline = std::make_shared<HeightmapOutline>(changed);
 		data = std::make_shared<HeightmapData>();
@@ -893,7 +1021,12 @@ public:
 
 			if (ImGui::Button("Generate"))
 			{
+				m_paused = true;
 				data->generate({-sizeX, -sizeY}, {sizeX, sizeY}, chunksCountX, chunksCountY, heightMapPath);
+
+				// re-generate collision mesh
+
+				m_paused = false;
 			}
 
 			if (selector.isOpen())
@@ -903,6 +1036,9 @@ public:
 		ImGui::End();
 	};
 };
+
+
+static std::shared_ptr<PxSimulationStats> simulationStats;
 
 
 GameEntry::GameEntry() : 
@@ -920,9 +1056,11 @@ GameEntry::GameEntry() :
 int GameEntry::Run()
 {
 	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
+	initPhysics();
 
 	gfx->initialize();
 	world.initialize();
+	simulationStats = std::make_shared<PxSimulationStats>(paused);
 
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
@@ -933,6 +1071,7 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
@@ -943,7 +1082,7 @@ int GameEntry::Run()
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>());
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
 		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
 
 	}
@@ -953,6 +1092,7 @@ int GameEntry::Run()
 	gfx->loop();
 	m_exit = true;
 	physics_thread.join();
+	shutDown();
 
 	//gfx.clearDrawList();
 	return EXIT_SUCCESS;
@@ -977,13 +1117,22 @@ void GameEntry::physicsUpdate()
 		while (time.physicsElapsed >= time.update_ms)
 		{
 			time.physicsElapsed -= time.update_ms;
+			if (paused == false)
 			{
 				input.update(update_time);
 				world.Simulate(update_time);
 				time.Simulate(update_time);
+				controller->move(PxVec3(0.f, -9.81f, 0.f), 0.f, update_time, PxControllerFilters());
+				mScene->simulate(update_time);
+				mScene->fetchResults(true);
+				PxSimulationStatistics st;
+				mScene->getSimulationStatistics(st);
+				simulationStats->set(st);
 				ups->update();
 				ups->print();
 			}
+			else
+				simulationStats->set();
 		}
 		time.physicsElapsed += time.physicsClock.secondsAsFloat(true);
 	}

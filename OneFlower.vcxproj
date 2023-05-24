@@ -84,9 +84,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;D:\Programming\VS2022\PhysX-104.2-physx-5.1.3\physx\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;D:\Programming\VS2022\PhysX-104.2-physx-5.1.3\physx\bin\win.x86_64.vc143.mt\checked;$(LibraryPath)</LibraryPath>
     <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\include\imgui;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
@@ -115,7 +115,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_SILENCE_CXX20_CISO646_REMOVED_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/utf-8 /bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -131,7 +131,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)swizzle\build\bin-debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)swizzle\build\bin-debug;D:\Programming\VS2022\PhysX-104.2-physx-5.1.3\physx\bin\win.x86_64.vc143.mt\checked;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "./BuildScripts/update_build_number.ps1" "./Project/Module/BuildVersion.hpp"</Command>
@@ -271,6 +272,48 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\FastXml.vcxproj">
+      <Project>{73031a83-08f2-320f-8093-589b4061681d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\LowLevel.vcxproj">
+      <Project>{f233e45f-88c0-3fb2-aaf3-860e4cc8926f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\LowLevelAABB.vcxproj">
+      <Project>{aa90178b-85b2-3eeb-a350-235544b6d3fa}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\LowLevelDynamics.vcxproj">
+      <Project>{88daa7c6-a5c5-3fdf-8b36-a6a821679fa7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysX.vcxproj">
+      <Project>{04354d9d-4665-3e0c-bdd3-0a7b29022960}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXCharacterKinematic.vcxproj">
+      <Project>{bf47f653-e99b-3570-8865-f32a4a2a7756}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXCommon.vcxproj">
+      <Project>{64fd8f7b-bf02-3bb9-a179-a90ce0f1102f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXCooking.vcxproj">
+      <Project>{c401d904-0b0c-3f66-bdd7-48657bb9ba8f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXFoundation.vcxproj">
+      <Project>{c344734b-6aea-3cef-a81c-b898b55b1654}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXTask.vcxproj">
+      <Project>{f7f77a84-d719-3dab-bd27-7c236bd687b8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle.vcxproj">
+      <Project>{110af3e9-c2f1-3a36-a8dc-07197505d492}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle2.vcxproj">
+      <Project>{5cd965eb-8e24-3df0-ad3b-247ad147e263}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\SceneQuery.vcxproj">
+      <Project>{2c24ab6b-9af8-351d-8732-2eab53320d87}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VS2022\PhysX-104.2-physx-5.1.3\physx\compiler\vc17win64\sdk_source_bin\SimulationController.vcxproj">
+      <Project>{0f99fd0b-df92-3056-866c-6f6108824ca8}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
