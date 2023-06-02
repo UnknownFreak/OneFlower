@@ -19,6 +19,7 @@ namespace of::messaging
 
 		void post(const Topic& topic, std::shared_ptr<Message> message);
 		void post(const Topic& topic, const of::common::uuid& channel, std::shared_ptr<Message> message);
+		void post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriberId, std::shared_ptr<Message> message);
 
 		void addSubscriber(const Topic& topic, std::shared_ptr<Subscriber> subscriber);
 		void removeSubscriber(const Topic& topic, of::common::uuid& subscriberId);
