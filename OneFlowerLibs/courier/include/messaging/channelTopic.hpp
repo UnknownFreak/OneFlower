@@ -2,6 +2,14 @@
 
 #include "channel.hpp"
 
+#ifdef _WIN32
+#include <ppl.h>
+#define _PPL 1
+#else
+#include <omp.h>
+#define _PPL 0
+#endif
+
 namespace of::messaging
 {
 	class ChannelTopic : public Channel
@@ -21,11 +29,19 @@ namespace of::messaging
 		void sendMessage(std::shared_ptr<Message> message) override
 		{
 			Channel::sendMessage(message);
-			// parallel for loop, find the include file...
+		#if defined _PPL && _PPL == 1
+			concurrency::parallel_for_each(channels.begin(), channels.end(),
+				[&](auto& pair)
+				{
+					pair.second->sendMessage(message);
+				});
+		#else
+			//#pragma omp parallel for
 			for (auto& channel : channels)
 			{
 				channel.second->sendMessage(message);
 			}
+		#endif
 		}
 
 		void sendMessage(const of::common::uuid& channelId, std::shared_ptr<Message> message)
@@ -55,6 +71,6 @@ namespace of::messaging
 		}
 
 	private:
-		std::unordered_map<of::common::uuid, std::shared_ptr<Channel>> channels;
+		std::map<of::common::uuid, std::shared_ptr<Channel>> channels;
 	};
 }
