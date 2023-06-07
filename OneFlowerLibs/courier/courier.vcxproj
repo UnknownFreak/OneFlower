@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -134,16 +134,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\messaging\basicMessage.hpp" />
     <ClInclude Include="include\messaging\channel.hpp" />
     <ClInclude Include="include\messaging\courier.hpp" />
-    <ClInclude Include="include\messaging\message.h" />
+    <ClInclude Include="include\messaging\message.hpp" />
     <ClInclude Include="include\messaging\subscriber.hpp" />
     <ClInclude Include="include\messaging\channelTopic.hpp" />
     <ClInclude Include="include\messaging\topic\topic.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\courier.cpp" />
-    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">

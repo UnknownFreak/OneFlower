@@ -5,6 +5,7 @@ namespace of::messaging
 	
 	enum class Topic
 	{
-		test
+		Update,
+		LowPrioUpdate,
 	};
 }

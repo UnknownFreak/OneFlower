@@ -1,12 +1,16 @@
 #include <messaging/courier.hpp>
 #include <module/logger/OneLogger.hpp>
 
+#include <iostream>
+
 of::module::EngineResourceType of::module::interface::IEngineResource<of::messaging::Courier>::type = of::module::EngineResourceType::Courier;
 
 namespace of::messaging
 {
-	void Courier::post(const Topic& topic, std::shared_ptr<Message> message)
+
+	void Courier::post(const Topic& topic, const Message& message)
 	{
+
 		if (channels.find(topic) != channels.end())
 		{
 			channels[topic]->sendMessage(message);
@@ -14,14 +18,18 @@ namespace of::messaging
 		else
 		{
 			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::messaging::courier").Warning(
-			"Trying to post a message to a topic that has no registererd channel.");
+				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
 
-	void Courier::post(const Topic& topic, const of::common::uuid& channel, std::shared_ptr<Message> message)
+	void Courier::post(const Topic& topic, const of::common::uuid& channel, const Message& message)
 	{
 		if (channels.find(topic) != channels.end())
 		{
+			if (message.is<BasicMessage<float>>())
+			{
+				std::cout << "hello" << std::endl;
+			}
 			channels[topic]->sendMessage(channel, message);
 		}
 		else
@@ -31,7 +39,7 @@ namespace of::messaging
 		}
 	}
 
-	void Courier::post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriber, std::shared_ptr<Message> message)
+	void Courier::post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriber, const Message& message)
 	{
 		if (channels.find(topic) != channels.end())
 		{

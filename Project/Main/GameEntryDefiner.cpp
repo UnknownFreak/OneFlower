@@ -1045,11 +1045,13 @@ GameEntry::GameEntry() :
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<Input::InputHandler>()),
-	world(of::engine::GetModule<of::module::SceneManager>()), m_exit(false)
+	world(of::engine::GetModule<of::module::SceneManager>()),
+	courier(of::engine::GetModule<of::messaging::Courier>()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 70.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
+	courier.createChannel(of::messaging::Topic::Update);
 }
 
 
@@ -1113,6 +1115,7 @@ void GameEntry::physicsUpdate()
 			time.physicsElapsed = time.update_ms;
 			world.Update();
 			loadingScreenInfo->update();
+			time.physicsClock.secondsAsFloat(true);
 		}
 		while (time.physicsElapsed >= time.update_ms)
 		{
@@ -1128,6 +1131,7 @@ void GameEntry::physicsUpdate()
 				PxSimulationStatistics st;
 				mScene->getSimulationStatistics(st);
 				simulationStats->set(st);
+				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
 				ups->update();
 				ups->print();
 			}

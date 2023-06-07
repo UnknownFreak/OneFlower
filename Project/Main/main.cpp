@@ -26,6 +26,8 @@
 #include <module/window/GraphicsProxy.hpp>
 #include <module/window/WindowProxy.hpp>
 
+#include <messaging/courier.hpp>
+
 #include "RegisterArchiveDefaults.hpp"
 
 of::common::String to_string(const of::module::EngineResourceType& state)
@@ -52,7 +54,8 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::Graphics: return "Graphics";
 	case of::module::EngineResourceType::Physics: return "Physics";
 	case of::module::EngineResourceType::UIHandler: return "Console";
-
+		// Messaging
+	case of::module::EngineResourceType::Courier: return "Courier";
 		// Unused
 	case of::module::EngineResourceType::SceneManager: return "SceneManager";
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
@@ -90,6 +93,9 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));
 	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
+
+	mainModule.Info("Initializing Modules group: Messaging");
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::messaging::Courier>().type));
 
 	mainModule.Info("Finished initializing engine ");
 

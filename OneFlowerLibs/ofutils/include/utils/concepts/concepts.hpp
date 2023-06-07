@@ -10,4 +10,8 @@ namespace of::utils::concepts
 
 	template<typename T>
 	concept has_typeId_member = isConstUuid<decltype(T::typeId)>;
+
+	template<typename T>
+	concept hasMessageTypeId = std::same_as<decltype(T::customMessageId), const unsigned int>;
+
 }

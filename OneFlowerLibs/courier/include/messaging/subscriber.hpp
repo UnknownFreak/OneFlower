@@ -11,7 +11,7 @@ namespace of::messaging
 
 	public:
 
-		Subscriber(std::function<void(std::shared_ptr<Message>)>function) : m_id(), m_ptr(function)
+		Subscriber(std::function<void(const Message&)>function) : m_id(), m_ptr(function)
 		{
 		}
 
@@ -20,14 +20,14 @@ namespace of::messaging
 			return m_id;
 		}
 
-		void sendMessage(std::shared_ptr<Message>message)
+		void sendMessage(const Message& message)
 		{
 			m_ptr(message);
 		}
 
 	private:
 
-		std::function<void(std::shared_ptr<Message>)> m_ptr;
+		std::function<void(const Message&)> m_ptr;
 
 	};
 }

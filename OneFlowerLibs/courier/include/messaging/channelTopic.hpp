@@ -26,7 +26,7 @@ namespace of::messaging
 			subscribers[subscriber->getId()] = subscriber;
 		}
 
-		void sendMessage(std::shared_ptr<Message> message) override
+		void sendMessage(const Message& message) override
 		{
 			Channel::sendMessage(message);
 		#if defined _PPL && _PPL == 1
@@ -44,7 +44,7 @@ namespace of::messaging
 		#endif
 		}
 
-		void sendMessage(const of::common::uuid& channelId, std::shared_ptr<Message> message)
+		void sendMessage(const of::common::uuid& channelId, const Message& message)
 		{
 			if (channels.find(channelId) != channels.end())
 			{
@@ -57,7 +57,7 @@ namespace of::messaging
 			}
 		}
 
-		void sendMessage(const of::common::uuid& channelId, const of::common::uuid& subscriberId, std::shared_ptr<Message> message)
+		void sendMessage(const of::common::uuid& channelId, const of::common::uuid& subscriberId, const Message& message)
 		{
 			if (channels.find(channelId) != channels.end())
 			{

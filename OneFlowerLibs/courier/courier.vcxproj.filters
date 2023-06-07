@@ -26,7 +26,7 @@
     <ClInclude Include="include\messaging\channel.hpp">
       <Filter>include\messaging</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\message.h">
+    <ClInclude Include="include\messaging\message.hpp">
       <Filter>include\messaging</Filter>
     </ClInclude>
     <ClInclude Include="include\messaging\subscriber.hpp">
@@ -38,13 +38,13 @@
     <ClInclude Include="include\messaging\channelTopic.hpp">
       <Filter>include\messaging</Filter>
     </ClInclude>
+    <ClInclude Include="include\messaging\basicMessage.hpp">
+      <Filter>include\messaging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\courier.cpp">
       <Filter>src\messaging</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

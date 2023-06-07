@@ -320,6 +320,9 @@
     <ProjectReference Include="OneFlowerLibs\combat\combat.vcxproj">
       <Project>{42211920-482d-448d-b536-0da516dd0db2}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\courier\courier.vcxproj">
+      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>

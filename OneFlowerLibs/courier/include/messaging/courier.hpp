@@ -5,7 +5,8 @@
 
 #include <map>
 
-#include <messaging/message.h>
+#include <messaging/message.hpp>
+#include <messaging/basicMessage.hpp>
 #include <messaging/channel.hpp>
 #include <messaging/channelTopic.hpp>
 #include <messaging/topic/topic.hpp>
@@ -18,9 +19,9 @@ namespace of::messaging
 	{
 	public:
 
-		void post(const Topic& topic, std::shared_ptr<Message> message);
-		void post(const Topic& topic, const of::common::uuid& channel, std::shared_ptr<Message> message);
-		void post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriberId, std::shared_ptr<Message> message);
+		void post(const Topic& topic, const Message& message);
+		void post(const Topic& topic, const of::common::uuid& channel, const Message& message);
+		void post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriberId, const Message& message);
 
 		void addSubscriber(const Topic& topic, std::shared_ptr<Subscriber> subscriber);
 		void removeSubscriber(const Topic& topic, of::common::uuid& subscriberId);

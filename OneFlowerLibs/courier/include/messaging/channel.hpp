@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <memory>
 
-#include <messaging/message.h>
+#include <messaging/message.hpp>
 #include <messaging/subscriber.hpp>
 
 #include <module/logger/OneLogger.hpp>
@@ -30,7 +30,7 @@ namespace of::messaging
 				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::messaging::Channel").Warning("Dangling subscribers on destruction");
 			}
 		}
-		virtual void sendMessage(std::shared_ptr<Message> message)
+		virtual void sendMessage(const Message& message)
 		{
 
 		#if defined _PPL && _PPL == 1
@@ -49,7 +49,7 @@ namespace of::messaging
 		#endif
 		}
 
-		void sendMessage(const of::common::uuid& subscriberId, std::shared_ptr<Message> message)
+		void sendMessage(const of::common::uuid& subscriberId, const Message& message)
 		{
 			if (subscribers.find(subscriberId) != subscribers.end())
 			{

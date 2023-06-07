@@ -9,6 +9,8 @@
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>
 
+#include <messaging/courier.hpp>
+
 class GameEntry
 {
 	bool m_exit;
@@ -17,6 +19,7 @@ class GameEntry
 	Input::InputHandler& input;
 	
 	of::module::SceneManager& world;
+	of::messaging::Courier& courier;
 
 	std::shared_ptr<Graphics::UI::Stats> ups;
 	std::shared_ptr<Graphics::UI::LoadingScreenInfo> loadingScreenInfo;
