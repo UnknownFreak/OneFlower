@@ -137,6 +137,8 @@
     <ClInclude Include="include\messaging\basicMessage.hpp" />
     <ClInclude Include="include\messaging\channel.hpp" />
     <ClInclude Include="include\messaging\courier.hpp" />
+    <ClInclude Include="include\messaging\lifetime\lifetimeWarranty.hpp" />
+    <ClInclude Include="include\messaging\lifetime\warranty.hpp" />
     <ClInclude Include="include\messaging\message.hpp" />
     <ClInclude Include="include\messaging\subscriber.hpp" />
     <ClInclude Include="include\messaging\channelTopic.hpp" />

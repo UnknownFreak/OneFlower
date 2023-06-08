@@ -26,10 +26,6 @@ namespace of::messaging
 	{
 		if (channels.find(topic) != channels.end())
 		{
-			if (message.is<BasicMessage<float>>())
-			{
-				std::cout << "hello" << std::endl;
-			}
 			channels[topic]->sendMessage(channel, message);
 		}
 		else
