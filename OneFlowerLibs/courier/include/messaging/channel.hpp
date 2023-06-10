@@ -37,14 +37,14 @@ namespace of::messaging
 			concurrency::parallel_for_each(subscribers.begin(), subscribers.end(),
 				[&](auto & pair)
 				{
-					pair.second->sendMessage(message);
+					pair.second.sendMessage(message);
 				});
 		#else
 			// TODO: figure out for linux build
 			//#pragma omp parallel for
 			for (auto it = subscribers.begin(); it != subscribers.end() ; it++)
 			{
-				it->second->sendMessage(message);
+				it->second.sendMessage(message);
 			}
 		#endif
 		}
@@ -53,7 +53,7 @@ namespace of::messaging
 		{
 			if (subscribers.find(subscriberId) != subscribers.end())
 			{
-				subscribers[subscriberId]->sendMessage(message);
+				subscribers[subscriberId].sendMessage(message);
 			}
 			else
 			{
@@ -62,9 +62,9 @@ namespace of::messaging
 			}
 		}
 
-		void addSubscriber(std::shared_ptr<Subscriber> s)
+		void addSubscriber(const of::common::uuid& subscriberId, Subscriber& subscriber)
 		{
-			subscribers[s->getId()] = s;
+			subscribers[subscriberId] = subscriber;
 		}
 
 		void removeSubscriber(const of::common::uuid& subscriberId)
@@ -79,7 +79,7 @@ namespace of::messaging
 
 	protected:
 
-		std::map<of::common::uuid, std::shared_ptr<Subscriber>> subscribers;
+		std::map<of::common::uuid, Subscriber> subscribers;
 	private:
 		of::common::uuid id;
 	};

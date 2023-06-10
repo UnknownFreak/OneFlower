@@ -21,11 +21,6 @@ namespace of::messaging
 			channels.insert({channel->getId(), channel});
 		}
 
-		void addSubscriber(std::shared_ptr<Subscriber>& subscriber)
-		{
-			subscribers[subscriber->getId()] = subscriber;
-		}
-
 		void sendMessage(const Message& message) override
 		{
 			Channel::sendMessage(message);

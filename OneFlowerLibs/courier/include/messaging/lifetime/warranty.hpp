@@ -20,7 +20,17 @@ namespace of::messaging::lifetime
 			return *isAlive;
 		}
 
+		static Warranty makeInvalid()
+		{
+			return Warranty();
+		}
+
 	private:
+
+		Warranty() : isAlive(std::make_shared<bool>(false))
+		{
+
+		}
 
 		Warranty(std::shared_ptr<bool> ptr) : isAlive(ptr)
 		{

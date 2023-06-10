@@ -48,7 +48,7 @@ namespace of::messaging
 		}
 	}
 
-	void Courier::addSubscriber(const Topic& topic, std::shared_ptr<Subscriber> subscriber)
+	void Courier::addSubscriber(const Topic& topic, const of::common::uuid& id, Subscriber& subscriber)
 	{
 		if (channels.find(topic) == channels.end())
 		{
@@ -58,7 +58,7 @@ namespace of::messaging
 				"Creating channel automatically.");
 			createChannel(topic);
 		}
-		channels[topic]->addSubscriber(subscriber);
+		channels[topic]->addSubscriber(id, subscriber);
 	}
 	void Courier::removeSubscriber(const Topic& topic, of::common::uuid& subscriberId)
 	{

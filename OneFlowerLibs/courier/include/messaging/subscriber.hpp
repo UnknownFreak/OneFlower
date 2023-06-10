@@ -12,17 +12,14 @@ namespace of::messaging
 {
 	class Subscriber
 	{
-		of::common::uuid m_id;
-
 	public:
 
-		Subscriber(lifetime::Warranty& warranty, std::function<void(const Message&)>function) : m_id(), m_ptr(function), warranty(warranty)
+		Subscriber() : m_ptr(), warranty(lifetime::Warranty::makeInvalid())
 		{
 		}
 
-		of::common::uuid& getId()
+		Subscriber(lifetime::Warranty& warranty, std::function<void(const Message&)>function) : m_ptr(function), warranty(warranty)
 		{
-			return m_id;
 		}
 
 		void sendMessage(const Message& message)
