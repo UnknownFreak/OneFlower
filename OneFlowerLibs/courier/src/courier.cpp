@@ -48,7 +48,7 @@ namespace of::messaging
 		}
 	}
 
-	void Courier::addSubscriber(const Topic& topic, const of::common::uuid& id, Subscriber& subscriber)
+	void Courier::addSubscriber(const Topic& topic, const of::common::uuid& id, std::shared_ptr<Subscriber> subscriber)
 	{
 		if (channels.find(topic) == channels.end())
 		{

@@ -3,7 +3,7 @@
 #include <memory>
 #include "warranty.hpp"
 
-namespace of::messaging::lifetime
+namespace of::utils::lifetime
 {
 
 	class LifetimeWarranty
@@ -19,6 +19,7 @@ namespace of::messaging::lifetime
 			*isAlive = false;
 		}
 
+	public:
 		Warranty warrantyFromThis()
 		{
 			return Warranty(isAlive);

@@ -9,6 +9,7 @@
 #include <messaging/basicMessage.hpp>
 #include <messaging/channel.hpp>
 #include <messaging/channelTopic.hpp>
+#include <messaging/subscriber.hpp>
 #include <messaging/topic/topic.hpp>
 
 #include <utils/common/uuid.hpp>
@@ -23,7 +24,7 @@ namespace of::messaging
 		void post(const Topic& topic, const of::common::uuid& channel, const Message& message);
 		void post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriberId, const Message& message);
 
-		void addSubscriber(const Topic& topic, const of::common::uuid& id, Subscriber& subscriber);
+		void addSubscriber(const Topic& topic, const of::common::uuid& id, std::shared_ptr<Subscriber> subscriber);
 		void removeSubscriber(const Topic& topic, of::common::uuid& subscriberId);
 
 		void createChannel(const Topic& topic)

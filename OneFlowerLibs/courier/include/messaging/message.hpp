@@ -21,7 +21,7 @@ namespace of::messaging
 	public:
 
 		template<std::derived_from<Message> T>
-		bool is() const
+		inline bool is() const
 		{
 			const Message& m = T();
 			if (type == MessageType::CUSTOM)
@@ -31,10 +31,15 @@ namespace of::messaging
 			return m.type == type;
 		}
 
-		template<class T>
-		const T& as() const
+		template<std::derived_from<Message> T>
+		inline const T& as() const
 		{
 			return (const T&)*this;
+		}
+
+		inline virtual of::common::String toString() const
+		{
+			return "Type: " + std::to_string((unsigned)type) + ", customId: " + std::to_string(customId);
 		}
 
 	protected:

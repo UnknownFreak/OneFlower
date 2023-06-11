@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace of::messaging::lifetime
+namespace of::utils::lifetime
 {
 
 	class Warranty

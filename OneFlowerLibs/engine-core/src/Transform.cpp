@@ -7,6 +7,9 @@
 #include <glm/gtx/vector_angle.hpp>
 #pragma warning (pop)
 
+#include <messaging/courier.hpp>
+#include <messaging/subscriber.hpp>
+
 namespace of::object::component
 {
 	void Transform::jump()
@@ -72,8 +75,17 @@ namespace of::object::component
 			}
 		}
 	}
-	void component::Transform::initialize()
+
+	void Transform::deconstruct()
+	{
+		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
+	}
+
+	void Transform::initialize()
 	{
 		moving = true;
+
+		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, instanceId,
+			std::make_shared<of::messaging::BasicMessageSubscriber<float>>(warrantyFromThis(), std::bind(&Transform::update, *this, std::placeholders::_1)));
 	}
 }

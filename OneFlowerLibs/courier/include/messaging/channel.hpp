@@ -37,7 +37,7 @@ namespace of::messaging
 			concurrency::parallel_for_each(subscribers.begin(), subscribers.end(),
 				[&](auto & pair)
 				{
-					pair.second.sendMessage(message);
+					pair.second->sendMessage(message);
 				});
 		#else
 			// TODO: figure out for linux build
@@ -53,7 +53,7 @@ namespace of::messaging
 		{
 			if (subscribers.find(subscriberId) != subscribers.end())
 			{
-				subscribers[subscriberId].sendMessage(message);
+				subscribers[subscriberId]->sendMessage(message);
 			}
 			else
 			{
@@ -62,7 +62,7 @@ namespace of::messaging
 			}
 		}
 
-		void addSubscriber(const of::common::uuid& subscriberId, Subscriber& subscriber)
+		void addSubscriber(const of::common::uuid& subscriberId, std::shared_ptr<Subscriber>& subscriber)
 		{
 			subscribers[subscriberId] = subscriber;
 		}
@@ -79,7 +79,7 @@ namespace of::messaging
 
 	protected:
 
-		std::map<of::common::uuid, Subscriber> subscribers;
+		std::map<of::common::uuid, std::shared_ptr<Subscriber>> subscribers;
 	private:
 		of::common::uuid id;
 	};

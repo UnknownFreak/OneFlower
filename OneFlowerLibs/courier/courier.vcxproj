@@ -73,6 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)OneFlowerLibs\courier\include;$(IncludePath)</IncludePath>
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\courier\include</PublicIncludeDirectories>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,9 +138,8 @@
     <ClInclude Include="include\messaging\basicMessage.hpp" />
     <ClInclude Include="include\messaging\channel.hpp" />
     <ClInclude Include="include\messaging\courier.hpp" />
-    <ClInclude Include="include\messaging\lifetime\lifetimeWarranty.hpp" />
-    <ClInclude Include="include\messaging\lifetime\warranty.hpp" />
     <ClInclude Include="include\messaging\message.hpp" />
+    <ClInclude Include="include\messaging\messageValidator.hpp" />
     <ClInclude Include="include\messaging\subscriber.hpp" />
     <ClInclude Include="include\messaging\channelTopic.hpp" />
     <ClInclude Include="include\messaging\topic\topic.hpp" />

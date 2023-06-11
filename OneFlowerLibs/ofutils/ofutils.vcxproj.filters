@@ -37,6 +37,9 @@
     <Filter Include="include\utils\expose">
       <UniqueIdentifier>{acab288a-1400-473b-b852-282eb3a8bf66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\utils\lifetime">
+      <UniqueIdentifier>{4193df8d-21d7-4e9d-8fd6-8addf9bfdf0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ListDir.cpp">
@@ -79,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="include\utils\expose\expose.hpp">
       <Filter>include\utils\expose</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\lifetime\lifetimeWarranty.hpp">
+      <Filter>include\utils\lifetime</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\lifetime\warranty.hpp">
+      <Filter>include\utils\lifetime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

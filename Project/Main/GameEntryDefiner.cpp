@@ -1052,6 +1052,7 @@ GameEntry::GameEntry() :
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 70.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::messaging::Topic::Update);
+	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
 }
 
 

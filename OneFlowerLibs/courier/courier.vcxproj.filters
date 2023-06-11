@@ -18,9 +18,6 @@
     <Filter Include="include\messaging\topic">
       <UniqueIdentifier>{93ab2ab3-dfdb-428b-9f66-21e6baf19737}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\messaging\lifetime">
-      <UniqueIdentifier>{f9a23acb-eb19-4b16-8a40-82d3c900b261}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\messaging\courier.hpp">
@@ -44,11 +41,8 @@
     <ClInclude Include="include\messaging\basicMessage.hpp">
       <Filter>include\messaging</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\lifetime\lifetimeWarranty.hpp">
-      <Filter>include\messaging\lifetime</Filter>
-    </ClInclude>
-    <ClInclude Include="include\messaging\lifetime\warranty.hpp">
-      <Filter>include\messaging\lifetime</Filter>
+    <ClInclude Include="include\messaging\messageValidator.hpp">
+      <Filter>include\messaging</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

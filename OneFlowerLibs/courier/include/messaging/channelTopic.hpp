@@ -1,6 +1,7 @@
 #pragma once
 
 #include "channel.hpp"
+#include "messageValidator.hpp"
 
 #ifdef _WIN32
 #include <ppl.h>
@@ -23,6 +24,10 @@ namespace of::messaging
 
 		void sendMessage(const Message& message) override
 		{
+			if (validate(message) == false)
+			{
+				return;
+			}
 			Channel::sendMessage(message);
 		#if defined _PPL && _PPL == 1
 			concurrency::parallel_for_each(channels.begin(), channels.end(),
@@ -41,6 +46,10 @@ namespace of::messaging
 
 		void sendMessage(const of::common::uuid& channelId, const Message& message)
 		{
+			if (validate(message) == false)
+			{
+				return;
+			}
 			if (channels.find(channelId) != channels.end())
 			{
 				channels[channelId]->sendMessage(message);
@@ -54,6 +63,10 @@ namespace of::messaging
 
 		void sendMessage(const of::common::uuid& channelId, const of::common::uuid& subscriberId, const Message& message)
 		{
+			if (validate(message) == false)
+			{
+				return;
+			}
 			if (channels.find(channelId) != channels.end())
 			{
 				channels[channelId]->sendMessage(subscriberId, message);
@@ -65,7 +78,22 @@ namespace of::messaging
 			}
 		}
 
+		void setMessageValidator(std::shared_ptr<MessageValidator> messageValidator)
+		{
+			validator = messageValidator;
+		}
+
+		inline bool validate(const Message& message) const
+		{
+			if (validator)
+			{
+				return validator->validate(message);
+			}
+			return true;
+		}
+
 	private:
 		std::map<of::common::uuid, std::shared_ptr<Channel>> channels;
+		std::shared_ptr<MessageValidator> validator;
 	};
 }

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <utils/common/uuid.hpp>
+#include <utils/lifetime/warranty.hpp>
 
-#include <messaging/lifetime/warranty.hpp>
 #include <module/logger/OneLogger.hpp>
 
 #include <functional>
@@ -14,11 +14,11 @@ namespace of::messaging
 	{
 	public:
 
-		Subscriber() : m_ptr(), warranty(lifetime::Warranty::makeInvalid())
+		Subscriber() : m_ptr(), warranty(of::utils::lifetime::Warranty::makeInvalid())
 		{
 		}
 
-		Subscriber(lifetime::Warranty& warranty, std::function<void(const Message&)>function) : m_ptr(function), warranty(warranty)
+		Subscriber(const of::utils::lifetime::Warranty& warranty, const std::function<void(const Message&)>& function) : m_ptr(function), warranty(warranty)
 		{
 		}
 
@@ -37,6 +37,16 @@ namespace of::messaging
 	private:
 
 		std::function<void(const Message&)> m_ptr;
-		lifetime::Warranty warranty;
+		of::utils::lifetime::Warranty warranty;
+	};
+
+	template<class T>
+	class BasicMessageSubscriber : public Subscriber
+	{
+	public:
+		BasicMessageSubscriber(const of::utils::lifetime::Warranty& warranty, const std::function<void(const T&)>& function) :
+			Subscriber(warranty, [function](const Message& msg) {function(msg.as<BasicMessage<T>>().value); })
+		{
+		}
 	};
 }

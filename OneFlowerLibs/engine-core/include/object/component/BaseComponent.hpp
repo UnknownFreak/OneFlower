@@ -6,6 +6,7 @@
 
 #include <utils/common/String.hpp>
 #include <utils/common/uuid.hpp>
+#include <utils/lifetime/lifetimeWarranty.hpp>
 #include <object/messaging/ComponentMessage.hpp>
 #include <object/ObjectSaveState.hpp>
 
@@ -15,7 +16,7 @@ namespace of::object
 }
 namespace of::object::component
 {
-	class Base
+	class Base : public of::utils::lifetime::LifetimeWarranty
 	{
 		friend class GameObject;
 
@@ -25,6 +26,7 @@ namespace of::object::component
 	public:
 
 		GameObject* attachedOn = nullptr;
+		of::common::uuid instanceId;
 
 		virtual Base* copy() const = 0;
 		virtual std::unique_ptr<Base> ucopy() const = 0;
@@ -41,7 +43,7 @@ namespace of::object::component
 
 	public:
 
-		virtual void update(const float& fElapsedTime) = 0;
+		virtual void update(const float& ) {};
 		virtual void deconstruct() = 0;
 		virtual void initialize() = 0;
 

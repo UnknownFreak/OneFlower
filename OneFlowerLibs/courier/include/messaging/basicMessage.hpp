@@ -18,6 +18,11 @@ namespace of::messaging
 		}
 		const T value;
 
+		inline virtual of::common::String toString() const override
+		{
+			return "BasicMessage: " + Message::toString();
+		}
+
 	protected:
 
 		constexpr BasicMessage(const T& t, const unsigned int& customId) : Message(MessageType::CUSTOM, customId), value(t)

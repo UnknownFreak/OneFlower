@@ -15,7 +15,7 @@ namespace of::object::component
 
 		virtual void onMessage(const messaging::Message& message) override;
 
-		virtual void deconstruct() override {};
+		virtual void deconstruct() override;
 		virtual void initialize() override;
 
 	public:
