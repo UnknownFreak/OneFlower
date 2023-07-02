@@ -8,6 +8,8 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 
+#include <messaging/courier.hpp>
+
 namespace of::object::component
 {
 	void Render::loadAndSetModel()
@@ -74,11 +76,14 @@ namespace of::object::component
 		loadAndSetModel();
 		transform = attachedOn->get<of::object::component::Transform>();
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
+
+		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
 	}
 
 	void Render::deconstruct()
 	{
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->removeRenderable(attachedOn->id);
+		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
 	}
 
 	std::unique_ptr<of::object::component::Base> Render::ucopy() const

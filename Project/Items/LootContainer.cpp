@@ -40,8 +40,4 @@ namespace of::object::component
 	{
 		return looted;
 	}
-
-	void LootContainer::update(const float& )
-	{
-	}
 }

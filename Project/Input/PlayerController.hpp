@@ -37,8 +37,6 @@ namespace of::object::component
 		void disable();
 		void enable();
 
-		virtual void update(const float& dt) override;
-
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};

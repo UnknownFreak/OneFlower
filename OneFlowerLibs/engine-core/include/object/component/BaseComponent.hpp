@@ -26,7 +26,7 @@ namespace of::object::component
 	public:
 
 		GameObject* attachedOn = nullptr;
-		of::common::uuid instanceId;
+		size_t instanceId;
 
 		virtual Base* copy() const = 0;
 		virtual std::unique_ptr<Base> ucopy() const = 0;
@@ -43,7 +43,6 @@ namespace of::object::component
 
 	public:
 
-		virtual void update(const float& ) {};
 		virtual void deconstruct() = 0;
 		virtual void initialize() = 0;
 
@@ -54,6 +53,7 @@ namespace of::object::component
 		virtual void resolveReferences() = 0;
 
 		virtual ~Base() = default;
+		Base();
 	};
 }
 

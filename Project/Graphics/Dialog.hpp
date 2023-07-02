@@ -14,8 +14,8 @@
 class Dialog : public of::object::component::Base
 {
 	virtual void onMessage(const of::object::messaging::Message& message) override;
-	virtual void initialize() override {};
-	virtual void deconstruct() override {};
+	virtual void initialize() override;
+	virtual void deconstruct() override;
 
 public:
 	of::file::FileId dialogTreeuuid;
@@ -45,7 +45,6 @@ public:
 
 	void reset();
 
-	virtual void update(const float& fElapsedTime) override;
 	//void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	void persist(of::object::ObjectSaveState*) override {};

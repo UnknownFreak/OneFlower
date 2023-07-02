@@ -7,18 +7,21 @@
 
 #include <functional>
 
-
 namespace of::messaging
 {
 	class Subscriber
 	{
 	public:
 
-		Subscriber() : m_ptr(), warranty(of::utils::lifetime::Warranty::makeInvalid())
+		Subscriber(const size_t id =0) : m_ptr(), warranty(of::utils::lifetime::Warranty::makeInvalid()), id(id)
 		{
 		}
 
-		Subscriber(const of::utils::lifetime::Warranty& warranty, const std::function<void(const Message&)>& function) : m_ptr(function), warranty(warranty)
+		Subscriber(const size_t& id, const of::utils::lifetime::Warranty& warranty, const std::function<void(const Message&)>& function) : m_ptr(function), warranty(warranty), id(id)
+		{
+		}
+
+		Subscriber(const Subscriber& sub) : Subscriber(sub.id, sub.warranty, sub.m_ptr)
 		{
 		}
 
@@ -34,19 +37,33 @@ namespace of::messaging
 			}
 		}
 
+		Subscriber& operator=(const Subscriber& other)
+		{
+			if (this == &other)
+			{
+				return *this;
+			}
+
+			m_ptr = other.m_ptr;
+			warranty = other.warranty;
+			id = other.id;
+			return *this;
+		}
+
+		bool operator < (const Subscriber& other) const
+		{
+			return id < other.id;
+		}
+
+		bool operator ==(const Subscriber& other) const
+		{
+			return id == other.id;
+		}
+
 	private:
 
 		std::function<void(const Message&)> m_ptr;
 		of::utils::lifetime::Warranty warranty;
-	};
-
-	template<class T>
-	class BasicMessageSubscriber : public Subscriber
-	{
-	public:
-		BasicMessageSubscriber(const of::utils::lifetime::Warranty& warranty, const std::function<void(const T&)>& function) :
-			Subscriber(warranty, [function](const Message& msg) {function(msg.as<BasicMessage<T>>().value); })
-		{
-		}
+		size_t id;
 	};
 }

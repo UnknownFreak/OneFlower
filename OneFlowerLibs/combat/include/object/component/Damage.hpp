@@ -29,7 +29,7 @@ namespace of::object::component
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 		virtual void initialize() override;
-		virtual void deconstruct() override {};
+		virtual void deconstruct() override;
 
 	public:
 		std::vector<of::file::FileId> effectsIds;
@@ -53,7 +53,7 @@ namespace of::object::component
 
 		void setDirection(const glm::vec2& direction, const float& speed);
 
-		virtual void update(const float& fElapsedTime) override;
+		virtual void update(const float& fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

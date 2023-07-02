@@ -14,9 +14,11 @@ namespace of::module
 
 	object::GameObject* ObjectInstanceHandler::addObject(const of::common::uuid& uuid)
 	{
-		objects.insert({ uuid, object::GameObject() });
-		objects[uuid].id = uuid;
-		return &objects[uuid];
+		// in place default construct gameobject by accessing element id.
+		object::GameObject* o = &objects[uuid];
+		o->id = uuid;
+		o->initialize();
+		return o;
 	}
 
 	object::GameObject* ObjectInstanceHandler::getObject(const of::common::uuid& uuid)

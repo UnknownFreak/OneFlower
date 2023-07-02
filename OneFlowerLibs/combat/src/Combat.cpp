@@ -1,6 +1,8 @@
 #include <object/component/Combat.hpp>
 
 #include <module/logger/OneLogger.hpp>
+#include <messaging/courier.hpp>
+
 
 namespace of::object::component
 {
@@ -10,6 +12,19 @@ namespace of::object::component
 	std::unordered_map<Enums::CombatSkill, of::combat::Skill >& CombatComponent::getSkills()
 	{
 		return skills;
+	}
+
+	void CombatComponent::initialize()
+	{
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		// todo create channel and push skills into the channel once executed & remove them automatically via it's instance id when the skill is done updating
+		courier.addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
+	}
+
+	void CombatComponent::deconstruct()
+	{
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
 	}
 
 	CombatComponent::CombatComponent()

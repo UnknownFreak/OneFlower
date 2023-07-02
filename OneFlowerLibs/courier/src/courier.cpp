@@ -35,7 +35,7 @@ namespace of::messaging
 		}
 	}
 
-	void Courier::post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriber, const Message& message)
+	void Courier::post(const Topic& topic, const of::common::uuid& channel, const size_t& subscriber, const Message& message)
 	{
 		if (channels.find(topic) != channels.end())
 		{
@@ -48,7 +48,7 @@ namespace of::messaging
 		}
 	}
 
-	void Courier::addSubscriber(const Topic& topic, const of::common::uuid& id, std::shared_ptr<Subscriber> subscriber)
+	void Courier::addSubscriber(const Topic& topic, const Subscriber& subscriber)
 	{
 		if (channels.find(topic) == channels.end())
 		{
@@ -58,9 +58,9 @@ namespace of::messaging
 				"Creating channel automatically.");
 			createChannel(topic);
 		}
-		channels[topic]->addSubscriber(id, subscriber);
+		channels[topic]->addSubscriber(subscriber);
 	}
-	void Courier::removeSubscriber(const Topic& topic, of::common::uuid& subscriberId)
+	void Courier::removeSubscriber(const Topic& topic, size_t& subscriberId)
 	{
 		if (channels.find(topic) != channels.end())
 		{

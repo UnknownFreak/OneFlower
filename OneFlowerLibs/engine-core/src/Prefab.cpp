@@ -67,7 +67,6 @@ namespace of::resource
 		build(object, isPlayerSummon);
 		auto transform = object->get<of::object::component::Transform>();
 		transform->pos = pos;
-		object->Simulate(0.f);
 		return object;
 	}
 

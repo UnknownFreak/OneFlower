@@ -50,6 +50,7 @@ namespace of::object
 		bool unique = false;
 		of::file::FileId prefabId;
 
+		void initialize();
 		void post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message);
 		void post(const messaging::Message& message);
 
@@ -89,8 +90,6 @@ namespace of::object
 		void toggleObjectState(const ObjectState& newState);
 
 		void onCollision(GameObject*);
-
-		void Simulate(const float& fElapsedTime);
 
 		void onDeath(const GameObject* killer, const float& delayedDespawnTime=0, const bool& unloadFlag=false);
 		void onDelete();

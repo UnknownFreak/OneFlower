@@ -84,8 +84,6 @@ namespace of::object::component
 
 		size_t getItemStack(const of::file::FileId& itemId);
 
-		virtual void update(const float& fElapsedTime) override;
-
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};

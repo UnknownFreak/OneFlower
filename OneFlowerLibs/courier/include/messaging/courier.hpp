@@ -22,10 +22,10 @@ namespace of::messaging
 
 		void post(const Topic& topic, const Message& message);
 		void post(const Topic& topic, const of::common::uuid& channel, const Message& message);
-		void post(const Topic& topic, const of::common::uuid& channel, const of::common::uuid& subscriberId, const Message& message);
+		void post(const Topic& topic, const of::common::uuid& channel, const size_t& subscriberId, const Message& message);
 
-		void addSubscriber(const Topic& topic, const of::common::uuid& id, std::shared_ptr<Subscriber> subscriber);
-		void removeSubscriber(const Topic& topic, of::common::uuid& subscriberId);
+		void addSubscriber(const Topic& topic, const Subscriber& subscriber);
+		void removeSubscriber(const Topic& topic, size_t& subscriberId);
 
 		void createChannel(const Topic& topic)
 		{

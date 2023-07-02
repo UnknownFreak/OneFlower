@@ -114,8 +114,4 @@ namespace of::object::component
 			return 0;
 		return result->get()->stackSize;
 	}
-
-	void Inventory::update(const float&)
-	{
-	}
 }

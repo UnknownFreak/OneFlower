@@ -25,6 +25,10 @@ namespace of::utils::lifetime
 			return Warranty();
 		}
 
+		Warranty(const Warranty& warranty) : Warranty(warranty.isAlive)
+		{
+		}
+
 	private:
 
 		Warranty() : isAlive(std::make_shared<bool>(false))
@@ -35,6 +39,8 @@ namespace of::utils::lifetime
 		Warranty(std::shared_ptr<bool> ptr) : isAlive(ptr)
 		{
 		}
+
+
 
 		std::shared_ptr<bool> isAlive;
 	};

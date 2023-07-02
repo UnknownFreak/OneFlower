@@ -61,7 +61,4 @@ namespace of::object::component
 			interact(normalInteraction);
 		}
 	}
-	void Interactable::update(const float&)
-	{
-	}
 }

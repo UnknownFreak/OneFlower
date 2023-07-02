@@ -48,6 +48,11 @@ namespace Graphics::UI
 		{
 		}
 
+		void tiq()
+		{
+			frameCounter.tick(current);
+		}
+
 		void update()
 		{
 

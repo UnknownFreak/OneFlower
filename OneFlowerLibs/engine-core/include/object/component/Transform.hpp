@@ -6,6 +6,8 @@
 #include <glm/vec3.hpp>
 #include "BaseComponent.hpp"
 
+#include <messaging/message.hpp>
+
 namespace of::object::component
 {
 	class Transform : public Base
@@ -57,7 +59,7 @@ namespace of::object::component
 		void move(const glm::vec2& direction);
 		void lookAt(const glm::vec2& direction);
 
-		virtual void update(const float& dt) override;
+		virtual void update(const float& dt);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

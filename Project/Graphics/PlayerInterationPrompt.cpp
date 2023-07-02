@@ -7,6 +7,8 @@
 #include <module/resource/TextureLoader.hpp>
 #include <Items/Inventory.hpp>
 
+#include <messaging/courier.hpp>
+
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
 	texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("DialogPrompt.png", of::module::Settings::uiTexturePath);
@@ -111,4 +113,18 @@ void PlayerInteractionPrompt::update(const float&dt)
 			}
 		}
 	}
+}
+
+void PlayerInteractionPrompt::initialize()
+{
+	of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, 
+		of::messaging::Subscriber(instanceId, warrantyFromThis(), 
+			[this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }
+	));
+}
+
+void PlayerInteractionPrompt::deconstruct()
+{
+	of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
+
 }

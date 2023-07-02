@@ -37,7 +37,7 @@ namespace of::object::component
 
 		virtual void onMessage(const messaging::Message& message) override;
 		virtual void initialize() override;
-		virtual void deconstruct() override {};
+		virtual void deconstruct() override;
 
 	public:
 		of::combat::Element attunedTo;
@@ -64,7 +64,7 @@ namespace of::object::component
 
 		//void addItemStat();
 
-		virtual void update(const float& fElapsedTime) override;
+		virtual void update(const float& fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

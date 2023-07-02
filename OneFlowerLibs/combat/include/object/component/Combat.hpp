@@ -14,8 +14,8 @@ namespace of::object::component
 	class CombatComponent : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
-		virtual void initialize() override {};
-		virtual void deconstruct() override {};
+		virtual void initialize() override;
+		virtual void deconstruct() override;
 	public:
 		std::unordered_map<Enums::CombatSkill, of::combat::Skill> skills;
 
@@ -25,7 +25,7 @@ namespace of::object::component
 
 		CombatComponent();
 
-		virtual void update(const float& fElapsedTime) override;
+		virtual void update(const float& fElapsedTime);
 
 		void execute(const Enums::CombatSkill& skill);
 

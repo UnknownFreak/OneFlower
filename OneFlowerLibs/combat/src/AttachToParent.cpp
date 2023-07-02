@@ -4,6 +4,7 @@
 #include <object/GameObject.hpp>
 #include <object/component/Transform.hpp>
 
+#include <messaging/courier.hpp>
 
 namespace of::object::component
 {
@@ -19,5 +20,18 @@ namespace of::object::component
 
 	void AttachToParent::onMessage(const messaging::Message&)
 	{
+	}
+
+	void AttachToParent::initialize()
+	{
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		// todo create channel and push skills into the channel once executed & remove them automatically via it's instance id when the skill is done updating
+		courier.addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
+	}
+
+	void AttachToParent::deconstruct()
+	{
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
 	}
 };

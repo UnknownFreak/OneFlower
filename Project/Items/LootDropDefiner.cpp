@@ -46,8 +46,4 @@ namespace of::object::component
 	{
 		return looted;
 	}
-
-	void LootDrop::update(const float&)
-	{
-	}
 }

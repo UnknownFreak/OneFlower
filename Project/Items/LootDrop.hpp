@@ -33,8 +33,6 @@ namespace of::object::component
 			return std::make_unique<LootDrop>(*this);
 		}
 
-		virtual void update(const float& fElapsedTime) override;
-
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};

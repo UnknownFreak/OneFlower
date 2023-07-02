@@ -11,13 +11,13 @@ namespace of::object::component
 		GameObject* objectToFollow;
 
 		virtual void onMessage(const messaging::Message& message) override;
-		virtual void initialize() override {};
-		virtual void deconstruct() override {};
+		virtual void initialize() override;
+		virtual void deconstruct() override;
 
 	public:
 		AttachToParent(GameObject* objectToFollow);
 
-		virtual void update(const float& fElapsedTime) override;
+		virtual void update(const float& fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

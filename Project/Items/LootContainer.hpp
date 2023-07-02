@@ -34,8 +34,6 @@ namespace of::object::component
 		void loot(GameObject* object);
 		bool isLooted() const;
 
-		virtual void update(const float& fElapsedTime) override;
-
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
 		void resolveReferences() override {};

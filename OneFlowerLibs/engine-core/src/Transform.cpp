@@ -85,7 +85,7 @@ namespace of::object::component
 	{
 		moving = true;
 
-		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, instanceId,
-			std::make_shared<of::messaging::BasicMessageSubscriber<float>>(warrantyFromThis(), std::bind(&Transform::update, *this, std::placeholders::_1)));
+		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, 
+			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
 	}
 }

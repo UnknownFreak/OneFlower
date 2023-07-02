@@ -125,9 +125,4 @@ namespace of::object::component
 	{
 		enabled = true;
 	}
-
-	void PlayerController::update(const float& )
-	{
-		//window.centerCameraOnObjectPos(transform->pos);
-	}
 }

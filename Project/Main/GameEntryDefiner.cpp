@@ -519,6 +519,48 @@ public:
 	};
 };
 
+class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+{
+	std::shared_ptr<of::messaging::ChannelTopic> m_channel;
+	of::common::String string;
+	int val = 0;
+	bool m_add = false;
+	of::common::uuid instanceId;
+public:
+
+	CourierStats() : m_channel(of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update)) 
+	{
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+	void updateCount()
+	{
+		if (m_add)
+		{
+			m_add = false;
+			for (int i = 0; i < val; i++)
+			{
+				of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
+			}
+		}
+		string = std::to_string(m_channel->getSubscribersCount());
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		ImGui::Begin("CourierStats");
+		ImGui::Text(string.c_str());
+		ImGui::SliderInt("Object count", &val, 0, 100000);
+		if(ImGui::Button("Add object"))
+		{
+			m_add = true;
+		}
+		ImGui::End();
+	};
+};
+
 class TestRunner : public of::graphics::ParentedRenderable
 {
 
@@ -1039,6 +1081,7 @@ public:
 
 
 static std::shared_ptr<PxSimulationStats> simulationStats;
+static std::shared_ptr<CourierStats> courierStats;
 
 
 GameEntry::GameEntry() : 
@@ -1064,7 +1107,7 @@ int GameEntry::Run()
 	gfx->initialize();
 	world.initialize();
 	simulationStats = std::make_shared<PxSimulationStats>(paused);
-
+	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 400.f, 70.f, Graphics::UI::Rel::Right));
@@ -1075,6 +1118,7 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
@@ -1132,12 +1176,16 @@ void GameEntry::physicsUpdate()
 				PxSimulationStatistics st;
 				mScene->getSimulationStatistics(st);
 				simulationStats->set(st);
+				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
-				ups->update();
-				ups->print();
+				ups->tiq();
 			}
 			else
+			{
 				simulationStats->set();
+			}
+			ups->update();
+			ups->print();
 		}
 		time.physicsElapsed += time.physicsClock.secondsAsFloat(true);
 	}

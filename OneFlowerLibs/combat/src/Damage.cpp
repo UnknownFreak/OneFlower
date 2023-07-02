@@ -3,6 +3,7 @@
 #include <Object/GameObject.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 #include <file/Handler.hpp>
+#include <messaging/courier.hpp>
 
 //#include <Items/Inventory.hpp>
 
@@ -62,9 +63,7 @@ namespace of::object::component
 						lockNextFrame = true;
 				}
 			}
-
 		}
-
 	}
 
 	bool Damage::hasLivedTooLong()
@@ -84,9 +83,18 @@ namespace of::object::component
 		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Element>(elementId);
 	}
 
-	void component::Damage::initialize()
+	void Damage::initialize()
 	{
 		transform = attachedOn->get<Transform>();
+
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		courier.addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
+	}
+
+	void Damage::deconstruct()
+	{
+		auto courier = of::engine::GetModule<of::messaging::Courier>();
+		courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
 	}
 
 	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)

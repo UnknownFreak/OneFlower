@@ -3,6 +3,11 @@
 
 namespace of::object::component
 {
+	namespace
+	{
+		static size_t instanceCounter = 0;
+	};
+	
 	void Base::attachOn(GameObject* attachTo)
 	{
 		if (attachedOn)
@@ -13,24 +18,28 @@ namespace of::object::component
 		initialize();
 	}
 
-	void component::Base::decouple()
+	void Base::decouple()
 	{
 		deconstruct();
 		attachedOn = nullptr;
 	}
 
-	bool component::Base::post(const of::common::uuid& id, const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
+	bool Base::post(const of::common::uuid& id, const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
 	{
 		return attachedOn->post(id, topic, message);
 	}
 
-	void component::Base::post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
+	void Base::post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const
 	{
 		attachedOn->post(topic, message);
 	}
 
-	void component::Base::post(const messaging::Message& message) const
+	void Base::post(const messaging::Message& message) const
 	{
 		attachedOn->post(message);
+	}
+
+	Base::Base() : instanceId(instanceCounter++)
+	{
 	}
 }

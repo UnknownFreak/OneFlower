@@ -38,7 +38,7 @@ namespace of::object::component
 
 		virtual std::unique_ptr<Base> ucopy() const override;
 
-		virtual void update(const float& fElapsedTime) override;
+		virtual void update(const float& fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

@@ -37,6 +37,10 @@ void Dialog::reset()
 	dialogTree.reset();
 }
 
-void Dialog::update(const float& )
+void Dialog::initialize()
 {
 }
+
+void Dialog::deconstruct()
+{
+};

@@ -23,8 +23,8 @@ class PlayerInteractionPrompt : public of::object::component::Base
 	float lived = 0.f;
 
 	virtual void onMessage(const of::object::messaging::Message& message) override;
-	virtual void initialize() override {};
-	virtual void deconstruct() override {};
+	virtual void initialize() override;
+	virtual void deconstruct() override;
 
 public:
 
@@ -45,7 +45,7 @@ public:
 
 	bool doInteraction(const Enums::InteractionOption& navigate);
 
-	virtual void update(const float& fElapsedTime) override;
+	virtual void update(const float& fElapsedTime);
 
 	void persist(of::object::ObjectSaveState*) override {};
 	void onReconstruct(of::object::ObjectSaveState*) override {};

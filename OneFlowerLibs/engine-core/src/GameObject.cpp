@@ -47,9 +47,13 @@ namespace of::object
 		return false;
 	}
 
-	GameObject::GameObject() noexcept
+	void GameObject::initialize()
 	{
 		add<component::Transform>();
+	}
+
+	GameObject::GameObject() noexcept
+	{
 	}
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{
@@ -150,15 +154,6 @@ namespace of::object
 			using namespace of::object::messaging;
 			post(Topic::of(Topics::ON_COLLISION), std::make_shared<GameObjectPtr>(collider));
 		}
-	}
-
-	void GameObject::Simulate(const float& fElapsedTime)
-	{
-		if (objectState == ObjectState::Active)
-			for (auto& component : componentMap)
-			{
-				component.second->update(fElapsedTime);
-			}
 	}
 
 	void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTime, const bool& unloadFlag)

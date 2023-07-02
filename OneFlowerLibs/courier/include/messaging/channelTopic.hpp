@@ -61,7 +61,7 @@ namespace of::messaging
 			}
 		}
 
-		void sendMessage(const of::common::uuid& channelId, const of::common::uuid& subscriberId, const Message& message)
+		void sendMessage(const of::common::uuid& channelId, const size_t& subscriberId, const Message& message)
 		{
 			if (validate(message) == false)
 			{

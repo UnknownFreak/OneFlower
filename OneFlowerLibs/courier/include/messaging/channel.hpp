@@ -16,12 +16,18 @@
 #include <omp.h>
 #define _PPL 0
 #endif
+#include <iostream>
 
 namespace of::messaging
 {
 	class Channel
 	{
 	public:
+
+		Channel()
+		{
+			subscribers.reserve(1000000);
+		}
 
 		virtual ~Channel()
 		{
@@ -32,12 +38,13 @@ namespace of::messaging
 		}
 		virtual void sendMessage(const Message& message)
 		{
-
+		
 		#if defined _PPL && _PPL == 1
-			concurrency::parallel_for_each(subscribers.begin(), subscribers.end(),
-				[&](auto & pair)
+
+			concurrency::parallel_for((size_t)0, subscribers.size(), 
+				[&](size_t index)
 				{
-					pair.second->sendMessage(message);
+					subscribers[index].sendMessage(message);
 				});
 		#else
 			// TODO: figure out for linux build
@@ -47,29 +54,39 @@ namespace of::messaging
 				it->second.sendMessage(message);
 			}
 		#endif
+		//*/
 		}
 
-		void sendMessage(const of::common::uuid& subscriberId, const Message& message)
+		void sendMessage(const size_t& subscriberId, const Message& message)
 		{
-			if (subscribers.find(subscriberId) != subscribers.end())
+			//*
+			auto it = std::lower_bound(subscribers.begin(), subscribers.end(), Subscriber(subscriberId));
+			if (it != subscribers.end())
 			{
-				subscribers[subscriberId]->sendMessage(message);
+				it->sendMessage(message);
 			}
 			else
 			{
 				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::messaging::Channel").Warning(
 					"Trying to send message to a subscriber that does not exist.");
 			}
+			//*/
+		}
+		void addSubscriber(const Subscriber& subscriber)
+		{
+			if (std::binary_search(subscribers.begin(), subscribers.end(), subscriber) == false)
+			{
+				subscribers.emplace_back(subscriber);
+			}
 		}
 
-		void addSubscriber(const of::common::uuid& subscriberId, std::shared_ptr<Subscriber>& subscriber)
+		void removeSubscriber(const size_t& subscriberId)
 		{
-			subscribers[subscriberId] = subscriber;
-		}
-
-		void removeSubscriber(const of::common::uuid& subscriberId)
-		{
-			subscribers.erase(subscriberId);
+			auto it = std::lower_bound(subscribers.begin(), subscribers.end(), Subscriber(subscriberId));
+			if (it != subscribers.end())
+			{
+				subscribers.erase(it);
+			}
 		}
 
 		of::common::uuid& getId()
@@ -77,9 +94,14 @@ namespace of::messaging
 			return id;
 		}
 
+		size_t getSubscribersCount() const
+		{
+			return subscribers.size();
+		}
+
 	protected:
 
-		std::map<of::common::uuid, std::shared_ptr<Subscriber>> subscribers;
+		std::vector<Subscriber> subscribers;
 	private:
 		of::common::uuid id;
 	};
