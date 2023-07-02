@@ -179,6 +179,16 @@ namespace of::graphics::window
 				renderable.second->render(dTransaction, mvp);
 			}
 		}
+
+		if (drawHitboxes)
+		{
+			for (auto& renderable : hitBoxRenderables)
+			{
+				renderable.second->updateFrame(dt);
+				renderable.second->render(dTransaction, mvp);
+			}
+		}
+
 		dTransaction->bindShader(mFsq);
 		dTransaction->bindMaterial(mFsq, mFsqMat);
 		dTransaction->drawNoBind(3u, 0u);
@@ -191,7 +201,7 @@ namespace of::graphics::window
 
     }
 
-	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitbox(false)
+	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitboxes(of::engine::GetModule<of::module::Settings>().renderHitboxes())
 	{
 		cam.setPosition({ 0.f, 0.f, 5.f });
 		skyBox = std::make_shared<sky::Skybox>();
@@ -220,6 +230,8 @@ namespace of::graphics::window
 			skyBox = renderable;
 		else if (renderLayer == RenderLayer::IMGUI)
 			imGuiRenderables[id] = renderable;
+		else if (renderLayer == RenderLayer::HITBOXES)
+			hitBoxRenderables[id] = renderable;
 		else
 		{
 			renderables[renderLayer][id] = renderable;

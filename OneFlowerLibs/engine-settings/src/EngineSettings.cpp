@@ -14,16 +14,38 @@ namespace of::module
 
 	Settings::Settings(): parser("EngineConfig.cfg")
 	{
+		if (parser.exists("random-generator"))
+			mFixedSeed = parser.get("random-generator").get<bool>("fixed-seed", false);
+		else
+		{
+			mFixedSeed = false;
+		}
+		mRenderHitboxes = parser.get("graphics").get<bool>("render-hitboxes", false);
 	}
 
 	Settings::~Settings()
 	{
+		if (parser.exists("random-generator"))
+		{
+			parser.get("random-generator").put<bool>("fixed-seed", mFixedSeed);
+		}
+		parser.get("graphics").put<bool>("render-hitboxes", mRenderHitboxes);
 		parser.save();
 	}
 
-	bool Settings::useFixedSeed()
+	of::config::ConfigParser& Settings::getParser()
 	{
-		return parser.get("random-generator").get<bool>("fixed-seed", false);
+		return parser;
+	}
+
+	bool& Settings::useFixedSeed()
+	{
+		return mFixedSeed;
+	}
+
+	bool& Settings::renderHitboxes()
+	{
+		return mRenderHitboxes;
 	}
 
 	EngineResourceType& Settings::getType() const

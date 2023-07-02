@@ -116,6 +116,11 @@ namespace of::config
 			return sections[section];
 		}
 
+		bool exists(const common::String& section)
+		{
+			return sections.find(section) != sections.end();
+		}
+
 		template<class Ty>
 		std::enable_if_t<std::is_same_v<Ty, const char*>, common::String>
 		get(const common::String& section, const common::String& key, Ty default_value)

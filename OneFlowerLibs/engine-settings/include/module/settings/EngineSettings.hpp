@@ -12,11 +12,17 @@ namespace of::module
 	{
 		of::config::ConfigParser parser;
 
+		bool mFixedSeed;
+		bool mRenderHitboxes;
+
 	public:
 		Settings();
 		~Settings();
 
-		bool useFixedSeed();
+		of::config::ConfigParser& getParser();
+
+		bool& useFixedSeed();
+		bool& renderHitboxes();
 
 		EngineResourceType& getType() const override;
 

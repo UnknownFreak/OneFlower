@@ -44,8 +44,9 @@ namespace of::graphics::window
 
 		std::map<RenderLayer, std::unordered_map<of::common::uuid, std::shared_ptr<Renderable>>> renderables;
 		std::map<of::common::uuid, std::shared_ptr<Renderable>> imGuiRenderables;
+		std::unordered_map<of::common::uuid, std::shared_ptr<Renderable>> hitBoxRenderables;
 		view::PerspectiveCamera cam;
-		const bool& drawHitbox;
+		const bool& drawHitboxes;
 
 		void setupImGui();
 		void drawStats();
