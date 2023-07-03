@@ -41,6 +41,10 @@
 #include <algorithm>
 
 #include <PxPhysicsAPI.h>
+#include <glm/glm.hpp>
+#pragma warning(push, 0)
+#include <glm/gtc/quaternion.hpp>
+#pragma warning(pop)
 
 using namespace physx;
 
@@ -90,7 +94,7 @@ void initPhysics()
 	desc.material = mPhysics->createMaterial(0.f, 0.f, 0.f);
 	desc.height = 2.f;
 	desc.radius = 1.f;
-	desc.position = PxExtendedVec3(0, 10000, 0);
+	desc.position = PxExtendedVec3(0, 10, 0);
 	controller = manager->createController(desc);
 
 	gMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
@@ -99,8 +103,8 @@ void initPhysics()
 
 	PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
 
-	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(0.f, 1.f, 0.f)));
-	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 3.f, 0.f)));
+	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(10.f, 1.f, 0.f)));
+	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 15.f, 0.f)));
 
 	actor->attachShape(*shape);
 	actor2->attachShape(*shape);
@@ -494,6 +498,7 @@ public:
 			"Static Bodies: " + std::to_string(st.nbStaticBodies) + "\n"
 			"Controller is sleeping: " + std::to_string(controller->getActor()->isSleeping()) + "\n"
 			"Controller pos: " + std::to_string(controller->getPosition().x) + ", " + std::to_string(controller->getPosition().y) + ", " + std::to_string(controller->getPosition().z) + "\n"
+			"Controller pos(feet): " + std::to_string(controller->getFootPosition().x) + ", " + std::to_string(controller->getFootPosition().y) + ", " + std::to_string(controller->getFootPosition().z) + "\n"
 			"Actor 1 pos: " + std::to_string(actor->getGlobalPose().p.x) + ", " + std::to_string(actor->getGlobalPose().p.y) + ", " + std::to_string(actor->getGlobalPose().p.z) + "\n"
 			"Actor 2 pos: " + std::to_string(actor2->getGlobalPose().p.x) + ", " + std::to_string(actor2->getGlobalPose().p.y) + ", " + std::to_string(actor2->getGlobalPose().p.z) + "\n";
 	}
@@ -558,6 +563,284 @@ public:
 			m_add = true;
 		}
 		ImGui::End();
+	};
+};
+
+class PxControllerRenderable : public of::graphics::ParentedRenderable
+{
+	physx::PxController* actor;
+	glm::vec3 pos;
+
+	common::Resource<swizzle::gfx::Buffer> buf;
+	common::Resource<swizzle::gfx::Buffer> index;
+	common::Resource<swizzle::gfx::Material> mat;
+	common::Resource<swizzle::gfx::Shader> shader;
+	common::Resource<swizzle::gfx::Texture> texture;
+	glm::vec4 playerControllerColor = { 0.3f, 0.3f, 1.f, 0.f };
+
+	void loadShader()
+	{
+		swizzle::gfx::ShaderAttributeList attribs = {};
+		attribs.mBufferInput = {
+			{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U) }
+		};
+
+		attribs.mAttributes = {
+			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+		};
+		attribs.mDescriptors = {};
+		attribs.mEnableDepthTest = true;
+		attribs.mEnableDepthWrite = true;
+		attribs.mEnableBlending = true;
+		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
+
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+	}
+
+	void connectToPoint(std::vector<glm::ivec3>& tris, int point, const int pointCount, const int refStart)
+	{
+		for (int i = 0; i < pointCount; i++)
+		{
+
+			int a = i + refStart;
+			int b = i + refStart + 1;
+			if (i == pointCount-1)
+			{
+				b -= pointCount;
+			}
+			tris.push_back(glm::ivec3(point, a,b));
+		}
+	}
+
+	void connectToCircle(std::vector<glm::ivec3>& tris, const int pointCount, const int lowerStart, const int upperStart)
+	{
+		for (int i = 0; i < pointCount; i++)
+		{
+			int c = i + lowerStart;
+			int a = i + upperStart;
+			int b = i + upperStart + 1;
+			if (i == pointCount - 1)
+			{
+				b -= pointCount;
+			}
+			tris.push_back(glm::ivec3(c, a, b));
+		}
+	}
+
+public:
+
+	PxControllerRenderable() : actor(controller)
+	{
+		std::vector<glm::vec3> points;
+		std::vector<glm::ivec3> tris;
+		auto capsule = (physx::PxCapsuleController*)actor;
+		auto height = actor->getPosition().y - actor->getFootPosition().y;
+		auto topHeight = capsule->getHeight() *0.8f * 0.5f;
+		topHeight += capsule->getRadius() * 0.8f;
+
+		auto radii = capsule->getRadius() * 0.8f;
+		//height += capsule->getRadius() * 0.8f;
+		{
+
+			points.push_back(glm::vec3(0, -height, 0));
+			
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * 0.3 * cos(angle);
+				auto y = radii * 0.3 * sin(angle);
+				points.push_back(glm::vec3(x, -(height * 0.98f), y));
+			}
+			connectToPoint(tris, 0, 16, 1);
+			
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * 0.7 * cos(angle);
+				auto y = radii * 0.7 * sin(angle);
+				points.push_back(glm::vec3(x, -(height * 0.9f), y));
+			}
+			connectToCircle(tris, 16, 1, 17);
+			
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * cos(angle);
+				auto y = radii * sin(angle);
+				points.push_back(glm::vec3(x, -(height * 0.8f), y));
+			}
+			connectToCircle(tris, 16, 17, 33);
+
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * cos(angle);
+				auto y = radii * sin(angle);
+				points.push_back(glm::vec3(x, (topHeight * 0.8f), y));
+			}
+			connectToCircle(tris, 16, 33, 49);
+
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * 0.7 * cos(angle);
+				auto y = radii * 0.7 * sin(angle);
+				points.push_back(glm::vec3(x, (topHeight * .9f), y));
+			}
+			connectToCircle(tris, 16, 49, 65);
+
+			for (int i = 0; i < 16; i++)
+			{
+				auto angle = (std::_Pi / 8.f) * i;
+				auto x = radii * 0.3 * cos(angle);
+				auto y = radii * 0.3 * sin(angle);
+				points.push_back(glm::vec3(x, (topHeight * .98f), y));
+			}
+			connectToCircle(tris, 16, 65, 81);
+
+			points.push_back(glm::vec3(0, topHeight, 0));
+			connectToPoint(tris, 97, 16, 81);
+		}
+
+		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+		auto gfx = wnd.getGfxContext();
+		loadShader();
+		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		
+		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(glm::vec3));
+
+		index = gfx->createBuffer(swizzle::gfx::BufferType::Index);
+		index->setBufferData(tris.data(), tris.size() * sizeof(glm::ivec3), sizeof(glm::ivec3));
+		
+	}
+
+	virtual void updateFrame(const float&)
+	{
+		auto vec = actor->getPosition();
+		pos.x = (float)vec.x;
+		pos.y = (float)vec.y;
+		pos.z = (float)vec.z;
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+	{
+		mvp.model = glm::translate(glm::mat4(1.f), pos);
+
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
+		transaction->drawIndexed(buf, index);
+	};
+};
+
+class PxActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+{
+	physx::PxRigidDynamic* actor;
+	glm::vec3 pos;
+	glm::quat rot;
+
+	common::Resource<swizzle::gfx::Buffer> buf;
+	common::Resource<swizzle::gfx::Material> mat;
+	common::Resource<swizzle::gfx::Shader> shader;
+	common::Resource<swizzle::gfx::Texture> texture;
+	glm::vec4 playerControllerColor = { 0.3f, 0.3f, 1.f, 0.f };
+
+	void loadShader()
+	{
+		swizzle::gfx::ShaderAttributeList attribs = {};
+		attribs.mBufferInput = {
+			{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U) }
+		};
+
+		attribs.mAttributes = {
+			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+		};
+		attribs.mDescriptors = {};
+		attribs.mEnableDepthTest = true;
+		attribs.mEnableDepthWrite = true;
+		attribs.mEnableBlending = true;
+		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
+
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+	}
+
+public:
+
+	PxActorRenderable() : actor(actor2)
+	{
+		std::vector<glm::vec3> points;
+		std::vector<glm::ivec3> tris;
+
+		{
+			points.push_back(glm::vec3(-1, -1, -1));
+			points.push_back(glm::vec3(-1, -1,  1));
+			points.push_back(glm::vec3(-1,  1, -1));
+			points.push_back(glm::vec3(-1, -1, -1));
+
+			points.push_back(glm::vec3(1, -1, -1));
+			points.push_back(glm::vec3(-1, 1, -1));
+			points.push_back(glm::vec3(1, 1, -1));
+			points.push_back(glm::vec3(1, -1, -1));
+
+			points.push_back(glm::vec3(1, -1, 1));
+			points.push_back(glm::vec3(1, 1, -1));
+			points.push_back(glm::vec3(1, 1, 1));
+			points.push_back(glm::vec3(1, -1, 1));
+
+			points.push_back(glm::vec3(-1, -1, 1));
+			points.push_back(glm::vec3(-1, 1, 1));
+			points.push_back(glm::vec3(1, -1, 1));
+			points.push_back(glm::vec3(1, 1, 1));
+
+			points.push_back(glm::vec3(-1, 1, 1));
+			points.push_back(glm::vec3(-1, 1, -1));
+
+
+		}
+
+		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+		auto gfx = wnd.getGfxContext();
+		loadShader();
+		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+
+		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(glm::vec3));
+
+		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
+		channel->addSubscriber(of::messaging::Subscriber(0xffffffff, warrantyFromThis(), [&] (const of::messaging::Message&)
+			{
+				auto vec = actor->getGlobalPose().p;
+				auto r = actor->getGlobalPose().q;
+				pos.x = (float)vec.x;
+				pos.y = (float)vec.y;
+				pos.z = (float)vec.z;
+				rot.w = r.w;
+				rot.x = r.x;
+				rot.y = r.y;
+				rot.z = r.z;
+			}
+		));
+
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+	{
+		mvp.model = glm::translate(glm::mat4(1.f), pos);
+		mvp.model *= glm::mat4_cast(rot);
+
+		transaction->bindShader(shader);
+		transaction->bindMaterial(shader, mat);
+		transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
+		transaction->draw(buf);
 	};
 };
 
@@ -1119,6 +1402,9 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
+
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>());
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxActorRenderable>());
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
