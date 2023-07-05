@@ -12,7 +12,7 @@ of::module::EngineResourceType of::module::interface::IEngineResource<of::module
 
 namespace of::module::shader
 {
-	bool Loader::loadShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
+	bool Loader::loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
 	{
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
@@ -26,8 +26,8 @@ namespace of::module::shader
 #endif
 		mtx.lock();
 		auto& wnd = engine::GetModule<window::Proxy>();
-		loadedShaders.insert(std::make_pair(name, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
-		auto& shader = loadedShaders[name];
+		loadedShaders.insert(std::make_pair(instanceName, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
+		auto& shader = loadedShaders[instanceName];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
@@ -39,7 +39,7 @@ namespace of::module::shader
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& name, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path)
 	{
 		swizzle::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -72,31 +72,31 @@ namespace of::module::shader
 		attribs.mEnableBlending = false;
 		attribs.mPushConstantSize = sizeof(glm::mat4)*4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
-		return requestShader(name, attribs, path);
+		return requestShader(insstanceName, shaderName, attribs, path);
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
 	{
-		if (!name.empty())
+		if (!shaderName.empty() && !instanceName.empty())
 		{
 			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
-			it = loadedShaders.find(path + name);
+			it = loadedShaders.find(instanceName);
 			lastResult = true;
 			if (it != loadedShaders.end())
 				return it->second;
 
-			if (loadShader(path + name, attribs))
-				return loadedShaders.find(path + name)->second;
+			if (loadShader(instanceName, path + shaderName, attribs))
+				return loadedShaders.find(instanceName)->second;
 
 			//LOW set propper texturename
-			it = loadedShaders.find(Settings::shaderPath + missingShader);
+			it = loadedShaders.find("missingShader");
 			lastResult = false;
 			if (it != loadedShaders.end())
 				return it->second;
-			loadShader(Settings::shaderPath + missingShader, attribs);
-			return loadedShaders.find(Settings::shaderPath + missingShader)->second;
+			loadShader("missing", Settings::shaderPath + missingShader, attribs);
+			return loadedShaders.find("missing")->second;
 		}
-		return requestShader(missingShader, attribs, Settings::shaderPath);
+		return requestShader("missing", missingShader, attribs, Settings::shaderPath);
 	}
 
 	bool Loader::getResult()

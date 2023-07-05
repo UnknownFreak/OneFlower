@@ -19,11 +19,11 @@ namespace of::module::shader
 		std::mutex mtx;
 		const common::String missingShader = "default.shader";
 		std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Shader>> loadedShaders;
-		bool loadShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs);
+		bool loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs);
 
 	public:
-		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& name, const common::String& path = Settings::shaderPath);
-		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path = Settings::shaderPath);
+		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path = Settings::shaderPath);
+		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path = Settings::shaderPath);
 		bool getResult();
 
 		void requestRemovalOfShader(const common::String& name);

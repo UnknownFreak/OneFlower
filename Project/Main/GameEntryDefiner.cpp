@@ -167,7 +167,7 @@ class WorldGrid : public of::graphics::ParentedRenderable
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid", "grid.shader", attribs);
 	}
 
 public:
@@ -595,7 +595,7 @@ class PxControllerRenderable : public of::graphics::ParentedRenderable
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("pxcontroller", "grid.shader", attribs);
 	}
 
 	void connectToPoint(std::vector<glm::ivec3>& tris, int point, const int pointCount, const int refStart)
@@ -765,7 +765,7 @@ class PxActorRenderable : public of::graphics::ParentedRenderable, public of::ut
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("pxactor shader", "grid.shader", attribs);
 	}
 
 public:
@@ -1009,7 +1009,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 
-			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("terrain.shader", attribs);
+			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("terrain shader", "terrain.shader", attribs);
 		}
 
 		F32 getHeight(U8* image, S32 x, S32 y, S32 ch, F32 xp, F32 yp, F32 max)
@@ -1222,7 +1222,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid.shader", attribs);
+			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("heightmap outline", "grid.shader", attribs);
 		}
 
 	public:

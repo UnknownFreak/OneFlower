@@ -46,7 +46,7 @@ namespace of::graphics::sky
 		attribs.mEnableBlending = false;
 		
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		mModel->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", attribs);
+		mModel->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", "sky.shader", attribs);
 		
 		mModel->texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		

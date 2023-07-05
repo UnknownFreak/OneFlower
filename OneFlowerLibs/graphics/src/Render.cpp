@@ -47,7 +47,7 @@ namespace of::object::component
 		}
 		else
 			model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
-		model->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName);
+		model->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName, shaderName);
 
 		model->material = gfx->createMaterial(model->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 

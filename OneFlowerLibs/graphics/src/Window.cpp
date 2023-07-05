@@ -27,7 +27,7 @@ namespace of::graphics::window
 		attribFsq.mEnableBlending = true;
 		attribFsq.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 
-		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq.shader", attribFsq);
+		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq", "fsq.shader", attribFsq);
 
 		mFsqMat = mGfxContext->createMaterial(mFsq, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
