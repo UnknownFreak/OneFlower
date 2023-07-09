@@ -131,7 +131,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)swizzle\build\bin-debug;D:\Programming\VS2022\PhysX-104.2-physx-5.1.3\physx\bin\win.x86_64.vc143.mt\checked;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)swizzle\build\vs2022\bin-debug;D:\Programming\VS2022\PhysX-104.2-physx-5.1.3\physx\bin\win.x86_64.vc143.mt\checked;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
@@ -362,20 +362,23 @@
     <ProjectReference Include="OneFlowerLibs\ui-core\ui-core.vcxproj">
       <Project>{aebc39cb-380d-4316-b1c6-42df6fa92a5c}</Project>
     </ProjectReference>
-    <ProjectReference Include="swizzle\build\vs2019\imgui\imgui.vcxproj">
+    <ProjectReference Include="swizzle\build\vs2022\imgui\imgui.vcxproj">
       <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
     </ProjectReference>
-    <ProjectReference Include="swizzle\build\vs2019\optick\optick.vcxproj">
+    <ProjectReference Include="swizzle\build\vs2022\optick\optick.vcxproj">
       <Project>{cfc2f712-bb64-22e9-a41f-363d9060a939}</Project>
     </ProjectReference>
-    <ProjectReference Include="swizzle\build\vs2019\stb\stb.vcxproj">
+    <ProjectReference Include="swizzle\build\vs2022\stb\stb.vcxproj">
       <Project>{6eab880b-dab4-887c-6330-9f7ccf38947c}</Project>
     </ProjectReference>
-    <ProjectReference Include="swizzle\build\vs2019\swizzle\swizzle.vcxproj">
-      <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="swizzle\build\vs2019\utils\utils.vcxproj">
+    <ProjectReference Include="swizzle\build\vs2022\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="swizzle\build\vs2022\imgui_impl\imgui_impl.vcxproj">
+      <Project>{3122baaf-1dda-fbfc-86e1-d45872b896ed}</Project>
+    </ProjectReference>
+    <ProjectReference Include="swizzle\build\vs2022\swizzle\swizzle.vcxproj">
+      <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

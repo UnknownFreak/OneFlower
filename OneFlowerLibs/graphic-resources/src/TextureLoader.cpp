@@ -1,6 +1,6 @@
 #include <module/resource/TextureLoader.hpp>
 
-#include <swizzle/asset/TextureLoader.hpp>
+#include <swizzle/asset2/Assets.hpp>
 
 #include <module/logger/OneLogger.hpp>
 #include <module/window/GraphicsProxy.hpp>
@@ -26,14 +26,30 @@ namespace of::module::texture
 	#endif
 		mtx.lock();
 		auto& wnd = engine::GetModule<window::Proxy>();
+
+		auto textureData = swizzle::asset2::LoadTexture(path.c_str());
+
+		auto device = wnd.getGfxDevice();
+
 		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
-			std::make_pair(name, swizzle::asset::LoadTexture2D(wnd.getGfxContext(), path.c_str())));
+			std::make_pair(name, device->createTexture(textureData->getWidth(), textureData->getHeight(), 4u, false)));
 
 		auto uploadBuffer = wnd.getUploadBuffer();
 		auto trans = uploadBuffer->begin();
-		trans->uploadTexture(loadedTextureMap[name]);
+
+		auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
+		buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
+
+		swizzle::gfx::TextureDimensions size{};
+		size.mHeight = textureData->getHeight();
+		size.mWidth = textureData->getWidth();
+		size.mLayers = 1u;
+		size.mMipLevels = 1u;
+
+		trans->copyBufferToTexture(loadedTextureMap[name], buffer, size);
 		uploadBuffer->end(std::move(trans));
-		wnd.getGfxContext()->submit(&uploadBuffer, 1u, nullptr);
+		device->submit(&uploadBuffer, 1u, nullptr);
+		
 		mtx.unlock();
 		return true;
 	}
@@ -52,15 +68,16 @@ namespace of::module::texture
 			}
 		}
 		mtx.lock();
-		auto& wnd = engine::GetModule<window::Proxy>();
-		loadedTextureMap[folderName] = swizzle::asset::LoadTextureCubeMap(wnd.getGfxContext(),
-					(path + "right.png").c_str(),
-					(path + "left.png").c_str(),
-					(path + "top.png").c_str(),
-					(path + "bottom.png").c_str(),
-					(path + "front.png").c_str(),
-					(path + "back.png").c_str()
-				);
+
+		auto textureData = swizzle::asset2::LoadCubeTexture(
+			(path + "right.png").c_str(),
+			(path + "left.png").c_str(),
+			(path + "top.png").c_str(),
+			(path + "bottom.png").c_str(),
+			(path + "front.png").c_str(),
+			(path + "back.png").c_str()
+		);
+
 		logger.Info("Loaded skybox cubemap texture [" + path + "right.png]", logger.fileInfo(__FILE__, __LINE__));
 		logger.Info("Loaded skybox cubemap texture [" + path + "left.png]", logger.fileInfo(__FILE__, __LINE__));
 		logger.Info("Loaded skybox cubemap texture [" + path + "tmp.png]", logger.fileInfo(__FILE__, __LINE__));
@@ -68,11 +85,27 @@ namespace of::module::texture
 		logger.Info("Loaded skybox cubemap texture [" + path + "front.png]", logger.fileInfo(__FILE__, __LINE__));
 		logger.Info("Loaded skybox cubemap texture [" + path + "back.png]", logger.fileInfo(__FILE__, __LINE__));
 
+		auto& wnd = engine::GetModule<window::Proxy>();
+		
+		auto device = wnd.getGfxDevice();
+		
+		loadedTextureMap[folderName] = device->createCubeMapTexture(textureData->getWidth(), textureData->getHeight(), 4u);
+
 		auto uploadBuffer = wnd.getUploadBuffer();
 		auto trans = uploadBuffer->begin();
-		trans->uploadTexture(loadedTextureMap[folderName]);
+
+		auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
+		buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
+
+		swizzle::gfx::TextureDimensions size{};
+		size.mHeight = textureData->getHeight();
+		size.mWidth = textureData->getWidth();
+		size.mLayers = 6u;
+		size.mMipLevels = 1u;
+
+		trans->copyBufferToTexture(loadedTextureMap[folderName], buffer, size);
 		uploadBuffer->end(std::move(trans));
-		wnd.getGfxContext()->submit(&uploadBuffer, 1u, nullptr);
+		device->submit(&uploadBuffer, 1u, nullptr);
 
 		mtx.unlock();
 		return true;

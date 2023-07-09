@@ -14,8 +14,8 @@ namespace of::resource
 		std::shared_ptr<swizzle::gfx::Material> material;
 		std::shared_ptr<swizzle::gfx::Shader> shader;
 		std::shared_ptr<swizzle::asset2::IMeshAsset> mesh;
-		std::shared_ptr<swizzle::gfx::Buffer> mMeshBuffer;
-		std::shared_ptr<swizzle::gfx::Buffer> mIndexBuffer;
-		std::shared_ptr<swizzle::gfx::Buffer> mBoneBuffer;
+		std::shared_ptr<swizzle::gfx::GfxBuffer> mMeshBuffer;
+		std::shared_ptr<swizzle::gfx::GfxBuffer> mIndexBuffer;
+		std::shared_ptr<swizzle::gfx::GfxBuffer> mBoneBuffer;
 	};
 }

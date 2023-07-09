@@ -10,7 +10,8 @@
 #include <graphics/sky/skyBox.hpp>
 
 #include <imgui/imgui.h>
-#include <imgui/imgui_impl_swizzle.hpp>
+#include <ImGuiSwzzle.hpp>
+
 #include <utils/StringUtils.hpp>
 
 
@@ -29,7 +30,7 @@ namespace of::graphics::window
 
 		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq", "fsq.shader", attribFsq);
 
-		mFsqMat = mGfxContext->createMaterial(mFsq, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		mFsqMat = mGfxDevice->createMaterial(mFsq, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
@@ -48,7 +49,7 @@ namespace of::graphics::window
 		//	ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
 		// endTodo
 
-		ImGui_ImplSwizzle_Init(mGfxContext, mWindow);
+		ImGui_ImplSwizzle_Init(mGfxDevice, mWindow);
 		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
 
 	}
@@ -61,7 +62,7 @@ namespace of::graphics::window
 
 		title += std::string(mGfxContext->getSelectedDeviceName()) + "\n";
 
-		auto iter = mGfxContext->getStatisticsIterator();
+		auto iter = mGfxDevice->getStatisticsIterator();
 
 		do
 		{
@@ -196,7 +197,7 @@ namespace of::graphics::window
 		transaction = mCmdBuffer->endRenderPass(std::move(dTransaction));
 		mCmdBuffer->end(std::move(transaction));
 
-		mGfxContext->submit(&mCmdBuffer, 1u, mSwapchain);
+		mGfxDevice->submit(&mCmdBuffer, 1u, mSwapchain);
 		mSwapchain->present();
 
     }
@@ -210,7 +211,7 @@ namespace of::graphics::window
 	void of::graphics::window::Application::setup()
     {
         auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
-        proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain);
+        proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain, mGfxDevice);
 		mWindow->addEventListener(&listener);
 	}
 
@@ -275,10 +276,10 @@ namespace of::graphics::window
         mWindow->setTitle("One Flower");
 
         mSwapchain->setVsync(sw::gfx::VSyncTypes::vSyncOn);
-        mCmdBuffer = mGfxContext->createCommandBuffer(3);
-        mUploadBuffer = mGfxContext->createCommandBuffer(1);
+        mCmdBuffer = mGfxDevice->createCommandBuffer(3);
+        mUploadBuffer = mGfxDevice->createCommandBuffer(1);
 
-		mGfxContext->enablePipelineStatistics(true);
+		mGfxDevice->enablePipelineStatistics(true);
 
 		setup();
 		setupImGui();

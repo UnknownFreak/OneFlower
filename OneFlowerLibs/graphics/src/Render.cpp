@@ -17,7 +17,7 @@ namespace of::object::component
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
 		//auto temp = wnd.getUploadBuffer();
 		//auto trans = temp->begin();
-		auto gfx = wnd.getGfxContext();
+		auto gfx = wnd.getGfxDevice();
 
 		textureName = "temporary.png";
 		meshName = "test.swm";
@@ -28,9 +28,9 @@ namespace of::object::component
 		model->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh(meshName);
 		{
 
-			model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
-			model->mIndexBuffer = gfx->createBuffer(swizzle::gfx::BufferType::Index);
-			model->mBoneBuffer = gfx->createBuffer(swizzle::gfx::BufferType::UniformBuffer);
+			model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			model->mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			model->mBoneBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			model->mMeshBuffer->setBufferData((U8*)model->mesh->getVertexDataPtr(), model->mesh->getVertexDataSize(),
 				sizeof(float) * (3u + 3u + 2u + 4u + 4u));
 

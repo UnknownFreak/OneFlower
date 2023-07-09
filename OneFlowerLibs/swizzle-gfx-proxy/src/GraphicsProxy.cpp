@@ -8,12 +8,17 @@ namespace of::module::window
 	Proxy::Proxy() {}
 
 	void Proxy::setProxy(std::shared_ptr<swizzle::gfx::GfxContext> gfx, std::shared_ptr<swizzle::gfx::CommandBuffer> cmdBuf, std::shared_ptr<swizzle::gfx::CommandBuffer> upload,
-		std::shared_ptr<swizzle::gfx::Swapchain> swapChain)
+		std::shared_ptr<swizzle::gfx::Swapchain> swapChain, std::shared_ptr<swizzle::gfx::GfxDevice> device)
 	{
 		m_gfxContext = gfx;
 		m_cmdBuffer = cmdBuf;
 		m_uploadBuffer = upload;
 		m_swapChain = swapChain;
+		m_gfxDeivice = device;
+	}
+
+	std::shared_ptr<swizzle::gfx::GfxDevice> Proxy::getGfxDevice() {
+		return m_gfxDeivice;
 	}
 
 	std::shared_ptr<swizzle::gfx::GfxContext> Proxy::getGfxContext() {

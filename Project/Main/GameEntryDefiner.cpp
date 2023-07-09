@@ -27,10 +27,9 @@
 #include <module/resource/ShaderLoader.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
-#include <imgui/imgui_impl_swizzle.hpp>
+#include <imgui/imgui_stdlib.hpp>
 #include <imgui/of_imgui_extensions.hpp>
 #include <imgui/fileSelector.hpp>
-#include <imgui/imgui_stdlib.hpp>
 
 #include <graphics/Editor/EditorBasicToolTip.hpp>
 
@@ -132,10 +131,10 @@ class WorldGrid : public of::graphics::ParentedRenderable
 {
 
 	of::graphics::view::Camera* c;
-	common::Resource<swizzle::gfx::Buffer> buf_x;
-	common::Resource<swizzle::gfx::Buffer> buf_y;
-	common::Resource<swizzle::gfx::Buffer> buf_z;
-	common::Resource<swizzle::gfx::Buffer> buf;
+	common::Resource<swizzle::gfx::GfxBuffer> buf_x;
+	common::Resource<swizzle::gfx::GfxBuffer> buf_y;
+	common::Resource<swizzle::gfx::GfxBuffer> buf_z;
+	common::Resource<swizzle::gfx::GfxBuffer> buf;
 	common::Resource<swizzle::gfx::Material> mat;
 	common::Resource<swizzle::gfx::Shader> shader;
 
@@ -190,21 +189,21 @@ public:
 		}
 
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxContext();
+		auto gfx = wnd.getGfxDevice();
 
 		loadShader();
 		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(float) * 3u);
 
-		buf_x = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_x = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_x->setBufferData(x_line, sizeof(x_line), sizeof(float) * 3u);
 
-		buf_y = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_y = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_y->setBufferData(y_line, sizeof(y_line), sizeof(float) * 3u);
 
-		buf_z = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf_z = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_z->setBufferData(z_line, sizeof(z_line), sizeof(float) * 3u);
 
 	}
@@ -571,8 +570,8 @@ class PxControllerRenderable : public of::graphics::ParentedRenderable
 	physx::PxController* actor;
 	glm::vec3 pos;
 
-	common::Resource<swizzle::gfx::Buffer> buf;
-	common::Resource<swizzle::gfx::Buffer> index;
+	common::Resource<swizzle::gfx::GfxBuffer> buf;
+	common::Resource<swizzle::gfx::GfxBuffer> index;
 	common::Resource<swizzle::gfx::Material> mat;
 	common::Resource<swizzle::gfx::Shader> shader;
 	common::Resource<swizzle::gfx::Texture> texture;
@@ -704,14 +703,14 @@ public:
 		}
 
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxContext();
+		auto gfx = wnd.getGfxDevice();
 		loadShader();
 		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		
-		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(glm::vec3));
 
-		index = gfx->createBuffer(swizzle::gfx::BufferType::Index);
+		index = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		index->setBufferData(tris.data(), tris.size() * sizeof(glm::ivec3), sizeof(glm::ivec3));
 		
 	}
@@ -742,7 +741,7 @@ class PxActorRenderable : public of::graphics::ParentedRenderable, public of::ut
 	glm::vec3 pos;
 	glm::quat rot;
 
-	common::Resource<swizzle::gfx::Buffer> buf;
+	common::Resource<swizzle::gfx::GfxBuffer> buf;
 	common::Resource<swizzle::gfx::Material> mat;
 	common::Resource<swizzle::gfx::Shader> shader;
 	common::Resource<swizzle::gfx::Texture> texture;
@@ -803,11 +802,11 @@ public:
 		}
 
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxContext();
+		auto gfx = wnd.getGfxDevice();
 		loadShader();
 		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+		buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(glm::vec3));
 
 		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
@@ -976,8 +975,8 @@ class Heightmap : public of::graphics::ParentedRenderable
 	{
 		bool done;
 		bool set = false;
-		common::Resource<swizzle::gfx::Buffer> buf;
-		common::Resource<swizzle::gfx::Buffer> index;
+		common::Resource<swizzle::gfx::GfxBuffer> buf;
+		common::Resource<swizzle::gfx::GfxBuffer> index;
 		common::Resource<swizzle::gfx::Material> mat;
 		common::Resource<swizzle::gfx::Shader> shader;
 		common::Resource<swizzle::gfx::Texture> texture;
@@ -1134,18 +1133,18 @@ class Heightmap : public of::graphics::ParentedRenderable
 		{
 			done = false;
 			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-			auto gfx = wnd.getGfxContext();
+			auto gfx = wnd.getGfxDevice();
 
 			loadShader();
 			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 			texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("flower.png");
 			mat->setDescriptorTextureResource(0u, texture);
 
-			buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+			buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			//buf->setBufferData(points.data(), 0, sizeof(float) * 3u);
 
 
-			index = gfx->createBuffer(swizzle::gfx::BufferType::Index);
+			index = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			//index->setBufferData(tris.data(), 0, sizeof(float));
 		}
 
@@ -1192,7 +1191,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 	{
 		bool& changed;
 		of::graphics::view::Camera* c;
-		common::Resource<swizzle::gfx::Buffer> buf;
+		common::Resource<swizzle::gfx::GfxBuffer> buf;
 		common::Resource<swizzle::gfx::Material> mat;
 		common::Resource<swizzle::gfx::Shader> shader;
 
@@ -1230,12 +1229,12 @@ class Heightmap : public of::graphics::ParentedRenderable
 		HeightmapOutline(bool& changed) : c(m_parent->getCamera()), changed(changed)
 		{
 			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-			auto gfx = wnd.getGfxContext();
+			auto gfx = wnd.getGfxDevice();
 
 			loadShader();
 			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-			buf = gfx->createBuffer(swizzle::gfx::BufferType::Vertex);
+			buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			buf->setBufferData(line, sizeof(line), sizeof(float) * 3u);
 
 		}

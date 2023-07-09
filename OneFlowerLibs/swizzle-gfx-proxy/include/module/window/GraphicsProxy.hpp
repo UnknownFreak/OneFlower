@@ -16,6 +16,7 @@ namespace of::module::window
 	{
 	private:
 
+		std::shared_ptr<swizzle::gfx::GfxDevice> m_gfxDeivice;
 		std::shared_ptr<swizzle::gfx::GfxContext> m_gfxContext;
 		std::shared_ptr<swizzle::gfx::CommandBuffer> m_cmdBuffer;
 		std::shared_ptr<swizzle::gfx::CommandBuffer> m_uploadBuffer;
@@ -25,8 +26,9 @@ namespace of::module::window
 		Proxy();
 
 		void setProxy(std::shared_ptr<swizzle::gfx::GfxContext> gfx, std::shared_ptr<swizzle::gfx::CommandBuffer> cmdBuf, std::shared_ptr<swizzle::gfx::CommandBuffer> upload,
-			std::shared_ptr<swizzle::gfx::Swapchain> swapChain);
+			std::shared_ptr<swizzle::gfx::Swapchain> swapChain, std::shared_ptr<swizzle::gfx::GfxDevice> device);
 
+		std::shared_ptr<swizzle::gfx::GfxDevice> getGfxDevice();
 		std::shared_ptr<swizzle::gfx::GfxContext> getGfxContext();
 		std::shared_ptr<swizzle::gfx::CommandBuffer> getCommandBuffer();
 		std::shared_ptr<swizzle::gfx::CommandBuffer> getUploadBuffer();

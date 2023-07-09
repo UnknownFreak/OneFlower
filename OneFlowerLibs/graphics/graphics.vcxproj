@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(IncludePath)</IncludePath>
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,8 +143,6 @@
     <ClInclude Include="include\graphics\window\renderLayer.hpp" />
     <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp" />
     <ClInclude Include="include\graphics\window\Window.hpp" />
-    <ClInclude Include="include\imgui\ImGuiTranslateKey.hpp" />
-    <ClInclude Include="include\imgui\imgui_impl_swizzle.hpp" />
     <ClInclude Include="include\imgui\imgui_stdlib.hpp" />
     <ClInclude Include="include\module\window\WindowProxy.hpp" />
     <ClInclude Include="include\object\component\Render.hpp" />
@@ -159,6 +157,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\swizzle\build\vs2019\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\swizzle\build\vs2022\imgui_impl\imgui_impl.vcxproj">
+      <Project>{3122baaf-1dda-fbfc-86e1-d45872b896ed}</Project>
     </ProjectReference>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
@@ -191,8 +192,6 @@
   <ItemGroup>
     <ClCompile Include="include\graphics\sky\skyBox.cpp" />
     <ClCompile Include="include\graphics\view\cameraController.cpp" />
-    <ClCompile Include="include\imgui\ImGuiTranslateKey.cpp" />
-    <ClCompile Include="include\imgui\imgui_impl_swizzle.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\parentedRenderable.cpp" />

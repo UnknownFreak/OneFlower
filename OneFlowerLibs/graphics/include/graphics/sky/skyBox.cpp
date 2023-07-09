@@ -5,7 +5,6 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
-#include <swizzle/asset/TextureLoader.hpp>
 
 #include <module/window/GraphicsProxy.hpp>
 
@@ -50,13 +49,13 @@ namespace of::graphics::sky
 		
 		mModel->texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		
-		mModel->material = wnd.getGfxContext()->createMaterial(mModel->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		mModel->material = wnd.getGfxDevice()->createMaterial(mModel->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		
 		mModel->material->setDescriptorTextureResource(0, mModel->texture);
 
 		mModel->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh("inverted_sphere.obj");
 		
-		mModel->mMeshBuffer = wnd.getGfxContext()->createBuffer(swizzle::gfx::BufferType::Vertex);
+		mModel->mMeshBuffer = wnd.getGfxDevice()->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		mModel->mMeshBuffer->setBufferData((U8*)mModel->mesh->getVertexDataPtr(), mModel->mesh->getVertexDataSize(),
 			sizeof(float) * (3 + 3 + 2));
 		

@@ -26,7 +26,7 @@ namespace of::module::shader
 #endif
 		mtx.lock();
 		auto& wnd = engine::GetModule<window::Proxy>();
-		loadedShaders.insert(std::make_pair(instanceName, wnd.getGfxContext()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
+		loadedShaders.insert(std::make_pair(instanceName, wnd.getGfxDevice()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[instanceName];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)

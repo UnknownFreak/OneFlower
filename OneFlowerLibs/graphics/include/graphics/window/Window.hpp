@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 
 #include <swizzle/Swizzle.hpp>
+#include <swizzle/ApplicationTemplate.hpp>
 
 #include <module/IEngineModule.hpp>
 
