@@ -47,7 +47,7 @@
 
 using namespace physx;
 
-class ErrorCallBack : public PxErrorCallback
+class EErrorCallBack : public PxErrorCallback
 {
 public:
 	virtual void reportError(PxErrorCode::Enum code, const char* message, const char* file, int line)
@@ -58,7 +58,7 @@ public:
 };
 
 static PxDefaultAllocator		gAllocator;
-static ErrorCallBack			gErrorCallback;
+static EErrorCallBack			gErrorCallback;
 
 static PxFoundation* gFoundation = NULL;
 static PxPvd* mPvd = NULL;

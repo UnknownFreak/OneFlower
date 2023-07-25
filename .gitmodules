@@ -10,3 +10,6 @@
 [submodule "vendor/ImGuizmo"]
 	path = vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "vendor/PhysX"]
+	path = vendor/PhysX
+	url = https://github.com/NVIDIA-Omniverse/PhysX.git
