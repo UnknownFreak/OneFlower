@@ -42,8 +42,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -142,7 +142,7 @@
     <ClCompile Include="src\TickTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\swizzle\build\vs2019\utils\utils.vcxproj">
+    <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
     </ProjectReference>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
