@@ -45,6 +45,10 @@
 #include <glm/gtc/quaternion.hpp>
 #pragma warning(pop)
 
+#include <swizzle/asset2/Assets.hpp>
+#include <module/resource/MeshLoader.hpp>
+#include <resource/Model.hpp>
+
 using namespace physx;
 
 class EErrorCallBack : public PxErrorCallback
@@ -73,6 +77,29 @@ static PxRigidDynamic* actor2 = NULL;
 
 bool paused = false;
 
+
+physx::PxTriangleMesh* GetObjectAsPxMesh(swizzle::asset2::IMeshAsset* asset)
+{
+	PxTriangleMeshDesc desc;
+	desc.points.count = (U32)asset->getVertexDataSize() / (sizeof(float)*3u);
+	desc.points.data = asset->getVertexDataPtr();
+	desc.points.stride = sizeof(float) * 3u;
+
+	desc.triangles.count = (U32)asset->getIndexDataSize() /(sizeof(U32)*3u);
+	desc.triangles.data = asset->getIndexDataPtr();
+	desc.triangles.stride = sizeof(U32) * 3u;
+
+	physx::PxCookingParams params(physx::PxTolerancesScale(1.f, 9.82f));
+
+	auto mesh = PxCreateTriangleMesh(params, desc);
+	if (mesh == nullptr)
+	{
+		of::engine::GetModule<of::module::logger::OneLogger>().Error("Failed to load collision mesh");
+	}
+
+	return mesh;
+}
+
 void initPhysics()
 {
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
@@ -80,11 +107,12 @@ void initPhysics()
 
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), false, mPvd);
 
-
 	PxSceneDesc d = PxSceneDesc(mPhysics->getTolerancesScale());
 	d.gravity = PxVec3(0.f, -9.81f, 0.f);
 	d.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
 	d.filterShader = PxDefaultSimulationFilterShader;
+	d.kineKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
+	d.staticKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
 	
 	mScene = mPhysics->createScene(d);
 	manager = PxCreateControllerManager(*mScene);
@@ -93,29 +121,46 @@ void initPhysics()
 	desc.material = mPhysics->createMaterial(0.f, 0.f, 0.f);
 	desc.height = 2.f;
 	desc.radius = 1.f;
-	desc.position = PxExtendedVec3(0, 10, 0);
+	desc.position = PxExtendedVec3(0, 50, 0);
+	desc.nonWalkableMode = physx::PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING;
 	controller = manager->createController(desc);
 
 	gMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
-	mScene->addActor(*PxCreatePlane(*mPhysics, PxPlane(0, 1, 0, 0), *gMaterial));
+	auto plane = PxCreatePlane(*mPhysics, PxPlane(0, 1, 0, 0), * gMaterial);
+	plane->setName("PlaneActor");
+	mScene->addActor(*plane);
 
-	PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
+	auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm");
 
-	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(10.f, 1.f, 0.f)));
-	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 15.f, 0.f)));
+	auto triMesh = GetObjectAsPxMesh(mesh.get());
+
+	//PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
+	PxShape* shape = mPhysics->createShape(PxTriangleMeshGeometry(triMesh
+		, physx::PxMeshScale( 1.f )), *gMaterial);
+	
+
+	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(00.f, 1.f, 0.f)));
+	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(10.f, 15.f, 0.f)));
 
 	actor->attachShape(*shape);
+	actor2->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
 	actor2->attachShape(*shape);
+
+	actor->setName("Static Actor");
+	actor2->setName("Dyn Actor");
+	controller->getActor()->setName("ControllerActor");
+
+	actor2->setMass(1.f);
 
 	shape->release();
 
 	//PxRigidBodyExt::updateMassAndInertia(*actor, 10.f);
-	PxRigidBodyExt::updateMassAndInertia(*actor2, 10.f);
+	//PxRigidBodyExt::updateMassAndInertia(*actor2, 10.f);
+	
 
 	mScene->addActor(*actor);
 	mScene->addActor(*actor2);
-
 }
 
 void shutDown()
@@ -490,7 +535,7 @@ public:
 	void set(PxSimulationStatistics& st)
 	{
 		set();
-		string += "Active Dynamic Bodies: " + std::to_string(st.nbActiveDynamicBodies) + "\n"
+		string = "Active Dynamic Bodies: " + std::to_string(st.nbActiveDynamicBodies) + "\n"
 			"Active Kinematic Bodies: " + std::to_string(st.nbActiveKinematicBodies) + "\n"
 			"Dynamic Bodies: " + std::to_string(st.nbDynamicBodies) + "\n"
 			"Kinematic Bodies: " + std::to_string(st.nbKinematicBodies) + "\n"
@@ -504,11 +549,13 @@ public:
 
 	void set()
 	{
+		/*
 		if (m_paused)
 			string = "PAUSED";
 		else
 			string = "RUNNING";
 		string += "\n";
+		*/
 	}
 
 	virtual void updateFrame(const float&)
@@ -735,9 +782,94 @@ public:
 	};
 };
 
+static size_t mId = 0x100000000;
+
+template<class T>
+class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+{
+	T* mActor;
+	of::resource::Model model;
+	
+	glm::vec3 pos;
+	glm::quat rot;
+
+	glm::vec4 playerControllerColor = { 0.3f, 0.3f, 1.f, 0.f };
+
+	void loadShader()
+	{
+		swizzle::gfx::ShaderAttributeList attribs = {};
+		attribs.mBufferInput = {
+			{ swizzle::gfx::ShaderBufferInputRate::InputRate_Vertex, sizeof(float) * (3U) }
+		};
+
+		attribs.mAttributes = {
+			{ 0U, swizzle::gfx::ShaderAttributeDataType::vec3f, 0U},
+		};
+		attribs.mDescriptors = {};
+		attribs.mEnableDepthTest = true;
+		attribs.mEnableDepthWrite = true;
+		attribs.mEnableBlending = true;
+		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
+		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
+
+		model.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("pxactor shader", "grid.shader", attribs);
+	}
+
+public:
+
+	PxMeshedActorRenderable(T* iactor, std::shared_ptr<swizzle::asset2::IMeshAsset> mesh) : mActor(iactor)
+	{
+		model.mesh = mesh;
+		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+		auto gfx = wnd.getGfxDevice();
+		loadShader();
+
+		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		model.mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+
+		model.mMeshBuffer->setBufferData((void*)mesh->getVertexDataPtr(), mesh->getVertexDataSize(), sizeof(glm::vec3));
+
+		model.mIndexBuffer->setBufferData((void*)mesh->getIndexDataPtr(), mesh->getIndexDataSize(), sizeof(U32)*3);
+
+		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
+		channel->addSubscriber(of::messaging::Subscriber(mId++ , warrantyFromThis(), [&](const of::messaging::Message&)
+			{
+				auto vec = mActor->getGlobalPose().p;
+				auto r = mActor->getGlobalPose().q;
+				pos.x = (float)vec.x;
+				pos.y = (float)vec.y;
+				pos.z = (float)vec.z;
+				rot.w = r.w;
+				rot.x = r.x;
+				rot.y = r.y;
+				rot.z = r.z;
+			}
+		));
+
+	}
+
+	virtual void updateFrame(const float&)
+	{
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+	{
+		mvp.model = glm::translate(glm::mat4(1.f), pos);
+		mvp.model *= glm::mat4_cast(rot);
+
+		transaction->bindShader(model.shader);
+		transaction->bindMaterial(model.shader, model.material);
+		transaction->setShaderConstant(model.shader, (U8*)&mvp, sizeof(mvp));
+		transaction->setShaderConstant(model.shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
+		transaction->drawIndexed(model.mMeshBuffer, model.mIndexBuffer);
+	};
+};
+
 class PxActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
-	physx::PxRigidDynamic* actor;
+	//physx::PxRigidDynamic* mActor;
+	physx::PxRigidStatic* mActor;
 	glm::vec3 pos;
 	glm::quat rot;
 
@@ -769,7 +901,7 @@ class PxActorRenderable : public of::graphics::ParentedRenderable, public of::ut
 
 public:
 
-	PxActorRenderable() : actor(actor2)
+	PxActorRenderable() : mActor(actor)
 	{
 		std::vector<glm::vec3> points;
 		std::vector<glm::ivec3> tris;
@@ -812,8 +944,8 @@ public:
 		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
 		channel->addSubscriber(of::messaging::Subscriber(0xffffffff, warrantyFromThis(), [&] (const of::messaging::Message&)
 			{
-				auto vec = actor->getGlobalPose().p;
-				auto r = actor->getGlobalPose().q;
+				auto vec = mActor->getGlobalPose().p;
+				auto r = mActor->getGlobalPose().q;
 				pos.x = (float)vec.x;
 				pos.y = (float)vec.y;
 				pos.z = (float)vec.z;
@@ -1403,7 +1535,7 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>());
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxActorRenderable>());
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(actor, of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm")));
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
@@ -1455,7 +1587,8 @@ void GameEntry::physicsUpdate()
 				input.update(update_time);
 				world.Simulate(update_time);
 				time.Simulate(update_time);
-				controller->move(PxVec3(0.f, -9.81f, 0.f), 0.f, update_time, PxControllerFilters());
+				controller->move(PxVec3(0.f, -9.81f*0.01f, 0.f), 0.f, update_time, PxControllerFilters());
+				//actor2->setKinematicTarget(physx::PxTransform(physx::PxVec3(0, -1.f, 0)));
 				mScene->simulate(update_time);
 				mScene->fetchResults(true);
 				PxSimulationStatistics st;

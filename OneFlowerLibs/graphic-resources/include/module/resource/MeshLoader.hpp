@@ -19,13 +19,19 @@ namespace of::module::mesh
 		std::mutex mtx;
 		const common::String missingMesh = "missingMesh.swm";
 		std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedMeshes;
-		bool loadMesh(const common::String& name);
+		std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedColliders;
+
+		//TODO:: Rework and use swm mesh format directly to allow baking the collision mesh into the same mesh object.
+
+		bool loadMesh(std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>& inserter, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc);
 
 	public:
 		std::shared_ptr<swizzle::asset2::IMeshAsset> requestMesh(const common::String& name, const common::String& path = Settings::meshPath);
+		std::shared_ptr<swizzle::asset2::IMeshAsset> requestCollisionMesh(const common::String& name, const common::String& path = Settings::meshPath);
 		bool getResult();
 
 		void requestRemovalOfMesh(const common::String& name);
+		void requestRemovalOfCollisionMesh(const common::String& name);
 
 		EngineResourceType& getType() const
 		{
