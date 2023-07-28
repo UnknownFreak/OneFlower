@@ -476,7 +476,7 @@ namespace of::imgui
 		auto pos = GetCursorPos();
 		pos.x += 4.f;
 		pos.y += 8.f;
-		ImGui::RenderBullet(pos);
+		ImGui::RenderBullet(ImGui::GetCurrentWindow()->DrawList, pos, ImColor(1,1,1).operator unsigned int());
 		std::string name = "  ";
 		name += id;
 		ImGui::Text(name.c_str());

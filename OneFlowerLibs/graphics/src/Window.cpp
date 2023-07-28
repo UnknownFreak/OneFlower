@@ -9,8 +9,8 @@
 #include <module/resource/ShaderLoader.hpp>
 #include <graphics/sky/skyBox.hpp>
 
+
 #include <imgui/imgui.h>
-#include <ImGuiSwzzle.hpp>
 
 #include <utils/StringUtils.hpp>
 
@@ -19,6 +19,18 @@ namespace of::graphics::window
 {
 	void Application::setupImGui()
 	{
+		swizzle::gfx::FrameBufferCreateInfo fboInfo{};
+		fboInfo.mDepthType = swizzle::gfx::FrameBufferDepthType::DepthNone;
+		fboInfo.mSwapCount = 3u;
+		fboInfo.mColorAttachFormats = { swizzle::gfx::FrameBufferAttachmentType::Default };
+		mWindow->getSize(fboInfo.mWidth, fboInfo.mHeight);
+		mLastWidth = fboInfo.mWidth;
+		mLastHeight = fboInfo.mHeight;
+
+		mImGuiFbo = mGfxDevice->createFramebuffer(fboInfo);
+
+		mImGuiRenderTarget = ::common::CreateRef<ImGuiSwizzleRenderTarget>(mImGuiFbo);
+
 		//FSQ - fullscreen quad
 		sw::gfx::ShaderAttributeList attribFsq = {};
 		attribFsq.mDescriptors = {
@@ -40,6 +52,7 @@ namespace of::graphics::window
 		// TODO: do some font combination magic & move to font handler?
 		// Will we be using imgui for the entire ui as well or do our own.
 		auto& io = ImGui::GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		ImFont* font = io.Fonts->AddFontDefault();
 		font;
 		//ImFontConfig config;
@@ -49,8 +62,8 @@ namespace of::graphics::window
 		//	ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
 		// endTodo
 
-		ImGui_ImplSwizzle_Init(mGfxDevice, mWindow);
-		ImGui_ImplSwizzle_SetMaterial(mFsqMat);
+		ImGui_ImplSwizzle_Init(mWindow, mGfxDevice,  mImGuiRenderTarget);
+		mFsqMat->setDescriptorTextureResource(0u, mImGuiRenderTarget->getTexture(), false);
 
 	}
 
@@ -60,7 +73,7 @@ namespace of::graphics::window
 		title.reserve(1024);
 		title += "Frames: " + std::to_string(mSwapchain->getFrameCounter()) + "\n";
 
-		title += std::string(mGfxContext->getSelectedDeviceName()) + "\n";
+		title += std::string(mGfxDevice->getDeviceName()) + "\n";
 
 		auto iter = mGfxDevice->getStatisticsIterator();
 
@@ -131,7 +144,7 @@ namespace of::graphics::window
 		view::MVP mvp{};
 
 		// IMGUI
-		ImGui_ImplSwizzle_NewFrame(mWindow);
+		ImGui_ImplSwizzle_NewFrame(dt);
 		ImGui::NewFrame();
 		
 		drawStats();
@@ -159,10 +172,10 @@ namespace of::graphics::window
 		// IMGUI
 		ImGui_ImplSwizzle_UploadFontTexture(transaction);
 
-		auto dTransaction = mCmdBuffer->beginRenderPass(ImGui_ImplSwizzle_GetFramebuffer(), std::move(transaction));
+		auto dTransaction = mImGuiRenderTarget->beginRenderPass(mCmdBuffer, std::move(transaction));
 
 		ImGui::Render();
-		ImGui_ImplSwizzle_RenderDrawData(ImGui::GetDrawData(), dTransaction);
+		ImGui_ImplSwizzle_DrawData(ImGui::GetDrawData(), dTransaction);
 		transaction = mCmdBuffer->endRenderPass(std::move(dTransaction));
 
 
@@ -200,6 +213,11 @@ namespace of::graphics::window
 		mGfxDevice->submit(&mCmdBuffer, 1u, mSwapchain);
 		mSwapchain->present();
 
+		if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
     }
 
 	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitboxes(of::engine::GetModule<of::module::Settings>().renderHitboxes())

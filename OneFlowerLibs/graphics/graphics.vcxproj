@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

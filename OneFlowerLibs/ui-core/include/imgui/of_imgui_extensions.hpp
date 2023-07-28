@@ -1,6 +1,8 @@
 #pragma once
 
 #include <imgui/imgui.h>
+
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui/imgui_internal.h>
 #include <imgui/imconfig.h>
 
@@ -26,17 +28,6 @@ namespace of::imgui
 	ImVec2 getWH(const ImVec4& vec)
 	{
 		return { vec.z, vec.w };
-	}
-
-	ImVec2 operator+(const ImVec2& a, const ImVec2& b)
-	{
-		return { a.x + b.x, a.y + b.y };
-	}
-
-	ImVec2& operator+=(ImVec2& a, const ImVec2& b)
-	{
-		a = a + b;
-		return a;
 	}
 
 	struct BuffIconSettings

@@ -13,6 +13,7 @@
 
 #include <swizzle/Swizzle.hpp>
 #include <swizzle/ApplicationTemplate.hpp>
+#include <ImGuiSwzzle.hpp>
 
 #include <module/IEngineModule.hpp>
 
@@ -38,6 +39,13 @@ namespace of::graphics::window
 		::common::Resource<sw::gfx::Material> mFsqMat;
 		::common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		::common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;
+
+		U32 mLastWidth;
+		U32 mLastHeight;
+
+		::common::Resource<swizzle::gfx::FrameBuffer> mImGuiFbo;
+		::common::Resource<ImGuiSwizzleRenderTarget> mImGuiRenderTarget;
+
 
 		std::shared_ptr<Renderable> skyBox;
 		//of::graphics::quadtree<Renderable> renderables;

@@ -87,7 +87,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)Project\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\imgui\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\vendor\stb\include;$(SolutionDir)vendor\PhysX\physx\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)swizzle\build\bin-debug;$(SolutionDir)vendor\PhysX\physx\bin\win.x86_64.vc143.mt\debug;$(LibraryPath)</LibraryPath>
-    <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\include\imgui;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\imgui;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTests|x64'">
     <LinkIncremental>true</LinkIncremental>
