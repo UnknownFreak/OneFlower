@@ -27,9 +27,6 @@
     <Filter Include="include\graphics\sky">
       <UniqueIdentifier>{a2b63805-b517-4cb2-b5e7-ebb3c88c8d1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\resource">
-      <UniqueIdentifier>{8dfde863-69da-448d-9796-c39b02b0d903}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\module">
       <UniqueIdentifier>{86c2d264-9145-4263-acc3-a83665dbe2c9}</UniqueIdentifier>
     </Filter>
@@ -44,9 +41,6 @@
     <ClInclude Include="include\object\component\Render.hpp">
       <Filter>include\object\component</Filter>
     </ClInclude>
-    <ClInclude Include="include\resource\Model.hpp">
-      <Filter>include\resource</Filter>
-    </ClInclude>
     <ClInclude Include="include\graphics\window\Window.hpp">
       <Filter>include\graphics\window</Filter>
     </ClInclude>
@@ -55,9 +49,6 @@
     </ClInclude>
     <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp">
       <Filter>include\graphics\window</Filter>
-    </ClInclude>
-    <ClInclude Include="include\graphics\view\mvp.hpp">
-      <Filter>include\graphics\view</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\window\renderLayer.hpp">
       <Filter>include\graphics\window</Filter>

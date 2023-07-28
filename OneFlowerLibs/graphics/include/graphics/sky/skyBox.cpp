@@ -68,10 +68,7 @@ namespace of::graphics::sky
 	{
 		if (loaded)
 		{
-			trans->bindShader(mModel->shader);
-			trans->bindMaterial(mModel->shader, mModel->material);
-			trans->setShaderConstant(mModel->shader, (U8*)&mvp, sizeof(mvp));
-			trans->draw(mModel->mMeshBuffer);
+			mModel->render(trans, mvp);
 		}
 	}
 	void Skybox::updateFrame(const float& )

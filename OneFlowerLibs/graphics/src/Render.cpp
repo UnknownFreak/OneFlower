@@ -106,15 +106,7 @@ namespace of::object::component
 	{
 		if (model)
 		{
-			mvp.model = glm::translate(glm::mat4(1.f), transform->buffered);
-			mvp.model = glm::rotate(mvp.model, 0.f, glm::vec3(1.f, 0.f, 0.f));
-			mvp.model = glm::rotate(mvp.model, 0.f, glm::vec3(0.f, 1.f, 0.f));
-			mvp.model = glm::rotate(mvp.model, transform->facingAngle, glm::vec3(0.f, 0.f, 1.f));
-
-			transaction->bindShader(model->shader);
-			transaction->bindMaterial(model->shader, model->material);
-			transaction->setShaderConstant(model->shader, (U8*)&mvp, sizeof(mvp));
-			transaction->drawIndexed(model->mMeshBuffer, model->mIndexBuffer);
+			model->render(transaction, mvp, transform->buffered, transform->facingAngle);
 		}
 	}
 	void Render::updateFrame(const float& dt)

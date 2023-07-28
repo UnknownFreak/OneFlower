@@ -7,7 +7,7 @@
 
 #include <graphics/view/mvp.hpp>
 
-#include <resource/Model.hpp>
+#include <module/resource/Model.hpp>
 
 #include <utils/common/string.hpp>
 

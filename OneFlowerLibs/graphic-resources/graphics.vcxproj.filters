@@ -18,6 +18,12 @@
     <Filter Include="src\resource">
       <UniqueIdentifier>{71faa939-90b3-47f8-b2b9-77ef3583989b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\graphics">
+      <UniqueIdentifier>{841b3c6e-ef98-447a-93a1-08310cc232a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\graphics\view">
+      <UniqueIdentifier>{59a967df-3509-485b-b7bb-4b559d8bf046}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\resource\MeshLoader.hpp">
@@ -28,6 +34,15 @@
     </ClInclude>
     <ClInclude Include="include\module\resource\TextureLoader.hpp">
       <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\resource\ModelBuilder.hpp">
+      <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\resource\Model.hpp">
+      <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\view\mvp.hpp">
+      <Filter>include\graphics\view</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

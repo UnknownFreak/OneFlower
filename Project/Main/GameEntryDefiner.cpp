@@ -47,7 +47,7 @@
 
 #include <swizzle/asset2/Assets.hpp>
 #include <module/resource/MeshLoader.hpp>
-#include <resource/Model.hpp>
+#include <module/resource/Model.hpp>
 
 using namespace physx;
 
@@ -111,10 +111,12 @@ void initPhysics()
 	d.gravity = PxVec3(0.f, -9.81f, 0.f);
 	d.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
 	d.filterShader = PxDefaultSimulationFilterShader;
+	
 	d.kineKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
 	d.staticKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
 	
 	mScene = mPhysics->createScene(d);
+
 	manager = PxCreateControllerManager(*mScene);
 	
 	PxCapsuleControllerDesc desc;
@@ -141,7 +143,7 @@ void initPhysics()
 	
 
 	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(00.f, 1.f, 0.f)));
-	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(10.f, 15.f, 0.f)));
+	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 15.f, 0.f)));
 
 	actor->attachShape(*shape);
 	actor2->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
@@ -826,7 +828,7 @@ public:
 
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		model.mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-		model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 
 		model.mMeshBuffer->setBufferData((void*)mesh->getVertexDataPtr(), mesh->getVertexDataSize(), sizeof(glm::vec3));
 
@@ -858,11 +860,10 @@ public:
 		mvp.model = glm::translate(glm::mat4(1.f), pos);
 		mvp.model *= glm::mat4_cast(rot);
 
-		transaction->bindShader(model.shader);
-		transaction->bindMaterial(model.shader, model.material);
-		transaction->setShaderConstant(model.shader, (U8*)&mvp, sizeof(mvp));
-		transaction->setShaderConstant(model.shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
-		transaction->drawIndexed(model.mMeshBuffer, model.mIndexBuffer);
+		model.render(transaction, mvp, [&]() {
+			transaction->setShaderConstant(model.shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
+			}
+		);
 	};
 };
 
@@ -1427,6 +1428,7 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(actor, of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm")));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(actor2, of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm")));
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);

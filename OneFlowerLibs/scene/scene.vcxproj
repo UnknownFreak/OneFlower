@@ -158,6 +158,9 @@
     <ProjectReference Include="..\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\graphic-resources\graphics.vcxproj">
+      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\graphics\graphics.vcxproj">
       <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
     </ProjectReference>
