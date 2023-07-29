@@ -91,9 +91,12 @@ namespace of::module::mesh
 				else
 					model.mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 16u);
 
-				model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-				model.mIndexBuffer->setBufferData((U8*)meshAsset->getIndexDataPtr(), meshAsset->getIndexDataSize(),
-					sizeof(U32) * 3u);
+				if (meshAsset->hasIndexData())
+				{
+					model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+					model.mIndexBuffer->setBufferData((U8*)meshAsset->getIndexDataPtr(), meshAsset->getIndexDataSize(),
+						sizeof(U32) * 3u);
+				}
 				model.mValid = true;
 				return model;
 			}
