@@ -18,6 +18,8 @@ namespace of::resource
 	class Model
 	{
 	public:
+
+
 		std::shared_ptr<swizzle::gfx::Texture> texture;
 		std::shared_ptr<swizzle::gfx::Material> material;
 		std::shared_ptr<swizzle::gfx::Shader> shader;
@@ -25,6 +27,7 @@ namespace of::resource
 		std::shared_ptr<swizzle::gfx::GfxBuffer> mMeshBuffer;
 		std::shared_ptr<swizzle::gfx::GfxBuffer> mIndexBuffer;
 		std::shared_ptr<swizzle::gfx::GfxBuffer> mBoneBuffer;
+		bool mValid = false;
 		bool mUseBones;
 
 		void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
@@ -33,6 +36,14 @@ namespace of::resource
 			transaction->bindMaterial(shader, material);
 			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
 			transaction->drawIndexed(mMeshBuffer, mIndexBuffer);
+		}
+
+		void renderNoIndex(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
+		{
+			transaction->bindShader(shader);
+			transaction->bindMaterial(shader, material);
+			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
+			transaction->draw(mMeshBuffer);
 		}
 
 		void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp, glm::vec3& position, const float& facingAngle)
@@ -60,7 +71,12 @@ namespace of::resource
 
 		std::shared_ptr<Model> clone()
 		{
-			return std::make_shared<Model>(texture, material, shader, mesh, mMeshBuffer, mIndexBuffer, mBoneBuffer, mUseBones);
+			return std::make_shared<Model>(texture, material, shader, mesh, mMeshBuffer, mIndexBuffer, mBoneBuffer, mValid , mUseBones);
+		}
+
+		explicit operator bool() const
+		{
+			return mValid;
 		}
 
 	};

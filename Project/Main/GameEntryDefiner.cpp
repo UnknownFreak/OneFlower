@@ -80,15 +80,15 @@ static PxRigidDynamic* actor2 = NULL;
 bool paused = false;
 
 
-physx::PxTriangleMesh* GetObjectAsPxMesh(swizzle::asset2::IMeshAsset* asset)
+physx::PxTriangleMesh* GetObjectAsPxMesh(of::resource::Model& asset)
 {
 	PxTriangleMeshDesc desc;
-	desc.points.count = (U32)asset->getVertexDataSize() / (sizeof(float)*3u);
-	desc.points.data = asset->getVertexDataPtr();
+	desc.points.count = (U32)asset.mesh->getVertexDataSize() / (sizeof(float)*3u);
+	desc.points.data = asset.mesh->getVertexDataPtr();
 	desc.points.stride = sizeof(float) * 3u;
 
-	desc.triangles.count = (U32)asset->getIndexDataSize() /(sizeof(U32)*3u);
-	desc.triangles.data = asset->getIndexDataPtr();
+	desc.triangles.count = (U32)asset.mesh->getIndexDataSize() /(sizeof(U32)*3u);
+	desc.triangles.data = asset.mesh->getIndexDataPtr();
 	desc.triangles.stride = sizeof(U32) * 3u;
 
 	physx::PxCookingParams params(physx::PxTolerancesScale(1.f, 9.82f));
@@ -135,9 +135,9 @@ void initPhysics()
 	plane->setName("PlaneActor");
 	mScene->addActor(*plane);
 
-	auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm");
+	auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
 
-	auto triMesh = GetObjectAsPxMesh(mesh.get());
+	auto triMesh = GetObjectAsPxMesh(mesh);
 
 	//PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
 	PxShape* shape = mPhysics->createShape(PxTriangleMeshGeometry(triMesh
@@ -821,20 +821,13 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 
 public:
 
-	PxMeshedActorRenderable(T* iactor, std::shared_ptr<swizzle::asset2::IMeshAsset> mesh) : mActor(iactor)
+	PxMeshedActorRenderable(T* iactor, of::resource::Model mesh) : mActor(iactor), model(mesh)
 	{
-		model.mesh = mesh;
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
 		auto gfx = wnd.getGfxDevice();
 		loadShader();
 
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
-		model.mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-		model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-
-		model.mMeshBuffer->setBufferData((void*)mesh->getVertexDataPtr(), mesh->getVertexDataSize(), sizeof(glm::vec3));
-
-		model.mIndexBuffer->setBufferData((void*)mesh->getIndexDataPtr(), mesh->getIndexDataSize(), sizeof(U32)*3);
 
 		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
 		channel->addSubscriber(of::messaging::Subscriber(mId++ , warrantyFromThis(), [&](const of::messaging::Message&)
@@ -1410,9 +1403,9 @@ GameEntry::GameEntry() :
 int GameEntry::Run()
 {
 	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
-	initPhysics();
 
 	gfx->initialize();
+	initPhysics();
 	world.initialize();
 	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
@@ -1429,8 +1422,8 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>());
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(actor, of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm")));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(actor2, of::engine::GetModule<of::module::mesh::Loader>().requestCollisionMesh("wedge.swm")));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(actor, of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true)));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(actor2, of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true)));
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);

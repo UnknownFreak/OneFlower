@@ -19,7 +19,7 @@ namespace of::graphics::sky
 	{
 		bool loaded = false;
 	public:
-		std::shared_ptr<of::resource::Model> mModel;
+		of::resource::Model mModel;
 
 	public:
 		Skybox();
@@ -29,7 +29,7 @@ namespace of::graphics::sky
 
 		void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& trans, view::MVP& mvp) override;
 		
-		inline std::shared_ptr<swizzle::gfx::Texture> getTexture() const { return mModel->texture; };
+		inline std::shared_ptr<swizzle::gfx::Texture> getTexture() const { return mModel.texture; };
 
 		// Inherited via Renderable
 		virtual void updateFrame(const float& dt) override;

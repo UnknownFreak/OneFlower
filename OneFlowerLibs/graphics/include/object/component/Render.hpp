@@ -28,7 +28,7 @@ namespace of::object::component
 		virtual void deconstruct() override;
 
 	public:
-		std::shared_ptr<of::resource::Model> model;
+		of::resource::Model model;
 
 
 		virtual Render* copy() const override

@@ -138,7 +138,6 @@
     <ClInclude Include="include\graphics\view\mvp.hpp" />
     <ClInclude Include="include\module\resource\MeshLoader.hpp" />
     <ClInclude Include="include\module\resource\Model.hpp" />
-    <ClInclude Include="include\module\resource\ModelBuilder.hpp" />
     <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
     <ClInclude Include="include\module\resource\TextureLoader.hpp" />
   </ItemGroup>

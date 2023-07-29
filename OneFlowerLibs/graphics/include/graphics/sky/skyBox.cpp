@@ -12,7 +12,7 @@ namespace of::graphics::sky
 {
 
 
-	Skybox::Skybox() : mModel(std::make_shared<of::resource::Model>()), loaded(false)
+	Skybox::Skybox() : mModel(), loaded(false)
 	{
 	}
 
@@ -45,20 +45,17 @@ namespace of::graphics::sky
 		attribs.mEnableBlending = false;
 		
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		mModel->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", "sky.shader", attribs);
-		
-		mModel->texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
-		
-		mModel->material = wnd.getGfxDevice()->createMaterial(mModel->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
-		
-		mModel->material->setDescriptorTextureResource(0, mModel->texture);
 
-		mModel->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh("inverted_sphere.obj");
+		mModel = of::engine::GetModule<of::module::mesh::Loader>().requestModel("inverted_sphere.obj");
+
+		mModel.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", "sky.shader", attribs);
 		
-		mModel->mMeshBuffer = wnd.getGfxDevice()->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-		mModel->mMeshBuffer->setBufferData((U8*)mModel->mesh->getVertexDataPtr(), mModel->mesh->getVertexDataSize(),
-			sizeof(float) * (3 + 3 + 2));
+		mModel.texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
 		
+		mModel.material = wnd.getGfxDevice()->createMaterial(mModel.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		
+		mModel.material->setDescriptorTextureResource(0, mModel.texture);
+
 		loaded = true;
 		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
@@ -68,7 +65,7 @@ namespace of::graphics::sky
 	{
 		if (loaded)
 		{
-			mModel->render(trans, mvp);
+			mModel.renderNoIndex(trans, mvp);
 		}
 	}
 	void Skybox::updateFrame(const float& )

@@ -11,6 +11,8 @@
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
 
+#include "Model.hpp"
+
 namespace of::module::mesh
 {
 	class Loader : public interface::IEngineResource<Loader>
@@ -18,20 +20,18 @@ namespace of::module::mesh
 		bool lastResult = false;
 		std::mutex mtx;
 		const common::String missingMesh = "missingMesh.swm";
-		std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedMeshes;
-		std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>> loadedColliders;
 
-		//TODO:: Rework and use swm mesh format directly to allow baking the collision mesh into the same mesh object.
+		std::map<std::pair<common::String, bool>, of::resource::Model> mLoadedModels;
 
-		bool loadMesh(std::unordered_map<common::String, std::shared_ptr<swizzle::asset2::IMeshAsset>>& inserter, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc);
+		bool loadMesh(std::shared_ptr<swizzle::asset2::IMeshAsset>& outMeshAsset, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc);
 
 	public:
-		std::shared_ptr<swizzle::asset2::IMeshAsset> requestMesh(const common::String& name, const common::String& path = Settings::meshPath);
-		std::shared_ptr<swizzle::asset2::IMeshAsset> requestCollisionMesh(const common::String& name, const common::String& path = Settings::meshPath);
+
+		of::resource::Model requestModel(const common::String& name, const common::String& path = Settings::meshPath, const bool& collisionModel=false);
+
 		bool getResult();
 
-		void requestRemovalOfMesh(const common::String& name);
-		void requestRemovalOfCollisionMesh(const common::String& name);
+		void requestRemovalOfModel(const common::String& name, const common::String&path = Settings::meshPath, const bool& collisionModel=false);
 
 		EngineResourceType& getType() const
 		{

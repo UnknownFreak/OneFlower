@@ -23,36 +23,20 @@ namespace of::object::component
 		meshName = "test.swm";
 		shaderName = "simple.shader";
 
-		model = std::make_shared<of::resource::Model>();
-
-		model->mesh = of::engine::GetModule<of::module::mesh::Loader>().requestMesh(meshName);
-		{
-
-			model->mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-			model->mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-			model->mBoneBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-			model->mMeshBuffer->setBufferData((U8*)model->mesh->getVertexDataPtr(), model->mesh->getVertexDataSize(),
-				sizeof(float) * (3u + 3u + 2u + 4u + 4u));
-
-			model->mIndexBuffer->setBufferData((U8*)model->mesh->getIndexDataPtr(), model->mesh->getIndexDataSize(), sizeof(U32) * 3u);
-
-			model->mBoneBuffer->setBufferData((U8*)model->mesh->getAnimationDataPtr(0, 0), model->mesh->getNumberOfBones() * sizeof(glm::mat4),
-				sizeof(glm::mat4));
-
-		}
+		model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(meshName);
 
 		if (of::engine::GetModule<of::module::mesh::Loader>().getResult() == false)
 		{
-			model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("missingMeshTexture.png");
+			model.texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("missingMeshTexture.png");
 		}
 		else
-			model->texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
-		model->shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName, shaderName);
+			model.texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
+		model.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName, shaderName);
 
-		model->material = gfx->createMaterial(model->shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		model->material->setDescriptorTextureResource(0u, model->texture);
-		model->material->setDescriptorBufferResource(1u, model->mBoneBuffer, ~0ull);
+		model.material->setDescriptorTextureResource(0u, model.texture);
+		model.material->setDescriptorBufferResource(1u, model.mBoneBuffer, ~0ull);
 
 		initialized = true;
 		//wnd.getCommandBuffer()->end(std::move(trans));
@@ -64,7 +48,7 @@ namespace of::object::component
 
 		if (message.messageTopic == Topic::of(Topics::ON_DEATH))
 		{
-			if (model.get())
+			if (model)
 			{
 				//		model->setAnimation("onDeath");
 			}
@@ -106,7 +90,7 @@ namespace of::object::component
 	{
 		if (model)
 		{
-			model->render(transaction, mvp, transform->buffered, transform->facingAngle);
+			model.render(transaction, mvp, transform->buffered, transform->facingAngle);
 		}
 	}
 	void Render::updateFrame(const float& dt)

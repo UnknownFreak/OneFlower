@@ -35,9 +35,6 @@
     <ClInclude Include="include\module\resource\TextureLoader.hpp">
       <Filter>include\module\resource</Filter>
     </ClInclude>
-    <ClInclude Include="include\module\resource\ModelBuilder.hpp">
-      <Filter>include\module\resource</Filter>
-    </ClInclude>
     <ClInclude Include="include\module\resource\Model.hpp">
       <Filter>include\module\resource</Filter>
     </ClInclude>
