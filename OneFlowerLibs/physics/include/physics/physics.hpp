@@ -130,15 +130,12 @@ namespace of::module::physics
 
 		physx::PxController* createActorController(const glm::vec3& pos);
 
-		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale)
+		physx::PxFixedJoint* createJoint(physx::PxRigidActor* p1, physx::PxRigidActor* p2)
 		{
-			assert(scale > 1.f);
-			auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
-			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
-			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
-			actor->attachShape(*shape);
-			shape->release();
+			return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
 		}
+
+		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale);
 
 		template <class T>
 		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)

@@ -14,6 +14,7 @@ namespace of::module
 
 		bool mFixedSeed;
 		bool mRenderHitboxes;
+		bool mUsePvdDebugger;
 
 	public:
 		Settings();
@@ -23,6 +24,7 @@ namespace of::module
 
 		bool& useFixedSeed();
 		bool& renderHitboxes();
+		bool& usePvdDebugger();
 
 		EngineResourceType& getType() const override;
 

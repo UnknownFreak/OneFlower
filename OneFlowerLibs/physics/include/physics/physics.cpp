@@ -1,6 +1,7 @@
 #include "physics.hpp"
 
 #include <module/resource/Model.hpp>
+#include <module/settings/EngineSettings.hpp>
 #include <object/GameObject.hpp>
 
 #include <iostream>
@@ -27,7 +28,7 @@ namespace of::module::physics
 		desc.triangles.data = asset.mesh->getIndexDataPtr();
 		desc.triangles.stride = sizeof(U32) * 3u;
 
-		physx::PxCookingParams params(physx::PxTolerancesScale(1.f, 9.82f));
+		physx::PxCookingParams params(mPhysics->getTolerancesScale());
 
 		auto mesh = PxCreateTriangleMesh(params, desc);
 		if (mesh == nullptr)
@@ -51,7 +52,7 @@ namespace of::module::physics
 		desc.points.data = asset.mesh->getVertexDataPtr();
 		desc.points.stride = sizeof(float) * 3u;
 
-		physx::PxCookingParams params(physx::PxTolerancesScale(1.f, 9.82f));
+		physx::PxCookingParams params(mPhysics->getTolerancesScale());
 
 		auto mesh = PxCreateConvexMesh(params, desc);
 		if (mesh == nullptr)
@@ -77,7 +78,13 @@ namespace of::module::physics
 	void PhysicsHandler::Initialize()
 	{
 		mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, mAllocator, mErrorCallback);
-		mPvd = physx::PxCreatePvd(*mFoundation);
+		mPvd = nullptr;
+		if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+		{
+			mPvd = physx::PxCreatePvd(*mFoundation);
+			physx::PxPvdTransport* transport = physx::PxDefaultPvdSocketTransportCreate("127.0.0.1", 5425, 10);
+			mPvd->connect(*transport, physx::PxPvdInstrumentationFlag::eALL);
+		}
 
 		mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, physx::PxTolerancesScale(), false, mPvd);
 
@@ -130,6 +137,16 @@ namespace of::module::physics
 		desc.position = physx::PxExtendedVec3(pos.x, pos.y, pos.z);
 		desc.nonWalkableMode = physx::PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING;
 		return mControllerManager->createController(desc);
+	}
+
+	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale)
+	{
+		assert(scale > 1.f);
+		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		actor->attachShape(*shape);
+		shape->release();
 	}
 
 	void PhysicsHandler::SimulationCallback::onConstraintBreak(physx::PxConstraintInfo* constraints, physx::PxU32 count)

@@ -15,12 +15,23 @@ namespace of::module
 	Settings::Settings(): parser("EngineConfig.cfg")
 	{
 		if (parser.exists("random-generator"))
+		{
 			mFixedSeed = parser.get("random-generator").get<bool>("fixed-seed", false);
+		}
 		else
 		{
 			mFixedSeed = false;
 		}
+		if (parser.exists("physics"))
+		{
+			mUsePvdDebugger = parser.get("physics").get<bool>("use-pvd-debugger", false);
+		}
+		else
+		{
+			mUsePvdDebugger = false;
+		}
 		mRenderHitboxes = parser.get("graphics").get<bool>("render-hitboxes", false);
+		
 	}
 
 	Settings::~Settings()
@@ -28,6 +39,10 @@ namespace of::module
 		if (parser.exists("random-generator"))
 		{
 			parser.get("random-generator").put<bool>("fixed-seed", mFixedSeed);
+		}
+		if (parser.exists("physics"))
+		{
+			parser.get("physics").put<bool>("use-pvd-debugger", mUsePvdDebugger);
 		}
 		parser.get("graphics").put<bool>("render-hitboxes", mRenderHitboxes);
 		parser.save();
@@ -46,6 +61,11 @@ namespace of::module
 	bool& Settings::renderHitboxes()
 	{
 		return mRenderHitboxes;
+	}
+
+	bool& Settings::usePvdDebugger()
+	{
+		return mUsePvdDebugger;
 	}
 
 	EngineResourceType& Settings::getType() const

@@ -1422,10 +1422,13 @@ int GameEntry::Run()
 	physicsHandler.Initialize();
 	mController = physicsHandler.createActorController({ 0.f, 25.f, 0.f });
 	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
+	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("testArrow.swm", of::module::Settings::meshPath, true);
 	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
-	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 1.f, -5.f }, model);
+	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 8.f, -5.f }, model2);
 
-	physicsHandler.attachTriggerShape(mActor2, model, 1.4f);
+	physicsHandler.attachTriggerShape(mActor2, model2, 1.4f);
+
+	float scale = 0.1f;
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("trigger jump", [&](bool, swizzle::input::Keys, const float& dt)
@@ -1434,27 +1437,33 @@ int GameEntry::Run()
 			}), swizzle::input::Keys::KeySpace, Enums::Input::Action::Press);
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("trigger force", [&](bool, swizzle::input::Keys, const float& )
+			{
+				mActor2->addForce(physx::PxVec3(0.f, 1000.f, 0.f));
+			}), swizzle::input::Keys::Key1, Enums::Input::Action::Press);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("move up", [&](bool, swizzle::input::Keys, const float& dt)
 			{
-				mController->move(physx::PxVec3(0.f, 0.f, 1.f * 0.5f), 0.f, dt, physx::PxControllerFilters());
+				mController->move(physx::PxVec3(0.f, 0.f, 1.f * scale), 0.f, dt, physx::PxControllerFilters());
 			}), swizzle::input::Keys::KeyW, Enums::Input::Action::Hold);
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("move down", [&](bool, swizzle::input::Keys, const float& dt)
 			{
-				mController->move(physx::PxVec3(0.f, 0.f, -1.f * 0.5f), 0.f, dt, physx::PxControllerFilters());
+				mController->move(physx::PxVec3(0.f, 0.f, -1.f * scale), 0.f, dt, physx::PxControllerFilters());
 			}), swizzle::input::Keys::KeyS, Enums::Input::Action::Hold);
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("move left", [&](bool, swizzle::input::Keys, const float& dt)
 			{
-				mController->move(physx::PxVec3(1.f * 0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+				mController->move(physx::PxVec3(1.f * scale, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
 			}), swizzle::input::Keys::KeyA, Enums::Input::Action::Hold);
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("move right", [&](bool, swizzle::input::Keys, const float& dt)
 			{
-				mController->move(physx::PxVec3(-1.f * 0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+				mController->move(physx::PxVec3(-1.f * scale, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
 			}), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
 
 	mController->getActor()->setName("player controller");
@@ -1480,8 +1489,8 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(mController));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model, 1.3f,
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model2));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model2, 1.4f,
 		glm::vec4{0.6,0.3, 1.f, 0.f}));
 
 	auto cameraController = std::make_shared<EditorController>();
