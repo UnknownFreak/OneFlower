@@ -803,9 +803,10 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 	of::resource::Model model;
 	
 	glm::vec3 pos;
+	glm::vec3 scale;
 	glm::quat rot;
 
-	glm::vec4 playerControllerColor = { 0.3f, 0.3f, 1.f, 0.f };
+	glm::vec4 renderingColor = { 0.3f, 0.3f, 1.f, 0.f };
 
 	void loadShader()
 	{
@@ -829,7 +830,7 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 
 public:
 
-	PxMeshedActorRenderable(T* iactor, of::resource::Model mesh) : mActor(iactor), model(mesh)
+	PxMeshedActorRenderable(T* iactor, of::resource::Model mesh, float scale = 1.f, glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor)
 	{
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
 		auto gfx = wnd.getGfxDevice();
@@ -861,10 +862,11 @@ public:
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
 	{
 		mvp.model = glm::translate(glm::mat4(1.f), pos);
+		mvp.model = glm::scale(mvp.model, scale);
 		mvp.model *= glm::mat4_cast(rot);
 
 		model.render(transaction, mvp, [&]() {
-			transaction->setShaderConstant(model.shader, (U8*)&playerControllerColor, sizeof(glm::vec4), sizeof(mvp));
+			transaction->setShaderConstant(model.shader, (U8*)&renderingColor, sizeof(glm::vec4), sizeof(mvp));
 			}
 		);
 	};
@@ -1418,10 +1420,12 @@ int GameEntry::Run()
 	gfx->initialize();
 	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 	physicsHandler.Initialize();
-	mController = physicsHandler.createActorController({0.f, 25.f, 0.f});
+	mController = physicsHandler.createActorController({ 0.f, 25.f, 0.f });
 	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
 	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
-	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 1.f, -5.f }, model, true);
+	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 1.f, -5.f }, model);
+
+	physicsHandler.attachTriggerShape(mActor2, model, 1.4f);
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("trigger jump", [&](bool, swizzle::input::Keys, const float& dt)
@@ -1450,16 +1454,16 @@ int GameEntry::Run()
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
 		Input::Callback::KeyboardCallbackTemp("move right", [&](bool, swizzle::input::Keys, const float& dt)
 			{
-				mController->move(physx::PxVec3(-1.f*0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+				mController->move(physx::PxVec3(-1.f * 0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
 			}), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
 
 	mController->getActor()->setName("player controller");
 	mActor->setName("Static actor");
 	mActor2->setName("dynamic trigger actor");
 
-//	initPhysics();
+	//	initPhysics();
 	world.initialize();
-//	simulationStats = std::make_shared<PxSimulationStats>(paused);
+	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
@@ -1477,6 +1481,8 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model, 1.3f,
+		glm::vec4{0.6,0.3, 1.f, 0.f}));
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
@@ -1530,10 +1536,8 @@ void GameEntry::physicsUpdate()
 				world.Simulate(update_time);
 				time.Simulate(update_time);
 				mController->move(physx::PxVec3(0.f, -9.81f*0.01f, 0.f), 0.f, update_time, physx::PxControllerFilters());
-				//actor2->setKinematicTarget(physx::PxTransform(physx::PxVec3(0, -1.f, 0)));
 				physicsHandler.simulate(update_time);
-				//mScene->fetchResults(true);
-				//PxSimulationStatistics st;
+
 				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
 				ups->tiq();

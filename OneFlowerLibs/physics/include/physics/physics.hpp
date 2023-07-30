@@ -36,8 +36,8 @@ namespace of::module::physics
 
 			virtual  void           run()
 			{
-				a->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, true);
-				a->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, true);
+				//a->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, true);
+				//a->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, true);
 			}
 		};
 	}
@@ -130,6 +130,16 @@ namespace of::module::physics
 
 		physx::PxController* createActorController(const glm::vec3& pos);
 
+		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale)
+		{
+			assert(scale > 1.f);
+			auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+			actor->attachShape(*shape);
+			shape->release();
+		}
+
 		template <class T>
 		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)
 		{
@@ -164,7 +174,6 @@ namespace of::module::physics
 					mTriangleShapes[collisionModel.mId] =
 				}*/
 				auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(collisionModel)), *mMaterial, false);
-
 				if (isTriggerShape)
 				{
 					shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
@@ -172,6 +181,7 @@ namespace of::module::physics
 				}
 				actor->attachShape(*shape);
 				shape->release();
+
 				if (addToScene)
 				{
 					mScene->addActor(*actor);
