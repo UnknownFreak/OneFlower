@@ -305,6 +305,9 @@
     <ProjectReference Include="OneFlowerLibs\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\physics\physics.vcxproj">
+      <Project>{e6762ac5-35f9-4ff3-a4e7-a8c823f29ea1}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\random-generator\random-generator.vcxproj">
       <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
     </ProjectReference>
@@ -337,48 +340,6 @@
     </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2022\swizzle\swizzle.vcxproj">
       <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\FastXml.vcxproj">
-      <Project>{2c81a001-3848-31dc-b41d-959f20603f77}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevel.vcxproj">
-      <Project>{be9099a1-8fa1-3212-a78e-3719abfc963c}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevelAABB.vcxproj">
-      <Project>{3572985d-15c0-30d4-a198-69a16958bcf6}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevelDynamics.vcxproj">
-      <Project>{e5ce76fb-f786-39eb-b940-8dd7bdcde69a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysX.vcxproj">
-      <Project>{f13b14dd-8ff3-361b-a60f-f5601ae9b04b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCharacterKinematic.vcxproj">
-      <Project>{6a1eba48-5b1c-3837-8417-88966a4b39a4}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCommon.vcxproj">
-      <Project>{97e03556-7b81-348f-b744-7f7eb76c29c1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCooking.vcxproj">
-      <Project>{457c405c-d623-3761-9f99-78486ab1cb98}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXFoundation.vcxproj">
-      <Project>{44e7df45-eb5f-3562-b034-eeb16e633853}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXTask.vcxproj">
-      <Project>{5ea53099-0840-3808-91a6-2b0a648b5bb9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle.vcxproj">
-      <Project>{750dfd76-7fce-317f-827d-c0b157aec337}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle2.vcxproj">
-      <Project>{2de55aae-715d-3d54-a1c2-bb511c6bf088}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\SceneQuery.vcxproj">
-      <Project>{b7a9f1ab-f3ac-33e9-9c10-634775318a05}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\SimulationController.vcxproj">
-      <Project>{5ffb2d53-03f1-395d-b671-bf921d193f16}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

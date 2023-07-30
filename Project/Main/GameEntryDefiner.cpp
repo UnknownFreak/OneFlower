@@ -41,7 +41,9 @@
 #include <stb/stb_image.h>
 #include <algorithm>
 
-#include <PxPhysicsAPI.h>
+#include <physics/physics.hpp>
+
+//#include <PxPhysicsAPI.h>
 #include <glm/glm.hpp>
 #pragma warning(push, 0)
 #include <glm/gtc/quaternion.hpp>
@@ -51,6 +53,10 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/Model.hpp>
 
+
+bool paused = false;
+
+/*
 using namespace physx;
 
 class EErrorCallBack : public PxErrorCallback
@@ -77,7 +83,6 @@ static PxMaterial* gMaterial = NULL;
 static PxRigidStatic* actor = NULL;
 static PxRigidDynamic* actor2 = NULL;
 
-bool paused = false;
 
 
 physx::PxTriangleMesh* GetObjectAsPxMesh(of::resource::Model& asset)
@@ -175,7 +180,7 @@ void shutDown()
 	mPhysics->release();
 	gFoundation->release();
 }
-
+*/
 class WorldGrid : public of::graphics::ParentedRenderable
 {
 
@@ -527,7 +532,7 @@ public:
 		ImGui::End();
 	};
 };
-
+/*
 class PxSimulationStats : public of::graphics::ParentedRenderable
 {
 	const bool& m_paused;
@@ -553,13 +558,14 @@ public:
 
 	void set()
 	{
-		/*
+		//*
 		if (m_paused)
 			string = "PAUSED";
 		else
 			string = "RUNNING";
 		string += "\n";
-		*/
+		//*/
+		/*
 	}
 
 	virtual void updateFrame(const float&)
@@ -573,6 +579,7 @@ public:
 		ImGui::End();
 	};
 };
+*/
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
@@ -615,6 +622,7 @@ public:
 		ImGui::End();
 	};
 };
+
 
 class PxControllerRenderable : public of::graphics::ParentedRenderable
 {
@@ -680,7 +688,7 @@ class PxControllerRenderable : public of::graphics::ParentedRenderable
 
 public:
 
-	PxControllerRenderable() : actor(controller)
+	PxControllerRenderable(physx::PxController* controller) : actor(controller)
 	{
 		std::vector<glm::vec3> points;
 		std::vector<glm::ivec3> tris;
@@ -1381,7 +1389,7 @@ public:
 };
 
 
-static std::shared_ptr<PxSimulationStats> simulationStats;
+//static std::shared_ptr<PxSimulationStats> simulationStats;
 static std::shared_ptr<CourierStats> courierStats;
 
 
@@ -1399,15 +1407,59 @@ GameEntry::GameEntry() :
 	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
 }
 
+physx::PxController* mController;
+physx::PxRigidStatic* mActor;
+physx::PxRigidDynamic* mActor2;
 
 int GameEntry::Run()
 {
 	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
 
 	gfx->initialize();
-	initPhysics();
+	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+	physicsHandler.Initialize();
+	mController = physicsHandler.createActorController({0.f, 25.f, 0.f});
+	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
+	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
+	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 1.f, -5.f }, model, true);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("trigger jump", [&](bool, swizzle::input::Keys, const float& dt)
+			{
+				mController->move(physx::PxVec3(0.f, 10.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+			}), swizzle::input::Keys::KeySpace, Enums::Input::Action::Press);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("move up", [&](bool, swizzle::input::Keys, const float& dt)
+			{
+				mController->move(physx::PxVec3(0.f, 0.f, 1.f * 0.5f), 0.f, dt, physx::PxControllerFilters());
+			}), swizzle::input::Keys::KeyW, Enums::Input::Action::Hold);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("move down", [&](bool, swizzle::input::Keys, const float& dt)
+			{
+				mController->move(physx::PxVec3(0.f, 0.f, -1.f * 0.5f), 0.f, dt, physx::PxControllerFilters());
+			}), swizzle::input::Keys::KeyS, Enums::Input::Action::Hold);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("move left", [&](bool, swizzle::input::Keys, const float& dt)
+			{
+				mController->move(physx::PxVec3(1.f * 0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+			}), swizzle::input::Keys::KeyA, Enums::Input::Action::Hold);
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
+		Input::Callback::KeyboardCallbackTemp("move right", [&](bool, swizzle::input::Keys, const float& dt)
+			{
+				mController->move(physx::PxVec3(-1.f*0.5f, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
+			}), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
+
+	mController->getActor()->setName("player controller");
+	mActor->setName("Static actor");
+	mActor2->setName("dynamic trigger actor");
+
+//	initPhysics();
 	world.initialize();
-	simulationStats = std::make_shared<PxSimulationStats>(paused);
+//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
@@ -1418,12 +1470,13 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
+	//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>());
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(actor, of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true)));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(actor2, of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true)));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(mController));
+
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model));
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);
@@ -1444,7 +1497,7 @@ int GameEntry::Run()
 	gfx->loop();
 	m_exit = true;
 	physics_thread.join();
-	shutDown();
+	of::engine::GetModule<of::module::physics::PhysicsHandler>().shutDown();
 
 	//gfx.clearDrawList();
 	return EXIT_SUCCESS;
@@ -1456,6 +1509,7 @@ void GameEntry::physicsUpdate()
 	{
 //		world.createMainMenu();
 	}
+	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
 	const float update_time = time.update_ms;
 	while (!m_exit)
@@ -1475,20 +1529,14 @@ void GameEntry::physicsUpdate()
 				input.update(update_time);
 				world.Simulate(update_time);
 				time.Simulate(update_time);
-				controller->move(PxVec3(0.f, -9.81f*0.01f, 0.f), 0.f, update_time, PxControllerFilters());
+				mController->move(physx::PxVec3(0.f, -9.81f*0.01f, 0.f), 0.f, update_time, physx::PxControllerFilters());
 				//actor2->setKinematicTarget(physx::PxTransform(physx::PxVec3(0, -1.f, 0)));
-				mScene->simulate(update_time);
-				mScene->fetchResults(true);
-				PxSimulationStatistics st;
-				mScene->getSimulationStatistics(st);
-				simulationStats->set(st);
+				physicsHandler.simulate(update_time);
+				//mScene->fetchResults(true);
+				//PxSimulationStatistics st;
 				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
 				ups->tiq();
-			}
-			else
-			{
-				simulationStats->set();
 			}
 			ups->update();
 			ups->print();

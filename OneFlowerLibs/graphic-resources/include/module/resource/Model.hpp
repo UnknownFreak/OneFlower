@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <graphics/view/mvp.hpp>
+#include <utils/common/uuid.hpp>
 
 namespace of::resource
 {
@@ -19,7 +20,7 @@ namespace of::resource
 	{
 	public:
 
-
+		of::common::uuid mId;
 		std::shared_ptr<swizzle::gfx::Texture> texture;
 		std::shared_ptr<swizzle::gfx::Material> material;
 		std::shared_ptr<swizzle::gfx::Shader> shader;
@@ -71,7 +72,7 @@ namespace of::resource
 
 		std::shared_ptr<Model> clone()
 		{
-			return std::make_shared<Model>(texture, material, shader, mesh, mMeshBuffer, mIndexBuffer, mBoneBuffer, mValid , mUseBones);
+			return std::make_shared<Model>(mId, texture, material, shader, mesh, mMeshBuffer, mIndexBuffer, mBoneBuffer, mValid , mUseBones);
 		}
 
 		explicit operator bool() const

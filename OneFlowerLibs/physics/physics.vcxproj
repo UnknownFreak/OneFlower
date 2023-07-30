@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)vendor\PhysX\physx\include;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)vendor\PhysX\physx\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <IncludePath>$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)vendor\PhysX\physx\include;$(SolutionDir)OneFlowerLibs\physics\include;$(IncludePath)</IncludePath>
+    <PublicIncludeDirectories>$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)vendor\PhysX\physx\include;$(SolutionDir)OneFlowerLibs\physics\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <LibraryPath>$(SolutionDir)vendor\PhysX\physx\bin\win.x86_64.vc143.mt\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -105,11 +105,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_CXX20_CISO646_REMOVED_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,49 +141,58 @@
       <Project>{6d0c89c3-fa51-3d0a-b9b8-e8c92a9a17f2}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevel.vcxproj">
-      <Project>{17d29dcf-062f-3c5c-8c8e-9140da58ff22}</Project>
+      <Project>{be9099a1-8fa1-3212-a78e-3719abfc963c}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevelAABB.vcxproj">
-      <Project>{a02ee7ba-11ff-3a3d-9682-6ac7d5844bca}</Project>
+      <Project>{3572985d-15c0-30d4-a198-69a16958bcf6}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\LowLevelDynamics.vcxproj">
-      <Project>{7b423f8c-1f8c-388d-b11a-bd4e1694adec}</Project>
+      <Project>{e5ce76fb-f786-39eb-b940-8dd7bdcde69a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysX.vcxproj">
-      <Project>{211bbcb6-2805-3666-8ec5-b3cb06b5d246}</Project>
+      <Project>{f13b14dd-8ff3-361b-a60f-f5601ae9b04b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCharacterKinematic.vcxproj">
-      <Project>{1e93288c-061f-3bde-a23e-af100d1e33ff}</Project>
+      <Project>{6a1eba48-5b1c-3837-8417-88966a4b39a4}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCommon.vcxproj">
-      <Project>{1f7ee8ad-6dd9-3abe-b8a4-af56d024117b}</Project>
+      <Project>{97e03556-7b81-348f-b744-7f7eb76c29c1}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXCooking.vcxproj">
-      <Project>{c11fd6ea-6b10-3ce4-a9b9-636327cb9020}</Project>
+      <Project>{457c405c-d623-3761-9f99-78486ab1cb98}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXFoundation.vcxproj">
-      <Project>{529143ac-b86d-3ed5-9adc-6807cca48c5e}</Project>
+      <Project>{44e7df45-eb5f-3562-b034-eeb16e633853}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXTask.vcxproj">
-      <Project>{6287350b-3734-33a2-a004-7aa7428225d3}</Project>
+      <Project>{5ea53099-0840-3808-91a6-2b0a648b5bb9}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle.vcxproj">
-      <Project>{06a4363f-4b24-3d58-a37c-7224043b52db}</Project>
+      <Project>{750dfd76-7fce-317f-827d-c0b157aec337}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\PhysXVehicle2.vcxproj">
-      <Project>{bdd5117f-7819-3b1e-8305-756b12c99331}</Project>
+      <Project>{2de55aae-715d-3d54-a1c2-bb511c6bf088}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\SceneQuery.vcxproj">
-      <Project>{5dfa57ae-0328-3c23-88dd-e076c858bf88}</Project>
+      <Project>{b7a9f1ab-f3ac-33e9-9c10-634775318a05}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\SimulationController.vcxproj">
-      <Project>{bd20c75f-f5a7-3fe2-874b-46385061b710}</Project>
+      <Project>{5ffb2d53-03f1-395d-b671-bf921d193f16}</Project>
     </ProjectReference>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\data-file\data-file.vcxproj">
+      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\engine-core\engine-core.vcxproj">
+      <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\graphic-resources\graphics.vcxproj">
+      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
     </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>

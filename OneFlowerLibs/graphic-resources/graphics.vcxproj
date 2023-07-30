@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)OneFlowerLibs\graphic-resources\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphic-resources\include</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphic-resources\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\common\include</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
