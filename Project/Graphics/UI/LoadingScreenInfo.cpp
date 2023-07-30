@@ -10,7 +10,7 @@ Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input:
 {
 	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
 	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;
-	pos = { 5, height - 420.f };
+	pos = { 15, height - 420.f };
 }
 
 void Graphics::UI::LoadingScreenInfo::readInput()
@@ -21,10 +21,10 @@ void Graphics::UI::LoadingScreenInfo::render()
 {
 	if (visible && info.isLoading)
 	{
+		ImGui::SetNextWindowPos(pos, ImGuiCond_Once);
 		ImGui::SetWindowFocus();
 		ImGui::Begin("LoadingScreenInfo", 0, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs |ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 		{
-			ImGui::SetWindowPos(pos);
 			ImGui::Text("%s", t.c_str());
 		}
 		ImGui::End();

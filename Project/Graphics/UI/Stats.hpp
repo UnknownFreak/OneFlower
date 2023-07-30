@@ -93,10 +93,10 @@ namespace Graphics::UI
 		{
 			if (visible)
 			{
-				ImGui::SetNextWindowPos(ImVec2{ x,y });
+				ImGui::SetNextWindowPos(ImVec2{ x,y }, ImGuiCond_::ImGuiCond_Once);
 				ImGui::SetNextWindowBgAlpha(0.f);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
-				ImGui::Begin(title.c_str(), nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs);
+				ImGui::Begin(title.c_str(), nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs |ImGuiWindowFlags_NoDocking);
 				ImGui::Text("%s", text.c_str());
 				ImGui::End();
 				ImGui::PopStyleVar();

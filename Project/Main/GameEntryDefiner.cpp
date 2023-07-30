@@ -1403,7 +1403,7 @@ GameEntry::GameEntry() :
 	courier(of::engine::GetModule<of::messaging::Courier>()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
-	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 70.f, Graphics::UI::Rel::Right);
+	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::messaging::Topic::Update);
 	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
@@ -1415,8 +1415,6 @@ physx::PxRigidDynamic* mActor2;
 
 int GameEntry::Run()
 {
-	auto width = of::engine::GetModule<EngineModule::GameConfig>().videoMode.first;
-
 	gfx->initialize();
 	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 	physicsHandler.Initialize();
@@ -1476,10 +1474,9 @@ int GameEntry::Run()
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 400.f, 70.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 400.f, 120.f, Graphics::UI::Rel::Right));
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), ups);
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 400.f, 10.f, Graphics::UI::Rel::Right));
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", float(width - (200 * 2)), 70.f));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 400.f, 50.f, Graphics::UI::Rel::Right));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
