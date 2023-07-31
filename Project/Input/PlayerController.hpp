@@ -5,6 +5,7 @@
 #include <object/component/combat.hpp>
 
 #include "InputHandler.hpp"
+#include <physics/physics.hpp>
 
 namespace of::object::component
 {
@@ -19,6 +20,7 @@ namespace of::object::component
 		Transform* transform = nullptr;
 		of::object::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
+		physx::PxController* mActor;
 		Input::InputHandler& handler;
 
 		PlayerController();
