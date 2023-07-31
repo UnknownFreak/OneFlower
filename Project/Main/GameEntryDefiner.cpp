@@ -43,7 +43,6 @@
 
 #include <physics/physics.hpp>
 
-//#include <PxPhysicsAPI.h>
 #include <glm/glm.hpp>
 #pragma warning(push, 0)
 #include <glm/gtc/quaternion.hpp>
@@ -56,131 +55,6 @@
 
 bool paused = false;
 
-/*
-using namespace physx;
-
-class EErrorCallBack : public PxErrorCallback
-{
-public:
-	virtual void reportError(PxErrorCode::Enum code, const char* message, const char* file, int line)
-	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("PhysX").Always(code, message, file, line);
-		std::cout << message << " " << file << " " << line << std::endl;
-	}
-};
-
-static PxDefaultAllocator		gAllocator;
-static EErrorCallBack			gErrorCallback;
-
-static PxFoundation* gFoundation = NULL;
-static PxPvd* mPvd = NULL;
-static PxPhysics* mPhysics = NULL;
-static PxScene* mScene = NULL;
-static PxControllerManager* manager = NULL;
-static PxController* controller = NULL;
-static PxMaterial* gMaterial = NULL;
-
-static PxRigidStatic* actor = NULL;
-static PxRigidDynamic* actor2 = NULL;
-
-
-
-physx::PxTriangleMesh* GetObjectAsPxMesh(of::resource::Model& asset)
-{
-	PxTriangleMeshDesc desc;
-	desc.points.count = (U32)asset.mesh->getVertexDataSize() / (sizeof(float)*3u);
-	desc.points.data = asset.mesh->getVertexDataPtr();
-	desc.points.stride = sizeof(float) * 3u;
-
-	desc.triangles.count = (U32)asset.mesh->getIndexDataSize() /(sizeof(U32)*3u);
-	desc.triangles.data = asset.mesh->getIndexDataPtr();
-	desc.triangles.stride = sizeof(U32) * 3u;
-
-	physx::PxCookingParams params(physx::PxTolerancesScale(1.f, 9.82f));
-
-	auto mesh = PxCreateTriangleMesh(params, desc);
-	if (mesh == nullptr)
-	{
-		of::engine::GetModule<of::module::logger::OneLogger>().Error("Failed to load collision mesh");
-	}
-
-	return mesh;
-}
-
-void initPhysics()
-{
-	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
-	mPvd = PxCreatePvd(*gFoundation);
-
-	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), false, mPvd);
-
-	PxSceneDesc d = PxSceneDesc(mPhysics->getTolerancesScale());
-	d.gravity = PxVec3(0.f, -9.81f, 0.f);
-	d.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
-	d.filterShader = PxDefaultSimulationFilterShader;
-	
-	d.kineKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
-	d.staticKineFilteringMode = physx::PxPairFilteringMode::Enum::eKEEP;
-	
-	mScene = mPhysics->createScene(d);
-
-	manager = PxCreateControllerManager(*mScene);
-	
-	PxCapsuleControllerDesc desc;
-	desc.material = mPhysics->createMaterial(0.f, 0.f, 0.f);
-	desc.height = 2.f;
-	desc.radius = 1.f;
-	desc.position = PxExtendedVec3(0, 50, 0);
-	desc.nonWalkableMode = physx::PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING;
-	controller = manager->createController(desc);
-
-	gMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
-
-	auto plane = PxCreatePlane(*mPhysics, PxPlane(0, 1, 0, 0), * gMaterial);
-	plane->setName("PlaneActor");
-	mScene->addActor(*plane);
-
-	auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
-
-	auto triMesh = GetObjectAsPxMesh(mesh);
-
-	//PxShape* shape = mPhysics->createShape(PxBoxGeometry(1.f, 1.f, 1.f), *gMaterial);
-	PxShape* shape = mPhysics->createShape(PxTriangleMeshGeometry(triMesh
-		, physx::PxMeshScale( 1.f )), *gMaterial);
-	
-
-	actor = mPhysics->createRigidStatic(PxTransform(PxVec3(00.f, 1.f, 0.f)));
-	actor2 = mPhysics->createRigidDynamic(PxTransform(PxVec3(0.f, 15.f, 0.f)));
-
-	actor->attachShape(*shape);
-	actor2->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, true);
-	actor2->attachShape(*shape);
-
-	actor->setName("Static Actor");
-	actor2->setName("Dyn Actor");
-	controller->getActor()->setName("ControllerActor");
-
-	actor2->setMass(1.f);
-
-	shape->release();
-
-	//PxRigidBodyExt::updateMassAndInertia(*actor, 10.f);
-	//PxRigidBodyExt::updateMassAndInertia(*actor2, 10.f);
-	
-
-	mScene->addActor(*actor);
-	mScene->addActor(*actor2);
-}
-
-void shutDown()
-{
-	manager->purgeControllers();
-	manager->release();
-	mScene->release();
-	mPhysics->release();
-	gFoundation->release();
-}
-*/
 class WorldGrid : public of::graphics::ParentedRenderable
 {
 
@@ -532,54 +406,6 @@ public:
 		ImGui::End();
 	};
 };
-/*
-class PxSimulationStats : public of::graphics::ParentedRenderable
-{
-	const bool& m_paused;
-	of::common::String string;
-public:
-
-	PxSimulationStats(const bool& p_paused): m_paused(p_paused){}
-
-	void set(PxSimulationStatistics& st)
-	{
-		set();
-		string = "Active Dynamic Bodies: " + std::to_string(st.nbActiveDynamicBodies) + "\n"
-			"Active Kinematic Bodies: " + std::to_string(st.nbActiveKinematicBodies) + "\n"
-			"Dynamic Bodies: " + std::to_string(st.nbDynamicBodies) + "\n"
-			"Kinematic Bodies: " + std::to_string(st.nbKinematicBodies) + "\n"
-			"Static Bodies: " + std::to_string(st.nbStaticBodies) + "\n"
-			"Controller is sleeping: " + std::to_string(controller->getActor()->isSleeping()) + "\n"
-			"Controller pos: " + std::to_string(controller->getPosition().x) + ", " + std::to_string(controller->getPosition().y) + ", " + std::to_string(controller->getPosition().z) + "\n"
-			"Controller pos(feet): " + std::to_string(controller->getFootPosition().x) + ", " + std::to_string(controller->getFootPosition().y) + ", " + std::to_string(controller->getFootPosition().z) + "\n"
-			"Actor 1 pos: " + std::to_string(actor->getGlobalPose().p.x) + ", " + std::to_string(actor->getGlobalPose().p.y) + ", " + std::to_string(actor->getGlobalPose().p.z) + "\n"
-			"Actor 2 pos: " + std::to_string(actor2->getGlobalPose().p.x) + ", " + std::to_string(actor2->getGlobalPose().p.y) + ", " + std::to_string(actor2->getGlobalPose().p.z) + "\n";
-	}
-
-	void set()
-	{
-		//*
-		if (m_paused)
-			string = "PAUSED";
-		else
-			string = "RUNNING";
-		string += "\n";
-		//*/
-		/*
-	}
-
-	virtual void updateFrame(const float&)
-	{
-	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
-	{
-		ImGui::Begin("PxStats");
-		ImGui::Text(string.c_str());
-		ImGui::End();
-	};
-};
-*/
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
