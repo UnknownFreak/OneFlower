@@ -112,7 +112,9 @@ namespace of::module
 			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
 		//auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
-		//player = GameObject();
+		
+		player = of::object::GameObject();
+		player.initialize();
 
 		//prefab.createNewPlayerInstance(player);
 		player.tag = "player";
