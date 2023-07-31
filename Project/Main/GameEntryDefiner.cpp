@@ -1257,7 +1257,7 @@ int GameEntry::Run()
 	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
 	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("testArrow.swm", of::module::Settings::meshPath, true);
 	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
-	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 8.f, -5.f }, model2);
+	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 8.f, -5.f }, model);
 
 	physicsHandler.attachTriggerShape(mActor2, model2, 1.4f);
 
@@ -1282,8 +1282,8 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(controller->mActor));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model2));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model2, 1.4f,
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model, 1.4f,
 		glm::vec4{0.6,0.3, 1.f, 0.f}));
 
 	auto cameraController = std::make_shared<EditorController>();
