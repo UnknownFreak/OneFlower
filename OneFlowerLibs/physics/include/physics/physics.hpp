@@ -123,6 +123,7 @@ namespace of::module::physics
 
 		void Initialize();
 		void shutDown();
+		bool hasShutDown() const;
 
 		void simulate(const float dt);
 

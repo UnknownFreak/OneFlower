@@ -1,4 +1,5 @@
 #include "physics.hpp"
+#include "physics.hpp"
 
 #include <module/resource/Model.hpp>
 #include <module/settings/EngineSettings.hpp>
@@ -114,6 +115,11 @@ namespace of::module::physics
 		mPhysics->release();
 		mFoundation->release();
 		mShutDown = true;
+	}
+
+	bool PhysicsHandler::hasShutDown() const
+	{
+		return mShutDown;
 	}
 
 	void PhysicsHandler::simulate(const float dt)

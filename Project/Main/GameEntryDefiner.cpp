@@ -52,6 +52,7 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/Model.hpp>
 
+#include<Input/PlayerController.hpp>
 
 bool paused = false;
 
@@ -1245,7 +1246,6 @@ GameEntry::GameEntry() :
 	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
 }
 
-physx::PxController* mController;
 physx::PxRigidStatic* mActor;
 physx::PxRigidDynamic* mActor2;
 
@@ -1254,7 +1254,6 @@ int GameEntry::Run()
 	gfx->initialize();
 	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 	physicsHandler.Initialize();
-	mController = physicsHandler.createActorController({ 0.f, 25.f, 0.f });
 	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
 	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("testArrow.swm", of::module::Settings::meshPath, true);
 	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
@@ -1262,50 +1261,11 @@ int GameEntry::Run()
 
 	physicsHandler.attachTriggerShape(mActor2, model2, 1.4f);
 
-	float scale = 0.1f;
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("trigger jump", [&](bool, swizzle::input::Keys, const float& dt)
-			{
-				mController->move(physx::PxVec3(0.f, 10.f, 0.f), 0.f, dt, physx::PxControllerFilters());
-			}), swizzle::input::Keys::KeySpace, Enums::Input::Action::Press);
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("trigger force", [&](bool, swizzle::input::Keys, const float& )
-			{
-				mActor2->addForce(physx::PxVec3(0.f, 1000.f, 0.f));
-			}), swizzle::input::Keys::Key1, Enums::Input::Action::Press);
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("move up", [&](bool, swizzle::input::Keys, const float& dt)
-			{
-				mController->move(physx::PxVec3(0.f, 0.f, 1.f * scale), 0.f, dt, physx::PxControllerFilters());
-			}), swizzle::input::Keys::KeyW, Enums::Input::Action::Hold);
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("move down", [&](bool, swizzle::input::Keys, const float& dt)
-			{
-				mController->move(physx::PxVec3(0.f, 0.f, -1.f * scale), 0.f, dt, physx::PxControllerFilters());
-			}), swizzle::input::Keys::KeyS, Enums::Input::Action::Hold);
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("move left", [&](bool, swizzle::input::Keys, const float& dt)
-			{
-				mController->move(physx::PxVec3(1.f * scale, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
-			}), swizzle::input::Keys::KeyA, Enums::Input::Action::Hold);
-
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(
-		Input::Callback::KeyboardCallbackTemp("move right", [&](bool, swizzle::input::Keys, const float& dt)
-			{
-				mController->move(physx::PxVec3(-1.f * scale, 0.f, 0.f), 0.f, dt, physx::PxControllerFilters());
-			}), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
-
-	mController->getActor()->setName("player controller");
 	mActor->setName("Static actor");
 	mActor2->setName("dynamic trigger actor");
 
-	//	initPhysics();
 	world.initialize();
+	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
@@ -1319,7 +1279,7 @@ int GameEntry::Run()
 	//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(mController));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(controller->mActor));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model2));
@@ -1377,7 +1337,6 @@ void GameEntry::physicsUpdate()
 				input.update(update_time);
 				world.Simulate(update_time);
 				time.Simulate(update_time);
-				mController->move(physx::PxVec3(0.f, -9.81f*0.01f, 0.f), 0.f, update_time, physx::PxControllerFilters());
 				physicsHandler.simulate(update_time);
 
 				courierStats->updateCount();

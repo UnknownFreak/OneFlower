@@ -24,6 +24,9 @@
     <Filter Include="include\graphics\view">
       <UniqueIdentifier>{59a967df-3509-485b-b7bb-4b559d8bf046}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\resource">
+      <UniqueIdentifier>{3cf48741-1b6d-4fe9-afde-672398fd6dfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\resource\MeshLoader.hpp">

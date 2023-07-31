@@ -15,7 +15,9 @@ namespace of::object::component
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
 		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update,
 			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {
-				mActor->move({0, -9.81, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); }));
+				mActor->move({0, -9.81f, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); }));
+		mActor->getActor()->userData = attachedOn;
+		mActor->getActor()->setName("Player controller");
 
 		enable();
 	}
@@ -23,7 +25,10 @@ namespace of::object::component
 	{
 
 		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
-		mActor->release();
+		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
+		{
+			mActor->release();
+		}
 		disable();
 		clearBindings();
 	}
@@ -76,19 +81,19 @@ namespace of::object::component
 
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbW", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			mActor->move({ 0, 0, -1.f }, 0.1f, fElapsedTime, physx::PxControllerFilters()); 
+			mActor->move({ 0, 0, -1.f * transform->speedModifier }, 0.1f, fElapsedTime, physx::PxControllerFilters()); 
 			}, false), swizzle::input::Keys::KeyW, Enums::Input::Action::Hold);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbS", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			mActor->move({ 0, 0, 1.f }, 0.1f, fElapsedTime, physx::PxControllerFilters());
+			mActor->move({ 0, 0, 1.f * transform->speedModifier}, 0.1f, fElapsedTime, physx::PxControllerFilters());
 			}, false), swizzle::input::Keys::KeyS, Enums::Input::Action::Hold);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbA", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			mActor->move({ -1.f, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
+			mActor->move({ -1.f * transform->speedModifier, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
 			}, false), swizzle::input::Keys::KeyA, Enums::Input::Action::Hold);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbD", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
-			mActor->move({ 1.f, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
+			mActor->move({ 1.f * transform->speedModifier, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
 			}, false), swizzle::input::Keys::KeyD, Enums::Input::Action::Hold);
 		handler.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("Jmp", [&](bool, swizzle::input::Keys, const float&) {
 			if (!Input::InputHandler::isMovementEnabled || !enabled) return;
