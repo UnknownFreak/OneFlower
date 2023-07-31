@@ -208,6 +208,16 @@ public:
 	{
 		return &pos;
 	}
+
+	glm::quat getRotation()
+	{
+		return glm::quat(rot);
+	}
+
+	void setRotation(glm::quat& quat)
+	{
+		rot = glm::eulerAngles(quat);
+	}
 };
 
 class EditorController : public of::graphics::view::CameraController
