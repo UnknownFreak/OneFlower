@@ -10,14 +10,32 @@
     <Filter Include="include\physics">
       <UniqueIdentifier>{c4aaf025-a733-4fb9-9c7b-7493cd685c5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\object">
+      <UniqueIdentifier>{c5feda26-34bb-45c2-9987-0291c0ca6353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\object\component">
+      <UniqueIdentifier>{6c5f72e6-132f-4a3f-9e32-08b09b14225f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\physics\physics.hpp">
       <Filter>include\physics</Filter>
     </ClInclude>
+    <ClInclude Include="include\object\component\Collider.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\object\component\TriggerCollider.hpp">
+      <Filter>include\object\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\physics\physics.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collider.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TriggerCollider.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1259,7 +1259,7 @@ int GameEntry::Run()
 	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
 	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 8.f, -5.f }, model);
 
-	physicsHandler.attachTriggerShape(mActor2, model2, 1.4f);
+	physicsHandler.attachTriggerShape(mActor2, model, 1.4f);
 
 	mActor->setName("Static actor");
 	mActor2->setName("dynamic trigger actor");

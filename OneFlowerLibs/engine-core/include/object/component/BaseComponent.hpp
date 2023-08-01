@@ -44,6 +44,10 @@ namespace of::object::component
 	public:
 
 		virtual void deconstruct() = 0;
+		
+		// TODO: move initialize from attach on, to a separate call after the entire object is built, to initialize
+		// also store the base initialization status in this class.
+		// this initialize should only be called by prefabs, or gameObject onBuildFinish or similar.
 		virtual void initialize() = 0;
 
 	public:
