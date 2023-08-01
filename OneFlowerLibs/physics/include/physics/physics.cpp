@@ -155,6 +155,15 @@ namespace of::module::physics
 		shape->release();
 	}
 
+	void PhysicsHandler::attachCapsuleTriggerShape(physx::PxRigidActor* actor, float capsuleHeight, float radius)
+	{
+		auto shape = mPhysics->createShape(physx::PxCapsuleGeometry(radius, capsuleHeight / 2.f), *mMaterial, false);
+		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		actor->attachShape(*shape);
+		shape->release();
+	}
+
 	void PhysicsHandler::SimulationCallback::onConstraintBreak(physx::PxConstraintInfo* constraints, physx::PxU32 count)
 	{
 	}

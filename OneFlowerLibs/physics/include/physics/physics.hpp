@@ -138,6 +138,8 @@ namespace of::module::physics
 
 		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale);
 
+		void attachCapsuleTriggerShape(physx::PxRigidActor* actor, float capsuleHeight, float radius);
+
 		template <class T>
 		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)
 		{
