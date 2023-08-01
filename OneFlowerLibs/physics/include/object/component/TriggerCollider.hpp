@@ -17,6 +17,11 @@ namespace of::object::component
 	public:
 
 		Collider::ColliderType mColliderType = Collider::ColliderType::INHERIT;
+		enum class ShapeType
+		{
+			MESH,
+			CYLINDER,
+		} mColliderShapeType;
 
 		of::common::String mColliderMesh;
 

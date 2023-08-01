@@ -32,8 +32,14 @@ namespace of::object::component
 					of::module::Settings::meshPath, true);
 
 				mActor = collider->mActor;
-				of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeScale);
-
+				if (mColliderShapeType == ShapeType::MESH)
+				{
+					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeScale);
+				}
+				else
+				{
+					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachCylinderTriggerShape(mActor, mTriggerShapeScale, mTriggerShapeScale);
+				}
 			}
 			else
 			{

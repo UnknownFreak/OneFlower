@@ -3,6 +3,9 @@
 
 #include <module/resource/Model.hpp>
 #include <module/settings/EngineSettings.hpp>
+
+#include <module/resource/MeshLoader.hpp>
+
 #include <object/GameObject.hpp>
 
 #include <iostream>
@@ -148,16 +151,30 @@ namespace of::module::physics
 	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale)
 	{
 		assert(scale > 1.f);
-		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
-		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
-		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
-		actor->attachShape(*shape);
-		shape->release();
+		if (actor->is<physx::PxRigidStatic>() == nullptr)
+		{
+			auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+			actor->attachShape(*shape);
+			shape->release();
+		}
+		else
+		{
+			auto shape = mPhysics->createShape(physx::PxTriangleMeshGeometry(GetObjectAsPxMesh(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+			actor->attachShape(*shape);
+			shape->release();
+		}
+
 	}
 
-	void PhysicsHandler::attachCapsuleTriggerShape(physx::PxRigidActor* actor, float capsuleHeight, float radius)
+	void PhysicsHandler::attachCylinderTriggerShape(physx::PxRigidActor* actor, float height, float radius)
 	{
-		auto shape = mPhysics->createShape(physx::PxCapsuleGeometry(radius, capsuleHeight / 2.f), *mMaterial, false);
+		auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cylinder.swm",
+			Settings::meshPath, true);
+		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(mesh), physx::PxMeshScale(physx::PxVec3(radius, height, radius))), *mMaterial, false);
 		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
 		actor->attachShape(*shape);
