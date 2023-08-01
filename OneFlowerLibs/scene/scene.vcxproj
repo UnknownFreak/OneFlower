@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\sceneManager.hpp" />
+    <ClInclude Include="include\object\component\Portal.hpp" />
     <ClInclude Include="include\resource\cutSceneInfo.hpp" />
     <ClInclude Include="include\resource\WorldInstance.hpp" />
     <ClInclude Include="include\scene\LoadArgs.hpp" />
