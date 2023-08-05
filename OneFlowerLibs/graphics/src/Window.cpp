@@ -52,7 +52,7 @@ namespace of::graphics::window
 		// TODO: do some font combination magic & move to font handler?
 		// Will we be using imgui for the entire ui as well or do our own.
 		auto& io = ImGui::GetIO();
-		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		ImFont* font = io.Fonts->AddFontDefault();
 		font;
 		//ImFontConfig config;
