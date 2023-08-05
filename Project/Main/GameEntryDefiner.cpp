@@ -194,9 +194,13 @@ public:
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
 	{
 		ImGuizmo::BeginFrame();
+
+		auto viewPort = ImGui::GetWindowViewport();
+
 		ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
 		auto io = ImGui::GetIO();
-		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+
+		ImGuizmo::SetRect(viewPort->Pos.x, viewPort->Pos.y, viewPort->Size.x, viewPort->Size.y);
 		ImGuizmo::Enable(true);
 
 		ImGuizmo::DecomposeMatrixToComponents((float*)&mat, (float*)&pos, (float*)&rot, (float*)&scale);
