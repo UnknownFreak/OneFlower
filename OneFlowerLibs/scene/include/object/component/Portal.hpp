@@ -15,44 +15,55 @@ namespace of::object::component
 		
 		virtual void onMessage(const of::object::messaging::Message& message) override
 		{
-			if (message.messageTopic == of::object::messaging::Topic::of(of::object::messaging::Topics::ON_COLLISION))
+			using namespace of::object::messaging;
+			if (message.messageTopic == Topic::of(Topics::ON_COLLISION))
 			{
-				using namespace of::object::messaging;
-				auto body = message.messageBody;
-				std::shared_ptr<GameObjectPtr> go = std::dynamic_pointer_cast<GameObjectPtr>(body);
-				if (go->go->tag == "player")
+				std::shared_ptr<GameObjectPtr> messageBody = std::dynamic_pointer_cast<GameObjectPtr>(message.messageBody);
+				// TODO: change tag to enum?
+				if (messageBody->go->tag == "player")
 				{
-					auto objectTrackingPos = go->go->getShared<of::object::component::Transform>();
+					auto objectTrackingPos = messageBody->go->getShared<of::object::component::Transform>();
+					auto portalRef = attachedOn->getShared<Portal>();
 
 					auto& courier = of::engine::GetModule<of::messaging::Courier>();
-					courier.addSubscriber(of::messaging::Topic::Update,	of::messaging::Subscriber(instanceId, warrantyFromThis(),
-						[this, objectTrackingPos](const of::messaging::Message& msg)
-						{
-							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
-							selfTrackingPos->pos));
-					if (distance < teleportDistance)
-					{
-						teleport();
-					}
-					if (distance > guiHintDistance)
-					{
-						auto& courier = of::engine::GetModule<of::messaging::Courier>();
-						courier.scheduleRemoval(of::messaging::Topic::Update, instanceId);
-					}	
-						}
-					));
+
+					// TODO: check if subscriber exists
+					//if (courier.hasSubscriber(of::messaging::Topic::Update, instanceId))
+					//	of::engine::GetModule<of::module::logger::OneLogger>().GetLogger("of::object::component::Portal").Info("Courier subscriber already exists, skipping!");
+					//	return;
+
+					courier.addSubscriber(
+						of::messaging::Topic::Update,
+						of::messaging::Subscriber(
+							instanceId, warrantyFromThis(),
+							[portalRef, objectTrackingPos] (const of::messaging::Message& msg)
+							{
+								float distance = glm::abs(glm::distance(objectTrackingPos->pos,
+								portalRef->mSelfTrackingPos->pos));
+								if (distance < portalRef->mTeleportDistance)
+								{
+									portalRef->teleport();
+								}
+								if (distance > portalRef->mGuiHintDistance)
+								{
+									auto& courier = of::engine::GetModule<of::messaging::Courier>();
+									courier.scheduleRemoval(of::messaging::Topic::Update, portalRef->instanceId);
+								}	
+							}
+						)
+					);
 				}
 			}
 		};
 
-		std::shared_ptr<of::object::component::Transform> selfTrackingPos;
+		std::shared_ptr<of::object::component::Transform> mSelfTrackingPos;
 
-		float teleportDistance;
-		float guiHintDistance;
+		float mTeleportDistance;
+		float mGuiHintDistance;
 
 		virtual void initialize() override
 		{
-			selfTrackingPos = attachedOn->getShared<of::object::component::Transform>();
+			mSelfTrackingPos = attachedOn->getShared<of::object::component::Transform>();
 		}
 		virtual void deconstruct() override
 		{
