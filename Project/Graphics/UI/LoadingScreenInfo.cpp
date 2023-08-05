@@ -21,7 +21,8 @@ void Graphics::UI::LoadingScreenInfo::render()
 {
 	if (visible && info.isLoading)
 	{
-		ImGui::SetNextWindowPos(pos, ImGuiCond_Once);
+		auto vp = ImGui::GetWindowViewport();
+		ImGui::SetNextWindowPos(ImVec2{ vp->Pos.x + pos.x, vp->Pos.y + pos.y }, ImGuiCond_::ImGuiCond_Once); 
 		ImGui::SetWindowFocus();
 		ImGui::Begin("LoadingScreenInfo", 0, ImGuiWindowFlags_::ImGuiWindowFlags_NoInputs |ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);
 		{
