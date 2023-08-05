@@ -1341,6 +1341,7 @@ void GameEntry::physicsUpdate()
 
 				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
+				courier.handleScheduledRemovals();
 				ups->tiq();
 			}
 			ups->update();

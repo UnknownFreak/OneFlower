@@ -46,6 +46,8 @@ namespace of::messaging
 			return type;
 		}
 
+		void scheduleRemoval(const Topic&, const size_t& subscriberId);
+		void handleScheduledRemovals();
 	private:
 		std::map<Topic, std::shared_ptr<ChannelTopic>> channels;
 

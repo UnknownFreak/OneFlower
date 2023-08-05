@@ -72,4 +72,17 @@ namespace of::messaging
 				"Trying to remove a subscriber from a topic that has no registererd channel.");
 		}
 	}
+
+	void Courier::scheduleRemoval(const Topic& topic, const size_t& subscriberId)
+	{
+		channels[topic]->scheduleRemoval(subscriberId);
+	}
+
+	void Courier::handleScheduledRemovals()
+	{
+		for (auto& channel : channels)
+		{
+			channel.second->handleScheduledRemovals();
+		}
+	}
 }

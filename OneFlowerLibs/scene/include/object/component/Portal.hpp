@@ -1,28 +1,75 @@
 #pragma once
 
 #include <object/component/BaseComponent.hpp>
+#include <object/component/Transform.hpp>
 
 #include <module/sceneManager.hpp>
+#include <messaging/courier.hpp>
+
+#include <glm/glm.hpp>
 
 namespace of::object::component
 {
 	class Portal : public Base
 	{
 		
-		virtual void onMessage(const of::object::messaging::Message& message) override {};
-		virtual void initialize() override;
-		virtual void deconstruct() override;
+		virtual void onMessage(const of::object::messaging::Message& message) override
+		{
+			if (message.messageTopic == of::object::messaging::Topic::of(of::object::messaging::Topics::ON_COLLISION))
+			{
+				using namespace of::object::messaging;
+				auto body = message.messageBody;
+				std::shared_ptr<GameObjectPtr> go = std::dynamic_pointer_cast<GameObjectPtr>(body);
+				if (go->go->tag == "player")
+				{
+					auto objectTrackingPos = go->go->getShared<of::object::component::Transform>();
+
+					auto& courier = of::engine::GetModule<of::messaging::Courier>();
+					courier.addSubscriber(of::messaging::Topic::Update,	of::messaging::Subscriber(instanceId, warrantyFromThis(),
+						[this, objectTrackingPos](const of::messaging::Message& msg)
+						{
+							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
+							selfTrackingPos->pos));
+					if (distance < teleportDistance)
+					{
+						teleport();
+					}
+					if (distance > guiHintDistance)
+					{
+						auto& courier = of::engine::GetModule<of::messaging::Courier>();
+						courier.scheduleRemoval(of::messaging::Topic::Update, instanceId);
+					}	
+						}
+					));
+				}
+			}
+		};
+
+		std::shared_ptr<of::object::component::Transform> selfTrackingPos;
+
+		float teleportDistance;
+		float guiHintDistance;
+
+		virtual void initialize() override
+		{
+			selfTrackingPos = attachedOn->getShared<of::object::component::Transform>();
+		}
+		virtual void deconstruct() override
+		{
+			auto courier = of::engine::GetModule<of::messaging::Courier>();
+			courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
+		}
 
 		of::file::FileId world;
 		of::file::FileId loadingScreen;
 		// change pos coordinates to player pos marker object, that once the zone is loaded will teleport the player to the marker position.
 		of::file::FileId positionMarker;
-		glm::vec3 playerPos;
+		glm::vec3 teleportPos;
 
-		void test()
+		void teleport()
 		{
 			of::engine::GetModule<of::module::SceneManager>().loadWorldInstance(world, loadingScreen,
-				playerPos);
+				teleportPos);
 		}
 
 	public:

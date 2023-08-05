@@ -99,9 +99,24 @@ namespace of::messaging
 			return subscribers.size();
 		}
 
+		void scheduleRemoval(const size_t& subscriberId)
+		{
+			scheduledRemovals.push_back(subscriberId);
+		}
+
+		void handleScheduledRemovals()
+		{
+			for (auto removal : scheduledRemovals)
+			{
+				removeSubscriber(removal);
+			}
+			scheduledRemovals.clear();
+		}
+
 	protected:
 
 		std::vector<Subscriber> subscribers;
+		std::vector<size_t> scheduledRemovals;
 	private:
 		of::common::uuid id;
 	};
