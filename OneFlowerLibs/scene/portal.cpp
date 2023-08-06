@@ -28,7 +28,7 @@ namespace of::object::component
 					of::messaging::Topic::Update,
 					of::messaging::Subscriber(
 						instanceId, warrantyFromThis(),
-						[portalRef, objectTrackingPos](const of::messaging::Message& msg)
+						[portalRef, objectTrackingPos](const of::messaging::Message&)
 						{
 							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
 							portalRef->mSelfTrackingPos->pos));
