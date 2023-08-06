@@ -28,17 +28,20 @@ namespace of::object::component
 			
 			if (collider != nullptr)
 			{
-				auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
-					of::module::Settings::meshPath, true);
-
 				mActor = collider->mActor;
 				if (mColliderShapeType == ShapeType::MESH)
 				{
+					auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
+						of::module::Settings::meshPath, true);
 					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeScale);
+				}
+				else if (mColliderShapeType == ShapeType::BOX)
+				{
+					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachBoxTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 				else
 				{
-					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachCylinderTriggerShape(mActor, mTriggerShapeScale, mTriggerShapeScale);
+					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachCylinderTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 			}
 			else

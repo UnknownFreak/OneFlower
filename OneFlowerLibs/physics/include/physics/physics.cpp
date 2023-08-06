@@ -148,35 +148,47 @@ namespace of::module::physics
 		return mControllerManager->createController(desc);
 	}
 
-	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale)
+	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale)
 	{
-		assert(scale > 1.f);
 		if (actor->is<physx::PxRigidStatic>() == nullptr)
 		{
-			auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+			auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(triggerShape), physx::PxMeshScale(physx::PxVec3(scale.x, scale.y, scale.z))), *mMaterial, false);
 			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+			shape->setLocalPose(physx::PxTransform(offset.x, offset.y, offset.x));
 			actor->attachShape(*shape);
 			shape->release();
 		}
 		else
 		{
-			auto shape = mPhysics->createShape(physx::PxTriangleMeshGeometry(GetObjectAsPxMesh(triggerShape), physx::PxMeshScale(physx::PxVec3(scale))), *mMaterial, false);
+			auto shape = mPhysics->createShape(physx::PxTriangleMeshGeometry(GetObjectAsPxMesh(triggerShape), physx::PxMeshScale(physx::PxVec3(scale.x, scale.y, scale.z))), *mMaterial, false);
 			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+			shape->setLocalPose(physx::PxTransform(offset.x, offset.y, offset.x));
 			actor->attachShape(*shape);
 			shape->release();
 		}
 
 	}
 
-	void PhysicsHandler::attachCylinderTriggerShape(physx::PxRigidActor* actor, float height, float radius)
+	void PhysicsHandler::attachBoxTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale)
+	{
+		auto shape = mPhysics->createShape(physx::PxBoxGeometry(physx::PxVec3(scale.x, scale.y, scale.z)), *mMaterial, false);
+		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		shape->setLocalPose(physx::PxTransform(offset.x, offset.y, offset.x));
+		actor->attachShape(*shape);
+		shape->release();
+	}
+
+	void PhysicsHandler::attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale)
 	{
 		auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cylinder.swm",
 			Settings::meshPath, true);
-		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(mesh), physx::PxMeshScale(physx::PxVec3(radius, height, radius))), *mMaterial, false);
+		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(mesh), physx::PxMeshScale(physx::PxVec3(scale.x, scale.y, scale.z))), *mMaterial, false);
 		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		shape->setLocalPose(physx::PxTransform(offset.x, offset.y, offset.x));
 		actor->attachShape(*shape);
 		shape->release();
 	}

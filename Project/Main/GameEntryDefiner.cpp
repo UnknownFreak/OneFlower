@@ -54,6 +54,11 @@
 
 #include<Input/PlayerController.hpp>
 
+#include <physics/physics.hpp>
+
+#include <object/component/Collider.hpp>
+#include <object/component/TriggerCollider.hpp>
+
 bool paused = false;
 
 class WorldGrid : public of::graphics::ParentedRenderable
@@ -637,15 +642,17 @@ public:
 
 static size_t mId = 0x100000000;
 
-template<class T>
+
 class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
-	T* mActor;
+	physx::PxRigidActor* mActor;
 	of::resource::Model model;
 	
 	glm::vec3 pos;
 	glm::vec3 scale;
 	glm::quat rot;
+
+	glm::vec3 shapeOffset;
 
 	glm::vec4 renderingColor = { 0.3f, 0.3f, 1.f, 0.f };
 
@@ -671,7 +678,8 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 
 public:
 
-	PxMeshedActorRenderable(T* iactor, of::resource::Model mesh, float scale = 1.f, glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor)
+	PxMeshedActorRenderable(physx::PxRigidActor* iactor, of::resource::Model mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor),
+		shapeOffset(shapeOffset)
 	{
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
 		auto gfx = wnd.getGfxDevice();
@@ -702,7 +710,7 @@ public:
 
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
 	{
-		mvp.model = glm::translate(glm::mat4(1.f), pos);
+		mvp.model = glm::translate(glm::mat4(1.f), pos + shapeOffset);
 		mvp.model = glm::scale(mvp.model, scale);
 		mvp.model *= glm::mat4_cast(rot);
 
@@ -1250,25 +1258,38 @@ GameEntry::GameEntry() :
 	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
 }
 
-physx::PxRigidStatic* mActor;
-physx::PxRigidDynamic* mActor2;
-
 int GameEntry::Run()
 {
 	gfx->initialize();
 	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 	physicsHandler.Initialize();
-	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("wedge.swm", of::module::Settings::meshPath, true);
-	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("testArrow.swm", of::module::Settings::meshPath, true);
-	mActor = physicsHandler.createActor<physx::PxRigidStatic>({ 0.f, 1.f, 0.f }, model);
-	mActor2 = physicsHandler.createActor<physx::PxRigidDynamic>({ 0.f, 8.f, -5.f }, model);
-
-	physicsHandler.attachTriggerShape(mActor2, model, 1.4f);
-
-	mActor->setName("Static actor");
-	mActor2->setName("dynamic trigger actor");
 
 	world.initialize();
+	while (world.isLoading)
+	{
+		world.Update();
+	}
+
+	auto door = of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
+
+	door->initialize();
+
+	door->get<of::object::component::Transform>()->pos = glm::vec3(1.f, 1.f, 1.f);
+
+	auto collider = new of::object::component::Collider();
+	collider->mColliderMesh = "door.swm";
+	collider->mColliderType = of::object::component::Collider::ColliderType::RIGID;
+	auto triggerCollider = new of::object::component::TriggerCollider();
+	triggerCollider->mColliderShapeType = of::object::component::TriggerCollider::ShapeType::BOX;
+	triggerCollider->mTriggerShapeScale = glm::vec3(1.4f,1.5f,0.9f);
+	triggerCollider->mTriggerShapeOffset.y = 1.5f;
+
+	//auto hinge = new of::object::component::Hinge();
+
+	door->add(collider);
+	door->add(triggerCollider);
+	//door->add(hinge);
+
 	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
@@ -1285,10 +1306,13 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(controller->mActor));
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidStatic>>(mActor, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable<physx::PxRigidDynamic>>(mActor2, model, 1.4f,
-		glm::vec4{0.6,0.3, 1.f, 0.f}));
+	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("door.swm", of::module::Settings::meshPath, true);
+	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cube.swm", of::module::Settings::meshPath, true);
+	//*
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model2, glm::vec3(1.4,1.5f, 0.9f),
+		glm::vec4{0.6, 0.3, 1.f, 0.f}, glm::vec3(0, 1.5f, 0)));
+		//*/
 
 	auto cameraController = std::make_shared<EditorController>();
 	gfx->setCameraController(cameraController);

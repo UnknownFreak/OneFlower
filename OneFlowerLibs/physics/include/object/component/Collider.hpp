@@ -9,7 +9,7 @@ namespace of::object::component
 	class Collider : public Base
 	{
 
-		virtual void onMessage(const of::object::messaging::Message& message) override {};
+		virtual void onMessage(const of::object::messaging::Message&) override {};
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
@@ -55,6 +55,6 @@ namespace of::object::component
 			return "Collider";
 		};
 
-		static constexpr of::common::uuid typeId = "4eb8d991-d06e-4231-b3bc-82e4b5d5199d";
+		static constexpr of::common::uuid typeId = "dfee5083-fe04-4ef9-97ba-a9bf564e8073";
 	};
 }

@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="portal.cpp" />
     <ClCompile Include="src\cutSceneInfo.cpp" />
     <ClCompile Include="src\LoadingStateInfo.cpp" />
     <ClCompile Include="src\WorldInstance.cpp" />
@@ -142,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\sceneManager.hpp" />
-    <ClInclude Include="include\object\component\Portal.hpp" />
+    <ClInclude Include="include\object\component\portal.hpp" />
     <ClInclude Include="include\resource\cutSceneInfo.hpp" />
     <ClInclude Include="include\resource\WorldInstance.hpp" />
     <ClInclude Include="include\scene\LoadArgs.hpp" />

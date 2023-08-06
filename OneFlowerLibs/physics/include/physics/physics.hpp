@@ -136,9 +136,10 @@ namespace of::module::physics
 			return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
 		}
 
-		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, float scale);
+		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale);
 
-		void attachCylinderTriggerShape(physx::PxRigidActor* actor, float height, float radius);
+		void attachBoxTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
+		void attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 
 		template <class T>
 		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)

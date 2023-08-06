@@ -33,6 +33,12 @@
     <Filter Include="include\object\component">
       <UniqueIdentifier>{5ad6dec8-945f-4b8b-b3f3-546a352c7c86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\object">
+      <UniqueIdentifier>{f216bdf5-a699-4323-83f8-4c262c9dce08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\object\component">
+      <UniqueIdentifier>{526935e2-03d4-4677-ac72-10570df5dd7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\sceneManager.cpp">
@@ -46,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="src\cutSceneInfo.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="portal.cpp">
+      <Filter>src\object\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +76,7 @@
     <ClInclude Include="include\resource\cutSceneInfo.hpp">
       <Filter>include\resource</Filter>
     </ClInclude>
-    <ClInclude Include="include\object\component\Portal.hpp">
+    <ClInclude Include="include\object\component\portal.hpp">
       <Filter>include\object\component</Filter>
     </ClInclude>
   </ItemGroup>

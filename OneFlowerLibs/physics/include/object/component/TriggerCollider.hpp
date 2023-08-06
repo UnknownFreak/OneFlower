@@ -9,7 +9,7 @@ namespace of::object::component
 {
 	class TriggerCollider : public Base
 	{
-		virtual void onMessage(const of::object::messaging::Message& message) override {};
+		virtual void onMessage(const of::object::messaging::Message&) override {};
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
@@ -21,12 +21,14 @@ namespace of::object::component
 		{
 			MESH,
 			CYLINDER,
+			BOX,
 		} mColliderShapeType;
 
 		of::common::String mColliderMesh;
 
 		// trigger shapes has to be 1x or larger than collider mesh;
-		float mTriggerShapeScale;
+		glm::vec3 mTriggerShapeScale;
+		glm::vec3 mTriggerShapeOffset = glm::vec3(0.f);
 
 		physx::PxRigidActor* mActor;
 
@@ -57,6 +59,6 @@ namespace of::object::component
 			return "TriggerCollider";
 		};
 
-		static constexpr of::common::uuid typeId = "4eb8d991-d06e-4231-b3bc-82e4b5d5199d";
+		static constexpr of::common::uuid typeId = "c2667abd-0783-4746-92d1-0b41c5e513ef";
 	};
 }
