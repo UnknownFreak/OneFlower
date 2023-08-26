@@ -91,6 +91,8 @@ namespace of::module::physics
 		}
 
 		mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, physx::PxTolerancesScale(), false, mPvd);
+		
+		PxInitExtensions(*mPhysics, mPvd);
 
 		mMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
@@ -100,9 +102,19 @@ namespace of::module::physics
 		d.filterShader = physx::PxDefaultSimulationFilterShader;
 
 		mScene = mPhysics->createScene(d);
+		if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+		{
+			mScene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
+			mScene->setVisualizationParameter(physx::PxVisualizationParameter::eJOINT_LOCAL_FRAMES, 1.0f);
+			mScene->setVisualizationParameter(physx::PxVisualizationParameter::eJOINT_LIMITS, 1.0f);
+		}
+		
 		mControllerManager = PxCreateControllerManager(*mScene);
 
 		mScene->setSimulationEventCallback(&mSimulationCallback);
+
+
+
 		mInitialized = true;
 
 		mHeightPlane = PxCreatePlane(*mPhysics, physx::PxPlane(0, 1, 0, 0), *mMaterial);

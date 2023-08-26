@@ -11,6 +11,7 @@ namespace of::object::component
 	void component::PlayerController::initialize()
 	{
 		transform = attachedOn->get<Transform>();
+		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
 		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update,

@@ -33,7 +33,7 @@ namespace of::object::component
 				{
 					auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
 						of::module::Settings::meshPath, true);
-					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeScale);
+					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 				else if (mColliderShapeType == ShapeType::BOX)
 				{

@@ -12,6 +12,7 @@
 
 #include <map>
 #include <vector>
+#include <module/settings/EngineSettings.hpp>
 
 namespace of::resource
 {
@@ -136,10 +137,44 @@ namespace of::module::physics
 			return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
 		}
 
+		physx::PxD6Joint* createDoorHinge(physx::PxRigidActor* p, const glm::vec3& hingePosRelOffset)
+		{
+			auto offset = physx::PxTransform(physx::PxVec3(0));
+			offset.p.x = hingePosRelOffset.x;
+			offset.p.y = hingePosRelOffset.y;
+			offset.p.z = hingePosRelOffset.z;
+			auto joint = physx::PxD6JointCreate(*mPhysics, p, physx::PxTransform(offset), nullptr, p->getGlobalPose());
+			//joint->setMotion(physx::PxD6Axis::eTWIST, physx::PxD6Motion::eFREE);
+			joint->setMotion(physx::PxD6Axis::eSWING1, physx::PxD6Motion::eLIMITED);
+			//joint->setMotion(physx::PxD6Axis::eSWING2, physx::PxD6Motion::eFREE);
+			//joint->setMotion(physx::PxD6Axis::eX, physx::PxD6Motion::eFREE);
+			//joint->setMotion(physx::PxD6Axis::eZ, physx::PxD6Motion::eFREE);
+			//joint->setMotion(physx::PxD6Axis::eY, physx::PxD6Motion::eFREE);
+			auto l = physx::PxJointLimitPyramid(0, physx::PxPi/2, 0.f, 0.1f);
+			//auto l = physx::PxJointLimitPyramid(-physx::PxPi+0.01f, physx::PxPi - 0.01f, 0.f, 0.1f);
+			joint->setPyramidSwingLimit(l);
+
+			if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+			{
+				joint->setConstraintFlag(physx::PxConstraintFlag::eVISUALIZATION, true);
+			}
+			return joint;
+		}
+
 		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale);
 
 		void attachBoxTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 		void attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
+
+		physx::PxRigidStatic* createStatic(const glm::vec3& pos)
+		{
+			auto actor = mPhysics->createRigidStatic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
+			auto shape = mPhysics->createShape(physx::PxBoxGeometry(0.1f, 0.1f, 0.1f), *mMaterial, false);
+			actor->attachShape(*shape);
+			shape->release();
+			mScene->addActor(*actor);
+			return actor;
+		}
 
 		template <class T>
 		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)
@@ -180,6 +215,7 @@ namespace of::module::physics
 					shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 					shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
 				}
+
 				actor->attachShape(*shape);
 				shape->release();
 

@@ -58,6 +58,7 @@
 
 #include <object/component/Collider.hpp>
 #include <object/component/TriggerCollider.hpp>
+#include <object/component/DoorHinge.hpp>
 
 bool paused = false;
 
@@ -710,9 +711,10 @@ public:
 
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
 	{
-		mvp.model = glm::translate(glm::mat4(1.f), pos + shapeOffset);
-		mvp.model = glm::scale(mvp.model, scale);
+		mvp.model = glm::translate(glm::mat4(1.f), pos);
 		mvp.model *= glm::mat4_cast(rot);
+		mvp.model = glm::scale(mvp.model, scale);
+		mvp.model = glm::translate(mvp.model, shapeOffset);
 
 		model.render(transaction, mvp, [&]() {
 			transaction->setShaderConstant(model.shader, (U8*)&renderingColor, sizeof(glm::vec4), sizeof(mvp));
@@ -1243,7 +1245,6 @@ public:
 //static std::shared_ptr<PxSimulationStats> simulationStats;
 static std::shared_ptr<CourierStats> courierStats;
 
-
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
@@ -1274,7 +1275,7 @@ int GameEntry::Run()
 
 	door->initialize();
 
-	door->get<of::object::component::Transform>()->pos = glm::vec3(1.f, 1.f, 1.f);
+	door->get<of::object::component::Transform>()->pos = glm::vec3(1.f, 4.f, 3.f);
 
 	auto collider = new of::object::component::Collider();
 	collider->mColliderMesh = "door.swm";
@@ -1284,11 +1285,25 @@ int GameEntry::Run()
 	triggerCollider->mTriggerShapeScale = glm::vec3(1.4f,1.5f,0.9f);
 	triggerCollider->mTriggerShapeOffset.y = 1.5f;
 
-	//auto hinge = new of::object::component::Hinge();
+	auto hinge = new of::object::component::DoorHinge();
+	hinge->mHingeOffset = { 0, 0, 1.f };
 
 	door->add(collider);
 	door->add(triggerCollider);
+	auto p = collider->mActor->getGlobalPose();
+	p.q = physx::PxQuat(1.23f, physx::PxVec3(0,1,0));
+	collider->mActor->setGlobalPose(p);
+	door->add(hinge);
+
 	//door->add(hinge);
+
+
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
+		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, 45, 0.f});
+		}, false), swizzle::input::Keys::KeySpace, Enums::Input::Action::Hold);
+	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float&) {
+		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, -45, 0.f });
+		}, false), swizzle::input::Keys::KeyZ, Enums::Input::Action::Hold);
 
 	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
@@ -1310,8 +1325,8 @@ int GameEntry::Run()
 	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cube.swm", of::module::Settings::meshPath, true);
 	//*
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model));
-	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model2, glm::vec3(1.4,1.5f, 0.9f),
-		glm::vec4{0.6, 0.3, 1.f, 0.f}, glm::vec3(0, 1.5f, 0)));
+	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model2, glm::vec3(1.4, 1.5f, 0.9f),
+		glm::vec4{0.6, 0.3, 1.f, 0.f}, glm::vec3(0, 1.f, 0)));
 		//*/
 
 	auto cameraController = std::make_shared<EditorController>();
@@ -1357,6 +1372,7 @@ void GameEntry::physicsUpdate()
 			loadingScreenInfo->update();
 			time.physicsClock.secondsAsFloat(true);
 		}
+		ups->tiq();
 		while (time.physicsElapsed >= time.update_ms)
 		{
 			time.physicsElapsed -= time.update_ms;
@@ -1370,7 +1386,6 @@ void GameEntry::physicsUpdate()
 				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
 				courier.handleScheduledRemovals();
-				ups->tiq();
 			}
 			ups->update();
 			ups->print();
