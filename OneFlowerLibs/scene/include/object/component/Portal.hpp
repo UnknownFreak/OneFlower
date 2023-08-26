@@ -27,6 +27,7 @@ namespace of::object::component
 		// change pos coordinates to player pos marker object, that once the zone is loaded will teleport the player to the marker position.
 		of::file::FileId positionMarker;
 		glm::vec3 teleportPos;
+		bool requireInteraction;
 
 		void teleport();
 

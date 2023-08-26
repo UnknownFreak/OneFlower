@@ -34,7 +34,16 @@ namespace of::object::component
 							portalRef->mSelfTrackingPos->pos));
 							if (distance < portalRef->mTeleportDistance)
 							{
-								portalRef->teleport();
+								// TODO: Extract input handler into it's own module so we can check if interaction was done this frame.
+								// for now use the same behavior as if we don't require interaction.
+								if (portalRef->requireInteraction && true)
+								{
+									portalRef->teleport();
+								}
+								else if (portalRef->requireInteraction == false)
+								{
+									portalRef->teleport();
+								}
 							}
 							if (distance > portalRef->mGuiHintDistance)
 							{
