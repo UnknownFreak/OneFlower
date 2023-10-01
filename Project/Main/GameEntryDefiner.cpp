@@ -1300,10 +1300,10 @@ int GameEntry::Run()
 
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
 		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, 45, 0.f});
-		}, false), swizzle::input::Keys::KeySpace, Enums::Input::Action::Hold);
+		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Hold);
 	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float&) {
 		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, -45, 0.f });
-		}, false), swizzle::input::Keys::KeyZ, Enums::Input::Action::Hold);
+		}, false), swizzle::input::Keys::KeyZ, of::input::Action::Hold);
 
 	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);

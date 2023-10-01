@@ -13,7 +13,7 @@ namespace Graphics::UI
 		if (noKeybind)
 			return;
 		Input::InputHandler& ih = of::engine::GetModule<Input::InputHandler>();
-		ih.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp(uiName, [&](bool, swizzle::input::Keys, const float&) { toggleVisible(); }, false), toggleKey, Enums::Input::Action::Press);
+		ih.playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp(uiName, [&](bool, swizzle::input::Keys, const float&) { toggleVisible(); }, false), toggleKey, of::input::Action::Press);
 	}
 
 	bool UIContext::mouseInside(const glm::vec2& pos, const glm::vec2& size, const glm::vec2& mouse) const

@@ -4,7 +4,7 @@
 #include <Object/component/Transform.hpp>
 #include <object/component/combat.hpp>
 
-#include "InputHandler.hpp"
+#include <Input/inputHandler.hpp>
 #include <physics/physics.hpp>
 
 namespace of::object::component

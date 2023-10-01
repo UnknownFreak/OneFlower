@@ -104,11 +104,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,9 +137,28 @@
     <ProjectReference Include="..\..\swizzle\build\vs2022\swizzle\swizzle.vcxproj">
       <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\base-module\base-module.vcxproj">
+      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ofutils\ofutils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\input\axisInputHandler.hpp" />
+    <ClInclude Include="include\input\basicInputHandler.hpp" />
+    <ClInclude Include="include\input\callback.hpp" />
+    <ClInclude Include="include\input\controller.hpp" />
     <ClInclude Include="include\input\inputHandler.hpp" />
+    <ClInclude Include="include\input\inputHandlerBase.hpp" />
+    <ClInclude Include="include\input\inputType.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\controller.cpp" />
+    <ClCompile Include="src\inputHandlerDefiner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

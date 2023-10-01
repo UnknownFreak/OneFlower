@@ -37,12 +37,6 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{50658201-25c6-4a51-8bed-9b950e004ec2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Input\Callback">
-      <UniqueIdentifier>{581b9d08-822a-4e6b-9ff1-839a361f7345}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Input\Controller">
-      <UniqueIdentifier>{7aaa660c-0b01-41b5-9bac-1e84d750e2f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Helpers\Enum">
       <UniqueIdentifier>{3a847f5b-3d6c-4206-9d2a-11ac1baefbc2}</UniqueIdentifier>
     </Filter>
@@ -222,9 +216,6 @@
     <ClCompile Include="Project\Tests\BaseInputHandlerUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Input\InputHandlerDefiner.cpp">
-      <Filter>Engine\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\LanguageRequestorUnitTest.cpp">
       <Filter>Unit Tests</Filter>
     </ClCompile>
@@ -236,9 +227,6 @@
     </ClCompile>
     <ClCompile Include="Project\Tests\RectUnitTest.cpp">
       <Filter>Unit Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Input\Controller.cpp">
-      <Filter>Engine\Input\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>
@@ -476,29 +464,8 @@
     <ClInclude Include="Project\Interfaces\IUpdateable.hpp">
       <Filter>Engine\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Input\InputHandler.hpp">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\Callback.hpp">
-      <Filter>Engine\Input\Callback</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Helpers\Enum\InputEnum.hpp">
-      <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\InputHandlerBase.hpp">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\BasicInputHandler.hpp">
-      <Filter>Engine\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\Controller.hpp">
-      <Filter>Engine\Input\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Input\AxisInputHandler.hpp">
-      <Filter>Engine\Input\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp">
       <Filter>Engine\Graphics\UI\UIContext</Filter>

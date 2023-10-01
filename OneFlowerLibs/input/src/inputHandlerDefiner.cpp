@@ -1,5 +1,5 @@
-#include "InputHandler.hpp"
-#include "Controller.hpp"
+#include <input/inputHandler.hpp>
+#include <input/controller.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Input::InputHandler>::type = of::module::EngineResourceType::Input;
 bool Input::InputHandler::isMovementEnabled = true;

@@ -4,7 +4,6 @@
 #include <functional>
 
 #include <Module/Logger/OneLogger.hpp>
-#include <Helpers\Enum\InputEnum.hpp>
 
 #include "InputHandlerBase.hpp"
 

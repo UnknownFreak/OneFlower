@@ -5,7 +5,7 @@
 #include <vector>
 
 #include <Module/Logger/OneLogger.hpp>
-#include <Helpers\Enum\InputEnum.hpp>
+#include <input/inputType.hpp>
 
 #include "Callback.hpp"
 #include "InputHandlerBase.hpp"
@@ -69,28 +69,28 @@ namespace Input
 		{
 		}
 
-		inline void RegisterCallback(Callback::Callback<bool, T> callback, T input, const Enums::Input::Action actionType)
+		inline void RegisterCallback(Callback::Callback<bool, T> callback, T input, const of::input::Action actionType)
 		{
-			if ((int)actionType & (int)Enums::Input::Action::Press)
+			if ((int)actionType & (int)of::input::Action::Press)
 				bindsOnPress.RegisterCallback(callback, input);
-			if ((int)actionType & (int)Enums::Input::Action::Release)
+			if ((int)actionType & (int)of::input::Action::Release)
 				bindsOnRelease.RegisterCallback(callback, input);
-			if ((int)actionType & (int)Enums::Input::Action::Hold)
+			if ((int)actionType & (int)of::input::Action::Hold)
 				bindsOnHold.RegisterCallback(callback, input);
 		}
 
-		inline void removeCallback(T input, of::common::String callbackToRemove, const Enums::Input::Action actionType)
+		inline void removeCallback(T input, of::common::String callbackToRemove, const of::input::Action actionType)
 		{
-			if ((int)actionType & (int)Enums::Input::Action::Press)
+			if ((int)actionType & (int)of::input::Action::Press)
 				if(bindsOnPress.RemoveCallback(input, callbackToRemove))
 				{
 					typename std::vector<T>::iterator it = std::find(callbackRelease.begin(), callbackRelease.end(), input);
 					if (it != callbackRelease.end())
 						callbackRelease.erase(it);
 				}
-			if ((int)actionType & (int)Enums::Input::Action::Release)
+			if ((int)actionType & (int)of::input::Action::Release)
 				bindsOnRelease.RemoveCallback(input, callbackToRemove);
-			if ((int)actionType & (int)Enums::Input::Action::Hold)
+			if ((int)actionType & (int)of::input::Action::Hold)
 				bindsOnHold.RemoveCallback(input, callbackToRemove);
 		}
 	

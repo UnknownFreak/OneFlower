@@ -14,8 +14,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\input\axisInputHandler.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\basicInputHandler.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\callback.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\controller.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
     <ClInclude Include="include\input\inputHandler.hpp">
       <Filter>include\input</Filter>
     </ClInclude>
+    <ClInclude Include="include\input\inputHandlerBase.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputType.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\controller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inputHandlerDefiner.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

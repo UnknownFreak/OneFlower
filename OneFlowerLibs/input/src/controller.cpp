@@ -1,13 +1,13 @@
 #include <vector>
 
-#include "Controller.hpp"
+#include <input/controller.hpp>
 
 std::map<unsigned, Controller> Controller::controllers;
 bool Controller::getControllers = true;
 Controller undefined = Controller(0xff, 0xff);
 Controller& Controller::currentController = undefined;
 
-bool Controller::isButtonPressed(Enums::Input::ControllerButtons button)
+bool Controller::isButtonPressed(of::input::ControllerButtons button)
 {
 	button;
 	//if (currentController.controllerNumber != 0xff)

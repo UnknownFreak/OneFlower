@@ -296,6 +296,9 @@
     <ProjectReference Include="OneFlowerLibs\graphics\graphics.vcxproj">
       <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\input\input.vcxproj">
+      <Project>{8e411644-1801-4025-850c-76c41e316332}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\locale\locale.vcxproj">
       <Project>{cc7913ea-b4b7-4e91-b0a1-dad708b32482}</Project>
     </ProjectReference>
@@ -371,8 +374,6 @@
     <ClCompile Include="Project\Graphics\UI\UIHandler.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
-    <ClCompile Include="Project\Input\Controller.cpp" />
-    <ClCompile Include="Project\Input\InputHandlerDefiner.cpp" />
     <ClCompile Include="Project\Input\PlayerController.cpp" />
     <ClCompile Include="Project\Items\Inventory.cpp" />
     <ClCompile Include="Project\Items\Item.cpp" />
@@ -466,7 +467,6 @@
     <ClInclude Include="Project\Helpers\Enum\DialogStatus.hpp" />
     <ClInclude Include="Project\Helpers\Enum\HealthTresholdComparitor.hpp" />
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp" />
-    <ClInclude Include="Project\Helpers\Enum\InputEnum.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ItemType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestState.hpp" />
     <ClInclude Include="Project\Helpers\Enum\QuestTriggerType.hpp" />
@@ -475,12 +475,6 @@
     <ClInclude Include="Project\Helpers\Enum\UIContextNames.hpp" />
     <ClInclude Include="Project\Helpers\Enum\WeaponType.hpp" />
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp" />
-    <ClInclude Include="Project\Input\AxisInputHandler.hpp" />
-    <ClInclude Include="Project\Input\BasicInputHandler.hpp" />
-    <ClInclude Include="Project\Input\Callback.hpp" />
-    <ClInclude Include="Project\Input\InputHandler.hpp" />
-    <ClInclude Include="Project\Input\Controller.hpp" />
-    <ClInclude Include="Project\Input\InputHandlerBase.hpp" />
     <ClInclude Include="Project\Input\PlayerController.hpp" />
     <ClInclude Include="Project\Interfaces\IObject.hpp" />
     <ClInclude Include="Project\Interfaces\IPatch.hpp" />

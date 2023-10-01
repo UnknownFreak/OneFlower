@@ -70,7 +70,6 @@ namespace of::object::component
 
 	void Portal::teleport()
 	{
-		of::engine::GetModule<of::module::SceneManager>().loadWorldInstance(world, loadingScreen,
-			teleportPos);
+		of::engine::GetModule<of::module::SceneManager>().loadWorldInstance(world, loadingScreen, teleportPos);
 	}
 }

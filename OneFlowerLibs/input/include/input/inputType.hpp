@@ -1,9 +1,8 @@
-#ifndef INPUTENUM_HPP
-#define INPUTENUM_HPP
+#pragma once
 
-namespace Enums
+namespace of
 {
-	namespace Input
+	namespace input
 	{
 		enum class Action
 		{
@@ -29,5 +28,3 @@ namespace Enums
 		};
 	};
 }
-
-#endif

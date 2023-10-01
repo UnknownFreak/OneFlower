@@ -1,4 +1,6 @@
 #pragma once
+#ifndef InputHandler_HPP_A
+#define InputHandler_HPP_A
 
 #include <functional>
 #include <map>
@@ -9,10 +11,11 @@
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
 
+#include <input/inputType.hpp>
 #include "BasicInputHandler.hpp"
 #include "AxisInputHandler.hpp"
 
-namespace of::input
+namespace Input
 {
 	class InputHandler : public of::module::interface::IEngineResource<InputHandler>
 	{
@@ -23,7 +26,7 @@ namespace of::input
 
 		void update(const float& fElapsedTime);
 
-		BasicInputHandler<Enums::Input::ControllerButtons> controller;
+		BasicInputHandler<of::input::ControllerButtons> controller;
 		//AxisCallbackholder<sf::Joystick::Axis> controllerAxis;
 		BasicInputHandler<swizzle::input::Keys> playerKeyboard;
 		BasicInputHandler<swizzle::input::Keys> uiKeyboard;
@@ -43,6 +46,7 @@ namespace of::input
 
 		int deltaScrolls = 0;
 
+	private:
 
 	};
 }

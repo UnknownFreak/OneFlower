@@ -2,7 +2,7 @@
 #define Controller_HPP
 
 #include <map>
-#include <Helpers/Enum/InputEnum.hpp>
+#include <input/inputType.hpp>
 
 class Controller
 {
@@ -10,7 +10,7 @@ class Controller
 	unsigned controllerNumber;
 public:
 	static std::map<unsigned, Controller> controllers;
-	static bool isButtonPressed(Enums::Input::ControllerButtons button);
+	static bool isButtonPressed(of::input::ControllerButtons button);
 	//static float getControllerAxisPos(sf::Joystick::Axis axis);
 	static void update();
 	static bool getControllers;

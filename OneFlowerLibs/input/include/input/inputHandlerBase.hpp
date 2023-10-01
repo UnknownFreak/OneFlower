@@ -6,7 +6,6 @@
 #include <vector>
 
 #include <Module/Logger/OneLogger.hpp>
-#include <Helpers\Enum\InputEnum.hpp>
 
 #include "Callback.hpp"
 
