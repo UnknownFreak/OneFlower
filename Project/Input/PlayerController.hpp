@@ -21,7 +21,7 @@ namespace of::object::component
 		of::object::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
 		physx::PxController* mActor;
-		Input::InputHandler& handler;
+		of::input::InputHandler& handler;
 
 		PlayerController();
 		~PlayerController();

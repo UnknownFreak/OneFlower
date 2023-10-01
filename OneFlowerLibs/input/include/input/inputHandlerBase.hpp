@@ -9,7 +9,7 @@
 
 #include "Callback.hpp"
 
-namespace Input
+namespace of::input
 {
 
 	template <class T, class T2 >

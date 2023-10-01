@@ -1248,7 +1248,7 @@ static std::shared_ptr<CourierStats> courierStats;
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
-	input(of::engine::GetModule<Input::InputHandler>()),
+	input(of::engine::GetModule<of::input::InputHandler>()),
 	world(of::engine::GetModule<of::module::SceneManager>()),
 	courier(of::engine::GetModule<of::messaging::Courier>()), m_exit(false)
 {
@@ -1298,10 +1298,10 @@ int GameEntry::Run()
 	//door->add(hinge);
 
 
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
+	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
 		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, 45, 0.f});
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Hold);
-	of::engine::GetModule<Input::InputHandler>().playerKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float&) {
+	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float&) {
 		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, -45, 0.f });
 		}, false), swizzle::input::Keys::KeyZ, of::input::Action::Hold);
 

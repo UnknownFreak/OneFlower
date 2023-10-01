@@ -7,7 +7,7 @@
 
 #include "InputHandlerBase.hpp"
 
-namespace Input
+namespace of::input
 {
 	template <class T>
 	class AxisCallbackholder

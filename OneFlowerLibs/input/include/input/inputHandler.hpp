@@ -15,7 +15,7 @@
 #include "BasicInputHandler.hpp"
 #include "AxisInputHandler.hpp"
 
-namespace Input
+namespace of::input
 {
 	class InputHandler : public of::module::interface::IEngineResource<InputHandler>
 	{

@@ -4,25 +4,29 @@
 #include <map>
 #include <input/inputType.hpp>
 
-class Controller
+namespace of::input
 {
-	unsigned buttonCount;
-	unsigned controllerNumber;
-public:
-	static std::map<unsigned, Controller> controllers;
-	static bool isButtonPressed(of::input::ControllerButtons button);
-	//static float getControllerAxisPos(sf::Joystick::Axis axis);
-	static void update();
-	static bool getControllers;
-	static Controller& currentController;
 
 
-	Controller(const unsigned& controllerNumber, const unsigned& buttonCount);
-	Controller& operator=(const Controller& r);
+	class Controller
+	{
+		unsigned buttonCount;
+		unsigned controllerNumber;
+	public:
+		static std::map<unsigned, Controller> controllers;
+		static bool isButtonPressed(of::input::ControllerButtons button);
+		//static float getControllerAxisPos(sf::Joystick::Axis axis);
+		static void update();
+		static bool getControllers;
+		static Controller& currentController;
 
-	bool isAnyButtonPressed() const;
-	bool isAnyAxisChanged() const;
-};
 
+		Controller(const unsigned& controllerNumber, const unsigned& buttonCount);
+		Controller& operator=(const Controller& r);
+
+		bool isAnyButtonPressed() const;
+		bool isAnyAxisChanged() const;
+	};
+}
 
 #endif

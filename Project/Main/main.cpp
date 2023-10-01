@@ -89,7 +89,7 @@ volatile void initializeSystems()
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Input::InputHandler>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));
 	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));

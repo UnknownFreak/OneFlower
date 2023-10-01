@@ -1,11 +1,11 @@
 #include <input/inputHandler.hpp>
 #include <input/controller.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<Input::InputHandler>::type = of::module::EngineResourceType::Input;
-bool Input::InputHandler::isMovementEnabled = true;
-bool Input::InputHandler::skipCurrentFrame = true;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::input::InputHandler>::type = of::module::EngineResourceType::Input;
+bool of::input::InputHandler::isMovementEnabled = true;
+bool of::input::InputHandler::skipCurrentFrame = true;
 
-namespace Input
+namespace of::input
 {
 	void InputHandler::update(const float& fElapsedTime)
 	{

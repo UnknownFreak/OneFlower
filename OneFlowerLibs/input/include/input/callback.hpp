@@ -6,7 +6,7 @@
 #include <utils/common/string.hpp>
 #include <functional>
 
-namespace Input::Callback
+namespace of::input::Callback
 {
 
 	template<class Targ, class InputEnum>
