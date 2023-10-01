@@ -3,6 +3,9 @@
 #include <module/sceneManager.hpp>
 #include <messaging/courier.hpp>
 
+#include <input/inputHandler.hpp>
+
+// TODO: move portal outside scene module?
 namespace of::object::component
 {
 	void Portal::onMessage(const of::object::messaging::Message& message)
@@ -34,11 +37,16 @@ namespace of::object::component
 							portalRef->mSelfTrackingPos->pos));
 							if (distance < portalRef->mTeleportDistance)
 							{
-								// TODO: Extract input handler into it's own module so we can check if interaction was done this frame.
-								// for now use the same behavior as if we don't require interaction.
-								if (portalRef->requireInteraction && true)
+								if (portalRef->requireInteraction)
 								{
-									portalRef->teleport();
+									// TODO: fix keybinds file
+									if (true /* && of::engine::GetModule<of::input::InputHandler>().wasKeyPressed()*/ )
+									{
+										portalRef->teleport();
+										return;
+									}
+									// TODO: schedule a message later this frame to show the gui interaction prompt.
+									//courier.scheduledPost(of::messaging::Topic::GUI, );
 								}
 								else if (portalRef->requireInteraction == false)
 								{
@@ -49,6 +57,7 @@ namespace of::object::component
 							{
 								auto& courier = of::engine::GetModule<of::messaging::Courier>();
 								courier.scheduleRemoval(of::messaging::Topic::Update, portalRef->instanceId);
+
 							}
 						}
 					)

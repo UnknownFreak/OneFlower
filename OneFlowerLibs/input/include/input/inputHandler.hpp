@@ -43,6 +43,7 @@ namespace of::input
 		void enablePlayerMovement();
 
 		bool isConsoleEnabled() const;
+		bool wasKeyPressed(const swizzle::input::Keys& keyType) const;
 
 		int deltaScrolls = 0;
 

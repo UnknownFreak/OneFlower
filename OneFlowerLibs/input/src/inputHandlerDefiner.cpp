@@ -41,4 +41,9 @@ namespace of::input
 	{
 		return !isPlayerKeyboardInputEnabled;
 	}
+
+	bool InputHandler::wasKeyPressed(const swizzle::input::Keys& key) const
+	{
+		return swizzle::input::WasKeyPressedThisFrame(key);
+	}
 }
