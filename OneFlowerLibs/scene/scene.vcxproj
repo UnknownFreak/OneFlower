@@ -169,6 +169,9 @@
     <ProjectReference Include="..\graphics\graphics.vcxproj">
       <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\input\input.vcxproj">
+      <Project>{8e411644-1801-4025-850c-76c41e316332}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
