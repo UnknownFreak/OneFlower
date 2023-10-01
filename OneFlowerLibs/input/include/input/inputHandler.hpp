@@ -15,11 +15,16 @@
 #include "BasicInputHandler.hpp"
 #include "AxisInputHandler.hpp"
 
+#include <utils/config/parser.hpp>
+
 namespace of::input
 {
 	class InputHandler : public of::module::interface::IEngineResource<InputHandler>
 	{
 		bool isPlayerKeyboardInputEnabled = true;
+
+		of::config::ConfigParser parser;
+
 	public:
 		static bool isMovementEnabled;
 		static bool skipCurrentFrame;
@@ -38,12 +43,26 @@ namespace of::input
 		}
 
 		InputHandler();
+		~InputHandler();
+
 		void togglePlayerInput();
 		void disablePlayerMovement();
 		void enablePlayerMovement();
 
 		bool isConsoleEnabled() const;
 		bool wasKeyPressed(const swizzle::input::Keys& keyType) const;
+
+		// TODO: fix and write readable keybind value to ini file.
+		swizzle::input::Keys getKeybind(const of::common::String& keybindName)
+		{
+			int key = parser.get("primary", keybindName, (int)swizzle::input::Keys::KeyNone);
+			return (swizzle::input::Keys)key;
+		}
+
+		void setKeybind(const of::common::String& keybind, const swizzle::input::Keys key)
+		{
+			parser.put("primary", keybind, key);
+		}
 
 		int deltaScrolls = 0;
 

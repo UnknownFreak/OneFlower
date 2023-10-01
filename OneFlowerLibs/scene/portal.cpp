@@ -21,6 +21,7 @@ namespace of::object::component
 				auto portalRef = attachedOn->getShared<Portal>();
 
 				auto& courier = of::engine::GetModule<of::messaging::Courier>();
+				auto& inputHandler = of::engine::GetModule<of::input::InputHandler>();
 
 				// TODO: check if subscriber exists
 				//if (courier.hasSubscriber(of::messaging::Topic::Update, instanceId))
@@ -31,7 +32,7 @@ namespace of::object::component
 					of::messaging::Topic::Update,
 					of::messaging::Subscriber(
 						instanceId, warrantyFromThis(),
-						[portalRef, objectTrackingPos](const of::messaging::Message&)
+						[portalRef, objectTrackingPos, inputHandler](const of::messaging::Message&)
 						{
 							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
 							portalRef->mSelfTrackingPos->pos));
@@ -39,14 +40,14 @@ namespace of::object::component
 							{
 								if (portalRef->requireInteraction)
 								{
-									// TODO: fix keybinds file
-									if (true /* && of::engine::GetModule<of::input::InputHandler>().wasKeyPressed()*/ )
+									// TODO: map to keybinds
+									if (inputHandler.wasKeyPressed(swizzle::input::Keys::KeyE))
 									{
 										portalRef->teleport();
 										return;
 									}
 									// TODO: schedule a message later this frame to show the gui interaction prompt.
-									//courier.scheduledPost(of::messaging::Topic::GUI, );
+									//courier.schedulePost(of::messaging::Topic::GUI, );
 								}
 								else if (portalRef->requireInteraction == false)
 								{

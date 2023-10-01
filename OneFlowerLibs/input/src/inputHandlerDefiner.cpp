@@ -23,8 +23,15 @@ namespace of::input
 
 	InputHandler::InputHandler() : playerKeyboard(swizzle::input::IsKeyPressed), uiKeyboard(swizzle::input::IsKeyPressed), mouse(swizzle::input::IsMouseButtonPressed), controller(Controller::isButtonPressed)
 	//,controllerAxis(Controller::getControllerAxisPos)
+	, parser("keybinds.ini")
 	{
 	}
+
+	InputHandler::~InputHandler()
+	{
+		parser.save();
+	}
+
 	void InputHandler::togglePlayerInput()
 	{
 		isPlayerKeyboardInputEnabled = !isPlayerKeyboardInputEnabled;
