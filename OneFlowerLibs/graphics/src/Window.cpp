@@ -316,4 +316,21 @@ namespace of::graphics::window
     {
         cleanup();
     }
+	
+	glm::vec3 Application::getCameraPos() const
+	{
+		return cam.getPosition();
+	}
+
+	glm::vec3 Application::getCursorRay() const
+	{
+		S32 x, y;
+		mWindow->getCursorPos(x, y);
+		if (x < 0)
+			x = 0;
+		if (y < 0)
+			y = 0;
+
+		return cam.projectRayFromCursor(float(x), float(y));
+	}
 }

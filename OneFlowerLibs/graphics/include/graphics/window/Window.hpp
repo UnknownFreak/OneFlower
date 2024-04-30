@@ -66,7 +66,11 @@ namespace of::graphics::window
 		virtual SwBool userUpdate(F32 dt) override;
 		virtual void userCleanup() override;
 
+
 	public:
+
+		glm::vec3 getCameraPos() const;
+		glm::vec3 getCursorRay() const;
 
 		Application();
 
