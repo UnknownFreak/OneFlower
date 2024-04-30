@@ -1256,7 +1256,14 @@ GameEntry::GameEntry() :
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::messaging::Topic::Update);
-	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>());
+	courier.createChannel(of::messaging::Topic::PhysicsUpdate);
+	courier.createChannel(of::messaging::Topic::SingleThreadUpdate);
+	auto validator = std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>();
+	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(validator);
+	courier.getChannel(of::messaging::Topic::PhysicsUpdate)->setMessageValidator(validator);
+	courier.getChannel(of::messaging::Topic::PhysicsUpdate)->setMultiThreaded(false);
+	courier.getChannel(of::messaging::Topic::SingleThreadUpdate)->setMessageValidator(validator);
+	courier.getChannel(of::messaging::Topic::SingleThreadUpdate)->setMultiThreaded(false);
 }
 
 int GameEntry::Run()
@@ -1385,6 +1392,8 @@ void GameEntry::physicsUpdate()
 
 				courierStats->updateCount();
 				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
+				courier.post(of::messaging::Topic::PhysicsUpdate, of::messaging::BasicMessage<float>(update_time));
+				courier.post(of::messaging::Topic::SingleThreadUpdate, of::messaging::BasicMessage<float>(update_time));
 				courier.handleScheduledRemovals();
 			}
 			ups->update();

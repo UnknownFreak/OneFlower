@@ -30,11 +30,21 @@ namespace of::messaging
 			}
 			Channel::sendMessage(message);
 		#if defined _PPL && _PPL == 1
-			concurrency::parallel_for_each(channels.begin(), channels.end(),
-				[&](auto& pair)
+			if (mMultithreadedEnabled)
+			{
+				concurrency::parallel_for_each(channels.begin(), channels.end(),
+					[&](auto& pair)
+					{
+						pair.second->sendMessage(message);
+					});
+			}
+			else
+			{
+				for (auto& channel : channels)
 				{
-					pair.second->sendMessage(message);
-				});
+					channel.second->sendMessage(message);
+				}
+			}
 		#else
 			//#pragma omp parallel for
 			for (auto& channel : channels)

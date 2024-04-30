@@ -24,7 +24,7 @@ namespace of::messaging
 	{
 	public:
 
-		Channel()
+		Channel() : mMultithreadedEnabled(true)
 		{
 			subscribers.reserve(1000000);
 		}
@@ -40,12 +40,22 @@ namespace of::messaging
 		{
 		
 		#if defined _PPL && _PPL == 1
+			if (mMultithreadedEnabled)
+			{
 
-			concurrency::parallel_for((size_t)0, subscribers.size(), 
-				[&](size_t index)
+				concurrency::parallel_for((size_t)0, subscribers.size(),
+					[&](size_t index)
+					{
+						subscribers[index].sendMessage(message);
+					});
+			}
+			else
+			{
+				for (auto& s : subscribers)
 				{
-					subscribers[index].sendMessage(message);
-				});
+					s.sendMessage(message);
+				}
+			}
 		#else
 			// TODO: figure out for linux build
 			//#pragma omp parallel for
@@ -113,8 +123,14 @@ namespace of::messaging
 			scheduledRemovals.clear();
 		}
 
+		void setMultiThreaded(const bool bEnabled)
+		{
+			mMultithreadedEnabled = bEnabled;
+		}
+
 	protected:
 
+		bool mMultithreadedEnabled;
 		std::vector<Subscriber> subscribers;
 		std::vector<size_t> scheduledRemovals;
 	private:
