@@ -14,7 +14,7 @@ namespace of::object::component
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
-		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update,
+		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::PhysicsUpdate,
 			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {
 				mActor->move({0, -9.81f, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); }));
 		mActor->getActor()->userData = attachedOn;
@@ -25,7 +25,7 @@ namespace of::object::component
 	void component::PlayerController::deconstruct()
 	{
 
-		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
+		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::PhysicsUpdate, instanceId);
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();
