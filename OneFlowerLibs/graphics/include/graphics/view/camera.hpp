@@ -12,6 +12,8 @@ namespace of::graphics::view
         float mFov;
         float mWidth;
         float mHeight;
+        float mNear;
+        float mFar;
 
         glm::mat4 mProjectionMatrix;
         glm::mat4 mViewMatrix;
@@ -39,8 +41,8 @@ namespace of::graphics::view
         void lookAt(glm::vec3 pos, glm::vec3 dir, glm::vec3 up = glm::vec3(0.0F, 1.0F, 0.0F));
         void lookAt(glm::mat4& mView);
 
-        const glm::vec3& getPosition();
-        const glm::vec3& getRotation();
+        const glm::vec3& getPosition() const;
+        const glm::vec3& getRotation() const;
 
         const glm::mat4& getView() const;
         const glm::mat4& getProjection() const;
@@ -65,6 +67,8 @@ namespace of::graphics::view
         PerspectiveCamera(float fov, float width, float height);
         ~PerspectiveCamera();
 
+        glm::vec3 projectRayFromCursor(const float cursorX, const float cursorY) const;
+        glm::vec3 projectRayNDC(const float x, const float y) const;
     private:
         virtual void recalculatePerspective() override;
     };

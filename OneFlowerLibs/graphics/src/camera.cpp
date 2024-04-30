@@ -16,6 +16,7 @@
 #endif
 
 #include <graphics/view/camera.hpp>
+#include <algorithm>
 
 namespace of::graphics::view
 {
@@ -30,6 +31,8 @@ namespace of::graphics::view
         , mProjView(1.0F)
         , mPosition(0.0F)
         , mRotation(0.0F)
+        , mNear(0.01f)
+        , mFar(100.f)
     {
     }
 
@@ -71,12 +74,12 @@ namespace of::graphics::view
         mViewMatrix = mView;
     }
 
-    const glm::vec3& Camera::getPosition()
+    const glm::vec3& Camera::getPosition() const
     {
         return mPosition;
     }
 
-    const glm::vec3& Camera::getRotation()
+    const glm::vec3& Camera::getRotation() const
     {
         return mRotation;
     }
@@ -123,7 +126,38 @@ namespace of::graphics::view
 
     void PerspectiveCamera::recalculatePerspective()
     {
-        mProjectionMatrix = glm::perspective(mFov, mWidth / mHeight, 0.01F, 100.0F);
+        mProjectionMatrix = glm::perspective(mFov, mWidth / mHeight, mNear, mFar);
+    }
+
+    glm::vec3 PerspectiveCamera::projectRayFromCursor(const float cursorX, const float cursorY) const
+    {
+        return projectRayNDC(
+            (2.f * cursorX) / mWidth - 1,
+            1.f - (2.f * cursorY) / mHeight);
+    }
+
+    glm::vec3 PerspectiveCamera::projectRayNDC(const float x, const float y) const
+    {
+        float nx = std::clamp(x, -1.f, 1.f);
+        float ny = std::clamp(y, -1.f, 1.f);
+            
+        float z = 1.f;
+
+        glm::vec3 ray_nds(nx, ny, z);
+        glm::vec4 clip(nx, ny, -1.f, 1.f);
+        glm::vec4 eye(glm::inverse(mProjectionMatrix) * clip);
+        eye.z = -1.f;
+        eye.w = 0.f;
+
+        glm::vec4 inv_world(glm::inverse(mViewMatrix) * eye);
+        glm::vec3 world(inv_world.x, inv_world.y, inv_world.z);
+       
+        auto norm = glm::normalize(world);
+        if (std::isfinite(norm.x) == false)
+        {
+            norm.x = 0.f;
+        }
+        return glm::normalize(world);
     }
 
 #pragma endregion
@@ -140,7 +174,7 @@ namespace of::graphics::view
 
     void OrthographicCamera::recalculatePerspective()
     {
-        mProjectionMatrix = glm::ortho(0.f, mWidth, 0.f, mHeight, 0.01f, 100.f);
+        mProjectionMatrix = glm::ortho(0.f, mWidth, 0.f, mHeight, mNear, mFar);
     }
 
 #pragma endregion
