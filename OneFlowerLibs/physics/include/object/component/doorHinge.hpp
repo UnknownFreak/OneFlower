@@ -9,12 +9,23 @@ namespace of::object::component
 {
 	class DoorHinge : public Base
 	{
-		virtual void onMessage(const of::object::messaging::Message&) override {};
+	public:
+		virtual void onMessage(const of::object::messaging::Message& m) override 
+		{
+			if (m.messageTopic == of::object::messaging::Topic::of(of::object::messaging::Topics::TOGGLE_STATE))
+			{
+				dir = -dir;
+				mActor->is<physx::PxRigidDynamic>()->clearTorque(physx::PxForceMode::eVELOCITY_CHANGE);
+			}
+		};
+
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
 
 	public:
+
+		float dir = 0.8f;
 
 		glm::vec3 mHingeOffset;
 

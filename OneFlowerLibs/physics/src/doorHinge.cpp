@@ -5,6 +5,8 @@
 
 #include <module/logger/OneLogger.hpp>
 
+#include <messaging/courier.hpp>
+
 namespace of::object::component
 {
 	void DoorHinge::initialize()
@@ -15,6 +17,20 @@ namespace of::object::component
 		{
 			mActor = collider->mActor;
 			mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
+
+			auto& courier = of::engine::GetModule<of::messaging::Courier>();
+
+			courier.addSubscriber(
+				of::messaging::Topic::PhysicsUpdate,
+				of::messaging::Subscriber(
+					instanceId, warrantyFromThis(),
+					[&](const of::messaging::Message&)
+					{
+						mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);
+					}
+				)
+			);
+
 		}
 		else
 		{
@@ -28,5 +44,7 @@ namespace of::object::component
 		{
 			mHinge->release();
 		}
+		auto& courier = of::engine::GetModule<of::messaging::Courier>();
+		courier.removeSubscriber(of::messaging::Topic::PhysicsUpdate, instanceId);
 	}
 }

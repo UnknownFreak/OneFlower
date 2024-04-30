@@ -14,6 +14,8 @@
 #include <vector>
 #include <module/settings/EngineSettings.hpp>
 
+#include <iostream>
+
 namespace of::resource
 {
 	class Model;
@@ -43,6 +45,21 @@ namespace of::module::physics
 		};
 	}
 
+	enum class ColliderType
+	{
+		Object,
+		ObjectTrigger,
+		TerrainCollider,
+		Unknown
+	};
+
+	struct ObjectType
+	{
+		ColliderType hitType;
+		of::common::uuid objectId;
+	};
+
+
 	class PhysicsHandler : public interface::IEngineResource<PhysicsHandler>
 	
 	{
@@ -69,6 +86,49 @@ namespace of::module::physics
 				}
 				disableActorTasks.clear();
 			}
+		};
+
+		class RaycastCallback : public physx::PxRaycastCallback
+		{
+			physx::PxRaycastHit one[1];
+		public:
+
+			RaycastCallback(): physx::PxRaycastCallback(one, 1), hitPos(0)
+			{
+			}
+
+			virtual physx::PxAgain processTouches(const physx::PxRaycastHit* buffer, physx::PxU32 nbHits)
+			{
+				float d = 10000000.f;
+				for(physx::PxU32 i = 0; i < nbHits; i++)
+				{
+					if (buffer[i].distance < d)
+					{
+						auto p = buffer[i].actor->getGlobalPose().p;
+						hitObjectPos.x = p.x;
+						hitObjectPos.y = p.y;
+						hitObjectPos.z = p.z;
+						d = buffer[i].distance;
+						hitPos.x = buffer[i].position.x;
+						hitPos.y = buffer[i].position.y;
+						hitPos.z = buffer[i].position.z;
+						if (buffer[i].actor->userData == nullptr)
+						{
+							hit.hitType = ColliderType::Unknown;
+							hit.objectId = of::common::uuid::nil();
+						}
+						else
+						{
+							hit = *(ObjectType*)buffer[i].actor->userData;
+						}
+					}
+				}
+				return true;
+			};
+
+			glm::vec3 hitObjectPos;
+			glm::vec3 hitPos;
+			ObjectType hit;
 		};
 
 		class ErrorCallBack : public physx::PxErrorCallback
@@ -135,6 +195,23 @@ namespace of::module::physics
 		physx::PxFixedJoint* createJoint(physx::PxRigidActor* p1, physx::PxRigidActor* p2)
 		{
 			return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
+		}
+
+		bool castRay(glm::vec3 start, glm::vec3 end, glm::vec3& hitOut, glm::vec3& hitObjectPos, ObjectType& objectTypeInfo)
+		{
+			physx::PxQueryFilterData fd;
+			//fd.flags |= physx::PxQueryFlag::eANY_HIT;
+			RaycastCallback raycastCB = RaycastCallback();
+			physx::PxVec3 unitDir(end.x, end.y, end.z);
+			bool b = mScene->raycast(physx::PxVec3(start.x, start.y, start.z), physx::PxVec3(end.x, end.y, end.z), 10000.f, raycastCB,
+				physx::PxHitFlag::eDEFAULT, fd);
+			if (b)
+			{
+				hitOut = raycastCB.hitPos;
+				hitObjectPos = raycastCB.hitObjectPos;
+				objectTypeInfo = raycastCB.hit;
+			}
+			return b;
 		}
 
 		physx::PxD6Joint* createDoorHinge(physx::PxRigidActor* p, const glm::vec3& hingePosRelOffset)

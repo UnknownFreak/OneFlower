@@ -61,6 +61,7 @@
 #include <object/component/DoorHinge.hpp>
 
 bool paused = false;
+static size_t mId = 0x100000000;
 
 class WorldGrid : public of::graphics::ParentedRenderable
 {
@@ -178,7 +179,7 @@ public:
 	};
 };
 
-class Gizmo : public of::graphics::ParentedRenderable
+class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
 	of::graphics::view::Camera* c;
 	glm::mat4 mat = glm::mat4(0.f);
@@ -186,11 +187,43 @@ class Gizmo : public of::graphics::ParentedRenderable
 	glm::vec3 rot = glm::vec3(0.f);
 	glm::vec3 scale = glm::vec3(1.f);
 
+	of::common::uuid mHovering = of::common::uuid::nil();
+	of::common::uuid mSelected = of::common::uuid::nil();
+
+	bool mHit = false;
+	glm::vec3 colliderHitPos = glm::vec3(0.f);
+	glm::vec3 actorPos = glm::vec3(0.f);
+
 public:
 
-	Gizmo() : c(m_parent->getCamera())
+	Gizmo(std::shared_ptr<of::graphics::window::Application>& appl) : c(m_parent->getCamera())
 	{
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*)&mat);
+		auto& courier = of::engine::GetModule<of::messaging::Courier>();
+
+		courier.addSubscriber(
+			of::messaging::Topic::SingleThreadUpdate,
+			of::messaging::Subscriber(
+				mId++, warrantyFromThis(),
+				[&, appl](const of::messaging::Message&)
+				{
+					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+
+
+					using namespace of::module::physics;
+
+					of::module::physics::ObjectType hitType;
+					mHit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
+					if (mHit)
+					{
+						if (hitType.hitType == ColliderType::Object || hitType.hitType == ColliderType::ObjectTrigger)
+						{
+							mHovering = hitType.objectId;
+						}
+					}
+				}
+			)
+		);
 	}
 
 	virtual void updateFrame(const float&)
@@ -213,6 +246,34 @@ public:
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*) &mat);
 
 		ImGuizmo::Manipulate((float*)&c->getView(), (float*)&c->getProjection(), ImGuizmo::UNIVERSAL, ImGuizmo::MODE::LOCAL, (float*)&mat);
+
+
+		ImGui::Begin("GizmoThingy");
+		ImGuiContext& g = *ImGui::GetCurrentContext();
+
+		if (g.HoveredWindow == nullptr)
+		{
+			ImGui::Text("Free");
+			if (mHit)
+			{
+				ImGui::Text("Hit");
+				ImGui::InputFloat3("HitPos", &colliderHitPos.x);
+				ImGui::InputFloat3("ObjectPos", &actorPos.x);
+			}
+			else
+			{
+				ImGui::Text("NoHit");
+			}
+		}
+		else
+		{
+			actorPos = glm::vec3(0.f);
+			ImGui::Text("Obscured");
+			ImGui::Text("NoHit");
+			ImGui::InputFloat3("HitPos", &colliderHitPos.x);
+			ImGui::InputFloat3("ObjectPos", &actorPos.x);
+		}
+		ImGui::End();
 	};
 
 	glm::vec3* getPos()
@@ -249,6 +310,12 @@ public:
 	~EditorController()
 	{
 	};
+
+
+	of::graphics::view::Camera* getCamera()
+	{
+		return mCamera;
+	}
 
 private:
 
@@ -405,6 +472,7 @@ public:
 	{
 		ImGui::Begin("TrackerPoint");
 		ImGui::SliderFloat3("Pos", (float*)&transform->pos, -10.f, 10.f);
+		ImGui::InputFloat3("Camera", (float*)&controller->getCamera()->getPosition());
 		if (mFollowing)
 		{
 			ImGui::Text("Following object == true");
@@ -640,9 +708,6 @@ public:
 		transaction->drawIndexed(buf, index);
 	};
 };
-
-static size_t mId = 0x100000000;
-
 
 class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
@@ -1304,13 +1369,10 @@ int GameEntry::Run()
 
 	//door->add(hinge);
 
-
 	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
-		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, 45, 0.f});
-		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Hold);
-	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float&) {
-		collider->mActor->is<physx::PxRigidDynamic>()->addTorque({ 0, -45, 0.f });
-		}, false), swizzle::input::Keys::KeyZ, of::input::Action::Hold);
+		std::cout << "Toggle" << std::endl;
+		hinge->onMessage({ of::object::messaging::Topic::of(of::object::messaging::Topics::TOGGLE_STATE), std::make_shared<of::object::messaging::Body>()});
+		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
 
 	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
@@ -1343,7 +1405,7 @@ int GameEntry::Run()
 	{
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>());
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>(gfx));
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
 		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
