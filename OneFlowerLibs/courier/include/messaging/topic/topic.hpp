@@ -8,7 +8,7 @@ namespace of::messaging
 		/*
 		Update is for generic object updates such as state or trigger changes.
 		Multi threaded, cannot interact with physics engine.
-		Examples: Status effect tick times, animations
+		Examples: Status effect tick times, animations, gui triggers & logic checking
 		*/
 		Update,
 		/*
