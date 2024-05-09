@@ -10,14 +10,25 @@ namespace of::object::component
 	}
 	void component::PlayerController::initialize()
 	{
+		mColliderType.hitType = of::module::physics::ColliderType::Object;
+		mColliderType.objectId = attachedOn->id;
 		transform = attachedOn->get<Transform>();
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
 		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::PhysicsUpdate,
-			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {
-				mActor->move({0, -9.81f, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); }));
-		mActor->getActor()->userData = attachedOn;
+			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) 
+				{
+					auto transform = attachedOn->get<Transform>();
+
+				mActor->move({0, -9.81f, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); 
+				auto p = mActor->getFootPosition();
+				transform->pos.x = (float)p.x;
+				transform->pos.y = (float)p.y;
+				transform->pos.z = (float)p.z;
+
+				}));
+		mActor->getActor()->userData = &mColliderType;
 		mActor->getActor()->setName("Player controller");
 
 		enable();

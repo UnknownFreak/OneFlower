@@ -61,7 +61,9 @@ namespace of::input
 
 		void setKeybind(const of::common::String& keybind, const swizzle::input::Keys key)
 		{
-			parser.put("primary", keybind, key);
+			(void)keybind;
+			(void)key;
+			//parser.put("primary", keybind, key);
 		}
 
 		int deltaScrolls = 0;

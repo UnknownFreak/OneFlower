@@ -11,6 +11,9 @@ namespace of::object::component
 {
 	void Collider::initialize()
 	{
+		mColliderInfoType.objectId = attachedOn->id;
+		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
+		
 		mTransform = attachedOn->get<Transform>();
 
 		if (mColliderType == ColliderType::STATIC)
@@ -46,7 +49,7 @@ namespace of::object::component
 
 		if (mActor)
 		{
-			mActor->userData = attachedOn;
+			mActor->userData = &mColliderInfoType;
 		}
 	}
 

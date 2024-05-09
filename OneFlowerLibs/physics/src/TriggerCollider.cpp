@@ -11,6 +11,9 @@ namespace of::object::component
 {
 	void TriggerCollider::initialize()
 	{
+		mColliderInfoType.objectId = attachedOn->id;
+		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
+
 		if (mColliderType == Collider::ColliderType::STATIC)
 		{
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
@@ -57,6 +60,11 @@ namespace of::object::component
 		else if (mColliderType == Collider::ColliderType::NONE)
 		{
 			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Info("mColliderType is set to NONE, no collider will be created, is this intended?");
+		}
+
+		if (mActor != nullptr)
+		{
+			mActor->userData = &mColliderInfoType;
 		}
 	}
 

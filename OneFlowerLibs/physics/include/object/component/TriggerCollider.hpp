@@ -30,7 +30,7 @@ namespace of::object::component
 		glm::vec3 mTriggerShapeScale;
 		glm::vec3 mTriggerShapeOffset = glm::vec3(0.f);
 
-		physx::PxRigidActor* mActor;
+		physx::PxRigidActor* mActor = nullptr;
 
 		TriggerCollider() = default;
 		~TriggerCollider() = default;
@@ -60,5 +60,8 @@ namespace of::object::component
 		};
 
 		static constexpr of::common::uuid typeId = "c2667abd-0783-4746-92d1-0b41c5e513ef";
+	private:
+		of::module::physics::ObjectType mColliderInfoType;
+
 	};
 }

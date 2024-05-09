@@ -53,10 +53,26 @@ namespace of::module::physics
 		Unknown
 	};
 
+	inline const char* to_string(ColliderType& t)
+	{
+		switch (t)
+		{
+		case ColliderType::Object:
+			return "object";
+		case ColliderType::ObjectTrigger:
+			return "object trigger";
+		case ColliderType::TerrainCollider:
+			return "terrain collider";
+		default:
+			return "Unknown";
+		}
+	}
+
 	struct ObjectType
 	{
 		ColliderType hitType;
 		of::common::uuid objectId;
+		physx::PxActor* hitActor = nullptr;
 	};
 
 
@@ -121,6 +137,8 @@ namespace of::module::physics
 						{
 							hit = *(ObjectType*)buffer[i].actor->userData;
 						}
+						hit.hitActor = buffer[i].actor;
+
 					}
 				}
 				return true;

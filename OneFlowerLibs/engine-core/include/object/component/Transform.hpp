@@ -27,6 +27,8 @@ namespace of::object::component
 		float jumpSpeed = 0.f;
 		glm::vec3 buffered = { 0.f, 0.f, 0.f };
 		glm::vec3 pos = { 0.f, 0.f, 0.f };
+		glm::vec3 rot { 0.f };
+		glm::vec3 scale { 1.f };
 		glm::vec2 lastDirection;
 		int directionCounter = 0;
 		float facingAngle = 0.f;

@@ -179,119 +179,6 @@ public:
 	};
 };
 
-class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
-{
-	of::graphics::view::Camera* c;
-	glm::mat4 mat = glm::mat4(0.f);
-	glm::vec3 pos = glm::vec3(0.f);
-	glm::vec3 rot = glm::vec3(0.f);
-	glm::vec3 scale = glm::vec3(1.f);
-
-	of::common::uuid mHovering = of::common::uuid::nil();
-	of::common::uuid mSelected = of::common::uuid::nil();
-
-	bool mHit = false;
-	glm::vec3 colliderHitPos = glm::vec3(0.f);
-	glm::vec3 actorPos = glm::vec3(0.f);
-
-public:
-
-	Gizmo(std::shared_ptr<of::graphics::window::Application>& appl) : c(m_parent->getCamera())
-	{
-		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*)&mat);
-		auto& courier = of::engine::GetModule<of::messaging::Courier>();
-
-		courier.addSubscriber(
-			of::messaging::Topic::SingleThreadUpdate,
-			of::messaging::Subscriber(
-				mId++, warrantyFromThis(),
-				[&, appl](const of::messaging::Message&)
-				{
-					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-
-
-					using namespace of::module::physics;
-
-					of::module::physics::ObjectType hitType;
-					mHit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
-					if (mHit)
-					{
-						if (hitType.hitType == ColliderType::Object || hitType.hitType == ColliderType::ObjectTrigger)
-						{
-							mHovering = hitType.objectId;
-						}
-					}
-				}
-			)
-		);
-	}
-
-	virtual void updateFrame(const float&)
-	{
-	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
-	{
-		ImGuizmo::BeginFrame();
-
-		auto viewPort = ImGui::GetWindowViewport();
-
-		ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
-		auto io = ImGui::GetIO();
-
-		ImGuizmo::SetRect(viewPort->Pos.x, viewPort->Pos.y, viewPort->Size.x, viewPort->Size.y);
-		ImGuizmo::Enable(true);
-
-		ImGuizmo::DecomposeMatrixToComponents((float*)&mat, (float*)&pos, (float*)&rot, (float*)&scale);
-		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*) &mat);
-
-		ImGuizmo::Manipulate((float*)&c->getView(), (float*)&c->getProjection(), ImGuizmo::UNIVERSAL, ImGuizmo::MODE::LOCAL, (float*)&mat);
-
-
-		ImGui::Begin("GizmoThingy");
-		ImGuiContext& g = *ImGui::GetCurrentContext();
-
-		if (g.HoveredWindow == nullptr)
-		{
-			ImGui::Text("Free");
-			if (mHit)
-			{
-				ImGui::Text("Hit");
-				ImGui::InputFloat3("HitPos", &colliderHitPos.x);
-				ImGui::InputFloat3("ObjectPos", &actorPos.x);
-			}
-			else
-			{
-				ImGui::Text("NoHit");
-			}
-		}
-		else
-		{
-			actorPos = glm::vec3(0.f);
-			ImGui::Text("Obscured");
-			ImGui::Text("NoHit");
-			ImGui::InputFloat3("HitPos", &colliderHitPos.x);
-			ImGui::InputFloat3("ObjectPos", &actorPos.x);
-		}
-		ImGui::End();
-	};
-
-	glm::vec3* getPos()
-	{
-		return &pos;
-	}
-
-	glm::quat getRotation()
-	{
-		return glm::quat(rot);
-	}
-
-	void setRotation(glm::quat& quat)
-	{
-		rot = glm::eulerAngles(quat);
-	}
-};
-
 class EditorController : public of::graphics::view::CameraController
 {
 	std::mutex mtx;
@@ -401,7 +288,7 @@ private:
 
 public:
 
-	void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3& = {})
+	void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3 & = {})
 	{
 		mFollow = transform;
 	}
@@ -444,7 +331,7 @@ public:
 		if (g.HoveredWindow == nullptr)
 			zoom(dy * 1.5f);
 
-		mZoom = { mZoomConstant, mZoomConstant, mZoomConstant};
+		mZoom = { mZoomConstant, mZoomConstant, mZoomConstant };
 
 		auto pos = mTarget + (mDirection * mZoom);
 
@@ -462,10 +349,23 @@ class CustomTrackerPoint : public of::graphics::ParentedRenderable
 
 public:
 
-	CustomTrackerPoint(std::shared_ptr<EditorController>& controller): controller(controller) {}
+	CustomTrackerPoint(std::shared_ptr<EditorController>& controller) : controller(controller) {}
 
 	virtual void updateFrame(const float&)
 	{
+	}
+
+
+	void track(std::shared_ptr<of::object::component::Transform> t)
+	{
+		transform = t;
+		mFollowing = true;
+		controller->follow(transform);
+	}
+
+	std::shared_ptr<of::object::component::Transform> getTracked()
+	{
+		return transform;
 	}
 
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
@@ -495,6 +395,173 @@ public:
 		ImGui::End();
 	};
 };
+
+
+class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+{
+	of::graphics::view::Camera* c;
+	glm::mat4 mat = glm::mat4(0.f);
+	glm::vec3 pos = glm::vec3(0.f);
+	glm::vec3 rot = glm::vec3(0.f);
+	glm::vec3 scale = glm::vec3(1.f);
+
+	of::common::uuid mHovering = of::common::uuid::nil();
+	of::common::uuid mSelected = of::common::uuid::nil();
+	of::module::physics::ColliderType collider = of::module::physics::ColliderType::Unknown;
+
+	bool mHit = false;
+	glm::vec3 colliderHitPos = glm::vec3(0.f);
+	glm::vec3 actorPos = glm::vec3(0.f);
+	std::shared_ptr<of::object::component::Transform> mTransform = std::make_shared<of::object::component::Transform>();
+
+	physx::PxActor* mSelectedActor = nullptr;
+
+	std::shared_ptr<CustomTrackerPoint> mTracker;
+
+	float mFrameCounter = 0.f;
+	float mClickTime = 0.f;
+	float mLastClickTime = 0.f;
+
+public:
+
+	Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<CustomTrackerPoint>& trackPtr) : c(m_parent->getCamera()), mTracker(trackPtr)
+	{
+		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*)&mat);
+		auto& courier = of::engine::GetModule<of::messaging::Courier>();
+
+		of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
+			[&](bool, swizzle::input::Mouse, const float& ) {
+				auto o = of::engine::GetModule<of::module::ObjectInstanceHandler>().getObject(mHovering);
+				mClickTime = mFrameCounter;
+				of::module::physics::ObjectType hitType;
+				auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+				using namespace of::module::physics;
+				bool hit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
+				ImGuiContext& g = *ImGui::GetCurrentContext();
+
+				if (g.HoveredWindow == nullptr && hit)
+				{
+					mSelectedActor = hitType.hitActor;
+				}
+				else
+				{
+					mSelectedActor = nullptr;
+				}
+				if (o)
+				{
+					auto trans = o->getShared<of::object::component::Transform>();
+					mTransform->pos = trans->pos;
+					mTransform->rot = trans->rot;
+					mTransform->scale = trans->scale;
+				}
+				if (o && mClickTime < (mLastClickTime + 0.2f))
+				{
+					mTracker->track(o->getShared<of::object::component::Transform>());
+				}
+				mLastClickTime = mClickTime;
+			}, false), swizzle::input::Mouse::LeftClick, of::input::Action::Press);
+
+
+		courier.addSubscriber(
+			of::messaging::Topic::SingleThreadUpdate,
+			of::messaging::Subscriber(
+				mId++, warrantyFromThis(),
+				[&, appl](const of::messaging::Message&)
+				{
+					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+
+					using namespace of::module::physics;
+
+					of::module::physics::ObjectType hitType;
+					mHit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
+					if (mHit)
+					{
+						if (hitType.hitType == ColliderType::Object || hitType.hitType == ColliderType::ObjectTrigger)
+						{
+							mHovering = hitType.objectId;
+						}
+						collider = hitType.hitType;
+					}
+					else
+					{
+						collider = of::module::physics::ColliderType::Unknown;
+					}
+					if (collider == of::module::physics::ColliderType::Unknown)
+						mHovering = of::common::uuid("00000000-1111-2222-3333-7664E8019D4D");
+
+				}
+			)
+		);
+	}
+
+	virtual void updateFrame(const float& dt)
+	{
+		mFrameCounter += dt;
+	}
+
+	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
+	{
+		ImGuizmo::BeginFrame();
+
+		auto viewPort = ImGui::GetWindowViewport();
+
+		ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
+		auto io = ImGui::GetIO();
+
+		ImGuizmo::SetRect(viewPort->Pos.x, viewPort->Pos.y, viewPort->Size.x, viewPort->Size.y);
+		ImGuizmo::Enable(true);
+
+		ImGuizmo::DecomposeMatrixToComponents((float*)&mat, (float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale);
+		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*) &mat);
+
+		ImGuizmo::Manipulate((float*)&c->getView(), (float*)&c->getProjection(), ImGuizmo::UNIVERSAL, ImGuizmo::MODE::LOCAL, (float*)&mat);
+
+		ImGui::Begin("GizmoThingy");
+		ImGuiContext& g = *ImGui::GetCurrentContext();
+
+		if (g.HoveredWindow == nullptr)
+		{
+			ImGui::Text("Free");
+			if (mHit)
+			{
+				ImGui::Text("Hit:");
+				ImGui::Text(to_string(collider));
+				ImGui::Text(mHovering.to_string().c_str());
+				ImGui::InputFloat3("HitPos", &colliderHitPos.x);
+				ImGui::InputFloat3("ObjectPos", &actorPos.x);
+			}
+			else
+			{
+				ImGui::Text("NoHit");
+			}
+		}
+		else
+		{
+			actorPos = glm::vec3(0.f);
+			ImGui::Text("Obscured");
+			ImGui::Text("NoHit");
+			ImGui::InputFloat3("HitPos", &colliderHitPos.x);
+			ImGui::InputFloat3("ObjectPos", &actorPos.x);
+		}
+		ImGui::End();
+	};
+
+	glm::vec3* getPos()
+	{
+		return &pos;
+	}
+
+	glm::quat getRotation()
+	{
+		return glm::quat(rot);
+	}
+
+	void setRotation(glm::quat& quat)
+	{
+		rot = glm::eulerAngles(quat);
+	}
+};
+
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
@@ -1399,14 +1466,15 @@ int GameEntry::Run()
 		//*/
 
 	auto cameraController = std::make_shared<EditorController>();
+	auto trackerPoint = std::make_shared<CustomTrackerPoint>(cameraController);
 	gfx->setCameraController(cameraController);
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>(gfx));
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<CustomTrackerPoint>(cameraController));
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>(gfx, trackerPoint));
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), trackerPoint);
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
 		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
 

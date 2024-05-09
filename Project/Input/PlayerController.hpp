@@ -22,6 +22,7 @@ namespace of::object::component
 		bool enabled = false;
 		physx::PxController* mActor;
 		of::input::InputHandler& handler;
+		of::module::physics::ObjectType mColliderType;
 
 		PlayerController();
 		~PlayerController();
