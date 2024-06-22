@@ -50,20 +50,34 @@ namespace of::input
 		void enablePlayerMovement();
 
 		bool isConsoleEnabled() const;
-		bool wasKeyPressed(const swizzle::input::Keys& keyType) const;
 
+		bool wasKeybindPressed(const of::common::String& keybind);
+
+	private:
+		bool wasKeyPressed(const swizzle::input::Keys& keyType) const;
+		bool wasControllerButtonPressed(const of::input::ControllerButtons& button) const;
+	public:
 		// TODO: fix and write readable keybind value to ini file.
 		swizzle::input::Keys getKeybind(const of::common::String& keybindName)
 		{
-			int key = parser.get("primary", keybindName, (int)swizzle::input::Keys::KeyNone);
+			int key = parser.get("keyboard", keybindName, (int)swizzle::input::Keys::KeyNone);
 			return (swizzle::input::Keys)key;
 		}
 
 		void setKeybind(const of::common::String& keybind, const swizzle::input::Keys key)
 		{
-			(void)keybind;
-			(void)key;
-			//parser.put("primary", keybind, key);
+			parser.put("keyboard", keybind, (int)key);
+		}
+
+		of::input::ControllerButtons getControllerKeybind(const of::common::String& keybindName)
+		{
+			int key = parser.get("controller", keybindName, (int)of::input::ControllerButtons::HOME);
+			return (of::input::ControllerButtons)key;
+		}
+
+		void setControllerKeybind(const of::common::String& keybind, const of::input::ControllerButtons button)
+		{
+			parser.put("controller", keybind, (int)button);
 		}
 
 		int deltaScrolls = 0;

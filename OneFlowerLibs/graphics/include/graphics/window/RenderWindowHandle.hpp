@@ -1,5 +1,7 @@
 #pragma once
 
+#include <thread>
+
 #include <swizzle/core/Event.hpp>
 #include <swizzle/core/WindowEvents.hpp>
 

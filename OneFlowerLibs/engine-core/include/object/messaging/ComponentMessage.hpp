@@ -76,6 +76,13 @@ namespace of::object
 			of::common::uuid id;
 		};
 
+		struct Teleport : public Body
+		{
+			Teleport(const Topic& topic, void* transformVp) : Body(BodyType::TELEPORT), topic(topic), transformVp(transformVp) {}
+			Topic topic;
+			void* transformVp;
+		};
+
 		struct Custom : public Body
 		{
 			inline Custom() : Body(BodyType::CUSTOM) {};

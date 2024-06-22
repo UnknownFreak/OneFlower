@@ -18,23 +18,73 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\editor.hpp" />
+    <ClInclude Include="internal\internal\editorCamera.hpp" />
+    <ClInclude Include="internal\internal\gizmo.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\editor.cpp" />
+    <ClCompile Include="src\editorCamera.cpp" />
+    <ClCompile Include="src\gizmo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\swizzle\build\vs2022\imgui\imgui.vcxproj">
+      <Project>{0098a80f-6cac-d0c0-352e-7420a101cdf1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\swizzle\build\vs2022\swizzle\swizzle.vcxproj">
+      <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">
+      <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\base-module\base-module.vcxproj">
+      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\courier\courier.vcxproj">
+      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\data-file\data-file.vcxproj">
+      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\engine-core\engine-core.vcxproj">
+      <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
+      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\graphics\graphics.vcxproj">
+      <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\input\input.vcxproj">
+      <Project>{8e411644-1801-4025-850c-76c41e316332}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\logger\logger.vcxproj">
+      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ofutils\ofutils.vcxproj">
+      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\physics\physics.vcxproj">
+      <Project>{e6762ac5-35f9-4ff3-a4e7-a8c823f29ea1}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</ProjectGuid>
-    <RootNamespace>graphics</RootNamespace>
+    <ProjectGuid>{3324a468-e97b-4786-a234-9b8908a44bfe}</ProjectGuid>
+    <RootNamespace>editor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>graphic-resources</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -47,7 +97,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -72,18 +122,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\graphic-resources\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
-    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphic-resources\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\common\include</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\editor\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\editor\include;$(SolutionDir)OneFlowerLibs\editor\internal;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -93,11 +147,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -107,14 +164,18 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -124,48 +185,19 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>
+      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="include\graphics\view\mvp.hpp" />
-    <ClInclude Include="include\module\resource\MeshLoader.hpp" />
-    <ClInclude Include="include\module\resource\Model.hpp" />
-    <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
-    <ClInclude Include="include\module\resource\TextureLoader.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\MeshLoader.cpp" />
-    <ClCompile Include="src\ShaderLoader.cpp" />
-    <ClCompile Include="src\TextureLoader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\base-module\base-module.vcxproj">
-      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\data-file\data-file.vcxproj">
-      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
-      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\logger\logger.vcxproj">
-      <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ofutils\ofutils.vcxproj">
-      <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
-      <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

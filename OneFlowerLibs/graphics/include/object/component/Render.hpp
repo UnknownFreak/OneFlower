@@ -5,7 +5,7 @@
 #include <graphics/renderable.hpp>
 
 #include <file/FileId.hpp>
-#include <module/resource/Model.hpp>
+#include <graphics/model/Model.hpp>
 
 namespace of::object::component
 {

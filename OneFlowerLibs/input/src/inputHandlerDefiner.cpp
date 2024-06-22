@@ -49,8 +49,18 @@ namespace of::input
 		return !isPlayerKeyboardInputEnabled;
 	}
 
+	bool InputHandler::wasKeybindPressed(const of::common::String& keybind)
+	{
+		return wasKeyPressed(getKeybind(keybind)) || wasControllerButtonPressed(getControllerKeybind(keybind));
+	}
+
 	bool InputHandler::wasKeyPressed(const swizzle::input::Keys& key) const
 	{
 		return swizzle::input::WasKeyPressedThisFrame(key);
+	}
+
+	bool InputHandler::wasControllerButtonPressed(const of::input::ControllerButtons& button) const
+	{
+		return Controller::isButtonPressed(button);
 	}
 }

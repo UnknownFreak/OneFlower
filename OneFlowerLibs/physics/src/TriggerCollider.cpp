@@ -13,6 +13,7 @@ namespace of::object::component
 	{
 		mColliderInfoType.objectId = attachedOn->id;
 		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
+		mColliderInfoType.go = attachedOn;
 
 		if (mColliderType == Collider::ColliderType::STATIC)
 		{

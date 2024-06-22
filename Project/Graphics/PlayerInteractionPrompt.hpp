@@ -5,7 +5,7 @@
 
 #include <object/component/Transform.hpp>
 
-#include <module/resource/Model.hpp>
+#include <graphics/model/Model.hpp>
 #include "Dialog.hpp"
 #include <Items/LootDrop.hpp>
 #include <Items/LootContainer.hpp>

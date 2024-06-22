@@ -284,14 +284,14 @@
     <ProjectReference Include="OneFlowerLibs\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
+    <ProjectReference Include="OneFlowerLibs\editor\editor.vcxproj">
+      <Project>{3324a468-e97b-4786-a234-9b8908a44bfe}</Project>
+    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
     </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
-    </ProjectReference>
-    <ProjectReference Include="OneFlowerLibs\graphic-resources\graphics.vcxproj">
-      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
     </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\graphics\graphics.vcxproj">
       <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>

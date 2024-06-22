@@ -32,7 +32,7 @@ namespace of::object::component
 					of::messaging::Topic::Update,
 					of::messaging::Subscriber(
 						instanceId, warrantyFromThis(),
-						[portalRef, objectTrackingPos, inputHandler](const of::messaging::Message&)
+						[portalRef, objectTrackingPos, &inputHandler](const of::messaging::Message&)
 						{
 							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
 							portalRef->mSelfTrackingPos->pos));
@@ -40,8 +40,7 @@ namespace of::object::component
 							{
 								if (portalRef->requireInteraction)
 								{
-									// TODO: map to keybinds
-									if (inputHandler.wasKeyPressed(swizzle::input::Keys::KeyE))
+									if (inputHandler.wasKeybindPressed("interact"))
 									{
 										portalRef->teleport();
 										return;

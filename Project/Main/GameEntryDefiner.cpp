@@ -20,7 +20,6 @@
 #include <Graphics/sky/skyBox.hpp>
 
 #include <chrono>
-#include <thread>
 #include <iostream>
 
 #include <graphics/ui/frame.hpp>
@@ -50,7 +49,7 @@
 
 #include <swizzle/asset2/Assets.hpp>
 #include <module/resource/MeshLoader.hpp>
-#include <module/resource/Model.hpp>
+#include <graphics/model/Model.hpp>
 
 #include<Input/PlayerController.hpp>
 
@@ -59,6 +58,8 @@
 #include <object/component/Collider.hpp>
 #include <object/component/TriggerCollider.hpp>
 #include <object/component/DoorHinge.hpp>
+
+#include <editor.hpp>
 
 bool paused = false;
 static size_t mId = 0x100000000;
@@ -178,390 +179,6 @@ public:
 		transaction->draw(buf_z);
 	};
 };
-
-class EditorController : public of::graphics::view::CameraController
-{
-	std::mutex mtx;
-public:
-	EditorController()
-		: CameraController()
-		, mTarget(0.0F)
-		, mDirection(0.0F)
-		, mAngleH(0.0F)
-		, mAngleV(0.0F)
-		, mFollow(nullptr)
-	{
-		mCamera->lookAt(mCamera->getPosition(), mTarget);
-		rotate(0.f, -34.f);
-	}
-	~EditorController()
-	{
-	};
-
-
-	of::graphics::view::Camera* getCamera()
-	{
-		return mCamera;
-	}
-
-private:
-
-	void pan(const glm::vec3& pos)
-	{
-		auto delta = pos - mTarget;
-
-		delta = delta * 0.1f;
-
-		glm::vec3 motion(delta.x, delta.y, delta.z);
-		mTarget += motion;
-	}
-
-	void zoom(const float& zoomDelta)
-	{
-		if (zoomDelta == 0.f)
-			return;
-		mZoomConstant -= zoomDelta;
-		if (mZoomConstant < 0.2f)
-			mZoomConstant = 0.2f;
-	}
-
-	void mouseSlideXY(float dx, float dy)
-	{
-		glm::vec3 xySlide = mDirection;
-		xySlide.y = 0;
-		glm::vec3 left = cross(mDirection, glm::vec3(0.0F, 1.0F, 0.0F));
-		left = glm::normalize(left);
-		mTarget += left * -dx;
-		mTarget += xySlide * dy;
-	}
-
-	void mouseSlide(float dx, float dy)
-	{
-		glm::vec3 right = glm::normalize(cross(glm::vec3(0.0F, 1.0F, 0.0F), mDirection));
-		glm::vec3 up = cross(mDirection, right);
-		mTarget += right * dx;
-		mTarget += up * -dy;
-	}
-
-	void rotate(float dx, float dy)
-	{
-		mAngleH -= dx;
-		mAngleV -= dy;
-		if (mAngleV > 89)
-		{
-			mAngleV = 89;
-		}
-		if (mAngleV < -89)
-		{
-			mAngleV = -89;
-		}
-
-		glm::vec3 dir = { -1.0F, 0.0F, 0.0F };
-
-		F32 rotateRad = glm::radians(mAngleV);
-
-		glm::mat3 rotV = glm::mat3(glm::cos(rotateRad), -glm::sin(rotateRad), 0.0f,
-			glm::sin(rotateRad), glm::cos(rotateRad), 0.0f,
-			0.0f, 0.0f, 1.0f);
-
-		dir = rotV * dir;
-		dir = glm::normalize(dir);
-
-		rotateRad = glm::radians(mAngleH);
-		glm::mat3 rotH = glm::mat3(glm::cos(rotateRad), 0.0f, -glm::sin(rotateRad),
-			0.0f, 1.0f, 0.0f,
-			glm::sin(rotateRad), 0.0f, glm::cos(rotateRad));
-
-		dir = rotH * dir;
-		mDirection = glm::normalize(dir);
-	}
-
-	float mZoomConstant = 10.f;
-	glm::vec3 mZoom;
-	glm::vec3 mTarget;
-	glm::vec3 mDirection;
-
-	F32 mAngleH;
-	F32 mAngleV;
-
-	std::shared_ptr<of::object::component::Transform> mFollow;
-
-public:
-
-	void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3 & = {})
-	{
-		mFollow = transform;
-	}
-
-	virtual void update(const float&) override
-	{
-		float dx = 0.f, dy = 0.f;
-		swizzle::input::GetMouseDelta(dx, dy);
-		ImGuiContext& g = *ImGui::GetCurrentContext();
-
-		if (mFollow != nullptr)
-		{
-			pan(mFollow->pos);
-			if (swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick) && g.HoveredWindow == nullptr)
-			{
-				rotate(dx * 0.1f, dy * 0.1f);
-			}
-		}
-		else
-		{
-			if (g.HoveredWindow == nullptr)
-			{
-
-				if (swizzle::input::IsKeyPressed(swizzle::input::Keys::KeyLShift) && swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
-				{
-					rotate(dx * 0.1f, dy * 0.1f);
-				}
-				else if (swizzle::input::IsKeyPressed(swizzle::input::Keys::KeyLCtrl) && swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
-				{
-					mouseSlideXY(dx * 0.05f, dy * 0.05f);
-				}
-				else if (swizzle::input::IsMouseButtonPressed(swizzle::input::Mouse::MiddleClick))
-				{
-					mouseSlide(dx * 0.05f, dy * 0.05f);
-				}
-			}
-		}
-
-		swizzle::input::GetMouseScrollDelta(dx, dy);
-		if (g.HoveredWindow == nullptr)
-			zoom(dy * 1.5f);
-
-		mZoom = { mZoomConstant, mZoomConstant, mZoomConstant };
-
-		auto pos = mTarget + (mDirection * mZoom);
-
-
-		mCamera->setPosition(pos);
-		mCamera->lookAt(pos, mTarget);
-	}
-};
-
-class CustomTrackerPoint : public of::graphics::ParentedRenderable
-{
-	std::shared_ptr<of::object::component::Transform> transform = std::make_shared<of::object::component::Transform>();
-	std::shared_ptr<EditorController>& controller;
-	bool mFollowing = false;
-
-public:
-
-	CustomTrackerPoint(std::shared_ptr<EditorController>& controller) : controller(controller) {}
-
-	virtual void updateFrame(const float&)
-	{
-	}
-
-
-	void track(std::shared_ptr<of::object::component::Transform> t)
-	{
-		transform = t;
-		mFollowing = true;
-		controller->follow(transform);
-	}
-
-	std::shared_ptr<of::object::component::Transform> getTracked()
-	{
-		return transform;
-	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
-	{
-		ImGui::Begin("TrackerPoint");
-		ImGui::SliderFloat3("Pos", (float*)&transform->pos, -10.f, 10.f);
-		ImGui::InputFloat3("Camera", (float*)&controller->getCamera()->getPosition());
-		if (mFollowing)
-		{
-			ImGui::Text("Following object == true");
-		}
-		else
-		{
-			ImGui::Text("Following object == false");
-
-		}
-		if (ImGui::Button("Set"))
-		{
-			controller->follow(transform);
-			mFollowing = true;
-		}
-		if (ImGui::Button("Unset"))
-		{
-			controller->follow(nullptr);
-			mFollowing = false;
-		}
-		ImGui::End();
-	};
-};
-
-
-class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
-{
-	of::graphics::view::Camera* c;
-	glm::mat4 mat = glm::mat4(0.f);
-	glm::vec3 pos = glm::vec3(0.f);
-	glm::vec3 rot = glm::vec3(0.f);
-	glm::vec3 scale = glm::vec3(1.f);
-
-	of::common::uuid mHovering = of::common::uuid::nil();
-	of::common::uuid mSelected = of::common::uuid::nil();
-	of::module::physics::ColliderType collider = of::module::physics::ColliderType::Unknown;
-
-	bool mHit = false;
-	glm::vec3 colliderHitPos = glm::vec3(0.f);
-	glm::vec3 actorPos = glm::vec3(0.f);
-	std::shared_ptr<of::object::component::Transform> mTransform = std::make_shared<of::object::component::Transform>();
-
-	physx::PxActor* mSelectedActor = nullptr;
-
-	std::shared_ptr<CustomTrackerPoint> mTracker;
-
-	float mFrameCounter = 0.f;
-	float mClickTime = 0.f;
-	float mLastClickTime = 0.f;
-
-public:
-
-	Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<CustomTrackerPoint>& trackPtr) : c(m_parent->getCamera()), mTracker(trackPtr)
-	{
-		ImGuizmo::RecomposeMatrixFromComponents((float*)&pos, (float*)&rot, (float*)&scale, (float*)&mat);
-		auto& courier = of::engine::GetModule<of::messaging::Courier>();
-
-		of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
-			[&](bool, swizzle::input::Mouse, const float& ) {
-				auto o = of::engine::GetModule<of::module::ObjectInstanceHandler>().getObject(mHovering);
-				mClickTime = mFrameCounter;
-				of::module::physics::ObjectType hitType;
-				auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-				using namespace of::module::physics;
-				bool hit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
-				ImGuiContext& g = *ImGui::GetCurrentContext();
-
-				if (g.HoveredWindow == nullptr && hit)
-				{
-					mSelectedActor = hitType.hitActor;
-				}
-				else
-				{
-					mSelectedActor = nullptr;
-				}
-				if (o)
-				{
-					auto trans = o->getShared<of::object::component::Transform>();
-					mTransform->pos = trans->pos;
-					mTransform->rot = trans->rot;
-					mTransform->scale = trans->scale;
-				}
-				if (o && mClickTime < (mLastClickTime + 0.2f))
-				{
-					mTracker->track(o->getShared<of::object::component::Transform>());
-				}
-				mLastClickTime = mClickTime;
-			}, false), swizzle::input::Mouse::LeftClick, of::input::Action::Press);
-
-
-		courier.addSubscriber(
-			of::messaging::Topic::SingleThreadUpdate,
-			of::messaging::Subscriber(
-				mId++, warrantyFromThis(),
-				[&, appl](const of::messaging::Message&)
-				{
-					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-
-					using namespace of::module::physics;
-
-					of::module::physics::ObjectType hitType;
-					mHit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType);
-					if (mHit)
-					{
-						if (hitType.hitType == ColliderType::Object || hitType.hitType == ColliderType::ObjectTrigger)
-						{
-							mHovering = hitType.objectId;
-						}
-						collider = hitType.hitType;
-					}
-					else
-					{
-						collider = of::module::physics::ColliderType::Unknown;
-					}
-					if (collider == of::module::physics::ColliderType::Unknown)
-						mHovering = of::common::uuid("00000000-1111-2222-3333-7664E8019D4D");
-
-				}
-			)
-		);
-	}
-
-	virtual void updateFrame(const float& dt)
-	{
-		mFrameCounter += dt;
-	}
-
-	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
-	{
-		ImGuizmo::BeginFrame();
-
-		auto viewPort = ImGui::GetWindowViewport();
-
-		ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
-		auto io = ImGui::GetIO();
-
-		ImGuizmo::SetRect(viewPort->Pos.x, viewPort->Pos.y, viewPort->Size.x, viewPort->Size.y);
-		ImGuizmo::Enable(true);
-
-		ImGuizmo::DecomposeMatrixToComponents((float*)&mat, (float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale);
-		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*) &mat);
-
-		ImGuizmo::Manipulate((float*)&c->getView(), (float*)&c->getProjection(), ImGuizmo::UNIVERSAL, ImGuizmo::MODE::LOCAL, (float*)&mat);
-
-		ImGui::Begin("GizmoThingy");
-		ImGuiContext& g = *ImGui::GetCurrentContext();
-
-		if (g.HoveredWindow == nullptr)
-		{
-			ImGui::Text("Free");
-			if (mHit)
-			{
-				ImGui::Text("Hit:");
-				ImGui::Text(to_string(collider));
-				ImGui::Text(mHovering.to_string().c_str());
-				ImGui::InputFloat3("HitPos", &colliderHitPos.x);
-				ImGui::InputFloat3("ObjectPos", &actorPos.x);
-			}
-			else
-			{
-				ImGui::Text("NoHit");
-			}
-		}
-		else
-		{
-			actorPos = glm::vec3(0.f);
-			ImGui::Text("Obscured");
-			ImGui::Text("NoHit");
-			ImGui::InputFloat3("HitPos", &colliderHitPos.x);
-			ImGui::InputFloat3("ObjectPos", &actorPos.x);
-		}
-		ImGui::End();
-	};
-
-	glm::vec3* getPos()
-	{
-		return &pos;
-	}
-
-	glm::quat getRotation()
-	{
-		return glm::quat(rot);
-	}
-
-	void setRotation(glm::quat& quat)
-	{
-		rot = glm::eulerAngles(quat);
-	}
-};
-
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
@@ -687,7 +304,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * 0.3 * cos(angle);
 				auto y = radii * 0.3 * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.98f), y));
@@ -696,7 +313,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * 0.7 * cos(angle);
 				auto y = radii * 0.7 * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.9f), y));
@@ -705,7 +322,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * cos(angle);
 				auto y = radii * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.8f), y));
@@ -714,7 +331,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * cos(angle);
 				auto y = radii * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * 0.8f), y));
@@ -723,7 +340,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * 0.7 * cos(angle);
 				auto y = radii * 0.7 * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * .9f), y));
@@ -732,7 +349,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi / 8.f) * i;
+				auto angle = (std::_Pi_val / 8.f) * i;
 				auto x = radii * 0.3 * cos(angle);
 				auto y = radii * 0.3 * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * .98f), y));
@@ -823,15 +440,18 @@ public:
 		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
 		channel->addSubscriber(of::messaging::Subscriber(mId++ , warrantyFromThis(), [&](const of::messaging::Message&)
 			{
-				auto vec = mActor->getGlobalPose().p;
-				auto r = mActor->getGlobalPose().q;
-				pos.x = (float)vec.x;
-				pos.y = (float)vec.y;
-				pos.z = (float)vec.z;
-				rot.w = r.w;
-				rot.x = r.x;
-				rot.y = r.y;
-				rot.z = r.z;
+				if (mActor)
+				{
+					auto vec = mActor->getGlobalPose().p;
+					auto r = mActor->getGlobalPose().q;
+					pos.x = (float)vec.x;
+					pos.y = (float)vec.y;
+					pos.z = (float)vec.z;
+					rot.w = r.w;
+					rot.x = r.x;
+					rot.y = r.y;
+					rot.z = r.z;
+				}
 			}
 		));
 
@@ -1424,22 +1044,23 @@ int GameEntry::Run()
 	triggerCollider->mTriggerShapeScale = glm::vec3(1.4f,1.5f,0.9f);
 	triggerCollider->mTriggerShapeOffset.y = 1.5f;
 
+	/*
 	auto hinge = new of::object::component::DoorHinge();
 	hinge->mHingeOffset = { 0, 0, 1.f };
-
+	//*/
 	door->add(collider);
 	door->add(triggerCollider);
+	/*
 	auto p = collider->mActor->getGlobalPose();
 	p.q = physx::PxQuat(1.23f, physx::PxVec3(0,1,0));
 	collider->mActor->setGlobalPose(p);
 	door->add(hinge);
 
-	//door->add(hinge);
-
 	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
 		std::cout << "Toggle" << std::endl;
 		hinge->onMessage({ of::object::messaging::Topic::of(of::object::messaging::Topics::TOGGLE_STATE), std::make_shared<of::object::messaging::Body>()});
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
+	//*/
 
 	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
@@ -1465,16 +1086,12 @@ int GameEntry::Run()
 		glm::vec4{0.6, 0.3, 1.f, 0.f}, glm::vec3(0, 1.f, 0)));
 		//*/
 
-	auto cameraController = std::make_shared<EditorController>();
-	auto trackerPoint = std::make_shared<CustomTrackerPoint>(cameraController);
-	gfx->setCameraController(cameraController);
-
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
+		of::editor::initialize(gfx);
+		// TODO: move to editor initialize
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>(gfx, trackerPoint));
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), trackerPoint);
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
 		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
 

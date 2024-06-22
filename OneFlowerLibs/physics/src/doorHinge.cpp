@@ -6,6 +6,7 @@
 #include <module/logger/OneLogger.hpp>
 
 #include <messaging/courier.hpp>
+#include <engine/runMode.hpp>
 
 namespace of::object::component
 {
@@ -16,20 +17,27 @@ namespace of::object::component
 		if (collider != nullptr)
 		{
 			mActor = collider->mActor;
-			mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
+			if (of::engine::getRunMode() != of::engine::RunMode::EDITOR)
+			{
+				mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
 
-			auto& courier = of::engine::GetModule<of::messaging::Courier>();
+				auto& courier = of::engine::GetModule<of::messaging::Courier>();
 
-			courier.addSubscriber(
-				of::messaging::Topic::PhysicsUpdate,
-				of::messaging::Subscriber(
-					instanceId, warrantyFromThis(),
-					[&](const of::messaging::Message&)
-					{
-						mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);
-					}
-				)
-			);
+				courier.addSubscriber(
+					of::messaging::Topic::PhysicsUpdate,
+					of::messaging::Subscriber(
+						instanceId, warrantyFromThis(),
+						[&](const of::messaging::Message&)
+						{
+							mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);
+						}
+					)
+				);
+			}
+			else
+			{
+				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::DoorHinge").Warning("Editor override, not creating a door hinge link!");
+			}
 
 		}
 		else

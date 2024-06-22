@@ -17,6 +17,7 @@ namespace of::object::messaging
 		ON_DELETE,
 		ON_COLLISION,
 		REQUEST_DATA,
+		TELEPORT,
 	};
 
 	enum class BodyType
@@ -28,6 +29,7 @@ namespace of::object::messaging
 		FLOAT_PTR,
 		GAMEOBJECT_PTR,
 		REQUEST_DATA,
+		TELEPORT,
 		CUSTOM,
 	};
 
@@ -55,6 +57,8 @@ namespace of::object::messaging
 			return "ON_COLLISION";
 		case Topics::REQUEST_DATA:
 			return "REQUEST_DATA";
+		case Topics::TELEPORT:
+			return "TELEPORT";
 		default:
 			break;
 		}

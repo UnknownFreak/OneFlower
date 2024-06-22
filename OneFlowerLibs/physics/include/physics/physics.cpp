@@ -1,7 +1,6 @@
 #include "physics.hpp"
-#include "physics.hpp"
 
-#include <module/resource/Model.hpp>
+#include <graphics/model/Model.hpp>
 #include <module/settings/EngineSettings.hpp>
 
 #include <module/resource/MeshLoader.hpp>
@@ -14,6 +13,20 @@ of::module::EngineResourceType of::module::interface::IEngineResource<of::module
 
 namespace of::module::physics
 {
+
+	physx::PxFilterFlags CustomFilterShader(
+		physx::PxFilterObjectAttributes attributes0,
+		physx::PxFilterData filterData0,
+		physx::PxFilterObjectAttributes attributes1,
+		physx::PxFilterData filterData1,
+		physx::PxPairFlags& pairFlags,
+		const void* constantBlock,
+		physx::PxU32 constantBlockSize)
+	{
+
+		return physx::PxDefaultSimulationFilterShader(
+			attributes0, filterData0, attributes1, filterData1, pairFlags, constantBlock, constantBlockSize);
+	}
 
 	void PhysicsHandler::ErrorCallBack::reportError(physx::PxErrorCode::Enum code, const char* message, const char* file, int line)
 	{
@@ -99,7 +112,7 @@ namespace of::module::physics
 		physx::PxSceneDesc d = physx::PxSceneDesc(mPhysics->getTolerancesScale());
 		d.gravity = physx::PxVec3(0.f, -9.81f, 0.f);
 		d.cpuDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
-		d.filterShader = physx::PxDefaultSimulationFilterShader;
+		d.filterShader = CustomFilterShader;
 
 		mScene = mPhysics->createScene(d);
 		if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
@@ -114,11 +127,16 @@ namespace of::module::physics
 		mScene->setSimulationEventCallback(&mSimulationCallback);
 
 
-
 		mInitialized = true;
 
 		mHeightPlane = PxCreatePlane(*mPhysics, physx::PxPlane(0, 1, 0, 0), *mMaterial);
 		mHeightPlane->setName("PlaneActor");
+		physx::PxShape* s;
+		((physx::PxRigidStatic*)mHeightPlane)->getShapes(&s, 1, 0);
+		physx::PxFilterData f;
+		f.word0 = getCollisionLayer(CollisionLayer::SWEEP_EDITOR);
+		s->setQueryFilterData(f);
+
 		mScene->addActor(*mHeightPlane);
 	}
 
@@ -141,7 +159,6 @@ namespace of::module::physics
 	{
 		mScene->simulate(dt);
 		mScene->fetchResults(true);
-		mSimulationCallback.finishTasks();
 	}
 
 	EngineResourceType& PhysicsHandler::getType() const
@@ -169,6 +186,8 @@ namespace of::module::physics
 			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
 			shape->setLocalPose(physx::PxTransform(offset.x, offset.y, offset.x));
 			actor->attachShape(*shape);
+			shape->setQueryFilterData(physx::PxFilterData());
+			shape->setSimulationFilterData(physx::PxFilterData());
 			shape->release();
 		}
 		else
@@ -232,17 +251,16 @@ namespace of::module::physics
 			}
 			else
 			{
-				of::object::GameObject* trigger = (of::object::GameObject*)pairs[i].triggerActor->userData;
-				of::object::GameObject* other = (of::object::GameObject*)pairs[i].otherActor->userData;
-
-				if (pairs[i].otherActor->getName() == "PlaneActor")
-				{
-					disableActorTasks.push_back(DisableActor(pairs[i].triggerActor));
-				}
+				ObjectType* trigger = (ObjectType*)pairs[i].triggerActor->userData;
+				ObjectType* other = (ObjectType*)pairs[i].otherActor->userData;
 
 				if (trigger)
-				{				// filtering is done via onCollision to check for self referencing.
-					trigger->onCollision(other);
+				{
+					// filtering is done via onCollision to check for self referencing.
+					if (other)
+					{
+						trigger->go->onCollision(other->go);
+					}
 				}
 				else
 				{

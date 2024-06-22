@@ -36,6 +36,12 @@
     <Filter Include="include\imgui">
       <UniqueIdentifier>{7d862a14-5a2c-457f-8631-b5f431b83031}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\graphics\model">
+      <UniqueIdentifier>{4448714d-c2fd-4a0e-8040-6e047dfa4163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\module\resource">
+      <UniqueIdentifier>{ca3e70ca-7e0e-4217-a419-9702710f4a5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\object\component\Render.hpp">
@@ -71,6 +77,21 @@
     <ClInclude Include="include\imgui\imgui_stdlib.hpp">
       <Filter>include\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="include\graphics\view\mvp.hpp">
+      <Filter>include\graphics\view</Filter>
+    </ClInclude>
+    <ClInclude Include="include\graphics\model\Model.hpp">
+      <Filter>include\graphics\model</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\resource\ShaderLoader.hpp">
+      <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\resource\TextureLoader.hpp">
+      <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\module\resource\MeshLoader.hpp">
+      <Filter>include\module\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp">
@@ -96,6 +117,15 @@
     </ClCompile>
     <ClCompile Include="include\imgui\imgui_stdlib.cpp">
       <Filter>include\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshLoader.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

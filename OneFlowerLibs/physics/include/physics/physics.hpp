@@ -21,28 +21,47 @@ namespace of::resource
 	class Model;
 }
 
-
+namespace of::object
+{
+	class GameObject;
+}
 
 namespace of::module::physics
 {
 
-	namespace {
-		class DisableActor
-		{
-			physx::PxActor* a;
-		public:
+	enum class CollisionLayer
+	{
+		NONE = 0,
+	// if object should hit ground
+		GROUND = 1,
 
-			DisableActor(physx::PxActor* a) : a(a)
-			{
+	// if object hit statics
+		STATIC = 1 << 1,
 
-			}
+		NORMAL_STATIC = GROUND | STATIC,
 
-			virtual  void           run()
-			{
-				//a->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, true);
-				//a->setActorFlag(physx::PxActorFlag::eDISABLE_SIMULATION, true);
-			}
-		};
+	// if object hit rigids, .e.g player/ actors
+		RIGID = 1 << 2,
+
+		DOOR = RIGID,
+		NORMAL_RIGID = NORMAL_STATIC | RIGID,
+
+	// used for hitscan & sweeps to detect player, used by enemy attacks
+		SWEEP_PLAYER = 1 << 4,
+
+	// used for hitscan & sweeps to detect actors that can be HIT
+		SWEEP_ACTOR = 1 << 5,
+		
+	// used for environmental, or special attacks that can hit both player and actors
+		SWEEP_BOTH =  SWEEP_PLAYER | SWEEP_ACTOR,
+
+		SWEEP_EDITOR = 1<<6,
+
+	};
+
+	inline physx::PxU32 getCollisionLayer(const CollisionLayer layer)
+	{
+		return (physx::PxU32)layer;
 	}
 
 	enum class ColliderType
@@ -73,6 +92,7 @@ namespace of::module::physics
 		ColliderType hitType;
 		of::common::uuid objectId;
 		physx::PxActor* hitActor = nullptr;
+		of::object::GameObject* go = nullptr;;
 	};
 
 
@@ -82,7 +102,6 @@ namespace of::module::physics
 
 		class SimulationCallback :public physx::PxSimulationEventCallback
 		{
-			std::vector<DisableActor> disableActorTasks;
 		public:
 
 
@@ -93,15 +112,6 @@ namespace of::module::physics
 			virtual void onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs) override;
 			virtual void onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count) override;
 			virtual void onAdvance(const physx::PxRigidBody* const* bodyBuffer, const physx::PxTransform* poseBuffer, const physx::PxU32 count) override;
-
-			void finishTasks()
-			{
-				for (auto& x : disableActorTasks)
-				{
-					x.run();
-				}
-				disableActorTasks.clear();
-			}
 		};
 
 		class RaycastCallback : public physx::PxRaycastCallback
@@ -215,9 +225,10 @@ namespace of::module::physics
 			return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
 		}
 
-		bool castRay(glm::vec3 start, glm::vec3 end, glm::vec3& hitOut, glm::vec3& hitObjectPos, ObjectType& objectTypeInfo)
+		bool castRay(glm::vec3 start, glm::vec3 end, glm::vec3& hitOut, glm::vec3& hitObjectPos, ObjectType& objectTypeInfo, CollisionLayer layer = CollisionLayer::NONE)
 		{
 			physx::PxQueryFilterData fd;
+			fd.data.word0 = getCollisionLayer(layer);
 			//fd.flags |= physx::PxQueryFlag::eANY_HIT;
 			RaycastCallback raycastCB = RaycastCallback();
 			physx::PxVec3 unitDir(end.x, end.y, end.z);
@@ -261,18 +272,9 @@ namespace of::module::physics
 		void attachBoxTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 		void attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 
-		physx::PxRigidStatic* createStatic(const glm::vec3& pos)
-		{
-			auto actor = mPhysics->createRigidStatic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
-			auto shape = mPhysics->createShape(physx::PxBoxGeometry(0.1f, 0.1f, 0.1f), *mMaterial, false);
-			actor->attachShape(*shape);
-			shape->release();
-			mScene->addActor(*actor);
-			return actor;
-		}
 
 		template <class T>
-		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool& isTriggerShape=false, const bool& addToScene=true/*, material type, collisionMesh*/)
+		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape=false, const bool addToScene=true/*, material type, collisionMesh*/)
 		{
 			if constexpr (std::same_as<T, physx::PxRigidStatic>)
 			{

@@ -22,7 +22,7 @@ namespace of::module
 
 	int RandomGen::random_int(const int& min, const int& max)
 	{
-		return i(engine, std::uniform_int<int>::param_type(min, max));
+		return i(engine, std::uniform_int_distribution<int>::param_type(min, max));
 	}
 	float RandomGen::random_float()
 	{
@@ -30,7 +30,7 @@ namespace of::module
 	}
 	float RandomGen::random_float(const float& min, const float& max)
 	{
-		return f(engine, std::uniform_real<float>::param_type(min, max));
+		return f(engine, std::uniform_real_distribution<float>::param_type(min, max));
 	}
 	double RandomGen::random_double()
 	{
@@ -39,7 +39,7 @@ namespace of::module
 
 	double RandomGen::random_double(const double& min, const double& max)
 	{
-		return d(engine, std::uniform_real<double>::param_type(min, max));
+		return d(engine, std::uniform_real_distribution<double>::param_type(min, max));
 	}
 	EngineResourceType& RandomGen::getType() const
 	{

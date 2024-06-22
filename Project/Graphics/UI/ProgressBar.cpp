@@ -69,7 +69,8 @@ void Graphics::UI::ProgressBar::render()
 
 void Graphics::UI::ProgressBar::onMouseHover(const glm::vec2& mouse)
 {
-	if (tooltip.drawToolTip = visible && mouseInside({ x,y }, { sizeX + extensionTop, sizeY }, mouse))
+	tooltip.drawToolTip = visible;
+	if (tooltip.drawToolTip && mouseInside({ x,y }, { sizeX + extensionTop, sizeY }, mouse))
 	{
 		tooltip.setPosition(mouse);
 	}

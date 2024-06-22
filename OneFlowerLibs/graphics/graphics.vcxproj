@@ -134,15 +134,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\graphics\model\Model.hpp" />
     <ClInclude Include="include\graphics\parentedRenderable.hpp" />
     <ClInclude Include="include\graphics\renderable.hpp" />
     <ClInclude Include="include\graphics\sky\skyBox.hpp" />
     <ClInclude Include="include\graphics\view\camera.hpp" />
     <ClInclude Include="include\graphics\view\cameraController.hpp" />
+    <ClInclude Include="include\graphics\view\mvp.hpp" />
     <ClInclude Include="include\graphics\window\renderLayer.hpp" />
     <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp" />
     <ClInclude Include="include\graphics\window\Window.hpp" />
     <ClInclude Include="include\imgui\imgui_stdlib.hpp" />
+    <ClInclude Include="include\module\resource\MeshLoader.hpp" />
+    <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
+    <ClInclude Include="include\module\resource\TextureLoader.hpp" />
     <ClInclude Include="include\module\window\WindowProxy.hpp" />
     <ClInclude Include="include\object\component\Render.hpp" />
   </ItemGroup>
@@ -174,9 +179,6 @@
     <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\graphic-resources\graphics.vcxproj">
-      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
@@ -192,8 +194,11 @@
     <ClCompile Include="include\graphics\view\cameraController.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\MeshLoader.cpp" />
     <ClCompile Include="src\parentedRenderable.cpp" />
     <ClCompile Include="src\Render.cpp" />
+    <ClCompile Include="src\ShaderLoader.cpp" />
+    <ClCompile Include="src\TextureLoader.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\WindowProxy.cpp" />
   </ItemGroup>

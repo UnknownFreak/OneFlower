@@ -32,7 +32,8 @@ void Graphics::UI::EffectIcon::updatePos(const glm::vec2& newPos)
 
 void Graphics::UI::EffectIcon::onMouseHover(const glm::vec2& mouse)
 {
-	if (toolTip.drawToolTip = visible && mouseInside(pos, iconSize, mouse))
+	toolTip.drawToolTip = visible;
+	if (toolTip.drawToolTip && mouseInside(pos, iconSize, mouse))
 	{
 		toolTip.setPosition(mouse);
 	}

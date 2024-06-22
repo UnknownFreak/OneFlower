@@ -11,7 +11,7 @@
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
 
-#include "Model.hpp"
+#include <graphics/model/Model.hpp>
 
 namespace of::module::mesh
 {

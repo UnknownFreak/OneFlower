@@ -1,0 +1,44 @@
+#pragma once
+
+#include <graphics/view/cameraController.hpp>
+
+#include <common/Common.hpp>
+#include <object/component/transform.hpp>
+
+namespace of::editor
+{
+	class EditorCamera : public of::graphics::view::CameraController
+	{
+	public:
+		EditorCamera();
+		~EditorCamera() = default;
+
+	private:
+
+		void pan(const glm::vec3 pos);
+
+		void zoom(const float zoomDelta);
+
+		void mouseSlideXY(float dx, float dy);
+
+
+		void mouseSlide(float dx, float dy);
+
+		void rotate(float dx, float dy);
+
+		float mZoomConstant = 10.f;
+		glm::vec3 mZoom;
+		glm::vec3 mTarget;
+		glm::vec3 mDirection;
+
+		F32 mAngleH;
+		F32 mAngleV;
+
+		std::shared_ptr<of::object::component::Transform> mFollow;
+
+	public:
+
+		void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3& = {});
+		virtual void update(const float&) override;
+	};
+}

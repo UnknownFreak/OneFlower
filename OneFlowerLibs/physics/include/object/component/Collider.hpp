@@ -9,7 +9,7 @@ namespace of::object::component
 	class Collider : public Base
 	{
 
-		virtual void onMessage(const of::object::messaging::Message&) override {};
+		virtual void onMessage(const of::object::messaging::Message&) override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 

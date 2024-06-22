@@ -88,4 +88,15 @@ namespace of::object::component
 		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, 
 			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
 	}
+
+	void Transform::updateTransform(std::shared_ptr<Transform> transform)
+	{
+		pos = transform->pos;
+		rot = transform->rot;
+		scale = transform->scale;
+		of::object::messaging::Topic t = of::object::messaging::Topic::of(of::object::messaging::Topics::TELEPORT);
+		const of::object::messaging::Message msg(t,
+			std::make_shared<of::object::messaging::Teleport>(t, this));
+		this->post(msg);
+	}
 }

@@ -55,6 +55,8 @@ namespace of::object::component
 			return "Transform";
 		};
 
+		void updateTransform(std::shared_ptr<Transform> transform);
+
 		static constexpr of::common::uuid typeId = "e6f52003-0e92-4118-8ab0-b5d54b680c81";
 
 		void jump();

@@ -197,8 +197,8 @@
     <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
       <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\graphic-resources\graphics.vcxproj">
-      <Project>{02fe7412-c3a2-4c57-a03b-2887ef25365f}</Project>
+    <ProjectReference Include="..\graphics\graphics.vcxproj">
+      <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
