@@ -52,6 +52,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::Loader: return "ModLoader";
 	case of::module::EngineResourceType::Input: return "Input";
 	case of::module::EngineResourceType::Graphics: return "Graphics";
+	case of::module::EngineResourceType::WindowProxy: return "Proxy";
 	case of::module::EngineResourceType::Physics: return "Physics";
 	case of::module::EngineResourceType::UIHandler: return "Console";
 		// Messaging
