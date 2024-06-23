@@ -50,6 +50,7 @@ namespace of::editor
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), editorMenu);
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), physxSettings);
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), newFileModal);
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadFileModal);
 	}
 
 	void initialize(std::shared_ptr<of::graphics::window::Application> gfx)

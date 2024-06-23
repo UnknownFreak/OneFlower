@@ -209,7 +209,6 @@ namespace of::editor::modal
 			{
 				close();
 			}
-
 			ImGui::EndPopup();
 		}
 	}
