@@ -2,8 +2,14 @@
 #include "BuildVersion.hpp"
 
 #include <engine/runMode.hpp>
+#include <imgui/imgui.h>
 
 Engine::BuildMode Engine::BuildMode::buildMode;
+
+static of::common::String getImGuiVersion()
+{
+	return ImGui::GetVersion();
+}
 
 namespace Engine
 {
@@ -60,6 +66,7 @@ namespace Engine
 
 	std::vector<of::common::String> BuildMode::toLogString() const
 	{
-		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(of::engine::getRunMode() == of::engine::RunMode::EDITOR), "IsDebugBuild: " + toYesNoString(isDebugBuild())};
+		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(of::engine::getRunMode() == of::engine::RunMode::EDITOR), "IsDebugBuild: " + toYesNoString(isDebugBuild()),
+			"ImGui Version: " + getImGuiVersion()};
 	}
 }
