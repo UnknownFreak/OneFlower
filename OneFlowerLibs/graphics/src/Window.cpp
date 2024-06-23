@@ -63,7 +63,7 @@ namespace of::graphics::window
 		// endTodo
 
 		ImGui_ImplSwizzle_Init(mWindow, mGfxDevice,  mImGuiRenderTarget);
-		mFsqMat->setDescriptorTextureResource(0u, mImGuiRenderTarget->getTexture(), false);
+		mFsqMat->setDescriptorTextureResource(0u, mImGuiRenderTarget->getTexture());
 
 	}
 
