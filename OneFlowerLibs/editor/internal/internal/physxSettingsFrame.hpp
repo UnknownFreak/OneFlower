@@ -40,25 +40,16 @@ namespace of::editor
 				if (ImGui::Begin("Physx settings", &m_visible, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking))
 				{
 					ImGui::Text("Simulation Groups");
-
 					ImGui::NewLine();
 					const size_t count = m_groupNames.size();
-
-					if (ImGui::BeginTable("Sim groups", (int)count + 1))
+					if (ImGui::BeginTable("Sim groups", (int)count + 1, ImGuiTableFlags_SizingFixedFit))
 					{
-						ImGui::TableSetupColumn("");
+						ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoHide | ImGuiTableColumnFlags_NoReorder);
 						for (size_t cols = 0; cols < count; cols++)
 						{
-							ImGui::TableSetupColumn(m_groupNames[cols].c_str() /*, ImGuiTableColumnFlags_AngledHeader */);
+							ImGui::TableSetupColumn(m_groupNames[cols].c_str(), ImGuiTableColumnFlags_AngledHeader);
 						}
-						ImGui::TableNextRow();
-						for (size_t cols = 0; cols < count + 1; cols++)
-						{
-							ImGui::TableSetColumnIndex((int)cols);
-							const char* column_name = ImGui::TableGetColumnName((int)cols); // Retrieve name passed to TableSetupColumn()
-							ImGui::TableHeader(column_name);
-						}
-
+						ImGui::TableAngledHeadersRow();
 						for (size_t i = 0; i < count; i++)
 						{
 							ImGui::TableNextRow();
@@ -67,13 +58,13 @@ namespace of::editor
 							for (size_t j = 0; j < count; j++)
 							{
 								ImGui::TableNextColumn();
-								bool b = physx::PxGetGroupCollisionFlag((physx::PxU16)i, (physx::PxU16)j);
+									bool b = physx::PxGetGroupCollisionFlag((physx::PxU16)i, (physx::PxU16)j);
 								char buf[32];
 								sprintf_s(buf, "###%d-%d", (int)i, (int)j);
 								if (ImGui::Checkbox(buf, &b))
-								{
-									physx::PxSetGroupCollisionFlag((physx::PxU16)i, (physx::PxU16)j, b);
-								}
+									{
+										physx::PxSetGroupCollisionFlag((physx::PxU16)i, (physx::PxU16)j, b);
+									}
 							}
 						}
 						ImGui::EndTable();
