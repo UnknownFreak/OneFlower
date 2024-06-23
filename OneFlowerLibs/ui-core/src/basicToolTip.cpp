@@ -1,8 +1,8 @@
-#include "EditorBasicToolTip.hpp"
+#include <imgui/basicToolTip.hpp>
 
 #include <imgui/imgui.h>
 
-namespace Graphics::Editor
+namespace of::imgui
 {
 	void BasicToolTip(const of::common::String& string)
 	{

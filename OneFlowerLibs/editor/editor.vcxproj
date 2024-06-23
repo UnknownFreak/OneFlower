@@ -21,12 +21,20 @@
   <ItemGroup>
     <ClInclude Include="include\editor.hpp" />
     <ClInclude Include="internal\internal\editorCamera.hpp" />
+    <ClInclude Include="internal\internal\editorMenu.hpp" />
     <ClInclude Include="internal\internal\gizmo.hpp" />
+    <ClInclude Include="internal\internal\menu\menu.hpp" />
+    <ClInclude Include="internal\internal\menu\subMenu.hpp" />
+    <ClInclude Include="internal\internal\modal\loadFileModal.hpp" />
+    <ClInclude Include="internal\internal\modal\newFileModal.hpp" />
+    <ClInclude Include="internal\internal\physxSettingsFrame.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="internal\internal\modal\newFileModal.cpp" />
     <ClCompile Include="src\editor.cpp" />
     <ClCompile Include="src\editorCamera.cpp" />
     <ClCompile Include="src\gizmo.cpp" />
+    <ClCompile Include="src\loadFileModal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\imgui\imgui.vcxproj">
@@ -67,6 +75,9 @@
     </ProjectReference>
     <ProjectReference Include="..\physics\physics.vcxproj">
       <Project>{e6762ac5-35f9-4ff3-a4e7-a8c823f29ea1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ui-core\ui-core.vcxproj">
+      <Project>{aebc39cb-380d-4316-b1c6-42df6fa92a5c}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\basicToolTip.cpp" />
     <ClCompile Include="src\fileSelector.cpp" />
     <ClCompile Include="src\frame.cpp" />
     <ClCompile Include="src\modalBase.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="include\graphics\ui\progressbar_t.hpp" />
     <ClInclude Include="include\graphics\ui\relation.hpp" />
     <ClInclude Include="include\graphics\ui\uiRenderable.hpp" />
+    <ClInclude Include="include\imgui\basicToolTip.hpp" />
     <ClInclude Include="include\imgui\fileSelector.hpp" />
     <ClInclude Include="include\imgui\modalBase.hpp" />
     <ClInclude Include="include\imgui\of_imgui_extensions.hpp" />

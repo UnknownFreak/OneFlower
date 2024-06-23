@@ -1,4 +1,4 @@
-#include "NewFileModal.hpp"
+#include <internal/modal/newFileModal.hpp>
 
 #include <imgui/imgui_stdlib.hpp>
 
@@ -8,9 +8,10 @@
 #include <file/Handler.hpp>
 #include <file/archive/loadHeader.hpp>
 
-#include "EditorBasicToolTip.hpp"
+#include <imgui/basicToolTip.hpp>
 
-namespace Graphics::Editor::Modals
+
+namespace of::editor::modal
 {
 
 	std::vector<TreeItem> NewFile::loadDependencyDetails(const of::common::String& file)
@@ -30,7 +31,7 @@ namespace Graphics::Editor::Modals
 
 	void NewFile::newModFile()
 	{
-		tree.clear();
+		//tree.clear();
 		auto& manager = of::engine::GetModule<of::file::Handler>();
 		auto& modLoader = of::engine::GetModule<of::file::Loader>();
 		modLoader.loadOrder.clear();
@@ -40,19 +41,19 @@ namespace Graphics::Editor::Modals
 
 
 		const auto x = [&](auto const& ref, std::set<of::common::String>& loadOrder, std::vector<TreeItem>& items) -> void
-		{
-			for (auto& item : items)
 			{
-				loadOrder.insert(item.ItemName);
-				ref(ref, loadOrder, item.subItems);
-			}
-		};
-		for (auto & d : modFiles)
+				for (auto& item : items)
+				{
+					loadOrder.insert(item.ItemName);
+					ref(ref, loadOrder, item.subItems);
+				}
+			};
+		for (auto& d : modFiles)
 			if (d.selected)
 			{
 				deps.push_back(d.ItemName);
 				loadOrder.insert(d.ItemName);
-				x(x,loadOrder, d.subItems);
+				x(x, loadOrder, d.subItems);
 			}
 
 		of::common::String fileName = m_fileName;
@@ -68,7 +69,7 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(fileName, loadOrder);
 
 		manager.openedFile = header;
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::NewFile");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::editor::modal::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();
 
@@ -102,10 +103,10 @@ namespace Graphics::Editor::Modals
 		}
 		auto [x, y] = ImGui::GetItemRectMin();
 		auto [w, h] = ImGui::GetItemRectMax();
-		const ImVec4 nodeRect = ImVec4(x,y,w,h);
+		const ImVec4 nodeRect = ImVec4(x, y, w, h);
 		if (recurse)
 		{
-			const ImColor TreeLineColor = ImColor(128,128,128,255);
+			const ImColor TreeLineColor = ImColor(128, 128, 128, 255);
 			const float SmallOffsetX = -10.0f; //for now, a hardcoded value; should take into account tree indent size
 			ImDrawList* drawList = ImGui::GetWindowDrawList();
 
@@ -130,17 +131,17 @@ namespace Graphics::Editor::Modals
 	void NewFile::drawTree(TreeItemRoot& item)
 	{
 		std::string s = "###" + item.ItemName;
-		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap |ImGuiTreeNodeFlags_FramePadding;
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 		if (item.subItems.size() == 0)
 			flags |= ImGuiTreeNodeFlags_Leaf;
-		
+
 		const bool recurse = ImGui::TreeNodeEx(s.c_str(), flags);
 		auto [x, y] = ImGui::GetItemRectMin();
 		auto [w, h] = ImGui::GetItemRectMax();
 		const ImVec4 nodeRect = ImVec4(x, y, w, h);
 
 		ImGui::SameLine();
-		ImGui::Checkbox(item.ItemName.c_str(), & item.selected);
+		ImGui::Checkbox(item.ItemName.c_str(), &item.selected);
 
 		if (recurse)
 		{
@@ -167,7 +168,7 @@ namespace Graphics::Editor::Modals
 	}
 
 
-	NewFile::NewFile(const of::common::String& modalName, DataTree& tree) : ModalBase(modalName), m_fileName(""), tree(tree)
+	NewFile::NewFile(const of::common::String& modalName)/*, DataTree& tree)*/ : ModalBase(modalName), m_fileName("")/*, tree(tree)*/
 	{
 	}
 
@@ -178,9 +179,9 @@ namespace Graphics::Editor::Modals
 		{
 			ImGui::Text("File Name");
 			ImGui::InputText("###FileName", &m_fileName);
-				
+
 			ImGui::Checkbox("Is Main", &isMaster);
-			BasicToolTip(
+			imgui::BasicToolTip(
 				"Check if this file is a main file (only changes extension from .mod to .main)\n"
 				"This only highlights the file as a possible base mod.\n"
 				"You can still create a mod based of a mod, but it's more for clarification than anything");
@@ -223,7 +224,7 @@ namespace Graphics::Editor::Modals
 		for (auto file : mainFiles)
 		{
 			auto itm = loadDependencyDetails(file);
-			modFiles.push_back(TreeItemRoot{file, false, itm});
+			modFiles.push_back(TreeItemRoot{ file, false, itm });
 		}
 		for (auto file : i_modFiles)
 		{
@@ -233,6 +234,15 @@ namespace Graphics::Editor::Modals
 
 		std::sort(modFiles.begin(), modFiles.end());
 	}
+
+	void NewFile::render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& )
+	{
+		if (isOpen())
+			show();
+		ImGuiRenderModal();
+	}
+
+
 	bool TreeItem::operator<(const TreeItem& other)
 	{
 		return ItemName < other.ItemName;

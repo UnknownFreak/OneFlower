@@ -7,8 +7,8 @@
 #include <combat/Element.hpp>
 
 #include <imgui/imgui.h>
+#include <imgui/basicToolTip.hpp>
 #include <Graphics/Editor/ViewModels/IObjectViewModel.hpp>
-#include <Graphics/Editor/EditorBasicToolTip.hpp>
 #include <Graphics/Editor/ModFileUuidHelperDropDown.hpp>
 
 #include <file/Handler.hpp>
@@ -32,7 +32,7 @@ namespace of::expose
 					e.mode = of::file::archive::ObjectSaveMode::EDIT;
 				}
 				ImGui::Text("Elemental Modifiers");
-				Graphics::Editor::BasicToolTip(
+				of::imgui::BasicToolTip(
 					"Elemental Modifiers are based on a factor towards that opposite element.\n"
 					"E.g a factor of -1 would cause an \"healing\" effect based on 100% of the damage dealt.\n"
 					"A factor of 1 would mean it does the 100% damage, a factor of 2 200%, etc.\n"
@@ -68,7 +68,7 @@ namespace of::expose
 						{
 							ImGui::SetNextItemWidth(-1);
 							ImGui::TextColored({0, 220, 0, 255}, "self");
-							Graphics::Editor::BasicToolTip("Self should always have factor set to 1, unless it's a very specific element... You've been warned!");
+							of::imgui::BasicToolTip("Self should always have factor set to 1, unless it's a very specific element... You've been warned!");
 						}
 						else
 						{
@@ -78,19 +78,19 @@ namespace of::expose
 								if (tmp_name == "")
 								{
 									ImGui::Text(item.first.operator()(true).c_str());
-									Graphics::Editor::BasicToolTip("Name str is empty, falling back to Id.");
+									of::imgui::BasicToolTip("Name str is empty, falling back to Id.");
 								}
 								else
 								{
 									ImGui::Text(tmp_name.c_str());
-									Graphics::Editor::BasicToolTip("ID: " + item.first.operator()());
+									of::imgui::BasicToolTip("ID: " + item.first.operator()());
 								}
 
 							}
 							else
 							{
 								ImGui::TextColored({ 255, 0, 0, 255 }, item.first.operator()(true).c_str());
-								Graphics::Editor::BasicToolTip("Object is unavailable, either deleted or missing data file(s)");
+								of::imgui::BasicToolTip("Object is unavailable, either deleted or missing data file(s)");
 							}
 
 						}

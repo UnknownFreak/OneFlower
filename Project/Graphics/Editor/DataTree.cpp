@@ -1,9 +1,9 @@
 #include "DataTree.hpp"
 
 #include <imgui/imgui.h>
+#include <imgui/basicToolTip.hpp>
 
 #include <file/Handler.hpp>
-#include "EditorBasicToolTip.hpp"
 #include "ModFileUuidHelperDropDown.hpp"
 
 namespace Graphics::Editor
@@ -88,7 +88,7 @@ namespace Graphics::Editor
 			{
 
 				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
-				BasicToolTip("From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + of::file::archive::to_string(item.ptr->mode));
+				of::imgui::BasicToolTip("From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + of::file::archive::to_string(item.ptr->mode));
 
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(420.f);

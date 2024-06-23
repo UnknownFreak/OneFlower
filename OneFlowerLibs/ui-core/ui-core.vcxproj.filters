@@ -44,6 +44,9 @@
     <ClCompile Include="src\modalBase.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\basicToolTip.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\ui\progressbar_t.hpp">
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="include\imgui\modalBase.hpp">
       <Filter>include\imgui\modal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\imgui\basicToolTip.hpp">
+      <Filter>include\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

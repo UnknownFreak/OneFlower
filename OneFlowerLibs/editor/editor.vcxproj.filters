@@ -10,6 +10,15 @@
     <Filter Include="internal">
       <UniqueIdentifier>{cacb8a0e-cbee-4af0-8ee3-3862873dd960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="internal\menu">
+      <UniqueIdentifier>{93c4c706-458e-480f-9afe-1fd92f12eb5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal\modal">
+      <UniqueIdentifier>{bdcd3a24-ab34-4e2c-9029-f242a762e3d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\modal">
+      <UniqueIdentifier>{89154e3e-a22b-450e-a4ee-c66a8eba7a54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\editor.hpp">
@@ -21,6 +30,24 @@
     <ClInclude Include="internal\internal\editorCamera.hpp">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="internal\internal\editorMenu.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\internal\menu\menu.hpp">
+      <Filter>internal\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\internal\menu\subMenu.hpp">
+      <Filter>internal\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\internal\physxSettingsFrame.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\internal\modal\newFileModal.hpp">
+      <Filter>internal\modal</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\internal\modal\loadFileModal.hpp">
+      <Filter>internal\modal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\editor.cpp">
@@ -31,6 +58,12 @@
     </ClCompile>
     <ClCompile Include="src\editorCamera.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\internal\modal\newFileModal.cpp">
+      <Filter>src\modal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\loadFileModal.cpp">
+      <Filter>src\modal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

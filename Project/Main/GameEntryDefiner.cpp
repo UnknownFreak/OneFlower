@@ -15,7 +15,6 @@
 
 #include <Graphics/UI/LoadingScreen.hpp>
 
-#include <Graphics/Editor/EditorWindow.hpp>
 #include <module/window/WindowProxy.hpp>
 #include <Graphics/sky/skyBox.hpp>
 
@@ -32,7 +31,7 @@
 #include <imgui/of_imgui_extensions.hpp>
 #include <imgui/fileSelector.hpp>
 
-#include <graphics/Editor/EditorBasicToolTip.hpp>
+#include <imgui/basicToolTip.hpp>
 
 #include <object/component/Render.hpp>
 
@@ -949,18 +948,18 @@ public:
 			}
 
 			ImGui::InputInt("Water level", &waterLevel);
-			Graphics::Editor::BasicToolTip(
+			of::imgui::BasicToolTip(
 				"Scalar between 0-255, it's defining the point on the heightmap used where it will put the water-line,"
 				" note this does not mean the water will be put at this value."
 			);
 			changed |= ImGui::InputInt("Chunk size", &chunkSize);
-			Graphics::Editor::BasicToolTip(
+			of::imgui::BasicToolTip(
 				"Size in units that one chunk is, e.g a chunk size of 10 would make "
 				"the chunk (starting at x,y = 0,0), end at 9,9, and the next starting at 10,0, etc."
 			);
 
 			ImGui::InputInt("Resolution", &resolution);
-			Graphics::Editor::BasicToolTip(
+			of::imgui::BasicToolTip(
 				"The resolution of the chunk, this affects how many vertices each chunk will contain, "
 				"the higher, the more memory used, recommended to use a setting to the power of 2 based on the chunk size."
 				"e.g a chunk size of 16, will have the resolution 256. This makes each triangle side lengths 1, 1 and sqrt(2)"
@@ -1090,12 +1089,17 @@ int GameEntry::Run()
 	{
 		of::editor::initialize(gfx);
 		// TODO: move to editor initialize
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::Editor::MainEditorWindow>());
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
 		//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<TestRunner>());
 
 	}
+
+	/*
+	
+	Mod dll loading go here
+
+	*/
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
 
@@ -1104,6 +1108,10 @@ int GameEntry::Run()
 	physics_thread.join();
 	of::engine::GetModule<of::module::physics::PhysicsHandler>().shutDown();
 
+	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
+	{
+		of::editor::exit();
+	}
 	//gfx.clearDrawList();
 	return EXIT_SUCCESS;
 }

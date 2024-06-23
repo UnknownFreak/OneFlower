@@ -5,4 +5,5 @@
 namespace of::editor
 {
 	void initialize(std::shared_ptr<of::graphics::window::Application> gfx);
+	void exit();
 }

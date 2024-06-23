@@ -350,11 +350,7 @@
     <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
     <ClCompile Include="Project\Graphics\Editor\DataTree.cpp" />
-    <ClCompile Include="Project\Graphics\Editor\EditorBasicToolTip.cpp" />
-    <ClCompile Include="Project\Graphics\Editor\EditorWindow.cpp" />
-    <ClCompile Include="Project\Graphics\Editor\LoadFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp" />
-    <ClCompile Include="Project\Graphics\Editor\NewFileModal.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.cpp" />
@@ -437,12 +433,8 @@
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
     <ClInclude Include="Project\File\GameConfig.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
-    <ClInclude Include="Project\Graphics\Editor\EditorBasicToolTip.hpp" />
     <ClInclude Include="Project\Graphics\Editor\DataTree.hpp" />
-    <ClInclude Include="Project\Graphics\Editor\EditorWindow.hpp" />
-    <ClInclude Include="Project\Graphics\Editor\LoadFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.hpp" />
-    <ClInclude Include="Project\Graphics\Editor\NewFileModal.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.hpp" />

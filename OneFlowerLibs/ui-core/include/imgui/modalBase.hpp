@@ -13,6 +13,7 @@ namespace of::imgui
 
 	public:
 		ModalBase(const of::common::String& modalName);
+		virtual ~ModalBase() = default;
 
 		void open();
 		bool isOpen() const;

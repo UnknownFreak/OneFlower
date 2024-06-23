@@ -1,4 +1,4 @@
-#include "LoadFileModal.hpp"
+#include <internal/modal/loadFileModal.hpp>
 
 #include <imgui/imgui.h>
 
@@ -7,11 +7,11 @@
 #include <file/archive/loadHeader.hpp>
 
 
-namespace Graphics::Editor::Modals
+namespace of::editor::modal
 {
 	void LoadFile::load()
 	{
-		tree.clear();
+		//tree.clear();
 		auto& manager = of::engine::GetModule<of::file::Handler>();
 		auto& modLoader = of::engine::GetModule<of::file::Loader>();
 		modLoader.loadOrder.clear();
@@ -24,15 +24,15 @@ namespace Graphics::Editor::Modals
 
 
 		const auto x = [&](auto const& ref, std::set<of::common::String>& loadOrder, std::vector<of::common::String>& items) -> void
-		{
-			for (auto& item : items)
 			{
-				of::file::Header tmp;
-				of::file::archive::loadHeader(item, tmp);
-				loadOrder.insert(item);
-				ref(ref, loadOrder, tmp.dependencies);
-			}
-		};
+				for (auto& item : items)
+				{
+					of::file::Header tmp;
+					of::file::archive::loadHeader(item, tmp);
+					loadOrder.insert(item);
+					ref(ref, loadOrder, tmp.dependencies);
+				}
+			};
 		for (auto& d : header.dependencies)
 		{
 			of::file::Header tmp;
@@ -44,12 +44,12 @@ namespace Graphics::Editor::Modals
 		manager.buildModOrderFile(m_selectedFile, loadOrder);
 
 		manager.openedFile = header;
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::Editor::Modals::LoadFile");
+		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::editor::modal::LoadFile");
 		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");
 	}
-	LoadFile::LoadFile(const of::common::String& modalName, DataTree& tree) : ModalBase(modalName), tree(tree)
+	LoadFile::LoadFile(const of::common::String& modalName/*, DataTree& tree*/) : ModalBase(modalName)/*, tree(tree)*/
 	{
 	}
 	void LoadFile::ImGuiRenderModal()
@@ -103,4 +103,12 @@ namespace Graphics::Editor::Modals
 
 		std::sort(m_fileNames.begin(), m_fileNames.end());
 	}
+
+	void LoadFile::render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
+	{
+		if (isOpen())
+			show();
+		ImGuiRenderModal();
+	}
+
 }
