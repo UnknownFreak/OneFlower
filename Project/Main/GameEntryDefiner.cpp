@@ -1005,7 +1005,7 @@ GameEntry::GameEntry() :
 	courier(of::engine::GetModule<of::messaging::Courier>()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
-	ups = std::make_shared<Graphics::UI::Stats>("UPS", 200.f, 120.f, Graphics::UI::Rel::Right);
+	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::messaging::Topic::Update);
 	courier.createChannel(of::messaging::Topic::PhysicsUpdate);
@@ -1067,9 +1067,9 @@ int GameEntry::Run()
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 400.f, 120.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 300.f, 120.f, Graphics::UI::Rel::Right));
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), ups);
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 400.f, 50.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 300.f, 20.f, Graphics::UI::Rel::Right));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
@@ -1099,7 +1099,7 @@ int GameEntry::Run()
 
 	std::thread physics_thread(&GameEntry::physicsUpdate, this);
 
-	gfx->loop();
+	gfx->run();
 	m_exit = true;
 	physics_thread.join();
 	of::engine::GetModule<of::module::physics::PhysicsHandler>().shutDown();
