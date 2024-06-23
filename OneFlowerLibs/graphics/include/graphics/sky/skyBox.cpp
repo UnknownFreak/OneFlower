@@ -68,7 +68,7 @@ namespace of::graphics::sky
 			mModel.renderNoIndex(trans, mvp);
 		}
 	}
-	void Skybox::updateFrame(const float& )
+	void Skybox::updateFrame(const float )
 	{
 	}
 }

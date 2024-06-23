@@ -7,7 +7,7 @@
 namespace of::editor
 {
 
-	void Gizmo::updateFrame(const float& )
+	void Gizmo::updateFrame(const float )
 	{
 	}
 

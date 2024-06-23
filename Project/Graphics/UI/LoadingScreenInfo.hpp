@@ -29,7 +29,7 @@ namespace Graphics::UI
 		virtual void onMouseHover(const glm::vec2& mouse) override;
 
 		// Inherited via ParentedRenderable
-		virtual void updateFrame(const float& dt) override;
+		virtual void updateFrame(const float dt) override;
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp) override;
 	};
 }

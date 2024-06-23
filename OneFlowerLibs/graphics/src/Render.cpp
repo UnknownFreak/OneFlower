@@ -75,7 +75,7 @@ namespace of::object::component
 		return std::make_unique<Render>(*this);
 	}
 
-	void Render::update(const float& fElapsedTime)
+	void Render::update(const float fElapsedTime)
 	{
 
 		fElapsedTime;
@@ -93,7 +93,7 @@ namespace of::object::component
 			model.render(transaction, mvp, transform->buffered, transform->facingAngle);
 		}
 	}
-	void Render::updateFrame(const float& dt)
+	void Render::updateFrame(const float dt)
 	{
 		dt;
 	}

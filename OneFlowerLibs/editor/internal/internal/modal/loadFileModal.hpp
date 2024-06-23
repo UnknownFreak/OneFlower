@@ -21,7 +21,7 @@ namespace of::editor::modal
 
 		void ImGuiRenderModal() override;
 		void OnOpen() override;
-		virtual void updateFrame(const float& ) override {}
+		virtual void updateFrame(const float ) override {}
 
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&) override;
 	};

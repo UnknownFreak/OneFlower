@@ -144,7 +144,7 @@ public:
 
 	}
 
-	virtual void updateFrame(const float& )
+	virtual void updateFrame(const float )
 	{
 	}
 
@@ -192,7 +192,7 @@ public:
 	{
 	}
 
-	virtual void updateFrame(const float&)
+	virtual void updateFrame(const float)
 	{
 	}
 	void updateCount()
@@ -372,9 +372,9 @@ public:
 		
 	}
 
-	virtual void updateFrame(const float&)
+	virtual void updateFrame(const float)
 	{
-		auto vec = actor->getPosition();
+		auto& vec = actor->getPosition();
 		pos.x = (float)vec.x;
 		pos.y = (float)vec.y;
 		pos.z = (float)vec.z;
@@ -456,7 +456,7 @@ public:
 
 	}
 
-	virtual void updateFrame(const float&)
+	virtual void updateFrame(const float)
 	{
 	}
 
@@ -522,7 +522,7 @@ public:
 	}
 
 
-	virtual void updateFrame(const float&)
+	virtual void updateFrame(const float)
 	{
 	}
 
@@ -792,7 +792,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 			return 0u;
 		}
 
-		virtual void updateFrame(const float&)
+		virtual void updateFrame(const float)
 		{
 			if (done)
 			{
@@ -888,7 +888,7 @@ class Heightmap : public of::graphics::ParentedRenderable
 			line[4].z = start.y;
 		}
 
-		virtual void updateFrame(const float&)
+		virtual void updateFrame(const float)
 		{
 			if (changed)
 			{
@@ -925,7 +925,7 @@ public:
 		m_parent->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), data);
 	}
 
-	virtual void updateFrame(const float&)
+	virtual void updateFrame(const float)
 	{
 	}
 

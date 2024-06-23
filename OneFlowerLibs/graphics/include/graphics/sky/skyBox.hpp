@@ -32,7 +32,7 @@ namespace of::graphics::sky
 		inline std::shared_ptr<swizzle::gfx::Texture> getTexture() const { return mModel.texture; };
 
 		// Inherited via Renderable
-		virtual void updateFrame(const float& dt) override;
+		virtual void updateFrame(const float dt) override;
 	};
 }
 

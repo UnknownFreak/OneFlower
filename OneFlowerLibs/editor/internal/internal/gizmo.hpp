@@ -116,7 +116,7 @@ namespace of::editor
 			);
 		}
 
-		virtual void updateFrame(const float& dt) override;
+		virtual void updateFrame(const float dt) override;
 
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
 		{
@@ -134,7 +134,6 @@ namespace of::editor
 					auto viewPort = ImGui::GetWindowViewport();
 
 					ImGuizmo::SetDrawlist(ImGui::GetBackgroundDrawList());
-					auto io = ImGui::GetIO();
 
 					ImGuizmo::SetRect(viewPort->Pos.x, viewPort->Pos.y, viewPort->Size.x, viewPort->Size.y);
 					ImGuizmo::Enable(true);

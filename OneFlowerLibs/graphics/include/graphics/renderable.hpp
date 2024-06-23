@@ -11,7 +11,7 @@ namespace of::graphics
 	public:
 		virtual ~Renderable() = default;
 		// input, DrawCommandTransaction, MVP?
-		virtual void updateFrame(const float& dt) = 0;
+		virtual void updateFrame(const float dt) = 0;
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, view::MVP& mvp) = 0;
 	};
 }

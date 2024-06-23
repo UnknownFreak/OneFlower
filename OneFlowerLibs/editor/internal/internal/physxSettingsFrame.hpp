@@ -26,7 +26,7 @@ namespace of::editor
 			m_groupNames.push_back("TrigActor");
 		}
 
-		virtual void updateFrame(const float& ) override {};
+		virtual void updateFrame(const float ) override {};
 
 		void open()
 		{

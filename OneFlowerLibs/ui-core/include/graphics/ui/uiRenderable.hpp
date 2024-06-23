@@ -28,7 +28,7 @@ namespace of::graphics::ui
 		Relation m_windowRelation;
 
 		UIRenderable(const ImVec4& renderBox, const Relation& relation = Relation::TOP_LEFT);
-		virtual void updateFrame(const float& dt) override;
+		virtual void updateFrame(const float dt) override;
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, view::MVP& mvp) override;
 
 		virtual void beginRender() = 0;

@@ -49,7 +49,7 @@ namespace Graphics::UI
 		virtual void onMouseHover(const glm::vec2&) override {};
 
 		// Inherited via ParentedRenderable
-		virtual void updateFrame(const float&) override
+		virtual void updateFrame(const float) override
 		{
 			y = offsetY;
 			if (rel == Rel::Left)

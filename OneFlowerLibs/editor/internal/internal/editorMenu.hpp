@@ -23,7 +23,7 @@ namespace of::editor
 		}
 
 		// Inherited via ParentedRenderable
-		virtual void updateFrame(const float& ) override {}
+		virtual void updateFrame(const float ) override {}
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& , of::graphics::view::MVP& ) override
 		{
 			if (ImGui::BeginMainMenuBar())

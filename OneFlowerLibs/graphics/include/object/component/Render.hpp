@@ -38,7 +38,7 @@ namespace of::object::component
 
 		virtual std::unique_ptr<Base> ucopy() const override;
 
-		virtual void update(const float& fElapsedTime);
+		virtual void update(const float fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
@@ -76,7 +76,7 @@ namespace of::object::component
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, graphics::view::MVP& mvp) override;
 
 		// Inherited via Renderable
-		virtual void updateFrame(const float& dt) override;
+		virtual void updateFrame(const float dt) override;
 	};
 }
 

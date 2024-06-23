@@ -79,7 +79,7 @@ namespace of::graphics::ui
 	{
 	}
 
-	void UIRenderable::updateFrame(const float& dt)
+	void UIRenderable::updateFrame(const float dt)
 	{
 		if (m_uiParent)
 		{

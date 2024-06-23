@@ -67,7 +67,7 @@ void Graphics::UI::LoadingScreenInfo::onMouseHover(const glm::vec2&)
 {
 }
 
-void Graphics::UI::LoadingScreenInfo::updateFrame(const float&)
+void Graphics::UI::LoadingScreenInfo::updateFrame(const float)
 {
 }
 
