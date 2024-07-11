@@ -26,7 +26,7 @@
 #include <module/window/GraphicsProxy.hpp>
 #include <module/window/WindowProxy.hpp>
 
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
 
@@ -96,7 +96,7 @@ volatile void initializeSystems()
 	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Messaging");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::messaging::Courier>().type));
+	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::courier::Courier>().type));
 
 	mainModule.Info("Finished initializing engine ");
 
@@ -151,6 +151,7 @@ public:
 	GameEntry g;
 	const int return_value = g.Run();
 	sw::core::RemoveLogger(&logger);
+	of::engine::GetModule<of::module::ObjectInstanceHandler>().unloadAll();
 
 	of::engine::Dispose();
 

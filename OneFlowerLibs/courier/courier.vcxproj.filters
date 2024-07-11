@@ -9,45 +9,54 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="include\messaging">
-      <UniqueIdentifier>{52ee2c4b-753f-4a81-82ed-0d700e4f1576}</UniqueIdentifier>
+    <Filter Include="include\courier">
+      <UniqueIdentifier>{7ade22cf-6894-48af-837e-60e3a1116fe8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\messaging">
-      <UniqueIdentifier>{3b98b488-9595-4a7a-bec6-1b99d488fc99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\messaging\topic">
-      <UniqueIdentifier>{93ab2ab3-dfdb-428b-9f66-21e6baf19737}</UniqueIdentifier>
+    <Filter Include="include\courier\message">
+      <UniqueIdentifier>{74717ff6-a3f2-449d-9778-f1e8c54a62a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\messaging\courier.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\courier.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\channel.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\channel.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\message.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\channelTopic.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\subscriber.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\topic.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\topic\topic.hpp">
-      <Filter>include\messaging\topic</Filter>
+    <ClInclude Include="include\courier\messageValidator.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\channelTopic.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\subscriber.hpp">
+      <Filter>include\courier</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\basicMessage.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\message.hpp">
+      <Filter>include\courier\message</Filter>
     </ClInclude>
-    <ClInclude Include="include\messaging\messageValidator.hpp">
-      <Filter>include\messaging</Filter>
+    <ClInclude Include="include\courier\messageType.hpp">
+      <Filter>include\courier\message</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\courier.cpp">
-      <Filter>src\messaging</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\channel.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\channelTopic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\subscriber.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\message.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

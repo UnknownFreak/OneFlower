@@ -6,7 +6,7 @@
 #include <Object/GameObject.hpp>
 #include <resource/Prefab.hpp>
 #include <object/component/AttachToParent.hpp>
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 namespace of::object::component
 {
@@ -96,14 +96,14 @@ namespace of::object::component
 	{
 		using namespace messaging;
 		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
-		auto courier = of::engine::GetModule<of::messaging::Courier>();
-		courier.addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
+		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 	}
 
 	void Stats::deconstruct()
 	{
-		auto courier = of::engine::GetModule<of::messaging::Courier>();
-		courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
+		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
 	void Stats::onMessage(const messaging::Message& message)

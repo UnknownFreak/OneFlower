@@ -8,7 +8,7 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 namespace of::object::component
 {
@@ -61,13 +61,13 @@ namespace of::object::component
 		transform = attachedOn->get<of::object::component::Transform>();
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
 
-		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update, of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {update(msg.as<of::messaging::BasicMessage<float>>().value); }));
+		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 	}
 
 	void Render::deconstruct()
 	{
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->removeRenderable(attachedOn->id);
-		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
 	std::unique_ptr<of::object::component::Base> Render::ucopy() const

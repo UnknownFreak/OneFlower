@@ -1,6 +1,6 @@
 #pragma once
 
-namespace of::messaging
+namespace of::courier
 {
 	
 	enum class Topic

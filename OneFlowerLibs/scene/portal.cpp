@@ -1,7 +1,7 @@
 #include <object/component/portal.hpp>
 
 #include <module/sceneManager.hpp>
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 #include <input/inputHandler.hpp>
 
@@ -20,7 +20,7 @@ namespace of::object::component
 				auto objectTrackingPos = messageBody->go->getShared<of::object::component::Transform>();
 				auto portalRef = attachedOn->getShared<Portal>();
 
-				auto& courier = of::engine::GetModule<of::messaging::Courier>();
+				auto& courier = of::engine::GetModule<of::courier::Courier>();
 				auto& inputHandler = of::engine::GetModule<of::input::InputHandler>();
 
 				// TODO: check if subscriber exists
@@ -29,10 +29,10 @@ namespace of::object::component
 				//	return;
 
 				courier.addSubscriber(
-					of::messaging::Topic::Update,
-					of::messaging::Subscriber(
+					of::courier::Topic::Update,
+					of::courier::Subscriber(
 						instanceId, warrantyFromThis(),
-						[portalRef, objectTrackingPos, &inputHandler](const of::messaging::Message&)
+						[portalRef, objectTrackingPos, &inputHandler](const of::courier::Message&)
 						{
 							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
 							portalRef->mSelfTrackingPos->pos));
@@ -55,8 +55,8 @@ namespace of::object::component
 							}
 							if (distance > portalRef->mGuiHintDistance)
 							{
-								auto& courier = of::engine::GetModule<of::messaging::Courier>();
-								courier.scheduleRemoval(of::messaging::Topic::Update, portalRef->instanceId);
+								auto& courier = of::engine::GetModule<of::courier::Courier>();
+								courier.scheduleRemoval(of::courier::Topic::Update, portalRef->instanceId);
 
 							}
 						}
@@ -73,8 +73,8 @@ namespace of::object::component
 
 	void Portal::deconstruct()
 	{
-		auto courier = of::engine::GetModule<of::messaging::Courier>();
-		courier.removeSubscriber(of::messaging::Topic::Update, instanceId);
+		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
 	void Portal::teleport()

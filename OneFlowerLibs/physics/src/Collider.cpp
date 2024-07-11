@@ -2,7 +2,7 @@
 
 #include <object/GameObject.hpp>
 
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 #include <module/logger/OneLogger.hpp>
 #include <module/resource/MeshLoader.hpp>
@@ -65,8 +65,8 @@ namespace of::object::component
 
 			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);
-			of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::Update,
-				of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) {
+			of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
+				of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {
 					auto p = mActor->getGlobalPose().p;
 					mTransform->pos.x = p.x;
 					mTransform->pos.y = p.y;
@@ -90,7 +90,7 @@ namespace of::object::component
 
 	void Collider::deconstruct()
 	{
-		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::Update, instanceId);
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();

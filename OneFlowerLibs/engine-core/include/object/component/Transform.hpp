@@ -6,8 +6,6 @@
 #include <glm/vec3.hpp>
 #include "BaseComponent.hpp"
 
-#include <messaging/message.hpp>
-
 namespace of::object::component
 {
 	class Transform : public Base

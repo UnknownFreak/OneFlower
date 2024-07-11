@@ -4,7 +4,7 @@
 #include <graphics/parentedRenderable.hpp>
 #include <graphics/window/Window.hpp>
 
-#include <courier.hpp>
+#include <courier/courier.hpp>
 #include <input/inputHandler.hpp>
 #include <module/ObjectInstanceHandler.hpp>
 
@@ -49,7 +49,7 @@ namespace of::editor
 		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl) : c(m_parent->getCamera())
 		{
 			ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*)&mat);
-			auto& courier = of::engine::GetModule<of::messaging::Courier>();
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
 
 			of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
 				[&](bool, swizzle::input::Mouse, const float&) {
@@ -83,10 +83,10 @@ namespace of::editor
 
 
 			courier.addSubscriber(
-				of::messaging::Topic::SingleThreadUpdate,
-				of::messaging::Subscriber(
+				of::courier::Topic::SingleThreadUpdate,
+				of::courier::Subscriber(
 					0x100000, warrantyFromThis(),
-					[&, appl](const of::messaging::Message&)
+					[&, appl](const of::courier::Message&)
 					{
 						auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
 

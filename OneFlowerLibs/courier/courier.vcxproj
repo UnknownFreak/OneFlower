@@ -136,17 +136,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\messaging\basicMessage.hpp" />
-    <ClInclude Include="include\messaging\channel.hpp" />
-    <ClInclude Include="include\messaging\courier.hpp" />
-    <ClInclude Include="include\messaging\message.hpp" />
-    <ClInclude Include="include\messaging\messageValidator.hpp" />
-    <ClInclude Include="include\messaging\subscriber.hpp" />
-    <ClInclude Include="include\messaging\channelTopic.hpp" />
-    <ClInclude Include="include\messaging\topic\topic.hpp" />
+    <ClInclude Include="include\courier\channel.hpp" />
+    <ClInclude Include="include\courier\channelTopic.hpp" />
+    <ClInclude Include="include\courier\courier.hpp" />
+    <ClInclude Include="include\courier\message.hpp" />
+    <ClInclude Include="include\courier\messageType.hpp" />
+    <ClInclude Include="include\courier\messageValidator.hpp" />
+    <ClInclude Include="include\courier\subscriber.hpp" />
+    <ClInclude Include="include\courier\topic.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\channel.cpp" />
+    <ClCompile Include="src\channelTopic.cpp" />
     <ClCompile Include="src\courier.cpp" />
+    <ClCompile Include="src\message.cpp" />
+    <ClCompile Include="src\subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">

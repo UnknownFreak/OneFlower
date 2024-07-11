@@ -5,7 +5,7 @@
 
 #include <module/logger/OneLogger.hpp>
 
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 #include <engine/runMode.hpp>
 
 namespace of::object::component
@@ -21,13 +21,13 @@ namespace of::object::component
 			{
 				mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
 
-				auto& courier = of::engine::GetModule<of::messaging::Courier>();
+				auto& courier = of::engine::GetModule<of::courier::Courier>();
 
 				courier.addSubscriber(
-					of::messaging::Topic::PhysicsUpdate,
-					of::messaging::Subscriber(
+					of::courier::Topic::PhysicsUpdate,
+					of::courier::Subscriber(
 						instanceId, warrantyFromThis(),
-						[&](const of::messaging::Message&)
+						[&](const of::courier::Message&)
 						{
 							mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);
 						}
@@ -52,7 +52,7 @@ namespace of::object::component
 		{
 			mHinge->release();
 		}
-		auto& courier = of::engine::GetModule<of::messaging::Courier>();
-		courier.removeSubscriber(of::messaging::Topic::PhysicsUpdate, instanceId);
+		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		courier.removeSubscriber(of::courier::Topic::PhysicsUpdate, instanceId);
 	}
 }

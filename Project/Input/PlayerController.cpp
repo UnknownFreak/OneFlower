@@ -1,7 +1,7 @@
 #include "PlayerController.hpp"
 
 #include <Object/GameObject.hpp>
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 namespace of::object::component
 {
@@ -16,12 +16,12 @@ namespace of::object::component
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
-		of::engine::GetModule<of::messaging::Courier>().addSubscriber(of::messaging::Topic::PhysicsUpdate,
-			of::messaging::Subscriber(instanceId, warrantyFromThis(), [this](const of::messaging::Message& msg) 
+		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::PhysicsUpdate,
+			of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg)
 				{
 					auto transform = attachedOn->get<Transform>();
 
-				mActor->move({0, -9.81f, 0}, 0.1f, msg.as<of::messaging::BasicMessage<float>>().value, physx::PxControllerFilters()); 
+				mActor->move({0, -9.81f, 0}, 0.1f, msg.get<float>(), physx::PxControllerFilters());
 				auto p = mActor->getFootPosition();
 				transform->pos.x = (float)p.x;
 				transform->pos.y = (float)p.y;
@@ -36,7 +36,7 @@ namespace of::object::component
 	void component::PlayerController::deconstruct()
 	{
 
-		of::engine::GetModule<of::messaging::Courier>().removeSubscriber(of::messaging::Topic::PhysicsUpdate, instanceId);
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::PhysicsUpdate, instanceId);
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();

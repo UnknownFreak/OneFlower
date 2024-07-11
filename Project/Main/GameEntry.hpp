@@ -9,7 +9,7 @@
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/LoadingScreenInfo.hpp>
 
-#include <messaging/courier.hpp>
+#include <courier/courier.hpp>
 
 class GameEntry
 {
@@ -19,7 +19,7 @@ class GameEntry
 	of::input::InputHandler& input;
 	
 	of::module::SceneManager& world;
-	of::messaging::Courier& courier;
+	of::courier::Courier& courier;
 
 	std::shared_ptr<Graphics::UI::Stats> ups;
 	std::shared_ptr<Graphics::UI::LoadingScreenInfo> loadingScreenInfo;

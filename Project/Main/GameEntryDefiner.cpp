@@ -181,14 +181,14 @@ public:
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
 {
-	std::shared_ptr<of::messaging::ChannelTopic> m_channel;
+	std::shared_ptr<of::courier::ChannelTopic> m_channel;
 	of::common::String string;
 	int val = 0;
 	bool m_add = false;
 	of::common::uuid instanceId;
 public:
 
-	CourierStats() : m_channel(of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update)) 
+	CourierStats() : m_channel(of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update)) 
 	{
 	}
 
@@ -436,8 +436,8 @@ public:
 
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		auto channel = of::engine::GetModule<of::messaging::Courier>().getChannel(of::messaging::Topic::Update);
-		channel->addSubscriber(of::messaging::Subscriber(mId++ , warrantyFromThis(), [&](const of::messaging::Message&)
+		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
+		channel->addSubscriber(of::courier::Subscriber(mId++ , warrantyFromThis(), [&](const of::courier::Message&)
 			{
 				if (mActor)
 				{
@@ -996,25 +996,40 @@ public:
 //static std::shared_ptr<PxSimulationStats> simulationStats;
 static std::shared_ptr<CourierStats> courierStats;
 
+template<of::courier::MessageType T>
+class IsMessageTypeValidator : public of::courier::MessageValidator
+{
+	virtual inline bool validate(const of::courier::Message& message) override
+	{
+		if (message.msgType != T)
+		{
+			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::IsMessageTypeValidator");
+			logger.Info("Invalid message type passed [requiredType, checked] [", (unsigned int)T, ", ", (unsigned int)message.msgType, + "]");
+			return false;
+		}
+		return true;
+	}
+};
+
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<of::input::InputHandler>()),
 	world(of::engine::GetModule<of::module::SceneManager>()),
-	courier(of::engine::GetModule<of::messaging::Courier>()), m_exit(false)
+	courier(of::engine::GetModule<of::courier::Courier>()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
-	courier.createChannel(of::messaging::Topic::Update);
-	courier.createChannel(of::messaging::Topic::PhysicsUpdate);
-	courier.createChannel(of::messaging::Topic::SingleThreadUpdate);
-	auto validator = std::make_shared<of::messaging::IsMessageTypeValidator<of::messaging::BasicMessage<float>>>();
-	courier.getChannel(of::messaging::Topic::Update)->setMessageValidator(validator);
-	courier.getChannel(of::messaging::Topic::PhysicsUpdate)->setMessageValidator(validator);
-	courier.getChannel(of::messaging::Topic::PhysicsUpdate)->setMultiThreaded(false);
-	courier.getChannel(of::messaging::Topic::SingleThreadUpdate)->setMessageValidator(validator);
-	courier.getChannel(of::messaging::Topic::SingleThreadUpdate)->setMultiThreaded(false);
+	courier.createChannel(of::courier::Topic::Update);
+	courier.createChannel(of::courier::Topic::PhysicsUpdate);
+	courier.createChannel(of::courier::Topic::SingleThreadUpdate);
+	auto validator = std::make_shared<IsMessageTypeValidator<of::courier::MessageType::DeltaTime>> ();
+	courier.getChannel(of::courier::Topic::Update)->setMessageValidator(validator);
+	courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMessageValidator(validator);
+	courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMultiThreaded(false);
+	courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMessageValidator(validator);
+	courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMultiThreaded(false);
 }
 
 int GameEntry::Run()
@@ -1146,9 +1161,12 @@ void GameEntry::physicsUpdate()
 				physicsHandler.simulate(update_time);
 
 				courierStats->updateCount();
-				courier.post(of::messaging::Topic::Update, of::messaging::BasicMessage<float>(update_time));
-				courier.post(of::messaging::Topic::PhysicsUpdate, of::messaging::BasicMessage<float>(update_time));
-				courier.post(of::messaging::Topic::SingleThreadUpdate, of::messaging::BasicMessage<float>(update_time));
+
+				auto message = of::courier::Message(of::courier::MessageType::DeltaTime, update_time);
+
+				courier.post(of::courier::Topic::Update, message);
+				courier.post(of::courier::Topic::PhysicsUpdate, message);
+				courier.post(of::courier::Topic::SingleThreadUpdate, message);
 				courier.handleScheduledRemovals();
 			}
 			ups->update();
