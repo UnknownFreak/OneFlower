@@ -83,10 +83,7 @@
     <ClInclude Include="include\utils\expose\expose.hpp">
       <Filter>include\utils\expose</Filter>
     </ClInclude>
-    <ClInclude Include="include\utils\lifetime\lifetimeWarranty.hpp">
-      <Filter>include\utils\lifetime</Filter>
-    </ClInclude>
-    <ClInclude Include="include\utils\lifetime\warranty.hpp">
+    <ClInclude Include="include\utils\lifetime\isAlive.hpp">
       <Filter>include\utils\lifetime</Filter>
     </ClInclude>
   </ItemGroup>

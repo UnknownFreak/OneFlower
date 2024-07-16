@@ -181,7 +181,7 @@ public:
 	};
 };
 
-class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 {
 	std::shared_ptr<of::courier::ChannelTopic> m_channel;
 	of::common::String string;
@@ -394,7 +394,7 @@ public:
 	};
 };
 
-class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 {
 	physx::PxRigidActor* mActor;
 	of::resource::Model model;
@@ -439,7 +439,7 @@ public:
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
-		channel->addSubscriber(of::courier::Subscriber(mId++ , warrantyFromThis(), [&](const of::courier::Message&)
+		channel->addSubscriber(of::courier::Subscriber(mId++ , isAlive(), [&](const of::courier::Message&)
 			{
 				if (mActor)
 				{

@@ -26,7 +26,7 @@ namespace of::object::component
 	{
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
 		// todo create channel and push skills into the channel once executed & remove them automatically via it's instance id when the skill is done updating
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 	}
 
 	void AttachToParent::deconstruct()

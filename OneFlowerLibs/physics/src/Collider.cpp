@@ -66,7 +66,7 @@ namespace of::object::component
 			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);
 			of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-				of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {
+				of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {
 					auto p = mActor->getGlobalPose().p;
 					mTransform->pos.x = p.x;
 					mTransform->pos.y = p.y;

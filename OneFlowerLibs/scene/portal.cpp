@@ -31,7 +31,7 @@ namespace of::object::component
 				courier.addSubscriber(
 					of::courier::Topic::Update,
 					of::courier::Subscriber(
-						instanceId, warrantyFromThis(),
+						instanceId, isAlive(),
 						[portalRef, objectTrackingPos, &inputHandler](const of::courier::Message&)
 						{
 							float distance = glm::abs(glm::distance(objectTrackingPos->pos,

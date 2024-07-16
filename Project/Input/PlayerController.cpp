@@ -17,7 +17,7 @@ namespace of::object::component
 		combat = attachedOn->get<of::object::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
 		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::PhysicsUpdate,
-			of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg)
+			of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg)
 				{
 					auto transform = attachedOn->get<Transform>();
 

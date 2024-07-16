@@ -26,7 +26,7 @@ namespace of::object::component
 				courier.addSubscriber(
 					of::courier::Topic::PhysicsUpdate,
 					of::courier::Subscriber(
-						instanceId, warrantyFromThis(),
+						instanceId, isAlive(),
 						[&](const of::courier::Message&)
 						{
 							mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);

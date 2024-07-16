@@ -151,8 +151,7 @@
     <ClInclude Include="include\utils\concepts\concepts.hpp" />
     <ClInclude Include="include\utils\config\parser.hpp" />
     <ClInclude Include="include\utils\expose\expose.hpp" />
-    <ClInclude Include="include\utils\lifetime\lifetimeWarranty.hpp" />
-    <ClInclude Include="include\utils\lifetime\warranty.hpp" />
+    <ClInclude Include="include\utils\lifetime\isAlive.hpp" />
     <ClInclude Include="include\utils\os\ListDir.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

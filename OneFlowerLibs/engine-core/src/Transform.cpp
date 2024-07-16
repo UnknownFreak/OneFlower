@@ -86,7 +86,7 @@ namespace of::object::component
 		moving = true;
 
 		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-			of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 	}
 
 	void Transform::updateTransform(std::shared_ptr<Transform> transform)

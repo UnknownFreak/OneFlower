@@ -6,7 +6,7 @@
 
 #include <utils/common/String.hpp>
 #include <utils/common/uuid.hpp>
-#include <utils/lifetime/lifetimeWarranty.hpp>
+#include <utils/lifetime/isAlive.hpp>
 #include <object/messaging/ComponentMessage.hpp>
 #include <object/ObjectSaveState.hpp>
 
@@ -16,7 +16,7 @@ namespace of::object
 }
 namespace of::object::component
 {
-	class Base : public of::utils::lifetime::LifetimeWarranty
+	class Base : public of::utils::lifetime::IsAlive
 	{
 		friend class GameObject;
 

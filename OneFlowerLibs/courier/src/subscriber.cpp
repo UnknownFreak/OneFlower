@@ -6,21 +6,21 @@
 namespace of::courier
 {
 
-	Subscriber::Subscriber(const size_t id) : m_ptr(), warranty(of::utils::lifetime::Warranty::makeInvalid()), id(id)
+	Subscriber::Subscriber(const size_t id) : m_ptr(), m_isAlive(), id(id)
 	{
 	}
 
-	Subscriber::Subscriber(const size_t id, const of::utils::lifetime::Warranty& warranty, const std::function<void(const Message&)>& function) : m_ptr(function), warranty(warranty), id(id)
+	Subscriber::Subscriber(const size_t id, const std::weak_ptr<bool>& isAlive, const std::function<void(const Message&)>& function) : m_ptr(function), m_isAlive(isAlive), id(id)
 	{
 	}
 
-	Subscriber::Subscriber(const Subscriber& sub) : Subscriber(sub.id, sub.warranty, sub.m_ptr)
+	Subscriber::Subscriber(const Subscriber& sub) : Subscriber(sub.id, sub.m_isAlive, sub.m_ptr)
 	{
 	}
 
 	void Subscriber::sendMessage(const Message& message)
 	{
-		if (warranty)
+		if (m_isAlive.expired() == false)
 		{
 			m_ptr(message);
 		}
@@ -38,7 +38,7 @@ namespace of::courier
 		}
 
 		m_ptr = other.m_ptr;
-		warranty = other.warranty;
+		m_isAlive = other.m_isAlive;
 		id = other.id;
 		return *this;
 	}

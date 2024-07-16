@@ -8,7 +8,7 @@
 #include <input/inputHandler.hpp>
 #include <object/InstanceHandler.hpp>
 
-#include <utils/lifetime/lifetimeWarranty.hpp>
+#include <utils/lifetime/isAlive.hpp>
 #include <utils/common/uuid.hpp>
 
 #include <physics/physics.hpp>
@@ -23,7 +23,7 @@
 namespace of::editor
 {
 
-	class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::LifetimeWarranty
+	class Gizmo : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 	{
 		of::graphics::view::Camera* c;
 		glm::mat4 mat = glm::mat4(0.f);
@@ -85,7 +85,7 @@ namespace of::editor
 			courier.addSubscriber(
 				of::courier::Topic::SingleThreadUpdate,
 				of::courier::Subscriber(
-					0x100000, warrantyFromThis(),
+					0x100000, isAlive(),
 					[&, appl](const of::courier::Message&)
 					{
 						auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();

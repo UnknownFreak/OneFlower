@@ -118,7 +118,7 @@ void PlayerInteractionPrompt::update(const float&dt)
 void PlayerInteractionPrompt::initialize()
 {
 	of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-		of::courier::Subscriber(instanceId, warrantyFromThis(),
+		of::courier::Subscriber(instanceId, isAlive(),
 			[this](const of::courier::Message& msg) {update(msg.get<float>()); }
 	));
 }

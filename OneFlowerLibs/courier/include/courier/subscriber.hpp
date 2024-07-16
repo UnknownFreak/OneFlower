@@ -3,7 +3,6 @@
 #include <courier/message.hpp>
 
 #include <utils/common/uuid.hpp>
-#include <utils/lifetime/warranty.hpp>
 
 #include <functional>
 
@@ -15,7 +14,7 @@ namespace of::courier
 
 		Subscriber(const size_t id = 0);
 
-		Subscriber(const size_t id, const of::utils::lifetime::Warranty& warranty, const std::function<void(const courier::Message&)>& function);
+		Subscriber(const size_t id, const std::weak_ptr<bool>& isAlive, const std::function<void(const courier::Message&)>& function);
 
 		Subscriber(const Subscriber& sub);
 
@@ -29,7 +28,7 @@ namespace of::courier
 	private:
 
 		std::function<void(const courier::Message&)> m_ptr;
-		of::utils::lifetime::Warranty warranty;
+		std::weak_ptr<bool> m_isAlive;
 		size_t id;
 	};
 }

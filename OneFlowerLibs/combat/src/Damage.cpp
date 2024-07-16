@@ -87,7 +87,7 @@ namespace of::object::component
 		transform = attachedOn->get<Transform>();
 
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, warrantyFromThis(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 	}
 
 	void Damage::deconstruct()
