@@ -4,24 +4,24 @@
     <Filter Include="include">
       <UniqueIdentifier>{575fd3a1-5889-47e9-bf80-054a3d95e7d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\module">
-      <UniqueIdentifier>{80ead20d-5735-4325-abaf-71ea2a5f4f70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{b4877767-033a-4cdf-9a8d-a877b5d9abea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\module">
+    <Filter Include="include\rng">
+      <UniqueIdentifier>{80ead20d-5735-4325-abaf-71ea2a5f4f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rng">
       <UniqueIdentifier>{b0522254-992e-42e0-bb29-30269f45aa10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\module\Random.hpp">
-      <Filter>include\module</Filter>
-    </ClInclude>
+    <ClCompile Include="src\rng.cpp">
+      <Filter>src\rng</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Random.cpp">
-      <Filter>src\module</Filter>
-    </ClCompile>
+    <ClInclude Include="include\rng\rng.hpp">
+      <Filter>include\rng</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

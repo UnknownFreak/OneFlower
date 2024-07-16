@@ -1,6 +1,6 @@
 #include <resource/Prefab.hpp>
 
-#include <module/Random.hpp>
+#include <rng/rng.hpp>
 #include <object/InstanceHandler.hpp>
 #include <file/SaveFile.hpp>
 
@@ -72,7 +72,7 @@ namespace of::resource
 
 	glm::vec3 randomize(const glm::vec3& in, const float& random_direction)
 	{
-		auto& randGen = of::engine::GetModule<of::module::RandomGen>();
+		auto& randGen = of::engine::GetModule<of::rng::RandomGen>();
 
 		return {
 			in.x + randGen.random_float(-random_direction, random_direction),

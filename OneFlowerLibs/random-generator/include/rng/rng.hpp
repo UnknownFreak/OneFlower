@@ -3,9 +3,9 @@
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
 
-namespace of::module
+namespace of::rng
 {
-	class RandomGen : public interface::IEngineResource<RandomGen>
+	class RandomGen : public of::module::interface::IEngineResource<RandomGen>
 	{
 		std::uniform_real_distribution<double> d;
 		std::uniform_real_distribution<float> f;
@@ -25,6 +25,6 @@ namespace of::module
 		double random_double(const double& min, const double& max);
 
 		// Inherited via IEngineResource
-		virtual EngineResourceType& getType() const override;
+		virtual of::module::EngineResourceType& getType() const override;
 	};
 }

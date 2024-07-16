@@ -1,7 +1,7 @@
 #include <object/component/Stats.hpp>
 
 #include <file/Handler.hpp>
-#include <module/Random.hpp>
+#include <rng/rng.hpp>
 
 #include <Object/GameObject.hpp>
 #include <resource/Prefab.hpp>
@@ -198,7 +198,7 @@ namespace of::object::component
 	{
 		auto trueDamage = weaponStrength * damageCoef * damageOwner->statValues[Enums::StatType::Power].getValue() / statValues[Enums::StatType::Toughness].getValue();
 		auto critChance = statChances[Enums::StatType::CritChange].getValue() * 100.0;
-		if (critChance > of::engine::GetModule<of::module::RandomGen>().random_double(0.0, 100.0))
+		if (critChance > of::engine::GetModule<of::rng::RandomGen>().random_double(0.0, 100.0))
 		{
 			auto critDamageMult = statChances[Enums::StatType::CritDamage].getValue();
 			trueDamage *= critDamageMult;

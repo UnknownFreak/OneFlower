@@ -136,10 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\module\Random.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Random.cpp" />
+    <ClCompile Include="src\rng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
@@ -151,6 +148,9 @@
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\rng\rng.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
