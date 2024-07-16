@@ -35,7 +35,6 @@
 
 #include <object/component/Render.hpp>
 
-#include <ImGuizmo.h>
 #include <stb/stb_image.h>
 #include <algorithm>
 
@@ -1026,6 +1025,7 @@ GameEntry::GameEntry() :
 	courier.createChannel(of::courier::Topic::Update);
 	courier.createChannel(of::courier::Topic::PhysicsUpdate);
 	courier.createChannel(of::courier::Topic::SingleThreadUpdate);
+	courier.createChannel(of::courier::Topic::Object);
 	auto validator = std::make_shared<IsMessageTypeValidator<of::courier::MessageType::DeltaTime>> ();
 	courier.getChannel(of::courier::Topic::Update)->setMessageValidator(validator);
 	courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMessageValidator(validator);

@@ -24,5 +24,10 @@ namespace of::courier
 		Example: Physics raycast, e.g get mouse click on screen.
 		*/
 		SingleThreadUpdate,
+		/*
+		Object topic is for object to object communication or engine to object communication
+		That should invoke a behavior on a object, but the invocation should not be instantly called (delaying) regular execution
+		*/
+		Object,
 	};
 }
