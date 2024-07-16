@@ -44,7 +44,7 @@ namespace of::object::component
 		facingAngle = glm::angle(thePos, theOffset) - 90;
 	}
 
-	void Transform::update(const float&)
+	void Transform::update(const float)
 	{
 		//directionCounter++;
 		//lookAt(lastDirection);

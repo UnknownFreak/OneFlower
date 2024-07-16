@@ -13,7 +13,7 @@ of::common::uuid of::file::archive::Trait<of::resource::Prefab>::typeId = of::co
 namespace of::resource
 {
 
-	void Prefab::build(of::object::GameObject* object, const bool& isPlayersummon) const
+	void Prefab::build(of::object::GameObject* object, const bool isPlayersummon) const
 	{
 		object->tag = tag;
 		//TODO: replace with ObjectStateSaveState
@@ -47,7 +47,7 @@ namespace of::resource
 			components.push_back(x.get()->ucopy());
 	}
 
-	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool isPlayerSummon) const
 	{
 		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		if (x.exists(uuid))
@@ -60,7 +60,7 @@ namespace of::resource
 		return object;
 	}
 
-	of::object::GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool isPlayerSummon) const
 	{
 		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();
@@ -80,7 +80,7 @@ namespace of::resource
 			in.z };
 	}
 
-	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool& isPlayerSummon) const
+	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool isPlayerSummon) const
 	{
 		auto x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();

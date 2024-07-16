@@ -22,7 +22,7 @@ namespace of::resource
 	class Prefab : public of::file::archive::Requestable
 	{
 
-		void build(of::object::GameObject* object, const bool& isPlayerSummon) const;
+		void build(of::object::GameObject* object, const bool isPlayerSummon) const;
 	public:
 
 		std::vector<std::unique_ptr<of::object::component::Base>> components;
@@ -34,9 +34,9 @@ namespace of::resource
 		Prefab();
 		Prefab(const Prefab& copy);
 
-		of::object::GameObject* createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon=false) const;
-		of::object::GameObject* createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon = false) const;
-		of::object::GameObject* createNewInstance(of::object::GameObject* parent, const bool& isPlayerSummon = false) const;
+		of::object::GameObject* createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool isPlayerSummon=false) const;
+		of::object::GameObject* createNewInstance(const glm::vec3& pos, const bool isPlayerSummon = false) const;
+		of::object::GameObject* createNewInstance(of::object::GameObject* parent, const bool isPlayerSummon = false) const;
 		void createNewPlayerInstance(of::object::GameObject& theObject);
 
 		template <class Ar>
