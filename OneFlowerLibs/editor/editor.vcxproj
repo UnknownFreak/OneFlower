@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\vendor\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="include\editor.hpp" />
     <ClInclude Include="internal\internal\editorCamera.hpp" />
     <ClInclude Include="internal\internal\editorMenu.hpp" />
@@ -30,6 +31,7 @@
     <ClInclude Include="internal\internal\physxSettingsFrame.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\vendor\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="internal\internal\modal\newFileModal.cpp" />
     <ClCompile Include="src\editor.cpp" />
     <ClCompile Include="src\editorCamera.cpp" />
@@ -136,6 +138,7 @@
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\editor\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IncludePath>$(SolutionDir)OneFlowerLibs\editor\include;$(SolutionDir)OneFlowerLibs\editor\internal;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\imgui;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

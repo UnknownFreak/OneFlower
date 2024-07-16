@@ -19,6 +19,9 @@
     <Filter Include="src\modal">
       <UniqueIdentifier>{89154e3e-a22b-450e-a4ee-c66a8eba7a54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{881af13e-47c8-4623-a5cf-81f7e95a7f5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\editor.hpp">
@@ -48,6 +51,9 @@
     <ClInclude Include="internal\internal\modal\loadFileModal.hpp">
       <Filter>internal\modal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>external</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\editor.cpp">
@@ -64,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="src\loadFileModal.cpp">
       <Filter>src\modal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>external</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

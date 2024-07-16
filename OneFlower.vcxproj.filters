@@ -429,9 +429,6 @@
     <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp">
       <Filter>Engine\Graphics\Editor\Selectors</Filter>
     </ClCompile>
-    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
-      <Filter>Main\imguizmo</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Interfaces\ISimulatable.hpp">
@@ -685,9 +682,6 @@
     </ClInclude>
     <ClInclude Include="Project\Main\RegisterArchiveDefaults.hpp">
       <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
-      <Filter>Main\imguizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
