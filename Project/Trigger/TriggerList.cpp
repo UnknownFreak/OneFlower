@@ -10,7 +10,7 @@ namespace Trigger
 			trigger->execute();
 		}
 	}
-	std::unique_ptr<of::resource::trigger::Trigger> TriggerList::clone() const
+	std::unique_ptr<of::trigger::Trigger> TriggerList::clone() const
 	{
 		std::vector<std::unique_ptr<Trigger>> tmp;
 		for (auto& t : triggerList)

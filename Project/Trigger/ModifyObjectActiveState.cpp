@@ -15,7 +15,7 @@ namespace Trigger
 		//of::engine::GetModule<of::module::SaveFile>().setObjectState(gameObjectToModify, objectState);
 
 	}
-	std::unique_ptr<of::resource::trigger::Trigger> ModifyObjectActiveState::clone() const
+	std::unique_ptr<of::trigger::Trigger> ModifyObjectActiveState::clone() const
 	{
 		return std::make_unique<ModifyObjectActiveState>(*this);
 	}

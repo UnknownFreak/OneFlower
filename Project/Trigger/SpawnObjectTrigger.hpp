@@ -1,14 +1,14 @@
 #ifndef SpawnObjectTrigger_HPP
 #define SpawnObjectTrigger_HPP
 
-#include <resource/trigger/Trigger.hpp>
+#include <trigger/Trigger.hpp>
 #include <file/FileId.hpp>
 #include <glm/vec3.hpp>
 
 namespace Trigger
 {
 
-	class SpawnObjectTrigger : public of::resource::trigger::Trigger
+	class SpawnObjectTrigger : public of::trigger::Trigger
 	{
 		
 		// Inherited via Trigger

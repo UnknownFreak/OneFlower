@@ -6,7 +6,7 @@
 #include <cereal/types/vector.hpp>
 
 #include <file/FileId.hpp>
-#include <resource/trigger/Trigger.hpp>
+#include <trigger/Trigger.hpp>
 
 namespace of::resource
 {

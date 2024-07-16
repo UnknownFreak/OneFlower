@@ -1,8 +1,8 @@
-#include <resource/trigger/TriggerState.hpp>
+#include <trigger/TriggerState.hpp>
 
-of::common::String of::module::save_state::SaveStateTypeRef<of::resource::trigger::TriggerState>::type = "TriggerState";
+of::common::String of::module::save_state::SaveStateTypeRef<of::trigger::TriggerState>::type = "TriggerState";
 
-namespace of::resource::trigger
+namespace of::trigger
 {
 	common::String TriggerState::getType() const
 	{

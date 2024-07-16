@@ -24,7 +24,7 @@ namespace Trigger
 			break;
 		}
 	}
-	std::unique_ptr<of::resource::trigger::Trigger> QuestTrigger::clone() const
+	std::unique_ptr<of::trigger::Trigger> QuestTrigger::clone() const
 	{
 		return std::make_unique<QuestTrigger>(*this);
 	}

@@ -27,9 +27,6 @@
     <Filter Include="include\resource\trigger">
       <UniqueIdentifier>{612b2229-28e7-4a0c-bdf7-e9359f72fb6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\resource\trigger">
-      <UniqueIdentifier>{71fc05d0-bde1-4877-a7f2-c52609bc8993}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\object\messaging">
       <UniqueIdentifier>{e7519405-d77a-4df6-99e8-3beebeb4019e}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,12 @@
     <Filter Include="src\engine">
       <UniqueIdentifier>{9d522ffb-fb7c-4df7-a2bc-85d4561d4cd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\trigger">
+      <UniqueIdentifier>{151fcd31-85ec-4d85-871b-a8be7935271a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\trigger">
+      <UniqueIdentifier>{71fc05d0-bde1-4877-a7f2-c52609bc8993}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\module\SaveFile.hpp">
@@ -73,12 +76,6 @@
     </ClInclude>
     <ClInclude Include="include\object\GameObject.hpp">
       <Filter>include\object</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resource\trigger\Trigger.hpp">
-      <Filter>include\resource\trigger</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resource\trigger\TriggerState.hpp">
-      <Filter>include\resource\trigger</Filter>
     </ClInclude>
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp">
       <Filter>include\object\messaging</Filter>
@@ -113,6 +110,12 @@
     <ClInclude Include="include\object\InstanceHandler.hpp">
       <Filter>include\object</Filter>
     </ClInclude>
+    <ClInclude Include="include\trigger\TriggerState.hpp">
+      <Filter>include\trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="include\trigger\Trigger.hpp">
+      <Filter>include\trigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">
@@ -122,10 +125,10 @@
       <Filter>src\resource</Filter>
     </ClCompile>
     <ClCompile Include="src\Trigger.cpp">
-      <Filter>src\resource\trigger</Filter>
+      <Filter>src\trigger</Filter>
     </ClCompile>
     <ClCompile Include="src\TriggerState.cpp">
-      <Filter>src\resource\trigger</Filter>
+      <Filter>src\trigger</Filter>
     </ClCompile>
     <ClCompile Include="src\BaseComponentDefiner.cpp">
       <Filter>src\object\component\base</Filter>

@@ -1,11 +1,11 @@
 #ifndef DespawnObjectTrigger_HPP
 #define DespawnObjectTrigger_HPP
 
-#include <resource/trigger/Trigger.hpp>
+#include <trigger/Trigger.hpp>
 
 namespace Trigger
 {
-	class DespawnObjectTrigger : public of::resource::trigger::Trigger
+	class DespawnObjectTrigger : public of::trigger::Trigger
 	{
 
 	public:

@@ -4,15 +4,15 @@
 #include <cereal/cereal.hpp>
 
 #include <vector>
-#include <resource/trigger/Trigger.hpp>
+#include <trigger/Trigger.hpp>
 
 namespace Trigger
 {
-	class TriggerList : public of::resource::trigger::Trigger
+	class TriggerList : public of::trigger::Trigger
 	{
 	public:
 
-		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> triggerList;
+		std::vector<std::unique_ptr<of::trigger::Trigger>> triggerList;
 
 		// Inherited via Trigger
 		virtual void executeInternal() override;

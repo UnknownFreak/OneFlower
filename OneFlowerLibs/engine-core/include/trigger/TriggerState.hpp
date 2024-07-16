@@ -5,7 +5,7 @@
 
 #include <module/SaveState.hpp>
 
-namespace of::resource::trigger
+namespace of::trigger
 {
 	class TriggerState : public of::module::save_state::SaveState
 	{
@@ -34,4 +34,4 @@ namespace of::resource::trigger
 	};
 
 }
-CEREAL_REGISTER_TYPE(of::resource::trigger::TriggerState);
+CEREAL_REGISTER_TYPE(of::trigger::TriggerState);

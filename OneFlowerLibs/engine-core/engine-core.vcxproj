@@ -151,8 +151,8 @@
     <ClInclude Include="include\resource\GameMode.hpp" />
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
     <ClInclude Include="include\resource\Prefab.hpp" />
-    <ClInclude Include="include\resource\trigger\Trigger.hpp" />
-    <ClInclude Include="include\resource\trigger\TriggerState.hpp" />
+    <ClInclude Include="include\trigger\Trigger.hpp" />
+    <ClInclude Include="include\trigger\TriggerState.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">

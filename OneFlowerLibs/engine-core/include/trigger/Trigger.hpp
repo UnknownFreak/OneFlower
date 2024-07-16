@@ -4,7 +4,7 @@
 #include <cereal/cereal.hpp>
 #include <utils/common/uuid.hpp>
 
-namespace of::resource::trigger
+namespace of::trigger
 {
 	class Trigger
 	{

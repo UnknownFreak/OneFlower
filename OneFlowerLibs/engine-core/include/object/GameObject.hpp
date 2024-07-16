@@ -18,7 +18,7 @@
 #include "component/BaseComponent.hpp"
 
 #include <resource/GameModeModifier.hpp>
-#include <resource/trigger/Trigger.hpp>
+#include <trigger/Trigger.hpp>
 
 #include <module/SaveSetting.hpp>
 
@@ -36,7 +36,7 @@ namespace of::object
 		friend class of::object::InstanceHandler;
 		friend class component::Base;
 
-		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;
+		std::vector<std::unique_ptr<of::trigger::Trigger>> onDeathTriggers;
 
 		void resolveReferences();
 

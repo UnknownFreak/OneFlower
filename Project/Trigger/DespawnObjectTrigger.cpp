@@ -8,7 +8,7 @@ namespace Trigger
 	{
 		of::engine::GetModule<of::object::InstanceHandler>().removeObject(gameObjectToDespawn);
 	}
-	std::unique_ptr<of::resource::trigger::Trigger> DespawnObjectTrigger::clone() const
+	std::unique_ptr<of::trigger::Trigger> DespawnObjectTrigger::clone() const
 	{
 		return std::make_unique<DespawnObjectTrigger>(*this);
 	}
