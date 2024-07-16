@@ -24,7 +24,7 @@
     <ClCompile Include="src\ConsoleLogStream.cpp">
       <Filter>src\streams</Filter>
     </ClCompile>
-    <ClCompile Include="src\OneLogger.cpp">
+    <ClCompile Include="src\Logger.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="include\logger\ModuleLogger.hpp">
       <Filter>include\logger</Filter>
     </ClInclude>
-    <ClInclude Include="include\logger\OneLogger.hpp">
+    <ClInclude Include="include\logger\Logger.hpp">
       <Filter>include\logger</Filter>
     </ClInclude>
     <ClInclude Include="include\logger\streams\BasicLogStream.hpp">

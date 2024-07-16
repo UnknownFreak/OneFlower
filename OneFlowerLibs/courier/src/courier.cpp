@@ -1,5 +1,5 @@
 #include <courier/courier.hpp>
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #include <iostream>
 
@@ -16,7 +16,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -29,7 +29,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -42,7 +42,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -69,9 +69,9 @@ namespace of::courier
 	{
 		if (channels.find(topic) == channels.end())
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Info(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Info(
 				"Trying to add a subscriber to a topic that has no registered channel.");
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Info(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Info(
 				"Creating channel automatically.");
 			createChannel(topic);
 		}
@@ -86,9 +86,9 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
 				"Trying to remove a subscriber from a topic that has no registererd channel.");
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Courier").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
 				"Topic = ", (unsigned int)topic, ", subscriberId = ", subscriberId);
 		}
 	}

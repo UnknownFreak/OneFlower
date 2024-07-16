@@ -23,14 +23,14 @@ namespace of::logger
 	typedef streams::BasicLogStream stream;
 #endif
 
-	class OneLogger : public LoggerBase, public of::module::interface::IEngineResource<OneLogger>
+	class Logger : public LoggerBase, public of::module::interface::IEngineResource<Logger>
 	{
 		static ModuleLogger EMPTY;
 		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
 	public:
-		OneLogger();
-		OneLogger(std::shared_ptr<streams::LogStream> logStream);
-		~OneLogger();
+		Logger();
+		Logger(std::shared_ptr<streams::LogStream> logStream);
+		~Logger();
 
 		ModuleLogger& getLogger(const common::String& moduleName)
 		{

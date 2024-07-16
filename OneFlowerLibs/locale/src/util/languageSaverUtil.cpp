@@ -1,7 +1,7 @@
 #include <locale/LanguageRequestor.hpp>
 #include <file/archive/loadHeader.hpp>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #include "langaugeSaverUtil.hpp"
 
@@ -31,7 +31,7 @@ namespace of::locale::utils
 		common::String idx = filename;
 		std::ofstream file(common::langPath + filename, std::ios::binary);
 		idx.append(".index");
-		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("of::locale::utils::saveLanguageFile");
+		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("of::locale::utils::saveLanguageFile");
 		logger.Debug("Saving file: " + filename);
 		std::ofstream index(common::langPath + idx, std::ios::binary);
 		{

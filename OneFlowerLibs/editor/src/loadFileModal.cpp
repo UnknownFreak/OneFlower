@@ -44,7 +44,7 @@ namespace of::editor::modal
 		manager.buildModOrderFile(m_selectedFile, loadOrder);
 
 		manager.openedFile = header;
-		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("of::editor::modal::LoadFile");
+		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("of::editor::modal::LoadFile");
 		logger.Debug("Loading Editor Variables...");
 		manager.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");

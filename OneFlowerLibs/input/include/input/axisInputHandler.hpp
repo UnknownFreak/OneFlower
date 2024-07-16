@@ -3,7 +3,7 @@
 
 #include <functional>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #include "InputHandlerBase.hpp"
 

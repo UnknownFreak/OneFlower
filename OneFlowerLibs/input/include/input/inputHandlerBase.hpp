@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #include "Callback.hpp"
 
@@ -37,7 +37,7 @@ namespace of::input
 			typename std::unordered_map<T, callbackVector>::iterator it = holder.find(input);
 			if (it == holder.end())
 			{
-				//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from holder [" + "TMP" +
+				//Engine::Get<Logger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from holder [" + "TMP" +
 				//	"] when input type is not even registered.");
 			}
 			else
@@ -45,7 +45,7 @@ namespace of::input
 				typename std::vector<Callback::Callback<T2, T>>::iterator iit = std::find(it->second.begin(), it->second.end(), Callback::Callback<T2, T > (callbackToRemove));
 				if (iit == it->second.end())
 				{
-					//Engine::Get<OneLogger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from [" + "TMP" + "] with input value["
+					//Engine::Get<Logger>().Warning("Trying to remove callback [" + (Core::String)callbackToRemove + "] from [" + "TMP" + "] with input value["
 					//+ input + "] but it was not found in the vector for that input value.");
 				}
 				else

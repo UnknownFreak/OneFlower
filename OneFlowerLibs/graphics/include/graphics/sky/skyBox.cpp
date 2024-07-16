@@ -1,6 +1,6 @@
 #include "SkyBox.hpp"
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/TextureLoader.hpp>
@@ -25,7 +25,7 @@ namespace of::graphics::sky
 
 	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
 	{
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("Graphics::Skybox").Info("Loading skybox");
+		of::engine::GetModule<of::logger::Logger>().getLogger("Graphics::Skybox").Info("Loading skybox");
 		loaded = false;
 
 		swizzle::gfx::ShaderAttributeList attribs = {};
@@ -57,7 +57,7 @@ namespace of::graphics::sky
 		mModel.material->setDescriptorTextureResource(0, mModel.texture);
 
 		loaded = true;
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
+		of::engine::GetModule<of::logger::Logger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
 	}
 

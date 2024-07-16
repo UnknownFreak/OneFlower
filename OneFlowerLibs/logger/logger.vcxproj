@@ -145,13 +145,13 @@
   <ItemGroup>
     <ClCompile Include="src\BasicLogStream.cpp" />
     <ClCompile Include="src\ConsoleLogStream.cpp" />
-    <ClCompile Include="src\OneLogger.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\logger\LoggerBase.hpp" />
     <ClInclude Include="include\logger\LogLevel.hpp" />
     <ClInclude Include="include\logger\ModuleLogger.hpp" />
-    <ClInclude Include="include\logger\OneLogger.hpp" />
+    <ClInclude Include="include\logger\Logger.hpp" />
     <ClInclude Include="include\logger\streams\BasicLogStream.hpp" />
     <ClInclude Include="include\logger\streams\ConsoleStream.hpp" />
     <ClInclude Include="include\logger\streams\LogSteam.hpp" />

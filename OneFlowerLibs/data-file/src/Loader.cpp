@@ -1,5 +1,5 @@
 #include <file/Loader.hpp>
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::file::Loader>::type = of::module::EngineResourceType::Loader;
@@ -13,7 +13,7 @@ namespace of::file
 			return it->second;
 		else
 		{
-			auto& logger = engine::GetModule<logger::OneLogger>().getLogger("File::Loader");
+			auto& logger = engine::GetModule<logger::Logger>().getLogger("File::Loader");
 			logger.Error("Failed to get mod position", logger.fileInfo(__FILE__, __LINE__));
 			return 0xFFFFFFFF;
 		}

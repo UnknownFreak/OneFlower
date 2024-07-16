@@ -1,6 +1,6 @@
 #include "GameConfig.hpp"
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::Settings;
 
@@ -43,11 +43,11 @@ void EngineModule::GameConfig::load()
 	physicsForceSingleThread = parser.get("physics", "forceSingleThread", false);
 	physicsAdaptiveRegions = parser.get("physics", "adaptiveRegions", true);
 
-	of::engine::GetModule<of::logger::OneLogger>().setLogLevel(logLevel);
+	of::engine::GetModule<of::logger::Logger>().setLogLevel(logLevel);
 	for (auto& logger_level : parser.get("logger").values)
 	{
 		if (logger_level.first != "core.level")
-			of::engine::GetModule<of::logger::OneLogger>().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
+			of::engine::GetModule<of::logger::Logger>().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
 	}
 
 	configLoaded = true;

@@ -1,7 +1,7 @@
 #include <combat/Element.hpp>
 
 #include <file/Handler.hpp>
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 of::common::uuid of::file::archive::Trait<of::combat::Element>::typeId = of::common::uuid("1423d23c-e7d0-493a-9e03-0c68a1714703");
 
@@ -28,7 +28,7 @@ namespace of::combat
 			return elementAttributes.at(element);
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
+			of::engine::GetModule<of::logger::Logger>().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
 				"to internal damageToUnknownType(" + std::to_string(damageToUnknownType).c_str() + ")");
 			return damageToUnknownType;
 		}

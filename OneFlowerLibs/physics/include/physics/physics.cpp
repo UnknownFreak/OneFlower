@@ -30,7 +30,7 @@ namespace of::module::physics
 
 	void PhysicsHandler::ErrorCallBack::reportError(physx::PxErrorCode::Enum code, const char* message, const char* file, int line)
 	{
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("PhysX").Always(code, message, file, line);
+		of::engine::GetModule<of::logger::Logger>().getLogger("PhysX").Always(code, message, file, line);
 		std::cout << message << " " << file << " " << line << std::endl;
 	}
 
@@ -50,7 +50,7 @@ namespace of::module::physics
 		auto mesh = PxCreateTriangleMesh(params, desc);
 		if (mesh == nullptr)
 		{
-			of::engine::GetModule<of::logger::OneLogger>().Error("Failed to load collision mesh");
+			of::engine::GetModule<of::logger::Logger>().Error("Failed to load collision mesh");
 		}
 
 		return mesh;
@@ -74,7 +74,7 @@ namespace of::module::physics
 		auto mesh = PxCreateConvexMesh(params, desc);
 		if (mesh == nullptr)
 		{
-			of::engine::GetModule<of::logger::OneLogger>().Error("Failed to load collision mesh");
+			of::engine::GetModule<of::logger::Logger>().Error("Failed to load collision mesh");
 		}
 
 		return mesh;
@@ -247,7 +247,7 @@ namespace of::module::physics
 
 			if (pairs[i].triggerActor == nullptr || pairs[i].otherActor == nullptr)
 			{
-				of::engine::GetModule<of::logger::OneLogger>().getLogger("PhysicsHandler").Error("Trigger actor or 'otherActor' is nullptr, skipping onTrigger activation");
+				of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor or 'otherActor' is nullptr, skipping onTrigger activation");
 			}
 			else
 			{
@@ -264,7 +264,7 @@ namespace of::module::physics
 				}
 				else
 				{
-					of::engine::GetModule<of::logger::OneLogger>().getLogger("PhysicsHandler").Error("Trigger actor has no userData!");
+					of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor has no userData!");
 					std::cout << "trigger > " << pairs[i].triggerActor->getName() << ", " << pairs[i].otherActor->getName() << std::endl;
 				}
 			}

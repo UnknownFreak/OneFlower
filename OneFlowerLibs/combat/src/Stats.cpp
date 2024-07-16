@@ -203,7 +203,7 @@ namespace of::object::component
 			auto critDamageMult = statChances[Enums::StatType::CritDamage].getValue();
 			trueDamage *= critDamageMult;
 		}
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
+		of::engine::GetModule<of::logger::Logger>().getLogger("Component::Stats").Info("Damage dealt: " + std::to_string(trueDamage));
 		mainStat[Enums::StatType::Health].current -= trueDamage * attunedTo.getElementModifier(damageElement.getModfile());
 		if (mainStat[Enums::StatType::Health].current <= 0)
 		{

@@ -108,7 +108,7 @@ namespace of::config
 	void ConfigParser::save(const common::String& configFile)
 	{
 		fileName = configFile;
-		//Engine::GetModule<of::logger::OneLogger>().getLogger("ConfigParser").Debug("Begin writing configuration file ", fileName);
+		//Engine::GetModule<of::logger::Logger>().getLogger("ConfigParser").Debug("Begin writing configuration file ", fileName);
 		std::ofstream file(fileName);
 		{
 			for (auto& x : sections)
@@ -128,7 +128,7 @@ namespace of::config
 				}
 			}
 		}
-		//Engine::GetModule<of::logger::OneLogger>().getLogger("ConfigParser").Debug("Finished writing configuration file ", fileName);
+		//Engine::GetModule<of::logger::Logger>().getLogger("ConfigParser").Debug("Finished writing configuration file ", fileName);
 		file.flush();
 		file.close();
 	}

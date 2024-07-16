@@ -1,6 +1,6 @@
 #include "Dialog.hpp"
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 void Dialog::onMessage(const of::object::messaging::Message&)
 {

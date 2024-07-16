@@ -1,6 +1,6 @@
 #include <courier/channelTopic.hpp>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #ifdef _WIN32
 #include <ppl.h>
@@ -61,7 +61,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::ChannelTopic").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::ChannelTopic").Warning(
 				"Trying to post a message to a channel that does not exist");
 		}
 	}
@@ -78,7 +78,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::ChannelTopic").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::ChannelTopic").Warning(
 				"Trying to post a message to a channel that does not exist");
 		}
 	}

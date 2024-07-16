@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <swizzle/gfx/Shader.hpp>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
@@ -17,7 +17,7 @@ namespace of::module::shader
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("shader::Loader");
+			auto& logger = engine::GetModule <logger::Logger>().getLogger("shader::Loader");
 			logger.Error("Unable to locate shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -31,7 +31,7 @@ namespace of::module::shader
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
-			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("shader::Loader");
+			auto& logger = engine::GetModule <logger::Logger>().getLogger("shader::Loader");
 			logger.Error("Unable to load shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		}
 		//, path.c_str(), true)));
@@ -108,7 +108,7 @@ namespace of::module::shader
 	{
 		if (loadedShaders.find(name) != loadedShaders.end())
 		{
-			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("shader::Loader");
+			auto& logger = engine::GetModule <logger::Logger>().getLogger("shader::Loader");
 			logger.Info("Unloading shader " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedShaders.erase(name);
 		}

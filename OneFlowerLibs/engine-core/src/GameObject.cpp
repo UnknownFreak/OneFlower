@@ -5,7 +5,7 @@
 
 #include <object/InstanceHandler.hpp>
 #include <file/SaveFile.hpp>
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 namespace of::object
 {
@@ -90,7 +90,7 @@ namespace of::object
 
 	GameObject::~GameObject() noexcept
 	{
-		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Object::GameObject");
+		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("Object::GameObject");
 		logger.Debug("~GameObject -> id: " + id.to_string());
 		logger.Debug("~GameObject -> tag: " + tag);
 		for (auto& x : componentMap)
@@ -112,7 +112,7 @@ namespace of::object
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("Object::GameObject").Warning("Trying to perform interact with an object that has no player interact prompt added to it.");
+			of::engine::GetModule<of::logger::Logger>().getLogger("Object::GameObject").Warning("Trying to perform interact with an object that has no player interact prompt added to it.");
 		}
 		return false;
 	}
@@ -169,7 +169,7 @@ namespace of::object
 
 	void GameObject::onDelete()
 	{
-		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Object::GameObject");
+		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("Object::GameObject");
 		logger.Debug("OnDelete -> Enter");
 		//if (unloading)
 		//{

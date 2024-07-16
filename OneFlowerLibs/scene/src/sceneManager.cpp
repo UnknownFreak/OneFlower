@@ -81,7 +81,7 @@ namespace of::module
 		loadingScreenToLoad = loadingScreen;
 		playerPos = playerPosition;
 		loadArgs = _loadArgs;
-		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("LoadingStateMachine");
+		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("LoadingStateMachine");
 		logger.Info("Begin loading world " + world(), logger.fileInfo(__FILE__, __LINE__));
 		of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).reset();
 	}
@@ -373,7 +373,7 @@ namespace of::module
 
 				if (parent.saveFile.getState<of::object::ObjectSaveState>(bufferObj.objectId)->objectState == of::object::ObjectState::NoRecreate)
 				{
-					of::engine::GetModule<of::logger::OneLogger>().getLogger("LoadingStateMachine").Debug("Skipping object creation as it's flagged NoRecreate in saveFile");
+					of::engine::GetModule<of::logger::Logger>().getLogger("LoadingStateMachine").Debug("Skipping object creation as it's flagged NoRecreate in saveFile");
 					// Pass
 				}
 				else
@@ -408,7 +408,7 @@ namespace of::module
 	{
 		if (parent.isLoading)
 		{
-			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("LoadingStateMachine");
+			auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("LoadingStateMachine");
 			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
 		}
 		// TODO: replace with GameObject MessageTopic SetPosition
@@ -468,7 +468,7 @@ namespace of::module
 
 	void SceneManager::newGame()
 	{
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("SceneManager").Info("New Game");
+		of::engine::GetModule<of::logger::Logger>().getLogger("SceneManager").Info("New Game");
 		saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 		auto& p = saveFile.getGameMode();
 		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition, of::world::LoadArgs::NEW_GAME);
@@ -485,7 +485,7 @@ namespace of::module
 	void SceneManager::save(const of::common::String& fileName)
 	{
 		objectHandler.persistGameObjects();
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("SceneManager").Info("Save Game");
+		of::engine::GetModule<of::logger::Logger>().getLogger("SceneManager").Info("Save Game");
 		saveFile.currentZone = loadStateMachine.getCurrentWorld();
 		saveFile.loadingScreen = loadStateMachine.getCurrentLoadingScreen();
 		saveFile.setDespawnTimers(objectHandler.objectsToDelete);
@@ -494,7 +494,7 @@ namespace of::module
 
 	void SceneManager::load(const of::common::String& fileName)
 	{
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("SceneManager").Info("Load Game");
+		of::engine::GetModule<of::logger::Logger>().getLogger("SceneManager").Info("Load Game");
 		isLoading = true;
 		saveFile.load(fileName);
 		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point, of::world::LoadArgs::LOAD_FROM_FILE);

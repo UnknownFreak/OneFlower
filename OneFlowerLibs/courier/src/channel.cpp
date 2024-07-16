@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 
 #ifdef _WIN32
 #include <ppl.h>
@@ -26,7 +26,7 @@ namespace of::courier
 	{
 		if (subscribers.size() != 0)
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::courier::Channel").Warning("Dangling subscribers on destruction");
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Channel").Warning("Dangling subscribers on destruction");
 		}
 	}
 	void Channel::sendMessage(const Message& message)
@@ -69,7 +69,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::messaging::Channel").Warning(
+			of::engine::GetModule<of::logger::Logger>().getLogger("of::messaging::Channel").Warning(
 				"Trying to send message to a subscriber that does not exist.");
 		}
 		//*/

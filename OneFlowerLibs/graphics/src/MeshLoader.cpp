@@ -1,6 +1,6 @@
 #include <module/resource/MeshLoader.hpp>
 
-#include <logger/OneLogger.hpp>
+#include <logger/Logger.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 #include <filesystem>
@@ -15,7 +15,7 @@ namespace of::module::mesh
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("of::resource::mesh::Loader");
+			auto& logger = engine::GetModule <logger::Logger>().getLogger("of::resource::mesh::Loader");
 			logger.Error("Unable to load mesh [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			if (name == Settings::meshPath + missingMesh)
 			{
@@ -67,8 +67,8 @@ namespace of::module::mesh
 				if (loadMesh(meshAsset, path + name, meshDescription) == false)
 				{
 					// fallback to missing mesh
-					of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
-					of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
+					of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
+					of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
 					return requestModel(missingMesh, Settings::meshPath, collisionModel);
 				}
 
@@ -103,8 +103,8 @@ namespace of::module::mesh
 			return mLoadedModels[{path + name, collisionModel}];
 
 		}
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
-		of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
+		of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
+		of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
 		return requestModel(missingMesh, Settings::meshPath, collisionModel);
 	}
 
@@ -112,7 +112,7 @@ namespace of::module::mesh
 	{
 		if (mLoadedModels.find({ path + name , collisionModel }) != mLoadedModels.end())
 		{
-			auto& logger = engine::GetModule <logger::OneLogger>().getLogger("of::resource::mesh::Loader");
+			auto& logger = engine::GetModule <logger::Logger>().getLogger("of::resource::mesh::Loader");
 			logger.Info("Unloading model " + path + name, logger.fileInfo(__FILE__, __LINE__));
 			mLoadedModels.erase({ path + name, collisionModel });
 		}
