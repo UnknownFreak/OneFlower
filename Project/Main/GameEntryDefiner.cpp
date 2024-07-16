@@ -1169,6 +1169,7 @@ void GameEntry::physicsUpdate()
 				courier.post(of::courier::Topic::Update, message);
 				courier.post(of::courier::Topic::PhysicsUpdate, message);
 				courier.post(of::courier::Topic::SingleThreadUpdate, message);
+				courier.handleScheduledMessages();
 				courier.handleScheduledRemovals();
 			}
 			ups->update();

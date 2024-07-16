@@ -46,6 +46,24 @@ namespace of::courier
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
+	void Courier::schedule(const Topic topic, const Message& message)
+	{
+		scheduledMessages[topic].push_back(internal::ScheduledMessage{
+			false, false, of::common::uuid::nil(), 0, message
+		});
+	}
+	void Courier::schedule(const Topic topic, const of::common::uuid& channel, const Message& message)
+	{
+		scheduledMessages[topic].push_back(internal::ScheduledMessage{
+			true, false, channel, 0, message
+		});
+	}
+	void Courier::schedule(const Topic topic, const of::common::uuid& channel, const size_t subscriber, const Message& message)
+	{
+		scheduledMessages[topic].push_back(internal::ScheduledMessage{
+			true, true, channel, subscriber, message
+		});
+	}
 
 	void Courier::addSubscriber(const Topic topic, const Subscriber& subscriber)
 	{
@@ -78,6 +96,31 @@ namespace of::courier
 	void Courier::scheduleRemoval(const Topic topic, const size_t subscriberId)
 	{
 		channels[topic]->scheduleRemoval(subscriberId);
+	}
+
+	void Courier::handleScheduledMessages()
+	{
+		for (auto [topic, messages] : scheduledMessages)
+		{
+			for (auto& message : messages)
+			{
+				if (message.sendToChannel == true)
+				{
+					if (message.sendToSubscriber)
+					{
+						post(topic, message.channel, message.subscriber, message.message);
+					}
+					else
+					{
+						post(topic, message.channel, message.message);
+					}
+				}
+				else
+				{
+					post(topic, message.message);
+				}
+			}
+		}
 	}
 
 	void Courier::handleScheduledRemovals()

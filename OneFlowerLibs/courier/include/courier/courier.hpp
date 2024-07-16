@@ -6,6 +6,7 @@
 #include <map>
 
 #include <courier/message.hpp>
+#include <courier/scheduledMessage.hpp>
 #include <courier/channel.hpp>
 #include <courier/channelTopic.hpp>
 #include <courier/subscriber.hpp>
@@ -22,6 +23,10 @@ namespace of::courier
 		void post(const Topic topic, const Message& message);
 		void post(const Topic topic, const of::common::uuid& channel, const Message& message);
 		void post(const Topic topic, const of::common::uuid& channel, const size_t subscriberId, const Message& message);
+
+		void schedule(const Topic topic, const Message& message);
+		void schedule(const Topic topic, const of::common::uuid& channel, const Message& message);
+		void schedule(const Topic topic, const of::common::uuid& channel, const size_t subscriberId, const Message& message);
 
 		void addSubscriber(const Topic topic, const Subscriber& subscriber);
 		void removeSubscriber(const Topic topic, size_t subscriberId);
@@ -48,9 +53,11 @@ namespace of::courier
 		Courier& operator=(const Courier) = delete;
 
 		void scheduleRemoval(const Topic, const size_t subscriberId);
+		void handleScheduledMessages();
 		void handleScheduledRemovals();
 	private:
 		std::map<Topic, std::shared_ptr<ChannelTopic>> channels;
+		std::map<Topic, std::vector<internal::ScheduledMessage>> scheduledMessages;
 
 	};
 }

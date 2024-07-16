@@ -41,6 +41,9 @@
     <ClInclude Include="include\courier\messageType.hpp">
       <Filter>include\courier\message</Filter>
     </ClInclude>
+    <ClInclude Include="include\courier\scheduledMessage.hpp">
+      <Filter>include\courier\message</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\courier.cpp">

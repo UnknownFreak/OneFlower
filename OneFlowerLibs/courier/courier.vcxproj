@@ -142,6 +142,7 @@
     <ClInclude Include="include\courier\message.hpp" />
     <ClInclude Include="include\courier\messageType.hpp" />
     <ClInclude Include="include\courier\messageValidator.hpp" />
+    <ClInclude Include="include\courier\scheduledMessage.hpp" />
     <ClInclude Include="include\courier\subscriber.hpp" />
     <ClInclude Include="include\courier\topic.hpp" />
   </ItemGroup>
