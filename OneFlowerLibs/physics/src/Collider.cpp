@@ -23,7 +23,7 @@ namespace of::object::component
 			{
 				if (mActor)
 				{
-					constexpr float dtr = std::_Pi_val / 180;
+					constexpr float dtr = glm::pi<float>() / 180.f;
 					Transform* t = (Transform*)ref->transformVp;
 					physx::PxTransform newPose(physx::PxVec3(t->pos.x, t->pos.y, t->pos.z));
 					glm::vec3 nrot = t->rot;

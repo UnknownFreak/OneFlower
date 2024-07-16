@@ -63,6 +63,8 @@
 bool paused = false;
 static size_t mId = 0x100000000;
 
+constexpr float pi = glm::pi<float>();
+
 class WorldGrid : public of::graphics::ParentedRenderable
 {
 
@@ -303,7 +305,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi/ 8.f) * i;
 				auto x = radii * 0.3 * cos(angle);
 				auto y = radii * 0.3 * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.98f), y));
@@ -312,7 +314,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi / 8.f) * i;
 				auto x = radii * 0.7 * cos(angle);
 				auto y = radii * 0.7 * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.9f), y));
@@ -321,7 +323,7 @@ public:
 			
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi / 8.f) * i;
 				auto x = radii * cos(angle);
 				auto y = radii * sin(angle);
 				points.push_back(glm::vec3(x, -(height * 0.8f), y));
@@ -330,7 +332,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi / 8.f) * i;
 				auto x = radii * cos(angle);
 				auto y = radii * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * 0.8f), y));
@@ -339,7 +341,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi / 8.f) * i;
 				auto x = radii * 0.7 * cos(angle);
 				auto y = radii * 0.7 * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * .9f), y));
@@ -348,7 +350,7 @@ public:
 
 			for (int i = 0; i < 16; i++)
 			{
-				auto angle = (std::_Pi_val / 8.f) * i;
+				auto angle = (pi / 8.f) * i;
 				auto x = radii * 0.3 * cos(angle);
 				auto y = radii * 0.3 * sin(angle);
 				points.push_back(glm::vec3(x, (topHeight * .98f), y));
