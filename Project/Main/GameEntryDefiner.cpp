@@ -204,7 +204,7 @@ public:
 			m_add = false;
 			for (int i = 0; i < val; i++)
 			{
-				of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
+				of::engine::GetModule<of::object::InstanceHandler>().addObject();
 			}
 		}
 		string = std::to_string(m_channel->getSubscribersCount());
@@ -1046,7 +1046,7 @@ int GameEntry::Run()
 		world.Update();
 	}
 
-	auto door = of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
+	auto door = of::engine::GetModule<of::object::InstanceHandler>().addObject();
 
 	door->initialize();
 
@@ -1078,7 +1078,7 @@ int GameEntry::Run()
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
 	//*/
 
-	auto controller = of::engine::GetModule<of::module::ObjectInstanceHandler>().player->add<of::object::component::PlayerController>();
+	auto controller = of::engine::GetModule<of::object::InstanceHandler>().player->add<of::object::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());

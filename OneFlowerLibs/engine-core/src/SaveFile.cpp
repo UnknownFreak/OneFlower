@@ -5,7 +5,7 @@
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/archives/binary.hpp>
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::module::SaveFile>::type = of::module::EngineResourceType::SaveFile;
@@ -15,7 +15,7 @@ namespace of::module
 
 	void SaveFile::setPlayerInfo()
 	{
-		auto& objectHandler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
 		objectHandler.player = &player;
 	}
 

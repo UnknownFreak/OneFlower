@@ -1,7 +1,7 @@
 #include <resource/Prefab.hpp>
 
 #include <module/Random.hpp>
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 
 #include <object/GameObject.hpp>
@@ -49,7 +49,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		if (x.exists(uuid))
 			return x.getObject(uuid);
 		auto object = x.addObject(uuid);
@@ -62,7 +62,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool& isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->get<of::object::component::Transform>();
@@ -82,7 +82,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool& isPlayerSummon) const
 	{
-		auto x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->get<of::object::component::Transform>();

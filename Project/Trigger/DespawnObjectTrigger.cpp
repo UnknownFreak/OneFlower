@@ -1,12 +1,12 @@
 #include "DespawnObjectTrigger.hpp"
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 
 namespace Trigger
 {
 	void DespawnObjectTrigger::executeInternal()
 	{
-		of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(gameObjectToDespawn);
+		of::engine::GetModule<of::object::InstanceHandler>().removeObject(gameObjectToDespawn);
 	}
 	std::unique_ptr<of::resource::trigger::Trigger> DespawnObjectTrigger::clone() const
 	{

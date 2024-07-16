@@ -2,7 +2,7 @@
 
 #include <file/Handler.hpp>
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <object/component/Render.hpp>
 #include <Items/Inventory.hpp>
 #include <Items/LootContainer.hpp>
@@ -23,7 +23,7 @@ namespace of::object::component
 		{
 			if (!looted && lootDrops.size() != 0)
 			{
-				auto go = of::engine::GetModule<of::module::ObjectInstanceHandler>().addObject();
+				auto go = of::engine::GetModule<of::object::InstanceHandler>().addObject();
 				go->add<Render>();
 				go->get<of::object::component::Transform>()->pos = attachedOn->get<of::object::component::Transform>()->pos;
 				go->add<of::object::component::LootContainer>();

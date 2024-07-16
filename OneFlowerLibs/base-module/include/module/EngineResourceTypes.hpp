@@ -22,7 +22,7 @@ namespace of::module
 		TextureLoader,
 		Console,
 		UIHandler,
-		ObjectInstanceHandler,
+		InstanceHandler,
 		RandomGen,
 		SaveFile,
 		MeshLoader,

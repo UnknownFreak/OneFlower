@@ -1,5 +1,5 @@
-#ifndef ObjectInstanceHandler_HPP
-#define ObjectInstanceHandler_HPP
+#ifndef InstanceHandler_HPP
+#define InstanceHandler_HPP
 
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
@@ -7,10 +7,10 @@
 #include <object/GameObject.hpp>
 #include <unordered_map>
 
-namespace of::module
+namespace of::object
 {
 
-	class ObjectInstanceHandler : public of::module::interface::IEngineResource<ObjectInstanceHandler>
+	class InstanceHandler : public of::module::interface::IEngineResource<InstanceHandler>
 	{
 		
 	public:
@@ -26,9 +26,9 @@ namespace of::module
 		bool exists(const of::common::uuid& uuid) const;
 		object::GameObject* getPlayer() const;
 
-		void removeObject(const of::common::uuid objectId, const float& delayedTime=0);
+		void removeObject(const of::common::uuid& objectId, const float delayedTime=0.f);
 
-		void processDeletedObjects(const float& elapsedTime);
+		void processDeletedObjects(const float elapsedTime);
 
 		void unloadAll();
 		void unloadNonUnique();
@@ -41,4 +41,5 @@ namespace of::module
 		}
 	};
 }
+
 #endif

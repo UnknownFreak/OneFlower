@@ -9,6 +9,6 @@ namespace of::engine
 	};
 
 	RunMode getRunMode();
-	void setRunMode(const RunMode& runMode);
+	void setRunMode(const RunMode runMode);
 	void lockRunMode();
 }

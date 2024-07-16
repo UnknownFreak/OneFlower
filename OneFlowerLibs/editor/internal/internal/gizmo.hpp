@@ -6,7 +6,7 @@
 
 #include <courier/courier.hpp>
 #include <input/inputHandler.hpp>
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 
 #include <utils/lifetime/lifetimeWarranty.hpp>
 #include <utils/common/uuid.hpp>
@@ -62,7 +62,7 @@ namespace of::editor
 
 					if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::module::physics::ColliderType::Object ||hitType.hitType == of::module::physics::ColliderType::ObjectTrigger ))
 					{
-						auto o = of::engine::GetModule<of::module::ObjectInstanceHandler>().getObject(hitType.objectId);
+						auto o = of::engine::GetModule<of::object::InstanceHandler>().getObject(hitType.objectId);
 						m_enable = false;
 
 						if (o)

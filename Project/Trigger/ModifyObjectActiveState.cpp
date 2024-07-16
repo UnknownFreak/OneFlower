@@ -1,15 +1,15 @@
 #include "ModifyObjectActiveState.hpp"
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 
 namespace Trigger
 {
 	void ModifyObjectActiveState::executeInternal()
 	{
-		if (of::engine::GetModule<of::module::ObjectInstanceHandler>().exists(gameObjectToModify))
+		if (of::engine::GetModule<of::object::InstanceHandler>().exists(gameObjectToModify))
 		{
-			of::engine::GetModule<of::module::ObjectInstanceHandler>().getObject(gameObjectToModify)->toggleObjectState(objectState);
+			of::engine::GetModule<of::object::InstanceHandler>().getObject(gameObjectToModify)->toggleObjectState(objectState);
 		}
 
 		//of::engine::GetModule<of::module::SaveFile>().setObjectState(gameObjectToModify, objectState);

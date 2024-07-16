@@ -56,9 +56,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\module\ObjectInstanceHandler.hpp">
-      <Filter>include\module</Filter>
-    </ClInclude>
     <ClInclude Include="include\module\SaveFile.hpp">
       <Filter>include\module</Filter>
     </ClInclude>
@@ -113,6 +110,9 @@
     <ClInclude Include="include\engine\runMode.hpp">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="include\object\InstanceHandler.hpp">
+      <Filter>include\object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SaveFile.cpp">
@@ -133,9 +133,6 @@
     <ClCompile Include="src\GameObject.cpp">
       <Filter>src\object</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp">
-      <Filter>src\module</Filter>
-    </ClCompile>
     <ClCompile Include="src\Transform.cpp">
       <Filter>src\object\component</Filter>
     </ClCompile>
@@ -150,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="src\runMode.cpp">
       <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InstanceHandler.cpp">
+      <Filter>src\object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

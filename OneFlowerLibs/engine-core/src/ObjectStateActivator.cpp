@@ -2,7 +2,7 @@
 
 #include <object/GameObject.hpp>
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 
 
@@ -23,7 +23,7 @@ namespace of::object::component
 	void ObjectStateActivator::toggle()
 	{
 
-		auto& handler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto& handler = of::engine::GetModule<of::object::InstanceHandler>();
 		for (auto& [objectId, toggleState] : m_objectsToToggle)
 		{
 			if (handler.exists(objectId))

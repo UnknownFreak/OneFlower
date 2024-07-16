@@ -1,6 +1,6 @@
 #include "HealthTresholdRequirement.hpp"
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
 #include <object/component/Stats.hpp>
 
@@ -9,7 +9,7 @@ namespace Requirement
 
 	bool HealthTresholdRequirement::fullfilled()
 	{
-		auto& x = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);

@@ -7,12 +7,12 @@ namespace of::engine
     static RunMode mode = RunMode::NORMAL;
     static bool locked = false;
 
-    RunMode of::engine::getRunMode()
+    RunMode getRunMode()
     {
         return mode;
     }
 
-    void setRunMode(const RunMode& runMode)
+    void setRunMode(const RunMode runMode)
     {
         if (locked == false)
         {

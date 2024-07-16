@@ -9,7 +9,7 @@
 #include <file/FileId.hpp>
 
 #include <module/IEngineModule.hpp>
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 #include <module/ModuleManager.hpp>
 
@@ -84,7 +84,7 @@ namespace of::module
 
 		LoadingStateMachine loadStateMachine;
 
-		of::module::ObjectInstanceHandler& objectHandler;
+		of::object::InstanceHandler& objectHandler;
 		of::module::SaveFile& saveFile;
 
 		//void doDayCycle(const float& fElapsedTime);

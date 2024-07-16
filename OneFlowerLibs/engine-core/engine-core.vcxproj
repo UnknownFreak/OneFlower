@@ -137,7 +137,6 @@
     <ClInclude Include="include\engine\runMode.hpp" />
     <ClInclude Include="include\module\SaveSetting.hpp" />
     <ClInclude Include="include\module\SaveState.hpp" />
-    <ClInclude Include="include\module\ObjectInstanceHandler.hpp" />
     <ClInclude Include="include\module\SaveFile.hpp" />
     <ClInclude Include="include\object\component\BaseComponent.hpp" />
     <ClInclude Include="include\object\component\ObjectStateActivator.hpp" />
@@ -145,6 +144,7 @@
     <ClInclude Include="include\object\GameObject.hpp" />
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp" />
     <ClInclude Include="include\object\messaging\Topics.hpp" />
+    <ClInclude Include="include\object\InstanceHandler.hpp" />
     <ClInclude Include="include\object\ObjectSaveState.hpp" />
     <ClInclude Include="include\object\ObjectState.hpp" />
     <ClInclude Include="include\resource\DifficultyLevel.hpp" />
@@ -178,7 +178,7 @@
     <ClCompile Include="src\BaseComponentDefiner.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
-    <ClCompile Include="src\ObjectInstanceHandlerDefiner.cpp" />
+    <ClCompile Include="src\InstanceHandler.cpp" />
     <ClCompile Include="src\ObjectSaveState.cpp" />
     <ClCompile Include="src\ObjectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />

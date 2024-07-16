@@ -1,18 +1,18 @@
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::ObjectInstanceHandler>::type = of::module::EngineResourceType::ObjectInstanceHandler;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::object::InstanceHandler>::type = of::module::EngineResourceType::InstanceHandler;
 
-namespace of::module
+namespace of::object
 {
 
-	object::GameObject* ObjectInstanceHandler::addObject()
+	object::GameObject* InstanceHandler::addObject()
 	{
 		of::common::uuid id;
 		return addObject(id);
 	}
 
-	object::GameObject* ObjectInstanceHandler::addObject(const of::common::uuid& uuid)
+	object::GameObject* InstanceHandler::addObject(const of::common::uuid& uuid)
 	{
 		// in place default construct gameobject by accessing element id.
 		object::GameObject* o = &objects[uuid];
@@ -21,7 +21,7 @@ namespace of::module
 		return o;
 	}
 
-	object::GameObject* ObjectInstanceHandler::getObject(const of::common::uuid& uuid)
+	object::GameObject* InstanceHandler::getObject(const of::common::uuid& uuid)
 	{
 		if (exists(uuid))
 			return &objects.at(uuid);
@@ -30,23 +30,23 @@ namespace of::module
 		return nullptr;
 	}
 
-	bool ObjectInstanceHandler::exists(const of::common::uuid& uuid) const
+	bool InstanceHandler::exists(const of::common::uuid& uuid) const
 	{
 		return objects.find(uuid) != objects.end();
 	}
 
-	object::GameObject* ObjectInstanceHandler::getPlayer() const
+	object::GameObject* InstanceHandler::getPlayer() const
 	{
 		return player;
 	}
 
-	void ObjectInstanceHandler::removeObject(of::common::uuid objectId, const float& delayedtime)
+	void InstanceHandler::removeObject(const of::common::uuid& objectId, const float delayedtime)
 	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler").Info("Removing object " + objectId.to_string());
+		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::InstanceHandler").Info("Removing object " + objectId.to_string());
 		objectsToDelete[objectId] = delayedtime;
 	}
 
-	void ObjectInstanceHandler::processDeletedObjects(const float& elapsedTime)
+	void InstanceHandler::processDeletedObjects(const float elapsedTime)
 	{
 		auto it = objectsToDelete.begin();
 		while (it != objectsToDelete.end())
@@ -55,7 +55,7 @@ namespace of::module
 			if (it->second < 0)
 			{
 				auto id = it->first;
-				auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::ObjectInstanceHandler");
+				auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::InstanceHandler");
 				logger.Fine("Processing removal of " + id.to_string());
 				logger.Debug(of::common::toHex((size_t)&it->first));
 				objects[id].onDelete();
@@ -69,18 +69,13 @@ namespace of::module
 		}
 	}
 
-	void ObjectInstanceHandler::unloadAll()
+	void InstanceHandler::unloadAll()
 	{
 		objects.clear();
 		objectsToDelete.clear();
-		//auto it = objects.begin();
-		//while (it !=objects.end())
-		//{
-		//	it = objects.erase(it);
-		//}
 	}
 
-	void ObjectInstanceHandler::unloadNonUnique()
+	void InstanceHandler::unloadNonUnique()
 	{
 		auto it = objects.begin();
 		while (it != objects.end())
@@ -97,7 +92,7 @@ namespace of::module
 		}
 	}
 
-	void ObjectInstanceHandler::persistGameObjects()
+	void InstanceHandler::persistGameObjects()
 	{
 		for (auto& i : objects)
 		{
@@ -106,7 +101,7 @@ namespace of::module
 		}
 	}
 
-	void ObjectInstanceHandler::resolveObjectReferences()
+	void InstanceHandler::resolveObjectReferences()
 	{
 		for (auto& i : objects)
 		{

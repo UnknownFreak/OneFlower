@@ -22,9 +22,9 @@
 
 #include <module/SaveSetting.hpp>
 
-namespace of::module
+namespace of::object
 {
-	class ObjectInstanceHandler;
+	class InstanceHandler;
 }
 
 namespace of::object
@@ -33,7 +33,7 @@ namespace of::object
 
 	class GameObject
 	{
-		friend class of::module::ObjectInstanceHandler;
+		friend class of::object::InstanceHandler;
 		friend class component::Base;
 
 		std::vector<std::unique_ptr<of::resource::trigger::Trigger>> onDeathTriggers;

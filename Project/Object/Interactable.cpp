@@ -1,7 +1,7 @@
 #include "Interactable.hpp"
 #include <Object/GameObject.hpp>
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 
 namespace of::object::component
 {
@@ -17,7 +17,7 @@ namespace of::object::component
 
 			if (interaction.interactionTrigger.operator bool())
 				interaction.interactionTrigger->execute();
-			auto& instanceHandler = of::engine::GetModule<of::module::ObjectInstanceHandler>();
+			auto& instanceHandler = of::engine::GetModule<of::object::InstanceHandler>();
 			for (auto& [objectId, toggleState, reverse, repeat] : interaction.interactions)
 			{
 				if (instanceHandler.exists(objectId))

@@ -3,7 +3,7 @@
 #include <object/component/Transform.hpp>
 #include <object/ObjectSaveState.hpp>
 
-#include <module/ObjectInstanceHandler.hpp>
+#include <object/InstanceHandler.hpp>
 #include <module/SaveFile.hpp>
 #include <module/logger/OneLogger.hpp>
 
@@ -164,7 +164,7 @@ namespace of::object
 		{
 			post(Topic::of(Topics::ON_DEATH), std::make_shared<GameObjectPtr>(killer));
 		}
-		of::engine::GetModule<of::module::ObjectInstanceHandler>().removeObject(id, delayedDespawnTime);
+		of::engine::GetModule<of::object::InstanceHandler>().removeObject(id, delayedDespawnTime);
 	}
 
 	void GameObject::onDelete()
