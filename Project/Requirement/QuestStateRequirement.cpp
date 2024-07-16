@@ -17,7 +17,7 @@ namespace Requirement
 		//	{
 		//		if (state.objectiveStates.find(objectiveId) == state.objectiveStates.end())
 		//		{
-		//			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Questing::QuestStateRequirement");
+		//			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Questing::QuestStateRequirement");
 		//			logger.Warning("QuestStateRequirement for objective state cannot be checked for as it does not exist in the quest state.", logger.fileInfo(__FILE__, __LINE__));
 		//			return false;
 		//		}

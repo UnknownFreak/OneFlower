@@ -1,6 +1,6 @@
 #include <object/component/BaseComponent.hpp>
 #include <object/GameObject.hpp>
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 namespace of::object::component
 {
@@ -13,16 +13,16 @@ namespace of::object::component
 	{
 		if (attachedOn)
 		{
-			engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component").Debug("Component detached [ComponentType, instanceId]");
-			engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component").Debug(getTypeName(), ", ", instanceId);
+			engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component").Debug("Component detached [ComponentType, instanceId]");
+			engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component").Debug(getTypeName(), ", ", instanceId);
 			decouple();
 		}
 		this->attachedOn = attachTo;
 		if(attachTo->componentMap.find(this->getType()) == attachTo->componentMap.end())
 			attachTo->componentMap.insert(std::make_pair(this->getType(), std::shared_ptr<Base>(this)));
 		initialize();
-		engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component").Debug("Component initialized [ComponentType, instanceId]");
-		engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component").Debug(getTypeName(), ", ", instanceId);
+		engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component").Debug("Component initialized [ComponentType, instanceId]");
+		engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component").Debug(getTypeName(), ", ", instanceId);
 	}
 
 	void Base::decouple()

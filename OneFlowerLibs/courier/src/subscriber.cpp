@@ -1,6 +1,6 @@
 #include <courier/subscriber.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 
 namespace of::courier
@@ -26,7 +26,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::messaging::Subscriber").Warning("Trying to send a message to an object that is no longer guaranteed by warranty.");
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::messaging::Subscriber").Warning("Trying to send a message to an object that is no longer guaranteed by warranty.");
 		}
 	}
 

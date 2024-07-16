@@ -1,6 +1,6 @@
 #include <locale/TranslationStringContainer.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 of::common::uuid of::file::archive::Trait<of::locale::TranslationStringContainer>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
 
@@ -62,7 +62,7 @@ namespace of::locale
 
 	StoredTranslatable& TranslationStringContainer::getPrimitive(const common::String & languageName, const common::uuid & id)
 	{
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("locale::TranslationStringContainer");
+		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("locale::TranslationStringContainer");
 		logger.Debug("Loading translation string value from database: " + language + ", " + languageName + ", " + id.to_string());
 		auto ptr = stringList.request<StoredTranslatable>({ languageName, id });
 		if (ptr)

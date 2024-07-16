@@ -10,11 +10,11 @@
 #include <chrono>
 #include <sstream>
 
-#include <module/logger/streams/LogSteam.hpp>
+#include <logger/streams/LogSteam.hpp>
 #include <utils/common/string.hpp>
-#include <module/logger/LogLevel.hpp>
+#include <logger/LogLevel.hpp>
 
-namespace of::module::logger
+namespace of::logger
 {
 		
 	class LoggerBase

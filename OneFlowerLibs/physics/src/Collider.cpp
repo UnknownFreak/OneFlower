@@ -4,7 +4,7 @@
 
 #include <courier/courier.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <module/resource/MeshLoader.hpp>
 
 #include <glm/gtc/quaternion.hpp>
@@ -78,7 +78,7 @@ namespace of::object::component
 		}
 		else
 		{
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::Collider").Error(
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::Collider").Error(
 			"Collider does not have a collider type set");
 		}
 

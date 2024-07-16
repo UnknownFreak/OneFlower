@@ -1,5 +1,5 @@
 #include <object/InstanceHandler.hpp>
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::object::InstanceHandler>::type = of::module::EngineResourceType::InstanceHandler;
 
@@ -42,7 +42,7 @@ namespace of::object
 
 	void InstanceHandler::removeObject(const of::common::uuid& objectId, const float delayedtime)
 	{
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::InstanceHandler").Info("Removing object " + objectId.to_string());
+		of::engine::GetModule<of::logger::OneLogger>().getLogger("EngineModule::InstanceHandler").Info("Removing object " + objectId.to_string());
 		objectsToDelete[objectId] = delayedtime;
 	}
 
@@ -55,7 +55,7 @@ namespace of::object
 			if (it->second < 0)
 			{
 				auto id = it->first;
-				auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("EngineModule::InstanceHandler");
+				auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("EngineModule::InstanceHandler");
 				logger.Fine("Processing removal of " + id.to_string());
 				logger.Debug(of::common::toHex((size_t)&it->first));
 				objects[id].onDelete();

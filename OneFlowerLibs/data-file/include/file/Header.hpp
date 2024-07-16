@@ -5,7 +5,7 @@
 
 #include <utils/common/string.hpp>
 #include <utils/common/version.hpp>
-#include <Module/Logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 namespace of::file
 {
@@ -48,10 +48,10 @@ namespace of::file
 			if (myVersion >= OneVersion(1, 0, 1))
 			{
 				ar(modVersion);
-				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Header").Info("Header [" + name + "] version is: " + modVersion.str());
+				of::engine::GetModule<of::logger::OneLogger>().getLogger("File::Header").Info("Header [" + name + "] version is: " + modVersion.str());
 			}
 			else
-				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Header").Info("Current header version does not support loading header file version (Save file again to apply this feature)");
+				of::engine::GetModule<of::logger::OneLogger>().getLogger("File::Header").Info("Current header version does not support loading header file version (Save file again to apply this feature)");
 			ar(mysize);
 			for (size_t i = 0; i < mysize; i++)
 			{

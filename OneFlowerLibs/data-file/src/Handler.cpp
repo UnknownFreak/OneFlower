@@ -1,5 +1,5 @@
 #include <file/Handler.hpp>
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 
 of::module::EngineResourceType of::module::interface::IEngineResource<of::file::Handler>::type = of::module::EngineResourceType::FileHandler;
@@ -20,7 +20,7 @@ namespace of::file
 			modLoader.loadOrder.insert(std::make_pair(name, modLoader.loadOrder.size()));
 		}
 		modLoader.loadOrder.insert(std::make_pair(modFile, modLoader.loadOrder.size()));
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("File::Asset::Manager");
+		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("File::Asset::Manager");
 		logger.Info("New load order built: Order is as follows,");
 		for (auto& order : modLoader.loadOrder)
 		{

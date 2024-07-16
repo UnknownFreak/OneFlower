@@ -1,11 +1,11 @@
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::logger::OneLogger>::type = of::module::EngineResourceType::Logger;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::logger::OneLogger>::type = of::module::EngineResourceType::Logger;
 
-of::module::logger::ModuleLogger of::module::logger::OneLogger::EMPTY(
-	"", std::make_shared<of::module::logger::streams::NullStream>(), of::module::logger::LogLevel::ALWAYS);
+of::logger::ModuleLogger of::logger::OneLogger::EMPTY(
+	"", std::make_shared<of::logger::streams::NullStream>(), of::logger::LogLevel::ALWAYS);
 
-namespace of::module::logger
+namespace of::logger
 {
 	OneLogger::OneLogger() : LoggerBase(stream("Log.log"), LogLevel::INFO)
 	{

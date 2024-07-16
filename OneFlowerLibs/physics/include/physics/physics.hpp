@@ -5,7 +5,7 @@
 
 #include <module/IEngineModule.hpp>
 #include <module/EngineResourceTypes.hpp>
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 #include <PxPhysicsAPI.h>
 #include <glm/glm.hpp>
@@ -325,7 +325,7 @@ namespace of::module::physics
 			else
 			{
 				/*
-				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Physics::createActor").Error("Invalid type argument passed, no actor is created");
+				of::engine::GetModule<of::logger::OneLogger>().getLogger("Physics::createActor").Error("Invalid type argument passed, no actor is created");
 				*/
 				return nullptr;
 			}

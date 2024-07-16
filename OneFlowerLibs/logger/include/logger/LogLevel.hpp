@@ -3,7 +3,7 @@
 
 #include <utils/common/string.hpp>
 
-namespace of::module::logger
+namespace of::logger
 {
 	enum class LogLevel
 	{

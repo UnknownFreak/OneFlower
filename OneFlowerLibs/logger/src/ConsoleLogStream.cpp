@@ -1,13 +1,13 @@
-#include <module/logger/streams/ConsoleStream.hpp>
+#include <logger/streams/ConsoleStream.hpp>
 
 #include <iostream>
 
-namespace of::module::logger::streams
+namespace of::logger::streams
 {
 
 	void ConsoleLogStream::LogMessage(const LogLevel& logLevel, const common::String& message)
 	{
-		std::cout << of::module::logger::to_string(logLevel) << " " << message << std::endl;
+		std::cout << of::logger::to_string(logLevel) << " " << message << std::endl;
 	}
 }
 

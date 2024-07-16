@@ -3,7 +3,7 @@
 #include <object/component/Transform.hpp>
 #include <object/GameObject.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 #include <courier/courier.hpp>
 #include <engine/runMode.hpp>
@@ -36,13 +36,13 @@ namespace of::object::component
 			}
 			else
 			{
-				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::DoorHinge").Warning("Editor override, not creating a door hinge link!");
+				of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::DoorHinge").Warning("Editor override, not creating a door hinge link!");
 			}
 
 		}
 		else
 		{
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::DoorHinge").Warning("Trying to create a DoorHinge, but no collider was found. No hinge will be created!");
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::DoorHinge").Warning("Trying to create a DoorHinge, but no collider was found. No hinge will be created!");
 		}
 	}
 

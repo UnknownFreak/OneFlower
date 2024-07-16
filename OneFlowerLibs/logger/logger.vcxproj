@@ -148,14 +148,14 @@
     <ClCompile Include="src\OneLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\module\logger\LoggerBase.hpp" />
-    <ClInclude Include="include\module\logger\LogLevel.hpp" />
-    <ClInclude Include="include\module\logger\ModuleLogger.hpp" />
-    <ClInclude Include="include\module\logger\OneLogger.hpp" />
-    <ClInclude Include="include\module\logger\streams\BasicLogStream.hpp" />
-    <ClInclude Include="include\module\logger\streams\ConsoleStream.hpp" />
-    <ClInclude Include="include\module\logger\streams\LogSteam.hpp" />
-    <ClInclude Include="include\module\logger\streams\NullStream.hpp" />
+    <ClInclude Include="include\logger\LoggerBase.hpp" />
+    <ClInclude Include="include\logger\LogLevel.hpp" />
+    <ClInclude Include="include\logger\ModuleLogger.hpp" />
+    <ClInclude Include="include\logger\OneLogger.hpp" />
+    <ClInclude Include="include\logger\streams\BasicLogStream.hpp" />
+    <ClInclude Include="include\logger\streams\ConsoleStream.hpp" />
+    <ClInclude Include="include\logger\streams\LogSteam.hpp" />
+    <ClInclude Include="include\logger\streams\NullStream.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

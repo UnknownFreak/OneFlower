@@ -8,7 +8,7 @@
 
 
 #include <utils/common/String.hpp>
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 #include <File/Archive/EntityIndex.hpp>
 #include <File/Header.hpp>
@@ -202,7 +202,7 @@ namespace of::file::archive
 				return t;
 			if (!requestFromDatabase<T>(t, modFile.name, modFile.uuid))
 			{
-				auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+				auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 				logger.Error("Requestor was unable to request [" + modFile.operator()() + "] from database.", logger.fileInfo(__FILE__, __LINE__));
 			}
 			return t;
@@ -215,7 +215,7 @@ namespace of::file::archive
 			bool init = true;
 			bool first_loaded = false;
 			bool patching = false;
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			for(std::pair<std::string, size_t> var : getLoadOrder())
 			{
 				logger.Debug("---------------------------------------------------------------------------------------");
@@ -363,7 +363,7 @@ namespace of::file::archive
 		inline bool add(T* ptr)
 		{
 			FileId key(ptr->fromMod, ptr->ID);
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			if (requestedMap.find(key) != requestedMap.end())
 			{
 				if (requestedMap[key].operator bool())
@@ -390,14 +390,14 @@ namespace of::file::archive
 				break;
 			}
 			default:
-				Engine::GetModule<EngineModule::logger::OneLogger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
+				Engine::GetModule<Enginelogger::OneLogger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
 			}
 		}
 		**/
 
 		inline void clear()
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			logger.Warning("Unloading object using clear from Requestor it is still possible it has uses,"
 				"this is dangerous and can lead to undefined behaviour if any references or pointers are used.", logger.fileInfo(__FILE__, __LINE__));
 			requestedMap.clear();
@@ -406,7 +406,7 @@ namespace of::file::archive
 
 		inline void editorLoadAll()
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			clear();
 			for(std::pair<std::string, size_t> var : getLoadOrder())
 			{
@@ -455,7 +455,7 @@ namespace of::file::archive
 				auto& ptr = requestedMap[modFile];
 				return ptr->getName();
 			}
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor").Warning("Tried to get name of object, but object does not exist!");
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor").Warning("Tried to get name of object, but object does not exist!");
 			return "";
 		}
 
@@ -468,7 +468,7 @@ namespace of::file::archive
 			{
 				if (it->second.operator bool() == false)
 				{
-					of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor").Error("Found empty object in requestor" + it->first.operator()());
+					of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor").Error("Found empty object in requestor" + it->first.operator()());
 				}
 				else if(it->second.operator bool() && it->second->objectType == objectType)
 					listofall.push_back(it->first);
@@ -478,7 +478,7 @@ namespace of::file::archive
 
 		inline std::vector<FileId> listAllObjectKeys(const ObjectType& objectType) const
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			std::vector<FileId> listofall;
 			for(std::pair<std::string, size_t> var :getLoadOrder())
 			{
@@ -525,7 +525,7 @@ namespace of::file::archive
 		requires std::derived_from<T, Requestable>
 		inline T requestUniqueInstance(const FileId& modFile)
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			T* t = request<T>(modFile);
 			if(t)
 				return T(*t);
@@ -583,7 +583,7 @@ namespace of::file::archive
 		inline void save(EntityIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr,
 			const of::file::Header& header, const bool& skipSaveIfMode=false) const
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Requestor");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Requestor");
 			td_map::const_iterator it = requestedMap.begin();
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)

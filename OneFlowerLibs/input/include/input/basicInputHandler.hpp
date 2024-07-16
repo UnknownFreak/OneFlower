@@ -4,7 +4,7 @@
 #include <functional>
 #include <vector>
 
-#include <Module/Logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <input/inputType.hpp>
 
 #include "Callback.hpp"

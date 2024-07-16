@@ -1,6 +1,6 @@
 #include "GameConfig.hpp"
 
-#include <Module/Logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::Settings;
 
@@ -38,16 +38,16 @@ void EngineModule::GameConfig::load()
 	framerate = parser.get("window", "framerate", 0);
 	antialiasing = parser.get("window", "aa", 32);
 	fullscreen = parser.get("window", "fullscreen", false);
-	logLevel = of::module::logger::fromString(parser.get("logger", "core.level", of::module::logger::to_string(of::module::logger::LogLevel::INFO, false)));
+	logLevel = of::logger::fromString(parser.get("logger", "core.level", of::logger::to_string(of::logger::LogLevel::INFO, false)));
 	physicsThreadCount = parser.get("physics", "threadCount", 4);
 	physicsForceSingleThread = parser.get("physics", "forceSingleThread", false);
 	physicsAdaptiveRegions = parser.get("physics", "adaptiveRegions", true);
 
-	of::engine::GetModule<of::module::logger::OneLogger>().setLogLevel(logLevel);
+	of::engine::GetModule<of::logger::OneLogger>().setLogLevel(logLevel);
 	for (auto& logger_level : parser.get("logger").values)
 	{
 		if (logger_level.first != "core.level")
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger(logger_level.first).setLogLevel(of::module::logger::fromString(logger_level.second));
+			of::engine::GetModule<of::logger::OneLogger>().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
 	}
 
 	configLoaded = true;
@@ -76,16 +76,16 @@ unsigned EngineModule::GameConfig::getAntiAliasing() const
 	return antialiasing;
 }
 
-of::module::logger::LogLevel EngineModule::GameConfig::getCurrentLogLevel() const
+of::logger::LogLevel EngineModule::GameConfig::getCurrentLogLevel() const
 {
 	return logLevel;
 }
 
-of::module::logger::LogLevel EngineModule::GameConfig::getModuleLogLevel(const of::common::String& module)
+of::logger::LogLevel EngineModule::GameConfig::getModuleLogLevel(const of::common::String& module)
 {
 	if (configLoaded)
-		return of::module::logger::fromString(parser.get("logger", module, of::module::logger::to_string(logLevel, false)));
-	return of::module::logger::LogLevel::INFO;
+		return of::logger::fromString(parser.get("logger", module, of::logger::to_string(logLevel, false)));
+	return of::logger::LogLevel::INFO;
 }
 
 void EngineModule::GameConfig::setFramerateLimit(const unsigned& u)

@@ -7,7 +7,7 @@
 #include <module/ModuleManager.hpp>
 
 #include <utils/common/String.hpp>
-#include <module/logger/LogLevel.hpp>
+#include <logger/LogLevel.hpp>
 #include <utils/config/parser.hpp>
 
 namespace EngineModule
@@ -21,7 +21,7 @@ namespace EngineModule
 		bool fullscreen;
 		unsigned antialiasing;
 		unsigned framerate;
-		of::module::logger::LogLevel logLevel;
+		of::logger::LogLevel logLevel;
 		unsigned physicsThreadCount;
 		bool physicsForceSingleThread;
 		bool physicsAdaptiveRegions;
@@ -44,8 +44,8 @@ namespace EngineModule
 		void setAntiAliasing(const unsigned& aa);
 		unsigned getAntiAliasing() const;
 
-		of::module::logger::LogLevel getCurrentLogLevel() const;
-		of::module::logger::LogLevel getModuleLogLevel(const of::common::String& module);
+		of::logger::LogLevel getCurrentLogLevel() const;
+		of::logger::LogLevel getModuleLogLevel(const of::common::String& module);
 
 		void setFramerateLimit(const unsigned& u);
 		unsigned getFramerateLimit() const;

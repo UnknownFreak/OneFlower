@@ -1,8 +1,8 @@
-#include <module/logger/streams/BasicLogStream.hpp>
+#include <logger/streams/BasicLogStream.hpp>
 
 auto iosop = std::ios_base::trunc;
 
-namespace of::module::logger::streams
+namespace of::logger::streams
 {
 	BasicLogStream::BasicLogStream(const common::String& fileName) : log(fileName, iosop), logName(fileName)
 	{

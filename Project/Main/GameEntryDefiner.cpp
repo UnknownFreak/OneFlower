@@ -1004,7 +1004,7 @@ class IsMessageTypeValidator : public of::courier::MessageValidator
 	{
 		if (message.msgType != T)
 		{
-			auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::IsMessageTypeValidator");
+			auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("of::IsMessageTypeValidator");
 			logger.Info("Invalid message type passed [requiredType, checked] [", (unsigned int)T, ", ", (unsigned int)message.msgType, + "]");
 			return false;
 		}

@@ -13,7 +13,7 @@
 #include <module/ModuleManager.hpp>
 #include <module/IEngineModule.hpp>
 
-namespace of::module::logger
+namespace of::logger
 {
 #ifdef __EDITOR__
 		typedef Streams::EditorStream stream
@@ -23,7 +23,7 @@ namespace of::module::logger
 	typedef streams::BasicLogStream stream;
 #endif
 
-	class OneLogger : public LoggerBase, public interface::IEngineResource<OneLogger>
+	class OneLogger : public LoggerBase, public of::module::interface::IEngineResource<OneLogger>
 	{
 		static ModuleLogger EMPTY;
 		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
@@ -53,7 +53,7 @@ namespace of::module::logger
 			return moduleLoggers.at(moduleName);
 		}
 
-		EngineResourceType& getType() const
+		of::module::EngineResourceType& getType() const
 		{
 			return type;
 		}

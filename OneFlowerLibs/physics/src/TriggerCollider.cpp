@@ -4,7 +4,7 @@
 #include <object/GameObject.hpp>
 
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <module/resource/MeshLoader.hpp>
 
 namespace of::object::component
@@ -50,17 +50,17 @@ namespace of::object::component
 			}
 			else
 			{
-				of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with inherit, but no collider to inherit the actor from. No collider will be created!");
+				of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with inherit, but no collider to inherit the actor from. No collider will be created!");
 
 			}
 		}
 		else if (mColliderType == Collider::ColliderType::RIGID)
 		{
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with type rigid, this is not supported for trigger colliders, use colliderType inherit instead, as that allows the trigger collider to attach it's shape to the rigid actor.");
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with type rigid, this is not supported for trigger colliders, use colliderType inherit instead, as that allows the trigger collider to attach it's shape to the rigid actor.");
 		}
 		else if (mColliderType == Collider::ColliderType::NONE)
 		{
-			of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Info("mColliderType is set to NONE, no collider will be created, is this intended?");
+			of::engine::GetModule<of::logger::OneLogger>().getLogger("of::object::component::TriggerCollider").Info("mColliderType is set to NONE, no collider will be created, is this intended?");
 		}
 
 		if (mActor != nullptr)

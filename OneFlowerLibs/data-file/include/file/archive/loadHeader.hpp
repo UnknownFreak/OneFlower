@@ -7,7 +7,7 @@
 
 #include <file/archive/EntityIndex.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 namespace of::file::archive
 {
@@ -18,7 +18,7 @@ namespace of::file::archive
 		file::archive::EntityIndex ind;
 		std::ifstream index("Data//" + modName + ".index", std::ios::binary);
 		std::ifstream database("Data//" + modName, std::ios::binary);
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("file::archive::loadHeader");
+		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("file::archive::loadHeader");
 		if (!index.is_open())
 			logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
 		else if (!database.is_open())

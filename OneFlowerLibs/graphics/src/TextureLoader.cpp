@@ -2,7 +2,7 @@
 
 #include <swizzle/asset2/Assets.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 #include <filesystem>

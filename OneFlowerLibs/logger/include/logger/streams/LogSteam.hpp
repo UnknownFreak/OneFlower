@@ -2,9 +2,9 @@
 #define LogStream_HPP
 
 #include <utils/common/string.hpp>
-#include <module/logger/LogLevel.hpp>
+#include <logger/LogLevel.hpp>
 
-namespace of::module::logger::streams
+namespace of::logger::streams
 {
 	struct LogStream
 	{

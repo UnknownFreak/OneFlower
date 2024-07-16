@@ -1,6 +1,6 @@
 #include <module/resource/MeshLoader.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <module/window/GraphicsProxy.hpp>
 
 #include <filesystem>
@@ -67,8 +67,8 @@ namespace of::module::mesh
 				if (loadMesh(meshAsset, path + name, meshDescription) == false)
 				{
 					// fallback to missing mesh
-					of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
-					of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
+					of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
+					of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
 					return requestModel(missingMesh, Settings::meshPath, collisionModel);
 				}
 
@@ -103,8 +103,8 @@ namespace of::module::mesh
 			return mLoadedModels[{path + name, collisionModel}];
 
 		}
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
-		of::engine::GetModule<of::module::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
+		of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
+		of::engine::GetModule<of::logger::OneLogger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
 		return requestModel(missingMesh, Settings::meshPath, collisionModel);
 	}
 

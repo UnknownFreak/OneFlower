@@ -1,6 +1,6 @@
 #include <object/component/Combat.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 #include <courier/courier.hpp>
 
 
@@ -41,7 +41,7 @@ namespace of::object::component
 	{
 		if (skills.find(skill) == skills.end())
 		{
-			of::engine::GetModule < of::module::logger::OneLogger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
+			of::engine::GetModule < of::logger::OneLogger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
 			return;
 		}
 		skills[skill].onSkillExecution(attachedOn);

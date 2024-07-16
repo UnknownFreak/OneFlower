@@ -6,8 +6,8 @@
 
 #include <engine/runMode.hpp>
 #include <Module/BuildMode.hpp>
-#include <Module/Logger/OneLogger.hpp>
-#include <module/logger/streams/ConsoleStream.hpp>
+#include <logger/OneLogger.hpp>
+#include <logger/streams/ConsoleStream.hpp>
 
 #include <Input/InputHandler.hpp>
 
@@ -67,7 +67,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 
 volatile void initializeSystems()
 {
-	auto& logger = of::engine::GetModule<of::module::logger::OneLogger>();
+	auto& logger = of::engine::GetModule<of::logger::OneLogger>();
 	logger.Info("Initializing Engine");
 	for (auto& str : Engine::GetBuildMode().toLogString())
 		logger.Info(str);
@@ -107,11 +107,11 @@ volatile void initializeSystems()
 
 class EngineLogger : public swizzle::core::LogDevice
 {
-	typedef of::module::logger::streams::ConsoleLogStream CLS;
-	of::module::logger::ModuleLogger& stream;
+	typedef of::logger::streams::ConsoleLogStream CLS;
+	of::logger::ModuleLogger& stream;
 
 public:
-	inline EngineLogger() : stream(of::engine::GetModule<of::module::logger::OneLogger>().getLogger<CLS>("Swizzle", std::make_shared<CLS>()))
+	inline EngineLogger() : stream(of::engine::GetModule<of::logger::OneLogger>().getLogger<CLS>("Swizzle", std::make_shared<CLS>()))
 	{
 	}
 

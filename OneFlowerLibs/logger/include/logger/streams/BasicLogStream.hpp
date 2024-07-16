@@ -4,7 +4,7 @@
 #include "LogSteam.hpp"
 #include <fstream> 
 
-namespace of::module::logger::streams
+namespace of::logger::streams
 {
 
 	class BasicLogStream : public LogStream

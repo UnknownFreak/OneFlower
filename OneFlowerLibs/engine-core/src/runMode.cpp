@@ -1,6 +1,6 @@
 #include <engine/runMode.hpp>
 
-#include <module/logger/OneLogger.hpp>
+#include <logger/OneLogger.hpp>
 
 namespace of::engine
 {
@@ -20,7 +20,7 @@ namespace of::engine
         }
         else
         {
-            of::engine::GetModule<of::module::logger::OneLogger>().Warning("Trying to set run mode after it has been locked!");
+            of::engine::GetModule<of::logger::OneLogger>().Warning("Trying to set run mode after it has been locked!");
         }
     }
 

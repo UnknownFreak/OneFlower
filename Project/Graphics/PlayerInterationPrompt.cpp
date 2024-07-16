@@ -41,7 +41,7 @@ void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message& me
 			}
 			else if (theDrop)
 			{
-				of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+				of::engine::GetModule<of::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 				showPrompt = true;
 				lootDrop = theDrop;
 				lived = 0.f;
@@ -49,7 +49,7 @@ void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message& me
 			}
 			else if (theContainer)
 			{
-				of::engine::GetModule<of::module::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
+				of::engine::GetModule<of::logger::OneLogger>().Warning("Looting has no toggle switch implemented yet... log for now so it can be seen in the logs...", __FILE__, __LINE__);
 				showPrompt = true;
 				lootContainer = theContainer;
 				lived = 0.f;

@@ -181,9 +181,6 @@
     <Filter Include="Engine\Graphics\Editor\ObjectDataTree\ViewModels">
       <UniqueIdentifier>{3a422f9e-e7b2-4dfa-bcb4-810760e47e20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Main\imguizmo">
-      <UniqueIdentifier>{3c4dc4eb-ab0f-4354-ad5c-4c72c5f93ec7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Tests\StringConverterUnitTest.cpp">

@@ -3,9 +3,9 @@
 
 #include "LoggerBase.hpp"
 #include <utils/common/string.hpp>
-#include <module/logger/LogLevel.hpp>
+#include <logger/LogLevel.hpp>
 
-namespace of::module::logger
+namespace of::logger
 {
 	class ModuleLogger : public LoggerBase
 	{

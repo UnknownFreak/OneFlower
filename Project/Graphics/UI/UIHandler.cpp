@@ -1,6 +1,6 @@
 #include "UIHandler.hpp"
 
-#include<Module/Logger/OneLogger.hpp>
+#include<logger/OneLogger.hpp>
 
 of::module::EngineResourceType of::module::interface::IEngineResource<Graphics::UI::UIHandler>::type = of::module::EngineResourceType::UIHandler;
 
@@ -18,7 +18,7 @@ namespace Graphics::UI
 
 	void UIHandler::addUIContext(const Enums::UIContextNames& contextName, std::unique_ptr<UIContext> context)
 	{
-		auto& logger = of::engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::UI::UIHandler");
+		auto& logger = of::engine::GetModule<of::logger::OneLogger>().getLogger("Graphics::UI::UIHandler");
 		logger.Debug("Adding UI Context ", context->uiName);
 		uiContext.emplace(contextName, std::move(context));
 	}
@@ -52,7 +52,7 @@ namespace Graphics::UI
 		for(const auto name : uiToRemove)
 		{
 			std::map<Enums::UIContextNames, std::unique_ptr<UIContext>>& x = const_cast<std::map<Enums::UIContextNames, std::unique_ptr<UIContext>>&>(uiContext);
-			//Engine::GetModule<of::module::logger::OneLogger>().getLogger("Graphics::UI").Debug("Removing UI Context ", name);
+			//Engine::GetModule<of::logger::OneLogger>().getLogger("Graphics::UI").Debug("Removing UI Context ", name);
 			x.erase(name);
 		}
 		const_cast<std::vector<Enums::UIContextNames>&>(uiToRemove).clear();
