@@ -135,9 +135,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\runMode.hpp" />
-    <ClInclude Include="include\module\SaveSetting.hpp" />
-    <ClInclude Include="include\module\SaveState.hpp" />
-    <ClInclude Include="include\module\SaveFile.hpp" />
+    <ClInclude Include="include\file\saveFile.hpp" />
+    <ClInclude Include="include\file\saveSetting.hpp" />
+    <ClInclude Include="include\file\saveState.hpp" />
     <ClInclude Include="include\object\component\BaseComponent.hpp" />
     <ClInclude Include="include\object\component\ObjectStateActivator.hpp" />
     <ClInclude Include="include\object\component\Transform.hpp" />
@@ -151,8 +151,8 @@
     <ClInclude Include="include\resource\GameMode.hpp" />
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
     <ClInclude Include="include\resource\Prefab.hpp" />
-    <ClInclude Include="include\trigger\Trigger.hpp" />
-    <ClInclude Include="include\trigger\TriggerState.hpp" />
+    <ClInclude Include="include\trigger\trigger.hpp" />
+    <ClInclude Include="include\trigger\triggerState.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
@@ -183,10 +183,10 @@
     <ClCompile Include="src\ObjectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />
     <ClCompile Include="src\runMode.cpp" />
-    <ClCompile Include="src\SaveFile.cpp" />
+    <ClCompile Include="src\saveFile.cpp" />
     <ClCompile Include="src\Transform.cpp" />
-    <ClCompile Include="src\Trigger.cpp" />
-    <ClCompile Include="src\TriggerState.cpp" />
+    <ClCompile Include="src\trigger.cpp" />
+    <ClCompile Include="src\triggerState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

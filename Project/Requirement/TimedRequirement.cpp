@@ -1,6 +1,6 @@
 #include "TimedRequirement.hpp"
 
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 #include <module/OneTime.hpp>
 
 
@@ -9,7 +9,7 @@ namespace Requirement
 
 	void TimedRequirement::loadTimerFromSave()
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		saveFile;
 		// TODO replace with TimerSaveState
 		//if (saveFile.isTimerSaved(timerId))

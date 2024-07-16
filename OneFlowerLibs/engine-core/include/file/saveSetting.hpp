@@ -1,6 +1,6 @@
 #pragma once
 
-namespace of::module
+namespace of::file
 {
 	enum class SaveSetting
 	{

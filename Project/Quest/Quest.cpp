@@ -1,6 +1,6 @@
 #include "Quest.hpp"
 
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 #include <file/Handler.hpp>
 
 of::common::uuid of::file::archive::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
@@ -204,7 +204,7 @@ Questing::QuestState Questing::Quest::getQuestState() const
 
 void Questing::Quest::setQuestState()
 {
-	auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+	auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 	if (saveFile.exists(getModfile()))
 	{
 		//auto& state = saveFile.getState(getModfile());

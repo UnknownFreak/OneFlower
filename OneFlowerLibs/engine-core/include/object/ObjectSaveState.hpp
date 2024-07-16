@@ -5,7 +5,7 @@
 #include <cereal/archives/binary.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-#include <module/SaveState.hpp>
+#include <file/SaveState.hpp>
 
 #include <object/ObjectState.hpp>
 
@@ -14,13 +14,13 @@
 
 namespace of::object
 {
-	class ObjectSaveState : public of::module::save_state::SaveState
+	class ObjectSaveState : public of::file::save_state::SaveState
 	{
 	protected:
 		virtual common::String getType() const override;
 
 	public:
-		std::map<of::common::uuid, std::unique_ptr<of::module::save_state::SaveState>> objectSaveStates;
+		std::map<of::common::uuid, std::unique_ptr<of::file::save_state::SaveState>> objectSaveStates;
 		ObjectState objectState = ObjectState::Undefined;
 		of::file::FileId prefabId{};
 
@@ -45,4 +45,4 @@ namespace of::object
 	};
 }
 CEREAL_REGISTER_TYPE(of::object::ObjectSaveState);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::module::save_state::SaveState, of::object::ObjectSaveState);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::save_state::SaveState, of::object::ObjectSaveState);

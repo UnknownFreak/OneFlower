@@ -3,7 +3,7 @@
 #include <object/GameObject.hpp>
 
 #include <object/InstanceHandler.hpp>
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 
 
 namespace of::object::component
@@ -16,7 +16,7 @@ namespace of::object::component
 	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId_, const ObjectState& toggle_)
 	{
 		objectId_, toggle_;
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		saveFile;
 	}
 

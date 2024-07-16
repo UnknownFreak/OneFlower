@@ -1,7 +1,7 @@
 #include "ModifyObjectActiveState.hpp"
 
 #include <object/InstanceHandler.hpp>
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 
 namespace Trigger
 {

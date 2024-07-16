@@ -18,7 +18,7 @@
 #include <resource/DifficultyLevel.hpp>
 #include <resource/GameMode.hpp>
 
-namespace of::module
+namespace of::file
 {
 	class SaveFile : public of::module::interface::IEngineResource<SaveFile>
 	{
@@ -59,7 +59,7 @@ namespace of::module
 		void setDespawnTimers(const std::unordered_map<of::common::uuid, float>& timers);
 		const std::unordered_map<of::common::uuid, float>& getDespawnTimers() const;
 
-		void newGame(const of::resource::DifficultyLevel& diff, const of::common::uuid& customDiffId, const of::file::FileId& gameMode);
+		void newGame(const of::resource::DifficultyLevel diff, const of::common::uuid& customDiffId, const of::file::FileId& gameMode);
 		of::resource::DifficultyLevel getDifficulty() const;
 		of::common::uuid getCustomDiffId() const;
 

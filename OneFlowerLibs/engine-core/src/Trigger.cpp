@@ -2,15 +2,15 @@
 
 #include <trigger/TriggerState.hpp>
 
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 
 namespace of::trigger
 {
 	void Trigger::execute()
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 
-		auto exists = saveFile.exists(of::file::FileId(uuid), of::module::save_state::SaveStateTypeRef<of::trigger::TriggerState>::type);
+		auto exists = saveFile.exists(of::file::FileId(uuid), of::file::save_state::SaveStateTypeRef<of::trigger::TriggerState>::type);
 		if (exists)
 		{
 			exists = saveFile.getState<TriggerState>(of::file::FileId(uuid))->triggered;

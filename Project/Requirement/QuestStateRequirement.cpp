@@ -1,13 +1,13 @@
 #include "QuestStateRequirement.hpp"
 
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 
 namespace Requirement
 {
 
 	bool QuestStateRequirment::fullfilled()
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		saveFile;
 		// TODO: Replace with QuestSaveState
 		//if (saveFile.isQuestStored(questId))

@@ -1,4 +1,4 @@
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 
 #include <fstream>
 #include <cereal/cereal.hpp>
@@ -8,9 +8,9 @@
 #include <object/InstanceHandler.hpp>
 #include <module/logger/OneLogger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::SaveFile>::type = of::module::EngineResourceType::SaveFile;
+of::module::EngineResourceType of::module::interface::IEngineResource<of::file::SaveFile>::type = of::module::EngineResourceType::SaveFile;
 
-namespace of::module
+namespace of::file
 {
 
 	void SaveFile::setPlayerInfo()
@@ -83,7 +83,7 @@ namespace of::module
 		return despawnTimers;
 	}
 
-	void SaveFile::newGame(const of::resource::DifficultyLevel& difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
+	void SaveFile::newGame(const of::resource::DifficultyLevel difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;

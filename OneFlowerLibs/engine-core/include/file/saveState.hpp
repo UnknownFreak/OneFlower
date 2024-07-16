@@ -5,7 +5,7 @@
 #include <utils/common/string.hpp>
 #include <concepts>
 
-namespace of::module::save_state
+namespace of::file::save_state
 {
 	class SaveState;
 

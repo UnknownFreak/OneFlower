@@ -4,7 +4,7 @@
 #include <object/ObjectSaveState.hpp>
 
 #include <object/InstanceHandler.hpp>
-#include <module/SaveFile.hpp>
+#include <file/SaveFile.hpp>
 #include <module/logger/OneLogger.hpp>
 
 namespace of::object
@@ -144,7 +144,7 @@ namespace of::object
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
 		}
-		persistIf(of::module::SaveSetting::PERSIST_ON_INTERACT);
+		persistIf(of::file::SaveSetting::PERSIST_ON_INTERACT);
 	}
 
 	void GameObject::onCollision(GameObject* collider)
@@ -190,12 +190,12 @@ namespace of::object
 		if (keepSavedOnObjectDelete == false)
 		{
 			logger.Debug("Clearing object persistance status");
-			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 			saveFile.remove(of::file::FileId(id));
 		}
 		else if (keepSavedOnObjectDelete && unique)
 		{
-			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 			auto saveState = saveFile.getState<ObjectSaveState>(of::file::FileId(id));
 			saveState->objectState = ObjectState::NoRecreate;
 			saveState->objectSaveStates.clear();
@@ -253,7 +253,7 @@ namespace of::object
 
 	ObjectSaveState* GameObject::getCurrentSaveState()
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		of::file::FileId tmp(id);
 		if (!saveFile.exists(tmp))
 		{
@@ -264,18 +264,18 @@ namespace of::object
 		return state;
 	}
 
-	void GameObject::persistIf(const of::module::SaveSetting& persist)
+	void GameObject::persistIf(const of::file::SaveSetting persist)
 	{
-		if (persist != of::module::SaveSetting::NEVER_STORE && saveSetting == persist)
+		if (persist != of::file::SaveSetting::NEVER_STORE && saveSetting == persist)
 		{
-			auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 			of::file::FileId tmp(id);
 			if (!saveFile.exists(tmp))
 			{
 				saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
 			}
 			auto state = saveFile.getState<ObjectSaveState>(tmp);
-			if (saveSetting == of::module::SaveSetting::SPECIAL_RE_CONSTRUCT)
+			if (saveSetting == of::file::SaveSetting::SPECIAL_RE_CONSTRUCT)
 			{
 				state->prefabId = prefabId;
 			}
@@ -289,7 +289,7 @@ namespace of::object
 
 	void GameObject::onReconstruct()
 	{
-		auto& saveFile = of::engine::GetModule<of::module::SaveFile>();
+		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		of::file::FileId tmp(id);
 		if (saveFile.exists(tmp))
 		{

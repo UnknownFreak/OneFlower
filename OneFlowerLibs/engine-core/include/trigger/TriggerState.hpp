@@ -3,11 +3,11 @@
 #include <cereal/archives/binary.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-#include <module/SaveState.hpp>
+#include <file/SaveState.hpp>
 
 namespace of::trigger
 {
-	class TriggerState : public of::module::save_state::SaveState
+	class TriggerState : public of::file::save_state::SaveState
 	{
 
 	protected:
