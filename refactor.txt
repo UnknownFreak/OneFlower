@@ -68,6 +68,14 @@ Launcher []
 	Add a launcher that can be used to configure mod loading & main game files
 
 Other:
+Reduce number of modules []
+	utils []
+	locale []
+	core []
+	physics []
+	editor []
+	courier []
+	
 Module versions []
 	Add automatic/ manual versions for when each module is built []
 Auto-project []
