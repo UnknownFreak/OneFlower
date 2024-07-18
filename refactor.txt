@@ -75,6 +75,7 @@ Reduce number of modules []
 	physics []
 	editor []
 	courier []
+	ui []
 	
 Module versions []
 	Add automatic/ manual versions for when each module is built []
