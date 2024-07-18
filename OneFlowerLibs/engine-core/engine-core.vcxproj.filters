@@ -54,6 +54,9 @@
     <Filter Include="src\file">
       <UniqueIdentifier>{b6cfe13b-d456-405a-b58b-292dbb805f4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\component">
+      <UniqueIdentifier>{8237de28-7bec-4ac9-9e3d-469b7182038e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\resource\DifficultyLevel.hpp">
