@@ -105,15 +105,17 @@ namespace of::object
 		{
 			if (componentMap.find(T::typeId) == componentMap.end())
 			{
-				of::component::Base* componentToAttach = new T(as...);
+				std::shared_ptr<T> componentToAttach = std::make_shared<T>(as...);
+				componentMap.insert(std::make_pair(T::typeId, componentToAttach));
+
 				componentToAttach->attachOn(this);
-				return (T*)componentToAttach;
+				return componentToAttach.get();
 			}
 			return nullptr;
 		};
 
-		of::component::Base* add(of::component::Base* componentToAdd);
-		of::component::Base* addOrReplace(of::component::Base* componentToAdd);
+		of::component::Base* add(std::shared_ptr<of::component::Base> componentToAdd);
+		of::component::Base* addOrReplace(std::shared_ptr<of::component::Base> componentToAdd);
 
 		template<class T>
 			requires std::derived_from<T, of::component::Base> &&

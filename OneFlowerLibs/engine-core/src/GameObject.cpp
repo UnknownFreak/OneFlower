@@ -68,7 +68,7 @@ namespace of::object
 	{
 		for (auto& x : copy.componentMap)
 		{
-			add(x.second->copy());
+			add(std::shared_ptr<of::component::Base>(x.second->copy()));
 		}
 	}
 
@@ -82,7 +82,7 @@ namespace of::object
 		componentMap.clear();
 		for (auto& x : copy.componentMap)
 		{
-			add(x.second->copy());
+			add(std::shared_ptr<of::component::Base>(x.second->copy()));
 		}
 		reAttach();
 		return *this;
@@ -225,30 +225,24 @@ namespace of::object
 		}
 	}
 
-	component::Base* GameObject::add(component::Base* componentToAdd)
+	component::Base* GameObject::add(std::shared_ptr<of::component::Base> componentToAdd)
 	{
 		if (componentMap.find(componentToAdd->getType()) == componentMap.end())
 		{
+			componentMap.insert(std::make_pair(componentToAdd->getType(), componentToAdd));
 			componentToAdd->attachOn(this);
+			return componentToAdd.get();
 		}
-		else
-		{
-			delete componentToAdd;
-			componentToAdd = nullptr;
-		}
-		return componentToAdd;
+		return nullptr;;
 	}
 
-	component::Base* GameObject::addOrReplace(component::Base* componentToAdd)
+	component::Base* GameObject::addOrReplace(std::shared_ptr<of::component::Base> componentToAdd)
 	{
-		if (componentMap.find(componentToAdd->getType()) == componentMap.end())
-			componentToAdd->attachOn(this);
-		else
+		if (componentMap.find(componentToAdd->getType()) != componentMap.end())
 		{
 			componentMap.erase(componentToAdd->getType());
-			componentToAdd->attachOn(this);
 		}
-		return componentToAdd;
+		return add(componentToAdd);
 	}
 
 	ObjectSaveState* GameObject::getCurrentSaveState()

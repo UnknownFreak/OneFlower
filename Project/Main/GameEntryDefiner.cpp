@@ -1052,10 +1052,10 @@ int GameEntry::Run()
 
 	door->get<of::component::Transform>()->pos = glm::vec3(1.f, 4.f, 3.f);
 
-	auto collider = new of::component::Collider();
+	auto collider = std::make_shared<of::component::Collider>();
 	collider->mColliderMesh = "door.swm";
 	collider->mColliderType = of::component::Collider::ColliderType::RIGID;
-	auto triggerCollider = new of::component::TriggerCollider();
+	auto triggerCollider = std::make_shared<of::component::TriggerCollider>();
 	triggerCollider->mColliderShapeType = of::component::TriggerCollider::ShapeType::BOX;
 	triggerCollider->mTriggerShapeScale = glm::vec3(1.4f,1.5f,0.9f);
 	triggerCollider->mTriggerShapeOffset.y = 1.5f;

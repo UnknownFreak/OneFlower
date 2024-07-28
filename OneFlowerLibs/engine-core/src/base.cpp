@@ -18,11 +18,6 @@ namespace of::component
 			decouple();
 		}
 		attachedOn = attachTo;
-		if(attachTo->componentMap.find(getType()) == attachTo->componentMap.end())
-			// Not UB, all components are allocated with "new" by gameobject...
-			// rework and attach the component in the gameobject instead, makes it more clear to what's going on as well.
-			// also removes all this "friend shenanigans"
-			attachTo->componentMap.insert(std::make_pair(getType(), std::shared_ptr<Base>(this)));
 		initialize();
 		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component initialized [ComponentType, instanceId]");
 		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);

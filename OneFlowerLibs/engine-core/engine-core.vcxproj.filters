@@ -104,6 +104,9 @@
     <ClInclude Include="include\component\transform.hpp">
       <Filter>include\component</Filter>
     </ClInclude>
+    <ClInclude Include="include\component\objectStateActivator.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">

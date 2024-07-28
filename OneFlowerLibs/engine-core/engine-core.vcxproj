@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\component\base.hpp" />
+    <ClInclude Include="include\component\objectStateActivator.hpp" />
     <ClInclude Include="include\component\transform.hpp" />
     <ClInclude Include="include\engine\runMode.hpp" />
     <ClInclude Include="include\file\saveFile.hpp" />
