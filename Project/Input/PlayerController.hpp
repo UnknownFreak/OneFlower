@@ -1,13 +1,13 @@
 #ifndef PlayerController_HPP
 #define PlayerController_HPP
 
-#include <Object/component/Transform.hpp>
-#include <object/component/combat.hpp>
+#include <component/transform.hpp>
+#include <component/combat.hpp>
 
 #include <Input/inputHandler.hpp>
 #include <physics/physics.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	class PlayerController : public Base
 	{
@@ -18,7 +18,7 @@ namespace of::object::component
 	public:
 		void clearBindings();
 		Transform* transform = nullptr;
-		of::object::component::CombatComponent* combat = nullptr;
+		of::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
 		physx::PxController* mActor;
 		of::input::InputHandler& handler;

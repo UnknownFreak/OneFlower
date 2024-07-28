@@ -3,12 +3,12 @@
 #include <file/Handler.hpp>
 
 #include <object/InstanceHandler.hpp>
-#include <object/component/Render.hpp>
+#include <component/render.hpp>
 #include <Items/Inventory.hpp>
 #include <Items/LootContainer.hpp>
 
 
-namespace of::object::component
+namespace of::component
 {
 
 	void LootDrop::onMessage(const of::object::messaging::Message& message)
@@ -25,20 +25,20 @@ namespace of::object::component
 			{
 				auto go = of::engine::GetModule<of::object::InstanceHandler>().addObject();
 				go->add<Render>();
-				go->get<of::object::component::Transform>()->pos = attachedOn->get<of::object::component::Transform>()->pos;
-				go->add<of::object::component::LootContainer>();
+				go->get<of::component::Transform>()->pos = attachedOn->get<of::component::Transform>()->pos;
+				go->add<of::component::LootContainer>();
 				// TODO: Attach loot to container & set proper rendering texture via global prefab perhaps?
 			}
 		}
 	}
 
-	void LootDrop::loot(GameObject* object)
+	void LootDrop::loot(object::GameObject* object)
 	{
 		looted = true;
 		for (auto& x : lootDrops)
 		{
 			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
-			object->get<of::object::component::Inventory>()->addItem(tmp, x.second);
+			object->get<of::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
 

@@ -1,11 +1,9 @@
 #pragma once
-#ifndef Interactable_HPP
-#define Interactable_HPP
 
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 #include "Interaction.hpp"
 
-namespace of::object::component
+namespace of::component
 {
 	struct Interactable : public Base
 	{
@@ -37,7 +35,7 @@ namespace of::object::component
 			return std::make_unique<Interactable>(*this);
 		}
 
-		void interact(GameObject& interactable);
+		void interact(object::GameObject& interactable);
 		void interact(const bool& reverse, const short& repeat);
 
 		void persist(of::object::ObjectSaveState*) override {};
@@ -72,6 +70,3 @@ namespace of::object::component
 		static constexpr of::common::uuid typeId = "4f6d8d08-5bec-475a-867c-5a42f3bdf285";
 	};
 }
-
-
-#endif

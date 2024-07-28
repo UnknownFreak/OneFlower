@@ -7,19 +7,19 @@
 
 #include <vector>
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 #include "Stats.hpp"
 #include <combat/effect/Effect.hpp>
 #include <resource/TickTimer.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	class Damage : public Base
 	{
 		Transform* transform;
 		bool hasLivedTooLong();
 		bool hasHitEnoughEnemiesAndDestroy();
-		std::vector<GameObject*> targetsHit;
+		std::vector<object::GameObject*> targetsHit;
 		std::vector<of::combat::Effect> effects;
 		bool lockNextFrame;
 		bool locked;
@@ -49,7 +49,7 @@ namespace of::object::component
 		float speed;
 		double damageCoef;
 	public:
-		std::shared_ptr<of::object::component::Stats> owner;
+		std::shared_ptr<of::component::Stats> owner;
 
 		void setDirection(const glm::vec2& direction, const float& speed);
 
@@ -110,6 +110,6 @@ namespace of::object::component
 	};
 }
 
-CEREAL_REGISTER_TYPE_WITH_NAME(of::object::component::Damage, "Component::Damage");
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Damage);
+CEREAL_REGISTER_TYPE_WITH_NAME(of::component::Damage, "Component::Damage");
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::component::Base, of::component::Damage);
 #endif

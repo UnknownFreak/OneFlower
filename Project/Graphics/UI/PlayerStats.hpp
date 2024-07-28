@@ -5,7 +5,7 @@
 #include "PlayerBuffDebuff.hpp"
 #include "ActionBar.hpp"
 
-#include <object/component/Stats.hpp>
+#include <component/stats.hpp>
 
 #include <Graphics/UI/ProgressBar.hpp>
 
@@ -13,7 +13,7 @@ namespace Graphics::UI
 {
 	class PlayerStats : public Graphics::UI::UIContext
 	{
-		std::shared_ptr<of::object::component::Stats> stats;
+		std::shared_ptr<of::component::Stats> stats;
 		PlayerBuffDebuff buffDebuff;
 		ActionBar actionBar;
 
@@ -26,7 +26,7 @@ namespace Graphics::UI
 	public:
 		PlayerStats();
 
-		void setPlayerStats(std::shared_ptr<of::object::component::Stats> component);
+		void setPlayerStats(std::shared_ptr<of::component::Stats> component);
 
 		// Inherited via UIContext
 		virtual void readInput() override;

@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <object/GameObject.hpp>
-#include <object/component/Stats.hpp>
+#include <component/stats.hpp>
 
 #include "Item.hpp"
 #include "StatChangingItem.hpp"
@@ -12,7 +12,7 @@
 #include "ArmorItem.hpp"
 #include "TrinketItem.hpp"
 
-namespace of::object::component
+namespace of::component
 {
 	class Inventory : public Base
 	{
@@ -20,7 +20,7 @@ namespace of::object::component
 		requires std::derived_from<T, Items::StatChangingItem>
 		void swap(std::shared_ptr<T>& theSlot, std::shared_ptr<T>& theItem)
 		{
-			auto stats = attachedOn->get<of::object::component::Stats>();
+			auto stats = attachedOn->get<of::component::Stats>();
 			if (theSlot.operator bool())
 			{
 				stats->removeModifier(theSlot->defence);

@@ -21,20 +21,11 @@
     <Filter Include="include\object\messaging">
       <UniqueIdentifier>{e7519405-d77a-4df6-99e8-3beebeb4019e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\object\component">
-      <UniqueIdentifier>{77f4957b-497d-401a-9f74-03185c03aa0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\object\component\base">
-      <UniqueIdentifier>{20b48f91-8728-4730-9b1b-41f5006f1fe7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\object">
       <UniqueIdentifier>{d24d90b5-847c-47a4-9c0a-812c56514700}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\object\component">
       <UniqueIdentifier>{e9b586be-61b8-4667-9d52-b44558ea8721}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\object\component\base">
-      <UniqueIdentifier>{05c4bd23-cfc7-4545-8508-b4e90d1b90ec}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\engine">
       <UniqueIdentifier>{2899d96f-4d44-435c-9ae1-b7aa059babc8}</UniqueIdentifier>
@@ -74,23 +65,14 @@
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp">
       <Filter>include\object\messaging</Filter>
     </ClInclude>
-    <ClInclude Include="include\object\component\BaseComponent.hpp">
-      <Filter>include\object\component\base</Filter>
-    </ClInclude>
     <ClInclude Include="include\object\ObjectState.hpp">
       <Filter>include\object</Filter>
     </ClInclude>
     <ClInclude Include="include\object\messaging\Topics.hpp">
       <Filter>include\object\messaging</Filter>
     </ClInclude>
-    <ClInclude Include="include\object\component\Transform.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
     <ClInclude Include="include\resource\Prefab.hpp">
       <Filter>include\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="include\object\component\ObjectStateActivator.hpp">
-      <Filter>include\object\component</Filter>
     </ClInclude>
     <ClInclude Include="include\object\ObjectSaveState.hpp">
       <Filter>include\object</Filter>
@@ -116,6 +98,12 @@
     <ClInclude Include="include\file\saveSetting.hpp">
       <Filter>include\file</Filter>
     </ClInclude>
+    <ClInclude Include="include\component\base.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\transform.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -127,19 +115,16 @@
     <ClCompile Include="src\triggerState.cpp">
       <Filter>src\trigger</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseComponentDefiner.cpp">
-      <Filter>src\object\component\base</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameObject.cpp">
       <Filter>src\object</Filter>
     </ClCompile>
-    <ClCompile Include="src\Transform.cpp">
+    <ClCompile Include="src\transform.cpp">
       <Filter>src\object\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Prefab.cpp">
       <Filter>src\resource</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObjectStateActivator.cpp">
+    <ClCompile Include="src\objectStateActivator.cpp">
       <Filter>src\object\component</Filter>
     </ClCompile>
     <ClCompile Include="src\ObjectSaveState.cpp">
@@ -153,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="src\saveFile.cpp">
       <Filter>src\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\base.cpp">
+      <Filter>src\object\component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

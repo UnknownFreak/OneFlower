@@ -37,7 +37,7 @@ namespace of::editor
 
 					if (o)
 					{
-						auto trans = o->getShared<of::object::component::Transform>();
+						auto trans = o->getShared<of::component::Transform>();
 						m_objects.clear();
 						m_objects.push_back(trans);
 						mTransform->pos = trans->pos;
@@ -69,7 +69,7 @@ namespace of::editor
 						{
 							mHovering = hitType.objectId;
 							if (hitType.go)
-								posOg = hitType.go->get<of::object::component::Transform>()->pos;
+								posOg = hitType.go->get<of::component::Transform>()->pos;
 						}
 						collider = hitType.hitType;
 					}
@@ -89,7 +89,7 @@ namespace of::editor
 	{
 	}
 
-	void Gizmo::updateObjectTransform(std::shared_ptr<of::object::component::Transform> transform)
+	void Gizmo::updateObjectTransform(std::shared_ptr<of::component::Transform> transform)
 	{
 		m_objects[0]->updateTransform(transform);
 	}

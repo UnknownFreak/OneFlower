@@ -1,10 +1,10 @@
 #ifndef LootDrop_Hpp
 #define LootDrop_Hpp
 
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 #include "LootTable.hpp"
 
-namespace of::object::component
+namespace of::component
 {
 	class LootDrop : public Base
 	{
@@ -20,7 +20,7 @@ namespace of::object::component
 		std::unordered_map<of::file::FileId, size_t> lootDrops;
 
 
-		void loot(GameObject* object);
+		void loot(object::GameObject* object);
 		bool isLooted() const;
 
 		virtual LootDrop* copy() const override

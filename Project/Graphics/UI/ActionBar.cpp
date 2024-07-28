@@ -4,7 +4,7 @@ Graphics::UI::ActionBar::ActionBar() : UIContext(swizzle::input::Keys::KeyNone, 
 {
 }
 
-void Graphics::UI::ActionBar::setPlayerCombatSkills(std::shared_ptr<of::object::component::CombatComponent> newCombat)
+void Graphics::UI::ActionBar::setPlayerCombatSkills(std::shared_ptr<of::component::CombatComponent> newCombat)
 {
 	combat = newCombat;
 }

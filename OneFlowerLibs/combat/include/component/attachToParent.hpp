@@ -1,23 +1,22 @@
-#ifndef AttachToParent_HPP
-#define AttachToParent_Hpp
+#pragma once
 
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
 	class AttachToParent : public Base
 	{
-		GameObject* objectToFollow;
+		object::GameObject* objectToFollow;
 
-		virtual void onMessage(const messaging::Message& message) override;
+		virtual void onMessage(const object::messaging::Message& message) override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
 	public:
-		AttachToParent(GameObject* objectToFollow);
+		AttachToParent(object::GameObject* objectToFollow);
 
-		virtual void update(const float& fElapsedTime);
+		virtual void update(const float fElapsedTime);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};
@@ -46,5 +45,3 @@ namespace of::object::component
 		static constexpr of::common::uuid typeId = "6e45ab1c-7a29-417b-b9fb-d6db1789696b";
 	};
 }
-
-#endif

@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\component\render.hpp" />
     <ClInclude Include="include\graphics\model\Model.hpp" />
     <ClInclude Include="include\graphics\parentedRenderable.hpp" />
     <ClInclude Include="include\graphics\renderable.hpp" />
@@ -149,7 +150,6 @@
     <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
     <ClInclude Include="include\module\resource\TextureLoader.hpp" />
     <ClInclude Include="include\module\window\WindowProxy.hpp" />
-    <ClInclude Include="include\object\component\Render.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\imgui\imgui.vcxproj">

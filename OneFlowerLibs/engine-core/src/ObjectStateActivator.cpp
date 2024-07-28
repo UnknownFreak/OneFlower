@@ -1,4 +1,4 @@
-#include <object/component/ObjectStateActivator.hpp>
+#include <component/objectStateActivator.hpp>
 
 #include <object/GameObject.hpp>
 
@@ -6,14 +6,14 @@
 #include <file/SaveFile.hpp>
 
 
-namespace of::object::component
+namespace of::component
 {
 
 	void ObjectStateActivator::onMessage(const of::object::messaging::Message&)
 	{
 	}
 
-	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId_, const ObjectState& toggle_)
+	void ObjectStateActivator::pushObjectSaveState(const of::common::uuid& objectId_, const object::ObjectState& toggle_)
 	{
 		objectId_, toggle_;
 		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
@@ -29,14 +29,14 @@ namespace of::object::component
 			if (handler.exists(objectId))
 			{
 				auto object = handler.getObject(objectId);
-				if (toggleState == ObjectState::Toggle)
+				if (toggleState == object::ObjectState::Toggle)
 					object->toggleObjectState();
 				else
 					object->toggleObjectState(toggleState);
 			}
 			else
 			{
-				if (toggleState != ObjectState::Toggle)
+				if (toggleState != object::ObjectState::Toggle)
 				{
 					pushObjectSaveState(objectId, toggleState);
 				}

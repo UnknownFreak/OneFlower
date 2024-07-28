@@ -3,9 +3,9 @@
 
 #include <file/FileId.hpp>
 
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	class LootContainer : public Base
 	{
@@ -31,7 +31,7 @@ namespace of::object::component
 			return std::make_unique<LootContainer>(*this);
 		}
 
-		void loot(GameObject* object);
+		void loot(object::GameObject* object);
 		bool isLooted() const;
 
 		void persist(of::object::ObjectSaveState*) override {};

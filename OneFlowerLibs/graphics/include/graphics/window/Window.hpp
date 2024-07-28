@@ -15,8 +15,6 @@
 #include <swizzle/ApplicationTemplate.hpp>
 #include <ImGuiSwzzle.hpp>
 
-//#include <module/IEngineModule.hpp>
-
 #include <graphics/view/camera.hpp>
 
 #include <swizzle/asset2/Assets.hpp>

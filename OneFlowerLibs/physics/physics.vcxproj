@@ -134,9 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\object\component\Collider.hpp" />
-    <ClInclude Include="include\object\component\doorHinge.hpp" />
-    <ClInclude Include="include\object\component\TriggerCollider.hpp" />
+    <ClInclude Include="include\component\collider.hpp" />
+    <ClInclude Include="include\component\doorHinge.hpp" />
+    <ClInclude Include="include\component\triggerCollider.hpp" />
     <ClInclude Include="include\physics\physics.hpp" />
   </ItemGroup>
   <ItemGroup>

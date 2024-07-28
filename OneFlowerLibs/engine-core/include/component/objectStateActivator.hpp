@@ -9,23 +9,23 @@
 #include <cereal/types/polymorphic.hpp>
 
 #include <utils/common/uuid.hpp>
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 #include <object/ObjectState.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	struct ObjectStateActivator : public Base
 	{
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 
-		void pushObjectSaveState(const of::common::uuid& objectId, const ObjectState& toggle);
+		void pushObjectSaveState(const of::common::uuid& objectId, const object::ObjectState& toggle);
 
 		virtual void initialize() override {};
 		virtual void deconstruct() override {};
 
 	public:
-		std::vector<std::pair<of::common::uuid, ObjectState>> m_objectsToToggle;
+		std::vector<std::pair<of::common::uuid, object::ObjectState>> m_objectsToToggle;
 
 		ObjectStateActivator() = default;
 		~ObjectStateActivator() = default;
@@ -71,7 +71,7 @@ namespace of::object::component
 	};
 }
 
-CEREAL_REGISTER_TYPE(of::object::component::ObjectStateActivator);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::ObjectStateActivator);
+CEREAL_REGISTER_TYPE(of::component::ObjectStateActivator);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::component::Base, of::component::ObjectStateActivator);
 
 #endif

@@ -1,4 +1,4 @@
-#include <object/component/Collider.hpp>
+#include <component/collider.hpp>
 
 #include <object/GameObject.hpp>
 
@@ -11,7 +11,7 @@
 
 #include <engine/runMode.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void Collider::onMessage(const  of::object::messaging::Message& message)
 	{

@@ -1,19 +1,17 @@
 #pragma once
-#ifndef Transform_HPP
-#define Transform_HPP
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#include "BaseComponent.hpp"
+#include "base.hpp"
 
-namespace of::object::component
+namespace of::component
 {
 	class Transform : public Base
 	{
 
 	protected:
 
-		virtual void onMessage(const messaging::Message& message) override;
+		virtual void onMessage(const object::messaging::Message& message) override;
 
 		virtual void deconstruct() override;
 		virtual void initialize() override;
@@ -58,8 +56,8 @@ namespace of::object::component
 		static constexpr of::common::uuid typeId = "e6f52003-0e92-4118-8ab0-b5d54b680c81";
 
 		void jump();
-		void move(const glm::vec2& direction);
-		void lookAt(const glm::vec2& direction);
+		void move(const glm::vec2 direction);
+		void lookAt(const glm::vec2 direction);
 
 		virtual void update(const float dt);
 
@@ -69,5 +67,3 @@ namespace of::object::component
 
 	};
 }
-
-#endif

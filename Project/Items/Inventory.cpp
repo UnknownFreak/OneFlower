@@ -1,7 +1,7 @@
 #include "Inventory.hpp"
 #include <Object/GameObject.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void Inventory::onMessage(const of::object::messaging::Message&)
 	{

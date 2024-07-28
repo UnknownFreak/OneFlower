@@ -1,4 +1,4 @@
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 
 #include <utils/common/uuid.hpp>
 
@@ -10,7 +10,7 @@
 #include <courier/courier.hpp>
 #include <courier/subscriber.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void Transform::jump()
 	{
@@ -20,7 +20,7 @@ namespace of::object::component
 		falling = true;
 	}
 
-	void Transform::move(const glm::vec2& direction)
+	void Transform::move(const glm::vec2 direction)
 	{
 		moving = true;
 		//glm::vec2 newDir;
@@ -37,7 +37,7 @@ namespace of::object::component
 		//}
 	}
 
-	void Transform::lookAt(const glm::vec2& direction)
+	void Transform::lookAt(const glm::vec2 direction)
 	{
 		auto thePos = glm::vec2(pos);
 		auto theOffset = thePos + direction;
@@ -63,9 +63,9 @@ namespace of::object::component
 		moving = false;
 	}
 
-	void Transform::onMessage(const messaging::Message& message)
+	void Transform::onMessage(const object::messaging::Message& message)
 	{
-		using namespace messaging;
+		using namespace object::messaging;
 		if (message.messageTopic == Topic::of(Topics::REQUEST_DATA) && message.messageBody->bodyType == BodyType::REQUEST_DATA)
 		{
 			auto ref = ((RequestData*)message.messageBody.get());

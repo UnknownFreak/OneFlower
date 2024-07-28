@@ -1,11 +1,11 @@
 #pragma once
 
-#include <object/component/BaseComponent.hpp>
-#include <object/component/Transform.hpp>
+#include <component/base.hpp>
+#include <component/transform.hpp>
 
 #include <glm/glm.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	class Portal : public Base
 	{
@@ -13,7 +13,7 @@ namespace of::object::component
 		virtual void onMessage(const of::object::messaging::Message& message) override;
 
 
-		std::shared_ptr<of::object::component::Transform> mSelfTrackingPos;
+		std::shared_ptr<of::component::Transform> mSelfTrackingPos;
 
 		float mTeleportDistance;
 		float mGuiHintDistance;

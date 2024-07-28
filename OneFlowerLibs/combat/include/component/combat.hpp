@@ -4,11 +4,11 @@
 #include <combat/Skill.hpp>
 
 #include <vector>
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 
 #include <combat/CombatSkill.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
 	class CombatComponent : public Base
@@ -53,6 +53,6 @@ namespace of::object::component
 
 }
 
-CEREAL_REGISTER_TYPE(of::object::component::CombatComponent);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::CombatComponent);
+CEREAL_REGISTER_TYPE(of::component::CombatComponent);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::component::Base, of::component::CombatComponent);
 #endif

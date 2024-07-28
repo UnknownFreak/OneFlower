@@ -7,11 +7,11 @@
 #include <file/Handler.hpp>
 #include <File/Asset/Resource/DialogTree.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 
 #include <file/FileId.hpp>
 
-class Dialog : public of::object::component::Base
+class Dialog : public of::component::Base
 {
 	virtual void onMessage(const of::object::messaging::Message& message) override;
 	virtual void initialize() override;
@@ -78,6 +78,6 @@ public:
 };
 
 CEREAL_REGISTER_ARCHIVE(Dialog);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, Dialog);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::component::Base, Dialog);
 
 #endif

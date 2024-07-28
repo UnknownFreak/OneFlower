@@ -1,21 +1,21 @@
 #ifndef RenderComponent_HPP
 #define RenderComponent_HPP
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 #include <graphics/renderable.hpp>
 
 #include <file/FileId.hpp>
 #include <graphics/model/Model.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
 
-	class Render : public of::object::component::Base, public of::graphics::Renderable
+	class Render : public of::component::Base, public of::graphics::Renderable
 	{
 		bool initialized = false;
 
-		of::object::component::Transform* transform;
+		of::component::Transform* transform;
 
 		of::common::String textureName;
 		of::common::String meshName;

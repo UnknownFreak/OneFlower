@@ -12,12 +12,6 @@
     <Filter Include="include\graphics">
       <UniqueIdentifier>{a74391c8-d04d-4161-87f0-7777b8b9cd9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\object">
-      <UniqueIdentifier>{102674e0-4959-496a-9d30-8a8ec7f159d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\object\component">
-      <UniqueIdentifier>{2a9f3ed3-dc67-4af4-97e6-1b6e77adb9b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\graphics\window">
       <UniqueIdentifier>{5a527742-2ae7-4af2-938a-f80420377d0c}</UniqueIdentifier>
     </Filter>
@@ -42,11 +36,11 @@
     <Filter Include="include\module\resource">
       <UniqueIdentifier>{ca3e70ca-7e0e-4217-a419-9702710f4a5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\component">
+      <UniqueIdentifier>{2a9f3ed3-dc67-4af4-97e6-1b6e77adb9b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\object\component\Render.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
     <ClInclude Include="include\graphics\window\Window.hpp">
       <Filter>include\graphics\window</Filter>
     </ClInclude>
@@ -91,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="include\module\resource\MeshLoader.hpp">
       <Filter>include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\render.hpp">
+      <Filter>include\component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

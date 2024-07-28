@@ -1,24 +1,24 @@
-#include <object/component/AttachToParent.hpp>
+#include <component/attachToParent.hpp>
 #include <utils/common/uuid.hpp>
 
 #include <object/GameObject.hpp>
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 
 #include <courier/courier.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
-	AttachToParent::AttachToParent(GameObject* objectToFollow) : objectToFollow(objectToFollow)
+	AttachToParent::AttachToParent(object::GameObject* objectToFollow) : objectToFollow(objectToFollow)
 	{
 	}
 
-	void AttachToParent::update(const float&)
+	void AttachToParent::update(const float)
 	{
 		attachedOn->get<Transform>()->pos = objectToFollow->get<Transform>()->buffered;
 	}
 
-	void AttachToParent::onMessage(const messaging::Message&)
+	void AttachToParent::onMessage(const object::messaging::Message&)
 	{
 	}
 

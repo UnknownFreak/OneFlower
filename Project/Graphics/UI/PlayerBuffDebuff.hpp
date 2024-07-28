@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "UIContext.hpp"
 
-#include <object/component/Stats.hpp>
+#include <component/stats.hpp>
 #include "PlainToolTip.hpp"
 #include "EffectIcon.hpp"
 
@@ -16,10 +16,10 @@ namespace Graphics::UI
 		glm::vec2 pos;
 		std::unordered_map<of::common::uuid, EffectIcon> effectIcons;
 		PlainToolTip dummy;
-		std::shared_ptr<of::object::component::Stats> stats;
+		std::shared_ptr<of::component::Stats> stats;
 	public:
 
-		void setStats(std::shared_ptr<of::object::component::Stats> stats);
+		void setStats(std::shared_ptr<of::component::Stats> stats);
 
 		PlayerBuffDebuff(const glm::vec2& pos);
 

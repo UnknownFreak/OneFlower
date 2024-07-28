@@ -33,7 +33,7 @@
 
 #include <imgui/basicToolTip.hpp>
 
-#include <object/component/Render.hpp>
+#include <component/render.hpp>
 
 #include <stb/stb_image.h>
 #include <algorithm>
@@ -53,9 +53,9 @@
 
 #include <physics/physics.hpp>
 
-#include <object/component/Collider.hpp>
-#include <object/component/TriggerCollider.hpp>
-#include <object/component/DoorHinge.hpp>
+#include <component/collider.hpp>
+#include <component/triggerCollider.hpp>
+#include <component/doorHinge.hpp>
 
 #include <editor.hpp>
 
@@ -1050,13 +1050,13 @@ int GameEntry::Run()
 
 	door->initialize();
 
-	door->get<of::object::component::Transform>()->pos = glm::vec3(1.f, 4.f, 3.f);
+	door->get<of::component::Transform>()->pos = glm::vec3(1.f, 4.f, 3.f);
 
-	auto collider = new of::object::component::Collider();
+	auto collider = new of::component::Collider();
 	collider->mColliderMesh = "door.swm";
-	collider->mColliderType = of::object::component::Collider::ColliderType::RIGID;
-	auto triggerCollider = new of::object::component::TriggerCollider();
-	triggerCollider->mColliderShapeType = of::object::component::TriggerCollider::ShapeType::BOX;
+	collider->mColliderType = of::component::Collider::ColliderType::RIGID;
+	auto triggerCollider = new of::component::TriggerCollider();
+	triggerCollider->mColliderShapeType = of::component::TriggerCollider::ShapeType::BOX;
 	triggerCollider->mTriggerShapeScale = glm::vec3(1.4f,1.5f,0.9f);
 	triggerCollider->mTriggerShapeOffset.y = 1.5f;
 
@@ -1078,7 +1078,7 @@ int GameEntry::Run()
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
 	//*/
 
-	auto controller = of::engine::GetModule<of::object::InstanceHandler>().player->add<of::object::component::PlayerController>();
+	auto controller = of::engine::GetModule<of::object::InstanceHandler>().player->add<of::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());

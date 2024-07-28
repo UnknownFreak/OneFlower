@@ -3,13 +3,13 @@
 #include <file/Handler.hpp>
 #include <file/SaveFile.hpp>
 
-#include <object/component/Render.hpp>
+#include <component/render.hpp>
 #include <Items/Inventory.hpp>
 
 
-namespace of::object::component
+namespace of::component
 {
-	void component::LootContainer::onMessage(const of::object::messaging::Message&)
+	void LootContainer::onMessage(const of::object::messaging::Message&)
 	{
 	}
 	void LootContainer::setLooted()
@@ -18,7 +18,7 @@ namespace of::object::component
 		//looted = of::engine::GetModule<of::module::SaveFile>().isLooted(attachedOn->id);
 	}
 
-	void LootContainer::loot(GameObject* object)
+	void LootContainer::loot(object::GameObject* object)
 	{
 		looted = true;
 		// play loot animation
@@ -31,7 +31,7 @@ namespace of::object::component
 		for (auto& x : lootDrops)
 		{
 			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
-			object->get<of::object::component::Inventory>()->addItem(tmp, x.second);
+			object->get<of::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}
 

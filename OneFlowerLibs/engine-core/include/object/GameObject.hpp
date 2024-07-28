@@ -15,7 +15,7 @@
 
 #include "ObjectState.hpp"
 
-#include "component/BaseComponent.hpp"
+#include <component/base.hpp>
 
 #include <resource/GameModeModifier.hpp>
 #include <trigger/Trigger.hpp>
@@ -34,7 +34,7 @@ namespace of::object
 	class GameObject
 	{
 		friend class of::object::InstanceHandler;
-		friend class component::Base;
+		friend class of::component::Base;
 
 		std::vector<std::unique_ptr<of::trigger::Trigger>> onDeathTriggers;
 
@@ -58,14 +58,14 @@ namespace of::object
 		bool post(const common::uuid& id, const messaging::Message& message);
 
 		template<class T>
-			requires std::derived_from<T, component::Base>
+			requires std::derived_from<T, of::component::Base>
 		bool post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message)
 		{
 			return post<T>({ topic, message });
 		}
 
 		template<class T>
-		requires std::derived_from<T, component::Base>
+		requires std::derived_from<T, of::component::Base>
 		bool post(const messaging::Message& message)
 		{
 			auto comp = get<T>();
@@ -98,25 +98,25 @@ namespace of::object
 		void reAttach();
 
 		template <class T, typename... Args>
-			requires std::derived_from<T, component::Base> && 
+			requires std::derived_from<T, of::component::Base> && 
 		std::constructible_from<T, Args...> &&
 			of::utils::concepts::has_typeId_member<T>
 		T* add(Args... as)
 		{
 			if (componentMap.find(T::typeId) == componentMap.end())
 			{
-				component::Base* componentToAttach = new T(as...);
+				of::component::Base* componentToAttach = new T(as...);
 				componentToAttach->attachOn(this);
 				return (T*)componentToAttach;
 			}
 			return nullptr;
 		};
 
-		component::Base* add(component::Base* componentToAdd);
-		component::Base* addOrReplace(component::Base* componentToAdd);
+		of::component::Base* add(of::component::Base* componentToAdd);
+		of::component::Base* addOrReplace(of::component::Base* componentToAdd);
 
 		template<class T>
-			requires std::derived_from<T, component::Base> &&
+			requires std::derived_from<T, of::component::Base> &&
 		of::utils::concepts::has_typeId_member<T>
 		T* get() const
 		{
@@ -125,7 +125,7 @@ namespace of::object
 		}
 
 		template<class T>
-			requires std::derived_from<T, component::Base> &&
+			requires std::derived_from<T, of::component::Base> &&
 		of::utils::concepts::has_typeId_member<T>
 		std::shared_ptr<T> getShared() const
 		{
@@ -134,7 +134,7 @@ namespace of::object
 		}
 
 		template<class T>
-			requires std::derived_from<T, component::Base>&&
+			requires std::derived_from<T, of::component::Base>&&
 		of::utils::concepts::has_typeId_member<T>
 		bool remove()
 		{
@@ -172,7 +172,7 @@ namespace of::object
 		}
 
 	protected:
-		std::unordered_map<of::common::uuid, std::shared_ptr<component::Base>> componentMap;
+		std::unordered_map<of::common::uuid, std::shared_ptr<of::component::Base>> componentMap;
 	};
 };
 

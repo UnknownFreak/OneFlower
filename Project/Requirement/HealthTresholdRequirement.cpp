@@ -2,7 +2,7 @@
 
 #include <object/InstanceHandler.hpp>
 #include <logger/Logger.hpp>
-#include <object/component/Stats.hpp>
+#include <component/stats.hpp>
 
 namespace Requirement
 {
@@ -13,7 +13,7 @@ namespace Requirement
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);
-			auto stats = ptr->get<of::object::component::Stats>();
+			auto stats = ptr->get<of::component::Stats>();
 			if (stats)
 			{
 				auto p = stats->mainStat[Enums::StatType::Health].current / stats->mainStat[Enums::StatType::Health].max;

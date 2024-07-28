@@ -17,11 +17,11 @@ buffDebuff({x + 40, y + 80})
 	//playerLevel.setFillColor(sf::Color::Black);
 }
 
-void Graphics::UI::PlayerStats::setPlayerStats(std::shared_ptr<of::object::component::Stats> component)
+void Graphics::UI::PlayerStats::setPlayerStats(std::shared_ptr<of::component::Stats> component)
 {
 	stats = component;
 	buffDebuff.setStats(component);
-	actionBar.setPlayerCombatSkills(component->attachedOn->getShared<of::object::component::CombatComponent>());
+	actionBar.setPlayerCombatSkills(component->attachedOn->getShared<of::component::CombatComponent>());
 }
 
 void Graphics::UI::PlayerStats::readInput()

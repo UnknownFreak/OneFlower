@@ -3,19 +3,19 @@
 
 #include <Helpers/Enum/InteractionOption.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 
 #include <graphics/model/Model.hpp>
 #include "Dialog.hpp"
 #include <Items/LootDrop.hpp>
 #include <Items/LootContainer.hpp>
 
-class PlayerInteractionPrompt : public of::object::component::Base
+class PlayerInteractionPrompt : public of::component::Base
 {
 	bool showPrompt = false;
 	Dialog* dialog = nullptr;
-	of::object::component::LootDrop* lootDrop = nullptr;
-	of::object::component::LootContainer* lootContainer = nullptr;
+	of::component::LootDrop* lootDrop = nullptr;
+	of::component::LootContainer* lootContainer = nullptr;
 	of::resource::Model interactionModel;
 	std::shared_ptr<swizzle::gfx::Texture> texture;
 	float iconSize = 32.f;

@@ -1,6 +1,6 @@
 #include <object/GameObject.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 #include <object/ObjectSaveState.hpp>
 
 #include <object/InstanceHandler.hpp>

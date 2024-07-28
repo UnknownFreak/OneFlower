@@ -1,13 +1,13 @@
-#include <object/component/TriggerCollider.hpp>
+#include <component/triggerCollider.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/transform.hpp>
 #include <object/GameObject.hpp>
 
 
 #include <logger/Logger.hpp>
 #include <module/resource/MeshLoader.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void TriggerCollider::initialize()
 	{

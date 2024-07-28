@@ -134,13 +134,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\component\base.hpp" />
+    <ClInclude Include="include\component\transform.hpp" />
     <ClInclude Include="include\engine\runMode.hpp" />
     <ClInclude Include="include\file\saveFile.hpp" />
     <ClInclude Include="include\file\saveSetting.hpp" />
     <ClInclude Include="include\file\saveState.hpp" />
-    <ClInclude Include="include\object\component\BaseComponent.hpp" />
-    <ClInclude Include="include\object\component\ObjectStateActivator.hpp" />
-    <ClInclude Include="include\object\component\Transform.hpp" />
     <ClInclude Include="include\object\GameObject.hpp" />
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp" />
     <ClInclude Include="include\object\messaging\Topics.hpp" />
@@ -175,16 +174,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseComponentDefiner.cpp" />
+    <ClCompile Include="src\base.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\InstanceHandler.cpp" />
     <ClCompile Include="src\ObjectSaveState.cpp" />
-    <ClCompile Include="src\ObjectStateActivator.cpp" />
+    <ClCompile Include="src\objectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />
     <ClCompile Include="src\runMode.cpp" />
     <ClCompile Include="src\saveFile.cpp" />
-    <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\transform.cpp" />
     <ClCompile Include="src\trigger.cpp" />
     <ClCompile Include="src\triggerState.cpp" />
   </ItemGroup>

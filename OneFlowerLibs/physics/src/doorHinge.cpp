@@ -1,6 +1,6 @@
-#include <object/component/doorHinge.hpp>
+#include <component/doorHinge.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/Transform.hpp>
 #include <object/GameObject.hpp>
 
 #include <logger/Logger.hpp>
@@ -8,7 +8,7 @@
 #include <courier/courier.hpp>
 #include <engine/runMode.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void DoorHinge::initialize()
 	{

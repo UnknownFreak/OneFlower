@@ -1,12 +1,12 @@
-#include <object/component/Damage.hpp>
+#include <component/damage.hpp>
 
-#include <Object/GameObject.hpp>
+#include <object/GameObject.hpp>
 #include <file/Handler.hpp>
 #include <courier/courier.hpp>
 
 //#include <Items/Inventory.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
 	void Damage::onMessage(const of::object::messaging::Message& message)
@@ -15,7 +15,7 @@ namespace of::object::component
 		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::ON_COLLISION) && message.messageBody->bodyType == BodyType::GAMEOBJECT_PTR)
 		{
-			GameObject* the_collidee = (GameObject*)((GameObjectPtr*)message.messageBody.get())->go;
+			object::GameObject* the_collidee = (object::GameObject*)((GameObjectPtr*)message.messageBody.get())->go;
 			if (the_collidee != owner->attachedOn)
 			{
 				if (std::find(targetsHit.begin(), targetsHit.end(), the_collidee) != targetsHit.end() && eachTargetUnique || targetsHit.size() == maxTargets)
@@ -24,7 +24,7 @@ namespace of::object::component
 				if (locked)
 					return;
 
-				auto* stats = the_collidee->get<of::object::component::Stats>();
+				auto* stats = the_collidee->get<of::component::Stats>();
 
 				/*
 				
@@ -127,7 +127,7 @@ namespace of::object::component
 		return new Damage(*this);
 	}
 
-	std::unique_ptr<of::object::component::Base> Damage::ucopy() const
+	std::unique_ptr<of::component::Base> Damage::ucopy() const
 	{
 		return std::make_unique<Damage>(*this);
 	}

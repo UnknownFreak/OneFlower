@@ -1,5 +1,4 @@
-#ifndef BaseComponentTest_HPP
-#define BaseComponentTest_HPP
+#pragma once
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
@@ -14,18 +13,18 @@ namespace of::object
 {
 	class GameObject;
 }
-namespace of::object::component
+namespace of::component
 {
 	class Base : public of::utils::lifetime::IsAlive
 	{
-		friend class GameObject;
+		friend class object::GameObject;
 
-		void attachOn(GameObject* attachTo);
+		void attachOn(object::GameObject* attachTo);
 		void decouple();
 
 	public:
 
-		GameObject* attachedOn = nullptr;
+		object::GameObject* attachedOn = nullptr;
 		size_t instanceId;
 
 		virtual Base* copy() const = 0;
@@ -35,11 +34,11 @@ namespace of::object::component
 
 		virtual of::common::uuid getType() const = 0;
 		virtual of::common::String getTypeName() const = 0;
-		virtual void onMessage(const messaging::Message& message) = 0;
+		virtual void onMessage(const object::messaging::Message& message) = 0;
 
-		bool post(const of::common::uuid& id, const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
-		void post(const messaging::Topic topic, std::shared_ptr<messaging::Body> message) const;
-		void post(const messaging::Message& message) const;
+		bool post(const of::common::uuid& id, const object::messaging::Topic topic, std::shared_ptr<object::messaging::Body> message) const;
+		void post(const object::messaging::Topic topic, std::shared_ptr<object::messaging::Body> message) const;
+		void post(const object::messaging::Message& message) const;
 
 	public:
 
@@ -61,6 +60,4 @@ namespace of::object::component
 	};
 }
 
-CEREAL_REGISTER_TYPE(of::object::component::Base);
-
-#endif
+CEREAL_REGISTER_TYPE(of::component::Base);

@@ -3,7 +3,7 @@
 #include <graphics/view/cameraController.hpp>
 
 #include <common/Common.hpp>
-#include <object/component/transform.hpp>
+#include <component/transform.hpp>
 
 namespace of::editor
 {
@@ -34,11 +34,11 @@ namespace of::editor
 		F32 mAngleH;
 		F32 mAngleV;
 
-		std::shared_ptr<of::object::component::Transform> mFollow;
+		std::shared_ptr<of::component::Transform> mFollow;
 
 	public:
 
-		void follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3& = {});
-		virtual void update(const float&) override;
+		void follow(std::shared_ptr<of::component::Transform> transform, const glm::vec3& = {});
+		virtual void update(const float) override;
 	};
 }

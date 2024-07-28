@@ -1,14 +1,14 @@
-#include <object/component/Stats.hpp>
+#include <component/stats.hpp>
 
 #include <file/Handler.hpp>
 #include <rng/rng.hpp>
 
 #include <Object/GameObject.hpp>
 #include <resource/Prefab.hpp>
-#include <object/component/AttachToParent.hpp>
+#include <component/attachToParent.hpp>
 #include <courier/courier.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void Stats::setStats()
 	{
@@ -94,7 +94,7 @@ namespace of::object::component
 
 	void Stats::initialize()
 	{
-		using namespace messaging;
+		using namespace object::messaging;
 		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
 		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
@@ -106,7 +106,7 @@ namespace of::object::component
 		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
-	void Stats::onMessage(const messaging::Message& message)
+	void Stats::onMessage(const object::messaging::Message& message)
 	{
 		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::TRANSFORM_SPEED_MODIFIER))
@@ -158,7 +158,7 @@ namespace of::object::component
 		return new Stats(*this);
 	}
 
-	std::unique_ptr<of::object::component::Base> Stats::ucopy() const
+	std::unique_ptr<of::component::Base> Stats::ucopy() const
 	{
 		return std::make_unique<Stats>(*this);
 	}

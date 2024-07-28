@@ -1,12 +1,12 @@
 #include <combat/Skill.hpp>
 
-#include <object/component/Damage.hpp>
-#include <object/component/Stats.hpp>
-#include <object/component/AttachToParent.hpp>
+#include <component/damage.hpp>
+#include <component/stats.hpp>
+#include <component/attachToParent.hpp>
 
 #include <file/Handler.hpp>
 
-#include <Object/GameObject.hpp>
+#include <object/GameObject.hpp>
 
 #include <resource/Prefab.hpp>
 
@@ -56,12 +56,12 @@ namespace of::combat
 	{
 		if (coolDown.ready())
 		{
-			auto stats = owner->getShared<of::object::component::Stats>();
+			auto stats = owner->getShared<of::component::Stats>();
 			if (stats && stats->mainStat[Enums::StatType::Mana].current >= cost)
 			{
 				stats->mainStat[Enums::StatType::Mana].current -= cost;
 				coolDown.reset(true);
-				owner->get<of::object::component::Stats>()->doEffects(skillExecutionEffects, stats);
+				owner->get<of::component::Stats>()->doEffects(skillExecutionEffects, stats);
 				auto& x = of::engine::GetModule<of::file::Handler>().archive;
 				of::resource::Prefab* skillPrefab = x.request<of::resource::Prefab>(prefabId);
 				of::resource::Prefab* effectPrefab = x.request<of::resource::Prefab>(skillEffectPrefabId);
@@ -75,7 +75,7 @@ namespace of::combat
 				}
 				else
 				{
-					auto* transform = owner->get<of::object::component::Transform>();
+					auto* transform = owner->get<of::component::Transform>();
 					auto pos = transform->pos;
 					pos += distanceWithAngle(summonPoint, transform->facingAngle);
 					skillGo = skillPrefab->createNewInstance(pos, owner->tag == "player");
@@ -85,13 +85,13 @@ namespace of::combat
 
 				if (onSelf)
 				{
-					skillGo->add<of::object::component::AttachToParent>(owner);
+					skillGo->add<of::component::AttachToParent>(owner);
 					if (effectGo)
-						effectGo->add<of::object::component::AttachToParent>(owner);
+						effectGo->add<of::component::AttachToParent>(owner);
 				}
-				auto damage = skillGo->get<of::object::component::Damage>();
+				auto damage = skillGo->get<of::component::Damage>();
 				if (damage)
-					damage->owner = owner->getShared<of::object::component::Stats>();
+					damage->owner = owner->getShared<of::component::Stats>();
 			}
 		}
 	}

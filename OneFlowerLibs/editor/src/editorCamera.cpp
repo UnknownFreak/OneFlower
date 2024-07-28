@@ -88,12 +88,12 @@ namespace of::editor
 		mDirection = glm::normalize(dir);
 	}
 
-	void EditorCamera::follow(std::shared_ptr<of::object::component::Transform> transform, const glm::vec3&)
+	void EditorCamera::follow(std::shared_ptr<of::component::Transform> transform, const glm::vec3&)
 	{
 		mFollow = transform;
 	}
 
-	void EditorCamera::update(const float&)
+	void EditorCamera::update(const float)
 	{
 		float dx = 0.f, dy = 0.f;
 		swizzle::input::GetMouseDelta(dx, dy);

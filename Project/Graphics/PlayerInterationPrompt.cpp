@@ -30,8 +30,8 @@ void PlayerInteractionPrompt::onMessage(const of::object::messaging::Message& me
 
 			of::object::GameObject* theObject = (of::object::GameObject*) ((GameObjectPtr*)message.messageBody.get())->go;
 			Dialog* dialogComponent = theObject->get<Dialog>();
-			of::object::component::LootDrop* theDrop = theObject->get<of::object::component::LootDrop>();
-			of::object::component::LootContainer* theContainer = theObject->get<of::object::component::LootContainer>();
+			of::component::LootDrop* theDrop = theObject->get<of::component::LootDrop>();
+			of::component::LootContainer* theContainer = theObject->get<of::component::LootContainer>();
 			if (dialogComponent)
 			{
 				showPrompt = true;

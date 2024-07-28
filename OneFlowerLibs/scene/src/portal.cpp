@@ -1,4 +1,4 @@
-#include <object/component/portal.hpp>
+#include <component/portal.hpp>
 
 #include <module/sceneManager.hpp>
 #include <courier/courier.hpp>
@@ -6,7 +6,7 @@
 #include <input/inputHandler.hpp>
 
 // TODO: move portal outside scene module?
-namespace of::object::component
+namespace of::component
 {
 	void Portal::onMessage(const of::object::messaging::Message& message)
 	{
@@ -17,7 +17,7 @@ namespace of::object::component
 			// TODO: change tag to enum?
 			if (messageBody->go->tag == "player")
 			{
-				auto objectTrackingPos = messageBody->go->getShared<of::object::component::Transform>();
+				auto objectTrackingPos = messageBody->go->getShared<of::component::Transform>();
 				auto portalRef = attachedOn->getShared<Portal>();
 
 				auto& courier = of::engine::GetModule<of::courier::Courier>();
@@ -68,7 +68,7 @@ namespace of::object::component
 
 	void Portal::initialize()
 	{
-		mSelfTrackingPos = attachedOn->getShared<of::object::component::Transform>();
+		mSelfTrackingPos = attachedOn->getShared<of::component::Transform>();
 	}
 
 	void Portal::deconstruct()

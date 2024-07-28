@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 
 #include <combat/attribute/StatType.hpp>
 #include <combat/attribute/Attribute.hpp>
@@ -14,7 +14,7 @@
 #include <combat/Modifier.hpp>
 #include <combat/effect/EffectStack.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 
 	class Stats : public Base
@@ -35,7 +35,7 @@ namespace of::object::component
 		void recalculateStatChances(of::combat::PercentualAttribute& attribute, const double& modifiedValue);
 		void recalculateStat(const Enums::StatType& attribute, const double& modifiedValue);
 
-		virtual void onMessage(const messaging::Message& message) override;
+		virtual void onMessage(const object::messaging::Message& message) override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
@@ -84,7 +84,7 @@ namespace of::object::component
 	};
 
 }
-CEREAL_REGISTER_TYPE(of::object::component::Stats);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::object::component::Base, of::object::component::Stats);
+CEREAL_REGISTER_TYPE(of::component::Stats);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::component::Base, of::component::Stats);
 
 #endif

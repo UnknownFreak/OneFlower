@@ -1,12 +1,12 @@
-#include <object/component/Combat.hpp>
+#include <component/combat.hpp>
 
 #include <logger/Logger.hpp>
 #include <courier/courier.hpp>
 
 
-namespace of::object::component
+namespace of::component
 {
-	void component::CombatComponent::onMessage(const of::object::messaging::Message&)
+	void CombatComponent::onMessage(const of::object::messaging::Message&)
 	{
 	}
 	std::unordered_map<Enums::CombatSkill, of::combat::Skill >& CombatComponent::getSkills()
@@ -52,7 +52,7 @@ namespace of::object::component
 		return new CombatComponent(*this);
 	}
 
-	std::unique_ptr<of::object::component::Base> CombatComponent::ucopy() const
+	std::unique_ptr<of::component::Base> CombatComponent::ucopy() const
 	{
 		return std::make_unique<CombatComponent>(*this);
 	}

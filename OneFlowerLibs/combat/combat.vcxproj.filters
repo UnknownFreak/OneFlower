@@ -9,18 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="include\object">
-      <UniqueIdentifier>{99b3cb74-34d7-4c14-a558-613d1d5859d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\object\component">
-      <UniqueIdentifier>{759eff16-6245-4f57-96f4-00e3ad776fe9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\object">
-      <UniqueIdentifier>{f3836eda-98a6-430a-bb10-39e7d27c7181}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\object\component">
-      <UniqueIdentifier>{b8166011-04e2-4b10-986f-ef6624406561}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\combat">
       <UniqueIdentifier>{2ac1e2b3-af33-46ca-83b0-bfa72926954e}</UniqueIdentifier>
     </Filter>
@@ -39,6 +27,12 @@
     <Filter Include="src\combat\attribute">
       <UniqueIdentifier>{1a8c5e13-6259-4fec-b661-5c6f3e0a9957}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\component">
+      <UniqueIdentifier>{1931033a-e66f-426b-85fc-c92807712a3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\component">
+      <UniqueIdentifier>{b8166011-04e2-4b10-986f-ef6624406561}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Barrier.cpp">
@@ -51,16 +45,16 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\AttachToParent.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Stats.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Damage.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Combat.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Effect.cpp">
       <Filter>src\combat\effect</Filter>
@@ -73,18 +67,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\object\component\AttachToParent.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\object\component\Combat.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\object\component\Damage.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\object\component\Stats.hpp">
-      <Filter>include\object\component</Filter>
-    </ClInclude>
     <ClInclude Include="include\combat\effect\Effect.hpp">
       <Filter>include\combat\effect</Filter>
     </ClInclude>
@@ -114,6 +96,18 @@
     </ClInclude>
     <ClInclude Include="include\combat\effect\EffectType.hpp">
       <Filter>include\combat\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\attachToParent.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\combat.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\damage.hpp">
+      <Filter>include\component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\component\stats.hpp">
+      <Filter>include\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

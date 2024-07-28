@@ -9,7 +9,7 @@
 
 #include <physics/physics.hpp>
 
-#include <object/component/Transform.hpp>
+#include <component/Transform.hpp>
 #include <vector>
 
 namespace of::editor
@@ -29,12 +29,12 @@ namespace of::editor
 		glm::vec3 actorPos = glm::vec3(0.f);
 		glm::vec3 posOg = glm::vec3(0.f);
 
-		std::shared_ptr<of::object::component::Transform> mTransform = std::make_shared<of::object::component::Transform>();
+		std::shared_ptr<of::component::Transform> mTransform = std::make_shared<of::component::Transform>();
 
 		physx::PxActor* mSelectedActor = nullptr;
 
 		bool m_enable = true;
-		std::vector<std::shared_ptr<of::object::component::Transform>> m_objects;
+		std::vector<std::shared_ptr<of::component::Transform>> m_objects;
 
 	public:
 
@@ -44,7 +44,7 @@ namespace of::editor
 
 		virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&);
 
-		void updateObjectTransform(std::shared_ptr<of::object::component::Transform> transform);
+		void updateObjectTransform(std::shared_ptr<of::component::Transform> transform);
 
 		glm::vec3* getPos();
 		glm::quat getRotation();

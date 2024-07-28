@@ -13,7 +13,7 @@
 #include <map>
 
 #include <glm/vec3.hpp>
-#include <object/component/ObjectStateActivator.hpp>
+#include <component/objectStateActivator.hpp>
 
 namespace of::resource
 {
@@ -28,7 +28,7 @@ namespace of::resource
 		glm::vec3 location;
 		bool isUnique;
 
-		of::object::component::ObjectStateActivator activationInfo;
+		of::component::ObjectStateActivator activationInfo;
 
 		template<class Archive>
 		void save(Archive& ar) const

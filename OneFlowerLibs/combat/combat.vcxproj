@@ -156,10 +156,10 @@
     <ClInclude Include="include\combat\Element.hpp" />
     <ClInclude Include="include\combat\Modifier.hpp" />
     <ClInclude Include="include\combat\Skill.hpp" />
-    <ClInclude Include="include\object\component\AttachToParent.hpp" />
-    <ClInclude Include="include\object\component\Combat.hpp" />
-    <ClInclude Include="include\object\component\Damage.hpp" />
-    <ClInclude Include="include\object\component\Stats.hpp" />
+    <ClInclude Include="include\component\attachToParent.hpp" />
+    <ClInclude Include="include\component\combat.hpp" />
+    <ClInclude Include="include\component\damage.hpp" />
+    <ClInclude Include="include\component\stats.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">

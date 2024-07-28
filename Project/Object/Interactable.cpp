@@ -3,7 +3,7 @@
 
 #include <object/InstanceHandler.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	bool Interactable::interact(const Object::Interaction& interaction)
 	{
@@ -39,7 +39,7 @@ namespace of::object::component
 		return false;
 	}
 
-	void Interactable::interact(GameObject& interactable)
+	void Interactable::interact(object::GameObject& interactable)
 	{
 		using namespace of::object::messaging;
 		auto& [normalInteraction, _] = interactions[interactionState];

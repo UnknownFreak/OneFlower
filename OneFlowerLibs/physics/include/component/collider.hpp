@@ -1,10 +1,10 @@
 #pragma once
 
-#include <object/component/BaseComponent.hpp>
-#include <object/component/Transform.hpp>
+#include <component/base.hpp>
+#include <component/transform.hpp>
 #include <physics/physics.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	class Collider : public Base
 	{

@@ -1,6 +1,6 @@
-#include <object/component/Render.hpp>
+#include <component/render.hpp>
 
-#include <Object/GameObject.hpp>
+#include <object/GameObject.hpp>
 #include <module/window/GraphicsProxy.hpp>
 #include <module/window/WindowProxy.hpp>
 
@@ -10,7 +10,7 @@
 
 #include <courier/courier.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void Render::loadAndSetModel()
 	{
@@ -58,7 +58,7 @@ namespace of::object::component
 	void Render::initialize()
 	{
 		loadAndSetModel();
-		transform = attachedOn->get<of::object::component::Transform>();
+		transform = attachedOn->get<of::component::Transform>();
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
 
 		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
@@ -70,7 +70,7 @@ namespace of::object::component
 		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
-	std::unique_ptr<of::object::component::Base> Render::ucopy() const
+	std::unique_ptr<of::component::Base> Render::ucopy() const
 	{
 		return std::make_unique<Render>(*this);
 	}

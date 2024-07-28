@@ -9,7 +9,7 @@
 
 #include <file/archive/Requestable.hpp>
 #include <glm/vec3.hpp>
-#include <object/component/BaseComponent.hpp>
+#include <component/base.hpp>
 
 namespace of::object
 {
@@ -25,7 +25,7 @@ namespace of::resource
 		void build(of::object::GameObject* object, const bool isPlayerSummon) const;
 	public:
 
-		std::vector<std::unique_ptr<of::object::component::Base>> components;
+		std::vector<std::unique_ptr<of::component::Base>> components;
 		float spawnDistance;
 		object::ObjectState objectState = object::ObjectState::Active;
 

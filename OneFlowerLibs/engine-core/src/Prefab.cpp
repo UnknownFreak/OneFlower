@@ -5,13 +5,23 @@
 #include <file/SaveFile.hpp>
 
 #include <object/GameObject.hpp>
-#include <object/component/Transform.hpp>
+#include <component/Transform.hpp>
 
 
 of::common::uuid of::file::archive::Trait<of::resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
 
 namespace of::resource
 {
+
+	static glm::vec3 randomize(const glm::vec3& in, const float random_direction)
+	{
+		auto& randGen = of::engine::GetModule<of::rng::RandomGen>();
+
+		return {
+			in.x + randGen.random_float(-random_direction, random_direction),
+			in.y + randGen.random_float(-random_direction, random_direction),
+			in.z };
+	}
 
 	void Prefab::build(of::object::GameObject* object, const bool isPlayersummon) const
 	{
@@ -55,7 +65,7 @@ namespace of::resource
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
 		object->onReconstruct();
-		auto transform = object->get<of::object::component::Transform>();
+		auto transform = object->get<of::component::Transform>();
 		transform->pos = pos;
 		return object;
 	}
@@ -65,19 +75,9 @@ namespace of::resource
 		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->get<of::object::component::Transform>();
+		auto transform = object->get<of::component::Transform>();
 		transform->pos = pos;
 		return object;
-	}
-
-	glm::vec3 randomize(const glm::vec3& in, const float& random_direction)
-	{
-		auto& randGen = of::engine::GetModule<of::rng::RandomGen>();
-
-		return {
-			in.x + randGen.random_float(-random_direction, random_direction),
-			in.y + randGen.random_float(-random_direction, random_direction),
-			in.z };
 	}
 
 	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool isPlayerSummon) const
@@ -85,8 +85,8 @@ namespace of::resource
 		auto x = of::engine::GetModule<of::object::InstanceHandler>();
 		auto object = x.addObject();
 		build(object, isPlayerSummon);
-		auto transform = object->get<of::object::component::Transform>();
-		transform->pos = randomize(parent->get<of::object::component::Transform>()->buffered, spawnDistance);
+		auto transform = object->get<of::component::Transform>();
+		transform->pos = randomize(parent->get<of::component::Transform>()->buffered, spawnDistance);
 		return object;
 	}
 

@@ -3,18 +3,18 @@
 #include <Object/GameObject.hpp>
 #include <courier/courier.hpp>
 
-namespace of::object::component
+namespace of::component
 {
 	void PlayerController::onMessage(const of::object::messaging::Message&)
 	{
 	}
-	void component::PlayerController::initialize()
+	void PlayerController::initialize()
 	{
 		mColliderType.hitType = of::module::physics::ColliderType::Object;
 		mColliderType.objectId = attachedOn->id;
 		transform = attachedOn->get<Transform>();
 		transform->speedModifier = 0.5f;
-		combat = attachedOn->get<of::object::component::CombatComponent>();
+		combat = attachedOn->get<of::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
 		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::PhysicsUpdate,
 			of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg)
@@ -33,7 +33,7 @@ namespace of::object::component
 
 		enable();
 	}
-	void component::PlayerController::deconstruct()
+	void PlayerController::deconstruct()
 	{
 
 		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::PhysicsUpdate, instanceId);
