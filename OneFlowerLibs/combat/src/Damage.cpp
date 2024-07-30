@@ -82,12 +82,16 @@ namespace of::component
 		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Element>(elementId);
 	}
 
-	void Damage::initialize()
+	void Damage::attached()
 	{
 		transform = attachedOn->get<Transform>();
 
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
 		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+	}
+
+	void Damage::initialize()
+	{
 	}
 
 	void Damage::deconstruct()

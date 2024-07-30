@@ -10,7 +10,7 @@
 
 namespace of::component
 {
-	void DoorHinge::initialize()
+	void DoorHinge::attached()
 	{
 		auto collider = attachedOn->get<Collider>();
 
@@ -44,6 +44,9 @@ namespace of::component
 		{
 			of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::DoorHinge").Warning("Trying to create a DoorHinge, but no collider was found. No hinge will be created!");
 		}
+	}
+	void DoorHinge::initialize()
+	{
 	}
 
 	void DoorHinge::deconstruct()

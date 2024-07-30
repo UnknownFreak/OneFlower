@@ -8,7 +8,8 @@ namespace of::component
 	void PlayerController::onMessage(const of::object::messaging::Message&)
 	{
 	}
-	void PlayerController::initialize()
+
+	void PlayerController::attached()
 	{
 		mColliderType.hitType = of::module::physics::ColliderType::Object;
 		mColliderType.objectId = attachedOn->id;
@@ -33,6 +34,11 @@ namespace of::component
 
 		enable();
 	}
+
+	void PlayerController::initialize() 
+	{
+	}
+
 	void PlayerController::deconstruct()
 	{
 

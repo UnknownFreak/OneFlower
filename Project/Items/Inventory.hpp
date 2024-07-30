@@ -42,6 +42,7 @@ namespace of::component
 		void equipTrinket(std::shared_ptr<Items::Base>& item, const bool& secondary);
 
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void attached() override {};
 		virtual void initialize() override {};
 		virtual void deconstruct() override {};
 

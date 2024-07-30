@@ -38,8 +38,7 @@ namespace of::component
 		}
 	}
 
-
-	void Collider::initialize()
+	void Collider::attached()
 	{
 		mColliderInfoType.objectId = attachedOn->id;
 		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
@@ -86,6 +85,11 @@ namespace of::component
 		{
 			mActor->userData = &mColliderInfoType;
 		}
+	}
+
+	void Collider::initialize()
+	{
+
 	}
 
 	void Collider::deconstruct()

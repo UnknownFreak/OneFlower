@@ -49,18 +49,24 @@ namespace of::object
 
 	void GameObject::initialize()
 	{
-		add<component::Transform>();
+		//add<component::Transform>();
+		for (auto& c : componentMap)
+		{
+			c.second->initialize();
+		}
 	}
 
 	GameObject::GameObject() noexcept
 	{
+		add<component::Transform>();
 	}
+
 	GameObject::GameObject(GameObject&& copy) noexcept
 	{
 		componentMap = std::move(copy.componentMap);
 		for (auto& x : componentMap)
 		{
-			x.second.get()->attachOn(this);
+			x.second.get()->attach();
 		}
 		copy.componentMap.clear();
 	}
@@ -84,7 +90,7 @@ namespace of::object
 		{
 			add(std::shared_ptr<of::component::Base>(x.second->copy()));
 		}
-		reAttach();
+		initialize();
 		return *this;
 	}
 
@@ -136,7 +142,7 @@ namespace of::object
 		toggleObjectState(state);
 	}
 
-	void GameObject::toggleObjectState(const ObjectState& newState)
+	void GameObject::toggleObjectState(const ObjectState newState)
 	{
 		if ((newState == ObjectState::Active && objectState != newState) || (objectState == ObjectState::Inactive && objectState != newState))
 		{
@@ -156,7 +162,7 @@ namespace of::object
 		}
 	}
 
-	void GameObject::onDeath(const GameObject* killer, const float& delayedDespawnTime, const bool& unloadFlag)
+	void GameObject::onDeath(const GameObject* killer, const float delayedDespawnTime, const bool unloadFlag)
 	{
 		using namespace of::object::messaging;
 		//unloading = unloadFlag;
@@ -216,21 +222,13 @@ namespace of::object
 		}
 	}
 
-	void GameObject::reAttach()
-	{
-		for (auto& x : componentMap)
-		{
-			x.second->decouple();
-			x.second->attachOn(this);
-		}
-	}
-
 	component::Base* GameObject::add(std::shared_ptr<of::component::Base> componentToAdd)
 	{
 		if (componentMap.find(componentToAdd->getType()) == componentMap.end())
 		{
 			componentMap.insert(std::make_pair(componentToAdd->getType(), componentToAdd));
-			componentToAdd->attachOn(this);
+			componentToAdd->attachedOn = this;
+			componentToAdd->attach();
 			return componentToAdd.get();
 		}
 		return nullptr;;
@@ -240,6 +238,7 @@ namespace of::object
 	{
 		if (componentMap.find(componentToAdd->getType()) != componentMap.end())
 		{
+			componentMap[componentToAdd->getType()]->decouple();
 			componentMap.erase(componentToAdd->getType());
 		}
 		return add(componentToAdd);
@@ -281,7 +280,7 @@ namespace of::object
 		}
 	}
 
-	void GameObject::onReconstruct()
+	void GameObject::loadPersisted()
 	{
 		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
 		of::file::FileId tmp(id);

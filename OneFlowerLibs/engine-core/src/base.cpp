@@ -9,17 +9,16 @@ namespace of::component
 		static size_t instanceCounter = 0;
 	};
 	
-	void Base::attachOn(object::GameObject* attachTo)
+	void Base::attach()
 	{
 		if (attachedOn)
 		{
-			engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component detached [ComponentType, instanceId]");
+			engine::GetModule<of::logger::Logger>().getLogger("of::component").Warning("Component already attached [ComponentType, instanceId]");
 			engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
 			decouple();
 		}
-		attachedOn = attachTo;
-		initialize();
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component initialized [ComponentType, instanceId]");
+		attached();
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component attached [ComponentType, instanceId]");
 		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
 	}
 

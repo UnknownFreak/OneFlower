@@ -92,12 +92,18 @@ namespace of::component
 		}
 	}
 
-	void Stats::initialize()
+
+	void Stats::attached()
 	{
 		using namespace object::messaging;
 		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
 		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+	}
+
+	void Stats::initialize()
+	{
+
 	}
 
 	void Stats::deconstruct()

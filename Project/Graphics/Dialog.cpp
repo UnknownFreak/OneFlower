@@ -36,10 +36,14 @@ void Dialog::reset()
 	dialogTree.reset();
 }
 
-void Dialog::initialize()
+void Dialog::attached()
 {
 }
 
 void Dialog::deconstruct()
 {
-};
+}
+
+void Dialog::initialize()
+{
+}

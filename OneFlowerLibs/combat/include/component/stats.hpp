@@ -36,6 +36,8 @@ namespace of::component
 		void recalculateStat(const Enums::StatType& attribute, const double& modifiedValue);
 
 		virtual void onMessage(const object::messaging::Message& message) override;
+
+		virtual void attached() override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 

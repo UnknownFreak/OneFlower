@@ -12,6 +12,7 @@ namespace of::component
 	class PlayerController : public Base
 	{
 		virtual void onMessage(const of::object::messaging::Message& message) override;
+		virtual void attached() override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 

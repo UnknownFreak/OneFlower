@@ -19,6 +19,7 @@ namespace of::component
 			}
 		};
 
+		virtual void attached() override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 

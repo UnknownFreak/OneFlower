@@ -10,6 +10,7 @@ namespace of::component
 		object::GameObject* objectToFollow;
 
 		virtual void onMessage(const object::messaging::Message& message) override;
+		virtual void attached() override;
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 

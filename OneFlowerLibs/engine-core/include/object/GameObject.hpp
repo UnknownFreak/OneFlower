@@ -87,15 +87,13 @@ namespace of::object
 		//void interact(const bool& reverseAnimation, const short& repeat);
 
 		void toggleObjectState();
-		void toggleObjectState(const ObjectState& newState);
+		void toggleObjectState(const ObjectState newState);
 
 		void onCollision(GameObject*);
 
-		void onDeath(const GameObject* killer, const float& delayedDespawnTime=0, const bool& unloadFlag=false);
+		void onDeath(const GameObject* killer, const float delayedDespawnTime=0, const bool unloadFlag=false);
 		void onDelete();
 		void applyGameMode(const of::resource::GameModeModifier& modifer);
-
-		void reAttach();
 
 		template <class T, typename... Args>
 			requires std::derived_from<T, of::component::Base> && 
@@ -107,8 +105,8 @@ namespace of::object
 			{
 				std::shared_ptr<T> componentToAttach = std::make_shared<T>(as...);
 				componentMap.insert(std::make_pair(T::typeId, componentToAttach));
-
-				componentToAttach->attachOn(this);
+				componentToAttach->attachedOn = this;
+				componentToAttach->attach();
 				return componentToAttach.get();
 			}
 			return nullptr;
@@ -144,13 +142,14 @@ namespace of::object
 
 			if (componentMap.find(type_id) == componentMap.end())
 				return false;
+			componentMap[type_id]->decouple();
 			componentMap.erase(type_id);
 			return true;
 		}
 
 		ObjectSaveState* getCurrentSaveState();
 		void persistIf(const of::file::SaveSetting persist);
-		void onReconstruct();
+		void loadPersisted();
 
 		template <class Archive>
 		void save(Archive& ar) const
@@ -169,7 +168,7 @@ namespace of::object
 			ar(componentMap);
 			for (auto& it : componentMap)
 			{
-				it.second->attachOn(this);
+				it.second->attach();
 			}
 		}
 

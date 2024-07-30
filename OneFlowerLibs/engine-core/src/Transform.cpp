@@ -81,7 +81,7 @@ namespace of::component
 		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
 	}
 
-	void Transform::initialize()
+	void Transform::attached()
 	{
 		moving = true;
 

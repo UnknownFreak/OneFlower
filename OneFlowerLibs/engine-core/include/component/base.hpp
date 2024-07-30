@@ -19,7 +19,7 @@ namespace of::component
 	{
 		friend class object::GameObject;
 
-		void attachOn(object::GameObject* attachTo);
+		void attach();
 		void decouple();
 
 	public:
@@ -48,6 +48,7 @@ namespace of::component
 		// also store the base initialization status in this class.
 		// this initialize should only be called by prefabs, or gameObject onBuildFinish or similar.
 		virtual void initialize() = 0;
+		virtual void attached() = 0;
 
 	public:
 

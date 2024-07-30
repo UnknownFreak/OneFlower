@@ -66,9 +66,13 @@ namespace of::component
 		}
 	}
 
-	void Portal::initialize()
+	void Portal::attached()
 	{
 		mSelfTrackingPos = attachedOn->getShared<of::component::Transform>();
+	}
+
+	void Portal::initialize()
+	{
 	}
 
 	void Portal::deconstruct()

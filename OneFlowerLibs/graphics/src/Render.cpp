@@ -55,13 +55,18 @@ namespace of::component
 		}
 	}
 
-	void Render::initialize()
+	void Render::attached()
 	{
 		loadAndSetModel();
 		transform = attachedOn->get<of::component::Transform>();
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
 
 		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+	}
+
+	void Render::initialize()
+	{
+
 	}
 
 	void Render::deconstruct()

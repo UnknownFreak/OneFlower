@@ -43,6 +43,8 @@ namespace of::resource
 		}
 		// TODO: check if we need to delay the initialize method call to here.
 		// That would ensure that all components can listen to messages from ANY other component...
+		object->initialize();
+		object->loadPersisted();
 	}
 
 	Prefab::Prefab() : Requestable(), spawnDistance(0.f)
@@ -64,7 +66,6 @@ namespace of::resource
 			return x.getObject(uuid);
 		auto object = x.addObject(uuid);
 		build(object, isPlayerSummon);
-		object->onReconstruct();
 		auto transform = object->get<of::component::Transform>();
 		transform->pos = pos;
 		return object;

@@ -21,8 +21,9 @@ namespace of::component
 
 		void pushObjectSaveState(const of::common::uuid& objectId, const object::ObjectState& toggle);
 
-		virtual void initialize() override {};
 		virtual void deconstruct() override {};
+		virtual void attached() override {};
+		virtual void initialize() override {};
 
 	public:
 		std::vector<std::pair<of::common::uuid, object::ObjectState>> m_objectsToToggle;

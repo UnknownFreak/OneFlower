@@ -11,6 +11,7 @@ namespace of::component
 		bool interact(const Object::Interaction& interaction);
 
 		virtual void onMessage(const of::object::messaging::Message&) override {};
+		virtual void attached() override {};
 		virtual void initialize() override {};
 		virtual void deconstruct() override {};
 

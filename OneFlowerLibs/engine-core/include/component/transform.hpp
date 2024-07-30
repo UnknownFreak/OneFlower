@@ -14,7 +14,8 @@ namespace of::component
 		virtual void onMessage(const object::messaging::Message& message) override;
 
 		virtual void deconstruct() override;
-		virtual void initialize() override;
+		virtual void attached() override;
+		virtual void initialize() override {};
 
 	public:
 		float speedModifier = 1.f;
