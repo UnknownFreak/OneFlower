@@ -1094,8 +1094,8 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(controller->mActor));
 
-	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("door.swm", of::module::Settings::meshPath, true);
-	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cube.swm", of::module::Settings::meshPath, true);
+	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("door.swm", of::engine::path::meshes, true);
+	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cube.swm", of::engine::path::meshes, true);
 	//*
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model));
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model2, glm::vec3(1.4, 1.5f, 0.9f),

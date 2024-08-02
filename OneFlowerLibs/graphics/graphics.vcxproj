@@ -177,9 +177,6 @@
     <ProjectReference Include="..\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
-      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>

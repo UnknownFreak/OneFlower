@@ -51,7 +51,7 @@ namespace of::component
 		if (mColliderType == ColliderType::STATIC || of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 		{
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
-				of::module::Settings::meshPath, true);
+				of::engine::path::meshes, true);
 			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidStatic>(
 				mTransform->pos, model);
 
@@ -60,7 +60,7 @@ namespace of::component
 		else if (mColliderType == ColliderType::RIGID)
 		{
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
-				of::module::Settings::meshPath, true);
+				of::engine::path::meshes, true);
 
 			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);

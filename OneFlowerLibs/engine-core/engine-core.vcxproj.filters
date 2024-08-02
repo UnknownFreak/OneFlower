@@ -116,6 +116,15 @@
     <ClInclude Include="include\rng\rng.hpp">
       <Filter>include\rng</Filter>
     </ClInclude>
+    <ClInclude Include="include\engine\engine.hpp">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\settings.hpp">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\paths.hpp">
+      <Filter>include\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -156,6 +165,12 @@
     </ClCompile>
     <ClCompile Include="src\rng.cpp">
       <Filter>src\rng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\settings.cpp">
+      <Filter>src\engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

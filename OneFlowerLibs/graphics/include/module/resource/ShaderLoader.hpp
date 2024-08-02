@@ -7,8 +7,8 @@
 #include <utils/common/string.hpp>
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
-#include <module/settings/EngineSettings.hpp>
 #include <swizzle/gfx/Shader.hpp>
+#include <engine/paths.hpp>
 
 
 namespace of::module::shader
@@ -22,8 +22,8 @@ namespace of::module::shader
 		bool loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs);
 
 	public:
-		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path = Settings::shaderPath);
-		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path = Settings::shaderPath);
+		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path = engine::path::shaders);
+		std::shared_ptr<swizzle::gfx::Shader>& requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path = engine::path::shaders);
 		bool getResult();
 
 		void requestRemovalOfShader(const common::String& name);

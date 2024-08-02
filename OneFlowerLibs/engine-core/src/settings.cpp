@@ -1,16 +1,11 @@
-#include <module/settings/EngineSettings.hpp>
+#include <engine/settings.hpp>
 
-of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::Settings>::type = of::module::EngineResourceType::Settings;
+#include <logger/Logger.hpp>
 
-namespace of::module
+of::settings::Settings* g_EngSettings = nullptr;
+
+namespace of::settings
 {
-
-	const common::String Settings::texturePath = "Textures/";
-	const common::String Settings::skyboxTexturePath = Settings::texturePath + "skybox/";
-	const common::String Settings::uiTexturePath = Settings::texturePath + "Ui/";
-	const common::String Settings::tileTexturePath = Settings::texturePath + "Tiles/";
-	const common::String Settings::meshPath = "Meshes/";
-	const common::String Settings::shaderPath = "Shaders/";
 
 	Settings::Settings(): parser("EngineConfig.cfg")
 	{
@@ -68,8 +63,27 @@ namespace of::module
 		return mUsePvdDebugger;
 	}
 
-	EngineResourceType& Settings::getType() const
+	void init()
 	{
-		return type;
+		if (g_EngSettings == nullptr)
+		{
+			engine::GetModule<of::logger::Logger>().Info("Initializing module: EngineSettings");
+			g_EngSettings = new Settings();
+		}
+		else
+		{
+			engine::GetModule<of::logger::Logger>().getLogger("of::rng").Warning("Trying to initialize Engine Settings multiple times!");
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_EngSettings;
+		g_EngSettings = nullptr;
+	}
+
+	Settings& get()
+	{
+		return *g_EngSettings;
 	}
 }

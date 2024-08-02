@@ -5,6 +5,8 @@
 #include <Main/GameEntry.hpp>
 
 #include <engine/runMode.hpp>
+#include <engine/engine.hpp>
+
 #include <Module/BuildMode.hpp>
 #include <logger/Logger.hpp>
 #include <logger/streams/ConsoleStream.hpp>
@@ -42,7 +44,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 		// Core
 	case of::module::EngineResourceType::Globals: return "Globals";
 	case of::module::EngineResourceType::Time: return "Time";
-	case of::module::EngineResourceType::Settings: return "EngineSettings";
 	case of::module::EngineResourceType::GameConfig: return "GameSettings";
 		// Asset
 	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
@@ -76,11 +77,9 @@ static volatile void initializeSystems()
 	for (auto& str : Engine::GetBuildMode().toLogString())
 		logger.Info(str);
 
+	of::engine::initialize();
 	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
-	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::Settings>().type));
-
-	of::rng::init();
-
+	
 	auto mainModule = logger.getLogger("Main");
 
 	mainModule.Info("Initializing Modules group: Core");
@@ -108,13 +107,6 @@ static volatile void initializeSystems()
 	mainModule.Info("Finished initializing engine ");
 
 	registerArchiveDefaults();
-}
-
-// todo change into a helper function to shutdown the engine properly
-// move to engine.hpp -> of::engine::shutdown();
-static void shutdown()
-{
-	of::rng::shutdown();
 }
 
 
@@ -166,7 +158,7 @@ public:
 	sw::core::RemoveLogger(&logger);
 	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
 
-	shutdown();
+	of::engine::shutdown();
 	of::engine::Dispose();
 
 	return return_value;

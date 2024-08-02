@@ -18,7 +18,7 @@ namespace of::component
 		if (mColliderType == Collider::ColliderType::STATIC)
 		{
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
-				of::module::Settings::meshPath, true);
+				of::engine::path::meshes, true);
 
 			auto transform = attachedOn->get<Transform>();
 
@@ -36,7 +36,7 @@ namespace of::component
 				if (mColliderShapeType == ShapeType::MESH)
 				{
 					auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
-						of::module::Settings::meshPath, true);
+						of::engine::path::meshes, true);
 					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 				else if (mColliderShapeType == ShapeType::BOX)

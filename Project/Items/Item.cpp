@@ -5,7 +5,7 @@ of::common::uuid of::file::archive::Trait<Items::Base>::typeId = of::common::uui
 
 void Items::Base::loadIcon()
 {
-	iconTexture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(itemIconName, of::module::Settings::uiTexturePath);
+	iconTexture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(itemIconName, of::engine::path::ui);
 }
 
 of::file::archive::TypeInfo Items::Base::getTrait() const

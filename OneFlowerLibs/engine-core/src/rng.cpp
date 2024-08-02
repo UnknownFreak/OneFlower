@@ -1,6 +1,6 @@
 #include <rng/rng.hpp>
-#include <module/settings/EngineSettings.hpp>
-#include <logger/Logger.hpp>
+#include <engine/settings.hpp>
+#include <logger/logger.hpp>
 
 of::rng::RandomGen* g_rng = nullptr;
 
@@ -8,7 +8,7 @@ namespace of::rng
 {
 	RandomGen::RandomGen() : rd(), engine(rd())
 	{
-		if (engine::GetModule<of::module::Settings>().useFixedSeed())
+		if (settings::get().useFixedSeed())
 			engine.seed(0);
 	}
 

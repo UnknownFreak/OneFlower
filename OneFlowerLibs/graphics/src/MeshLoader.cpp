@@ -17,7 +17,7 @@ namespace of::module::mesh
 		{
 			auto& logger = engine::GetModule <logger::Logger>().getLogger("of::resource::mesh::Loader");
 			logger.Error("Unable to load mesh [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
-			if (name == Settings::meshPath + missingMesh)
+			if (name == engine::path::meshes + missingMesh)
 			{
 				logger.Critical("Unable to load default mesh! - - - Crashing!");
 				throw;
@@ -36,7 +36,7 @@ namespace of::module::mesh
 		return lastResult;
 	}
 
-	of::resource::Model Loader::requestModel(const common::String& name, const common::String& path, const bool& collisionModel)
+	of::resource::Model Loader::requestModel(const common::String& name, const common::String& path, const bool collisionModel)
 	{
 
 		if (!name.empty())
@@ -69,7 +69,7 @@ namespace of::module::mesh
 					// fallback to missing mesh
 					of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
 					of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
-					return requestModel(missingMesh, Settings::meshPath, collisionModel);
+					return requestModel(missingMesh, path, collisionModel);
 				}
 
 				auto& model = mLoadedModels[{path + name, collisionModel}];
@@ -105,10 +105,10 @@ namespace of::module::mesh
 		}
 		of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
 		of::engine::GetModule<of::logger::Logger>().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
-		return requestModel(missingMesh, Settings::meshPath, collisionModel);
+		return requestModel(missingMesh, path, collisionModel);
 	}
 
-	void Loader::requestRemovalOfModel(const common::String& name, const common::String& path, const bool& collisionModel)
+	void Loader::requestRemovalOfModel(const common::String& name, const common::String& path, const bool collisionModel)
 	{
 		if (mLoadedModels.find({ path + name , collisionModel }) != mLoadedModels.end())
 		{

@@ -9,6 +9,7 @@
 #include <module/resource/ShaderLoader.hpp>
 #include <graphics/sky/skyBox.hpp>
 
+#include <engine/settings.hpp>
 
 #include <imgui/imgui.h>
 
@@ -220,7 +221,7 @@ namespace of::graphics::window
 		}
     }
 
-	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitboxes(of::engine::GetModule<of::module::Settings>().renderHitboxes())
+	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitboxes(of::settings::get().renderHitboxes())
 	{
 		cam.setPosition({ 0.f, 0.f, 5.f });
 		skyBox = std::make_shared<sky::Skybox>();

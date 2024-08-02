@@ -11,8 +11,7 @@
 
 PlayerInteractionPrompt::PlayerInteractionPrompt()
 {
-	texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("DialogPrompt.png", of::module::Settings::uiTexturePath);
-
+	texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("DialogPrompt.png", of::engine::path::ui);
 }
 
 PlayerInteractionPrompt::PlayerInteractionPrompt(const PlayerInteractionPrompt& )

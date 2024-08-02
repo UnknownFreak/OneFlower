@@ -4,12 +4,12 @@
 #include <swizzle/asset2/Assets.hpp>
 
 #include <utils/common/string.hpp>
-#include <module/settings/EngineSettings.hpp>
 #include <unordered_map>
 #include <mutex>
 
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
+#include <engine/paths.hpp>
 
 #include <graphics/model/Model.hpp>
 
@@ -27,11 +27,11 @@ namespace of::module::mesh
 
 	public:
 
-		of::resource::Model requestModel(const common::String& name, const common::String& path = Settings::meshPath, const bool& collisionModel=false);
+		of::resource::Model requestModel(const common::String& name, const common::String& path = engine::path::meshes, const bool collisionModel=false);
 
 		bool getResult();
 
-		void requestRemovalOfModel(const common::String& name, const common::String&path = Settings::meshPath, const bool& collisionModel=false);
+		void requestRemovalOfModel(const common::String& name, const common::String&path = engine::path::meshes, const bool collisionModel=false);
 
 		EngineResourceType& getType() const
 		{

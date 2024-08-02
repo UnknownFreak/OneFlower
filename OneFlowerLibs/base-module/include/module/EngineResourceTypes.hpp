@@ -7,7 +7,6 @@ namespace of::module
 	{
 		Input,
 		Time,
-		Settings,
 		Graphics,
 		Physics,
 		SceneManager,

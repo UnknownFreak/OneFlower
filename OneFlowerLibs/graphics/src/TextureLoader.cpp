@@ -127,13 +127,13 @@ namespace of::module::texture
 				return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name)->second;
 
 			//LOW set propper texturename
-			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(Settings::texturePath + missingTexture);
+			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(of::engine::path::textures +missingTexture);
 			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
 				return it->second;
-			loadTexture(Settings::texturePath + missingTexture);
-			return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(Settings::texturePath + missingTexture)->second;
+			loadTexture(of::engine::path::textures + missingTexture);
+			return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(of::engine::path::textures + missingTexture)->second;
 		}
-		return requestTexture(missingTexture, Settings::texturePath);
+		return requestTexture(missingTexture, of::engine::path::textures);
 	}
 
 	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const common::String& folderName, const common::String& path)
@@ -151,7 +151,7 @@ namespace of::module::texture
 			if (loadCubeMap(path + folderName))
 				return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + folderName)->second;
 		}
-		return requestTexture(missingTexture, Settings::texturePath);
+		return requestTexture(missingTexture, engine::path::textures);
 	}
 
 	void Loader::requestRemovalOfTexture(const common::String& name)

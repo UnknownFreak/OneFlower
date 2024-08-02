@@ -9,7 +9,7 @@
 #include <utils/common/string.hpp>
 #include <module/IEngineModule.hpp>
 #include <module/ModuleManager.hpp>
-#include <module/settings/EngineSettings.hpp>
+#include <engine/paths.hpp>
 
 namespace of::module::texture
 {
@@ -23,8 +23,8 @@ namespace of::module::texture
 		bool loadCubeMap(const common::String& folderName);
 
 	public:
-		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const common::String& name, const common::String& path = Settings::texturePath);
-		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const common::String& folderName, const common::String& path = Settings::skyboxTexturePath);
+		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const common::String& name, const common::String& path = engine::path::textures);
+		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const common::String& folderName, const common::String& path = engine::path::skybox);
 
 		void requestRemovalOfTexture(const common::String& name);
 

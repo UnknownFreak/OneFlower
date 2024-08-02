@@ -12,7 +12,7 @@
 
 #include <map>
 #include <vector>
-#include <module/settings/EngineSettings.hpp>
+#include <engine/settings.hpp>
 
 #include <iostream>
 
@@ -260,7 +260,7 @@ namespace of::module::physics
 			//auto l = physx::PxJointLimitPyramid(-physx::PxPi+0.01f, physx::PxPi - 0.01f, 0.f, 0.1f);
 			joint->setPyramidSwingLimit(l);
 
-			if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+			if (of::settings::get().usePvdDebugger())
 			{
 				joint->setConstraintFlag(physx::PxConstraintFlag::eVISUALIZATION, true);
 			}

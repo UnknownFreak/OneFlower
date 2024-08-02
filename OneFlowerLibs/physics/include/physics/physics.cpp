@@ -1,7 +1,9 @@
 #include "physics.hpp"
 
 #include <graphics/model/Model.hpp>
-#include <module/settings/EngineSettings.hpp>
+
+#include <engine/settings.hpp>
+#include <engine/paths.hpp>
 
 #include <module/resource/MeshLoader.hpp>
 
@@ -96,7 +98,7 @@ namespace of::module::physics
 	{
 		mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, mAllocator, mErrorCallback);
 		mPvd = nullptr;
-		if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+		if (of::settings::get().usePvdDebugger())
 		{
 			mPvd = physx::PxCreatePvd(*mFoundation);
 			physx::PxPvdTransport* transport = physx::PxDefaultPvdSocketTransportCreate("127.0.0.1", 5425, 10);
@@ -115,7 +117,7 @@ namespace of::module::physics
 		d.filterShader = CustomFilterShader;
 
 		mScene = mPhysics->createScene(d);
-		if (of::engine::GetModule<of::module::Settings>().usePvdDebugger())
+		if (of::settings::get().usePvdDebugger())
 		{
 			mScene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
 			mScene->setVisualizationParameter(physx::PxVisualizationParameter::eJOINT_LOCAL_FRAMES, 1.0f);
@@ -215,7 +217,7 @@ namespace of::module::physics
 	void PhysicsHandler::attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale)
 	{
 		auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cylinder.swm",
-			Settings::meshPath, true);
+			of::engine::path::meshes, true);
 		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(mesh), physx::PxMeshScale(physx::PxVec3(scale.x, scale.y, scale.z))), *mMaterial, false);
 		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
 		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);

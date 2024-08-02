@@ -138,7 +138,10 @@
     <ClInclude Include="include\component\base.hpp" />
     <ClInclude Include="include\component\objectStateActivator.hpp" />
     <ClInclude Include="include\component\transform.hpp" />
+    <ClInclude Include="include\engine\engine.hpp" />
+    <ClInclude Include="include\engine\paths.hpp" />
     <ClInclude Include="include\engine\runMode.hpp" />
+    <ClInclude Include="include\engine\settings.hpp" />
     <ClInclude Include="include\file\saveFile.hpp" />
     <ClInclude Include="include\file\saveSetting.hpp" />
     <ClInclude Include="include\file\saveState.hpp" />
@@ -166,9 +169,6 @@
     <ProjectReference Include="..\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
-      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp" />
+    <ClCompile Include="src\engine.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\InstanceHandler.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="src\rng.cpp" />
     <ClCompile Include="src\runMode.cpp" />
     <ClCompile Include="src\saveFile.cpp" />
+    <ClCompile Include="src\settings.cpp" />
     <ClCompile Include="src\transform.cpp" />
     <ClCompile Include="src\trigger.cpp" />
     <ClCompile Include="src\triggerState.cpp" />

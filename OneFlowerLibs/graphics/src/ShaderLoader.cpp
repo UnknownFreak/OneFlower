@@ -93,10 +93,10 @@ namespace of::module::shader
 			lastResult = false;
 			if (it != loadedShaders.end())
 				return it->second;
-			loadShader("missing", Settings::shaderPath + missingShader, attribs);
+			loadShader("missing", path + missingShader, attribs);
 			return loadedShaders.find("missing")->second;
 		}
-		return requestShader("missing", missingShader, attribs, Settings::shaderPath);
+		return requestShader("missing", missingShader, attribs, path);
 	}
 
 	bool Loader::getResult()
