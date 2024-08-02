@@ -231,7 +231,7 @@ namespace of::object
 			componentToAdd->attach();
 			return componentToAdd.get();
 		}
-		return nullptr;;
+		return nullptr;
 	}
 
 	component::Base* GameObject::addOrReplace(std::shared_ptr<of::component::Base> componentToAdd)

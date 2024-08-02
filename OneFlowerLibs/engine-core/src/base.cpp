@@ -11,12 +11,6 @@ namespace of::component
 	
 	void Base::attach()
 	{
-		if (attachedOn)
-		{
-			engine::GetModule<of::logger::Logger>().getLogger("of::component").Warning("Component already attached [ComponentType, instanceId]");
-			engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
-			decouple();
-		}
 		attached();
 		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component attached [ComponentType, instanceId]");
 		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
@@ -24,6 +18,8 @@ namespace of::component
 
 	void Base::decouple()
 	{
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component decoupled [ComponentType, instanceId]");
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
 		deconstruct();
 		attachedOn = nullptr;
 	}
@@ -44,6 +40,10 @@ namespace of::component
 	}
 
 	Base::Base() : instanceId(instanceCounter++)
+	{
+	}
+
+	Base::Base(const Base& ) : Base()
 	{
 	}
 }

@@ -58,6 +58,7 @@ namespace of::component
 
 		virtual ~Base() = default;
 		Base();
+		Base(const Base& base);
 	};
 }
 
