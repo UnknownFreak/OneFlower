@@ -27,10 +27,11 @@
 #include <module/window/WindowProxy.hpp>
 
 #include <courier/courier.hpp>
+#include <rng/rng.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
 
-of::common::String to_string(const of::module::EngineResourceType& state)
+static of::common::String to_string(const of::module::EngineResourceType state)
 {
 	switch (state)
 	{
@@ -42,6 +43,7 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::Globals: return "Globals";
 	case of::module::EngineResourceType::Time: return "Time";
 	case of::module::EngineResourceType::Settings: return "EngineSettings";
+	case of::module::EngineResourceType::GameConfig: return "GameSettings";
 		// Asset
 	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
 	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
@@ -62,10 +64,12 @@ of::common::String to_string(const of::module::EngineResourceType& state)
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
 	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
 	}
-	return "";
+	return "<undefined>" + std::to_string((int)state);
 }
 
-volatile void initializeSystems()
+// todo change into a helper function available as include rather than do it in main
+// move to engine.hpp -> of::engine::init()
+static volatile void initializeSystems()
 {
 	auto& logger = of::engine::GetModule<of::logger::Logger>();
 	logger.Info("Initializing Engine");
@@ -73,6 +77,9 @@ volatile void initializeSystems()
 		logger.Info(str);
 
 	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
+	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::Settings>().type));
+
+	of::rng::init();
 
 	auto mainModule = logger.getLogger("Main");
 
@@ -103,6 +110,12 @@ volatile void initializeSystems()
 	registerArchiveDefaults();
 }
 
+// todo change into a helper function to shutdown the engine properly
+// move to engine.hpp -> of::engine::shutdown();
+static void shutdown()
+{
+	of::rng::shutdown();
+}
 
 
 class EngineLogger : public swizzle::core::LogDevice
@@ -153,6 +166,7 @@ public:
 	sw::core::RemoveLogger(&logger);
 	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
 
+	shutdown();
 	of::engine::Dispose();
 
 	return return_value;

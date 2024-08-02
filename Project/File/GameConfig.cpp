@@ -2,7 +2,7 @@
 
 #include <logger/Logger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::Settings;
+of::module::EngineResourceType of::module::interface::IEngineResource<EngineModule::GameConfig>::type = of::module::EngineResourceType::GameConfig;
 
 EngineModule::GameConfig::GameConfig() : configName("gameConfig.cfg"), videoModes({}), antialiasing(32), framerate(0), parser(configName)
 {

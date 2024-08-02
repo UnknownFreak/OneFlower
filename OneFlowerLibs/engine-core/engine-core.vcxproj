@@ -152,6 +152,7 @@
     <ClInclude Include="include\resource\GameMode.hpp" />
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
     <ClInclude Include="include\resource\Prefab.hpp" />
+    <ClInclude Include="include\rng\rng.hpp" />
     <ClInclude Include="include\trigger\trigger.hpp" />
     <ClInclude Include="include\trigger\triggerState.hpp" />
   </ItemGroup>
@@ -165,14 +166,14 @@
     <ProjectReference Include="..\data-file\data-file.vcxproj">
       <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\engine-settings\engine-settings.vcxproj">
+      <Project>{a4e1d702-1b1c-48d5-b9aa-199e516af21f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\random-generator\random-generator.vcxproj">
-      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +184,7 @@
     <ClCompile Include="src\ObjectSaveState.cpp" />
     <ClCompile Include="src\objectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />
+    <ClCompile Include="src\rng.cpp" />
     <ClCompile Include="src\runMode.cpp" />
     <ClCompile Include="src\saveFile.cpp" />
     <ClCompile Include="src\transform.cpp" />

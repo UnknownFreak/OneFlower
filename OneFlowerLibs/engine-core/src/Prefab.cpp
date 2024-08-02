@@ -15,11 +15,11 @@ namespace of::resource
 
 	static glm::vec3 randomize(const glm::vec3& in, const float random_direction)
 	{
-		auto& randGen = of::engine::GetModule<of::rng::RandomGen>();
+		auto& randGen = of::rng::get();
 
 		return {
-			in.x + randGen.random_float(-random_direction, random_direction),
-			in.y + randGen.random_float(-random_direction, random_direction),
+			in.x + randGen.randomFloat(-random_direction, random_direction),
+			in.y + randGen.randomFloat(-random_direction, random_direction),
 			in.z };
 	}
 

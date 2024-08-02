@@ -263,9 +263,6 @@
     <ProjectReference Include="OneFlowerLibs\physics\physics.vcxproj">
       <Project>{e6762ac5-35f9-4ff3-a4e7-a8c823f29ea1}</Project>
     </ProjectReference>
-    <ProjectReference Include="OneFlowerLibs\random-generator\random-generator.vcxproj">
-      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
-    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\scene\scene.vcxproj">
       <Project>{4ee36817-7fe2-41aa-bb0f-997a272acb20}</Project>
     </ProjectReference>

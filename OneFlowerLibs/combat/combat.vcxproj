@@ -181,9 +181,6 @@
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\random-generator\random-generator.vcxproj">
-      <Project>{db323fb9-3471-4730-8762-25624d18b1ee}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\time\time.vcxproj">
       <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
     </ProjectReference>

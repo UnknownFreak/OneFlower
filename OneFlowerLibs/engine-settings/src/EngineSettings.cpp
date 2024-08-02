@@ -1,6 +1,6 @@
 #include <module/settings/EngineSettings.hpp>
 
-of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::Settings>::type = of::module::EngineResourceType::EngineSettings;
+of::module::EngineResourceType  of::module::interface::IEngineResource< of::module::Settings>::type = of::module::EngineResourceType::Settings;
 
 namespace of::module
 {

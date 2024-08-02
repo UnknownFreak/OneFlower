@@ -204,7 +204,7 @@ namespace of::component
 	{
 		auto trueDamage = weaponStrength * damageCoef * damageOwner->statValues[Enums::StatType::Power].getValue() / statValues[Enums::StatType::Toughness].getValue();
 		auto critChance = statChances[Enums::StatType::CritChange].getValue() * 100.0;
-		if (critChance > of::engine::GetModule<of::rng::RandomGen>().random_double(0.0, 100.0))
+		if (critChance > of::rng::get().randomDouble(0.0, 100.0))
 		{
 			auto critDamageMult = statChances[Enums::StatType::CritDamage].getValue();
 			trueDamage *= critDamageMult;

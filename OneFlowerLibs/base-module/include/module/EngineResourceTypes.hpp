@@ -23,13 +23,12 @@ namespace of::module
 		Console,
 		UIHandler,
 		InstanceHandler,
-		RandomGen,
 		SaveFile,
 		MeshLoader,
 		ShaderLoader,
-		EngineSettings,
 		WindowProxy,
 		Courier,
+		GameConfig,
 		NOT_SET,
 	};
 }
