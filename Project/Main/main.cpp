@@ -56,8 +56,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::WindowProxy: return "Proxy";
 	case of::module::EngineResourceType::Physics: return "Physics";
 	case of::module::EngineResourceType::UIHandler: return "Console";
-		// Messaging
-	case of::module::EngineResourceType::Courier: return "Courier";
 		// Unused
 	case of::module::EngineResourceType::SceneManager: return "SceneManager";
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
@@ -97,7 +95,7 @@ static volatile void initializeSystems()
 	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Messaging");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::courier::Courier>().type));
+	of::courier::init();
 
 	mainModule.Info("Finished initializing engine ");
 
@@ -158,6 +156,7 @@ public:
 
 	of::engine::shutdown();
 	of::engine::Dispose();
+	of::courier::shutdown();
 
 	return return_value;
 }

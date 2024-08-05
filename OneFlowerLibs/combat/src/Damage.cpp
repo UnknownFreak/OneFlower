@@ -85,7 +85,7 @@ namespace of::component
 	void Damage::attached()
 	{
 		transform = attachedOn->get<Transform>();
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		auto& courier = of::courier::get();
 
 		if (subscriberId == 0)
 		{
@@ -110,10 +110,14 @@ namespace of::component
 	{
 		if (subscriberId != 0)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
 			subscriberId = 0;
 
+		}
+		if (notifyIntervalPerHits != 0)
+		{
+			of::courier::get().removeSubscriber(of::courier::Topic::Object, notifyIntervalPerHits);
+			notifyIntervalPerHits = 0;
 		}
 		timeToLive.stop();
 		intervalPerHit.stop();

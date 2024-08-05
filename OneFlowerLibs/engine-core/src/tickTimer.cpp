@@ -15,7 +15,7 @@ namespace of::timer
 		if (started == false && finished == false)
 		{
 			started = true;
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			auto& courier = of::courier::get();
 			timerId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {
 
 				currentTime += msg.get<float>();
@@ -26,7 +26,7 @@ namespace of::timer
 					if (autoReset == false)
 					{
 						started = false;
-						auto& lambda_courier = of::engine::GetModule<of::courier::Courier>();
+						auto& lambda_courier = of::courier::get();
 						lambda_courier.scheduleRemoval(of::courier::Topic::Update, timerId);
 					}
 					else
@@ -43,8 +43,7 @@ namespace of::timer
 	{
 		if (started)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			courier.removeSubscriber(of::courier::Topic::Update, timerId);
+			of::courier::get().removeSubscriber(of::courier::Topic::Update, timerId);
 			started = false;
 		}
 	}
@@ -88,7 +87,7 @@ namespace of::timer
 
 	void TickTimer::onFinish()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		auto& courier = of::courier::get();
 		for (auto& listerner : messagesToSend)
 		{
 			courier.schedule(listerner.first, listerner.second, of::courier::Message(of::courier::MessageType::Notify, "TickTimer"));

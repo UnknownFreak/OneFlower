@@ -118,7 +118,7 @@ void PlayerInteractionPrompt::attached()
 {
 	if (subscriberId == 0)
 	{
-		subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
+		subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update,
 			of::courier::Subscriber(isAlive(),
 				[this](const of::courier::Message& msg) {update(msg.get<float>()); }
 			));
@@ -134,6 +134,6 @@ void PlayerInteractionPrompt::deconstruct()
 {
 	if (subscriberId != 0)
 	{
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, subscriberId);
+		of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
 	}
 }

@@ -19,7 +19,7 @@ namespace of::editor
 	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl) : c(m_parent->getCamera())
 	{
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*)&mat);
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		auto& courier = of::courier::get();
 
 		of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
 			[&](bool, swizzle::input::Mouse, const float&) {
@@ -87,7 +87,7 @@ namespace of::editor
 
 	Gizmo::~Gizmo()
 	{
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::SingleThreadUpdate, subscriberId);
+		of::courier::get().removeSubscriber(of::courier::Topic::SingleThreadUpdate, subscriberId);
 	}
 
 	void Gizmo::updateFrame(const float )

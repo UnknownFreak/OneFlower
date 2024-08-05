@@ -21,11 +21,9 @@ namespace of::component
 			{
 				mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
 
-				auto& courier = of::engine::GetModule<of::courier::Courier>();
-
 				if (subscriberId == 0)
 				{
-					subscriberId = courier.addSubscriber(
+					subscriberId = of::courier::get().addSubscriber(
 						of::courier::Topic::PhysicsUpdate,
 						of::courier::Subscriber(
 							isAlive(),
@@ -60,8 +58,7 @@ namespace of::component
 		}
 		if (subscriberId != 0)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			courier.removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
+			of::courier::get().removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
 			subscriberId = 0;
 		}
 	}

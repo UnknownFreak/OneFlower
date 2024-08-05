@@ -198,9 +198,9 @@ public:
 public:
 	Sniffer(const of::courier::Topic t, std::string name)
 	{
-		m_channel = of::engine::GetModule<of::courier::Courier>().getChannel(t);
+		m_channel = of::courier::get().getChannel(t);
 		validator = m_channel->getValidator();
-		subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(),
+		subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(),
 			[this](const of::courier::Message& msg) {
 				if (msg.msgType == of::courier::MessageType::Notify)
 				{
@@ -217,7 +217,7 @@ public:
 	~Sniffer()
 	{
 		m_tickTimer.stop();
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Object, subscriberId);
+		of::courier::get().removeSubscriber(of::courier::Topic::Object, subscriberId);
 	}
 
 	bool validate(const of::courier::Message& message)
@@ -272,9 +272,9 @@ class CourierStats : public of::graphics::ParentedRenderable, public of::utils::
 
 public:
 
-	CourierStats() : m_channel(of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update)) 
+	CourierStats() : m_channel(of::courier::get().getChannel(of::courier::Topic::Update))
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		auto& courier = of::courier::get();
 		m_updateSniffer = std::make_shared<Sniffer>(of::courier::Topic::Update, "Update");
 		m_physicsSniffer = std::make_shared<Sniffer>(of::courier::Topic::PhysicsUpdate, "Physics");
 		m_singleThreadSniffer = std::make_shared<Sniffer>(of::courier::Topic::SingleThreadUpdate, "ST");
@@ -570,7 +570,7 @@ public:
 
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
+		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);
 		subscriberId = channel->addSubscriber(of::courier::Subscriber(isAlive(), [&](const of::courier::Message&)
 			{
 				if (mActor)
@@ -592,7 +592,7 @@ public:
 
 	~PxMeshedActorRenderable()
 	{
-		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
+		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);
 		channel->removeSubscriber(subscriberId);
 	}
 
@@ -1155,7 +1155,7 @@ GameEntry::GameEntry() :
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	input(of::engine::GetModule<of::input::InputHandler>()),
 	world(of::engine::GetModule<of::module::SceneManager>()),
-	courier(of::engine::GetModule<of::courier::Courier>()), m_exit(false)
+	courier(of::courier::get()), m_exit(false)
 {
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);

@@ -26,8 +26,8 @@ namespace of::component
 	{
 		if (subscriberId == 0)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(),
+				[this](const of::courier::Message& msg) {update(msg.get<float>()); }));
 		}
 	}
 
@@ -40,8 +40,7 @@ namespace of::component
 	{
 		if (subscriberId != 0)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
 			subscriberId = 0;
 		}
 	}

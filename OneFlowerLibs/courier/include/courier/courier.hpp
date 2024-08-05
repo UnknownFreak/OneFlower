@@ -1,8 +1,5 @@
 #pragma once
 
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
-
 #include <map>
 #include <mutex>
 
@@ -17,7 +14,7 @@
 
 namespace of::courier
 {
-	class Courier : public of::module::interface::IEngineResource<Courier>
+	class Courier
 	{
 	public:
 
@@ -37,11 +34,6 @@ namespace of::courier
 		void createChannel(const Topic topic);
 		std::shared_ptr<ChannelTopic> getChannel(const Topic topic);
 
-		of::module::EngineResourceType& getType() const override
-		{
-			return type;
-		}
-
 		Courier& operator=(const Courier) = delete;
 
 		void scheduleRemoval(const Topic, const size_t subscriberId);
@@ -58,4 +50,8 @@ namespace of::courier
 		std::map<Topic, std::vector<internal::ScheduledMessage>> scheduledMessages;
 
 	};
+
+	void init();
+	void shutdown();
+	Courier& get();
 }

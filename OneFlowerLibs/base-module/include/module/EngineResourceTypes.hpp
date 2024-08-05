@@ -25,7 +25,6 @@ namespace of::module
 		MeshLoader,
 		ShaderLoader,
 		WindowProxy,
-		Courier,
 		GameConfig,
 		NOT_SET,
 	};

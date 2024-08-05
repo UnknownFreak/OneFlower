@@ -20,7 +20,7 @@ namespace of::component
 				auto objectTrackingPos = messageBody->go->getShared<of::component::Transform>();
 				auto portalRef = attachedOn->getShared<Portal>();
 
-				auto& courier = of::engine::GetModule<of::courier::Courier>();
+				auto& courier = of::courier::get();
 				auto& inputHandler = of::engine::GetModule<of::input::InputHandler>();
 
 				// TODO: check if subscriber exists
@@ -57,8 +57,7 @@ namespace of::component
 								}
 								if (distance > portalRef->mGuiHintDistance)
 								{
-									auto& courier = of::engine::GetModule<of::courier::Courier>();
-									courier.scheduleRemoval(of::courier::Topic::Update, portalRef->subscriberId);
+									of::courier::get().scheduleRemoval(of::courier::Topic::Update, portalRef->subscriberId);
 									portalRef->subscriberId = 0;
 
 								}
@@ -83,8 +82,7 @@ namespace of::component
 	{
 		if (subscriberId != 0)
 		{
-			auto& courier = of::engine::GetModule<of::courier::Courier>();
-			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
 			subscriberId = 0;
 		}
 	}

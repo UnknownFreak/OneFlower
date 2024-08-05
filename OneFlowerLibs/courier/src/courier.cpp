@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::courier::Courier>::type = of::module::EngineResourceType::Courier;
+of::courier::Courier* g_courier = nullptr;
 
 namespace of::courier
 {
@@ -196,5 +196,29 @@ namespace of::courier
 		size_t tmp = m_messages;
 		m_messages = 0;
 		return tmp;
+	}
+
+	void init()
+	{
+		if (g_courier == nullptr)
+		{
+			engine::GetModule<of::logger::Logger>().Info("Initializing Courier");
+			g_courier = new Courier();
+		}
+		else
+		{
+			engine::GetModule<of::logger::Logger>().Warning("Trying to initialize Courier multiple times!");
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_courier;
+		g_courier = nullptr;
+	}
+
+	Courier& get()
+	{
+		return *g_courier;
 	}
 }
