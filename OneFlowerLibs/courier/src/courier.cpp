@@ -12,7 +12,7 @@ namespace of::courier
 
 		if (channels.find(topic) != channels.end())
 		{
-			channels[topic]->sendMessage(message);
+			m_messages += channels[topic]->sendMessage(message);
 		}
 		else
 		{
@@ -25,7 +25,7 @@ namespace of::courier
 	{
 		if (channels.find(topic) != channels.end())
 		{
-			channels[topic]->sendMessage(subscriber, message);
+			m_messages += channels[topic]->sendMessage(subscriber, message);
 		}
 		else
 		{
@@ -38,7 +38,7 @@ namespace of::courier
 	{
 		if (channels.find(topic) != channels.end())
 		{
-			channels[topic]->sendMessage(channel, message);
+			m_messages += channels[topic]->sendMessage(channel, message);
 		}
 		else
 		{
@@ -51,7 +51,7 @@ namespace of::courier
 	{
 		if (channels.find(topic) != channels.end())
 		{
-			channels[topic]->sendMessage(channel, subscriber, message);
+			m_messages += channels[topic]->sendMessage(channel, subscriber, message);
 		}
 		else
 		{
@@ -61,27 +61,44 @@ namespace of::courier
 	}
 	void Courier::schedule(const Topic topic, const Message& message)
 	{
-		scheduledMessages[topic].push_back(internal::ScheduledMessage{
-			false, false, of::common::uuid::nil(), 0, message
-		});
+		mtx.lock();
+		{
+
+			scheduledMessages[topic].push_back(internal::ScheduledMessage{
+				false, false, of::common::uuid::nil(), 0, message
+			});
+		}
+		mtx.unlock();
 	}
 
 	void Courier::schedule(const Topic topic, const size_t subscriberId, const Message& message)
 	{
-		scheduledMessages[topic].push_back(internal::ScheduledMessage{ false, true, of::common::uuid::nil(), subscriberId, message });
+		mtx.lock();
+		{
+			scheduledMessages[topic].push_back(internal::ScheduledMessage{ false, true, of::common::uuid::nil(), subscriberId, message });
+		}
+		mtx.unlock();
 	}
 
 	void Courier::schedule(const Topic topic, const of::common::uuid& channel, const Message& message)
 	{
-		scheduledMessages[topic].push_back(internal::ScheduledMessage{
+		mtx.lock();
+		{
+			scheduledMessages[topic].push_back(internal::ScheduledMessage{
 			true, false, channel, 0, message
-		});
+				});
+		}
+		mtx.unlock();
 	}
 	void Courier::schedule(const Topic topic, const of::common::uuid& channel, const size_t subscriber, const Message& message)
 	{
-		scheduledMessages[topic].push_back(internal::ScheduledMessage{
+		mtx.lock();
+		{
+			scheduledMessages[topic].push_back(internal::ScheduledMessage{
 			true, true, channel, subscriber, message
-		});
+				});
+		}
+		mtx.unlock();
 	}
 
 	size_t Courier::addSubscriber(const Topic topic, const Subscriber& subscriber)
@@ -172,5 +189,12 @@ namespace of::courier
 		{
 			channel.second->handleScheduledRemovals();
 		}
+	}
+
+	size_t Courier::messageCount()
+	{
+		size_t tmp = m_messages;
+		m_messages = 0;
+		return tmp;
 	}
 }

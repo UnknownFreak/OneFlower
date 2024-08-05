@@ -4,6 +4,7 @@
 #include <module/ModuleManager.hpp>
 
 #include <map>
+#include <mutex>
 
 #include <courier/message.hpp>
 #include <courier/scheduledMessage.hpp>
@@ -46,7 +47,13 @@ namespace of::courier
 		void scheduleRemoval(const Topic, const size_t subscriberId);
 		void handleScheduledMessages();
 		void handleScheduledRemovals();
+
+		size_t messageCount();
 	private:
+
+		size_t m_messages = 0;
+		std::mutex mtx;
+
 		std::map<Topic, std::shared_ptr<ChannelTopic>> channels;
 		std::map<Topic, std::vector<internal::ScheduledMessage>> scheduledMessages;
 

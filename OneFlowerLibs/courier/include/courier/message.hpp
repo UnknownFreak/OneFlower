@@ -42,7 +42,7 @@ namespace of::courier
 		{
 			if (m_arg.operator bool())
 			{
-				Arg<T>* p = static_cast<Arg<T>*>(m_arg.get());
+				Arg<T const &>* p = static_cast<Arg<T const&>*>(m_arg.get());
 				return p->t;
 			}
 			return T();

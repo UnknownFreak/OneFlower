@@ -33,7 +33,7 @@ namespace of::courier
 			}
 		}
 	}
-	void Channel::sendMessage(const Message& message)
+	size_t Channel::sendMessage(const Message& message)
 	{
 		if (mMultithreadedEnabled)
 		{
@@ -60,10 +60,11 @@ namespace of::courier
 				s.sendMessage(message);
 			}
 		}
+		return subscribers.size();
 		//*/
 	}
 
-	void Channel::sendMessage(const size_t subscriberId, const Message& message)
+	size_t Channel::sendMessage(const size_t subscriberId, const Message& message)
 	{
 		//*
 		Subscriber tmp;
@@ -72,12 +73,14 @@ namespace of::courier
 		if (it != subscribers.end())
 		{
 			it->sendMessage(message);
+			return 1;
 		}
 		else
 		{
 			of::engine::GetModule<of::logger::Logger>().getLogger("of::messaging::Channel").Warning(
 				"Trying to send message to a subscriber that does not exist.");
 		}
+		return 0;
 		//*/
 	}
 

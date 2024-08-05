@@ -16,15 +16,17 @@ namespace of::courier
 
 		void addChannel(std::shared_ptr<Channel> channel);
 
-		using Channel::sendMessage;
 
-		void sendMessage(const Message& message) override;
+		size_t sendMessage(const Message& message) override;
 
-		void sendMessage(const of::common::uuid& channelId, const Message& message);
+		size_t sendMessage(const size_t, const Message& message) override;
 
-		void sendMessage(const of::common::uuid& channelId, const size_t subscriberId, const Message& message);
+		size_t sendMessage(const of::common::uuid& channelId, const Message& message);
+
+		size_t sendMessage(const of::common::uuid& channelId, const size_t subscriberId, const Message& message);
 
 		void setMessageValidator(std::shared_ptr<MessageValidator> messageValidator);
+		std::shared_ptr<MessageValidator> getValidator() const;
 
 		bool validate(const Message& message) const;
 

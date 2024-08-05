@@ -182,6 +182,74 @@ public:
 	};
 };
 
+class Sniffer : public of::courier::MessageValidator, public of::utils::lifetime::IsAlive
+{
+	std::shared_ptr<of::courier::MessageValidator> validator;
+	std::shared_ptr<of::courier::ChannelTopic> m_channel;
+
+	size_t m_messageCount = 0;
+	size_t m_messagePerSecond = 0;
+	size_t m_messagePerSecond2 = 0;
+
+	size_t subscriberId;
+public:
+	of::timer::TickTimer m_tickTimer;
+
+public:
+	Sniffer(const of::courier::Topic t, std::string name)
+	{
+		m_channel = of::engine::GetModule<of::courier::Courier>().getChannel(t);
+		validator = m_channel->getValidator();
+		subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(),
+			[this](const of::courier::Message& msg) {
+				if (msg.msgType == of::courier::MessageType::Notify)
+				{
+					m_messagePerSecond2 = m_messagePerSecond;
+					m_messagePerSecond = 0;
+				}
+			}));
+		m_tickTimer.maxTime = 1.0f;
+		m_tickTimer.autoReset = true;
+		m_tickTimer.messagesToSend.push_back(std::make_pair(of::courier::Topic::Object, subscriberId));
+		m_tickTimer.start();
+	}
+
+	~Sniffer()
+	{
+		m_tickTimer.stop();
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Object, subscriberId);
+	}
+
+	bool validate(const of::courier::Message& message)
+	{
+		if (validator)
+		{
+			m_messageCount++;
+			m_messagePerSecond++;
+			return validator->validate(message);
+		}
+		m_messageCount++;
+		m_messagePerSecond++;
+		return true;
+	}
+
+	size_t messageCount() const
+	{
+		return m_messageCount;
+	}
+
+	size_t subscriberCount() const
+	{
+		return m_channel->getSubscribersCount();
+	}
+
+	size_t messagesPerSecond() const
+	{
+		return m_messagePerSecond2;
+	}
+
+};
+
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 {
 	std::shared_ptr<of::courier::ChannelTopic> m_channel;
@@ -189,15 +257,40 @@ class CourierStats : public of::graphics::ParentedRenderable, public of::utils::
 	int val = 0;
 	bool m_add = false;
 	of::common::uuid instanceId;
+	
+	float m_messageTiming;
+
+	std::string m_execTime;
+	std::string m_msgCount;
+	size_t m_totalMsgCounter = 0;
+	std::string m_totalMsgCountStr;
+
+	std::shared_ptr<Sniffer> m_updateSniffer;
+	std::shared_ptr<Sniffer> m_physicsSniffer;
+	std::shared_ptr<Sniffer> m_singleThreadSniffer;
+	std::shared_ptr<Sniffer> m_objectSniffer;
+
 public:
 
 	CourierStats() : m_channel(of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update)) 
 	{
+		auto& courier = of::engine::GetModule<of::courier::Courier>();
+		m_updateSniffer = std::make_shared<Sniffer>(of::courier::Topic::Update, "Update");
+		m_physicsSniffer = std::make_shared<Sniffer>(of::courier::Topic::PhysicsUpdate, "Physics");
+		m_singleThreadSniffer = std::make_shared<Sniffer>(of::courier::Topic::SingleThreadUpdate, "ST");
+		m_objectSniffer = std::make_shared<Sniffer>(of::courier::Topic::Object, "Obj");
+
+		courier.getChannel(of::courier::Topic::Update)->setMessageValidator(m_updateSniffer);
+		courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMessageValidator(m_physicsSniffer);
+		courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMessageValidator(m_singleThreadSniffer);
+		courier.getChannel(of::courier::Topic::Object)->setMessageValidator(m_objectSniffer);
+
 	}
 
 	virtual void updateFrame(const float)
 	{
 	}
+
 	void updateCount()
 	{
 		if (m_add)
@@ -211,10 +304,35 @@ public:
 		string = std::to_string(m_channel->getSubscribersCount());
 	}
 
+	void text(const of::common::String& s, size_t value, size_t messagesPerSecond, size_t subscribers)
+	{
+		ImGui::Text(s.c_str());
+		ImGui::SameLine();
+		ImGui::Text("%llu", value);
+		ImGui::SameLine();
+		ImGui::Text("%llu/s", messagesPerSecond);
+		ImGui::SameLine();
+		ImGui::Text("Subscribers (%llu)", subscribers);
+	}
+
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
 	{
 		ImGui::Begin("CourierStats");
 		ImGui::Text(string.c_str());
+		ImGui::Text(m_execTime.c_str());
+		ImGui::Text(m_msgCount.c_str());
+		ImGui::Text(m_totalMsgCountStr.c_str());
+
+		ImGui::NewLine();
+
+		ImGui::Text("Messages per channel:");
+		text(" Update: ", m_updateSniffer->messageCount(), m_updateSniffer->messagesPerSecond(), m_updateSniffer->subscriberCount());
+		text("Physics: ", m_physicsSniffer->messageCount(), m_physicsSniffer->messagesPerSecond(), m_physicsSniffer->subscriberCount());
+		text("     ST: ", m_singleThreadSniffer->messageCount(), m_singleThreadSniffer->messagesPerSecond(), m_singleThreadSniffer->subscriberCount());
+		text(" Object: ", m_objectSniffer->messageCount(), m_objectSniffer->messagesPerSecond(), m_objectSniffer->subscriberCount());
+
+		ImGui::NewLine();
+
 		ImGui::SliderInt("Object count", &val, 0, 100000);
 		if(ImGui::Button("Add object"))
 		{
@@ -222,6 +340,18 @@ public:
 		}
 		ImGui::End();
 	};
+
+	void messageTime(std::chrono::duration<float, std::milli> time)
+	{
+		m_execTime = "ExecTime: " + std::format("{:.3f}", time.count()) + " ms";
+	}
+
+	void messageCount(size_t messageCount)
+	{
+		m_msgCount = "Handled: " + std::to_string(messageCount) + "/frame";
+		m_totalMsgCounter += messageCount;
+		m_totalMsgCountStr = "TotalHandled: " + std::to_string(m_totalMsgCounter);
+	}
 };
 
 
@@ -1174,13 +1304,18 @@ void GameEntry::physicsUpdate()
 
 				courierStats->updateCount();
 
+				auto then = std::chrono::high_resolution_clock::now();
 				auto message = of::courier::Message(of::courier::MessageType::DeltaTime, update_time);
-
+				
 				courier.post(of::courier::Topic::Update, message);
 				courier.post(of::courier::Topic::PhysicsUpdate, message);
 				courier.post(of::courier::Topic::SingleThreadUpdate, message);
 				courier.handleScheduledMessages();
 				courier.handleScheduledRemovals();
+				auto delta = std::chrono::high_resolution_clock::now() - then;
+				courierStats->messageTime(std::chrono::duration<float, std::milli>(delta));
+				courierStats->messageCount(courier.messageCount());
+
 			}
 			ups->update();
 			ups->print();

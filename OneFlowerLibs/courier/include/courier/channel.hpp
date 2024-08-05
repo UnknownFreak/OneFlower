@@ -16,9 +16,9 @@ namespace of::courier
 		Channel();
 
 		virtual ~Channel();
-		virtual void sendMessage(const Message& message);
-
-		void sendMessage(const size_t subscriberId, const Message& message);
+		virtual size_t sendMessage(const Message& message);
+		virtual size_t sendMessage(const size_t subscriberId, const Message& message);
+		
 		size_t addSubscriber(const Subscriber& subscriber);
 		void removeSubscriber(const size_t subscriberId);
 
