@@ -78,15 +78,21 @@ namespace of::component
 
 	void Transform::deconstruct()
 	{
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 	}
 
 	void Transform::attached()
 	{
 		moving = true;
-
-		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-			of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		if (subscriberId == 0)
+		{
+			subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
+				of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
 	}
 
 	void Transform::updateTransform(std::shared_ptr<Transform> transform)

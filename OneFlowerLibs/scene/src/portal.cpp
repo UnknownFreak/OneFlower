@@ -28,40 +28,44 @@ namespace of::component
 				//	of::engine::GetModule<of::logger::Logger>().GetLogger("of::object::component::Portal").Info("Courier subscriber already exists, skipping!");
 				//	return;
 
-				courier.addSubscriber(
-					of::courier::Topic::Update,
-					of::courier::Subscriber(
-						instanceId, isAlive(),
-						[portalRef, objectTrackingPos, &inputHandler](const of::courier::Message&)
-						{
-							float distance = glm::abs(glm::distance(objectTrackingPos->pos,
-							portalRef->mSelfTrackingPos->pos));
-							if (distance < portalRef->mTeleportDistance)
+				if (subscriberId == 0)
+				{
+					subscriberId = courier.addSubscriber(
+						of::courier::Topic::Update,
+						of::courier::Subscriber(
+							isAlive(),
+							[portalRef, objectTrackingPos, &inputHandler](const of::courier::Message&)
 							{
-								if (portalRef->requireInteraction)
+								float distance = glm::abs(glm::distance(objectTrackingPos->pos,
+									portalRef->mSelfTrackingPos->pos));
+								if (distance < portalRef->mTeleportDistance)
 								{
-									if (inputHandler.wasKeybindPressed("interact"))
+									if (portalRef->requireInteraction)
+									{
+										if (inputHandler.wasKeybindPressed("interact"))
+										{
+											portalRef->teleport();
+											return;
+										}
+										// TODO: schedule a message later this frame to show the gui interaction prompt.
+										//courier.schedulePost(of::messaging::Topic::GUI, );
+									}
+									else if (portalRef->requireInteraction == false)
 									{
 										portalRef->teleport();
-										return;
 									}
-									// TODO: schedule a message later this frame to show the gui interaction prompt.
-									//courier.schedulePost(of::messaging::Topic::GUI, );
 								}
-								else if (portalRef->requireInteraction == false)
+								if (distance > portalRef->mGuiHintDistance)
 								{
-									portalRef->teleport();
+									auto& courier = of::engine::GetModule<of::courier::Courier>();
+									courier.scheduleRemoval(of::courier::Topic::Update, portalRef->subscriberId);
+									portalRef->subscriberId = 0;
+
 								}
 							}
-							if (distance > portalRef->mGuiHintDistance)
-							{
-								auto& courier = of::engine::GetModule<of::courier::Courier>();
-								courier.scheduleRemoval(of::courier::Topic::Update, portalRef->instanceId);
-
-							}
-						}
-					)
-				);
+						)
+					);
+				}
 			}
 		}
 	}
@@ -77,8 +81,12 @@ namespace of::component
 
 	void Portal::deconstruct()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 	}
 
 	void Portal::teleport()

@@ -3,7 +3,7 @@
 
 #include <utils/common/uuid.hpp>
 #include <combat/attribute/StatType.hpp>
-#include <resource/TickTimer.hpp>
+#include <timer/tickTimer.hpp>
 
 namespace of::combat
 {
@@ -11,7 +11,7 @@ namespace of::combat
 	{
 		Enums::StatType attributeToModify;
 		bool inf;
-		of::resource::TickTimer duration;
+		of::timer::TickTimer duration;
 		double statModification;
 		of::common::uuid modifierId;
 		inline bool operator==(const Modifier& other)
@@ -44,14 +44,15 @@ namespace of::combat
 		size_t maxStackSize = 100;
 		std::vector<Modifier> modifiers;
 
-		double tick(const float& frame_tick)
+		// Todo, remove logic. instead listen on notify message from modifiers 
+		double tick(const float& )
 		{
 			double statChange = 0;
 			
 			auto it = modifiers.begin();
 			while (it != modifiers.end())
 			{
-				if (!it->inf && it->duration.tick(frame_tick))
+				if (!it->inf && it->duration.done())
 				{
 					statChange += it->statModification;
 					it = modifiers.erase(it);

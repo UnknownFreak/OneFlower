@@ -116,10 +116,13 @@ void PlayerInteractionPrompt::update(const float&dt)
 
 void PlayerInteractionPrompt::attached()
 {
-	of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-		of::courier::Subscriber(instanceId, isAlive(),
-			[this](const of::courier::Message& msg) {update(msg.get<float>()); }
-	));
+	if (subscriberId == 0)
+	{
+		subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
+			of::courier::Subscriber(isAlive(),
+				[this](const of::courier::Message& msg) {update(msg.get<float>()); }
+			));
+	}
 }
 
 void PlayerInteractionPrompt::initialize()
@@ -129,6 +132,8 @@ void PlayerInteractionPrompt::initialize()
 
 void PlayerInteractionPrompt::deconstruct()
 {
-	of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
-
+	if (subscriberId != 0)
+	{
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, subscriberId);
+	}
 }

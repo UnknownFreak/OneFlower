@@ -6,6 +6,19 @@ of::module::EngineResourceType of::module::interface::IEngineResource<of::object
 namespace of::object
 {
 
+
+	object::GameObject* InstanceHandler::createPlayer()
+	{
+		if (player != nullptr)
+		{
+			delete player;
+		}
+		player = new GameObject();
+		player->tag = "player";
+		player->id = of::common::uuid::nil();
+		return player;
+	}
+
 	object::GameObject* InstanceHandler::addObject()
 	{
 		of::common::uuid id;

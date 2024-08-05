@@ -15,7 +15,7 @@ namespace Questing
 		{
 			// TODO: change to objectInstanceHandler instead
 			auto& player = of::engine::GetModule<of::file::SaveFile>().player;
-			auto inventory = player.get<of::component::Inventory>();
+			auto inventory = player->get<of::component::Inventory>();
 			if (inventory)
 			{
 				if (inventory->getItemStack(itemId) >= itemCount)

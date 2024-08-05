@@ -51,10 +51,10 @@ namespace of::editor
 			}, false), swizzle::input::Mouse::RightClick, of::input::Action::Press);
 
 
-		courier.addSubscriber(
+		subscriberId = courier.addSubscriber(
 			of::courier::Topic::SingleThreadUpdate,
 			of::courier::Subscriber(
-				0x100000, isAlive(),
+				isAlive(),
 				[&, appl](const of::courier::Message&)
 				{
 					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
@@ -83,6 +83,11 @@ namespace of::editor
 				}
 			)
 		);
+	}
+
+	Gizmo::~Gizmo()
+	{
+		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::SingleThreadUpdate, subscriberId);
 	}
 
 	void Gizmo::updateFrame(const float )

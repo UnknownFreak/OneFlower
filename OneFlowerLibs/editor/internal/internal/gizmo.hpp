@@ -34,11 +34,13 @@ namespace of::editor
 		physx::PxActor* mSelectedActor = nullptr;
 
 		bool m_enable = true;
+		size_t subscriberId;
 		std::vector<std::shared_ptr<of::component::Transform>> m_objects;
 
 	public:
 
 		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl);
+		~Gizmo();
 
 		virtual void updateFrame(const float dt) override;
 

@@ -54,13 +54,14 @@ namespace of::combat
 
 	void Skill::onSkillExecution(of::object::GameObject* owner)
 	{
-		if (coolDown.ready())
+		if (coolDown.done() || (coolDown.finished == false && coolDown.started == false))
 		{
 			auto stats = owner->getShared<of::component::Stats>();
 			if (stats && stats->mainStat[Enums::StatType::Mana].current >= cost)
 			{
 				stats->mainStat[Enums::StatType::Mana].current -= cost;
 				coolDown.reset(true);
+				coolDown.start();
 				owner->get<of::component::Stats>()->doEffects(skillExecutionEffects, stats);
 				auto& x = of::engine::GetModule<of::file::Handler>().archive;
 				of::resource::Prefab* skillPrefab = x.request<of::resource::Prefab>(prefabId);
@@ -96,9 +97,8 @@ namespace of::combat
 		}
 	}
 
-	void Skill::update(const float& dt)
+	void Skill::update(const float& )
 	{
-		coolDown.tick(dt);
 	}
 
 	/*

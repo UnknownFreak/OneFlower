@@ -19,6 +19,7 @@ namespace of::object
 		std::unordered_map<of::common::uuid, object::GameObject> objects;
 		std::unordered_map<of::common::uuid, float> objectsToDelete;
 
+		object::GameObject* createPlayer();
 		object::GameObject* addObject();
 		object::GameObject* addObject(const of::common::uuid& uuid);
 		object::GameObject* getObject(const of::common::uuid& uuid);

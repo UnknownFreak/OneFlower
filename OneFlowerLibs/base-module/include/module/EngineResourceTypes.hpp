@@ -6,7 +6,6 @@ namespace of::module
 	enum class EngineResourceType
 	{
 		Input,
-		Time,
 		Graphics,
 		Physics,
 		SceneManager,

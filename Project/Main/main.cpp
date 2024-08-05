@@ -29,7 +29,6 @@
 #include <module/window/WindowProxy.hpp>
 
 #include <courier/courier.hpp>
-#include <rng/rng.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
 
@@ -43,7 +42,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::Console: return "Console";
 		// Core
 	case of::module::EngineResourceType::Globals: return "Globals";
-	case of::module::EngineResourceType::Time: return "Time";
 	case of::module::EngineResourceType::GameConfig: return "GameSettings";
 		// Asset
 	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
@@ -78,13 +76,10 @@ static volatile void initializeSystems()
 		logger.Info(str);
 
 	of::engine::initialize();
-	logger.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
 	
-	auto mainModule = logger.getLogger("Main");
+	auto& mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Modules group: Core");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Globals>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::Time>().type));
 
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
@@ -105,6 +100,9 @@ static volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::courier::Courier>().type));
 
 	mainModule.Info("Finished initializing engine ");
+
+	auto& gameModule = logger.getLogger("Game");
+	gameModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
 
 	registerArchiveDefaults();
 }

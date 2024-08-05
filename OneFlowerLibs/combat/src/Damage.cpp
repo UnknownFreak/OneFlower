@@ -67,7 +67,7 @@ namespace of::component
 
 	bool Damage::hasLivedTooLong()
 	{
-		return timeToLive.maxTime > 0 && timeToLive.ready();
+		return timeToLive.maxTime > 0 && timeToLive.done();
 	}
 
 	bool Damage::hasHitEnoughEnemiesAndDestroy()
@@ -85,9 +85,21 @@ namespace of::component
 	void Damage::attached()
 	{
 		transform = attachedOn->get<Transform>();
-
 		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+
+		if (subscriberId == 0)
+		{
+			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
+		timeToLive.start();
+
+		if (notifyIntervalPerHits == 0)
+		{
+			notifyIntervalPerHits = courier.addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(), [this](const of::courier::Message&) {
+				locked = false; }));
+		}
+
+		intervalPerHit.messagesToSend.push_back(std::make_pair(of::courier::Topic::Object, notifyIntervalPerHits));
 	}
 
 	void Damage::initialize()
@@ -96,8 +108,15 @@ namespace of::component
 
 	void Damage::deconstruct()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+
+		}
+		timeToLive.stop();
+		intervalPerHit.stop();
 	}
 
 	void Damage::setDirection(const glm::vec2& newDirection, const float& newSpeed)
@@ -109,9 +128,6 @@ namespace of::component
 	void Damage::update(const float& fElapsedTime)
 	{
 
-		timeToLive.tick(fElapsedTime);
-		if (intervalPerHit.tick(fElapsedTime))
-			locked = false;
 		transform->move(direction * (speed * fElapsedTime));
 
 		if (hasHitEnoughEnemiesAndDestroy() || hasLivedTooLong())
@@ -121,6 +137,7 @@ namespace of::component
 		if (lockNextFrame)
 		{
 			intervalPerHit.reset(true);
+			intervalPerHit.start();
 			locked = true;
 		}
 

@@ -39,7 +39,7 @@ namespace of::file
 		of::file::FileId currentZone;
 		of::file::FileId loadingScreen;
 		glm::vec3 point;
-		of::object::GameObject player;
+		of::object::GameObject* player;
 
 		void setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state);
 

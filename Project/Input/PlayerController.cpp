@@ -17,18 +17,21 @@ namespace of::component
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::component::CombatComponent>();
 		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
-		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::PhysicsUpdate,
-			of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg)
-				{
-					auto transform = attachedOn->get<Transform>();
+		if (subscriberId == 0)
+		{
+			subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::PhysicsUpdate,
+				of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg)
+					{
+						auto transform = attachedOn->get<Transform>();
 
-				mActor->move({0, -9.81f, 0}, 0.1f, msg.get<float>(), physx::PxControllerFilters());
-				auto p = mActor->getFootPosition();
-				transform->pos.x = (float)p.x;
-				transform->pos.y = (float)p.y;
-				transform->pos.z = (float)p.z;
+						mActor->move({ 0, -9.81f, 0 }, 0.1f, msg.get<float>(), physx::PxControllerFilters());
+						auto p = mActor->getFootPosition();
+						transform->pos.x = (float)p.x;
+						transform->pos.y = (float)p.y;
+						transform->pos.z = (float)p.z;
 
-				}));
+					}));
+		}
 		mActor->getActor()->userData = &mColliderType;
 		mActor->getActor()->setName("Player controller");
 
@@ -41,8 +44,11 @@ namespace of::component
 
 	void PlayerController::deconstruct()
 	{
-
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::PhysicsUpdate, instanceId);
+		if (subscriberId != 0)
+		{
+			of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
+			subscriberId = 0;
+		}
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();

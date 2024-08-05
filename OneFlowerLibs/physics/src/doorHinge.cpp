@@ -23,16 +23,19 @@ namespace of::component
 
 				auto& courier = of::engine::GetModule<of::courier::Courier>();
 
-				courier.addSubscriber(
-					of::courier::Topic::PhysicsUpdate,
-					of::courier::Subscriber(
-						instanceId, isAlive(),
-						[&](const of::courier::Message&)
-						{
-							mActor->is<physx::PxRigidDynamic>()->addTorque({0.f, dir, 0.f}, physx::PxForceMode::eVELOCITY_CHANGE);
-						}
-					)
-				);
+				if (subscriberId == 0)
+				{
+					subscriberId = courier.addSubscriber(
+						of::courier::Topic::PhysicsUpdate,
+						of::courier::Subscriber(
+							isAlive(),
+							[&](const of::courier::Message&)
+							{
+								mActor->is<physx::PxRigidDynamic>()->addTorque({ 0.f, dir, 0.f }, physx::PxForceMode::eVELOCITY_CHANGE);
+							}
+						)
+					);
+				}
 			}
 			else
 			{
@@ -55,7 +58,11 @@ namespace of::component
 		{
 			mHinge->release();
 		}
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::PhysicsUpdate, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
+			subscriberId = 0;
+		}
 	}
 }

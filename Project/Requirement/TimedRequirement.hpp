@@ -2,7 +2,8 @@
 #define TimedRequirement_HPP
 
 #include <file/FileId.hpp>
-#include <resource/TickTimer.hpp>
+#include <timer/tickTimer.hpp>
+
 #include "Requirement.hpp"
 
 namespace Requirement
@@ -15,7 +16,7 @@ namespace Requirement
 		~TimedRequirement();
 		bool fullfilledIftimeRanOut;
 		of::file::FileId timerId;
-		of::resource::TickTimerInfo timerInfo;
+		of::timer::TickTimer timer;
 		// Inherited via Requirement
 		virtual bool fullfilled() override;
 
@@ -27,16 +28,14 @@ namespace Requirement
 		void save(Archive& ar) const
 		{
 			ar(fullfilledIftimeRanOut);
-			ar(timerId);
-			ar(timerInfo);
+			ar(timer);
 		}
 
 		template<class Archive>
 		void load(Archive& ar)
 		{
 			ar(fullfilledIftimeRanOut);
-			ar(timerId);
-			ar(timerInfo);
+			ar(timer);
 			loadTimerFromSave();
 		}
 

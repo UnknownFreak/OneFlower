@@ -21,29 +21,20 @@ namespace of::courier
 	public:
 
 		void post(const Topic topic, const Message& message);
+		void post(const Topic topic, const size_t subscriber, const Message& message);
 		void post(const Topic topic, const of::common::uuid& channel, const Message& message);
 		void post(const Topic topic, const of::common::uuid& channel, const size_t subscriberId, const Message& message);
 
 		void schedule(const Topic topic, const Message& message);
+		void schedule(const Topic topic, const size_t subscriberId, const Message& message);
 		void schedule(const Topic topic, const of::common::uuid& channel, const Message& message);
 		void schedule(const Topic topic, const of::common::uuid& channel, const size_t subscriberId, const Message& message);
 
-		void addSubscriber(const Topic topic, const Subscriber& subscriber);
+		size_t addSubscriber(const Topic topic, const Subscriber& subscriber);
 		void removeSubscriber(const Topic topic, size_t subscriberId);
 
-		void createChannel(const Topic topic)
-		{
-			channels[topic] = std::make_shared<ChannelTopic>();
-		}
-
-		std::shared_ptr<ChannelTopic> getChannel(const Topic topic)
-		{
-			if (channels.find(topic) == channels.end())
-			{
-				createChannel(topic);
-			}
-			return channels[topic];
-		}
+		void createChannel(const Topic topic);
+		std::shared_ptr<ChannelTopic> getChannel(const Topic topic);
 
 		of::module::EngineResourceType& getType() const override
 		{

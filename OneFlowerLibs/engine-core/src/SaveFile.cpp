@@ -15,8 +15,6 @@ namespace of::file
 
 	void SaveFile::setPlayerInfo()
 	{
-		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
-		objectHandler.player = &player;
 	}
 
 	void SaveFile::setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state)
@@ -111,14 +109,17 @@ namespace of::file
 		{
 			of::engine::GetModule<of::logger::Logger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
-		//auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
 		
-		player = of::object::GameObject();
-		player.initialize();
+		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
+
+		player = objectHandler.createPlayer();
+
+		//auto prefab = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<::Asset::Resource::Prefab>(gameMode.playerPrefab);
+		// prefab.createNewPlayerInstance(&player);
+		//player->initialize();
 
 		//prefab.createNewPlayerInstance(player);
-		player.tag = "player";
-		player.id = of::common::uuid::nil();
+
 		//player.addComponent<Render>();
 		//player.addComponent<PlayerInteractionPrompt>();
 		//player.addComponent<Component::Stats>();
@@ -137,7 +138,7 @@ namespace of::file
 			mainAr(diff);
 			mainAr(gameMode);
 			mainAr(customDiffId);
-			mainAr(player);
+			mainAr(*player);
 			mainAr(saveStates);
 			mainAr(despawnTimers);
 			mainAr(currentZone);
@@ -149,13 +150,15 @@ namespace of::file
 
 	void SaveFile::load(const of::common::String& fileName)
 	{
+		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
+		player = objectHandler.createPlayer();
 		std::ifstream file(of::common::savePath + fileName, std::ios::binary | std::ios::in);
 		{
 			cereal::BinaryInputArchive mainAr(file);
 			mainAr(diff);
 			mainAr(gameMode);
 			mainAr(customDiffId);
-			mainAr(player);
+			mainAr(*player);
 			mainAr(saveStates);
 			mainAr(despawnTimers);
 			mainAr(currentZone);

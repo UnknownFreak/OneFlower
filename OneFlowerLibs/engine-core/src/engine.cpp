@@ -2,8 +2,9 @@
 
 #include <engine/settings.hpp>
 #include <rng/rng.hpp>
+#include <timer/timer.hpp>
 
-#include <logger/Logger.hpp>
+#include <logger/logger.hpp>
 
 namespace of::engine
 {
@@ -12,11 +13,19 @@ namespace of::engine
 	{
 		settings::init();
 		rng::init();
+
+		auto& logger = GetModule<of::logger::Logger>().getLogger("Main");
+		logger.Info("Initializing Modules group: Core");
+		timer::init();
+
 	}
 
 	void shutdown()
 	{
+		timer::shutdown();
+
 		rng::shutdown();
 		settings::shutdown();
+
 	}
 }

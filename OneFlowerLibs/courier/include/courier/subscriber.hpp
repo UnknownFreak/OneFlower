@@ -12,9 +12,9 @@ namespace of::courier
 	{
 	public:
 
-		Subscriber(const size_t id = 0);
+		Subscriber();
 
-		Subscriber(const size_t id, const std::weak_ptr<bool>& isAlive, const std::function<void(const courier::Message&)>& function);
+		Subscriber(const std::weak_ptr<bool>& isAlive, const std::function<void(const courier::Message&)>& function);
 
 		Subscriber(const Subscriber& sub);
 
@@ -25,10 +25,10 @@ namespace of::courier
 		bool operator < (const Subscriber& other) const;
 		bool operator ==(const Subscriber& other) const;
 
+		size_t id;
 	private:
 
 		std::function<void(const courier::Message&)> m_ptr;
 		std::weak_ptr<bool> m_isAlive;
-		size_t id;
 	};
 }

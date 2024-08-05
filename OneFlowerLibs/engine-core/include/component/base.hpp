@@ -25,7 +25,8 @@ namespace of::component
 	public:
 
 		object::GameObject* attachedOn = nullptr;
-		size_t instanceId;
+		// vector<pair<channel, id>> instead of single subscriber id?
+		size_t subscriberId = 0;
 
 		virtual Base* copy() const = 0;
 		virtual std::unique_ptr<Base> ucopy() const = 0;

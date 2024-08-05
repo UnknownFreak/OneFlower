@@ -4,22 +4,17 @@
 
 namespace of::component
 {
-	namespace
-	{
-		static size_t instanceCounter = 0;
-	};
-	
 	void Base::attach()
 	{
 		attached();
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component attached [ComponentType, instanceId]");
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component attached [ComponentType]");
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName());
 	}
 
 	void Base::decouple()
 	{
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component decoupled [ComponentType, instanceId]");
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName(), ", ", instanceId);
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component decoupled [ComponentType]");
+		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName());
 		deconstruct();
 		attachedOn = nullptr;
 	}
@@ -39,7 +34,7 @@ namespace of::component
 		attachedOn->post(message);
 	}
 
-	Base::Base() : instanceId(instanceCounter++)
+	Base::Base() : subscriberId(0)
 	{
 	}
 

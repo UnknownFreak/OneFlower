@@ -176,9 +176,6 @@
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\time\time.vcxproj">
-      <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

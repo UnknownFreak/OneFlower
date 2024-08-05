@@ -10,7 +10,7 @@
 #include <component/transform.hpp>
 #include "Stats.hpp"
 #include <combat/effect/Effect.hpp>
-#include <resource/TickTimer.hpp>
+#include <timer/TickTimer.hpp>
 
 namespace of::component
 {
@@ -32,6 +32,8 @@ namespace of::component
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
+		size_t notifyIntervalPerHits = 0;
+
 	public:
 		std::vector<of::file::FileId> effectsIds;
 		of::file::FileId elementId;
@@ -42,9 +44,9 @@ namespace of::component
 		bool eachTargetUnique;
 		bool killWhenMaxTargetsHit;
 
-		of::resource::TickTimer timeToLive;
+		of::timer::TickTimer timeToLive;
 
-		of::resource::TickTimer intervalPerHit;
+		of::timer::TickTimer intervalPerHit;
 		bool canLockNextFrame;
 		glm::vec2 direction;
 		float speed;

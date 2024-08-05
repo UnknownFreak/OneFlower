@@ -266,9 +266,6 @@
     <ProjectReference Include="OneFlowerLibs\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
       <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
     </ProjectReference>
-    <ProjectReference Include="OneFlowerLibs\time\time.vcxproj">
-      <Project>{b3c20059-028f-434a-b6a4-34626e080cac}</Project>
-    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\ui-core\ui-core.vcxproj">
       <Project>{aebc39cb-380d-4316-b1c6-42df6fa92a5c}</Project>
     </ProjectReference>

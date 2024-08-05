@@ -27,6 +27,10 @@ namespace of::courier
 		if (subscribers.size() != 0)
 		{
 			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Channel").Warning("Dangling subscribers on destruction");
+			for (auto& sub : subscribers)
+			{
+				of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Channel").Warning(std::to_string(sub.id));
+			}
 		}
 	}
 	void Channel::sendMessage(const Message& message)
@@ -62,7 +66,9 @@ namespace of::courier
 	void Channel::sendMessage(const size_t subscriberId, const Message& message)
 	{
 		//*
-		auto it = std::lower_bound(subscribers.begin(), subscribers.end(), Subscriber(subscriberId));
+		Subscriber tmp;
+		tmp.id = subscriberId;
+		auto it = std::lower_bound(subscribers.begin(), subscribers.end(), tmp);
 		if (it != subscribers.end())
 		{
 			it->sendMessage(message);
@@ -74,17 +80,21 @@ namespace of::courier
 		}
 		//*/
 	}
-	void Channel::addSubscriber(const Subscriber& subscriber)
+
+	size_t Channel::addSubscriber(const Subscriber& subscriber)
 	{
 		if (std::binary_search(subscribers.begin(), subscribers.end(), subscriber) == false)
 		{
 			subscribers.emplace_back(subscriber);
 		}
+		return subscriber.id;
 	}
 
 	void Channel::removeSubscriber(const size_t subscriberId)
 	{
-		auto it = std::lower_bound(subscribers.begin(), subscribers.end(), Subscriber(subscriberId));
+		Subscriber tmp;
+		tmp.id = subscriberId;
+		auto it = std::lower_bound(subscribers.begin(), subscribers.end(), tmp);
 		if (it != subscribers.end())
 		{
 			subscribers.erase(it);

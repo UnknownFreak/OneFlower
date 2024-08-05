@@ -61,7 +61,10 @@ namespace of::component
 		transform = attachedOn->get<of::component::Transform>();
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
 
-		of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		if (subscriberId == 0)
+		{
+			subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
 	}
 
 	void Render::initialize()
@@ -72,7 +75,10 @@ namespace of::component
 	void Render::deconstruct()
 	{
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->removeRenderable(attachedOn->id);
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, subscriberId);
+		}
 	}
 
 	std::unique_ptr<of::component::Base> Render::ucopy() const

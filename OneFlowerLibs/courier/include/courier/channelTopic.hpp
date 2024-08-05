@@ -16,6 +16,8 @@ namespace of::courier
 
 		void addChannel(std::shared_ptr<Channel> channel);
 
+		using Channel::sendMessage;
+
 		void sendMessage(const Message& message) override;
 
 		void sendMessage(const of::common::uuid& channelId, const Message& message);

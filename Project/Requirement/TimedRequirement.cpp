@@ -1,7 +1,6 @@
 #include "TimedRequirement.hpp"
 
 #include <file/SaveFile.hpp>
-#include <module/OneTime.hpp>
 
 
 namespace Requirement
@@ -23,28 +22,13 @@ namespace Requirement
 
 	TimedRequirement::~TimedRequirement()
 	{
-		if (timerInfo.started && !timerInfo.finished)
-			stop();
 	}
 
 	bool TimedRequirement::fullfilled()
 	{
-		if (timerInfo.started || timerInfo.finished)
+		if (timer.started || timer.finished)
 		{
-			auto& timer = of::engine::GetModule<of::module::Time>();
-			if (timer.exists(timerId))
-			{
-				auto& tickTimer = timer.getTickTimer(timerId);
-				timerInfo = tickTimer.getInfo();
-				// TODO: Replace with TimerSaveState
-				//of::engine::GetModule<of::module::SaveFile>().setTickTimer(timerId, timerInfo);
-				if (timerInfo.finished)
-					stop();
-			
-				auto fraction = tickTimer.getFraction();
-				return fullfilledIftimeRanOut ? fraction > 1.f : fraction < 1.f;
-			}
-			auto fraction = timerInfo.currentTime / timerInfo.maxTime;
+			auto fraction = timer.getFraction();
 			return fullfilledIftimeRanOut ? fraction > 1.f : fraction < 1.f;
 		}
 		else
@@ -55,24 +39,17 @@ namespace Requirement
 
 	void TimedRequirement::start()
 	{
-		if (!timerInfo.finished)
-			of::engine::GetModule<of::module::Time>().addTicKTimer(timerId, of::resource::TickTimer::from(timerInfo));
-		timerInfo.started = true;
+		timer.start();
 	}
 
 	void TimedRequirement::reset()
 	{
-		timerInfo.started = false;
-		timerInfo.currentTime = 0.f;
-		timerInfo.finished = false;
-		// TODO: replace with TimerSaveState
-		//of::engine::GetModule<of::module::SaveFile>().setTickTimer(timerId, timerInfo);
+		timer.reset();
 	}
 
 	void TimedRequirement::stop()
 	{
-		timerInfo.started = false;
-		of::engine::GetModule<of::module::Time>().removeTimer(timerId);
+		timer.stop();
 	}
 
 	std::unique_ptr<Requirement> TimedRequirement::clone() const

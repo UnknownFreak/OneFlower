@@ -2,7 +2,6 @@
 #define GameEntry_HPP
 
 #include <graphics/window/Window.hpp>
-#include <Module/OneTime.hpp>
 #include <Input/InputHandler.hpp>
 #include <module/sceneManager.hpp>
 
@@ -15,7 +14,6 @@ class GameEntry
 {
 	bool m_exit;
 	std::shared_ptr<of::graphics::window::Application> gfx;
-	of::module::Time& time;
 	of::input::InputHandler& input;
 	
 	of::module::SceneManager& world;

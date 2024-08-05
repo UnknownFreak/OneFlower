@@ -17,19 +17,20 @@ namespace of::combat
 		bool hiddenStack;
 
 		template <class T>
-		std::vector<std::pair<T, float>> tick(const float& frame_tick)
+		std::vector<std::pair<T, float>> tick(const float& )
 		{
 			std::vector < std::pair<T, float>> modif;
 
 			auto it = modifiers.begin();
 			while (it != modifiers.end())
 			{
-				if (it->tickDelay.tick(frame_tick))
+				if (it->tickDelay.done())
 				{
 					modif.push_back({ T(*(T*)it->theEffect.get()), 1.f });
 					it->tickDelay.reset();
+					it->tickDelay.start();
 				}
-				if (it->effectTime.tick(frame_tick))
+				if (it->effectTime.done())
 				{
 					modif.push_back({ T(*(T*)it->theEffect.get()), it->tickDelay.getFraction() });
 					it = modifiers.erase(it);

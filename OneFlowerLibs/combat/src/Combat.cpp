@@ -16,9 +16,12 @@ namespace of::component
 
 	void CombatComponent::attached()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		// todo create channel and push skills into the channel once executed & remove them automatically via it's instance id when the skill is done updating
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		if (subscriberId == 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			// todo create channel and push skills into the channel once executed & remove them automatically via it's instance id when the skill is done updating
+			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
 	}
 
 	void CombatComponent::initialize()
@@ -28,8 +31,12 @@ namespace of::component
 
 	void CombatComponent::deconstruct()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 	}
 
 	CombatComponent::CombatComponent()

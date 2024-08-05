@@ -24,9 +24,6 @@
     <Filter Include="src\object">
       <UniqueIdentifier>{d24d90b5-847c-47a4-9c0a-812c56514700}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\object\component">
-      <UniqueIdentifier>{e9b586be-61b8-4667-9d52-b44558ea8721}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\engine">
       <UniqueIdentifier>{2899d96f-4d44-435c-9ae1-b7aa059babc8}</UniqueIdentifier>
     </Filter>
@@ -53,6 +50,15 @@
     </Filter>
     <Filter Include="include\rng">
       <UniqueIdentifier>{2b17c9c5-d66f-4691-900c-cc5b2cbcf5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\timer">
+      <UniqueIdentifier>{ffebbfb4-c803-42ab-b306-9665b6113f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\timer">
+      <UniqueIdentifier>{4176f7c6-0e40-41f1-9edf-c27f867e8860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\component">
+      <UniqueIdentifier>{e9b586be-61b8-4667-9d52-b44558ea8721}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,12 @@
     <ClInclude Include="include\engine\paths.hpp">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="include\timer\timer.hpp">
+      <Filter>include\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\timer\tickTimer.hpp">
+      <Filter>include\timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -140,13 +152,13 @@
       <Filter>src\object</Filter>
     </ClCompile>
     <ClCompile Include="src\transform.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\Prefab.cpp">
       <Filter>src\resource</Filter>
     </ClCompile>
     <ClCompile Include="src\objectStateActivator.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\ObjectSaveState.cpp">
       <Filter>src\object</Filter>
@@ -161,7 +173,7 @@
       <Filter>src\file</Filter>
     </ClCompile>
     <ClCompile Include="src\base.cpp">
-      <Filter>src\object\component</Filter>
+      <Filter>src\component</Filter>
     </ClCompile>
     <ClCompile Include="src\rng.cpp">
       <Filter>src\rng</Filter>
@@ -171,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="src\settings.cpp">
       <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\timer.cpp">
+      <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tickTimer.cpp">
+      <Filter>src\timer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

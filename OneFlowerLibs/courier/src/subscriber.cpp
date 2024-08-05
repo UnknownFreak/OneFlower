@@ -2,20 +2,23 @@
 
 #include <logger/Logger.hpp>
 
+// reserve zero for un-initialized
+size_t g_subscriberId = 1;
 
 namespace of::courier
 {
 
-	Subscriber::Subscriber(const size_t id) : m_ptr(), m_isAlive(), id(id)
+	Subscriber::Subscriber() : m_ptr(), m_isAlive(), id(0)
 	{
 	}
 
-	Subscriber::Subscriber(const size_t id, const std::weak_ptr<bool>& isAlive, const std::function<void(const Message&)>& function) : m_ptr(function), m_isAlive(isAlive), id(id)
+	Subscriber::Subscriber(const std::weak_ptr<bool>& isAlive, const std::function<void(const Message&)>& function) : m_ptr(function), m_isAlive(isAlive), id(g_subscriberId++)
 	{
 	}
 
-	Subscriber::Subscriber(const Subscriber& sub) : Subscriber(sub.id, sub.m_isAlive, sub.m_ptr)
+	Subscriber::Subscriber(const Subscriber& sub) : Subscriber(sub.m_isAlive, sub.m_ptr)
 	{
+		id = sub.id;
 	}
 
 	void Subscriber::sendMessage(const Message& message)

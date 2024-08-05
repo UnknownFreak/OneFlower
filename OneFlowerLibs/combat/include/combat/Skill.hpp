@@ -12,7 +12,7 @@
 
 #include <combat/effect/Effect.hpp>
 #include "Element.hpp"
-#include <resource/TickTimer.hpp>
+#include <timer/tickTimer.hpp>
 
 namespace of::object
 {
@@ -52,7 +52,7 @@ namespace of::combat
 
 		of::file::FileId elementId;
 		of::combat::Element element;
-		of::resource::TickTimer coolDown;
+		of::timer::TickTimer coolDown;
 		double cost;
 		bool summon;
 		bool onSelf;

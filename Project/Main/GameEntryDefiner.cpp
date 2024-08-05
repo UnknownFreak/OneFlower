@@ -59,6 +59,8 @@
 
 #include <editor.hpp>
 
+#include <timer/timer.hpp>
+
 bool paused = false;
 static size_t mId = 0x100000000;
 
@@ -405,6 +407,7 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 	glm::vec3 shapeOffset;
 
 	glm::vec4 renderingColor = { 0.3f, 0.3f, 1.f, 0.f };
+	size_t subscriberId;
 
 	void loadShader()
 	{
@@ -438,7 +441,7 @@ public:
 		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
-		channel->addSubscriber(of::courier::Subscriber(mId++ , isAlive(), [&](const of::courier::Message&)
+		subscriberId = channel->addSubscriber(of::courier::Subscriber(isAlive(), [&](const of::courier::Message&)
 			{
 				if (mActor)
 				{
@@ -455,6 +458,12 @@ public:
 			}
 		));
 
+	}
+
+	~PxMeshedActorRenderable()
+	{
+		auto channel = of::engine::GetModule<of::courier::Courier>().getChannel(of::courier::Topic::Update);
+		channel->removeSubscriber(subscriberId);
 	}
 
 	virtual void updateFrame(const float)
@@ -1014,7 +1023,6 @@ class IsMessageTypeValidator : public of::courier::MessageValidator
 
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
-	time(of::engine::GetModule<of::module::Time>()),
 	input(of::engine::GetModule<of::input::InputHandler>()),
 	world(of::engine::GetModule<of::module::SceneManager>()),
 	courier(of::engine::GetModule<of::courier::Courier>()), m_exit(false)
@@ -1140,26 +1148,28 @@ void GameEntry::physicsUpdate()
 //		world.createMainMenu();
 	}
 	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-	time.physicsElapsed = time.physicsClock.secondsAsFloat(true);
-	const float update_time = time.update_ms;
+	float timeElapsed = 0.f;
+	auto& timer = of::timer::get("physicsClock");
+	timeElapsed = timer.secondsAsFloat(true);
+	const float update_time = of::timer::constants::update_ms;
 	while (!m_exit)
 	{
 		while (world.isLoading)
 		{
-			time.physicsElapsed = time.update_ms;
+			timeElapsed = update_time;
 			world.Update();
 			loadingScreenInfo->update();
-			time.physicsClock.secondsAsFloat(true);
+			timer.reset();
 		}
 		ups->tiq();
-		while (time.physicsElapsed >= time.update_ms)
+		while (timeElapsed >= update_time)
 		{
-			time.physicsElapsed -= time.update_ms;
+			timeElapsed -= update_time;
 			if (paused == false)
 			{
 				input.update(update_time);
 				world.Simulate(update_time);
-				time.Simulate(update_time);
+				//time.Simulate(update_time);
 				physicsHandler.simulate(update_time);
 
 				courierStats->updateCount();
@@ -1175,7 +1185,7 @@ void GameEntry::physicsUpdate()
 			ups->update();
 			ups->print();
 		}
-		time.physicsElapsed += time.physicsClock.secondsAsFloat(true);
+		timeElapsed += timer.secondsAsFloat(true);
 	}
 	std::cout << "Physics Exited!!" << std::endl;
 

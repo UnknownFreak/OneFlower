@@ -24,8 +24,11 @@ namespace of::component
 
 	void AttachToParent::attached()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		if (subscriberId == 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
 	}
 
 	void AttachToParent::initialize()
@@ -35,7 +38,11 @@ namespace of::component
 
 	void AttachToParent::deconstruct()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 	}
 };

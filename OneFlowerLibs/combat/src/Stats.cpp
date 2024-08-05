@@ -97,8 +97,11 @@ namespace of::component
 	{
 		using namespace object::messaging;
 		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		if (subscriberId == 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+		}
 	}
 
 	void Stats::initialize()
@@ -108,8 +111,12 @@ namespace of::component
 
 	void Stats::deconstruct()
 	{
-		auto& courier = of::engine::GetModule<of::courier::Courier>();
-		courier.removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			auto& courier = of::engine::GetModule<of::courier::Courier>();
+			courier.removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 	}
 
 	void Stats::onMessage(const object::messaging::Message& message)

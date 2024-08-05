@@ -64,16 +64,19 @@ namespace of::component
 
 			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);
-			of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
-				of::courier::Subscriber(instanceId, isAlive(), [this](const of::courier::Message& msg) {
-					auto p = mActor->getGlobalPose().p;
-					mTransform->pos.x = p.x;
-					mTransform->pos.y = p.y;
-					mTransform->pos.z = p.z;
+			if (subscriberId == 0)
+			{
+				subscriberId = of::engine::GetModule<of::courier::Courier>().addSubscriber(of::courier::Topic::Update,
+					of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {
+						auto p = mActor->getGlobalPose().p;
+						mTransform->pos.x = p.x;
+						mTransform->pos.y = p.y;
+						mTransform->pos.z = p.z;
 
-					// todo set quat rotation;
+						// todo set quat rotation;
 
-					}));
+						}));
+			}
 		}
 		else
 		{
@@ -94,7 +97,11 @@ namespace of::component
 
 	void Collider::deconstruct()
 	{
-		of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, instanceId);
+		if (subscriberId != 0)
+		{
+			of::engine::GetModule<of::courier::Courier>().removeSubscriber(of::courier::Topic::Update, subscriberId);
+			subscriberId = 0;
+		}
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();

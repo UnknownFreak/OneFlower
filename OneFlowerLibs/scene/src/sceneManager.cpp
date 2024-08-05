@@ -3,7 +3,7 @@
 #include <engine/runMode.hpp>
 
 #include <file/Handler.hpp>
-#include <module/OneTime.hpp>
+#include <timer/timer.hpp>
 
 #include <resource/Prefab.hpp>
 #include <module/window/WindowProxy.hpp>
@@ -83,7 +83,7 @@ namespace of::module
 		loadArgs = _loadArgs;
 		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("LoadingStateMachine");
 		logger.Info("Begin loading world " + world(), logger.fileInfo(__FILE__, __LINE__));
-		of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).reset();
+		of::timer::reset(globals::TOTAL_TIME_LOADED_PART);
 	}
 
 	void SceneManager::LoadingStateMachine::load()
@@ -137,8 +137,8 @@ namespace of::module
 		default:
 			break;
 		}
-		if(parent.isLoading)
-			loadingStateInfo.totalLoadTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED).secondsAsFloat();
+		if (parent.isLoading)
+			loadingStateInfo.totalLoadTime = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED);
 	}
 
 	void SceneManager::LoadingStateMachine::loadMainMenu()
@@ -147,7 +147,7 @@ namespace of::module
 	}
 	void SceneManager::LoadingStateMachine::prepareLoadingScreen()
 	{
-		loadingStateInfo.loadScreenSetupTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+		loadingStateInfo.loadScreenSetupTime = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 		loadstate = of::world::LoadingState::BEGIN_LOAD;
 	}
 	void SceneManager::LoadingStateMachine::beginLoad()
@@ -171,7 +171,7 @@ namespace of::module
 		loadingStateInfo.currentZoneCount = 0;
 
 		buffer.clear();
-		loadingStateInfo.instanceLoadTime = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+		loadingStateInfo.instanceLoadTime = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 		loadstate = of::world::LoadingState::CACHE_ALL_ZONES;
 
 		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>(instanceToLoad.skybox));
@@ -211,7 +211,7 @@ namespace of::module
 	{
 		if (loadingStateInfo.currentCutSceneCount == loadingStateInfo.totalCutSceneCount)
 		{
-			loadingStateInfo.totalCutSceneCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.totalCutSceneCountTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 			loadstate = of::world::LoadingState::UPDATE_LOAD_INFO;
 		}
 		else
@@ -227,14 +227,14 @@ namespace of::module
 				}
 			}
 			loadingStateInfo.currentCutSceneCount++;
-			loadingStateInfo.totalCutSceneCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.totalCutSceneCountTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 		}
 	}
 	void SceneManager::LoadingStateMachine::updateLoadInfo()
 	{
 		if (loadingStateInfo.currentZoneCount == loadingStateInfo.totalZoneCount)
 		{
-			loadingStateInfo.totalZoneUpdateCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.totalZoneUpdateCountTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 			loadstate = of::world::LoadingState::UNLOAD_OBJECTS;
 		}
 		else
@@ -260,7 +260,7 @@ namespace of::module
 				loadingStateInfo.totalObjectPartCount = instanceToLoad.objectChunk.size();
 			}
 			loadingStateInfo.currentZoneCount++;
-			loadingStateInfo.totalZoneUpdateCountTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingStateInfo.totalZoneUpdateCountTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART);
 		}
 	}
 	void SceneManager::LoadingStateMachine::unloadObjects()
@@ -284,7 +284,7 @@ namespace of::module
 	{
 		if (loadingStateInfo.currentPrefabCount == loadingStateInfo.totalPrefabCount)
 		{
-			loadingStateInfo.prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.prefabLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 			loadstate = of::world::LoadingState::LOAD_ALL_NAVMESH;
 		}
 		else
@@ -292,7 +292,7 @@ namespace of::module
 			of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(instanceToLoad.prefabs[loadingStateInfo.currentPrefabCount]);
 			loadingStateInfo.currentPrefabCount++;
 			loadingStateInfo.currentLoadCount++;
-			loadingStateInfo.prefabLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingStateInfo.prefabLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART);
 		}
 	}
 	void SceneManager::LoadingStateMachine::loadAllNavmesh()
@@ -301,7 +301,7 @@ namespace of::module
 		{
 			if (loadingStateInfo.currentNavmeshCount == loadingStateInfo.totalNavmeshCount)
 			{
-				loadingStateInfo.navmeshLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+				loadingStateInfo.navmeshLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 				navMeshLoaded = true;
 				loadstate = of::world::LoadingState::LOAD_GROUND;
 			}
@@ -327,7 +327,7 @@ namespace of::module
 	{
 		if (loadingStateInfo.currentObjectPartCount == loadingStateInfo.totalObjectPartCount)
 		{
-			loadingStateInfo.objectPartLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.objectPartLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 			loadstate = of::world::LoadingState::BUILD_OBJECTS;
 		}
 		else
@@ -351,14 +351,14 @@ namespace of::module
 
 			loadingStateInfo.currentObjectPartCount++;
 			loadingStateInfo.currentLoadCount++;
-			loadingStateInfo.objectPartLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingStateInfo.objectPartLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART);
 		}
 	}
 	void SceneManager::LoadingStateMachine::buildObjects()
 	{
 		if (loadingStateInfo.currentObjectCount == loadingStateInfo.totalObjectCount)
 		{
-			loadingStateInfo.objectLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat(true);
+			loadingStateInfo.objectLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 			loadstate = of::world::LoadingState::FINALIZING;
 		}
 		else
@@ -393,7 +393,7 @@ namespace of::module
 
 			loadingStateInfo.currentObjectCount++;
 			loadingStateInfo.currentLoadCount++;
-			loadingStateInfo.objectLoadTimer = of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED_PART).secondsAsFloat();
+			loadingStateInfo.objectLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART);
 		}
 	}
 	void SceneManager::LoadingStateMachine::finalize()
@@ -409,7 +409,7 @@ namespace of::module
 		if (parent.isLoading)
 		{
 			auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("LoadingStateMachine");
-			logger.Info("Finished loading world, it took " + std::to_string(of::engine::GetModule<of::module::Time>().getTimer(globals::TOTAL_TIME_LOADED).secondsAsFloat(true)) + "s", logger.fileInfo(__FILE__, __LINE__));
+			logger.Info("Finished loading world, it took " + std::to_string(of::timer::elapsedTime(globals::TOTAL_TIME_LOADED, true)) + "s", logger.fileInfo(__FILE__, __LINE__));
 		}
 		// TODO: replace with GameObject MessageTopic SetPosition
 		// of::engine::GetModule<of::module::ObjectInstanceHandler>().player->getComponent<of::object::component::Transform>()->pos = playerPos;
@@ -505,9 +505,8 @@ namespace of::module
 	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& loadArgs)
 	{
 		isLoading = true;
-		of::module::Time& time = of::engine::GetModule<of::module::Time>();
-		time.getTimer(globals::LOADING_TIMER).reset();
-		time.getTimer(globals::TOTAL_TIME_LOADED).reset();
+		of::timer::reset(globals::LOADING_TIMER);
+		of::timer::reset(globals::TOTAL_TIME_LOADED);
 
 		loadStateMachine.beginLoad(world, loadingScreen, playerPosition, loadArgs);
 
@@ -517,7 +516,7 @@ namespace of::module
 	{
 		if (isLoading)
 		{
-			auto timer = of::engine::GetModule<of::module::Time>().getTimer(globals::LOADING_TIMER);
+			auto& timer = of::timer::get(globals::LOADING_TIMER);
 			timer.reset();
 			while (timer.secondsAsFloat() < 0.05f && isLoading)
 			{

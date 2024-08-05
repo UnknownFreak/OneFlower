@@ -19,7 +19,7 @@ namespace of::courier
 		virtual void sendMessage(const Message& message);
 
 		void sendMessage(const size_t subscriberId, const Message& message);
-		void addSubscriber(const Subscriber& subscriber);
+		size_t addSubscriber(const Subscriber& subscriber);
 		void removeSubscriber(const size_t subscriberId);
 
 		of::common::uuid& getId();
