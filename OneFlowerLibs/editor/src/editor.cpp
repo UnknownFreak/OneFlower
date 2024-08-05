@@ -18,6 +18,14 @@ namespace of::editor
 {
 
 	std::shared_ptr<of::graphics::window::Application> s_gfx = nullptr;
+	std::vector<of::common::uuid> s_uuids;
+
+	static of::common::uuid add(std::shared_ptr<of::graphics::window::Application> gfx, std::shared_ptr<of::graphics::Renderable> render)
+	{
+		of::common::uuid id;
+		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, id, render);
+		return id;
+	}
 
 	static void createMenu(std::shared_ptr<of::graphics::window::Application> gfx)
 	{
@@ -46,23 +54,27 @@ namespace of::editor
 		editorMenu->addMenu(fileMenu);
 		editorMenu->addMenu(physxMenu);
 
-
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), editorMenu);
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), physxSettings);
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), newFileModal);
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadFileModal);
+		s_uuids.push_back(add(gfx, editorMenu));
+		s_uuids.push_back(add(gfx, physxSettings));
+		s_uuids.push_back(add(gfx, newFileModal));
+		s_uuids.push_back(add(gfx, loadFileModal));
 	}
 
 	void initialize(std::shared_ptr<of::graphics::window::Application> gfx)
 	{
 		s_gfx = gfx;
+		s_uuids.clear();
 		gfx->setCameraController(std::make_shared<EditorCamera>());
-		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Gizmo>(gfx));
+		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx)));
 		createMenu(gfx);
 	}
 
 	void exit()
 	{
+		for (auto& id : s_uuids)
+		{
+			s_gfx->removeRenderable(id);
+		}
 		s_gfx = nullptr;
 	}
 }

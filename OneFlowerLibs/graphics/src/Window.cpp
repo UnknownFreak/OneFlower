@@ -325,13 +325,15 @@ namespace of::graphics::window
 
 	glm::vec3 Application::getCursorRay() const
 	{
-		S32 x, y;
-		mWindow->getCursorPos(x, y);
-		if (x < 0)
-			x = 0;
-		if (y < 0)
-			y = 0;
-
+		S32 x = 0, y = 0;
+		if (mWindow)
+		{
+			mWindow->getCursorPos(x, y);
+			if (x < 0)
+				x = 0;
+			if (y < 0)
+				y = 0;
+		}
 		return cam.projectRayFromCursor(float(x), float(y));
 	}
 }

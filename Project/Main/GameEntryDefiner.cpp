@@ -1281,19 +1281,19 @@ void GameEntry::physicsUpdate()
 	float timeElapsed = 0.f;
 	auto& timer = of::timer::get("physicsClock");
 	timeElapsed = timer.secondsAsFloat(true);
-	const float update_time = of::timer::constants::update_ms;
 	while (!m_exit)
 	{
 		while (world.isLoading)
 		{
-			timeElapsed = update_time;
+			timeElapsed = of::timer::constants::update_ms;
 			world.Update();
 			loadingScreenInfo->update();
 			timer.reset();
 		}
 		ups->tiq();
-		while (timeElapsed >= update_time)
+		while (timeElapsed >= of::timer::constants::update_ms)
 		{
+			const float update_time = timeElapsed;
 			timeElapsed -= update_time;
 			if (paused == false)
 			{
