@@ -2,6 +2,7 @@
 #define CAMERA_HPP
 
 #include <glm/glm.hpp>
+#include <mutex>
 
 namespace of::graphics::view
 {
@@ -9,6 +10,8 @@ namespace of::graphics::view
     class Camera
     {
     protected:
+        std::mutex mtx;
+
         float mFov;
         float mWidth;
         float mHeight;
@@ -67,8 +70,8 @@ namespace of::graphics::view
         PerspectiveCamera(float fov, float width, float height);
         ~PerspectiveCamera();
 
-        glm::vec3 projectRayFromCursor(const float cursorX, const float cursorY) const;
-        glm::vec3 projectRayNDC(const float x, const float y) const;
+        glm::vec3 projectRayFromCursor(const float cursorX, const float cursorY);
+        glm::vec3 projectRayNDC(const float x, const float y, const glm::mat4& m) const;
     private:
         virtual void recalculatePerspective() override;
     };

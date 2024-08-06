@@ -137,7 +137,7 @@ namespace of::graphics::window
 		ImGui::End();
     }
 
-    void Application::draw(const float& dt)
+    void Application::draw(const float dt)
     {
 		// TODO: move to userSetup.
 		//mSwapchain->setClearColor(swizzle::gfx::ClearColor{ 0.f,0.f,0.f,0.f });
@@ -324,7 +324,7 @@ namespace of::graphics::window
 		return cam.getPosition();
 	}
 
-	glm::vec3 Application::getCursorRay() const
+	glm::vec3 Application::getCursorRay()
 	{
 		S32 x = 0, y = 0;
 		mWindow->getCursorPos(x, y);

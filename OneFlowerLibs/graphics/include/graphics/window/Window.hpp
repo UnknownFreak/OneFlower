@@ -57,7 +57,7 @@ namespace of::graphics::window
 
 		void setupImGui();
 		void drawStats();
-		void draw(const float& dt);
+		void draw(const float dt);
 
 		// Inherited via Application
 		virtual void userSetup() override;
@@ -75,7 +75,7 @@ namespace of::graphics::window
 		}
 
 		glm::vec3 getCameraPos() const;
-		glm::vec3 getCursorRay() const;
+		glm::vec3 getCursorRay();
 
 		Application();
 

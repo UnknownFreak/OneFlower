@@ -104,7 +104,9 @@ namespace of::graphics::view
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), mPosition);
         glm::mat4 rot = glm::yawPitchRoll(mRotation.z, mRotation.x, mRotation.y);
 
+        mtx.lock();
         mViewMatrix = glm::inverse(transform * rot);
+        mtx.unlock();
         mProjView = mProjectionMatrix * mViewMatrix;
     }
 
@@ -129,14 +131,17 @@ namespace of::graphics::view
         mProjectionMatrix = glm::perspective(mFov, mWidth / mHeight, mNear, mFar);
     }
 
-    glm::vec3 PerspectiveCamera::projectRayFromCursor(const float cursorX, const float cursorY) const
+    glm::vec3 PerspectiveCamera::projectRayFromCursor(const float cursorX, const float cursorY)
     {
+        mtx.lock();
+        glm::mat4 t = mViewMatrix;
+        mtx.unlock();
         return projectRayNDC(
             (2.f * cursorX) / mWidth - 1,
-            1.f - (2.f * cursorY) / mHeight);
+            1.f - (2.f * cursorY) / mHeight, t);
     }
 
-    glm::vec3 PerspectiveCamera::projectRayNDC(const float x, const float y) const
+    glm::vec3 PerspectiveCamera::projectRayNDC(const float x, const float y, const glm::mat4& view) const
     {
         float nx = std::clamp(x, -1.f, 1.f);
         float ny = std::clamp(y, -1.f, 1.f);
@@ -149,7 +154,7 @@ namespace of::graphics::view
         eye.z = -1.f;
         eye.w = 0.f;
 
-        glm::vec4 inv_world(glm::inverse(mViewMatrix) * eye);
+        glm::vec4 inv_world(glm::inverse(view) * eye);
         glm::vec3 world(inv_world.x, inv_world.y, inv_world.z);
        
         auto norm = glm::normalize(world);
