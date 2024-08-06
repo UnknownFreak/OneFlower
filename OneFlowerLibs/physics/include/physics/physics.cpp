@@ -147,7 +147,13 @@ namespace of::module::physics
 		mControllerManager->purgeControllers();
 		mControllerManager->release();
 		mScene->release();
+		mMaterial->release();
+		PxCloseExtensions();
 		mPhysics->release();
+		if (of::settings::get().usePvdDebugger())
+		{
+			mPvd->release();
+		}
 		mFoundation->release();
 		mShutDown = true;
 	}

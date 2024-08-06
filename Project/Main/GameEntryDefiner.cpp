@@ -357,7 +357,7 @@ public:
 
 class PxControllerRenderable : public of::graphics::ParentedRenderable
 {
-	physx::PxController* actor;
+	physx::PxController*& actor;
 	glm::vec3 pos;
 
 	common::Resource<swizzle::gfx::GfxBuffer> buf;
@@ -419,7 +419,7 @@ class PxControllerRenderable : public of::graphics::ParentedRenderable
 
 public:
 
-	PxControllerRenderable(physx::PxController* controller) : actor(controller)
+	PxControllerRenderable(physx::PxController*& controller) : actor(controller)
 	{
 		std::vector<glm::vec3> points;
 		std::vector<glm::ivec3> tris;
@@ -527,7 +527,7 @@ public:
 
 class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 {
-	physx::PxRigidActor* mActor;
+	physx::PxRigidActor*& mActor;
 	of::resource::Model model;
 	
 	glm::vec3 pos;
@@ -561,7 +561,7 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 
 public:
 
-	PxMeshedActorRenderable(physx::PxRigidActor* iactor, of::resource::Model mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor),
+	PxMeshedActorRenderable(physx::PxRigidActor*& iactor, of::resource::Model mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor),
 		shapeOffset(shapeOffset)
 	{
 		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();

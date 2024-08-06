@@ -105,6 +105,7 @@ namespace of::component
 		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
 		{
 			mActor->release();
+			mActor = nullptr;
 		}
 	}
 }
