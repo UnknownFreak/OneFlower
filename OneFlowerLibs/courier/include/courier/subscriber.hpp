@@ -20,7 +20,22 @@ namespace of::courier
 
 		void sendMessage(const courier::Message& message);
 
+		Subscriber(Subscriber&& other) noexcept
+			: id(std::move(other.id))
+			, m_ptr(std::move(other.m_ptr))
+			, m_isAlive(std::move(other.m_isAlive))
+		{
+		}
+
 		Subscriber& operator=(const Subscriber& other);
+		Subscriber& operator=(Subscriber&& other)
+		{
+			id = std::move(other.id);
+			m_ptr = std::move(other.m_ptr);
+			m_isAlive = std::move(other.m_isAlive);
+			return *this;
+		}
+
 
 		bool operator < (const Subscriber& other) const;
 		bool operator ==(const Subscriber& other) const;

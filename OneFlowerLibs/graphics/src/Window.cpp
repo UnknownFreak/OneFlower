@@ -309,13 +309,14 @@ namespace of::graphics::window
     {
 		if(camController)
 			camController->update(dt);
-        draw(dt);
-        return mWindow->isVisible();
+		draw(dt);
+		return mWindow->isVisible();
     }
 
     void of::graphics::window::Application::userCleanup()
     {
-        cleanup();
+		cleanup();
+		workerThread.join();
     }
 	
 	glm::vec3 Application::getCameraPos() const
@@ -326,14 +327,11 @@ namespace of::graphics::window
 	glm::vec3 Application::getCursorRay() const
 	{
 		S32 x = 0, y = 0;
-		if (mWindow)
-		{
-			mWindow->getCursorPos(x, y);
-			if (x < 0)
-				x = 0;
-			if (y < 0)
-				y = 0;
-		}
+		mWindow->getCursorPos(x, y);
+		if (x < 0)
+			x = 0;
+		if (y < 0)
+			y = 0;
 		return cam.projectRayFromCursor(float(x), float(y));
 	}
 }

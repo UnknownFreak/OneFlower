@@ -67,6 +67,13 @@ namespace of::graphics::window
 
 	public:
 
+		std::thread workerThread;
+
+		inline bool running() const
+		{
+			return mWindow->isVisible();
+		}
+
 		glm::vec3 getCameraPos() const;
 		glm::vec3 getCursorRay() const;
 

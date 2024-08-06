@@ -11,7 +11,6 @@
 #include <omp.h>
 #define _PPL 0
 #endif
-#include <iostream>
 
 
 namespace of::courier
@@ -121,11 +120,55 @@ namespace of::courier
 
 	void Channel::handleScheduledRemovals()
 	{
-		for (auto removal : scheduledRemovals)
+		if (scheduledRemovals.size() > 0)
 		{
-			removeSubscriber(removal);
+			if (scheduledRemovals.size() < 10)
+			{
+				for (auto i : scheduledRemovals)
+				{
+					removeSubscriber(i);
+				}
+				scheduledRemovals.clear();
+			}
+			else
+			{
+				std::sort(scheduledRemovals.begin(), scheduledRemovals.end(), std::greater<size_t>());
+				auto it = subscribers.rbegin();
+				auto eit = subscribers.rbegin();
+				for (auto i : scheduledRemovals)
+				{
+					while (it != subscribers.rend())
+					{
+						if (it->id == i)
+						{
+							if (it == eit)
+							{
+								//its already at last place
+								eit++;
+								break;
+							}
+							std::iter_swap(it, eit);
+							eit++;
+							break;
+						}
+						else
+						{
+							it++;
+						}
+					}
+				}
+				if (scheduledRemovals.size() > 0)
+				{
+					size_t _id = eit->id;
+					while (subscribers.back().id != _id)
+					{
+						subscribers.pop_back();
+					}
+					std::sort(subscribers.begin(), subscribers.end());
+				}
+				scheduledRemovals.clear();
+			}
 		}
-		scheduledRemovals.clear();
 	}
 
 	void Channel::setMultiThreaded(const bool bEnabled)

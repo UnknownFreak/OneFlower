@@ -1256,11 +1256,11 @@ int GameEntry::Run()
 
 	*/
 
-	std::thread physics_thread(&GameEntry::physicsUpdate, this);
-
+	gfx->workerThread = std::thread(&GameEntry::physicsUpdate, this);
 	gfx->run();
-	m_exit = true;
-	physics_thread.join();
+
+	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
+	delete of::engine::GetModule<of::object::InstanceHandler>().player;
 	of::engine::GetModule<of::module::physics::PhysicsHandler>().shutDown();
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
@@ -1281,7 +1281,7 @@ void GameEntry::physicsUpdate()
 	float timeElapsed = 0.f;
 	auto& timer = of::timer::get("physicsClock");
 	timeElapsed = timer.secondsAsFloat(true);
-	while (!m_exit)
+	while (gfx->running())
 	{
 		while (world.isLoading)
 		{

@@ -80,7 +80,7 @@ namespace of::component
 	{
 		if (subscriberId != 0)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
+			of::courier::get().scheduleRemoval(of::courier::Topic::Update, subscriberId);
 			subscriberId = 0;
 		}
 	}

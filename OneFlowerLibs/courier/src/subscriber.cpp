@@ -16,9 +16,8 @@ namespace of::courier
 	{
 	}
 
-	Subscriber::Subscriber(const Subscriber& sub) : Subscriber(sub.m_isAlive, sub.m_ptr)
+	Subscriber::Subscriber(const Subscriber& sub) : m_ptr(sub.m_ptr), m_isAlive(sub.m_isAlive), id(sub.id)
 	{
-		id = sub.id;
 	}
 
 	void Subscriber::sendMessage(const Message& message)
