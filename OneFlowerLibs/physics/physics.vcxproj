@@ -138,7 +138,11 @@
     <ClInclude Include="include\component\collider.hpp" />
     <ClInclude Include="include\component\doorHinge.hpp" />
     <ClInclude Include="include\component\triggerCollider.hpp" />
+    <ClInclude Include="include\physics\errorCallback.hpp" />
+    <ClInclude Include="include\physics\objectType.hpp" />
     <ClInclude Include="include\physics\physics.hpp" />
+    <ClInclude Include="include\physics\raycastCallback.hpp" />
+    <ClInclude Include="include\physics\simulationCallback.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\FastXml.vcxproj">
@@ -206,9 +210,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\physics\colliderType.hpp" />
     <ClCompile Include="include\physics\physics.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\doorHinge.cpp" />
+    <ClCompile Include="src\errorCallback.cpp" />
+    <ClCompile Include="src\raycastCallback.cpp" />
+    <ClCompile Include="src\simulationCallback.cpp" />
     <ClCompile Include="src\TriggerCollider.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -12,7 +12,7 @@ namespace of::component
 	void TriggerCollider::attached()
 	{
 		mColliderInfoType.objectId = attachedOn->id;
-		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
+		mColliderInfoType.hitType = of::physics::PxColliderType::ObjectTrigger;
 		mColliderInfoType.go = attachedOn;
 
 		if (mColliderType == Collider::ColliderType::STATIC)
@@ -22,7 +22,7 @@ namespace of::component
 
 			auto transform = attachedOn->get<Transform>();
 
-			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidStatic>(
+			mActor = of::physics::get().createActor<physx::PxRigidStatic>(
 				transform->pos, model, true);
 			mActor->userData = attachedOn;
 		}
@@ -37,15 +37,15 @@ namespace of::component
 				{
 					auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
 						of::engine::path::meshes, true);
-					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachTriggerShape(mActor, model, mTriggerShapeOffset, mTriggerShapeScale);
+					of::physics::get().attachTriggerShape(mActor, model, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 				else if (mColliderShapeType == ShapeType::BOX)
 				{
-					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachBoxTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
+					of::physics::get().attachBoxTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 				else
 				{
-					of::engine::GetModule<of::module::physics::PhysicsHandler>().attachCylinderTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
+					of::physics::get().attachCylinderTriggerShape(mActor, mTriggerShapeOffset, mTriggerShapeScale);
 				}
 			}
 			else
@@ -76,12 +76,16 @@ namespace of::component
 
 	void TriggerCollider::deconstruct()
 	{
-		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
+		if (of::physics::get().hasShutDown() == false)
 		{
 			if (mColliderType == Collider::ColliderType::STATIC)
 			{
-				mActor->release();
+				if (of::physics::get().hasShutDown() == false && mActor != nullptr)
+				{
+					mActor->release();
+				}
 			}
 		}
+		mActor = nullptr;
 	}
 }

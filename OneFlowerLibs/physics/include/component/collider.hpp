@@ -58,6 +58,6 @@ namespace of::component
 
 		static constexpr of::common::uuid typeId = "dfee5083-fe04-4ef9-97ba-a9bf564e8073";
 	private:
-			of::module::physics::ObjectType mColliderInfoType;
+			of::physics::ObjectType mColliderInfoType;
 	};
 }

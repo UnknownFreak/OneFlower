@@ -11,12 +11,12 @@ namespace of::component
 
 	void PlayerController::attached()
 	{
-		mColliderType.hitType = of::module::physics::ColliderType::Object;
+		mColliderType.hitType = of::physics::PxColliderType::Object;
 		mColliderType.objectId = attachedOn->id;
 		transform = attachedOn->get<Transform>();
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::component::CombatComponent>();
-		mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActorController(transform->pos);
+		mActor = of::physics::get().createActorController(transform->pos);
 		if (subscriberId == 0)
 		{
 			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::PhysicsUpdate,
@@ -49,7 +49,7 @@ namespace of::component
 			of::courier::get().removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
 			subscriberId = 0;
 		}
-		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
+		if (of::physics::get().hasShutDown() == false && mActor != nullptr)
 		{
 			mActor->release();
 			mActor = nullptr;

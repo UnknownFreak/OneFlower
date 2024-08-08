@@ -1175,8 +1175,8 @@ GameEntry::GameEntry() :
 int GameEntry::Run()
 {
 	gfx->initialize();
-	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-	physicsHandler.Initialize();
+
+	of::physics::init();
 
 	world.initialize();
 	while (world.isLoading)
@@ -1261,7 +1261,7 @@ int GameEntry::Run()
 
 	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
 	delete of::engine::GetModule<of::object::InstanceHandler>().player;
-	of::engine::GetModule<of::module::physics::PhysicsHandler>().shutDown();
+	of::physics::shutdown();
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
@@ -1277,7 +1277,7 @@ void GameEntry::physicsUpdate()
 	{
 //		world.createMainMenu();
 	}
-	auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+	auto& physicsHandler = of::physics::get();
 	float timeElapsed = 0.f;
 	auto& timer = of::timer::get("physicsClock");
 	timeElapsed = timer.secondsAsFloat(true);

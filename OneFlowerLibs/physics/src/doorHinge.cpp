@@ -19,7 +19,7 @@ namespace of::component
 			mActor = collider->mActor;
 			if (of::engine::getRunMode() != of::engine::RunMode::EDITOR)
 			{
-				mHinge = of::engine::GetModule<of::module::physics::PhysicsHandler>().createDoorHinge(mActor, mHingeOffset);
+				mHinge = of::physics::get().createDoorHinge(mActor, mHingeOffset);
 
 				if (subscriberId == 0)
 				{
@@ -52,9 +52,10 @@ namespace of::component
 
 	void DoorHinge::deconstruct()
 	{
-		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
+		if (of::physics::get().hasShutDown() == false && mHinge != nullptr)
 		{
 			mHinge->release();
+			mHinge = nullptr;
 		}
 		if (subscriberId != 0)
 		{

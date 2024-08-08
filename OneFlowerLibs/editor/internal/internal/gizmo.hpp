@@ -22,7 +22,7 @@ namespace of::editor
 
 		of::common::uuid mHovering = of::common::uuid::nil();
 		of::common::uuid mSelected = of::common::uuid::nil();
-		of::module::physics::ColliderType collider = of::module::physics::ColliderType::Unknown;
+		of::physics::PxColliderType collider = of::physics::PxColliderType::Unknown;
 
 		bool mHit = false;
 		glm::vec3 colliderHitPos = glm::vec3(0.f);

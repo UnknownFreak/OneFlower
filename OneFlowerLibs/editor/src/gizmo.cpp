@@ -23,14 +23,14 @@ namespace of::editor
 
 		of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
 			[&](bool, swizzle::input::Mouse, const float&) {
-				of::module::physics::ObjectType hitType;
-				auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
-				using namespace of::module::physics;
+				of::physics::ObjectType hitType;
+				auto& physicsHandler = of::physics::get();
+				using namespace of::physics;
 				bool hit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType
 					, CollisionLayer::SWEEP_EDITOR);
 				ImGuiContext& g = *ImGui::GetCurrentContext();
 
-				if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::module::physics::ColliderType::Object || hitType.hitType == of::module::physics::ColliderType::ObjectTrigger))
+				if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::physics::PxColliderType::Object || hitType.hitType == of::physics::PxColliderType::ObjectTrigger))
 				{
 					auto o = of::engine::GetModule<of::object::InstanceHandler>().getObject(hitType.objectId);
 					m_enable = false;
@@ -57,15 +57,15 @@ namespace of::editor
 				isAlive(),
 				[&, appl](const of::courier::Message&)
 				{
-					auto& physicsHandler = of::engine::GetModule<of::module::physics::PhysicsHandler>();
+					auto& physicsHandler = of::physics::get();
 
-					using namespace of::module::physics;
+					using namespace of::physics;
 
-					of::module::physics::ObjectType hitType;
+					of::physics::ObjectType hitType;
 					mHit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType, CollisionLayer::SWEEP_EDITOR);
 					if (mHit)
 					{
-						if (hitType.hitType == ColliderType::Object || hitType.hitType == ColliderType::ObjectTrigger)
+						if (hitType.hitType == PxColliderType::Object || hitType.hitType == PxColliderType::ObjectTrigger)
 						{
 							mHovering = hitType.objectId;
 							if (hitType.go)
@@ -75,9 +75,9 @@ namespace of::editor
 					}
 					else
 					{
-						collider = of::module::physics::ColliderType::Unknown;
+						collider = of::physics::PxColliderType::Unknown;
 					}
-					if (collider == of::module::physics::ColliderType::Unknown)
+					if (collider == of::physics::PxColliderType::Unknown)
 						mHovering = of::common::uuid("00000000-1111-2222-3333-7664E8019D4D");
 
 				}

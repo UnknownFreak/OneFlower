@@ -1,19 +1,18 @@
 #include "physics.hpp"
 
+#include <physics/raycastCallback.hpp>
+
 #include <graphics/model/Model.hpp>
+#include <module/resource/MeshLoader.hpp>
 
 #include <engine/settings.hpp>
 #include <engine/paths.hpp>
 
-#include <module/resource/MeshLoader.hpp>
+#include <logger/Logger.hpp>
 
-#include <object/GameObject.hpp>
+of::physics::PhysicsHandler* g_physics = nullptr;
 
-#include <iostream>
-
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::physics::PhysicsHandler>::type = of::module::EngineResourceType::Physics;
-
-namespace of::module::physics
+namespace of::physics
 {
 
 	physx::PxFilterFlags CustomFilterShader(
@@ -30,11 +29,6 @@ namespace of::module::physics
 			attributes0, filterData0, attributes1, filterData1, pairFlags, constantBlock, constantBlockSize);
 	}
 
-	void PhysicsHandler::ErrorCallBack::reportError(physx::PxErrorCode::Enum code, const char* message, const char* file, int line)
-	{
-		of::engine::GetModule<of::logger::Logger>().getLogger("PhysX").Always(code, message, file, line);
-		std::cout << message << " " << file << " " << line << std::endl;
-	}
 
 	physx::PxTriangleMesh* PhysicsHandler::GetObjectAsPxMesh(of::resource::Model& asset)
 	{
@@ -169,11 +163,6 @@ namespace of::module::physics
 		mScene->fetchResults(true);
 	}
 
-	EngineResourceType& PhysicsHandler::getType() const
-	{
-		return type;
-	}
-
 	physx::PxController* PhysicsHandler::createActorController(const glm::vec3& pos)
 	{
 		physx::PxCapsuleControllerDesc desc;
@@ -183,6 +172,54 @@ namespace of::module::physics
 		desc.position = physx::PxExtendedVec3(pos.x, pos.y, pos.z);
 		desc.nonWalkableMode = physx::PxControllerNonWalkableMode::ePREVENT_CLIMBING_AND_FORCE_SLIDING;
 		return mControllerManager->createController(desc);
+	}
+
+	physx::PxFixedJoint* PhysicsHandler::createJoint(physx::PxRigidActor* p1, physx::PxRigidActor* p2)
+	{
+		return physx::PxFixedJointCreate(*mPhysics, p1, p1->getGlobalPose(), p2, p2->getGlobalPose());
+	}
+
+
+	bool PhysicsHandler::castRay(glm::vec3 start, glm::vec3 end, glm::vec3& hitOut, glm::vec3& hitObjectPos, ObjectType& objectTypeInfo, CollisionLayer layer)
+	{
+		physx::PxQueryFilterData fd;
+		fd.data.word0 = getCollisionLayer(layer);
+		//fd.flags |= physx::PxQueryFlag::eANY_HIT;
+		RaycastCallback raycastCB = RaycastCallback();
+		physx::PxVec3 unitDir(end.x, end.y, end.z);
+		bool b = mScene->raycast(physx::PxVec3(start.x, start.y, start.z), physx::PxVec3(end.x, end.y, end.z), 10000.f, raycastCB,
+			physx::PxHitFlag::eDEFAULT, fd);
+		if (b)
+		{
+			hitOut = raycastCB.hitPos;
+			hitObjectPos = raycastCB.hitObjectPos;
+			objectTypeInfo = raycastCB.hit;
+		}
+		return b;
+	}
+
+	physx::PxD6Joint* PhysicsHandler::createDoorHinge(physx::PxRigidActor* p, const glm::vec3& hingePosRelOffset)
+	{
+		auto offset = physx::PxTransform(physx::PxVec3(0));
+		offset.p.x = hingePosRelOffset.x;
+		offset.p.y = hingePosRelOffset.y;
+		offset.p.z = hingePosRelOffset.z;
+		auto joint = physx::PxD6JointCreate(*mPhysics, p, physx::PxTransform(offset), nullptr, p->getGlobalPose());
+		//joint->setMotion(physx::PxD6Axis::eTWIST, physx::PxD6Motion::eFREE);
+		joint->setMotion(physx::PxD6Axis::eSWING1, physx::PxD6Motion::eLIMITED);
+		//joint->setMotion(physx::PxD6Axis::eSWING2, physx::PxD6Motion::eFREE);
+		//joint->setMotion(physx::PxD6Axis::eX, physx::PxD6Motion::eFREE);
+		//joint->setMotion(physx::PxD6Axis::eZ, physx::PxD6Motion::eFREE);
+		//joint->setMotion(physx::PxD6Axis::eY, physx::PxD6Motion::eFREE);
+		auto l = physx::PxJointLimitPyramid(0, physx::PxPi / 2, 0.f, 0.1f);
+		//auto l = physx::PxJointLimitPyramid(-physx::PxPi+0.01f, physx::PxPi - 0.01f, 0.f, 0.1f);
+		joint->setPyramidSwingLimit(l);
+
+		if (of::settings::get().usePvdDebugger())
+		{
+			joint->setConstraintFlag(physx::PxConstraintFlag::eVISUALIZATION, true);
+		}
+		return joint;
 	}
 
 	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale)
@@ -232,53 +269,84 @@ namespace of::module::physics
 		shape->release();
 	}
 
-	void PhysicsHandler::SimulationCallback::onConstraintBreak(physx::PxConstraintInfo* constraints, physx::PxU32 count)
+	physx::PxRigidStatic* PhysicsHandler::createStatic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape, const bool addToScene)
 	{
-	}
-	void PhysicsHandler::SimulationCallback::onWake(physx::PxActor** actors, physx::PxU32 count)
-	{
-	}
-	void PhysicsHandler::SimulationCallback::onSleep(physx::PxActor** actors, physx::PxU32 count)
-	{
-	}
-	void PhysicsHandler::SimulationCallback::onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs)
-	{
-	}
-	void PhysicsHandler::SimulationCallback::onTrigger(physx::PxTriggerPair* pairs, physx::PxU32 count)
-	{
-		for (physx::PxU32 i = 0; i < count; i++)
+		auto actor = mPhysics->createRigidStatic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
+		/*if (mTriangleShapes.find(collisionModel.mId) == mTriangleShapes.end())
 		{
-			// ignore pairs when shapes have been deleted
-			if (pairs[i].flags & (physx::PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER |
-				physx::PxTriggerPairFlag::eREMOVED_SHAPE_OTHER))
-				continue;
+			mTriangleShapes[collisionModel.mId] =
+		}*/
+		auto shape = mPhysics->createShape(physx::PxTriangleMeshGeometry(GetObjectAsPxMesh(collisionModel)), *mMaterial, false);
 
-			if (pairs[i].triggerActor == nullptr || pairs[i].otherActor == nullptr)
-			{
-				of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor or 'otherActor' is nullptr, skipping onTrigger activation");
-			}
-			else
-			{
-				ObjectType* trigger = (ObjectType*)pairs[i].triggerActor->userData;
-				ObjectType* other = (ObjectType*)pairs[i].otherActor->userData;
+		if (isTriggerShape)
+		{
+			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		}
+		actor->attachShape(*shape);
+		shape->release();
 
-				if (trigger)
-				{
-					// filtering is done via onCollision to check for self referencing.
-					if (other)
-					{
-						trigger->go->onCollision(other->go);
-					}
-				}
-				else
-				{
-					of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor has no userData!");
-					std::cout << "trigger > " << pairs[i].triggerActor->getName() << ", " << pairs[i].otherActor->getName() << std::endl;
-				}
-			}
+		if (addToScene)
+		{
+			mScene->addActor(*actor);
+		}
+		return actor;
+	}
+	physx::PxRigidDynamic* PhysicsHandler::createDynamic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape, const bool addToScene)
+	{
+		auto actor = mPhysics->createRigidDynamic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
+		/*if (mTriangleShapes.find(collisionModel.mId) == mTriangleShapes.end())
+		{
+			mTriangleShapes[collisionModel.mId] =
+		}*/
+		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(collisionModel)), *mMaterial, false);
+		if (isTriggerShape)
+		{
+			shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, true);
+		}
+
+		actor->attachShape(*shape);
+		shape->release();
+
+		if (addToScene)
+		{
+			mScene->addActor(*actor);
+		}
+		return actor;
+	}
+
+	nullptr_t PhysicsHandler::invalidActor()
+	{
+		
+		of::engine::GetModule<of::logger::Logger>().getLogger("of::physics::createActor").Error("Invalid type argument passed, no actor is created");
+		return nullptr;
+	}
+
+
+	void init()
+	{
+		if (g_physics == nullptr)
+		{
+			g_physics = new PhysicsHandler();
+			// TODO: remove initialize call and move all that logic into constructor
+			g_physics->Initialize();
 		}
 	}
-	void PhysicsHandler::SimulationCallback::onAdvance(const physx::PxRigidBody* const* bodyBuffer, const physx::PxTransform* poseBuffer, const physx::PxU32 count)
+	
+	void shutdown()
 	{
+		if (g_physics != nullptr)
+		{
+			g_physics->shutDown();
+			delete g_physics;
+			g_physics = nullptr;
+		}
 	}
+
+	PhysicsHandler& get()
+	{
+		return *g_physics;
+	}
+
 };

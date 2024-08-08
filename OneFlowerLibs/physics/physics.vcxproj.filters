@@ -27,6 +27,18 @@
     <ClInclude Include="include\component\triggerCollider.hpp">
       <Filter>include\component</Filter>
     </ClInclude>
+    <ClInclude Include="include\physics\errorCallback.hpp">
+      <Filter>include\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physics\objectType.hpp">
+      <Filter>include\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physics\simulationCallback.hpp">
+      <Filter>include\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\physics\raycastCallback.hpp">
+      <Filter>include\physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\physics\physics.cpp">
@@ -39,6 +51,18 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\doorHinge.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="include\physics\colliderType.hpp">
+      <Filter>include\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\errorCallback.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\simulationCallback.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\raycastCallback.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

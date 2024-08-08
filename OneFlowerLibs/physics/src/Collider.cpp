@@ -7,7 +7,9 @@
 #include <logger/Logger.hpp>
 #include <module/resource/MeshLoader.hpp>
 
+#pragma warning(push, 0)
 #include <glm/gtc/quaternion.hpp>
+#pragma warning(pop)
 
 #include <engine/runMode.hpp>
 
@@ -41,7 +43,7 @@ namespace of::component
 	void Collider::attached()
 	{
 		mColliderInfoType.objectId = attachedOn->id;
-		mColliderInfoType.hitType = of::module::physics::ColliderType::ObjectTrigger;
+		mColliderInfoType.hitType = of::physics::PxColliderType::ObjectTrigger;
 		mColliderInfoType.go = attachedOn;
 		
 		mTransform = attachedOn->get<Transform>();
@@ -52,7 +54,7 @@ namespace of::component
 		{
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
 				of::engine::path::meshes, true);
-			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidStatic>(
+			mActor = of::physics::get().createActor<physx::PxRigidStatic>(
 				mTransform->pos, model);
 
 			
@@ -62,7 +64,7 @@ namespace of::component
 			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
 				of::engine::path::meshes, true);
 
-			mActor = of::engine::GetModule<of::module::physics::PhysicsHandler>().createActor<physx::PxRigidDynamic>(
+			mActor = of::physics::get().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);
 			if (subscriberId == 0)
 			{
@@ -102,7 +104,7 @@ namespace of::component
 			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
 			subscriberId = 0;
 		}
-		if (of::engine::GetModule<of::module::physics::PhysicsHandler>().hasShutDown() == false)
+		if (of::physics::get().hasShutDown() == false && mActor != nullptr)
 		{
 			mActor->release();
 			mActor = nullptr;
