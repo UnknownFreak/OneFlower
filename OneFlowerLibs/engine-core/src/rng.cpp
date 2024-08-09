@@ -44,12 +44,12 @@ namespace of::rng
 	{
 		if (g_rng == nullptr)
 		{
-			engine::GetModule<of::logger::Logger>().Info("Initializing module: Rng");
+			of::logger::get().Info("Initializing module: Rng");
 			g_rng = new RandomGen();
 		}
 		else
 		{
-			engine::GetModule<of::logger::Logger>().getLogger("of::rng").Warning("Trying to initialize random geneartor multiple times!");
+			of::logger::get().getLogger("of::rng").Warning("Trying to initialize random geneartor multiple times!");
 		}
 	}
 

@@ -30,7 +30,7 @@ namespace of::physics
 
 			if (pairs[i].triggerActor == nullptr || pairs[i].otherActor == nullptr)
 			{
-				of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor or 'otherActor' is nullptr, skipping onTrigger activation");
+				of::logger::get().getLogger("PhysicsHandler").Error("Trigger actor or 'otherActor' is nullptr, skipping onTrigger activation");
 			}
 			else
 			{
@@ -47,7 +47,7 @@ namespace of::physics
 				}
 				else
 				{
-					of::engine::GetModule<of::logger::Logger>().getLogger("PhysicsHandler").Error("Trigger actor has no userData!");
+					of::logger::get().getLogger("PhysicsHandler").Error("Trigger actor has no userData!");
 					std::cout << "trigger > " << pairs[i].triggerActor->getName() << ", " << pairs[i].otherActor->getName() << std::endl;
 				}
 			}

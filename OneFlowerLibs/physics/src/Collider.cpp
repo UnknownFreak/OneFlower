@@ -82,7 +82,7 @@ namespace of::component
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::Collider").Error(
+			of::logger::get().getLogger("of::object::component::Collider").Error(
 			"Collider does not have a collider type set");
 		}
 

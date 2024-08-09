@@ -16,7 +16,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -29,7 +29,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -42,7 +42,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -55,7 +55,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Trying to post a message to a topic that has no registererd channel.");
 		}
 	}
@@ -105,9 +105,9 @@ namespace of::courier
 	{
 		if (channels.find(topic) == channels.end())
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Info(
+			of::logger::get().getLogger("of::courier::Courier").Info(
 				"Trying to add a subscriber to a topic that has no registered channel.");
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Info(
+			of::logger::get().getLogger("of::courier::Courier").Info(
 				"Creating channel automatically.");
 			createChannel(topic);
 		}
@@ -122,9 +122,9 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Trying to remove a subscriber from a topic that has no registererd channel.");
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Courier").Warning(
+			of::logger::get().getLogger("of::courier::Courier").Warning(
 				"Topic = ", (unsigned int)topic, ", subscriberId = ", subscriberId);
 		}
 	}
@@ -202,12 +202,12 @@ namespace of::courier
 	{
 		if (g_courier == nullptr)
 		{
-			engine::GetModule<of::logger::Logger>().Info("Initializing Courier");
+			of::logger::get().Info("Initializing Courier");
 			g_courier = new Courier();
 		}
 		else
 		{
-			engine::GetModule<of::logger::Logger>().Warning("Trying to initialize Courier multiple times!");
+			of::logger::get().Warning("Trying to initialize Courier multiple times!");
 		}
 	}
 

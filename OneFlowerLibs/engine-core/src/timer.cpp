@@ -11,7 +11,7 @@ namespace of::timer
 	{
 		if (g_timers == nullptr)
 		{
-			engine::GetModule<of::logger::Logger>().Info("Initializing module: Timer");
+			of::logger::get().Info("Initializing module: Timer");
 			g_timers = new std::unordered_map<of::common::String, utils::HighResolutionClock>();
 		}
 	}

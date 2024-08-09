@@ -62,7 +62,7 @@ namespace of::locale
 
 	StoredTranslatable& TranslationStringContainer::getPrimitive(const common::String & languageName, const common::uuid & id)
 	{
-		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("locale::TranslationStringContainer");
+		auto& logger = of::logger::get().getLogger("locale::TranslationStringContainer");
 		logger.Debug("Loading translation string value from database: " + language + ", " + languageName + ", " + id.to_string());
 		auto ptr = stringList.request<StoredTranslatable>({ languageName, id });
 		if (ptr)

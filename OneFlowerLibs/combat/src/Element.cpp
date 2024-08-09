@@ -28,7 +28,7 @@ namespace of::combat
 			return elementAttributes.at(element);
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
+			of::logger::get().getLogger("Combat::Element").Warning("Unknown Element type[" + element.name + "," + element.uuid.to_string() + "] called [<TODO>] defaulting "
 				"to internal damageToUnknownType(" + std::to_string(damageToUnknownType).c_str() + ")");
 			return damageToUnknownType;
 		}

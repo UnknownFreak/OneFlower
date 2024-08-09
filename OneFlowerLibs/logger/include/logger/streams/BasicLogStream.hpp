@@ -19,7 +19,7 @@ namespace of::logger::streams
 		BasicLogStream& operator=(const BasicLogStream& stream);
 		~BasicLogStream() = default;
 		// Inherited via LogStream
-		virtual void LogMessage(const LogLevel& logLevel, const common::String& message) override;
+		virtual void LogMessage(const LogLevel logLevel, const common::String& message) override;
 		virtual void flush() override;
 		virtual void close() override;
 	};

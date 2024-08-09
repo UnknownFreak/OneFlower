@@ -78,7 +78,7 @@ namespace Graphics::Editor
 				if (ImGui::Button("+", { 18.f, 0 }))
 				{
 					//auto& manager = of::engine::GetModule<of::file::Handler>();
-					of::engine::GetModule<of::logger::Logger>().Always("Adding new item not yet supported in refactored code");
+					of::logger::get().Always("Adding new item not yet supported in refactored code");
 					//have of::editor::construct_from_type(item.type) that handles the creation of items instead.
 					// The editor should handle all types not the requestor, it should just know how to add Requestables
 					//manager.archive.add(item.type, manager.openedFile.name);

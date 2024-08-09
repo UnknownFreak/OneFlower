@@ -46,7 +46,7 @@ namespace of::physics
 		auto mesh = PxCreateTriangleMesh(params, desc);
 		if (mesh == nullptr)
 		{
-			of::engine::GetModule<of::logger::Logger>().Error("Failed to load collision mesh");
+			of::logger::get().Error("Failed to load collision mesh");
 		}
 
 		return mesh;
@@ -70,7 +70,7 @@ namespace of::physics
 		auto mesh = PxCreateConvexMesh(params, desc);
 		if (mesh == nullptr)
 		{
-			of::engine::GetModule<of::logger::Logger>().Error("Failed to load collision mesh");
+			of::logger::get().Error("Failed to load collision mesh");
 		}
 
 		return mesh;
@@ -319,7 +319,7 @@ namespace of::physics
 	nullptr_t PhysicsHandler::invalidActor()
 	{
 		
-		of::engine::GetModule<of::logger::Logger>().getLogger("of::physics::createActor").Error("Invalid type argument passed, no actor is created");
+		of::logger::get().getLogger("of::physics::createActor").Error("Invalid type argument passed, no actor is created");
 		return nullptr;
 	}
 

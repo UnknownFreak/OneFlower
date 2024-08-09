@@ -1,5 +1,4 @@
-#ifndef MAIN_LOGGER_HPP
-#define MAIN_LOGGER_HPP
+#pragma once
 
 #include "LoggerBase.hpp"
 
@@ -9,9 +8,6 @@
 
 #include <unordered_map>
 #include "ModuleLogger.hpp"
-
-#include <module/ModuleManager.hpp>
-#include <module/IEngineModule.hpp>
 
 namespace of::logger
 {
@@ -23,13 +19,14 @@ namespace of::logger
 	typedef streams::BasicLogStream stream;
 #endif
 
-	class Logger : public LoggerBase, public of::module::interface::IEngineResource<Logger>
+	class Logger : public LoggerBase
 	{
 		static ModuleLogger EMPTY;
 		std::unordered_map<common::String, ModuleLogger> moduleLoggers;
 	public:
 		Logger();
 		Logger(std::shared_ptr<streams::LogStream> logStream);
+		Logger& operator=(const Logger&) = delete;
 		~Logger();
 
 		ModuleLogger& getLogger(const common::String& moduleName)
@@ -52,12 +49,9 @@ namespace of::logger
 					ModuleLogger(moduleName, customLogger, level));
 			return moduleLoggers.at(moduleName);
 		}
-
-		of::module::EngineResourceType& getType() const
-		{
-			return type;
-		}
 	};
-}
 
-#endif
+	void init();
+	void shutdown();
+	Logger& get();
+}

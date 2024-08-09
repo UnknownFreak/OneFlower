@@ -69,7 +69,7 @@ namespace of::editor::modal
 		manager.buildModOrderFile(fileName, loadOrder);
 
 		manager.openedFile = header;
-		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("of::editor::modal::NewFile");
+		auto& logger = of::logger::get().getLogger("of::editor::modal::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();
 

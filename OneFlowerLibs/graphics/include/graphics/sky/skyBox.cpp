@@ -25,7 +25,7 @@ namespace of::graphics::sky
 
 	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
 	{
-		of::engine::GetModule<of::logger::Logger>().getLogger("Graphics::Skybox").Info("Loading skybox");
+		of::logger::get().getLogger("Graphics::Skybox").Info("Loading skybox");
 		loaded = false;
 
 		swizzle::gfx::ShaderAttributeList attribs = {};
@@ -57,7 +57,7 @@ namespace of::graphics::sky
 		mModel.material->setDescriptorTextureResource(0, mModel.texture);
 
 		loaded = true;
-		of::engine::GetModule<of::logger::Logger>().getLogger("Graphics::Skybox").Info("Finished loading skybox");
+		of::logger::get().getLogger("Graphics::Skybox").Info("Finished loading skybox");
 
 	}
 

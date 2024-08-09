@@ -21,7 +21,7 @@ namespace of::logger::streams
 		return *this;
 	}
 
-	void BasicLogStream::LogMessage(const LogLevel& logLevel, const common::String& message)
+	void BasicLogStream::LogMessage(const LogLevel logLevel, const common::String& message)
 	{
 		log << to_string(logLevel) << message << std::endl;
 	}

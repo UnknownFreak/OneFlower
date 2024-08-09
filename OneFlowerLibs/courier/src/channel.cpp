@@ -25,10 +25,10 @@ namespace of::courier
 	{
 		if (subscribers.size() != 0)
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Channel").Warning("Dangling subscribers on destruction");
+			of::logger::get().getLogger("of::courier::Channel").Warning("Dangling subscribers on destruction");
 			for (auto& sub : subscribers)
 			{
-				of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::Channel").Warning(std::to_string(sub.id));
+				of::logger::get().getLogger("of::courier::Channel").Warning(std::to_string(sub.id));
 			}
 		}
 	}
@@ -76,7 +76,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::messaging::Channel").Warning(
+			of::logger::get().getLogger("of::messaging::Channel").Warning(
 				"Trying to send message to a subscriber that does not exist.");
 		}
 		return 0;

@@ -87,12 +87,12 @@ namespace of::file
 		gameModeId;
 		if (!gameModeId.isValid())
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
+			of::logger::get().getLogger("File::SaveFile").Critical("Invalid GameModeId:", gameModeId.operator()(),
 				" this is very bad...");
 #ifndef _DEBUG
 			std::exit(-1);
 #else
-			of::engine::GetModule<of::logger::Logger>().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
+			of::logger::get().getLogger("File::SaveFile").Always("But we're in debug mode so gonna continue anyways...");
 #endif // !_DEBUG
 
 		}
@@ -107,7 +107,7 @@ namespace of::file
 
 		if (!gameMode.playerPrefab.isValid())
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
+			of::logger::get().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
 		
 		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();

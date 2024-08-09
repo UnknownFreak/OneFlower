@@ -36,8 +36,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 {
 	switch (state)
 	{
-		// Logger
-	case of::module::EngineResourceType::Logger: return "Logger";
 		// Console
 	case of::module::EngineResourceType::Console: return "Console";
 		// Core
@@ -54,7 +52,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::Input: return "Input";
 	case of::module::EngineResourceType::Graphics: return "Graphics";
 	case of::module::EngineResourceType::WindowProxy: return "Proxy";
-	case of::module::EngineResourceType::Physics: return "Physics";
 	case of::module::EngineResourceType::UIHandler: return "Console";
 		// Unused
 	case of::module::EngineResourceType::SceneManager: return "SceneManager";
@@ -68,7 +65,7 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 // move to engine.hpp -> of::engine::init()
 static volatile void initializeSystems()
 {
-	auto& logger = of::engine::GetModule<of::logger::Logger>();
+	auto& logger = of::logger::get();
 	logger.Info("Initializing Engine");
 	for (auto& str : Engine::GetBuildMode().toLogString())
 		logger.Info(str);
@@ -77,7 +74,7 @@ static volatile void initializeSystems()
 	
 	auto& mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Globals>().type));
+	mainModule.Info("Initializing Module:" + to_string(of::engine::GetModule<Globals>().type));
 
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
@@ -112,7 +109,7 @@ class EngineLogger : public swizzle::core::LogDevice
 	of::logger::ModuleLogger& stream;
 
 public:
-	inline EngineLogger() : stream(of::engine::GetModule<of::logger::Logger>().getLogger<CLS>("Swizzle", std::make_shared<CLS>()))
+	inline EngineLogger() : stream(of::logger::get().getLogger<CLS>("Swizzle", std::make_shared<CLS>()))
 	{
 	}
 
@@ -141,6 +138,7 @@ public:
 #endif
 {
 		c; argv;
+	of::logger::init();
 	of::engine::setRunMode(of::engine::RunMode::EDITOR);
 	of::engine::lockRunMode();
 
@@ -157,6 +155,8 @@ public:
 	of::engine::shutdown();
 	of::engine::Dispose();
 	of::courier::shutdown();
+
+	of::logger::shutdown();
 
 	return return_value;
 }

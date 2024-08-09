@@ -20,12 +20,12 @@ namespace of::logger
 	class LoggerBase
 	{
 		template <class ...Args>
-		void logMessageT(const LogLevel& logLevel, Args&& ... args)
+		void logMessageT(const LogLevel logLevel, Args&& ... args)
 		{
 			if ((int)level <= (int)logLevel)
 			{
 				std::stringstream ss;
-				(ss << ... << args);
+				((ss << args << " "), ...);
 				log->LogMessage(logLevel, ss.str());
 			}
 		};
@@ -38,14 +38,21 @@ namespace of::logger
 		typename std::shared_ptr<streams::LogStream> log;
 
 		template <class ...Args>
-		void logMessage(const LogLevel& logLevel, Args&& ... args)
+		void logMessage(const LogLevel logLevel, Args&& ... args)
 		{
 			auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 			std::tm tm;
 			localtime_s(&tm, &time);
 
-			logMessageT(logLevel, std::put_time(&tm, "%Y-%m-%d %H:%M:%S"), " ", keyword, args...);
-		};
+			if (keyword.size() == 0)
+			{
+				logMessageT(logLevel, std::put_time(&tm, "%Y-%m-%d %H:%M:%S  "), args...);
+			}
+			else
+			{
+				logMessageT(logLevel, std::put_time(&tm, "%Y-%m-%d %H:%M:%S  "), keyword, args...);
+			};
+		}
 
 	public:
 		template<class Ty>
@@ -58,7 +65,7 @@ namespace of::logger
 		{
 		};
 
-		virtual void setLogLevel(const LogLevel& newLevel)
+		virtual void setLogLevel(const LogLevel newLevel)
 		{
 			Always("Setting new log level: From " + to_string(level, false) + " to " + to_string(newLevel, false));
 			level = newLevel;
@@ -109,9 +116,9 @@ namespace of::logger
 			logMessage(fromString(upper), args...);
 		};
 
-		static common::String fileInfo(const common::String& fileName, const size_t& line)
+		static common::String fileInfo(const common::String& fileName, const size_t line)
 		{
-			return " - " + fileName + " (" + std::to_string(line) + ")";
+			return "- " + fileName + " (" + std::to_string(line) + ")";
 		}
 	};
 

@@ -14,7 +14,7 @@ namespace of::engine
 		settings::init();
 		rng::init();
 
-		auto& logger = GetModule<of::logger::Logger>().getLogger("Main");
+		auto& logger = of::logger::get().getLogger("Main");
 		logger.Info("Initializing Modules group: Core");
 		timer::init();
 

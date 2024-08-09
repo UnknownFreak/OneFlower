@@ -14,7 +14,7 @@ namespace of::logger
 		CRITICAL,
 		ALWAYS
 	};
-	inline common::String to_string(const LogLevel& state, const bool& tabs=true)
+	inline common::String to_string(const LogLevel state, const bool tabs=true)
 	{
 		switch (state)
 		{

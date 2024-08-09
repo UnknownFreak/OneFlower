@@ -1,9 +1,9 @@
 #include <logger/Logger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::logger::Logger>::type = of::module::EngineResourceType::Logger;
-
 of::logger::ModuleLogger of::logger::Logger::EMPTY(
 	"", std::make_shared<of::logger::streams::NullStream>(), of::logger::LogLevel::ALWAYS);
+
+of::logger::Logger* g_logger = nullptr;
 
 namespace of::logger
 {
@@ -19,5 +19,24 @@ namespace of::logger
 	{
 		log->flush();
 		log->close();
+	}
+
+	void init()
+	{
+		if (g_logger == nullptr)
+		{
+			g_logger = new Logger();
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_logger;
+		g_logger = nullptr;
+	}
+
+	Logger& get()
+	{
+		return *g_logger;
 	}
 }

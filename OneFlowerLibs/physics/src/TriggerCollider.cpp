@@ -50,17 +50,17 @@ namespace of::component
 			}
 			else
 			{
-				of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with inherit, but no collider to inherit the actor from. No collider will be created!");
+				of::logger::get().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with inherit, but no collider to inherit the actor from. No collider will be created!");
 
 			}
 		}
 		else if (mColliderType == Collider::ColliderType::RIGID)
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with type rigid, this is not supported for trigger colliders, use colliderType inherit instead, as that allows the trigger collider to attach it's shape to the rigid actor.");
+			of::logger::get().getLogger("of::object::component::TriggerCollider").Warning("Trying to create a trigger collider with type rigid, this is not supported for trigger colliders, use colliderType inherit instead, as that allows the trigger collider to attach it's shape to the rigid actor.");
 		}
 		else if (mColliderType == Collider::ColliderType::NONE)
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::TriggerCollider").Info("mColliderType is set to NONE, no collider will be created, is this intended?");
+			of::logger::get().getLogger("of::object::component::TriggerCollider").Info("mColliderType is set to NONE, no collider will be created, is this intended?");
 		}
 
 		if (mActor != nullptr)

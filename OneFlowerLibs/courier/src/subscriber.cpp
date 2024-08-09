@@ -28,7 +28,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::messaging::Subscriber").Warning("Trying to send a message to an object that is no longer guaranteed by warranty.");
+			of::logger::get().getLogger("of::messaging::Subscriber").Warning("Trying to send a message to an object that is no longer guaranteed by warranty.");
 		}
 	}
 

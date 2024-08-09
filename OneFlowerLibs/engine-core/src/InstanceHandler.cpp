@@ -55,7 +55,7 @@ namespace of::object
 
 	void InstanceHandler::removeObject(const of::common::uuid& objectId, const float delayedtime)
 	{
-		of::engine::GetModule<of::logger::Logger>().getLogger("EngineModule::InstanceHandler").Info("Removing object " + objectId.to_string());
+		of::logger::get().getLogger("EngineModule::InstanceHandler").Info("Removing object " + objectId.to_string());
 		objectsToDelete[objectId] = delayedtime;
 	}
 
@@ -68,7 +68,7 @@ namespace of::object
 			if (it->second < 0)
 			{
 				auto id = it->first;
-				auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("EngineModule::InstanceHandler");
+				auto& logger = of::logger::get().getLogger("EngineModule::InstanceHandler");
 				logger.Fine("Processing removal of " + id.to_string());
 				logger.Debug(of::common::toHex((size_t)&it->first));
 				objects[id].onDelete();

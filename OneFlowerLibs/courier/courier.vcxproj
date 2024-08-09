@@ -155,9 +155,6 @@
     <ClCompile Include="src\subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\base-module\base-module.vcxproj">
-      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>

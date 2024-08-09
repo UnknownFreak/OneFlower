@@ -67,12 +67,12 @@ namespace of::settings
 	{
 		if (g_EngSettings == nullptr)
 		{
-			engine::GetModule<of::logger::Logger>().Info("Initializing module: EngineSettings");
+			of::logger::get().Info("Initializing module: EngineSettings");
 			g_EngSettings = new Settings();
 		}
 		else
 		{
-			engine::GetModule<of::logger::Logger>().getLogger("of::rng").Warning("Trying to initialize Engine Settings multiple times!");
+			of::logger::get().getLogger("of::rng").Warning("Trying to initialize Engine Settings multiple times!");
 		}
 	}
 

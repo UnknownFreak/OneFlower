@@ -13,9 +13,9 @@ namespace of::logger
 
 	public:
 		template<class Ty>
-		ModuleLogger(const common::String& moduleName, std::shared_ptr<Ty> stream, const LogLevel& level) : LoggerBase(stream, level), moduleName(moduleName)
+		ModuleLogger(const common::String& moduleName, std::shared_ptr<Ty> stream, const LogLevel level) : LoggerBase(stream, level), moduleName(moduleName)
 		{
-			this->keyword = "Module: \"" + moduleName + "\" - ";
+			this->keyword = "Module: \"" + moduleName + "\" -";
 		};
 
 		ModuleLogger(const ModuleLogger& logger) : ModuleLogger(logger.moduleName, logger.log, logger.level)
@@ -29,7 +29,7 @@ namespace of::logger
 			return *this;
 		}
 
-		void setLogLevel(const LogLevel& newLevel) override
+		void setLogLevel(const LogLevel newLevel) override
 		{
 			this->Always("Setting new log level for module [" + moduleName +"]: From " + to_string(this->level, false) + " to " + to_string(newLevel, false));
 			this->level = newLevel;

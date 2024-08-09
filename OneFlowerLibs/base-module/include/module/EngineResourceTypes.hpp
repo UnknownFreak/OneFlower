@@ -7,12 +7,10 @@ namespace of::module
 	{
 		Input,
 		Graphics,
-		Physics,
 		SceneManager,
 		WorldManagerAddon,
 		SpriterContainer,
 		FileHandler,
-		Logger,
 		StringConverter,
 		Globals,
 		GameVariableMapping,

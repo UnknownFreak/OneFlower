@@ -113,7 +113,7 @@ namespace of::locale
 				reloadStrings();
 				return;
 			}
-		of::engine::GetModule<of::logger::Logger>().getLogger("locale::LanguageRequestor").Error("Unable to set language [" + language + "]");
+		of::logger::get().getLogger("locale::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
 	LanguageRequestor::LanguageRequestor() : Requestable(common::Builtin, common::uuid::nil(), OneVersion(1, 0, 0), file::ObjectType::Language)

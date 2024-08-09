@@ -8,7 +8,7 @@ namespace of::logger::streams
 {
 	struct LogStream
 	{
-		virtual void LogMessage(const LogLevel& logLevel, const common::String& message) = 0;
+		virtual void LogMessage(const LogLevel logLevel, const common::String& message) = 0;
 		virtual void flush() = 0;
 		virtual void close() = 0;
 		virtual ~LogStream() = default;

@@ -72,7 +72,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::ChannelTopic").Warning(
+			of::logger::get().getLogger("of::courier::ChannelTopic").Warning(
 				"Trying to post a message to a channel that does not exist");
 		}
 		return 0;
@@ -90,7 +90,7 @@ namespace of::courier
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::courier::ChannelTopic").Warning(
+			of::logger::get().getLogger("of::courier::ChannelTopic").Warning(
 				"Trying to post a message to a channel that does not exist");
 		}
 		return 0;

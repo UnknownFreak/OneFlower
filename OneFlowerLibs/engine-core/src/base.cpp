@@ -7,14 +7,14 @@ namespace of::component
 	void Base::attach()
 	{
 		attached();
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component attached [ComponentType]");
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName());
+		of::logger::get().getLogger("of::component").Debug("Component attached [ComponentType]");
+		of::logger::get().getLogger("of::component").Debug(getTypeName());
 	}
 
 	void Base::decouple()
 	{
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug("Component decoupled [ComponentType]");
-		engine::GetModule<of::logger::Logger>().getLogger("of::component").Debug(getTypeName());
+		of::logger::get().getLogger("of::component").Debug("Component decoupled [ComponentType]");
+		of::logger::get().getLogger("of::component").Debug(getTypeName());
 		deconstruct();
 		attachedOn = nullptr;
 	}

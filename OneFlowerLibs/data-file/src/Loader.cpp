@@ -13,7 +13,7 @@ namespace of::file
 			return it->second;
 		else
 		{
-			auto& logger = engine::GetModule<logger::Logger>().getLogger("File::Loader");
+			auto& logger = of::logger::get().getLogger("File::Loader");
 			logger.Error("Failed to get mod position", logger.fileInfo(__FILE__, __LINE__));
 			return 0xFFFFFFFF;
 		}

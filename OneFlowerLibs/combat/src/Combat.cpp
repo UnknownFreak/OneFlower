@@ -51,7 +51,7 @@ namespace of::component
 	{
 		if (skills.find(skill) == skills.end())
 		{
-			of::engine::GetModule < of::logger::Logger>().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
+			of::logger::get().getLogger("Component::CombatComponent").Warning("Trying to execute a skill, when no skill equipped in slot " + Enums::to_string(skill) + ".");
 			return;
 		}
 		skills[skill].onSkillExecution(attachedOn);

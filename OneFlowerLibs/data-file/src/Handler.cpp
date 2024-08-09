@@ -20,7 +20,7 @@ namespace of::file
 			modLoader.loadOrder.insert(std::make_pair(name, modLoader.loadOrder.size()));
 		}
 		modLoader.loadOrder.insert(std::make_pair(modFile, modLoader.loadOrder.size()));
-		auto& logger = of::engine::GetModule<of::logger::Logger>().getLogger("File::Asset::Manager");
+		auto& logger = of::logger::get().getLogger("File::Asset::Manager");
 		logger.Info("New load order built: Order is as follows,");
 		for (auto& order : modLoader.loadOrder)
 		{

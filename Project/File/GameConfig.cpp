@@ -43,11 +43,11 @@ void EngineModule::GameConfig::load()
 	physicsForceSingleThread = parser.get("physics", "forceSingleThread", false);
 	physicsAdaptiveRegions = parser.get("physics", "adaptiveRegions", true);
 
-	of::engine::GetModule<of::logger::Logger>().setLogLevel(logLevel);
+	of::logger::get().setLogLevel(logLevel);
 	for (auto& logger_level : parser.get("logger").values)
 	{
 		if (logger_level.first != "core.level")
-			of::engine::GetModule<of::logger::Logger>().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
+			of::logger::get().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
 	}
 
 	configLoaded = true;

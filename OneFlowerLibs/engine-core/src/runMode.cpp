@@ -20,7 +20,7 @@ namespace of::engine
         }
         else
         {
-            of::engine::GetModule<of::logger::Logger>().Warning("Trying to set run mode after it has been locked!");
+            of::logger::get().Warning("Trying to set run mode after it has been locked!");
         }
     }
 

@@ -37,13 +37,13 @@ namespace of::component
 			}
 			else
 			{
-				of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::DoorHinge").Warning("Editor override, not creating a door hinge link!");
+				of::logger::get().getLogger("of::object::component::DoorHinge").Warning("Editor override, not creating a door hinge link!");
 			}
 
 		}
 		else
 		{
-			of::engine::GetModule<of::logger::Logger>().getLogger("of::object::component::DoorHinge").Warning("Trying to create a DoorHinge, but no collider was found. No hinge will be created!");
+			of::logger::get().getLogger("of::object::component::DoorHinge").Warning("Trying to create a DoorHinge, but no collider was found. No hinge will be created!");
 		}
 	}
 	void DoorHinge::initialize()

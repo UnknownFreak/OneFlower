@@ -25,7 +25,7 @@ namespace of::component
 
 				// TODO: check if subscriber exists
 				//if (courier.hasSubscriber(of::messaging::Topic::Update, instanceId))
-				//	of::engine::GetModule<of::logger::Logger>().GetLogger("of::object::component::Portal").Info("Courier subscriber already exists, skipping!");
+				//	of::logger::get().GetLogger("of::object::component::Portal").Info("Courier subscriber already exists, skipping!");
 				//	return;
 
 				if (subscriberId == 0)

@@ -45,7 +45,7 @@ namespace of::component
 						}
 						else
 						{
-							of::engine::GetModule<of::logger::Logger>().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
+							of::logger::get().getLogger("Component::Damage").Error("An attack was performed without an equipped main weapon.");
 						}
 					}
 					else
@@ -53,7 +53,7 @@ namespace of::component
 
 					{
 						double theDamage = 15.0 * stats->getLevel();
-						of::engine::GetModule<of::logger::Logger>().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use \"default \"15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
+						of::logger::get().getLogger("Component::Damage").Warning("Attacking entity does not have any inventory and will use \"default \"15.0 weapon damage * level scaling for a total of (" + std::to_string(theDamage) + ")");
 						stats->doDamage(theDamage, damageCoef, damageElement, owner);
 					}
 

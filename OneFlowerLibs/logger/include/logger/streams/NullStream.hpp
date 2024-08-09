@@ -14,7 +14,7 @@ namespace of::logger::streams
 		NullStream& operator=(const NullStream& ) { return *this; };
 		~NullStream() = default;
 
-		inline virtual void LogMessage(const LogLevel& , const common::String& ) override {};
+		inline virtual void LogMessage(const LogLevel , const common::String& ) override {};
 		inline virtual void flush() override {};
 		inline virtual void close() override {};
 	};

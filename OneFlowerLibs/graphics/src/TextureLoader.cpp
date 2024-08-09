@@ -17,7 +17,7 @@ namespace of::module::texture
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
-			auto& logger = engine::GetModule <logger::Logger>().getLogger("texture::Loader");
+			auto& logger = of::logger::get().getLogger("texture::Loader");
 			logger.Error("Unable to load texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 			return false;
 		}
@@ -56,7 +56,7 @@ namespace of::module::texture
 
 	bool Loader::loadCubeMap(const common::String& folderName)
 	{
-		auto& logger = engine::GetModule <logger::Logger>().getLogger("texture::Loader");
+		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Loading skybox cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		common::String path = "Data/" + folderName;
 		for (auto& file : { "top.png", "back.png", "bottom.png", "front.png", "left.png", "right.png" })
@@ -113,7 +113,7 @@ namespace of::module::texture
 
 	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const common::String& name, const common::String& path)
 	{
-		auto& logger = engine::GetModule <logger::Logger>().getLogger("texture::Loader");
+		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Request texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!name.empty())
 		{
@@ -138,7 +138,7 @@ namespace of::module::texture
 
 	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const common::String& folderName, const common::String& path)
 	{
-		auto& logger = engine::GetModule <logger::Logger>().getLogger("texture::Loader");
+		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Request cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!folderName.empty())
 		{
@@ -158,7 +158,7 @@ namespace of::module::texture
 	{
 		if (loadedTextureMap.find(name) != loadedTextureMap.end())
 		{
-			auto& logger = engine::GetModule <logger::Logger>().getLogger("texture::Loader");
+			auto& logger = of::logger::get().getLogger("texture::Loader");
 			logger.Info("Unloading texture " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedTextureMap.erase(name);
 		}
