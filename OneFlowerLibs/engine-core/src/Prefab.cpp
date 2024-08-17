@@ -61,7 +61,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(const of::common::uuid& uuid, const glm::vec3& pos, const bool isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
+		auto& x = of::object::get();
 		if (x.exists(uuid))
 			return x.getObject(uuid);
 		auto object = x.addObject(uuid);
@@ -73,8 +73,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(const glm::vec3& pos, const bool isPlayerSummon) const
 	{
-		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
-		auto object = x.addObject();
+		auto object = of::object::addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->get<of::component::Transform>();
 		transform->pos = pos;
@@ -83,8 +82,7 @@ namespace of::resource
 
 	of::object::GameObject* Prefab::createNewInstance(of::object::GameObject* parent, const bool isPlayerSummon) const
 	{
-		auto x = of::engine::GetModule<of::object::InstanceHandler>();
-		auto object = x.addObject();
+		auto object = of::object::addObject();
 		build(object, isPlayerSummon);
 		auto transform = object->get<of::component::Transform>();
 		transform->pos = randomize(parent->get<of::component::Transform>()->buffered, spawnDistance);

@@ -18,7 +18,6 @@ namespace of::module
 		TextureLoader,
 		Console,
 		UIHandler,
-		InstanceHandler,
 		SaveFile,
 		MeshLoader,
 		ShaderLoader,

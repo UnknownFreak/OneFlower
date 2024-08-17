@@ -20,7 +20,6 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 #include <File/GameConfig.hpp>
-#include <object/InstanceHandler.hpp>
 #include <module/sceneManager.hpp>
 
 #include <Module/Globals.hpp>
@@ -46,7 +45,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
 	case of::module::EngineResourceType::ShaderLoader: return "ShaderLoader";
 	case of::module::EngineResourceType::FileHandler: return "FileHandler";
-	case of::module::EngineResourceType::InstanceHandler: return "InstanceHandler";
 		// Engine
 	case of::module::EngineResourceType::Loader: return "ModLoader";
 	case of::module::EngineResourceType::Input: return "Input";
@@ -81,7 +79,6 @@ static volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::shader::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::object::InstanceHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
@@ -150,7 +147,8 @@ public:
 	GameEntry g;
 	const int return_value = g.Run();
 	sw::core::RemoveLogger(&logger);
-	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
+
+	of::object::get().unloadAll();
 
 	of::engine::shutdown();
 	of::engine::Dispose();

@@ -1,8 +1,4 @@
-#ifndef InstanceHandler_HPP
-#define InstanceHandler_HPP
-
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
+#pragma once
 
 #include <object/GameObject.hpp>
 #include <unordered_map>
@@ -10,7 +6,7 @@
 namespace of::object
 {
 
-	class InstanceHandler : public of::module::interface::IEngineResource<InstanceHandler>
+	class InstanceHandler
 	{
 		
 	public:
@@ -36,11 +32,12 @@ namespace of::object
 		void persistGameObjects();
 		void resolveObjectReferences();
 
-		of::module::EngineResourceType& getType() const
-		{
-			return type;
-		}
+		InstanceHandler& operator=(const InstanceHandler&) = delete;
 	};
-}
 
-#endif
+	InstanceHandler& get();
+	GameObject* addObject();
+	GameObject* addObject(const of::common::uuid& id);
+	GameObject* getObject(const of::common::uuid& id);
+	void removeObject(const of::common::uuid& id, const float delayedTime = 0.f);
+}

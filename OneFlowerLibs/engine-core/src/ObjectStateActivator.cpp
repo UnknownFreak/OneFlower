@@ -23,7 +23,7 @@ namespace of::component
 	void ObjectStateActivator::toggle()
 	{
 
-		auto& handler = of::engine::GetModule<of::object::InstanceHandler>();
+		auto& handler = of::object::get();
 		for (auto& [objectId, toggleState] : m_objectsToToggle)
 		{
 			if (handler.exists(objectId))

@@ -110,7 +110,7 @@ namespace of::file
 			of::logger::get().getLogger("File::SaveFile").Error("This is probably not intentional, but player prefab is not valid for gameModeId:", gameModeId.operator()());
 		}
 		
-		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
+		auto& objectHandler = of::object::get();
 
 		player = objectHandler.createPlayer();
 
@@ -150,7 +150,7 @@ namespace of::file
 
 	void SaveFile::load(const of::common::String& fileName)
 	{
-		auto& objectHandler = of::engine::GetModule<of::object::InstanceHandler>();
+		auto& objectHandler = of::object::get();
 		player = objectHandler.createPlayer();
 		std::ifstream file(of::common::savePath + fileName, std::ios::binary | std::ios::in);
 		{

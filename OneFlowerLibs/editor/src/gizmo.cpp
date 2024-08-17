@@ -32,7 +32,7 @@ namespace of::editor
 
 				if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::physics::PxColliderType::Object || hitType.hitType == of::physics::PxColliderType::ObjectTrigger))
 				{
-					auto o = of::engine::GetModule<of::object::InstanceHandler>().getObject(hitType.objectId);
+					auto o = of::object::getObject(hitType.objectId);
 					m_enable = false;
 
 					if (o)

@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)OneFlowerLibs\engine-core\internal;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include;$(IncludePath)</IncludePath>
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -160,6 +160,7 @@
     <ClInclude Include="include\timer\timer.hpp" />
     <ClInclude Include="include\trigger\trigger.hpp" />
     <ClInclude Include="include\trigger\triggerState.hpp" />
+    <ClInclude Include="internal\object\internalInstanceHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">

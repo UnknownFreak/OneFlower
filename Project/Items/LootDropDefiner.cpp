@@ -23,7 +23,7 @@ namespace of::component
 		{
 			if (!looted && lootDrops.size() != 0)
 			{
-				auto go = of::engine::GetModule<of::object::InstanceHandler>().addObject();
+				auto go = of::object::addObject();
 				go->add<Render>();
 				go->get<of::component::Transform>()->pos = attachedOn->get<of::component::Transform>()->pos;
 				go->add<of::component::LootContainer>();

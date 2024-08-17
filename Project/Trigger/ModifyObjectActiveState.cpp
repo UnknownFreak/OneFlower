@@ -7,9 +7,10 @@ namespace Trigger
 {
 	void ModifyObjectActiveState::executeInternal()
 	{
-		if (of::engine::GetModule<of::object::InstanceHandler>().exists(gameObjectToModify))
+		auto& handler = of::object::get();
+		if (handler.exists(gameObjectToModify))
 		{
-			of::engine::GetModule<of::object::InstanceHandler>().getObject(gameObjectToModify)->toggleObjectState(objectState);
+			handler.getObject(gameObjectToModify)->toggleObjectState(objectState);
 		}
 
 		//of::engine::GetModule<of::module::SaveFile>().setObjectState(gameObjectToModify, objectState);

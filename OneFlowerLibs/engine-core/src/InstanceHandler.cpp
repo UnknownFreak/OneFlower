@@ -1,11 +1,12 @@
 #include <object/InstanceHandler.hpp>
+
+#include <object/internalInstanceHandler.hpp>
 #include <logger/Logger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::object::InstanceHandler>::type = of::module::EngineResourceType::InstanceHandler;
+of::object::InstanceHandler* g_instanceHandler = nullptr;
 
 namespace of::object
 {
-
 
 	object::GameObject* InstanceHandler::createPlayer()
 	{
@@ -121,4 +122,45 @@ namespace of::object
 			i.second.resolveReferences();
 		}
 	}
+
+	void init()
+	{
+		if (g_instanceHandler == nullptr)
+		{
+			of::logger::get().Info("Initializing ObjectInstanceHandler");
+			g_instanceHandler = new InstanceHandler();
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_instanceHandler;
+		g_instanceHandler = nullptr;
+	}
+
+	InstanceHandler& get()
+	{
+		return *g_instanceHandler;
+	}
+
+	GameObject* addObject()
+	{
+		return g_instanceHandler->addObject();
+	}
+
+	GameObject* addObject(const of::common::uuid& uuid)
+	{
+		return g_instanceHandler->addObject(uuid);
+	}
+
+	GameObject* getObject(const of::common::uuid& uuid)
+	{
+		return g_instanceHandler->getObject(uuid);
+	}
+
+	void removeObject(const of::common::uuid& id, const float delayedTime)
+	{
+		g_instanceHandler->removeObject(id, delayedTime);
+	}
+
 }

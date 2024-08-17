@@ -298,7 +298,7 @@ public:
 			m_add = false;
 			for (int i = 0; i < val; i++)
 			{
-				of::engine::GetModule<of::object::InstanceHandler>().addObject();
+				of::object::addObject();
 			}
 		}
 		string = std::to_string(m_channel->getSubscribersCount());
@@ -1184,7 +1184,7 @@ int GameEntry::Run()
 		world.Update();
 	}
 
-	auto door = of::engine::GetModule<of::object::InstanceHandler>().addObject();
+	auto door = of::object::addObject();
 
 	door->initialize();
 
@@ -1216,7 +1216,7 @@ int GameEntry::Run()
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
 	//*/
 
-	auto controller = of::engine::GetModule<of::object::InstanceHandler>().player->add<of::component::PlayerController>();
+	auto controller = of::object::get().player->add<of::component::PlayerController>();
 	//	simulationStats = std::make_shared<PxSimulationStats>(paused);
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
@@ -1259,8 +1259,8 @@ int GameEntry::Run()
 	gfx->workerThread = std::thread(&GameEntry::physicsUpdate, this);
 	gfx->run();
 
-	of::engine::GetModule<of::object::InstanceHandler>().unloadAll();
-	delete of::engine::GetModule<of::object::InstanceHandler>().player;
+	of::object::get().unloadAll();
+	delete of::object::get().player;
 	of::physics::shutdown();
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)

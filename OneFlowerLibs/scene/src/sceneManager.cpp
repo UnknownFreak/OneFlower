@@ -429,7 +429,7 @@ namespace of::module
 namespace of::module
 {
 	SceneManager::SceneManager() : loadStateMachine(*this)
-		, objectHandler(of::engine::GetModule<of::object::InstanceHandler>())
+		, objectHandler(of::object::get())
 		, saveFile(of::engine::GetModule<of::file::SaveFile>())
 	{
 	}
@@ -454,7 +454,7 @@ namespace of::module
 
 	}
 
-	SceneManager::SceneManager(const SceneManager& ) : objectHandler(of::engine::GetModule<of::object::InstanceHandler>())
+	SceneManager::SceneManager(const SceneManager& ) : objectHandler(of::object::get())
 		, loadStateMachine(*this)
 		, saveFile(of::engine::GetModule<of::file::SaveFile>())
 	{

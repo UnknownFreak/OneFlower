@@ -9,7 +9,7 @@ namespace Requirement
 
 	bool HealthTresholdRequirement::fullfilled()
 	{
-		auto& x = of::engine::GetModule<of::object::InstanceHandler>();
+		auto& x = of::object::get();
 		if (x.exists(objectId))
 		{
 			auto ptr = x.getObject(objectId);
