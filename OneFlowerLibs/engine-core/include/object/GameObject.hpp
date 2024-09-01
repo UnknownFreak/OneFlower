@@ -44,7 +44,7 @@ namespace of::object
 		of::common::uuid id;
 		of::common::String tag;
 
-		of::file::SaveSetting saveSetting = of::file::SaveSetting::NEVER_STORE;
+		of::session::SaveSetting saveSetting = of::session::SaveSetting::NEVER_STORE;
 		ObjectState objectState = ObjectState::Active;
 		bool keepSavedOnObjectDelete = false;
 		bool unique = false;
@@ -148,7 +148,7 @@ namespace of::object
 		}
 
 		ObjectSaveState* getCurrentSaveState();
-		void persistIf(const of::file::SaveSetting persist);
+		void persistIf(const of::session::SaveSetting persist);
 		void loadPersisted();
 
 		template <class Archive>

@@ -5,7 +5,7 @@
 #include <utils/common/string.hpp>
 #include <concepts>
 
-namespace of::file::save_state
+namespace of::session
 {
 	class SaveState;
 

@@ -204,7 +204,7 @@ Questing::QuestState Questing::Quest::getQuestState() const
 
 void Questing::Quest::setQuestState()
 {
-	auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+	auto& saveFile = of::session::get();
 	if (saveFile.exists(getModfile()))
 	{
 		//auto& state = saveFile.getState(getModfile());

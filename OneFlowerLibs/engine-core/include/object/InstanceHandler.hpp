@@ -16,6 +16,26 @@ namespace of::object
 		std::unordered_map<of::common::uuid, float> objectsToDelete;
 
 		object::GameObject* createPlayer();
+		//save state, unloadmode
+		/*
+		* static = never
+		* interactables = on_interact
+		* 
+		SaveState{
+			NEVER,
+			ON_INTERACT,
+			ON_SAVE,
+			SPECIAL_RE_CONSTRUCT
+
+		}
+		UnloadMode
+		{
+		Default, = normal objects & enemies
+		Never, = player & player summons & attached effects
+		IfDead, same as never, but only if it dies, e.g chase npc through levels, never unloads it, but only once it dies.
+		}
+		
+		*/
 		object::GameObject* addObject();
 		object::GameObject* addObject(const of::common::uuid& uuid);
 		object::GameObject* getObject(const of::common::uuid& uuid);

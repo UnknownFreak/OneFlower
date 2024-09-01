@@ -1,9 +1,6 @@
 #ifndef SaveFile_HPP
 #define SaveFile_HPP
 
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
-
 #include <utils/common/string.hpp>
 #include <utils/common/uuid.hpp>
 #include <file/FileId.hpp>
@@ -18,18 +15,18 @@
 #include <resource/DifficultyLevel.hpp>
 #include <resource/GameMode.hpp>
 
-namespace of::file
+namespace of::session
 {
-	class SaveFile : public of::module::interface::IEngineResource<SaveFile>
+	class GameSession
 	{
 
-		typedef std::unordered_map<of::file::FileId, std::unique_ptr<save_state::SaveState>>::const_iterator saveStateIterator;
+		typedef std::unordered_map<of::file::FileId, std::unique_ptr<SaveState>>::const_iterator saveStateIterator;
 
 		of::resource::DifficultyLevel diff = of::resource::DifficultyLevel::NotSet;
 		of::resource::GameMode gameMode;
 		of::common::uuid customDiffId = of::common::uuid::nil();
 
-		std::unordered_map<of::file::FileId, std::unique_ptr<save_state::SaveState>> saveStates;
+		std::unordered_map<of::file::FileId, std::unique_ptr<SaveState>> saveStates;
 		std::unordered_map<of::common::uuid, float> despawnTimers;
 		std::unordered_map<of::common::uuid, std::vector<of::file::FileId>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
 
@@ -41,16 +38,16 @@ namespace of::file
 		glm::vec3 point;
 		of::object::GameObject* player;
 
-		void setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state);
+		void setState(const of::file::FileId& uuid, std::unique_ptr<SaveState> state);
 
 		bool exists(const of::file::FileId& uuid);
 		bool exists(const of::file::FileId& uuid, const common::String& type);
 		void remove(const of::file::FileId& uuid);
 
-		std::unique_ptr<save_state::SaveState>& getState(const of::file::FileId& uuid);
+		std::unique_ptr<SaveState>& getState(const of::file::FileId& uuid);
 
 		template<class T>
-		requires std::derived_from<T, save_state::SaveState>
+		requires std::derived_from<T, SaveState>
 		T* getState(const of::file::FileId& uuid)
 		{
 			return getState(uuid)->toDerived<T>();
@@ -71,10 +68,9 @@ namespace of::file
 
 		void save(const of::common::String& fileName);
 		void load(const of::common::String& fileName);
-
-		// Inherited via IEngineResource
-		virtual of::module::EngineResourceType& getType() const override;
 	};
+
+	GameSession& get();
 }
 
 #endif

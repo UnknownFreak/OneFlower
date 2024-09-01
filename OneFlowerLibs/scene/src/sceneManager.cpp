@@ -185,8 +185,7 @@ namespace of::module
 			auto it = parent.saveFile.begin();
 			for (it; it != parent.saveFile.end(); it++)
 			{
-				using namespace of::file::save_state;
-				if (it->second->isOfType(SaveStateTypeRef<of::object::ObjectSaveState>::type))
+				if (it->second->isOfType(of::session::SaveStateTypeRef<of::object::ObjectSaveState>::type))
 				{
 					auto derived = it->second->toDerived<of::object::ObjectSaveState>();
 					if (derived->prefabId.isValid())
@@ -430,7 +429,7 @@ namespace of::module
 {
 	SceneManager::SceneManager() : loadStateMachine(*this)
 		, objectHandler(of::object::get())
-		, saveFile(of::engine::GetModule<of::file::SaveFile>())
+		, saveFile(of::session::get())
 	{
 	}
 
@@ -456,7 +455,7 @@ namespace of::module
 
 	SceneManager::SceneManager(const SceneManager& ) : objectHandler(of::object::get())
 		, loadStateMachine(*this)
-		, saveFile(of::engine::GetModule<of::file::SaveFile>())
+		, saveFile(of::session::get())
 	{
 	}
 

@@ -85,7 +85,7 @@ namespace of::module
 		LoadingStateMachine loadStateMachine;
 
 		of::object::InstanceHandler& objectHandler;
-		of::file::SaveFile& saveFile;
+		of::session::GameSession& saveFile;
 
 		//void doDayCycle(const float& fElapsedTime);
 

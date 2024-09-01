@@ -30,7 +30,7 @@ namespace of::resource
 		//object->objectState = of::engine::GetModule<of::module::SaveFile>().getObjectState(object->id, objectState);
 		for (auto& x : components)
 			object->addOrReplace(std::shared_ptr<of::component::Base>(x.get()->copy()));
-		auto& gameMode = of::engine::GetModule<of::file::SaveFile>().getGameMode();
+		auto& gameMode = of::session::get().getGameMode();
 		if (gameMode.tagModifiers.find(object->tag) != gameMode.tagModifiers.end())
 			object->applyGameMode(gameMode.tagModifiers.at(object->tag));
 		else if (isPlayersummon)

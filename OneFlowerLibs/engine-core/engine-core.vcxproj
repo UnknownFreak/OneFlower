@@ -161,6 +161,7 @@
     <ClInclude Include="include\trigger\trigger.hpp" />
     <ClInclude Include="include\trigger\triggerState.hpp" />
     <ClInclude Include="internal\object\internalInstanceHandler.hpp" />
+    <ClInclude Include="internal\session\internalGameSession.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">

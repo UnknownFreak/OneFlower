@@ -7,7 +7,7 @@ namespace Requirement
 
 	bool QuestStateRequirment::fullfilled()
 	{
-		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+		auto& saveFile = of::session::get();
 		saveFile;
 		// TODO: Replace with QuestSaveState
 		//if (saveFile.isQuestStored(questId))

@@ -7,7 +7,7 @@
 
 namespace of::trigger
 {
-	class TriggerState : public of::file::save_state::SaveState
+	class TriggerState : public of::session::SaveState
 	{
 
 	protected:

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace of::file
+namespace of::session
 {
 	enum class SaveSetting
 	{
@@ -17,7 +17,7 @@ namespace of::file
 		*/
 		PERSIST_ON_SAVE,
 		/*
-		* Persist the object, but it's a special object (e.g. player spell, or skill), could also be loot for example), persist the statuses of the object (if applicable)
+		* Persist the object (like above), but it's a special object (e.g. player spell, or skill), so references needs to be re-calculated, could also be loot for example), persist the statuses of the object (if applicable)
 		*/
 		SPECIAL_RE_CONSTRUCT,
 	};

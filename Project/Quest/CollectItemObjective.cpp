@@ -14,7 +14,7 @@ namespace Questing
 		if (objectiveState == Enums::QuestState::ACTIVE)
 		{
 			// TODO: change to objectInstanceHandler instead
-			auto& player = of::engine::GetModule<of::file::SaveFile>().player;
+			auto& player = of::session::get().player;
 			auto inventory = player->get<of::component::Inventory>();
 			if (inventory)
 			{

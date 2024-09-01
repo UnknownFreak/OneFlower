@@ -110,8 +110,8 @@ namespace of::object
 	{
 		for (auto& i : objects)
 		{
-			i.second.persistIf(of::file::SaveSetting::PERSIST_ON_SAVE);
-			i.second.persistIf(of::file::SaveSetting::SPECIAL_RE_CONSTRUCT);
+			i.second.persistIf(of::session::SaveSetting::PERSIST_ON_SAVE);
+			i.second.persistIf(of::session::SaveSetting::SPECIAL_RE_CONSTRUCT);
 		}
 	}
 

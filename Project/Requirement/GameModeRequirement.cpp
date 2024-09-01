@@ -5,7 +5,7 @@ namespace Requirement
 {
 	bool GameModeRequirement::fullfilled()
 	{
-		return of::engine::GetModule<of::file::SaveFile>().getGameModeId() == gameModeId;
+		return of::session::get().getGameModeId() == gameModeId;
 	}
 	std::unique_ptr<Requirement> GameModeRequirement::clone() const
 	{

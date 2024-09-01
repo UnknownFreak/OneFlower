@@ -8,7 +8,7 @@ namespace Requirement
 
 	void TimedRequirement::loadTimerFromSave()
 	{
-		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+		auto& saveFile = of::session::get();
 		saveFile;
 		// TODO replace with TimerSaveState
 		//if (saveFile.isTimerSaved(timerId))

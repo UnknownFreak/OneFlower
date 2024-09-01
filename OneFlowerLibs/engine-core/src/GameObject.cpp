@@ -150,7 +150,7 @@ namespace of::object
 			
 			post(messaging::Topic::of(messaging::Topics::TOGGLE_STATE), std::make_shared<messaging::Body>());
 		}
-		persistIf(of::file::SaveSetting::PERSIST_ON_INTERACT);
+		persistIf(of::session::SaveSetting::PERSIST_ON_INTERACT);
 	}
 
 	void GameObject::onCollision(GameObject* collider)
@@ -196,12 +196,12 @@ namespace of::object
 		if (keepSavedOnObjectDelete == false)
 		{
 			logger.Debug("Clearing object persistance status");
-			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+			auto& saveFile = of::session::get();
 			saveFile.remove(of::file::FileId(id));
 		}
 		else if (keepSavedOnObjectDelete && unique)
 		{
-			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+			auto& saveFile = of::session::get();
 			auto saveState = saveFile.getState<ObjectSaveState>(of::file::FileId(id));
 			saveState->objectState = ObjectState::NoRecreate;
 			saveState->objectSaveStates.clear();
@@ -246,7 +246,7 @@ namespace of::object
 
 	ObjectSaveState* GameObject::getCurrentSaveState()
 	{
-		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+		auto& saveFile = of::session::get();
 		of::file::FileId tmp(id);
 		if (!saveFile.exists(tmp))
 		{
@@ -257,18 +257,18 @@ namespace of::object
 		return state;
 	}
 
-	void GameObject::persistIf(const of::file::SaveSetting persist)
+	void GameObject::persistIf(const of::session::SaveSetting persist)
 	{
-		if (persist != of::file::SaveSetting::NEVER_STORE && saveSetting == persist)
+		if (persist != of::session::SaveSetting::NEVER_STORE && saveSetting == persist)
 		{
-			auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+			auto& saveFile = of::session::get();
 			of::file::FileId tmp(id);
 			if (!saveFile.exists(tmp))
 			{
 				saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
 			}
 			auto state = saveFile.getState<ObjectSaveState>(tmp);
-			if (saveSetting == of::file::SaveSetting::SPECIAL_RE_CONSTRUCT)
+			if (saveSetting == of::session::SaveSetting::SPECIAL_RE_CONSTRUCT)
 			{
 				state->prefabId = prefabId;
 			}
@@ -282,7 +282,7 @@ namespace of::object
 
 	void GameObject::loadPersisted()
 	{
-		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+		auto& saveFile = of::session::get();
 		of::file::FileId tmp(id);
 		if (saveFile.exists(tmp))
 		{

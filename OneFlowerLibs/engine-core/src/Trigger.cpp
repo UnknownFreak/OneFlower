@@ -8,9 +8,9 @@ namespace of::trigger
 {
 	void Trigger::execute()
 	{
-		auto& saveFile = of::engine::GetModule<of::file::SaveFile>();
+		auto& saveFile = of::session::get();
 
-		auto exists = saveFile.exists(of::file::FileId(uuid), of::file::save_state::SaveStateTypeRef<of::trigger::TriggerState>::type);
+		auto exists = saveFile.exists(of::file::FileId(uuid), of::session::SaveStateTypeRef<of::trigger::TriggerState>::type);
 		if (exists)
 		{
 			exists = saveFile.getState<TriggerState>(of::file::FileId(uuid))->triggered;

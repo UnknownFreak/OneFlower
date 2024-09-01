@@ -1,5 +1,7 @@
 #include <file/SaveFile.hpp>
 
+#include <session/internalGameSession.hpp>
+
 #include <fstream>
 #include <cereal/cereal.hpp>
 #include <cereal/types/unordered_map.hpp>
@@ -8,80 +10,80 @@
 #include <object/InstanceHandler.hpp>
 #include <logger/Logger.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::file::SaveFile>::type = of::module::EngineResourceType::SaveFile;
+of::session::GameSession* g_gameSession = nullptr;
 
-namespace of::file
+namespace of::session
 {
 
-	void SaveFile::setPlayerInfo()
+	void GameSession::setPlayerInfo()
 	{
 	}
 
-	void SaveFile::setState(const of::file::FileId& uuid, std::unique_ptr<save_state::SaveState> state)
+	void GameSession::setState(const of::file::FileId& uuid, std::unique_ptr<SaveState> state)
 	{
 		saveStates[uuid] = std::move(state);
 	}
 
-	bool SaveFile::exists(const of::file::FileId& uuid)
+	bool GameSession::exists(const of::file::FileId& uuid)
 	{
 		return saveStates.find(uuid) != saveStates.end();
 	}
 
-	bool SaveFile::exists(const of::file::FileId& uuid, const of::common::String& type_)
+	bool GameSession::exists(const of::file::FileId& uuid, const of::common::String& type_)
 	{
 		return exists(uuid) && saveStates[uuid]->isOfType(type_);
 	}
 
-	void SaveFile::remove(const of::file::FileId& uuid)
+	void GameSession::remove(const of::file::FileId& uuid)
 	{
 		saveStates.erase(uuid);
 	}
 
-	std::unique_ptr<save_state::SaveState>& SaveFile::getState(const of::file::FileId& uuid)
+	std::unique_ptr<SaveState>& GameSession::getState(const of::file::FileId& uuid)
 	{
 		return saveStates[uuid];
 	}
 
-	of::resource::DifficultyLevel SaveFile::getDifficulty() const
+	of::resource::DifficultyLevel GameSession::getDifficulty() const
 	{
 		return diff;
 	}
 
-	of::common::uuid SaveFile::getCustomDiffId() const
+	of::common::uuid GameSession::getCustomDiffId() const
 	{
 		return customDiffId;
 	}
 
-	of::file::FileId SaveFile::getGameModeId() const
+	of::file::FileId GameSession::getGameModeId() const
 	{
 		return gameMode.getModfile();
 	}
 
-	const of::resource::GameMode& SaveFile::getGameMode() const
+	const of::resource::GameMode& GameSession::getGameMode() const
 	{
 		return gameMode;
 	}
 
-	SaveFile::saveStateIterator SaveFile::begin() const noexcept
+	GameSession::saveStateIterator GameSession::begin() const noexcept
 	{
 		return saveStates.begin();
 	}
-	SaveFile::saveStateIterator SaveFile::end() const noexcept
+	GameSession::saveStateIterator GameSession::end() const noexcept
 	{
 		return saveStates.end();
 	}
 
-	void SaveFile::setDespawnTimers(const std::unordered_map<of::common::uuid, float>& timers)
+	void GameSession::setDespawnTimers(const std::unordered_map<of::common::uuid, float>& timers)
 	{
 		despawnTimers = timers;
 	}
 
-	const std::unordered_map<of::common::uuid, float>& SaveFile::getDespawnTimers() const
+	const std::unordered_map<of::common::uuid, float>& GameSession::getDespawnTimers() const
 	{
 		return despawnTimers;
 	}
 
-	void SaveFile::newGame(const of::resource::DifficultyLevel difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
+	void GameSession::newGame(const of::resource::DifficultyLevel difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;
@@ -129,7 +131,7 @@ namespace of::file
 		setPlayerInfo();
 	}
 
-	void SaveFile::save(const of::common::String& fileName)
+	void GameSession::save(const of::common::String& fileName)
 	{
 		//point = player.getComponent<Component::Transform>()->pos;
 		std::ofstream file(of::common::savePath + fileName, std::ios::binary | std::ios::out);
@@ -148,7 +150,7 @@ namespace of::file
 		file.close();
 	}
 
-	void SaveFile::load(const of::common::String& fileName)
+	void GameSession::load(const of::common::String& fileName)
 	{
 		auto& objectHandler = of::object::get();
 		player = objectHandler.createPlayer();
@@ -170,8 +172,23 @@ namespace of::file
 		setPlayerInfo();
 	}
 
-	of::module::EngineResourceType& SaveFile::getType() const
+
+	void init()
 	{
-		return type;
+		if (g_gameSession == nullptr)
+		{
+			g_gameSession = new GameSession();
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_gameSession;
+		g_gameSession = nullptr;
+	}
+
+	GameSession& get()
+	{
+		return *g_gameSession;
 	}
 }
