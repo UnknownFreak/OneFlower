@@ -14,6 +14,7 @@
 #include "messaging/ComponentMessage.hpp"
 
 #include "ObjectState.hpp"
+#include "unloadMode.hpp"
 
 #include <component/base.hpp>
 
@@ -46,6 +47,7 @@ namespace of::object
 
 		of::session::SaveSetting saveSetting = of::session::SaveSetting::NEVER_STORE;
 		ObjectState objectState = ObjectState::Active;
+		UnloadMode unloadMode = UnloadMode::Default;
 		bool keepSavedOnObjectDelete = false;
 		bool unique = false;
 		of::file::FileId prefabId;

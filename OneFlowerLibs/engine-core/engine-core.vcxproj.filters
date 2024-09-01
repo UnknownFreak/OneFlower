@@ -152,6 +152,9 @@
     <ClInclude Include="internal\session\internalGameSession.hpp">
       <Filter>internal\session</Filter>
     </ClInclude>
+    <ClInclude Include="include\object\unloadMode.hpp">
+      <Filter>include\object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">

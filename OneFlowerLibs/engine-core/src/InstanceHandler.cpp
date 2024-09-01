@@ -94,7 +94,9 @@ namespace of::object
 		auto it = objects.begin();
 		while (it != objects.end())
 		{
-			if (it->second.unique == false)
+			if (it->second.unloadMode == UnloadMode::Default ||
+				(it->second.unloadMode == UnloadMode::IfDead &&
+					objectsToDelete.find(it->second.id) != objectsToDelete.end()))
 			{
 				objectsToDelete.erase(it->first);
 				it = objects.erase(it);

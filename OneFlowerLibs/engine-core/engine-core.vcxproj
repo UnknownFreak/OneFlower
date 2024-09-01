@@ -151,6 +151,7 @@
     <ClInclude Include="include\object\InstanceHandler.hpp" />
     <ClInclude Include="include\object\ObjectSaveState.hpp" />
     <ClInclude Include="include\object\ObjectState.hpp" />
+    <ClInclude Include="include\object\unloadMode.hpp" />
     <ClInclude Include="include\resource\DifficultyLevel.hpp" />
     <ClInclude Include="include\resource\GameMode.hpp" />
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
