@@ -10,6 +10,7 @@ namespace of::settings
 		bool mFixedSeed;
 		bool mRenderHitboxes;
 		bool mUsePvdDebugger;
+		bool mShowLoadingScreenInfo;
 
 	public:
 		Settings();
@@ -21,6 +22,7 @@ namespace of::settings
 		bool& useFixedSeed();
 		bool& renderHitboxes();
 		bool& usePvdDebugger();
+		bool& showLoadingScreenInfo();
 	};
 
 	void init();

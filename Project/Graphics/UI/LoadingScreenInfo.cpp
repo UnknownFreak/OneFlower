@@ -1,6 +1,6 @@
 #include "LoadingScreenInfo.hpp"
 
-#include <Module/Globals.hpp>
+#include <engine/settings.hpp>
 #include <File/GameConfig.hpp>
 
 #include <imgui/imgui.h>
@@ -8,7 +8,7 @@
 
 Graphics::UI::LoadingScreenInfo::LoadingScreenInfo() : UIContext(swizzle::input::Keys::KeyNone, "LoadingScreenInfo", true), info(of::engine::GetModule<of::module::SceneManager>().getLoadingStateInfo())
 {
-	visible = of::engine::GetModule<Globals>().boolGlobals[Globals::B_GLOBAL_LOADINGSCREENINFO];
+	visible = of::settings::get().showLoadingScreenInfo();
 	auto height = of::engine::GetModule<EngineModule::GameConfig>().videoMode.second;
 	pos = { 15, height - 420.f };
 }

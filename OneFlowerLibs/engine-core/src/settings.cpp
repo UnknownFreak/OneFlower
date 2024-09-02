@@ -17,6 +17,7 @@ namespace of::settings
 		{
 			mFixedSeed = false;
 		}
+
 		if (parser.exists("physics"))
 		{
 			mUsePvdDebugger = parser.get("physics").get<bool>("use-pvd-debugger", false);
@@ -25,6 +26,16 @@ namespace of::settings
 		{
 			mUsePvdDebugger = false;
 		}
+
+		if (parser.exists("scene"))
+		{
+			mShowLoadingScreenInfo = parser.get("scene").get<bool>("show-loaginscreen-info", false);
+		}
+		else
+		{
+			mShowLoadingScreenInfo = false;
+		}
+
 		mRenderHitboxes = parser.get("graphics").get<bool>("render-hitboxes", false);
 		
 	}
@@ -38,6 +49,10 @@ namespace of::settings
 		if (parser.exists("physics"))
 		{
 			parser.get("physics").put<bool>("use-pvd-debugger", mUsePvdDebugger);
+		}
+		if (parser.exists("scene"))
+		{
+			parser.get("scene").put<bool>("show-loadingscreen-info", mShowLoadingScreenInfo);
 		}
 		parser.get("graphics").put<bool>("render-hitboxes", mRenderHitboxes);
 		parser.save();
@@ -61,6 +76,10 @@ namespace of::settings
 	bool& Settings::usePvdDebugger()
 	{
 		return mUsePvdDebugger;
+	}
+	bool& Settings::showLoadingScreenInfo()
+	{
+		return mShowLoadingScreenInfo;
 	}
 
 	void init()

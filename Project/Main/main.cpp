@@ -72,8 +72,6 @@ static volatile void initializeSystems()
 	
 	auto& mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Module:" + to_string(of::engine::GetModule<Globals>().type));
-
 	mainModule.Info("Initializing Modules group: Asset Management");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
