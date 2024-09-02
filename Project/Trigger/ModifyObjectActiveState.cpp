@@ -1,7 +1,7 @@
 #include "ModifyObjectActiveState.hpp"
 
 #include <object/InstanceHandler.hpp>
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 
 namespace Trigger
 {

@@ -4,7 +4,7 @@
 #include <object/ObjectSaveState.hpp>
 
 #include <object/InstanceHandler.hpp>
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 #include <logger/Logger.hpp>
 
 namespace of::object

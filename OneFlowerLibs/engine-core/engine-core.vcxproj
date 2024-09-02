@@ -142,9 +142,6 @@
     <ClInclude Include="include\engine\paths.hpp" />
     <ClInclude Include="include\engine\runMode.hpp" />
     <ClInclude Include="include\engine\settings.hpp" />
-    <ClInclude Include="include\file\saveFile.hpp" />
-    <ClInclude Include="include\file\saveSetting.hpp" />
-    <ClInclude Include="include\file\saveState.hpp" />
     <ClInclude Include="include\object\GameObject.hpp" />
     <ClInclude Include="include\object\messaging\ComponentMessage.hpp" />
     <ClInclude Include="include\object\messaging\Topics.hpp" />
@@ -157,6 +154,9 @@
     <ClInclude Include="include\resource\GameModeModifier.hpp" />
     <ClInclude Include="include\resource\Prefab.hpp" />
     <ClInclude Include="include\rng\rng.hpp" />
+    <ClInclude Include="include\session\gameSession.hpp" />
+    <ClInclude Include="include\session\saveSetting.hpp" />
+    <ClInclude Include="include\session\saveState.hpp" />
     <ClInclude Include="include\timer\tickTimer.hpp" />
     <ClInclude Include="include\timer\timer.hpp" />
     <ClInclude Include="include\trigger\trigger.hpp" />
@@ -195,7 +195,7 @@
     <ClCompile Include="src\Prefab.cpp" />
     <ClCompile Include="src\rng.cpp" />
     <ClCompile Include="src\runMode.cpp" />
-    <ClCompile Include="src\saveFile.cpp" />
+    <ClCompile Include="src\gameSession.cpp" />
     <ClCompile Include="src\settings.cpp" />
     <ClCompile Include="src\tickTimer.cpp" />
     <ClCompile Include="src\timer.cpp" />

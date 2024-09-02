@@ -3,7 +3,7 @@
 #include <cereal/archives/binary.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-#include <file/SaveState.hpp>
+#include <session/SaveState.hpp>
 
 namespace of::trigger
 {

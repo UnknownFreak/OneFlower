@@ -2,7 +2,7 @@
 
 #include <trigger/TriggerState.hpp>
 
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 
 namespace of::trigger
 {

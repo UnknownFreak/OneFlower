@@ -10,7 +10,7 @@
 
 #include <module/IEngineModule.hpp>
 #include <object/InstanceHandler.hpp>
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 #include <module/ModuleManager.hpp>
 
 #include <resource/WorldInstance.hpp>

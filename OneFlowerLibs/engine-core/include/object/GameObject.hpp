@@ -21,7 +21,7 @@
 #include <resource/GameModeModifier.hpp>
 #include <trigger/Trigger.hpp>
 
-#include <file/SaveSetting.hpp>
+#include <session/saveSetting.hpp>
 
 namespace of::object
 {

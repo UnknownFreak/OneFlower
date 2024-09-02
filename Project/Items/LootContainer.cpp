@@ -1,7 +1,7 @@
 #include "LootContainer.hpp"
 
 #include <file/Handler.hpp>
-#include <file/SaveFile.hpp>
+#include <session/GameSession.hpp>
 
 #include <component/render.hpp>
 #include <Items/Inventory.hpp>

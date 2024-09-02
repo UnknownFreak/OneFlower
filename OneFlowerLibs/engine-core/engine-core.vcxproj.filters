@@ -110,15 +110,6 @@
     <ClInclude Include="include\trigger\trigger.hpp">
       <Filter>include\trigger</Filter>
     </ClInclude>
-    <ClInclude Include="include\file\saveState.hpp">
-      <Filter>include\session</Filter>
-    </ClInclude>
-    <ClInclude Include="include\file\saveFile.hpp">
-      <Filter>include\session</Filter>
-    </ClInclude>
-    <ClInclude Include="include\file\saveSetting.hpp">
-      <Filter>include\session</Filter>
-    </ClInclude>
     <ClInclude Include="include\component\base.hpp">
       <Filter>include\component</Filter>
     </ClInclude>
@@ -155,6 +146,15 @@
     <ClInclude Include="include\object\unloadMode.hpp">
       <Filter>include\object</Filter>
     </ClInclude>
+    <ClInclude Include="include\session\gameSession.hpp">
+      <Filter>include\session</Filter>
+    </ClInclude>
+    <ClInclude Include="include\session\saveSetting.hpp">
+      <Filter>include\session</Filter>
+    </ClInclude>
+    <ClInclude Include="include\session\saveState.hpp">
+      <Filter>include\session</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -187,7 +187,7 @@
     <ClCompile Include="src\InstanceHandler.cpp">
       <Filter>src\object</Filter>
     </ClCompile>
-    <ClCompile Include="src\saveFile.cpp">
+    <ClCompile Include="src\gameSession.cpp">
       <Filter>src\session</Filter>
     </ClCompile>
     <ClCompile Include="src\base.cpp">
