@@ -44,6 +44,9 @@ namespace of::settings
 		bool isFullscreen() const;
 		bool isBorderless() const;
 		ScreenResolution getScreenResolution() const; 
+
+		of::config::Section& getPluginSettings(const of::common::String& pluginName);
+
 	};
 
 	void init();

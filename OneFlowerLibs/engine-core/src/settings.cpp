@@ -131,6 +131,11 @@ namespace of::settings
 		return mScreenResolution;
 	}
 
+	of::config::Section& Settings::getPluginSettings(const of::common::String& pluginName)
+	{
+		return parser.get(pluginName);
+	}
+
 	void init()
 	{
 		if (g_EngSettings == nullptr)
