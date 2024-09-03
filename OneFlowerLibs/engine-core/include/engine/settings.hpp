@@ -1,16 +1,30 @@
 #pragma once
 #include <utils/config/parser.hpp>
 
+#include <logger/LogLevel.hpp>
+
 namespace of::settings
 {
 	class Settings
 	{
+
+		struct ScreenResolution
+		{
+			unsigned int width;
+			unsigned int height;
+		};
+
 		of::config::ConfigParser parser;
 
 		bool mFixedSeed;
 		bool mRenderHitboxes;
 		bool mUsePvdDebugger;
 		bool mShowLoadingScreenInfo;
+		bool mFullscreen;
+		bool mBorderless;
+		ScreenResolution mScreenResolution;
+		of::logger::LogLevel mLogLevel;
+		unsigned int mThreadCount;
 
 	public:
 		Settings();
@@ -23,6 +37,13 @@ namespace of::settings
 		bool& renderHitboxes();
 		bool& usePvdDebugger();
 		bool& showLoadingScreenInfo();
+
+		of::logger::LogLevel getCurrentLogLevel() const;
+		of::logger::LogLevel getModuleLogLevel(const of::common::String& module);
+		unsigned int getPhysicsThreadCount() const;
+		bool isFullscreen() const;
+		bool isBorderless() const;
+		ScreenResolution getScreenResolution() const; 
 	};
 
 	void init();

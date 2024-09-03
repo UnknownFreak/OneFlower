@@ -107,7 +107,7 @@ namespace of::physics
 
 		physx::PxSceneDesc d = physx::PxSceneDesc(mPhysics->getTolerancesScale());
 		d.gravity = physx::PxVec3(0.f, -9.81f, 0.f);
-		d.cpuDispatcher = physx::PxDefaultCpuDispatcherCreate(2);
+		d.cpuDispatcher = physx::PxDefaultCpuDispatcherCreate(of::settings::get().getPhysicsThreadCount());
 		d.filterShader = CustomFilterShader;
 
 		mScene = mPhysics->createScene(d);

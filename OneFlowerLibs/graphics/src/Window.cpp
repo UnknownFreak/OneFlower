@@ -52,15 +52,19 @@ namespace of::graphics::window
 
 		// TODO: do some font combination magic & move to font handler?
 		// Will we be using imgui for the entire ui as well or do our own.
-		auto& io = ImGui::GetIO();
+		//auto& io = ImGui::GetIO();
+		ImFontConfig config;
+		config.OversampleH = 1;
+		config.OversampleV = 1;
+		config.PixelSnapH = true;
+		config.GlyphOffset.y = 1;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-		ImFont* font = io.Fonts->AddFontDefault();
-		font;
-		//ImFontConfig config;
-		//config.MergeMode = true;
-		//std::string s2 = of::common::SystemFonts + "msgothic.ttc";
-		//ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 13.f, &config,
-		//	ImGui::GetIO().Fonts->GetGlyphRangesJapanese());
+		//ImFont* font = io.Fonts->AddFontDefault(&config);
+		//font;
+		
+		std::string s2 = of::common::SystemFonts + "arial.ttf";
+		ImGui::GetIO().Fonts->AddFontFromFileTTF(s2.c_str(), 16.f, &config,
+			ImGui::GetIO().Fonts->GetGlyphRangesDefault());
 		// endTodo
 
 		ImGui_ImplSwizzle_Init(mWindow, mGfxDevice,  mImGuiRenderTarget);
@@ -292,7 +296,11 @@ namespace of::graphics::window
 
     void of::graphics::window::Application::userSetup()
     {
-        mWindow->setTitle("One Flower");
+		auto resolution = of::settings::get().getScreenResolution();
+
+		mWindow->setSize(resolution.width, resolution.height);
+		mWindow->setBorderless(of::settings::get().isBorderless());
+		mWindow->setFullscreen(of::settings::get().isFullscreen());
 
         mSwapchain->setVsync(sw::gfx::VSyncTypes::vSyncOn);
         mCmdBuffer = mGfxDevice->createCommandBuffer(3);

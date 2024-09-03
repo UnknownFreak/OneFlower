@@ -290,7 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\File\Asset\Resource\DialogTree.cpp" />
-    <ClCompile Include="Project\File\GameConfig.cpp" />
     <ClCompile Include="Project\Graphics\Dialog.cpp" />
     <ClCompile Include="Project\Graphics\Editor\DataTree.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.cpp" />
@@ -372,7 +371,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\File\Asset\Resource\DialogTree.hpp" />
-    <ClInclude Include="Project\File\GameConfig.hpp" />
     <ClInclude Include="Project\Graphics\Dialog.hpp" />
     <ClInclude Include="Project\Graphics\Editor\DataTree.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ModFileUuidHelperDropDown.hpp" />

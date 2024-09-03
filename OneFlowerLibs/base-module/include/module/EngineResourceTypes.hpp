@@ -12,7 +12,6 @@ namespace of::module
 		SpriterContainer,
 		FileHandler,
 		StringConverter,
-		Globals,
 		GameVariableMapping,
 		Loader,
 		TextureLoader,
@@ -22,7 +21,6 @@ namespace of::module
 		MeshLoader,
 		ShaderLoader,
 		WindowProxy,
-		GameConfig,
 		NOT_SET,
 	};
 }

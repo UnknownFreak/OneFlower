@@ -19,10 +19,7 @@
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
-#include <File/GameConfig.hpp>
 #include <module/sceneManager.hpp>
-
-#include <Module/Globals.hpp>
 
 #include <module/window/GraphicsProxy.hpp>
 #include <module/window/WindowProxy.hpp>
@@ -37,9 +34,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	{
 		// Console
 	case of::module::EngineResourceType::Console: return "Console";
-		// Core
-	case of::module::EngineResourceType::Globals: return "Globals";
-	case of::module::EngineResourceType::GameConfig: return "GameSettings";
 		// Asset
 	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
 	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
@@ -90,9 +84,6 @@ static volatile void initializeSystems()
 	of::courier::init();
 
 	mainModule.Info("Finished initializing engine ");
-
-	auto& gameModule = logger.getLogger("Game");
-	gameModule.Info("Initializing Module: " + to_string(of::engine::GetModule<EngineModule::GameConfig>().type));
 
 	registerArchiveDefaults();
 }

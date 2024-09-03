@@ -64,9 +64,6 @@
     <Filter Include="Unit Tests\EngineModule">
       <UniqueIdentifier>{e70b8c58-71be-4d03-86b1-a0df286436ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\File\SaveFile">
-      <UniqueIdentifier>{a4a6783f-1dbc-4e80-8bcf-9adc7acd6fb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Unit Tests\File">
       <UniqueIdentifier>{26574018-f8ee-40e6-8732-110f7163f12a}</UniqueIdentifier>
     </Filter>
@@ -327,9 +324,6 @@
     <ClCompile Include="Project\Tests\HealthThresholdRequirementUnitTest.cpp">
       <Filter>Unit Tests\Requirement</Filter>
     </ClCompile>
-    <ClCompile Include="Project\File\GameConfig.cpp">
-      <Filter>Engine\File\SaveFile</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Tests\ConfigParserUnitTest.cpp">
       <Filter>Unit Tests\File</Filter>
     </ClCompile>
@@ -553,9 +547,6 @@
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\HealthTresholdComparitor.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\File\GameConfig.hpp">
-      <Filter>Engine\File\SaveFile</Filter>
     </ClInclude>
     <ClInclude Include="Project\Quest\AOrBObjective.hpp">
       <Filter>Engine\Quest\Objectives</Filter>

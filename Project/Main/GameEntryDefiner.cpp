@@ -8,8 +8,6 @@
 
 #include <Module\BuildMode.hpp>
 
-#include<File/GameConfig.hpp>
-
 #include <Graphics/UI/Stats.hpp>
 #include <Graphics/UI/BuildInfo.hpp>
 
@@ -1174,7 +1172,7 @@ GameEntry::GameEntry() :
 
 int GameEntry::Run()
 {
-	gfx->initialize();
+	gfx->initialize("OneFlower");
 
 	of::physics::init();
 

@@ -7,33 +7,52 @@ of::settings::Settings* g_EngSettings = nullptr;
 namespace of::settings
 {
 
-	Settings::Settings(): parser("EngineConfig.cfg")
+	Settings::Settings() 
+		: parser("settings.ini")
+		, mFixedSeed(false)
+		, mRenderHitboxes(false)
+		, mUsePvdDebugger(false)
+		, mShowLoadingScreenInfo(false)
+		, mFullscreen(false)
+		, mBorderless(false)
+		, mScreenResolution{1920, 1080}
+		, mLogLevel(of::logger::LogLevel::INFO)
+		, mThreadCount(2)
 	{
 		if (parser.exists("random-generator"))
 		{
 			mFixedSeed = parser.get("random-generator").get<bool>("fixed-seed", false);
 		}
-		else
-		{
-			mFixedSeed = false;
-		}
-
 		if (parser.exists("physics"))
 		{
 			mUsePvdDebugger = parser.get("physics").get<bool>("use-pvd-debugger", false);
-		}
-		else
-		{
-			mUsePvdDebugger = false;
+			mThreadCount = parser.get("physics").get("threadCount", 2u);
 		}
 
 		if (parser.exists("scene"))
 		{
 			mShowLoadingScreenInfo = parser.get("scene").get<bool>("show-loaginscreen-info", false);
 		}
-		else
+
+		if (parser.exists("logger"))
 		{
-			mShowLoadingScreenInfo = false;
+			mLogLevel = of::logger::fromString(parser.get("logger", "core.level", of::logger::to_string(of::logger::LogLevel::INFO, false)));
+		
+			of::logger::get().setLogLevel(mLogLevel);
+			for (auto& logger_level : parser.get("logger").values)
+			{
+				if (logger_level.first != "core.level")
+				{
+					of::logger::get().getLogger(logger_level.first).setLogLevel(of::logger::fromString(logger_level.second));
+				}
+			}
+		}
+		if (parser.exists("window"))
+		{
+			mFullscreen = parser.get("window").get("fullscreen", false);
+			mBorderless = parser.get("window").get("borderless", false);
+			mScreenResolution.height = parser.get("window").get("height", 1080);
+			mScreenResolution.width = parser.get("window").get("width", 1080);
 		}
 
 		mRenderHitboxes = parser.get("graphics").get<bool>("render-hitboxes", false);
@@ -82,6 +101,36 @@ namespace of::settings
 		return mShowLoadingScreenInfo;
 	}
 
+	of::logger::LogLevel Settings::getCurrentLogLevel() const
+	{
+		return mLogLevel;
+	}
+
+	of::logger::LogLevel Settings::getModuleLogLevel(const of::common::String& module)
+	{
+		return of::logger::fromString(parser.get("logger", module, of::logger::to_string(mLogLevel, false)));
+	}
+
+	unsigned int Settings::getPhysicsThreadCount() const
+	{
+		return mThreadCount;
+	}
+
+	bool Settings::isFullscreen() const
+	{
+		return mFullscreen;
+	}
+
+	bool Settings::isBorderless() const
+	{
+		return mBorderless;
+	}
+
+	Settings::ScreenResolution Settings::getScreenResolution() const
+	{
+		return mScreenResolution;
+	}
+
 	void init()
 	{
 		if (g_EngSettings == nullptr)
@@ -91,7 +140,7 @@ namespace of::settings
 		}
 		else
 		{
-			of::logger::get().getLogger("of::rng").Warning("Trying to initialize Engine Settings multiple times!");
+			of::logger::get().getLogger("of::settings").Warning("Trying to initialize Engine Settings multiple times!");
 		}
 	}
 
