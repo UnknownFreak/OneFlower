@@ -99,6 +99,7 @@ namespace of::config
 		{
 			putS(key, std::to_string(value), comment);
 		}
+		Section& operator= (const Section& other) = delete;
 	};
 
 	class ConfigParser

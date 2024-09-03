@@ -24,7 +24,7 @@ namespace of::config
 
 	void ConfigParser::comment(const common::String& comment)
 	{
-		sections[comment] = {};
+		sections[comment];
 	}
 
 	void ConfigParser::comment(const common::String& section, const common::String& comment)
@@ -50,7 +50,7 @@ namespace of::config
 		{
 			if (file.is_open())
 			{
-				logger("ConfigParser", "DEBUG", "Begin parsing configuration file " + fileName);
+				logger("of::config::ConfigParser", "DEBUG", "Begin parsing configuration file: " + fileName);
 				common::String section = "";
 				common::String line;
 				while (std::getline(file, line))
@@ -65,7 +65,7 @@ namespace of::config
 					if (bsection)
 					{
 						section = line.substr(1, line.size() - 2);
-						sections[section] = {};
+						sections[section];
 					}
 					else if (section.size())
 					{
@@ -89,12 +89,12 @@ namespace of::config
 					else if (section.size() == 0 && bcomment)
 						comment(line.substr(1));
 				}
-				logger("ConfigParser", "DEBUG", "Finished parsing configuration file " + fileName);
+				logger("of::config::ConfigParser", "DEBUG", "Finished parsing configuration file: " + fileName);
 
 			}
 			else
 			{
-				logger("ConfigParser", "WARNING", "Unable to open config file: " + fileName);
+				logger("of::config::ConfigParser", "WARNING", "Unable to open config file: " + fileName);
 			}
 		}
 		file.close();
@@ -108,7 +108,7 @@ namespace of::config
 	void ConfigParser::save(const common::String& configFile)
 	{
 		fileName = configFile;
-		//Engine::GetModule<of::logger::Logger>().getLogger("ConfigParser").Debug("Begin writing configuration file ", fileName);
+		logger("of::config::ConfigParser", "DEBUG", "Begin writing configuration file: " + fileName);
 		std::ofstream file(fileName);
 		{
 			for (auto& x : sections)
@@ -128,7 +128,7 @@ namespace of::config
 				}
 			}
 		}
-		//Engine::GetModule<of::logger::Logger>().getLogger("ConfigParser").Debug("Finished writing configuration file ", fileName);
+		logger("of::config::ConfigParser", "DEBUG", "Finished writing configuration file: " + fileName);
 		file.flush();
 		file.close();
 	}
