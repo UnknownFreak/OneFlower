@@ -44,7 +44,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::Input: return "Input";
 	case of::module::EngineResourceType::Graphics: return "Graphics";
 	case of::module::EngineResourceType::WindowProxy: return "Proxy";
-	case of::module::EngineResourceType::UIHandler: return "Console";
 		// Unused
 	case of::module::EngineResourceType::SceneManager: return "SceneManager";
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
@@ -78,7 +77,6 @@ static volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));
-	//mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<Graphics::UI::UIHandler>().type));
 
 	mainModule.Info("Initializing Modules group: Messaging");
 	of::courier::init();

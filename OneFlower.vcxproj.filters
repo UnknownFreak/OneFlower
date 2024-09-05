@@ -121,9 +121,6 @@
     <Filter Include="Engine\Graphics\UI\Console">
       <UniqueIdentifier>{ebcfee9a-9388-46a2-89a7-b95a3db44fee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics\UI\Handler">
-      <UniqueIdentifier>{dabad6cf-f197-44f5-bcdc-2b9bf0847d70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\UI\LoadingScreen">
       <UniqueIdentifier>{b4919839-4ca7-4ef8-a965-8fbf4f5cacf1}</UniqueIdentifier>
     </Filter>
@@ -219,9 +216,6 @@
     <ClCompile Include="Project\Main\main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\UI\UIHandler.cpp">
-      <Filter>Engine\Graphics\UI\Handler</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Graphics\UI\LoadingScreen.cpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClCompile>
@@ -236,9 +230,6 @@
     </ClCompile>
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp">
       <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp">
-      <Filter>Engine\Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="Project\Tests\TestObjects.hpp">
       <Filter>Unit Tests</Filter>
@@ -443,9 +434,6 @@
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Graphics\UI\UIHandler.hpp">
-      <Filter>Engine\Graphics\UI\Handler</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClInclude>
@@ -454,9 +442,6 @@
     </ClInclude>
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp">
       <Filter>Engine\Graphics\UI\GameUI\DialogScreen</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp">
-      <Filter>Engine\Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="Project\Helpers\Enum\InteractionOption.hpp">
       <Filter>Engine\Helpers\Enum</Filter>

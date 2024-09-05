@@ -296,7 +296,6 @@
     <ClCompile Include="Project\Graphics\Editor\ObjectEditView.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.cpp" />
     <ClCompile Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.cpp" />
-    <ClCompile Include="Project\Graphics\PlayerInterationPrompt.cpp" />
     <ClCompile Include="Project\Graphics\UI\ActionBar.cpp" />
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp" />
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp" />
@@ -309,7 +308,6 @@
     <ClCompile Include="Project\Graphics\UI\SkillIcon.cpp" />
     <ClCompile Include="Project\Graphics\UI\SkillIconChain.cpp" />
     <ClCompile Include="Project\Graphics\UI\UIContext.cpp" />
-    <ClCompile Include="Project\Graphics\UI\UIHandler.cpp" />
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp" />
     <ClCompile Include="Project\Helpers\PrimitiveSaveable.cpp" />
     <ClCompile Include="Project\Input\PlayerController.cpp" />
@@ -377,7 +375,6 @@
     <ClInclude Include="Project\Graphics\Editor\ObjectEditView.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IObjectViewModel.hpp" />
     <ClInclude Include="Project\Graphics\Editor\ViewModels\IRequestableRenderView.hpp" />
-    <ClInclude Include="Project\Graphics\PlayerInteractionPrompt.hpp" />
     <ClInclude Include="Project\Graphics\UI\ActionBar.hpp" />
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp" />
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp" />
@@ -391,7 +388,6 @@
     <ClInclude Include="Project\Graphics\UI\SkillIconChain.hpp" />
     <ClInclude Include="Project\Graphics\UI\Stats.hpp" />
     <ClInclude Include="Project\Graphics\UI\UIContext.hpp" />
-    <ClInclude Include="Project\Graphics\UI\UIHandler.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ArmorType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\ColliderType.hpp" />
     <ClInclude Include="Project\Helpers\Enum\CombatSkill.hpp" />
