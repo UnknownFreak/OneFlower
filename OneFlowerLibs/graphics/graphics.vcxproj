@@ -144,7 +144,6 @@
     <ClInclude Include="include\graphics\view\cameraController.hpp" />
     <ClInclude Include="include\graphics\view\mvp.hpp" />
     <ClInclude Include="include\graphics\window\renderLayer.hpp" />
-    <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp" />
     <ClInclude Include="include\graphics\window\Window.hpp" />
     <ClInclude Include="include\imgui\imgui_stdlib.hpp" />
     <ClInclude Include="include\module\resource\MeshLoader.hpp" />

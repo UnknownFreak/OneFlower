@@ -47,9 +47,6 @@
     <ClInclude Include="include\graphics\renderable.hpp">
       <Filter>include\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\graphics\window\RenderWindowHandle.hpp">
-      <Filter>include\graphics\window</Filter>
-    </ClInclude>
     <ClInclude Include="include\graphics\window\renderLayer.hpp">
       <Filter>include\graphics\window</Filter>
     </ClInclude>

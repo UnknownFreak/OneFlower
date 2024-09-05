@@ -1,23 +1,21 @@
-#ifndef ONE_WINDOW_HPP
-#define ONE_WINDOW_HPP
+#pragma once
 
 #include "renderLayer.hpp"
-#include "RenderWindowHandle.hpp"
 
 #include <utils/common/string.hpp>
 #include <unordered_map>
 #include <map>
-#include <functional>
 
-#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
+
+#include <graphics/renderable.hpp>
 
 #include <swizzle/Swizzle.hpp>
 #include <swizzle/ApplicationTemplate.hpp>
 #include <ImGuiSwzzle.hpp>
 
 #include <graphics/view/camera.hpp>
-
-#include <swizzle/asset2/Assets.hpp>
+#include <graphics/view/cameraController.hpp>
 
 namespace of::object
 {
@@ -30,7 +28,7 @@ namespace of::object
 
 namespace of::graphics::window
 {
-	class Application : public RenderWindowHandle, public sw::Application
+	class Application : public sw::Application
 	{
 
 		::common::Resource<sw::gfx::Shader> mFsq;
@@ -38,21 +36,19 @@ namespace of::graphics::window
 		::common::Resource<sw::gfx::CommandBuffer> mUploadBuffer;
 		::common::Resource<sw::gfx::CommandBuffer> mCmdBuffer;
 
-		U32 mLastWidth;
-		U32 mLastHeight;
-
 		::common::Resource<swizzle::gfx::FrameBuffer> mImGuiFbo;
 		::common::Resource<ImGuiSwizzleRenderTarget> mImGuiRenderTarget;
 
 
 		std::shared_ptr<Renderable> skyBox;
-		//of::graphics::quadtree<Renderable> renderables;
-		//std::map<of::common::uuid, std::shared_ptr<Renderable>> uiRenderables;
 
 		std::map<RenderLayer, std::unordered_map<of::common::uuid, std::shared_ptr<Renderable>>> renderables;
 		std::map<of::common::uuid, std::shared_ptr<Renderable>> imGuiRenderables;
 		std::unordered_map<of::common::uuid, std::shared_ptr<Renderable>> hitBoxRenderables;
+
 		view::PerspectiveCamera cam;
+		std::shared_ptr<of::graphics::view::CameraController> camController;
+
 		const bool& drawHitboxes;
 
 		void setupImGui();
@@ -64,8 +60,9 @@ namespace of::graphics::window
 		virtual SwBool userUpdate(F32 dt) override;
 		virtual void userCleanup() override;
 
-
 	public:
+
+		std::shared_ptr<of::graphics::view::CameraController> setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller);
 
 		std::thread workerThread;
 
@@ -80,18 +77,15 @@ namespace of::graphics::window
 		Application();
 
 		// Inherited via RenderWindowHandle
-		virtual void setup() override;
-		virtual void loop() override;
-		virtual void cleanup() override;
-		virtual void addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
-		virtual void updateRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable) override;
-		virtual void removeRenderable(const of::common::uuid& id) override;
-		virtual U32 getWindowHeight() override;
-		virtual U32 getWindowWidth() override;
+		void setup();
+
+		void addRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable);
+		void updateRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable);
+		void removeRenderable(const of::common::uuid& id);
+		U32 getWindowHeight();
+		U32 getWindowWidth();
 
 		view::Camera* getCamera();
 
 	};
 }
-
-#endif //WINDOW_HPP

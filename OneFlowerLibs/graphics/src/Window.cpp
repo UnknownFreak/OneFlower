@@ -25,8 +25,6 @@ namespace of::graphics::window
 		fboInfo.mSwapCount = 3u;
 		fboInfo.mColorAttachFormats = { swizzle::gfx::FrameBufferAttachmentType::Default };
 		mWindow->getSize(fboInfo.mWidth, fboInfo.mHeight);
-		mLastWidth = fboInfo.mWidth;
-		mLastHeight = fboInfo.mHeight;
 
 		mImGuiFbo = mGfxDevice->createFramebuffer(fboInfo);
 
@@ -235,20 +233,9 @@ namespace of::graphics::window
     {
         auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
         proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain, mGfxDevice);
-		mWindow->addEventListener(&listener);
 	}
 
-    void of::graphics::window::Application::loop()
-    {
-        run();
-    }
-
-    void of::graphics::window::Application::cleanup()
-    {
-		mWindow->removeEventListener(&listener);
-    }
-
-    void of::graphics::window::Application::addRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
+    void of::graphics::window::Application::addRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
     {
 		if (renderLayer == RenderLayer::SKYBOX)
 			skyBox = renderable;
@@ -262,7 +249,7 @@ namespace of::graphics::window
 		}
     }
 
-	void Application::updateRenderable(const RenderLayer& renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
+	void Application::updateRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
 	{
 		renderLayer, id, renderable;
 	}
@@ -323,9 +310,15 @@ namespace of::graphics::window
 
     void of::graphics::window::Application::userCleanup()
     {
-		cleanup();
 		workerThread.join();
     }
+
+	std::shared_ptr<of::graphics::view::CameraController> of::graphics::window::Application::setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller)
+	{
+		auto& prev = camController;
+		camController = controller;
+		return prev;
+	}
 	
 	glm::vec3 Application::getCameraPos() const
 	{
