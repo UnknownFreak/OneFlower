@@ -1,6 +1,6 @@
 #include <component/portal.hpp>
 
-#include <module/sceneManager.hpp>
+#include <scene/sceneManager.hpp>
 #include <courier/courier.hpp>
 
 #include <input/inputHandler.hpp>
@@ -88,8 +88,11 @@ namespace of::component
 		}
 	}
 
-	void Portal::teleport()
+	void Portal::teleport() const
 	{
-		of::engine::GetModule<of::module::SceneManager>().loadWorldInstance(world, loadingScreen, teleportPos);
+		if (auto valid = of::scene::SceneManager::GetSceneManager().lock())
+		{
+			valid->loadWorldInstance(world, loadingScreen, teleportPos);
+		}
 	}
 }

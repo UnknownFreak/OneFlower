@@ -1151,13 +1151,14 @@ class IsMessageTypeValidator : public of::courier::MessageValidator
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	input(std::make_shared<of::input::InputHandler>()),
-	world(of::engine::GetModule<of::module::SceneManager>()),
+	scene(std::make_shared<of::scene::SceneManager>(gfx)),
 	courier(of::courier::get()), m_exit(false)
 {
 	input->SetInputSource(input);
 	gfx->SetWindowSource(gfx);
+	scene->SetSceneManager(scene);
+
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
-	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::courier::Topic::Update);
 	courier.createChannel(of::courier::Topic::PhysicsUpdate);
 	courier.createChannel(of::courier::Topic::SingleThreadUpdate);
@@ -1176,10 +1177,10 @@ int GameEntry::Run()
 
 	of::physics::init();
 
-	world.initialize();
-	while (world.isLoading)
+	scene->initialize();
+	while (scene->isLoading)
 	{
-		world.Update();
+		scene->Update();
 	}
 
 	auto door = of::object::addObject();
@@ -1224,7 +1225,6 @@ int GameEntry::Run()
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 300.f, 20.f, Graphics::UI::Rel::Right));
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::LoadingScreen>());
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), loadingScreenInfo);
 	//gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), simulationStats);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), courierStats);
 
@@ -1281,11 +1281,10 @@ void GameEntry::physicsUpdate()
 	timeElapsed = timer.secondsAsFloat(true);
 	while (gfx->running())
 	{
-		while (world.isLoading)
+		while (scene->isLoading)
 		{
 			timeElapsed = of::timer::constants::update_ms;
-			world.Update();
-			loadingScreenInfo->update();
+			scene->Update();
 			timer.reset();
 		}
 		ups->tiq();
@@ -1296,7 +1295,7 @@ void GameEntry::physicsUpdate()
 			if (paused == false)
 			{
 				input->update(update_time);
-				world.Simulate(update_time);
+				scene->Simulate(update_time);
 				//time.Simulate(update_time);
 				physicsHandler.simulate(update_time);
 

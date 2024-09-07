@@ -6,7 +6,6 @@ namespace of::module
 	enum class EngineResourceType
 	{
 		Graphics,
-		SceneManager,
 		WorldManagerAddon,
 		SpriterContainer,
 		FileHandler,

@@ -31,7 +31,7 @@ namespace of::settings
 
 		if (parser.exists("scene"))
 		{
-			mShowLoadingScreenInfo = parser.get("scene").get<bool>("show-loaginscreen-info", false);
+			mShowLoadingScreenInfo = parser.get("scene").get<bool>("show-loadingscreen-info", false);
 		}
 
 		if (parser.exists("logger"))

@@ -219,9 +219,6 @@
     <ClCompile Include="Project\Graphics\UI\LoadingScreen.cpp">
       <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Graphics\UI\LoadingScreenInfo.cpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Helpers\Enum\ComponentType.hpp">
       <Filter>Engine\Helpers\Enum</Filter>
     </ClCompile>
@@ -433,9 +430,6 @@
     </ClInclude>
     <ClInclude Include="Project\Helpers\PrimitiveSaveable.hpp">
       <Filter>Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp">
-      <Filter>Engine\Graphics\UI\LoadingScreen</Filter>
     </ClInclude>
     <ClInclude Include="Project\Graphics\Dialog.hpp">
       <Filter>Engine\Graphics\Component</Filter>

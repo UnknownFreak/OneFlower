@@ -19,7 +19,6 @@
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
-#include <module/sceneManager.hpp>
 
 #include <module/window/GraphicsProxy.hpp>
 
@@ -42,7 +41,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::Graphics: return "Graphics";
 	case of::module::EngineResourceType::WindowProxy: return "Proxy";
 		// Unused
-	case of::module::EngineResourceType::SceneManager: return "SceneManager";
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
 	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
 	}
@@ -69,7 +67,6 @@ static volatile void initializeSystems()
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
 
 	mainModule.Info("Initializing Modules group: Messaging");

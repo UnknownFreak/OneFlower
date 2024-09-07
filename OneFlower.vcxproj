@@ -300,7 +300,6 @@
     <ClCompile Include="Project\Graphics\UI\DialogScreen.cpp" />
     <ClCompile Include="Project\Graphics\UI\EffectIconDefiner.cpp" />
     <ClCompile Include="Project\Graphics\UI\LoadingScreen.cpp" />
-    <ClCompile Include="Project\Graphics\UI\LoadingScreenInfo.cpp" />
     <ClCompile Include="Project\Graphics\UI\PlainToolTip.cpp" />
     <ClCompile Include="Project\Graphics\UI\PlayerBuffDebuff.cpp" />
     <ClCompile Include="Project\Graphics\UI\PlayerStats.cpp" />
@@ -379,7 +378,6 @@
     <ClInclude Include="Project\Graphics\UI\BuildInfo.hpp" />
     <ClInclude Include="Project\Graphics\UI\DialogScreen.hpp" />
     <ClInclude Include="Project\Graphics\UI\EffectIcon.hpp" />
-    <ClInclude Include="Project\Graphics\UI\LoadingScreenInfo.hpp" />
     <ClInclude Include="Project\Graphics\UI\PlainToolTip.hpp" />
     <ClInclude Include="Project\Graphics\UI\PlayerBuffDebuff.hpp" />
     <ClInclude Include="Project\Graphics\UI\PlayerStats.hpp" />

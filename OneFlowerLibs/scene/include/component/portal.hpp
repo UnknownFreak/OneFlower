@@ -30,7 +30,7 @@ namespace of::component
 		glm::vec3 teleportPos;
 		bool requireInteraction;
 
-		void teleport();
+		void teleport() const;
 
 	public:
 

@@ -1,4 +1,4 @@
-#include <module/sceneManager.hpp>
+#include <scene/sceneManager.hpp>
 
 #include <engine/runMode.hpp>
 
@@ -7,9 +7,10 @@
 
 #include <resource/Prefab.hpp>
 #include <graphics/sky/skyBox.hpp>
-#include <graphics/window/Window.hpp>
 
 #include <resource/cutSceneInfo.hpp>
+
+#include <scene/imgui/LoadingScreenInfo.hpp>
 
 //void WorldManager::doDayCycle(const float& fElapsedTime)
 //{
@@ -56,9 +57,8 @@
 //	//std::cout << "shadow length x: " << gfx.shadowLengthX << std::endl;
 //	//std::cout << "shadow length y: " << gfx.shadowLengthY << std::endl;
 //}
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::SceneManager>::type = of::module::EngineResourceType::SceneManager;
 
-namespace of::module
+namespace of::scene
 {
 	const of::file::FileId& SceneManager::LoadingStateMachine::getCurrentWorld() const
 	{
@@ -74,7 +74,8 @@ namespace of::module
 	{
 
 	}
-	void SceneManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& _loadArgs)
+
+	void SceneManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs _loadArgs)
 	{
 		loadstate = of::world::LoadingState::PREPARE_LOADINGSCREEN;
 		worldToLoad = world;
@@ -105,6 +106,7 @@ namespace of::module
 			break;
 		case LoadingState::CACHE_ALL_CUTSCENES:
 			cacheCutScenes();
+			break;
 		case LoadingState::UPDATE_LOAD_INFO:
 			updateLoadInfo();
 			break;
@@ -131,6 +133,7 @@ namespace of::module
 			break;
 		case LoadingState::FINALIZING:
 			finalize();
+			break;
 		case LoadingState::DONE:
 			done();
 			break;
@@ -174,7 +177,7 @@ namespace of::module
 		loadingStateInfo.instanceLoadTime = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 		loadstate = of::world::LoadingState::CACHE_ALL_ZONES;
 
-		if (auto valid = of::graphics::window::Application::GetWindowSource().lock())
+		if (auto valid = parent.appl.lock())
 		{
 			valid->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>(instanceToLoad.skybox));
 		}
@@ -428,16 +431,29 @@ namespace of::module
 	}
 }
 
-namespace of::module
+namespace of::scene
 {
-	SceneManager::SceneManager() : loadStateMachine(*this)
+	SceneManager::SceneManager(std::weak_ptr<of::graphics::window::Application> application) : loadStateMachine(*this)
 		, objectHandler(of::object::get())
 		, saveFile(of::session::get())
+		, appl(application)
 	{
+	}
+
+	SceneManager::~SceneManager()
+	{
+		if (auto valid = appl.lock())
+		{
+			valid->removeRenderable(loadingScreenInfoId);
+		}
 	}
 
 	void SceneManager::initialize()
 	{
+		if (auto valid = appl.lock())
+		{
+			valid->addRenderable(of::graphics::window::RenderLayer::IMGUI, loadingScreenInfoId, std::make_shared<of::scene::imgui::LoadingScreenInfo>(getLoadingStateInfo()));
+		}
 		newGame();
 		//auto& f = of::engine::GetModule<Input::InputHandler>();
 		//
@@ -456,17 +472,16 @@ namespace of::module
 
 	}
 
-	SceneManager::SceneManager(const SceneManager& ) : objectHandler(of::object::get())
-		, loadStateMachine(*this)
-		, saveFile(of::session::get())
-	{
-	}
-
 	//void WorldManager::setCurrentTime(const float& currentTime)
 	//{
 	//	while (gfx.timeOfDay < currentTime || gfx.timeOfDay > currentTime + 0.5f)
 	//		Simulate(12.f);
 	//}
+
+	//TODO: Replace with gameSsessionHooks
+	// for newGame
+	// loadGame
+	// saveGame
 
 	void SceneManager::newGame()
 	{
@@ -504,7 +519,7 @@ namespace of::module
 		// TODO: start timers from questing module if needed
 	}
 
-	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs& loadArgs)
+	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs loadArgs)
 	{
 		isLoading = true;
 		of::timer::reset(globals::LOADING_TIMER);
@@ -527,14 +542,19 @@ namespace of::module
 		}
 	}
 
-	void SceneManager::Simulate(const float& fElapsedTime)
+	void SceneManager::Simulate(const float fElapsedTime)
 	{
 		//doDayCycle(fElapsedTime);
 		objectHandler.processDeletedObjects(fElapsedTime);
 	}
 
-	of::module::EngineResourceType& SceneManager::getType() const
+	void SceneManager::SetSceneManager(std::weak_ptr<SceneManager> scene)
 	{
-		return type;
+		sScene = scene;
+	}
+
+	std::weak_ptr<SceneManager> SceneManager::GetSceneManager()
+	{
+		return sScene;
 	}
 }

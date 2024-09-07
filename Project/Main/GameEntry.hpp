@@ -3,10 +3,9 @@
 
 #include <graphics/window/Window.hpp>
 #include <Input/InputHandler.hpp>
-#include <module/sceneManager.hpp>
+#include <scene/sceneManager.hpp>
 
 #include <Graphics/UI/Stats.hpp>
-#include <Graphics/UI/LoadingScreenInfo.hpp>
 
 #include <courier/courier.hpp>
 
@@ -16,11 +15,10 @@ class GameEntry
 	std::shared_ptr<of::graphics::window::Application> gfx;
 	std::shared_ptr<of::input::InputHandler> input;
 	
-	of::module::SceneManager& world;
+	std::shared_ptr<of::scene::SceneManager> scene;
 	of::courier::Courier& courier;
 
 	std::shared_ptr<Graphics::UI::Stats> ups;
-	std::shared_ptr<Graphics::UI::LoadingScreenInfo> loadingScreenInfo;
 
 	void physicsUpdate();
 public:

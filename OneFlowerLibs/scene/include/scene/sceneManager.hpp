@@ -8,8 +8,8 @@
 
 #include <file/FileId.hpp>
 
-#include <module/IEngineModule.hpp>
 #include <object/InstanceHandler.hpp>
+#include <graphics/window/Window.hpp>
 #include <session/gameSession.hpp>
 #include <module/ModuleManager.hpp>
 
@@ -18,16 +18,16 @@
 #include <scene/LoadingStateInfo.hpp>
 #include <scene/LoadArgs.hpp>
 
-namespace of::module::globals
+namespace of::scene::globals
 {
 	static const of::common::String LOADING_TIMER = "LOADING_TIMER";
 	static const of::common::String TOTAL_TIME_LOADED = "TOTAL_TIME_LOADED";
 	static const of::common::String TOTAL_TIME_LOADED_PART = "TOTAL_TIME_LOADED_PART";
 }
 
-namespace of::module
+namespace of::scene
 {
-	class SceneManager : public of::module::interface::IEngineResource<SceneManager>
+	class SceneManager
 	{
 
 		class LoadingStateMachine
@@ -75,7 +75,7 @@ namespace of::module
 
 			LoadingStateMachine(SceneManager& parent);
 
-			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs& loadArgs);
+			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs loadArgs);
 			void load();
 			// TODO
 			//void unloadAllAssets();
@@ -86,13 +86,20 @@ namespace of::module
 
 		of::object::InstanceHandler& objectHandler;
 		of::session::GameSession& saveFile;
+		std::weak_ptr<of::graphics::window::Application> appl;
 
 		//void doDayCycle(const float& fElapsedTime);
 
+		static inline std::weak_ptr<SceneManager> sScene;
+
+		of::common::uuid loadingScreenInfoId;
+
 	public:
 		bool isLoading = false;
-		SceneManager();
-		SceneManager(const SceneManager& copy);
+		SceneManager(std::weak_ptr<of::graphics::window::Application> appl);
+		SceneManager(const SceneManager& copy) = delete;
+		SceneManager& operator=(const SceneManager& other) = delete;
+		~SceneManager();
 
 	//#ifdef _DEBUG
 		//void setCurrentTime(const float& currentTime);
@@ -110,13 +117,12 @@ namespace of::module
 		void skipCurrentCutScene();
 		void playCutIn(const of::file::FileId& cutInId);
 
-		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs& loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
+		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
 	
 		virtual void Update();
-		virtual void Simulate(const float& fElapsedTime);
+		virtual void Simulate(const float fElapsedTime);
 
-		// Inherited via IEngineResource
-		virtual of::module::EngineResourceType& getType() const override;
-
+		static void SetSceneManager(std::weak_ptr<SceneManager> scene);
+		static std::weak_ptr<SceneManager> GetSceneManager();
 	};
 }
