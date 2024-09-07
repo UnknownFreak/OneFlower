@@ -22,7 +22,7 @@ namespace of::component
 		of::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
 		physx::PxController* mActor;
-		of::input::InputHandler& handler;
+		std::weak_ptr<of::input::InputHandler> handler;
 		of::physics::ObjectType mColliderType;
 
 		PlayerController();

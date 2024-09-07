@@ -1,13 +1,12 @@
 #include <input/inputHandler.hpp>
 #include <input/controller.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::input::InputHandler>::type = of::module::EngineResourceType::Input;
 bool of::input::InputHandler::isMovementEnabled = true;
 bool of::input::InputHandler::skipCurrentFrame = true;
 
 namespace of::input
 {
-	void InputHandler::update(const float& fElapsedTime)
+	void InputHandler::update(const float fElapsedTime)
 	{
 		// Update all controllers
 		Controller::update();
@@ -62,5 +61,14 @@ namespace of::input
 	bool InputHandler::wasControllerButtonPressed(const of::input::ControllerButtons& button) const
 	{
 		return Controller::isButtonPressed(button);
+	}
+	
+	void InputHandler::SetInputSource(std::weak_ptr<InputHandler> source)
+	{
+		sInputSource = source;
+	}
+	std::weak_ptr<InputHandler> InputHandler::GetInputSource()
+	{
+		return sInputSource;
 	}
 }

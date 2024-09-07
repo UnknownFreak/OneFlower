@@ -21,7 +21,7 @@ namespace of::component
 				auto portalRef = attachedOn->getShared<Portal>();
 
 				auto& courier = of::courier::get();
-				auto& inputHandler = of::engine::GetModule<of::input::InputHandler>();
+				auto inputHandler = of::input::InputHandler::GetInputSource();
 
 				// TODO: check if subscriber exists
 				//if (courier.hasSubscriber(of::messaging::Topic::Update, instanceId))
@@ -42,7 +42,8 @@ namespace of::component
 								{
 									if (portalRef->requireInteraction)
 									{
-										if (inputHandler.wasKeybindPressed("interact"))
+										auto valid = inputHandler.lock();
+										if (valid && valid->wasKeybindPressed("interact"))
 										{
 											portalRef->teleport();
 											return;

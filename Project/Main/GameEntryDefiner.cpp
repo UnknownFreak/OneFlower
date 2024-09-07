@@ -1151,10 +1151,11 @@ class IsMessageTypeValidator : public of::courier::MessageValidator
 
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
-	input(of::engine::GetModule<of::input::InputHandler>()),
+	input(std::make_shared<of::input::InputHandler>()),
 	world(of::engine::GetModule<of::module::SceneManager>()),
 	courier(of::courier::get()), m_exit(false)
 {
+	input->SetInputSource(input);
 	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
@@ -1208,7 +1209,7 @@ int GameEntry::Run()
 	collider->mActor->setGlobalPose(p);
 	door->add(hinge);
 
-	of::engine::GetModule<of::input::InputHandler>().playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
+	input->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbSp", [&](bool, swizzle::input::Keys, const float& ) {
 		std::cout << "Toggle" << std::endl;
 		hinge->onMessage({ of::object::messaging::Topic::of(of::object::messaging::Topics::TOGGLE_STATE), std::make_shared<of::object::messaging::Body>()});
 		}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
@@ -1240,7 +1241,7 @@ int GameEntry::Run()
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
-		of::editor::initialize(gfx);
+		of::editor::initialize(gfx, input);
 		// TODO: move to editor initialize
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
@@ -1295,7 +1296,7 @@ void GameEntry::physicsUpdate()
 			timeElapsed -= update_time;
 			if (paused == false)
 			{
-				input.update(update_time);
+				input->update(update_time);
 				world.Simulate(update_time);
 				//time.Simulate(update_time);
 				physicsHandler.simulate(update_time);

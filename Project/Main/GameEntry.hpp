@@ -14,7 +14,7 @@ class GameEntry
 {
 	bool m_exit;
 	std::shared_ptr<of::graphics::window::Application> gfx;
-	of::input::InputHandler& input;
+	std::shared_ptr<of::input::InputHandler> input;
 	
 	of::module::SceneManager& world;
 	of::courier::Courier& courier;

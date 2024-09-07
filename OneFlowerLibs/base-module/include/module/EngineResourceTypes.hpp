@@ -5,7 +5,6 @@ namespace of::module
 {
 	enum class EngineResourceType
 	{
-		Input,
 		Graphics,
 		SceneManager,
 		WorldManagerAddon,

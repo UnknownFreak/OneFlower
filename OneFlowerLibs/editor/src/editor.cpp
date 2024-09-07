@@ -60,12 +60,12 @@ namespace of::editor
 		s_uuids.push_back(add(gfx, loadFileModal));
 	}
 
-	void initialize(std::shared_ptr<of::graphics::window::Application> gfx)
+	void initialize(std::shared_ptr<of::graphics::window::Application> gfx, std::shared_ptr<of::input::InputHandler> inputHandler)
 	{
 		s_gfx = gfx;
 		s_uuids.clear();
 		gfx->setCameraController(std::make_shared<EditorCamera>());
-		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx)));
+		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx, inputHandler)));
 		createMenu(gfx);
 	}
 

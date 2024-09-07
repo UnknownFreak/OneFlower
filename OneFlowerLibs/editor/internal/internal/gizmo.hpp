@@ -4,6 +4,8 @@
 #include <graphics/parentedRenderable.hpp>
 #include <graphics/window/Window.hpp>
 
+#include <input/inputHandler.hpp>
+
 #include <utils/lifetime/isAlive.hpp>
 #include <utils/common/uuid.hpp>
 
@@ -39,7 +41,7 @@ namespace of::editor
 
 	public:
 
-		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl);
+		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<of::input::InputHandler>& handler);
 		~Gizmo();
 
 		virtual void updateFrame(const float dt) override;

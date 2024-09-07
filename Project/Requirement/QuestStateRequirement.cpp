@@ -1,6 +1,6 @@
 #include "QuestStateRequirement.hpp"
 
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 
 namespace Requirement
 {

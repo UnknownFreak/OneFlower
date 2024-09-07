@@ -1,6 +1,6 @@
 #include "Quest.hpp"
 
-#include <file/SaveFile.hpp>
+#include <session/gameSession.hpp>
 #include <file/Handler.hpp>
 
 of::common::uuid of::file::archive::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");

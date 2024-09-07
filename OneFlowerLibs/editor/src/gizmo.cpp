@@ -5,7 +5,6 @@
 #pragma warning(pop)
 
 #include <courier/courier.hpp>
-#include <input/inputHandler.hpp>
 #include <object/InstanceHandler.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
@@ -16,12 +15,12 @@
 namespace of::editor
 {
 
-	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl) : c(m_parent->getCamera())
+	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<of::input::InputHandler>& handler) : c(m_parent->getCamera())
 	{
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*)&mat);
 		auto& courier = of::courier::get();
 
-		of::engine::GetModule<of::input::InputHandler>().mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
+		handler->mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
 			[&](bool, swizzle::input::Mouse, const float&) {
 				of::physics::ObjectType hitType;
 				auto& physicsHandler = of::physics::get();

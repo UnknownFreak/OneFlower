@@ -26,6 +26,7 @@ namespace of::file
 			logger.Info(order.first);
 		}
 		logger.Info("End of load order.");
+		archive.modLoadOrder = modLoader;
 	}
 
 	void Handler::saveGameDatabase(std::string filename, Header& modhdr)

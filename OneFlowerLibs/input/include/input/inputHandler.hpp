@@ -1,15 +1,10 @@
 #pragma once
-#ifndef InputHandler_HPP_A
-#define InputHandler_HPP_A
 
 #include <functional>
 #include <map>
 #include <vector>
 
 #include <swizzle/core/Input.hpp>
-
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
 
 #include <input/inputType.hpp>
 #include "BasicInputHandler.hpp"
@@ -19,7 +14,7 @@
 
 namespace of::input
 {
-	class InputHandler : public of::module::interface::IEngineResource<InputHandler>
+	class InputHandler
 	{
 		bool isPlayerKeyboardInputEnabled = true;
 
@@ -29,18 +24,13 @@ namespace of::input
 		static bool isMovementEnabled;
 		static bool skipCurrentFrame;
 
-		void update(const float& fElapsedTime);
+		void update(const float fElapsedTime);
 
 		BasicInputHandler<of::input::ControllerButtons> controller;
 		//AxisCallbackholder<sf::Joystick::Axis> controllerAxis;
 		BasicInputHandler<swizzle::input::Keys> playerKeyboard;
 		BasicInputHandler<swizzle::input::Keys> uiKeyboard;
 		BasicInputHandler<swizzle::input::Mouse> mouse;
-
-		of::module::EngineResourceType& getType() const
-		{
-			return type;
-		}
 
 		InputHandler();
 		~InputHandler();
@@ -80,9 +70,14 @@ namespace of::input
 			parser.put("controller", keybind, (int)button);
 		}
 
+		static void SetInputSource(std::weak_ptr<InputHandler> source);
+		static std::weak_ptr<InputHandler> GetInputSource();
+
 		int deltaScrolls = 0;
 
 	private:
+
+		static inline std::weak_ptr<InputHandler> sInputSource;
 
 	};
 }
@@ -101,5 +96,3 @@ namespace of::input
 //		}
 //	};
 //}
-
-#endif
