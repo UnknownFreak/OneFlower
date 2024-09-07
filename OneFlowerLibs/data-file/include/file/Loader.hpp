@@ -3,13 +3,11 @@
 #include <map>
 
 #include <utils/common/String.hpp>
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
 
 namespace of::file
 {
 
-	class Loader : public of::module::interface::IEngineResource<Loader>
+	class Loader
 	{
 
 	public:
@@ -44,8 +42,6 @@ namespace of::file
 				ar(it->second);
 			}
 		}
-
-		module::EngineResourceType& getType() const;
 	};
 };
 #endif 

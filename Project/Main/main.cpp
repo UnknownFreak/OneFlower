@@ -40,7 +40,6 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 	case of::module::EngineResourceType::ShaderLoader: return "ShaderLoader";
 	case of::module::EngineResourceType::FileHandler: return "FileHandler";
 		// Engine
-	case of::module::EngineResourceType::Loader: return "ModLoader";
 	case of::module::EngineResourceType::Input: return "Input";
 	case of::module::EngineResourceType::Graphics: return "Graphics";
 	case of::module::EngineResourceType::WindowProxy: return "Proxy";
@@ -73,7 +72,6 @@ static volatile void initializeSystems()
 
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::input::InputHandler>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));

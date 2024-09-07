@@ -33,7 +33,7 @@ namespace of::editor::modal
 	{
 		//tree.clear();
 		auto& manager = of::engine::GetModule<of::file::Handler>();
-		auto& modLoader = of::engine::GetModule<of::file::Loader>();
+		auto& modLoader = manager.getLoader();
 		modLoader.loadOrder.clear();
 
 		std::vector<of::common::String> deps;

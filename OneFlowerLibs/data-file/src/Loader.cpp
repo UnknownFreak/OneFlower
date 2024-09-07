@@ -1,9 +1,6 @@
 #include <file/Loader.hpp>
 #include <logger/Logger.hpp>
 
-
-of::module::EngineResourceType of::module::interface::IEngineResource<of::file::Loader>::type = of::module::EngineResourceType::Loader;
-
 namespace of::file
 {
 	const size_t Loader::getModPosition(const common::String& modName) const
@@ -13,14 +10,9 @@ namespace of::file
 			return it->second;
 		else
 		{
-			auto& logger = of::logger::get().getLogger("File::Loader");
+			auto& logger = of::logger::get().getLogger("of::file::Loader");
 			logger.Error("Failed to get mod position", logger.fileInfo(__FILE__, __LINE__));
 			return 0xFFFFFFFF;
 		}
-	}
-
-	module::EngineResourceType& Loader::getType() const
-	{
-		return type;
 	}
 };

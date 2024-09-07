@@ -22,6 +22,7 @@ namespace of::file
 		void loadAllEditorVariables();
 
 		file::archive::Requestor archive;
+		file::Loader modLoader;
 
 		file::Header openedFile;
 		file::Loader& getLoader();

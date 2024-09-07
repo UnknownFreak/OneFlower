@@ -13,7 +13,6 @@ namespace of::module
 		FileHandler,
 		StringConverter,
 		GameVariableMapping,
-		Loader,
 		TextureLoader,
 		Console,
 		SaveFile,

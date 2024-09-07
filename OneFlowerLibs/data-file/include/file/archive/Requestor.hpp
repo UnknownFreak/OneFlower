@@ -316,7 +316,7 @@ namespace of::file::archive
 		std::map<common::String, size_t> getLoadOrder() const
 		{
 			if (fileLoadOrder.size() == 0)
-				return of::engine::GetModule<file::Loader>().loadOrder;
+				return modLoadOrder.loadOrder;
 			return fileLoadOrder;
 		}
 
@@ -324,6 +324,7 @@ namespace of::file::archive
 
 		std::map<common::String, size_t> fileLoadOrder;
 		ArchiveFactory factory;
+		file::Loader modLoadOrder;
 
 		// ##################################################
 		// # INITIALIZERS									#
@@ -350,6 +351,7 @@ namespace of::file::archive
 				return *this;
 			loadDirectory = right.loadDirectory;
 			fileLoadOrder = right.fileLoadOrder;
+			modLoadOrder = right.modLoadOrder;
 			//requestedMap = right.requestedMap;
 			return *this;
 		}

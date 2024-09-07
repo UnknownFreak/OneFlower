@@ -13,7 +13,6 @@ namespace of::file
 
 	void Handler::buildModOrderFile(const of::common::String& modFile, std::set<of::common::String>& dependencies)
 	{
-		auto& modLoader = engine::GetModule<Loader>();
 		modLoader.loadOrder.clear();
 		for (auto& name : dependencies)
 		{
@@ -67,7 +66,7 @@ namespace of::file
 
 	file::Loader& Handler::getLoader()
 	{
-		return of::engine::GetModule<file::Loader>();
+		return modLoader;
 	}
 
 	of::module::EngineResourceType& Handler::getType() const
