@@ -13,7 +13,6 @@
 
 #include <Graphics/UI/LoadingScreen.hpp>
 
-#include <module/window/WindowProxy.hpp>
 #include <Graphics/sky/skyBox.hpp>
 
 #include <chrono>
@@ -1156,7 +1155,7 @@ GameEntry::GameEntry() :
 	courier(of::courier::get()), m_exit(false)
 {
 	input->SetInputSource(input);
-	of::engine::GetModule<of::module::window::WindowProxy>().setHandle(gfx);
+	gfx->SetWindowSource(gfx);
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
 	loadingScreenInfo = std::make_shared<Graphics::UI::LoadingScreenInfo>();
 	courier.createChannel(of::courier::Topic::Update);

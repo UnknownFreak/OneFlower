@@ -6,8 +6,8 @@
 #include <timer/timer.hpp>
 
 #include <resource/Prefab.hpp>
-#include <module/window/WindowProxy.hpp>
 #include <graphics/sky/skyBox.hpp>
+#include <graphics/window/Window.hpp>
 
 #include <resource/cutSceneInfo.hpp>
 
@@ -174,7 +174,10 @@ namespace of::module
 		loadingStateInfo.instanceLoadTime = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART, true);
 		loadstate = of::world::LoadingState::CACHE_ALL_ZONES;
 
-		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>(instanceToLoad.skybox));
+		if (auto valid = of::graphics::window::Application::GetWindowSource().lock())
+		{
+			valid->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>(instanceToLoad.skybox));
+		}
 
 		if (loadArgs == of::world::LoadArgs::NEW_GAME)
 		{

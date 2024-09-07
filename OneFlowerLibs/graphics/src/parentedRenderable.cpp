@@ -1,9 +1,10 @@
 #include <graphics/parentedRenderable.hpp>
 
-#include <module/window/WindowProxy.hpp>
+#include <graphics/window/Window.hpp>
+
 namespace of::graphics
 {
-	ParentedRenderable::ParentedRenderable() : m_parent(of::engine::GetModule<of::module::window::WindowProxy>().get())
+	ParentedRenderable::ParentedRenderable() : m_parent(of::graphics::window::Application::GetWindowSource().lock().get())
 	{
 	}
 }

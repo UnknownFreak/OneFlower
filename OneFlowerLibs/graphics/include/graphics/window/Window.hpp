@@ -87,5 +87,12 @@ namespace of::graphics::window
 
 		view::Camera* getCamera();
 
+		static void SetWindowSource(std::weak_ptr<Application> window);
+		static std::weak_ptr<Application> GetWindowSource();
+
+	private:
+
+		static inline std::weak_ptr<Application> sWindow;
+
 	};
 }

@@ -2,7 +2,7 @@
 
 #include <object/GameObject.hpp>
 #include <module/window/GraphicsProxy.hpp>
-#include <module/window/WindowProxy.hpp>
+#include <graphics/window/Window.hpp>
 
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/MeshLoader.hpp>
@@ -59,7 +59,10 @@ namespace of::component
 	{
 		loadAndSetModel();
 		transform = attachedOn->get<of::component::Transform>();
-		of::engine::GetModule<of::module::window::WindowProxy>().get()->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
+		if (auto valid = of::graphics::window::Application::GetWindowSource().lock())
+		{
+			valid->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
+		}
 
 		if (subscriberId == 0)
 		{
@@ -74,7 +77,10 @@ namespace of::component
 
 	void Render::deconstruct()
 	{
-		of::engine::GetModule<of::module::window::WindowProxy>().get()->removeRenderable(attachedOn->id);
+		if (auto valid = of::graphics::window::Application::GetWindowSource().lock())
+		{
+			valid->removeRenderable(attachedOn->id);
+		}
 		if (subscriberId != 0)
 		{
 			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);

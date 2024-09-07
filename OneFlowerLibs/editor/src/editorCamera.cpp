@@ -6,8 +6,8 @@
 
 namespace of::editor
 {
-	EditorCamera::EditorCamera()
-		: CameraController()
+	EditorCamera::EditorCamera(of::graphics::view::Camera* camera)
+		: CameraController(camera)
 		, mTarget(0.0F)
 		, mDirection(0.0F)
 		, mAngleH(0.0F)

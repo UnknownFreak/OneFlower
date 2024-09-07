@@ -64,7 +64,7 @@ namespace of::editor
 	{
 		s_gfx = gfx;
 		s_uuids.clear();
-		gfx->setCameraController(std::make_shared<EditorCamera>());
+		gfx->setCameraController(std::make_shared<EditorCamera>(gfx->getCamera()));
 		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx, inputHandler)));
 		createMenu(gfx);
 	}

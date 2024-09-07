@@ -19,7 +19,7 @@ namespace of::graphics::view
 	protected:
 
 		Camera* mCamera;
-		CameraController();
+		CameraController(Camera* camera);
 
 	public:
 		virtual ~CameraController();

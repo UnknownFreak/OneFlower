@@ -22,7 +22,6 @@
 #include <module/sceneManager.hpp>
 
 #include <module/window/GraphicsProxy.hpp>
-#include <module/window/WindowProxy.hpp>
 
 #include <courier/courier.hpp>
 
@@ -72,7 +71,6 @@ static volatile void initializeSystems()
 	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::SceneManager>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::WindowProxy>().type));
 
 	mainModule.Info("Initializing Modules group: Messaging");
 	of::courier::init();

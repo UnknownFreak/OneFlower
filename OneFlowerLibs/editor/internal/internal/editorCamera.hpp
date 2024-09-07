@@ -10,7 +10,7 @@ namespace of::editor
 	class EditorCamera : public of::graphics::view::CameraController
 	{
 	public:
-		EditorCamera();
+		EditorCamera(of::graphics::view::Camera* camera);
 		~EditorCamera() = default;
 
 	private:

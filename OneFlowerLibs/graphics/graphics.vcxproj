@@ -149,7 +149,6 @@
     <ClInclude Include="include\module\resource\MeshLoader.hpp" />
     <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
     <ClInclude Include="include\module\resource\TextureLoader.hpp" />
-    <ClInclude Include="include\module\window\WindowProxy.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\imgui\imgui.vcxproj">
@@ -197,7 +196,6 @@
     <ClCompile Include="src\ShaderLoader.cpp" />
     <ClCompile Include="src\TextureLoader.cpp" />
     <ClCompile Include="src\Window.cpp" />
-    <ClCompile Include="src\WindowProxy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

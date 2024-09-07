@@ -335,4 +335,13 @@ namespace of::graphics::window
 			y = 0;
 		return cam.projectRayFromCursor(float(x), float(y));
 	}
+
+	void Application::SetWindowSource(std::weak_ptr<Application> window)
+	{
+		sWindow = window;
+	}
+	std::weak_ptr<Application> Application::GetWindowSource()
+	{
+		return sWindow;
+	}
 }

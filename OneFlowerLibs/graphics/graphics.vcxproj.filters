@@ -24,9 +24,6 @@
     <Filter Include="include\module">
       <UniqueIdentifier>{86c2d264-9145-4263-acc3-a83665dbe2c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\module\window">
-      <UniqueIdentifier>{29559624-ace7-47b4-96be-0277f6c00d4c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\imgui">
       <UniqueIdentifier>{7d862a14-5a2c-457f-8631-b5f431b83031}</UniqueIdentifier>
     </Filter>
@@ -55,9 +52,6 @@
     </ClInclude>
     <ClInclude Include="include\graphics\sky\skyBox.hpp">
       <Filter>include\graphics\sky</Filter>
-    </ClInclude>
-    <ClInclude Include="include\module\window\WindowProxy.hpp">
-      <Filter>include\module\window</Filter>
     </ClInclude>
     <ClInclude Include="include\graphics\parentedRenderable.hpp">
       <Filter>include\graphics</Filter>
@@ -98,9 +92,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Render.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\WindowProxy.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\parentedRenderable.cpp">
