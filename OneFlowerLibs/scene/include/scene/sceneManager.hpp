@@ -108,9 +108,9 @@ namespace of::scene
 
 		of::world::LoadingStateInfo& getLoadingStateInfo();
 
-		void newGame();
-		void save(const of::common::String& fileName);
-		void load(const of::common::String& fileName);
+		of::file::FileId getCurrentInstanceId() const;
+		of::file::FileId getCurrentLoadScreenId() const;
+
 		void initialize();
 
 		void playCutScene(const of::file::FileId& cutSceneId);

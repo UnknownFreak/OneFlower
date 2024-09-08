@@ -129,10 +129,24 @@ namespace of::session
 		//player.removeComponent<Component::AI>();
 		//player.addComponent<Component::PlayerController>();
 		setPlayerInfo();
+		for (auto& callback : newGameHooks)
+		{
+			callback(*this);
+		}
 	}
 
 	void GameSession::save(const of::common::String& fileName)
 	{
+		if (player == nullptr)
+		{
+			of::logger::get().getLogger("File::SaveFile").Error("Unable to save because player object does not exist!");
+			return;
+		}
+		for (auto& callback : saveGameHooks)
+		{
+			callback(*this);
+		}
+
 		//point = player.getComponent<Component::Transform>()->pos;
 		std::ofstream file(of::common::savePath + fileName, std::ios::binary | std::ios::out);
 		{
@@ -170,6 +184,11 @@ namespace of::session
 		point.z += 0.15f;
 		file.close();
 		setPlayerInfo();
+
+		for (auto& callback : loadGameHooks)
+		{
+			callback(*this);
+		}
 	}
 
 

@@ -1148,6 +1148,46 @@ class IsMessageTypeValidator : public of::courier::MessageValidator
 	}
 };
 
+static void addSceneHooks(of::session::GameSession& gameSession, std::weak_ptr<of::scene::SceneManager> scene)
+{
+	gameSession.addNewGameHook([](of::session::GameSession& ) {
+		of::object::get().unloadAll();
+	});
+
+	gameSession.addNewGameHook([&scene](of::session::GameSession& session) {
+		if (auto valid = scene.lock())
+		{
+			const of::resource::GameMode& gameMode = session.getGameMode();
+			valid->loadWorldInstance(gameMode.startingZone, gameMode.loadingScreen, gameMode.startingPosition, of::world::LoadArgs::NEW_GAME);
+		}
+	});
+
+	gameSession.addSaveGameHook([](of::session::GameSession& session) {
+		auto& handler = of::object::get();
+		handler.persistGameObjects();
+		session.setDespawnTimers(handler.objectsToDelete);
+	});
+
+	gameSession.addSaveGameHook([&scene](of::session::GameSession& session) {
+		if (auto valid = scene.lock())
+		{
+			session.currentZone = valid->getCurrentInstanceId();
+			session.loadingScreen = valid->getCurrentLoadScreenId();
+		}
+	});
+
+	gameSession.addLoadGameHook([](of::session::GameSession& session) {
+		of::object::get().objectsToDelete = session.getDespawnTimers();
+	});
+
+	gameSession.addLoadGameHook([&scene](of::session::GameSession& session) {
+		if (auto valid = scene.lock())
+		{
+			valid->loadWorldInstance(session.currentZone, session.loadingScreen, session.point, of::world::LoadArgs::LOAD_FROM_FILE);
+		}
+	});
+}
+
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	input(std::make_shared<of::input::InputHandler>()),
@@ -1157,6 +1197,8 @@ GameEntry::GameEntry() :
 	input->SetInputSource(input);
 	gfx->SetWindowSource(gfx);
 	scene->SetSceneManager(scene);
+
+	addSceneHooks(of::session::get(), scene);
 
 	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
 	courier.createChannel(of::courier::Topic::Update);
@@ -1178,6 +1220,7 @@ int GameEntry::Run()
 	of::physics::init();
 
 	scene->initialize();
+	of::session::get().newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
 	while (scene->isLoading)
 	{
 		scene->Update();

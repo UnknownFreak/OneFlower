@@ -9,7 +9,7 @@
 
 #include <object/GameObject.hpp>
 
-#include <unordered_set>
+#include <vector>
 #include <unordered_map>
 
 #include <resource/DifficultyLevel.hpp>
@@ -30,13 +30,34 @@ namespace of::session
 		std::unordered_map<of::common::uuid, float> despawnTimers;
 		std::unordered_map<of::common::uuid, std::vector<of::file::FileId>> npcCustomLootStates; // TODO: store the custom items sold to that specific npc.
 
+		//TODO: hooks to return true/false?
+		std::vector<std::function<void(GameSession&)>> newGameHooks;
+		std::vector<std::function<void(GameSession&)>> saveGameHooks;
+		std::vector<std::function<void(GameSession&)>> loadGameHooks;
+
 		void setPlayerInfo();
 
 	public:
+
+		void addNewGameHook(std::function<void(GameSession&)> func)
+		{
+			newGameHooks.push_back(func);
+		}
+
+		void addSaveGameHook(std::function<void(GameSession&)> func)
+		{
+			saveGameHooks.push_back(func);
+		}
+
+		void addLoadGameHook(std::function<void(GameSession&)> func)
+		{
+			loadGameHooks.push_back(func);
+		}
+
 		of::file::FileId currentZone;
 		of::file::FileId loadingScreen;
 		glm::vec3 point;
-		of::object::GameObject* player;
+		of::object::GameObject* player = nullptr;
 
 		void setState(const of::file::FileId& uuid, std::unique_ptr<SaveState> state);
 

@@ -454,7 +454,6 @@ namespace of::scene
 		{
 			valid->addRenderable(of::graphics::window::RenderLayer::IMGUI, loadingScreenInfoId, std::make_shared<of::scene::imgui::LoadingScreenInfo>(getLoadingStateInfo()));
 		}
-		newGame();
 		//auto& f = of::engine::GetModule<Input::InputHandler>();
 		//
 		//f.uiKeyboard.RegisterCallback(Input::Callback::KeyboardCallbackTemp("Console", [&](bool, swizzle::input::Keys, const float&) {gfx.ui.ToggleConsole(); f.togglePlayerInput(); }, false),
@@ -478,45 +477,19 @@ namespace of::scene
 	//		Simulate(12.f);
 	//}
 
-	//TODO: Replace with gameSsessionHooks
-	// for newGame
-	// loadGame
-	// saveGame
-
-	void SceneManager::newGame()
+	of::file::FileId SceneManager::getCurrentInstanceId() const
 	{
-		of::logger::get().getLogger("SceneManager").Info("New Game");
-		saveFile.newGame(of::resource::DifficultyLevel::Normal, of::common::uuid::nil(), {});
-		auto& p = saveFile.getGameMode();
-		loadWorldInstance(p.startingZone, p.loadingScreen, p.startingPosition, of::world::LoadArgs::NEW_GAME);
-		objectHandler.objectsToDelete.clear();
-		//auto& glob = of::engine::GetModule<Globals>();
-		//loadWorldInstance(glob.newGameWorldInstance, glob.newGameWorldInstanceLoadingScreen, glob.newGamePoint);
+		return loadStateMachine.getCurrentWorld();
+	}
+
+	of::file::FileId SceneManager::getCurrentLoadScreenId() const
+	{
+		return loadStateMachine.getCurrentLoadingScreen();
 	}
 
 	of::world::LoadingStateInfo& SceneManager::getLoadingStateInfo()
 	{
 		return loadStateMachine.loadingStateInfo;
-	}
-
-	void SceneManager::save(const of::common::String& fileName)
-	{
-		objectHandler.persistGameObjects();
-		of::logger::get().getLogger("SceneManager").Info("Save Game");
-		saveFile.currentZone = loadStateMachine.getCurrentWorld();
-		saveFile.loadingScreen = loadStateMachine.getCurrentLoadingScreen();
-		saveFile.setDespawnTimers(objectHandler.objectsToDelete);
-		saveFile.save(fileName);
-	}
-
-	void SceneManager::load(const of::common::String& fileName)
-	{
-		of::logger::get().getLogger("SceneManager").Info("Load Game");
-		isLoading = true;
-		saveFile.load(fileName);
-		loadWorldInstance(saveFile.currentZone, saveFile.loadingScreen, saveFile.point, of::world::LoadArgs::LOAD_FROM_FILE);
-		objectHandler.objectsToDelete = saveFile.getDespawnTimers();
-		// TODO: start timers from questing module if needed
 	}
 
 	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs loadArgs)
