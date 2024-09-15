@@ -1,4 +1,5 @@
 #include <module/resource/ShaderLoader.hpp>
+#include <module/resource/internalLoaders.hpp>
 
 #include <filesystem>
 
@@ -6,12 +7,17 @@
 #include <swizzle/gfx/Shader.hpp>
 
 #include <logger/Logger.hpp>
-#include <module/window/GraphicsProxy.hpp>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::shader::Loader>::type = of::module::EngineResourceType::ShaderLoader;
+static of::module::shader::Loader* g_shaderLoader = nullptr;
 
 namespace of::module::shader
 {
+
+	Loader::Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfx, std::weak_ptr<swizzle::gfx::Swapchain> swapchain) : mGfxDev(gfx), mSwapchain(swapchain)
+	{
+
+	}
+
 	bool Loader::loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
 	{
 		common::String path = "Data/" + name;
@@ -25,8 +31,16 @@ namespace of::module::shader
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 #endif
 		mtx.lock();
-		auto& wnd = engine::GetModule<window::Proxy>();
-		loadedShaders.insert(std::make_pair(instanceName, wnd.getGfxDevice()->createShader(wnd.getSwapchain(), swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
+		
+		auto gfxDev = mGfxDev.lock();
+		auto swap = mSwapchain.lock();
+
+		if (gfxDev.operator bool() == false || swap.operator bool() == false)
+		{
+			return false;
+		}
+
+		loadedShaders.insert(std::make_pair(instanceName, gfxDev->createShader(swap, swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
 		auto& shader = loadedShaders[instanceName];
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
@@ -39,7 +53,7 @@ namespace of::module::shader
 		return true;
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Shader> Loader::requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path)
 	{
 		swizzle::gfx::ShaderAttributeList attribs = {};
 		attribs.mBufferInput = {
@@ -75,7 +89,7 @@ namespace of::module::shader
 		return requestShader(insstanceName, shaderName, attribs, path);
 	}
 
-	std::shared_ptr<swizzle::gfx::Shader>& Loader::requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Shader> Loader::requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
 	{
 		if (!shaderName.empty() && !instanceName.empty())
 		{
@@ -99,6 +113,17 @@ namespace of::module::shader
 		return requestShader("missing", missingShader, attribs, path);
 	}
 
+	std::shared_ptr<swizzle::gfx::Material> Loader::createMaterial(std::shared_ptr<swizzle::gfx::Shader> shader, swizzle::gfx::SamplerMode samplerMode)
+	{
+		if (auto valid = mGfxDev.lock())
+		{
+			return valid->createMaterial(shader, samplerMode);
+		}
+		of::logger::get().getLogger("shader::Loader").Error("Create material with shader failed because gfxDevice is invalid!");
+		return nullptr;
+	}
+	
+	
 	bool Loader::getResult()
 	{
 		return lastResult;
@@ -114,4 +139,22 @@ namespace of::module::shader
 		}
 	}
 
+	Loader& get()
+	{
+		return* g_shaderLoader;
+	}
+
+	void init(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDev, std::weak_ptr<swizzle::gfx::Swapchain> swapchain)
+	{
+		if (g_shaderLoader == nullptr)
+		{
+			g_shaderLoader = new Loader(gfxDev, swapchain);
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_shaderLoader;
+		g_shaderLoader = nullptr;
+	}
 }

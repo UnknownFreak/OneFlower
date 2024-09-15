@@ -179,7 +179,10 @@ namespace of::scene
 
 		if (auto valid = parent.appl.lock())
 		{
-			valid->addRenderable(of::graphics::window::RenderLayer::SKYBOX, of::common::uuid(), std::make_shared<of::graphics::sky::Skybox>(instanceToLoad.skybox));
+			if (instanceToLoad.skybox != "")
+			{
+				valid->setSkybox(instanceToLoad.skybox);
+			}
 		}
 
 		if (loadArgs == of::world::LoadArgs::NEW_GAME)

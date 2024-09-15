@@ -7,13 +7,14 @@
 #include <swizzle/gfx/Texture.hpp>
 
 #include <utils/common/string.hpp>
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
 #include <engine/paths.hpp>
+
+#include <swizzle/gfx/GfxDevice.hpp>
+#include <swizzle/gfx/CommandBuffer.hpp>
 
 namespace of::module::texture
 {
-	class Loader : public interface::IEngineResource<Loader>
+	class Loader
 	{
 		std::mutex mtx;
 		const common::String missingTexture = "missingTexture.png";
@@ -22,17 +23,21 @@ namespace of::module::texture
 		bool loadTexture(const common::String& name);
 		bool loadCubeMap(const common::String& folderName);
 
+		std::weak_ptr<swizzle::gfx::GfxDevice> m_gfxDevice;
+		std::weak_ptr<swizzle::gfx::CommandBuffer> m_cmdBuffer;
+
 	public:
+
+		Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDevice, std::weak_ptr<swizzle::gfx::CommandBuffer> commandBuffer);
+		Loader& operator=(const Loader&) = delete;
+
 		std::shared_ptr<swizzle::gfx::Texture>& requestTexture(const common::String& name, const common::String& path = engine::path::textures);
 		std::shared_ptr<swizzle::gfx::Texture>& requestCubemapTexture(const common::String& folderName, const common::String& path = engine::path::skybox);
 
 		void requestRemovalOfTexture(const common::String& name);
-
-		EngineResourceType& getType() const
-		{
-			return type;
-		}
 	};
+
+	Loader& get();
 }
 
 #endif

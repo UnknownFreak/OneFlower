@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\graphics\internal-include;$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include\;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui\;$(SolutionDir)swizzle\vendor\optick\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(IncludePath)</IncludePath>
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\graphics\include;$(SolutionDir)swizzle\swizzle\include\;$(SolutionDir)swizzle\swizzle\imgui_impl\include;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)swizzle\libs\common\include;$(SolutionDir)swizzle\vendor\imgui;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\component\render.hpp" />
+    <ClInclude Include="include\gfx\buffer.hpp" />
     <ClInclude Include="include\graphics\model\Model.hpp" />
     <ClInclude Include="include\graphics\parentedRenderable.hpp" />
     <ClInclude Include="include\graphics\renderable.hpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="include\module\resource\MeshLoader.hpp" />
     <ClInclude Include="include\module\resource\ShaderLoader.hpp" />
     <ClInclude Include="include\module\resource\TextureLoader.hpp" />
+    <ClInclude Include="internal-include\module\resource\internalLoaders.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\swizzle\build\vs2022\imgui\imgui.vcxproj">
@@ -181,14 +183,12 @@
     <ProjectReference Include="..\ofutils\ofutils.vcxproj">
       <Project>{95bfd529-031b-441c-babd-3a028dfd3b92}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\swizzle-gfx-proxy\swizzle-gfx-proxy.vcxproj">
-      <Project>{f14e3bf1-5580-448d-85fb-3056e4789cad}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\graphics\sky\skyBox.cpp" />
     <ClCompile Include="include\graphics\view\cameraController.cpp" />
     <ClCompile Include="include\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="src\buffer.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\MeshLoader.cpp" />
     <ClCompile Include="src\parentedRenderable.cpp" />

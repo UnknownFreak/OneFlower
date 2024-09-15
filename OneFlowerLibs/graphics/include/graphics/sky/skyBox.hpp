@@ -1,9 +1,6 @@
-#ifndef SkyBox_Hpp
-#define SkyBox_Hpp
+#pragma once
 
 #include <graphics/renderable.hpp>
-
-#include <memory>
 
 #include <graphics/view/mvp.hpp>
 
@@ -11,7 +8,7 @@
 
 #include <utils/common/string.hpp>
 
-#include <swizzle/gfx/CommandBuffer.hpp>
+#include <swizzle/gfx/GfxDevice.hpp>
 
 namespace of::graphics::sky
 {
@@ -23,9 +20,8 @@ namespace of::graphics::sky
 
 	public:
 		Skybox();
-		Skybox(const of::common::String& skyboxTextureFolder);
 
-		void setSkyBox(const of::common::String& skyboxTextureFolder);
+		void setSkyBox(std::shared_ptr<swizzle::gfx::GfxDevice> gfxDevice, const of::common::String& skyboxTextureFolder);
 
 		void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& trans, view::MVP& mvp) override;
 		
@@ -33,7 +29,6 @@ namespace of::graphics::sky
 
 		// Inherited via Renderable
 		virtual void updateFrame(const float dt) override;
+
 	};
 }
-
-#endif

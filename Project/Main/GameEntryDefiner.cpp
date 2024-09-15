@@ -19,10 +19,8 @@
 #include <iostream>
 
 #include <graphics/ui/frame.hpp>
-#include <module/window/GraphicsProxy.hpp>
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
-#include <module/window/GraphicsProxy.hpp>
 
 #include <imgui/imgui_stdlib.hpp>
 #include <imgui/of_imgui_extensions.hpp>
@@ -57,6 +55,8 @@
 #include <editor.hpp>
 
 #include <timer/timer.hpp>
+
+#include <gfx/buffer.hpp>
 
 bool paused = false;
 static size_t mId = 0x100000000;
@@ -102,7 +102,8 @@ class WorldGrid : public of::graphics::ParentedRenderable
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("grid", "grid.shader", attribs);
+		shader = of::module::shader::get().requestShader("grid", "grid.shader", attribs);
+		mat = of::module::shader::get().createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 	}
 
 public:
@@ -124,22 +125,18 @@ public:
 			points.push_back({ -20.f, 0.f, f });
 		}
 
-		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxDevice();
-
 		loadShader();
-		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-		buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		buf = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(float) * 3u);
 
-		buf_x = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		buf_x = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_x->setBufferData(x_line, sizeof(x_line), sizeof(float) * 3u);
 
-		buf_y = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		buf_y = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_y->setBufferData(y_line, sizeof(y_line), sizeof(float) * 3u);
 
-		buf_z = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		buf_z = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf_z->setBufferData(z_line, sizeof(z_line), sizeof(float) * 3u);
 
 	}
@@ -381,7 +378,8 @@ class PxControllerRenderable : public of::graphics::ParentedRenderable
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("pxcontroller", "grid.shader", attribs);
+		shader = of::module::shader::get().requestShader("pxcontroller", "grid.shader", attribs);
+		mat = of::module::shader::get().createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 	}
 
 	void connectToPoint(std::vector<glm::ivec3>& tris, int point, const int pointCount, const int refStart)
@@ -489,15 +487,12 @@ public:
 			connectToPoint(tris, 97, 16, 81);
 		}
 
-		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxDevice();
 		loadShader();
-		mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		
-		buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		buf = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		buf->setBufferData(points.data(), points.size() * sizeof(glm::vec3), sizeof(glm::vec3));
 
-		index = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		index = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 		index->setBufferData(tris.data(), tris.size() * sizeof(glm::ivec3), sizeof(glm::ivec3));
 		
 	}
@@ -553,7 +548,8 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 		attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 		attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-		model.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("pxactor shader", "grid.shader", attribs);
+		model.shader = of::module::shader::get().requestShader("pxactor shader", "grid.shader", attribs);
+		model.material = of::module::shader::get().createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 	}
 
 public:
@@ -561,11 +557,7 @@ public:
 	PxMeshedActorRenderable(physx::PxRigidActor*& iactor, of::resource::Model mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor),
 		shapeOffset(shapeOffset)
 	{
-		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		auto gfx = wnd.getGfxDevice();
 		loadShader();
-
-		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);
 		subscriberId = channel->addSubscriber(of::courier::Subscriber(isAlive(), [&](const of::courier::Message&)
@@ -776,7 +768,8 @@ class Heightmap : public of::graphics::ParentedRenderable
 			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 
-			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("terrain shader", "terrain.shader", attribs);
+			shader = of::module::shader::get().requestShader("terrain shader", "terrain.shader", attribs);
+			mat = of::module::shader::get().createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		}
 
 		F32 getHeight(U8* image, S32 x, S32 y, S32 ch, F32 xp, F32 yp, F32 max)
@@ -900,19 +893,16 @@ class Heightmap : public of::graphics::ParentedRenderable
 		HeightmapData()
 		{
 			done = false;
-			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-			auto gfx = wnd.getGfxDevice();
 
 			loadShader();
-			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
-			texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("flower.png");
+			texture = of::module::texture::get().requestTexture("flower.png");
 			mat->setDescriptorTextureResource(0u, texture);
 
-			buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			buf = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			//buf->setBufferData(points.data(), 0, sizeof(float) * 3u);
 
 
-			index = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			index = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			//index->setBufferData(tris.data(), 0, sizeof(float));
 		}
 
@@ -989,22 +979,18 @@ class Heightmap : public of::graphics::ParentedRenderable
 			attribs.mPushConstantSize = sizeof(glm::mat4) * 4u;
 			attribs.mPrimitiveType = swizzle::gfx::PrimitiveType::line;
 
-			shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("heightmap outline", "grid.shader", attribs);
+			shader = of::module::shader::get().requestShader("heightmap outline", "grid.shader", attribs);
+			mat = of::module::shader::get().createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		}
 
 	public:
 
 		HeightmapOutline(bool& changed) : c(m_parent->getCamera()), changed(changed)
 		{
-			auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-			auto gfx = wnd.getGfxDevice();
-
 			loadShader();
-			mat = gfx->createMaterial(shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
-			buf = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			buf = of::gfx::createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
 			buf->setBufferData(line, sizeof(line), sizeof(float) * 3u);
-
 		}
 
 		void setData(const glm::vec2& start, const glm::vec2& end)
@@ -1273,8 +1259,8 @@ int GameEntry::Run()
 
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxControllerRenderable>(controller->mActor));
 
-	auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel("door.swm", of::engine::path::meshes, true);
-	auto model2 = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cube.swm", of::engine::path::meshes, true);
+	auto model = of::module::mesh::get().requestModel("door.swm", of::engine::path::meshes, true);
+	auto model2 = of::module::mesh::get().requestModel("cube.swm", of::engine::path::meshes, true);
 	//*
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model));
 	gfx->addRenderable(of::graphics::window::RenderLayer::HITBOXES, of::common::uuid(), std::make_shared<PxMeshedActorRenderable>(collider->mActor, model2, glm::vec3(1.4, 1.5f, 0.9f),

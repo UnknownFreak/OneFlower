@@ -36,6 +36,18 @@
     <Filter Include="include\component">
       <UniqueIdentifier>{2a9f3ed3-dc67-4af4-97e6-1b6e77adb9b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="internal-include">
+      <UniqueIdentifier>{516b6a13-57da-4452-97e7-ad46c53c7207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal-include\module">
+      <UniqueIdentifier>{67f0cc02-5364-49a9-8f74-839dfaf846d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal-include\module\resource">
+      <UniqueIdentifier>{47006612-a8b8-4ab0-aea1-02d24e01f5a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\gfx">
+      <UniqueIdentifier>{65279b6e-d236-4820-aa95-0664decfaf5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\window\Window.hpp">
@@ -80,6 +92,12 @@
     <ClInclude Include="include\component\render.hpp">
       <Filter>include\component</Filter>
     </ClInclude>
+    <ClInclude Include="internal-include\module\resource\internalLoaders.hpp">
+      <Filter>internal-include\module\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\buffer.hpp">
+      <Filter>include\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp">
@@ -110,6 +128,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\MeshLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\buffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

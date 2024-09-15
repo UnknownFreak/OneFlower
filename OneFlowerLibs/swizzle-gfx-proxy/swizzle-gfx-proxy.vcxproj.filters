@@ -22,14 +22,4 @@
       <UniqueIdentifier>{7466fc76-f18d-4a0b-aee0-86cf58c8cd2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\module\window\GraphicsProxy.hpp">
-      <Filter>include\module\window</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\GraphicsProxy.cpp">
-      <Filter>src\module\window</Filter>
-    </ClCompile>
-  </ItemGroup>
 </Project>

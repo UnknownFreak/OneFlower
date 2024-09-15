@@ -6,7 +6,7 @@
 #include <module/resource/TextureLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 
-#include <module/window/GraphicsProxy.hpp>
+#include <swizzle/gfx/GfxDevice.hpp>
 
 namespace of::graphics::sky
 {
@@ -16,14 +16,7 @@ namespace of::graphics::sky
 	{
 	}
 
-	Skybox::Skybox(const of::common::String& skyboxTextureFolder) : Skybox()
-	{
-		if (skyboxTextureFolder.empty())
-			return;
-		setSkyBox(skyboxTextureFolder);
-	}
-
-	void Skybox::setSkyBox(const of::common::String& skyboxTextureFolder)
+	void Skybox::setSkyBox(std::shared_ptr<swizzle::gfx::GfxDevice> gfxDevice, const of::common::String& skyboxTextureFolder)
 	{
 		of::logger::get().getLogger("Graphics::Skybox").Info("Loading skybox");
 		loaded = false;
@@ -44,16 +37,13 @@ namespace of::graphics::sky
 		attribs.mEnableDepthTest = false;
 		attribs.mEnableBlending = false;
 		
-		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
+		mModel = of::module::mesh::get().requestModel("inverted_sphere.obj");
 
-		mModel = of::engine::GetModule<of::module::mesh::Loader>().requestModel("inverted_sphere.obj");
-
-		mModel.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader("sky.shader", "sky.shader", attribs);
+		mModel.shader = of::module::shader::get().requestShader("sky.shader", "sky.shader", attribs);
 		
-		mModel.texture = of::engine::GetModule<of::module::texture::Loader>().requestCubemapTexture(skyboxTextureFolder + "/");
+		mModel.texture = of::module::texture::get().requestCubemapTexture(skyboxTextureFolder + "/");
 		
-		mModel.material = wnd.getGfxDevice()->createMaterial(mModel.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
-		
+		mModel.material = of::module::shader::get().createMaterial(mModel.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 		mModel.material->setDescriptorTextureResource(0, mModel.texture);
 
 		loaded = true;

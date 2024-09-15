@@ -1,16 +1,21 @@
 #include <module/resource/TextureLoader.hpp>
+#include <module/resource/internalLoaders.hpp>
 
 #include <swizzle/asset2/Assets.hpp>
 
 #include <logger/Logger.hpp>
-#include <module/window/GraphicsProxy.hpp>
 
 #include <filesystem>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::texture::Loader>::type = of::module::EngineResourceType::TextureLoader;
+static of::module::texture::Loader* g_textureLoader = nullptr;
 
 namespace of::module::texture
 {
+
+	Loader::Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDevice, std::weak_ptr<swizzle::gfx::CommandBuffer> commandBuffer) : m_gfxDevice(gfxDevice), m_cmdBuffer(commandBuffer)
+	{
+		
+	}
 
 	bool Loader::loadTexture(const common::String& name)
 	{
@@ -25,31 +30,30 @@ namespace of::module::texture
 			//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
 	#endif
 		mtx.lock();
-		auto& wnd = engine::GetModule<window::Proxy>();
-
 		auto textureData = swizzle::asset2::LoadTexture(path.c_str());
-
-		auto device = wnd.getGfxDevice();
-
-		loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
-			std::make_pair(name, device->createTexture(textureData->getWidth(), textureData->getHeight(), 4u, false)));
-
-		auto uploadBuffer = wnd.getUploadBuffer();
-		auto trans = uploadBuffer->begin();
-
-		auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
-		buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
-
-		swizzle::gfx::TextureDimensions size{};
-		size.mHeight = textureData->getHeight();
-		size.mWidth = textureData->getWidth();
-		size.mLayers = 1u;
-		size.mMipLevels = 1u;
-
-		trans->copyBufferToTexture(loadedTextureMap[name], buffer, size);
-		uploadBuffer->end(std::move(trans));
-		device->submit(&uploadBuffer, 1u, nullptr);
 		
+		if (auto device = m_gfxDevice.lock())
+		{
+			auto cmdBuffer = m_cmdBuffer.lock();
+
+			loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
+				std::make_pair(name, device->createTexture(textureData->getWidth(), textureData->getHeight(), 4u, false)));
+
+			auto trans = cmdBuffer->begin();
+
+			auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
+			buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
+
+			swizzle::gfx::TextureDimensions size{};
+			size.mHeight = textureData->getHeight();
+			size.mWidth = textureData->getWidth();
+			size.mLayers = 1u;
+			size.mMipLevels = 1u;
+
+			trans->copyBufferToTexture(loadedTextureMap[name], buffer, size);
+			cmdBuffer->end(std::move(trans));
+			device->submit(&cmdBuffer, 1u, nullptr);
+		}
 		mtx.unlock();
 		return true;
 	}
@@ -85,28 +89,26 @@ namespace of::module::texture
 		logger.Info("Loaded skybox cubemap texture [" + path + "front.png]", logger.fileInfo(__FILE__, __LINE__));
 		logger.Info("Loaded skybox cubemap texture [" + path + "back.png]", logger.fileInfo(__FILE__, __LINE__));
 
-		auto& wnd = engine::GetModule<window::Proxy>();
-		
-		auto device = wnd.getGfxDevice();
-		
-		loadedTextureMap[folderName] = device->createCubeMapTexture(textureData->getWidth(), textureData->getHeight(), 4u);
+		if (auto device = m_gfxDevice.lock())
+		{
+			auto cmdBuffer = m_cmdBuffer.lock();
+			loadedTextureMap[folderName] = device->createCubeMapTexture(textureData->getWidth(), textureData->getHeight(), 4u);
 
-		auto uploadBuffer = wnd.getUploadBuffer();
-		auto trans = uploadBuffer->begin();
+			auto trans = cmdBuffer->begin();
 
-		auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
-		buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
+			auto buffer = device->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::Host);
+			buffer->setBufferData(textureData->getData()->data(), textureData->getData()->size(), 4u);
 
-		swizzle::gfx::TextureDimensions size{};
-		size.mHeight = textureData->getHeight();
-		size.mWidth = textureData->getWidth();
-		size.mLayers = 6u;
-		size.mMipLevels = 1u;
+			swizzle::gfx::TextureDimensions size{};
+			size.mHeight = textureData->getHeight();
+			size.mWidth = textureData->getWidth();
+			size.mLayers = 6u;
+			size.mMipLevels = 1u;
 
-		trans->copyBufferToTexture(loadedTextureMap[folderName], buffer, size);
-		uploadBuffer->end(std::move(trans));
-		device->submit(&uploadBuffer, 1u, nullptr);
-
+			trans->copyBufferToTexture(loadedTextureMap[folderName], buffer, size);
+			cmdBuffer->end(std::move(trans));
+			device->submit(&cmdBuffer, 1u, nullptr);
+		}
 		mtx.unlock();
 		return true;
 	}
@@ -162,5 +164,24 @@ namespace of::module::texture
 			logger.Info("Unloading texture " + name, logger.fileInfo(__FILE__, __LINE__));
 			loadedTextureMap.erase(name);
 		}
+	}
+
+	Loader& get()
+	{
+		return *g_textureLoader;
+	}
+
+	void init(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDevice, std::weak_ptr<swizzle::gfx::CommandBuffer> commandBuffer)
+	{
+		if (g_textureLoader == nullptr)
+		{
+			g_textureLoader = new Loader(gfxDevice, commandBuffer);
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_textureLoader;
+		g_textureLoader = nullptr;
 	}
 }

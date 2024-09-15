@@ -17,6 +17,8 @@
 #include <graphics/view/camera.hpp>
 #include <graphics/view/cameraController.hpp>
 
+#include <graphics/sky/skyBox.hpp>
+
 namespace of::object
 {
 	namespace component
@@ -39,8 +41,7 @@ namespace of::graphics::window
 		::common::Resource<swizzle::gfx::FrameBuffer> mImGuiFbo;
 		::common::Resource<ImGuiSwizzleRenderTarget> mImGuiRenderTarget;
 
-
-		std::shared_ptr<Renderable> skyBox;
+		of::graphics::sky::Skybox skyBox;
 
 		std::map<RenderLayer, std::unordered_map<of::common::uuid, std::shared_ptr<Renderable>>> renderables;
 		std::map<of::common::uuid, std::shared_ptr<Renderable>> imGuiRenderables;
@@ -78,6 +79,8 @@ namespace of::graphics::window
 
 		// Inherited via RenderWindowHandle
 		void setup();
+
+		void setSkybox(const of::common::String& skyboxFolderName);
 
 		void addRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable);
 		void updateRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable);

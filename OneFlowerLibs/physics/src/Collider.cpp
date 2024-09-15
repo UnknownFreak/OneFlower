@@ -52,7 +52,7 @@ namespace of::component
 		// however they cannot be simulated since their collider is force created as static...
 		if (mColliderType == ColliderType::STATIC || of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 		{
-			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
+			auto model = of::module::mesh::get().requestModel(mColliderMesh,
 				of::engine::path::meshes, true);
 			mActor = of::physics::get().createActor<physx::PxRigidStatic>(
 				mTransform->pos, model);
@@ -61,7 +61,7 @@ namespace of::component
 		}
 		else if (mColliderType == ColliderType::RIGID)
 		{
-			auto model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(mColliderMesh,
+			auto model = of::module::mesh::get().requestModel(mColliderMesh,
 				of::engine::path::meshes, true);
 
 			mActor = of::physics::get().createActor<physx::PxRigidDynamic>(

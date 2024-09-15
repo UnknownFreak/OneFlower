@@ -259,7 +259,7 @@ namespace of::physics
 
 	void PhysicsHandler::attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale)
 	{
-		auto mesh = of::engine::GetModule<of::module::mesh::Loader>().requestModel("cylinder.swm",
+		auto mesh = of::module::mesh::get().requestModel("cylinder.swm",
 			of::engine::path::meshes, true);
 		auto shape = mPhysics->createShape(physx::PxConvexMeshGeometry(GetObjectAsPxConvex(mesh), physx::PxMeshScale(physx::PxVec3(scale.x, scale.y, scale.z))), *mMaterial, false);
 		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, false);

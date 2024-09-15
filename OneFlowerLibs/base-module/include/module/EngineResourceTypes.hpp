@@ -11,12 +11,8 @@ namespace of::module
 		FileHandler,
 		StringConverter,
 		GameVariableMapping,
-		TextureLoader,
 		Console,
 		SaveFile,
-		MeshLoader,
-		ShaderLoader,
-		WindowProxy,
 		NOT_SET,
 	};
 }

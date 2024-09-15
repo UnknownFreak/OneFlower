@@ -1,14 +1,18 @@
 #include <module/resource/MeshLoader.hpp>
+#include <module/resource/internalLoaders.hpp>
 
 #include <logger/Logger.hpp>
-#include <module/window/GraphicsProxy.hpp>
 
 #include <filesystem>
 
-of::module::EngineResourceType of::module::interface::IEngineResource<of::module::mesh::Loader>::type = of::module::EngineResourceType::MeshLoader;
+static of::module::mesh::Loader* g_meshLoader = nullptr;
 
 namespace of::module::mesh
 {
+
+	Loader::Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfx) : mGfxDev(gfx)
+	{
+	}
 
 	bool Loader::loadMesh(std::shared_ptr<swizzle::asset2::IMeshAsset>& outMeshAsset, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc)
 	{
@@ -44,8 +48,12 @@ namespace of::module::mesh
 			/*model does not exist in the current loaded one*/
 			if (mLoadedModels.find({ path + name , collisionModel}) == mLoadedModels.end())
 			{
-				auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-				auto gfx = wnd.getGfxDevice();
+				auto gfx = mGfxDev.lock();
+				if (gfx.operator bool() == false)
+				{
+					logger::get().getLogger("of::resource::mesh::Loader").Error("Gfx device no longer valid! Unable to request mesh!");
+					return {};
+				}
 
 				std::shared_ptr<swizzle::asset2::IMeshAsset> meshAsset;
 				swizzle::asset2::MeshAssetLoaderDescription meshDescription = {};
@@ -118,4 +126,22 @@ namespace of::module::mesh
 		}
 	}
 
+	Loader& get()
+	{
+		return *g_meshLoader;
+	}
+
+	void init(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDevice)
+	{
+		if (g_meshLoader == nullptr)
+		{
+			g_meshLoader = new Loader(gfxDevice);
+		}
+	}
+
+	void shutdown()
+	{
+		delete g_meshLoader;
+		g_meshLoader = nullptr;
+	}
 }

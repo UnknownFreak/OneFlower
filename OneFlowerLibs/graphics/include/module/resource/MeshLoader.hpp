@@ -1,25 +1,26 @@
-#ifndef MeshLoader_HPP
-#define MeshLoader_HPP
+#pragma once
 
 #include <swizzle/asset2/Assets.hpp>
 
+#include <swizzle/gfx/GfxDevice.hpp>
+
 #include <utils/common/string.hpp>
-#include <unordered_map>
+#include <map>
 #include <mutex>
 
-#include <module/IEngineModule.hpp>
-#include <module/ModuleManager.hpp>
 #include <engine/paths.hpp>
 
 #include <graphics/model/Model.hpp>
 
 namespace of::module::mesh
 {
-	class Loader : public interface::IEngineResource<Loader>
+	class Loader
 	{
 		bool lastResult = false;
 		std::mutex mtx;
 		const common::String missingMesh = "missingMesh.swm";
+
+		std::weak_ptr<swizzle::gfx::GfxDevice> mGfxDev;
 
 		std::map<std::pair<common::String, bool>, of::resource::Model> mLoadedModels;
 
@@ -27,17 +28,16 @@ namespace of::module::mesh
 
 	public:
 
+		Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDev);
+		Loader& operator=(const Loader&) = delete;
+
 		of::resource::Model requestModel(const common::String& name, const common::String& path = engine::path::meshes, const bool collisionModel=false);
 
 		bool getResult();
 
 		void requestRemovalOfModel(const common::String& name, const common::String&path = engine::path::meshes, const bool collisionModel=false);
 
-		EngineResourceType& getType() const
-		{
-			return type;
-		}
 	};
-}
 
-#endif
+	Loader& get();
+}

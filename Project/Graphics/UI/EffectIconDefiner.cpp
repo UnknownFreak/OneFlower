@@ -4,7 +4,7 @@
 
 Graphics::UI::EffectIcon::EffectIcon(const of::common::String& icon, of::combat::EffectStack& stack) : UIContext(swizzle::input::Keys::KeyNone, "EffectIcon", true),
 iconSize{32.f, 32.f}, stack(stack),
-iconTexture(of::engine::GetModule<of::module::texture::Loader>().requestTexture(icon, of::engine::path::ui))
+iconTexture(of::module::texture::get().requestTexture(icon, of::engine::path::ui))
 {
 	//vertex[0].texCoords = { 0.f ,0.f };
 	//vertex[1].texCoords = { 0.f, 64.f };

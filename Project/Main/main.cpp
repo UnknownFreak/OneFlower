@@ -20,8 +20,6 @@
 #include <module/resource/MeshLoader.hpp>
 #include <module/resource/ShaderLoader.hpp>
 
-#include <module/window/GraphicsProxy.hpp>
-
 #include <courier/courier.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
@@ -33,13 +31,9 @@ static of::common::String to_string(const of::module::EngineResourceType state)
 		// Console
 	case of::module::EngineResourceType::Console: return "Console";
 		// Asset
-	case of::module::EngineResourceType::TextureLoader: return "TextureLoader";
-	case of::module::EngineResourceType::MeshLoader: return "MeshLoader";
-	case of::module::EngineResourceType::ShaderLoader: return "ShaderLoader";
 	case of::module::EngineResourceType::FileHandler: return "FileHandler";
 		// Engine
 	case of::module::EngineResourceType::Graphics: return "Graphics";
-	case of::module::EngineResourceType::WindowProxy: return "Proxy";
 		// Unused
 	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
 	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
@@ -61,14 +55,9 @@ static volatile void initializeSystems()
 	auto& mainModule = logger.getLogger("Main");
 
 	mainModule.Info("Initializing Modules group: Asset Management");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::texture::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::mesh::Loader>().type));
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::shader::Loader>().type));
 	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
 
 	mainModule.Info("Initializing Modules group: Engine");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::module::window::Proxy>().type));
-
 	mainModule.Info("Initializing Modules group: Messaging");
 	of::courier::init();
 

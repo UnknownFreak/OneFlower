@@ -1,7 +1,6 @@
 #include <component/render.hpp>
 
 #include <object/GameObject.hpp>
-#include <module/window/GraphicsProxy.hpp>
 #include <graphics/window/Window.hpp>
 
 #include <module/resource/TextureLoader.hpp>
@@ -14,33 +13,26 @@ namespace of::component
 {
 	void Render::loadAndSetModel()
 	{
-		auto& wnd = of::engine::GetModule<of::module::window::Proxy>();
-		//auto temp = wnd.getUploadBuffer();
-		//auto trans = temp->begin();
-		auto gfx = wnd.getGfxDevice();
-
 		textureName = "temporary.png";
 		meshName = "test.swm";
 		shaderName = "simple.shader";
 
-		model = of::engine::GetModule<of::module::mesh::Loader>().requestModel(meshName);
+		model = of::module::mesh::get().requestModel(meshName);
 
-		if (of::engine::GetModule<of::module::mesh::Loader>().getResult() == false)
+		if (of::module::mesh::get().getResult() == false)
 		{
-			model.texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture("missingMeshTexture.png");
+			model.texture = of::module::texture::get().requestTexture("missingMeshTexture.png");
 		}
 		else
-			model.texture = of::engine::GetModule<of::module::texture::Loader>().requestTexture(textureName);
-		model.shader = of::engine::GetModule<of::module::shader::Loader>().requestShader(shaderName, shaderName);
+			model.texture = of::module::texture::get().requestTexture(textureName);
+		model.shader = of::module::shader::get().requestShader(shaderName, shaderName);
 
-		model.material = gfx->createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
+		model.material = of::module::shader::get().createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		model.material->setDescriptorTextureResource(0u, model.texture);
 		model.material->setDescriptorBufferResource(1u, model.mBoneBuffer, ~0ull);
 
 		initialized = true;
-		//wnd.getCommandBuffer()->end(std::move(trans));
-		//wnd.getGfxContext()->submit(&temp, 1, nullptr);
 	}
 	void Render::onMessage(const of::object::messaging::Message& message)
 	{

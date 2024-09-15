@@ -43,7 +43,6 @@ namespace of::engine
 		}
 
 		external -> courier
-		external -> gameConfig
 
 		runGame() -> physics, ui, editor ui
 

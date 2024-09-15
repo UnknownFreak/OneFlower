@@ -135,12 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GraphicsProxy.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\module\window\GraphicsProxy.hpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\base-module\base-module.vcxproj">
       <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
     </ProjectReference>

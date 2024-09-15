@@ -5,7 +5,8 @@
 
 #include <graphics/view/mvp.hpp>
 
-#include <module/window/GraphicsProxy.hpp>
+#include <module/resource/internalLoaders.hpp>
+
 #include <module/resource/ShaderLoader.hpp>
 #include <graphics/sky/skyBox.hpp>
 
@@ -15,6 +16,8 @@
 
 #include <utils/StringUtils.hpp>
 
+#include "logger/Logger.hpp"
+#include <gfx/buffer.hpp>
 
 namespace of::graphics::window
 {
@@ -39,7 +42,7 @@ namespace of::graphics::window
 		attribFsq.mEnableBlending = true;
 		attribFsq.mPrimitiveType = swizzle::gfx::PrimitiveType::triangle;
 
-		mFsq = of::engine::GetModule<of::module::shader::Loader>().requestShader("fsq", "fsq.shader", attribFsq);
+		mFsq = of::module::shader::get().requestShader("fsq", "fsq.shader", attribFsq);
 
 		mFsqMat = mGfxDevice->createMaterial(mFsq, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
@@ -186,7 +189,7 @@ namespace of::graphics::window
 
 		dTransaction->setViewport(x, y);
 
-		skyBox->render(dTransaction, mvp);
+		skyBox.render(dTransaction, mvp);
 
 		for (auto& kv : renderables)
 		{
@@ -226,19 +229,23 @@ namespace of::graphics::window
 	Application::Application() : cam(glm::radians(45.f), 1920, 1080), drawHitboxes(of::settings::get().renderHitboxes())
 	{
 		cam.setPosition({ 0.f, 0.f, 5.f });
-		skyBox = std::make_shared<sky::Skybox>();
 	}
 
-	void of::graphics::window::Application::setup()
+	void Application::setup()
     {
-        auto& proxy = of::engine::GetModule<of::module::window::Proxy>();
-        proxy.setProxy(mGfxContext, mCmdBuffer, mUploadBuffer, mSwapchain, mGfxDevice);
 	}
 
-    void of::graphics::window::Application::addRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
+	void Application::setSkybox(const of::common::String& skyboxFolderName)
+	{
+		skyBox.setSkyBox(mGfxDevice, skyboxFolderName);
+	}
+
+    void Application::addRenderable(const RenderLayer renderLayer, const of::common::uuid& id, std::shared_ptr<Renderable> renderable)
     {
 		if (renderLayer == RenderLayer::SKYBOX)
-			skyBox = renderable;
+		{
+			of::logger::get().Warning("Adding skybox via renderable is no longer supported");
+		}
 		else if (renderLayer == RenderLayer::IMGUI)
 			imGuiRenderables[id] = renderable;
 		else if (renderLayer == RenderLayer::HITBOXES)
@@ -295,9 +302,13 @@ namespace of::graphics::window
 
 		mGfxDevice->enablePipelineStatistics(true);
 
+		gfx::init(mGfxDevice);
+		module::mesh::init(mGfxDevice);
+		module::shader::init(mGfxDevice, mSwapchain);
+		module::texture::init(mGfxDevice, mCmdBuffer);
+
 		setup();
 		setupImGui();
-
     }
 
     SwBool of::graphics::window::Application::userUpdate(F32 dt)
@@ -311,6 +322,10 @@ namespace of::graphics::window
     void of::graphics::window::Application::userCleanup()
     {
 		workerThread.join();
+		module::mesh::shutdown();
+		module::shader::shutdown();
+		module::texture::shutdown();
+
     }
 
 	std::shared_ptr<of::graphics::view::CameraController> of::graphics::window::Application::setCameraController(std::shared_ptr<of::graphics::view::CameraController> controller)
