@@ -11,6 +11,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <gfx/mesh.hpp>
 #include <graphics/view/mvp.hpp>
 #include <utils/common/uuid.hpp>
 
@@ -24,10 +25,7 @@ namespace of::resource
 		std::shared_ptr<swizzle::gfx::Texture> texture;
 		std::shared_ptr<swizzle::gfx::Material> material;
 		std::shared_ptr<swizzle::gfx::Shader> shader;
-		std::shared_ptr<swizzle::asset2::IMeshAsset> mesh;
-		std::shared_ptr<swizzle::gfx::GfxBuffer> mMeshBuffer;
-		std::shared_ptr<swizzle::gfx::GfxBuffer> mIndexBuffer;
-		std::shared_ptr<swizzle::gfx::GfxBuffer> mBoneBuffer;
+		std::shared_ptr<gfx::Mesh> mesh;
 		bool mValid = false;
 		bool mUseBones;
 
@@ -36,7 +34,7 @@ namespace of::resource
 			transaction->bindShader(shader);
 			transaction->bindMaterial(shader, material);
 			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
-			transaction->drawIndexed(mMeshBuffer, mIndexBuffer);
+			transaction->drawIndexed(mesh->mMeshBuffer, mesh->mIndexBuffer);
 		}
 
 		void renderNoIndex(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp)
@@ -44,7 +42,7 @@ namespace of::resource
 			transaction->bindShader(shader);
 			transaction->bindMaterial(shader, material);
 			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
-			transaction->draw(mMeshBuffer);
+			transaction->draw(mesh->mMeshBuffer);
 		}
 
 		void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>& transaction, of::graphics::view::MVP& mvp, glm::vec3& position, const float& facingAngle)
@@ -67,12 +65,12 @@ namespace of::resource
 			transaction->bindMaterial(shader, material);
 			transaction->setShaderConstant(shader, (U8*)&mvp, sizeof(mvp));
 			transactionCallback();
-			transaction->drawIndexed(mMeshBuffer, mIndexBuffer);
+			transaction->drawIndexed(mesh->mMeshBuffer, mesh->mIndexBuffer);
 		}
 
 		std::shared_ptr<Model> clone()
 		{
-			return std::make_shared<Model>(mId, texture, material, shader, mesh, mMeshBuffer, mIndexBuffer, mBoneBuffer, mValid , mUseBones);
+			return std::make_shared<Model>(mId, texture, material, shader, mesh, mValid , mUseBones);
 		}
 
 		explicit operator bool() const

@@ -17,7 +17,7 @@ namespace of::component
 		meshName = "test.swm";
 		shaderName = "simple.shader";
 
-		model = of::module::mesh::get().requestModel(meshName);
+		model.mesh = of::module::mesh::get().requestModel(meshName);
 
 		if (of::module::mesh::get().getResult() == false)
 		{
@@ -30,7 +30,7 @@ namespace of::component
 		model.material = of::module::shader::get().createMaterial(model.shader, swizzle::gfx::SamplerMode::SamplerModeClamp);
 
 		model.material->setDescriptorTextureResource(0u, model.texture);
-		model.material->setDescriptorBufferResource(1u, model.mBoneBuffer, ~0ull);
+		model.material->setDescriptorBufferResource(1u, model.mesh->mBoneBuffer, ~0ull);
 
 		initialized = true;
 	}

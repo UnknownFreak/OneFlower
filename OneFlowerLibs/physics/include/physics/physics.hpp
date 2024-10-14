@@ -10,9 +10,9 @@
 #include <physics/objectType.hpp>
 #include <physics/simulationCallback.hpp>
 
-namespace of::resource
+namespace of::gfx
 {
-	class Model;
+	struct Mesh;
 }
 
 namespace of::object
@@ -75,8 +75,8 @@ namespace of::physics
 		physx::PxControllerManager* mControllerManager;
 		physx::PxMaterial* mMaterial;
 
-		physx::PxTriangleMesh* GetObjectAsPxMesh(of::resource::Model& asset);
-		physx::PxConvexMesh* GetObjectAsPxConvex(of::resource::Model& asset);
+		physx::PxTriangleMesh* GetObjectAsPxMesh(std::shared_ptr<of::gfx::Mesh> asset);
+		physx::PxConvexMesh* GetObjectAsPxConvex(std::shared_ptr<of::gfx::Mesh> asset);
 
 		//pair<id, id>, shape*?
 		//meshid, materialid?
@@ -120,21 +120,21 @@ namespace of::physics
 
 		physx::PxD6Joint* createDoorHinge(physx::PxRigidActor* p, const glm::vec3& hingePosRelOffset);
 
-		void attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale);
+		void attachTriggerShape(physx::PxRigidActor* actor, std::shared_ptr<of::gfx::Mesh> triggerShape, glm::vec3 offset, glm::vec3 scale);
 
 		void attachBoxTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 		void attachCylinderTriggerShape(physx::PxRigidActor* actor, glm::vec3 offset, glm::vec3 scale);
 
 		private:
 
-			physx::PxRigidStatic* createStatic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool iSTriggerShape, const bool addToScene);
-			physx::PxRigidDynamic* createDynamic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool iSTriggerShape, const bool addToScene);
+			physx::PxRigidStatic* createStatic(const glm::vec3& pos, std::shared_ptr<of::gfx::Mesh> collisionModel, const bool iSTriggerShape, const bool addToScene);
+			physx::PxRigidDynamic* createDynamic(const glm::vec3& pos, std::shared_ptr<of::gfx::Mesh> collisionModel, const bool iSTriggerShape, const bool addToScene);
 			nullptr_t invalidActor();
 
 		public:
 
 		template <class T>
-		T* createActor(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape=false, const bool addToScene=true/*, material type, collisionMesh*/)
+		T* createActor(const glm::vec3& pos, std::shared_ptr<of::gfx::Mesh> collisionModel, const bool isTriggerShape=false, const bool addToScene=true/*, material type, collisionMesh*/)
 		{
 			if constexpr (std::same_as<T, physx::PxRigidStatic>)
 			{

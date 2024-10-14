@@ -554,9 +554,10 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 
 public:
 
-	PxMeshedActorRenderable(physx::PxRigidActor*& iactor, of::resource::Model mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(mesh), scale(scale), renderingColor(renderingColor),
+	PxMeshedActorRenderable(physx::PxRigidActor*& iactor, std::shared_ptr<of::gfx::Mesh> mesh, glm::vec3 scale = glm::vec3(1.f), glm::vec4 renderingColor = {0.3f, 0.3f, 1.f, 0.f}, glm::vec3 shapeOffset=glm::vec3(0.f)) : mActor(iactor), model(), scale(scale), renderingColor(renderingColor),
 		shapeOffset(shapeOffset)
 	{
+		model.mesh = mesh;
 		loadShader();
 
 		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);

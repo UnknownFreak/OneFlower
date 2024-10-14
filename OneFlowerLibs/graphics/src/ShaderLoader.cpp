@@ -18,14 +18,14 @@ namespace of::module::shader
 
 	}
 
-	bool Loader::loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
+	std::shared_ptr<swizzle::gfx::Shader> Loader::loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs)
 	{
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
 			auto& logger = of::logger::get().getLogger("shader::Loader");
 			logger.Error("Unable to locate shader [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
-			return false;
+			return nullptr;
 		}
 #ifdef _DEBUG
 		//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
@@ -37,11 +37,11 @@ namespace of::module::shader
 
 		if (gfxDev.operator bool() == false || swap.operator bool() == false)
 		{
-			return false;
+			return nullptr;
 		}
+		auto shader = gfxDev->createShader(swap, swizzle::gfx::ShaderType::ShaderType_Graphics, attribs);
 
-		loadedShaders.insert(std::make_pair(instanceName, gfxDev->createShader(swap, swizzle::gfx::ShaderType::ShaderType_Graphics, attribs)));
-		auto& shader = loadedShaders[instanceName];
+		loadedShaders[instanceName] = shader;
 		bool loaded = shader->load(path.c_str());
 		if (!loaded)
 		{
@@ -50,7 +50,7 @@ namespace of::module::shader
 		}
 		//, path.c_str(), true)));
 		mtx.unlock();
-		return true;
+		return shader;
 	}
 
 	std::shared_ptr<swizzle::gfx::Shader> Loader::requestShader(const common::String& insstanceName, const common::String& shaderName, const common::String& path)
@@ -91,26 +91,40 @@ namespace of::module::shader
 
 	std::shared_ptr<swizzle::gfx::Shader> Loader::requestShader(const common::String& instanceName, const common::String& shaderName, const swizzle::gfx::ShaderAttributeList& attribs, const common::String& path)
 	{
+		auto& logger = of::logger::get().getLogger("shader::Loader");
+		logger.Info("Request shader [" + shaderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!shaderName.empty() && !instanceName.empty())
 		{
-			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Shader>>::iterator it;
-			it = loadedShaders.find(instanceName);
-			lastResult = true;
-			if (it != loadedShaders.end())
-				return it->second;
-
-			if (loadShader(instanceName, path + shaderName, attribs))
-				return loadedShaders.find(instanceName)->second;
-
-			//LOW set propper texturename
-			it = loadedShaders.find("missingShader");
-			lastResult = false;
-			if (it != loadedShaders.end())
-				return it->second;
-			loadShader("missing", path + missingShader, attribs);
-			return loadedShaders.find("missing")->second;
+			auto& it = loadedShaders[instanceName];
+			if (it.expired())
+			{
+				auto shader = loadShader(instanceName, path + shaderName, attribs);
+				if (shader.operator bool())
+				{
+					return shader;
+				}
+				else
+				{
+					logger.Warning("Request shader [" + shaderName + "] failed, using fallback", logger.fileInfo(__FILE__, __LINE__));
+					shader = loadShader("missing", path + missingShader, attribs);
+					if (shader.operator bool())
+					{
+						return shader;
+					}
+					else
+					{
+						logger.Critical("Fallback shader loading failed, exiting!", logger.fileInfo(__FILE__, __LINE__));
+						std::exit(-1);
+					}
+				}
+			}
+			else
+			{
+				return it.lock();
+			}
 		}
-		return requestShader("missing", missingShader, attribs, path);
+
+		return loadShader("missing", path + missingShader, attribs);
 	}
 
 	std::shared_ptr<swizzle::gfx::Material> Loader::createMaterial(std::shared_ptr<swizzle::gfx::Shader> shader, swizzle::gfx::SamplerMode samplerMode)

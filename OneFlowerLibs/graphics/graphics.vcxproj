@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="include\component\render.hpp" />
     <ClInclude Include="include\gfx\buffer.hpp" />
+    <ClInclude Include="include\gfx\mesh.hpp" />
     <ClInclude Include="include\graphics\model\Model.hpp" />
     <ClInclude Include="include\graphics\parentedRenderable.hpp" />
     <ClInclude Include="include\graphics\renderable.hpp" />

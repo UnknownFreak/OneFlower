@@ -14,8 +14,9 @@ namespace of::module::mesh
 	{
 	}
 
-	bool Loader::loadMesh(std::shared_ptr<swizzle::asset2::IMeshAsset>& outMeshAsset, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc)
+	std::shared_ptr<of::gfx::Mesh> Loader::loadMesh(const common::String& name, const bool isCollisionModel, swizzle::asset2::MeshAssetLoaderDescription desc)
 	{
+		std::shared_ptr<of::gfx::Mesh> mesh = std::make_shared<of::gfx::Mesh>();
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
@@ -27,12 +28,52 @@ namespace of::module::mesh
 				throw;
 			}
 			lastResult = false;
-			return false;
+			return nullptr;
 		}
 
-		outMeshAsset = swizzle::asset2::LoadMesh(path.c_str(), desc);
+		auto gfx = mGfxDev.lock();
+		if (gfx.operator bool() == false)
+		{
+			logger::get().getLogger("of::resource::mesh::Loader").Error("Gfx device no longer valid! Unable to request mesh!");
+			return nullptr;
+		}
+
+
+		mesh->meshAsset = swizzle::asset2::LoadMesh(path.c_str(), desc);
+		auto meshAsset = mesh->meshAsset;
+
+		if (mesh->meshAsset->hasAnimations() && isCollisionModel == false)
+		{
+			mesh->mBoneBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			mesh->mBoneBuffer->setBufferData((U8*)meshAsset->getAnimationDataPtr(0, 0), meshAsset->getNumberOfBones() * sizeof(glm::mat4),
+				sizeof(glm::mat4));
+		}
+
+		mesh->mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+		if (isCollisionModel)
+		{
+			mesh->mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 3u);
+		}
+		else if (name.ends_with(".obj"))
+		{
+			mesh->mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 8u);
+		}
+		else
+		{
+			mesh->mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 16u);
+		}
+
+		if (meshAsset->hasIndexData())
+		{
+			mesh->mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
+			mesh->mIndexBuffer->setBufferData((U8*)meshAsset->getIndexDataPtr(), meshAsset->getIndexDataSize(),
+				sizeof(U32) * 3u);
+		}
+
 		lastResult = true;
-		return true;
+		mLoadedModels[{path + name, isCollisionModel}] = mesh;
+		
+		return mesh;
 	}
 
 	bool Loader::getResult()
@@ -40,22 +81,17 @@ namespace of::module::mesh
 		return lastResult;
 	}
 
-	of::resource::Model Loader::requestModel(const common::String& name, const common::String& path, const bool collisionModel)
+	std::shared_ptr<of::gfx::Mesh> Loader::requestModel(const common::String& name, const common::String& path, const bool collisionModel)
 	{
-
+		auto& logger = of::logger::get().getLogger("mesh::Loader");
+		logger.Info("Request texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!name.empty())
 		{
-			/*model does not exist in the current loaded one*/
-			if (mLoadedModels.find({ path + name , collisionModel}) == mLoadedModels.end())
-			{
-				auto gfx = mGfxDev.lock();
-				if (gfx.operator bool() == false)
-				{
-					logger::get().getLogger("of::resource::mesh::Loader").Error("Gfx device no longer valid! Unable to request mesh!");
-					return {};
-				}
 
-				std::shared_ptr<swizzle::asset2::IMeshAsset> meshAsset;
+			auto& it = mLoadedModels[{path + name, collisionModel}];
+			
+			if (it.expired())
+			{
 				swizzle::asset2::MeshAssetLoaderDescription meshDescription = {};
 				meshDescription.mLoadPossitions = {
 				{
@@ -71,49 +107,38 @@ namespace of::module::mesh
 						{swizzle::asset2::AttributeTypes::BoneWeights, sizeof(float) * 12u},
 					};
 				}
-
-				if (loadMesh(meshAsset, path + name, meshDescription) == false)
+				auto model = loadMesh(path + name, collisionModel, meshDescription);
+				if (model.operator bool())
 				{
-					// fallback to missing mesh
-					of::logger::get().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, "file not found!");
-					of::logger::get().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
-					return requestModel(missingMesh, path, collisionModel);
-				}
-
-				auto& model = mLoadedModels[{path + name, collisionModel}];
-				model.mesh = meshAsset;
-				if (meshAsset->hasAnimations() && collisionModel == false)
-				{
-					model.mBoneBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::UniformBuffer, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-					model.mBoneBuffer->setBufferData((U8*)meshAsset->getAnimationDataPtr(0, 0), meshAsset->getNumberOfBones() * sizeof(glm::mat4),
-						sizeof(glm::mat4));
-				}
-
-				model.mMeshBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Vertex, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-				if(collisionModel)
-					model.mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 3u);
-				else if (name.ends_with(".obj"))
-				{
-					model.mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * (3 + 3 + 2));
+					return model;
 				}
 				else
-					model.mMeshBuffer->setBufferData((U8*)meshAsset->getVertexDataPtr(), meshAsset->getVertexDataSize(), sizeof(float) * 16u);
-
-				if (meshAsset->hasIndexData())
 				{
-					model.mIndexBuffer = gfx->createBuffer(swizzle::gfx::GfxBufferType::Index, swizzle::gfx::GfxMemoryArea::DeviceLocalHostVisible);
-					model.mIndexBuffer->setBufferData((U8*)meshAsset->getIndexDataPtr(), meshAsset->getIndexDataSize(),
-						sizeof(U32) * 3u);
+					logger.Warning("Request mesh [" + name + "] failed, using fallback", logger.fileInfo(__FILE__, __LINE__));
+					model = loadMesh(path + missingMesh, collisionModel, meshDescription);
+					if (model.operator bool())
+					{
+						return model;
+					}
+					else
+					{
+						logger.Critical("Fallback mesh loading failed, exiting!", logger.fileInfo(__FILE__, __LINE__));
+						// Todo: use engine::exit(), which forces a shutdown, with error dialog.
+						std::exit(-1);
+					}
 				}
-				model.mValid = true;
-				return model;
 			}
-			return mLoadedModels[{path + name, collisionModel}];
-
+			else
+			{
+				return it.lock();
+			}
 		}
+		
+		// name is missing, just crash...
+
 		of::logger::get().getLogger("of::resource::mesh::Loader").Error("Unable to load mesh: ", path + name, " name is invalid!");
 		of::logger::get().getLogger("of::resource::mesh::Loader").Info("Fallback to default mesh to use for model");
-		return requestModel(missingMesh, path, collisionModel);
+		return nullptr;
 	}
 
 	void Loader::requestRemovalOfModel(const common::String& name, const common::String& path, const bool collisionModel)

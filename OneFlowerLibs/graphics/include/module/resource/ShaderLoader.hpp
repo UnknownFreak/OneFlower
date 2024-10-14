@@ -18,8 +18,8 @@ namespace of::module::shader
 		bool lastResult = false;
 		std::mutex mtx;
 		const common::String missingShader = "default.shader";
-		std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Shader>> loadedShaders;
-		bool loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs);
+		std::unordered_map<common::String, std::weak_ptr<swizzle::gfx::Shader>> loadedShaders;
+		std::shared_ptr<swizzle::gfx::Shader> loadShader(const common::String& instanceName, const common::String& name, const swizzle::gfx::ShaderAttributeList& attribs);
 
 		std::weak_ptr<swizzle::gfx::GfxDevice> mGfxDev;
 		std::weak_ptr<swizzle::gfx::Swapchain> mSwapchain;

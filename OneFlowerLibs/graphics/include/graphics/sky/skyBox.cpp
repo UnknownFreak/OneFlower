@@ -37,7 +37,7 @@ namespace of::graphics::sky
 		attribs.mEnableDepthTest = false;
 		attribs.mEnableBlending = false;
 		
-		mModel = of::module::mesh::get().requestModel("inverted_sphere.obj");
+		mModel.mesh = of::module::mesh::get().requestModel("inverted_sphere.obj");
 
 		mModel.shader = of::module::shader::get().requestShader("sky.shader", "sky.shader", attribs);
 		

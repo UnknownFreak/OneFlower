@@ -17,14 +17,15 @@ namespace of::module::texture
 		
 	}
 
-	bool Loader::loadTexture(const common::String& name)
+	std::shared_ptr<swizzle::gfx::Texture> Loader::loadTexture(const common::String& name)
 	{
+		std::shared_ptr<swizzle::gfx::Texture> tex;
 		common::String path = "Data/" + name;
 		if (!std::filesystem::exists(path))
 		{
 			auto& logger = of::logger::get().getLogger("texture::Loader");
 			logger.Error("Unable to load texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
-			return false;
+			return tex;
 		}
 	#ifdef _DEBUG
 			//MessageBox(0,"Error loading this file",name.c_str(),MB_OK);
@@ -35,9 +36,9 @@ namespace of::module::texture
 		if (auto device = m_gfxDevice.lock())
 		{
 			auto cmdBuffer = m_cmdBuffer.lock();
-
+			tex = device->createTexture(textureData->getWidth(), textureData->getHeight(), 4u, false);
 			loadedTextureMap/*[Engine::settings.textureQuality]*/.insert(
-				std::make_pair(name, device->createTexture(textureData->getWidth(), textureData->getHeight(), 4u, false)));
+				std::make_pair(name, tex));
 
 			auto trans = cmdBuffer->begin();
 
@@ -50,16 +51,17 @@ namespace of::module::texture
 			size.mLayers = 1u;
 			size.mMipLevels = 1u;
 
-			trans->copyBufferToTexture(loadedTextureMap[name], buffer, size);
+			trans->copyBufferToTexture( tex, buffer, size);
 			cmdBuffer->end(std::move(trans));
 			device->submit(&cmdBuffer, 1u, nullptr);
 		}
 		mtx.unlock();
-		return true;
+		return tex;
 	}
 
-	bool Loader::loadCubeMap(const common::String& folderName)
+	std::shared_ptr<swizzle::gfx::Texture> Loader::loadCubeMap(const common::String& folderName)
 	{
+		std::shared_ptr<swizzle::gfx::Texture> tex;
 		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Loading skybox cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		common::String path = "Data/" + folderName;
@@ -68,7 +70,7 @@ namespace of::module::texture
 			if (!std::filesystem::exists(path + file))
 			{
 				logger.Error("Unable to load skybox [" + folderName + file + "]", logger.fileInfo(__FILE__, __LINE__));
-				return false;
+				return tex;
 			}
 		}
 		mtx.lock();
@@ -92,7 +94,8 @@ namespace of::module::texture
 		if (auto device = m_gfxDevice.lock())
 		{
 			auto cmdBuffer = m_cmdBuffer.lock();
-			loadedTextureMap[folderName] = device->createCubeMapTexture(textureData->getWidth(), textureData->getHeight(), 4u);
+			tex = device->createCubeMapTexture(textureData->getWidth(), textureData->getHeight(), 4u);
+			loadedTextureMap[folderName] = tex;
 
 			auto trans = cmdBuffer->begin();
 
@@ -105,55 +108,74 @@ namespace of::module::texture
 			size.mLayers = 6u;
 			size.mMipLevels = 1u;
 
-			trans->copyBufferToTexture(loadedTextureMap[folderName], buffer, size);
+			trans->copyBufferToTexture(tex, buffer, size);
 			cmdBuffer->end(std::move(trans));
 			device->submit(&cmdBuffer, 1u, nullptr);
 		}
 		mtx.unlock();
-		return true;
+		return tex;
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestTexture(const common::String& name, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Texture> Loader::requestTexture(const common::String& name, const common::String& path)
 	{
 		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Request texture [" + name + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!name.empty())
 		{
-			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
-			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name);
+			auto& it = loadedTextureMap/*[Engine::settings.textureQuality]*/[path + name];
 
-			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
-				return it->second;
-
-			if (loadTexture(path + name))
-				return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + name)->second;
-
-			//LOW set propper texturename
-			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(of::engine::path::textures +missingTexture);
-			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
-				return it->second;
-			loadTexture(of::engine::path::textures + missingTexture);
-			return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(of::engine::path::textures + missingTexture)->second;
+			if (it.expired())
+			{
+				auto sp = loadTexture(path + name);
+				if (sp.operator bool())
+				{
+					return sp;
+				}
+				else
+				{
+					logger.Warning("Request texture [" + name + "] failed, using fallback", logger.fileInfo(__FILE__, __LINE__));
+					sp = loadTexture(path + missingTexture);
+					if (sp.operator bool())
+					{
+						return sp;
+					}
+					else
+					{
+						logger.Critical("Fallback texture loading failed, exiting!", logger.fileInfo(__FILE__, __LINE__));
+						// Todo: use engine::exit(), which forces a shutdown, with error dialog.
+						std::exit(-1);
+					}
+				}
+			}
+			else
+			{
+				return it.lock();
+			}
 		}
-		return requestTexture(missingTexture, of::engine::path::textures);
+		return nullptr;
 	}
 
-	std::shared_ptr<swizzle::gfx::Texture>& Loader::requestCubemapTexture(const common::String& folderName, const common::String& path)
+	std::shared_ptr<swizzle::gfx::Texture> Loader::requestCubemapTexture(const common::String& folderName, const common::String& path)
 	{
 		auto& logger = of::logger::get().getLogger("texture::Loader");
 		logger.Info("Request cubemap texture [" + folderName + "]", logger.fileInfo(__FILE__, __LINE__));
 		if (!folderName.empty())
 		{
-			std::unordered_map<common::String, std::shared_ptr<swizzle::gfx::Texture>>::iterator it;
-			it = loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + folderName);
-
-			if (it != loadedTextureMap/*[Engine::settings.textureQuality]*/.end())
-				return it->second;
-
-			if (loadCubeMap(path + folderName))
-				return loadedTextureMap/*[Engine::settings.textureQuality]*/.find(path + folderName)->second;
+			auto& it = loadedTextureMap/*[Engine::settings.textureQuality]*/[path + folderName];
+			if (it.expired())
+			{
+				auto sp = loadCubeMap(path + folderName);
+				if (sp.operator bool())
+					return sp;
+			}
+			else
+			{
+				return it.lock();
+			}
 		}
-		return requestTexture(missingTexture, engine::path::textures);
+		logger.Critical("Unable to cubemap texture exiting");
+		std::exit(-1);
+		//return requestTexture(missingTexture, engine::path::textures);
 	}
 
 	void Loader::requestRemovalOfTexture(const common::String& name)

@@ -2,7 +2,7 @@
 
 #include <physics/raycastCallback.hpp>
 
-#include <graphics/model/Model.hpp>
+#include <gfx/mesh.hpp>
 #include <module/resource/MeshLoader.hpp>
 
 #include <engine/settings.hpp>
@@ -30,15 +30,15 @@ namespace of::physics
 	}
 
 
-	physx::PxTriangleMesh* PhysicsHandler::GetObjectAsPxMesh(of::resource::Model& asset)
+	physx::PxTriangleMesh* PhysicsHandler::GetObjectAsPxMesh(std::shared_ptr<of::gfx::Mesh> asset)
 	{
 		physx::PxTriangleMeshDesc desc;
-		desc.points.count = (U32)asset.mesh->getVertexDataSize() / (sizeof(float) * 3u);
-		desc.points.data = asset.mesh->getVertexDataPtr();
+		desc.points.count = (U32)asset->meshAsset->getVertexDataSize() / (sizeof(float) * 3u);
+		desc.points.data = asset->meshAsset->getVertexDataPtr();
 		desc.points.stride = sizeof(float) * 3u;
 
-		desc.triangles.count = (U32)asset.mesh->getIndexDataSize() / (sizeof(U32) * 3u);
-		desc.triangles.data = asset.mesh->getIndexDataPtr();
+		desc.triangles.count = (U32)asset->meshAsset->getIndexDataSize() / (sizeof(U32) * 3u);
+		desc.triangles.data = asset->meshAsset->getIndexDataPtr();
 		desc.triangles.stride = sizeof(U32) * 3u;
 
 		physx::PxCookingParams params(mPhysics->getTolerancesScale());
@@ -52,17 +52,17 @@ namespace of::physics
 		return mesh;
 	}
 
-	physx::PxConvexMesh* PhysicsHandler::GetObjectAsPxConvex(of::resource::Model& asset)
+	physx::PxConvexMesh* PhysicsHandler::GetObjectAsPxConvex(std::shared_ptr<of::gfx::Mesh> asset)
 	{
 		physx::PxConvexMeshDesc desc;
 
 		desc.flags = physx::PxConvexFlag::eCOMPUTE_CONVEX;
 
-		U32 vertexCount = (U32)asset.mesh->getVertexDataSize() / (sizeof(float) * 3u);
+		U32 vertexCount = (U32)asset->meshAsset->getVertexDataSize() / (sizeof(float) * 3u);
 
 
 		desc.points.count = vertexCount;
-		desc.points.data = asset.mesh->getVertexDataPtr();
+		desc.points.data = asset->meshAsset->getVertexDataPtr();
 		desc.points.stride = sizeof(float) * 3u;
 
 		physx::PxCookingParams params(mPhysics->getTolerancesScale());
@@ -222,7 +222,7 @@ namespace of::physics
 		return joint;
 	}
 
-	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, of::resource::Model& triggerShape, glm::vec3 offset, glm::vec3 scale)
+	void PhysicsHandler::attachTriggerShape(physx::PxRigidActor* actor, std::shared_ptr<of::gfx::Mesh> triggerShape, glm::vec3 offset, glm::vec3 scale)
 	{
 		if (actor->is<physx::PxRigidStatic>() == nullptr)
 		{
@@ -269,7 +269,7 @@ namespace of::physics
 		shape->release();
 	}
 
-	physx::PxRigidStatic* PhysicsHandler::createStatic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape, const bool addToScene)
+	physx::PxRigidStatic* PhysicsHandler::createStatic(const glm::vec3& pos, std::shared_ptr<of::gfx::Mesh> collisionModel, const bool isTriggerShape, const bool addToScene)
 	{
 		auto actor = mPhysics->createRigidStatic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
 		/*if (mTriangleShapes.find(collisionModel.mId) == mTriangleShapes.end())
@@ -292,7 +292,7 @@ namespace of::physics
 		}
 		return actor;
 	}
-	physx::PxRigidDynamic* PhysicsHandler::createDynamic(const glm::vec3& pos, of::resource::Model& collisionModel, const bool isTriggerShape, const bool addToScene)
+	physx::PxRigidDynamic* PhysicsHandler::createDynamic(const glm::vec3& pos, std::shared_ptr<of::gfx::Mesh> collisionModel, const bool isTriggerShape, const bool addToScene)
 	{
 		auto actor = mPhysics->createRigidDynamic(physx::PxTransform(physx::PxVec3(pos.x, pos.y, pos.z)));
 		/*if (mTriangleShapes.find(collisionModel.mId) == mTriangleShapes.end())

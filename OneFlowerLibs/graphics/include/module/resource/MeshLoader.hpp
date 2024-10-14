@@ -10,11 +10,14 @@
 
 #include <engine/paths.hpp>
 
+#include <gfx/mesh.hpp>
+
 #include <graphics/model/Model.hpp>
 
 namespace of::module::mesh
 {
-	class Loader
+
+		class Loader
 	{
 		bool lastResult = false;
 		std::mutex mtx;
@@ -22,16 +25,16 @@ namespace of::module::mesh
 
 		std::weak_ptr<swizzle::gfx::GfxDevice> mGfxDev;
 
-		std::map<std::pair<common::String, bool>, of::resource::Model> mLoadedModels;
+		std::map<std::pair<common::String, bool>, std::weak_ptr<of::gfx::Mesh>> mLoadedModels;
 
-		bool loadMesh(std::shared_ptr<swizzle::asset2::IMeshAsset>& outMeshAsset, const common::String& name, swizzle::asset2::MeshAssetLoaderDescription desc);
+		std::shared_ptr<of::gfx::Mesh> loadMesh(const common::String& name, const bool collisionModel, swizzle::asset2::MeshAssetLoaderDescription desc);
 
 	public:
 
 		Loader(std::weak_ptr<swizzle::gfx::GfxDevice> gfxDev);
 		Loader& operator=(const Loader&) = delete;
 
-		of::resource::Model requestModel(const common::String& name, const common::String& path = engine::path::meshes, const bool collisionModel=false);
+		std::shared_ptr<of::gfx::Mesh> requestModel(const common::String& name, const common::String& path = engine::path::meshes, const bool collisionModel=false);
 
 		bool getResult();
 

@@ -98,6 +98,9 @@
     <ClInclude Include="include\gfx\buffer.hpp">
       <Filter>include\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="include\gfx\mesh.hpp">
+      <Filter>include\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp">
