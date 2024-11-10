@@ -1,10 +1,10 @@
-#ifndef EDITOROBJECTSAVEMODE_HPP
-#define EDITOROBJECTSAVEMODE_HPP
+#pragma once
+
 #include <utils/common/string.hpp>
 /*
 Save mode defines how the Requestable is saved.
 */
-namespace of::file::archive
+namespace of::asset
 {
 
 	enum class ObjectSaveMode
@@ -50,4 +50,3 @@ namespace of::file::archive
 		}
 	}
 }
-#endif

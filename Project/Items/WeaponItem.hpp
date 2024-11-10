@@ -21,7 +21,7 @@ namespace Items
 	public:
 		Enums::WeaponType weaponType;
 		double weaponStrength;
-		of::file::FileId modelId;
+		of::asset::AssetId modelId;
 		bool isTwoHanded;
 		bool requireAmmoToUse;
 

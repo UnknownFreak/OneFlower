@@ -23,10 +23,10 @@ namespace of::component
 		virtual void deconstruct() override;
 
 
-		of::file::FileId world;
-		of::file::FileId loadingScreen;
+		of::asset::AssetId world;
+		of::asset::AssetId loadingScreen;
 		// change pos coordinates to player pos marker object, that once the zone is loaded will teleport the player to the marker position.
-		of::file::FileId positionMarker;
+		of::asset::AssetId positionMarker;
 		glm::vec3 teleportPos;
 		bool requireInteraction;
 

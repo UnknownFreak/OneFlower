@@ -1,6 +1,6 @@
 #include "LootDrop.hpp"
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 
 #include <object/InstanceHandler.hpp>
 #include <component/render.hpp>
@@ -37,7 +37,7 @@ namespace of::component
 		looted = true;
 		for (auto& x : lootDrops)
 		{
-			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
+			auto tmp = asset::getAssetRequestor().requestShared<Items::Base>(x.first);
 			object->get<of::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}

@@ -6,8 +6,8 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <file/archive/Requestable.hpp>
-#include <file/FileId.hpp>
+#include <asset/iAsset.hpp>
+#include <asset/assetId.hpp>
 
 #include <vector>
 #include <map>
@@ -20,8 +20,8 @@ namespace of::resource
 	struct ObjectInfo
 	{
 		// prefab not to be saved as it's only used to be cached temporary
-		of::file::FileId prefab;
-		of::file::FileId layer;
+		of::asset::AssetId prefab;
+		of::asset::AssetId layer;
 
 		// save
 		of::common::uuid objectId;
@@ -49,39 +49,39 @@ namespace of::resource
 		}
 	};
 
-	struct ObjectChunk : public of::file::archive::Requestable
+	struct ObjectChunk : public of::asset::IAsset
 	{
-		of::file::FileId owningZone;
-		std::map<of::file::FileId, std::vector<ObjectInfo>> objectLocations;
+		of::asset::AssetId owningZone;
+		std::map<of::asset::AssetId, std::vector<ObjectInfo>> objectLocations;
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(objectLocations);
 		}
 
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(objectLocations);
 		}
 	};
 
 
-	struct WorldInstance : public of::file::archive::Requestable
+	struct WorldInstance : public of::asset::IAsset
 	{
 		of::common::String name;
 		of::common::String skybox;
-		std::vector<of::file::FileId> prefabs;
-		std::vector<of::file::FileId> navMesh;
-		std::vector<of::file::FileId> worldGeometry;
-		std::vector<of::file::FileId> objectChunk;
-		std::vector<of::file::FileId> cutScenes;
+		std::vector<of::asset::AssetId> prefabs;
+		std::vector<of::asset::AssetId> navMesh;
+		std::vector<of::asset::AssetId> worldGeometry;
+		std::vector<of::asset::AssetId> objectChunk;
+		std::vector<of::asset::AssetId> cutScenes;
 
 		size_t getLoadingCount() const;
 		void addTo(const WorldInstance& other, const bool& objectsOnly);
@@ -89,7 +89,7 @@ namespace of::resource
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(name);
 			ar(skybox);
 			ar(prefabs);
@@ -102,7 +102,7 @@ namespace of::resource
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(name);
 			ar(skybox);
 			ar(prefabs);
@@ -113,14 +113,14 @@ namespace of::resource
 		}
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 	};
 
 }
 
 CEREAL_REGISTER_TYPE(of::resource::ObjectChunk);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::resource::ObjectChunk);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::resource::ObjectChunk);
 CEREAL_REGISTER_TYPE(of::resource::WorldInstance);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::resource::WorldInstance);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::resource::WorldInstance);
 
 #endif 

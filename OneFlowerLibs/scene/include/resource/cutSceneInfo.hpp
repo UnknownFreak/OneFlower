@@ -5,7 +5,7 @@
 #include <cereal/types/vector.hpp>
 
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 #include <vector>
 #include <memory>
@@ -178,7 +178,7 @@ namespace of::resource
 		}
 	};
 
-	struct CutSceneInfo : public of::file::archive::Requestable
+	struct CutSceneInfo : public of::asset::IAsset
 	{
 		float mCurrentTime = 0.f;
 		float mCutSceneLength;
@@ -188,7 +188,7 @@ namespace of::resource
 		void skip();
 		bool isFinished();
 		void reset();
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 
 		template<class Archive>
@@ -208,4 +208,4 @@ namespace of::resource
 }
 
 CEREAL_REGISTER_TYPE(of::resource::CutSceneInfo);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::resource::CutSceneInfo);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::resource::CutSceneInfo);

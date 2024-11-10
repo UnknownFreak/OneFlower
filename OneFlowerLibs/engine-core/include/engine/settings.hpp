@@ -25,6 +25,7 @@ namespace of::settings
 		ScreenResolution mScreenResolution;
 		of::logger::LogLevel mLogLevel;
 		unsigned int mThreadCount;
+		of::common::String mLocale;
 
 	public:
 		Settings();
@@ -46,6 +47,7 @@ namespace of::settings
 		ScreenResolution getScreenResolution() const; 
 
 		of::config::Section& getPluginSettings(const of::common::String& pluginName);
+		const of::common::String& getLocale() const { return mLocale; };
 
 	};
 

@@ -1,26 +1,25 @@
-#ifndef FileId_HPP
-#define FileId_HPP
+#pragma once
+
 #include <utils/common/String.hpp>
 #include <utils/common/uuid.hpp>
 
-namespace of::file
+namespace of::asset
 {
-
-	struct FileId
+	struct AssetId
 	{
 
 		common::String name;
 		common::uuid uuid;
 
-		FileId();
-		FileId(const common::uuid& uuid);
-		FileId(const common::String& name, const common::uuid& uuid);
-		FileId(const FileId& copy);
-		FileId& operator=(const FileId& right);
+		AssetId();
+		AssetId(const common::uuid& uuid);
+		AssetId(const common::String& name, const common::uuid& uuid);
+		AssetId(const AssetId& copy);
+		AssetId& operator=(const AssetId& right);
 
-		bool operator<(const FileId& other) const;
+		bool operator<(const AssetId& other) const;
 
-		bool operator==(const FileId& other) const;
+		bool operator==(const AssetId& other) const;
 
 		bool isValid() const;
 
@@ -45,13 +44,11 @@ namespace of::file
 namespace std
 {
 	template <>
-	struct hash<of::file::FileId>
+	struct hash<of::asset::AssetId>
 	{
-		inline std::size_t operator()(of::file::FileId const& helper) const
+		inline std::size_t operator()(of::asset::AssetId const& helper) const
 		{
 			return std::hash<of::common::String>()(helper());
 		}
 	};
 }
-
-#endif

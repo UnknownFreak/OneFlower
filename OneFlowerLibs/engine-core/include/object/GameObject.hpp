@@ -1,12 +1,10 @@
 #pragma once
-#ifndef GameObject_HPP
-#define GameObject_HPP
 
 #include <utils/common/string.hpp>
 #include <utils/common/uuid.hpp>
 #include <utils/concepts/concepts.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 
 #include <unordered_map>
 #include <cereal/types/unordered_map.hpp>
@@ -50,7 +48,7 @@ namespace of::object
 		UnloadMode unloadMode = UnloadMode::Default;
 		bool keepSavedOnObjectDelete = false;
 		bool unique = false;
-		of::file::FileId prefabId;
+		of::asset::AssetId prefabId;
 
 		void initialize();
 		void post(const messaging::Topic& topic, std::shared_ptr<messaging::Body> message);
@@ -178,6 +176,3 @@ namespace of::object
 		std::unordered_map<of::common::uuid, std::shared_ptr<of::component::Base>> componentMap;
 	};
 };
-
-
-#endif

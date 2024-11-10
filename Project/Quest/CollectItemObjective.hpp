@@ -9,7 +9,7 @@ namespace Questing
 	{
 	public:
 		size_t itemCount;
-		of::file::FileId itemId;
+		of::asset::AssetId itemId;
 
 		template<class Archive>
 		void save(Archive& ar) const

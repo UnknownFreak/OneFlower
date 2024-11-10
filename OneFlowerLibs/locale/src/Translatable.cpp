@@ -1,15 +1,15 @@
 #include <locale/Translatable.hpp>
 
-#include <file/Handler.hpp>
 #include <locale/LanguageRequestor.hpp>
+#include <asset/asset.hpp>
 
 namespace of::locale
 {
 
-	of::locale::LanguageRequestor& get()
+	static of::locale::LanguageRequestor& get()
 	{
-		auto& handler = of::engine::GetModule<of::file::Handler>();
-		return *handler.archive.request<of::locale::LanguageRequestor>({ common::Builtin, common::uuid::nil() }, true);
+		static LanguageRequestor l;
+		return l;
 	}
 
 	Translatable::Translatable()

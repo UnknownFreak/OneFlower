@@ -1,14 +1,11 @@
 #pragma once
-#ifndef Skill_HPP
-#define Skill_HPP
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
 #include <combat/CombatSkill.hpp>
 
-#include <file/archive/Requestable.hpp>
-#include <file/FileId.hpp>
+#include <asset/iAsset.hpp>
 
 #include <combat/effect/Effect.hpp>
 #include "Element.hpp"
@@ -28,20 +25,20 @@ namespace Graphics::UI
 
 namespace of::combat
 {
-	class Skill : public of::file::archive::Requestable
+	class Skill : public of::asset::IAsset
 	{
 		// prefab that applies damage and buff/debuffs to the enemy (yes you can buff enemies)
 	public:
-		of::file::FileId prefabId;
-		of::file::FileId skillEffectPrefabId;
+		of::asset::AssetId prefabId;
+		of::asset::AssetId skillEffectPrefabId;
 		// effects that apply to the player
 		std::vector<of::combat::Effect> skillExecutionEffects;
-		std::vector<of::file::FileId> skillExecutionEffectIds;
+		std::vector<of::asset::AssetId> skillExecutionEffectIds;
 
 		Element getElement();
 		void preloadEffect();
 
-		std::unordered_map<Enums::CombatSkill, of::file::FileId> chainSkillsIds;
+		std::unordered_map<Enums::CombatSkill, of::asset::AssetId> chainSkillsIds;
 		std::unordered_map<Enums::CombatSkill, Skill> chainSkills;
 
 		//void getChainedSkills(std::vector<Graphics::UI::SkillIcon>& vec);
@@ -50,7 +47,7 @@ namespace of::combat
 
 		Skill();
 
-		of::file::FileId elementId;
+		of::asset::AssetId elementId;
 		of::combat::Element element;
 		of::timer::TickTimer coolDown;
 		double cost;
@@ -68,7 +65,7 @@ namespace of::combat
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(elementId);
 			ar(coolDown);
 			ar(cost);
@@ -84,7 +81,7 @@ namespace of::combat
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(elementId);
 			element = getElement();
 			ar(coolDown);
@@ -100,10 +97,9 @@ namespace of::combat
 		}
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 	};
 }
 CEREAL_REGISTER_TYPE(of::combat::Skill);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::combat::Skill);
-#endif
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::combat::Skill);

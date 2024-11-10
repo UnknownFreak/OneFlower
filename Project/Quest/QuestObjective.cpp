@@ -1,7 +1,5 @@
 #include "QuestObjective.hpp"
 
-#include <file/Handler.hpp>
-
 void Questing::QuestObjective::loadTranslations()
 {
 	//auto& x = of::engine::GetModule<of::file::Handler>().getLanguage();

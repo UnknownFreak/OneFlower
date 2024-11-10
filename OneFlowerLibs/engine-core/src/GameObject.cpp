@@ -197,12 +197,12 @@ namespace of::object
 		{
 			logger.Debug("Clearing object persistance status");
 			auto& saveFile = of::session::get();
-			saveFile.remove(of::file::FileId(id));
+			saveFile.remove(of::asset::AssetId(id));
 		}
 		else if (keepSavedOnObjectDelete && unique)
 		{
 			auto& saveFile = of::session::get();
-			auto saveState = saveFile.getState<ObjectSaveState>(of::file::FileId(id));
+			auto saveState = saveFile.getState<ObjectSaveState>(of::asset::AssetId(id));
 			saveState->objectState = ObjectState::NoRecreate;
 			saveState->objectSaveStates.clear();
 		}
@@ -247,7 +247,7 @@ namespace of::object
 	ObjectSaveState* GameObject::getCurrentSaveState()
 	{
 		auto& saveFile = of::session::get();
-		of::file::FileId tmp(id);
+		of::asset::AssetId tmp(id);
 		if (!saveFile.exists(tmp))
 		{
 			saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
@@ -262,7 +262,7 @@ namespace of::object
 		if (persist != of::session::SaveSetting::NEVER_STORE && saveSetting == persist)
 		{
 			auto& saveFile = of::session::get();
-			of::file::FileId tmp(id);
+			of::asset::AssetId tmp(id);
 			if (!saveFile.exists(tmp))
 			{
 				saveFile.setState(tmp, std::make_unique<ObjectSaveState>());
@@ -283,7 +283,7 @@ namespace of::object
 	void GameObject::loadPersisted()
 	{
 		auto& saveFile = of::session::get();
-		of::file::FileId tmp(id);
+		of::asset::AssetId tmp(id);
 		if (saveFile.exists(tmp))
 		{
 			auto state = saveFile.getState<ObjectSaveState>(tmp);

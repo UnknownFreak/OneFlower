@@ -7,7 +7,7 @@
 
 #include <object/ObjectState.hpp>
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 #include <glm/vec3.hpp>
 #include <component/base.hpp>
 
@@ -19,7 +19,7 @@ namespace of::object
 namespace of::resource
 {
 
-	class Prefab : public of::file::archive::Requestable
+	class Prefab : public of::asset::IAsset
 	{
 
 		void build(of::object::GameObject* object, const bool isPlayerSummon) const;
@@ -42,7 +42,7 @@ namespace of::resource
 		template <class Ar>
 		void save(Ar& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(components);
 			ar(spawnDistance);
 			ar(objectState);
@@ -51,7 +51,7 @@ namespace of::resource
 		template <class Ar>
 		void load(Ar& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(components);
 			ar(spawnDistance);
 			ar(objectState);
@@ -59,12 +59,12 @@ namespace of::resource
 
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 	};
 }
 
 CEREAL_REGISTER_TYPE(of::resource::Prefab);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::resource::Prefab);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::resource::Prefab);
 
 #endif 

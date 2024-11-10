@@ -15,10 +15,10 @@ namespace of::component
 
 	public:
 		bool looted;
-		of::file::FileId lootTableId;
+		of::asset::AssetId lootTableId;
 		Items::LootTable table;
 
-		std::unordered_map<of::file::FileId, size_t> lootDrops;
+		std::unordered_map<of::asset::AssetId, size_t> lootDrops;
 
 
 		void loot(object::GameObject* object);

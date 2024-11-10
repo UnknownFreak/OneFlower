@@ -3,51 +3,50 @@
 #include <imgui/imgui.h>
 
 #include <utils/os/ListDir.hpp>
-#include <file/Handler.hpp>
-#include <file/archive/loadHeader.hpp>
 
+#include <asset/internalAsset.hpp>
+#include <asset/loadHeader.hpp>
+
+#include <internal/editorContext.hpp>
 
 namespace of::editor::modal
 {
 	void LoadFile::load()
 	{
 		//tree.clear();
-		auto& manager = of::engine::GetModule<of::file::Handler>();
-		auto& modLoader = manager.getLoader();
-		modLoader.loadOrder.clear();
-
-		of::file::Header header;
-		of::file::archive::loadHeader(m_selectedFile, header);
-
+		auto& managerInternal = of::asset::get();
+		managerInternal.loadOrder.clear();
+		auto& context = of::editor::getEditorContext();
+		of::asset::Header& header = context.header;
+		of::asset::loadHeader(m_selectedFile, header);
 
 		std::set<of::common::String> loadOrder;
-
 
 		const auto x = [&](auto const& ref, std::set<of::common::String>& loadOrder, std::vector<of::common::String>& items) -> void
 			{
 				for (auto& item : items)
 				{
-					of::file::Header tmp;
-					of::file::archive::loadHeader(item, tmp);
+					of::asset::Header tmp;
+					of::asset::loadHeader(item, tmp);
 					loadOrder.insert(item);
 					ref(ref, loadOrder, tmp.dependencies);
 				}
 			};
 		for (auto& d : header.dependencies)
 		{
-			of::file::Header tmp;
-			of::file::archive::loadHeader(d, tmp);
+			of::asset::Header tmp;
+			of::asset::loadHeader(d, tmp);
 			loadOrder.insert(d);
 			x(x, loadOrder, tmp.dependencies);
 		}
 
-		manager.buildModOrderFile(m_selectedFile, loadOrder);
+		context.buildModOrderFile(m_selectedFile, loadOrder);
 
-		manager.openedFile = header;
 		auto& logger = of::logger::get().getLogger("of::editor::modal::LoadFile");
 		logger.Debug("Loading Editor Variables...");
-		manager.loadAllEditorVariables();
+		context.loadAllEditorVariables();
 		logger.Info("Successfully loaded mod [" + header.name + "].");
+		context.openedFileName = header.name;
 	}
 	LoadFile::LoadFile(const of::common::String& modalName/*, DataTree& tree*/) : ModalBase(modalName)/*, tree(tree)*/
 	{

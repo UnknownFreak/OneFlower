@@ -9,7 +9,7 @@ namespace of::locale
 	namespace utils
 	{
 
-		std::map<common::String, TranslationStringContainer> loadLanguages(const std::vector<common::String>& languageFiles);
+		void loadLanguages(const std::vector<common::String>& languageFiles, std::map<common::String, TranslationStringContainer>&);
 
 		void saveLanguages(const LanguageRequestor& lr);
 		void saveLanguageFile(const common::String& filename, TranslationStringContainer& saveable);

@@ -2,12 +2,11 @@
 
 #include <graphics/window/Window.hpp>
 
-#include <file/Handler.hpp>
-
 #include <internal/gizmo.hpp>
 #include <internal/editorCamera.hpp>
 #include <internal/editorMenu.hpp>
 #include <internal/physxSettingsFrame.hpp>
+#include <internal/editorContext.hpp>
 
 #include <internal/menu/subMenu.hpp>
 
@@ -17,8 +16,8 @@
 namespace of::editor
 {
 
-	std::shared_ptr<of::graphics::window::Application> s_gfx = nullptr;
-	std::vector<of::common::uuid> s_uuids;
+	static std::shared_ptr<of::graphics::window::Application> s_gfx = nullptr;
+	static std::vector<of::common::uuid> s_uuids;
 
 	static of::common::uuid add(std::shared_ptr<of::graphics::window::Application> gfx, std::shared_ptr<of::graphics::Renderable> render)
 	{
@@ -38,8 +37,8 @@ namespace of::editor
 
 		auto newFileMenu = std::make_shared<menu::SubMenuCallback>("New", "Ctrl + N", std::bind(&modal::NewFile::open, newFileModal.get()));
 		auto saveFileMenu = std::make_shared<menu::SubMenuCallback>("Save", "Ctrl + S", [] {
-			auto& manager = of::engine::GetModule<of::file::Handler>();
-			manager.saveGameDatabase(manager.openedFile.name, manager.openedFile); 
+			auto& context = getEditorContext();
+			context.saveGameDatabase(context.openedFileName);
 			});
 		auto loadFileMenu = std::make_shared<menu::SubMenuCallback>("Load", "", std::bind(&modal::LoadFile::open, loadFileModal.get()));
 
@@ -63,6 +62,7 @@ namespace of::editor
 	void initialize(std::shared_ptr<of::graphics::window::Application> gfx, std::shared_ptr<of::input::InputHandler> inputHandler)
 	{
 		s_gfx = gfx;
+		initEditorContext();
 		s_uuids.clear();
 		gfx->setCameraController(std::make_shared<EditorCamera>(gfx->getCamera()));
 		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx, inputHandler)));
@@ -75,6 +75,7 @@ namespace of::editor
 		{
 			s_gfx->removeRenderable(id);
 		}
+		shutdownEditorContext();
 		s_gfx = nullptr;
 	}
 }

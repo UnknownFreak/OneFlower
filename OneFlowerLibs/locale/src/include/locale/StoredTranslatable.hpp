@@ -3,12 +3,12 @@
 #include <utils/common/string.hpp>
 #include <utils/common/uuid.hpp>
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 
 namespace of::locale
 {
-	class StoredTranslatable : public of::file::archive::Requestable
+	class StoredTranslatable : public of::asset::IAsset
 	{
 
 	public:
@@ -21,36 +21,35 @@ namespace of::locale
 		{
 		}
 
-		inline StoredTranslatable(common::String value, common::String name, const common::String fromMod, const common::uuid ID, const OneVersion version) : Requestable(fromMod, ID, version), name(name), value(value)
+		inline StoredTranslatable(common::String value, common::String name, const common::String fromMod, const common::uuid ID, const OneVersion version) : IAsset(fromMod, ID, version), value(value)
+		{
+			editorName = name;
+		}
+
+		inline StoredTranslatable(const StoredTranslatable& copy) : IAsset(copy), value(copy.value)
 		{
 		}
 
-		inline StoredTranslatable(const StoredTranslatable& copy) : Requestable(copy), name(copy.name), value(copy.value)
-		{
-		}
+		virtual ~StoredTranslatable() = default;
 
-		common::String name;
 		common::String value;
 
-		common::String getName() const override;
-		common::String getValue() const override;
+		common::String getValue() const;
 
 		// Inherited via Requestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
-			ar(name);
+			ar(cereal::base_class<IAsset>(this));
 			ar(value);
 		}
 
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
-			ar(name);
+			ar(cereal::base_class<IAsset>(this));
 			ar(value);
 		}
 	};

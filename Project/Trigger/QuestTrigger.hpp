@@ -10,10 +10,10 @@ namespace Trigger
 {
 	// TODO: remove
 	struct tmp {
-		inline void start(const of::file::FileId&) {};
-		inline void fail(const of::file::FileId&) {};
-		inline void reset(const of::file::FileId&) {};
-		inline void progress(const of::file::FileId&) {};
+		inline void start(const of::asset::AssetId&) {};
+		inline void fail(const of::asset::AssetId&) {};
+		inline void reset(const of::asset::AssetId&) {};
+		inline void progress(const of::asset::AssetId&) {};
 	};
 
 	class QuestTrigger : public of::trigger::Trigger
@@ -22,7 +22,7 @@ namespace Trigger
 		virtual void executeInternal() override;
 
 	public:
-		of::file::FileId questId;
+		of::asset::AssetId questId;
 		Enums::QuestTriggerType triggerType;
 
 		template<class Archive>

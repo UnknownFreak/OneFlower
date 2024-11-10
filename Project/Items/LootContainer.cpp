@@ -1,6 +1,6 @@
 #include "LootContainer.hpp"
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 #include <session/GameSession.hpp>
 
 #include <component/render.hpp>
@@ -30,7 +30,7 @@ namespace of::component
 		}
 		for (auto& x : lootDrops)
 		{
-			auto tmp = of::engine::GetModule<of::file::Handler>().archive.requestShared<Items::Base>(x.first);
+			auto tmp = of::asset::getAssetRequestor().requestShared<Items::Base>(x.first);
 			object->get<of::component::Inventory>()->addItem(tmp, x.second);
 		}
 	}

@@ -1,6 +1,6 @@
 #include <resource/cutSceneInfo.hpp>
 
-of::common::uuid of::file::archive::Trait<of::resource::CutSceneInfo>::typeId = of::common::uuid("32bc48e1-08c6-483b-804c-c20df627c702");
+of::common::uuid of::asset::Trait<of::resource::CutSceneInfo>::typeId = of::common::uuid("32bc48e1-08c6-483b-804c-c20df627c702");
 
 namespace of::resource
 {
@@ -35,8 +35,8 @@ namespace of::resource
 		}
 	}
 
-	of::file::archive::TypeInfo CutSceneInfo::getTrait() const
+	of::asset::TypeInfo CutSceneInfo::getTrait() const
 	{
-		return { of::file::archive::Trait<CutSceneInfo>::typeId };
+		return { of::asset::Trait<CutSceneInfo>::typeId };
 	}
 }

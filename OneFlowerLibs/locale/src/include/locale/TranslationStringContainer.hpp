@@ -1,8 +1,6 @@
 #pragma once
-#ifndef Language_HPP
-#define Language_HPP
 
-#include <file/archive/Requestor.hpp>
+#include <asset/Requestor.hpp>
 
 #include <cereal/types/vector.hpp>
 #include <cereal/types/map.hpp>
@@ -14,7 +12,7 @@
 
 namespace of::locale
 {
-	class TranslationStringContainer : public file::archive::Requestable
+	class TranslationStringContainer : public asset::IAsset
 	{
 		common::String language;
 		LanguageHeader header;
@@ -22,7 +20,8 @@ namespace of::locale
 		static StoredTranslatable empty;
 	public:
 
-		file::archive::Requestor stringList;
+		std::vector<of::common::String> stringFileList;
+		asset::Requestor stringList;
 
 
 	#if defined _EDITOR_ || _UNITTESTS_
@@ -30,6 +29,8 @@ namespace of::locale
 		void addString(const common::String& language, const common::uuid& ID, const common::String value, const bool& isPatch);
 
 	#endif
+
+		bool isValid() { return true; }
 
 		TranslationStringContainer();
 		TranslationStringContainer(const common::String& language, common::String fontName);
@@ -46,7 +47,7 @@ namespace of::locale
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(language);
 			ar(header);
 			ar(fontName);
@@ -54,14 +55,13 @@ namespace of::locale
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(language);
 			ar(header);
 			ar(fontName);
 		}
 
 		// Inherited via IRequestable
-		virtual file::archive::TypeInfo getTrait() const override;
+		virtual asset::TypeInfo getTrait() const override;
 	};
 }
-#endif

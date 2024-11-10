@@ -1,11 +1,11 @@
 #include "LootTable.hpp"
 #include <rng/rng.hpp>
 
-of::common::uuid of::file::archive::Trait<Items::LootTable>::typeId = of::common::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");
+of::common::uuid of::asset::Trait<Items::LootTable>::typeId = of::common::uuid("f496f3a2-bd62-4aa0-880f-439aab7e46af");
 
-std::unordered_map<of::file::FileId, size_t> Items::LootTable::generateDrops() const
+std::unordered_map<of::asset::AssetId, size_t> Items::LootTable::generateDrops() const
 {
-    std::unordered_map<of::file::FileId, size_t> loot;
+    std::unordered_map<of::asset::AssetId, size_t> loot;
     //auto& gen = Engine::GetModule<of::module::RandomGen>();
     //for (auto& x : lootTable)
     //{
@@ -22,7 +22,7 @@ std::unordered_map<of::file::FileId, size_t> Items::LootTable::generateDrops() c
     return loot;
 }
 
-of::file::archive::TypeInfo Items::LootTable::getTrait() const
+of::asset::TypeInfo Items::LootTable::getTrait() const
 {
-    return { of::file::archive::Trait<Items::LootTable>::typeId };
+    return { of::asset::Trait<Items::LootTable>::typeId };
 }

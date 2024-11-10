@@ -1,7 +1,8 @@
 #include <component/damage.hpp>
 
+#include <asset/asset.hpp>
+
 #include <object/GameObject.hpp>
-#include <file/Handler.hpp>
 #include <courier/courier.hpp>
 
 //#include <Items/Inventory.hpp>
@@ -78,8 +79,8 @@ namespace of::component
 	void Damage::loadEffects()
 	{
 		for (auto& id : effectsIds)
-			effects.push_back(of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Effect>(id));
-		damageElement = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::combat::Element>(elementId);
+			effects.push_back(asset::getAssetRequestor().requestUniqueInstance<of::combat::Effect>(id));
+		damageElement = asset::getAssetRequestor().requestUniqueInstance<of::combat::Element>(elementId);
 	}
 
 	void Damage::attached()

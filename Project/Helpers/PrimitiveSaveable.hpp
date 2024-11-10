@@ -1,12 +1,12 @@
 #ifndef PrimitiveSaveable_HPP
 #define PrimitiveSaveable_HPP
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 #include <Interfaces/IObject.hpp>
 #include <cereal\types\vector.hpp>
 
 template <class T>
-class PrimitiveSaveable : public of::file::archive::Requestable, public Interfaces::IObject
+class PrimitiveSaveable : public of::asset::IAsset, public Interfaces::IObject
 {
 	template <class In = T>
 	inline typename std::enable_if<std::is_same<std::vector<of::common::String>, In>::value,
@@ -33,11 +33,11 @@ public:
 	{
 	}
 
-	inline PrimitiveSaveable(T value, of::common::String name, const of::common::String fromMod, const of::common::uuid ID, const OneVersion version) : Requestable(fromMod, ID, version), IObject(name), value(value)
+	inline PrimitiveSaveable(T value, of::common::String name, const of::common::String fromMod, const of::common::uuid ID, const OneVersion version) : IAsset(fromMod, ID, version), IObject(name), value(value)
 	{
 	}
 
-	inline PrimitiveSaveable(const PrimitiveSaveable& copy) : Requestable(copy), IObject(copy), value(copy.value)
+	inline PrimitiveSaveable(const PrimitiveSaveable& copy) : IAsset(copy), IObject(copy), value(copy.value)
 	{
 	}
 
@@ -46,7 +46,7 @@ public:
 		return name;
 	}
 
-	inline of::common::String getValue() const override
+	inline of::common::String getValue() const
 	{
 		return str();
 	}
@@ -80,12 +80,12 @@ public:
 	}
 
 	// Inherited via IRequestable
-	virtual of::file::archive::TypeInfo getTrait() const override
+	virtual of::asset::TypeInfo getTrait() const override
 	{
-		return { of::file::archive::Trait<PrimitiveSaveable<T>>::typeId };
+		return { of::asset::Trait<PrimitiveSaveable<T>>::typeId };
 	}
 };
 
 CEREAL_REGISTER_TYPE(PrimitiveSaveable<of::common::String>);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, PrimitiveSaveable<of::common::String>);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, PrimitiveSaveable<of::common::String>);
 #endif

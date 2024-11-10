@@ -35,8 +35,8 @@ namespace of::component
 		size_t notifyIntervalPerHits = 0;
 
 	public:
-		std::vector<of::file::FileId> effectsIds;
-		of::file::FileId elementId;
+		std::vector<of::asset::AssetId> effectsIds;
+		of::asset::AssetId elementId;
 
 		bool attachToOwner;
 		// Buff/debuffs that get applied (includes DoTs)

@@ -1,7 +1,10 @@
 #ifndef LootTable_HPP
 #define LootTable_HPP
-#include <file/Archive/Requestable.hpp>
-#include <file/FileId.hpp>
+
+#include <unordered_map>
+
+#include <asset/assetId.hpp>
+#include <asset/iAsset.hpp>
 
 struct DropConstraint
 {
@@ -12,7 +15,7 @@ struct DropConstraint
 struct ItemDrop
 {
 	int minDropCount, maxDropCount;
-	of::file::FileId itemId;
+	of::asset::AssetId itemId;
 	bool instantPickup;
 
 	bool operator==(const ItemDrop& other) const
@@ -28,23 +31,23 @@ namespace std
 	{
 		std::size_t operator()(ItemDrop const& drop) const
 		{
-			return std::hash<of::file::FileId>()(drop.itemId);
+			return std::hash<of::asset::AssetId>()(drop.itemId);
 		}
 	};
 }
 
 namespace Items
 {
-	class LootTable : public of::file::archive::Requestable
+	class LootTable : public of::asset::IAsset
 	{
 	public:
 
 		std::unordered_map<ItemDrop, DropConstraint> lootTable;
 
-		std::unordered_map<of::file::FileId, size_t> generateDrops() const;
+		std::unordered_map<of::asset::AssetId, size_t> generateDrops() const;
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 	};
 }
 

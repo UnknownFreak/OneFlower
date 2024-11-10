@@ -19,27 +19,27 @@ namespace of::session
 	{
 	}
 
-	void GameSession::setState(const of::file::FileId& uuid, std::unique_ptr<SaveState> state)
+	void GameSession::setState(const of::asset::AssetId& uuid, std::unique_ptr<SaveState> state)
 	{
 		saveStates[uuid] = std::move(state);
 	}
 
-	bool GameSession::exists(const of::file::FileId& uuid)
+	bool GameSession::exists(const of::asset::AssetId& uuid)
 	{
 		return saveStates.find(uuid) != saveStates.end();
 	}
 
-	bool GameSession::exists(const of::file::FileId& uuid, const of::common::String& type_)
+	bool GameSession::exists(const of::asset::AssetId& uuid, const of::common::String& type_)
 	{
 		return exists(uuid) && saveStates[uuid]->isOfType(type_);
 	}
 
-	void GameSession::remove(const of::file::FileId& uuid)
+	void GameSession::remove(const of::asset::AssetId& uuid)
 	{
 		saveStates.erase(uuid);
 	}
 
-	std::unique_ptr<SaveState>& GameSession::getState(const of::file::FileId& uuid)
+	std::unique_ptr<SaveState>& GameSession::getState(const of::asset::AssetId& uuid)
 	{
 		return saveStates[uuid];
 	}
@@ -54,7 +54,7 @@ namespace of::session
 		return customDiffId;
 	}
 
-	of::file::FileId GameSession::getGameModeId() const
+	of::asset::AssetId GameSession::getGameModeId() const
 	{
 		return gameMode.getModfile();
 	}
@@ -83,7 +83,7 @@ namespace of::session
 		return despawnTimers;
 	}
 
-	void GameSession::newGame(const of::resource::DifficultyLevel difficulty, const of::common::uuid& customDifficultyId, const of::file::FileId& gameModeId)
+	void GameSession::newGame(const of::resource::DifficultyLevel difficulty, const of::common::uuid& customDifficultyId, const of::asset::AssetId& gameModeId)
 	{
 		diff = difficulty;
 		gameModeId;

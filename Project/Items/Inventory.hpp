@@ -83,7 +83,7 @@ namespace of::component
 		void addItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize);
 		void removeItem(std::shared_ptr<Items::Base>& item, const size_t& stackSize);
 
-		size_t getItemStack(const of::file::FileId& itemId);
+		size_t getItemStack(const of::asset::AssetId& itemId);
 
 		void persist(of::object::ObjectSaveState*) override {};
 		void onReconstruct(of::object::ObjectSaveState*) override {};

@@ -2,7 +2,7 @@
 #define SpawnObjectTrigger_HPP
 
 #include <trigger/Trigger.hpp>
-#include <file/FileId.hpp>
+#include <asset/AssetId.hpp>
 #include <glm/vec3.hpp>
 
 namespace Trigger
@@ -16,7 +16,7 @@ namespace Trigger
 
 	public:
 
-		of::file::FileId prefabId;
+		of::asset::AssetId prefabId;
 		glm::vec3 position;
 
 		template<class Archive>

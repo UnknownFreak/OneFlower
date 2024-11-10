@@ -4,8 +4,10 @@
 #include <rng/rng.hpp>
 #include <timer/timer.hpp>
 
+#include <asset/internalAsset.hpp>
 #include <object/internalInstanceHandler.hpp>
 #include <session/internalGameSession.hpp>
+#include <locale/internalLocale.hpp>
 
 #include <logger/logger.hpp>
 
@@ -25,12 +27,12 @@ namespace of::engine
 			rng generator 
 			log -> Core
 			timer
-			archive ??
+			archive => asset
+			locale
 
 			log -> asset
 			object
 			session
-			loaders texture, mesh, shader, depends on archive
 
 
 			log -> engine
@@ -43,6 +45,13 @@ namespace of::engine
 		}
 
 		external -> courier
+
+		asset::loadOrder("loadOrder.order")
+
+		graphics()
+		{
+			loaders for texture, mesh and shader (auto cleanup when graphics is finished)
+		}
 
 		runGame() -> physics, ui, editor ui
 
@@ -62,19 +71,22 @@ namespace of::engine
 		auto& logger = of::logger::get().getLogger("Main");
 		logger.Info("Initializing Modules group: Core");
 		timer::init();
+		asset::init();
+		locale::init();
 
-		
 		logger.Info("Initializing Modules group: (internal) Asset Management");
 
 		object::init();
 		session::init();
-
 	}
 
 	void shutdown()
 	{
 		session::shutdown();
 		object::shutdown();
+
+		locale::shutdown();
+		asset::shutdown();
 		timer::shutdown();
 
 		rng::shutdown();

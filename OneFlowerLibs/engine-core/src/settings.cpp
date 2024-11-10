@@ -18,6 +18,7 @@ namespace of::settings
 		, mScreenResolution{1920, 1080}
 		, mLogLevel(of::logger::LogLevel::INFO)
 		, mThreadCount(2)
+		, mLocale("english.lang")
 	{
 		if (parser.exists("random-generator"))
 		{

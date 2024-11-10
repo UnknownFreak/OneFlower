@@ -11,7 +11,7 @@
 #include <Graphics/Editor/ViewModels/IObjectViewModel.hpp>
 #include <Graphics/Editor/ModFileUuidHelperDropDown.hpp>
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 
 namespace of::expose
 {
@@ -29,7 +29,7 @@ namespace of::expose
 				ImGui::Text("Damage To Unknown Element Type:");
 				if (ImGui::InputDouble("###ElementDamageToUnknownType", &e.damageToUnknownType))
 				{
-					e.mode = of::file::archive::ObjectSaveMode::EDIT;
+					e.mode = of::asset::ObjectSaveMode::EDIT;
 				}
 				ImGui::Text("Elemental Modifiers");
 				of::imgui::BasicToolTip(
@@ -46,16 +46,16 @@ namespace of::expose
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
 
-					std::vector<of::file::FileId> temp;
+					std::vector<of::asset::AssetId> temp;
 					for (auto& it : e.elementAttributes)
 					{
 						temp.push_back(it.first);
 					}
-					auto x = Graphics::Editor::Selectors::dropDownSelection("Select element to add...", of::file::ObjectType::Element, temp);
+					auto x = Graphics::Editor::Selectors::dropDownSelection("Select element to add...", of::asset::ObjectType::Element, temp);
 					if (x.isValid())
 					{
 						e.elementAttributes[x] = 0.0;
-						e.mode = of::file::archive::ObjectSaveMode::EDIT;
+						e.mode = of::asset::ObjectSaveMode::EDIT;
 					}
 					ImGui::TableNextColumn();
 					ImGui::Text("N/A");
@@ -72,9 +72,9 @@ namespace of::expose
 						}
 						else
 						{
-							if (of::engine::GetModule<of::file::Handler>().archive.editorKeyExists(item.first))
+							if (of::asset::getAssetRequestor().editorKeyExists(item.first))
 							{
-								of::common::String tmp_name = of::engine::GetModule<of::file::Handler>().archive.editorGetObjectName(item.first);
+								of::common::String tmp_name = of::asset::getAssetRequestor().editorGetObjectName(item.first);
 								if (tmp_name == "")
 								{
 									ImGui::Text(item.first.operator()(true).c_str());
@@ -99,7 +99,7 @@ namespace of::expose
 						if (ImGui::Button("-"))
 						{
 							e.elementAttributes.erase(item.first);
-							e.mode = of::file::archive::ObjectSaveMode::EDIT;
+							e.mode = of::asset::ObjectSaveMode::EDIT;
 							break;
 						}
 						ImGui::TableNextColumn();
@@ -107,7 +107,7 @@ namespace of::expose
 						of::common::String s = "###" + item.first.operator()();
 						if (ImGui::InputDouble(s.c_str(), &item.second))
 						{
-							e.mode = of::file::archive::ObjectSaveMode::EDIT;
+							e.mode = of::asset::ObjectSaveMode::EDIT;
 						}
 					}
 
@@ -117,12 +117,12 @@ namespace of::expose
 
 		};
 		template<>
-		class ExposeToEditor<of::file::archive::Requestable>
+		class ExposeToEditor<of::asset::IAsset>
 		{
 		public:
-			static void edit(of::file::archive::Requestable& r)
+			static void edit(of::asset::IAsset& r)
 			{
-				if (r.objectType == of::file::ObjectType::Element)
+				if (r.objectType == of::asset::ObjectType::Element)
 					ExposeToEditor<of::combat::Element>::edit((of::combat::Element&)r);
 			}
 		};
@@ -150,7 +150,7 @@ namespace Graphics
 					ImGui::Text("Object Info: ");
 					ViewModels::renderInfo(ptr);
 					ImGui::Separator();
-					of::expose::ExposeToEditor<of::file::archive::Requestable>::edit(*ptr);
+					of::expose::ExposeToEditor<of::asset::IAsset>::edit(*ptr);
 				}
 				ImGui::End();
 			}

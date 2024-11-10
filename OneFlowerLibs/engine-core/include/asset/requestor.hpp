@@ -6,26 +6,25 @@
 #include <functional>
 #include <unordered_map>
 
+#include <filesystem>
 
 #include <utils/common/String.hpp>
 #include <logger/Logger.hpp>
 
-#include <File/Archive/EntityIndex.hpp>
-#include <File/Header.hpp>
-#include <File/Loader.hpp>
-#include <File/FileId.hpp>
+#include <asset/assetIndex.hpp>
+#include <asset/header.hpp>
+#include <asset/assetId.hpp>
 
-//#include <Interfaces/IPatch.hpp>
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
-#include<cereal/cereal.hpp>
+#include <cereal/cereal.hpp>
 #include <cereal/types/map.hpp>
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/types/vector.hpp>
 #include <cereal/types/utility.hpp>
 #include <cereal\archives\binary.hpp>
 
-namespace of::file::archive
+namespace of::asset
 {
 	
 	class Requestor
@@ -33,7 +32,7 @@ namespace of::file::archive
 
 		class ArchiveFactory
 		{
-			std::unordered_map<common::uuid, std::function<void(const EntityIndex&)>> helpers;
+			std::unordered_map<common::uuid, std::function<void(const AssetIndex&)>> helpers;
 
 			Requestor* ref;
 
@@ -41,85 +40,20 @@ namespace of::file::archive
 
 			ArchiveFactory(Requestor* ref) : ref(ref) {};
 
-			inline void OnLoadingRequested(const EntityIndex& index)
+			inline void OnLoadingRequested(const AssetIndex& index)
 			{
 				helpers[index.typeId](index);
 			}
-			inline void registerDefaults(std::vector<std::pair<common::uuid, std::function<void(const EntityIndex&)>>>& vector)
+
+			inline void registerDefaults(std::vector<std::pair<common::uuid, std::function<void(const AssetIndex&)>>>& vector)
 			{
 				for (auto& i : vector)
 				{
 					helpers[i.first] = i.second;
 				}
-				/*
-				helpers[Trait<::Asset::Resource::DialogTree>::typeId] = [this](const EntityIndex& index)
-				{
-					ref->request<::Asset::Resource::DialogTree>(FileId(FileId(index.modFile, index.ID)));
-				};
-				helpers[Trait<::Asset::Resource::Prefab>::typeId] = [this](const EntityIndex& index) {
-					ref->request<::Asset::Resource::Prefab>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<File::Asset::Resource::Template::WorldInstance>::typeId] = [this](const EntityIndex& index) {
-					ref->request<File::Asset::Resource::Template::WorldInstance>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<File::Asset::Resource::Template::TileChunk>::typeId] = [this](const EntityIndex& index) {
-					ref->request<File::Asset::Resource::Template::TileChunk>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<File::Asset::Resource::Template::ColliderChunk>::typeId] = [this](const EntityIndex& index) {
-					ref->request<File::Asset::Resource::Template::ColliderChunk>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<PrimitiveSaveable<common::String>>::typeId] = [this](const EntityIndex& index) {
-					ref->request<PrimitiveSaveable<common::String>>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<Combat::Element>::typeId] = [this](const EntityIndex& index) {
-					ref->request<Combat::Element>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<Combat::Effect>::typeId] = [this](const EntityIndex& index) {
-					ref->request<Combat::Effect>(FileId(index.modFile, index.ID));
-				};
-				helpers[Trait<Combat::Skill>::typeId] = [this](const EntityIndex& index) {
-					ref->request<Combat::Skill>(FileId(index.modFile, index.ID));
-				};
-				//helpers[Interfaces::Trait<Combat::EffectProperty>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Combat::EffectProperty>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Combat::DamageEffect>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Combat::DamageEffect>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Combat::BarrierEffect>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Combat::BarrierEffect>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Combat::VisualEffect>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Combat::VisualEffect>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Combat::ModifierEffect>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Combat::ModifierEffect>(FileId(index.modFile, index.ID));
-				//};
-				helpers[Trait<Questing::Quest>::typeId] = [this](const EntityIndex& index) {
-					ref->request<Questing::Quest>(FileId(index.modFile, index.ID));
-				};
-				//helpers[Interfaces::Trait<Questing::AOrBObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::AOrBObjective>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Questing::CollectItemObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::CollectItemObjective>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Questing::DefeatEnemyObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::DefeatEnemyObjective>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Questing::DefendObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::DefendObjective>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Questing::DuelObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::DuelObjective>(FileId(index.modFile, index.ID));
-				//};
-				//helpers[Interfaces::Trait<Questing::ListObjective>::typeId] = [this](const EntityIndex& index) {
-				//	ref->request<Questing::ListObjective>(FileId(index.modFile, index.ID));
-				//};
-				*/
 			}
 
-			void registerCustom(const common::uuid& uuid, const std::function<void(const EntityIndex&)>& func) // if custom dllmods ever become a thing
+			void registerCustom(const common::uuid& uuid, const std::function<void(const AssetIndex&)>& func) // if custom dllmods ever become a thing
 			{
 				helpers[uuid] = func;
 			}
@@ -130,11 +64,11 @@ namespace of::file::archive
 		// ##################################################
 
 	protected:
-		typedef std::unordered_map<FileId, std::unique_ptr<Requestable>> td_map;
+		typedef std::unordered_map<AssetId, std::unique_ptr<IAsset>> td_map;
 
 		td_map requestedMap;
 
-		common::String loadDirectory;
+		std::filesystem::path loadDirectory;
 		common::String pointerPrefixString;
 
 	private:
@@ -158,7 +92,7 @@ namespace of::file::archive
 		//{
 		//}
 
-		bool saveIfMode(const std::unique_ptr<Requestable>& pref, const Header& header) const
+		bool saveIfMode(const std::unique_ptr<IAsset>& pref, const Header& header) const
 		{
 			if (pref->mode != ObjectSaveMode::REMOVE)
 			{
@@ -173,7 +107,7 @@ namespace of::file::archive
 					pref->mode = ObjectSaveMode::DEFAULT;
 				return b;
 			}
-			return true;
+			return false;
 		}
 
 		// ##################################################
@@ -188,16 +122,16 @@ namespace of::file::archive
 		}
 
 		template<class T>
-		bool load(const FileId& modFile)
+		bool load(const AssetId& modFile)
 		{
 			requestedMap[modFile] = loadInternal<T>(modFile);
 			return true;
 		}
 
 		template<class T>
-		std::unique_ptr<Requestable> loadInternal(const FileId& modFile)
+		std::unique_ptr<IAsset> loadInternal(const AssetId& modFile)
 		{
-			std::unique_ptr<Requestable> t;
+			std::unique_ptr<IAsset> t;
 			if (modFile.name == "EMPTY" && modFile.uuid.is_nil() || modFile.name == common::Builtin && modFile.uuid.is_nil())
 				return t;
 			if (!requestFromDatabase<T>(t, modFile.name, modFile.uuid))
@@ -209,21 +143,22 @@ namespace of::file::archive
 		}
 
 		template<class T>
-		inline bool requestFromDatabase(std::unique_ptr<Requestable>& _t, const common::String& modName, const common::uuid & uuid) const
+		inline bool requestFromDatabase(std::unique_ptr<IAsset>& _t, const common::String& modName, const common::uuid & uuid) const
 		{
 			bool found = false;
 			bool init = true;
 			bool first_loaded = false;
 			bool patching = false;
 			auto& logger = of::logger::get().getLogger("Requestor");
-			for(std::pair<std::string, size_t> var : getLoadOrder())
+			for(auto & var : getLoadOrder())
 			{
 				logger.Debug("---------------------------------------------------------------------------------------");
-				logger.Debug("Loading from archive file: " + var.first);
+				logger.Debug("Loading from archive file: " + var);
 				bool eof = false;
-				EntityIndex ind;
-				std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
-				std::ifstream database(loadDirectory + var.first, std::ios::binary);
+				AssetIndex ind;
+				auto indexFileName = var + ".index";
+				std::ifstream index(loadDirectory / indexFileName, std::ios::binary);
+				std::ifstream database(loadDirectory / var, std::ios::binary);
 				if (index.is_open())
 				{
 					cereal::BinaryInputArchive ar(index);
@@ -255,7 +190,7 @@ namespace of::file::archive
 							}
 							else if (ind.modFile == modName && ind.ID == uuid)
 							{
-								logger.Fine("Loading object: fileidx: " + std::to_string(ind.row));
+								logger.Fine("Loading object: AssetIdx: " + std::to_string(ind.row));
 								logger.Debug("Loading object: type: " + getObjectTypeAsString(ind.type));
 								logger.Debug("Loading object: derived typename: " + common::String(typeid(T).name()));
 								logger.Debug("Loading object: derived typehash: " + std::to_string(typeid(T).hash_code()));
@@ -313,25 +248,22 @@ namespace of::file::archive
 			return found;
 		}
 
-		std::map<common::String, size_t> getLoadOrder() const
+		const std::vector<common::String>& getLoadOrder() const
 		{
-			if (fileLoadOrder.size() == 0)
-				return modLoadOrder.loadOrder;
-			return fileLoadOrder;
+			return modLoadOrder;
 		}
 
 	public:
 
-		std::map<common::String, size_t> fileLoadOrder;
 		ArchiveFactory factory;
-		file::Loader modLoadOrder;
+		const std::vector<of::common::String>& modLoadOrder;
 
 		// ##################################################
 		// # INITIALIZERS									#
 		// ##################################################
 
-		Requestor(const common::String& loadDirectory = "Data\\", const std::map<common::String, size_t>& loadOrder = {}) :
-			loadDirectory(loadDirectory), fileLoadOrder(loadOrder), factory(this)
+		Requestor(const std::filesystem::path& loadDirectory, const std::vector<of::common::String>& loadOrder) :
+			loadDirectory(loadDirectory), modLoadOrder(loadOrder), factory(this)
 		{
 		}
 
@@ -340,31 +272,17 @@ namespace of::file::archive
 			clear();
 		}
 
-		Requestor(const Requestor& copy) : Requestor(copy.loadDirectory,  copy.fileLoadOrder)
-		{
-			//requestedMap = copy.requestedMap;
-		}
-
-		Requestor& operator=(const Requestor& right)
-		{
-			if (this == &right)
-				return *this;
-			loadDirectory = right.loadDirectory;
-			fileLoadOrder = right.fileLoadOrder;
-			modLoadOrder = right.modLoadOrder;
-			//requestedMap = right.requestedMap;
-			return *this;
-		}
+		Requestor& operator=(const Requestor& right) = delete;
 
 		// ##################################################
 		// # PUBLIC METHODS									#
 		// ##################################################
 
 		template<class T>
-		requires std::derived_from<T, Requestable>
+		requires std::derived_from<T, IAsset>
 		inline bool add(T* ptr)
 		{
-			FileId key(ptr->fromMod, ptr->ID);
+			AssetId key(ptr->fromMod, ptr->ID);
 			auto& logger = of::logger::get().getLogger("Requestor");
 			if (requestedMap.find(key) != requestedMap.end())
 			{
@@ -375,27 +293,9 @@ namespace of::file::archive
 				}
 			}
 			logger.Info(getObjectTypeAsString(ptr->objectType) + " - Object from mod " + key.operator()() + " added.", logger.fileInfo(__FILE__, __LINE__));
-			requestedMap[key] = std::unique_ptr<Requestable>(ptr);
+			requestedMap[key] = std::unique_ptr<IAsset>(ptr);
 			return true;
 		}
-
-		/*
-		inline void add(const ObjectType& type, const Core::String& name)
-		{
-			switch (type)
-			{
-			case ObjectType::Element: 
-			{
-				auto elem = new Combat::Element;
-				elem->fromMod = name;
-				add(elem); 
-				break;
-			}
-			default:
-				Engine::GetModule<Enginelogger::Logger>().getLogger("Requestor").Warning("Trying to add type: " + Enums::to_string(type) + ", but it does not exist in switch case, consider adding it.");
-			}
-		}
-		**/
 
 		inline void clear()
 		{
@@ -410,11 +310,11 @@ namespace of::file::archive
 		{
 			auto& logger = of::logger::get().getLogger("Requestor");
 			clear();
-			for(std::pair<std::string, size_t> var : getLoadOrder())
+			for(const common::String& var : getLoadOrder())
 			{
 				bool eof = false;
-				EntityIndex ind;
-				std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+				AssetIndex ind;
+				std::ifstream index(loadDirectory / (var + ".index"), std::ios::binary);
 				if (index.is_open())
 				{
 					cereal::BinaryInputArchive ar(index);
@@ -429,13 +329,13 @@ namespace of::file::archive
 							else if (ind.flags == ObjectFlag::EoF)
 							{
 								eof = true;
-								logger.Info("Requestor loaded from ["+ var.first +"] total size is now: " + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
+								logger.Info("Requestor loaded from ["+ var +"] total size is now: " + std::to_string(requestedMap.size()) + " objects", logger.fileInfo(__FILE__, __LINE__));
 							}
 						}
 					}
 				}
 				else
-					logger.Error("Requestor unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
+					logger.Error("Requestor unable to open index file [" + var + ".index]!", logger.fileInfo(__FILE__, __LINE__));
 				index.close();
 			}
 		}
@@ -445,12 +345,12 @@ namespace of::file::archive
 			return requestedMap;
 		}
 
-		inline bool editorKeyExists(const FileId& modFile) const
+		inline bool editorKeyExists(const AssetId& modFile) const
 		{
 			return requestedMap.contains(modFile);
 		}
 
-		inline common::String editorGetObjectName(const FileId& modFile)
+		inline common::String editorGetObjectName(const AssetId& modFile)
 		{
 			if (editorKeyExists(modFile))
 			{
@@ -461,9 +361,9 @@ namespace of::file::archive
 			return "";
 		}
 
-		inline std::vector<FileId> listAllCurrentLoadedObjects(const ObjectType& objectType) const
+		inline std::vector<AssetId> listAllCurrentLoadedObjects(const ObjectType& objectType) const
 		{
-			std::vector<FileId> listofall;
+			std::vector<AssetId> listofall;
 			td_map::const_iterator it = requestedMap.begin();
 			td_map::const_iterator eit = requestedMap.end();
 			for (it; it != eit; it++)
@@ -478,15 +378,15 @@ namespace of::file::archive
 			return listofall;
 		}
 
-		inline std::vector<FileId> listAllObjectKeys(const ObjectType& objectType) const
+		inline std::vector<AssetId> listAllObjectKeys(const ObjectType& objectType) const
 		{
 			auto& logger = of::logger::get().getLogger("Requestor");
-			std::vector<FileId> listofall;
-			for(std::pair<std::string, size_t> var :getLoadOrder())
+			std::vector<AssetId> listofall;
+			for(const common::String& var : getLoadOrder())
 			{
 				bool eof = false;
-				EntityIndex ind;
-				std::ifstream index(loadDirectory + var.first + ".index", std::ios::binary);
+				AssetIndex ind;
+				std::ifstream index(loadDirectory / (var + ".index"), std::ios::binary);
 				if (index.is_open())
 				{
 					cereal::BinaryInputArchive ar(index);
@@ -496,7 +396,7 @@ namespace of::file::archive
 							ar(ind);
 							if (ind.type == objectType)
 							{
-								listofall.push_back(FileId(ind.modFile, ind.ID));
+								listofall.push_back(AssetId(ind.modFile, ind.ID));
 							}
 							else if (ind.flags == ObjectFlag::EoF)
 								eof = true;
@@ -504,28 +404,28 @@ namespace of::file::archive
 					}
 				}
 				else
-					logger.Error("Requestor was unable to open index file [" + var.first + ".index]!", logger.fileInfo(__FILE__, __LINE__));
+					logger.Error("Requestor was unable to open index file [" + var + ".index]!", logger.fileInfo(__FILE__, __LINE__));
 			}
 			return listofall;
 		}
 	
 		template<class T>
-		requires std::derived_from<T, Requestable>
-		inline T* requestUniqueInstancePtr(const FileId& modFile)
+		requires std::derived_from<T, IAsset>
+		inline T* requestUniqueInstancePtr(const AssetId& modFile)
 		{
 			return (T*) loadInternal<T>(modFile).release();
 		}
 
 		template<class T>
-		requires std::derived_from<T, Requestable>
-		inline std::shared_ptr<T> requestShared(const FileId& modFile)
+		requires std::derived_from<T, IAsset>
+		inline std::shared_ptr<T> requestShared(const AssetId& modFile)
 		{
 			return std::shared_ptr<T>((T*)loadInternal<T>(modFile).release());
 		}
 
 		template<class T>
-		requires std::derived_from<T, Requestable>
-		inline T requestUniqueInstance(const FileId& modFile)
+		requires std::derived_from<T, IAsset>
+		inline T requestUniqueInstance(const AssetId& modFile)
 		{
 			auto& logger = of::logger::get().getLogger("Requestor");
 			T* t = request<T>(modFile);
@@ -536,8 +436,8 @@ namespace of::file::archive
 		}
 
 		template<class Ty>
-		requires std::derived_from<Ty, Requestable>
-		inline Ty* request(const FileId& modfile)
+		requires std::derived_from<Ty, IAsset>
+		inline Ty* request(const AssetId& modfile)
 		{
 			td_map::iterator it;
 			bool found = false;
@@ -558,32 +458,19 @@ namespace of::file::archive
 			{
 				return nullptr;
 			}
-			Requestable* requested = it->second.get();
+			IAsset* requested = it->second.get();
 			if (requested && requested->getTrait().hasTypeId(Trait<Ty>::typeId))
 				return (Ty*)requested;
 			return nullptr;
 		}
 
-		template<class Ty>
-		requires std::derived_from<Ty, Requestable>
-		inline Ty* request(const FileId& modfile, const bool& )
-		{
-			Ty* ptr = request<Ty>(modfile);
-			if (!ptr)
-			{
-				add(new Ty());
-				return request<Ty>(modfile);
-			}
-			return ptr;
-		}
-
-		inline void requestRemoval(const FileId& modFile)
+		inline void requestRemoval(const AssetId& modFile)
 		{
 			requestedMap.erase(modFile);
 		}
 
-		inline void save(EntityIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr,
-			const of::file::Header& header, const bool& skipSaveIfMode=false) const
+		inline void save(AssetIndex & ind, std::ostream & file, cereal::BinaryOutputArchive & indexAr, cereal::BinaryOutputArchive & mainAr,
+			const of::asset::Header& header, const bool& skipSaveIfMode=false) const
 		{
 			auto& logger = of::logger::get().getLogger("Requestor");
 			td_map::const_iterator it = requestedMap.begin();
@@ -601,14 +488,14 @@ namespace of::file::archive
 				{
 					logger.Info("Saving object: uuid: " + ind.ID.to_string());
 					logger.Debug(" modfile: " + ind.modFile);
-					logger.Debug(" fileidx: " + std::to_string(ind.row));
+					logger.Debug(" AssetIdx: " + std::to_string(ind.row));
 					logger.Debug(" type: " + getObjectTypeAsString(ind.type));
 					logger.Debug(" typeId: " + ind.typeId.to_string());
 					indexAr(ind);
 					try
 					{
 						mainAr(it->second);
-						logger.Debug("Saving object finished: fileidx: " + std::to_string(file.tellp()));
+						logger.Debug("Saving object finished: AssetIdx: " + std::to_string(file.tellp()));
 					}
 					catch (const std::exception x)
 					{

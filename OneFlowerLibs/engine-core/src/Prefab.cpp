@@ -8,7 +8,7 @@
 #include <component/Transform.hpp>
 
 
-of::common::uuid of::file::archive::Trait<of::resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
+of::common::uuid of::asset::Trait<of::resource::Prefab>::typeId = of::common::uuid("c73721fb-5b3a-482e-b3df-183b686075ee");
 
 namespace of::resource
 {
@@ -47,12 +47,12 @@ namespace of::resource
 		object->loadPersisted();
 	}
 
-	Prefab::Prefab() : Requestable(), spawnDistance(0.f)
+	Prefab::Prefab() : IAsset(), spawnDistance(0.f)
 	{
 
 	}
 
-	Prefab::Prefab(const Prefab& copy) : Requestable(copy), spawnDistance(copy.spawnDistance)
+	Prefab::Prefab(const Prefab& copy) : IAsset(copy), spawnDistance(copy.spawnDistance)
 	{
 		components.reserve(copy.components.size());
 		for (auto& x : copy.components)
@@ -94,8 +94,8 @@ namespace of::resource
 		build(&theObject, true);
 	}
 
-	of::file::archive::TypeInfo Prefab::getTrait() const
+	of::asset::TypeInfo Prefab::getTrait() const
 	{
-		return { of::file::archive::Trait<Prefab>::typeId };
+		return { of::asset::Trait<Prefab>::typeId };
 	}
 }

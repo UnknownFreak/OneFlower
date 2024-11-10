@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\vendor\ImGuizmo\ImGuizmo.h">
       <Filter>external</Filter>
     </ClInclude>
+    <ClInclude Include="internal\internal\editorContext.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\editor.cpp">
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="..\..\vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>external</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editorContext.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

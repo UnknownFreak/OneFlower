@@ -10,10 +10,10 @@ namespace of::trigger
 	{
 		auto& saveFile = of::session::get();
 
-		auto exists = saveFile.exists(of::file::FileId(uuid), of::session::SaveStateTypeRef<of::trigger::TriggerState>::type);
+		auto exists = saveFile.exists(of::asset::AssetId(uuid), of::session::SaveStateTypeRef<of::trigger::TriggerState>::type);
 		if (exists)
 		{
-			exists = saveFile.getState<TriggerState>(of::file::FileId(uuid))->triggered;
+			exists = saveFile.getState<TriggerState>(of::asset::AssetId(uuid))->triggered;
 		}
 
 		if (triggerOnce && exists)
@@ -22,7 +22,7 @@ namespace of::trigger
 		executeInternal();
 		if (triggerOnce)
 		{
-			saveFile.setState(of::file::FileId(uuid), std::make_unique<TriggerState>(true));
+			saveFile.setState(of::asset::AssetId(uuid), std::make_unique<TriggerState>(true));
 		}
 	}
 }

@@ -4,7 +4,7 @@
 #include <component/stats.hpp>
 #include <component/attachToParent.hpp>
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 
 #include <object/GameObject.hpp>
 
@@ -15,18 +15,18 @@
 #include <Graphics/UI/SkillIconChain.hpp>
 */
 
-of::common::uuid of::file::archive::Trait<of::combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
+of::common::uuid of::asset::Trait<of::combat::Skill>::typeId = of::common::uuid("3ac2c9b8-d7bf-4028-8979-e240fd087c36");
 
 namespace of::combat
 {
 	Element Skill::getElement()
 	{
-		return of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<Element>(elementId);
+		return asset::getAssetRequestor().requestUniqueInstance<Element>(elementId);
 	}
 
 	void Skill::preloadEffect()
 	{
-		auto& x = of::engine::GetModule<of::file::Handler>().archive;
+		auto& x = asset::getAssetRequestor();
 		x.request<of::resource::Prefab>(prefabId);
 		x.request<of::resource::Prefab>(skillEffectPrefabId);
 	}
@@ -42,7 +42,7 @@ namespace of::combat
 	}
 	*/
 
-	Skill::Skill() : Requestable()
+	Skill::Skill() : IAsset()
 	{
 	}
 
@@ -63,7 +63,7 @@ namespace of::combat
 				coolDown.reset(true);
 				coolDown.start();
 				owner->get<of::component::Stats>()->doEffects(skillExecutionEffects, stats);
-				auto& x = of::engine::GetModule<of::file::Handler>().archive;
+				auto& x = asset::getAssetRequestor();
 				of::resource::Prefab* skillPrefab = x.request<of::resource::Prefab>(prefabId);
 				of::resource::Prefab* effectPrefab = x.request<of::resource::Prefab>(skillEffectPrefabId);
 				of::object::GameObject* skillGo = nullptr;
@@ -110,8 +110,8 @@ namespace of::combat
 	}
 	*/
 
-	of::file::archive::TypeInfo Skill::getTrait() const
+	of::asset::TypeInfo Skill::getTrait() const
 	{
-		return { of::file::archive::Trait<Skill>::typeId };
+		return { of::asset::Trait<Skill>::typeId };
 	}
 };

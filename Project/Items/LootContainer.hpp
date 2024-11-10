@@ -1,7 +1,7 @@
 #ifndef LootContainer_Hpp
 #define LootContainer_Hpp
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 
 #include <component/base.hpp>
 
@@ -19,7 +19,7 @@ namespace of::component
 		bool looted;
 		bool isStaticContainer;
 
-		std::unordered_map<of::file::FileId, size_t> lootDrops;
+		std::unordered_map<of::asset::AssetId, size_t> lootDrops;
 
 
 		virtual LootContainer* copy() const override

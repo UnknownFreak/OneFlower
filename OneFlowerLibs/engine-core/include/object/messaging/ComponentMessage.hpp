@@ -1,7 +1,7 @@
 #pragma once
 
 #include <utils/common/string.hpp>
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 #include "Topics.hpp"
 
 namespace of::object
@@ -37,15 +37,15 @@ namespace of::object
 
 		struct FileIdBody : public Body
 		{
-			FileIdBody(const file::FileId& fileId) : Body(BodyType::FILE_ID), fileId(fileId) {}
-			file::FileId fileId;
+			FileIdBody(const asset::AssetId& fileId) : Body(BodyType::FILE_ID), fileId(fileId) {}
+			asset::AssetId fileId;
 		};
 
 		struct ModifierId : public Body
 		{
-			ModifierId(const file::FileId& fileId, const float& duration) : Body(BodyType::MODIFIER_ID), fileId(fileId), duration(duration), infinite(duration <= 0) {}
+			ModifierId(const asset::AssetId& fileId, const float& duration) : Body(BodyType::MODIFIER_ID), fileId(fileId), duration(duration), infinite(duration <= 0) {}
 
-			file::FileId fileId;
+			asset::AssetId fileId;
 			float duration;
 			bool infinite;
 		};

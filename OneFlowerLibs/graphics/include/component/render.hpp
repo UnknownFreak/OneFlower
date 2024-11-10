@@ -1,16 +1,12 @@
-#ifndef RenderComponent_HPP
-#define RenderComponent_HPP
+#pragma once
 
 #include <component/transform.hpp>
 #include <graphics/renderable.hpp>
 
-#include <file/FileId.hpp>
 #include <graphics/model/Model.hpp>
 
 namespace of::component
 {
-
-
 	class Render : public of::component::Base, public of::graphics::Renderable
 	{
 		bool initialized = false;
@@ -80,5 +76,3 @@ namespace of::component
 		virtual void updateFrame(const float dt) override;
 	};
 }
-
-#endif

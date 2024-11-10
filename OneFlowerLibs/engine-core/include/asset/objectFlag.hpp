@@ -1,7 +1,6 @@
-#ifndef ObjectFlag_HPP
-#define ObjectFlag_HPP
+#pragma once
 
-namespace of::file
+namespace of::asset
 {
 	enum class ObjectFlag
 	{
@@ -14,4 +13,3 @@ namespace of::file
 		Undefined
 	};
 }
-#endif

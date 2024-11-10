@@ -13,33 +13,11 @@
 
 #include <Input/InputHandler.hpp>
 
-#include <file/Handler.hpp>
-#include <file/Loader.hpp>
-
-#include <module/resource/TextureLoader.hpp>
-#include <module/resource/MeshLoader.hpp>
-#include <module/resource/ShaderLoader.hpp>
+#include <asset/asset.hpp>
 
 #include <courier/courier.hpp>
 
 #include "RegisterArchiveDefaults.hpp"
-
-static of::common::String to_string(const of::module::EngineResourceType state)
-{
-	switch (state)
-	{
-		// Console
-	case of::module::EngineResourceType::Console: return "Console";
-		// Asset
-	case of::module::EngineResourceType::FileHandler: return "FileHandler";
-		// Engine
-	case of::module::EngineResourceType::Graphics: return "Graphics";
-		// Unused
-	case of::module::EngineResourceType::WorldManagerAddon: return "WorldManagerAddon";
-	case of::module::EngineResourceType::GameVariableMapping: return "GameVariableMapping";
-	}
-	return "<undefined>" + std::to_string((int)state);
-}
 
 // todo change into a helper function available as include rather than do it in main
 // move to engine.hpp -> of::engine::init()
@@ -51,13 +29,13 @@ static volatile void initializeSystems()
 		logger.Info(str);
 
 	of::engine::initialize();
-	
+	if (of::engine::getRunMode() == of::engine::RunMode::NORMAL)
+	{
+		of::asset::setLoadOrder("loadOrder.order");
+	}
+
 	auto& mainModule = logger.getLogger("Main");
 
-	mainModule.Info("Initializing Modules group: Asset Management");
-	mainModule.Info("Initializing Module: " + to_string(of::engine::GetModule<of::file::Handler>().type));
-
-	mainModule.Info("Initializing Modules group: Engine");
 	mainModule.Info("Initializing Modules group: Messaging");
 	of::courier::init();
 
@@ -118,7 +96,6 @@ public:
 	of::object::get().unloadAll();
 
 	of::engine::shutdown();
-	of::engine::Dispose();
 	of::courier::shutdown();
 
 	of::logger::shutdown();

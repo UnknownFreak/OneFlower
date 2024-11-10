@@ -107,7 +107,7 @@ namespace of::component
 		//Engine::Get<Questing>().onItemRemoved(findItem(item), findItemStack(item))
 	}
 
-	size_t Inventory::getItemStack(const of::file::FileId& itemId)
+	size_t Inventory::getItemStack(const of::asset::AssetId& itemId)
 	{
 		auto result = std::find_if(itemList.begin(), itemList.end(), [&itemId](const std::shared_ptr<Items::Base>& b) { return b->getModfile() == itemId; });
 		if (result == itemList.end())

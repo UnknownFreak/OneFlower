@@ -3,8 +3,7 @@
 
 #include <unordered_map>
 
-#include <file/FileId.hpp>
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 #include "ObjectEditView.hpp"
 
@@ -15,8 +14,8 @@ namespace Graphics
 		struct DataTreeItem
 		{
 			of::common::String name;
-			of::file::archive::Requestable* ptr = nullptr;
-			of::file::ObjectType type = of::file::ObjectType::Undefined;
+			of::asset::IAsset* ptr = nullptr;
+			of::asset::ObjectType type = of::asset::ObjectType::Undefined;
 			std::vector<DataTreeItem> items;
 			inline bool operator< (const DataTreeItem& item)
 			{
@@ -31,7 +30,7 @@ namespace Graphics
 			ObjectEditView editView;
 
 			float& height;
-			std::unordered_map<of::file::FileId, std::unique_ptr<of::file::archive::Requestable>>& map;
+			std::unordered_map<of::asset::AssetId, std::unique_ptr<of::asset::IAsset>>& map;
 
 			bool treeNeedsUpdate();
 			void buildTree();

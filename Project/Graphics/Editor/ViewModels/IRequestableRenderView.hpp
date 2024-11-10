@@ -1,11 +1,11 @@
 #ifndef IRequestableRenderView_HPP
 #define IRequestableRenderView_HPP
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 namespace Graphics::Editor::ViewModels
 {
-	void renderInfo(of::file::archive::Requestable* ptr);
+	void renderInfo(of::asset::IAsset* ptr);
 }
 
 #endif

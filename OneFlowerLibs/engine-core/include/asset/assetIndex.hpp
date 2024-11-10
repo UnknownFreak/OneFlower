@@ -1,18 +1,17 @@
-#ifndef ENTITY_INDEX_HPP
-#define ENTITY_INDEX_HPP
+#pragma once
 
-#include <file/ObjectFlag.hpp>
-#include <file/ObjectType.hpp>
+#include <asset/objectFlag.hpp>
+#include <asset/objectType.hpp>
 
 #include <utils/common/uuid.hpp>
 #include <utils/common/String.hpp>
 
 #include <utils/common/Version.hpp>
 
-namespace of::file::archive
+namespace of::asset
 {
 
-	class EntityIndex
+	class AssetIndex
 	{
 		OneVersion modFileVersion;
 
@@ -20,7 +19,7 @@ namespace of::file::archive
 		long long row;
 		common::uuid ID;
 
-		inline EntityIndex() noexcept : row(0), ID(), modFile(""), type(ObjectType::Undefined), flags(ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
+		inline AssetIndex() noexcept : row(0), ID(), modFile(""), type(ObjectType::Undefined), flags(ObjectFlag::NoFlag), modFileVersion(OneVersion(1, 0, 0))
 		{
 		}
 
@@ -51,7 +50,6 @@ namespace of::file::archive
 		common::String modFile;
 
 	public:
-#pragma region DatabaseIndex
 		template<class Archive>
 		void load(Archive& ar)
 		{
@@ -77,7 +75,5 @@ namespace of::file::archive
 			ar(flags);
 			ar(modFile);
 		}
-#pragma endregion
 	};
 }
-#endif

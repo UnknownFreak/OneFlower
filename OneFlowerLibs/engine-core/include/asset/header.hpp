@@ -1,5 +1,4 @@
-#ifndef MODHEADER_HPP
-#define	MODHEADER_HPP
+#pragma once
 
 #include <vector>
 
@@ -7,14 +6,17 @@
 #include <utils/common/version.hpp>
 #include <logger/Logger.hpp>
 
-namespace of::file
+namespace of::asset
 {
 
 	class Header
 	{
 		OneVersion modFileVersion = OneVersion::getCurrentVersion();
-
+		of::common::String header;
+		bool valid = true;
 	public:
+
+		inline bool isValid() const { return valid; }
 
 		of::common::String name = "";
 		std::vector<of::common::String> dependencies;
@@ -24,6 +26,7 @@ namespace of::file
 		template <class Archive>
 		void save(Archive& ar) const
 		{
+			ar("ofHDR");
 			ar(modFileVersion);
 			ar(name);
 			if (modFileVersion >= OneVersion(1, 0, 1))
@@ -38,6 +41,13 @@ namespace of::file
 		template<class Archive>
 		void load(Archive& ar)
 		{
+			ar(header);
+			if (header != "ofHDR")
+			{
+				logger::get().Error("Invalid file header");
+				valid = false;
+				return;
+			}
 			OneVersion myVersion;
 			ar(myVersion);
 
@@ -61,5 +71,3 @@ namespace of::file
 		}
 	};
 };
-
-#endif

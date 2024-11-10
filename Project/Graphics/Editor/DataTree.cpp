@@ -3,34 +3,34 @@
 #include <imgui/imgui.h>
 #include <imgui/basicToolTip.hpp>
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 #include "ModFileUuidHelperDropDown.hpp"
 
 namespace Graphics::Editor
 {
 
-	DataTree::DataTree(float& height) : height(height), map(of::engine::GetModule<of::file::Handler>().archive.getLoadedMap())
+	DataTree::DataTree(float& height) : height(height), map(of::asset::getAssetRequestor().getLoadedMap())
 	{
 	}
 
 	void DataTree::buildTree()
 	{
-		std::unordered_map<of::file::ObjectType, DataTreeItem> tmp_map;
+		std::unordered_map<of::asset::ObjectType, DataTreeItem> tmp_map;
 		objectTree.items.clear();
 		
-		for (unsigned x = (unsigned)of::file::ObjectType::Header+1; x < (unsigned)of::file::ObjectType::EndIteration; x++)
+		for (unsigned x = (unsigned)of::asset::ObjectType::Header+1; x < (unsigned)of::asset::ObjectType::EndIteration; x++)
 		{
-			if (of::file::hide_from_view((of::file::ObjectType)x) == false)
+			if (of::asset::hide_from_view((of::asset::ObjectType)x) == false)
 			{
-				tmp_map[(of::file::ObjectType)x].name = of::file::to_string((of::file::ObjectType)x);
-				tmp_map[(of::file::ObjectType)x].type = (of::file::ObjectType)x;
+				tmp_map[(of::asset::ObjectType)x].name = of::asset::to_string((of::asset::ObjectType)x);
+				tmp_map[(of::asset::ObjectType)x].type = (of::asset::ObjectType)x;
 			}
 		}
 		
 		for (auto& it : map)
 		{
 			auto* ir = it.second.get();
-			if (ir && of::file::hide_from_view(ir->objectType) == false)
+			if (ir && of::asset::hide_from_view(ir->objectType) == false)
 			{
 				tmp_map[ir->objectType].items.push_back({ ir->getName(), ir});
 			}
@@ -88,7 +88,7 @@ namespace Graphics::Editor
 			{
 
 				recurse = ImGui::TreeNodeEx(itemName.c_str(), flags);
-				of::imgui::BasicToolTip("From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + of::file::archive::to_string(item.ptr->mode));
+				of::imgui::BasicToolTip("From Mod: " + item.ptr->getModfile()() + "\nSaveMode: " + of::asset::to_string(item.ptr->mode));
 
 				ImGui::SameLine();
 				ImGui::SetCursorPosX(420.f);
@@ -105,7 +105,7 @@ namespace Graphics::Editor
 				ImGui::SetCursorPosX(440.f);
 				if(ImGui::Button("-", { 18.f, 0 }))
 				{
-					item.ptr->mode = of::file::archive::ObjectSaveMode::REMOVE;
+					item.ptr->mode = of::asset::ObjectSaveMode::REMOVE;
 				};
 			}
 

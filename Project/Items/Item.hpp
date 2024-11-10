@@ -8,11 +8,11 @@
 #include <utils/common/string.hpp>
 #include <Helpers/Enum/Rarity.hpp>
 #include <Helpers/Enum/ItemType.hpp>
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 namespace Items
 {
-	class Base : public of::file::archive::Requestable
+	class Base : public of::asset::IAsset
 	{
 		std::shared_ptr<swizzle::gfx::Texture> iconTexture;
 		of::common::uuid uniqId;
@@ -32,7 +32,7 @@ namespace Items
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(type);
 			ar(rarity);
 			ar(value);
@@ -45,7 +45,7 @@ namespace Items
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(type);
 			ar(rarity);
 			ar(value);
@@ -55,7 +55,7 @@ namespace Items
 			ar(stackSize);
 			loadIcon();
 		}
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 	};
 }

@@ -7,14 +7,14 @@
 #include "QuestObjective.hpp"
 #include "QuestState.hpp"
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 #include <utils/common/string.hpp>
 
 #include <unordered_map>
 
 namespace Questing
 {
-	class Quest : public of::file::archive::Requestable
+	class Quest : public of::asset::IAsset
 	{
 		template<class U = size_t, class Tc, class ...Targs>
 		U magic(U(Tc::* fn)(Targs...), Targs...args)
@@ -36,8 +36,8 @@ namespace Questing
 		of::common::uuid questDescription;
 		of::common::uuid questLine;
 
-		of::file::FileId nextQuest;
-		of::file::FileId nextQuestOnFailure;
+		of::asset::AssetId nextQuest;
+		of::asset::AssetId nextQuestOnFailure;
 
 		of::common::String translatedQuestName;
 		of::common::String translatedQuestDescription;
@@ -71,7 +71,7 @@ namespace Questing
 		void interactWithNpc();
 		void updateRequirement();
 
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 		Questing::QuestState getQuestState() const;
 		void setQuestState();
@@ -79,7 +79,7 @@ namespace Questing
 		template <class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(requireInteractionOnPendingObjectives);
 			ar(questName);
 			ar(questDescription);
@@ -98,7 +98,7 @@ namespace Questing
 		template <class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(requireInteractionOnPendingObjectives);
 			ar(questName);
 			ar(questDescription);
@@ -118,5 +118,5 @@ namespace Questing
 	};
 }
 CEREAL_REGISTER_TYPE(Questing::Quest);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, Questing::Quest);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, Questing::Quest);
 #endif

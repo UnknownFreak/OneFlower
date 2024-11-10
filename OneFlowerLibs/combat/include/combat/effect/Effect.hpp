@@ -1,12 +1,10 @@
 #pragma once
-#ifndef Effect_HPP
-#define Effect_HPP
 
 #include <cereal/cereal.hpp>
 
 #include <combat/effect/EffectType.hpp>
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 #include <combat/Element.hpp>
 #include "EffectProperty.hpp"
 #include <timer/tickTimer.hpp>
@@ -18,7 +16,7 @@ namespace of::component
 
 namespace of::combat
 {
-	class Effect : public of::file::archive::Requestable
+	class Effect : public of::asset::IAsset
 	{
 		Element getElement();
 	public:
@@ -27,7 +25,7 @@ namespace of::combat
 		Effect();
 		of::common::String effectIcon = "EffectIconFrame.png";
 		Element effectElement;
-		of::file::FileId effectElememtId;
+		of::asset::AssetId effectElememtId;
 		of::combat::EffectType effectType;
 		std::shared_ptr<EffectProperty> theEffect;
 
@@ -36,12 +34,12 @@ namespace of::combat
 		bool hideFromBuffsUI;
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 		template<class T>
 		void save(T& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(effectType);
 			ar(effectTime);
 			ar(effectIcon);
@@ -54,7 +52,7 @@ namespace of::combat
 		template<class T>
 		void load(T& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(effectType);
 			ar(effectTime);
 			ar(effectIcon);
@@ -70,6 +68,4 @@ namespace of::combat
 	};
 }
 CEREAL_REGISTER_TYPE(of::combat::Effect);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::combat::Effect);
-
-#endif
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::combat::Effect);

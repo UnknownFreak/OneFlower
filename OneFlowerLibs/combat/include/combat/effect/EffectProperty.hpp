@@ -1,10 +1,9 @@
-#ifndef EffectProperty_HPP
-#define EffectProperty_HPP
+#pragma once
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 #include <combat/attribute/StatType.hpp>
 #include <combat/Modifier.hpp>
 
@@ -77,10 +76,10 @@ namespace of::combat
 
 	struct VisualEffect : public EffectProperty
 	{
-		of::file::FileId vfxPrefab;
+		of::asset::AssetId vfxPrefab;
 
 		VisualEffect() {}
-		VisualEffect(const of::file::FileId& vfx) : vfxPrefab(vfx) {}
+		VisualEffect(const of::asset::AssetId& vfx) : vfxPrefab(vfx) {}
 		VisualEffect(const VisualEffect& copy): vfxPrefab(copy.vfxPrefab) {}
 
 		template<class Ar>
@@ -129,5 +128,3 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::Dam
 CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::BarrierEffect);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::VisualEffect);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(of::combat::EffectProperty, of::combat::ModifierEffect);
-
-#endif

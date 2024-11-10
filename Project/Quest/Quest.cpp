@@ -1,9 +1,8 @@
 #include "Quest.hpp"
 
 #include <session/gameSession.hpp>
-#include <file/Handler.hpp>
 
-of::common::uuid of::file::archive::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
+of::common::uuid of::asset::Trait<Questing::Quest>::typeId = of::common::uuid("68b5b7cf-7d7e-45b5-be82-0a046efd68a7");
 
 void Questing::Quest::loadStrings()
 {
@@ -21,7 +20,7 @@ Questing::Quest::Quest(const Quest& copy) : requireInteractionOnPendingObjective
 questName(copy.questName), questDescription(copy.questDescription), questLine(copy.questLine), nextQuest(copy.nextQuest),
 nextQuestOnFailure(copy.nextQuestOnFailure), hidden(copy.hidden), questState(copy.questState),
 currentObjectiveId(copy.currentObjectiveId), completedStateId(copy.completedStateId), failedStateId(copy.failedStateId),
-Requestable(copy)
+IAsset(copy)
 {
 }
 
@@ -31,13 +30,13 @@ nextQuestOnFailure(copy.nextQuestOnFailure), hidden(copy.hidden), questState(cop
 currentObjectiveId(copy.currentObjectiveId), completedStateId(copy.completedStateId), failedStateId(copy.failedStateId),
 objectiveMap(std::move(copy.objectiveMap)),
 optionalObjectives(std::move(copy.optionalObjectives)),
-Requestable(copy)
+IAsset(copy)
 {
 }
 
 Questing::Quest& Questing::Quest::operator=(const Questing::Quest& copy)
 {
-	Requestable::operator=(copy);
+	IAsset::operator=(copy);
 	requireInteractionOnPendingObjectives = copy.requireInteractionOnPendingObjectives;
 
 	questName = copy.questName;
@@ -179,9 +178,9 @@ void Questing::Quest::updateRequirement()
 }
 
 
-of::file::archive::TypeInfo Questing::Quest::getTrait() const
+of::asset::TypeInfo Questing::Quest::getTrait() const
 {
-	return { of::file::archive::Trait<Questing::Quest>::typeId };
+	return { of::asset::Trait<Questing::Quest>::typeId };
 }
 
 Questing::QuestState Questing::Quest::getQuestState() const

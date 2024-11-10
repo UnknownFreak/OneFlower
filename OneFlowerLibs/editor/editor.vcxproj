@@ -22,6 +22,7 @@
     <ClInclude Include="..\..\vendor\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="include\editor.hpp" />
     <ClInclude Include="internal\internal\editorCamera.hpp" />
+    <ClInclude Include="internal\internal\editorContext.hpp" />
     <ClInclude Include="internal\internal\editorMenu.hpp" />
     <ClInclude Include="internal\internal\gizmo.hpp" />
     <ClInclude Include="internal\internal\menu\menu.hpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="internal\internal\modal\newFileModal.cpp" />
     <ClCompile Include="src\editor.cpp" />
     <ClCompile Include="src\editorCamera.cpp" />
+    <ClCompile Include="src\editorContext.cpp" />
     <ClCompile Include="src\gizmo.cpp" />
     <ClCompile Include="src\loadFileModal.cpp" />
   </ItemGroup>
@@ -48,14 +50,8 @@
     <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\base-module\base-module.vcxproj">
-      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\courier\courier.vcxproj">
       <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\data-file\data-file.vcxproj">
-      <Project>{ec35de7d-c048-4f56-922a-1275ec5d3a95}</Project>
     </ProjectReference>
     <ProjectReference Include="..\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
@@ -134,7 +130,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\editor\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)OneFlowerLibs\editor\include;$(SolutionDir)OneFlowerLibs\editor\internal;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)swizzle\vendor\glm\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\editor\include;$(SolutionDir)OneFlowerLibs\editor\internal;$(SolutionDir)vendor\ImGuizmo\;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)OneFlowerLibs\engine-core\internal;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(SolutionDir)swizzle\vendor\imgui\imgui;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

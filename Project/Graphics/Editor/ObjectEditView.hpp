@@ -1,7 +1,7 @@
 #ifndef ObjectEditView_HPP
 #define ObjectEditView_HPP
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 namespace Graphics
 {
@@ -12,7 +12,7 @@ namespace Graphics
 		{
 		public:
 
-			of::file::archive::Requestable* ptr = nullptr;
+			of::asset::IAsset* ptr = nullptr;
 
 			ObjectEditView();
 			void render();

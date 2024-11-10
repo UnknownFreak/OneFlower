@@ -1,7 +1,7 @@
 #ifndef TimedRequirement_HPP
 #define TimedRequirement_HPP
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 #include <timer/tickTimer.hpp>
 
 #include "Requirement.hpp"
@@ -15,7 +15,7 @@ namespace Requirement
 
 		~TimedRequirement();
 		bool fullfilledIftimeRanOut;
-		of::file::FileId timerId;
+		of::asset::AssetId timerId;
 		of::timer::TickTimer timer;
 		// Inherited via Requirement
 		virtual bool fullfilled() override;

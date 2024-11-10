@@ -1,12 +1,13 @@
 #include <internal/modal/newFileModal.hpp>
+#include <internal/editorContext.hpp>
 
 #include <imgui/imgui_stdlib.hpp>
 
 #include <utils/os/ListDir.hpp>
 
-#include <file/Header.hpp>
-#include <file/Handler.hpp>
-#include <file/archive/loadHeader.hpp>
+#include <asset/internalAsset.hpp>
+#include <asset/header.hpp>
+#include <asset/loadHeader.hpp>
 
 #include <imgui/basicToolTip.hpp>
 
@@ -17,8 +18,8 @@ namespace of::editor::modal
 	std::vector<TreeItem> NewFile::loadDependencyDetails(const of::common::String& file)
 	{
 		std::vector<TreeItem> deps;
-		of::file::Header header;
-		if (of::file::archive::loadHeader(file, header))
+		of::asset::Header header;
+		if (of::asset::loadHeader(file, header))
 		{
 			for (auto dependency : header.dependencies)
 			{
@@ -32,9 +33,10 @@ namespace of::editor::modal
 	void NewFile::newModFile()
 	{
 		//tree.clear();
-		auto& manager = of::engine::GetModule<of::file::Handler>();
-		auto& modLoader = manager.getLoader();
-		modLoader.loadOrder.clear();
+		auto& manager = of::asset::get();
+		auto& context = of::editor::getEditorContext();
+		manager.loadOrder.clear();
+		
 
 		std::vector<of::common::String> deps;
 		std::set<of::common::String> loadOrder;
@@ -62,21 +64,22 @@ namespace of::editor::modal
 		else
 			fileName.append(".mod");
 
-		of::file::Header header;
+		context.header = of::asset::Header();
+		context.openedFileName = fileName;
+		auto& header = context.header;
 		header.name = fileName;
 		header.dependencies = deps;
 
-		manager.buildModOrderFile(fileName, loadOrder);
+		context.buildModOrderFile(fileName, loadOrder);
 
-		manager.openedFile = header;
 		auto& logger = of::logger::get().getLogger("of::editor::modal::NewFile");
 		//logger.Debug("Creating new language module [" + Core::Builtin + "].");
 		//manager.getLanguage();
 
 		logger.Debug("Saving the file...");
-		manager.saveGameDatabase(header.name, header);
+		context.saveGameDatabase(header.name);
 		logger.Debug("Loading Editor Variables...");
-		manager.loadAllEditorVariables();
+		context.loadAllEditorVariables();
 		logger.Info("Successfully created mod [" + header.name + "].");
 
 	}

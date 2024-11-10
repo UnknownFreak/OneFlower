@@ -1,7 +1,7 @@
 #ifndef LanguageRequsetor_HPP
 #define LanguageRequsetor_HPP
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 
 //TODO:
 //#include <swizzle/font?>
@@ -11,7 +11,7 @@
 
 namespace of::locale
 {
-	class LanguageRequestor : public file::archive::Requestable
+	class LanguageRequestor : public asset::IAsset
 	{
 		
 		common::String fallbackLanguage;
@@ -74,7 +74,7 @@ namespace of::locale
 		bool& isTranslationChanged(const common::uuid& translationId);
 		void translationChanged(const common::uuid& translationId);
 
-		virtual file::archive::TypeInfo getTrait() const override;
+		virtual asset::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void load(Archive& ar)

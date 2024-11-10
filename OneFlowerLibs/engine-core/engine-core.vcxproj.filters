@@ -69,6 +69,24 @@
     <Filter Include="internal\session">
       <UniqueIdentifier>{729fe536-4d5f-4acc-9aff-8b25d978b3c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\asset">
+      <UniqueIdentifier>{fde4786e-c40a-4406-bebc-18d5b1b3c990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\asset">
+      <UniqueIdentifier>{323516d1-9d3a-4595-afbf-068873e0f181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal\asset">
+      <UniqueIdentifier>{98d96fc3-7141-46de-a761-9f00dadc98bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\locale">
+      <UniqueIdentifier>{7c72fde5-4305-4384-b7a4-9400b4865e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal\locale">
+      <UniqueIdentifier>{54b2d699-22be-4881-a8cc-d7cef3ad9350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\locale">
+      <UniqueIdentifier>{9b1636a5-eb27-43e3-a6ce-221c6fcfd0ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\resource\DifficultyLevel.hpp">
@@ -155,6 +173,51 @@
     <ClInclude Include="include\session\saveState.hpp">
       <Filter>include\session</Filter>
     </ClInclude>
+    <ClInclude Include="include\asset\asset.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\asset\internalAsset.hpp">
+      <Filter>internal\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\objectFlag.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\objectType.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\iAsset.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\header.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\loadHeader.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\objectSaveMode.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\requestor.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\assetId.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="include\asset\assetIndex.hpp">
+      <Filter>include\asset</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\locale\internalLocale.hpp">
+      <Filter>internal\locale</Filter>
+    </ClInclude>
+    <ClInclude Include="include\locale\locale.hpp">
+      <Filter>include\locale</Filter>
+    </ClInclude>
+    <ClInclude Include="include\locale\localeSettings.hpp">
+      <Filter>include\locale</Filter>
+    </ClInclude>
+    <ClInclude Include="include\locale\localeString.hpp">
+      <Filter>include\locale</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -207,6 +270,21 @@
     </ClCompile>
     <ClCompile Include="src\tickTimer.cpp">
       <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\asset.cpp">
+      <Filter>src\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\assetId.cpp">
+      <Filter>src\asset</Filter>
+    </ClCompile>
+    <ClCompile Include="src\locale.cpp">
+      <Filter>src\locale</Filter>
+    </ClCompile>
+    <ClCompile Include="src\localeString.cpp">
+      <Filter>src\locale</Filter>
+    </ClCompile>
+    <ClCompile Include="src\localeSettings.cpp">
+      <Filter>src\locale</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

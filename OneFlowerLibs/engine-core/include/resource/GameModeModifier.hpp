@@ -1,18 +1,17 @@
-#ifndef GameModeModifiers_HPP
-#define GameModeModifiers_HPP
+#pragma once
 
 #include <vector>
 #include <cereal/cereal.hpp>
 #include <cereal/types/vector.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 #include <trigger/Trigger.hpp>
 
 namespace of::resource
 {
 	struct GameModeModifier
 	{
-		std::vector<file::FileId> modifierList;
+		std::vector<asset::AssetId> modifierList;
 		std::vector<std::unique_ptr<trigger::Trigger>> onDeathTriggers;
 		//
 		// AI behaviour
@@ -33,5 +32,3 @@ namespace of::resource
 		}
 	};
 }
-
-#endif

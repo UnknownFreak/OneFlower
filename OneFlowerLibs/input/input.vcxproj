@@ -138,9 +138,6 @@
     <ProjectReference Include="..\..\swizzle\build\vs2022\swizzle\swizzle.vcxproj">
       <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\base-module\base-module.vcxproj">
-      <Project>{aa50c674-ce61-47d6-b079-f3dd1b58cd24}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
     </ProjectReference>

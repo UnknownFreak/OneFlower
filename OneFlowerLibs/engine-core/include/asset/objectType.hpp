@@ -1,9 +1,8 @@
-#ifndef ObjectType_HPP
-#define ObjectType_HPP
+#pragma once
 
 #include <utils/common/string.hpp>
 
-namespace of::file
+namespace of::asset
 {
 	enum class ObjectType
 	{
@@ -93,4 +92,3 @@ namespace of::file
 		}
 	}
 }
-#endif

@@ -4,7 +4,7 @@
 
 namespace of::os
 {
-	std::vector<common::String> listDirectory(const common::String& path, const common::String& ext, const bool& removeExtInReturn)
+	std::vector<common::String> listDirectory(const std::filesystem::path& path, const common::String& ext, const bool& removeExtInReturn)
 	{
 		std::vector<common::String> l;
 		for (auto& p : std::filesystem::directory_iterator(path))

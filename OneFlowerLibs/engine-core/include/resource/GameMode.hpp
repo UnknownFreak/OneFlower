@@ -1,5 +1,4 @@
-#ifndef GameMode_HPP
-#define GameMode_HPP
+#pragma once
 #include <vector>
 
 #include <cereal/cereal.hpp>
@@ -7,14 +6,14 @@
 
 #include <glm/vec3.hpp>
 
-#include <file/archive/Requestable.hpp>
+#include <asset/iAsset.hpp>
 #include <utils/common/String.hpp>
 
 #include "GameModeModifier.hpp"
 
 namespace of::resource
 {
-	class GameMode : public of::file::archive::Requestable
+	class GameMode : public of::asset::IAsset
 	{
 		void loadTranslation();
 	public:
@@ -22,23 +21,23 @@ namespace of::resource
 
 		of::common::String gameModeName;
 
-		of::file::FileId startingZone;
-		of::file::FileId loadingScreen;
+		of::asset::AssetId startingZone;
+		of::asset::AssetId loadingScreen;
 		glm::vec3 startingPosition;
 
-		of::file::FileId playerPrefab;
+		of::asset::AssetId playerPrefab;
 
 		GameModeModifier playerModifiers;
 		GameModeModifier enemyModifiers;
 		std::unordered_map<of::common::String, GameModeModifier> tagModifiers;
 
 		// Inherited via IRequestable
-		virtual of::file::archive::TypeInfo getTrait() const override;
+		virtual of::asset::TypeInfo getTrait() const override;
 
 		template<class Archive>
 		void save(Archive& ar) const
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);
@@ -52,7 +51,7 @@ namespace of::resource
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Requestable>(this));
+			ar(cereal::base_class<IAsset>(this));
 			ar(gameModeNameStringTranslation);
 			ar(startingZone);
 			ar(loadingScreen);
@@ -65,6 +64,3 @@ namespace of::resource
 		}
 	};
 }
-
-
-#endif

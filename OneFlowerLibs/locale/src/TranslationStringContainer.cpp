@@ -2,7 +2,7 @@
 
 #include <logger/Logger.hpp>
 
-of::common::uuid of::file::archive::Trait<of::locale::TranslationStringContainer>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
+of::common::uuid of::asset::Trait<of::locale::TranslationStringContainer>::typeId = of::common::uuid("a36a1fa2-4fa8-4384-a4cf-f8910e03b539");
 
 of::locale::StoredTranslatable of::locale::TranslationStringContainer::empty = of::locale::StoredTranslatable("", "");
 
@@ -24,12 +24,12 @@ namespace of::locale
 	{
 	}
 
-	TranslationStringContainer::TranslationStringContainer(const common::String& language, common::String fontName) : language(language), fontName(fontName), stringList(common::langPath), Requestable(common::Builtin, common::uuid::nil(), OneVersion(1, 0, 0), file::ObjectType::TranslationString)
+	TranslationStringContainer::TranslationStringContainer(const common::String& language, common::String fontName) : language(language), fontName(fontName), stringFileList(), stringList(std::filesystem::path(common::langPath), stringFileList), IAsset(common::Builtin, common::uuid::nil(), OneVersion(1, 0, 0), asset::ObjectType::TranslationString)
 	{
 		setAvailableLanguageFiles();
 	}
 
-	TranslationStringContainer::TranslationStringContainer(const TranslationStringContainer& copy) : Requestable(copy), language(language), fontName(fontName), stringList(copy.stringList), header(copy.header)
+	TranslationStringContainer::TranslationStringContainer(const TranslationStringContainer& copy) : IAsset(copy), language(language), fontName(fontName), stringList(copy.stringList), header(copy.header)
 	{
 		fontName = copy.fontName;
 		language = copy.language;
@@ -49,7 +49,7 @@ namespace of::locale
 		fontName = right.fontName;
 		language = right.language;
 		header = right.header;
-		stringList = right.stringList;
+		//stringList = right.stringList;
 		setAvailableLanguageFiles();
 
 		return *this;
@@ -77,10 +77,10 @@ namespace of::locale
 
 	void TranslationStringContainer::setAvailableLanguageFiles()
 	{
-		stringList.fileLoadOrder = { { language, 0} };
+		stringFileList.emplace_back(language);
 	}
-	file::archive::TypeInfo TranslationStringContainer::getTrait() const
+	asset::TypeInfo TranslationStringContainer::getTrait() const
 	{
-		return { file::archive::Trait<TranslationStringContainer>::typeId };
+		return { asset::Trait<TranslationStringContainer>::typeId };
 	}
 }

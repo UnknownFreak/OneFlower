@@ -3,24 +3,24 @@
 #include <cereal/cereal.hpp>
 #include <cereal/archives/binary.hpp>
 
-#include <utils/common/string.hpp>
-
-#include <file/archive/EntityIndex.hpp>
+#include <asset/assetIndex.hpp>
+#include <engine/paths.hpp>
 
 #include <logger/Logger.hpp>
 
-namespace of::file::archive
+namespace of::asset
 {
 	template< typename T>
 	bool loadHeader(common::String modName, T& myheader)
 	{
 		bool eof = false;
-		file::archive::EntityIndex ind;
-		std::ifstream index("Data//" + modName + ".index", std::ios::binary);
-		std::ifstream database("Data//" + modName, std::ios::binary);
+		asset::AssetIndex ind;
+		of::common::String indexName = modName + ".index";
+		std::ifstream index(of::engine::path::data / indexName, std::ios::binary);
+		std::ifstream database(of::engine::path::data / modName, std::ios::binary);
 		auto& logger = of::logger::get().getLogger("file::archive::loadHeader");
 		if (!index.is_open())
-			logger.Critical("Unable to open mod index file [" + modName + ".index]", logger.fileInfo(__FILE__, __LINE__));
+			logger.Critical("Unable to open mod index file [" + indexName + "]", logger.fileInfo(__FILE__, __LINE__));
 		else if (!database.is_open())
 			logger.Critical("Unable to open database file [" + modName + "]", logger.fileInfo(__FILE__, __LINE__));
 		else
@@ -30,16 +30,16 @@ namespace of::file::archive
 				while (!eof)
 				{
 					ar(ind);
-					if (ind.type == file::ObjectType::Header)
+					if (ind.type == asset::ObjectType::Header)
 					{
 						database.seekg(ind.row);
 						cereal::BinaryInputArchive headerLoad(database);
 						headerLoad(myheader);
 						index.close();
 						database.close();
-						return true;
+						return myheader.isValid();
 					}
-					else if (ind.flags == file::ObjectFlag::EoF)
+					else if (ind.flags == asset::ObjectFlag::EoF)
 						eof = true;
 				}
 			}

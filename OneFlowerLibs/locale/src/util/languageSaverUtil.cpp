@@ -1,5 +1,5 @@
 #include <locale/LanguageRequestor.hpp>
-#include <file/archive/loadHeader.hpp>
+#include <asset/loadHeader.hpp>
 
 #include <logger/Logger.hpp>
 
@@ -8,17 +8,14 @@
 
 namespace of::locale::utils
 {
-	std::map<common::String, TranslationStringContainer> loadLanguages(const std::vector<common::String>& languageFiles)
+	void loadLanguages(const std::vector<common::String>& languageFiles, std::map<common::String, TranslationStringContainer>& map)
 	{
-		std::map<common::String, TranslationStringContainer> tmp;
-
-		TranslationStringContainer translationStr;
+		map.clear();
 		for (common::String var : languageFiles)
 		{
-			file::archive::loadHeader("Lang//" + var, translationStr);
-			tmp.emplace(var, translationStr);
+			map.emplace(var, TranslationStringContainer{});
+			asset::loadHeader("Lang//" + var, map.at(var));
 		}
-		return tmp;
 	}
 	void saveLanguages(const LanguageRequestor& languageRequestor)
 	{
@@ -35,12 +32,12 @@ namespace of::locale::utils
 		logger.Debug("Saving file: " + filename);
 		std::ofstream index(common::langPath + idx, std::ios::binary);
 		{
-			file::archive::EntityIndex ind;
+			asset::AssetIndex ind;
 			cereal::BinaryOutputArchive mainAr(file);
 			cereal::BinaryOutputArchive indexAr(index);
-			ind.flags = file::ObjectFlag::NoFlag;
+			ind.flags = asset::ObjectFlag::NoFlag;
 			ind.ID = common::uuid::nil();
-			ind.type = file::ObjectType::Header;
+			ind.type = asset::ObjectType::Header;
 			ind.modFile = "notUsed";
 			ind.row = file.tellp();
 			indexAr(ind);
@@ -48,9 +45,9 @@ namespace of::locale::utils
 			saveable.stringList.save(ind, file, indexAr, mainAr, {}, true);
 
 			ind.ID = common::uuid::nil();
-			ind.type = file::ObjectType::EoF;
+			ind.type = asset::ObjectType::EoF;
 			ind.row = file.tellp();
-			ind.flags = file::ObjectFlag::EoF;
+			ind.flags = asset::ObjectFlag::EoF;
 			indexAr(ind);
 		}
 	}

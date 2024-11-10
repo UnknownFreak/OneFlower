@@ -6,12 +6,11 @@
 #include <utils/common/string.hpp>
 #include <utils/common/uuid.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 
 #include <object/InstanceHandler.hpp>
 #include <graphics/window/Window.hpp>
 #include <session/gameSession.hpp>
-#include <module/ModuleManager.hpp>
 
 #include <resource/WorldInstance.hpp>
 #include <scene/LoadingState.hpp>
@@ -54,28 +53,28 @@ namespace of::scene
 			of::world::LoadingStateInfo loadingStateInfo;
 			of::world::LoadingState loadstate;
 
-			of::file::FileId worldToLoad;
-			of::file::FileId loadingScreenToLoad;
+			of::asset::AssetId worldToLoad;
+			of::asset::AssetId loadingScreenToLoad;
 			of::resource::WorldInstance instanceToLoad;
 			SceneManager& parent;
 
-			std::map<of::file::FileId, of::file::FileId> objectChunkToInstanceId;
+			std::map<of::asset::AssetId, of::asset::AssetId> objectChunkToInstanceId;
 
-			std::vector<of::file::FileId> allInstances;
+			std::vector<of::asset::AssetId> allInstances;
 
 			bool navMeshLoaded = false;
 			of::world::LoadArgs loadArgs = of::world::LoadArgs::UNDEFINED;
 
 
-			const of::file::FileId& getCurrentWorld() const;
-			const of::file::FileId& getCurrentLoadingScreen() const;
+			const of::asset::AssetId& getCurrentWorld() const;
+			const of::asset::AssetId& getCurrentLoadingScreen() const;
 
 			std::vector<of::resource::ObjectInfo> buffer;
 			glm::vec3 playerPos;
 
 			LoadingStateMachine(SceneManager& parent);
 
-			void beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs loadArgs);
+			void beginLoad(const of::asset::AssetId& world, const of::asset::AssetId& loadingScreen, const glm::vec3& position, const of::world::LoadArgs loadArgs);
 			void load();
 			// TODO
 			//void unloadAllAssets();
@@ -108,16 +107,16 @@ namespace of::scene
 
 		of::world::LoadingStateInfo& getLoadingStateInfo();
 
-		of::file::FileId getCurrentInstanceId() const;
-		of::file::FileId getCurrentLoadScreenId() const;
+		of::asset::AssetId getCurrentInstanceId() const;
+		of::asset::AssetId getCurrentLoadScreenId() const;
 
 		void initialize();
 
-		void playCutScene(const of::file::FileId& cutSceneId);
+		void playCutScene(const of::asset::AssetId& cutSceneId);
 		void skipCurrentCutScene();
-		void playCutIn(const of::file::FileId& cutInId);
+		void playCutIn(const of::asset::AssetId& cutInId);
 
-		void loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
+		void loadWorldInstance(const of::asset::AssetId& world, const of::asset::AssetId& loadingScreen, const glm::vec3& playerPosition = {0.f, 0.f, 0.f}, const of::world::LoadArgs loadArgs = of::world::LoadArgs::GAME_ALREADY_LOADED_JUST_LOAD);
 	
 		virtual void Update();
 		virtual void Simulate(const float fElapsedTime);

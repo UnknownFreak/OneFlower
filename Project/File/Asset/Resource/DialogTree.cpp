@@ -1,8 +1,9 @@
 #include "DialogTree.hpp"
-#include <file/Handler.hpp>
-#include <locale/Translatable.hpp>
+#include <logger/Logger.hpp>
 
-of::common::uuid of::file::archive::Trait<Asset::Resource::DialogTree>::typeId = of::common::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
+#include <locale/locale.hpp>
+
+of::common::uuid of::asset::Trait<Asset::Resource::DialogTree>::typeId = of::common::uuid("086e10f6-0ee5-4fd2-9091-e0af9bb1b2cd");
 
 namespace Asset::Resource
 {
@@ -13,7 +14,7 @@ namespace Asset::Resource
 			return of::common::String("");
 		//auto& x = of::engine::GetModule<of::file::Handler>().getLanguage();
 		auto uid = dialogStrings.at(idx).dialogString;
-		return dialogStrings.at(idx).tempText + of::locale::Translatable(uid).value;
+		return dialogStrings.at(idx).tempText + of::locale::getLocaleString(uid);
 	}
 
 	bool DialogTree::canPlayerAccessDialogOption(const DialogOptionId& optionId) const
@@ -125,8 +126,8 @@ namespace Asset::Resource
 		previewSelection = 0;
 	}
 
-	of::file::archive::TypeInfo DialogTree::getTrait() const
+	of::asset::TypeInfo DialogTree::getTrait() const
 	{
-		return { of::file::archive::Trait<DialogTree>::typeId };
+		return { of::asset::Trait<DialogTree>::typeId };
 	}
 }

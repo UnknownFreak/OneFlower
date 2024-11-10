@@ -4,12 +4,12 @@
 #include <Helpers/Enum/InteractionOption.hpp>
 #include <Helpers/Enum/DialogStatus.hpp>
 
-#include <file/Handler.hpp>
 #include <File/Asset/Resource/DialogTree.hpp>
 
 #include <component/transform.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/asset.hpp>
+#include <asset/assetId.hpp>
 
 class Dialog : public of::component::Base
 {
@@ -19,7 +19,7 @@ class Dialog : public of::component::Base
 	virtual void initialize() override;
 
 public:
-	of::file::FileId dialogTreeuuid;
+	of::asset::AssetId dialogTreeuuid;
 
 	Asset::Resource::DialogTree dialogTree;
 
@@ -62,7 +62,7 @@ public:
 	void load(Archive& ar)
 	{
 		ar(dialogTreeuuid);
-		dialogTree = of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::DialogTree>(dialogTreeuuid);
+		dialogTree = of::asset::getAssetRequestor().request<Asset::Resource::DialogTree>(dialogTreeuuid);
 	}
 
 	of::common::uuid getType() const override

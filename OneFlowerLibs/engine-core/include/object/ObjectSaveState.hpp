@@ -10,7 +10,7 @@
 #include <object/ObjectState.hpp>
 
 #include <utils/common/uuid.hpp>
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 
 namespace of::object
 {
@@ -22,7 +22,7 @@ namespace of::object
 	public:
 		std::map<of::common::uuid, std::unique_ptr<of::session::SaveState>> objectSaveStates;
 		ObjectState objectState = ObjectState::Undefined;
-		of::file::FileId prefabId{};
+		of::asset::AssetId prefabId{};
 
 		ObjectSaveState();
 		ObjectSaveState(const ObjectSaveState&) = delete;

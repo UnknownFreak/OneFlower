@@ -1,6 +1,6 @@
 #include <component/stats.hpp>
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 #include <rng/rng.hpp>
 
 #include <Object/GameObject.hpp>
@@ -289,7 +289,7 @@ namespace of::component
 					auto vfxs = it.second.tick<of::combat::VisualEffect>(dt);
 					for (auto& vfx : vfxs)
 					{
-						auto pref = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(vfx.first.vfxPrefab);
+						auto pref = asset::getAssetRequestor().request<of::resource::Prefab>(vfx.first.vfxPrefab);
 						auto x = glm::vec3(0.f);
 						auto go = pref->createNewInstance(x);
 						go->add<AttachToParent>(attachedOn);

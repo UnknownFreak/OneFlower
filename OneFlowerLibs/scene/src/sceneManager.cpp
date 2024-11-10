@@ -1,16 +1,20 @@
 #include <scene/sceneManager.hpp>
 
+#include <logger/Logger.hpp>
+
+#include <asset/asset.hpp>
+
 #include <engine/runMode.hpp>
 
-#include <file/Handler.hpp>
-#include <timer/timer.hpp>
-
 #include <resource/Prefab.hpp>
-#include <graphics/sky/skyBox.hpp>
-
 #include <resource/cutSceneInfo.hpp>
 
+#include <graphics/sky/skyBox.hpp>
+
 #include <scene/imgui/LoadingScreenInfo.hpp>
+
+#include <timer/timer.hpp>
+
 
 //void WorldManager::doDayCycle(const float& fElapsedTime)
 //{
@@ -60,12 +64,12 @@
 
 namespace of::scene
 {
-	const of::file::FileId& SceneManager::LoadingStateMachine::getCurrentWorld() const
+	const of::asset::AssetId& SceneManager::LoadingStateMachine::getCurrentWorld() const
 	{
 		return worldToLoad;
 	}
 
-	const of::file::FileId& SceneManager::LoadingStateMachine::getCurrentLoadingScreen() const
+	const of::asset::AssetId& SceneManager::LoadingStateMachine::getCurrentLoadingScreen() const
 	{
 		return loadingScreenToLoad;
 	}
@@ -75,7 +79,7 @@ namespace of::scene
 
 	}
 
-	void SceneManager::LoadingStateMachine::beginLoad(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs _loadArgs)
+	void SceneManager::LoadingStateMachine::beginLoad(const of::asset::AssetId& world, const of::asset::AssetId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs _loadArgs)
 	{
 		loadstate = of::world::LoadingState::PREPARE_LOADINGSCREEN;
 		worldToLoad = world;
@@ -155,7 +159,7 @@ namespace of::scene
 	}
 	void SceneManager::LoadingStateMachine::beginLoad()
 	{
-		instanceToLoad = of::engine::GetModule<of::file::Handler>().archive.requestUniqueInstance<of::resource::WorldInstance>(worldToLoad);
+		instanceToLoad = of::asset::getAssetRequestor().requestUniqueInstance<of::resource::WorldInstance>(worldToLoad);
 		loadingStateInfo.totalLoadCount = instanceToLoad.getLoadingCount();
 		loadingStateInfo.totalPrefabCount = instanceToLoad.prefabs.size();
 		loadingStateInfo.totalNavmeshCount = instanceToLoad.navMesh.size();
@@ -210,7 +214,7 @@ namespace of::scene
 	}
 	void SceneManager::LoadingStateMachine::cacheAllZones()
 	{
-		allInstances = of::engine::GetModule<of::file::Handler>().archive.listAllObjectKeys(of::file::ObjectType::WorldInstance);
+		allInstances = of::asset::getAssetRequestor().listAllObjectKeys(of::asset::ObjectType::WorldInstance);
 		loadingStateInfo.totalZoneCount = allInstances.size();
 		// TODO: request all zones... this can be huge...
 		loadstate = of::world::LoadingState::CACHE_ALL_CUTSCENES;
@@ -247,7 +251,7 @@ namespace of::scene
 		}
 		else
 		{
-			auto instance = of::engine::GetModule<of::file::Handler>().archive.request<of::resource::WorldInstance>(allInstances[loadingStateInfo.currentZoneCount]);
+			auto instance = of::asset::getAssetRequestor().request<of::resource::WorldInstance>(allInstances[loadingStateInfo.currentZoneCount]);
 			{
 				for (auto it : instance->objectChunk)
 				{
@@ -297,7 +301,7 @@ namespace of::scene
 		}
 		else
 		{
-			of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(instanceToLoad.prefabs[loadingStateInfo.currentPrefabCount]);
+			of::asset::getAssetRequestor().request<of::resource::Prefab>(instanceToLoad.prefabs[loadingStateInfo.currentPrefabCount]);
 			loadingStateInfo.currentPrefabCount++;
 			loadingStateInfo.currentLoadCount++;
 			loadingStateInfo.prefabLoadTimer = of::timer::elapsedTime(globals::TOTAL_TIME_LOADED_PART);
@@ -340,7 +344,7 @@ namespace of::scene
 		}
 		else
 		{
-			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
+			auto& requestor = of::asset::getAssetRequestor();
 			auto chunk = requestor.request<of::resource::ObjectChunk>(instanceToLoad.objectChunk[loadingStateInfo.currentObjectPartCount]);
 			for (auto& x : chunk->objectLocations)
 			{
@@ -373,7 +377,7 @@ namespace of::scene
 		{
 			auto& bufferObj = buffer[loadingStateInfo.currentObjectCount];
 
-			auto& requestor = of::engine::GetModule<of::file::Handler>().archive;
+			auto& requestor = of::asset::getAssetRequestor();
 			auto prefab = requestor.request<of::resource::Prefab>(bufferObj.prefab);
 
 			if (bufferObj.isUnique || bufferObj.layer == getCurrentWorld())
@@ -480,12 +484,12 @@ namespace of::scene
 	//		Simulate(12.f);
 	//}
 
-	of::file::FileId SceneManager::getCurrentInstanceId() const
+	of::asset::AssetId SceneManager::getCurrentInstanceId() const
 	{
 		return loadStateMachine.getCurrentWorld();
 	}
 
-	of::file::FileId SceneManager::getCurrentLoadScreenId() const
+	of::asset::AssetId SceneManager::getCurrentLoadScreenId() const
 	{
 		return loadStateMachine.getCurrentLoadingScreen();
 	}
@@ -495,7 +499,7 @@ namespace of::scene
 		return loadStateMachine.loadingStateInfo;
 	}
 
-	void SceneManager::loadWorldInstance(const of::file::FileId& world, const of::file::FileId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs loadArgs)
+	void SceneManager::loadWorldInstance(const of::asset::AssetId& world, const of::asset::AssetId& loadingScreen, const glm::vec3& playerPosition, const of::world::LoadArgs loadArgs)
 	{
 		isLoading = true;
 		of::timer::reset(globals::LOADING_TIMER);

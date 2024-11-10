@@ -4,7 +4,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-#include <file/FileId.hpp>
+#include <asset/assetId.hpp>
 #include <Requirement/Requirement.hpp>
 
 #include <Helpers/Enum/QuestState.hpp>

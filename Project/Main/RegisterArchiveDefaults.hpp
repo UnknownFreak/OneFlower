@@ -1,6 +1,6 @@
 #pragma once
 
-#include <file/Handler.hpp>
+#include <asset/asset.hpp>
 
 #include <File/Asset/Resource/DialogTree.hpp>
 #include <resource/Prefab.hpp>
@@ -17,52 +17,50 @@
 
 inline void registerArchiveDefaults()
 {
-	static std::vector<std::pair<of::common::uuid, std::function<void(const of::file::archive::EntityIndex&)>>> vec;
-	auto& archive = of::engine::GetModule<of::file::Handler>().archive;
+	static std::vector<std::pair<of::common::uuid, std::function<void(const of::asset::AssetIndex&)>>> vec;
+	auto& archive = of::asset::getAssetRequestor();
 
-	using namespace of::file::archive;
-	using namespace of::file;
+	using namespace of::asset;
 
 	vec.push_back({ Trait<Asset::Resource::DialogTree>::typeId ,
-	[](const EntityIndex& index) {
-		of::engine::GetModule<of::file::Handler>().archive.request<Asset::Resource::DialogTree>(FileId(index.modFile, index.ID));
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<Asset::Resource::DialogTree>(AssetId(index.modFile, index.ID));
 	}});
 
-
 	vec.push_back({ Trait<of::resource::Prefab>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::Prefab>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<of::resource::Prefab>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<of::resource::WorldInstance>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::resource::WorldInstance>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<of::resource::WorldInstance>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<PrimitiveSaveable<of::common::String>>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<PrimitiveSaveable<of::common::String>>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<PrimitiveSaveable<of::common::String>>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<of::combat::Element>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Element>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<of::combat::Element>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<of::combat::Effect>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Effect>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<of::combat::Effect>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<of::combat::Skill>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<of::combat::Skill>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<of::combat::Skill>(AssetId(index.modFile, index.ID));
+	} });
 
 	vec.push_back({ Trait<Questing::Quest>::typeId ,
-[](const EntityIndex& index) {
-	of::engine::GetModule<of::file::Handler>().archive.request<Questing::Quest>(FileId(index.modFile, index.ID));
-} });
+	[](const AssetIndex& index) {
+		of::asset::getAssetRequestor().request<Questing::Quest>(AssetId(index.modFile, index.ID));
+	} });
 
 
 	archive.factory.registerDefaults(vec);

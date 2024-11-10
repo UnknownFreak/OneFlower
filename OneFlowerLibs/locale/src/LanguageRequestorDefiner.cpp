@@ -6,12 +6,12 @@
 
 #include <utils/os/ListDir.hpp>
 
-of::common::uuid of::file::archive::Trait<of::locale::LanguageRequestor>::typeId = of::common::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
+of::common::uuid of::asset::Trait<of::locale::LanguageRequestor>::typeId = of::common::uuid("3a605c27-d5c2-46e5-91bf-9135e02a7437");
 
 CEREAL_REGISTER_TYPE(of::locale::LanguageRequestor);
 CEREAL_REGISTER_TYPE(of::locale::TranslationStringContainer);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::locale::LanguageRequestor);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(of::file::archive::Requestable, of::locale::TranslationStringContainer);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::locale::LanguageRequestor);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(of::asset::IAsset, of::locale::TranslationStringContainer);
 
 namespace of::locale
 {
@@ -116,7 +116,7 @@ namespace of::locale
 		of::logger::get().getLogger("locale::LanguageRequestor").Error("Unable to set language [" + language + "]");
 	}
 
-	LanguageRequestor::LanguageRequestor() : Requestable(common::Builtin, common::uuid::nil(), OneVersion(1, 0, 0), file::ObjectType::Language)
+	LanguageRequestor::LanguageRequestor() : IAsset(common::Builtin, common::uuid::nil(), OneVersion(1, 0, 0), asset::ObjectType::Language)
 	{
 		load();
 	}
@@ -127,13 +127,13 @@ namespace of::locale
 		clear();
 #endif
 		allLanguageFiles = of::os::listDirectory(common::langPath, ".lang", false);
-		languages = utils::loadLanguages(allLanguageFiles);
+		utils::loadLanguages(allLanguageFiles, languages);
 		resolvePatchedLanguages();
 	}
 
 	void LanguageRequestor::archiveLoad()
 	{
-		languages = utils::loadLanguages(allLanguageFiles);
+		utils::loadLanguages(allLanguageFiles, languages);
 	}
 
 	void LanguageRequestor::archiveSave() const
@@ -151,9 +151,9 @@ namespace of::locale
 		requestedStrings[translationId].second = false;
 	}
 
-	file::archive::TypeInfo LanguageRequestor::getTrait() const
+	asset::TypeInfo LanguageRequestor::getTrait() const
 	{
-		return { of::file::archive::Trait<LanguageRequestor>::typeId };
+		return { of::asset::Trait<LanguageRequestor>::typeId };
 	}
 
 	void LanguageRequestor::loadFont()
