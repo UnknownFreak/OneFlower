@@ -13,6 +13,7 @@
 #include <engine/settings.hpp>
 
 #include <imgui/imgui.h>
+#include <input/input.hpp>
 
 #include <utils/StringUtils.hpp>
 
@@ -308,19 +309,24 @@ namespace of::graphics::window
 		module::texture::init(mGfxDevice, mCmdBuffer);
 
 		setup();
+		//mWindow->addEventListener(&input::get());
 		setupImGui();
     }
 
     SwBool of::graphics::window::Application::userUpdate(F32 dt)
     {
+		of::input::get().dispatchEvents();
+
 		if(camController)
 			camController->update(dt);
 		draw(dt);
+
 		return mWindow->isVisible();
     }
 
     void of::graphics::window::Application::userCleanup()
     {
+		//mWindow->removeEventListener(&input::get());
 		workerThread.join();
 		module::mesh::shutdown();
 		module::shader::shutdown();

@@ -2,6 +2,7 @@
 
 #include <Object/GameObject.hpp>
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -17,10 +18,14 @@ namespace of::component
 		transform->speedModifier = 0.5f;
 		combat = attachedOn->get<of::component::CombatComponent>();
 		mActor = of::physics::get().createActorController(transform->pos);
-		if (subscriberId == 0)
+
+		using Topic = of::engine::courier::Topic;
+		constexpr auto to = of::Topic::convert;
+
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::PhysicsUpdate,
-				of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg)
+			subscriberId = courier::get().addSubscriber(to(Topic::PhysicsUpdate),
+				courier::Subscriber(isAlive(), [this](const courier::Message& msg)
 					{
 						auto transform = attachedOn->get<Transform>();
 
@@ -44,10 +49,12 @@ namespace of::component
 
 	void PlayerController::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert; 
+			courier::get().removeSubscriber(from(Topic::PhysicsUpdate), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 		if (of::physics::get().hasShutDown() == false && mActor != nullptr)
 		{

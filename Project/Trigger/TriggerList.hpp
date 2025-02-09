@@ -21,7 +21,7 @@ namespace Trigger
 		void save(Archive& ar) const
 		{
 			ar(cereal::base_class<Trigger>(this));
-			ar(TriggerList);
+			ar(triggerList);
 		}
 		template<class Archive>
 		void load(Archive& ar)

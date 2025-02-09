@@ -12,12 +12,14 @@
 #pragma warning(pop)
 
 #include <engine/runMode.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
 	void Collider::onMessage(const  of::object::messaging::Message& message)
 	{
-		using namespace  of::object::messaging;
+		using Topic = of::object::messaging::Topic;
+		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::TELEPORT) && message.messageBody->bodyType == BodyType::TELEPORT)
 		{
 			auto ref = ((Teleport*)message.messageBody.get());
@@ -66,10 +68,12 @@ namespace of::component
 
 			mActor = of::physics::get().createActor<physx::PxRigidDynamic>(
 				mTransform->pos, model);
-			if (subscriberId == 0)
+			if (subscriberId == courier::SubscriberId::NOT_SET)
 			{
-				subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update,
-					of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {
+				using Topic = of::engine::courier::Topic;
+				constexpr auto to = of::Topic::convert;
+				subscriberId = courier::get().addSubscriber(to(Topic::Update),
+					courier::Subscriber(isAlive(), [this](const courier::Message& msg) {
 						auto p = mActor->getGlobalPose().p;
 						mTransform->pos.x = p.x;
 						mTransform->pos.y = p.y;
@@ -99,10 +103,12 @@ namespace of::component
 
 	void Collider::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 		if (of::physics::get().hasShutDown() == false && mActor != nullptr)
 		{

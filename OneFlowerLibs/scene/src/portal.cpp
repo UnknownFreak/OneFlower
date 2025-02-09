@@ -2,6 +2,7 @@
 
 #include <scene/sceneManager.hpp>
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 #include <input/inputHandler.hpp>
 
@@ -10,6 +11,7 @@ namespace of::component
 {
 	void Portal::onMessage(const of::object::messaging::Message& message)
 	{
+		using Topic = of::object::messaging::Topic;
 		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::ON_COLLISION))
 		{
@@ -20,7 +22,7 @@ namespace of::component
 				auto objectTrackingPos = messageBody->go->getShared<of::component::Transform>();
 				auto portalRef = attachedOn->getShared<Portal>();
 
-				auto& courier = of::courier::get();
+				auto& courier = courier::get();
 				auto inputHandler = of::input::InputHandler::GetInputSource();
 
 				// TODO: check if subscriber exists
@@ -28,13 +30,15 @@ namespace of::component
 				//	of::logger::get().GetLogger("of::object::component::Portal").Info("Courier subscriber already exists, skipping!");
 				//	return;
 
-				if (subscriberId == 0)
+				if (subscriberId == courier::SubscriberId::NOT_SET)
 				{
+					using TTopic = of::engine::courier::Topic;
+					constexpr auto to = of::Topic::convert;
 					subscriberId = courier.addSubscriber(
-						of::courier::Topic::Update,
-						of::courier::Subscriber(
+						to(TTopic::Update),
+						courier::Subscriber(
 							isAlive(),
-							[portalRef, objectTrackingPos, &inputHandler](const of::courier::Message&)
+							[portalRef, objectTrackingPos, &inputHandler](const courier::Message&)
 							{
 								float distance = glm::abs(glm::distance(objectTrackingPos->pos,
 									portalRef->mSelfTrackingPos->pos));
@@ -58,8 +62,9 @@ namespace of::component
 								}
 								if (distance > portalRef->mGuiHintDistance)
 								{
-									of::courier::get().scheduleRemoval(of::courier::Topic::Update, portalRef->subscriberId);
-									portalRef->subscriberId = 0;
+									constexpr auto from = of::Topic::convert; 
+									courier::get().scheduleRemoval(from(TTopic::Update), portalRef->subscriberId);
+									portalRef->subscriberId = courier::SubscriberId::NOT_SET;
 
 								}
 							}
@@ -81,10 +86,13 @@ namespace of::component
 
 	void Portal::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 

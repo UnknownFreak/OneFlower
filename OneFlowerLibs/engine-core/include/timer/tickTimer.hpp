@@ -1,10 +1,13 @@
 #pragma once
 
-#include <utils/common/string.hpp>
-#include <utils/lifetime/isAlive.hpp>
+#include <courier/channelId.hpp>
+#include <courier/subscriberId.hpp>
+#include <courier/Topic.hpp>
 
 #include <vector>
-#include <courier/Topic.hpp>
+
+#include <utils/common/string.hpp>
+#include <utils/lifetime/isAlive.hpp>
 
 namespace of::timer
 {
@@ -17,8 +20,8 @@ namespace of::timer
 		bool autoReset = false;
 		float maxTime;
 		float currentTime = 0.f;
-		size_t timerId;
-		std::vector<std::pair<of::courier::Topic, size_t>> messagesToSend;
+		courier::SubscriberId timerId;
+		std::vector<std::pair<courier::Topic, courier::SubscriberId>> messagesToSend;
 
 
 		virtual ~TickTimer();

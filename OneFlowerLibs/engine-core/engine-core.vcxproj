@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)OneFlowerLibs\engine-core\internal;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)vendor\cereal\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)OneFlowerLibs\engine-core\internal;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)vendor\cereal\include\;$(SolutionDir)swizzle\swizzle\include\;$(IncludePath)</IncludePath>
     <PublicIncludeDirectories>$(SolutionDir)OneFlowerLibs\engine-core\include;$(SolutionDir)swizzle\vendor\glm\include;$(SolutionDir)swizzle\libs\utils\include;$(SolutionDir)vendor\cereal\include\</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -148,10 +148,22 @@
     <ClInclude Include="include\component\base.hpp" />
     <ClInclude Include="include\component\objectStateActivator.hpp" />
     <ClInclude Include="include\component\transform.hpp" />
+    <ClInclude Include="include\engine\courier\messageType.hpp" />
+    <ClInclude Include="include\engine\courier\topic.hpp" />
     <ClInclude Include="include\engine\engine.hpp" />
     <ClInclude Include="include\engine\paths.hpp" />
     <ClInclude Include="include\engine\runMode.hpp" />
     <ClInclude Include="include\engine\settings.hpp" />
+    <ClInclude Include="include\input\gamePadChannel.hpp" />
+    <ClInclude Include="include\input\input.hpp" />
+    <ClInclude Include="include\input\inputEventDispatcher.hpp" />
+    <ClInclude Include="include\input\inputEvents.hpp" />
+    <ClInclude Include="include\input\inputFunctionBind.hpp" />
+    <ClInclude Include="include\input\inputFwdDeclare.hpp" />
+    <ClInclude Include="include\input\inputSource.hpp" />
+    <ClInclude Include="include\input\keyboardChannel.hpp" />
+    <ClInclude Include="include\input\mouseChannel.hpp" />
+    <ClInclude Include="include\input\windowChannel.hpp" />
     <ClInclude Include="include\locale\locale.hpp" />
     <ClInclude Include="include\locale\localeSettings.hpp" />
     <ClInclude Include="include\locale\localeString.hpp" />
@@ -175,16 +187,20 @@
     <ClInclude Include="include\trigger\trigger.hpp" />
     <ClInclude Include="include\trigger\triggerState.hpp" />
     <ClInclude Include="internal\asset\internalAsset.hpp" />
+    <ClInclude Include="internal\input\internalInput.hpp" />
     <ClInclude Include="internal\locale\internalLocale.hpp" />
     <ClInclude Include="internal\object\internalInstanceHandler.hpp" />
     <ClInclude Include="internal\session\internalGameSession.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\swizzle\build\vs2022\swizzle\swizzle.vcxproj">
+      <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\courier\courier.vcxproj">
-      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
+    <ProjectReference Include="..\..\vendor\courier\courier.vcxproj">
+      <Project>{1e3cf7d3-8a1b-766f-9333-0146ff91dcd0}</Project>
     </ProjectReference>
     <ProjectReference Include="..\logger\logger.vcxproj">
       <Project>{6171f1d2-3a1d-470c-bd38-355a11618513}</Project>
@@ -200,10 +216,15 @@
     <ClCompile Include="src\engine.cpp" />
     <ClCompile Include="src\GameMode.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\gamePadChannel.cpp" />
+    <ClCompile Include="src\input.cpp" />
+    <ClCompile Include="src\inputSource.cpp" />
     <ClCompile Include="src\InstanceHandler.cpp" />
+    <ClCompile Include="src\keyboardChannel.cpp" />
     <ClCompile Include="src\locale.cpp" />
     <ClCompile Include="src\localeSettings.cpp" />
     <ClCompile Include="src\localeString.cpp" />
+    <ClCompile Include="src\mouseChannel.cpp" />
     <ClCompile Include="src\ObjectSaveState.cpp" />
     <ClCompile Include="src\objectStateActivator.cpp" />
     <ClCompile Include="src\Prefab.cpp" />
@@ -216,6 +237,7 @@
     <ClCompile Include="src\transform.cpp" />
     <ClCompile Include="src\trigger.cpp" />
     <ClCompile Include="src\triggerState.cpp" />
+    <ClCompile Include="src\windowChannel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,8 @@
 #include <timer/tickTimer.hpp>
 
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
+#include <engine/courier/messageType.hpp>
 
 namespace of::timer
 {
@@ -15,8 +17,11 @@ namespace of::timer
 		if (started == false && finished == false)
 		{
 			started = true;
-			auto& courier = of::courier::get();
-			timerId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {
+			using Topic = of::engine::courier::Topic;
+			constexpr auto on = of::Topic::convert;
+
+			auto& courier = courier::get();
+			timerId = courier.addSubscriber(on(Topic::Update), courier::Subscriber(isAlive(), [this](const courier::Message& msg) {
 
 				currentTime += msg.get<float>();
 				finished = done();
@@ -26,8 +31,11 @@ namespace of::timer
 					if (autoReset == false)
 					{
 						started = false;
-						auto& lambda_courier = of::courier::get();
-						lambda_courier.scheduleRemoval(of::courier::Topic::Update, timerId);
+						auto& lambda_courier = courier::get();
+						
+						constexpr auto from = of::Topic::convert;
+
+						lambda_courier.scheduleRemoval(from(Topic::Update), timerId);
 					}
 					else
 					{
@@ -43,7 +51,9 @@ namespace of::timer
 	{
 		if (started)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, timerId);
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+			courier::get().removeSubscriber(from(Topic::Update), timerId);
 			started = false;
 		}
 	}
@@ -64,6 +74,7 @@ namespace of::timer
 			}
 		}
 	}
+
 	bool TickTimer::done() const
 	{
 		return currentTime > maxTime;
@@ -84,13 +95,12 @@ namespace of::timer
 		return std::to_string(currentTime);
 	}
 
-
 	void TickTimer::onFinish()
 	{
-		auto& courier = of::courier::get();
+		auto& courier = courier::get();
 		for (auto& listerner : messagesToSend)
 		{
-			courier.schedule(listerner.first, listerner.second, of::courier::Message(of::courier::MessageType::Notify, "TickTimer"));
+			courier.schedule(listerner.first, listerner.second, courier::Message(courier::MessageType::Notify, "TickTimer"));
 		}
 	}
 }

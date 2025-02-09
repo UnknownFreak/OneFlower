@@ -37,7 +37,7 @@ static volatile void initializeSystems()
 	auto& mainModule = logger.getLogger("Main");
 
 	mainModule.Info("Initializing Modules group: Messaging");
-	of::courier::init();
+	courier::init();
 
 	mainModule.Info("Finished initializing engine ");
 
@@ -96,7 +96,7 @@ public:
 	of::object::get().unloadAll();
 
 	of::engine::shutdown();
-	of::courier::shutdown();
+	courier::shutdown();
 
 	of::logger::shutdown();
 

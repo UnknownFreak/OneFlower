@@ -13,6 +13,7 @@
 
 #include <component/Transform.hpp>
 #include <vector>
+#include <courier/subscriberId.hpp>
 
 namespace of::editor
 {
@@ -36,7 +37,7 @@ namespace of::editor
 		physx::PxActor* mSelectedActor = nullptr;
 
 		bool m_enable = true;
-		size_t subscriberId;
+		courier::SubscriberId subscriberId;
 		std::vector<std::shared_ptr<of::component::Transform>> m_objects;
 
 	public:

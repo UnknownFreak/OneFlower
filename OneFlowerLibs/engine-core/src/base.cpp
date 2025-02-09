@@ -34,7 +34,7 @@ namespace of::component
 		attachedOn->post(message);
 	}
 
-	Base::Base() : subscriberId(0)
+	Base::Base() : subscriberId(courier::SubscriberId::NOT_SET)
 	{
 	}
 

@@ -2,6 +2,7 @@
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
+#include <courier/subscriberId.hpp>
 
 #include <utils/common/String.hpp>
 #include <utils/common/uuid.hpp>
@@ -26,7 +27,7 @@ namespace of::component
 
 		object::GameObject* attachedOn = nullptr;
 		// vector<pair<channel, id>> instead of single subscriber id?
-		size_t subscriberId = 0;
+		courier::SubscriberId subscriberId = courier::SubscriberId::NOT_SET;
 
 		virtual Base* copy() const = 0;
 		virtual std::unique_ptr<Base> ucopy() const = 0;

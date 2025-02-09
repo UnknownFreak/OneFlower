@@ -8,6 +8,7 @@
 #include <module/resource/ShaderLoader.hpp>
 
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -36,6 +37,7 @@ namespace of::component
 	}
 	void Render::onMessage(const of::object::messaging::Message& message)
 	{
+		using Topic = of::object::messaging::Topic;
 		using namespace of::object::messaging;
 
 		if (message.messageTopic == Topic::of(Topics::ON_DEATH))
@@ -56,9 +58,11 @@ namespace of::component
 			valid->addRenderable(of::graphics::window::RenderLayer::MODELS, attachedOn->id, attachedOn->getShared<Render>());
 		}
 
-		if (subscriberId == 0)
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			using Topic = of::engine::courier::Topic;
+			constexpr auto to = of::Topic::convert;
+			subscriberId = courier::get().addSubscriber(to(Topic::Update), courier::Subscriber(isAlive(), [this](const courier::Message& msg) {update(msg.get<float>()); }));
 		}
 	}
 
@@ -73,9 +77,12 @@ namespace of::component
 		{
 			valid->removeRenderable(attachedOn->id);
 		}
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 

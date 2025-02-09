@@ -50,8 +50,8 @@
     <ProjectReference Include="..\..\swizzle\build\vs2022\utils\utils.vcxproj">
       <Project>{169c8510-82b0-adc1-4b32-5121b705aaf2}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\courier\courier.vcxproj">
-      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
+    <ProjectReference Include="..\..\vendor\courier\courier.vcxproj">
+      <Project>{1e3cf7d3-8a1b-766f-9333-0146ff91dcd0}</Project>
     </ProjectReference>
     <ProjectReference Include="..\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>

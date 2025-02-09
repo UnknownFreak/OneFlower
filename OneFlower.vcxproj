@@ -227,9 +227,6 @@
     <ProjectReference Include="OneFlowerLibs\combat\combat.vcxproj">
       <Project>{42211920-482d-448d-b536-0da516dd0db2}</Project>
     </ProjectReference>
-    <ProjectReference Include="OneFlowerLibs\courier\courier.vcxproj">
-      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
-    </ProjectReference>
     <ProjectReference Include="OneFlowerLibs\editor\editor.vcxproj">
       <Project>{3324a468-e97b-4786-a234-9b8908a44bfe}</Project>
     </ProjectReference>
@@ -274,6 +271,9 @@
     </ProjectReference>
     <ProjectReference Include="swizzle\build\vs2022\swizzle\swizzle.vcxproj">
       <Project>{5dd36fb5-c9b2-ee50-d2ca-79273e2955b2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\courier\courier.vcxproj">
+      <Project>{1e3cf7d3-8a1b-766f-9333-0146ff91dcd0}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,11 @@ namespace of::common
 		return m_uuid < right.m_uuid;
 	}
 
+	bool uuid::operator>(const uuid& right) const noexcept
+	{
+		return right.m_uuid < m_uuid;
+	}
+
 	bool uuid::operator!=(const uuid& right) const noexcept
 	{
 		return m_uuid != right.m_uuid;

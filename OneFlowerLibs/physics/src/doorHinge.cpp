@@ -7,6 +7,7 @@
 
 #include <courier/courier.hpp>
 #include <engine/runMode.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -21,13 +22,15 @@ namespace of::component
 			{
 				mHinge = of::physics::get().createDoorHinge(mActor, mHingeOffset);
 
-				if (subscriberId == 0)
+				if (subscriberId == courier::SubscriberId::NOT_SET)
 				{
-					subscriberId = of::courier::get().addSubscriber(
-						of::courier::Topic::PhysicsUpdate,
-						of::courier::Subscriber(
+					using Topic = of::engine::courier::Topic;
+					constexpr auto to = of::Topic::convert;
+					subscriberId = courier::get().addSubscriber(
+						to(Topic::PhysicsUpdate),
+						courier::Subscriber(
 							isAlive(),
-							[&](const of::courier::Message&)
+							[&](const courier::Message&)
 							{
 								mActor->is<physx::PxRigidDynamic>()->addTorque({ 0.f, dir, 0.f }, physx::PxForceMode::eVELOCITY_CHANGE);
 							}
@@ -57,10 +60,12 @@ namespace of::component
 			mHinge->release();
 			mHinge = nullptr;
 		}
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::PhysicsUpdate, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			auto constexpr from = of::Topic::convert;
+			courier::get().removeSubscriber(from(Topic::PhysicsUpdate), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 }

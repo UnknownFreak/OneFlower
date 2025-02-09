@@ -6,6 +6,7 @@
 
 #include <asset/internalAsset.hpp>
 #include <object/internalInstanceHandler.hpp>
+#include <input/internalInput.hpp>
 #include <session/internalGameSession.hpp>
 #include <locale/internalLocale.hpp>
 
@@ -73,6 +74,7 @@ namespace of::engine
 		timer::init();
 		asset::init();
 		locale::init();
+		input::init();
 
 		logger.Info("Initializing Modules group: (internal) Asset Management");
 
@@ -85,6 +87,7 @@ namespace of::engine
 		session::shutdown();
 		object::shutdown();
 
+		input::shutdown();
 		locale::shutdown();
 		asset::shutdown();
 		timer::shutdown();

@@ -9,6 +9,7 @@
 
 #include <courier/courier.hpp>
 #include <courier/subscriber.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -65,7 +66,8 @@ namespace of::component
 
 	void Transform::onMessage(const object::messaging::Message& message)
 	{
-		using namespace object::messaging;
+		using Topic = of::object::messaging::Topic;
+		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::REQUEST_DATA) && message.messageBody->bodyType == BodyType::REQUEST_DATA)
 		{
 			auto ref = ((RequestData*)message.messageBody.get());
@@ -78,20 +80,25 @@ namespace of::component
 
 	void Transform::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().scheduleRemoval(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+			courier::get().scheduleRemoval(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 
 	void Transform::attached()
 	{
 		moving = true;
-		if (subscriberId == 0)
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update,
-				of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			using Topic = of::engine::courier::Topic;
+			constexpr auto to = of::Topic::convert;
+
+			subscriberId = courier::get().addSubscriber(to(Topic::Update),
+				courier::Subscriber(isAlive(), [this](const courier::Message& msg) {update(msg.get<float>()); }));
 		}
 	}
 

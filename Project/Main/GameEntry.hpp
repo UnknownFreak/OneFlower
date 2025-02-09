@@ -16,7 +16,7 @@ class GameEntry
 	std::shared_ptr<of::input::InputHandler> input;
 	
 	std::shared_ptr<of::scene::SceneManager> scene;
-	of::courier::Courier& courier;
+	courier::Courier& courier;
 
 	std::shared_ptr<Graphics::UI::Stats> ups;
 

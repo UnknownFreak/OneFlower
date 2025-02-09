@@ -57,6 +57,8 @@
 #include <timer/timer.hpp>
 
 #include <gfx/buffer.hpp>
+#include <engine/courier/topic.hpp>
+#include <engine/courier/messageType.hpp>
 
 bool paused = false;
 static size_t mId = 0x100000000;
@@ -176,27 +178,31 @@ public:
 	};
 };
 
-class Sniffer : public of::courier::MessageValidator, public of::utils::lifetime::IsAlive
+class Sniffer : public courier::MessageValidator, public of::utils::lifetime::IsAlive
 {
-	std::shared_ptr<of::courier::MessageValidator> validator;
-	std::shared_ptr<of::courier::ChannelTopic> m_channel;
+	std::shared_ptr<courier::MessageValidator> validator;
+	std::shared_ptr<courier::MultiChannel> m_channel;
 
 	size_t m_messageCount = 0;
 	size_t m_messagePerSecond = 0;
 	size_t m_messagePerSecond2 = 0;
 
-	size_t subscriberId;
+	courier::SubscriberId subscriberId;
 public:
 	of::timer::TickTimer m_tickTimer;
 
 public:
-	Sniffer(const of::courier::Topic t, std::string name)
+	Sniffer(const courier::Topic t, std::string name)
 	{
-		m_channel = of::courier::get().getChannel(t);
+		m_channel = courier::get().getChannel(t);
 		validator = m_channel->getValidator();
-		subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(),
-			[this](const of::courier::Message& msg) {
-				if (msg.msgType == of::courier::MessageType::Notify)
+		
+		using Topic = of::engine::courier::Topic;
+		constexpr auto on = of::Topic::convert;
+
+		subscriberId = courier::get().addSubscriber(on(Topic::Object), courier::Subscriber(isAlive(),
+			[this](const courier::Message& msg) {
+				if (msg.is(courier::MessageType::Notify))
 				{
 					m_messagePerSecond2 = m_messagePerSecond;
 					m_messagePerSecond = 0;
@@ -204,17 +210,20 @@ public:
 			}));
 		m_tickTimer.maxTime = 1.0f;
 		m_tickTimer.autoReset = true;
-		m_tickTimer.messagesToSend.push_back(std::make_pair(of::courier::Topic::Object, subscriberId));
+		m_tickTimer.messagesToSend.push_back(std::make_pair(on(Topic::Object), subscriberId));
 		m_tickTimer.start();
 	}
 
 	~Sniffer()
 	{
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+
 		m_tickTimer.stop();
-		of::courier::get().removeSubscriber(of::courier::Topic::Object, subscriberId);
+		courier::get().removeSubscriber(from(Topic::Object), subscriberId);
 	}
 
-	bool validate(const of::courier::Message& message)
+	bool validate(const courier::Message& message)
 	{
 		if (validator)
 		{
@@ -246,7 +255,6 @@ public:
 
 class CourierStats : public of::graphics::ParentedRenderable, public of::utils::lifetime::IsAlive
 {
-	std::shared_ptr<of::courier::ChannelTopic> m_channel;
 	of::common::String string;
 	int val = 0;
 	bool m_add = false;
@@ -256,6 +264,7 @@ class CourierStats : public of::graphics::ParentedRenderable, public of::utils::
 
 	std::string m_execTime;
 	std::string m_msgCount;
+	std::string m_schedMsgCount;
 	size_t m_totalMsgCounter = 0;
 	std::string m_totalMsgCountStr;
 
@@ -263,21 +272,29 @@ class CourierStats : public of::graphics::ParentedRenderable, public of::utils::
 	std::shared_ptr<Sniffer> m_physicsSniffer;
 	std::shared_ptr<Sniffer> m_singleThreadSniffer;
 	std::shared_ptr<Sniffer> m_objectSniffer;
+	std::shared_ptr<Sniffer> m_inputSniffer;
 
 public:
 
-	CourierStats() : m_channel(of::courier::get().getChannel(of::courier::Topic::Update))
+	CourierStats() 
 	{
-		auto& courier = of::courier::get();
-		m_updateSniffer = std::make_shared<Sniffer>(of::courier::Topic::Update, "Update");
-		m_physicsSniffer = std::make_shared<Sniffer>(of::courier::Topic::PhysicsUpdate, "Physics");
-		m_singleThreadSniffer = std::make_shared<Sniffer>(of::courier::Topic::SingleThreadUpdate, "ST");
-		m_objectSniffer = std::make_shared<Sniffer>(of::courier::Topic::Object, "Obj");
 
-		courier.getChannel(of::courier::Topic::Update)->setMessageValidator(m_updateSniffer);
-		courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMessageValidator(m_physicsSniffer);
-		courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMessageValidator(m_singleThreadSniffer);
-		courier.getChannel(of::courier::Topic::Object)->setMessageValidator(m_objectSniffer);
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+		constexpr auto on = of::Topic::convert;
+
+		auto& courier = courier::get();
+		m_updateSniffer = std::make_shared<Sniffer>(on(Topic::Update), "Update");
+		m_physicsSniffer = std::make_shared<Sniffer>(on(Topic::PhysicsUpdate), "Physics");
+		m_singleThreadSniffer = std::make_shared<Sniffer>(on(Topic::SingleThreadUpdate), "ST");
+		m_objectSniffer = std::make_shared<Sniffer>(on(Topic::Object), "Obj");
+		m_inputSniffer = std::make_shared<Sniffer>(on(Topic::Input), "Input");
+
+		courier.getChannel(from(Topic::Update))->setMessageValidator(m_updateSniffer);
+		courier.getChannel(from(Topic::PhysicsUpdate))->setMessageValidator(m_physicsSniffer);
+		courier.getChannel(from(Topic::SingleThreadUpdate))->setMessageValidator(m_singleThreadSniffer);
+		courier.getChannel(from(Topic::Object))->setMessageValidator(m_objectSniffer);
+		courier.getChannel(from(Topic::Input))->setMessageValidator(m_inputSniffer);
 
 	}
 
@@ -295,7 +312,6 @@ public:
 				of::object::addObject();
 			}
 		}
-		string = std::to_string(m_channel->getSubscribersCount());
 	}
 
 	void text(const of::common::String& s, size_t value, size_t messagesPerSecond, size_t subscribers)
@@ -312,9 +328,9 @@ public:
 	virtual void render(std::unique_ptr<swizzle::gfx::DrawCommandTransaction>&, of::graphics::view::MVP&)
 	{
 		ImGui::Begin("CourierStats");
-		ImGui::Text(string.c_str());
 		ImGui::Text(m_execTime.c_str());
 		ImGui::Text(m_msgCount.c_str());
+		ImGui::Text(m_schedMsgCount.c_str());
 		ImGui::Text(m_totalMsgCountStr.c_str());
 
 		ImGui::NewLine();
@@ -324,6 +340,7 @@ public:
 		text("Physics: ", m_physicsSniffer->messageCount(), m_physicsSniffer->messagesPerSecond(), m_physicsSniffer->subscriberCount());
 		text("     ST: ", m_singleThreadSniffer->messageCount(), m_singleThreadSniffer->messagesPerSecond(), m_singleThreadSniffer->subscriberCount());
 		text(" Object: ", m_objectSniffer->messageCount(), m_objectSniffer->messagesPerSecond(), m_objectSniffer->subscriberCount());
+		text("  Input: ", m_inputSniffer->messageCount(), m_inputSniffer->messagesPerSecond(), m_inputSniffer->subscriberCount());
 
 		ImGui::NewLine();
 
@@ -340,10 +357,11 @@ public:
 		m_execTime = "ExecTime: " + std::format("{:.3f}", time.count()) + " ms";
 	}
 
-	void messageCount(size_t messageCount)
+	void messageCount(size_t messageCount, size_t scheduledMessages)
 	{
 		m_msgCount = "Handled: " + std::to_string(messageCount) + "/frame";
-		m_totalMsgCounter += messageCount;
+		m_schedMsgCount = "Scheduled: " + std::to_string(scheduledMessages) + "/frame";
+		m_totalMsgCounter += messageCount + scheduledMessages;
 		m_totalMsgCountStr = "TotalHandled: " + std::to_string(m_totalMsgCounter);
 	}
 };
@@ -529,7 +547,7 @@ class PxMeshedActorRenderable : public of::graphics::ParentedRenderable, public 
 	glm::vec3 shapeOffset;
 
 	glm::vec4 renderingColor = { 0.3f, 0.3f, 1.f, 0.f };
-	size_t subscriberId;
+	courier::SubscriberId subscriberId;
 
 	void loadShader()
 	{
@@ -560,8 +578,11 @@ public:
 		model.mesh = mesh;
 		loadShader();
 
-		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);
-		subscriberId = channel->addSubscriber(of::courier::Subscriber(isAlive(), [&](const of::courier::Message&)
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+		
+		auto channel = courier::get().getChannel(from(Topic::Update));
+		subscriberId = channel->addSubscriber(courier::Subscriber(isAlive(), [&](const courier::Message&)
 			{
 				if (mActor)
 				{
@@ -582,7 +603,9 @@ public:
 
 	~PxMeshedActorRenderable()
 	{
-		auto channel = of::courier::get().getChannel(of::courier::Topic::Update);
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+		auto channel = courier::get().getChannel(from(Topic::Update));
 		channel->removeSubscriber(subscriberId);
 	}
 
@@ -1120,18 +1143,34 @@ public:
 //static std::shared_ptr<PxSimulationStats> simulationStats;
 static std::shared_ptr<CourierStats> courierStats;
 
-template<of::courier::MessageType T>
-class IsMessageTypeValidator : public of::courier::MessageValidator
+template<courier::MessageType T>
+class IsMessageTypeValidator : public courier::MessageValidator
 {
-	virtual inline bool validate(const of::courier::Message& message) override
+	virtual inline bool validate(const courier::Message& message) override
 	{
-		if (message.msgType != T)
+		if (message.is(T) == false)
 		{
 			auto& logger = of::logger::get().getLogger("of::IsMessageTypeValidator");
 			logger.Info("Invalid message type passed [requiredType, checked] [", (unsigned int)T, ", ", (unsigned int)message.msgType, + "]");
 			return false;
 		}
 		return true;
+	}
+};
+
+template<courier::MessageType T, courier::MessageType T2, courier::MessageType T3, courier::MessageType T4>
+class IsInputTypeMessageValidator : public courier::MessageValidator
+{
+	virtual inline bool validate(const courier::Message& message) override
+	{
+		if (message.is(T) || message.is(T2) || message.is(T3) || message.is(T4))
+		{
+			return true;
+		}
+
+		auto& logger = of::logger::get().getLogger("of::IsMessageTypeValidator");
+		logger.Info("Invalid message type passed [requiredType, checked] [", (unsigned int)T, ", ", (unsigned int)message.msgType, +"]");
+		return false;
 	}
 };
 
@@ -1179,7 +1218,7 @@ GameEntry::GameEntry() :
 	gfx(std::make_shared<of::graphics::window::Application>()),
 	input(std::make_shared<of::input::InputHandler>()),
 	scene(std::make_shared<of::scene::SceneManager>(gfx)),
-	courier(of::courier::get()), m_exit(false)
+	courier(courier::get()), m_exit(false)
 {
 	input->SetInputSource(input);
 	gfx->SetWindowSource(gfx);
@@ -1187,17 +1226,25 @@ GameEntry::GameEntry() :
 
 	addSceneHooks(of::session::get(), scene);
 
-	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 120.f, Graphics::UI::Rel::Right);
-	courier.createChannel(of::courier::Topic::Update);
-	courier.createChannel(of::courier::Topic::PhysicsUpdate);
-	courier.createChannel(of::courier::Topic::SingleThreadUpdate);
-	courier.createChannel(of::courier::Topic::Object);
-	auto validator = std::make_shared<IsMessageTypeValidator<of::courier::MessageType::DeltaTime>> ();
-	courier.getChannel(of::courier::Topic::Update)->setMessageValidator(validator);
-	courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMessageValidator(validator);
-	courier.getChannel(of::courier::Topic::PhysicsUpdate)->setMultiThreaded(false);
-	courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMessageValidator(validator);
-	courier.getChannel(of::courier::Topic::SingleThreadUpdate)->setMultiThreaded(false);
+	ups = std::make_shared<Graphics::UI::Stats>("UPS", 150.f, 140.f, Graphics::UI::Rel::Right);
+
+	using Topic = of::engine::courier::Topic;
+	constexpr auto from = of::Topic::convert;
+
+	courier.createChannel(from(Topic::Update));
+	courier.createChannel(from(Topic::PhysicsUpdate));
+	courier.createChannel(from(Topic::SingleThreadUpdate));
+	courier.createChannel(from(Topic::Object));
+	auto validator = std::make_shared<IsMessageTypeValidator<courier::MessageType::DeltaTime>> ();
+	courier.getChannel(from(Topic::Update))->setMessageValidator(validator);
+	courier.getChannel(from(Topic::PhysicsUpdate))->setMessageValidator(validator);
+	courier.getChannel(from(Topic::PhysicsUpdate))->setMultiThreaded(true);
+	courier.getChannel(from(Topic::SingleThreadUpdate))->setMessageValidator(validator);
+	courier.getChannel(from(Topic::SingleThreadUpdate))->setMultiThreaded(false);
+
+	courier.getChannel(from(Topic::Input))->setMessageValidator(std::make_shared<IsInputTypeMessageValidator<
+		courier::MessageType::InputPressEvent, courier::MessageType::InputHoldEvent, courier::MessageType::InputReleaseEvent, courier::MessageType::InputAxisEvent>>());
+	courier.getChannel(from(Topic::Input))->setMultiThreaded(false);
 }
 
 int GameEntry::Run()
@@ -1250,7 +1297,7 @@ int GameEntry::Run()
 	courierStats = std::make_shared<CourierStats>();
 	//gfx.setFramerate(of::engine::GetModule<EngineModule::GameConfig>().getFramerateLimit());
 
-	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 300.f, 120.f, Graphics::UI::Rel::Right));
+	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::Stats>("FPS", 300.f, 140.f, Graphics::UI::Rel::Right));
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), ups);
 	gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Graphics::UI::BuildInfo>(Engine::GetBuildMode().getDetailedBuildInfo(), 300.f, 20.f, Graphics::UI::Rel::Right));
 
@@ -1332,16 +1379,20 @@ void GameEntry::physicsUpdate()
 				courierStats->updateCount();
 
 				auto then = std::chrono::high_resolution_clock::now();
-				auto message = of::courier::Message(of::courier::MessageType::DeltaTime, update_time);
+				auto message = courier::Message(courier::MessageType::DeltaTime, update_time);
 				
-				courier.post(of::courier::Topic::Update, message);
-				courier.post(of::courier::Topic::PhysicsUpdate, message);
-				courier.post(of::courier::Topic::SingleThreadUpdate, message);
+				using Topic = of::engine::courier::Topic;
+				constexpr auto to = of::Topic::convert;
+
+				courier.post(to(Topic::Update), message);
+				courier.post(to(Topic::PhysicsUpdate), message);
+				courier.post(to(Topic::SingleThreadUpdate), message);
+				size_t scheduledCount = courier.getScheduledMessageCount();
 				courier.handleScheduledMessages();
 				courier.handleScheduledRemovals();
 				auto delta = std::chrono::high_resolution_clock::now() - then;
 				courierStats->messageTime(std::chrono::duration<float, std::milli>(delta));
-				courierStats->messageCount(courier.messageCount());
+				courierStats->messageCount(courier.messageCount(), scheduledCount);
 
 			}
 			ups->update();

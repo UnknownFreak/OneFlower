@@ -76,6 +76,7 @@ namespace of::common
 	
 		std::string to_string() const;
 		bool operator<(const uuid& right) const noexcept;
+		bool operator>(const uuid& right) const noexcept;
 		bool operator!=(const uuid& right) const noexcept;
 		bool operator==(const uuid& right) const noexcept;
 	};

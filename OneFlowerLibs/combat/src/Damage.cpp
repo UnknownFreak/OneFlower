@@ -4,6 +4,7 @@
 
 #include <object/GameObject.hpp>
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 //#include <Items/Inventory.hpp>
 
@@ -12,7 +13,7 @@ namespace of::component
 
 	void Damage::onMessage(const of::object::messaging::Message& message)
 	{
-
+		using Topic = of::object::messaging::Topic;
 		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::ON_COLLISION) && message.messageBody->bodyType == BodyType::GAMEOBJECT_PTR)
 		{
@@ -86,21 +87,23 @@ namespace of::component
 	void Damage::attached()
 	{
 		transform = attachedOn->get<Transform>();
-		auto& courier = of::courier::get();
+		auto& courier = courier::get();
+		using Topic = of::engine::courier::Topic;
+		constexpr auto to = of::Topic::convert;
 
-		if (subscriberId == 0)
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = courier.addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			subscriberId = courier.addSubscriber(to(Topic::Update), courier::Subscriber(isAlive(), [this](const courier::Message& msg) {update(msg.get<float>()); }));
 		}
 		timeToLive.start();
 
-		if (notifyIntervalPerHits == 0)
+		if (notifyIntervalPerHits == courier::SubscriberId::NOT_SET)
 		{
-			notifyIntervalPerHits = courier.addSubscriber(of::courier::Topic::Object, of::courier::Subscriber(isAlive(), [this](const of::courier::Message&) {
+			notifyIntervalPerHits = courier.addSubscriber(to(Topic::Object), courier::Subscriber(isAlive(), [this](const courier::Message&) {
 				locked = false; }));
 		}
 
-		intervalPerHit.messagesToSend.push_back(std::make_pair(of::courier::Topic::Object, notifyIntervalPerHits));
+		intervalPerHit.messagesToSend.push_back(std::make_pair(to(Topic::Object), notifyIntervalPerHits));
 	}
 
 	void Damage::initialize()
@@ -109,16 +112,18 @@ namespace of::component
 
 	void Damage::deconstruct()
 	{
-		if (subscriberId != 0)
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 
 		}
-		if (notifyIntervalPerHits != 0)
+		if (notifyIntervalPerHits != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Object, notifyIntervalPerHits);
-			notifyIntervalPerHits = 0;
+			courier::get().removeSubscriber(from(Topic::Object), notifyIntervalPerHits);
+			notifyIntervalPerHits = courier::SubscriberId::NOT_SET;
 		}
 		timeToLive.stop();
 		intervalPerHit.stop();

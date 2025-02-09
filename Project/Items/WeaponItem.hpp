@@ -39,7 +39,7 @@ namespace Items
 		template<class Archive>
 		void load(Archive& ar)
 		{
-			ar(cereal::base_class<Base>(StatChangingItem));
+			ar(cereal::base_class<StatChangingItem>(this));
 			ar(weaponStrength);
 			ar(modelId);
 			ar(isTwoHanded);

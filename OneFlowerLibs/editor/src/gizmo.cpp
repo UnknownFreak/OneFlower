@@ -5,6 +5,8 @@
 #pragma warning(pop)
 
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
+
 #include <object/InstanceHandler.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
@@ -18,7 +20,7 @@ namespace of::editor
 	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<of::input::InputHandler>& handler) : c(m_parent->getCamera())
 	{
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*)&mat);
-		auto& courier = of::courier::get();
+		auto& courier = courier::get();
 
 		handler->mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
 			[&](bool, swizzle::input::Mouse, const float&) {
@@ -49,12 +51,14 @@ namespace of::editor
 
 			}, false), swizzle::input::Mouse::RightClick, of::input::Action::Press);
 
+		using Topic = of::engine::courier::Topic;
+		constexpr auto to = of::Topic::convert;
 
 		subscriberId = courier.addSubscriber(
-			of::courier::Topic::SingleThreadUpdate,
-			of::courier::Subscriber(
+			to(Topic::SingleThreadUpdate),
+			courier::Subscriber(
 				isAlive(),
-				[&, appl](const of::courier::Message&)
+				[&, appl](const courier::Message&)
 				{
 					auto& physicsHandler = of::physics::get();
 
@@ -86,7 +90,9 @@ namespace of::editor
 
 	Gizmo::~Gizmo()
 	{
-		of::courier::get().removeSubscriber(of::courier::Topic::SingleThreadUpdate, subscriberId);
+		using Topic = of::engine::courier::Topic;
+		constexpr auto from = of::Topic::convert;
+		courier::get().removeSubscriber(from(Topic::SingleThreadUpdate), subscriberId);
 	}
 
 	void Gizmo::updateFrame(const float )

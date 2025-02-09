@@ -1,8 +1,9 @@
 #pragma once
 
-namespace of::courier
+#include <courier/topic.hpp>
+
+namespace of::engine::courier
 {
-	
 	enum class Topic
 	{
 		/*
@@ -12,14 +13,14 @@ namespace of::courier
 		*/
 		Update,
 		/*
-		Physics update is for dynamic object updates such as adding object torque/ force, or doing other 
+		Physics update is for dynamic object updates such as adding object torque/ force, or doing other
 		physics updates.
 		Single threaded.
 		Examples: Physics forces applied, e.g growing / shrinking hitbox/ adding or removing forces
 		*/
 		PhysicsUpdate,
 		/*
-		Single Thread Update is for generic low priority updating logic. 
+		Single Thread Update is for generic low priority updating logic.
 		Single threaded, can interact with physics engine
 		Example: Physics raycast, e.g get mouse click on screen.
 		*/
@@ -29,5 +30,15 @@ namespace of::courier
 		That should invoke a behavior on a object, but the invocation should not be instantly called (delaying) regular execution
 		*/
 		Object,
+		/*
+		Input topic is for handling input events, all input threads are ran on a single thread for the moment
+		*/
+		Input,
 	};
+}
+
+
+namespace of::Topic
+{
+	constexpr courier::Topic convert(const of::engine::courier::Topic t) { return courier::Topic(t); }
 }

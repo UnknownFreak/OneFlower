@@ -5,6 +5,7 @@
 #include <component/transform.hpp>
 
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -24,10 +25,13 @@ namespace of::component
 
 	void AttachToParent::attached()
 	{
-		if (subscriberId == 0)
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(),
-				[this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			using Topic = of::engine::courier::Topic;
+			constexpr auto to = of::Topic::convert;
+
+			subscriberId = courier::get().addSubscriber(to(Topic::Update), courier::Subscriber(isAlive(),
+				[this](const courier::Message& msg) {update(msg.get<float>()); }));
 		}
 	}
 
@@ -38,10 +42,13 @@ namespace of::component
 
 	void AttachToParent::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert;
+
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 };

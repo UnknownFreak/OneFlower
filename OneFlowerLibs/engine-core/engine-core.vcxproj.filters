@@ -87,6 +87,18 @@
     <Filter Include="src\locale">
       <UniqueIdentifier>{9b1636a5-eb27-43e3-a6ce-221c6fcfd0ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\input">
+      <UniqueIdentifier>{a03ed628-70ef-46a8-97cd-e92cbff0f9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal\input">
+      <UniqueIdentifier>{0c775160-e406-4244-919d-bdc19b8c597f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\input">
+      <UniqueIdentifier>{6c2f2e8d-09d6-4fd9-8567-97ddb8ea4f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine\courier">
+      <UniqueIdentifier>{48d688e8-b34e-46f3-b669-247c84747d22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\resource\DifficultyLevel.hpp">
@@ -218,6 +230,45 @@
     <ClInclude Include="include\locale\localeString.hpp">
       <Filter>include\locale</Filter>
     </ClInclude>
+    <ClInclude Include="include\input\input.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\input\internalInput.hpp">
+      <Filter>internal\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputSource.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputFwdDeclare.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputEvents.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputEventDispatcher.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\courier\topic.hpp">
+      <Filter>include\engine\courier</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\courier\messageType.hpp">
+      <Filter>include\engine\courier</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\inputFunctionBind.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\windowChannel.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\gamePadChannel.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\keyboardChannel.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input\mouseChannel.hpp">
+      <Filter>include\input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMode.cpp">
@@ -285,6 +336,24 @@
     </ClCompile>
     <ClCompile Include="src\localeSettings.cpp">
       <Filter>src\locale</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inputSource.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windowChannel.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamePadChannel.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\keyboardChannel.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouseChannel.cpp">
+      <Filter>src\input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

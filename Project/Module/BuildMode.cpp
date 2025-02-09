@@ -4,6 +4,7 @@
 #include <engine/runMode.hpp>
 #include <imgui/imgui.h>
 #include <swizzle/Swizzle.hpp>
+#include <courier/courier.hpp>
 
 Engine::BuildMode Engine::BuildMode::buildMode;
 
@@ -73,6 +74,6 @@ namespace Engine
 	std::vector<of::common::String> BuildMode::toLogString() const
 	{
 		return { "BuildInfo:", "Version: " + getBuildNumberAsStringWithEditor() , "IsEditorMode: " + toYesNoString(of::engine::getRunMode() == of::engine::RunMode::EDITOR), "IsDebugBuild: " + toYesNoString(isDebugBuild()),
-			"ImGui Version: " + getImGuiVersion(), "Swizzle Version: " + getSwizzleVersion()};
+			"ImGui Version: " + getImGuiVersion(), "Swizzle Version: " + getSwizzleVersion(), "Courier Version:" + courier::getVersion()};
 	}
 }

@@ -145,6 +145,9 @@
     <ClInclude Include="include\physics\simulationCallback.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\vendor\courier\courier.vcxproj">
+      <Project>{1e3cf7d3-8a1b-766f-9333-0146ff91dcd0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\FastXml.vcxproj">
       <Project>{6d0c89c3-fa51-3d0a-b9b8-e8c92a9a17f2}</Project>
     </ProjectReference>
@@ -186,9 +189,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\PhysX\physx\compiler\vc17win64\sdk_source_bin\SimulationController.vcxproj">
       <Project>{5ffb2d53-03f1-395d-b671-bf921d193f16}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\courier\courier.vcxproj">
-      <Project>{e0c932b5-c939-427d-9c5f-5e496288b171}</Project>
     </ProjectReference>
     <ProjectReference Include="..\engine-core\engine-core.vcxproj">
       <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>

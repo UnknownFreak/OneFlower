@@ -6,7 +6,9 @@
 #include <Object/GameObject.hpp>
 #include <resource/Prefab.hpp>
 #include <component/attachToParent.hpp>
+
 #include <courier/courier.hpp>
+#include <engine/courier/topic.hpp>
 
 namespace of::component
 {
@@ -95,11 +97,14 @@ namespace of::component
 
 	void Stats::attached()
 	{
-		using namespace object::messaging;
+		using Topic = of::object::messaging::Topic;
+		using namespace of::object::messaging;
 		post(Topic::of(Topics::REQUEST_DATA), std::make_shared<RequestData>(Topic::of(Topics::REQUEST_DATA), typeId));
-		if (subscriberId == 0)
+		if (subscriberId == courier::SubscriberId::NOT_SET)
 		{
-			subscriberId = of::courier::get().addSubscriber(of::courier::Topic::Update, of::courier::Subscriber(isAlive(), [this](const of::courier::Message& msg) {update(msg.get<float>()); }));
+			using TTopic = of::engine::courier::Topic;
+			constexpr auto to = of::Topic::convert;
+			subscriberId = courier::get().addSubscriber(to(TTopic::Update), courier::Subscriber(isAlive(), [this](const courier::Message& msg) {update(msg.get<float>()); }));
 		}
 	}
 
@@ -110,15 +115,18 @@ namespace of::component
 
 	void Stats::deconstruct()
 	{
-		if (subscriberId != 0)
+		if (subscriberId != courier::SubscriberId::NOT_SET)
 		{
-			of::courier::get().removeSubscriber(of::courier::Topic::Update, subscriberId);
-			subscriberId = 0;
+			using Topic = of::engine::courier::Topic;
+			constexpr auto from = of::Topic::convert; 
+			courier::get().removeSubscriber(from(Topic::Update), subscriberId);
+			subscriberId = courier::SubscriberId::NOT_SET;
 		}
 	}
 
 	void Stats::onMessage(const object::messaging::Message& message)
 	{
+		using Topic = of::object::messaging::Topic;
 		using namespace of::object::messaging;
 		if (message.messageTopic == Topic::of(Topics::TRANSFORM_SPEED_MODIFIER))
 		{

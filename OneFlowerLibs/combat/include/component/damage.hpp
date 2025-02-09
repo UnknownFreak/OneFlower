@@ -32,7 +32,7 @@ namespace of::component
 		virtual void initialize() override;
 		virtual void deconstruct() override;
 
-		size_t notifyIntervalPerHits = 0;
+		courier::SubscriberId notifyIntervalPerHits = courier::SubscriberId::NOT_SET;
 
 	public:
 		std::vector<of::asset::AssetId> effectsIds;
