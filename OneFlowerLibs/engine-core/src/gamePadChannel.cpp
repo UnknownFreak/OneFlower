@@ -58,6 +58,30 @@ namespace of::input
 		return of::common::uuid::nil();
 	}
 
+	void GamePadChannel::removeBind(const of::common::uuid& bind)
+	{
+		std::vector<of::common::uuid> b{ bind };
+		for (auto& v : axisKeybinds)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+
+		for (auto& v : gamePadButton_Press)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+
+		for (auto& v : gamePadButton_Hold)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+
+		for (auto& v : gamePadButton_Release)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+	}
+
 	void GamePadChannel::removeBind(const of::input::GamePadAxis button, const of::common::uuid& bindId)
 	{
 		std::vector<of::common::uuid> b{ bindId };
@@ -67,11 +91,9 @@ namespace of::input
 	void GamePadChannel::removeBind(const of::input::GamePadButton button, const of::common::uuid& bindId)
 	{
 		std::vector<of::common::uuid> b{ bindId };
-		courier::util::vectorFastRemove(gamePadButton_Press[button], b);
-		b.push_back(bindId);
-		courier::util::vectorFastRemove(gamePadButton_Hold[button], b);
-		b.push_back(bindId);
-		courier::util::vectorFastRemove(gamePadButton_Release[button], b);
+		courier::util::vectorFastRemove(gamePadButton_Press[button], b, true);
+		courier::util::vectorFastRemove(gamePadButton_Hold[button], b, true);
+		courier::util::vectorFastRemove(gamePadButton_Release[button], b, true);
 	}
 
 	void GamePadChannel::moveBind(const of::input::GamePadAxis oldButton, const of::input::GamePadAxis newButton)

@@ -32,6 +32,34 @@ namespace of::input
 		return 0u;
 	}
 
+	of::common::uuid WindowChannel::on(const GamePadAxis axis, const std::function<void(const float)>& func)
+	{
+		return gamePadChannel.on(axis, { of::common::uuid(), func });
+	}
+
+	of::common::uuid WindowChannel::on(const InputStateType messageType, const Mouse button, const std::function<void(void)>& func)
+	{
+		return mouseChannel.on(messageType, button, { of::common::uuid(), func });
+	}
+
+	of::common::uuid WindowChannel::on(const InputStateType messageType, const Keys button, const std::function<void(void)>& func)
+	{
+		return keyboardChannel.on(messageType, button, { of::common::uuid(), func });
+	}
+
+	of::common::uuid WindowChannel::on(const InputStateType messageType, const GamePadButton button, const std::function<void(void)>& func)
+	{
+		return gamePadChannel.on(messageType, button, { of::common::uuid(), func });
+
+	}
+
+	void WindowChannel::removeBind(const of::common::uuid& bindId)
+	{
+		gamePadChannel.removeBind(bindId);
+		mouseChannel.removeBind(bindId);
+		keyboardChannel.removeBind(bindId);
+	}
+
 	size_t WindowChannel::sendMessage(const courier::SubscriberId, const courier::Message&)
 	{
 		logger::get().getLogger("of::input::WindowChannel").Error("Cannot send message to a specific subscriber");

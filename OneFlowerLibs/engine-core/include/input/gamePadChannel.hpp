@@ -19,6 +19,7 @@ namespace of::input
 		of::common::uuid on(const of::input::GamePadAxis axis, const AxisInputBind& bind);
 		of::common::uuid on(const InputStateType typ, const of::input::GamePadButton button, const RegularInputBind& bind);
 
+		void removeBind(const of::common::uuid& bindId);
 		void removeBind(const of::input::GamePadAxis axis, const of::common::uuid& bindId);
 		void removeBind(const of::input::GamePadButton button, const of::common::uuid& bindId);
 

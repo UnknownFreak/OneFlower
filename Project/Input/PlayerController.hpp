@@ -4,7 +4,7 @@
 #include <component/transform.hpp>
 #include <component/combat.hpp>
 
-#include <Input/inputHandler.hpp>
+#include <input/inputSource.hpp>
 #include <physics/physics.hpp>
 
 namespace of::component
@@ -22,7 +22,8 @@ namespace of::component
 		of::component::CombatComponent* combat = nullptr;
 		bool enabled = false;
 		physx::PxController* mActor;
-		std::weak_ptr<of::input::InputHandler> handler;
+		std::weak_ptr<of::input::InputSource> handler;
+		std::vector<of::common::uuid> keyIds;
 		of::physics::ObjectType mColliderType;
 
 		PlayerController();

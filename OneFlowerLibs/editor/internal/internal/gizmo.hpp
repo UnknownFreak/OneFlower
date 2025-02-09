@@ -4,8 +4,6 @@
 #include <graphics/parentedRenderable.hpp>
 #include <graphics/window/Window.hpp>
 
-#include <input/inputHandler.hpp>
-
 #include <utils/lifetime/isAlive.hpp>
 #include <utils/common/uuid.hpp>
 
@@ -14,6 +12,8 @@
 #include <component/Transform.hpp>
 #include <vector>
 #include <courier/subscriberId.hpp>
+
+#include <input/inputSource.hpp>
 
 namespace of::editor
 {
@@ -40,9 +40,12 @@ namespace of::editor
 		courier::SubscriberId subscriberId;
 		std::vector<std::shared_ptr<of::component::Transform>> m_objects;
 
+		of::common::uuid mouseHanlderId;
+		std::weak_ptr<input::InputSource> inputSource;
+
 	public:
 
-		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<of::input::InputHandler>& handler);
+		Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::weak_ptr<input::InputSource> handler);
 		~Gizmo();
 
 		virtual void updateFrame(const float dt) override;

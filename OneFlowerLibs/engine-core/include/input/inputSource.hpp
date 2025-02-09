@@ -21,19 +21,18 @@ namespace of::input
 		InputSource(const of::common::String& windowName);
 		~InputSource();
 
-		of::common::uuid on(const GamePadAxis axis, std::function<void(const float)>& func);
-		of::common::uuid on(const InputStateType messageType, const Mouse button, std::function<void(void)>& func);
-		of::common::uuid on(const InputStateType messageType, const Keys button, std::function<void(void)>& func);
-		of::common::uuid on(const InputStateType messageType, const GamePadButton button, std::function<void(void)>& func);
+		of::common::uuid on(const GamePadAxis axis, const std::function<void(const float)>& func);
+		of::common::uuid on(const InputStateType messageType, const Mouse button, const std::function<void(void)>& func);
+		of::common::uuid on(const InputStateType messageType, const Keys button, const std::function<void(void)>& func);
+		of::common::uuid on(const InputStateType messageType, const GamePadButton button, const std::function<void(void)>& func);
 
-		void removeBind(const GamePadAxis, const of::common::uuid&);
-		void removeBind(const InputStateType messageType, const Mouse button, const of::common::uuid&);
-		void removeBind(const InputStateType messageType, const Keys button, const of::common::uuid&);
-		void removeBind(const InputStateType messageType, const GamePadButton button, const of::common::uuid&);
+		void removeBind(const of::common::uuid& id);
 
 		void dispatchEvents();
 
 		inline const courier::ChannelId getId() const { return m_id; };
+
+		bool wasKeybindPressed(const Keys button);
 
 	private:
 

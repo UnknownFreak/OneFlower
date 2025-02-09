@@ -1,6 +1,5 @@
 #include "DialogScreen.hpp"
 #include <module/resource/TextureLoader.hpp>
-#include <Input/InputHandler.hpp>
 #include <Graphics/Dialog.hpp>
 
 Graphics::UI::DialogScreen::DialogScreen() : UIContext(swizzle::input::Keys::KeyNone, "DialogScreen", true)
@@ -52,10 +51,6 @@ Graphics::UI::DialogScreen::~DialogScreen()
 void Graphics::UI::DialogScreen::toggleVisible()
 {
 	UIContext::toggleVisible();
-	if (auto valid = of::input::InputHandler::GetInputSource().lock())
-	{
-		valid->enablePlayerMovement();
-	}
 }
 void Graphics::UI::DialogScreen::readInput()
 {
@@ -81,10 +76,6 @@ void Graphics::UI::DialogScreen::show(Dialog* diag)
 	dialog = diag;
 	dialog->reset();
 	visible = true;
-	if (auto valid = of::input::InputHandler::GetInputSource().lock())
-	{
-		valid->disablePlayerMovement();
-	}
 	t = dialog->getCurrentText();
 
 }

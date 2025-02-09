@@ -3,6 +3,7 @@
 #include <Object/GameObject.hpp>
 #include <courier/courier.hpp>
 #include <engine/courier/topic.hpp>
+#include <Input/input.hpp>
 
 namespace of::component
 {
@@ -69,31 +70,16 @@ namespace of::component
 	{
 		if (auto valid = handler.lock())
 		{
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyE, "KbE<interact>", of::input::Action::Press);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyW, "KbW<interact>", of::input::Action::Press);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyS, "KbS<interact>", of::input::Action::Press);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyA, "KbA<interact>", of::input::Action::Press);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyD, "KbD<interact>", of::input::Action::Press);
-
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyW, "KbW", of::input::Action::Hold);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyS, "KbS", of::input::Action::Hold);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyA, "KbA", of::input::Action::Hold);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeyD, "KbD", of::input::Action::Hold);
-			valid->playerKeyboard.removeCallback(swizzle::input::Keys::KeySpace, "Jmp", of::input::Action::Press);
-
-			valid->mouse.removeCallback(swizzle::input::Mouse::LeftClick, "PAttack", of::input::Action::Press);
-
-			//handler.controllerAxis.removeCallback(sf::Joystick::Y, "ControllerMoveY");
-			//handler.controllerAxis.removeCallback(sf::Joystick::X, "ControllerMoveX");
-			valid->controller.removeCallback(of::input::ControllerButtons::XB_A, "ControllerInteraction", of::input::Action::Press);
-			valid->controller.removeCallback(of::input::ControllerButtons::XB_A, "ControllerJump", of::input::Action::Press);
+			for (auto& id : keyIds)
+				valid->removeBind(id);
 		}
 	}
-	PlayerController::PlayerController() : handler(of::input::InputHandler::GetInputSource())
+	PlayerController::PlayerController() : handler(of::input::get().getMainWindowSource())
 	{
 		if (auto valid = handler.lock())
 		{
 			// TODO: change to gameobject->post(Topic::of(Topics::INTERACTION, std::make_shared<Interaction>(Things));
+			/*
 			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbE<interact>", [&](bool, swizzle::input::Keys, const float&) {
 				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
 				//attachedOn->interact(Enums::InteractionOption::Select);
@@ -115,27 +101,27 @@ namespace of::component
 				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
 				//attachedOn->interact(Enums::InteractionOption::Right);
 				}, false), swizzle::input::Keys::KeyD, of::input::Action::Press);
+			*/
 
-			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbW", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
-				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
-				mActor->move({ 0, 0, -1.f * transform->speedModifier }, 0.1f, fElapsedTime, physx::PxControllerFilters());
-				}, false), swizzle::input::Keys::KeyW, of::input::Action::Hold);
-			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbS", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
-				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
-				mActor->move({ 0, 0, 1.f * transform->speedModifier }, 0.1f, fElapsedTime, physx::PxControllerFilters());
-				}, false), swizzle::input::Keys::KeyS, of::input::Action::Hold);
-			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbA", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
-				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
-				mActor->move({ -1.f * transform->speedModifier, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
-				}, false), swizzle::input::Keys::KeyA, of::input::Action::Hold);
-			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("KbD", [&](bool, swizzle::input::Keys, const float& fElapsedTime) {
-				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
-				mActor->move({ 1.f * transform->speedModifier, 0, 0 }, 0.1f, fElapsedTime, physx::PxControllerFilters());
-				}, false), swizzle::input::Keys::KeyD, of::input::Action::Hold);
-			valid->playerKeyboard.RegisterCallback(of::input::Callback::KeyboardCallbackTemp("Jmp", [&](bool, swizzle::input::Keys, const float&) {
-				if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
+			keyIds.push_back(valid->on(of::input::InputStateType::Hold, of::input::Keys::KeyW, [&] {
+				mActor->move({ 0, 0, -1.f * transform->speedModifier }, 0.1f, 1/60.f, physx::PxControllerFilters());
+			}));
+
+			keyIds.push_back(valid->on(of::input::InputStateType::Hold, of::input::Keys::KeyS, [&] {
+				mActor->move({ 0, 0, 1.f * transform->speedModifier }, 0.1f, 1 / 60.f, physx::PxControllerFilters());
+				}));
+
+			keyIds.push_back(valid->on(of::input::InputStateType::Hold, of::input::Keys::KeyA, [&] {
+				mActor->move({ -1.f * transform->speedModifier, 0, 0 }, 0.1f, 1 / 60.f, physx::PxControllerFilters());
+				}));
+
+			keyIds.push_back(valid->on(of::input::InputStateType::Hold, of::input::Keys::KeyD, [&] {
+				mActor->move({ 1.f * transform->speedModifier, 0, 0 }, 0.1f, 1 / 60.f, physx::PxControllerFilters());
+				}));
+
+			keyIds.push_back(valid->on(of::input::InputStateType::Hold, of::input::Keys::KeyD, [&] {
 				transform->jump();
-				}, false), swizzle::input::Keys::KeySpace, of::input::Action::Press);
+				}));
 
 			//valid->mouse.RegisterCallback(of::input::Callback::MouseCallback("PAttack", [&](bool, sf::Mouse::Button, const float&) {
 				//if (!of::input::InputHandler::isMovementEnabled || !enabled) return;
@@ -152,6 +138,7 @@ namespace of::component
 			//	if (dir < 7.5 && dir > -7.5) return; transform->move({ 2 * dir * fElapsedTime, 0 });
 			//	}, false), sf::Joystick::Axis::X);
 
+			/*
 			valid->controller.RegisterCallback(of::input::Callback::Callback<bool, of::input::ControllerButtons>("ControllerInteraction", [&](bool, of::input::ControllerButtons, const float&) {
 				//of::input::InputHandler::skipCurrentFrame = attachedOn->interact(Enums::InteractionOption::Select);
 				}, false), of::input::ControllerButtons::XB_A, of::input::Action::Press);
@@ -159,6 +146,7 @@ namespace of::component
 				if (!of::input::InputHandler::isMovementEnabled || of::input::InputHandler::skipCurrentFrame) return;
 				transform->jump();
 				}, false), of::input::ControllerButtons::XB_A, of::input::Action::Press);
+			*/
 		}
 	}
 

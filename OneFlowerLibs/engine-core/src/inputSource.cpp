@@ -1,5 +1,7 @@
 #include <input/inputSource.hpp>
 
+#include <swizzle/core/Platform.hpp>
+
 #include <courier/courier.hpp>
 #include <engine/courier/topic.hpp>
 #include <engine/courier/messageType.hpp>
@@ -15,24 +17,29 @@ namespace of::input
 		m_id = m_channel->getId();
 	}
 
-	of::common::uuid InputSource::on(GamePadAxis axis, std::function<void(const float)>& func)
+	of::common::uuid InputSource::on(GamePadAxis axis, const std::function<void(const float)>& func)
 	{
 		return m_channel->on(axis, func);
 	}
 
-	of::common::uuid InputSource::on(const InputStateType messageType, const Mouse button, std::function<void(void)>& func)
+	of::common::uuid InputSource::on(const InputStateType messageType, const Mouse button, const std::function<void(void)>& func)
 	{
 		return m_channel->on(messageType, button, func);
 	}
 
-	of::common::uuid InputSource::on(const InputStateType messageType, const Keys button, std::function<void(void)>& func)
+	of::common::uuid InputSource::on(const InputStateType messageType, const Keys button, const std::function<void(void)>& func)
+	{
+		return m_channel->on(messageType, (Keys) swizzle::core::KeyToScanCode(button), func);
+	}
+
+	of::common::uuid InputSource::on(const InputStateType messageType, const GamePadButton button, const std::function<void(void)>& func)
 	{
 		return m_channel->on(messageType, button, func);
 	}
 
-	of::common::uuid InputSource::on(const InputStateType messageType, const GamePadButton button, std::function<void(void)>& func)
+	void InputSource::removeBind(const of::common::uuid& id)
 	{
-		return m_channel->on(messageType, button, func);
+		m_channel->removeBind(id);
 	}
 
 	InputSource::~InputSource()
@@ -119,6 +126,12 @@ namespace of::input
 				}
 			}
 		}
+	}
+
+	bool InputSource::wasKeybindPressed(const Keys button)
+	{
+		Keys key = (Keys)swizzle::core::KeyToScanCode(button);
+		return m_eventDispatcher.mKeysValues[key].press;
 	}
 
 	void InputSource::publishEvent(const swizzle::core::WindowEvent& event)

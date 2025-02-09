@@ -41,6 +41,23 @@ namespace of::input
 		return of::common::uuid::nil();
 	}
 
+	void KeyboardChannel::removeBind(const of::common::uuid& bindId)
+	{
+		std::vector<of::common::uuid> b{ bindId };
+		for (auto& v : keyboardButton_Press)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+		for (auto& v : keyboardButton_Hold)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+		for (auto& v : keyboardButton_Release)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+	}
+
 	void KeyboardChannel::removeBind(const of::input::Keys button, const of::common::uuid& bindId)
 	{
 		std::vector<of::common::uuid> b{ bindId };

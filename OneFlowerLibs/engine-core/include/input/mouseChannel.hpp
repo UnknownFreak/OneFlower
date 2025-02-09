@@ -17,6 +17,7 @@ namespace of::input
 
 		of::common::uuid on(const InputStateType typ, const of::input::Mouse button, const RegularInputBind& bind);
 
+		void removeBind(const of::common::uuid& bindId);
 		void removeBind(const of::input::Mouse button, const of::common::uuid& bindId);
 
 		void moveBind(const of::input::Mouse oldButton, const of::input::Mouse newButton);

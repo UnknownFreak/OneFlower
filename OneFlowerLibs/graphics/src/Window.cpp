@@ -17,7 +17,7 @@
 
 #include <utils/StringUtils.hpp>
 
-#include "logger/Logger.hpp"
+#include <logger/Logger.hpp>
 #include <gfx/buffer.hpp>
 
 namespace of::graphics::window
@@ -91,7 +91,7 @@ namespace of::graphics::window
 				sw::gfx::MemoryStatistics* memStat = (sw::gfx::MemoryStatistics*)iter->getStatisticsData();
 
 				title += "Memory Heap: " + std::string(memStat->mName) + "\n";
-				title += "  Mem: " + utils::toMemoryString(memStat->mUsed) + "/" + utils::toMemoryString(memStat->mSize);
+				title += "  Mem: " + ::utils::toMemoryString(memStat->mUsed) + "/" + ::utils::toMemoryString(memStat->mSize);
 				title += "; Allocs: " + std::to_string(memStat->mNumAllocations) + "p, " +
 					std::to_string(memStat->mNumVirtualAllocations) + "v\n";
 			}
@@ -309,13 +309,18 @@ namespace of::graphics::window
 		module::texture::init(mGfxDevice, mCmdBuffer);
 
 		setup();
-		//mWindow->addEventListener(&input::get());
+
+		auto& input = of::input::get();
+		auto windowSourceId = input.createWindowSource("MainWindow");
+		inputSource = input.getWindowSource(windowSourceId).lock();
+		input.setMainWindowSource(windowSourceId);
+		mWindow->addEventListener(inputSource.get());
 		setupImGui();
     }
 
     SwBool of::graphics::window::Application::userUpdate(F32 dt)
     {
-		of::input::get().dispatchEvents();
+		inputSource->dispatchEvents();
 
 		if(camController)
 			camController->update(dt);
@@ -326,7 +331,10 @@ namespace of::graphics::window
 
     void of::graphics::window::Application::userCleanup()
     {
-		//mWindow->removeEventListener(&input::get());
+		mWindow->removeEventListener(inputSource.get());
+		of::input::get().removeWindowSource(inputSource->getId());
+		inputSource = nullptr;
+
 		workerThread.join();
 		module::mesh::shutdown();
 		module::shader::shutdown();

@@ -4,7 +4,7 @@
 #include <courier/courier.hpp>
 #include <engine/courier/topic.hpp>
 
-#include <input/inputHandler.hpp>
+#include <input/input.hpp>
 
 // TODO: move portal outside scene module?
 namespace of::component
@@ -23,7 +23,7 @@ namespace of::component
 				auto portalRef = attachedOn->getShared<Portal>();
 
 				auto& courier = courier::get();
-				auto inputHandler = of::input::InputHandler::GetInputSource();
+				auto inputHandler = of::input::get().getMainWindowSource();
 
 				// TODO: check if subscriber exists
 				//if (courier.hasSubscriber(of::messaging::Topic::Update, instanceId))
@@ -47,7 +47,7 @@ namespace of::component
 									if (portalRef->requireInteraction)
 									{
 										auto valid = inputHandler.lock();
-										if (valid && valid->wasKeybindPressed("interact"))
+										if (valid && valid->wasKeybindPressed(of::input::Keys::KeyE))
 										{
 											portalRef->teleport();
 											return;

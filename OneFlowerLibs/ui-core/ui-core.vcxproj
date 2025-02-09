@@ -29,6 +29,12 @@
     <ClCompile Include="src\uiRenderable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\vendor\courier\courier.vcxproj">
+      <Project>{1e3cf7d3-8a1b-766f-9333-0146ff91dcd0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\engine-core\engine-core.vcxproj">
+      <Project>{5f42ee1c-7a6a-4bfd-8f41-4e52a6d4d10f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\graphics\graphics.vcxproj">
       <Project>{9e941756-2661-4233-867d-bfe4a083039e}</Project>
     </ProjectReference>

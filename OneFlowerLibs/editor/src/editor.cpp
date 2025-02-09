@@ -13,6 +13,8 @@
 #include <internal/modal/newFileModal.hpp>
 #include <internal/modal/loadFileModal.hpp>
 
+#include <input/input.hpp>
+
 namespace of::editor
 {
 
@@ -59,13 +61,13 @@ namespace of::editor
 		s_uuids.push_back(add(gfx, loadFileModal));
 	}
 
-	void initialize(std::shared_ptr<of::graphics::window::Application> gfx, std::shared_ptr<of::input::InputHandler> inputHandler)
+	void initialize(std::shared_ptr<of::graphics::window::Application> gfx)
 	{
 		s_gfx = gfx;
 		initEditorContext();
 		s_uuids.clear();
 		gfx->setCameraController(std::make_shared<EditorCamera>(gfx->getCamera()));
-		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx, inputHandler)));
+		s_uuids.push_back(add(gfx, std::make_shared<Gizmo>(gfx, of::input::get().getMainWindowSource().lock())));
 		createMenu(gfx);
 	}
 

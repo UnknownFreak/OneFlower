@@ -17,39 +17,42 @@
 namespace of::editor
 {
 
-	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::shared_ptr<of::input::InputHandler>& handler) : c(m_parent->getCamera())
+	Gizmo::Gizmo(std::shared_ptr<of::graphics::window::Application>& appl, std::weak_ptr<of::input::InputSource> handler) 
+		: c(m_parent->getCamera()), inputSource(handler), mouseHanlderId(of::common::uuid::nil())
 	{
 		ImGuizmo::RecomposeMatrixFromComponents((float*)&mTransform->pos, (float*)&mTransform->rot, (float*)&mTransform->scale, (float*)&mat);
 		auto& courier = courier::get();
-
-		handler->mouse.RegisterCallback(of::input::Callback::MouseCallback("MouseSelect",
-			[&](bool, swizzle::input::Mouse, const float&) {
-				of::physics::ObjectType hitType;
-				auto& physicsHandler = of::physics::get();
-				using namespace of::physics;
-				bool hit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType
-					, CollisionLayer::SWEEP_EDITOR);
-				ImGuiContext& g = *ImGui::GetCurrentContext();
-
-				if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::physics::PxColliderType::Object || hitType.hitType == of::physics::PxColliderType::ObjectTrigger))
+		auto valid = handler.lock();
+		if (valid)
+		{
+			mouseHanlderId = valid->on(of::input::InputStateType::Press, of::input::Mouse::RightClick, [&]
 				{
-					auto o = of::object::getObject(hitType.objectId);
-					m_enable = false;
+					of::physics::ObjectType hitType;
+					auto& physicsHandler = of::physics::get();
+					using namespace of::physics;
+					bool hit = physicsHandler.castRay(appl->getCameraPos(), appl->getCursorRay(), colliderHitPos, actorPos, hitType
+						, CollisionLayer::SWEEP_EDITOR);
+					ImGuiContext& g = *ImGui::GetCurrentContext();
 
-					if (o)
+					if (g.HoveredWindow == nullptr && hit && (hitType.hitType == of::physics::PxColliderType::Object || hitType.hitType == of::physics::PxColliderType::ObjectTrigger))
 					{
-						auto trans = o->getShared<of::component::Transform>();
-						m_objects.clear();
-						m_objects.push_back(trans);
-						mTransform->pos = trans->pos;
-						mTransform->rot = trans->rot;
-						mTransform->scale = trans->scale;
+						auto o = of::object::getObject(hitType.objectId);
+						m_enable = false;
+
+						if (o)
+						{
+							auto trans = o->getShared<of::component::Transform>();
+							m_objects.clear();
+							m_objects.push_back(trans);
+							mTransform->pos = trans->pos;
+							mTransform->rot = trans->rot;
+							mTransform->scale = trans->scale;
+						}
+						m_enable = true;
+
 					}
-					m_enable = true;
-
-				}
-
-			}, false), swizzle::input::Mouse::RightClick, of::input::Action::Press);
+				});
+		}
 
 		using Topic = of::engine::courier::Topic;
 		constexpr auto to = of::Topic::convert;
@@ -93,6 +96,13 @@ namespace of::editor
 		using Topic = of::engine::courier::Topic;
 		constexpr auto from = of::Topic::convert;
 		courier::get().removeSubscriber(from(Topic::SingleThreadUpdate), subscriberId);
+		if (auto valid = inputSource.lock())
+		{
+			if (mouseHanlderId.is_nil() == false)
+			{
+				valid->removeBind(mouseHanlderId);
+			}
+		}
 	}
 
 	void Gizmo::updateFrame(const float )

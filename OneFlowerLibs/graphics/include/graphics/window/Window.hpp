@@ -18,6 +18,7 @@
 #include <graphics/view/cameraController.hpp>
 
 #include <graphics/sky/skyBox.hpp>
+#include <input/inputSource.hpp>
 
 namespace of::object
 {
@@ -60,6 +61,8 @@ namespace of::graphics::window
 		virtual void userSetup() override;
 		virtual SwBool userUpdate(F32 dt) override;
 		virtual void userCleanup() override;
+
+		std::shared_ptr<input::InputSource> inputSource;
 
 	public:
 

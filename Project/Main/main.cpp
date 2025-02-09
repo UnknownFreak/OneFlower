@@ -11,8 +11,6 @@
 #include <logger/Logger.hpp>
 #include <logger/streams/ConsoleStream.hpp>
 
-#include <Input/InputHandler.hpp>
-
 #include <asset/asset.hpp>
 
 #include <courier/courier.hpp>

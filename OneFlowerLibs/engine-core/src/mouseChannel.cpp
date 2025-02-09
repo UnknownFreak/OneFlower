@@ -42,6 +42,23 @@ namespace of::input
 		return of::common::uuid::nil();
 	}
 
+	void MouseChannel::removeBind(const of::common::uuid& bindId)
+	{
+		std::vector<of::common::uuid> b{ bindId };
+		for (auto& v : mouseButton_Hold)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+		for (auto& v : mouseButton_Press)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+		for (auto& v : mouseButton_Release)
+		{
+			courier::util::vectorFastRemove(v.second, b, true);
+		}
+	}
+
 	void MouseChannel::removeBind(const of::input::Mouse button, const of::common::uuid& bindId)
 	{
 		std::vector<of::common::uuid> b{ bindId };

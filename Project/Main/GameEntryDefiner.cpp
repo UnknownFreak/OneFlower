@@ -60,6 +60,8 @@
 #include <engine/courier/topic.hpp>
 #include <engine/courier/messageType.hpp>
 
+#include <logger/Logger.hpp>
+
 bool paused = false;
 static size_t mId = 0x100000000;
 
@@ -1216,11 +1218,9 @@ static void addSceneHooks(of::session::GameSession& gameSession, std::weak_ptr<o
 
 GameEntry::GameEntry() : 
 	gfx(std::make_shared<of::graphics::window::Application>()),
-	input(std::make_shared<of::input::InputHandler>()),
 	scene(std::make_shared<of::scene::SceneManager>(gfx)),
 	courier(courier::get()), m_exit(false)
 {
-	input->SetInputSource(input);
 	gfx->SetWindowSource(gfx);
 	scene->SetSceneManager(scene);
 
@@ -1317,7 +1317,7 @@ int GameEntry::Run()
 
 	if (of::engine::getRunMode() == of::engine::RunMode::EDITOR)
 	{
-		of::editor::initialize(gfx, input);
+		of::editor::initialize(gfx);
 		// TODO: move to editor initialize
 		//gfx->addRenderable(of::graphics::window::RenderLayer::EDITOR, of::common::uuid(), std::make_shared<WorldGrid>());
 		gfx->addRenderable(of::graphics::window::RenderLayer::IMGUI, of::common::uuid(), std::make_shared<Heightmap>(paused));
@@ -1371,7 +1371,6 @@ void GameEntry::physicsUpdate()
 			timeElapsed -= update_time;
 			if (paused == false)
 			{
-				input->update(update_time);
 				scene->Simulate(update_time);
 				//time.Simulate(update_time);
 				physicsHandler.simulate(update_time);
